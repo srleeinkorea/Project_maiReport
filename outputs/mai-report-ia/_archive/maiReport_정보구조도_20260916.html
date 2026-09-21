@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>maiReport 정보구조도 (IA)</title>
+<style>
+:root{--ink:#1b2942;--muted:#66738a;--line:#dce3ef;--page:#f4f6fa;--accent:#2f6bff;--accent-bg:#edf3ff;--soft:#f7f9fd}
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font-family:Pretendard,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;line-height:1.55}
+main{max-width:1240px;margin:auto;padding:32px 24px 72px}
+header.hero{background:#14213d;color:#fff;border-radius:22px;padding:30px}
+header.hero .eyebrow{font-size:11px;letter-spacing:.14em;color:#a9c2ff;font-weight:800}
+header.hero h1{font-size:30px;margin:8px 0 10px;letter-spacing:-.03em}
+header.hero p{margin:0;color:#d8e2f8;font-size:14px;max-width:820px}
+header.hero .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+header.hero .meta span{padding:6px 10px;border:1px solid rgba(255,255,255,.2);border-radius:999px;font-size:11px}
+h2{font-size:19px;margin:38px 0 6px;letter-spacing:-.02em}
+h2 small{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-top:4px}
+section.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 22px;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft);font-size:11px;letter-spacing:.02em;color:var(--muted);font-weight:800;white-space:nowrap}
+td.id{font-family:Consolas,monospace;font-size:11px;color:var(--accent);white-space:nowrap}
+td.dom{font-family:Consolas,monospace;font-size:11px;color:var(--muted)}
+.d2{padding-left:18px}.d3{padding-left:38px}.d4{padding-left:58px}
+.tag{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:999px;background:var(--accent-bg);color:#31538f;margin-left:6px}
+.tag.plan{background:#fff6d8;color:#9a6700}
+ul.tree{list-style:none;padding-left:0;margin:0;font-size:13px}
+ul.tree ul{list-style:none;padding-left:20px;border-left:1px dashed var(--line);margin:4px 0 4px 6px}
+ul.tree li{padding:3px 0}
+ul.tree b{font-weight:800}
+.note{background:var(--accent-bg);border-radius:14px;padding:14px 16px;font-size:12.5px;color:#31538f;margin-top:14px}
+.note b{display:block;margin-bottom:4px}
+footer{text-align:center;color:#8b96a8;font-size:11px;padding:30px 0 0}
+</style>
+</head>
+<body>
+<main>
+<header class="hero">
+  <div class="eyebrow">INFORMATION ARCHITECTURE</div>
+  <h1>maiReport 정보구조도</h1>
+  <p>2026년 9월 16일 기준 최신 프로토타입과 기능정의서에 반영된 화면·이동 경로를 기준으로 작성했습니다. 하단 탭 5개를 최상위로 두고, 탭 안에서 이동하는 하위 화면과 어느 탭에서나 열리는 공통 화면을 구분합니다.</p>
+  <div class="meta"><span>기준일 2026-09-16</span><span>화면 59개</span><span>하단 탭 4 + 등록 버튼 1</span><span>Internal Use Only</span></div>
+</header>
+
+<h2>전체 구조 한눈에 보기</h2>
+<section class="card">
+<ul class="tree">
+  <li><b>진입 · 온보딩</b>
+    <ul><li>로그인 → 접근 권한 사전 고지 → 건강 데이터 권한 요청(iOS / Android 분기) → 홈</li></ul>
+  </li>
+  <li><b>1. 홈</b>
+    <ul>
+      <li>홈 대시보드 — 오늘의 질문 · 오늘의 컨디션 · 오늘의 코칭 · 오늘의 목표</li>
+      <li>오늘의 질문 답변 조회 · 수정</li>
+      <li>오늘의 컨디션 상세</li>
+    </ul>
+  </li>
+  <li><b>2. 생활</b>
+    <ul>
+      <li>목표 분석 / 지표 분석 / 생활 분석 / AI 건강 인사이트 (주간 단위 4개 탭)</li>
+      <li>통합 건강 데이터 → 항목별 상세</li>
+      <li>AI 인사이트 상세 · 분석 목록 · 기간 선택 · 삭제 확인</li>
+    </ul>
+  </li>
+  <li><b>3. 병원</b>
+    <ul>
+      <li>진료요약 / 방문이력 (2개 탭)</li>
+      <li>검진 상세 · 진료 상세 · AI REPORT 상세 · 문진표 · 검진 결과지</li>
+      <li>검진대상조회 · 진료 이용현황 · 검진 AI 요약</li>
+    </ul>
+  </li>
+  <li><b>+ 리포트 등록</b> <span class="tag">가운데 버튼</span>
+    <ul><li>등록 유형 선택 → (QR 촬영 | 파일 업로드) → 검수 → 등록 완료</li></ul>
+  </li>
+  <li><b>4. 계정</b>
+    <ul>
+      <li>내 정보 · 알림 설정 · 알림 목록 · 이용권 · 약관 · 문의 · 로그아웃 · 탈퇴</li>
+    </ul>
+  </li>
+  <li><b>공통 (어느 탭에서나 열림)</b>
+    <ul><li>프로필 전환 · 데이터 연계 · 연계 데이터 갱신 · 연동 소스 선택 · 연동 해제 확인 · Selvy Checkup</li></ul>
+  </li>
+</ul>
+</section>
+
+<h2>0. 진입 · 온보딩<small>앱 최초 실행부터 홈 진입까지의 1회성 경로입니다.</small></h2>
+<section class="card">
+<table>
+<tr><th>Depth</th><th>화면</th><th>화면 ID</th><th>설명</th><th>DOM</th></tr>
+<tr><td>1</td><td>로그인</td><td class="id">ONB-001</td><td>카카오 계정으로 로그인합니다.</td><td class="dom">#login</td></tr>
+<tr><td>1</td><td class="d2">접근 권한 사전 고지</td><td class="id">ONB-002</td><td>어떤 데이터를 왜 읽는지 먼저 안내합니다.</td><td class="dom">#perm</td></tr>
+<tr><td>2</td><td class="d3">iOS 건강 데이터 접근</td><td class="id">ONB-003</td><td>iOS는 건강 앱 권한 시트로 항목을 선택합니다.</td><td class="dom">#iosSheet</td></tr>
+<tr><td>2</td><td class="d3">Android 건강 데이터 연동</td><td class="id">ONB-004</td><td>Android는 헬스 커넥트와 출처 앱 연결 상태를 함께 확인합니다.</td><td class="dom">계획 · #healthConnectSheet</td></tr>
+<tr><td>2</td><td class="d3">연동 소스 선택</td><td class="id">COM-002 <span class="tag plan">신규</span></td><td>연결할 건강 앱을 고릅니다. 공통 화면을 그대로 사용합니다.</td><td class="dom">#srcSheet</td></tr>
+</table>
+</section>
+
+<h2>1. 홈<small>오늘 하루의 상태와 해야 할 행동을 보여주는 첫 화면입니다.</small></h2>
+<section class="card">
+<table>
+<tr><th>Depth</th><th>화면</th><th>화면 ID</th><th>설명</th><th>DOM</th></tr>
+<tr><td>1</td><td>홈 대시보드</td><td class="id">HOME-001</td><td>오늘의 질문, 컨디션, 코칭, 목표를 한 화면에 모읍니다.</td><td class="dom">#home</td></tr>
+<tr><td>2</td><td class="d2">오늘의 질문</td><td class="id">HOME-001 내부</td><td>데이터로 알 수 없는 것만 그날 골라 묻습니다.</td><td class="dom">#secQ</td></tr>
+<tr><td>3</td><td class="d3">답변 조회 · 수정</td><td class="id">HOME-002</td><td>이미 답한 문항을 다시 보고 고칩니다.</td><td class="dom">#ansScreen</td></tr>
+<tr><td>2</td><td class="d2">오늘의 컨디션</td><td class="id">HOME-003</td><td>회복 여유·생활 부담·리듬 안정성과 평소 대비 변화를 봅니다.</td><td class="dom">#cond</td></tr>
+<tr><td>3</td><td class="d3">컨디션 근거 더보기</td><td class="id">HOME-003 내부</td><td>어떤 데이터로 판단했는지 펼쳐 봅니다.</td><td class="dom">#cWhy · #condMore</td></tr>
+<tr><td>2</td><td class="d2">오늘의 목표</td><td class="id">HOME-004</td><td>목표를 완료하거나 하루 쉬기로 둘 수 있습니다.</td><td class="dom">#home &gt; #goal</td></tr>
+<tr><td>2</td><td class="d2">오늘의 코칭</td><td class="id">HOME-005</td><td>지금 가진 데이터에 맞춘 행동 제안입니다.</td><td class="dom">#home &gt; #coach</td></tr>
+<tr><td>2</td><td class="d2">프로필 전환</td><td class="id">COM-004 <span class="tag plan">신규</span></td><td>보호자가 자녀 프로필로 바꿔 봅니다.</td><td class="dom">#profileQuick</td></tr>
+</table>
+</section>
+
+<h2>2. 생활<small>주 단위로 목표·지표·생활 데이터를 되돌아보는 탭입니다. 상단에서 주를 이동합니다.</small></h2>
+<section class="card">
+<table>
+<tr><th>Depth</th><th>화면</th><th>화면 ID</th><th>설명</th><th>DOM</th></tr>
+<tr><td>1</td><td>생활</td><td class="id">LIFE-000</td><td>주간 날짜 이동과 4개 탭 전환의 기준 화면입니다.</td><td class="dom">#life</td></tr>
+<tr><td>2</td><td class="d2">목표 분석</td><td class="id">LIFE-001</td><td>이번 주 목표 달성률과 기록을 봅니다. 지난 주는 읽기 전용입니다.</td><td class="dom">#pGoal</td></tr>
+<tr><td>2</td><td class="d2">지표 분석</td><td class="id">LIFE-002</td><td>복합 건강지표의 주간 흐름과 산출 신뢰도를 봅니다.</td><td class="dom">#pMetric</td></tr>
+<tr><td>2</td><td class="d2">생활 분석</td><td class="id">LIFE-003</td><td>걸음·수면·활동 등 일별 데이터를 봅니다.</td><td class="dom">#pDaily</td></tr>
+<tr><td>2</td><td class="d2">AI 건강 인사이트</td><td class="id">LIFE-004</td><td>분석 가능 여부에 따라 실행 안내 또는 결과를 보여줍니다.</td><td class="dom">#pAi</td></tr>
+<tr><td>3</td><td class="d3">분석 완료</td><td class="id">AI-001</td><td>주차별 분석이 끝났음을 알립니다.</td><td class="dom">#aiGenDone</td></tr>
+<tr><td>3</td><td class="d3">AI 인사이트 상세</td><td class="id">AI-002</td><td>종합 인사이트와 근거를 자세히 봅니다.</td><td class="dom">#aiInsightDet</td></tr>
+<tr><td>3</td><td class="d3">분석 목록</td><td class="id">AI-003</td><td>지난 분석 결과를 모아 봅니다.</td><td class="dom">#aiReportList</td></tr>
+<tr><td>4</td><td class="d4">분석 기간 선택</td><td class="id">AI-004</td><td>분석할 기간을 고릅니다.</td><td class="dom">#aiRangePicker</td></tr>
+<tr><td>4</td><td class="d4">삭제 확인</td><td class="id">AI-005</td><td>분석 결과 삭제 전 한 번 더 확인합니다.</td><td class="dom">#aiDeleteConfirm</td></tr>
+<tr><td>2</td><td class="d2">통합 건강 데이터</td><td class="id">LIFE-005</td><td>생활·생리·검진·진료 데이터를 출처별로 모아 봅니다.</td><td class="dom">#allHealthSub</td></tr>
+<tr><td>3</td><td class="d3">건강 데이터 상세</td><td class="id">LIFE-006 <span class="tag plan">신규</span></td><td>걸음수·수면·혈압 등 항목 하나를 자세히 봅니다.</td><td class="dom">#hdDetailSub</td></tr>
+<tr><td>3</td><td class="d3">미연계 출처 안내</td><td class="id">LIFE-007</td><td>연결되지 않은 출처와 연결 방법을 안내합니다.</td><td class="dom">#allHealthBody</td></tr>
+</table>
+</section>
+
+<h2>3. 병원<small>검진·진료 기록을 연계해서 모아 보는 탭입니다.</small></h2>
+<section class="card">
+<table>
+<tr><th>Depth</th><th>화면</th><th>화면 ID</th><th>설명</th><th>DOM</th></tr>
+<tr><td>1</td><td>병원</td><td class="id">HOSP-000</td><td>진료요약과 방문이력 두 탭으로 구성합니다.</td><td class="dom">#hosp</td></tr>
+<tr><td>2</td><td class="d2">진료요약</td><td class="id">HOSP-001</td><td>검진·진료 연계 상태와 최신 요약을 봅니다.</td><td class="dom">#pSum</td></tr>
+<tr><td>3</td><td class="d3">데이터 연계</td><td class="id">HOSP-009</td><td>검진·진료 데이터를 처음 연결합니다.</td><td class="dom">#pSum · .imp-card</td></tr>
+<tr><td>3</td><td class="d3">검진대상조회</td><td class="id">HOSP-004</td><td>올해 받을 수 있는 검진을 확인합니다.</td><td class="dom">#examEligibility</td></tr>
+<tr><td>3</td><td class="d3">진료 이용현황</td><td class="id">HOSP-006</td><td>기간별 진료 이용과 비용 흐름을 봅니다.</td><td class="dom">#medicalCostHistory</td></tr>
+<tr><td>2</td><td class="d2">방문이력</td><td class="id">HOSP-002</td><td>연도별로 방문 기록을 봅니다.</td><td class="dom">#pVisit</td></tr>
+<tr><td>3</td><td class="d3">검진 상세</td><td class="id">HOSP-011</td><td>건강검진 한 건의 결과를 봅니다.</td><td class="dom">#visitDet · 건강검진</td></tr>
+<tr><td>4</td><td class="d4">문진표</td><td class="id">HOSP-007</td><td>검진 당시 문진 원문을 봅니다.</td><td class="dom">#questionnaireView</td></tr>
+<tr><td>4</td><td class="d4">검진 결과지</td><td class="id">HOSP-008</td><td>검진 결과지 원문을 봅니다.</td><td class="dom">#resultSheetView</td></tr>
+<tr><td>4</td><td class="d4">AI 검진 요약 실행 확인</td><td class="id">AIH-001</td><td>요약 실행 전 이용권과 범위를 확인합니다.</td><td class="dom">#aiConfirmSheet</td></tr>
+<tr><td>4</td><td class="d4">AI 검진 요약 결과</td><td class="id">AIH-002</td><td>검진 결과를 쉬운 말로 풀어 봅니다.</td><td class="dom">#aiReport</td></tr>
+<tr><td>3</td><td class="d3">진료 상세</td><td class="id">HOSP-005</td><td>진료 한 건의 내용과 메모를 봅니다.</td><td class="dom">#visitDet · 진료</td></tr>
+<tr><td>4</td><td class="d4">진료 메모</td><td class="id">HOSP-005 내부</td><td>메모를 쓰고 고칩니다.</td><td class="dom">#vdMemo · #memoEditBox</td></tr>
+<tr><td>3</td><td class="d3">AI REPORT 상세</td><td class="id">HOSP-012</td><td>등록한 AI REPORT 결과를 봅니다.</td><td class="dom">#visitDet · AI REPORT</td></tr>
+</table>
+</section>
+
+<h2>4. 리포트 등록<small>하단 가운데 버튼으로 진입하며, 등록이 끝나면 병원 탭으로 돌아옵니다.</small></h2>
+<section class="card">
+<table>
+<tr><th>Depth</th><th>화면</th><th>화면 ID</th><th>설명</th><th>DOM</th></tr>
+<tr><td>1</td><td>등록 유형 선택</td><td class="id">REG-001</td><td>AI REPORT QR과 일반 검진 결과지 중에서 고릅니다.</td><td class="dom">#actSheet</td></tr>
+<tr><td>2</td><td class="d2">QR 촬영</td><td class="id">REG-002</td><td>AI REPORT의 QR을 찍습니다.</td><td class="dom">#cam</td></tr>
+<tr><td>3</td><td class="d3">인식 결과 검수</td><td class="id">REG-003</td><td>읽힌 값을 사용자가 확인합니다.</td><td class="dom">#confirm</td></tr>
+<tr><td>2</td><td class="d2">파일 업로드</td><td class="id">REG-004</td><td>사진·PDF로 결과지를 올립니다.</td><td class="dom">#reportUpload</td></tr>
+<tr><td>3</td><td class="d3">추출 진행</td><td class="id">REG-005</td><td>글자 인식이 끝날 때까지 진행 상태를 보여줍니다.</td><td class="dom">#reportExtract</td></tr>
+<tr><td>3</td><td class="d3">추출 결과 검수</td><td class="id">REG-006</td><td>인식된 항목과 값을 사용자가 고칩니다.</td><td class="dom">#reportReview</td></tr>
+<tr><td>4</td><td class="d4">원본 프리뷰</td><td class="id">REG-007</td><td>올린 원본과 인식 결과를 나란히 봅니다.</td><td class="dom">#reportPreview</td></tr>
+<tr><td>2</td><td class="d2">등록 완료</td><td class="id">REG-008</td><td>등록 결과와 다음 할 일을 안내합니다.</td><td class="dom">#reportDone</td></tr>
+</table>
+<div class="note"><b>대상자 확인</b>등록하는 리포트의 대상자와 현재 보고 있는 프로필이 다르면 저장 전에 확인 절차를 거칩니다.</div>
+</section>
+
+<h2>5. 계정<small>내 정보와 서비스 설정을 모아 둔 탭입니다.</small></h2>
+<section class="card">
+<table>
+<tr><th>Depth</th><th>화면</th><th>화면 ID</th><th>설명</th><th>DOM</th></tr>
+<tr><td>1</td><td>계정 메인</td><td class="id">ACC-001</td><td>사용자 기본정보와 설정 목록을 보여줍니다.</td><td class="dom">#more</td></tr>
+<tr><td>2</td><td class="d2">내 정보 관리</td><td class="id">ACC-002</td><td>이름·생년월일 등 기본정보를 봅니다.</td><td class="dom">#accountSub · profile</td></tr>
+<tr><td>2</td><td class="d2">알림 설정</td><td class="id">ACC-003</td><td>알림 종류별로 받을지 끌지 고릅니다.</td><td class="dom">#accountSub · notice</td></tr>
+<tr><td>2</td><td class="d2">알림 목록</td><td class="id">ACC-011 <span class="tag plan">신규</span></td><td>보낸 알림을 최신순으로 모아 보고, 눌러 해당 화면으로 이동합니다.</td><td class="dom">계획 · #accountSub · notifications</td></tr>
+<tr><td>2</td><td class="d2">이용권 관리</td><td class="id">ACC-004</td><td>남은 분석 이용권과 구매·환불 이력을 봅니다.</td><td class="dom">#accountSub · ticket</td></tr>
+<tr><td>3</td><td class="d3">구매 확인</td><td class="id">ACC-005</td><td>결제 전 내용을 확인합니다.</td><td class="dom">#tkConfirm</td></tr>
+<tr><td>2</td><td class="d2">이용약관</td><td class="id">ACC-006</td><td>약관 전문을 봅니다.</td><td class="dom">#accountSub · terms</td></tr>
+<tr><td>2</td><td class="d2">개인정보 처리방침</td><td class="id">ACC-007</td><td>처리방침 전문을 봅니다.</td><td class="dom">#accountSub · privacy</td></tr>
+<tr><td>2</td><td class="d2">문의하기</td><td class="id">ACC-008</td><td>1:1 문의를 접수합니다.</td><td class="dom">#accountSub · support</td></tr>
+<tr><td>2</td><td class="d2">로그아웃 확인</td><td class="id">ACC-009</td><td>로그아웃 전 확인합니다.</td><td class="dom">#accountSub · logout</td></tr>
+<tr><td>2</td><td class="d2">회원 탈퇴</td><td class="id">ACC-010</td><td>탈퇴 영향과 데이터 처리를 안내합니다.</td><td class="dom">#accountSub · withdraw</td></tr>
+</table>
+</section>
+
+<h2>공통 화면<small>특정 탭에 속하지 않고 여러 경로에서 같은 모습으로 열립니다.</small></h2>
+<section class="card">
+<table>
+<tr><th>화면</th><th>화면 ID</th><th>진입 경로</th><th>DOM</th></tr>
+<tr><td>연동 상태 바</td><td class="id">COM-001 <span class="tag plan">신규</span></td><td>생활 · 통합 건강 데이터 상단</td><td class="dom">#syncBar</td></tr>
+<tr><td>연동 소스 선택</td><td class="id">COM-002 <span class="tag plan">신규</span></td><td>온보딩, 연동 상태 바</td><td class="dom">#srcSheet</td></tr>
+<tr><td>연동 해제 확인</td><td class="id">COM-003 <span class="tag plan">신규</span></td><td>연동 상태 바</td><td class="dom">#deviceUnlinkConfirm</td></tr>
+<tr><td>연계 데이터 갱신</td><td class="id">HOSP-003</td><td>병원 · 진료요약</td><td class="dom">#updatePicker</td></tr>
+<tr><td>프로필 전환</td><td class="id">COM-004</td><td>홈, 계정</td><td class="dom">#profileQuick</td></tr>
+<tr><td>Selvy Checkup 소개</td><td class="id">SELVY-001</td><td>병원, AI 인사이트</td><td class="dom">#selvy</td></tr>
+<tr><td>Selvy 분석 신청·결제</td><td class="id">SELVY-002</td><td>Selvy 소개</td><td class="dom">#pay</td></tr>
+<tr><td>Selvy 분석 결과</td><td class="id">SELVY-003</td><td>Selvy 신청 완료, 방문이력</td><td class="dom">#svResult</td></tr>
+</table>
+</section>
+
+<h2>이번 판에서 달라진 점<small>2026-09-02 정보구조도 대비 변경 사항입니다.</small></h2>
+<section class="card">
+<ul class="tree">
+  <li><b>추가</b> — 건강 데이터 상세(LIFE-006), 연동 상태 바·소스 선택·해제 확인·프로필 전환(COM-001~004), 알림 목록(ACC-011). 모두 기능정의서 화면 연계표에 같은 ID로 등록했습니다.</li>
+  <li><b>연결</b> — 새 화면에 대응하는 기능 AUTH-008 연동 소스 선택, AUTH-009 연동 상태 표시 및 해제, LIFE-011 건강 데이터 항목 상세 조회를 기능정의서에 추가했고, 알림 목록을 참조하던 NOTI-008·NOTI-009와 프로필 전환 PROF-002의 연관 화면을 새 ID로 바꿨습니다.</li>
+  <li><b>이동</b> — 통합 건강 데이터를 생활 탭 하위로 정리하고, 그 아래에 항목별 상세를 둡니다.</li>
+  <li><b>정리</b> — 검진 AI 요약을 병원 탭의 검진 상세 하위 경로로 명시합니다.</li>
+  <li><b>분기</b> — 온보딩의 건강 데이터 권한을 iOS와 Android 두 갈래로 나누어 표기합니다.</li>
+</ul>
+</section>
+
+<footer>maiReport Information Architecture · 기준일 2026-09-16 · Internal Use Only</footer>
+</main>
+</body>
+</html>

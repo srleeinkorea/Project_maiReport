@@ -1,438 +1,379 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>maiReport 기능정의서</title>
-  <style>
-    :root{--navy:#14213d;--blue:#2f6bff;--blue-bg:#edf3ff;--ink:#1b2942;--muted:#66738a;--line:#dce3ef;--page:#f4f6fa;--green:#168252;--green-bg:#e9f7ef;--amber:#9a6700;--amber-bg:#fff6d8;--red:#bd2f2f;--red-bg:#fdecec;--violet:#6e4ac7;--violet-bg:#f2edff}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--ink);font-family:Pretendard,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;line-height:1.5}button,input{font:inherit}
-    .top{position:sticky;top:0;z-index:30;background:rgba(244,246,250,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.top-in{max-width:1540px;margin:auto;padding:18px 28px;display:flex;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:12px;min-width:max-content}.mark{width:38px;height:38px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:900;font-style:italic}.brand b{display:block;font-size:18px;letter-spacing:-.03em}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.tools{margin-left:auto;display:flex;gap:8px;align-items:center}.search{width:min(340px,35vw);padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);outline:none}.search:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,107,255,.12)}.btn{border:1px solid var(--line);border-radius:12px;padding:10px 13px;background:#fff;color:var(--ink);font-size:12px;font-weight:800;cursor:pointer}.btn:hover{border-color:var(--blue);color:var(--blue)}
-    main{max-width:1540px;margin:auto;padding:30px 28px 60px}.hero{background:linear-gradient(135deg,#14213d 0%,#203b75 65%,#2f6bff 150%);color:#fff;border-radius:24px;padding:32px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,.8fr);gap:28px;box-shadow:0 16px 46px rgba(20,33,61,.16)}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;color:#a9c2ff;text-transform:uppercase}h1{font-size:34px;line-height:1.25;margin:8px 0 10px;letter-spacing:-.04em}.hero p{margin:0;color:#d8e2f8;font-size:14px;max-width:760px}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.meta span{padding:7px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.08);font-size:11px;color:#e9efff}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;align-content:center}.stat{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);border-radius:16px;padding:16px}.stat b{display:block;font-size:27px;line-height:1}.stat span{display:block;margin-top:7px;font-size:11px;color:#cbd8f4}
-    .filter-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:24px 0 18px}.filter-bar strong{font-size:12px;margin-right:4px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:11px;color:var(--muted);cursor:pointer}.chip.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:800}.legend{margin-left:auto;display:flex;gap:10px;font-size:10px;color:var(--muted);flex-wrap:wrap}.legend span{display:flex;gap:5px;align-items:center}.dot{width:8px;height:8px;border-radius:50%}.dot.done{background:var(--green)}.dot.review{background:#dda400}.dot.link{background:#e45555}
-    .policy{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}.policy-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px}.policy-card b{font-size:12px}.policy-card p{font-size:10px;color:var(--muted);margin:6px 0 0}.policy-card code{display:inline-block;margin-top:8px;padding:3px 6px;border-radius:5px;background:var(--blue-bg);color:#31538f;font-size:9px}
-    .product-io{margin-bottom:20px;padding:24px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 24px rgba(31,55,105,.04)}.io-head{display:flex;align-items:flex-start;gap:20px;margin-bottom:18px}.io-head>div{flex:1}.io-head span{display:block;margin-bottom:5px;color:var(--blue);font-size:10px;font-weight:900;letter-spacing:.07em}.io-head h2{margin:0;color:#172238;font-size:18px}.io-head p{max-width:760px;margin:0;color:#718098;font-size:12px;line-height:1.65}.io-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,.55fr) minmax(0,1fr);gap:14px;align-items:stretch}.io-col{padding:17px;border:1px solid #e2e8f2;border-radius:18px;background:#fafbfd}.io-col>strong{display:block;margin-bottom:12px;font-size:12px}.io-list{display:grid;gap:8px}.io-item{padding:10px 11px;border-radius:12px;background:#fff;border:1px solid #e6ebf3}.io-item b{display:block;font-size:11px}.io-item p{margin:3px 0 0;color:var(--muted);font-size:10px;line-height:1.5}.io-process{display:flex;flex-direction:column;justify-content:center;padding:18px;border-radius:18px;background:linear-gradient(145deg,#172b58,#2f66f5);color:#fff}.io-process>span{font-size:9px;font-weight:900;letter-spacing:.08em;color:#c9d8ff}.io-process>strong{margin:6px 0 13px;font-size:14px}.io-step{position:relative;padding:8px 8px 8px 24px;border-top:1px solid rgba(255,255,255,.14);font-size:10px;color:#eef3ff}.io-step::before{content:"";position:absolute;left:7px;top:13px;width:6px;height:6px;border-radius:50%;background:#aecaFF}.io-final{margin-top:14px;padding:13px 15px;border-left:4px solid var(--blue);border-radius:13px;background:var(--blue-bg);color:#31538f;font-size:11px;font-weight:800}.io-note{display:block;margin-top:5px;color:#68799a;font-size:9px;font-weight:700}
-    .group{background:#fff;border:1px solid var(--line);border-radius:22px;margin-top:16px;overflow:hidden;box-shadow:0 7px 22px rgba(20,33,61,.04)}.group-head{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#fff,var(--blue-bg))}.group-no{width:28px;height:28px;border-radius:9px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:900}.group-head h2{font-size:18px;margin:0}.group-head p{font-size:11px;color:var(--muted);margin:2px 0 0}.group-count{margin-left:auto;font-size:10px;font-weight:800;color:var(--blue);padding:6px 10px;background:#fff;border:1px solid #cddcff;border-radius:999px}
-    .fn-list{padding:14px;display:grid;gap:9px}.fn{border:1px solid var(--line);border-radius:15px;background:#fff;overflow:hidden}.fn[hidden]{display:none}.fn summary{list-style:none;cursor:pointer;padding:13px 15px;display:grid;grid-template-columns:98px minmax(170px,.8fr) minmax(260px,1.6fr) 130px 16px;align-items:center;gap:12px}.fn summary::-webkit-details-marker{display:none}.fid{font:800 10px Consolas,monospace;color:var(--blue);background:var(--blue-bg);border-radius:6px;padding:4px 6px;width:max-content}.fn-name{font-size:12px;font-weight:900}.fn-desc{font-size:10px;color:var(--muted)}.tag{font-size:9px;font-weight:800;border-radius:999px;padding:4px 7px;text-align:center}.tag.done{color:var(--green);background:var(--green-bg)}.tag.review{color:var(--amber);background:var(--amber-bg)}.tag.link{color:var(--red);background:var(--red-bg)}.chev{color:#9ba7b9;transition:.2s}.fn[open] .chev{transform:rotate(180deg)}.fn[open]{border-color:#b9ccf5;box-shadow:0 4px 14px rgba(47,107,255,.06)}.fn[open] summary{background:#f9fbff}
-    .detail{border-top:1px solid var(--line);padding:15px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;background:#fcfdff}.cell{border-radius:11px;background:#fff;border:1px solid #e7ebf2;padding:11px}.cell.wide{grid-column:span 2}.cell label{display:block;font-size:9px;font-weight:900;color:#8190a7;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}.cell p{font-size:10px;margin:0;color:#34445f;line-height:1.55}.screens{display:flex;gap:5px;flex-wrap:wrap}.screen{font:700 9px Consolas,monospace;color:#31538f;background:var(--blue-bg);padding:3px 6px;border-radius:5px}.flowline{grid-column:1/-1;display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:11px 12px;border-radius:11px;background:#f1f5fb}.flow-step{font-size:10px;font-weight:800;color:#344d75}.arrow{color:#9ba7b9}.empty{display:none;background:#fff;border:1px dashed var(--line);border-radius:18px;padding:30px;text-align:center;color:var(--muted);margin-top:16px}.footer-note{margin-top:22px;padding:16px;border-radius:15px;background:var(--violet-bg);color:#57418c;font-size:10px}.footer-note b{display:block;font-size:12px;margin-bottom:4px}footer{text-align:center;color:#8b96a8;font-size:10px;padding:28px 0 0}
-    @media(max-width:980px){.top-in{padding:14px 16px}.brand small,.btn.print,.btn.collapse{display:none}.search{width:42vw}.hero{grid-template-columns:1fr;padding:24px}.policy{grid-template-columns:repeat(2,1fr)}.io-grid{grid-template-columns:1fr}.io-process{min-height:220px}main{padding:20px 16px 45px}.legend{width:100%;margin-left:0}.fn summary{grid-template-columns:86px 1fr 105px 16px}.fn-desc{display:none}.detail{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:600px){.btn.expand{display:none}.policy{grid-template-columns:1fr}.product-io{padding:19px}.io-head{display:block}.io-head p{margin-top:8px}.stats{grid-template-columns:repeat(2,1fr)}.fn summary{grid-template-columns:78px 1fr 16px}.tag{display:none}.detail{grid-template-columns:1fr}.cell.wide{grid-column:span 1}}
-    @media print{body{background:#fff}.top,.filter-bar,.policy{display:none}main{max-width:none;padding:0}.hero{border-radius:0;box-shadow:none;background:#14213d;-webkit-print-color-adjust:exact;print-color-adjust:exact}.product-io{box-shadow:none;break-inside:avoid}.io-process{-webkit-print-color-adjust:exact;print-color-adjust:exact}.group{box-shadow:none;break-before:page}.fn{break-inside:avoid}.fn summary{grid-template-columns:90px 170px 1fr 115px}.fn-desc{display:block}.detail{display:grid!important}.chev{display:none}.group-head,.tag,.fid,.flowline{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-  </style>
-  <style id="mai-tone-and-manner">
-    :root{
-      --blue:#2F66F5;--blue-bg:#EAF0FF;--page:#F5F7FB;
-      --green:#168252;--green-bg:#E9F7EF;--amber:#A36B00;--amber-bg:#FFF3D6;
-      --red:#C43D3D;--red-bg:#FDECEC;
-    }
-    body{font-family:"Noto Sans KR",sans-serif;letter-spacing:-.015em}
-    .top{background:rgba(245,247,251,.94)}
-    .top-in{padding-top:16px;padding-bottom:16px}
-    .mark{border-radius:50%;box-shadow:0 7px 18px rgba(47,102,245,.24)}
-    .search,.btn{border-radius:999px}
-    .hero{
-      border-radius:28px;padding:38px;
-      background:linear-gradient(135deg,#172B58 0%,#2853C8 60%,#5C85FF 145%);
-      box-shadow:0 20px 52px rgba(31,65,145,.18)
-    }
-    h1{font-size:38px;font-weight:900;letter-spacing:-.055em}
-    .eyebrow{color:#C9D8FF}
-    .meta span{background:rgba(255,255,255,.11)}
-    .stat{border-radius:22px;padding:20px;background:rgba(255,255,255,.1)}
-    .stat b{letter-spacing:-.045em}
-    .policy{gap:14px}
-    .policy-card{border-radius:22px;padding:20px;border-left:4px solid var(--blue);box-shadow:0 8px 24px rgba(31,55,105,.04)}
-    .policy-card code{border-radius:999px;padding:4px 8px}
-    .group{border-radius:28px;box-shadow:0 10px 32px rgba(31,55,105,.055)}
-    .group-head{padding:22px 24px;border-left:5px solid var(--blue);background:linear-gradient(90deg,#FFFFFF 0%,#F8FAFF 58%,var(--blue-bg) 100%)}
-    .group-no{width:34px;height:34px;border-radius:50%;background:var(--blue);box-shadow:0 6px 14px rgba(47,102,245,.2)}
-    .fn-list{padding:20px;gap:12px}
-    .fn{border-radius:22px;box-shadow:0 6px 20px rgba(31,55,105,.035)}
-    .fn summary{padding:17px 18px}
-    .fid,.screen{font-family:"Noto Sans KR",sans-serif;border-radius:999px;padding:4px 8px}
-    .detail{padding:20px;gap:12px;background:#F8FAFF}
-    .cell{border-radius:16px;padding:14px}
-    .flowline{border-radius:16px;padding:14px 16px;border-left:4px solid var(--blue);background:var(--blue-bg)}
-    .empty{border-radius:24px;padding:36px}
-    .footer-note{border-radius:22px;padding:22px;border-left:5px solid var(--blue);background:#F2F5FF}
-    .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-    .g4,.policy{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-    .g5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
-    @media(max-width:980px){
-      .hero{padding:28px}.hero h1{font-size:32px}
-      .g4,.g5,.policy{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .g2,.g3{grid-template-columns:1fr}
-    }
-    @media(max-width:600px){.g4,.g5,.policy{grid-template-columns:1fr}.hero{border-radius:24px;padding:24px}.hero h1{font-size:29px}}
-    @media print{.hero{background:#172B58}.group-head{border-left-color:var(--blue)}}
-  </style>
-  <style id="mai-header-refinement">
-    .top{padding:10px 20px;background:rgba(245,247,251,.78);border-bottom:0;backdrop-filter:blur(18px) saturate(130%)}
-    .top-in{max-width:1500px;min-height:58px;padding:8px 10px 8px 18px;gap:20px;background:rgba(255,255,255,.94);border:1px solid rgba(203,213,229,.72);border-radius:18px;box-shadow:0 10px 32px rgba(36,55,92,.065),0 1px 2px rgba(36,55,92,.04)}
-    .brand{gap:12px;min-width:max-content}
-    .brand-word{position:relative;color:#17233D;font-size:19px;font-weight:900;letter-spacing:-.065em;line-height:1}
-    .brand-word::after{content:"";position:absolute;right:-7px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--blue)}
-    .brand-rule{width:1px;height:20px;margin-left:3px;background:#DDE4EF}
-    .doc-label{display:flex;align-items:center;gap:7px;color:#627089;font-size:11px;font-weight:700;letter-spacing:-.02em}
-    .doc-label em{padding:3px 7px;border-radius:999px;background:var(--blue-bg);color:var(--blue);font-size:9px;font-style:normal;font-weight:900;letter-spacing:.03em}
-    .tools{gap:7px}
-    .search-shell{position:relative;display:flex;align-items:center;width:min(330px,28vw);height:40px;border:1px solid transparent;border-radius:12px;background:#F5F7FB;transition:.18s ease}
-    .search-shell:focus-within{border-color:rgba(47,102,245,.42);background:#FFF;box-shadow:0 0 0 3px rgba(47,102,245,.09)}
-    .search-icon{display:grid;place-items:center;width:38px;color:#8793A8;flex:0 0 auto}
-    .search-icon svg{width:16px;height:16px}
-    .search{width:100%;height:100%;padding:0 12px 0 0;border:0;border-radius:0;background:transparent;font-size:12px;box-shadow:none}
-    .search:focus{border:0;box-shadow:none}
-    .tool-rule{width:1px;height:22px;margin:0 3px;background:#E3E8F1}
-    .btn{height:40px;padding:0 13px;border-radius:12px;border-color:transparent;background:transparent;color:#657188;font-size:11px;transition:.18s ease}
-    .btn:hover{border-color:transparent;background:#F2F5FA;color:#24324C}
-    .btn-primary{padding-inline:16px;background:var(--blue);color:#FFF;box-shadow:0 7px 16px rgba(47,102,245,.2)}
-    .btn-primary:hover{background:#2558DC;color:#FFF;box-shadow:0 9px 20px rgba(47,102,245,.25);transform:translateY(-1px)}
-    @media(max-width:980px){.top{padding:8px}.top-in{padding:8px 10px 8px 14px;border-radius:16px}.doc-label,.brand-rule{display:none}.search-shell{width:min(300px,42vw)}}
-    @media(max-width:600px){.top-in{flex-wrap:wrap;gap:8px}.tools{width:100%;margin-left:0}.search-shell{width:auto;flex:1}.tool-rule{display:none}.btn{padding-inline:11px}}
-    @media print{.top{display:none}}
-  </style>
-  <style id="mai-reference-hero">
-    .btn-primary{background:#17233D;box-shadow:0 7px 16px rgba(23,35,61,.16)}
-    .btn-primary:hover{background:#0F192D;box-shadow:0 9px 20px rgba(23,35,61,.2)}
-    .hero{display:block;padding:46px 56px 36px;background:#FFF;color:var(--ink);border:1px solid #DCE3EE;border-top:4px solid var(--blue);border-radius:22px;box-shadow:0 14px 38px rgba(35,54,91,.055)}
-    .eyebrow{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.02em;text-transform:uppercase}
-    h1{max-width:920px;margin:14px 0 16px;color:#111A2D;font-size:42px;line-height:1.16;font-weight:900;letter-spacing:-.055em}
-    .hero p{max-width:960px;color:#657188;font-size:14px;line-height:1.75}
-    .meta{margin:28px 0 32px;gap:8px}
-    .meta span{padding:8px 13px;border:1px solid #D5E0FB;background:#F0F4FF;color:#2B58C9;font-size:10px;font-weight:800}
-    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;padding-top:26px;border-top:1px solid #DCE3EE}
-    .stat{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:6px;padding:0;border:0;border-radius:0;background:transparent;color:var(--ink)}
-    .stat b{color:#121B2E;font-size:20px;line-height:1.25;font-weight:900;letter-spacing:-.035em}
-    .stat span{margin:0;color:#718098;font-size:10px;font-weight:800;letter-spacing:0}
-    @media(max-width:980px){.hero{padding:34px 32px 30px}.hero h1{font-size:35px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px}}
-    @media(max-width:600px){.hero{padding:28px 22px 25px;border-radius:20px}.hero h1{font-size:30px}.meta{margin:22px 0 26px}.stats{gap:20px 14px}.stat b{font-size:18px}}
-    @media print{.hero{background:#FFF;color:var(--ink);border-top-color:var(--blue)}.hero h1,.stat b{color:#111A2D}}
-  </style>
-  <style id="mai-legibility-pass">
-    body{font-size:14px;line-height:1.6}
-    .brand-word{font-size:20px}.doc-label{font-size:12px}.doc-label em{font-size:10px}
-    .search{font-size:13px}.btn{font-size:12px}
-    .hero p{font-size:16px;line-height:1.75}.meta span{font-size:11px}.stat span{font-size:11px}.stat b{font-size:22px}
-    .filter-bar strong{font-size:14px}.chip{font-size:12px}.legend{font-size:11px}
-    .policy-card b{font-size:14px}.policy-card p{font-size:12px;line-height:1.65}.policy-card code{font-size:10px}
-    .group-head h2{font-size:20px}.group-head p{font-size:12px}.group-count{font-size:11px}
-    .fid{font-size:11px}.fn-name{font-size:14px}.fn-desc{font-size:12px;line-height:1.55}.tag{font-size:10px}
-    .cell label{font-size:10px}.cell p{font-size:12px;line-height:1.65}.screen{font-size:10px}.flow-step{font-size:11px;line-height:1.55}
-    .footer-note{font-size:12px;line-height:1.65}.footer-note b{font-size:14px}footer{font-size:11px}
-    @media(max-width:600px){.hero p{font-size:14px}.fn-name{font-size:13px}.cell p{font-size:11px}}
-  </style>
-  <style id="mai-screen-traceability">
-    .screen-trace{margin-bottom:20px;padding:24px;background:#FFF;border:1px solid var(--line);border-radius:22px;box-shadow:0 8px 24px rgba(31,55,105,.04)}
-    .screen-trace-head{display:flex;align-items:flex-start;gap:20px;margin-bottom:18px}
-    .screen-trace-head>div:first-child{flex:1}.screen-trace-head span{display:block;margin-bottom:5px;color:var(--blue);font-size:10px;font-weight:900;letter-spacing:.07em}.screen-trace-head h2{margin:0;color:#172238;font-size:18px}.screen-trace-head p{max-width:700px;margin:0;color:#718098;font-size:12px;line-height:1.65}
-    .screen-catalog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-    .screen-area{padding:15px;border:1px solid #E4E9F1;border-radius:16px;background:#FAFBFD}.screen-area b{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;color:#26344E;font-size:12px}.screen-area b em{font-size:9px;font-style:normal;color:#7E8A9F}
-    .screen-mini-list{display:grid;gap:6px}.screen-mini{display:flex;align-items:center;gap:8px;min-width:0}.screen-mini code{flex:0 0 auto;padding:3px 6px;border-radius:999px;background:var(--blue-bg);color:var(--blue);font:800 9px "Noto Sans KR",sans-serif}.screen-mini span{overflow:hidden;color:#66748B;font-size:10px;text-overflow:ellipsis;white-space:nowrap}.screen-mini small{margin-left:auto;color:#98A2B3;font:700 9px Consolas,monospace}
-    .screens{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-    .screen-ref{min-width:0;padding:10px 11px;border:1px solid #DDE5F2;border-radius:13px;background:#F8FAFF}
-    .screen-ref-top{display:flex;align-items:center;gap:7px}.screen-ref b{padding:3px 7px;border-radius:999px;background:var(--blue-bg);color:var(--blue);font-size:10px}.screen-ref span{overflow:hidden;color:#34445F;font-size:11px;font-weight:800;text-overflow:ellipsis;white-space:nowrap}.screen-ref code{display:block;margin-top:5px;color:#8A96A9;font:700 9px Consolas,monospace}
-    @media(max-width:980px){.screen-catalog{grid-template-columns:repeat(2,minmax(0,1fr))}.screens{grid-template-columns:1fr}}
-    @media(max-width:600px){.screen-trace{padding:19px}.screen-trace-head{display:block}.screen-trace-head p{margin-top:8px}.screen-catalog{grid-template-columns:1fr}}
-    @media print{.screen-trace{box-shadow:none;break-inside:avoid}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 기능정의서</title>
+<style>
+:root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#454e61;--ink-3:#6b7488;--line:#e6eaf2;--ok:#0f7a41;--warn:#9a5b06;--soft:#fafbfd}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans KR","Malgun Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.75;letter-spacing:-.01em}
+.wrap{max-width:1140px;margin:0 auto;padding:32px 20px 70px}
+.hero{background:linear-gradient(135deg,#1f3d8f 0%,#2f66f5 60%,#6b5cf6 130%);border-radius:26px;padding:36px 38px;color:#fff;position:relative;overflow:hidden;margin-bottom:20px}
+.hero::after{content:"";position:absolute;right:-70px;top:-90px;width:270px;height:270px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.2);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:13px;position:relative}
+.hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px;color:#fff;position:relative}
+.hero p{font-size:14.5px;color:rgba(255,255,255,.93);max-width:820px;position:relative}
+.hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.85);display:flex;gap:20px;flex-wrap:wrap;position:relative}
+.hero .meta b{color:#fff}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px 32px;margin-bottom:18px}
+h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:26px 0 8px}
+p{margin-bottom:8px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+th{font-weight:700;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.k{font-weight:700;color:var(--ink-1);width:158px}
+td.w{color:var(--ink-3);width:150px;font-size:12.5px}
+tr:last-child td{border-bottom:none}
+.callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:14px 0}
+.callout.warn{border-left-color:#c8891f;background:#fff7ea;color:#6b4c0f}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.mini{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+.mini p{font-size:12.5px;margin:0;line-height:1.85}
+.flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin:12px 0}
+.flow div{flex:1;min-width:140px;background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px}
+.flow div b{display:block;color:var(--ink-1);margin-bottom:4px}
+ul{padding-left:18px;margin-bottom:8px}
+li{margin-bottom:5px;font-size:13px}
+footer{text-align:center;font-size:12px;color:var(--ink-3);padding:26px 0 0;line-height:2}
+@media(max-width:900px){.wrap{padding:20px 14px 50px}.hero{padding:26px 22px;border-radius:20px}.hero h1{font-size:23px}section.card{padding:22px 18px;border-radius:18px}.grid2,.grid3{grid-template-columns:1fr}table{font-size:12.5px}td.k,td.w{width:auto}}
+@media print{body{background:#fff}.toc{display:none}section.card{break-inside:avoid}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
 </head>
 <body>
-  <header class="top"><div class="top-in"><div class="brand" aria-label="maiReport 기능정의서"><span class="brand-word">maiReport</span><span class="brand-rule" aria-hidden="true"></span><span class="doc-label">기능정의서 <em>SPEC</em></span></div><div class="tools"><label class="search-shell"><span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></span><input id="search" class="search" type="search" placeholder="기능 ID 또는 화면 ID 검색" aria-label="기능 검색"></label><span class="tool-rule" aria-hidden="true"></span><button id="expand" class="btn expand">전체 펼치기</button><button id="collapse" class="btn collapse">전체 접기</button><button class="btn btn-primary print" onclick="window.print()">내보내기</button></div></div></header>
-  <main>
-    <section class="hero"><div><div class="eyebrow">Functional Specification</div><h1>maiReport 기능정의서</h1><p>최신 HTML 프로토타입의 화면 구성과 2026년 9월 확정된 홈 화면·목표 분석 화면정의서, 생활 지표 기획서, 하루 생성 순서도, 알림 정책, 식이 목표 생성 규칙을 반영해 시스템 처리 요구사항을 기능 ID 단위로 정의합니다. 각 기능에서 화면 ID, 화면명 및 실제·계획 DOM ID를 함께 추적할 수 있습니다.</p><div class="meta"><span>기준일 2026-09-16</span><span>v2.0 · 최신 기획 반영</span><span>홈·목표 분석·지표·알림 정책 통합</span><span>Internal Use Only</span></div></div><div class="stats"><div class="stat"><b id="totalCount">-</b><span>전체 기능</span></div><div class="stat"><b id="groupCount">-</b><span>기능 영역</span></div><div class="stat"><b id="reviewCount">-</b><span>정책 검토 기능</span></div><div class="stat"><b id="linkCount">-</b><span>시스템 연계 기능</span></div></div></section>
+<div class="wrap">
 
-    <div class="filter-bar"><strong>기능 영역</strong><button class="chip on" data-filter="all">전체</button><button class="chip" data-filter="auth">인증·권한</button><button class="chip" data-filter="home">홈·개인화</button><button class="chip" data-filter="life">생활 분석</button><button class="chip" data-filter="hospital">병원·진료</button><button class="chip" data-filter="report">리포트 등록</button><button class="chip" data-filter="ai">AI·Selvy</button><button class="chip" data-filter="account">계정·이용권</button><button class="chip" data-filter="data">데이터·지표</button><button class="chip" data-filter="profile">프로필·연계</button><button class="chip" data-filter="daily">하루 생성</button><button class="chip" data-filter="goal">목표 이어가기</button><button class="chip" data-filter="metric2">컨디션 지표</button><button class="chip" data-filter="notify">알림</button><button class="chip" data-filter="operation">코칭·안전·운영</button><div class="legend"><span><i class="dot done"></i>Prototype 구현</span><span><i class="dot review"></i>정책 검토</span><span><i class="dot link"></i>시스템 연계</span></div></div>
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 기능정의서</span>
+  <h1>시스템이 무엇을 해야 하는가</h1>
+  <p>정보구조도에 정의된 화면마다 시스템이 처리해야 할 일을 정리한다. 각 기능은 <b>언제 시작하고 · 무엇을 하고 · 무엇이 남고 · 어긋나면 어떻게 하는지</b> 순으로 쓴다. 화면 배치와 표시 문구는 각 화면정의서, 값을 만드는 계산식은 산출 규격 문서에서 다룬다.</p>
+  <div class="meta">
+    <span>작성일 <b>2026-09-21</b></span>
+    <span>버전 <b>1.0</b></span>
+    <span>기준 <b>정보구조도 v1.0 · 프로토타입 · 화면정의서</b></span>
+    <span>기능 <b>13개 영역</b></span>
+  </div>
+</div>
 
-    <section class="policy">
-      <article class="policy-card"><b>상태 전이</b><p>기능은 선행조건, 트리거, 처리 로직, 성공/실패 결과의 순서로 정의합니다.</p><code>Precondition → Trigger → Process → Result</code></article>
-      <article class="policy-card"><b>데이터 검증</b><p>형식 검증과 의료적 판정을 구분하며 OCR 결과는 최종 등록 전에 사용자 검수를 수행합니다.</p><code>Validation ≠ Clinical Decision</code></article>
-      <article class="policy-card"><b>민감 건강정보</b><p>검진·진료·문진·건강 데이터에는 인증, 접근 통제, 암호화 및 감사 로그 정책을 적용합니다.</p><code>PII · PHI · Audit Log</code></article>
-      <article class="policy-card"><b>AI 결과 고지</b><p>AI 결과는 건강정보 이해를 돕는 참고 정보이며 의학적 진단 또는 의료진의 판단을 대체하지 않습니다.</p><code>AI Disclaimer Required</code></article>
-    </section>
+<nav class="toc">
+  <a href="#s1">① 읽는 법</a><a href="#s2">② 입력과 결과</a><a href="#s3">③ 진입 · 권한</a><a href="#s4">④ 하루 기준</a><a href="#s5">⑤ 홈</a><a href="#s6">⑥ 목표</a><a href="#s7">⑦ 생활 · 지표</a><a href="#s8">⑧ 병원</a><a href="#s9">⑨ 리포트 등록</a><a href="#s10">⑩ AI 분석</a><a href="#s11">⑪ 더보기 · 계정</a><a href="#s12">⑫ 알림</a><a href="#s13">⑬ 데이터 처리</a><a href="#s14">⑭ 확인 필요</a>
+</nav>
 
-    <section class="policy" aria-label="최신 반영 내역">
-      <article class="policy-card"><b>하루 생성 순서 반영</b><p>날짜를 세션 날짜(새벽 4시 경계)와 실제 날짜(자정 경계)로 분리했습니다. 첫 진입 1회 생성, 재진입 시 지표만 재계산하는 규칙을 기능으로 분리했습니다.</p><code>DAY-001 ~ DAY-005</code></article>
-      <article class="policy-card"><b>목표 이어가기 전환</b><p>주간 달성률을 대체하는 완료·취소·문구 잠금·연속일수·코멘트 규칙을 반영했습니다.</p><code>GOAL · STREAK · CMT</code></article>
-      <article class="policy-card"><b>생활 지표 3종 분리</b><p>생활여유·자기돌봄·일상안정을 각각의 산출 기능으로 나누고 결측과 미연동 처리를 구분했습니다.</p><code>METRIC-004 ~ METRIC-008</code></article>
-      <article class="policy-card"><b>알림 정책 신규 반영</b><p>야간 금지 시간, 하루 2회 상한, 건강 정보를 문구에 담지 않는 규칙을 발송 판정 기능에 담았습니다.</p><code>NOTI-001 ~ NOTI-011</code></article>
-    </section>
-    <section class="product-io" aria-labelledby="productIoTitle">
-      <div class="io-head"><div><span>PRODUCT INPUT / OUTPUT</span><h2 id="productIoTitle">maiReport 최종 I/O 정의</h2></div><p>사용자·기기·의료기관에서 확보한 데이터를 품질과 출처를 보존해 통합하고, 사용자가 이해할 수 있는 현재 상태·근거·생활 행동·변화 추이로 제공합니다.</p></div>
-      <div class="io-grid">
-        <div class="io-col"><strong>INPUT · 서비스 입력</strong><div class="io-list">
-          <article class="io-item"><b>I-01 · 사용자·권한 컨텍스트</b><p>카카오 인증, 활성 프로필, 약관·민감정보 동의, HealthKit·Health Connect 접근 권한</p></article>
-          <article class="io-item"><b>I-02 · 생활·생리 데이터</b><p>Apple Health 및 Samsung Health 등에서 연계된 걸음·수면·심박·활동·신체·건강측정 데이터</p></article>
-          <article class="io-item"><b>I-03 · 의료정보</b><p>건강검진 결과·문진표, 진료·처방·방문이력과 출처·최종 갱신 시각</p></article>
-          <article class="io-item"><b>I-04 · 리포트 데이터</b><p>AI REPORT QR, 일반 검진 결과 이미지·PDF, OCR 추출값과 사용자 검수값</p></article>
-          <article class="io-item"><b>I-05 · 사용자 입력·행동 이력</b><p>오늘의 질문 응답, 목표 선택·완료·쉬기, 진료 메모와 이용 시점</p></article>
-        </div></div>
-        <div class="io-process"><span>PROCESSING</span><strong>데이터를 설명과 행동으로 변환</strong>
-          <div class="io-step">인증·동의·접근권한 검증</div>
-          <div class="io-step">출처·최신성·결측·중복 판정</div>
-          <div class="io-step">단위 표준화 및 개인 기준선 비교</div>
-          <div class="io-step">상태·인사이트·행동 규칙 적용</div>
-          <div class="io-step">의료 표현 안전 검수 및 감사 기록</div>
-        </div>
-        <div class="io-col"><strong>OUTPUT · 사용자 제공 결과</strong><div class="io-list">
-          <article class="io-item"><b>O-01 · 오늘의 상태</b><p>오늘의 컨디션, 회복여유·생활부담·리듬안정성과 평소 대비 변화</p></article>
-          <article class="io-item"><b>O-02 · 개인화 코칭·행동</b><p>상태 근거가 포함된 코칭과 식이·활동·수면 행동 제안 및 실천 이력</p></article>
-          <article class="io-item"><b>O-03 · 통합 건강 데이터</b><p>생활·생리·검진·진료·AI REPORT의 출처별 요약, 최신성 및 원문 상세 연결</p></article>
-          <article class="io-item"><b>O-04 · 주간 분석·AI 인사이트</b><p>목표·지표·생활 변화 분석, 종합 인사이트, 상세 근거와 변화 추이</p></article>
-          <article class="io-item"><b>O-05 · 의료정보 활용 결과</b><p>검진·진료 통합 이력, AI 검진 요약, Selvy Checkup 질환 위험도 결과</p></article>
-        </div></div>
-      </div>
-      <div class="io-final">FINAL OUTPUT · “내 건강정보가 무엇을 의미하는지 이해하고, 오늘 필요한 행동을 선택할 수 있는 상태”<span class="io-note">질병 진단·치료 결정이 아닌 건강정보 이해와 일상생활 관리를 위한 참고 결과</span></div>
-    </section>
+<section class="card" id="s1">
+  <h2><span class="n">1</span>이 문서를 읽는 법</h2>
+  <div class="sub">표 한 줄이 기능 하나다</div>
 
-    <section class="screen-trace" aria-labelledby="screenTraceTitle">
-      <div class="screen-trace-head"><div><span>SCREEN TRACEABILITY</span><h2 id="screenTraceTitle">최신 HTML 화면 연계표</h2></div><p>화면 ID는 IA 추적 키입니다. DOM ID는 최신 HTML에 구현된 실제 컨테이너를 우선 표시하며, Android 신규 화면처럼 미구현 항목은 계획 DOM으로 구분합니다.</p></div>
-      <div class="screen-catalog" id="screenCatalog"></div>
-    </section>
+  <table>
+    <tr><th style="width:158px">칸</th><th>담는 내용</th></tr>
+    <tr><td class="k">기능</td><td>무엇을 하는 기능인지. 화면 이름이 아니라 <b>처리 이름</b>으로 쓴다.</td></tr>
+    <tr><td class="k">언제</td><td>기능이 시작되는 조건. 사용자의 동작일 수도 있고 시각 · 상태 변화일 수도 있다.</td></tr>
+    <tr><td class="k">하는 일 · 결과</td><td>시스템이 처리하는 순서와, 끝난 뒤 사용자에게 남는 것.</td></tr>
+    <tr><td class="k">어긋나면</td><td>선행조건이 없거나 실패했을 때의 처리. 비워 두지 않는다.</td></tr>
+  </table>
 
-    <div id="groups"></div><div id="empty" class="empty">검색 조건에 일치하는 기능이 없습니다.</div>
-    <div class="footer-note"><b>구현 전 공통 확인사항</b>외부 API 인증·인가, 중복 요청에 대한 멱등성, 비동기 처리 상태, 네트워크 오류 재시도, 민감정보 마스킹, 사용자 동의 및 철회, 데이터 보유·파기 정책은 상세 설계 단계에서 확정해야 합니다.</div>
-    <footer>maiReport Functional Specification · Internal Use Only</footer>
-  </main>
-  <script>
-    const F=(id,name,summary,trigger,input,process,output,precondition,exception,screens,status='done')=>({id,name,summary,trigger,input,process,output,precondition,exception,screens,status});
-    const groups=[
-      {key:'auth',no:'01',title:'인증 및 접근 권한',desc:'사용자 인증, 약관 진입, OS 권한 획득 및 초기 상태 구성',items:[
-        F('AUTH-001','카카오 OAuth 로그인','카카오 계정을 이용해 사용자를 인증하고 서비스 세션을 생성한다.','[카카오로 시작하기] 선택','OAuth 인증 코드, 디바이스/애플리케이션 정보','카카오 인증 → 회원 식별 → 서비스 세션 및 토큰 발급','로그인 완료 및 접근 권한 사전 고지 화면 표시','네트워크 연결, 카카오 인증 가능 상태','인증 취소·실패·계정 제한 시 오류 안내 및 재시도 제공',['ONB-001'],'link'),
-        F('AUTH-002','약관 및 개인정보 처리방침 진입','로그인 화면에서 서비스 이용약관과 개인정보 처리방침 원문을 조회한다.','약관 또는 처리방침 링크 선택','문서 유형','최신 시행 버전 조회 후 웹뷰 또는 서브 화면 표시','선택 문서 원문 표시','문서 배포 완료','문서 조회 실패 시 오류 안내 및 재시도 제공',['ONB-001','ACC-006','ACC-007'],'review'),
-        F('AUTH-003','접근 권한 사전 고지','선택 접근 권한의 항목과 이용 목적을 OS 권한 요청 전에 고지한다.','사용자 인증 성공','권한 항목, 이용 목적, 필수/선택 구분','건강 데이터·카메라·사진·알림 권한 설명 구성. 알림 항목 설명은 "오늘의 질문 · 남은 목표 · 공지사항"으로 쓰고, 확인 직후 카메라에 이어 OS 알림 권한 창을 띄운다(알림 정책 §6.2)','권한 사전 고지 화면 표시','로그인 세션 유효','선택 권한 거부 시 제한 기능과 대체 경로를 명시',['ONB-002']),
-        F('AUTH-004','플랫폼별 건강 데이터 권한 항목 구성','iOS HealthKit과 Android Health Connect에서 서비스가 사용하는 건강 데이터 읽기 권한을 플랫폼별 타입으로 매핑한다. Android에서는 Samsung Health 등 Health Connect 연결 앱이 제공한 데이터를 포함한다.','사전 고지 화면의 [확인] 선택','OS 플랫폼, 서비스 건강 데이터 타입, 플랫폼별 권한 매핑, Health Connect 데이터 출처 앱','활동·심박/수면·신체정보·건강측정 그룹을 HealthKit 샘플 타입 또는 Health Connect Record 타입으로 변환해 권한 요청을 구성하고 출처 앱 정보를 함께 보존','플랫폼별 권한 항목과 OS 권한 화면','해당 플랫폼의 건강 데이터 API 사용 가능','미지원 타입·선언 누락·권한 API 오류·출처 앱 미연결 시 해당 항목 상태와 설정 안내 표시',['ONB-003','ONB-004'],'link'),
-        F('AUTH-005','플랫폼별 건강 권한 선택·관리','사용자가 iOS HealthKit 또는 Android Health Connect에서 항목별 권한을 선택하고 추후 OS 설정에서 변경할 수 있게 한다.','[허용] · [전체 허용] · [액세스 관리] 선택','플랫폼, 요청 권한 목록, 현재 허용 상태, Health Connect 연결 앱 목록','플랫폼 OS 권한 UI 호출 → 항목별 선택 결과 확인 → Android는 Samsung Health 등 출처 앱의 Health Connect 공유 상태 확인 → 재설정 시 HealthKit 또는 Health Connect 액세스 관리 화면으로 연결','항목별 권한 결과, 출처 앱 및 동기화 가능 상태','OS 권한 화면 표시 가능','취소·일부 허용·반복 거부·Samsung Health 공유 비활성화 시 플랫폼 정책에 따른 안내와 설정 경로 제공',['ONB-003','ONB-004'],'review'),
-        F('AUTH-006','권한 결과 기반 초기 상태 구성','HealthKit 또는 Health Connect의 권한·데이터 상태와 출처 앱을 바탕으로 건강 데이터 연계 상태를 구성한다.','OS 권한 화면 완료 또는 앱 복귀','플랫폼, 허용된 데이터 타입, 실제 조회 가능한 데이터, Health Connect DataOrigin','허용 목록 재확인 → 초기 데이터 조회 → Apple Health·Samsung Health 등 원본 출처 식별 → 1개 이상 유효 데이터 확인 시 연계 상태 설정 → 홈·생활 화면 갱신','플랫폼별 연계 상태, 가용 데이터 목록 및 출처 앱','권한 요청 절차 종료','권한 허용과 데이터 미수집을 구분하고 Samsung Health 미동기화 등 출처별 대기 상태를 별도로 처리',['ONB-003','ONB-004','HOME-001'],'review'),
-        F('AUTH-007','Android Health Connect 및 Samsung Health 연동 상태 판정','Android 기기에서 Health Connect 사용 가능 여부와 Samsung Health 등 출처 앱의 공유 상태를 판단하고 OS 버전에 맞는 진입 경로를 제공한다.','Android 권한 사전 고지 확인 또는 연계 재시도','Android OS/API 버전, Health Connect SDK 가용 상태, 설치·업데이트 상태, 연결 앱·DataOrigin, 작업 프로필 여부','지원 여부 확인 → Android 14 이상은 시스템 Health Connect로 진입 → Android 13 이하는 Health Connect 앱 설치·업데이트 확인 → 항목별 권한 요청 → Samsung Health 등 출처 앱 공유·데이터 존재 확인','Health Connect 권한 화면, 출처 앱 상태 또는 설치·공유·미지원 안내','Android 기기에서 앱 세션 유효','Health Connect 미지원·Samsung Health 미설치/공유 비활성화·Google Play 서비스 미지원·작업 프로필·반복 취소를 구분해 안내하며 다른 연결 앱 데이터는 계속 허용',['ONB-004','COM-002'],'link'),
-        F('AUTH-008','연동 소스 선택','연결할 건강 데이터 출처 앱을 사용자가 직접 고르고 연결 결과를 연동 상태에 반영한다.','온보딩의 연동 단계 또는 연동 상태 바에서 [연동] 선택','플랫폼, 설치된 출처 앱 목록, 앱별 공유 가능 여부, 현재 연결 상태','연결 가능한 출처 앱 조회 → 이미 연결된 앱 구분 표시 → 선택한 앱의 권한·공유 화면 연결 → 복귀 후 데이터 수집 가능 여부 재확인 → 연동 상태 갱신','선택한 출처 앱의 연결 결과와 갱신된 연동 상태','로그인 세션 유효, 플랫폼 건강 데이터 API 사용 가능','미설치·공유 비활성화·권한 거부·복귀 후 데이터 없음을 구분해 안내하고 각 상태의 설정 경로를 제공',['COM-002','COM-001','ONB-004'],'review'),
-        F('AUTH-009','연동 상태 표시 및 해제','연결된 출처의 동기화 상태와 최종 갱신 시각을 표시하고 사용자가 연동을 해제할 수 있게 한다.','생활 또는 통합 건강 데이터 화면 진입, [지금 동기화] 또는 [연동 해제] 선택','연결 출처 목록, 최종 동기화 성공 시각, 동기화 진행 상태, 해제 대상','상태 바 구성 → 수동 동기화 요청 시 증분 조회 실행 → 해제 선택 시 영향 범위 확인 후 재확인 → 해제 확정 시 해당 출처 수집 중단 및 화면 갱신','동기화 결과 또는 연동 해제 완료 상태와 후속 안내','1개 이상 출처 연동 완료','동기화 실패·지연·해제 후 기존 데이터 처리 기준을 구분해 안내하고 해제는 되돌릴 수 있는 경로를 함께 제공',['COM-001','COM-003','LIFE-005'],'review')
-      ]},
-      {key:'home',no:'02',title:'홈 및 개인화',desc:'일일 건강 문진, 개인화 코칭, 목표 관리 및 건강지표 표시',items:[
-        F('HOME-001','적응형 일일 문진 세트 선정','의료정보 보유 여부와 생리·생활 데이터의 결측 상태에 따라 오늘의 문진을 5개 미만으로 선정한다. 지표 산출·코칭에 필요한 상태가 늘어나면 문항 종류가 추가될 수 있다.','홈 초기화, 데이터 동기화 또는 연계 상태 변경','검진·진료·AI REPORT 보유 여부, 데이터 가용성·최신성·결측 항목, 오늘 응답 이력','결측 보완형 질문을 우선 구성하고 의료정보가 있으면 조건형 질문을 앞순위에 배치한다. 걸음 수만 있는 경우에도 기본 피로·수면·식사 질문으로 세트를 구성한다.','사용자별 오늘의 문진 세트(5개 미만)와 선정 근거','홈 접근 가능, 질문 콘텐츠 유효 버전 존재','가용 데이터 판정 실패 시 기본 문항 세트로 대체하고 동일 질문의 당일 중복 노출을 방지',['HOME-001'],'review'),
-        F('HOME-002','문진 문항 표시','현재 문항과 3개 응답 선택지를 한 번에 하나씩 표시한다.','홈 진입 또는 이전 문항 응답 완료','문항 세트, 현재 인덱스, 기존 응답','진행률 n/N(N은 그날 문항 수), 질문, 아바타, 선택지 렌더링','현재 문항 카드 표시','미완료 문항 존재','문항 데이터 누락 시 해당 문항 건너뛰기 또는 기본 문항 대체',['HOME-001']),
-        F('HOME-003','문진 응답 저장 및 자동 진행','선택 응답을 임시 저장하고 0.5초 후 다음 문항으로 이동한다.','응답 선택지 선택','문항 ID, 응답 코드','중복 입력 잠금 → 응답 저장 → 비선택 항목 감쇠 → 인덱스 증가','다음 문항 또는 완료 카드 표시','현재 문항 활성화 상태','중복 선택은 잠금 기간 동안 무시, 저장 실패 시 현재 문항 유지',['HOME-001']),
-        F('HOME-004','문진 응답 조회 및 수정','완료된 문진의 응답을 조회하고 다른 응답으로 변경한다.','[답변 보기] 또는 다른 응답 선택','완료 응답 세트, 변경 응답','질문별 전체 선택지와 선택값 표시, 변경 시 코칭만 재생성(이미 생성된 목표는 불변)','수정된 응답과 갱신된 코칭','3개 문항 완료','기존 응답 재선택은 처리하지 않음',['HOME-002']),
-        F('HOME-005','가용 데이터 기반 개인화 코칭 생성','현재 확보된 의료·생리·생활 데이터와 문진 응답을 바탕으로 오늘의 상태 설명과 생활 행동을 생성한다.','응답 변경, 데이터 동기화 또는 홈 갱신','가용 데이터 프로파일, 개인 기준선, 문진 응답, AI REPORT·검진·진료 맥락','데이터 충분도 확인 → 안전 우선순위 규칙 적용 → 상태 요약 → 근거 데이터 매핑 → 식이·활동·수면 행동 제안 순으로 처리한다. 데이터가 적으면 일반적이고 보수적인 코칭을 제공한다.','현재 상태 요약, 핵심 행동 1줄, 제안 사유 및 근거 데이터','기본 문항 또는 1개 이상의 유효 건강 데이터 존재','근거 부족 시 일반 코칭으로 대체하고 질병 진단·치료 표현 또는 긴급 징후는 차단·상담 안내 처리',['HOME-001'],'review'),
-        F('HOME-006','잠긴 목표 생성','문진 완료 시 잠겨 있던 목표만 응답을 반영해 1회 생성한다.','문진 3개 완료','응답 세트, 잠금 상태, 검진 결과, 기기 데이터','잠긴 목표(식이는 항상, 활동·수면은 데이터 부족 시)만 생성. 이미 산출된 목표에는 응답을 다시 반영하지 않음','생성된 목표 목록','기본 목표 정의 존재','생성된 목표는 응답 수정 시에도 불변',['HOME-001','HOME-002']),
-        F('HOME-007','목표 완료/쉬기 상태 변경','일일 목표를 완료 또는 쉬기 상태로 전환하고 완료 수를 집계한다.','[완료] 또는 [쉬기] 선택','목표 ID, 현재 상태','동일 액션 재선택 시 대기 상태 복귀, 완료 상태만 완료 수 집계','목표 상태·스타일·완료 카운트 갱신','목표 항목 존재','쉬기는 달성률의 분자와 분모에서 제외',['HOME-001','LIFE-001']),
-        F('HOME-008','오늘의 컨디션 및 건강지표 상세 표시','홈에서 최근 개인 기준선과 비교한 오늘의 컨디션 3개 지표와 근거 데이터를 제공한다.','홈 진입, 데이터 동기화 완료, 컨디션 아코디언 또는 지표 카드 선택','최근 7~14일 건강 데이터, 오늘 데이터, 지표 선택값','회복여유·생활부담·리듬안정성 점수 산출 → 평소 대비 변화 표시 → 지표별 근거 데이터 필터링 → 아코디언 상세 구성','오늘의 컨디션 요약, 3개 지표 점수·추세, 관련 데이터·비교 설명','건강 데이터 또는 문진 응답 존재','미연계·데이터 부족 시 점수를 임의 생성하지 않고 Empty State·연계 안내·산출 불가 사유 표시',['HOME-003','LIFE-002'],'review')
-      ]},
-      {key:'life',no:'03',title:'생활 탭 및 데이터 분석',desc:'목표·지표·생활·AI 건강 인사이트 4개 메인 탭과 생활·생리·검진·진료·AI REPORT 통합 건강 데이터를 관리',items:[
-        F('LIFE-010','생활 4개 메인 탭 전환','생활 화면을 목표 분석, 지표 분석, 생활 분석, AI 건강 인사이트의 동일한 수준의 4개 메인 탭으로 구성한다.','생활 하단 내비게이션 진입 또는 메인 탭 선택','선택 탭 ID, 현재 주차·날짜, 탭별 로딩·연계 상태','최초 진입 시 목표 분석 기본 활성화 → 선택 탭 강조 → 기준 주차·날짜 유지 → 탭별 필요 데이터 조회 → 콘텐츠 렌더링','선택된 메인 탭과 해당 분석 콘텐츠','생활 화면 접근 가능','특정 탭의 데이터 부족·미연계·분석 주기 제한은 탭 전환을 차단하지 않고 해당 탭 내 Empty State와 후속 CTA로 처리',['LIFE-001','LIFE-002','LIFE-003','LIFE-004']),
-        F('LIFE-001','주간 날짜 탐색','주 단위 날짜 스트립과 이전/다음 주 이동을 제공한다.','생활 탭 진입 또는 주 이동 버튼 선택','기준일, 주 오프셋, 선택일','월요일 시작 7일 구성, 오늘·선택·미래 상태 산정','주간 날짜 스트립과 기간 안내','기준 시간대 Asia/Seoul','허용 범위 밖 주 이동 및 미래 날짜 선택 비활성화',['LIFE-001','LIFE-002','LIFE-003']),
-        F('LIFE-002','과거 주 읽기 전용 처리','종료된 주의 목표·건강 기록을 조회 전용으로 표시한다.','과거 주 선택','주 오프셋, 이력 데이터','편집 컴포넌트 제거 후 기록·달성률·분석만 렌더링','과거 주 읽기 전용 화면','과거 기록 존재','상세 이력 미준비 시 데이터 없음 안내 표시',['LIFE-001','LIFE-002','LIFE-003']),
-        F('LIFE-003','주간 목표 달성률 집계','목표별 및 전체 주간 달성률을 계산한다.','목표 분석 화면 렌더링','식이·운동·수면 일별 상태','완료/집계 대상 횟수 계산, 쉬기 제외, 전주 대비 증감 산출','전체 달성률·목표별 달성률·인사이트','목표 기록 존재','집계 대상 0건이면 0% 및 데이터 부족 안내',['LIFE-001']),
-        F('LIFE-004','이번 주 목표 기록 수정','선택 날짜의 목표 상태를 완료·쉬기·미완료로 변경한다.','이번 주 목표 행 상태 선택','날짜, 목표 유형, 변경 상태','오늘은 홈 목표를 기준 데이터로 사용하고 과거 일자는 주간 기록 갱신','수정 상태 및 달성률 재계산','이번 주의 오늘 이하 날짜','미래 날짜 또는 종료 주는 수정 불가',['LIFE-001']),
-        F('LIFE-005','지표 주간 분석','선택 주의 회복여유·생활부담·리듬안정성 분석을 제공한다.','지표 분석 메인 탭 진입 또는 지표 선택','주간 건강 데이터, 개인 기준선','지표별 점수·변화·관련 데이터 및 설명 생성','지표 분석 카드와 변화 정보','기기 데이터 존재','데이터 기간 부족 시 산출 불가 사유 표시',['LIFE-002'],'review'),
-        F('LIFE-006','일별 생활 데이터 분석','선택 일자의 걸음·수면·심박·활동 데이터를 표시한다.','생활 분석 탭 또는 날짜 선택','선택일, 건강 데이터 항목','항목별 값·단위·측정 시각·기준선 대비 변화 구성','일별 건강 데이터 카드 목록','기기 연계 및 선택일 데이터 존재','미수집 항목은 개별 데이터 없음 처리',['LIFE-003']),
-        F('LIFE-007','통합 건강 데이터 조회','홈·생활·병원·AI 분석이 공통으로 사용하는 생활·생리·건강검진·진료·AI REPORT 데이터를 출처별로 통합 조회한다.','공통 [통합 건강 데이터] 또는 각 화면의 분석 근거·데이터 출처 선택','활성 프로필, HealthKit 데이터, Health Connect 데이터와 Samsung Health 등 DataOrigin, 건강검진정보, 진료·처방정보, AI REPORT, 출처별 연계·최신성 상태','프로필·접근권한 확인 → HealthKit·Health Connect 및 원본 출처 앱 식별 → 출처별 가용성·최신성 판정 → 생활·생리/건강검진/진료/AI REPORT 그룹 구성 → 분석 활용 항목과 원본 조회 항목 구분 → 신규 연계·갱신·등록 및 상세 화면 딥링크 매핑','출처 앱이 표시된 데이터 요약, 값·단위·측정/검진/진료 시각, 연계 상태, 최종 갱신 시각, 데이터 관리 CTA 및 상세 이동 경로','로그인 세션 유효, 하나 이상의 조회 가능한 데이터 또는 연계 상태 존재','미연계·권한 거부·Samsung Health 공유 비활성화·청구 지연·원문 없음·부분 조회 실패를 출처별로 구분하고 사용 가능한 데이터는 계속 표시',['HOME-001','LIFE-001','LIFE-002','LIFE-003','LIFE-004','LIFE-005','HOSP-001','HOSP-002','HOSP-003','HOSP-009'],'review'),
-        F('LIFE-008','통합 건강 데이터 출처별 미연계 안내','웨어러블·건강검진·진료·AI REPORT 중 미연계 또는 데이터가 없는 출처별 상태와 후속 CTA를 제공한다.','통합 건강 데이터 또는 각 분석 탭 렌더링','출처별 연계 상태, 권한, 데이터 존재 여부, 최종 갱신 결과','출처별 Empty State 사유 판정 → 기기 권한 설정·검진/진료 연동·리포트 등록 CTA 매핑 → 사용 가능한 출처와 미연계 출처를 함께 구성','출처별 연계 안내, 데이터 한계 및 후속 CTA','로그인 세션 유효','기기 미지원·권한 거부·외부기관 점검·동기화 지연·조회 결과 없음·리포트 미등록을 구분해 안내',['HOME-001','LIFE-002','LIFE-003','LIFE-004','LIFE-005','HOSP-001','REG-001'],'link'),
-        F('LIFE-009','AI 건강 인사이트 진입 상태 판정','AI 건강 인사이트 메인 탭에서 통합 건강 데이터 가용성, 선택 주차, 기존 리포트 및 재분석 조건에 따라 진입 화면을 구성한다.','AI 건강 인사이트 메인 탭 진입 또는 주차 변경','생활 데이터 연계 여부, 검진·진료·AI REPORT 가용성, 선택 주차, 해당 주 리포트, 최근 생성일, 오늘의 질문 완료 여부','생활 데이터 미연계 시 연계 CTA 표시 → 선택 주 리포트 존재 시 요약·상세 CTA 표시 → 미생성 주차는 분석 CTA 표시 → 검진·진료·AI REPORT는 선택 근거로 적용 → 재분석 시점에만 오늘의 질문 완료 여부 확인','연계 안내, 분석에 활용 가능한 출처, 주차별 분석 CTA, 최신 리포트 요약, 분석 목록·다른 기간 분석 진입점','로그인 세션 유효','검진·진료·AI REPORT 미연계는 인사이트 생성을 차단하지 않고 가용 생활 데이터 범위에서 분석하며, 생성 주기 내 재요청은 다음 가능일 안내',['LIFE-004','LIFE-005','AI-003','AI-004'],'review'),
-        F('LIFE-011','건강 데이터 항목 상세 조회','통합 건강 데이터에서 선택한 한 항목의 기간별 값과 출처, 측정 시각을 자세히 조회한다.','통합 건강 데이터 목록에서 항목 선택 또는 상세 화면에서 이전·다음 항목 이동','선택 항목, 조회 기간, 표준화된 측정값과 단위, 원본 출처 앱, 측정 시각, 개인 기준선','선택 항목의 기간 데이터 조회 → 대표값·범위·평소 대비 변화 구성 → 출처와 최종 갱신 시각 표시 → 항목 설명 및 관련 지표 연결 → 이전·다음 항목 이동 경로 구성','항목별 추이, 대표값과 변화, 출처·측정 시각 및 항목 설명','통합 건강 데이터 조회 가능, 해당 항목 1건 이상 존재','측정 기간 부족·출처 혼재·중복 제거로 제외된 값·조회 실패를 구분해 표시하고 의학적 판정 표현은 사용하지 않음',['LIFE-006','LIFE-005'],'review')
-      ]},
-      {key:'hospital',no:'04',title:'병원 및 진료정보',desc:'검진·진료 연계 상태, 방문이력, 상세정보 및 진료 이용현황',items:[
-        F('HOSP-001','병원 탭 콘텐츠 전환','진료요약과 방문이력 서브 탭을 전환한다.','병원 탭 또는 서브 탭 선택','선택 탭, 연계 상태','선택 탭 활성화 후 해당 데이터 렌더링','진료요약 또는 방문이력 화면','로그인 상태','데이터 로딩 실패 시 탭 내 오류 상태 표시',['HOSP-001','HOSP-002']),
-        F('HOSP-002','검진·진료 연계 상태 요약','검진정보·진료정보·AI REPORT의 보유 및 갱신 상태를 표시한다.','진료요약 렌더링','정보 유형별 연계 여부, 최근 갱신 시각','상태별 배너·빈 상태·요약 카드 구성','연계 현황과 후속 CTA','병원 탭 접근 가능','출처별 조회 실패 시 성공 항목과 실패 항목을 분리 표시',['HOSP-001'],'link'),
-        F('HOSP-003','연계 데이터 갱신 항목 선택','공통 데이터 허브에서 이미 연계된 건강검진 데이터 또는 진료 데이터 중 갱신할 대상을 선택한다.','통합 건강 데이터 또는 진료요약의 [연계 데이터 갱신] 선택','정보 유형, 기존 연계 상태, 최근 갱신 시각','바텀시트 표시 → 갱신 대상 선택 → 기존 동의·인증 유효성 확인 → 선택 유형의 외부 조회 호출 → 공통 데이터 허브와 소비 화면 갱신','건강검진 또는 진료 데이터 갱신 결과와 처리 상태','해당 정보 유형의 최초 연계 완료, 외부 데이터 제공기관 이용 가능','인증 만료 시 재인증으로 전환하고 기관 점검·조회 실패 시 기존 데이터 유지 및 재시도 안내',['LIFE-005','HOSP-003','HOSP-001'],'link'),
-        F('HOSP-004','검진대상 정보 조회','연도별 일반·구강·암 검진 대상 및 수검 상태를 조회한다.','[검진 안내 확인하기] 선택','사용자 자격정보, 사업연도, 조회 기준일','검진 유형별 대상/비대상/수검완료 상태 구성','검진대상조회 결과와 안내사항','본인 확인 및 자격 조회 동의','자격 정보 없음·조회 실패·대상 연도 없음 처리',['HOSP-004'],'link'),
-        F('HOSP-005','방문이력 연도별 목록 조회','검진·진료·AI REPORT 기록을 연도별 최신순으로 표시한다.','방문이력 탭 진입 또는 등록 완료','검진/진료 기록 컬렉션, 소스 유형','연도 그룹화·최신순 정렬·소스별 아이콘/상태 구성','연도별 방문이력 목록','연계 또는 등록 데이터 존재','중복 기록은 등록 소스와 기준 키로 판정',['HOSP-002']),
-        F('HOSP-006','진료 상세 조회','선택 진료의 기관·진료과·비용·처방·메모를 제공한다.','방문이력 진료 항목 선택','방문 ID','방문 기본정보와 처방 컬렉션 조회 후 카드 구성','진료 상세 화면','선택 방문 기록 존재','기록 삭제·권한 만료·일부 데이터 없음 처리',['HOSP-005'],'link'),
-        F('HOSP-007','진료 메모 등록 및 수정','방문 기록에 사용자 메모를 추가·수정한다.','[메모 추가/수정] 및 [저장] 선택','방문 ID, 메모 본문','입력값 검증 후 방문 레코드에 저장','저장된 메모와 조회 모드 전환','진료 상세 접근 가능','공백·최대 길이·저장 실패 처리 및 민감정보 안내',['HOSP-005'],'link'),
-        F('HOSP-008','진료 이용현황 분석','기간별 진료비·방문 추이·병원/진료과 순위를 제공한다.','진료 이용현황 진입 또는 기간 변경','연도, 분기, 방문 기록, 비용 데이터','기간 필터링 후 합계·방문 수·순위·차트 집계','요약 지표·분기 차트·이용 순위','진료 데이터 존재','비용 미상 항목 제외 기준과 집계 기준을 명시',['HOSP-006'],'review'),
-        F('HOSP-009','문진표 및 검진 원문 조회','선택 검진의 문진정보와 원본 결과지를 조회한다.','[문진표 보기] 또는 [검진 결과지 보기] 선택','검진 ID, 문서 유형','문진 섹션 또는 원문 문서를 로드하고 확대율 제어 제공','문진표/결과지 문서 뷰어','해당 검진의 문서 존재','문서 없음·조회 실패·지원하지 않는 형식 처리',['HOSP-007','HOSP-008'],'link'),
-        F('HOSP-010','검진·진료 데이터 최초 연계','공통 데이터 허브에서 건강보험공단의 건강검진 데이터와 진료 데이터를 유형별로 선택해 최초 연결한다.','통합 건강 데이터 또는 진료요약의 미연계 출처에서 [데이터 연계] 선택','활성 프로필, 선택 정보 유형, 동의 항목·버전, 본인인증 상태','연계 대상 선택 → 이용 목적·수집 범위 확인 및 동의 → 본인인증 → 외부 데이터 최초 조회 → 출처별 보유 여부·최신성 저장 → 통합 건강 데이터·진료요약·방문이력 갱신','유형별 연계 완료·부분 완료 상태, 최초 수집 결과, 최종 업데이트 시각 및 후속 화면','로그인 및 본인 프로필 활성화, 외부 데이터 제공기관 이용 가능','동의 취소·인증 실패·기관 점검·조회 결과 없음·일부 유형 실패를 구분하고 성공한 유형은 유지하며 재시도 경로 제공',['LIFE-005','HOSP-009','HOSP-001','HOSP-002'],'review'),
-        F('HOSP-011','검진 상세 조회','선택한 건강검진의 기본정보, 항목별 검진값과 판정, 연계 문서를 제공한다.','방문이력의 건강검진 항목 선택','검진 ID, 검진일, 검진기관, 항목별 검진값·판정, 문서 보유 여부','검진 기본정보 조회 → 항목별 결과·판정 구성 → 문진표·검진 결과지·AI 검진 요약 후속 경로 매핑','검진 상세 화면과 후속 조회 및 분석 CTA','선택한 검진 기록 존재','삭제된 기록·일부 검진값 누락·원문 미제공 상태를 구분해 안내',['HOSP-011','HOSP-007','HOSP-008','AIH-001'],'link'),
-        F('HOSP-012','AI REPORT 상세 조회','선택한 AI REPORT의 검사정보, AI 분석 결과, 주요 소견과 원본 리포트를 제공한다.','방문이력의 AI REPORT 항목 선택','AI REPORT ID, 검사일, 검사 종류, 판독 결과, 주요 소견, 원본 PDF','검사 기본정보 조회 → AI 판독·항목별 결과 구성 → 원본 리포트 조회 경로 매핑','AI REPORT 상세 화면과 원본 PDF 진입 CTA','선택한 AI REPORT 기록 존재','인식값 누락·원본 없음·조회 실패 상태를 구분해 안내',['HOSP-012'],'link')
-      ]},
-      {key:'report',no:'05',title:'검진 리포트 등록 및 OCR',desc:'등록 유형 선택, 파일 수집, OCR 추출·검수 및 방문이력 반영',items:[
-        F('REG-001','리포트 등록 유형 선택','AI REPORT QR 등록 또는 일반 검진 리포트 등록 방식을 선택한다.','리포트 등록 CTA 선택','진입 위치','액션 시트 표시 및 선택 유형에 따른 후속 화면 분기','QR 촬영 또는 파일 업로드 화면','등록 기능 접근 가능','카메라/사진 권한 미허용 시 권한 안내 표시',['REG-001']),
-        F('REG-002','AI REPORT QR 촬영','카메라 프레임에서 QR을 촬영하고 인식 프로세스를 시작한다.','촬영 버튼 또는 앨범 선택','카메라 프레임/이미지','QR 감지 → 이미지 캡처 → OCR/QR 데이터 해석','인식 결과 검수 화면','카메라 또는 사진 권한 허용','QR 미검출·초점 불량·권한 거부 시 재촬영 안내',['REG-002'],'link'),
-        F('REG-003','AI REPORT 인식 결과 검수 및 저장','검진일·기관·검사 종류·판독 결과를 확인·수정 후 저장한다.','촬영 완료 또는 [저장하기] 선택','OCR 필드 4종, 사용자 수정값','필드 검증 → AI REPORT 소스 스냅샷 저장 → 방문이력 갱신','저장 완료 안내 및 방문이력 항목 생성','인식 결과 존재','필수값 누락·날짜 형식 오류·중복 등록·저장 실패 처리',['REG-003'],'link'),
-        F('REG-004','일반 리포트 파일 수집','카메라·앨범·PDF를 통해 검진 리포트 파일을 최대 10개 수집한다.','업로드 유형 선택 또는 파일 추가','이미지/PDF 파일, 선택 출처','MIME/확장자·수량 검증 → 임시 URL 생성 → 목록/카운트 갱신','파일 썸네일 목록 및 [다음] 활성화','파일 선택 권한 허용','지원 형식·크기 초과·암호화 PDF·손상 파일 처리',['REG-004'],'review'),
-        F('REG-005','OCR 데이터 비동기 추출','업로드 파일에서 검진 항목과 값을 구조화 데이터로 추출한다.','업로드 화면 [다음] 선택','파일 컬렉션','업로드 → 문서 인식 → 항목 매핑 → 결과 정리의 비동기 처리','진행률 및 추출 결과','파일 1개 이상','네트워크 오류·타임아웃·부분 실패·재시도·백그라운드 처리 필요',['REG-005'],'link'),
-        F('REG-006','OCR 추출 결과 검수','추출된 기본정보·계측·검사 값을 항목/단위별로 수정한다.','OCR 처리 완료','추출 섹션, 필드값, 단위, 원본 파일','섹션별 입력 폼 구성, 수정값을 임시 상태에 반영','검수 완료 데이터','추출 결과 존재','필수값·숫자 형식·날짜·단위 유효성 검증, 의료 판정은 수행하지 않음',['REG-006'],'review'),
-        F('REG-007','업로드 원본 프리뷰','검수 중 이미지/PDF 원본을 페이지 단위로 확인한다.','[원본 파일] 선택 또는 이전/다음 영역 선택','파일 목록, 현재 인덱스','현재 파일 렌더링 및 인덱스 범위 제어','원본 프리뷰와 페이지 정보','업로드 파일 존재','PDF 렌더링 실패·지원하지 않는 파일 처리',['REG-007'],'link'),
-        F('REG-008','검진정보 최종 등록 및 완료 처리','검수 데이터를 방문이력에 등록하고 완료 후 후속 경로를 제공한다.','[최종 등록] 선택','검수 완료 데이터, 등록 소스','등록 시점 스냅샷 생성 → 연도 그룹 매핑 → 방문이력 저장','등록 완료 화면 및 방문이력 갱신','필수 검수값 유효','중복 요청 멱등성·부분 저장 롤백·서버 오류 처리',['REG-008','HOSP-002'],'link'),
-        F('REG-009','AI REPORT 전달 방식 및 대상자 검증','현재 QR 촬영형 프로토타입과 향후 서버 직접 전달형 리포트를 동일한 등록 정책으로 검증한다.','QR 인식 완료 또는 서버 리포트 수신 알림 선택','QR/리포트 식별자, 리포트 메타정보, 현재 사용자·자녀 프로필, 전달 방식','식별자 유효성·만료·중복 확인 → 리포트 소유자 식별 → 현재 프로필 또는 등록 자녀와 매칭 → 불일치 시 프로필 전환·관계 확인 → 등록 방식별 검수 화면 분기','검증된 AI REPORT와 대상 프로필 또는 등록 차단 안내','인증 세션 유효, 리포트 식별 가능','만료·위변조·중복 등록·대상자 불일치·자녀 관계 미확인·서버 조회 실패 처리',['REG-002','REG-003','ACC-001'],'review')
-      ]},
-      {key:'ai',no:'06',title:'AI 분석 및 Selvy Checkup',desc:'주간 AI 인사이트, 검진 AI 요약 및 질환 위험도 분석',items:[
-        F('AI-001','주차별 AI 건강 인사이트 생성','필수 생활 데이터와 선택 검진정보·문진 응답을 반영해 선택 주차의 AI 리포트를 생성한다.','AI 건강 인사이트 또는 기간 선택 화면의 [분석하기] 선택','선택 주차의 생활 데이터, 선택 검진정보, 문진 응답, 리포트 생성 이력','생활 데이터 검증 → 선택 정보 병합 → 분석 요청 → 점수·요약·상세 데이터 저장 → 생성 완료 화면 표시','생성 완료 요약과 저장된 주차별 리포트','선택 주차의 유효한 생활 데이터 존재','검진정보가 없으면 검진 기반 소견만 생략하고 분석을 계속하며, 분석 실패·데이터 부족·생성 주기 제한은 별도 안내',['LIFE-004','AI-004','AI-001'],'link'),
-        F('AI-002','AI 인사이트 상세 조회','생성 완료 화면 또는 분석 목록에서 선택한 리포트의 종합 인사이트·상세 분석·변화 추이를 탭별로 제공한다.','[자세히 보기] 또는 분석 목록의 리포트 선택','리포트 ID, 선택 상세 탭','리포트 조회 후 종합·상세·변화 추이 탭별 데이터 모델 렌더링','AI 인사이트 상세 화면','리포트 존재','삭제된 리포트·조회 실패·부분 데이터 없음 처리',['AI-001','AI-002','AI-003'],'review'),
-        F('AI-003','AI 분석 목록 조회','AI 건강 인사이트 메인 탭에서 생성된 주차별 리포트를 최신순으로 조회한다.','[분석 목록] 선택','사용자 ID, 리포트 이력','리포트 기간·점수·생성일 기준 최신순 정렬, 항목 선택 시 상세 화면으로 전환','분석 목록 또는 Empty State','로그인 상태','이력 0건·조회 실패 처리',['LIFE-004','AI-003','AI-002'],'link'),
-        F('AI-004','AI 분석 기간 선택','AI 건강 인사이트 메인 탭에서 달력의 날짜를 선택해 해당 주차의 과거 데이터를 분석한다.','[다른 기간으로 분석하기] 선택','달력 월, 선택 날짜, 기존 리포트 기간, 현재일','선택 날짜가 속한 월요일~일요일 주차 산출 → 미래 날짜 제한 → 해당 기간 데이터 확인 → 분석 요청','선택 주 범위 및 분석 CTA','분석 가능한 과거 생활 데이터 존재','미래 날짜는 선택할 수 없고, 기존 리포트가 있는 주차는 중복 생성 대신 기존 상세 조회 경로 제공',['LIFE-004','AI-004','AI-001'],'review'),
-        F('AI-005','AI 리포트 삭제','AI 인사이트 상세에서 선택 리포트를 삭제하고 해당 주차의 재분석을 허용한다.','AI 인사이트 상세의 휴지통 및 [삭제하기] 선택','리포트 ID','삭제 재확인 → 영구 삭제 → 목록·최신 리포트·해당 주차 상태 갱신','리포트 제거 및 AI 건강 인사이트 메인 탭 복귀','삭제 대상 리포트 존재','삭제 실패·동시 삭제·복구 불가 안내',['AI-002','AI-005','LIFE-004'],'link'),
-        F('AI-006','검진정보 AI 요약','현재 검진과 이전 기록을 비교해 주요 결과와 변화 추이를 요약한다.','검진 상세의 AI 요약 CTA 및 확인 선택','선택 검진, 과거 검진 기록','외부 AI 전송 범위 검증 → 분석 → 정상/확인 필요 결과 구성','AI 검진 요약 결과','사용자 동의 및 검진 데이터 존재','외부 AI 전송 동의·보유기간·실패·면책 고지 필요',['AIH-001','AIH-002'],'review'),
-        F('AI-007','Selvy Checkup 분석','선택 검진정보로 주요 질환 위험도를 분석하고 이용권을 처리한다.','분석 신청 화면의 실행 버튼 선택','검진 ID, 이용권/프로모션 상태','이용권 예약 → 분석 요청 → 성공 시 USED 전환 → 결과 저장','10대 질환 위험도 결과','검진 선택 및 사용 가능 이용권','분석 실패 시 예약 해제, 산출 근거·의료적 표현·면책 검토',['SELVY-001','SELVY-002','SELVY-003'],'review')
-      ]},
-      {key:'account',no:'07',title:'계정, 이용권 및 고객지원',desc:'사용자 정보, 알림 환경설정, 이용권·결제, 정책 문서 및 계정 종료',items:[
-        F('ACC-001','사용자 기본정보 조회','본인확인 기준의 이름과 생년월일을 읽기 전용으로 제공한다.','내 정보 관리 진입','사용자 프로필','인증된 사용자 정보 조회 및 마스킹 정책 적용','기본정보 및 탈퇴 진입점','로그인 세션 유효','프로필 조회 실패·본인확인 정보 불일치 처리',['ACC-002'],'link'),
-        F('ACC-002','알림 수신 설정','오늘의 질문·리포트·건강관리 리마인드 수신 여부를 관리한다.','알림 설정 토글 선택','알림 유형, ON/OFF 상태','환경설정 저장 및 토글 상태 갱신','유형별 알림 설정','로그인 상태','OS 알림 차단 시 앱 설정과 별개로 미수신 안내',['ACC-003'],'link'),
-        F('ACC-003','분석 이용권 현황 조회','Selvy 이용권 잔여 수량과 상태 이력을 조회한다.','이용권 관리 진입','사용자 ID, 이용권 컬렉션','AVAILABLE 수량 집계, 발급·예약·사용·취소 일시 최신순 구성','잔여 이용권 및 상태 이력','로그인 상태','다중 기기·구매 복원·서버 동기화 실패 처리',['ACC-004'],'link'),
-        F('ACC-004','분석 이용권 구매','스토어 결제 시트를 통해 Selvy 분석 이용권을 구매한다.','[구매하기] 및 결제 확인','상품 ID, 가격, 스토어 계정','스토어 결제 → 영수증 검증 → 이용권 AVAILABLE 발급','구매 완료 및 잔여 수량 증가','스토어 사용 가능, 상품 판매 상태','결제 취소·실패·중복 영수증·검증 실패·구매 복원 처리',['ACC-005'],'link'),
-        F('ACC-005','이용권 환불 신청','사용 가능한 이용권에 한해 스토어 환불 경로를 제공한다.','[스토어에서 환불 신청] 선택','이용권 ID, 상태','AVAILABLE 여부 검증 후 외부 환불 경로 호출','환불 신청 안내','이용권 상태 AVAILABLE','USED/CANCELED 이용권은 환불 링크 미노출, 환불 결과 비동기 반영',['ACC-004'],'review'),
-        F('ACC-006','정책 문서 조회','서비스 이용약관과 개인정보 처리방침의 최신 시행 원문을 제공한다.','정책 문서 메뉴 선택','문서 유형, 시행 버전','최신 유효 버전 조회 및 문서 렌더링','정책 문서 원문','최종 법무 검토 문서 배포','문서 없음·버전 조회 실패·시행일 불일치 처리',['ACC-006','ACC-007'],'review'),
-        F('ACC-007','1:1 문의 접수','FAQ를 제공하고 사용자 문의를 접수한다.','[문의 보내기] 선택','문의 본문, 사용자/디바이스 정보','필수값·길이·금칙어 검증 후 문의 티켓 생성','접수 완료 및 접수번호','로그인 상태, 문의 본문 입력','개인정보 포함 경고·네트워크 오류·중복 제출 처리',['ACC-008'],'link'),
-        F('ACC-008','로그아웃 및 회원 탈퇴','세션 종료 또는 계정 삭제 요청을 재확인 후 처리한다.','로그아웃 또는 회원 탈퇴 실행 선택','사용자 ID, 확인 액션','로그아웃: 토큰/캐시 폐기. 탈퇴: 본인확인·보관 대상 분리·삭제 요청','로그인 화면 또는 탈퇴 완료','로그인 상태, 탈퇴 본인확인','법정 보관·철회 기간·미결제/이용권·처리 실패 정책 필요',['ACC-009','ACC-010'],'review')
-      ]},
-      {key:'data',no:'08',title:'건강 데이터 품질 및 생리학적 지표',desc:'가용 데이터 판정, 동기화·표준화, 개인 기준선 및 복합 건강지표 산출',items:[
-        F('DATA-001','가용 데이터 프로파일 생성','사용자·프로필별로 현재 코칭과 지표 산출에 사용할 수 있는 의료·생리·생활 데이터 목록을 생성한다.','로그인 완료, 권한 결과 반영, 데이터 동기화 또는 프로필 전환','권한 요청 항목, 데이터 소스별 최신 레코드와 DataOrigin, AI REPORT·검진·진료 보유 여부','소스별 실제 데이터 존재 여부와 Apple Health·Samsung Health 등 원본 출처 확인 → 사용 가능·결측·미지원 항목 분류 → 코칭·문진·지표 소비 규칙에 전달','가용 데이터 프로파일, 출처 앱 및 결측 항목 목록','인증 세션 유효, 최소 1개 데이터 소스 확인 가능','HealthKit은 권한 상태 제약을 고려해 데이터 유무를 함께 판단하고, Health Connect는 허용 목록·데이터 존재·Samsung Health 등 출처 앱 공유 상태를 구분해 저장',['ONB-003','ONB-004','HOME-001','LIFE-003','LIFE-005'],'link'),
-        F('DATA-002','건강 데이터 동기화 및 표준화','HealthKit과 Health Connect 및 외부 데이터 소스의 측정값을 공통 데이터 모델로 변환하고 원본 출처 앱을 보존한다.','앱 초기화, 포그라운드 진입, 수동 갱신 또는 동기화 주기 도래','측정 타입, 값, 단위, 측정·수집 시각, 시간대, 플랫폼, DataOrigin, 소스 앱, 디바이스 ID','증분 조회 → 단위·시간대 정규화 → Samsung Health 등 원본 출처와 디바이스 메타데이터 보존 → 중복 판정 → 저장 → 소비 화면 갱신 이벤트 발행','출처가 표시된 표준화 생리·생활 데이터와 동기화 결과','건강 데이터 접근 가능, 소스 인증 유효','부분 동기화·출처 앱 공유 중단·레이트리밋·시간대 변경·지원하지 않는 단위·네트워크 오류를 소스별 처리',['LIFE-003','LIFE-005'],'link'),
-        F('DATA-003','데이터 출처 우선순위 및 중복 제거','동일 시간대에 여러 기기·앱에서 수집된 동일 건강 데이터의 중복을 제거하고 대표값을 선정한다.','표준화 데이터 저장 전','사용자 ID, 데이터 타입, 측정 구간, 소스·디바이스 식별자, 원본 레코드 키','원본 키 중복 제거 → 시간 구간 중첩 판정 → 서비스 정책의 소스 우선순위 적용 → 집계값 재계산','중복 제거된 대표 데이터와 제외 근거','표준화 완료, 소스 우선순위 정책 존재','우선순위가 같거나 값 차이가 임계치 이상이면 충돌 플래그를 저장하고 지표 산출에서 제외 가능',['LIFE-003','LIFE-005'],'link'),
-        F('DATA-004','데이터 품질·최신성·결측 판정','측정값의 최신성, 연속성, 유효 범위와 결측 여부를 평가해 사용 가능 상태를 결정한다.','동기화 완료 또는 지표·코칭 생성 요청','표준화 데이터, 데이터 타입별 최신성 기준, 필수 기간·유효 범위','형식·범위 검증 → 최신성 판정 → 일별 커버리지 계산 → 결측 구간 식별 → 품질 등급 부여','데이터별 품질 플래그, 결측 질문 후보, 제외 사유','데이터 품질 정책 버전 존재','비정상값·미래 시각·측정 공백·기기 시간 오류는 원본을 보존하되 계산 대상에서 분리',['HOME-001','LIFE-003','LIFE-004'],'review'),
-        F('DATA-005','개인 기준선 생성 및 갱신','최근 7~14일의 유효 데이터로 사용자별 평소 범위와 비교 기준을 생성한다.','유효 데이터 누적, 기준선 만료 또는 지표 조회','데이터 타입별 최근 7~14일 값, 유효일 수, 이상치 플래그, 기존 기준선','최소 유효일 충족 확인 → 이상치 제외 → 중앙값·변동 범위·생활 시간대 패턴 산출 → 롤링 기준선 버전 저장','데이터 타입별 개인 기준선과 기준 기간·신뢰도','데이터 품질 판정 완료, 최소 유효일 정책 충족','신규 사용자·기기 변경·장기 공백은 기준선 부족 상태로 처리하고 절대 기준 비교를 보조적으로 사용',['HOME-001','LIFE-002'],'review'),
-        F('DATA-006','데이터 출처·갱신 시점·제약 고지','진료·처방·검진 및 기기 데이터의 출처, 최종 갱신 시각과 활용 한계를 화면에 제공한다.','데이터 요약·상세 화면 렌더링 또는 갱신 실패','소스명, 조회 기준일, 최종 성공 시각, 예상 지연, 급여·비급여 포함 범위, 오류 상태','화면별 표시 수준 결정 → 최신성 배지·출처·제약 문구 구성 → 지연·부분 성공 항목 분리 표시','사용자가 확인 가능한 출처·갱신 정보 및 데이터 한계 안내','소스 메타정보 수신 가능','청구 지연·비급여 누락·기관별 갱신 차이를 숨기지 않고 조회 결과 없음과 수집 지연을 구분',['HOSP-001','HOSP-002','LIFE-005'],'link'),
-        F('METRIC-001','복합 건강지표 산출','회복여유·생활부담·리듬안정성을 유효한 생리·생활 신호와 개인 기준선으로 계산한다.','홈 컨디션 또는 지표별 분석 요청, 일일 배치 완료','수면·안정시 심박·걸음·활동 시간·활동 칼로리·취침 시각, 문진 응답, 개인 기준선, 지표 모델 버전','지표별 입력 가용성 확인 → 개인 기준선 대비 표준화 → 가중치·상한·하한 적용 → 0~100 점수 및 변화 방향 산출','지표 점수, 변화 방향, 사용 입력값, 모델 버전','데이터 품질·개인 기준선 판정 완료, 승인된 지표 정의 존재','필수 입력 부족 시 점수를 생성하지 않고 산출 불가 사유와 보완 방법을 제공',['HOME-003','LIFE-002'],'review'),
-        F('METRIC-002','지표 산출 가능 여부 및 신뢰도 판정','복합지표에 사용된 데이터의 충분도와 품질에 따라 결과의 표시 수준을 결정한다.','복합지표 계산 전후','지표별 필수·선택 입력, 품질 등급, 유효일 수, 결측률, 기준선 신뢰도','필수 조건 검증 → 입력 커버리지 계산 → 신뢰도 등급 판정 → 점수·추세·데이터 부족 중 표시 모드 선택','지표 신뢰도, 표시 가능 범위, 데이터 부족 안내','지표 정의와 데이터 품질 결과 존재','낮은 신뢰도 결과는 정밀 점수 대신 범위·추세만 표시하고 과도한 해석을 차단',['HOME-003','LIFE-002'],'review'),
-        F('METRIC-003','지표 근거 데이터 및 설명 매핑','각 지표 점수와 변화 방향을 만든 원천 데이터와 사용자 설명을 연결한다.','지표 카드 선택 또는 상태 요약 생성','지표 결과, 기여도 상위 입력값, 개인 기준선 대비 변화, 설명 템플릿 버전','기여 신호 정렬 → 관련 데이터 행 필터링 → 변화 원인 문장 생성 → 허용 표현 검수 → 행동 제안 근거로 전달','근거 데이터 목록, 평소 대비 설명, 지표별 해석 문장','지표 산출 성공, 설명 콘텐츠 승인','원인으로 단정할 수 없는 상관관계는 가능성 표현을 사용하고 상충 신호는 함께 고지',['HOME-003','LIFE-002'],'review')
-      ]},
-      {key:'profile',no:'09',title:'프로필 및 리포트-화면 연계',desc:'자녀·보호자 관계, 활성 프로필 격리, 리포트 대상자 검증 및 홈 컨텍스트 전환',items:[
-        F('PROF-001','자녀 프로필 등록 및 보호자 관계 확인','보호자가 미성년 자녀의 건강정보와 AI REPORT를 관리할 수 있도록 자녀 프로필을 등록한다.','계정 화면의 [자녀 추가] 선택','보호자 본인확인 정보, 자녀 식별정보, 법정대리인 관계 증빙·동의','보호자 재인증 → 자녀 식별 → 법정대리인 관계 확인 → 자녀 건강정보 처리 동의 → 프로필 생성','자녀 프로필과 관계 확인 상태','보호자 계정 로그인, 관련 법·인증 정책 확정','관계 불일치·미성년 기준 변경·중복 자녀·동의 철회·인증기관 조회 실패 처리',['ACC-001','ACC-002'],'review'),
-        F('PROF-002','활성 프로필 전환 및 데이터 격리','본인과 등록 자녀 중 활성 프로필을 전환하고 모든 화면의 데이터를 해당 대상자로 한정한다.','프로필 선택기에서 대상 선택','사용자 계정, 접근 가능한 프로필 목록, 현재 활성 프로필','프로필 접근권한 확인 → 활성 프로필 저장 → 홈·생활·병원·리포트 캐시 초기화 → 대상자 데이터 재조회','선택 프로필 기준으로 갱신된 전체 탭','프로필 접근권한 유효','전환 중 저장 작업·권한 철회·삭제된 프로필은 처리 중단하고 이전 프로필로 복귀',['COM-004','HOME-001','HOSP-001','ACC-001'],'review'),
-        F('PROF-003','리포트 대상자와 활성 프로필 매칭','AI REPORT 또는 업로드 검진정보의 대상자가 현재 활성 프로필과 일치하는지 확인한다.','리포트 QR 인식 또는 최종 등록 전','리포트 대상자 식별값, 활성 프로필, 접근 가능한 자녀 프로필, 매칭 규칙','정규화된 식별값 비교 → 일치 프로필 탐색 → 현재 프로필 불일치 시 전환 제안 → 관계·동의 확인 후 등록 대상 확정','확정된 대상 프로필 또는 등록 차단 사유','리포트 대상 식별 가능, 프로필 목록 조회 가능','동명이인·식별값 부족·등록되지 않은 자녀·관계 미확인은 수동 등록하지 않고 확인 절차로 전환',['REG-003','REG-006','ACC-001'],'review'),
-        F('TRACE-001','리포트 결과 기반 홈 컨텍스트 전환','AI REPORT 확인 또는 검진정보 등록 완료 후 해당 결과가 반영된 상태 요약과 코칭으로 자연스럽게 이동한다.','리포트 완료 화면의 [내 상태 보기] 선택','등록 리포트 ID, 대상 프로필, 결과 요약, 홈 진입 컨텍스트','리포트 저장 완료 확인 → 홈 갱신 이벤트 발행 → 리포트 관련 질문·요약 우선순위 설정 → 홈으로 이동 → 관련 메시지 강조','리포트 맥락이 반영된 홈 상태 요약·문진·코칭','리포트 등록 성공, 대상 프로필 확정','코칭 생성 지연 시 리포트 등록은 유지하고 기본 홈과 처리 중 상태를 제공',['REG-008','HOME-001'],'review')
-      ]},
-      {key:'operation',no:'10',title:'적응형 코칭, 안전 및 서비스 운영',desc:'결측 기반 질문, 상태 서사, 행동 선택, 의료 안전장치와 콘텐츠·성과 운영',items:[
-        F('COACH-001','결측 기반 질문 우선순위 구성','자동 수집되지 않은 생리·생활 데이터를 사용자 질문으로 보완하도록 당일 질문 후보의 우선순위를 계산한다.','일일 문진 세트 생성 요청','결측 항목, 마지막 질문·응답 시각, 의료 맥락, 질문 피로도, 질문 콘텐츠 버전','결측 중요도·코칭 활용도·최근 노출 이력 평가 → 질환 맞춤형·결측 보완형 후보 병합 → 중복 제거 → 5문항 미만 선정','질문 ID와 선정 사유·응답 변환 규칙','가용 데이터·결측 판정 완료','질문으로 수집하기 부적절한 의료정보와 반복 거부 항목은 제외하고 기본 질문으로 대체',['HOME-001'],'review'),
-        F('COACH-002','현재 상태 요약 및 홈 서사 구성','홈을 오늘의 컨디션 → 근거 지표 → 평소 대비 변화 → 행동 제안 순서의 하나의 대화 흐름으로 구성한다.','홈 갱신 또는 코칭 결과 생성','가용 데이터, 지표 결과, 문진 응답, 리포트 진입 컨텍스트, 콘텐츠 우선순위','오늘의 컨디션 핵심 문장 선정 → 근거 지표·데이터 연결 → 평소 대비 변화 배치 → 관련 행동 제안 연결 → 화면 섹션 순서·강조 상태 반환','오늘의 컨디션과 근거·행동이 연결된 홈 서사 모델','코칭 또는 기본 상태 생성 가능','상충 데이터·지표 미산출·리포트 처리 중에는 단정 표현을 피하고 확인 가능한 정보만 노출',['HOME-001','HOME-003'],'review'),
-        F('COACH-003','가용 데이터별 코칭 시나리오 선택','걸음 수만 있는 최소 상태부터 의료·수면·심박 데이터가 함께 있는 상태까지 데이터 조합별 코칭 규칙을 선택한다.','개인화 코칭 생성 요청','가용 데이터 프로파일, 품질·신뢰도, 문진 응답, 개인 기준선, 의료 맥락','최소 데이터 시나리오 선택 → 추가 데이터별 규칙 레이어 적용 → 우선순위 충돌 해소 → 중복 행동 제거 → 안전 필터 전달','선택 코칭 시나리오, 사용 근거, 제외 사유','승인된 코칭 규칙·콘텐츠 버전 존재','의료정보가 없어도 생활 데이터만으로 실행하고 품질이 낮은 데이터는 규칙 입력에서 제외',['HOME-001','LIFE-004'],'review'),
-        F('COACH-004','코칭 행동 선택·변경 및 이력 관리','사용자가 제안된 식이·활동·수면 행동 중 실천할 항목을 선택·변경하고 선택 사실을 기록한다.','행동 선택, 완료, 쉬기 또는 선택 취소','프로필, 날짜, 행동 ID·버전, 선택 상태, 발생 시각','현재 일자의 행동 상태 갱신 → 선택과 실제 완료 상태 구분 저장 → 홈·생활 기록 동기화 → 주간 이력 재집계','현재 행동 상태와 날짜별 선택·완료 이력','활성 프로필 및 유효 행동 존재','미래 날짜 수정·종료 주 편집·콘텐츠 버전 변경·중복 요청은 정책에 따라 차단 또는 멱등 처리',['HOME-001','LIFE-001'],'review'),
-        F('SAFE-001','의료 표현 안전 필터 및 상담 연결','상태 요약·지표 설명·AI 코칭에서 진단·치료로 오인될 표현과 긴급 신호를 검출한다.','사용자 노출 문구 생성 완료','생성 문구, 근거 데이터, 금지·주의 표현 사전, 긴급 징후 규칙, 국가·서비스 모드','금지 표현 탐지 → 질병 인과·확정 표현 완화 → 근거 없는 권고 제거 → 긴급 징후 시 행동 코칭 대신 의료기관·응급 상담 안내 → 검수 로그 저장','안전 검수된 문구 또는 의료 상담 안내','안전 정책·면책 문구 최신 버전 존재','필터 실패·규칙 충돌·고위험 표현은 자동 노출하지 않고 기본 안전 문구로 대체',['HOME-001','AI-002','AIH-002'],'review'),
-        F('OPS-001','질문·코칭·지표 콘텐츠 버전 운영','질문, 응답 변환값, 코칭 시나리오, 지표 설명과 안전 문구를 승인된 버전으로 배포한다.','콘텐츠 등록·수정·승인·배포 또는 롤백','콘텐츠 유형, 적용 조건, 우선순위, 유효기간, 작성·검수자, 버전, 변경 사유','초안 작성 → 임상·정책 검토 → 승인 → 적용 대상·시점 설정 → 배포 → 노출·오류 모니터링 → 필요 시 이전 버전 롤백','활성 콘텐츠 버전과 감사 이력','운영 권한과 승인 프로세스 정의','미승인 콘텐츠·버전 충돌·배포 실패·이미 생성된 리포트의 재현성 훼손을 방지',['HOME-001','LIFE-002'],'review'),
-        F('ANALYTICS-001','핵심 사용자 여정 이벤트 수집','AI 리포트 유입과 코칭 가치 검증을 위해 화면·행동 이벤트를 표준 스키마로 수집한다.','화면 진입, 리포트 QR 인식·조회, 홈 전환, 질문 응답, 코칭 선택, 인사이트 조회','익명 사용자·프로필 키, 이벤트명, 화면 ID, 기능 ID, 발생 시각, 진입 경로, 결과 상태, 콘텐츠 버전','민감정보 제외 → 이벤트 유효성 검증 → 중복 제거 → 분석 저장소 전송 → 퍼널·전환·오류 지표 집계','리포트→홈 전환율, 질문 완료율, 행동 선택률, 재방문·오류 지표','분석 동의·수집 정책 확정, 이벤트 스키마 배포','의료 원문·문진 답변·건강 측정값은 분석 이벤트에 직접 포함하지 않고 전송 실패는 서비스 기능과 분리',['REG-002','REG-008','HOME-001','AI-002'],'link')
-            ]},
-      {key:'daily',no:'11',title:'하루 생성 파이프라인',desc:'하루 경계, 첫 진입 판정, 세트 1회 생성과 재진입 시 고정 규칙',items:[
-        F('DAY-001','하루 경계 처리','새벽 4시를 기준으로 새 하루를 시작하고 전날의 질문 세트·코칭·목표를 종료한다.','새벽 4시 도달 또는 그 이후 첫 요청','활성 프로필, 전날 질문 세트·코칭·목표, 완료 기록','전날 세트 종료 → 완료 기록과 리포트는 그대로 보존 → 당일 컨텍스트 초기화','새 하루의 빈 컨텍스트와 보존된 과거 기록','활성 프로필과 전날 컨텍스트 존재','새벽 4시는 세션 날짜의 경계로만 쓴다. 기기 데이터(걸음·활동·심박 등)는 실제 날짜(자정 경계)로 귀속하며 수면만 기상 시각이 속한 날로 귀속한다 · 자정~새벽 4시 사이 진입 시 표시 중인 목표는 전날 세션의 것이고 기기 값은 실제 날짜 기준 당일 것이 된다 · 기기 시각·시간대 변경, 장기 미접속, 경계 시점 요청 중복에 대한 처리 기준 확정 필요',['HOME-001','LIFE-001'],'review'),
-        F('DAY-002','첫 진입 판정 및 당일 세트 1회 생성','그날 처음 홈에 들어온 시점의 데이터로 질문 세트와 목표(열림·잠김)를 한 번만 만든다.','당일 첫 홈 진입','진입 시각, 수집된 기기 데이터, 의료 이력, 개인 기준선(직전 21일)','첫 진입 여부 확인 → 결측·부족 항목 판정 → 질문 세트 확정(5문항 미만) → 목표별 데이터 충분 여부 판정 → 충분한 목표는 생성, 부족한 목표는 잠금','당일 고정 질문 세트와 목표 3종의 초기 상태','하루 경계 처리 완료, 기기 데이터 정리 단계 완료','생성 중 오류 시 재시도하되 이미 확정된 세트는 재생성하지 않는다 · 중복 요청은 최초 1회만 반영',['HOME-001'],'review'),
-        F('DAY-003','재진입 시 고정 표시와 지표 재계산','같은 날 다시 들어오면 이미 만든 질문·코칭·목표는 그대로 보여주고 컨디션 지표만 최신 데이터로 다시 계산한다.','당일 두 번째 이후 홈 진입 또는 새로고침','확정된 당일 세트, 최신 기기 데이터','확정 세트 조회 → 문구·상태 변경 없이 표시 → 지표 입력만 최신값으로 갱신 → 지표 결과 재산출','고정된 질문·코칭·목표와 최신 컨디션 지표','당일 세트가 이미 확정되어 있을 것','지표 재계산 실패 시 직전 산출값과 산출 시각을 함께 표시',['HOME-001','HOME-003'],'review'),
-        F('DAY-004','저녁 진입 문구 전환','18시 이후 첫 진입이면 하루를 마무리하는 어투의 문구를 우선 적용한다.','당일 첫 진입 시각이 18시 이후','첫 진입 시각, 선택된 문구 풀','시간대 판정 → 해당 풀에서 저녁 마무리형 표시가 있는 문구 우선 선택 → 없으면 일반 문구 사용','저녁 어투가 적용된 질문·코칭·목표 문구','문구 세트에 시간대 구분이 준비되어 있을 것','시간대 경계에 걸친 진입은 최초 진입 시각 기준으로 한 번만 판정',['HOME-001'],'review'),
-        F('DAY-005','지난 끼니 판정','첫 진입 시각으로 식사 문항이 묻는 끼니와 어제 식이 목표 확인 대상을 정한다.','당일 첫 진입','첫 진입 시각','11시 전이면 어제 저녁, 11~15시면 오늘 아침, 15~21시면 오늘 점심으로 판정 → 식사 문항과 어제 식이 목표 확인 대상에 동일 적용','판정된 대상 끼니와 식사 문항 문구','식사 문항이 매일 고정으로 제시될 것','21시 이후 첫 진입 시의 대상 끼니 처리 기준 확정 필요',['HOME-001'],'review')
-      ]},
-      {key:'goal',no:'12',title:'목표 실행 및 이어가기',desc:'목표 완료·취소, 문구 잠금, 식이 문구 선정, 연속일수와 코멘트',items:[
-        F('GOAL-001','오늘의 목표 완료 처리','선택한 날짜의 목표를 완료로 기록하고 관련 집계를 갱신한다.','미완료 상태의 목표 카드 터치 · 별도 완료 버튼 없이 카드 전체가 터치 영역','활성 프로필, 목표 구분(식이·활동·수면), 기준일, 그날 제시된 문구','완료 여부 저장 → 목표 문구 잠금 → 완료 횟수 갱신 → 완료 날짜 기준 연속일수 재계산 → 코멘트 재평가','완료 상태 카드와 갱신된 이어가기 블록·코멘트','해당 날짜에 목표가 생성되어 있을 것','과거 날짜는 기록 허용, 미래 날짜는 불가 · 연타 시 마지막 상태만 반영 · 저장 실패 시 이전 상태로 복구하고 재시도 안내',['HOME-001','LIFE-001'],'review'),
-        F('GOAL-002','목표 완료 취소','완료한 목표를 같은 영역 재터치로 되돌리고 집계를 다시 계산한다.','완료 상태의 목표 카드 재터치','활성 프로필, 목표 구분, 취소 대상 날짜','완료 해제 → 문구 잠금 해제 → 완료 횟수 감소 → 연속일수와 최장 기록 재계산 → 코멘트 재평가','미완료 상태로 돌아간 카드와 갱신된 집계','완료 기록이 존재할 것','과거 날짜도 취소 허용 · 재계산 실패 시 취소 전 상태로 원복 · 같은 동작으로 되돌릴 수 있어 확인 대화상자를 두지 않는다',['HOME-001','LIFE-001']),
-        F('GOAL-003','목표 문구 잠금','완료 처리한 목표의 문구와 상태를 그날 동안 고정한다.','목표 완료 처리 성공','기준일, 목표 구분, 제시된 문구','제시 문구 보존 → 개인화 교체 대상에서 제외 → 잠금 상태 유지','문구가 고정된 완료 카드','완료 처리 성공','완료 취소 시 잠금 해제 · 날짜가 바뀌면 잠금 종료 · 실제 행동과 화면 문구가 어긋나지 않도록 교체하지 않는다',['HOME-001','LIFE-001']),
-        F('GOAL-004','데이터 부족 목표 잠금 및 질문 보완 생성','필요한 기기 데이터가 부족한 목표를 잠그고, 질문 답변이 끝나면 그 답변으로 생성한다.','당일 첫 진입 시 목표별 데이터 판정 · 질문 답변 완료','목표별 필요 데이터(활동은 당일 걸음·활동 시간, 수면은 어젯밤 수면 기록), 질문 답변','데이터 충분 여부 판정 → 부족한 목표만 잠금 및 질문으로 이동하는 안내 표시 → 모든 문항 답변 완료 시 잠긴 목표만 생성 → 기기 데이터로 이미 만든 목표는 그대로 둔다','잠금 해제되어 활성화된 목표 타일','질문 세트가 확정되어 있을 것','식이는 기기 데이터가 없어 항상 잠긴 채 시작 · 활동과 수면을 동시에 잠그지 않는다 · 일부만 답한 상태에서는 생성하지 않는다',['HOME-001'],'review'),
-        F('GOAL-005','식이 목표 문구 선정','검진 판정과 당일 답변, 진입 시간대에 따라 식이 타일 문구를 하나 고른다.','식이 목표 생성 요청(질문 답변 완료 시점)','최근 검진의 공복혈당·혈압·총콜레스테롤·체질량지수 판정, 당일 식사량·피로·수면 답변, 첫 진입 시각','식사량 부족이면 회복 문구 우선 → 아니면 검진 경계를 혈당·혈압·지질과 체중 순으로 하나만 적용 → 피로·수면 부족이면 부담을 줄이는 문구 → 해당 없으면 기본 문구 → 18시 이후 첫 진입이면 마무리형 문구 우선','식이 타일 문구 1개와 코칭의 이유 한 줄','문구 세트가 승인된 버전으로 배포되어 있을 것','검진 판정이 없으면 일반 사용자로 본다 · 병원 AI 요약 소견은 확진이 아니므로 유형을 바꾸지 않는다 · 측정이 필요한 목표와 지시 어투는 사용하지 않는다',['HOME-001'],'review'),
-        F('GOAL-006','문구 중복 방지 및 교체','최근에 제시한 문구가 반복되지 않도록 후보를 걸러 고른다.','목표 문구 선정 · 사용자의 문구 교체 요청','최근 제시 이력, 요일, 선택된 문구 풀','최근 제시한 문구 제외 → 남은 후보에서 선택 → 후보가 없으면 제외 범위를 완화 → 제시 이력 기록','중복이 걸러진 목표 문구','문구 제시 이력이 보존될 것','교체 허용 횟수와 하루 고정 원칙의 관계 확정 필요',['HOME-001'],'review'),
-        F('STREAK-001','연속일수 계산','목표 구분별로 완료가 이어진 날 수를 산출한다.','완료 처리 또는 완료 취소','목표 구분별 완료 이력, 기준일','기준일부터 과거 방향으로 연속 완료일 확인 → 끊긴 날에서 중단 → 현재 이어가는 일수와 최장 기록 산출','목표 구분별 연속일수와 최장 기록','완료 이력 조회 가능','주 경계와 무관하게 동작 · 과거 날짜 기록·취소 시 해당 날짜 기준으로 다시 계산 · 목표가 생성되지 않은 날의 처리 기준 확정 필요',['LIFE-001'],'review'),
-        F('STREAK-002','기준일 이동 시 재계산','날짜를 이동하면 그 날짜를 기준으로 타일과 이어가기 블록을 다시 구성한다.','날짜 스트립에서 다른 날짜 선택','선택 날짜, 그날의 목표와 완료 이력','선택 날짜의 목표 조회 → 완료 상태 표시 → 그 날짜 기준 연속일수 재산출 → 코멘트 재평가','선택 날짜 기준의 목표 분석 화면','선택 날짜가 미래가 아닐 것','목표가 없던 날은 빈 상태로 안내 · 미래 날짜는 선택 불가',['LIFE-001'],'review'),
-        F('STREAK-003','타일 표시 판정','연속일수와 완료 상태에 따라 타일에 무엇을 보여줄지 정한다.','목표 분석 또는 홈 목표 카드 표시','완료 상태, 연속일수, 최장 기록','완료 여부와 연속일수 구간 판정 → 표시 요소 결정 → 홈 카드와 동일 계산 결과 공유','타일 표시 상태','연속일수 산출 완료','연속이 끊겼음을 강조하는 표현은 사용하지 않는다',['HOME-001','LIFE-001'],'review'),
-        F('CMT-001','상황 평가 및 코멘트 선택','최근 실행 상황에 맞는 코멘트를 골라 이어가기 블록에 표시한다.','완료·취소 처리 또는 기준일 이동','목표 구분별 완료 이력, 연속일수, 기준일','상황 구분 판정 → 해당 코멘트 후보 조회 → 최근 노출 이력 확인 → 코멘트 1개 선택','이어가기 블록의 코멘트 문구','코멘트 콘텐츠가 승인된 버전으로 배포되어 있을 것','미이행을 지적하거나 재촉하는 문구는 사용하지 않는다 · 후보가 없으면 코멘트를 표시하지 않는다',['LIFE-001'],'review')
-      ]},
-      {key:'metric2',no:'13',title:'오늘의 컨디션 지표',desc:'생활여유·자기돌봄·일상안정 3종 지표의 산출, 구간 표시와 결측 처리',items:[
-        F('METRIC-004','생활여유 산출','수면·심박·활동 데이터로 오늘 몸에 남은 여유를 산출한다.','홈 진입 및 지표 재계산 요청','수면, 안정 시 심박, 활동량, 개인 기준선(직전 21일)','정규화된 입력 확인 → 개인 기준선과 비교 → 구성 요소별 점수 산출 → 지표 값과 구간 판정','생활여유 값, 구간과 라벨','기기 연동과 최소 데이터 확보','임계값이 잠정이므로 확정 필요 · 미착용 구간은 0이 아닌 없음으로 처리 · 필수 입력 결측 시 산출 불가로 표시',['HOME-003','LIFE-002'],'review'),
-        F('METRIC-005','자기돌봄 산출','오늘 실제로 한 돌봄 행동의 양을 산출한다.','홈 진입 및 지표 재계산 요청','걸음·활동 시간, 운동 세션, 수면 기록, 목표 완료 기록','구성 요소별 충족 여부 판정 → 합산 규칙 적용 → 지표 값과 구간 판정','자기돌봄 값, 구간과 라벨','기기 연동과 최소 데이터 확보','판정 규칙이 잠정이므로 확정 필요 · 질문 답변은 이 지표에 포함하지 않는다',['HOME-003','LIFE-002'],'review'),
-        F('METRIC-006','일상안정 산출','최근 생활 리듬이 얼마나 일정한지를 산출한다.','홈 진입 및 지표 재계산 요청','최근 기간의 수면·활동·심박 흐름, 개인 기준선','기간 내 변동 폭 계산 → 흐름 안정성 판정 → 지표 값과 구간 판정','일상안정 값, 구간과 라벨','최근 기간의 데이터가 최소 일수 이상 확보','산출 기간과 최소 일수 확정 필요 · 데이터가 부족하면 산출 불가로 표시',['HOME-003','LIFE-002'],'review'),
-        F('METRIC-007','지표 구간·배지·전일 대비 변화 표시','산출된 지표를 3구간 게이지와 라벨, 어제 대비 변화로 보여준다.','지표 산출 완료','지표 값, 구간 기준, 전일 값','구간 판정 → 라벨과 배지 선택 → 전일 값과 비교해 변화 표시 → 요약 문장 노출 조건 확인','게이지, 구간 라벨, 변화 표시와 요약 문장','당일 지표 산출 완료','전일 값이 없으면 변화를 표시하지 않는다 · 지표 값 자체를 알림으로 보내지 않는다',['HOME-003','LIFE-002'],'review'),
-        F('METRIC-008','주간 그래프 및 결측·미연동 처리','최근 흐름을 그래프로 보여주고 산출 불가 상태를 구분해 안내한다.','지표 분석 화면 진입','일자별 지표 값, 결측 일자, 연동 상태','일자별 값 조회 → 결측 일자는 값 없음으로 구분 표시 → 미연동 상태면 연동 안내 표시','주간 그래프와 상태 안내','지표 저장 이력 존재','결측을 0으로 채우지 않는다 · 미연동과 산출 불가를 구분해 안내한다',['LIFE-002'],'review')
-      ]},
-      {key:'notify',no:'14',title:'알림',desc:'하루 알림·서비스 알림 발송 판정, 야간 금지 시간과 하루 상한, 문구 규칙, 목록과 수신 설정',items:[
-        F('NOTI-001','오늘의 질문 알림 발송 판정','그날 아직 홈에 들어오지 않았고 답하지 않은 문항이 있을 때 아침에 한 번 보낸다.','아침 발송 예정 시각 도달(기본 9시 · 11시 이후 선택 불가)','새벽 4시 이후 첫 진입 여부, 답변 상태, 건강 데이터 연동 상태, 알림 받기 설정','발송 직전 조건 재확인 → 오늘 이미 첫 진입이 있었거나 미연동으로 질문 세트를 만들 수 없으면 버림(미루지 않음) → 야간 금지 시간과 하루 상한 확인 → 발송','오늘의 질문 알림 1건','알림 받기 설정과 운영체제 알림 권한이 허용 상태일 것','저녁에 질문이 남아 있어도 저녁에는 보내지 않는다 · 11시 전 진입이 식이 흐름의 전제이므로 11시 이후 시각은 선택할 수 없다 · 문구에 끼니나 질문 내용을 넣지 않는다',['ACC-003','HOME-001'],'review'),
-        F('NOTI-002','건강 관리 리마인드 발송 판정','그날 생성된 목표 중 완료하지 않은 것이 있을 때 저녁에 한 번 보낸다.','저녁 발송 예정 시각 도달(기본 20시)','당일 목표 생성 여부, 완료 상태, 알림 시각 이후 앱 사용 여부, 알림 받기 설정','발송 직전 조건 재확인 → 목표 3개를 모두 완료했거나 그날 생성된 목표가 없거나 알림 시각 이후 이미 홈에 들어왔으면 버림 → 야간 금지 시간과 하루 상한 확인 → 발송','건강 관리 리마인드 1건','알림 받기 설정과 운영체제 알림 권한이 허용 상태일 것','미이행을 재촉하는 표현을 쓰지 않는다 · 질문에 답하지 않아 목표가 잠긴 날은 조건이 성립하지 않는다 · 식이 목표를 특별 취급하지 않는다',['ACC-003','LIFE-001'],'review'),
-        F('NOTI-003','리포트 처리 결과 알림','검진 리포트 등록 처리와 AI 분석이 끝나면 즉시 결과를 알린다.','등록 처리 완료 또는 분석 완료','요청 건 식별값, 처리 결과, 해당 리포트 화면 조회 여부','처리 완료 확인 → 사용자가 그 리포트 화면을 보고 있으면 발송하지 않음 → 결과 유형 판정 → 즉시 발송','리포트 처리 결과 알림','사용자가 직접 요청한 처리 건일 것','요청 건수만큼 발송하며 하루 상한에 포함하지 않는다 · 짧은 시간에 여러 건이면 한 건으로 묶는다 · 야간에 사용자가 직접 요청한 건의 즉시 발송 여부 확정 필요',['REG-008','AI-001'],'review'),
-        F('NOTI-004','건강 데이터 연동 끊김 알림','연동된 건강 앱에서 3일 연속 데이터가 들어오지 않으면 한 번 알린다.','일일 연동 상태 점검','최근 수집 이력, 연동 상태, 사용자의 연동 해제 여부','연속 미수집 일수 판정 → 사용자가 직접 해제한 경우는 발송하지 않음 → 조건 충족 시 아침에 1회 발송 → 데이터가 다시 들어올 때까지 반복하지 않음','연동 점검 안내 알림','건강 앱 연동 이력 존재','알림 받기를 끈 상태에서는 발송하지도 기록하지도 않는다 · 재연결을 지시하는 어투를 쓰지 않는다',['ACC-003','LIFE-003'],'review'),
-        F('NOTI-005','공지사항 알림','서버 점검, 필수 업데이트, 정책 변경처럼 운영자가 등록한 공지를 알린다.','운영자가 지정한 발송 시각 도달','공지 내용, 대상 조건, 발송 시각','대상 사용자 판정 → 야간 금지 시간 제외 → 발송 → 같은 공지는 한 번만 보냄','공지 알림','공지가 승인·등록되어 있을 것','알림을 끈 사용자에게는 보내지 않으며 앱 안 공지 화면에서 확인할 수 있게 한다 · 한 줄 원칙을 지키되 점검 일시처럼 필요한 정보는 넣는다',['ACC-003'],'review'),
-        F('NOTI-006','야간 금지 시간 및 하루 상한 관리','22시부터 다음 날 8시 사이 발송을 막고 하루 알림을 2회로 제한한다.','모든 알림 발송 요청','발송 요청 유형, 기기의 현지 시각, 당일 발송 이력','야간 금지 시간 여부 판정 → 즉시형 알림은 8시로 미룸 → 조건이 사라진 알림은 미루지 않고 버림 → 하루 알림의 당일 발송 횟수 확인 → 상한 초과 시 발송하지 않음','발송 허용 여부와 조정된 발송 시각','알림 유형별 정책이 정의되어 있을 것','아침·저녁 알림은 시각이 달라 합쳐도 하루 2회를 넘지 않는다 · 하루 상한은 세션 날짜 단위로 센다(새벽 4시 경계) · 리포트 알림은 상한에 넣지 않는다',['ACC-003'],'review'),
-        F('NOTI-007','알림 문구 안전 규칙 적용','잠금 화면에서 타인이 볼 수 있으므로 건강 정보를 문구에 담지 않는다.','알림 문구 생성','문구 후보, 금지 표현 기준','수치·지표 구간·검진 항목명·질문 내용·이름 포함 여부 검사 → 지시·경고 어투와 이모지 검출 → 위반 시 일반 안내 문구로 대체 → 검수 결과 기록','제목 없이 30자 안팎의 본문 한 줄','문구 세트가 승인된 버전으로 배포되어 있을 것','검사에 실패하면 발송을 보류한다 · 시간대별 문구를 따로 두지 않는다',['ACC-003'],'review'),
-        F('NOTI-008','알림 탭 시 화면 이동','알림 종류에 맞는 화면으로 바로 이동한다.','푸시 알림 또는 알림 목록 카드 탭','알림 유형, 대상 식별값, 로그인 상태','로그인 여부 확인 → 대상 화면 판정 → 해당 화면으로 이동 → 목표 리마인드는 오늘의 목표 영역이 보이는 위치로 스크롤','대상 화면 진입','앱 실행 가능','미로그인 상태면 로그인 후 원래 목적지로 이어서 이동한다 · 삭제되었거나 만료된 대상은 안내 후 상위 화면으로 보낸다',['HOME-001','LIFE-001','AI-002'],'review'),
-        F('NOTI-009','알림 목록 조회 및 읽음 처리','받은 알림을 오늘과 지난 메시지로 나눠 보여주고 읽음 상태를 관리한다.','홈 헤더의 알림 아이콘 선택','알림 기록, 받은 시각, 읽음 상태','새벽 4시 이후 받은 것을 오늘 구역, 그 이전 30일을 지난 메시지 구역으로 분리 → 받은 시각을 상대 표기로 변환 → 목록 진입 시 모두 읽음 처리 → 읽지 않은 수를 헤더 아이콘에 표시','알림 목록과 읽음 상태','알림 기록 존재','30일이 지난 항목은 지운다 · 오늘 받은 것이 없으면 오늘 구역을 숨기고, 전체가 비면 빈 상태 문구를 보여준다',['ACC-003','HOME-001'],'review'),
-        F('NOTI-010','알림 수신 설정 및 권한 연계','알림 받기 스위치 하나로 전체 수신을 제어하고 운영체제 권한 상태와 맞춘다.','알림 설정 화면에서 스위치 변경 · 온보딩에서 건강 데이터 연동 완료','알림 받기 설정값, 운영체제 알림 권한 상태','설정 저장 → 운영체제 권한 확인 → 권한 요청 전 받게 될 알림과 횟수를 먼저 안내 → 권한이 거부 상태면 휴대폰 설정으로 가는 안내 표시 → 발송 판정에 반영','저장된 수신 설정과 권한 안내','로그인 상태','유형별 스위치를 두지 않으므로 끄면 모든 알림이 멈춘다 · 권한을 거부해도 다시 묻지 않는다 · 권한 거부 상태의 알림은 목록에만 기록한다',['ACC-003','ONB-004'],'review'),
-        F('NOTI-011','알림 중복 교체 및 묶음','같은 유형이 쌓이지 않게 정리하고 겹치는 발송의 순서를 조정한다.','알림 발송 직전','발송 대기 알림, 이미 보낸 동일 유형 알림, 동시 발송 대상','같은 유형의 이전 알림이 남아 있으면 새 것으로 교체 → 짧은 시간에 생긴 리포트 알림은 한 건으로 묶음 → 서비스 알림과 하루 알림이 겹치면 서비스 알림을 먼저 보내고 하루 알림을 5분 뒤에 보냄','정리된 발송 목록과 발송 순서','알림 발송 이력 조회 가능','교체된 알림은 목록에도 최신 것만 남긴다 · 묶음 기준 시간 확정 필요',['ACC-003'],'review')
-      ]}
-    ];
+  <h3>1.1 전 기능 공통 규칙</h3>
+  <div class="grid2">
+    <div class="mini"><b>형식 확인과 의학적 판단은 다르다</b><p>값이 형식에 맞는지 확인하는 일과, 그 값이 건강상 무엇을 뜻하는지 판단하는 일을 섞지 않는다. 읽어 들인 값은 최종 저장 전에 사용자 확인을 거친다.</p></div>
+    <div class="mini"><b>없는 값은 비워 둔다</b><p>허용하지 않은 항목, 연동하지 않은 출처, 기록이 없는 날은 비워 둔다. 다른 값으로 추정하거나 0으로 채우지 않는다.</p></div>
+    <div class="mini"><b>AI 결과는 참고 정보다</b><p>AI가 만든 요약 · 인사이트 · 판독 보조 결과에는 진단을 대신하지 않는다는 고지를 함께 둔다. 결과만 단독으로 노출하는 경로를 만들지 않는다.</p></div>
+    <div class="mini"><b>민감 건강정보로 다룬다</b><p>검진 · 진료 · 문진 · 건강 측정값은 인증된 사용자만, 접근 기록을 남기며 다룬다. 알림 문구에는 건강 상태를 담지 않는다.</p></div>
+  </div>
+</section>
 
-    const screenCatalog={
-      'ONB-001':{area:'온보딩',name:'로그인',dom:'#login'},
-      'ONB-002':{area:'온보딩',name:'접근 권한 사전 고지',dom:'#perm'},
-      'ONB-003':{area:'온보딩',name:'iOS HealthKit 접근',dom:'#iosSheet'},
-      'ONB-004':{area:'온보딩',name:'Android Health Connect 연동',dom:'계획 · #healthConnectSheet · Samsung Health 등 출처 앱'},
-      'HOME-001':{area:'홈',name:'홈 대시보드',dom:'#home'},
-      'HOME-002':{area:'홈',name:'오늘의 질문 답변 조회',dom:'#ansScreen'},
-      'HOME-003':{area:'홈',name:'오늘의 컨디션',dom:'#home > #cond'},
-      'HOME-004':{area:'홈',name:'오늘의 목표',dom:'#home > #goal'},
-      'HOME-005':{area:'홈',name:'오늘의 코칭',dom:'#home > #coach'},
-      'LIFE-001':{area:'생활',name:'목표 분석',dom:'#life > #pGoal'},
-      'LIFE-002':{area:'생활',name:'지표 분석',dom:'#life > #pMetric'},
-      'LIFE-003':{area:'생활',name:'생활 분석',dom:'#life > #pDaily'},
-      'LIFE-004':{area:'생활',name:'AI 건강 인사이트',dom:'#life > #pAi'},
-      'LIFE-005':{area:'생활',name:'통합 건강 데이터',dom:'#allHealthSub'},
-      'LIFE-006':{area:'생활',name:'건강 데이터 상세',dom:'#hdDetailSub'},
-      'HOSP-001':{area:'병원',name:'진료요약',dom:'#hosp > #pSum'},
-      'HOSP-002':{area:'병원',name:'방문이력',dom:'#hosp > #pVisit'},
-      'HOSP-003':{area:'공통 데이터',name:'연계 데이터 갱신',dom:'#updatePicker'},
-      'HOSP-009':{area:'공통 데이터',name:'데이터 연계',dom:'#pSum · .imp-list / .imp-card'},
-      'COM-001':{area:'공통 데이터',name:'연동 상태 바',dom:'#syncBar'},
-      'COM-002':{area:'공통 데이터',name:'연동 소스 선택',dom:'#srcSheet'},
-      'COM-003':{area:'공통 데이터',name:'연동 해제 확인',dom:'#deviceUnlinkConfirm'},
-      'COM-004':{area:'공통 데이터',name:'프로필 전환',dom:'#profileQuick'},
-      'HOSP-004':{area:'병원',name:'검진대상조회',dom:'#examEligibility'},
-      'HOSP-005':{area:'병원',name:'진료 상세',dom:'#visitDet · 진료 유형'},
-      'HOSP-006':{area:'병원',name:'진료 이용현황',dom:'#medicalCostHistory'},
-      'HOSP-007':{area:'병원',name:'문진표',dom:'#questionnaireView'},
-      'HOSP-008':{area:'병원',name:'검진 결과지',dom:'#resultSheetView'},
-      'HOSP-011':{area:'병원',name:'검진 상세',dom:'#visitDet · 건강검진 유형'},
-      'HOSP-012':{area:'병원',name:'AI REPORT 상세',dom:'#visitDet · AI REPORT 유형'},
-      'REG-001':{area:'리포트 등록',name:'등록 유형 선택',dom:'#actSheet'},
-      'REG-002':{area:'리포트 등록',name:'QR 촬영',dom:'#cam'},
-      'REG-003':{area:'리포트 등록',name:'인식 결과 검수',dom:'#confirm'},
-      'REG-004':{area:'리포트 등록',name:'파일 업로드',dom:'#reportUpload'},
-      'REG-005':{area:'리포트 등록',name:'OCR 추출',dom:'#reportExtract'},
-      'REG-006':{area:'리포트 등록',name:'OCR 결과 검수',dom:'#reportReview'},
-      'REG-007':{area:'리포트 등록',name:'원본 프리뷰',dom:'#reportPreview'},
-      'REG-008':{area:'리포트 등록',name:'등록 완료',dom:'#reportDone'},
-      'AI-001':{area:'AI 인사이트',name:'분석 완료',dom:'#aiGenDone'},
-      'AI-002':{area:'AI 인사이트',name:'AI 인사이트 상세',dom:'#aiInsightDet'},
-      'AI-003':{area:'AI 인사이트',name:'분석 목록',dom:'#aiReportList'},
-      'AI-004':{area:'AI 인사이트',name:'분석 기간 선택',dom:'#aiRangePicker'},
-      'AI-005':{area:'AI 인사이트',name:'삭제 확인',dom:'#aiDeleteConfirm'},
-      'AIH-001':{area:'검진 AI 요약',name:'AI 검진 요약 실행 확인',dom:'#aiConfirm'},
-      'AIH-002':{area:'검진 AI 요약',name:'AI 검진 요약 결과',dom:'#aiReport'},
-      'SELVY-001':{area:'Selvy Checkup',name:'서비스 소개',dom:'#selvy'},
-      'SELVY-002':{area:'Selvy Checkup',name:'분석 신청·결제',dom:'#pay'},
-      'SELVY-003':{area:'Selvy Checkup',name:'분석 결과',dom:'#svResult'},
-      'ACC-001':{area:'계정',name:'계정 메인',dom:'#more'},
-      'ACC-002':{area:'계정',name:'내 정보 관리',dom:'#accountSub · profile'},
-      'ACC-003':{area:'계정',name:'알림 설정',dom:'#accountSub · notice'},
-      'ACC-004':{area:'계정',name:'이용권 관리',dom:'#accountSub · ticket'},
-      'ACC-005':{area:'계정',name:'구매 확인',dom:'#tkConfirm'},
-      'ACC-006':{area:'계정',name:'이용약관',dom:'#accountSub · terms'},
-      'ACC-007':{area:'계정',name:'개인정보 처리방침',dom:'#accountSub · privacy'},
-      'ACC-008':{area:'계정',name:'문의하기',dom:'#accountSub · support'},
-      'ACC-009':{area:'계정',name:'로그아웃 확인',dom:'#accountSub · logout'},
-      'ACC-010':{area:'계정',name:'회원 탈퇴',dom:'#accountSub · withdraw'},
-      'ACC-011':{area:'계정',name:'알림 목록',dom:'계획 · #accountSub · notifications'}
-    };
-    const screenAreaOrder=['온보딩','홈','생활','병원','리포트 등록','AI 인사이트','검진 AI 요약','Selvy Checkup','계정','공통 데이터'];
-    const statusLabel={done:'Prototype 구현',review:'정책 검토 필요',link:'시스템 연계 필요'};
-    const all=groups.flatMap(g=>g.items);
-    document.getElementById('totalCount').textContent=all.length;
-    document.getElementById('groupCount').textContent=groups.length;
-    document.getElementById('reviewCount').textContent=all.filter(x=>x.status==='review').length;
-    document.getElementById('linkCount').textContent=all.filter(x=>x.status==='link').length;
-    document.getElementById('screenCatalog').innerHTML=screenAreaOrder.map(area=>{
-      const entries=Object.entries(screenCatalog).filter(([,value])=>value.area===area);
-      return `<article class="screen-area"><b>${area}<em>${entries.length} Screens</em></b><div class="screen-mini-list">${entries.map(([id,value])=>`<div class="screen-mini"><code>${id}</code><span>${value.name}</span><small>${value.dom}</small></div>`).join('')}</div></article>`;
-    }).join('');
-    const cell=(label,value,wide=false)=>`<div class="cell ${wide?'wide':''}"><label>${label}</label><p>${value}</p></div>`;
-    const screenRef=id=>{
-      const value=screenCatalog[id]||{name:'시스템 처리·화면 정의 참조',dom:'—'};
-      return `<div class="screen-ref"><div class="screen-ref-top"><b>${id}</b><span>${value.name}</span></div><code>${value.dom}</code></div>`;
-    };
-    const searchText=item=>[
-      ...Object.values(item).flat(),
-      ...item.screens.flatMap(id=>[screenCatalog[id]?.name||'',screenCatalog[id]?.dom||''])
-    ].join(' ').toLowerCase();
-    const groupsEl=document.getElementById('groups');
-    groupsEl.innerHTML=groups.map(g=>`<section class="group" data-group="${g.key}"><header class="group-head"><span class="group-no">${g.no}</span><div><h2>${g.title}</h2><p>${g.desc}</p></div><span class="group-count">${g.items.length} Functions</span></header><div class="fn-list">${g.items.map(x=>`<details class="fn" data-search="${searchText(x)}"><summary><span class="fid">${x.id}</span><span class="fn-name">${x.name}</span><span class="fn-desc">${x.summary}</span><span class="tag ${x.status}">${statusLabel[x.status]}</span><span class="chev">⌄</span></summary><div class="detail">${cell('기능 설명',x.summary,true)}${cell('트리거',x.trigger)}${cell('입력값',x.input)}${cell('처리 로직',x.process,true)}${cell('출력값',x.output)}${cell('선행조건',x.precondition)}${cell('예외 처리',x.exception,true)}<div class="cell wide"><label>연관 화면</label><div class="screens">${x.screens.map(screenRef).join('')}</div></div><div class="flowline"><span class="flow-step">${x.precondition}</span><span class="arrow">→</span><span class="flow-step">${x.trigger}</span><span class="arrow">→</span><span class="flow-step">${x.process}</span><span class="arrow">→</span><span class="flow-step">${x.output}</span></div></div></details>`).join('')}</div></section>`).join('');
+<section class="card" id="s2">
+  <h2><span class="n">2</span>서비스가 받는 것과 내놓는 것</h2>
+  <div class="sub">기능을 나누기 전에 전체 입출력을 한 번 정리한다</div>
 
-    let active='all';
-    const apply=()=>{const q=document.getElementById('search').value.trim().toLowerCase();let count=0;document.querySelectorAll('.group').forEach(g=>{const areaOk=active==='all'||g.dataset.group===active;let visible=0;g.querySelectorAll('.fn').forEach(x=>{const ok=areaOk&&(!q||x.dataset.search.includes(q));x.hidden=!ok;if(ok){visible++;count++;if(q)x.open=true}});g.hidden=!visible});document.getElementById('empty').style.display=count?'none':'block'};
-    document.getElementById('search').addEventListener('input',apply);
-    document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{active=c.dataset.filter;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===c));apply()}));
-    document.getElementById('expand').addEventListener('click',()=>document.querySelectorAll('.fn:not([hidden])').forEach(x=>x.open=true));
-    document.getElementById('collapse').addEventListener('click',()=>document.querySelectorAll('.fn').forEach(x=>x.open=false));
-    let printState=[];window.addEventListener('beforeprint',()=>{printState=[...document.querySelectorAll('.fn')].map(x=>x.open);document.querySelectorAll('.fn:not([hidden])').forEach(x=>x.open=true)});window.addEventListener('afterprint',()=>document.querySelectorAll('.fn').forEach((x,i)=>x.open=printState[i]));
-  </script>
+  <div class="grid3">
+    <div class="mini">
+      <b>받는 것</b>
+      <p>· 사용자 인증과 동의 상태<br>
+      · 건강 앱에서 읽는 활동 · 수면 · 심박 · 신체 · 건강 측정값<br>
+      · 검진 결과와 문진, 진료 · 처방 · 방문 이력<br>
+      · 사용자가 등록한 검진 리포트와 AI REPORT<br>
+      · 오늘의 질문 응답, 목표 선택과 완료 기록, 진료 메모</p>
+    </div>
+    <div class="mini">
+      <b>처리하는 것</b>
+      <p>· 인증 · 동의 · 접근 권한 확인<br>
+      · 출처 · 최신성 · 결측 · 중복 판정<br>
+      · 단위 표준화와 평소 수준 비교<br>
+      · 상태 판정과 행동 제안 규칙 적용<br>
+      · 표현 안전 확인과 접근 기록</p>
+    </div>
+    <div class="mini">
+      <b>내놓는 것</b>
+      <p>· 오늘의 컨디션과 평소 대비 변화<br>
+      · 근거가 붙은 코칭과 오늘의 목표<br>
+      · 출처별로 정리된 건강 데이터<br>
+      · 주간 분석과 AI 인사이트<br>
+      · 검진 · 진료 통합 이력과 AI 요약</p>
+    </div>
+  </div>
+
+  <div class="callout">최종 결과는 <b>"내 건강정보가 무엇을 뜻하는지 이해하고, 오늘 필요한 행동을 고를 수 있는 상태"</b>다. 질병을 진단하거나 치료를 결정하기 위한 결과가 아니다.</div>
+</section>
+
+<section class="card" id="s3">
+  <h2><span class="n">3</span>진입 · 권한 · 연동</h2>
+  <div class="sub">로그인부터 건강 데이터를 읽어 오기까지</div>
+
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">카카오 로그인</td><td class="w">[카카오로 시작하기]</td><td>카카오 인증 후 회원을 식별하고 서비스 이용 상태를 연다. 첫 로그인이면 회원 정보를 만든다.</td><td>취소 · 실패 · 계정 제한이면 사유를 알리고 다시 시도하게 한다.</td></tr>
+    <tr><td class="k">약관 · 정책 조회</td><td class="w">로그인 화면 또는 더보기에서 문서 선택</td><td>현재 시행 중인 판을 불러와 전문을 보여준다.</td><td>불러오지 못하면 안내 후 다시 시도하게 한다. 동의 절차를 건너뛰지 않는다.</td></tr>
+    <tr><td class="k">접근 권한 사전 고지</td><td class="w">로그인 완료 직후</td><td>건강 데이터 · 카메라 · 사진 · 알림을 왜 쓰는지 먼저 설명하고, 건강 데이터는 읽기 전용임을 알린다.</td><td>고지 없이 권한 요청으로 넘어가지 않는다.</td></tr>
+    <tr><td class="k">요청 항목 구성</td><td class="w">권한 요청 직전</td><td>운영체제에 맞춰 요청할 항목을 고른다. 앱이 정하는 것은 요청 항목뿐이고 권한 화면은 휴대폰이 그린다.</td><td>지원하지 않는 항목은 요청 목록에서 뺀다.</td></tr>
+    <tr><td class="k">연동할 앱 선택</td><td class="w">연동 시작 · 해제 후 재연동</td><td>안드로이드에서 연결 가능한 앱을 보여주고 하나를 고르게 한다. 아이폰은 건너뛴다.</td><td>설치되지 않은 앱은 고를 수 없게 하고 설치 안내를 둔다.</td></tr>
+    <tr><td class="k">연동 상태 판정</td><td class="w">권한 응답 · 앱 실행</td><td>허용된 항목이 하나라도 있으면 연동으로 본다. 앱 이름과 마지막 동기화 시각을 상태로 남긴다.</td><td>모두 꺼지면 미연동으로 되돌리고 관련 화면을 연동 전 상태로 바꾼다.</td></tr>
+    <tr><td class="k">연동 해제</td><td class="w">[연동 해제] 후 확인</td><td>새 데이터를 더 이상 가져오지 않는다. 받아 둔 값 · 리포트 · 연동 기록은 남긴다.</td><td>확인 없이 해제되지 않는다. 해제 영향을 먼저 알린다.</td></tr>
+    <tr><td class="k">초기 상태 구성</td><td class="w">권한 처리 종료 후</td><td>허용된 항목만으로 홈에 보여줄 구성을 정한다. 연동을 건너뛰어도 홈까지 진입한다.</td><td>데이터가 전혀 없으면 질문 중심 구성으로 시작한다.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s4">
+  <h2><span class="n">4</span>하루 기준</h2>
+  <div class="sub">"오늘"이 언제 바뀌는지부터 정한다. 홈 · 목표 · 지표가 모두 이 기준을 따른다</div>
+
+  <div class="flow">
+    <div><b>하루 경계</b>사용자에게 보이는 하루와 데이터 집계의 하루를 나눈다</div>
+    <div><b>첫 진입 판정</b>그날 처음 들어왔는지 확인한다</div>
+    <div><b>1회 생성</b>질문 · 코칭 · 목표를 그날 한 번만 만든다</div>
+    <div><b>재진입</b>만든 내용은 그대로 두고 값만 다시 계산한다</div>
+  </div>
+
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">하루 경계 처리</td><td class="w">앱 진입 · 날짜 변경</td><td>새벽까지 이어지는 이용을 전날로 볼지, 달력 날짜로 볼지 구분해 처리한다. 화면에 보이는 날짜는 달력 날짜를 따른다.</td><td>기기 시각이 크게 어긋나면 서버 시각을 기준으로 삼는다.</td></tr>
+    <tr><td class="k">첫 진입 판정</td><td class="w">앱 진입</td><td>그날 처음 들어온 것인지 확인해 생성과 재진입을 가른다.</td><td>판정이 불확실하면 이미 만든 내용을 다시 만들지 않는다.</td></tr>
+    <tr><td class="k">당일 세트 1회 생성</td><td class="w">그날 첫 진입</td><td>오늘의 질문 · 코칭 · 목표를 한 번에 만들어 고정한다.</td><td>생성에 실패하면 기존 값을 유지하고 다시 시도한다. 빈 화면을 보여주지 않는다.</td></tr>
+    <tr><td class="k">재진입 처리</td><td class="w">그날 두 번째 이후 진입</td><td>만들어 둔 질문 · 코칭 · 목표는 그대로 두고, 연동 값에 따라 달라지는 지표만 다시 계산한다.</td><td>다시 계산에 실패하면 직전 값과 갱신 시각을 함께 보여준다.</td></tr>
+    <tr><td class="k">시간대별 문구 전환</td><td class="w">진입 시각</td><td>같은 내용이라도 아침 · 저녁에 맞는 인사와 안내로 바꾼다.</td><td>판단이 어려우면 시간과 무관한 문구를 쓴다.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s5">
+  <h2><span class="n">5</span>홈 · 오늘</h2>
+  <div class="sub">질문 · 코칭 · 컨디션 · 건강 데이터</div>
+
+  <h3>5.1 오늘의 질문</h3>
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">질문 세트 선정</td><td class="w">당일 세트 생성 시</td><td>연동 데이터로 이미 알 수 있는 것은 빼고, <b>모르는 것만</b> 그날의 질문으로 고른다. 비어 있는 정보 중 오늘 판단에 더 필요한 것을 앞에 둔다.</td><td>물을 것이 없으면 질문 영역을 접고 다른 구성으로 채운다.</td></tr>
+    <tr><td class="k">질문 표시 · 응답 저장</td><td class="w">홈 진입 · 보기 선택</td><td>한 문항씩 보여주고 답하면 자동으로 다음으로 넘어간다. 모두 답하면 완료 상태로 바꾼다.</td><td>중간에 나가도 답한 데까지 남긴다.</td></tr>
+    <tr><td class="k">응답 조회 · 수정</td><td class="w">완료 후 다시 보기</td><td>그날 답한 내용을 다시 보고 고친다. 고치면 코칭과 지표에 다시 반영한다.</td><td>지난 날짜의 답은 보기만 된다.</td></tr>
+  </table>
+
+  <h3>5.2 코칭과 컨디션</h3>
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">코칭 생성</td><td class="w">당일 세트 생성 시</td><td>지금 가진 데이터로 설명할 수 있는 범위에서 오늘 할 행동 하나를 고른다. 왜 이 행동인지 근거를 함께 만든다.</td><td>데이터가 부족하면 행동 대신 부족한 정보를 채우는 안내를 낸다.</td></tr>
+    <tr><td class="k">코칭 근거 표시</td><td class="w">근거 펼치기</td><td>어떤 데이터를 보고 판단했는지, 값이 언제 것인지 함께 보여준다.</td><td>근거를 만들 수 없는 제안은 내보내지 않는다.</td></tr>
+    <tr><td class="k">컨디션 판정</td><td class="w">홈 진입 · 값 갱신</td><td>지표를 계산해 오늘 상태와 평소 대비 변화를 한 줄로 정리한다.</td><td>계산할 수 없는 지표는 "아직 보는 중"으로 두고 값을 지어내지 않는다.</td></tr>
+    <tr><td class="k">오늘의 건강 데이터</td><td class="w">홈 진입</td><td>연동된 오늘 값을 카드로 보여준다. 값이 없으면 연동 안내로 바꾼다.</td><td>일부만 연동됐으면 있는 항목만 보여준다.</td></tr>
+    <tr><td class="k">전체 건강 데이터 조회</td><td class="w">더보기 선택</td><td>생활 · 신체 · 건강 측정값을 출처별로 모아 보여주고, 연동되지 않은 출처는 연결 방법과 함께 안내한다.</td><td>출처가 겹치면 우선순위 규칙에 따라 하나만 보여준다.</td></tr>
+    <tr><td class="k">항목 상세 조회</td><td class="w">항목 선택</td><td>항목 하나를 시간 · 일 · 주 · 월 단위로 보여준다. 기록이 없는 구간은 비워 둔다.</td><td>시간 단위 기록이 없는 항목은 해당 보기를 막는다.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s6">
+  <h2><span class="n">6</span>오늘의 목표</h2>
+  <div class="sub">목표는 매일 새로 고르는 것이 아니라 <b>이어 가는</b> 것으로 다룬다</div>
+
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">목표 문구 선정</td><td class="w">당일 세트 생성 시</td><td>사용자 상태와 최근 기록에 맞는 목표 문구를 고른다. 같은 문구가 연달아 나오지 않게 한다.</td><td>고를 수 있는 문구가 없으면 직전 목표를 이어 간다.</td></tr>
+    <tr><td class="k">문구 잠금</td><td class="w">문구 확정 직후</td><td>그날 안에는 문구가 바뀌지 않도록 고정한다. 재진입해도 같은 문구를 보여준다.</td><td>데이터가 바뀌어도 그날 문구는 바꾸지 않는다.</td></tr>
+    <tr><td class="k">데이터 부족 목표 처리</td><td class="w">필요한 값이 없을 때</td><td>목표를 잠그고, 대신 그 값을 채울 질문을 만들어 연결한다.</td><td>질문에도 답하지 않으면 다음 날 다시 시도한다.</td></tr>
+    <tr><td class="k">완료 처리</td><td class="w">[완료] 선택</td><td>완료로 표시하고 이어 온 날수를 다시 센다.</td><td>이미 완료된 목표를 중복 처리하지 않는다.</td></tr>
+    <tr><td class="k">완료 취소</td><td class="w">완료 후 다시 선택</td><td>같은 날 안에서는 되돌릴 수 있다. 날수도 함께 되돌린다.</td><td>날짜가 넘어간 뒤에는 되돌릴 수 없다.</td></tr>
+    <tr><td class="k">하루 쉬기</td><td class="w">[쉬기] 선택</td><td>그날은 실패가 아니라 쉬는 날로 남긴다.</td><td>쉬는 날이 연속으로 쌓이면 목표 자체를 다시 제안한다.</td></tr>
+    <tr><td class="k">이어 온 날수 계산</td><td class="w">완료 · 취소 · 날짜 이동</td><td>완료한 날을 이어 세고, 기준 날짜가 바뀌면 그 시점 기준으로 다시 센다.</td><td>기록이 없는 날은 끊김으로 보되, 쉬는 날은 끊지 않는다.</td></tr>
+    <tr><td class="k">코멘트 선택</td><td class="w">완료 · 쉬기 직후</td><td>상황에 맞는 한 마디를 고른다. 같은 상황에서 같은 문장이 반복되지 않게 한다.</td><td>맞는 코멘트가 없으면 아무 말도 붙이지 않는다.</td></tr>
+  </table>
+
+  <div class="callout">목표는 주간 달성률(몇 퍼센트)로 평가하지 않는다. <b>완료 · 쉬기 · 이어 온 날수</b>로 보여준다.</div>
+</section>
+
+<section class="card" id="s7">
+  <h2><span class="n">7</span>생활 · 주간 분석과 지표</h2>
+  <div class="sub">한 주 단위로 돌아보는 화면과, 그 화면에 들어갈 값을 만드는 처리</div>
+
+  <h3>7.1 주간 화면</h3>
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">주차 이동</td><td class="w">이전 · 다음 주 선택</td><td>기준 주를 옮기고 네 개 탭의 내용을 모두 그 주 기준으로 다시 그린다.</td><td>가입 이전 주로는 넘어가지 않는다.</td></tr>
+    <tr><td class="k">지난 주 읽기 전용 처리</td><td class="w">이번 주가 아닌 주 조회</td><td>기록을 보기만 하게 한다. 고치는 동작은 눌리지 않는 상태로 둔다.</td><td>버튼을 감추지 않는다. 왜 못 고치는지 함께 알린다.</td></tr>
+    <tr><td class="k">목표 분석</td><td class="w">목표 분석 탭</td><td>그 주의 목표 기록과 이어 온 흐름을 정리해 보여준다.</td><td>기록이 없는 주는 빈 상태 안내로 대체한다.</td></tr>
+    <tr><td class="k">지표별 분석</td><td class="w">지표별 분석 탭</td><td>지표마다 주간 흐름과 산출 신뢰도를 보여준다.</td><td>산출할 수 없는 지표는 이유와 함께 비워 둔다.</td></tr>
+    <tr><td class="k">생활 분석</td><td class="w">생활 분석 탭</td><td>걸음 · 수면 · 활동 같은 일별 값을 그 주 단위로 보여준다.</td><td>연동 전이면 연동 화면으로 직접 보낸다.</td></tr>
+  </table>
+
+  <h3>7.2 지표 산출</h3>
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">지표 계산</td><td class="w">값 갱신 · 화면 진입</td><td>연동 값과 질문 응답을 함께 써서 지표를 계산한다. 계산식은 산출 규격 문서를 따른다.</td><td>필수 입력이 빠지면 계산하지 않는다.</td></tr>
+    <tr><td class="k">산출 가능 여부 판정</td><td class="w">계산 직전</td><td>얼마나 채워졌는지 보고 값을 낼지, 신뢰도를 낮춰 낼지, 보류할지 정한다.</td><td>보류하면 "아직 보는 중" 상태로 둔다.</td></tr>
+    <tr><td class="k">근거 연결</td><td class="w">지표 산출 후</td><td>어떤 데이터가 그 값을 만들었는지 항목 단위로 이어 둔다. 사용자가 근거를 열어 볼 수 있게 한다.</td><td>근거를 만들 수 없는 값은 화면에 내지 않는다.</td></tr>
+    <tr><td class="k">구간 · 변화 표시</td><td class="w">지표 표시</td><td>값이 어느 구간인지와 전날 대비 변화를 함께 보여준다.</td><td>비교할 이전 값이 없으면 변화를 표시하지 않는다.</td></tr>
+    <tr><td class="k">주간 흐름과 결측 처리</td><td class="w">주간 그래프 표시</td><td>기록이 있는 날만 잇고, 없는 날은 끊어서 보여준다. 미연동과 결측을 구분한다.</td><td>없는 값을 앞뒤 값으로 메우지 않는다.</td></tr>
+    <tr><td class="k">또래 비교</td><td class="w">비교 가능한 항목 표시</td><td>같은 성별 · 연령대 기준과 비교해 위치를 보여준다. 기준 자료의 출처와 연도를 함께 밝힌다.</td><td>기준 자료가 없는 항목은 비교하지 않는다.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s8">
+  <h2><span class="n">8</span>병원 · 의료 기록</h2>
+  <div class="sub">검진 · 진료 데이터를 가져오고, 보여주고, 원문까지 연결한다</div>
+
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">검진 · 진료 최초 연동</td><td class="w">[데이터 가져오기] · 빈 상태 카드</td><td>본인 확인을 거쳐 검진 · 진료 데이터를 가져오고, 가져온 기간과 시각을 남긴다.</td><td>실패하면 사유를 남기고 다시 시도하게 한다. 부분 성공도 기록한다.</td></tr>
+    <tr><td class="k">연동 상태 요약</td><td class="w">병원 탭 진입</td><td>검진 · 진료 각각의 연동 여부와 마지막 갱신 시각을 요약한다.</td><td>한쪽만 연동됐으면 그쪽만 보여주고 나머지는 연동 안내를 둔다.</td></tr>
+    <tr><td class="k">데이터 갱신</td><td class="w">더보기에서 갱신 선택</td><td>가져올 대상을 고르게 하고 최신 상태로 다시 가져온다. 이미 있는 건은 중복으로 쌓지 않는다.</td><td>갱신 중에는 다시 누를 수 없게 한다.</td></tr>
+    <tr><td class="k">검진요약 구성</td><td class="w">검진요약 탭</td><td>건강 나이, 확인이 필요한 주요 소견, 검진 안내를 정리한다.</td><td>검진 기록이 없으면 불러오기 안내만 둔다.</td></tr>
+    <tr><td class="k">검진 상세 조회</td><td class="w">검진 건 선택</td><td>검진 한 건의 전체 항목과 참고치 대비 상태를 보여준다.</td><td>항목이 일부만 있으면 있는 것만 보여주고 누락을 밝힌다.</td></tr>
+    <tr><td class="k">문진표 · 결과지 원문</td><td class="w">검진 상세에서 선택</td><td>문진 원문과 검진 결과지를 원래 문서 형식 그대로 보여준다. 확대 · 축소한다.</td><td>원문이 없는 건은 진입 경로를 두지 않는다.</td></tr>
+    <tr><td class="k">방문이력 조회</td><td class="w">방문이력 탭</td><td>검진 · 진료 · 등록한 리포트를 연도별 시간순으로 모아 보여준다.</td><td>아무 기록도 없으면 연동과 등록 두 길을 함께 안내한다.</td></tr>
+    <tr><td class="k">진료 상세 조회</td><td class="w">진료 건 선택</td><td>진료 내용과 처방을 보여준다.</td><td>세부 항목이 오지 않는 건은 요약만 보여준다.</td></tr>
+    <tr><td class="k">진료 메모</td><td class="w">메모 작성 · 수정</td><td>사용자가 직접 남기는 메모를 저장한다. 연동 데이터와 구분해 표시한다.</td><td>연동 데이터를 메모로 덮어쓰지 않는다.</td></tr>
+    <tr><td class="k">진료 이용현황</td><td class="w">진료요약에서 선택</td><td>기간별 진료 횟수와 지출 흐름을 정리한다.</td><td>기간에 기록이 없으면 그 구간을 비워 둔다.</td></tr>
+    <tr><td class="k">검진대상조회</td><td class="w">검진요약에서 선택</td><td>올해 받을 수 있는 검진 항목과 기준일을 보여준다.</td><td>조회되지 않으면 안내 문구로 대체한다.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s9">
+  <h2><span class="n">9</span>리포트 등록</h2>
+  <div class="sub">QR로 받는 길과 결과지를 찍어 올리는 길, 두 갈래다</div>
+
+  <div class="flow">
+    <div><b>유형 선택</b>AI REPORT · 일반 검진 리포트</div>
+    <div><b>수집</b>QR 촬영 또는 파일 업로드</div>
+    <div><b>추출</b>값을 읽어 항목으로 정리</div>
+    <div><b>사용자 검수</b>사람이 확인하고 고친다</div>
+    <div><b>저장</b>검수한 값만 기록에 넣는다</div>
+  </div>
+
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">등록 유형 선택</td><td class="w">등록 버튼</td><td>AI REPORT와 일반 검진 리포트 중 하나를 고르게 하고 각 흐름으로 보낸다.</td><td>닫으면 원래 화면으로 돌아간다.</td></tr>
+    <tr><td class="k">QR 촬영</td><td class="w">AI REPORT 선택 · 홈 상단 QR</td><td>카메라로 QR을 읽고 리포트를 받아 온다.</td><td>권한이 없으면 권한 안내를 먼저 보여준다. 읽히지 않으면 다시 찍게 한다.</td></tr>
+    <tr><td class="k">대상자 확인</td><td class="w">리포트 수신 직후</td><td>리포트의 대상자가 현재 사용자와 맞는지 확인한다.</td><td>맞지 않으면 저장하지 않고 사유를 알린다.</td></tr>
+    <tr><td class="k">파일 수집</td><td class="w">일반 리포트 선택</td><td>사진 · PDF를 여러 장 순서대로 받는다. 올린 파일 수를 보여준다.</td><td>지원하지 않는 형식과 용량 초과는 받지 않고 이유를 알린다.</td></tr>
+    <tr><td class="k">값 추출</td><td class="w">파일 수집 완료</td><td>업로드 · 문서 인식 · 결과 정리 단계를 진행률로 보여주며 항목과 값을 뽑는다.</td><td>오래 걸리면 진행 상태를 유지하고, 실패하면 다시 올리게 한다.</td></tr>
+    <tr><td class="k">사용자 검수</td><td class="w">추출 완료</td><td>읽힌 항목과 값을 사용자가 확인하고 고친다. 확신이 낮은 값은 눈에 띄게 표시한다.</td><td>검수를 건너뛰고 저장하는 경로를 만들지 않는다.</td></tr>
+    <tr><td class="k">원본 프리뷰</td><td class="w">검수 중 원본 보기</td><td>올린 원본을 장 단위로 넘겨 값과 대조하게 한다.</td><td>원본이 남아 있지 않으면 진입 경로를 두지 않는다.</td></tr>
+    <tr><td class="k">최종 등록</td><td class="w">[최종 등록]</td><td>검수한 값만 저장하고, 방문이력과 관련 화면에 반영한다. 완료 화면에서 다음 행동을 안내한다.</td><td>같은 리포트를 두 번 등록하면 기존 건을 갱신한다.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s10">
+  <h2><span class="n">10</span>AI 분석</h2>
+  <div class="sub">주간 인사이트 · 검진 요약 · 판독 보조 결과</div>
+
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">분석 가능 여부 판정</td><td class="w">AI 인사이트 탭 진입</td><td>그 주에 분석할 만한 기록이 쌓였는지 보고, 실행 안내를 낼지 결과를 보여줄지 정한다.</td><td>기록이 모자라면 무엇이 더 필요한지 알린다.</td></tr>
+    <tr><td class="k">주간 리포트 생성</td><td class="w">분석 실행</td><td>그 주의 생활 기록과 검진 정보를 함께 보고 요약 · 소견 · 제안을 만든다. 검진 정보가 없으면 생활 기록만으로 만들고 그 사실을 밝힌다.</td><td>실패하면 이전 리포트를 지우지 않고 다시 시도하게 한다.</td></tr>
+    <tr><td class="k">한 주에 하나 규칙</td><td class="w">같은 주를 다시 분석</td><td>새로 만들지 않고 그 주의 리포트를 갱신한다.</td><td>같은 주에 리포트가 여러 개 생기지 않게 막는다.</td></tr>
+    <tr><td class="k">다시 분석 제한</td><td class="w">다시 분석 선택</td><td>이번 주만 다시 분석할 수 있고, 하루 한 번으로 제한한다. 제한은 리포트가 아니라 <b>그 주</b>에 붙는다.</td><td>지웠다가 다시 만들어도 제한은 유지된다. 끝난 주는 다시 분석하지 않는다.</td></tr>
+    <tr><td class="k">리포트 상세 조회</td><td class="w">리포트 열기</td><td>상세 분석과 변화 추이 두 갈래로 근거를 보여준다. 검진 소견은 원래 검진 건으로 이어 준다.</td><td>이어 줄 원본이 없으면 연결을 걸지 않는다.</td></tr>
+    <tr><td class="k">주 선택</td><td class="w">주간 리포트 보기</td><td>달력에서 주를 고르게 한다. 리포트가 있는 주는 열고, 없는 주는 그 주 기록으로 분석한다.</td><td>가입 이전 주는 고를 수 없게 한다.</td></tr>
+    <tr><td class="k">리포트 삭제</td><td class="w">삭제 후 확인</td><td>리포트를 지운다. 지우면 그 주를 다시 분석할 수 있게 된다.</td><td>확인 없이 지우지 않는다. 지운 리포트는 되살리지 않는다.</td></tr>
+    <tr><td class="k">검진 결과 요약</td><td class="w">검진 데이터 반영 후</td><td>검진 결과를 사용자가 읽을 수 있는 말로 정리하고, 참고치와 비교해 확인이 필요한 항목을 짚는다.</td><td>참고 범위를 확정할 수 없는 항목은 판정하지 않고 값만 보여준다.</td></tr>
+    <tr><td class="k">판독 보조 결과 표시</td><td class="w">AI REPORT 조회</td><td>항목별 결과와 참고값을 보여주고 원본을 함께 연결한다. 점수는 판독 보조값이며 확률이나 중증도가 아님을 밝힌다.</td><td>원본이 없으면 결과만 단독으로 보여주지 않는다.</td></tr>
+    <tr><td class="k">위험도 분석</td><td class="w">이용권 확인 후 실행</td><td>검진 데이터를 바탕으로 주요 질환 위험도를 분석해 결과 화면으로 보낸다.</td><td>이용권이 없으면 구매 안내로 보내고, 데이터가 모자라면 실행하지 않는다.</td></tr>
+  </table>
+
+  <div class="callout warn">모든 AI 결과에는 <b>진단이나 의료진의 판단을 대신하지 않는다</b>는 고지를 함께 둔다. 고지 없이 결과만 보여주는 화면을 만들지 않는다.</div>
+</section>
+
+<section class="card" id="s11">
+  <h2><span class="n">11</span>더보기 · 계정</h2>
+  <div class="sub">확인하고 · 바꾸고 · 나간다. 건강 데이터 해석은 두지 않는다</div>
+
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">더보기 목록 구성</td><td class="w">더보기 탭 진입</td><td>프로필 · 데이터 · 서비스 · 안내 네 묶음으로 목록을 만들고, 항목 오른쪽에 현재 상태를 읽기용으로 보여준다.</td><td>상태를 모르면 값을 비워 두고 항목은 남긴다.</td></tr>
+    <tr><td class="k">내정보 조회</td><td class="w">프로필 카드 선택</td><td>가입 정보를 조회 전용으로 보여준다. 값이 없으면 등록되지 않았음을 알린다.</td><td>앱에서 값을 바꾸지 않는다.</td></tr>
+    <tr><td class="k">동의 관리</td><td class="w">동의 관리 선택</td><td>선택 동의 항목을 켜고 끈다. 바꾼 시점을 남긴다.</td><td>필수 동의는 여기서 끄지 못한다. 철회는 탈퇴 절차로 안내한다.</td></tr>
+    <tr><td class="k">알림 수신 설정</td><td class="w">알림 관리 선택</td><td>알림 종류별로 받을지 정한다. 휴대폰 알림 권한이 꺼져 있으면 함께 알린다.</td><td>권한이 꺼진 상태에서 켜기만 해도 알림이 가지 않음을 밝힌다.</td></tr>
+    <tr><td class="k">이용권 현황</td><td class="w">이용권 관리 선택</td><td>남은 이용권과 구매 · 사용 · 환불 이력을 보여준다.</td><td>이력이 없으면 빈 상태로 둔다.</td></tr>
+    <tr><td class="k">이용권 구매</td><td class="w">구매 선택</td><td>결제 전 내용을 확인받고 결제한다. 완료되면 보유 수량에 반영한다.</td><td>결제가 끝나지 않으면 수량을 늘리지 않는다. 중복 결제를 막는다.</td></tr>
+    <tr><td class="k">환불 신청</td><td class="w">환불 선택</td><td>환불 가능 여부를 확인하고 접수한다.</td><td>이미 사용한 이용권은 접수하지 않고 사유를 알린다.</td></tr>
+    <tr><td class="k">언어 설정</td><td class="w">언어 선택</td><td>표시 언어를 바꾸고 즉시 적용한다.</td><td>번역이 없는 화면은 기본 언어로 둔다.</td></tr>
+    <tr><td class="k">공지 조회</td><td class="w">공지사항 선택</td><td>공지를 최신순으로 보여주고 읽음 여부를 남긴다.</td><td>공지가 없으면 빈 상태로 둔다.</td></tr>
+    <tr><td class="k">문의 접수</td><td class="w">문의하기 선택</td><td>문의 내용을 접수하고 접수 결과를 알린다.</td><td>전송에 실패하면 작성한 내용을 남겨 둔다.</td></tr>
+    <tr><td class="k">로그아웃</td><td class="w">로그아웃 후 확인</td><td>이용 상태를 끊는다. 다시 로그인하면 기록을 그대로 볼 수 있음을 알린다.</td><td>확인 없이 처리하지 않는다.</td></tr>
+    <tr><td class="k">회원탈퇴</td><td class="w">내정보에서 선택</td><td>탈퇴 영향과 데이터 처리 방침을 알린 뒤 접수한다.</td><td>목록에서 바로 진입하는 경로를 두지 않는다. 확인 없이 처리하지 않는다.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s12">
+  <h2><span class="n">12</span>알림</h2>
+  <div class="sub">보낼지 말지를 먼저 판단하고, 문구에 건강 상태를 담지 않는다</div>
+
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">오늘의 질문 알림</td><td class="w">정해진 시각</td><td>그날 아직 답하지 않았으면 한 번 보낸다.</td><td>이미 답했으면 보내지 않는다.</td></tr>
+    <tr><td class="k">건강 관리 리마인드</td><td class="w">정해진 시각</td><td>목표를 아직 처리하지 않았을 때 한 번 알린다.</td><td>완료 · 쉬기가 이미 기록됐으면 보내지 않는다.</td></tr>
+    <tr><td class="k">처리 결과 알림</td><td class="w">등록 · 분석 · 연동 완료</td><td>사용자가 기다리던 처리가 끝났을 때 결과를 알린다.</td><td>실패도 알린다. 조용히 넘어가지 않는다.</td></tr>
+    <tr><td class="k">연동 끊김 알림</td><td class="w">연동 상태가 끊긴 것을 확인</td><td>데이터가 들어오지 않고 있음을 알리고 연동 화면으로 보낸다.</td><td>사용자가 직접 해제한 경우에는 보내지 않는다.</td></tr>
+    <tr><td class="k">공지 알림</td><td class="w">공지 등록</td><td>새 공지를 알린다.</td><td>수신을 끈 사용자에게는 보내지 않는다.</td></tr>
+    <tr><td class="k">발송 상한 관리</td><td class="w">모든 발송 직전</td><td>밤 시간대에는 보내지 않고, 하루에 보내는 횟수에 상한을 둔다.</td><td>상한을 넘으면 다음 날로 미루거나 보내지 않는다.</td></tr>
+    <tr><td class="k">문구 안전 확인</td><td class="w">발송 직전</td><td>알림 문구에 건강 상태 · 수치 · 진단을 떠올리게 하는 표현이 없는지 확인한다.</td><td>걸리면 일반적인 안내 문구로 바꾼다.</td></tr>
+    <tr><td class="k">중복 정리</td><td class="w">같은 종류가 쌓일 때</td><td>이전 알림을 새 알림으로 대체하거나 하나로 묶는다.</td><td>같은 내용이 여러 번 쌓이게 두지 않는다.</td></tr>
+    <tr><td class="k">알림 눌렀을 때 이동</td><td class="w">알림 선택</td><td>관련된 화면을 바로 연다.</td><td>대상 화면이 없으면 해당 탭 최상위로 보낸다.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s13">
+  <h2><span class="n">13</span>데이터 처리 공통</h2>
+  <div class="sub">여러 기능이 함께 쓰는 처리. 여기서 한 번만 정의하고 각 기능은 결과를 쓴다</div>
+
+  <table>
+    <tr><th>기능</th><th class="w">언제</th><th>하는 일 · 결과</th><th style="width:210px">어긋나면</th></tr>
+    <tr><td class="k">가진 데이터 파악</td><td class="w">진입 · 값 갱신</td><td>지금 어떤 항목이 얼마나 채워져 있는지 정리한다. 질문 · 코칭 · 지표가 모두 이 결과를 기준으로 동작한다.</td><td>판단이 안 되는 항목은 없는 것으로 본다.</td></tr>
+    <tr><td class="k">동기화</td><td class="w">앱 실행 · 상태 직접 누름</td><td>연동된 앱에서 새 값을 가져온다. 앱이 켜져 있는 동안 주기적으로 다시 가져오지는 않는다.</td><td>진행 중에는 다시 실행되지 않게 막는다.</td></tr>
+    <tr><td class="k">단위 표준화</td><td class="w">값을 받을 때</td><td>앱마다 다른 단위와 기준을 서비스 기준으로 맞춘다. 앱마다 기준이 다른 항목은 원자료에서 직접 계산한다.</td><td>변환할 수 없는 값은 받지 않는다.</td></tr>
+    <tr><td class="k">출처 우선순위 · 중복 제거</td><td class="w">같은 항목이 여러 출처에서 올 때</td><td>정해진 우선순위로 하나를 고르고 나머지는 참고로 남긴다.</td><td>합산하거나 평균 내지 않는다.</td></tr>
+    <tr><td class="k">품질 · 최신성 판정</td><td class="w">값 저장 후</td><td>언제 것인지, 얼마나 비었는지, 값이 이상한지 판정해 화면에서 쓸 수 있는지 정한다.</td><td>오래된 값은 시각을 함께 보여준다.</td></tr>
+    <tr><td class="k">평소 수준 만들기</td><td class="w">기록이 일정량 쌓였을 때</td><td>그 사람의 평소 수준을 만들어 변화 판단의 기준으로 쓴다. 기록이 쌓이면 갱신한다.</td><td>기준을 만들 수 없으면 변화를 표시하지 않는다.</td></tr>
+    <tr><td class="k">출처 · 시각 고지</td><td class="w">값 표시</td><td>어디서 온 값이고 언제 갱신됐는지 함께 보여준다.</td><td>출처를 알 수 없는 값은 화면에 내지 않는다.</td></tr>
+    <tr><td class="k">읽기 전용 보장</td><td class="w">건강 앱 연동 전 구간</td><td>연동한 앱의 기록을 고치거나 새로 쓰지 않는다.</td><td>쓰기 권한을 요청하지 않는다.</td></tr>
+    <tr><td class="k">표현 안전 확인</td><td class="w">사용자에게 보내기 직전</td><td>진단처럼 읽히는 표현과 단정하는 표현을 걸러내고, 필요하면 전문가 상담 안내로 잇는다.</td><td>걸린 문구는 내보내지 않는다.</td></tr>
+    <tr><td class="k">접근 기록</td><td class="w">민감 정보 조회 · 변경</td><td>누가 언제 무엇을 보고 바꿨는지 남긴다.</td><td>기록을 남기지 못하면 처리를 진행하지 않는다.</td></tr>
+    <tr><td class="k">콘텐츠 판 관리</td><td class="w">질문 · 코칭 · 문구 교체</td><td>어떤 판이 언제부터 쓰였는지 남겨, 지난 기록을 그때 기준으로 다시 볼 수 있게 한다.</td><td>이미 만들어진 기록을 새 판으로 덮어쓰지 않는다.</td></tr>
+    <tr><td class="k">이용 기록 수집</td><td class="w">주요 화면 · 동작</td><td>어디서 멈추고 어디로 이어지는지 확인할 수 있는 최소한의 기록을 남긴다.</td><td>건강 수치 자체를 수집 항목에 넣지 않는다.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s14">
+  <h2><span class="n">14</span>확인이 필요한 것</h2>
+  <div class="sub">이 문서만으로 결정할 수 없어 상세 설계에서 확정해야 하는 부분</div>
+
+  <ul>
+    <li><b>알림 목록 화면</b> — 화면 자리는 잡았으나 보관 기간과 읽음 처리 기준이 정해지지 않았다.</li>
+    <li><b>읽을거리</b> — 어떤 기준으로 글을 고르고 누가 검수하는지 정해지지 않았다.</li>
+    <li><b>이용권 결제 · 환불</b> — 결제 수단과 환불 가능 기간의 최종 정책이 확정되지 않았다.</li>
+    <li><b>외부 연동 실패 재시도</b> — 몇 번, 얼마 간격으로 다시 시도할지와 사용자에게 알릴 시점.</li>
+    <li><b>데이터 보관과 파기</b> — 탈퇴 후 보관 기간, 해제 후 남기는 값의 범위.</li>
+    <li><b>같은 요청이 두 번 들어왔을 때</b> — 등록 · 결제 · 분석에서 중복을 막는 기준.</li>
+    <li><b>여러 프로필</b> — 현재 단일 프로필 기준이다. 보호자와 자녀를 함께 쓰는 경우는 별도로 정의한다.</li>
+  </ul>
+</section>
+
+<footer>
+  마이리포트 v2 · 기능정의서<br>
+  발행 2026-09-21 · 버전 1.0 · 내부 참고용
+</footer>
+
+</div>
 </body>
 </html>

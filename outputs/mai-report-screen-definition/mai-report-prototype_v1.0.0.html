@@ -1734,8 +1734,7 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 <!-- ══════════════ 계정 ══════════════ -->
 <div id="more" hidden>
   <header class="mo-hd">
-    <b>김마이</b>
-    <button id="profileQuick">내 정보 관리 ›</button>
+    <b>더보기</b>
   </header>
   <div class="pane" id="pMore" style="padding-top:12px"></div>
 </div>
@@ -3558,6 +3557,8 @@ function renderMetricPane(){
    병원 탭 — 진료요약 / 검진이력 / 진료정보
    ════════════════════════════════════════════════════════════ */
 const USER = {name:'김마이', realAge:40, healthAge:45, checkedAt:'2025년 6월 19일'};
+/* 가입 정보 — 내정보 화면은 조회 전용이라 앱에서 바꾸지 않는다(더보기 화면정의서 §6.3) */
+const PROFILE = {name:'김마이', birth:'1984-01-01', phone:'010-1234-5678', email:'maireport@maihub.ai'};
 let imp = {checkup:false, clinic:false};
 let importing = null;
 const SOURCES = {
@@ -4803,46 +4804,46 @@ document.getElementById('payGo').onclick = ()=>{
 
 /* 계정 */
 const CONSENT_PREF = { marketing:true, dataQuality:false };
-function toggleConsent(k){ CONSENT_PREF[k] = !CONSENT_PREF[k]; renderMore(); }
+let policyDoc = 'terms';   /* 약관 및 정책 화면에서 보고 있는 문서 */
+function toggleConsent(k){ CONSENT_PREF[k] = !CONSENT_PREF[k]; renderAccountSub('consents'); }
 function renderMore(){
-  /* 연동 관리는 더보기 한 곳에서 한다. 목록 행은 상태만 표시하고 토글을 두지 않는다(§1) */
+  /* 더보기 화면정의서 §1.2 · §2.2 — 카드 4개(프로필 / 데이터 / 서비스 / 안내) + 목록 밖 로그아웃 · 앱 버전.
+     묶음 제목은 두지 않고, 항목명 오른쪽 값은 읽기용이다(탭 영역은 줄 전체). */
   const medState = importing ? '가져오는 중…'
     : (imp.checkup && imp.clinic) ? '2개 연동됨'
     : imp.checkup ? '검진만 연동됨' : imp.clinic ? '진료만 연동됨' : '연동하기';
+  const deviceState = deviceLinked ? `${SOURCE.name} 연동됨` : '연동 안 함';   /* §4.1 해제·미연동을 같은 문구로 */
+  const tickets = ticketCount();
+  const row = (acc,label,val='') => `<button class="mo-row" data-acc="${acc}"><b>${label}</b>${val?`<span class="val">${val}</span>`:''}<span class="cv">›</span></button>`;
   document.getElementById('pMore').innerHTML = `
-    <div class="mo-lab" style="margin-top:4px">연동</div>
+    <div class="mo-card"><button class="mo-row" data-acc="profile" style="padding:18px 20px">
+      <span style="flex:1;min-width:0"><b style="display:block;font-size:19px;font-weight:800;line-height:1.35">${PROFILE.name}</b><small style="display:block;margin-top:2px;font-size:var(--t-cap);color:var(--ink-3)">내정보 관리</small></span>
+      <span class="cv">›</span></button></div>
     <div class="mo-card">
-      <button class="mo-row" data-acc="device"><b>건강 데이터</b><span class="val">${deviceLinked ? SOURCE.name+' 연동됨' : '연동하기'}</span><span class="cv">›</span></button>
-      <button class="mo-row" data-acc="medlink"><b>검진 · 진료정보</b><span class="val">${medState}</span><span class="cv">›</span></button>
+      ${row('device','건강데이터 연동',deviceState)}
+      ${row('medlink','검진 · 진료정보 연동',medState)}
+      ${row('consents','동의 관리')}
     </div>
-    <div class="mo-lab">서비스</div>
     <div class="mo-card">
-      <button class="mo-row" data-acc="ticket"><b>이용권 관리</b><span class="cv">›</span></button>
-      <button class="mo-row" data-acc="language"><b>언어</b><span class="val">한국어</span><span class="cv">›</span></button>
+      ${row('notice','알림 관리')}
+      ${row('ticket','이용권 관리', tickets ? `${tickets}장` : '')}
+      ${row('language','언어','한국어')}
     </div>
-    <div class="mo-lab">동의</div>
     <div class="mo-card">
-      <div class="cs"><div class="cs-t"><div class="tx"><b>마케팅 정보 활용 및 수신 동의</b><div class="cs-d">마이리포트와 관련된 이벤트 안내,<br>고객 혜택 정보를 제공합니다.</div><div class="cs-m"><a data-acc="terms">약관보기</a></div></div>
-          <button class="sw ${CONSENT_PREF.marketing?'on':''}" data-consent="marketing" aria-label="마케팅 정보 활용 및 수신 동의"></button></div></div>
-      <div class="cs"><div class="cs-t"><div class="tx"><b>서비스 품질 향상을 위한 데이터 수집 및 이용 동의</b><div class="cs-d">더 나은 품질의 서비스를 제공하기 위해<br>수집된 데이터를 비식별 처리하여 활용합니다.</div><div class="cs-m"><a data-acc="privacy">약관보기</a></div></div>
-          <button class="sw ${CONSENT_PREF.dataQuality?'on':''}" data-consent="dataQuality" aria-label="서비스 품질 향상을 위한 데이터 수집 및 이용 동의"></button></div></div>
+      ${row('announce','공지사항')}
+      ${row('support','문의하기')}
+      ${row('policies','약관 및 정책')}
     </div>
-    <div class="mo-lab">약관 및 정책</div>
-    <div class="mo-card">
-      <button class="mo-row" data-acc="terms"><b>서비스 이용 약관</b><span class="cv">›</span></button>
-      <button class="mo-row" data-acc="privacy"><b>개인정보 처리방침</b><span class="cv">›</span></button>
-      <button class="mo-row" data-acc="consent"><b>개인정보 수집 및 이용동의</b><span class="cv">›</span></button>
-    </div>
-    <div class="mo-foot"><button data-acc="logout">로그아웃</button></div>
+    <div class="mo-foot"><button data-acc="logout">로그아웃 ›</button></div>
     <div class="mo-ver">앱 버전 1.0.0</div>`;
-  document.querySelectorAll('#pMore [data-consent]').forEach(b=>b.onclick=()=>toggleConsent(b.dataset.consent));
   document.querySelectorAll('#pMore [data-acc]').forEach(b=>b.onclick=()=>openAccount(b.dataset.acc));
 }
 const NOTICE_PREF = { question:true, report:true, reminder:true };
 const ACC_META = {
-  profile:'내 정보 관리', notice:'알림 설정', device:'건강 데이터 연동', medlink:'검진 · 진료정보 연동',
+  profile:'내정보', notice:'알림 관리', device:'건강데이터 연동', medlink:'검진 · 진료정보 연동',
+  consents:'동의 관리', announce:'공지사항', policies:'약관 및 정책',
   privacy:'개인정보 처리방침', terms:'서비스 이용 약관',
-  support:'문의하기', logout:'로그아웃', withdraw:'회원 탈퇴',
+  support:'문의하기', logout:'로그아웃', withdraw:'회원탈퇴',
   ticket:'이용권 관리', language:'언어', consent:'개인정보 수집 및 이용동의'
 };
 
@@ -5368,19 +5369,55 @@ function toggleNotice(k){ NOTICE_PREF[k]=!NOTICE_PREF[k]; renderAccountSub('noti
 function renderAccountSub(type){
   const el=document.getElementById('accBody');
   if(type==='profile'){
+    /* 내정보 — 조회 전용. 생년월일 → 연락처 → 이메일 고정 순서, 값이 없으면 "등록 안 됨"(§5 · §6) */
+    const v = x => x || '등록 안 됨';
     el.innerHTML=`
-      <div class="acc-sec"><div class="acc-lab">기본 정보</div><div class="acc-card">
-        <div class="acc-row"><div class="tx"><b>이름</b></div><span class="val">김마이</span></div>
-        <div class="acc-row"><div class="tx"><b>생년월일</b><small>본인 확인 정보 기준</small></div><span class="val">1986.05.12</span></div>
+      <div style="padding:2px 4px 14px"><b style="font-size:24px;font-weight:800;letter-spacing:-.03em">${PROFILE.name}</b><span style="font-size:15px;color:var(--ink-2)">님</span></div>
+      <div class="acc-sec"><div class="acc-card">
+        <div class="acc-row"><div class="tx"><b>생년월일</b></div><span class="val">${v(PROFILE.birth)}</span></div>
+        <div class="acc-row"><div class="tx"><b>연락처</b></div><span class="val">${v(PROFILE.phone)}</span></div>
+        <div class="acc-row"><div class="tx"><b>이메일 주소</b></div><span class="val" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px">${v(PROFILE.email)}</span></div>
       </div></div>
-      <div class="acc-sec"><div class="acc-lab">설정</div><div class="acc-card">
-        <button class="acc-link" onclick="document.getElementById('accTitle').textContent='알림 설정';renderAccountSub('notice')">알림 설정</button>
-        <button class="acc-link" onclick="document.getElementById('accTitle').textContent='연동 관리';renderAccountSub('device')">연동 관리</button>
-        <button class="acc-link" onclick="document.getElementById('accTitle').textContent='문의하기';renderAccountSub('support')">문의하기</button>
+      <p class="acc-note">가입할 때 확인한 정보라 앱에서 바로 바꿀 수 없어요. 바꿔야 한다면 더보기 &gt; 문의하기로 알려 주세요.</p>
+      <div class="mo-foot" style="padding-top:22px"><button onclick="openAccount('withdraw')">회원탈퇴 ›</button></div>`;
+    return;
+  }
+  if(type==='consents'){
+    /* 동의 관리 — 필수는 상태만 보여주고, 선택 동의만 끄고 켠다(§3 · 알림정책 §5) */
+    const sw = (k,on) => `<button class="sw ${on?'on':''}" onclick="toggleConsent('${k}')" aria-label="${k}"></button>`;
+    el.innerHTML=`
+      <div class="acc-sec"><div class="acc-lab">필수 동의</div><div class="acc-card">
+        <div class="acc-row"><div class="tx"><b>서비스 이용약관</b><small>동의일 2026.08.01</small></div><span class="val" style="color:var(--ink-3)">필수</span></div>
+        <div class="acc-row"><div class="tx"><b>개인정보 수집 · 이용</b><small>동의일 2026.08.01</small></div><span class="val" style="color:var(--ink-3)">필수</span></div>
+        <div class="acc-row"><div class="tx"><b>민감정보(건강정보) 처리</b><small>걸음 · 수면 · 심박, 검진 · 진료정보의 수집과 분석 · 동의일 2026.08.01</small></div><span class="val" style="color:var(--ink-3)">필수</span></div>
       </div></div>
-      <div class="acc-sec"><div class="acc-lab">계정 관리</div><div class="acc-card">
-        <button class="acc-link danger" onclick="document.getElementById('accTitle').textContent='회원 탈퇴';renderAccountSub('withdraw')">회원 탈퇴</button>
-      </div></div>`;
+      <p class="acc-note">필수 동의를 철회하려면 회원탈퇴가 필요해요.</p>
+      <div class="acc-sec"><div class="acc-lab">선택 동의</div><div class="acc-card">
+        <div class="acc-row"><div class="tx"><b>마케팅 정보 수신</b><small>이벤트 · 혜택 안내 · ${CONSENT_PREF.marketing?'동의 2026.08.01':'미동의'}</small></div>${sw('marketing',CONSENT_PREF.marketing)}</div>
+        <div class="acc-row"><div class="tx"><b>서비스 품질 향상을 위한 데이터 활용</b><small>비식별 처리 후 분석 · ${CONSENT_PREF.dataQuality?'동의':'미동의'}</small></div>${sw('dataQuality',CONSENT_PREF.dataQuality)}</div>
+      </div></div>
+      <p class="acc-note">선택 동의는 언제든 철회할 수 있고, 철회해도 서비스 이용에는 제한이 없어요. 처리 결과는 알림으로 따로 알려드려요.</p>`;
+    return;
+  }
+  if(type==='announce'){
+    el.innerHTML=`<div class="acc-sec"><div class="acc-card">
+      ${[['9월 정기 점검 안내 (9/23 02:00~04:00)','2026.09.18'],['건강데이터 연동 소스 선택 기능 추가','2026.09.10'],['개인정보 처리방침 개정 안내 (10/1 시행)','2026.09.01']]
+        .map(([t,d])=>`<button class="acc-link"><span style="display:block;font-weight:700">${t}</span><small style="color:var(--ink-3)">${d}</small></button>`).join('')}
+    </div></div>`;
+    return;
+  }
+  if(type==='policies'){
+    /* 약관 및 정책 — 목록 단계를 두지 않고 한 화면에서 문서를 전환해 읽는다(§3) */
+    const docs = {
+      terms:['서비스 이용약관','회원 가입, 서비스 이용 조건, 계정 관리, 서비스 변경 · 중단, 이용 제한, 책임 범위 등 서비스 이용에 필요한 기본 조건을 안내합니다.','앱에서 제공하는 건강 정보와 코칭은 건강관리를 돕기 위한 기능이며, 의료 행위나 진단을 대신하지 않습니다.'],
+      privacy:['개인정보 처리방침','수집 · 이용하는 개인정보의 항목, 목적, 보유기간, 제3자 제공 및 처리위탁, 이용자 권리와 행사 방법을 안내합니다.','건강정보는 민감정보로 구분해 별도 동의를 받고, 앱에서 연동한 정보는 앱에서 해제할 수 있게 합니다.'],
+      consent:['개인정보 수집 및 이용동의','수집 항목과 이용 목적, 보유 기간을 동의 단위로 안내합니다. 선택 항목은 동의하지 않아도 기본 기능을 이용할 수 있습니다.','동의 내역과 철회는 더보기 &gt; 동의 관리에서 확인할 수 있습니다.']
+    };
+    const cur = policyDoc;
+    el.innerHTML=`
+      <div class="hd-tabs" style="margin-bottom:14px">${Object.keys(docs).map(k=>`<button class="${k===cur?'on':''}" onclick="policyDoc='${k}';renderAccountSub('policies')">${k==='terms'?'이용약관':k==='privacy'?'처리방침':'수집 · 이용'}</button>`).join('')}</div>
+      <div class="acc-text"><h3>${docs[cur][0]}</h3><p>${docs[cur][1]}</p><p>${docs[cur][2]}</p></div>
+      <p class="acc-note" style="margin-top:12px">시행일 2026.08.01 · 개정 이력은 공지사항에서 확인할 수 있어요.</p>`;
     return;
   }
   if(type==='language'){
@@ -5440,10 +5477,16 @@ function renderAccountSub(type){
     return;
   }
   if(type==='notice'){
-    const rows=[['question','오늘의 질문','오늘 확인하면 좋은 질문이 있을 때 알려드려요.'],['report','리포트 알림','검진 리포트 등록·분석이 완료되면 알려드려요.'],['reminder','건강 관리 리마인드','오늘의 목표나 건강 관리 일정이 남아 있으면 알려드려요.']];
-    el.innerHTML=`<div class="acc-sec"><div class="acc-card">${rows.map(([k,t,d])=>`
-      <div class="acc-row"><div class="tx"><b>${t}</b><small>${d}</small></div><button class="sw ${NOTICE_PREF[k]?'on':''}" onclick="toggleNotice('${k}')" aria-label="${t} 알림"></button></div>`).join('')}
-      </div></div><p class="acc-note">휴대폰 OS에서 앱 알림을 차단한 경우 이 설정과 별개로 알림이 오지 않을 수 있어요.</p>`;
+    /* 알림 관리 — 앱에서 끌 수 있는 것만 토글로 둔다. 나머지는 어디서 바꾸는지 알려준다(알림정책 §4) */
+    el.innerHTML=`<div class="acc-sec"><div class="acc-card">
+        <div class="acc-row"><div class="tx"><b>오늘의 목표 알림</b><small>오늘 남은 목표를 저녁에 한 번 알려드려요</small></div><button class="sw ${NOTICE_PREF.goal!==false?'on':''}" onclick="toggleNotice('goal')" aria-label="오늘의 목표 알림"></button></div>
+      </div></div>
+      <div class="acc-sec"><div class="acc-lab">여기서 바꿀 수 없는 알림</div><div class="acc-card">
+        <div class="acc-row"><div class="tx"><b>서비스 알림</b><small>점검 · 업데이트 안내 · 휴대폰 설정에서 앱 알림을 끄면 받지 않아요</small></div></div>
+        <button class="mo-row" onclick="openAccount('consents')"><b style="font-weight:600">광고성 알림</b><span class="val">${CONSENT_PREF.marketing?'동의함':'동의 안 함'}</span><span class="cv">›</span></button>
+        <div class="acc-row"><div class="tx"><b>필수 안내</b><small>약관 개정 · 처리 결과처럼 꼭 알려야 하는 알림은 끌 수 없어요</small></div></div>
+      </div></div>
+      <p class="acc-note">광고성 알림 수신 여부는 동의 관리에서 바꿔요.</p>`;
     return;
   }
   if(type==='privacy'){
@@ -5467,11 +5510,29 @@ function renderAccountSub(type){
     return;
   }
   if(type==='logout'){
-    el.innerHTML=`<section class="card empty" style="margin-top:24px"><span class="emo">↪</span><b>로그아웃할까요?</b><p>다시 이용하려면 카카오 계정으로 로그인해야 해요.</p><button class="cta" onclick="document.getElementById('accountSub').classList.remove('open');document.getElementById('login').hidden=false">로그아웃</button><button class="acc-cta ghost" onclick="document.getElementById('accountSub').classList.remove('open')">취소</button></section>`;
+    el.innerHTML=`<section class="card empty" style="margin-top:24px"><span class="emo">↪</span><b>로그아웃할까요?</b>
+      <p>다시 로그인하면 지금까지의 기록을 그대로 볼 수 있어요.</p>
+      <button class="cta" onclick="document.getElementById('accountSub').classList.remove('open');document.getElementById('login').hidden=false">로그아웃</button>
+      <button class="acc-cta ghost" onclick="document.getElementById('accountSub').classList.remove('open')">취소</button></section>`;
     return;
   }
   if(type==='withdraw'){
-    el.innerHTML=`<section class="card empty" style="margin-top:24px"><span class="emo">⚠️</span><b>회원 탈퇴</b><p>탈퇴하면 계정과 서비스 이용 기록을 더 이상 사용할 수 없어요. 실제 삭제·보관 범위는 개인정보 처리방침에 따라 안내되어야 합니다.</p><button class="acc-cta danger" onclick="this.textContent='프로토타입에서는 탈퇴를 실행하지 않아요';this.disabled=true">회원 탈퇴하기</button><button class="acc-cta ghost" onclick="document.getElementById('accountSub').classList.remove('open')">취소</button></section>`;
+    /* 사라지는 것 · 멈추는 것 · 남는 것을 나눠서 보여준다(§7.2) */
+    el.innerHTML=`<div class="wd">
+      <h3 class="wd-t" style="margin:4px 2px 12px;font-size:18px;font-weight:800">탈퇴하기 전에 확인해 주세요</h3>
+      <div class="acc-card" style="padding:4px 18px">
+        <div class="acc-row"><div class="tx"><b>사라지는 것</b><small>계정과 가입 정보, 질문 답변 · 목표 기록 · 지표 · 검진 · 진료 기록. 다시 가입해도 복구되지 않아요</small></div></div>
+        <div class="acc-row"><div class="tx"><b>멈추는 것</b><small>건강 데이터 수집과 모든 알림. 마케팅 수신 동의도 함께 철회돼요</small></div></div>
+        <div class="acc-row"><div class="tx"><b>남는 것</b><small>법령에 따라 보관 기간이 정해진 기록. 보관 항목과 기간은 개인정보 처리방침을 따라요</small></div></div>
+      </div>
+      <label class="wd-ck" style="display:flex;align-items:center;gap:8px;margin:18px 4px 14px;font-size:14px"><input type="checkbox" id="wdAgree" style="width:18px;height:18px;accent-color:var(--brand)"> 안내 내용을 확인했어요</label>
+      <button class="acc-cta danger" id="wdBtn" disabled style="background:#E5395C;color:#fff;border:0">탈퇴하기</button>
+      <button class="acc-cta ghost" onclick="document.getElementById('accountSub').classList.remove('open')">취소</button>
+    </div>`;
+    const ck=document.getElementById('wdAgree'), bt=document.getElementById('wdBtn');
+    ck.onchange=()=>{ bt.disabled=!ck.checked; bt.style.opacity=ck.checked?'1':'.4'; };
+    bt.style.opacity='.4';
+    bt.onclick=()=>{ bt.textContent='탈퇴가 완료됐어요'; bt.disabled=true; };
     return;
   }
 }
@@ -5827,7 +5888,6 @@ navs[1].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===1)); sho
 navs[2].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===2)); show('hosp'); };
 navs[3].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===3)); show('more'); };
 document.getElementById('gLink').onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===1)); show('life'); const t=document.querySelector('.l-tab[data-t=goal]'); if(t) t.click(); };
-document.getElementById('profileQuick').onclick = ()=>openAccount('profile');
 
 renderQ(); renderCoach(); renderGoals(); renderMetrics(); renderDateStrip();
 renderDaily(); renderMetricPane(); renderGoalPane(); renderHosp(); renderMore(); refreshHome();
