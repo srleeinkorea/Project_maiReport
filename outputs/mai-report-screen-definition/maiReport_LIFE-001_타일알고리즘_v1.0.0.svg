@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1214" height="1008" viewBox="0 0 1214 1008" font-family="Noto Sans KR, Malgun Gothic, sans-serif">
+  <defs>
+    <marker id="lf" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M10,0 L0,5 L10,10 z" fill="#6B72D8"/>
+    </marker>
+  </defs>
+  <rect width="1214" height="1008" fill="#EFF2F7"/>
+
+  <text x="40" y="40" font-size="19" font-weight="900" letter-spacing="-0.8" fill="#0F1826">타일에 뜨는 숫자는 이렇게 정해집니다</text>
+  <text x="40" y="62" font-size="12.5" fill="#6C7A8E">수면 타일 하나를 예로 · 식이와 활동도 똑같이 따로 계산합니다</text>
+
+  <g font-size="12" fill="#8D99AB">
+    <circle cx="48" cy="84" r="9" fill="#6B72D8"/>
+    <text x="64" y="88">완료한 날</text>
+    <circle cx="152" cy="84" r="9" fill="none" stroke="#C0CADA" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+    <text x="168" y="88">완료 기록이 없는 날</text>
+  </g>
+
+  <!-- ================= 1단계 ================= -->
+  <text x="40" y="128" font-size="14" font-weight="900" fill="#0F1826">1단계 · 어디서부터 셀지 정합니다</text>
+
+  <g transform="translate(40,142)">
+    <rect width="354" height="150" rx="14" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <text x="20" y="30" font-size="12" font-weight="700" fill="#1B2739">오늘 완료했다면</text>
+    <g transform="translate(20,48)">
+      <circle cx="22" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="76" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="130" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="184" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="238" cy="22" r="17" fill="#6B72D8" stroke="#2F6BFF" stroke-width="3"/>
+      <text x="238" y="58" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">오늘</text>
+      <text x="238" y="-4" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">▼ 여기서 시작</text>
+    </g>
+    <text x="20" y="136" font-size="11.5" fill="#5A6779">오늘부터 셉니다.</text>
+  </g>
+
+  <g transform="translate(430,142)">
+    <rect width="354" height="150" rx="14" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <text x="20" y="30" font-size="12" font-weight="700" fill="#1B2739">오늘은 아직 안 했지만 어제 했다면</text>
+    <g transform="translate(20,48)">
+      <circle cx="22" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="76" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="130" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="184" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="238" cy="22" r="17" fill="none" stroke="#C0CADA" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+      <text x="238" y="58" font-size="10.5" font-weight="700" fill="#8D99AB" text-anchor="middle">오늘</text>
+      <text x="184" y="-4" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">▼ 여기서 시작</text>
+    </g>
+    <text x="20" y="136" font-size="11.5" fill="#5A6779"><tspan font-weight="700" fill="#1B2739">어제부터</tspan> 셉니다 — 오늘은 아직 끝나지 않았으니까요.</text>
+  </g>
+
+  <g transform="translate(820,142)">
+    <rect width="354" height="150" rx="14" fill="#FFFFFF" stroke="#E3C9C9"/>
+    <text x="20" y="30" font-size="12" font-weight="700" fill="#1B2739">오늘도 어제도 안 했다면</text>
+    <g transform="translate(20,48)">
+      <circle cx="22" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="76" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="130" cy="22" r="17" fill="#6B72D8"/>
+      <circle cx="184" cy="22" r="17" fill="none" stroke="#C0CADA" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+      <circle cx="238" cy="22" r="17" fill="none" stroke="#C0CADA" stroke-width="1.5" stroke-dasharray="3 2.5"/>
+      <text x="238" y="58" font-size="10.5" font-weight="700" fill="#8D99AB" text-anchor="middle">오늘</text>
+    </g>
+    <text x="20" y="136" font-size="11.5" fill="#B23A3A"><tspan font-weight="700">셀 것이 없습니다.</tspan> 여기서 끝 — 연속은 0입니다.</text>
+  </g>
+
+  <!-- ================= 2단계 ================= -->
+  <text x="40" y="336" font-size="14" font-weight="900" fill="#0F1826">2단계 · 거꾸로 세다가 빈 날을 만나면 멈춥니다</text>
+
+  <g transform="translate(40,350)">
+    <rect width="1134" height="152" rx="14" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <g transform="translate(40,44)">
+      <circle cx="22" cy="22" r="17" fill="#6B72D8"/><text x="22" y="58" font-size="10" fill="#95A0B0" text-anchor="middle">14일</text>
+      <circle cx="76" cy="22" r="17" fill="#6B72D8"/><text x="76" y="58" font-size="10" fill="#95A0B0" text-anchor="middle">15일</text>
+      <circle cx="130" cy="22" r="17" fill="none" stroke="#C0CADA" stroke-width="1.5" stroke-dasharray="3 2.5"/><text x="130" y="58" font-size="10" fill="#95A0B0" text-anchor="middle">16일</text>
+      <circle cx="184" cy="22" r="17" fill="#6B72D8"/><text x="184" y="58" font-size="10" fill="#95A0B0" text-anchor="middle">17일</text>
+      <circle cx="238" cy="22" r="17" fill="#6B72D8"/><text x="238" y="58" font-size="10" fill="#95A0B0" text-anchor="middle">18일</text>
+      <circle cx="292" cy="22" r="17" fill="#6B72D8"/><text x="292" y="58" font-size="10" fill="#95A0B0" text-anchor="middle">19일</text>
+      <circle cx="346" cy="22" r="17" fill="#6B72D8" stroke="#2F6BFF" stroke-width="3"/><text x="346" y="58" font-size="10" font-weight="700" fill="#2F6BFF" text-anchor="middle">오늘</text>
+
+      <path d="M330,-6 L166,-6" stroke="#6B72D8" stroke-width="1.6" fill="none" marker-end="url(#lf)"/>
+      <text x="248" y="-14" font-size="10.5" font-weight="700" fill="#6B72D8" text-anchor="middle">하나씩 거꾸로</text>
+      <text x="130" y="-14" font-size="10.5" font-weight="700" fill="#B23A3A" text-anchor="middle">여기서 멈춤</text>
+    </g>
+
+    <text x="470" y="70" font-size="12.5" fill="#3B4860">17 · 18 · 19 · 오늘 — <tspan font-weight="800" fill="#0F1826">네 칸을 셌습니다.</tspan></text>
+    <rect x="470" y="82" width="150" height="46" rx="11" fill="#DFE2FA"/>
+    <text x="545" y="112" font-size="18" font-weight="900" fill="#16202F" text-anchor="middle">4<tspan font-size="11">일 연속</tspan></text>
+
+    <text x="650" y="70" font-size="11.5" fill="#5A6779">16일 앞의 14 · 15일은 세지 않습니다.</text>
+    <text x="650" y="92" font-size="11.5" fill="#5A6779">사라지는 건 아니고 <tspan font-weight="700" fill="#1B2739">최장 기록 계산</tspan>에는 그대로 쓰입니다.</text>
+    <text x="650" y="122" font-size="11.5" fill="#5A6779">빈 날이 왜 멈추게 하는지는 <tspan font-weight="700" fill="#1B2739">「안 했는지 기록만 안 했는지</tspan></text>
+    <text x="650" y="140" font-size="11.5" fill="#5A6779"><tspan font-weight="700" fill="#1B2739">앱이 구분할 수 없기」</tspan> 때문입니다.</text>
+  </g>
+
+  <!-- ================= 3단계 ================= -->
+  <text x="40" y="546" font-size="14" font-weight="900" fill="#0F1826">3단계 · 그 숫자에 맞는 말을 붙입니다</text>
+  <text x="40" y="566" font-size="11.5" fill="#6C7A8E">나올 수 있는 타일은 이 넷뿐입니다</text>
+
+  <g transform="translate(40,580)">
+    <rect width="266" height="168" rx="14" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <rect x="82" y="20" width="102" height="74" rx="13" fill="#DFE2FA"/>
+    <text x="133" y="44" font-size="11" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="133" y="70" font-size="18" font-weight="900" fill="#16202F" text-anchor="middle">4<tspan font-size="11">일 연속</tspan></text>
+    <text x="133" y="86" font-size="10" fill="#6E7C90" text-anchor="middle">이어가는 중</text>
+    <text x="133" y="124" font-size="11.5" font-weight="700" fill="#1B2739" text-anchor="middle">센 숫자가 1 이상</text>
+    <text x="133" y="145" font-size="11" fill="#5A6779" text-anchor="middle">이번 주에 시작했을 때</text>
+  </g>
+
+  <g transform="translate(329,580)">
+    <rect width="266" height="168" rx="14" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <rect x="82" y="20" width="102" height="74" rx="13" fill="#DFE2FA"/>
+    <text x="133" y="44" font-size="11" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="133" y="70" font-size="18" font-weight="900" fill="#16202F" text-anchor="middle">10<tspan font-size="11">일 연속</tspan></text>
+    <text x="133" y="86" font-size="10" font-weight="800" fill="#4A51BC" text-anchor="middle">8월 11일로부터</text>
+    <text x="133" y="124" font-size="11.5" font-weight="700" fill="#1B2739" text-anchor="middle">센 숫자가 1 이상</text>
+    <text x="133" y="145" font-size="11" fill="#5A6779" text-anchor="middle">지난주 이전에 시작했을 때</text>
+  </g>
+
+  <g transform="translate(618,580)">
+    <rect width="266" height="168" rx="14" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <rect x="82" y="20" width="102" height="74" rx="13" fill="#DFE2FA"/>
+    <text x="133" y="44" font-size="11" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="133" y="70" font-size="14" font-weight="900" fill="#66748A" text-anchor="middle">다시 시작</text>
+    <text x="133" y="86" font-size="10" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <text x="133" y="124" font-size="11.5" font-weight="700" fill="#1B2739" text-anchor="middle">숫자는 0인데</text>
+    <text x="133" y="145" font-size="11" fill="#5A6779" text-anchor="middle">예전에 한 적은 있을 때</text>
+  </g>
+
+  <g transform="translate(907,580)">
+    <rect width="267" height="168" rx="14" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <rect x="82" y="20" width="102" height="74" rx="13" fill="#DFE2FA"/>
+    <text x="133" y="44" font-size="11" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="133" y="70" font-size="14" font-weight="900" fill="#66748A" text-anchor="middle">시작 전</text>
+    <text x="133" y="86" font-size="10" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <text x="133" y="124" font-size="11.5" font-weight="700" fill="#1B2739" text-anchor="middle">한 번도 한 적이 없을 때</text>
+    <text x="133" y="145" font-size="11" fill="#5A6779" text-anchor="middle">「다시」라고 하지 않습니다</text>
+  </g>
+
+  <text x="40" y="774" font-size="11.5" fill="#6C7A8E"><tspan font-weight="700" fill="#B23A3A">0은 숫자로 쓰지 않습니다.</tspan>
+    0 · 5 · 10이 나란히 서면 0은 저절로 꼴찌로 읽힙니다. 「다시 시작」은 숫자가 아니라 등수가 만들어지지 않습니다.</text>
+
+  <!-- ================= 과거 ================= -->
+  <text x="40" y="818" font-size="14" font-weight="900" fill="#0F1826">지난 날짜를 볼 때는 두 가지가 달라집니다</text>
+
+  <g transform="translate(40,832)">
+    <rect width="560" height="146" rx="14" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <text x="22" y="32" font-size="12.5" font-weight="800" fill="#101A2B">1 · 그날은 이미 끝난 날입니다</text>
+    <text x="22" y="56" font-size="11.5" fill="#4B586C">오늘이라면 「아직 안 끝났으니 어제부터」 세지만,</text>
+    <text x="22" y="75" font-size="11.5" fill="#4B586C">지난 날은 그날 안 했으면 그냥 <tspan font-weight="700" fill="#1B2739">0</tspan>입니다.</text>
+    <rect x="22" y="92" width="516" height="38" rx="10" fill="#F7F9FC"/>
+    <text x="36" y="116" font-size="11" fill="#5A6779">8월 14일을 보는데 그날 기록이 없다 → <tspan font-weight="700" fill="#1B2739">기록 없음</tspan> (전날을 보지 않습니다)</text>
+  </g>
+
+  <g transform="translate(614,832)">
+    <rect width="560" height="146" rx="14" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <text x="22" y="32" font-size="12.5" font-weight="800" fill="#101A2B">2 · 그날 이후는 없는 셈 칩니다</text>
+    <text x="22" y="56" font-size="11.5" fill="#4B586C">8월 14일을 보고 있으면 15일 이후 기록은 계산에</text>
+    <text x="22" y="75" font-size="11.5" fill="#4B586C">넣지 않습니다. <tspan font-weight="700" fill="#1B2739">그날 그 자리에서 보이던 숫자</tspan>여야 하니까요.</text>
+    <rect x="22" y="92" width="516" height="38" rx="10" fill="#F7F9FC"/>
+    <text x="36" y="116" font-size="11" fill="#5A6779">보조 문구도 「이어가는 중」이 아니라 <tspan font-weight="700" fill="#1C7A57">8월 14일까지</tspan> — 그 뒤로 끊겼을 수 있으니까요</text>
+  </g>
+</svg>

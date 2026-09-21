@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>maiReport 정보구조도(IA)</title>
+  <style>
+    :root{
+      --navy:#14213d;--blue:#2f6bff;--blue-2:#eaf1ff;--cyan:#dbf2f8;
+      --ink:#1b2942;--muted:#66738a;--line:#dce3ef;--page:#f4f6fa;
+      --card:#fff;--green:#168252;--green-bg:#e9f7ef;--amber:#9a6700;
+      --amber-bg:#fff6d8;--red:#bd2f2f;--red-bg:#fdecec;--radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--page);color:var(--ink);font-family:Pretendard,"Noto Sans KR","Malgun Gothic",Arial,sans-serif;line-height:1.5}
+    button,input{font:inherit}
+    .top{position:sticky;top:0;z-index:20;background:rgba(244,246,250,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .top-in{max-width:1540px;margin:auto;padding:18px 28px;display:flex;align-items:center;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+    .mark{width:38px;height:38px;border-radius:12px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:900;font-style:italic}
+    .brand b{display:block;font-size:18px;letter-spacing:-.03em}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+    .tools{margin-left:auto;display:flex;gap:8px;align-items:center}
+    .search{width:min(340px,35vw);padding:10px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);outline:none}
+    .search:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,107,255,.12)}
+    .btn{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#fff;color:var(--ink);font-weight:700;cursor:pointer}
+    .btn:hover{border-color:var(--blue);color:var(--blue)}
+    main{max-width:1540px;margin:auto;padding:30px 28px 60px}
+    .hero{background:linear-gradient(135deg,#14213d 0%,#203b75 65%,#2f6bff 150%);color:#fff;border-radius:24px;padding:32px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(360px,.8fr);gap:28px;box-shadow:0 16px 46px rgba(20,33,61,.16)}
+    .eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;color:#a9c2ff;text-transform:uppercase}
+    h1{font-size:34px;line-height:1.25;margin:8px 0 10px;letter-spacing:-.04em}
+    .hero p{margin:0;color:#d8e2f8;font-size:14px;max-width:720px}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.meta span{padding:7px 10px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.08);font-size:11px;color:#e9efff}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;align-content:center}
+    .stat{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);border-radius:16px;padding:16px}.stat b{display:block;font-size:27px;line-height:1}.stat span{display:block;margin-top:7px;font-size:11px;color:#cbd8f4}
+    .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:24px 0 18px}
+    .controls strong{font-size:13px;margin-right:4px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:12px;color:var(--muted);cursor:pointer}.chip.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:800}
+    .legend{margin-left:auto;display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted)}.legend span{display:flex;align-items:center;gap:6px}.dot{width:8px;height:8px;border-radius:50%}.dot.done{background:var(--green)}.dot.review{background:#e0a500}.dot.link{background:#e45555}
+    .overview{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}.overview-link{width:100%;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;text-decoration:none;text-align:left;color:var(--ink);display:flex;align-items:center;gap:12px;cursor:pointer}.overview-link:hover,.overview-link:focus-visible{border-color:var(--blue);transform:translateY(-1px);outline:none}.overview .ic{width:36px;height:36px;border-radius:11px;background:var(--blue-2);display:grid;place-items:center;font-size:16px}.overview b{font-size:14px}.overview small{display:block;color:var(--muted);margin-top:2px;font-size:10px}
+    .group{background:#fff;border:1px solid var(--line);border-radius:22px;margin-top:16px;overflow:hidden;box-shadow:0 7px 22px rgba(20,33,61,.04);scroll-margin-top:100px}
+    .group-head{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#fff,var(--blue-2))}.group-num{width:28px;height:28px;border-radius:9px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:900}.group-head h2{font-size:18px;margin:0}.group-head p{margin:2px 0 0;color:var(--muted);font-size:11px}.group-count{margin-left:auto;font-size:11px;font-weight:800;color:var(--blue);background:#fff;padding:6px 10px;border-radius:999px;border:1px solid #cddcff}
+    .tree-wrap{padding:22px;overflow-x:auto}.tree{min-width:1150px;display:flex;align-items:flex-start;gap:28px}.level{display:flex;flex-direction:column;gap:12px;min-width:205px;position:relative}.level+.level:before{content:"";position:absolute;left:-17px;top:8px;bottom:8px;border-left:1px dashed #b9c7df}.level-title{font-size:10px;font-weight:900;color:#8794aa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:-4px}
+    .node{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 13px;min-height:70px;transition:.15s}.level+.level .node:before{content:"";position:absolute;left:-17px;top:34px;width:16px;border-top:1px dashed #b9c7df}.node:hover{border-color:var(--blue);box-shadow:0 5px 16px rgba(47,107,255,.11)}.node.dim{display:none}.node-top{display:flex;align-items:center;gap:7px}.id{font-family:Consolas,monospace;font-size:9px;font-weight:800;color:var(--blue);background:var(--blue-2);border-radius:5px;padding:2px 5px}.type{margin-left:auto;color:#8c98ac;font-size:9px}.node b{display:block;font-size:12px;margin-top:7px;letter-spacing:-.02em}.node p{margin:4px 0 0;color:var(--muted);font-size:10px;line-height:1.45}.status{position:absolute;right:8px;bottom:8px;width:7px;height:7px;border-radius:50%}.status.done{background:var(--green)}.status.review{background:#e0a500}.status.link{background:#e45555}
+    .flow-section{margin-top:28px}.flow-section h2{font-size:21px;margin:0 0 12px}.flows{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.flow{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px}.flow h3{font-size:13px;margin:0 0 12px}.steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.step{padding:7px 9px;border-radius:9px;background:var(--blue-2);color:#31538f;font-size:10px;font-weight:700}.arrow{color:#aab4c4;font-size:11px}
+    .common{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.common-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.common-card b{font-size:13px}.common-card p{font-size:10px;color:var(--muted);margin:6px 0 0}.common-card code{display:inline-block;margin-top:9px;color:#31538f;background:var(--blue-2);padding:3px 6px;border-radius:5px;font-size:9px}
+    .empty{display:none;background:#fff;border:1px dashed var(--line);border-radius:18px;padding:30px;text-align:center;color:var(--muted);margin-top:16px}
+    footer{text-align:center;color:#8b96a8;font-size:10px;padding:28px 0 0}
+    @media(max-width:900px){.top-in{padding:14px 16px}.brand small,.btn.print{display:none}.search{width:48vw}.hero{grid-template-columns:1fr;padding:24px}.overview{grid-template-columns:repeat(2,1fr)}.flows{grid-template-columns:1fr}.common{grid-template-columns:1fr}main{padding:20px 16px 45px}.legend{width:100%;margin-left:0}}
+    @media print{body{background:#fff}.top,.controls,.overview{display:none}main{max-width:none;padding:0}.hero{box-shadow:none;border-radius:0;background:#14213d;-webkit-print-color-adjust:exact;print-color-adjust:exact}.group{break-inside:avoid;box-shadow:none}.tree-wrap{overflow:visible}.tree{min-width:0;transform:scale(.72);transform-origin:top left;width:138%;margin-bottom:-11%}.flow-section{break-before:page}.status,.group-head,.node,.step{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+  </style>
+  <style id="mai-tone-and-manner">
+    :root{
+      --blue:#2F66F5;--blue-2:#EAF0FF;--page:#F5F7FB;--card:#FFFFFF;
+      --green:#168252;--green-bg:#E9F7EF;--amber:#A36B00;--amber-bg:#FFF3D6;
+      --red:#C43D3D;--red-bg:#FDECEC;--radius:24px;
+    }
+    body{font-family:"Noto Sans KR",sans-serif;letter-spacing:-.015em}
+    .top{background:rgba(245,247,251,.94)}
+    .top-in{padding-top:16px;padding-bottom:16px}
+    .mark{border-radius:50%;box-shadow:0 7px 18px rgba(47,102,245,.24)}
+    .search,.btn{border-radius:999px}
+    .hero{
+      border-radius:28px;padding:38px;
+      background:linear-gradient(135deg,#172B58 0%,#2853C8 60%,#5C85FF 145%);
+      box-shadow:0 20px 52px rgba(31,65,145,.18)
+    }
+    h1{font-size:38px;font-weight:900;letter-spacing:-.055em}
+    .eyebrow{color:#C9D8FF}
+    .meta span{background:rgba(255,255,255,.11)}
+    .stat{border-radius:22px;padding:20px;background:rgba(255,255,255,.1)}
+    .stat b{letter-spacing:-.045em}
+    .overview{gap:14px}
+    .overview-link{border-radius:22px;padding:20px;box-shadow:0 8px 24px rgba(31,55,105,.045);transition:.18s ease}
+    .overview-link:hover,.overview-link:focus-visible{box-shadow:0 12px 30px rgba(47,102,245,.1)}
+    .overview .ic{width:42px;height:42px;border-radius:50%;color:var(--blue);font-weight:900}
+    .group{border-radius:28px;box-shadow:0 10px 32px rgba(31,55,105,.055)}
+    .group-head{padding:22px 24px;border-left:5px solid var(--blue);background:linear-gradient(90deg,#FFFFFF 0%,#F8FAFF 58%,var(--blue-2) 100%)}
+    .group-num{width:34px;height:34px;border-radius:50%;background:var(--blue);box-shadow:0 6px 14px rgba(47,102,245,.2)}
+    .tree-wrap{padding:26px}
+    .node{border-radius:20px;padding:15px 16px;min-height:78px}
+    .id{font-family:"Noto Sans KR",sans-serif;border-radius:999px;padding:3px 7px}
+    .flow,.common-card{border-radius:22px;padding:22px;border-left:4px solid var(--blue);box-shadow:0 8px 24px rgba(31,55,105,.04)}
+    .step,.common-card code{border-radius:999px}
+    .empty{border-radius:24px;padding:36px}
+    .g2,.flows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .g3,.common{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .g4,.overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    .g5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+    @media(max-width:900px){
+      .hero{padding:28px}.hero h1{font-size:32px}
+      .g4,.g5,.overview{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .g2,.g3,.flows,.common{grid-template-columns:1fr}
+    }
+    @media(max-width:520px){.g4,.g5,.overview{grid-template-columns:1fr}.hero{border-radius:24px;padding:24px}.hero h1{font-size:29px}}
+    @media print{.hero{background:#172B58}.group-head{border-left-color:var(--blue)}}
+  </style>
+  <style id="mai-header-refinement">
+    .top{padding:10px 20px;background:rgba(245,247,251,.78);border-bottom:0;backdrop-filter:blur(18px) saturate(130%)}
+    .top-in{max-width:1500px;min-height:58px;padding:8px 10px 8px 18px;gap:20px;background:rgba(255,255,255,.94);border:1px solid rgba(203,213,229,.72);border-radius:18px;box-shadow:0 10px 32px rgba(36,55,92,.065),0 1px 2px rgba(36,55,92,.04)}
+    .brand{gap:12px;min-width:max-content}
+    .brand-word{position:relative;color:#17233D;font-size:19px;font-weight:900;letter-spacing:-.065em;line-height:1}
+    .brand-word::after{content:"";position:absolute;right:-7px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--blue)}
+    .brand-rule{width:1px;height:20px;margin-left:3px;background:#DDE4EF}
+    .doc-label{display:flex;align-items:center;gap:7px;color:#627089;font-size:11px;font-weight:700;letter-spacing:-.02em}
+    .doc-label em{padding:3px 7px;border-radius:999px;background:var(--blue-2);color:var(--blue);font-size:9px;font-style:normal;font-weight:900;letter-spacing:.03em}
+    .tools{gap:7px}
+    .search-shell{position:relative;display:flex;align-items:center;width:min(340px,32vw);height:40px;border:1px solid transparent;border-radius:12px;background:#F5F7FB;transition:.18s ease}
+    .search-shell:focus-within{border-color:rgba(47,102,245,.42);background:#FFF;box-shadow:0 0 0 3px rgba(47,102,245,.09)}
+    .search-icon{display:grid;place-items:center;width:38px;color:#8793A8;flex:0 0 auto}
+    .search-icon svg{width:16px;height:16px}
+    .search{width:100%;height:100%;padding:0 12px 0 0;border:0;border-radius:0;background:transparent;font-size:12px;box-shadow:none}
+    .search:focus{border:0;box-shadow:none}
+    .tool-rule{width:1px;height:22px;margin:0 3px;background:#E3E8F1}
+    .btn{height:40px;padding:0 14px;border-radius:12px;border-color:transparent;background:transparent;color:#657188;font-size:11px;transition:.18s ease}
+    .btn:hover{border-color:transparent;background:#F2F5FA;color:#24324C}
+    .btn-primary{padding-inline:16px;background:var(--blue);color:#FFF;box-shadow:0 7px 16px rgba(47,102,245,.2)}
+    .btn-primary:hover{background:#2558DC;color:#FFF;box-shadow:0 9px 20px rgba(47,102,245,.25);transform:translateY(-1px)}
+    @media(max-width:900px){.top{padding:8px}.top-in{padding:8px 10px 8px 14px;border-radius:16px}.doc-label,.brand-rule{display:none}.search-shell{width:min(300px,42vw)}}
+    @media(max-width:600px){.top-in{flex-wrap:wrap;gap:8px}.tools{width:100%;margin-left:0}.search-shell{width:auto;flex:1}.tool-rule{display:none}.btn{padding-inline:11px}}
+    @media print{.top{display:none}}
+  </style>
+  <style id="mai-reference-hero">
+    .btn-primary{background:#17233D;box-shadow:0 7px 16px rgba(23,35,61,.16)}
+    .btn-primary:hover{background:#0F192D;box-shadow:0 9px 20px rgba(23,35,61,.2)}
+    .hero{display:block;padding:46px 56px 36px;background:#FFF;color:var(--ink);border:1px solid #DCE3EE;border-top:4px solid var(--blue);border-radius:22px;box-shadow:0 14px 38px rgba(35,54,91,.055)}
+    .eyebrow{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.02em;text-transform:uppercase}
+    h1{max-width:920px;margin:14px 0 16px;color:#111A2D;font-size:42px;line-height:1.16;font-weight:900;letter-spacing:-.055em}
+    .hero p{max-width:960px;color:#657188;font-size:14px;line-height:1.75}
+    .meta{margin:28px 0 32px;gap:8px}
+    .meta span{padding:8px 13px;border:1px solid #D5E0FB;background:#F0F4FF;color:#2B58C9;font-size:10px;font-weight:800}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;padding-top:26px;border-top:1px solid #DCE3EE}
+    .stat{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:6px;padding:0;border:0;border-radius:0;background:transparent;color:var(--ink)}
+    .stat b{color:#121B2E;font-size:20px;line-height:1.25;font-weight:900;letter-spacing:-.035em}
+    .stat span{margin:0;color:#718098;font-size:10px;font-weight:800;letter-spacing:0}
+    @media(max-width:900px){.hero{padding:34px 32px 30px}.hero h1{font-size:35px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px}}
+    @media(max-width:520px){.hero{padding:28px 22px 25px;border-radius:20px}.hero h1{font-size:30px}.meta{margin:22px 0 26px}.stats{gap:20px 14px}.stat b{font-size:18px}}
+    @media print{.hero{background:#FFF;color:var(--ink);border-top-color:var(--blue)}.hero h1,.stat b{color:#111A2D}}
+  </style>
+  <style id="mai-legibility-pass">
+    body{font-size:14px;line-height:1.6}
+    .brand-word{font-size:20px}.doc-label{font-size:12px}.doc-label em{font-size:10px}
+    .search{font-size:13px}.btn{font-size:12px}
+    .hero p{font-size:16px;line-height:1.75}.meta span{font-size:11px}.stat span{font-size:11px}.stat b{font-size:22px}
+    .strategy-head>p{font-size:14px;line-height:1.85}.section-label{font-size:12px}
+    .key-message-label{font-size:11px}.key-message strong{font-size:24px}.key-message p{font-size:13px}
+    .strategy-card h3{font-size:18px}.strategy-card li,.strategy-card li b{font-size:13px}.strategy-card li{line-height:1.7}
+    .value-item span{font-size:10px}.value-item strong{font-size:15px}.value-item p{font-size:12px}
+    .controls strong{font-size:14px}.chip{font-size:13px}.legend{font-size:12px}
+    .overview b{font-size:15px}.overview small{font-size:12px;line-height:1.5}
+    .group-head h2{font-size:20px}.group-head p{font-size:12px}.group-count{font-size:11px}
+    .tree{min-width:1240px}.level{min-width:220px}.level-title{font-size:11px}
+    .id{font-size:10px}.type{font-size:10px}.node b{font-size:14px;line-height:1.4}.node p{font-size:12px;line-height:1.55}
+    .flow-section h2{font-size:23px}.flow h3{font-size:15px}.step{font-size:12px}.common-card b{font-size:15px}.common-card p{font-size:12px;line-height:1.65}.common-card code{font-size:10px}
+    footer{font-size:11px}
+    @media(max-width:600px){.hero p{font-size:14px}.key-message strong{font-size:21px}.strategy-card li,.strategy-card li b{font-size:12px}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-in">
+      <div class="brand" aria-label="maiReport 정보구조도"><span class="brand-word">maiReport</span><span class="brand-rule" aria-hidden="true"></span><span class="doc-label">정보구조도 <em>IA</em></span></div>
+      <div class="tools"><label class="search-shell"><span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></span><input id="search" class="search" type="search" placeholder="화면명 또는 화면 ID 검색" aria-label="정보구조 검색"></label><span class="tool-rule" aria-hidden="true"></span><button id="reset" class="btn" type="button">초기화</button><button id="print" class="btn btn-primary print" type="button">내보내기</button></div>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div><div class="eyebrow">Information Architecture</div><h1>maiReport 정보구조도(IA)</h1><p>온보딩부터 건강 데이터 분석, 검진정보 등록, 의료이용 조회, AI 분석 및 계정 관리까지 전체 화면 계층과 주요 전환 관계를 정의합니다.</p><div class="meta"><span>기준일 2026-09-14</span><span>Mobile UI · Max 430px</span><span>HTML Prototype As-Is</span><span>AI 검진 요약 최종 반영</span><span>화면 ID 기준 추적</span></div></div>
+      <div class="stats"><div class="stat"><b>47</b><span>전체 화면 및 상태</span></div><div class="stat"><b>4</b><span>주요 하단 내비게이션</span></div><div class="stat"><b>7</b><span>핵심 업무 프로세스</span></div><div class="stat"><b>6</b><span>기능 영역</span></div></div>
+    </section>
+
+    <div class="controls"><strong>기능 영역</strong><button class="chip on" type="button" data-filter="all" aria-pressed="true">전체</button><button class="chip" type="button" data-filter="onboarding" aria-pressed="false">온보딩</button><button class="chip" type="button" data-filter="home" aria-pressed="false">홈</button><button class="chip" type="button" data-filter="life" aria-pressed="false">생활</button><button class="chip" type="button" data-filter="hospital" aria-pressed="false">병원·리포트</button><button class="chip" type="button" data-filter="account" aria-pressed="false">계정</button><div class="legend"><span><i class="dot done"></i>Prototype 구현</span><span><i class="dot review"></i>정책 검토</span><span><i class="dot link"></i>시스템 연계</span></div></div>
+
+    <nav class="overview" aria-label="주요 화면 바로가기">
+      <button class="overview-link" type="button" data-scroll-target="home-02"><span class="ic">⌂</span><span><b>홈</b><small>질문 · 코칭 · 목표 · 컨디션</small></span></button>
+      <button class="overview-link" type="button" data-scroll-target="life-03"><span class="ic">♡</span><span><b>생활</b><small>목표 · 지표 · 생활 · AI 분석</small></span></button>
+      <button class="overview-link" type="button" data-scroll-target="hospital-04"><span class="ic">✚</span><span><b>병원</b><small>진료요약 · 방문이력 · 리포트</small></span></button>
+      <button class="overview-link" type="button" data-scroll-target="account-07"><span class="ic">•••</span><span><b>계정</b><small>프로필 · 알림 · 이용권 · 정책</small></span></button>
+    </nav>
+
+    <div id="groups"></div>
+    <div id="empty" class="empty">검색 조건에 일치하는 화면이 없습니다.</div>
+
+    <section class="flow-section">
+      <h2>주요 업무 프로세스</h2>
+      <div class="flows" id="flows"></div>
+    </section>
+
+    <section class="flow-section">
+      <h2>공통 내비게이션 및 외부 인터페이스</h2>
+      <div class="common">
+        <div class="common-card"><b>하단 주요 내비게이션</b><p>홈, 생활, 병원, 계정의 최상위 정보 구조를 제공하며 탭 전환 시 해당 화면의 스크롤 위치는 최상단으로 초기화합니다.</p><code>.nav</code></div>
+        <div class="common-card"><b>OS 권한 인터페이스</b><p>건강 데이터, 카메라, 사진, 알림 권한은 운영체제의 권한 UI를 사용하며 거부 시 대체 안내 및 재설정 경로가 필요합니다.</p><code>iosSheet / File Picker</code></div>
+        <div class="common-card"><b>외부 시스템 연계</b><p>카카오 OAuth, 건강 데이터 플랫폼, 검진·진료 데이터, OCR/AI 분석, 외부 LLM(검진 결과 AI 요약 문장 생성), 앱스토어 결제 시스템과의 연계 지점입니다. 검진 요약의 상태 판정·개수·또래 등수는 앱 내부 규칙 엔진이 계산하며 LLM은 문장만 생성합니다.</p><code>OAuth · API · OCR · LLM · Store</code></div>
+      </div>
+    </section>
+    <footer>maiReport Information Architecture · v1.1 (2026-09-14, AI 검진 요약 AIH-001~003 반영) · Internal Use Only</footer>
+  </main>
+
+  <script>
+    const N=(id,name,type,desc,status='done')=>({id,name,type,desc,status});
+    const groups=[
+      {key:'onboarding',no:'01',title:'온보딩 및 권한',desc:'최초 진입, 사용자 인증, 접근 권한 획득',levels:[
+        {title:'Entry',nodes:[N('ONB-001','로그인','전체 화면','카카오 OAuth 기반 사용자 인증')]},
+        {title:'Pre-permission',nodes:[N('ONB-002','접근 권한 사전 고지','전체 화면','선택 권한과 이용 목적 안내')]},
+        {title:'OS Permission',nodes:[N('ONB-003','iOS 건강 접근','OS 권한 시트','11개 건강 데이터 읽기 권한 설정')]},
+        {title:'Landing',nodes:[N('HOME-001','홈 대시보드','메인 화면','허용·거부 결과에 따라 초기 상태 구성')]}
+      ]},
+      {key:'home',no:'02',title:'홈',desc:'일일 건강 문진, 개인화 코칭, 목표 및 컨디션',levels:[
+        {title:'Main',nodes:[N('HOME-001','홈 대시보드','메인 화면','오늘의 질문·코칭·목표·컨디션')]},
+        {title:'Question',nodes:[N('HOME-002','일일 건강 문진 응답 조회','서브 화면','완료 답변 조회 및 재선택')]},
+        {title:'Report Entry',nodes:[N('REG-001','리포트 등록 유형 선택','액션 시트','AI REPORT QR 또는 일반 검진 리포트 선택')]},
+        {title:'Destination',nodes:[N('REG-002','AI REPORT QR 촬영','카메라 화면','QR 촬영 및 자동 인식'),N('REG-004','일반 검진 리포트 업로드','서브 화면','카메라·앨범·PDF 업로드')]}
+      ]},
+      {key:'life',no:'03',title:'생활',desc:'주간 목표, 건강지표, 생활 데이터 및 AI 인사이트',levels:[
+        {title:'Main',nodes:[N('LIFE-001','목표 분석','메인/서브 탭','주간 목표 달성률과 실천 현황')]},
+        {title:'Sub Tabs',nodes:[N('LIFE-002','지표별 분석','서브 탭','회복여유·생활부담·리듬안정성'),N('LIFE-003','생활 분석','서브 탭','걸음·수면·활동 데이터'),N('LIFE-004','AI 건강 인사이트','서브 탭','주간 건강 데이터와 검진정보 종합 분석','review')]},
+        {title:'Detail',nodes:[N('LIFE-005','전체 건강 데이터','서브 화면','11개 건강 데이터 최신값'),N('AI-001','AI 분석 완료','서브 화면','생성 직후 점수·요약'),N('AI-003','AI 분석 목록','서브 화면','주차별 리포트 이력'),N('AI-004','분석 기간 선택','바텀시트','달력 기반 분석 주차 선택')]},
+        {title:'Report',nodes:[N('AI-002','AI 인사이트 상세','서브 화면','종합·상세·변화 추이','review'),N('AI-005','AI 리포트 삭제 확인','모달','영구 삭제 재확인')]}
+      ]},
+      {key:'hospital',no:'04',title:'병원 · 검진 · 진료',desc:'검진/진료 데이터 연계, 방문이력 및 상세 조회',levels:[
+        {title:'Main',nodes:[N('HOSP-001','진료요약','메인/서브 탭','검진·진료 연계 요약'),N('HOSP-002','방문이력','서브 탭','연도별 검진 및 진료 기록')]},
+        {title:'Summary Detail',nodes:[N('HOSP-003','연계 데이터 갱신 항목 선택','바텀시트','검진정보·진료정보 갱신','link'),N('HOSP-004','검진대상조회','서브 화면','일반·구강·암 검진 대상 안내','link'),N('HOSP-006','진료 이용현황','서브 화면','진료비·방문 추이·이용 순위')]},
+        {title:'Visit Detail',nodes:[N('HOSP-005','진료·검진 상세','서브 화면','진료기관·처방·비용·메모. 검진 상세에는 [ChatGPT로 결과 요약하기] CTA'),N('HOSP-007','문진표','문서형 화면','흡연·음주·운동·질환력'),N('HOSP-008','검진 결과지','문서 뷰어','원본 검진 문서 조회')]},
+        {title:'AI Summary',nodes:[N('AIH-001','검진 결과 AI 전송 동의','바텀시트','계정당 최초 1회. 전송 범위·목적·보유기간 고지 후 동의','review'),N('AIH-002','AI 요약 생성 진행','인라인 상태(CTA 자리)','전송 → 분석 → 정리 3단계 진행 표시. 실패 시 재시도','link'),N('AIH-003','AI 검진 요약 결과','전체 화면','종합 요약 · 신체계측 또래 등수 · 항목별 해석 · 그 밖의 검사 결과 · 내가 해야 할 행동 · 면책. 검진 1건당 요약 1개, 이후 [요약 보기]로 재진입','review')]}
+      ]},
+      {key:'hospital',no:'05',title:'건강검진 리포트 등록',desc:'AI REPORT QR 및 일반 검진 리포트 OCR 등록',levels:[
+        {title:'Entry',nodes:[N('REG-001','등록 유형 선택','액션 시트','등록 소스 선택')]},
+        {title:'AI REPORT',nodes:[N('REG-002','QR 촬영','카메라 화면','AI REPORT QR 스캔'),N('REG-003','인식 결과 검수','서브 화면','OCR 인식값 확인·수정')]},
+        {title:'General Report',nodes:[N('REG-004','파일 업로드','서브 화면','이미지/PDF 최대 10개'),N('REG-005','OCR 데이터 추출','처리 화면','업로드·인식·정리 진행 상태','link'),N('REG-006','OCR 결과 검수','검수 화면','추출값 확인·수정'),N('REG-007','원본 프리뷰','파일 뷰어','업로드 원본 확인')]},
+        {title:'Completion',nodes:[N('REG-008','등록 완료','완료 화면','방문이력 반영 및 후속 이동')]}
+      ]},
+      {key:'hospital',no:'06',title:'Selvy Checkup',desc:'검진정보 기반 주요 질환 위험도 분석',levels:[
+        {title:'Service',nodes:[N('SELVY-001','Selvy Checkup 소개','서브 화면','서비스 및 분석 범위 안내')]},
+        {title:'Application',nodes:[N('SELVY-002','분석 신청','결제/신청 화면','검진정보 선택·이용권 사용')]},
+        {title:'Result',nodes:[N('SELVY-003','Checkup 결과','서브 화면','10대 질환 위험도 결과','review')]}
+      ]},
+      {key:'account',no:'07',title:'계정 및 서비스 관리',desc:'사용자 정보, 알림, 이용권, 정책 및 고객지원',levels:[
+        {title:'Main',nodes:[N('ACC-001','계정 메인','메인 화면','계정·서비스·고객지원 메뉴')]},
+        {title:'Account',nodes:[N('ACC-002','내 정보 관리','서브 화면','이름·생년월일·탈퇴 진입'),N('ACC-003','알림 설정','서브 화면','질문·리포트·리마인드 수신 설정')]},
+        {title:'Service',nodes:[N('ACC-004','이용권 관리','서브 화면','잔여 이용권과 상태 이력'),N('ACC-005','이용권 구매 확인','모달','스토어 결제 사전 확인'),N('ACC-006','서비스 이용약관','서브 화면','서비스 이용조건','review'),N('ACC-007','개인정보 처리방침','서브 화면','개인정보·건강정보 처리 기준','review')]},
+        {title:'Support / Exit',nodes:[N('ACC-008','문의하기','서브 화면','FAQ·1:1 문의 접수','link'),N('ACC-009','로그아웃 실행 확인','확인 화면','세션 종료 재확인'),N('ACC-010','회원 탈퇴','위험 확인 화면','삭제·보관 범위 고지','review')]}
+      ]}
+    ];
+    const flowData=[
+      ['F-01 최초 가입/권한',['앱 실행','카카오 인증','권한 사전 고지','OS 건강 접근','홈']],
+      ['F-02 일일 문진/개인화',['문항 선택','전체 문항 완료','코칭 재계산','목표 재계산','답변 조회']],
+      ['F-03 일반 검진 리포트',['등록 유형','파일 업로드','OCR 추출','사용자 검수','최종 등록','방문이력']],
+      ['F-04 AI REPORT QR',['QR 촬영','OCR 인식','결과 검수','저장','방문이력']],
+      ['F-05 주간 AI 인사이트',['필수 조건 점검','분석 요청','생성 완료','상세 리포트']],
+      ['F-06 Selvy Checkup',['서비스 소개','검진 선택','이용권 사용','분석','위험도 결과']],
+      ['F-07 검진 결과 AI 요약',['검진 상세','ChatGPT로 결과 요약하기','전송 동의(최초 1회)','생성 3단계','AI 검진 요약 결과','요약 보기(재진입)']]
+    ];
+
+    const groupsEl=document.getElementById('groups');
+    const render=()=>{groupsEl.innerHTML=groups.map(g=>`<section class="group" id="${g.key}-${g.no}" data-group="${g.key}"><header class="group-head"><span class="group-num">${g.no}</span><div><h2>${g.title}</h2><p>${g.desc}</p></div><span class="group-count">${g.levels.flatMap(x=>x.nodes).length} Screens</span></header><div class="tree-wrap"><div class="tree">${g.levels.map(l=>`<div class="level"><div class="level-title">${l.title}</div>${l.nodes.map(n=>`<article class="node" data-search="${[n.id,n.name,n.type,n.desc,g.title].join(' ').toLowerCase()}"><div class="node-top"><span class="id">${n.id}</span><span class="type">${n.type}</span></div><b>${n.name}</b><p>${n.desc}</p><i class="status ${n.status}"></i></article>`).join('')}</div>`).join('')}</div></div></section>`).join('')};
+    render();
+    document.getElementById('flows').innerHTML=flowData.map(([t,s])=>`<article class="flow"><h3>${t}</h3><div class="steps">${s.map((x,i)=>`${i?'<span class="arrow">→</span>':''}<span class="step">${x}</span>`).join('')}</div></article>`).join('');
+
+    let active='all';
+    const chips=[...document.querySelectorAll('.chip')];
+    const setActiveChip=selected=>chips.forEach(chip=>{
+      const isActive=chip===selected;
+      chip.classList.toggle('on',isActive);
+      chip.setAttribute('aria-pressed',String(isActive));
+    });
+    const apply=()=>{const q=document.getElementById('search').value.trim().toLowerCase();let total=0;document.querySelectorAll('.group').forEach(g=>{const areaOk=active==='all'||g.dataset.group===active;let visible=0;g.querySelectorAll('.node').forEach(n=>{const ok=areaOk&&(!q||n.dataset.search.includes(q));n.classList.toggle('dim',!ok);if(ok)visible++});g.hidden=!visible;total+=visible});document.getElementById('empty').style.display=total?'none':'block'};
+    const resetView=()=>{
+      active='all';
+      document.getElementById('search').value='';
+      setActiveChip(chips[0]);
+      apply();
+      window.scrollTo({top:0,behavior:'smooth'});
+    };
+    const scrollToSection=id=>{
+      const target=document.getElementById(id);
+      if(!target)return;
+      active='all';
+      document.getElementById('search').value='';
+      setActiveChip(chips[0]);
+      apply();
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+    };
+    document.getElementById('search').addEventListener('input',apply);
+    document.addEventListener('click',event=>{
+      const chip=event.target.closest('.chip');
+      if(chip){active=chip.dataset.filter;setActiveChip(chip);apply();return;}
+      const jump=event.target.closest('[data-scroll-target]');
+      if(jump){scrollToSection(jump.dataset.scrollTarget);return;}
+      if(event.target.closest('#reset')){resetView();return;}
+      if(event.target.closest('#print')){window.print();}
+    });
+    document.body.dataset.interactive='ready';
+  </script>
+</body>
+</html>

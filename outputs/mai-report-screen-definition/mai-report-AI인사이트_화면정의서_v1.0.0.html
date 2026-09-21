@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 생활 탭 &gt; AI 인사이트 화면정의서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2;--warn:#E5893A}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:760px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  .flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;gap:14px;margin:10px 0}
+  .flow>div{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:12.5px;line-height:1.5;color:var(--ink-3);min-width:0;word-break:keep-all}
+  .flow .n{display:block;font-size:11px;font-weight:800;color:var(--brand);margin-bottom:2px}
+  .flow b{display:block;font-size:15px;font-weight:700;color:var(--ink-1);line-height:1.4;margin-bottom:4px}
+  @media(max-width:720px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;margin-right:4px}
+  .p-l{background:#FDF0E3;color:var(--warn)}.p-b{background:var(--brand-soft);color:var(--brand)}
+  .note{font-size:12px;color:var(--ink-3)}
+  code{background:#eef1f7;border-radius:6px;padding:1px 6px;font-size:12px;color:#334}
+  @media(max-width:720px){.hero{padding:28px 22px}section.card{padding:22px 18px}td.k{white-space:normal}table{font-size:12.5px}th,td{padding:8px 6px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 화면정의서</span>
+  <h1>생활 탭 &gt; AI 인사이트 화면정의서</h1>
+  <p>한 주 동안 쌓인 생활 데이터와 건강검진 결과를 함께 읽어, 주 단위로 한 번 해석해 주는 화면. 다른 서브탭이 매일의 값과 지표를 보여준다면 AI 인사이트는 "이번 주는 어땠고 다음 주에 무엇을 바꾸면 좋은지"를 문장으로 정리한다. 사용자가 직접 분석을 실행하고, 결과는 주차별로 쌓여 추이로 이어진다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-17</b></span><span>버전 <b>1.0</b></span><span>대상 화면 <b>생활 탭 &gt; AI 인사이트 · 주차 인사이트 상세(상세 분석 · 변화 추이)</b></span><span>연관 문서 <b>생활분석_화면정의서 · 지표별분석_화면정의서 · 목표분석_화면정의서 · AI검진요약_화면정의서</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 화면 개요</a><a href="#s2">② 상단 영역</a><a href="#s3">③ 분석 전 화면</a><a href="#s4">④ 요약 화면</a><a href="#s5">⑤ 상세 분석</a><a href="#s6">⑥ 변화 추이</a><a href="#s7">⑦ 종합 점수 규칙</a><a href="#s8">⑧ 문구 작성 원칙</a><a href="#s9">⑨ 상태 정의</a><a href="#s10">⑩ 연동 규칙</a><a href="#s11">⑪ 확인 필요 사항</a>
+</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>화면 개요</h2>
+  <div class="sub">위치, 역할, 화면 구조</div>
+  <h3>1.1 위치와 역할</h3>
+  <p>생활 탭의 네 번째 서브탭(목표 분석 · 지표별 분석 · 생활 분석 · <b>AI 인사이트</b>). 앞의 세 탭이 값과 지표를 보여주는 화면이라면, AI 인사이트는 그 값들을 묶어 해석하고 다음 행동을 제안하는 화면이다. 자동으로 계산돼 항상 떠 있는 것이 아니라, 사용자가 "이번 주 분석하기"를 눌렀을 때 한 주치 결과가 만들어진다.</p>
+  <h3>1.2 화면 구조</h3>
+  <div class="flow">
+    <div><span class="n">①</span><b>분석 전</b>안내 카드 · 검진정보 연동 안내 · "이번 주 분석하기"</div>
+    <div><span class="n">②</span><b>요약</b>주차 제목 · 한 줄 요약 · 종합 점수 · 종합 소견 · 핵심 인사이트 · "자세히 보기"</div>
+    <div><span class="n">③</span><b>상세 분석</b>영역별 카드(제목 · 설명 · 제안) 목록</div>
+    <div><span class="n">④</span><b>변화 추이</b>이번 주 점수 변화 · 주차별 분석 이력</div>
+  </div>
+  <p class="note">상단 공통 영역(생활 헤더 · 날짜 스트립 · 서브탭)은 네 서브탭이 함께 쓴다. ① → ② 는 분석 실행으로, ② → ③ 은 "자세히 보기"로 이어지고, ③ 과 ④ 는 같은 화면의 탭이다.</p>
+  <h3>1.3 한 주의 기준</h3>
+  <p>분석 단위는 주이며, 날짜 스트립에서 보고 있는 주가 분석 대상이다. 주 구분과 주차 이름(예: 8월 4주차)은 다른 서브탭과 같은 기준을 쓴다. 한 주에 대한 결과는 하나만 유지되며, 같은 주를 다시 분석하면 기존 결과를 대체한다.</p>
+  <h3>1.4 분석 대상 기간</h3>
+  <p>주가 끝났는지에 따라 실제로 읽는 기간이 다르다. 기간 날짜는 화면에 쓰지 않되, 무엇을 기준으로 본 결과인지는 제목 옆에 한 마디로 밝힌다(§4.2).</p>
+  <table>
+    <tr><th style="width:150px">구분</th><th>대상 기간</th><th style="width:34%">화면 표기</th></tr>
+    <tr><td class="k">끝난 주</td><td>그 주 월요일부터 일요일까지 7일</td><td>8월 4주 인사이트</td></tr>
+    <tr><td class="k">진행 중인 주</td><td>어제를 마지막 날로 한 최근 7일. 지난 주 날짜가 포함된다</td><td>8월 4주 인사이트 + "최근 7일 기준"</td></tr>
+  </table>
+  <p>오늘은 아직 진행 중이라 대상에 넣지 않는다. 진행 중인 주는 누르는 날마다 대상 기간이 하루씩 이동한다. 주 초반에도 7일치를 확보해 주말이 빠지는 요일 편향을 없애고, 대상 일수가 같으므로 최소 기록 일수도 끝난 주와 같은 기준을 쓸 수 있다.</p>
+  <div class="callout">기준 표기가 필요한 이유 — 진행 중인 주는 지난 주 날짜를 일부 포함하는데, 영역 카드 본문은 근거가 된 날짜를 그대로 인용한다(§5.2 · §8). 제목이 "8월 4주 인사이트"인데 본문에 8/19가 나오면 어긋나 보인다. 날짜를 감추면 근거 제시 원칙이 무너지므로, 기간을 숨기는 대신 무엇을 기준으로 봤는지를 밝힌다.</div>
+  <h3>1.5 이 화면의 성격</h3>
+  <p>분석 결과는 생활 기록과 검진 결과를 바탕으로 한 생활습관 참고 정보이며, 의학적 진단이나 의료진의 판단을 대신하지 않는다. 이 문장은 요약 화면 하단에 항상 함께 노출한다.</p>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>상단 영역</h2>
+  <div class="sub">생활 탭 네 서브탭이 공유하는 영역</div>
+  <table>
+    <tr><th style="width:160px">요소</th><th>동작</th></tr>
+    <tr><td class="k">제목 · 주차</td><td>"생활" + 현재 보고 있는 주(예: 8월 4주차)</td></tr>
+    <tr><td class="k">오늘 버튼</td><td>이번 주 · 오늘로 복귀. 이미 오늘이면 비활성</td></tr>
+    <tr><td class="k">날짜 스트립</td><td>이 탭에서는 날짜 선택이 결과를 바꾸지 않는다. 주 이동(‹ ›)만 의미가 있으며, 주를 옮기면 그 주의 분석 결과를 불러온다</td></tr>
+    <tr><td class="k">서브탭</td><td>탭 전환 시 보고 있던 주를 유지</td></tr>
+  </table>
+  <div class="callout">다른 서브탭과 달리 "선택한 하루"가 아니라 "보고 있는 주"가 기준이다. 날짜를 눌러도 화면 내용은 바뀌지 않는다.</div>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>분석 전 화면</h2>
+  <div class="sub">해당 주에 아직 분석 결과가 없을 때</div>
+  <table>
+    <tr><th style="width:160px">영역</th><th>내용</th><th style="width:38%">규칙</th></tr>
+    <tr><td class="k">안내 카드</td><td>제목 "AI 건강 인사이트" + 설명 "주간 생활 데이터를 분석해 맞춤 인사이트를 제공해 드려요" + 일러스트</td><td>이 주에 결과가 없을 때만 노출</td></tr>
+    <tr><td class="k">검진정보 연동 안내</td><td>"검진정보를 더하면 더 정확해져요 / 혈압·혈당 등 검진 결과까지 반영한 분석을 받아볼 수 있어요" + "연동하기"</td><td>검진정보가 연동되지 않은 경우에만 노출. 연동돼 있으면 이 블록을 숨긴다</td></tr>
+    <tr><td class="k">분석 실행 버튼</td><td>"이번 주 분석하기"</td><td>지난 주를 보고 있을 때는 "8월 3주 분석하기"처럼 주차 이름으로 바뀐다. 이미 결과가 있는 주에서는 "다시 분석하기". 진행 중인 주는 버튼 아래에 남은 횟수를 함께 둔다(§3.4)</td></tr>
+    <tr><td class="k">기간 표기</td><td>날짜는 쓰지 않음</td><td>실제 대상 기간 날짜(§1.4)는 이 화면 어디에도 쓰지 않는다. 주차 이름으로 말하되, 진행 중인 주는 무엇을 기준으로 보는지 안내 문구로 알린다(§4.1)</td></tr>
+  </table>
+  <h3>3.1 분석 실행 조건</h3>
+  <table>
+    <tr><th style="width:150px">조건</th><th>내용</th></tr>
+    <tr><td class="k">건강 데이터 연동</td><td>연동돼 있어야 실행할 수 있다. 미연동이면 버튼 대신 연동 안내를 보여준다</td></tr>
+    <tr><td class="k">최소 기록 일수</td><td>대상 기간 7일 중 일정 일수 이상에 기록이 있어야 한다. 끝난 주와 진행 중인 주 모두 같은 기준을 쓴다. 기준 일수는 새로 정하지 않고 현재 개발이 완료된 기개발 버전의 기준을 따른다</td></tr>
+    <tr><td class="k">기록 있는 날</td><td>그 날 활동·수면·심박 중 어느 하나라도 유효 기록이 있는 날. 수면은 전날 밤 기록을 그 날로 센다</td></tr>
+    <tr><td class="k">검진정보</td><td>연동은 선택이다. 연동돼 있지 않아도 생활 데이터만으로 분석할 수 있고, 이 경우 결과에 그 사실을 밝힌다</td></tr>
+    <tr><td class="k">가입일 이전 날짜</td><td>대상 기간이 가입일보다 앞서더라도, 연동한 건강 앱에서 불러온 기록이 있으면 기록 있는 날로 세고 분석에도 포함한다. 웨어러블은 가입 전 기록을 이미 갖고 있는 경우가 많다. 가입 전인지는 따지지 않고 그 날 기록이 있는지만 본다</td></tr>
+  </table>
+  <h3>3.2 영역별 기록 조건</h3>
+  <p>전체 실행이 열려도 영역마다 근거가 부족할 수 있다. 해당 영역에 기록이 없거나 기준 일수에 못 미치면 그 영역 카드를 만들지 않고, 종합 소견에 그 사실을 한 문장으로 밝힌다(예: 이번 주 수면 기록이 이틀뿐이라 수면은 이번 분석에서 다루지 못했다). 종합 점수도 그 영역을 빼고 계산한다(§7). 영역별 기준 일수도 기개발 버전의 기준을 따른다.</p>
+  <h3>3.3 재분석 허용 범위</h3>
+  <p>같은 주차라도 아래 두 경우에는 결과가 실제로 달라진다. 그래서 다시 분석할 수 있어야 한다.</p>
+  <table>
+    <tr><th style="width:170px">경우</th><th>내용</th></tr>
+    <tr><td class="k">보는 기간이 달라진다</td><td>진행 중인 주는 어제를 마지막 날로 한 최근 7일을 본다. 화요일에 누른 결과와 금요일에 누른 결과는 서로 다른 기간을 본 것이어서, 한 번 만든 결과가 이틀만 지나도 지금 상태를 설명하지 못한다</td></tr>
+    <tr><td class="k">읽는 데이터가 달라진다</td><td>검진정보를 새로 연동했거나 기기를 늦게 동기화해 그 주 기록 일수가 늘어나면, 같은 기간을 보더라도 결과가 바뀐다</td></tr>
+  </table>
+  <p>다만 진행 중인 주를 매일 허용하면 한 주에 여섯 번까지 돌아간다. 실익이 있는 만큼만 열어 <b>주차당 3회</b>로 제한하고, 데이터가 그대로인데 점수가 마음에 들지 않아 다시 뽑는 것은 막는다(§3.5).</p>
+  <table>
+    <tr><th style="width:150px">대상</th><th>허용</th><th style="width:34%">이유</th></tr>
+    <tr><td class="k">진행 중인 주</td><td>주차당 3회. 같은 날 두 번은 쓸 수 없다</td><td>대상 기간이 매일 이동해 다시 볼 실익은 있지만, 매일 허용하면 한 주에 여섯 번까지 돌아간다. 주 초반·중반·주말에 한 번씩 보는 정도로 제한한다</td></tr>
+    <tr><td class="k">끝난 주</td><td>1회(최초 분석)</td><td>기간이 고정돼 다시 눌러도 같은 결과가 나온다</td></tr>
+    <tr><td class="k">끝난 주 · 입력이 바뀐 경우</td><td>바뀔 때마다 1회 추가</td><td>검진정보를 새로 연동·갱신했거나, 그 주 기록 일수가 늘어난 경우. 이때만 결과가 실제로 달라진다</td></tr>
+    <tr><td class="k">주가 끝난 직후</td><td>1회</td><td>진행 중에 만든 결과는 대상 기간이 다르므로, 주가 끝나면 월~일 기준으로 다시 분석할 수 있게 열어 둔다</td></tr>
+    <tr><td class="k">소급 범위</td><td>최근 4주</td><td>그 이전 주차는 조회만 가능</td></tr>
+  </table>
+  <h3>3.4 남은 횟수 표시</h3>
+  <p>진행 중인 주는 횟수가 정해져 있으므로 버튼 아래에 항상 남은 횟수를 보여준다. 분석하기 전부터 몇 번 쓸 수 있는지 알려야 사용자가 언제 누를지 판단할 수 있고, 두 번째를 누른 뒤 갑자기 막히는 일도 없다.</p>
+  <table>
+    <tr><th style="width:170px">상황</th><th>버튼 아래 문구</th></tr>
+    <tr><td class="k">아직 분석 전</td><td>이번 주 분석 가능 횟수는 3회예요</td></tr>
+    <tr><td class="k">횟수가 남았고 오늘은 안 씀</td><td>이번 주 분석 가능 횟수 3회 중 2회 남았어요 (남은 수만 바뀐다)</td></tr>
+    <tr><td class="k">횟수가 남았고 오늘 씀</td><td>오늘 이미 분석했어요. 남은 2회는 내일부터 쓸 수 있어요</td></tr>
+    <tr><td class="k">3회 모두 사용</td><td>이번 주 분석 가능 횟수를 모두 썼어요. 주가 끝나면 한 주 전체로 다시 분석할 수 있어요</td></tr>
+  </table>
+  <p>끝난 주는 횟수를 세지 않으므로 이 문구를 쓰지 않는다. 실행할 수 없을 때만 버튼을 비활성하고 사유 한 줄을 둔다(§9).</p>
+  <h3>3.5 이전 결과가 남지 않는다는 안내</h3>
+  <p>한 주차에는 결과가 하나만 유지된다. 다시 분석하면 이전 결과는 저장되지 않고 사라지며, 되돌릴 수 없다. 사용자가 여러 번 분석한 것이 쌓인다고 오해하지 않도록 두 곳에서 알린다.</p>
+  <table>
+    <tr><th style="width:150px">위치</th><th>문구</th></tr>
+    <tr><td class="k">요약 화면</td><td>버튼 아래 남은 횟수 문구에 이어 "다시 분석하면 지금 결과는 사라져요"</td></tr>
+    <tr><td class="k">확인 시트</td><td>제목 "다시 분석할까요?" · 본문 한 줄 "지금 결과는 사라지고 새 결과로 바뀌어요." · 마지막 한 번일 때만 보조 한 줄 "이번 주 마지막 분석이에요". 남은 횟수는 요약 화면에서 이미 봤으므로 시트에서 반복하지 않는다</td></tr>
+  </table>
+  <p>변화 추이 이력에도 주차당 한 줄만 남는다. 같은 주차를 여러 번 분석해도 이력이 늘지 않고 마지막 결과로 바뀐다(§6.1).</p>
+  <h3>3.6 분석 진행 중</h3>
+  <p>버튼을 누르면 진행 상태를 보여준다(버튼 자리에 진행 표시, 화면 이탈 가능). 완료되면 같은 자리에서 요약 화면으로 바뀐다. 실패하면 안내 한 줄과 다시 시도 버튼을 둔다.</p>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>요약 화면</h2>
+  <div class="sub">분석이 끝난 주에 기본으로 보이는 화면</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:38%">규칙</th></tr>
+    <tr><td class="k">주차 제목</td><td>"8월 4주 인사이트". 진행 중인 주면 바로 아래에 분석 기준 안내 한 줄</td><td>§4.1</td></tr>
+    <tr><td class="k">한 줄 요약</td><td>이번 주를 한 문장으로 정리(예: 활동량은 우수하지만 수면 부족과 평균 심박수 상승, 공복혈당 경계 관리가 필요합니다)</td><td>두 줄을 넘지 않는다. 잘된 점과 살필 점을 함께 담는다</td></tr>
+    <tr><td class="k">종합 점수</td><td>"종합 점수" + 점수 / 100 + 지난주 대비 변화 + 진행 바</td><td>§7. 첫 분석이면 지난주 대비를 표시하지 않는다</td></tr>
+    <tr><td class="k">종합 소견</td><td>이번 주 데이터를 3~5문장으로 설명. 대표 수치를 문장 안에 인용한다(예: 주 걸음 수 6,420걸음, 평균 수면 7시간 23분)</td><td>검진정보가 없으면 "검진정보가 없어 간·혈압·혈당 같은 검진 기반 소견은 이번 리포트에 포함하지 못했다"는 안내를 이 안에 포함한다</td></tr>
+    <tr><td class="k">핵심 인사이트</td><td>영역별 한 줄 요약 목록(활동량 · 수면 · 심박수 · 건강검진 등). 영역명 + 한 문장</td><td>상세 분석에 포함된 영역과 순서를 맞춘다. 최대 5개</td></tr>
+    <tr><td class="k">안내 문구</td><td>생활습관 참고 정보이며 의학적 진단·의료진 판단을 대신하지 않는다는 문장</td><td>항상 노출</td></tr>
+    <tr><td class="k">자세히 보기</td><td>주차 인사이트 상세로 이동</td><td>상세 분석 탭이 선택된 상태로 열린다</td></tr>
+  </table>
+  <h3>4.1 분석 기준 안내</h3>
+  <p>진행 중인 주는 대상 기간에 지난 주 날짜가 섞이므로, 무엇을 기준으로 본 결과인지 문장으로 알린다. 배지나 라벨을 붙이지 않고 안내 문구로 쓴다. 기간 날짜는 여전히 쓰지 않는다.</p>
+  <table>
+    <tr><th style="width:150px">위치</th><th>문구</th><th style="width:30%">규칙</th></tr>
+    <tr><td class="k">분석 전 화면</td><td>오늘 기준 최근 7일 기록을 분석해요</td><td>실행 버튼 아래 남은 횟수 문구와 함께. 누르기 전에 무엇을 보는지 알린다</td></tr>
+    <tr><td class="k">요약 화면</td><td>오늘 기준 최근 7일 기록을 분석했어요</td><td>주차 제목 바로 아래 한 줄. 본문이 지난 주 날짜를 인용해도 어긋나 보이지 않게 한다</td></tr>
+    <tr><td class="k">종합 소견 첫 문장</td><td>오늘 기준 최근 7일 기록을 봤어요. 주가 끝난 뒤 다시 분석하면 한 주 전체로 볼 수 있어요.</td><td>제목 아래 한 줄을 지나칠 수 있어 소견에서 한 번 더 말한다</td></tr>
+    <tr><td class="k">주차 인사이트 상세</td><td>오늘 기준 최근 7일 기록을 분석했어요</td><td>헤더 아래 한 줄. 영역 카드에 날짜가 직접 나오는 화면이라 반드시 둔다</td></tr>
+    <tr><td class="k">변화 추이 이력</td><td>주차 이름 아래 "최근 7일 기준"</td><td>그 방식으로 만든 행에만. 기준이 다른 주차를 구분한다(§6.2)</td></tr>
+  </table>
+  <p>끝난 주는 주차와 기간이 같으므로 이 안내를 두지 않는다. 주 종료 후 다시 분석하면 안내가 사라진다.</p>
+  <h3>4.2 영역 구분</h3>
+  <p>분석 결과는 아래 영역으로 나눈다. 해당 주에 다룰 내용이 없는 영역은 표시하지 않는다.</p>
+  <table>
+    <tr><th style="width:130px">영역</th><th>다루는 내용</th><th style="width:30%">근거 데이터</th></tr>
+    <tr><td class="k">활동량</td><td>걸음 수, 활동 칼로리, 활동·운동 시간의 주간 수준과 규칙성</td><td>생활 분석 활동 항목</td></tr>
+    <tr><td class="k">수면</td><td>평균 수면 시간, 편차, 취침·기상 시각의 규칙성</td><td>생활 분석 수면 항목</td></tr>
+    <tr><td class="k">심박수</td><td>주 평균 심박수 수준, 특정 일자의 상승</td><td>생활 분석 심박수 항목</td></tr>
+    <tr><td class="k">건강검진</td><td>최근 검진 결과 중 이번 주 생활과 연결해 볼 항목</td><td>연동된 검진정보</td></tr>
+    <tr><td class="k">기타</td><td>기록 품질 문제(항목 간 값 불일치, 착용 누락 등) 등 위 영역에 속하지 않는 내용</td><td>기록 자체의 상태</td></tr>
+  </table>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>상세 분석</h2>
+  <div class="sub">주차 인사이트 상세의 첫 번째 탭</div>
+  <h3>5.1 화면 구성</h3>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:36%">규칙</th></tr>
+    <tr><td class="k">헤더</td><td>뒤로가기 + "8월 4주 인사이트" + 삭제</td><td>삭제는 §10</td></tr>
+    <tr><td class="k">탭</td><td>상세 분석 · 변화 추이</td><td>기본 상세 분석</td></tr>
+    <tr><td class="k">영역 카드</td><td>영역별로 카드 하나. 활동량 → 수면 → 심박수 → 건강검진 → 기타 순서</td><td>§5.2</td></tr>
+  </table>
+  <h3>5.2 영역 카드 구성</h3>
+  <table>
+    <tr><th style="width:120px">영역</th><th>내용</th><th style="width:36%">규칙</th></tr>
+    <tr><td class="k">영역 이름</td><td>아이콘 + 영역명(활동량 · 수면 · 심박수 · 건강검진 · 기타)</td><td>§4.2의 영역과 동일</td></tr>
+    <tr><td class="k">소제목</td><td>이 영역에서 말하려는 한 가지(예: 보행량이 높음 / 평균 수면 시간 부족 및 불규칙 / 공복혈당 경계)</td><td>한 줄. 수치는 괄호로만 덧붙인다</td></tr>
+    <tr><td class="k">설명</td><td>왜 그렇게 봤는지 2~4문장. 근거가 되는 값과 날짜를 함께 쓴다</td><td>판단의 근거를 값 없이 쓰지 않는다</td></tr>
+    <tr><td class="k">제안</td><td>다음 주에 시도할 행동 1~3가지</td><td>카드마다 반드시 하나 이상. 실행 가능한 행동으로 쓴다</td></tr>
+  </table>
+  <h3>5.3 영역별 작성 기준</h3>
+  <table>
+    <tr><th style="width:120px">영역</th><th>설명에 반드시 포함</th><th style="width:36%">제안 예</th></tr>
+    <tr><td class="k">활동량</td><td>주간 평균 걸음 수, 활동 수준을 판단한 근거</td><td>주 1~2회 저강도 회복일, 주 2회 근력 운동 추가</td></tr>
+    <tr><td class="k">수면</td><td>평균 수면 시간, 부족했던 날의 범위, 불일치 여부</td><td>취침·기상 시각 고정, 취침 전 화면 사용 줄이기, 목표 수면 시간</td></tr>
+    <tr><td class="k">심박수</td><td>주 평균값, 평소보다 높았던 날짜와 그 값</td><td>기상 직후 안정 시 심박수 확인, 고강도 운동 후 회복 확보, 증상 시 진료 상담</td></tr>
+    <tr><td class="k">건강검진</td><td>검진 항목명, 값, 측정 시점(최근 몇 개월 이내인지)</td><td>식습관 조정, 유산소 운동 유지, 재검사·상담 시점 안내</td></tr>
+    <tr><td class="k">기타</td><td>어떤 기록이 어떻게 어긋났는지(항목과 날짜)</td><td>착용·동기화 설정 확인, 반복 관찰 후 비교</td></tr>
+  </table>
+  <div class="callout">건강검진 영역은 검진정보가 연동됐고 최근 검진 결과가 있을 때만 만든다. 값이 정상 범위 안이어도 이번 주 생활과 연결해 볼 내용이 있으면 카드를 만든다.</div>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="n">6</span>변화 추이</h2>
+  <div class="sub">주차 인사이트 상세의 두 번째 탭</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:36%">규칙</th></tr>
+    <tr><td class="k">이번 주 점수 변화</td><td>"이전" 점수 → "이번" 점수, 그 사이에 변화량</td><td>직전 분석 결과와 비교한다. 직전 결과가 없으면 이번 점수만 보여주고 변화량 자리는 비운다</td></tr>
+    <tr><td class="k">분석 이력</td><td>주차별 행: 주차 이름 · 기간 · 점수 · 직전 대비 변화량. 지금 보고 있는 주차는 현재로 표시</td><td>최신 주차가 위. 행을 누르면 그 주차의 인사이트 상세로 이동</td></tr>
+    <tr><td class="k">진행 중인 주 행</td><td>기간 자리에 날짜 대신 "최근 7일 기준". 점수·변화량은 같은 형식</td><td>다른 행이 기간을 쓰는 자리를 그대로 쓰므로 별도 라벨이 필요 없다(§4.1). 주가 끝난 뒤 다시 분석하면 그 자리에 기간이 채워진다</td></tr>
+  </table>
+  <h3>6.1 이력 규칙</h3>
+  <table>
+    <tr><th style="width:150px">항목</th><th>규칙</th></tr>
+    <tr><td class="k">행 생성</td><td>분석을 실행한 주만 이력에 남는다. 건너뛴 주는 행이 생기지 않는다</td></tr>
+    <tr><td class="k">변화량 기준</td><td>이력에서 바로 앞에 있는 주차와 비교한 값. 실제 주차가 연속하지 않아도 같은 방식으로 비교한다</td></tr>
+    <tr><td class="k">가장 오래된 행</td><td>비교 대상이 없으므로 변화량을 비워 둔다</td></tr>
+    <tr><td class="k">재분석</td><td>같은 주를 다시 분석하면 그 주의 행이 새 결과로 바뀌고, 이후 주차의 변화량도 다시 계산된다. 한 주차에는 결과가 하나만 남으므로 여러 번 분석해도 행이 늘지 않고 이전 결과는 남지 않는다(§3.5)</td></tr>
+  </table>
+  <h3>6.2 기준이 다른 주차</h3>
+  <p>주가 끝난 뒤 다시 분석하지 않은 주차는 진행 중 기준(§1.4)으로 남는다. 이력에는 월~일 기준 주차와 진행 중 기준 주차가 섞이고, 진행 중 기준 주차는 직전 주차와 데이터가 겹친 상태의 점수다. 섞인다는 사실 자체는 이력의 기간 자리에 적힌 "최근 7일 기준"으로 드러난다(§4.1).</p>
+  <p><b>이 상태를 그대로 둔다.</b> 시스템이 주 종료 시 자동으로 다시 계산하지 않고, 이력에서 빼지도 않는다. 진행 중에 만든 결과가 그 주차의 결과로 남는다.</p>
+  <table>
+    <tr><th style="width:170px">이유</th><th>내용</th></tr>
+    <tr><td class="k">사용자가 실행하는 기능</td><td>이 화면은 사용자가 누를 때 결과를 만든다(§1.1). 주가 끝났다고 시스템이 다시 돌리면 이 원칙이 깨진다</td></tr>
+    <tr><td class="k">점수가 조용히 바뀐다</td><td>사용자가 본 점수가 누르지도 않았는데 달라진다. 기간 날짜를 보여주지 않으므로 바뀐 이유를 설명할 방법도 없다</td></tr>
+    <tr><td class="k">호출이 늘어난다</td><td>재분석을 주차당 2회로 제한한 취지와 어긋난다. 자동 재분석은 모든 사용자·모든 주차에 호출을 한 번씩 더 얹는다</td></tr>
+    <tr><td class="k">이미 선택지가 있다</td><td>정확한 값을 원하면 주 종료 후 "다시 분석하기"로 월~일 기준 결과를 받을 수 있다(§3.3)</td></tr>
+  </table>
+  <p>감수하는 것: 겹친 주차는 직전 주차와 데이터를 일부 공유하므로 두 주의 점수가 실제보다 비슷하게 나올 수 있고, 변화량도 그만큼 작게 표시된다. 점수는 대략적인 값이므로 이 차이를 수치로 설명하지는 않고, 기준이 다르다는 사실만 표기로 드러낸다.</p>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="n">7</span>종합 점수 규칙</h2>
+  <div class="sub">요약 화면과 변화 추이에서 함께 쓰는 값</div>
+  <table>
+    <tr><th style="width:150px">항목</th><th>규칙</th></tr>
+    <tr><td class="k">범위</td><td>0~100 정수</td></tr>
+    <tr><td class="k">구성</td><td>분석에 포함된 영역들의 상태를 종합한 값. 영역별 배점은 §11에서 확정</td></tr>
+    <tr><td class="k">지난주 대비</td><td>직전 분석 결과와의 차이를 증감으로 표시. 변화가 없으면 증감 없이 표시</td></tr>
+    <tr><td class="k">첫 분석</td><td>비교 대상이 없으므로 점수만 표시</td></tr>
+    <tr><td class="k">검진정보 유무</td><td>검진정보가 없으면 건강검진 영역을 빼고 계산한다. 이후 검진정보를 연동해 다시 분석하면 점수 기준이 달라질 수 있다는 점을 종합 소견에 밝힌다</td></tr>
+    <tr><td class="k">기록이 적은 주</td><td>실행 조건을 넘겼더라도 기록 일수가 적으면 그 사실을 종합 소견에 함께 쓴다</td></tr>
+    <tr><td class="k">영역 기록 부족</td><td>기록이 기준 일수에 못 미쳐 빠진 영역은 계산에서 제외한다(§3.2). 남은 영역으로 100점 기준을 맞춘다</td></tr>
+  </table>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8">
+  <h2><span class="n">8</span>문구 작성 원칙</h2>
+  <div class="sub">분석 결과 문장에 공통으로 적용</div>
+  <table>
+    <tr><th style="width:150px">원칙</th><th>내용</th></tr>
+    <tr><td class="k">근거 제시</td><td>근거가 되는 값을 문장 안에 함께 쓴다. 값 없이 좋다·나쁘다만 쓰지 않는다</td></tr>
+    <tr><td class="k">단정 금지</td><td>원인을 말할 때는 가능성으로 쓴다(예: 회복 부족이 원인일 수 있습니다)</td></tr>
+    <tr><td class="k">진단 표현 금지</td><td>진단명이나 치료 권유를 쓰지 않는다. 필요한 경우 "의료 상담을 권장합니다" 수준으로 안내한다</td></tr>
+    <tr><td class="k">실행 가능한 제안</td><td>사용자가 다음 주에 실제로 할 수 있는 행동으로 쓴다</td></tr>
+    <tr><td class="k">한 카드 한 주제</td><td>여러 주제가 있으면 카드를 나눈다</td></tr>
+    <tr><td class="k">검진 인용</td><td>검진 결과를 인용할 때는 언제 측정한 값인지 함께 쓴다</td></tr>
+  </table>
+</section>
+
+<!-- 9 -->
+<section class="card" id="s9">
+  <h2><span class="n">9</span>상태 정의</h2>
+  <div class="sub">화면 단위 상태</div>
+  <table>
+    <tr><th style="width:180px">상태</th><th>조건</th><th style="width:42%">내용</th></tr>
+    <tr><td class="k">건강 데이터 미연동</td><td>연동 없음</td><td>안내 카드와 실행 버튼 대신 건강 데이터 연동 안내. 생활 분석의 미연동 안내와 같은 경로로 연동한다</td></tr>
+    <tr><td class="k">분석 전</td><td>해당 주에 결과 없음</td><td>§3 화면</td></tr>
+    <tr><td class="k">기록 부족</td><td>대상 기간 7일 중 기록이 기준 일수 미만</td><td>실행 버튼 비활성 + 사유 한 줄("기록이 아직 적어요. 며칠 더 쌓이면 분석할 수 있어요")</td></tr>
+    <tr><td class="k">오늘 이미 분석함</td><td>진행 중인 주를 오늘 분석했고 횟수가 남아 있음</td><td>기존 결과를 보여주고 다시 분석하기는 비활성 + "오늘 이미 분석했어요. 남은 n회는 내일부터 쓸 수 있어요"</td></tr>
+    <tr><td class="k">주차 횟수 소진</td><td>진행 중인 주를 3회 모두 분석함</td><td>기존 결과를 보여주고 다시 분석하기는 비활성 + "이번 주 분석 가능 횟수를 모두 썼어요. 주가 끝나면 한 주 전체로 다시 분석할 수 있어요"</td></tr>
+    <tr><td class="k">횟수 남음</td><td>진행 중인 주를 1~2회 분석했고 오늘은 쓰지 않음</td><td>다시 분석하기 활성 + 버튼 아래 "이번 주 분석 가능 횟수 3회 중 n회 남았어요"와 "다시 분석하면 지금 결과는 사라져요"</td></tr>
+    <tr><td class="k">재분석 불가</td><td>끝난 주에 결과가 있고 입력이 바뀌지 않음</td><td>기존 결과를 보여주고 다시 분석하기는 비활성 + "새로 반영할 기록이 없어요"</td></tr>
+    <tr><td class="k">재분석 가능</td><td>끝난 주에 결과가 있고 입력이 바뀜</td><td>다시 분석하기 활성 + 사유 한 줄("검진정보가 연동돼 다시 분석할 수 있어요" / "기록이 추가돼 다시 분석할 수 있어요")</td></tr>
+    <tr><td class="k">주 종료 직후</td><td>진행 중에 만든 결과가 있고 그 주가 끝남</td><td>기존 결과를 보여주면서 다시 분석하기 활성 + "이번 주가 끝났어요. 한 주 전체로 다시 분석할 수 있어요"</td></tr>
+    <tr><td class="k">소급 범위 밖</td><td>4주보다 이전 주차</td><td>결과가 있으면 조회만 가능하고 실행 버튼을 두지 않는다. 결과가 없으면 "지난 기록은 분석할 수 없어요"</td></tr>
+    <tr><td class="k">분석 중</td><td>실행 직후</td><td>진행 표시. 다른 화면으로 이동해도 계속 진행되고, 돌아오면 상태를 이어서 보여준다</td></tr>
+    <tr><td class="k">분석 실패</td><td>결과를 만들지 못함</td><td>안내 한 줄 + 다시 시도. 기존 결과가 있으면 그대로 유지한다</td></tr>
+    <tr><td class="k">분석 완료</td><td>해당 주에 결과 있음</td><td>§4 요약 화면. 실행 버튼 대신 결과를 보여준다</td></tr>
+    <tr><td class="k">지난 주 보기</td><td>‹ 로 지난 주 이동</td><td>그 주에 결과가 있으면 요약, 없으면 그 주차 이름으로 된 실행 버튼</td></tr>
+    <tr><td class="k">검진정보 미연동</td><td>검진정보 없음</td><td>분석 전에는 연동 안내 블록, 분석 후에는 종합 소견 안에 그 사실을 밝힌다. 건강검진 영역 카드는 만들지 않는다</td></tr>
+    <tr><td class="k">결과 삭제 후</td><td>상세에서 삭제</td><td>그 주차는 분석 전 상태로 돌아가고 이력에서도 빠진다</td></tr>
+  </table>
+</section>
+
+<!-- 10 -->
+<section class="card" id="s10">
+  <h2><span class="n">10</span>연동 규칙</h2>
+  <div class="sub">다른 화면·조작과의 관계</div>
+  <table>
+    <tr><th style="width:230px">트리거</th><th>반영</th></tr>
+    <tr><td class="k">‹ › 주 이동</td><td>그 주의 분석 결과를 불러온다. 결과가 없으면 그 주차 이름의 실행 버튼</td></tr>
+    <tr><td class="k">날짜 스트립 탭</td><td>화면 내용은 바뀌지 않는다</td></tr>
+    <tr><td class="k">오늘 버튼</td><td>이번 주로 복귀</td></tr>
+    <tr><td class="k">"이번 주 분석하기" 탭</td><td>분석 실행 → 완료 시 요약 화면으로 전환, 이력에 그 주차 추가</td></tr>
+    <tr><td class="k">"다시 분석하기" 탭</td><td>확인 시트(§3.5) → 실행 시 그 주차 결과를 대체하고 이전 결과는 남기지 않는다. 이력은 주차당 한 줄을 유지하고 이후 주차의 변화량을 다시 계산한다</td></tr>
+    <tr><td class="k">주가 끝남(일요일 경과)</td><td>진행 중에 만든 결과가 있던 주차는 다시 분석하기가 다시 열린다. 다시 분석하면 월~일 기준 결과로 대체되고 이력 행의 기간이 채워진다. 다시 분석하지 않으면 진행 중 기준 결과가 그대로 남는다(§6.2)</td></tr>
+    <tr><td class="k">"연동하기" 탭</td><td>검진정보 연동 흐름으로 이동. 연동 완료 후 돌아오면 연동 안내 블록이 사라진다</td></tr>
+    <tr><td class="k">"자세히 보기" 탭</td><td>주차 인사이트 상세(상세 분석 탭) 열기</td></tr>
+    <tr><td class="k">상세 탭 전환</td><td>상세 분석 ↔ 변화 추이. 스크롤 위치는 탭별로 따로 기억한다</td></tr>
+    <tr><td class="k">분석 이력 행 탭</td><td>그 주차의 인사이트 상세 열기</td></tr>
+    <tr><td class="k">상세 삭제</td><td>확인 시트("8월 4주 인사이트를 삭제할까요? 삭제하면 다시 분석해야 해요") → 삭제 시 그 주차 결과와 이력 행 제거, 이후 주차의 변화량 재계산, 생활 탭으로 복귀</td></tr>
+    <tr><td class="k">상세 뒤로가기</td><td>AI 인사이트 탭으로 복귀. 이력에서 들어온 경우에도 같다</td></tr>
+    <tr><td class="k">검진정보 연동 후 재분석</td><td>같은 주를 다시 분석하면 기존 결과를 대체하고 건강검진 영역이 추가된다</td></tr>
+    <tr><td class="k">건강 데이터 연동 해제</td><td>기존 분석 결과와 이력은 유지한다. 새 분석은 실행할 수 없다</td></tr>
+  </table>
+</section>
+
+<!-- 11 -->
+<section class="card" id="s11">
+  <h2><span class="n">11</span>확인 필요 사항</h2>
+  <div class="sub">이 문서 확정 전 담당자 결정이 필요한 항목</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">항목</th><th>내용</th><th style="width:90px">상태</th></tr>
+    <tr><td>1</td><td class="k">종합 점수 산식</td><td>영역별 배점과, 검진정보·영역 기록 부족으로 영역이 빠졌을 때의 배점 재분배 방식</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>2</td><td class="k">분석 완료 알림</td><td>분석이 끝났을 때 알림을 보낼지, 주간 분석을 권유하는 알림을 둘지</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>3</td><td class="k">검진 결과 인용 기간</td><td>몇 개월 이내 검진 결과까지 분석에 반영할지</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>4</td><td class="k">가입 전 기록 소급 범위</td><td>연동 시 건강 앱에서 과거 기록을 어디까지 불러오는지. 불러오는 범위가 소급 분석 범위(최근 4주)보다 짧으면 실제로 분석할 수 있는 주차가 줄어든다</td><td><span class="pill p-b">SDK 확인</span></td></tr>
+    <tr><td>5</td><td class="k">이력 보관 기간</td><td>분석 이력을 몇 주차까지 보관·표시할지</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>6</td><td class="k">영역 고정 여부</td><td>활동량·수면·심박수·건강검진·기타 5개 영역 고정 vs 데이터에 따라 가변</td><td><span class="pill p-l">확인 필요</span></td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

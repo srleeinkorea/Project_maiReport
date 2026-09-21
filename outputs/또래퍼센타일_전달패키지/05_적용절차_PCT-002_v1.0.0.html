@@ -1,0 +1,204 @@
+<title>또래 등수 적용 절차</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#F5F7F9;--surface:#FFF;--ink:#1B2530;--ink-2:#5B6876;--line:#DCE2E8;--accent:#0E6F6A;--accent-soft:#D9EEEC;--warn:#C98A12;--crit:#C24B3A;
+ --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;--sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121A21;--surface:#1A242D;--ink:#E6ECF1;--ink-2:#98A6B3;--line:#2C3944;--accent:#4FB8B0;--accent-soft:#173A38;--warn:#E0A83A;--crit:#E0705F}}
+:root[data-theme="dark"]{--bg:#121A21;--surface:#1A242D;--ink:#E6ECF1;--ink-2:#98A6B3;--line:#2C3944;--accent:#4FB8B0;--accent-soft:#173A38;--warn:#E0A83A;--crit:#E0705F}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.65;padding-inline:20px;padding-block:32px 64px}
+.wrap{max-width:860px;margin:0 auto}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-size:26px;margin:4px 0 6px;text-wrap:balance}
+.meta{color:var(--ink-2);font-size:13px;margin-bottom:24px}
+.meta span{margin-right:14px}
+h2{font-size:18px;margin:40px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+h2 small{font-family:var(--mono);color:var(--ink-2);font-weight:400;font-size:12px;margin-right:8px}
+h3{font-size:15px;margin:22px 0 6px}
+p,li{max-width:72ch}
+p{margin:8px 0}
+ol,ul{padding-left:22px;margin:6px 0}
+li{margin:4px 0}
+code{font-family:var(--mono);font-size:13px;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+pre{font-family:var(--mono);font-size:12.5px;line-height:1.55;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px;overflow-x:auto;margin:10px 0}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;margin:10px 0}
+th,td{border-bottom:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+th{color:var(--ink-2);font-weight:500;font-size:12.5px;white-space:nowrap}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl{overflow-x:auto}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:14px 0}
+.step h3{margin-top:0;display:flex;gap:10px;align-items:baseline}
+.step h3 b{font-family:var(--mono);color:var(--accent);font-size:13px}
+.box{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;margin:12px 0;font-size:14px}
+.box.warn{border-left-color:var(--warn)}
+.box.crit{border-left-color:var(--crit)}
+.ex{background:var(--accent-soft);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:14px}
+.ex b{font-weight:600}
+</style>
+
+<div class="wrap">
+<div class="eyebrow">maiReport · 지표 산출 · 개발 적용 절차</div>
+<h1>또래 등수 산식 적용 절차</h1>
+<div class="meta"><span>PCT-002</span><span>v1.0 · 2026-09-14</span><span>규격 PCT-001 · 조회 테이블 20번 CSV · 엑셀 02_또래등수_산식_v1.0.0.xlsx</span></div>
+
+<p>검진 결과 값 하나를 받아 "같은 성별·나이대 100명 중 몇 번째"를 돌려주기까지의 절차입니다. 위에서부터 순서대로 따라가면 됩니다. 각 단계 끝의 예시는 <b>남자 45세, BMI 24.5</b>로 실제 조회 테이블 값을 써서 계산한 것입니다.</p>
+
+<h2 id="s0"><small>00</small>준비물</h2>
+<div class="tbl"><table>
+<tr><th>준비물</th><th>파일</th><th>내용</th></tr>
+<tr><td>조회 테이블 (경계값표)</td><td><code>20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv</code></td><td>키·체중·BMI·허리둘레 × 성별 × 5세 구간 = 104행. 각 행에 p1~p99 경계값 99개</td></tr>
+<tr><td>구간 인원표</td><td><code>03~17번 CSV</code> (건강검진통계 2024)</td><td>혈압·혈당·지질·간·신장·혈색소. 구간별 인원수. 경계값표가 아직 없는 항목용</td></tr>
+<tr><td>회원 정보</td><td>회원 DB</td><td>성별, 생년월일</td></tr>
+<tr><td>검진 값</td><td>검진 결과 정규화 데이터</td><td>항목 코드, 값, 단위, 검진일</td></tr>
+</table></div>
+<div class="box">조회 테이블은 서버에 로드해 두고 요청마다 읽지 않습니다. 104행 × 99개 = 약 1만 개 숫자로, 메모리에 통째로 올려도 됩니다.</div>
+
+<h2 id="s1"><small>01</small>계산 절차 (경계값표가 있는 항목: 키·체중·BMI·허리둘레)</h2>
+
+<div class="step"><h3><b>STEP 1</b> 나이 구하기</h3>
+<p>검진일 기준 만 나이를 계산합니다. 오늘 기준이 아니라 <b>검진일</b> 기준입니다. 같은 검진은 몇 년 뒤에 봐도 등수가 같아야 하기 때문입니다.</p>
+<pre><code>age = 검진일.year - 생년월일.year
+if (검진일.month, 검진일.day) &lt; (생년월일.month, 생년월일.day): age -= 1</code></pre>
+<div class="ex"><b>예시</b> 1981-03-10 생, 검진일 2026-04-12 → 45세</div>
+</div>
+
+<div class="step"><h3><b>STEP 2</b> 나이 구간 정하기</h3>
+<p>5세 단위로 묶습니다. 20세 미만은 계산하지 않습니다. 80세 이상은 한 구간입니다.</p>
+<pre><code>if age &lt; 20:  return 계산 안 함
+if age &gt;= 80: band = "80세이상"
+else:         lo = (age // 5) * 5;  band = f"{lo}-{lo+4}세"    # 45 → "45-49세"</code></pre>
+<div class="ex"><b>예시</b> 45세 → <code>45-49세</code></div>
+</div>
+
+<div class="step"><h3><b>STEP 3</b> 조회 테이블에서 내 행 찾기</h3>
+<p>항목·성별·구간 세 가지가 모두 같은 행 하나를 가져옵니다. 행이 없으면 계산하지 않고 "또래 비교 불가"로 둡니다.</p>
+<pre><code>row = table[(항목="BMI", 성별="남자", 연령="45-49세")]
+bounds = [row.p1, row.p2, ..., row.p99]      # 오름차순 99개</code></pre>
+<div class="ex"><b>예시</b> 남자 45-49세 BMI 행: p1 18.0 … p25 23.2 … p39 24.45, p40 24.50, p41 24.54 … p50 25.3 … p75 27.6 … p99 35.9 (n=567)</div>
+</div>
+
+<div class="step"><h3><b>STEP 4</b> 내 값이 몇 번째 경계를 넘는지 찾기 (k)</h3>
+<p>경계값 99개 중 <b>내 값보다 작거나 같은 것이 몇 개인지</b> 셉니다. 이것이 k입니다. 오름차순 배열이므로 이진 탐색을 쓰면 됩니다.</p>
+<pre><code>k = 0
+for i in 1..99:
+    if bounds[i] &lt;= x: k = i
+    else: break
+# 또는 k = bisect_right(bounds, x)</code></pre>
+<div class="ex"><b>예시</b> x = 24.5. p40 = 24.50 ≤ 24.5 이고 p41 = 24.54 &gt; 24.5 → k = 40</div>
+</div>
+
+<div class="step"><h3><b>STEP 5</b> 경계 사이 위치를 더하기 (보간)</h3>
+<p>내 값이 k번째 경계와 k+1번째 경계 사이 어디쯤인지 비율(0~1)을 구해 k에 더합니다. 이 값이 <b>분포 위치 P</b>이며 "나보다 값이 작은 사람이 100명 중 P명"이라는 뜻입니다.</p>
+<pre><code>if k == 0:        P = 1                       # p1보다 작음
+elif k &gt;= 99:     P = 99                      # p99 이상
+else:
+    lo, hi = bounds[k], bounds[k+1]
+    frac = 0 if hi == lo else (x - lo) / (hi - lo)
+    P = k + frac</code></pre>
+<div class="ex"><b>예시</b> lo = p40 = 24.50, hi = p41 = 24.54, x = 24.5 → frac = 0 → P = 40.0. 만약 x가 24.52였다면 frac = 0.02/0.04 = 0.5 → P = 40.5</div>
+</div>
+
+<div class="step"><h3><b>STEP 6</b> 방향 뒤집기 → 또래 상위 % (rank)</h3>
+<p>P는 "작은 쪽에서 몇 번째"입니다. 항목마다 어느 쪽이 좋은지 다르므로 방향을 맞춥니다.</p>
+<div class="tbl"><table>
+<tr><th>항목</th><th>방향</th><th>rank</th><th>화면 문구</th></tr>
+<tr><td>BMI, 허리둘레, 혈압, 혈당, 총콜레스테롤, LDL, 중성지방, 간효소, 크레아티닌</td><td>낮을수록 좋음</td><td>rank = P</td><td>또래 상위 {rank} %</td></tr>
+<tr><td>HDL, 혈색소, 신사구체여과율</td><td>높을수록 좋음</td><td>rank = 100 − P</td><td>또래 상위 {rank} %</td></tr>
+<tr><td>키, 체중</td><td>방향 없음</td><td>size = 100 − P</td><td>큰 순 상위 {size} % (좋고 나쁨 표시 안 함, 종합 제외)</td></tr>
+</table></div>
+<div class="ex"><b>예시</b> BMI는 낮을수록 좋음 → rank = 40.0</div>
+</div>
+
+<div class="step"><h3><b>STEP 7</b> 저값 경고 확인</h3>
+<p>너무 낮아도 문제인 항목은 순위 대신 경고를 냅니다. 낮은 값이 "상위 1 %"로 보이는 것을 막기 위해서입니다.</p>
+<pre><code>if 항목 == BMI    and x &lt; 18.5: return 확인필요("저체중")
+if 항목 == 수축기 and x &lt; 90:   return 확인필요("저혈압")
+if 항목 == 이완기 and x &lt; 60:   return 확인필요("저혈압")</code></pre>
+<div class="ex"><b>예시</b> 24.5 ≥ 18.5 → 해당 없음</div>
+</div>
+
+<div class="step"><h3><b>STEP 8</b> 표시값 만들기</h3>
+<pre><code>display = clamp(round(rank), 1, 99)          # 0과 100은 쓰지 않음
+label   = "또래보다 좋음"   if display &lt;= 25
+        = "또래 수준"       if display &lt;= 60
+        = "또래보다 나쁨"   if display &lt;= 85
+        = "또래 하위 15%"   otherwise
+문구    = f"또래 상위 {display} % · 100명 중 {display}번째"</code></pre>
+<div class="ex"><b>예시</b> display = 40, label = 또래 수준, 문구 = "또래 상위 40 % · 100명 중 40번째"</div>
+</div>
+
+<div class="step"><h3><b>STEP 9</b> 저장</h3>
+<p>검진 1건마다 항목별 결과를 저장하고, 화면은 저장값만 읽습니다. 조회 테이블 버전을 같이 남겨 테이블이 바뀌면 재계산합니다.</p>
+<pre><code>{ "exam_id": "...", "table_version": "knhanes-2022-2024.v1",
+  "items": { "BMI": { "x": 24.5, "P": 40.0, "rank": 40.0, "display": 40,
+                      "label": "MID", "k": 40, "cohort": "남자|45-49세" } } }</code></pre>
+</div>
+
+<h2 id="s2"><small>02</small>경계값표가 아직 없는 항목 (혈압·혈당·지질·간·신장·혈색소)</h2>
+<p>이 항목들은 건강검진통계의 <b>구간 인원표</b>를 씁니다. STEP 3~5만 다르고 나머지는 같습니다.</p>
+<div class="step"><h3><b>STEP 3′</b> 내 행 찾기</h3>
+<p>성별·5세 구간 행을 가져옵니다. 행에는 구간별 인원수와 합계가 있습니다. 구간 경계는 열 이름에서 정하고, 양끝 열린 구간(예: "180 이상")은 계산용 바깥 경계를 둡니다(엑셀 D_ 시트 3~4행).</p>
+<div class="ex"><b>예시</b> 남자 45-49세 수축기혈압: 합계 894,051 · 110 미만 89,345 · 110-119 234,887 · 120-129 253,557 · 130-139 220,513 · 140-149 60,221 · …</div>
+</div>
+<div class="step"><h3><b>STEP 4′</b> 나보다 작은 사람 수 세기</h3>
+<pre><code>below = Σ 인원[구간]                       for 구간.상한 &lt;= x
+      + 인원[내 구간] × (x − 하한) / (상한 − 하한)   # 내 값이 든 구간은 비율만큼</code></pre>
+<div class="ex"><b>예시</b> x = 148: 140 미만 합계 798,302 + 140-149 구간 60,221 × (148−140)/10 = 48,177 → below = 846,479</div>
+</div>
+<div class="step"><h3><b>STEP 5′</b> 비율로 바꾸기</h3>
+<pre><code>P = below / 합계 × 100</code></pre>
+<div class="ex"><b>예시</b> 846,479 / 894,051 × 100 = 94.7 → rank 94.7 → display 95, "또래 하위 15%"</div>
+</div>
+<div class="box warn">지질 4종(총콜레스테롤·HDL·중성지방·LDL)은 2024년 검사 대상자만 집계되어 20~39세 여성 행의 합계가 0입니다. 합계가 0이면 계산하지 말고 "또래 비교 불가"로 둡니다. 이 항목들도 국민건강영양조사 원시자료로 경계값표를 만들면 해결됩니다.</div>
+
+<h2 id="s3"><small>03</small>종합</h2>
+<ol>
+<li>대상: 방향이 있는 항목 중 계산된 것(키·체중·경고 항목 제외).</li>
+<li>항목이 3개 미만이면 종합을 만들지 않습니다.</li>
+<li><code>avg = mean(rank)</code>, 가중치 없음. 화면에는 숫자 대신 구간 라벨(STEP 8과 같은 경계)만 보여줍니다.</li>
+<li>먼저 볼 항목: rank가 큰 순서로 최대 3개. rank &gt; 85인 항목이 있으면 그것부터.</li>
+</ol>
+
+<h2 id="s4"><small>04</small>조회 테이블 자체를 만드는 절차 (데이터 담당)</h2>
+<p>이미 만든 20번 CSV가 어떻게 나왔는지, 그리고 다른 항목으로 확장할 때 따라 할 절차입니다.</p>
+<div class="step"><h3><b>T1</b> 원시자료 확보</h3><p>국민건강영양조사 누리집 → 원시자료 → 다운로드 → 조사영역 "공통", 연도 3개년(2022~2024) → 기본DB SPSS. 사용자등록 후 이용자 준수사항에 동의하면 받을 수 있습니다.</p></div>
+<div class="step"><h3><b>T2</b> 변수 뽑기</h3><p><code>sex</code>(1 남, 2 여), <code>age</code>, <code>HE_ht</code>, <code>HE_wt</code>, <code>HE_BMI</code>, <code>HE_wc</code>, <code>wt_itvex</code>(검진 가중치). 혈압은 <code>HE_sbp</code>/<code>HE_dbp</code>, 혈당은 <code>HE_glu</code>, 지질은 <code>HE_chol</code>/<code>HE_HDL_st2</code>/<code>HE_TG</code>/<code>HE_LDL_drct</code>, 간은 <code>HE_ast</code>/<code>HE_alt</code>, 신장은 <code>HE_crea</code>. 변수명은 연도별 이용지침서에서 확인합니다.</p></div>
+<div class="step"><h3><b>T3</b> 대상 걸러내기</h3><p>만 19세 이상, 값이 있고, 가중치가 0보다 큰 사람만. 3개년을 합칠 때는 <b>각 연도 가중치를 3으로 나눕니다.</b></p></div>
+<div class="step"><h3><b>T4</b> 집단별로 나누기</h3><p>성별 × 5세 구간(20-24 … 75-79, 80세 이상). 한 집단의 표본이 30명 미만이면 그 집단은 만들지 않습니다.</p></div>
+<div class="step"><h3><b>T5</b> 가중 백분위 계산</h3>
+<pre><code>값 오름차순 정렬
+W = Σ 가중치
+for q in 1..99:
+    target = W × q / 100
+    누적 가중치가 target을 처음 넘는 사람 i를 찾음
+    p_q = 값[i-1] + (값[i] − 값[i-1]) × (target − 누적[i-1]) / 가중치[i]   # 선형 보간</code></pre>
+<p>가중평균은 <code>Σ(값 × 가중치) / W</code>, 가중표준편차는 <code>√( Σ(가중치 × (값 − 평균)²) / W )</code>.</p></div>
+<div class="step"><h3><b>T6</b> 검증</h3><ul><li>p1 ≤ p2 ≤ … ≤ p99 (오름차순) 확인.</li><li>p50이 가중평균과 크게 다르지 않은지(BMI·체중은 오른쪽 꼬리 때문에 평균이 p50보다 조금 큼).</li><li>건강검진통계 구간표로 계산한 P와 비교. 예: BMI 24.5 → 경계값표 40.0, 구간표 41.2.</li></ul></div>
+<div class="step"><h3><b>T7</b> 버전과 출처 기록</h3><p>파일명에 조사 연도, 생성일, 버전을 남기고, 화면 고지에 "국민건강영양조사 2022~2024(질병관리청)"를 표기합니다. 원시자료는 재배포하지 않고 요약표만 배포합니다.</p></div>
+
+<h2 id="s5"><small>05</small>검증 벡터</h2>
+<p>구현 후 아래 값이 나오면 맞습니다(허용 오차 ±0.1). 엑셀 <code>02_또래등수_산식_v1.0.0.xlsx</code>에서 같은 입력으로 재현됩니다.</p>
+<div class="tbl"><table>
+<tr><th>성별</th><th class="n">나이</th><th>항목</th><th class="n">x</th><th>테이블</th><th class="n">k</th><th class="n">P</th><th class="n">rank</th><th class="n">display</th><th>label</th></tr>
+<tr><td>남자</td><td class="n">45</td><td>BMI</td><td class="n">24.5</td><td>경계값표</td><td class="n">40</td><td class="n">40.0</td><td class="n">40.0</td><td class="n">40</td><td>또래 수준</td></tr>
+<tr><td>남자</td><td class="n">45</td><td>허리둘레</td><td class="n">82</td><td>경계값표</td><td class="n">21</td><td class="n">21.0</td><td class="n">21.0</td><td class="n">21</td><td>또래보다 좋음</td></tr>
+<tr><td>남자</td><td class="n">45</td><td>키</td><td class="n">172</td><td>경계값표</td><td class="n">42</td><td class="n">42.5</td><td class="n">size 57.5</td><td class="n">58</td><td>– (방향 없음)</td></tr>
+<tr><td>남자</td><td class="n">45</td><td>체중</td><td class="n">72.5</td><td>경계값표</td><td class="n">36</td><td class="n">36.3</td><td class="n">size 63.8</td><td class="n">64</td><td>–</td></tr>
+<tr><td>남자</td><td class="n">45</td><td>수축기 혈압</td><td class="n">148</td><td>구간표</td><td>–</td><td class="n">94.7</td><td class="n">94.7</td><td class="n">95</td><td>또래 하위 15%</td></tr>
+<tr><td>남자</td><td class="n">45</td><td>HDL</td><td class="n">52</td><td>구간표</td><td>–</td><td class="n">51.8</td><td class="n">48.2</td><td class="n">48</td><td>또래 수준 (방향 반전)</td></tr>
+<tr><td>여자</td><td class="n">42</td><td>BMI</td><td class="n">17.9</td><td>–</td><td>–</td><td>–</td><td>확인 필요</td><td>–</td><td>저값 경고</td></tr>
+<tr><td>남자</td><td class="n">17</td><td>BMI</td><td class="n">24.5</td><td>–</td><td>–</td><td>–</td><td>계산 안 함</td><td>–</td><td>20세 미만</td></tr>
+</table></div>
+
+<h2 id="s6"><small>06</small>자주 틀리는 곳</h2>
+<ul>
+<li><b>나이 기준</b>을 오늘로 잡으면 같은 검진의 등수가 해마다 바뀝니다. 검진일 기준으로 고정합니다.</li>
+<li><b>k를 셀 때 "작거나 같음"</b>입니다. 경계값과 정확히 같은 값은 그 경계 번호가 k입니다.</li>
+<li><b>hi == lo</b>(경계값이 같은 구간)에서 0으로 나누지 않도록 frac = 0 처리합니다.</li>
+<li><b>HDL·혈색소·eGFR</b>은 반드시 100 − P로 뒤집습니다. 뒤집지 않으면 HDL이 높은 건강한 사람이 "또래 하위"로 나옵니다.</li>
+<li><b>0 %와 100 %</b>는 표시하지 않습니다. 1~99로 자릅니다.</li>
+<li><b>단위</b>가 다르면(혈당 mmol/L 등) 먼저 환산합니다. 환산표가 없으면 계산하지 않습니다.</li>
+<li><b>BMI</b>는 결과지에 있으면 결과지 값을, 없으면 <code>체중 / (키/100)²</code>로 계산해 소수 1자리로 씁니다.</li>
+</ul>
+</div>

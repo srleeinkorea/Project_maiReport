@@ -1,0 +1,485 @@
+﻿<title>목표 이어가기 입문</title>
+<meta name="description" content="maiReport 생활 탭의 목표 이어가기 기능을 처음 보는 사람을 위해 배경부터 계산 규칙, 화면 문구까지 순서대로 설명합니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#EEF1F6; --surf:#FFFFFF; --surf-2:#F6F8FC; --surf-3:#E5EAF2;
+  --line:#D9E0EA; --line-2:#C0CADA;
+  --ink:#111A29; --text:#3C4960; --muted:#6B7890; --faint:#93A0B3;
+  --accent:#2F6BFF; --accent-soft:#E6EDFF;
+  --ok:#1B7A56; --ok-soft:#E2F3EB;
+  --stop:#B03A3A; --stop-soft:#FAE8E8;
+  --warn:#8F6209; --warn-soft:#FBF0D6;
+  --c-diet:#C46A22; --c-move:#C2405F; --c-sleep:#5058C4;
+  --c-diet-bg:#FCEBD8; --c-move-bg:#FBDDE6; --c-sleep-bg:#DFE2FA;
+  --mono:"JetBrains Mono",Consolas,monospace;
+  --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0B1017; --surf:#151D27; --surf-2:#1A222E; --surf-3:#26303D;
+  --line:#2C3644; --line-2:#414E60;
+  --ink:#EDF1F7; --text:#B3BFCF; --muted:#8896A9; --faint:#6B7A8E;
+  --accent:#7EA3FF; --accent-soft:#1A2740;
+  --ok:#5CC79F; --ok-soft:#102A21;
+  --stop:#EB8383; --stop-soft:#2D1A1A;
+  --warn:#DFAF60; --warn-soft:#2A2213;
+  --c-diet:#E8944A; --c-move:#E8718F; --c-sleep:#8B92E8;
+  --c-diet-bg:#3A2A18; --c-move-bg:#3A1F28; --c-sleep-bg:#222641;
+}}
+:root[data-theme="dark"]{
+  --ground:#0B1017; --surf:#151D27; --surf-2:#1A222E; --surf-3:#26303D;
+  --line:#2C3644; --line-2:#414E60;
+  --ink:#EDF1F7; --text:#B3BFCF; --muted:#8896A9; --faint:#6B7A8E;
+  --accent:#7EA3FF; --accent-soft:#1A2740;
+  --ok:#5CC79F; --ok-soft:#102A21;
+  --stop:#EB8383; --stop-soft:#2D1A1A;
+  --warn:#DFAF60; --warn-soft:#2A2213;
+  --c-diet:#E8944A; --c-move:#E8718F; --c-sleep:#8B92E8;
+  --c-diet-bg:#3A2A18; --c-move-bg:#3A1F28; --c-sleep-bg:#222641;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);
+  font-size:15px;line-height:1.8;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:780px;margin:0 auto;padding-inline:22px;padding-block:0 96px}
+
+/* ---------- head ---------- */
+.top{border-bottom:1px solid var(--line);background:var(--surf)}
+.top-in{max-width:780px;margin:0 auto;padding-inline:22px;padding-block:13px;
+  display:flex;align-items:center;gap:11px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.mark{color:var(--ink);font-size:17px;font-weight:900;letter-spacing:-.05em}
+.top .ver{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--faint)}
+
+.hero{padding-block:60px 40px}
+.kicker{display:block;font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--accent);margin-bottom:16px}
+h1{margin:0;color:var(--ink);font-size:clamp(30px,6vw,44px);font-weight:900;line-height:1.15;
+  letter-spacing:-.055em;text-wrap:balance}
+.hero p{margin:22px 0 0;font-size:17px;line-height:1.75;max-width:34em}
+.hero b{color:var(--ink)}
+
+/* ---------- sections ---------- */
+section{padding-block:44px;border-top:1px solid var(--line)}
+.eyebrow{display:block;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.05em;margin-bottom:9px}
+h2{margin:0 0 14px;color:var(--ink);font-size:25px;font-weight:900;letter-spacing:-.04em;line-height:1.3;text-wrap:balance}
+h3{margin:34px 0 8px;color:var(--ink);font-size:16px;font-weight:700;letter-spacing:-.02em}
+p{margin:0 0 14px;max-width:36em}
+p:last-child{margin-bottom:0}
+b{color:var(--ink);font-weight:700}
+code{font-family:var(--mono);font-size:.84em;background:var(--surf-3);padding:2px 6px;border-radius:5px;color:var(--ink)}
+ul{margin:12px 0;padding-left:20px;max-width:36em}
+li{margin-bottom:9px}
+
+/* ---------- day strip ---------- */
+.demo{margin:20px 0 8px;padding:20px 22px;background:var(--surf);border:1px solid var(--line);border-radius:13px}
+.demo + .demo{margin-top:12px}
+.demo-q{margin:0 0 15px;font-size:13.5px;font-weight:700;color:var(--ink)}
+.striprow{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.strip{display:flex;gap:7px}
+.day{display:flex;flex-direction:column;align-items:center;gap:6px}
+.dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  font-size:13px;font-weight:800;line-height:1;background:var(--surf-3);color:var(--faint)}
+.day small{font-family:var(--mono);font-size:10.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+.day.done .dot{background:var(--c-sleep);color:#fff}
+.day.miss .dot{background:transparent;border:1.5px dashed var(--line-2);color:transparent}
+.day.none .dot{background:var(--surf-3);color:var(--faint);font-size:15px}
+.day .tag{font-size:9px;font-weight:700;color:var(--ok);white-space:nowrap;letter-spacing:-.02em}
+.day .tag.off{color:var(--stop)}
+.day.today small{color:var(--accent);font-weight:700}
+.day.today .dot{box-shadow:0 0 0 2.5px var(--accent)}
+.result{font-size:14px;font-weight:700;color:var(--ink)}
+.result .n{font-family:var(--mono);font-size:19px;font-weight:600;color:var(--c-sleep)}
+.result.zero .n{color:var(--muted)}
+.demo-note{margin:14px 0 0;font-size:13px;color:var(--muted);max-width:none}
+.demo-note b{color:var(--ink)}
+
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;font-size:12.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:7px}
+.sw{width:17px;height:17px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:10px;color:var(--faint)}
+.sw.done{background:var(--c-sleep)}
+.sw.miss{border:1.5px dashed var(--line-2)}
+.sw.none{background:var(--surf-3)}
+
+/* ---------- compare ---------- */
+.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:20px}
+.cmp > div{padding:18px 20px;border-radius:13px;border:1px solid var(--line);background:var(--surf)}
+.cmp h4{margin:0 0 4px;font-size:13px;font-weight:800;color:var(--muted);letter-spacing:.02em}
+.cmp .big{font-family:var(--mono);font-size:26px;font-weight:600;color:var(--ink);line-height:1.3}
+.cmp .big s{color:var(--faint);text-decoration-thickness:1.5px}
+.cmp p{margin:8px 0 0;font-size:13px;color:var(--muted)}
+.cmp .bad{border-color:color-mix(in srgb,var(--stop) 30%,var(--line))}
+.cmp .bad .big{color:var(--stop)}
+.cmp .good{border-color:color-mix(in srgb,var(--ok) 30%,var(--line))}
+.cmp .good .big{color:var(--ok)}
+
+/* ---------- phone mock ---------- */
+.mock{margin-top:22px;background:var(--surf-2);border:1px solid var(--line);border-radius:20px;padding:16px;max-width:360px}
+.blk{background:var(--surf);border-radius:15px;padding:14px 13px}
+.blk + .blk{margin-top:11px}
+.blk-t{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:11px}
+.blk-t b{font-size:14px;font-weight:900;letter-spacing:-.03em}
+.blk-t span{font-size:11px;color:var(--muted)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.tile{border-radius:11px;padding:10px 6px;text-align:center}
+.tile .cat{display:block;font-size:10.5px;font-weight:800;margin-bottom:5px}
+.tile .val{display:block;font-size:16px;font-weight:900;color:var(--ink);letter-spacing:-.04em}
+.tile .val small{font-size:10.5px;font-weight:800}
+.tile .val.txt{font-size:12.5px;color:var(--muted)}
+.tile .sub{display:block;font-size:9.5px;color:var(--muted);margin-top:4px}
+.t-d{background:var(--c-diet-bg)} .t-d .cat{color:var(--c-diet)}
+.t-m{background:var(--c-move-bg)} .t-m .cat{color:var(--c-move)}
+.t-s{background:var(--c-sleep-bg)} .t-s .cat{color:var(--c-sleep)}
+.say{margin-top:9px;background:var(--c-sleep-bg);border-radius:11px;padding:11px 13px}
+.say i{display:block;font-style:normal;font-size:9.5px;font-weight:800;color:var(--c-sleep);margin-bottom:4px}
+.say p{margin:0;font-size:12px;color:var(--text);max-width:none}
+.goals{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.goal{border-radius:11px;padding:10px 8px;background:var(--surf-2);border:1px solid var(--line)}
+.goal .cat{display:block;font-size:10px;font-weight:800;margin-bottom:4px}
+.goal .txt{font-size:11px;font-weight:700;color:var(--ink);line-height:1.45}
+.g-d .cat{color:var(--c-diet)} .g-m .cat{color:var(--c-move)} .g-s .cat{color:var(--c-sleep)}
+.mock-cap{margin:11px 0 0;font-size:12.5px;color:var(--muted);max-width:none}
+
+/* ---------- order list ---------- */
+.ord{margin-top:18px;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:var(--surf)}
+.ord-row{display:flex;gap:14px;padding:12px 18px;border-top:1px solid var(--line);align-items:baseline}
+.ord-row:first-child{border-top:0}
+.ord-row .n{font-family:var(--mono);font-size:12px;color:var(--faint);width:22px;flex:none}
+.ord-row .nm{font-weight:700;color:var(--ink);font-size:13.5px;width:150px;flex:none}
+.ord-row .ds{font-size:13px;color:var(--muted)}
+.ord-row.gate{background:var(--accent-soft)}
+.ord-row.gate .n{color:var(--accent)}
+@media(max-width:560px){.ord-row{flex-wrap:wrap;gap:4px 12px}.ord-row .nm{width:auto}.ord-row .ds{width:100%}}
+
+.note{margin-top:20px;padding:16px 20px;border-left:3px solid var(--accent);background:var(--surf);border-radius:0 9px 9px 0;font-size:13.5px}
+.note.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.note.stop{border-left-color:var(--stop);background:var(--stop-soft)}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.note i{display:block;font-style:normal;font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--accent);margin-bottom:6px}
+.note.ok i{color:var(--ok)} .note.stop i{color:var(--stop)} .note.warn i{color:var(--warn)}
+.note p{max-width:none;font-size:13.5px}
+
+.banned{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.banned span{font-family:var(--mono);font-size:13px;padding:5px 12px;border-radius:7px;
+  background:var(--stop-soft);color:var(--stop);text-decoration:line-through;text-decoration-thickness:1.5px}
+
+.open{margin-top:18px;display:grid;gap:10px}
+.open > div{display:flex;gap:13px;padding:13px 17px;background:var(--surf);border:1px solid var(--line);border-radius:11px;align-items:baseline}
+.open b{font-size:13.5px;flex:none;width:132px}
+.open span{font-size:13px;color:var(--muted)}
+@media(max-width:560px){.open > div{flex-direction:column;gap:3px}.open b{width:auto}}
+
+footer{padding-block:34px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--faint)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="top"><div class="top-in">
+  <span class="mark">maiReport</span>
+  <span>생활 › 목표 분석</span>
+  <span class="ver">LIFE-001</span>
+</div></div>
+
+<div class="wrap">
+
+<div class="hero">
+  <span class="kicker">처음 보는 사람을 위한 설명</span>
+  <h1>목표 이어가기</h1>
+  <p>식이 · 활동 · 수면 세 가지 목표를 <b>며칠 연속으로 기록했는지</b> 보여주는 화면입니다.
+  원래 이 자리에는 <b>주간 목표 달성률</b>이 있었고, 그것을 걷어내고 만든 것이 이 기능입니다.
+  왜 바꿨는지부터 보겠습니다.</p>
+</div>
+
+<!-- 1 -->
+<section>
+  <span class="eyebrow">01</span>
+  <h2>왜 달성률을 버렸나</h2>
+  <p>달성률은 <b>완료한 개수 ÷ (경과일 × 3)</b>으로 계산했습니다.
+  분모가 <b>경과일</b>이라는 게 문제였습니다. 사용자가 아무것도 안 해도 날짜는 흐르고, 분모는 계속 자랍니다.</p>
+  <p>그래서 <b>앱을 안 여는 동안 점수가 떨어졌습니다.</b>
+  가끔 쓰는 사람에게 이 숫자는 자기 생활이 아니라 <b>앱을 얼마나 자주 열었는지</b>를 보여주고 있었습니다.</p>
+
+  <div class="cmp">
+    <div class="bad">
+      <h4>2주 쉬었을 때 — 달성률</h4>
+      <div class="big"><s>58%</s> → 12%</div>
+      <p>가만히 있었는데 숫자가 떨어집니다. 다시 시작해도 몇 주간 낮은 숫자가 따라다닙니다.</p>
+    </div>
+    <div class="good">
+      <h4>2주 쉬었을 때 — 이어가는 일수</h4>
+      <div class="big">45일 → 0</div>
+      <p>멈출 뿐 깎이지 않습니다. <b>하루만 하면 바로 1일 연속</b>이고, 최장 기록은 그대로 남습니다.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:20px">이어가는 일수는 <b>사용자가 한 일만 셉니다.</b>
+  안 쓰면 숫자가 나빠지는 게 아니라 멈춥니다. 이 차이 하나가 이 화면 전체의 설계 기준입니다.</p>
+</section>
+
+<!-- 2 -->
+<section>
+  <span class="eyebrow">02</span>
+  <h2>화면에 뭐가 있나</h2>
+  <p>블록이 두 개입니다. 위에서 <b>오늘 할 일을 체크</b>하고, 아래에서 <b>그 결과가 며칠째인지</b> 봅니다.</p>
+
+  <div class="mock">
+    <div class="blk">
+      <div class="blk-t"><b>오늘의 목표</b><span>0/3 완료</span></div>
+      <div class="goals">
+        <div class="goal g-d"><span class="cat">식이</span><div class="txt">저녁 균형 식사</div></div>
+        <div class="goal g-m"><span class="cat">활동</span><div class="txt">식후 10분 걷기</div></div>
+        <div class="goal g-s"><span class="cat">수면</span><div class="txt">23시 30분에 눕기</div></div>
+      </div>
+    </div>
+    <div class="blk">
+      <div class="blk-t"><b>목표 이어가기</b></div>
+      <div class="tiles">
+        <div class="tile t-d"><span class="cat">식이</span><span class="val txt">다시 시작</span><span class="sub">오늘 하면 1일째</span></div>
+        <div class="tile t-m"><span class="cat">활동</span><span class="val">1<small>일 연속</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-s"><span class="cat">수면</span><span class="val">10<small>일 연속</small></span><span class="sub">8월 11일로부터</span></div>
+      </div>
+      <div class="say">
+        <i>가장 오래 이어온 실천</i>
+        <p>수면을 <b>10일 연속</b> 이어가고 있어요.</p>
+      </div>
+    </div>
+  </div>
+  <p class="mock-cap">카드를 누르면 완료, 다시 누르면 취소됩니다. 버튼은 따로 없습니다.</p>
+
+  <p style="margin-top:22px">아래 블록은 <b>읽기 전용</b>입니다. 타일 세 칸이 각 카테고리의 일수를 보여주고,
+  그 밑에 문장이 한 줄 붙습니다. <b>이 문장을 어떻게 고르는지가 이 기능의 절반</b>입니다.</p>
+</section>
+
+<!-- 3 -->
+<section>
+  <span class="eyebrow">03</span>
+  <h2>며칠째인지 세는 법</h2>
+  <p>카테고리마다 따로 셉니다. 수면을 예로 보겠습니다. 규칙은 다섯 개입니다.</p>
+
+  <div class="legend">
+    <span><i class="sw done"></i>완료</span>
+    <span><i class="sw miss"></i>기록 없음</span>
+    <span><i class="sw none">—</i>목표가 안 만들어진 날</span><span style="color:var(--ok)"><b>열었음</b> 그날 앱을 켠 날</span>
+  </div>
+
+  <div class="demo">
+    <p class="demo-q">규칙 1 — 오늘부터 거꾸로, 완료가 이어지는 만큼 셉니다</p>
+    <div class="striprow">
+      <div class="strip">
+        <div class="day miss"><span class="dot"></span><small>15</small></div>
+        <div class="day done"><span class="dot">✓</span><small>16</small></div>
+        <div class="day done"><span class="dot">✓</span><small>17</small></div>
+        <div class="day done"><span class="dot">✓</span><small>18</small></div>
+        <div class="day done"><span class="dot">✓</span><small>19</small></div>
+        <div class="day done today"><span class="dot">✓</span><small>20</small></div>
+      </div>
+      <div class="result"><span class="n">5</span>일 연속</div>
+    </div>
+    <p class="demo-note">15일에 기록이 없으므로 거기서 멈춥니다. 16일부터 오늘까지 <b>다섯 칸</b>입니다.</p>
+  </div>
+
+  <div class="demo">
+    <p class="demo-q">규칙 2 — 오늘은 아직 안 끝났으니, 오늘 비어 있어도 끊지 않습니다</p>
+    <div class="striprow">
+      <div class="strip">
+        <div class="day miss"><span class="dot"></span><small>15</small></div>
+        <div class="day done"><span class="dot">✓</span><small>16</small></div>
+        <div class="day done"><span class="dot">✓</span><small>17</small></div>
+        <div class="day done"><span class="dot">✓</span><small>18</small></div>
+        <div class="day done"><span class="dot">✓</span><small>19</small></div>
+        <div class="day miss today"><span class="dot"></span><small>20</small></div>
+      </div>
+      <div class="result"><span class="n">4</span>일 연속</div>
+    </div>
+    <p class="demo-note">저녁 8시에 앱을 열었는데 오늘 걸 아직 안 했다면, <b>어제까지의 일수를 그대로 보여줍니다.</b>
+    아직 할 시간이 남았는데 0으로 만들면 안 되니까요. <b>어제도 안 했으면</b> 그때 0이 됩니다.</p>
+  </div>
+
+  <div class="demo">
+    <p class="demo-q">규칙 3 — 중간에 기록이 빈 날이 있으면 거기서 끊깁니다</p>
+    <div class="striprow">
+      <div class="strip">
+        <div class="day done"><span class="dot">✓</span><small>15</small></div>
+        <div class="day done"><span class="dot">✓</span><small>16</small></div>
+        <div class="day miss"><span class="dot"></span><small>17</small></div>
+        <div class="day done"><span class="dot">✓</span><small>18</small></div>
+        <div class="day done"><span class="dot">✓</span><small>19</small></div>
+        <div class="day done today"><span class="dot">✓</span><small>20</small></div>
+      </div>
+      <div class="result"><span class="n">3</span>일 연속</div>
+    </div>
+    <p class="demo-note">17일에서 끊겼으니 18일부터 셉니다. 앞의 15 · 16일은 사라지지 않고 <b>최장 기록 계산에는 그대로 쓰입니다.</b></p>
+  </div>
+
+  <div class="demo">
+    <p class="demo-q">규칙 4 — <b>앱은 열었는데</b> 목표가 없었던 날은 끊지 않고 건너뜁니다</p>
+    <div class="striprow">
+      <div class="strip">
+        <div class="day done"><span class="dot">✓</span><small>15</small></div>
+        <div class="day done"><span class="dot">✓</span><small>16</small></div>
+        <div class="day none"><span class="dot">—</span><small>17</small><b class="tag">열었음</b></div>
+        <div class="day done"><span class="dot">✓</span><small>18</small></div>
+        <div class="day done"><span class="dot">✓</span><small>19</small></div>
+        <div class="day done today"><span class="dot">✓</span><small>20</small></div>
+      </div>
+      <div class="result"><span class="n">5</span>일 연속</div>
+    </div>
+    <p class="demo-note">17일에 앱을 열었지만 데이터가 모자라 목표가 안 나왔습니다.
+    <b>할 수 있는 게 아무것도 없던 날</b>이라 세지도 않고 끊지도 않습니다.
+    그래서 15 · 16일과 18~20일이 이어져 <b>5일 연속</b>이 됩니다.</p>
+  </div>
+
+  <div class="demo">
+    <p class="demo-q">규칙 5 — <b>앱을 안 연 날</b>은 목표가 없어도 그냥 끊깁니다</p>
+    <div class="striprow">
+      <div class="strip">
+        <div class="day done"><span class="dot">✓</span><small>15</small></div>
+        <div class="day done"><span class="dot">✓</span><small>16</small></div>
+        <div class="day none"><span class="dot">—</span><small>17</small><b class="tag off">안 열었음</b></div>
+        <div class="day done"><span class="dot">✓</span><small>18</small></div>
+        <div class="day done"><span class="dot">✓</span><small>19</small></div>
+        <div class="day done today"><span class="dot">✓</span><small>20</small></div>
+      </div>
+      <div class="result"><span class="n">3</span>일 연속</div>
+    </div>
+    <p class="demo-note">칸 모양은 규칙 4와 똑같지만 결과가 다릅니다.
+    앱을 안 열어서 목표가 안 만들어진 것이라, <b>규칙 3의 빈 칸과 완전히 같은 날</b>로 봅니다.</p>
+  </div>
+
+  <div class="note ok">
+    <i>세 가지가 왜 다르게 처리되나</i>
+    <p>기준은 하나입니다 — <b>사용자에게 할 기회가 있었나.</b></p>
+    <ul style="margin:10px 0 0">
+      <li><b>기록이 빈 날</b> — 목표는 있었는데 완료가 없습니다. 안 했는지, 했는데 안 남겼는지 앱은 구분할 수 없습니다. <b>끊습니다</b></li>
+      <li><b>앱을 안 연 날</b> — 목표도 없고 기록도 없습니다. 안 열었으니 애초에 기회를 쓰지 않은 것이라 위와 같습니다. <b>끊습니다</b></li>
+      <li><b>열었는데 목표가 없던 날</b> — 앱 앞까지 왔는데 앱이 아무것도 못 줬습니다. <b>이때만 건너뜁니다</b></li>
+    </ul>
+    <p style="margin-top:12px">앱을 안 연 날까지 건너뛰면 <b>한 달을 비워도 숫자가 그대로</b>가 됩니다.
+    그러면 이 숫자는 "안 써도 유지되는 숫자"가 되고, 달성률을 버린 이유와 정반대 방향으로 같은 실수를 하게 됩니다.</p>
+  </div>
+
+  <div class="note warn">
+    <i>그래서 방문 기록이 필요합니다</i>
+    <p>이 구분은 <b>그날 앱을 열었는지</b>를 알아야 가능합니다. 세 목표가 다 없는 날은 완료 기록도 없으니,
+    방문했다는 증거가 달리 없습니다.</p>
+    <p>방문 기록을 못 쓰는 기간(수집 시작 이전 등)에는 <b>전부 끊는 쪽</b>으로 둡니다.
+    잘못 끊는 것보다 잘못 면제해 주는 쪽이 숫자의 의미를 더 크게 해치기 때문입니다.</p>
+  </div>
+
+  <div class="note warn">
+    <i>이 숫자가 정확히 뜻하는 것</i>
+    <p><code>10일 연속</code>은 <b>10일 동안 실천했다</b>가 아니라 <b>10일치 기록이 이어졌다</b>는 뜻입니다.
+    완료는 사용자가 직접 눌러야 생기는 기록이라, 앱은 실천 자체를 관측할 수 없습니다.
+    화면 문구도 이 선을 넘지 않습니다 — 어디에도 “실천했다”고 단정하지 않습니다.</p>
+  </div>
+
+  <h3>주에 묶이지 않습니다</h3>
+  <p>월요일이 와도 리셋하지 않습니다. 7일을 넘으면 <code>45일 연속</code>처럼 그대로 셉니다.
+  다만 시작일이 이번 주보다 앞이면 타일 아래에 <code>8월 11일로부터</code>처럼 <b>시작일을 적어줍니다.</b>
+  숫자만으로는 언제부터인지 감이 안 오기 때문입니다.</p>
+</section>
+
+<!-- 4 -->
+<section>
+  <span class="eyebrow">04</span>
+  <h2>아래 문장은 어떻게 정해지나</h2>
+  <p>타일 밑에 붙는 문장은 <b>아홉 가지 중 하나</b>입니다. 위에서부터 조건을 확인하다가
+  <b>처음 맞는 것에서 멈춥니다.</b> 여러 개가 맞아도 하나만 보여줍니다.</p>
+
+  <div class="ord">
+    <div class="ord-row gate"><span class="n">먼저</span><span class="nm">목표가 없는 날</span><span class="ds">세 목표가 모두 안 만들어졌으면 아래를 보지 않는다</span></div>
+    <div class="ord-row gate"><span class="n">먼저</span><span class="nm">과거 날짜를 볼 때</span><span class="ds">전용 문장을 쓴다 · 아래를 보지 않는다</span></div>
+    <div class="ord-row"><span class="n">01</span><span class="nm">첫 기록 전</span><span class="ds">완료한 적이 한 번도 없다</span></div>
+    <div class="ord-row"><span class="n">02</span><span class="nm">오랜만의 방문</span><span class="ds">7일 이상 만에 다시 열었다</span></div>
+    <div class="ord-row"><span class="n">03</span><span class="nm">마디 도달</span><span class="ds">오늘 완료로 1주 · 2주 · 한 달 같은 마디를 찍었다</span></div>
+    <div class="ord-row"><span class="n">04</span><span class="nm">최장 기록 경신</span><span class="ds">지금까지 중 가장 길어졌다</span></div>
+    <div class="ord-row"><span class="n">05</span><span class="nm">마디 하루 전</span><span class="ds">내일 하면 마디를 찍는다</span></div>
+    <div class="ord-row"><span class="n">06</span><span class="nm">세 개 동률</span><span class="ds">셋이 같은 일수다</span></div>
+    <div class="ord-row"><span class="n">07</span><span class="nm">두 개 동률</span><span class="ds">가장 긴 게 둘이다</span></div>
+    <div class="ord-row"><span class="n">08</span><span class="nm">가장 긴 것 하나</span><span class="ds">위에 해당 없음 — <b>가장 자주 보게 되는 화면</b></span></div>
+    <div class="ord-row"><span class="n">09</span><span class="nm">지금 이어지는 것 없음</span><span class="ds">기록은 있지만 셋 다 0이다</span></div>
+  </div>
+
+  <h3>왜 두 개가 목록 위에 따로 있나</h3>
+  <p>01~09는 전부 <b>“이 사람한테 뭐라고 말해줄까”</b>를 고릅니다.
+  그런데 맨 위 둘은 질문이 다릅니다 — <b>“지금 이 화면에서 할 수 있는 게 있나”</b>를 먼저 묻습니다.</p>
+  <p>이걸 목록 안에 섞어 두면 문제가 생깁니다. 예를 들어 목표가 하나도 안 만들어진 날인데
+  어제까지 수면 10일 연속이었다면, <b>08번이 먼저 맞아서</b> 이런 화면이 나옵니다.</p>
+
+  <div class="mock" style="margin-top:16px">
+    <div class="blk">
+      <div class="blk-t"><b>목표 이어가기</b></div>
+      <div class="tiles">
+        <div class="tile" style="background:var(--surf-3)"><span class="cat" style="color:var(--faint)">식이</span><span class="val txt">—</span></div>
+        <div class="tile" style="background:var(--surf-3)"><span class="cat" style="color:var(--faint)">활동</span><span class="val txt">—</span></div>
+        <div class="tile" style="background:var(--surf-3)"><span class="cat" style="color:var(--faint)">수면</span><span class="val txt">—</span></div>
+      </div>
+      <div class="say" style="background:var(--stop-soft)">
+        <i style="color:var(--stop)">가장 오래 이어온 실천</i>
+        <p>수면을 <b>10일 연속</b> 이어가고 있어요.</p>
+      </div>
+    </div>
+  </div>
+  <p class="mock-cap">타일엔 숫자가 하나도 없는데 문장만 10일 연속을 말합니다.</p>
+
+  <p style="margin-top:20px">그래서 이 둘은 <b>목록을 보기 전에 먼저 갈라집니다.</b>
+  목표가 없으면 “생성된 목표가 없어요”, 과거 날짜면 그날 기록 이야기 — 둘 다 아래를 볼 필요가 없습니다.</p>
+
+  <h3>문장 예시</h3>
+  <p>실제로 나가는 문장은 이런 식입니다.</p>
+  <ul>
+    <li><b>02 오랜만의 방문</b> — “그동안 쌓아온 기록은 그대로 있어요. 마지막 실천은 8월 11일이었어요.”</li>
+    <li><b>03 마디 도달</b> — “수면 목표를 14일 연속 완료했어요. 오늘로 2주를 채웠어요.”</li>
+    <li><b>08 가장 긴 것 하나</b> — “수면을 10일 연속 이어가고 있어요.”</li>
+    <li><b>09 이어지는 것 없음</b> — “마지막 기록은 8월 18일이에요. 오늘 실천한 일 하나부터 다시 이어가 보세요.”</li>
+  </ul>
+  <p><b>02와 09는 타일이 똑같이 보입니다</b> — 둘 다 세 칸이 <code>다시 시작</code>입니다.
+  두 화면을 가르는 것은 <b>문장 속 날짜</b>뿐입니다. 02는 “기록은 남아 있다”는 안심이고,
+  09는 “어디서 끊겼다”는 위치 안내입니다.</p>
+</section>
+
+<!-- 5 -->
+<section>
+  <span class="eyebrow">05</span>
+  <h2>쓰지 않기로 한 것</h2>
+  <p>이 화면은 <b>가끔 쓰는 사람</b>을 위해 만들었습니다. 오래 비우고 돌아온 순간에 설계가 시험받기 때문에,
+  하지 않기로 정해둔 것들이 있습니다.</p>
+
+  <h3>이 단어들은 문구에 쓰지 않습니다</h3>
+  <div class="banned">
+    <span>달성률</span><span>실천 점수</span><span>순응도</span><span>의지력</span><span>꾸준히</span><span>완주</span>
+  </div>
+  <p style="margin-top:14px">전부 <b>사람을 평가하는 말</b>입니다. 상위 문서인 지표 기획서에서 정한 규칙이고,
+  포함되면 배포를 막습니다.</p>
+
+  <h3>그 밖에</h3>
+  <ul>
+    <li><b><code>0일 연속</code>을 쓰지 않습니다.</b> 0 · 5 · 10이 나란히 서면 0은 저절로 꼴찌로 읽힙니다.
+    대신 <code>다시 시작</code>이라고 씁니다 — 숫자가 아닌 말이라 등수가 만들어지지 않습니다</li>
+    <li><b>부정형을 쓰지 않습니다.</b> “건너뛰지 않았어요”는 건너뛸 수도 있었다는 쪽을 먼저 떠올리게 합니다</li>
+    <li><b>끊긴 것을 문장에 올리지 않습니다.</b> 타일의 <code>다시 시작</code>이 이미 보여줍니다.
+    예외는 이어지는 게 하나도 없는 09번뿐입니다</li>
+    <li><b>남과 비교하지 않습니다.</b> 순위표 · 친구 비교 · 평균 대비를 넣지 않습니다</li>
+    <li><b>건강 효과를 주장하지 않습니다.</b> “습관이 자리 잡아요” 같은 말은 비의료기기 톤을 벗어납니다</li>
+  </ul>
+</section>
+
+<!-- 6 -->
+<section>
+  <span class="eyebrow">06</span>
+  <h2>아직 안 정해진 것</h2>
+  <p>읽으면서 “이건 어떻게 되지?” 싶은 지점들이 실제로 아직 비어 있습니다.</p>
+
+  <div class="open">
+    <div><b>목표 생성 시점</b><span>서버가 매일 미리 만드는지, 앱을 열 때 만드는지. 후자면 앱을 안 연 날은 전부 목표가 없는 날이 되므로, 규칙 5가 적용되는 날이 아주 많아집니다</span></div>
+    <div><b>방문 기록 수집</b><span>규칙 4와 5를 가르려면 그날 앱을 열었는지 알아야 합니다. 지금은 수집 여부가 정해지지 않았습니다</span></div>
+    <div><b>건너뛰기 상한</b><span>열었는데 목표가 없던 날을 며칠까지 건너뛸지. 지금은 7일로 두었습니다</span></div>
+    <div><b>과거 입력 기간</b><span>며칠 전까지 거슬러 기록할 수 있는지</span></div>
+    <div><b>목표 없음의 원인</b><span>데이터 부족 말고 가입 전 날짜도 섞입니다. 그 경우 “데이터가 부족해”는 맞지 않습니다</span></div>
+  </div>
+</section>
+
+<footer>
+  maiReport · LIFE-001 목표 이어가기 — 자세한 규칙과 전체 문구는 기획서 v2.0을 보세요.
+</footer>
+
+</div>

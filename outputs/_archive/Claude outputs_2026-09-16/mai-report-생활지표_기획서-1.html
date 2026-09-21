@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마이리포트 v2 · 생활 지표 기획서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#2f66f5;
+    --accent-light:#eaf0ff;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --ink-1:#1a2233;
+    --ink-2:#4b5468;
+    --ink-3:#8892a6;
+    --line:#e6eaf2;
+    --green:#12A150;
+    --amber:#D98A12;
+    --red:#E8365D;
+    --purple:#7C5CFC;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Noto Sans KR', -apple-system, sans-serif;
+    background:var(--bg);
+    color:var(--ink-1);
+    line-height:1.65;
+    padding-block:40px;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding-inline:20px;}
+
+  /* Hero */
+  .hero{
+    background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);
+    border-radius:28px;
+    padding:44px 40px;
+    color:#fff;
+    margin-bottom:28px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:'';
+    position:absolute; right:-60px; top:-60px;
+    width:260px; height:260px;
+    background:rgba(255,255,255,.08);
+    border-radius:50%;
+  }
+  .hero .eyebrow{
+    display:inline-block;
+    font-size:12.5px; font-weight:700;
+    background:rgba(255,255,255,.18);
+    padding:5px 14px; border-radius:999px;
+    letter-spacing:.02em;
+    margin-bottom:16px;
+  }
+  .hero h1{font-size:30px; font-weight:800; margin:0 0 10px; letter-spacing:-.01em;}
+  .hero p{font-size:14.5px; color:rgba(255,255,255,.88); margin:0; max-width:640px;}
+  .hero .meta{
+    display:flex; gap:22px; margin-top:22px; flex-wrap:wrap;
+    font-size:12.5px; color:rgba(255,255,255,.8);
+  }
+  .hero .meta b{color:#fff; font-weight:700;}
+
+  /* Cards */
+  .card{
+    background:var(--card);
+    border-radius:22px;
+    padding:30px 32px;
+    margin-bottom:22px;
+    box-shadow:0 1px 3px rgba(20,30,60,.04);
+  }
+  .card h2{
+    font-size:19px; font-weight:800; margin:0 0 6px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .card h2 .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:28px; height:28px; border-radius:9px;
+    background:var(--accent-light); color:var(--accent);
+    font-size:13px; font-weight:800;
+  }
+  .card > .sub{font-size:13px; color:var(--ink-3); margin:0 0 20px;}
+  h3{font-size:15px; font-weight:700; margin:24px 0 10px; color:var(--ink-1);}
+  h3:first-child{margin-top:0;}
+  p{font-size:13.8px; color:var(--ink-2); margin:0 0 12px;}
+
+  /* Callout */
+  .callout{
+    border-left:3px solid var(--accent);
+    background:var(--accent-light);
+    border-radius:10px;
+    padding:14px 18px;
+    font-size:13.3px;
+    color:#2a3a6b;
+    margin:14px 0;
+  }
+  .callout.warn{border-left-color:var(--amber); background:#fff6e8; color:#6b4c0f;}
+  .callout.risk{border-left-color:var(--red); background:#fdeef1; color:#7a1c33;}
+
+  /* Pills / chips */
+  .pill{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:12px; font-weight:700;
+    padding:4px 12px; border-radius:999px;
+    background:var(--accent-light); color:var(--accent);
+    margin:2px 4px 2px 0;
+  }
+  .pill.gray{background:#eef0f5;color:var(--ink-2);}
+  .pill.green{background:#e8f8ee;color:var(--green);}
+  .pill.amber{background:#fff3e0;color:var(--amber);}
+
+  /* Table */
+  table{width:100%; border-collapse:collapse; font-size:13px; margin:14px 0 8px;}
+  thead th{
+    text-align:left; font-size:11.5px; color:var(--ink-3);
+    font-weight:700; text-transform:uppercase; letter-spacing:.03em;
+    padding:8px 10px; border-bottom:2px solid var(--line);
+  }
+  tbody td{
+    padding:10px 10px; border-bottom:1px solid var(--line);
+    color:var(--ink-2); vertical-align:top;
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  td.k{font-weight:700; color:var(--ink-1); white-space:nowrap;}
+  code{
+    background:#eef1f8; color:#3a4258;
+    padding:1.5px 6px; border-radius:6px;
+    font-size:12px; font-family:'SFMono-Regular',Consolas,monospace;
+  }
+  .formula-box{
+    background:#0f1830; color:#dbe6ff;
+    border-radius:14px; padding:18px 22px;
+    font-family:'SFMono-Regular',Consolas,monospace;
+    font-size:13px; line-height:1.9;
+    margin:12px 0 16px; overflow-x:auto;
+  }
+  .formula-box .comment{color:#8fa3d6; font-size:11.5px;}
+
+  /* Indicator header band */
+  .ind-head{
+    display:flex; align-items:center; gap:14px;
+    margin-bottom:4px;
+  }
+  .ind-badge{
+    width:44px; height:44px; border-radius:14px;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; font-size:15px; color:#fff;
+    flex-shrink:0;
+  }
+  .ind-title{font-size:20px; font-weight:800; margin:0;}
+  .ind-title small{display:block; font-size:12.5px; font-weight:600; color:var(--ink-3); margin-top:2px;}
+
+  /* Flow diagram (SVG based, inline) */
+  .flow-wrap{
+    background:#fbfcfe; border:1px solid var(--line);
+    border-radius:16px; padding:18px; margin:14px 0;
+    overflow-x:auto;
+  }
+  .flow-caption{font-size:11.5px; color:var(--ink-3); margin-top:8px; text-align:center;}
+
+  /* Two column grid */
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:720px){.grid2{grid-template-columns:1fr;}}
+  .minicard{
+    background:#fafbfd; border:1px solid var(--line);
+    border-radius:14px; padding:16px 18px;
+  }
+  .minicard .label{font-size:11.5px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:.03em; margin-bottom:6px;}
+
+  /* Toc */
+  .toc{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
+  .toc a{
+    font-size:12.5px; font-weight:600; color:var(--accent);
+    background:var(--accent-light); padding:7px 14px; border-radius:999px;
+    text-decoration:none;
+  }
+
+  footer{
+    text-align:center; font-size:12px; color:var(--ink-3);
+    padding:28px 0 8px;
+  }
+
+  .status-tag{
+    display:inline-block; font-size:11px; font-weight:700;
+    padding:2px 9px; border-radius:6px; margin-left:8px;
+  }
+  .status-tag.confirmed{background:#e8f8ee;color:var(--green);}
+  .status-tag.pending{background:#fff3e0;color:var(--amber);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="eyebrow">마이리포트 v2 · 기획 문서</span>
+    <h1>생활 지표(I1·I2·I3) 기획서</h1>
+    <p>디바이스 기반 생활 데이터를 세 개의 AI 파생 지표로 해석해, 사용자가 자신의 오늘 상태·행동·흐름을 체감할 수 있게 하는 룰 베이스 지표 체계의 정의·목적·산출방식·데이터 흐름을 정리한다.</p>
+    <div class="meta">
+      <span>작성일 <b>2026-09-15</b></span>
+      <span>버전 <b>1.0</b></span>
+      
+    </div>
+    <div class="toc">
+      <a href="#overview">① 개요</a>
+      <a href="#i1">② I1 · 생활여유</a>
+      <a href="#i2">③ I2 · 자기돌봄</a>
+      <a href="#i3">④ I3 · 일상안정</a>
+      <a href="#dataflow">⑤ 전체 데이터 흐름</a>
+      <a href="#matrix">⑥ 데이터-지표 매핑</a>
+      <a href="#explorer">⑦ 지표 흐름 탐색기</a>
+      <a href="#open">⑧ 미확정 항목</a>
+    </div>
+  </div>
+
+  <!-- ============ 1. 개요 ============ -->
+  <div class="card" id="overview">
+    <h2><span class="num">1</span>개요 · 지표 체계의 목적</h2>
+    <p class="sub">왜 3개의 지표로 나누는가, 그리고 각 지표는 서로 어떤 층위를 대표하는가</p>
+
+    <h3>1.1 기획 배경</h3>
+    <p>마이리포트 v1은 검진·진료 이력을 조회하는 기록 열람 중심 서비스였다. v2는 여기에 AI 웰니스 코칭을 더해, 사용자가 매일 자신의 생활 데이터를 스스로 해석하고 행동을 조정할 수 있도록 돕는 것을 목표로 한다. 이때 코칭이 설득력을 가지려면 "지금 내 상태가 어떤지"를 사용자가 직관적으로 확인할 수 있는 근거 지표가 필요하며, 이 3종 지표가 그 역할을 한다.</p>
+    <p>세 지표는 사용자의 하루를 평가하거나 줄 세우기 위한 점수가 아니다. 사용자가 자신의 생활 흐름을 이해하고, 조절 가능한 지점을 알아차리도록 돕는 <b>해석 지표</b>다. 현재 단계에서 확정된 것은 지표의 방향과 구성 원칙이며, 최종 점수 계수·화면 문구·데이터 저장 구조·앱 화면 구현은 계속 조정 중이다.</p>
+
+    <h3>1.2 왜 지표가 3개이며, 왜 하나로 합치지 않는가</h3>
+    <p>세 지표는 같은 데이터(걸음 수·활동·수면·심박)를 다른 시간축과 다른 질문으로 바라본 결과다. 하나의 종합 점수로 합치면 "오늘 컨디션이 안 좋아서"인지 "최근 행동을 안 해서"인지 "최근 며칠 흐름이 달라져서"인지 구분할 수 없게 되므로, 층위를 분리해 유지한다. 평균이나 합산으로 하나의 점수를 만들지 않고, 세 지표를 나란히 보면서 생활의 관계를 이해하는 방식을 취한다.</p>
+    <table>
+      <thead><tr><th>지표(내부 코드)</th><th>층위</th><th>질문</th><th>시간축</th></tr></thead>
+      <tbody>
+        <tr><td class="k">I1 · 생활여유<br><span class="pill gray">상태 (State)</span></td><td>부담·여유 균형</td><td>지금 내 하루를 이어갈 여유가 충분한가</td><td>오늘 (당일)</td></tr>
+        <tr><td class="k">I2 · 자기돌봄<br><span class="pill gray">행동 (Action)</span></td><td>기준점-행동 연결</td><td>내가 조절 가능한 행동들이 실제 하루 안에서 얼마나 이루어졌는가</td><td>오늘 (당일)</td></tr>
+        <tr><td class="k">I3 · 일상안정<br><span class="pill gray">추이 (Trend)</span></td><td>개인 기준 대비 변화</td><td>최근 내 생활 신호가 나에게 맞는 방향으로 바뀌고 있는가</td><td>최근 7일 vs 기준 21일</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      예시 — 생활여유는 낮지만 자기돌봄은 괜찮을 수 있다(하루가 빠듯했지만 가능한 순간마다 작은 행동을 붙였다는 뜻). 반대로 생활여유는 괜찮지만 일상안정이 낮을 수도 있다(오늘은 버틸 만하지만 최근 흐름은 한쪽으로 몰리고 있다는 뜻). 세 지표는 서로를 대신하지 않으며, 차이를 함께 봐야 생활 상태를 더 정확히 설명할 수 있다.
+    </div>
+    <div class="callout">
+      노출 명칭은 <b>생활여유(I1) · 자기돌봄(I2) · 일상안정(I3)</b>이다. 내부 코드 I1/I2/I3는 산식·데이터 설계에서만 쓰고 사용자 화면에는 노출하지 않는다. 명칭은 평가·압박형 표현(점수·순응도·의지력)을 피하고 사용자가 자기 생활에 대입해 읽을 수 있는 말을 고른다는 원칙으로 정했다.
+    </div>
+
+    <h3>1.3 공통 설계 원칙</h3>
+    <div class="grid2">
+      <div class="minicard">
+        <div class="label">질문은 보조 정보다</div>
+        <p style="margin:0">질문 응답은 지표를 직접 올리거나 내리는 입력이 아니라 이유 설명·맥락·신뢰도 보강용이다. 질문이 없어도 지표는 가능한 범위에서 표시되며, 답변이 없다는 이유만으로 낮은 점수를 주지 않는다.</p>
+      </div>
+      <div class="minicard">
+        <div class="label">디바이스 데이터가 기본 축</div>
+        <p style="margin:0">현재 수집 가능한 디바이스 데이터가 지표 계산의 기본 축이다. 다만 watch 미보유 사용자를 불리하게 만들지 않는다 — watch가 있으면 더 자세히, 없으면 더 낮은 해상도로 해석한다.</p>
+      </div>
+      <div class="minicard">
+        <div class="label">기록은 점수 보너스가 아니다</div>
+        <p style="margin:0">식사 기록처럼 사용자가 직접 남긴 기록은 "기록했다는 사실" 자체로 점수를 올리지 않는다. 기록이 있으면 특정 생활 순간을 더 잘 알아볼 수 있을 뿐이며, 실제 행동 연결이 확인된 것으로 보지 않는다.</p>
+      </div>
+      <div class="minicard">
+        <div class="label">숫자는 내부 계산용이다</div>
+        <p style="margin:0">내부적으로 계산용 값을 가질 수 있으나, 사용자에게 정밀 숫자를 그대로 보여주지 않는다. "충분해요 / 보통이에요 / 부족해요"처럼 이해 가능한 상태 표현을 우선한다.</p>
+      </div>
+      <div class="minicard">
+        <div class="label">결측은 실패가 아니다</div>
+        <p style="margin:0">데이터가 없으면 0이나 실패로 치환하지 않고 <code>null</code> 또는 <code>[low, high]</code> 범위로 보존한다. 산출 불가(null)는 정상 상태이며, 다른 창·비례 점수로 메우지 않는다(차트에는 빈 구간으로 표시).</p>
+      </div>
+      <div class="minicard">
+        <div class="label">룰 베이스로 시작</div>
+        <p style="margin:0">실사용 데이터로 학습할 환경이 아직 없어 초기 버전은 미리 정한 규칙과 안전장치로 움직인다. 계수(35/85·M·G·H·D·Q 등)는 고정 규칙값이며 데이터로 학습한 값이 아니다. 실사용 데이터는 추후 이상 반응 확인·보정에만 쓴다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2. I1 ============ -->
+  <div class="card" id="i1">
+    <div class="ind-head">
+      <div class="ind-badge" style="background:var(--green);">I1</div>
+      <div>
+        <h2 class="ind-title" style="margin:0;">생활여유 <small>(내부명: I1 · 생활 여력도 / Life Margin)</small></h2>
+      </div>
+    </div>
+
+    <h3>정의</h3>
+    <p>수면, 활동, 휴식 등 최근 생활 데이터를 바탕으로 현재 일상에서 느낄 수 있는 <b>부담과 여유의 균형</b>을 보여주는 지표. 생활 부담(몸이나 하루가 한쪽으로 몰려 있는 상태)과 생활 여유(하루 중간중간 부담을 풀어주는 작은 여백)를 함께 본다.</p>
+
+    <h3>목적</h3>
+    <p>사용자가 "지금 내 하루를 이어갈 여유가 충분한가?"를 직관적으로 확인하게 해, 오늘의 코칭·오늘의 목표 제안의 근거로 사용한다.</p>
+
+    <h3>핵심 데이터</h3>
+    <p><span class="pill green">● 핵심</span> 수면 · 걸음 · 활동시간 · 운동구간 &nbsp; <span class="pill gray">○ 맥락 보강</span> 주관 응답(피로감), watch 생체 신호(직접 점수화하지 않고 신뢰도·맥락만 보강)</p>
+
+    <h3>구체적 원본(raw) 데이터</h3>
+    <p>Apple은 HealthKit XML의 Record 타입, Samsung은 Health CSV 익스포트 파일을 원본으로 받는다. 원본 필드명 자체가 산식에 바로 들어가는 것이 아니라, 아래처럼 표준 필드(portable field)로 변환한 뒤 M/G/H/D 계산에 쓴다.</p>
+    <table>
+      <thead><tr><th>변환값</th><th>Apple 원본(HealthKit XML)</th><th>Samsung 원본(CSV)</th><th>쓰이는 곳</th></tr></thead>
+      <tbody>
+        <tr><td class="k">daily_steps</td><td>Record@type=HKQuantityTypeIdentifierStepCount<br>(@startDate·@endDate·@value·@unit)</td><td>step_daily_trend*.csv (day_time·count) 또는<br>pedometer_step_count*.csv (start_time·end_time·count)</td><td>희소 경로 R, M 산출 기반</td></tr>
+        <tr><td class="k">movement_minutes</td><td>StepCount Record(@startDate·@endDate·@value)</td><td>pedometer_step_count*.csv + exercise 관련 csv (start_time·end_time)</td><td>G(비활동 압력) 산출</td></tr>
+        <tr><td class="k">activity_concentration<br>active_partition_count</td><td>위 걸음 interval 필드 + 전처리 partition_edges(원본에 없는 설정값)</td><td>동일</td><td>M(분산된 움직임), H(몰린 활동) 산출</td></tr>
+        <tr><td class="k">sleep_shortfall_minutes</td><td>Record@type=HKCategoryTypeIdentifierSleepAnalysis<br>(@startDate·@endDate·@value)</td><td>sleep_combined*.csv 또는 sleep*.csv (time_offset·start_time·end_time·sleep_duration)</td><td>D(수면 부족) 산출</td></tr>
+        <tr><td class="k">Q (주관적 부담)</td><td>디바이스 원본 아님 — 앱 내 "오늘의 질문" 응답</td><td>동일</td><td>두 경로 모두에서 보정항으로만 사용</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--ink-3);">day(로컬 날짜), observation(observed/missing/nonwear), state(movement 등)는 원본 필드가 아니라 전처리 단계에서 새로 생성되는 값이다.</p>
+    <div class="callout">
+      <b>활동 시간·운동 시간의 플랫폼별 정의 (SDK 문서 확인, 2026-09)</b><br>
+      · Apple HealthKit — '활동 시간' 항목은 없다. <code>appleExerciseTime</code>은 "빠르게 걷기 이상 강도의 움직임을 1분 단위로 누적"한 값으로 Apple Watch가 자동 기록하며, <code>HKWorkoutSession</code>도 합산된다(iOS에서 저장한 워크아웃은 duration 전체가 운동 링에 더해짐). Watch가 없으면 생성되지 않는다.<br>
+      · Samsung Health Data SDK — <code>ActivitySummaryType.TOTAL_ACTIVE_TIME</code>은 "활동에 쓴 총 시간"으로 폰·워치·핏·링 데이터를 중복 없이 합산하며 강도 기준이 없다. <code>ExerciseType.TOTAL_DURATION</code>은 운동 세션 합계이고, 워치의 자동 감지(10분 이상 걷기·달리기 등)도 세션으로 기록된다.<br>
+      · 따라서 <b>movement_minutes(활동 시간)는 두 플랫폼 값을 쓰지 않고 걸음 interval에서 직접 산출</b>해 정의를 통일하고, <b>운동 시간·운동 기록은 세션 기반</b>(HKWorkout / ExerciseType)만 쓴다. Apple의 운동 시간과 Samsung의 활동 시간을 같은 축에서 비교하지 않는다.
+    </div>
+
+    <h3>구성 요소</h3>
+    <table>
+      <thead><tr><th>구성 요소</th><th>쉬운 설명</th><th>지표에서의 역할</th></tr></thead>
+      <tbody>
+        <tr><td class="k">비활동 압력 (G)</td><td>오래 앉아 있거나 움직임이 적어 하루가 굳어 있는 정도</td><td>여력을 낮추는 핵심 요소</td></tr>
+        <tr><td class="k">늦은 시간·몰린 활동 (H)</td><td>활동이 너무 늦거나 한 시점에 몰린 정도</td><td>부담을 키우는 보조 요소</td></tr>
+        <tr><td class="k">분산된 가벼운 움직임 (M)</td><td>하루 중간중간 짧게 움직이거나 흐름을 끊어준 정도</td><td>여력을 높이는 핵심 요소</td></tr>
+        <tr><td class="k">수면 부족 (D)</td><td>필요한 수준에 비해 수면이 부족했는지</td><td>여력을 낮추는 요소</td></tr>
+        <tr><td class="k">주관적 부담 (Q)</td><td>사용자가 오늘 일상활동을 어렵게 느꼈는지(질문 응답)</td><td>이유 설명과 해석 보강</td></tr>
+      </tbody>
+    </table>
+
+    <h3>산출방식</h3>
+    <p>웨어러블 원본 데이터를 그대로 더하지 않고 위 중간값으로 변환한 뒤, 데이터 풍부도에 따라 두 갈래 경로 중 하나로 계산한다.</p>
+
+    <div class="minicard" style="margin-bottom:14px;">
+      <div class="label">① 풍부한 타임라인 경로</div>
+      <div class="formula-box">
+clip( 50 + (35/85) × (35·M − 30·G − 20·H) − 20·D + 12·Q , 0, 100 )
+      </div>
+      <p style="margin:0">기준 50에서 시작해 (35M−30G−20H)를 35/85(≈0.41)로 축소 반영, 수면·응답 보정 후 0~100으로 자른다. 활동 총량이 아니라 <b>M·G·H = 하루의 배치</b>가 핵심이다.</p>
+    </div>
+    <div class="minicard">
+      <div class="label">② 희소 기록·자가보고 경로 (걸음수만, 또는 응답만)</div>
+      <div class="formula-box">
+50 + clip( 8·R + 12·Q , −15, 15 )
+      </div>
+      <p style="margin:0">R = 평소 기록 범위와의 익숙함(오늘 기록이 내 평소 밴드 안인가). 보정폭이 ±15로 묶여 이 경로의 I1은 항상 35~65 사이. 예: 걸음 14,720 · 수면/응답 없음 → I1 43.9(low_resolution_life_margin_rule).</p>
+    </div>
+
+    <div class="callout warn">
+      <b>두 경로는 절대 눈금이 동등하지 않다</b> — 타임라인 경로의 60점과 기록경로의 60점을 비교·차감하지 않는다.
+    </div>
+
+    <h3>이 지표가 말하지 않는 것</h3>
+    <p>생활여유는 피로도, 수면 점수, 스트레스 점수, 회복 점수, readiness 점수가 아니다. 치료 효과나 건강 상태를 판단하는 지표도 아니다.</p>
+
+    <h3>예시</h3>
+    <p>하루 걸음 수가 많아도 늦은 시간에 몰려 있고 중간에 쉬는 흐름이 없다면 "여력이 충분하다"고 단정하지 않는다. 반대로 활동량이 아주 많지 않아도 하루 중간에 가벼운 움직임과 쉬는 흐름이 분산되어 있으면 여력이 어느 정도 유지된 것으로 본다.</p>
+
+    <h3>결측 처리</h3>
+    <p>타임라인이 불완전하면 rich 경로 대신 희소 기록 경로로 대체한다. 데이터가 없다고 0점으로 채우지 않는다.</p>
+
+    <h3>데이터 흐름도</h3>
+    <div class="flow-wrap">
+      <svg viewBox="0 0 980 210" width="100%" role="img" aria-label="I1 생활여유 데이터 흐름도">
+        <defs>
+          <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8892a6"/></marker>
+        </defs>
+        <g font-family="Noto Sans KR, sans-serif">
+          <rect x="10" y="20" width="150" height="150" rx="14" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="85" y="42" font-size="11" font-weight="700" fill="#8892a6" text-anchor="middle">① 원본 데이터</text>
+          <text x="85" y="70" font-size="11.5" fill="#4b5468" text-anchor="middle">Apple/Samsung</text>
+          <text x="85" y="88" font-size="11.5" fill="#4b5468" text-anchor="middle">수면 · 걸음 · 활동</text>
+          <text x="85" y="106" font-size="11.5" fill="#4b5468" text-anchor="middle">운동구간 · 응답(Q)</text>
+          <text x="85" y="140" font-size="10" fill="#8892a6" text-anchor="middle">StepCount ·</text>
+          <text x="85" y="154" font-size="10" fill="#8892a6" text-anchor="middle">SleepAnalysis</text>
+
+          <line x1="165" y1="95" x2="205" y2="95" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowG)"/>
+
+          <rect x="210" y="20" width="170" height="150" rx="14" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="295" y="42" font-size="11" font-weight="700" fill="#8892a6" text-anchor="middle">② 중간값 변환</text>
+          <text x="295" y="68" font-size="11" fill="#4b5468" text-anchor="middle">M 움직임 분산</text>
+          <text x="295" y="86" font-size="11" fill="#4b5468" text-anchor="middle">G 긴 활동 공백</text>
+          <text x="295" y="104" font-size="11" fill="#4b5468" text-anchor="middle">H 활동 몰림 · D 수면부족</text>
+          <text x="295" y="150" font-size="10" fill="#8892a6" text-anchor="middle">타임라인 풍부도 판정</text>
+
+          <line x1="385" y1="95" x2="425" y2="95" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowG)"/>
+
+          <rect x="430" y="20" width="190" height="150" rx="14" fill="#e8f8ee" stroke="#bfe8d0"/>
+          <text x="525" y="42" font-size="11" font-weight="700" fill="#12A150" text-anchor="middle">③ 산식 계산</text>
+          <text x="525" y="70" font-size="11" fill="#1c6b3f" text-anchor="middle">① 풍부 경로</text>
+          <text x="525" y="88" font-size="10.5" fill="#1c6b3f" text-anchor="middle">50+(35/85)(35M−30G−20H)</text>
+          <text x="525" y="108" font-size="11" fill="#1c6b3f" text-anchor="middle">② 희소 경로</text>
+          <text x="525" y="126" font-size="10.5" fill="#1c6b3f" text-anchor="middle">50+clip(8R+12Q,−15,15)</text>
+          <text x="525" y="150" font-size="10" fill="#4a8e63" text-anchor="middle">두 경로 눈금 비교 안 함</text>
+
+          <line x1="625" y1="95" x2="665" y2="95" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowG)"/>
+
+          <rect x="670" y="20" width="140" height="150" rx="14" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="740" y="42" font-size="11" font-weight="700" fill="#8892a6" text-anchor="middle">④ 결과</text>
+          <text x="740" y="80" font-size="20" font-weight="800" fill="#12A150" text-anchor="middle">0–100</text>
+          <text x="740" y="100" font-size="10.5" fill="#4b5468" text-anchor="middle">규칙값(제품 규칙)</text>
+          <text x="740" y="114" font-size="10.5" fill="#4b5468" text-anchor="middle">임상 점수 아님</text>
+          <text x="740" y="140" font-size="10" fill="#8892a6" text-anchor="middle">희소 경로 35~65 제한</text>
+
+          <line x1="810" y1="95" x2="850" y2="95" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowG)"/>
+
+          <rect x="855" y="20" width="115" height="150" rx="14" fill="var(--accent-light)" stroke="#c9d7fb"/>
+          <text x="912" y="42" font-size="11" font-weight="700" fill="#2f66f5" text-anchor="middle">⑤ 화면 노출</text>
+          <text x="912" y="70" font-size="10.5" fill="#2a3a6b" text-anchor="middle">홈 &gt;</text>
+          <text x="912" y="86" font-size="10.5" fill="#2a3a6b" text-anchor="middle">오늘의 컨디션</text>
+          <text x="912" y="108" font-size="10.5" fill="#2a3a6b" text-anchor="middle">충분해요 /</text>
+          <text x="912" y="124" font-size="10.5" fill="#2a3a6b" text-anchor="middle">보통 / 부족해요</text>
+        </g>
+      </svg>
+      <div class="flow-caption">원본 웨어러블 데이터 → M/G/H/D/Q 중간값 변환 → 풍부/희소 경로 분기 산식 → 0~100 규칙값 → 홈/생활 탭 상태 문구 노출</div>
+    </div>
+  </div>
+
+  <!-- ============ 3. I2 ============ -->
+  <div class="card" id="i2">
+    <div class="ind-head">
+      <div class="ind-badge" style="background:var(--amber);">I2</div>
+      <div>
+        <h2 class="ind-title" style="margin:0;">자기돌봄 <small>(내부명: I2 · 기준점-행동 연결 지표)</small></h2>
+      </div>
+    </div>
+
+    <h3>정의</h3>
+    <p>사용자의 건강 상태와 생활 맥락을 기준으로, 사용자가 조절할 수 있었던 생활 순간(기준점)에 실제 행동이 얼마나 연결됐는지를 보여주는 지표. 단순히 많이 움직였는지가 아니라 "행동할 수 있는 순간"과 "그 근처에서 실제로 일어난 행동"의 연결을 본다.</p>
+    <div class="callout">최종 이름은 사용자의 주체성을 긍정적으로 표현해야 한다는 것이 원칙이었다("의지력"·"순응도"·"실천 점수" 등 평가·압박형 표현은 배제) — 노출명은 <b>자기돌봄</b>으로 확정.</div>
+
+    <h3>목적</h3>
+    <p>"나는 지금 내 건강을 위해 필요한 행동을 하고 있나?"에 답해, 목표 수행·권장 행동·생활습관 실천 정도를 사용자가 확인하게 한다.</p>
+
+    <h3>핵심 데이터</h3>
+    <p><span class="pill green">● 핵심</span> 시간대별 활동·운동 기록 &nbsp; <span class="pill gray">○ 맥락 보강</span> 기록 유무(식사 등 기준점 기록), 질문 응답(직접 점수화하지 않고 맥락만 보강)</p>
+
+    <h3>구체적 원본(raw) 데이터</h3>
+    <table>
+      <thead><tr><th>변환값</th><th>Apple 원본</th><th>Samsung 원본</th><th>+ 추가 맥락</th></tr></thead>
+      <tbody>
+        <tr><td class="k">post_anchor_action_credit<br>(기준점 근처 행동)</td><td>StepCount Record(@startDate·@endDate·@value)</td><td>pedometer_step_count*.csv (start_time·end_time·count)</td><td>anchor_time(식사 시각) + stratum, follow-up window — 디바이스 원본이 아니라 앱 기록/설정값</td></tr>
+        <tr><td class="k">eligible_intervals<br>(재활동 기회 구간)</td><td>위와 동일 걸음 interval 필드</td><td>동일</td><td>observed/missing/nonwear 판정(전처리), minimum low-movement 임계값(정책값)</td></tr>
+        <tr><td class="k">기준점(anchor) 자체</td><td>디바이스 원본 없음</td><td>디바이스 원본 없음</td><td>사용자가 앱에 남긴 식사 시각 기록, 또는 긴 비활동 구간의 전처리 판정 — 기록이 없으면 이 기준점은 성립하지 않음</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--ink-3);">I2는 걸음 수 자체보다 "언제 걸었는가"가 중요하므로, 시간 정보가 살아있는 interval 단위 원본(Samsung pedometer_step_count, Apple StepCount Record)을 쓰고 일 단위로 집계된 step_daily_trend는 쓰지 않는다.</p>
+
+    <h3>구성 요소</h3>
+    <table>
+      <thead><tr><th>구성 요소</th><th>쉬운 설명</th><th>지표에서의 역할</th></tr></thead>
+      <tbody>
+        <tr><td class="k">조절 가능한 기준점</td><td>식사, 긴 비활동, 일정 전후처럼 행동을 붙일 수 있는 순간</td><td>행동 연결을 볼 수 있는 출발점</td></tr>
+        <tr><td class="k">기준점 근처의 실제 행동</td><td>기준점 전후에 실제 움직임이나 조절 행동이 있었는지</td><td>지표를 움직이는 핵심 요소</td></tr>
+        <tr><td class="k">행동의 배치</td><td>행동이 하루 안에서 어느 위치에 놓였는지</td><td>해석을 보강하는 요소</td></tr>
+        <tr><td class="k">반복되는 연결</td><td>비슷한 연결이 여러 번 나타나는지</td><td>하루 해석의 안정성을 높이는 요소</td></tr>
+        <tr><td class="k">기록 유무</td><td>사용자가 식사 같은 기준점을 기록했는지</td><td>평가 가능성과 이유 설명 보강</td></tr>
+      </tbody>
+    </table>
+
+    <h3>산출방식</h3>
+    <div class="formula-box">
+(오늘 확인된 '연결된' 행동 수) / (해당 기회 수) × 100
+<span class="comment">// 예: 기회 3회 중 2회에 행동이 붙음 → 66.67</span>
+    </div>
+    <p>기회 목록과 결과가 충분히 관측될 때만 값을 낸다. 부족하면 산출 불가(null) — 다른 날 점수로 대체하지 않는다. 걸음 수만으로는 계산이 불가하다(식사·활동의 시간 관계가 없어 '기회'를 정의하지 못함). 어려움 응답 평점은 들어가지 않으며, 실제 행동-기회 연결만 본다.</p>
+
+    <div class="callout">하위 변형: 일별 연결 / 7일 전체(7일이 다 있을 때) / 관측 부분(빠진 날 제외한 나머지 기회만 — 전체 값의 대체 아님). 화면에는 일별 연결만 표시한다.</div>
+
+    <h3>기록만 있는 경우</h3>
+    <p>식사 기록만 있고 실제 움직임 데이터가 없다면 "식사라는 기준점은 확인됨" 정도로 본다. 이것은 기록했다는 행위에 대한 낮은 수준의 인정이지 점수 보너스가 아니다. 실제 행동 연결이 확인되지 않았기 때문에 좋은 상태로 올리지 않는다.</p>
+
+    <h3>이 지표가 말하지 않는 것</h3>
+    <p>자기돌봄은 의지력 평가가 아니다. 코칭 순응도, 목표 달성률, 활동량 점수도 아니다. 활동량이 많아도 기준점과 연결되지 않으면 좋은 상태로 단정하지 않는다.</p>
+
+    <h3>예시</h3>
+    <p>하루 총 걸음 수가 많아도 식사나 긴 비활동 뒤의 행동 연결이 보이지 않으면 이 지표는 크게 움직이지 않을 수 있다. 식사 기록이 있고 그 뒤 가까운 시간에 짧은 걷기나 움직임이 확인되면, 그때는 행동 연결로 본다.</p>
+
+    <h3>결측 처리</h3>
+    <p>미확인 credit은 midpoint(중간값)로 임의 치환하지 않는다. 기회 목록 자체가 불완전하면 정밀 비율을 계산하지 않고 null로 둔다.</p>
+
+    <h3>데이터 흐름도</h3>
+    <div class="flow-wrap">
+      <svg viewBox="0 0 980 230" width="100%" role="img" aria-label="I2 자기돌봄 데이터 흐름도">
+        <defs>
+          <marker id="arrowA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8892a6"/></marker>
+        </defs>
+        <g font-family="Noto Sans KR, sans-serif">
+          <rect x="10" y="20" width="150" height="170" rx="14" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="85" y="42" font-size="11" font-weight="700" fill="#8892a6" text-anchor="middle">① 원본 + 맥락</text>
+          <text x="85" y="68" font-size="11" fill="#4b5468" text-anchor="middle">시간대별 활동</text>
+          <text x="85" y="86" font-size="11" fill="#4b5468" text-anchor="middle">운동 기록</text>
+          <text x="85" y="104" font-size="11" fill="#4b5468" text-anchor="middle">식사 시각(기록)</text>
+          <text x="85" y="122" font-size="11" fill="#4b5468" text-anchor="middle">긴 비활동 구간</text>
+          <text x="85" y="150" font-size="10" fill="#8892a6" text-anchor="middle">기준점 후보 목록</text>
+
+          <line x1="165" y1="105" x2="205" y2="105" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowA)"/>
+
+          <rect x="210" y="20" width="185" height="170" rx="14" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="302" y="42" font-size="11" font-weight="700" fill="#8892a6" text-anchor="middle">② 기준점-행동 매칭</text>
+          <text x="302" y="68" font-size="10.5" fill="#4b5468" text-anchor="middle">조절 가능한 기준점 식별</text>
+          <text x="302" y="86" font-size="10.5" fill="#4b5468" text-anchor="middle">기준점 근처 실제 행동</text>
+          <text x="302" y="104" font-size="10.5" fill="#4b5468" text-anchor="middle">확인 여부 판정</text>
+          <text x="302" y="150" font-size="10" fill="#8892a6" text-anchor="middle">기회 수 vs 연결 수 집계</text>
+
+          <line x1="400" y1="105" x2="440" y2="105" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowA)"/>
+
+          <rect x="445" y="20" width="185" height="170" rx="14" fill="#fff3e0" stroke="#f4d9a8"/>
+          <text x="537" y="42" font-size="11" font-weight="700" fill="#D98A12" text-anchor="middle">③ 연결률 계산</text>
+          <text x="537" y="72" font-size="11" fill="#7a5710" text-anchor="middle">연결된 행동 수</text>
+          <text x="537" y="90" font-size="11" fill="#7a5710" text-anchor="middle">÷ 기회 수 × 100</text>
+          <text x="537" y="150" font-size="10" fill="#8a6b23" text-anchor="middle">기회 불충분 시 null</text>
+
+          <line x1="635" y1="105" x2="675" y2="105" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowA)"/>
+
+          <rect x="680" y="20" width="130" height="170" rx="14" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="745" y="42" font-size="11" font-weight="700" fill="#8892a6" text-anchor="middle">④ 결과</text>
+          <text x="745" y="90" font-size="20" font-weight="800" fill="#D98A12" text-anchor="middle">0–100</text>
+          <text x="745" y="112" font-size="10.5" fill="#4b5468" text-anchor="middle">일별 연결률</text>
+
+          <line x1="810" y1="105" x2="850" y2="105" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowA)"/>
+
+          <rect x="855" y="20" width="115" height="170" rx="14" fill="var(--accent-light)" stroke="#c9d7fb"/>
+          <text x="912" y="42" font-size="11" font-weight="700" fill="#2f66f5" text-anchor="middle">⑤ 화면 노출</text>
+          <text x="912" y="70" font-size="10.5" fill="#2a3a6b" text-anchor="middle">홈 &gt;</text>
+          <text x="912" y="86" font-size="10.5" fill="#2a3a6b" text-anchor="middle">오늘의 컨디션</text>
+          <text x="912" y="108" font-size="10.5" fill="#2a3a6b" text-anchor="middle">잘하고 있어요 /</text>
+          <text x="912" y="124" font-size="10.5" fill="#2a3a6b" text-anchor="middle">보통 / 부족해요</text>
+        </g>
+      </svg>
+      <div class="flow-caption">기준점 후보(식사·비활동 등) + 실제 행동 데이터 → 기준점-행동 매칭 → 연결 수/기회 수 비율 → 일별 연결률(0~100) → 화면 노출</div>
+    </div>
+  </div>
+
+  <!-- ============ 4. I3 ============ -->
+  <div class="card" id="i3">
+    <div class="ind-head">
+      <div class="ind-badge" style="background:var(--purple);">I3</div>
+      <div>
+        <h2 class="ind-title" style="margin:0;">일상안정 <small>(내부명: I3 · 생활 변화 방향도 / Personal Baseline Shift)</small></h2>
+      </div>
+    </div>
+
+    <h3>정의</h3>
+    <p>일정 기간 동안 수면, 활동, 체중, 심박 등 생활 데이터가 평소의 패턴과 비교해 얼마나 안정적으로 유지되고 있는지, 즉 최근 생활 신호가 나에게 맞는 방향으로 쌓이고 있는지를 보는 지표.</p>
+
+    <h3>목적</h3>
+    <p>"최근 내 생활 흐름은 얼마나 안정적으로 이어지고 있나?"에 답해, 당일 상태(I1)·당일 행동(I2)과 달리 여러 날에 걸친 변화의 방향을 보여준다. 생활 탭 주간 추이·스파크라인의 핵심 근거가 된다.</p>
+
+    <h3>핵심 데이터</h3>
+    <p><span class="pill green">● 핵심</span> 수면 · 걸음 · 심박 · 체중 · 활동 &nbsp; <span class="pill gray">○ 기준 데이터</span> 개인 기준선(평소 자연스러운 생활 신호의 범위)</p>
+
+    <h3>구체적 원본(raw) 데이터</h3>
+    <table>
+      <thead><tr><th>변환값</th><th>Apple 원본</th><th>Samsung 원본</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="k">action_connection_delta<br>(B, 행동 변화)</td><td>디바이스 원본 아님</td><td>디바이스 원본 아님</td><td>I2에서 이미 계산된 파생 결과(action rows)를 21일/7일로 재집계 — I3는 원본을 다시 읽지 않는다</td></tr>
+        <tr><td class="k">recorded_volume_direction<br>(기록량 방향, 보조)</td><td>StepCount Record(@value)</td><td>step_daily_trend*.csv (day_time·count)</td><td>21일 baseline vs 7일 recent, 최소 15일/5일 확보 시에만 계산</td></tr>
+        <tr><td class="k">개인 기준 범위</td><td>위 걸음 원본 + SleepAnalysis Record</td><td>step_daily_trend + sleep_combined*.csv</td><td>21일 window 내 중앙값 기반 산정(전처리)</td></tr>
+        <tr><td class="k">Q (어려움 응답 변화)</td><td>디바이스 원본 아님 — 질문 응답</td><td>동일</td><td>최근 7일 vs 기준 21일 응답 비교</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--ink-3);">I3의 핵심 입력(B)은 걸음·수면 원본을 직접 다시 읽는 게 아니라 I2 계산 결과(기준점-행동 연결 결과)를 시계열로 쌓아 비교한다는 점이 특징이다. 체중·심박은 개인 기준 범위의 보조 참고값으로만 쓰이며 B/Q 산식에 직접 들어가지 않는다.</p>
+
+    <h3>무엇을 보나</h3>
+    <p>정해진 목표에 얼마나 맞췄는지를 보지 않는다. 사람마다 생활 리듬과 가능한 활동 범위가 다르므로 하나의 고정된 기준으로 판단하지 않고, 최근 신호가 개인의 평소 범위 안에서 안정되는지, 반복되던 막힘이 줄어드는지, 반대 방향의 신호가 커지는지를 본다.</p>
+
+    <h3>구성 요소</h3>
+    <table>
+      <thead><tr><th>구성 요소</th><th>쉬운 설명</th><th>지표에서의 역할</th></tr></thead>
+      <tbody>
+        <tr><td class="k">개인 기준 범위</td><td>그 사람에게 평소 자연스러운 생활 신호의 범위</td><td>변화 판단의 기준</td></tr>
+        <tr><td class="k">최근 벗어남 (B)</td><td>최근 신호가 개인 기준에서 어느 방향으로 벗어났는지</td><td>변화 방향을 보는 핵심 요소</td></tr>
+        <tr><td class="k">반복되는 막힘의 완화</td><td>늦은 활동, 긴 비활동, 흐름 끊김 같은 문제가 반복적으로 줄어드는지</td><td>긍정 방향을 보강</td></tr>
+        <tr><td class="k">반대 신호와 흔들림</td><td>좋아 보이는 신호와 나빠 보이는 신호가 함께 있는지</td><td>과도한 해석을 막는 요소</td></tr>
+        <tr><td class="k">어려움 응답 변화 (Q)</td><td>최근-기준 구간의 어려움 응답 변화</td><td>변화 방향 보강</td></tr>
+      </tbody>
+    </table>
+
+    <h3>산출방식</h3>
+    <div class="formula-box">
+50 + clip( 20·B + 20·Q , −35, cap )
+    </div>
+    <table>
+      <thead><tr><th>기호</th><th>의미</th></tr></thead>
+      <tbody>
+        <tr><td class="k">B</td><td>행동 변화 — 최근 7일 vs 그 직전 21일</td></tr>
+        <tr><td class="k">Q</td><td>어려움 응답 변화 — 같은 두 구간 비교</td></tr>
+        <tr><td class="k">기준창</td><td>최근 7일 직전의 21일 (예: 41일 기준 → 기준 14–34일 / 최근 35–41일)</td></tr>
+        <tr><td class="k">하한 / 상한</td><td>하한 −35(바닥 15) · 상한 cap은 근거량에 따라 가변</td></tr>
+      </tbody>
+    </table>
+    <p>당일 입력도 '최근 7일'의 일부로 들어가 당일 기록이 없어도 과거 이력이 있으면 계산된다. 행동·응답 변화가 없으면 기록량 변화로 대체하지 않는다(그건 보조 정보).</p>
+
+    <div class="callout warn">
+      <b>상대·비단조 특성</b> — 기준 이력이 이미 나빴던 사람은 지금도 나빠도 I3가 덜 낮게 나올 수 있다. 현재 상태가 아니라 <b>방향</b>을 보는 지표이기 때문이다.
+    </div>
+
+    <h3>이 지표가 말하지 않는 것</h3>
+    <p>일상안정은 오늘의 몸 상태나 오늘의 활동량 점수가 아니다. 목표 달성률도 아니고, 치료 효과를 말하지도 않는다. 하루만 좋아졌다고 해서 좋은 변화가 쌓이고 있다고 판단하지 않는다 — 반복되는 방향성이 확인되어야 한다.</p>
+
+    <h3>예시</h3>
+    <p>어느 하루에만 걸음 수가 늘어난 것은 긍정 변화로 단정하지 않는다. 반면 며칠 동안 늦은 시간의 몰린 활동이 줄고, 긴 비활동 뒤 가벼운 움직임이 반복적으로 붙는다면 생활 변화 방향이 나아지는 흐름으로 본다.</p>
+
+    <h3>결측 처리</h3>
+    <p>baseline 15일·recent 5일의 동일 의미 기록이 확보될 때만 계산한다. point score 산출이 불가능하면 score_bounds(범위)로 전달하며, 이 범위는 신뢰구간이 아니라 관측 가능한 성분 조합의 점수 범위임에 유의한다.</p>
+
+    <h3>데이터 흐름도</h3>
+    <div class="flow-wrap">
+      <svg viewBox="0 0 980 230" width="100%" role="img" aria-label="I3 일상안정 데이터 흐름도">
+        <defs>
+          <marker id="arrowP" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8892a6"/></marker>
+        </defs>
+        <g font-family="Noto Sans KR, sans-serif">
+          <rect x="10" y="20" width="160" height="170" rx="14" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="90" y="42" font-size="11" font-weight="700" fill="#8892a6" text-anchor="middle">① 시계열 원본</text>
+          <text x="90" y="70" font-size="10.5" fill="#4b5468" text-anchor="middle">수면·걸음·심박</text>
+          <text x="90" y="86" font-size="10.5" fill="#4b5468" text-anchor="middle">체중·활동</text>
+          <text x="90" y="108" font-size="10.5" fill="#4b5468" text-anchor="middle">21일 기준 구간</text>
+          <text x="90" y="126" font-size="10.5" fill="#4b5468" text-anchor="middle">7일 최근 구간</text>
+          <text x="90" y="144" font-size="10.5" fill="#4b5468" text-anchor="middle">어려움 응답(Q)</text>
+
+          <line x1="175" y1="105" x2="215" y2="105" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowP)"/>
+
+          <rect x="220" y="20" width="180" height="170" rx="14" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="310" y="42" font-size="11" font-weight="700" fill="#8892a6" text-anchor="middle">② 개인 기준 비교</text>
+          <text x="310" y="70" font-size="10.5" fill="#4b5468" text-anchor="middle">개인 기준 범위 산정</text>
+          <text x="310" y="86" font-size="10.5" fill="#4b5468" text-anchor="middle">비교 가능성 판정</text>
+          <text x="310" y="112" font-size="10.5" fill="#4b5468" text-anchor="middle">행동 변화(B) 산출</text>
+          <text x="310" y="130" font-size="10.5" fill="#4b5468" text-anchor="middle">응답 변화(Q) 산출</text>
+          <text x="310" y="150" font-size="10" fill="#8892a6" text-anchor="middle">baseline 15일·recent 5일 최소</text>
+
+          <line x1="405" y1="105" x2="445" y2="105" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowP)"/>
+
+          <rect x="450" y="20" width="200" height="170" rx="14" fill="#f1ecff" stroke="#d3c4fb"/>
+          <text x="550" y="42" font-size="11" font-weight="700" fill="#7C5CFC" text-anchor="middle">③ 산식 계산</text>
+          <text x="550" y="72" font-size="11" fill="#4a3a8f" text-anchor="middle">50 + clip(20B+20Q,</text>
+          <text x="550" y="90" font-size="11" fill="#4a3a8f" text-anchor="middle">−35, cap)</text>
+          <text x="550" y="140" font-size="10" fill="#6a5aa8" text-anchor="middle">상대·비단조 — 방향을 봄</text>
+          <text x="550" y="156" font-size="10" fill="#6a5aa8" text-anchor="middle">기록량 변화로 대체 안 함</text>
+
+          <line x1="655" y1="105" x2="695" y2="105" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowP)"/>
+
+          <rect x="700" y="20" width="130" height="170" rx="14" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="765" y="42" font-size="11" font-weight="700" fill="#8892a6" text-anchor="middle">④ 결과</text>
+          <text x="765" y="90" font-size="20" font-weight="800" fill="#7C5CFC" text-anchor="middle">0–100</text>
+          <text x="765" y="112" font-size="10" fill="#4b5468" text-anchor="middle">또는 score_bounds</text>
+          <text x="765" y="150" font-size="10" fill="#8892a6" text-anchor="middle">근거 부족 시 null</text>
+
+          <line x1="830" y1="105" x2="855" y2="105" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowP)"/>
+
+          <rect x="860" y="20" width="110" height="170" rx="14" fill="var(--accent-light)" stroke="#c9d7fb"/>
+          <text x="915" y="42" font-size="11" font-weight="700" fill="#2f66f5" text-anchor="middle">⑤ 화면 노출</text>
+          <text x="915" y="72" font-size="10.5" fill="#2a3a6b" text-anchor="middle">생활 &gt;</text>
+          <text x="915" y="88" font-size="10.5" fill="#2a3a6b" text-anchor="middle">지표별 분석</text>
+          <text x="915" y="110" font-size="10.5" fill="#2a3a6b" text-anchor="middle">안정적 / 보통 /</text>
+          <text x="915" y="126" font-size="10.5" fill="#2a3a6b" text-anchor="middle">불안정해요</text>
+        </g>
+      </svg>
+      <div class="flow-caption">21일 기준 구간 vs 7일 최근 구간 비교 → 개인 기준 대비 행동·응답 변화(B, Q) 산출 → 50+clip(20B+20Q,−35,cap) → 생활 탭 주간 추이 노출</div>
+    </div>
+  </div>
+
+  <!-- ============ 5. 전체 데이터 흐름 ============ -->
+  <div class="card" id="dataflow">
+    <h2><span class="num">5</span>전체 데이터 흐름도 (공통 계층)</h2>
+    <p class="sub">세 지표가 공유하는 파이프라인 — 수집부터 화면 노출까지</p>
+    <div class="flow-wrap">
+      <svg viewBox="0 0 980 260" width="100%" role="img" aria-label="전체 지표 파이프라인">
+        <defs>
+          <marker id="arrowM" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8892a6"/></marker>
+        </defs>
+        <g font-family="Noto Sans KR, sans-serif">
+          <!-- Layer labels -->
+          <text x="20" y="20" font-size="11" font-weight="700" fill="#8892a6">운영 계층</text>
+          <rect x="10" y="30" width="150" height="90" rx="12" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="85" y="55" font-size="11" fill="#4b5468" text-anchor="middle">수집·인증·저장</text>
+          <text x="85" y="73" font-size="10" fill="#8892a6" text-anchor="middle">Apple/Samsung</text>
+          <text x="85" y="89" font-size="10" fill="#8892a6" text-anchor="middle">provider payload</text>
+          <text x="85" y="105" font-size="9.5" fill="#a7afc0" text-anchor="middle">(이 문서 범위 밖)</text>
+
+          <line x1="165" y1="75" x2="200" y2="75" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowM)"/>
+
+          <text x="210" y="20" font-size="11" font-weight="700" fill="#8892a6">전처리 계약</text>
+          <rect x="205" y="30" width="185" height="90" rx="12" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="297" y="52" font-size="10.5" fill="#4b5468" text-anchor="middle">raw → normalized</text>
+          <text x="297" y="68" font-size="10.5" fill="#4b5468" text-anchor="middle">→ 개인 기준선</text>
+          <text x="297" y="86" font-size="9.5" fill="#8892a6" text-anchor="middle">단위·중복·겹침 정리</text>
+          <text x="297" y="100" font-size="9.5" fill="#8892a6" text-anchor="middle">coverage·결측·window 판정</text>
+
+          <line x1="395" y1="75" x2="430" y2="75" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowM)"/>
+
+          <text x="440" y="20" font-size="11" font-weight="700" fill="#2f66f5">산식 계층 (본 문서)</text>
+          <rect x="435" y="30" width="330" height="90" rx="12" fill="var(--accent-light)" stroke="#c9d7fb"/>
+          <rect x="450" y="45" width="90" height="60" rx="10" fill="#e8f8ee" stroke="#bfe8d0"/>
+          <text x="495" y="68" font-size="12" font-weight="800" fill="#12A150" text-anchor="middle">I1</text>
+          <text x="495" y="86" font-size="9.5" fill="#1c6b3f" text-anchor="middle">생활여유</text>
+          <rect x="550" y="45" width="90" height="60" rx="10" fill="#fff3e0" stroke="#f4d9a8"/>
+          <text x="595" y="68" font-size="12" font-weight="800" fill="#D98A12" text-anchor="middle">I2</text>
+          <text x="595" y="86" font-size="9.5" fill="#7a5710" text-anchor="middle">자기돌봄</text>
+          <rect x="650" y="45" width="100" height="60" rx="10" fill="#f1ecff" stroke="#d3c4fb"/>
+          <text x="700" y="68" font-size="12" font-weight="800" fill="#7C5CFC" text-anchor="middle">I3</text>
+          <text x="700" y="86" font-size="9.5" fill="#4a3a8f" text-anchor="middle">일상안정</text>
+
+          <line x1="770" y1="75" x2="800" y2="75" stroke="#8892a6" stroke-width="1.4" marker-end="url(#arrowM)"/>
+
+          <text x="810" y="20" font-size="11" font-weight="700" fill="#8892a6">노출 계층</text>
+          <rect x="805" y="30" width="165" height="90" rx="12" fill="#fafbfd" stroke="#e6eaf2"/>
+          <text x="887" y="52" font-size="10.5" fill="#4b5468" text-anchor="middle">홈 탭</text>
+          <text x="887" y="68" font-size="9.5" fill="#8892a6" text-anchor="middle">오늘의 컨디션(접힘)</text>
+          <text x="887" y="88" font-size="10.5" fill="#4b5468" text-anchor="middle">생활 탭</text>
+          <text x="887" y="104" font-size="9.5" fill="#8892a6" text-anchor="middle">지표별 분석(추이)</text>
+
+          <!-- Bottom: cross-cutting concerns -->
+          <rect x="10" y="150" width="960" height="90" rx="14" fill="#fdeef1" stroke="#f6c9d4"/>
+          <text x="490" y="172" font-size="11.5" font-weight="700" fill="#7a1c33" text-anchor="middle">공통 결측·불확실성 처리 원칙 (전 지표 공통 적용)</text>
+          <text x="130" y="200" font-size="10.5" fill="#7a1c33" text-anchor="middle">observed → 유효한 0</text>
+          <text x="130" y="216" font-size="9.5" fill="#9a5666" text-anchor="middle">(missing과 구분)</text>
+          <text x="350" y="200" font-size="10.5" fill="#7a1c33" text-anchor="middle">missing/nonwear → null</text>
+          <text x="350" y="216" font-size="9.5" fill="#9a5666" text-anchor="middle">(0으로 치환 금지)</text>
+          <text x="570" y="200" font-size="10.5" fill="#7a1c33" text-anchor="middle">unknown → [low, high]</text>
+          <text x="570" y="216" font-size="9.5" fill="#9a5666" text-anchor="middle">(midpoint 생성 금지)</text>
+          <text x="800" y="200" font-size="10.5" fill="#7a1c33" text-anchor="middle">비교 불가 → 보강 보류</text>
+          <text x="800" y="216" font-size="9.5" fill="#9a5666" text-anchor="middle">(기본 채널은 유지)</text>
+        </g>
+      </svg>
+      <div class="flow-caption">운영 계층(수집) → 전처리 계약(정규화) → 산식 계층(I1/I2/I3, 본 기획서 범위) → 노출 계층(홈/생활 탭) — 결측 처리 원칙은 전 계층에 공통 적용</div>
+    </div>
+    <div class="callout">
+      <b>세 지표를 관통하는 공통 규칙</b> — 기준점 50은 건강 판정 경계가 아니다(0–100은 제품 규칙값이지 임상 점수가 아니다). 입력은 지표별로 선택 반영되며(어려움 응답 → I1·I3만 / 걸음수만 → I1 저해상도 경로만 / 식후 걷기 → I2·I3), 관측 경로가 다르면 비교 자체를 하지 않는다(comparable 플래그로 비교 차단). 세 지표는 끝까지 합산·평균하지 않으며, 계수(35/85·35·30·20·8·12·20 등 clip 경계)는 전부 고정 규칙값으로 이 데이터로 학습한 값이 아니다.
+    </div>
+  </div>
+
+  <!-- ============ 6. 매핑 매트릭스 ============ -->
+  <div class="card" id="matrix">
+    <h2><span class="num">6</span>연동 데이터 ↔ 지표 매핑</h2>
+    <p class="sub">● 핵심 산출 / ○ 보조 / – 반영 안 함</p>
+    <table>
+      <thead>
+        <tr><th>데이터</th><th>삼성헬스</th><th>애플헬스</th><th>I1 생활여유</th><th>I2 자기돌봄</th><th>I3 일상안정</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="k">걸음 수</td><td>●</td><td>●</td><td>○</td><td>–</td><td>○</td></tr>
+        <tr><td class="k">활동 칼로리</td><td>●</td><td>●</td><td>○</td><td>○</td><td>○</td></tr>
+        <tr><td class="k">활동 시간</td><td>●</td><td>–</td><td>●</td><td>●</td><td>●</td></tr>
+        <tr><td class="k">운동 시간(구간)</td><td>–</td><td>●</td><td>●</td><td>●</td><td>●</td></tr>
+        <tr><td class="k">운동 기록</td><td>–</td><td>●</td><td>–</td><td>●</td><td>●</td></tr>
+        <tr><td class="k">심박수</td><td>●</td><td>●</td><td>–</td><td>–</td><td>●</td></tr>
+        <tr><td class="k">체중</td><td>●</td><td>●</td><td>–</td><td>–</td><td>●</td></tr>
+        <tr><td class="k">수면</td><td>●</td><td>●</td><td>●</td><td>–</td><td>●</td></tr>
+        <tr><td class="k">식사 기록(선택)</td><td>–</td><td>–</td><td>–</td><td>○ 기준점</td><td>–</td></tr>
+        <tr><td class="k">질문 응답(주관적 부담)</td><td>–</td><td>–</td><td>○ 맥락 보강</td><td>○ 맥락 보강</td><td>○ 맥락 보강</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12px; color:var(--ink-3); margin-top:-4px;">I2는 걸음 수만으로는 '기회'를 정의할 수 없어 핵심 산출에 들어가지 않고, I1·I3는 걸음 수를 보조로만 쓴다. 질문 응답은 어떤 지표에도 직접 가감되지 않고 맥락 보강에만 쓰인다(§1.3 공통 원칙).</p>
+  </div>
+
+  <!-- ============ 7. 지표 흐름 탐색기 ============ -->
+  <div class="card" id="explorer">
+    <h2><span class="num">7</span>지표 흐름 탐색기 (보조 시각화 자료)</h2>
+    <p class="sub">한 사람의 연속 데이터로 산식 동작을 직접 확인하는 인터랙티브 자료 — 팀 내 산식 이해·QA 용도</p>
+    <p>본 기획서의 산식(§2~4)이 실제 데이터에서 어떻게 움직이는지 확인할 수 있도록, 합성 42일 데이터 기반의 탐색기를 별도 HTML로 제공한다. 두 개의 탭으로 구성한다.</p>
+    <div class="grid2">
+      <div class="minicard">
+        <div class="label">① 42일 데이터 흐름 탭</div>
+        <p style="margin:0">한 사람의 연속 42일 걸음·수면·활동 데이터로부터 I1·I2·I3가 날짜별로 어떻게 변하는지 확인한다. 특정 날짜를 선택하면 그날의 세부 성분(M/G/H/D/Q, 기회 수와 연결 수, B/Q 변화량, 결측 처리 상태)까지 분해해서 보여준다.</p>
+      </div>
+      <div class="minicard">
+        <div class="label">② 조건·시나리오 비교 탭</div>
+        <p style="margin:0">동일 기준일에서 걸음 분산·수면 부족·식후 움직임·타임라인 결측 여부를 바꿔가며 기준 조건 대비 결과가 어떻게 달라지는지 비교한다. 사전 시나리오로 식후 움직임 추가, 늦은 시간 활동 몰림, 타임라인 결측, 기록만 있고 행동 없음을 준비한다.</p>
+      </div>
+    </div>
+    <h3>탐색기로 확인해야 하는 핵심 동작</h3>
+    <table>
+      <thead><tr><th>시나리오</th><th>기대 동작</th></tr></thead>
+      <tbody>
+        <tr><td class="k">타임라인 결측</td><td>I1은 풍부 경로 대신 희소 경로로 전환되고(35~65 범위), I2는 기회 목록이 불완전하면 null. 어느 경우도 0점으로 치환되지 않는다</td></tr>
+        <tr><td class="k">식후 10분 움직임 추가</td><td>I2의 연결 수만 1 증가하여 연결률이 오르고, I1·I3는 당일 변화가 거의 없다(I3는 여러 날 반복될 때만 B가 움직인다)</td></tr>
+        <tr><td class="k">늦은 시간 활동 몰림</td><td>총 걸음 수가 같아도 I1의 H가 커져 점수가 내려간다 — 활동 총량이 아니라 배치가 핵심임을 확인</td></tr>
+        <tr><td class="k">기록만 있고 행동 없음</td><td>식사 기록이 있어도 I2가 오르지 않는다(기록은 보너스가 아님)</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">탐색기는 산식을 설명하는 보조 자료이며 제품 화면이 아니다. 화면 노출 규칙(구간 표시·해석 문장·핵심 데이터)은 <code>mai-report-지표별분석_화면정의서_v1.0.0.html</code>을 따른다.</div>
+  </div>
+
+  <!-- ============ 8. 미확정 항목 ============ -->
+  <div class="card" id="open">
+    <h2><span class="num">8</span>미확정 / 확인 필요 항목</h2>
+    <table>
+      <thead><tr><th>#</th><th>항목</th><th>현황</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>비교 기준(baseline) 기간의 최종 확정</td><td>최근 7~14일 개인 데이터 사용 원칙은 확정, 구체적 기간·산식은 데이터 검증 후 최종 확정 예정</td><td><span class="status-tag pending">검증 중</span></td></tr>
+        <tr><td>2</td><td>Apple SDNN ↔ Samsung RMSSD/SDNN 실데이터 비교</td><td>두 플랫폼의 HRV 지표 정의가 달라 개인 기준선을 혼용하지 않는다. 현재 산식(§2~4)에서는 HRV/RHR이 직접 성분으로 쓰이지 않으므로 우선순위는 낮으며, watch 생체 신호를 신뢰도 보강에 쓰는 시점에 실측 비교가 필요하다</td><td><span class="status-tag pending">확인 필요</span></td></tr>
+        <tr><td>3</td><td>건강보험공단·의료이력 데이터의 지표 반영 여부</td><td>현재는 지표를 직접 산출하지 않음 원칙, 가중치 적용 여부는 별도 검증 후 결정</td><td><span class="status-tag pending">검증 예정</span></td></tr>
+        <tr><td>4</td><td>지표 흐름 탐색기 제작</td><td>§7에 정의한 탐색기(42일 흐름 · 시나리오 비교)를 본 기획서 산식 기준으로 구현 필요</td><td><span class="status-tag pending">제작 예정</span></td></tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    마이리포트 v2 · 생활 지표 기획서 — 관련 문서: mai-report-지표별분석_화면정의서_v1.0.0.html · mai-report-홈생활화면정책.md · mai-report-기능정의서.md<br>
+     · 2026-09-15
+  </footer>
+
+</div>
+</body>
+</html>

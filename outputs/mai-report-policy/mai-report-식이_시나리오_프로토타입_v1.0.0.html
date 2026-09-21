@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 식이 시나리오 프로토타입</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2;--good:#1e6b3a;--good-bg:#e8f6ee;--okay:#8a5a0a;--okay-bg:#fff6e8;--bad:#a12e2e;--bad-bg:#fdeeee}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.6;letter-spacing:-.01em}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 20px 60px}
+  header{margin-bottom:18px}
+  header h1{font-size:22px;font-weight:800;color:var(--ink-1);letter-spacing:-.03em}
+  header p{font-size:13px;color:var(--ink-3)}
+  .cases{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px}
+  .cases button{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:700;color:var(--ink-2);cursor:pointer;font-family:inherit}
+  .cases button.on{background:var(--brand);border-color:var(--brand);color:#fff}
+  .layout{display:grid;grid-template-columns:340px 1fr;gap:18px;align-items:start}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+  .panel h2{font-size:14px;font-weight:800;color:var(--ink-1);margin-bottom:10px}
+  .panel h2 small{font-weight:500;color:var(--ink-3);margin-left:6px}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:12px;color:var(--ink-3);margin-bottom:4px;font-weight:600}
+  .field select,.field input[type=time],.field input[type=number]{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13px;font-family:inherit;color:var(--ink-1);background:#fafbfd}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .axes{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
+  .axes .a{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:12px}
+  .axes .a span{color:var(--ink-1);font-weight:600;white-space:nowrap}
+  .axes select{border:1px solid var(--line);border-radius:8px;padding:4px 6px;font-size:11.5px;font-family:inherit;background:#fafbfd;width:96px}
+  .axes select.st{width:78px}
+  .stage{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px 10px;margin-top:8px}
+  .stage .a{font-size:12px;display:flex;flex-direction:column;gap:2px}
+  .stage .a span{font-weight:600;color:var(--ink-1)}
+  .stage select{border:1px solid var(--line);border-radius:8px;padding:4px 6px;font-size:11.5px;font-family:inherit;background:#fafbfd}
+  .divider{height:1px;background:var(--line);margin:14px 0}
+  .extab{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:4px}
+  .extab th{font-weight:600;color:var(--ink-3);text-align:left;padding:4px 4px;border-bottom:1px solid var(--line);font-size:11px}
+  .extab td{padding:5px 4px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+  .extab input[type=number],.extab input[type=date]{border:1px solid var(--line);border-radius:6px;padding:3px 5px;font-size:11.5px;font-family:inherit;background:#fafbfd;width:58px}
+  .extab input[type=date]{width:118px}
+  .extab .note{color:var(--ink-3);white-space:normal}
+  /* phone */
+  .stage-area{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .phone{background:#fff;border:1px solid var(--line);border-radius:26px;padding:18px 16px 22px;position:relative}
+  .phone .bar{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-3);margin-bottom:12px}
+  .step{margin-bottom:14px}
+  .step .lab{font-size:11px;font-weight:800;color:var(--brand);letter-spacing:.02em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+  .step .lab i{display:inline-flex;width:18px;height:18px;border-radius:6px;background:var(--brand-soft);align-items:center;justify-content:center;font-style:normal;font-size:10.5px}
+  .qcard{background:#fafbfd;border:1px solid var(--line);border-radius:16px;padding:14px}
+  .qcard .cat{font-size:11px;color:var(--ink-3);margin-bottom:4px}
+  .qcard .q{font-size:14.5px;font-weight:700;color:var(--ink-1);margin-bottom:10px;line-height:1.45}
+  .opts{display:flex;flex-direction:column;gap:6px}
+  .opt{border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13px;background:#fff;display:flex;justify-content:space-between;align-items:center}
+  .opt.sel{border-color:var(--brand);background:var(--brand-soft);color:var(--brand);font-weight:700}
+  .opt .tag{font-size:10.5px;color:var(--ink-3);font-weight:500}
+  .skip{text-align:center;font-size:12px;color:var(--ink-3);padding:10px;border:1px dashed var(--line);border-radius:12px}
+  .tile{border-radius:18px;padding:16px;background:linear-gradient(135deg,#2f66f5,#7c5cfc);color:#fff}
+  .tile .cat{font-size:11px;opacity:.85;margin-bottom:6px;display:flex;justify-content:space-between}
+  .tile .t{font-size:17px;font-weight:800;line-height:1.35;letter-spacing:-.02em}
+  .tile .why{margin-top:10px;font-size:12.5px;opacity:.92;padding-top:10px;border-top:1px solid rgba(255,255,255,.25)}
+  .tile.locked{background:#eef0f5;color:var(--ink-3)}
+  .tile.locked .t{color:var(--ink-3)}
+  .tile.pool{background:linear-gradient(135deg,#d98a12,#f0b45a)}
+  .tile.pool2{background:linear-gradient(135deg,#5b6b8a,#8a9bbf)}
+  .meta{font-size:11.5px;color:var(--ink-3);margin-top:6px}
+  .tomorrow{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:12.5px}
+  .tomorrow b{color:var(--ink-1)}
+  /* trace */
+  .trace h2{font-size:14px;font-weight:800;color:var(--ink-1);margin-bottom:10px}
+  .tr{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+  .tr .n{flex:none;width:22px;height:22px;border-radius:7px;background:var(--brand-soft);color:var(--brand);font-weight:800;font-size:11px;display:inline-flex;align-items:center;justify-content:center}
+  .tr .n.x{background:#eee;color:#999}
+  .tr b{color:var(--ink-1)}
+  .tr .r{flex:1}
+  .tr .r small{display:block;color:var(--ink-3);margin-top:2px}
+  .badge{display:inline-block;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700;margin-left:4px}
+  .b-good{background:var(--good-bg);color:var(--good)}.b-okay{background:var(--okay-bg);color:var(--okay)}.b-bad{background:var(--bad-bg);color:var(--bad)}.b-obs{background:#eee;color:#666}
+  .states{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+  .states div{font-size:11px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:#fafbfd}
+  .states div b{display:block;color:var(--ink-1);font-size:11.5px}
+  @media(max-width:900px){.layout,.stage-area{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>식이 질문 · 목표 시나리오 프로토타입</h1>
+  <p>「식이 질문·목표 상세 기획」 1.0의 규칙을 그대로 구현했다. 케이스를 고르거나 왼쪽 입력을 바꾸면 오른쪽 화면과 규칙 추적이 다시 계산된다. 검진 경계는 직접 지정하거나, 검진값과 기기 연동 최신값을 넣어 규칙대로 계산할 수 있다(케이스 10~12). 건강값 수기 입력은 없다. 검진 경계 전용 문구는 검진 경계가 없거나 저체중이면 나오지 않는다.</p>
+</header>
+
+<div class="cases" id="cases"></div>
+
+<div class="layout">
+  <!-- INPUTS -->
+  <div class="panel">
+    <h2>입력 <small>바꾸면 바로 반영</small></h2>
+    <div class="row2">
+      <div class="field"><label>첫 진입 시각</label><input type="time" id="inTime" value="08:20"></div>
+      <div class="field"><label>요일</label><select id="inDow"><option>월</option><option selected>화</option><option>수</option><option>목</option><option>금</option><option>토</option><option>일</option></select></div>
+    </div>
+    <div class="field"><label>확진 질환 (진료정보 상병코드 → 사용자 확인 완료)</label><select id="inDx"><option value="none">없음</option><option value="dm">당뇨병 (E10~E14) — 금지 전원 적용</option><option value="htn">고혈압 (I10~I15)</option><option value="lip">이상지질혈증 (E78)</option><option value="ckd">만성 신장질환 (N18)</option><option value="preg">임신 · 수유 (O · Z34) — 금지만</option><option value="ed">섭식장애 (F50) — 금지만</option></select></div>
+    <div class="field"><label>검진 경계 정하는 방식</label><select id="inExamMode"><option value="manual">직접 지정</option><option value="calc">값으로 계산 (검진 기본 · 기기 연동 최신값 우선)</option></select></div>
+    <div class="field" id="examManualWrap"><label>검진 경계 (직접 지정)</label><select id="inExam"><option value="none">없음 (일반)</option><option value="glu">혈당 경계</option><option value="bp">혈압 경계</option><option value="lip">콜레스테롤 · 체중 경계</option></select></div>
+    <div id="examCalcWrap" style="display:none">
+      <div class="field"><label>검진일</label><input type="date" id="exDate" value="2026-03-10"></div>
+      <table class="extab">
+        <tr><th>항목</th><th>검진값</th><th>기기 연동값</th><th>측정일</th><th>조건</th></tr>
+        <tr><td>공복혈당</td><td><input type="number" id="exGlu" value="92" title="mg/dL"></td><td><input type="number" id="wGlu" placeholder="없음" title="공복 표시 값 중앙값"></td><td><input type="date" id="wGluDate"></td><td><input type="number" id="wGluN" placeholder="회" title="7일 공복 측정 횟수" style="width:44px"></td></tr>
+        <tr><td>혈압</td><td><input type="number" id="exBpS" value="118" style="width:46px"> / <input type="number" id="exBpD" value="76" style="width:46px"></td><td><input type="number" id="wBpS" placeholder="수축" style="width:46px"> / <input type="number" id="wBpD" placeholder="이완" style="width:46px"></td><td><input type="date" id="wBpDate"></td><td><input type="number" id="wBpN" placeholder="회" style="width:44px" title="7일 측정 횟수"> <label style="display:inline;font-weight:500" title="1차는 가정용 혈압계 연동값만 인정. 스마트워치 혈압은 제외"><input type="checkbox" id="wBpCal"> 가정용 혈압계</label></td></tr>
+        <tr><td>콜레스테롤</td><td>총 <input type="number" id="exTC" value="185" style="width:50px"> LDL <input type="number" id="exLDL" placeholder="—" style="width:50px"></td><td class="note">기기 측정 항목 아님<input type="hidden" id="aTC"><input type="hidden" id="aLDL"></td><td><input type="hidden" id="aTCDate"></td><td class="note">검진값만</td></tr>
+        <tr><td>체질량지수</td><td>키 <input type="number" id="exH" value="168" style="width:50px"> 몸무게 <input type="number" id="exW" value="62" style="width:50px"></td><td>몸무게 <input type="number" id="wW" placeholder="—" style="width:50px"></td><td><input type="date" id="wWDate"></td><td class="note">최신 1건</td></tr>
+      </table>
+    </div>
+    <div class="row2">
+      <div class="field"><label>피로 문항</label><select id="inFatigue"><option value="ok">괜찮아요</option><option value="mild">조금 피곤해요</option><option value="bad">많이 피곤해요</option></select></div>
+      <div class="field"><label>어젯밤 수면</label><select id="inSleep"><option value="7">7시간 이상</option><option value="6">5~7시간</option><option value="4">5시간 미만</option></select></div>
+    </div>
+    <div class="divider"></div>
+    <div class="field"><label>고정 문항 답 (지난 끼니 양)</label><select id="inFixed"><option value="normal">평소대로</option><option value="less">조금 적게</option><option value="little">거의 못 먹었거나 걸렀어요</option><option value="notyet">아직 저녁 전이에요 (21시~ 링크)</option></select></div>
+    <div class="field"><label>회전 문항 답</label><select id="inRot"><option value="good">양호 (첫 번째 답)</option><option value="okay">보통 (두 번째 답)</option><option value="bad">개선 필요 (세 번째 답)</option><option value="none">아직 답하지 않음</option></select></div>
+    <div class="divider"></div>
+    <h2>어제 <small>목표와 답</small></h2>
+    <div class="field"><label>어제 식이 목표</label><select id="inYGoal"></select></div>
+    <div class="row2">
+      <div class="field"><label>어제 목표 토글</label><select id="inYDone"><option value="done">완료</option><option value="miss">미완료</option><option value="rest">쉬기</option><option value="none">목표 없음</option></select></div>
+      <div class="field"><label>어제 고정 문항 답</label><select id="inYFixed"><option value="normal">평소대로</option><option value="less">조금 적게</option><option value="little">거의 못 먹었거나 걸렀어요</option></select></div>
+    </div>
+    <div class="divider"></div>
+    <h2>축 상태 <small>최근 14일 지표 · 답 개수</small></h2>
+    <div class="axes" id="axesIn"></div>
+    <h2 style="margin-top:14px">단계 <small>축별 현재 단계 · 7일 완료 · 연속 미완료</small></h2>
+    <div class="stage" id="stageIn"></div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div>
+    <div class="stage-area">
+      <div class="phone" id="phone"></div>
+      <div class="panel trace" id="trace"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+/* ---------- 데이터: 기획안 ② ③ ⑥ ---------- */
+const AXES = [
+  {k:'meal',  name:'끼니 규칙',   q:null, opts:null, ask:'all'},
+  {k:'veg',   name:'채소',        q:'{M}에 채소 반찬이 있었나요?', opts:['두 가지 이상','한 가지','없었어요'], ask:'all'},
+  {k:'sugar', name:'단 음료·단 간식', q:'{M} 전후로 단 음료나 단 간식을 드셨나요?', opts:['안 먹었어요','한 가지','두 가지 이상'], ask:'all'},
+  {k:'salt',  name:'짠맛·국물',   q:'{M} 국물은 어느 정도 드셨나요?', opts:['거의 안 먹었어요','반쯤','다 먹었어요'], ask:'all'},
+  {k:'time',  name:'식사 시각',   q:'어제 저녁 식사 뒤에 더 드신 게 있었나요?', opts:['없었어요','가볍게','야식을 먹었어요'], ask:'ydinner'},
+  {k:'speed', name:'식사 속도·양', q:'{M}은 어떻게 마치셨나요?', opts:['배부르기 전에 멈췼어요','적당히 배불렀어요','너무 많이 먹었어요'], ask:'all'},
+  {k:'prot',  name:'단백질',      q:'{M}에 고기·생선·달걀·두부 반찬이 있었나요?', opts:['있었어요','조금','없었어요'], ask:'all'},
+  {k:'fat',   name:'기름진 음식', q:'{M}에 튀김이나 기름진 반찬이 있었나요?', opts:['없었어요','한 가지','두 가지 이상'], ask:'all'},
+];
+const AX = Object.fromEntries(AXES.map(a=>[a.k,a]));
+// 문구: axis, stage(1입문 2기본 3도전), text, why, tag(evening|morning|afternoon|null)
+const PHR = [
+  ['meal',1,'아침에 무엇이든 한 가지 먹기','가볍게라도 먹으면 아침 끼니 리듬이 생겨요.','morning'],
+  ['meal',2,'아침 거르지 않기','식생활지침이 권하는 하루 첫 끼예요.','morning'],
+  ['meal',2,'점심 · 저녁 거르지 않기','끼니를 거르면 다음 끼니에 몰아 먹기 쉬워요.',null],
+  ['meal',3,'세 끼 시각을 어제와 비슷하게','끼니 시각이 일정하면 하루 리듬이 안정돼요.',null],
+  ['veg',1,'오늘 한 끼는 채소 반찬 한 가지','채소가 있으면 포만감이 커지고 식후 혈당이 덜 올라요.',null],
+  ['veg',2,'채소 반찬 한 가지 더','하루 채소 400g은 반찬 한 가지씩 더하는 데서 시작해요.',null],
+  ['veg',2,'저녁은 채소부터 먼저','채소를 먼저 먹으면 식후 혈당이 덜 출렁여요.','evening'],
+  ['veg',3,'매 끼니 채소부터 먼저','먹는 순서만 바꿔도 혈당 오르는 속도가 달라져요.',null],
+  ['sugar',1,'단 음료 한 번은 물로 바꾸기','음료로 들어오는 당은 티가 안 나게 쌓여요.',null],
+  ['sugar',2,'단 음료 대신 물이나 무가당 차','음료의 당은 하루 당 섭취에서 가장 큰 몫을 차지해요.',null],
+  ['sugar',2,'저녁 후 단 디저트 건너뛰기','저녁 뒤 단것까지 더하면 하루 당 권고량을 넘기기 쉬워요.','evening'],
+  ['sugar',3,'단 음료 오늘 하루 쉬기','하루 당 권고량은 설탕 6티스푼 정도예요. 단 음료 한 잔이면 넘어요.',null],
+  ['sugar',3,'과일은 한 줌만','과일도 당이라 양을 정해 두는 게 좋아요.',null],
+  ['salt',1,'한 끼는 국물 반만','찌개 · 탕 나트륨은 대부분 국물에 있어요.',null],
+  ['salt',2,'국물은 건더기 위주로','찌개 한 그릇에 하루치 나트륨이 거의 다 들어 있기도 해요.',null],
+  ['salt',2,'한 끼는 소금 · 장 덜 넣기','소금 줄이기는 고혈압 진료지침의 첫 생활요법이에요.',null],
+  ['salt',3,'가공식품 대신 생재료 한 끼','가공식품은 보이지 않는 나트륨이 많아요.',null],
+  ['salt',3,'채소 · 과일 한 접시 더','칼륨이 많은 음식은 나트륨 배출을 도와요.',null],
+  ['time',1,'야식 대신 따뜻한 물 한 잔','밤 늦은 허기는 물 한 잔으로 지나가기도 해요.','evening'],
+  ['time',2,'야식 없이 하루 마무리','늦은 시간에 먹은 열량은 체중으로 남기 쉬워요.','evening'],
+  ['time',3,'저녁은 잠들기 3시간 전에 마치기','잠들기 직전 식사는 잠을 얕게 할 수 있어요.','evening'],
+  ['speed',1,'한 끼는 수저 한 번 내려놓기','잠깐 멈추면 먹는 속도가 느려져요.',null],
+  ['speed',2,'한 끼는 20분 이상 천천히','천천히 먹으면 같은 만족감에 덜 먹게 돼요.',null],
+  ['speed',2,'저녁 양은 점심보다 적게','같은 양이라도 낮에 먹는 쪽이 체중 관리에 유리했어요.','evening',true],
+  ['speed',3,'배부르기 전에 수저 놓기','배부르기 전에 멈추는 것이 과식을 피하는 방법이에요.',null],
+  ['speed',3,'한 끼 밥 양은 평소의 3분의 2','밥 양을 줄이면 식후 혈당 정점이 낮아져요.',null,true],
+  ['prot',1,'소량이라도 단백질 한 가지','달걀 · 두부 · 생선 한 가지면 충분해요.',null],
+  ['prot',2,'단백질 반찬 한 가지 챙기기','단백질이 있으면 포만감이 오래 가요.',null],
+  ['prot',3,'매 끼니 단백질 반찬 하나','끼니마다 조금씩 나눠 먹는 편이 좋아요.',null],
+  ['fat',1,'튀김 · 기름진 반찬은 한 가지만','포화지방 · 트랜스지방 줄이기는 지질 진료지침의 기본 권고예요.',null],
+  ['fat',2,'간식은 견과류 한 줌으로','과자 대신 견과류는 불포화지방을 더해요.',null],
+  ['fat',3,'붉은 고기 대신 생선이나 두부 한 끼','붉은 고기를 줄이고 생선 · 콩류를 늘리는 것이 진료지침 권고예요.',null],
+].map(([axis,stage,text,why,tag,examOnly])=>({axis,stage,text,why,tag,examOnly:!!examOnly}));
+const RECOVERY = [
+  {text:'저녁은 가볍게, 거르지 않기', why:'끼니를 건너뛴 날엔 저녁까지 거르지 않는 게 좋아요.', tag:'evening'},
+  {text:'소량이라도 단백질 한 가지', why:'달걀 · 두부 · 생선 한 가지면 충분해요.', tag:null},
+  {text:'오후에 간식 한 번으로 빈 끼 채우기', why:'오후에 가볍게 채우면 저녁 과식을 막아요.', tag:'afternoon'},
+];
+const BURDEN = [
+  {text:'오후 2시 이후 카페인 멈추기', why:'잠들기 6시간 전 카페인도 잠을 한 시간 넘게 줄였어요.', tag:null},
+  {text:'저녁은 맵거나 기름지지 않게', why:'맵고 기름진 저녁은 잠을 얕게 할 수 있어요.', tag:'evening'},
+  {text:'야식 대신 따뜻한 물 한 잔', why:'피곤한 밤엔 야식보다 잠이 먼저예요.', tag:'evening'},
+  {text:'점심은 평소 양으로 규칙적으로', why:'피곤할수록 끼니를 거르지 않는 게 좋아요.', tag:'morning'},
+];
+const EXAM_AXES = {glu:['veg','sugar','speed'], bp:['salt','veg'], lip:['fat','speed','time']};
+/* 진단 층 (기획안 ⑤): 질환 유형 → 연결 축 · 금지 문구 */
+const DX = {
+  none:    {name:'없음', axes:null, ban:[]},
+  dm:      {name:'당뇨병', axes:['veg','sugar','speed'], ban:['한 끼 밥 양은 평소의 3분의 2','단 음료 오늘 하루 쉬기']},
+  htn:     {name:'고혈압', axes:['salt','veg'], ban:[]},
+  lip:     {name:'이상지질혈증', axes:['fat','speed'], ban:[]},
+  ckd:     {name:'만성 신장질환', axes:['salt'], ban:['채소 · 과일 한 접시 더','채소 반찬 한 가지 더','매 끼니 단백질 반찬 하나','단백질 반찬 한 가지 챙기기','간식은 견과류 한 줌으로']},
+  preg:    {name:'임신 · 수유', axes:null, ban:['한 끼 밥 양은 평소의 3분의 2','저녁 양은 점심보다 적게','배부르기 전에 수저 놓기','단 음료 오늘 하루 쉬기','오후 2시 이후 카페인 멈추기']},
+  ed:      {name:'섭식장애', axes:null, banAxes:['speed','time'], ban:[]},
+};
+const EXAM_NAME = {glu:'혈당', bp:'혈압', lip:'콜레스테롤 · 체중'};
+const DOW_ROT = {'월':'meal','화':'veg','수':'sugar','목':'salt','금':'speed','토':'time','일':'veg'};
+const STATE_ORDER = {bad:0, okay:1, obs:2, good:3};
+const STATE_LABEL = {bad:'개선 필요', okay:'보통', obs:'관찰 중', good:'양호'};
+const STAGE_LABEL = {1:'입문',2:'기본',3:'도전'};
+
+/* ---------- 프리셋 케이스 ---------- */
+const baseAxes = ()=>Object.fromEntries(AXES.map(a=>[a.k,{state:'obs',n:0,stage:1,done7:0,miss:0}]));
+const CASES = [
+  {name:'1 신규 일반 · 화 08:20', set:s=>{s.time='08:20';s.dow='화';s.exam='none';s.fixed='normal';s.rot='okay';s.ygoal='';s.ydone='none';}},
+  {name:'2 혈당 경계 · 16:40', set:s=>{s.time='16:40';s.exam='glu';s.fixed='normal';s.rot='bad';s.ygoal='저녁은 채소부터 먼저';s.ydone='done';
+      Object.assign(s.axes.veg,{state:'okay',n:5,stage:2});Object.assign(s.axes.sugar,{state:'bad',n:4,stage:1});Object.assign(s.axes.speed,{state:'okay',n:4});}},
+  {name:'3 혈압 경계 · 21:30 저녁 전', set:s=>{s.time='21:30';s.exam='bp';s.fixed='notyet';s.ygoal='';s.ydone='none';
+      Object.assign(s.axes.salt,{state:'okay',n:6,stage:2});Object.assign(s.axes.veg,{state:'good',n:5,stage:2});}},
+  {name:'4 결식 → 회복 풀 · 수 13:10', set:s=>{s.time='13:10';s.dow='수';s.exam='none';s.fixed='little';s.ygoal='';s.ydone='none';
+      Object.assign(s.axes.veg,{state:'okay',n:4});}},
+  {name:'5 피로·수면 부족 · 07:50', set:s=>{s.time='07:50';s.exam='none';s.fatigue='bad';s.sleep='4';s.fixed='normal';s.rot='good';s.ygoal='';s.ydone='none';
+      Object.assign(s.axes.veg,{state:'okay',n:5});}},
+  {name:'6 단계 올리기 · 09:00', set:s=>{s.time='09:00';s.exam='none';s.fixed='normal';s.rot='good';s.ygoal='오늘 한 끼는 채소 반찬 한 가지';s.ydone='done';
+      Object.assign(s.axes.veg,{state:'bad',n:6,stage:1,done7:3});Object.assign(s.axes.sugar,{state:'okay',n:5});Object.assign(s.axes.salt,{state:'good',n:4});}},
+  {name:'7 미완료 → 단계 내리기 · 08:30', set:s=>{s.time='08:30';s.exam='bp';s.fixed='normal';s.rot='bad';s.ygoal='한 끼는 소금 · 장 덜 넣기';s.ydone='miss';
+      Object.assign(s.axes.salt,{state:'bad',n:6,stage:2,miss:2});Object.assign(s.axes.veg,{state:'good',n:5,stage:2});}},
+  {name:'8 후보 축 모두 양호 · 08:00', set:s=>{s.time='08:00';s.exam='lip';s.fixed='normal';s.rot='good';s.ygoal='';s.ydone='none';
+      Object.assign(s.axes.fat,{state:'good',n:6,stage:2});Object.assign(s.axes.speed,{state:'good',n:5,stage:2});Object.assign(s.axes.time,{state:'good',n:4,stage:2});}},
+  {name:'9 어제 거의 못 먹음 → 단백질 확인 · 09:30', set:s=>{s.time='09:30';s.exam='none';s.fixed='normal';s.rot='okay';s.ygoal='오후에 간식 한 번으로 빈 끼 채우기';s.ydone='done';s.yfixed='little';
+      Object.assign(s.axes.veg,{state:'okay',n:5});}},
+  {name:'10 혈압계 연동값으로 경계 켜짐 · 08:40', set:s=>{s.time='08:40';s.examMode='calc';s.fixed='normal';s.rot='okay';s.ygoal='';s.ydone='none';
+      Object.assign(s.ex,{date:'2026-03-10',glu:92,bpS:118,bpD:76,tc:185,h:168,w:62, wBpS:134,wBpD:86,wBpDate:'2026-09-14',wBpN:5,wBpCal:true});
+      Object.assign(s.axes.salt,{state:'okay',n:4});Object.assign(s.axes.veg,{state:'good',n:5});}},
+  {name:'11 웨어러블 체중으로 경계 해제 · 08:40', set:s=>{s.time='08:40';s.examMode='calc';s.fixed='normal';s.rot='okay';s.ygoal='';s.ydone='none';
+      Object.assign(s.ex,{date:'2026-03-10',glu:95,bpS:116,bpD:74,tc:190,h:171,w:74, wW:66,wWDate:'2026-09-15'});
+      Object.assign(s.axes.fat,{state:'okay',n:4});}},
+  {name:'13 확진 당뇨 · 검진 경계 없음 · 08:30', set:s=>{s.time='08:30';s.dx='dm';s.exam='none';s.fixed='normal';s.rot='bad';s.ygoal='';s.ydone='none';
+      Object.assign(s.axes.speed,{state:'bad',n:5,stage:3});Object.assign(s.axes.veg,{state:'good',n:5});Object.assign(s.axes.sugar,{state:'okay',n:4,stage:3});}},
+  {name:'14 확진 신장질환 + 혈압 경계 · 09:00', set:s=>{s.time='09:00';s.dx='ckd';s.exam='bp';s.fixed='normal';s.rot='okay';s.ygoal='';s.ydone='none';
+      Object.assign(s.axes.salt,{state:'good',n:5,stage:3});Object.assign(s.axes.veg,{state:'bad',n:5});}},
+  {name:'12 저체중 → 감량 문구 제외 · 12:30', set:s=>{s.time='12:30';s.examMode='calc';s.fixed='normal';s.rot='bad';s.ygoal='';s.ydone='none';
+      Object.assign(s.ex,{date:'2026-03-10',glu:108,bpS:112,bpD:70,tc:180,h:165,w:49});
+      Object.assign(s.axes.speed,{state:'bad',n:5,stage:3});Object.assign(s.axes.veg,{state:'good',n:5});Object.assign(s.axes.sugar,{state:'good',n:4});}},
+];
+
+/* ---------- 상태 ---------- */
+let S;
+function freshState(){ return {time:'08:20',dow:'화',dx:'none',examMode:'manual',exam:'none',fatigue:'ok',sleep:'7',fixed:'normal',rot:'okay',ygoal:'',ydone:'none',yfixed:'normal',axes:baseAxes(),
+  ex:{date:'2026-03-10', glu:92, wGlu:null, wGluDate:'', wGluN:null, bpS:118, bpD:76, wBpS:null, wBpD:null, wBpDate:'', wBpN:null, wBpCal:false, tc:185, ldl:null, aTC:null, aLDL:null, aTCDate:'', h:168, w:62, wW:null, wWDate:''}}; }
+
+/* ---------- 검진 경계 계산: 검진 기본값 · 기기 연동 최신값 우선 (기획안 ⑦) ---------- */
+function computeExam(S){
+  if(S.examMode!=='calc') return {exam:S.exam, underweight:false, items:null, manual:true};
+  const e=S.ex; const items=[];
+  const newer=(d)=> d && e.date && d>e.date;
+  const has=(v)=> v!==null && v!=='' && !isNaN(v);
+  // 공복혈당
+  let glu=null, gluSrc='없음', gluNote='';
+  if(has(e.glu)){ glu=+e.glu; gluSrc='검진'; }
+  if(has(e.wGlu) && newer(e.wGluDate)){ if((+e.wGluN||0)>=1){ glu=+e.wGlu; gluSrc='혈당계 연동'; gluNote=(+e.wGluN>=2?'7일 중앙값':'1회 측정값'); } else gluNote='횟수 없음 → 검진값 유지'; }
+  else if(has(e.wGlu) && !newer(e.wGluDate)) gluNote='측정일이 검진일보다 오래됨 → 검진값 유지';
+  const gluV = glu==null?null: (glu>=126?'주의':(glu>=100?'경계':'정상'));
+  items.push({k:'glu',name:'공복혈당',src:gluSrc,val:glu==null?'—':glu+' mg/dL',v:gluV,note:gluNote});
+  // 혈압
+  let bpS=null,bpD=null,bpSrc='없음',bpNote='';
+  if(has(e.bpS)&&has(e.bpD)){ bpS=+e.bpS; bpD=+e.bpD; bpSrc='검진'; }
+  if(has(e.wBpS)&&has(e.wBpD)&&newer(e.wBpDate)){
+    if((+e.wBpN||0)<3) bpNote='7일 측정 3회 미만 → 검진값 유지';
+    else if(!e.wBpCal) bpNote='스마트워치 값 → 1차 제외, 검진값 유지';
+    else { bpS=+e.wBpS; bpD=+e.wBpD; bpSrc='혈압계 연동'; bpNote='7일 중앙값'; }
+  }
+  const bpV = bpS==null?null: ((bpS>=140||bpD>=90)?'주의':((bpS>=120||bpD>=80)?'경계':'정상'));
+  items.push({k:'bp',name:'혈압',src:bpSrc,val:bpS==null?'—':bpS+'/'+bpD,v:bpV,note:bpNote});
+  // 콜레스테롤
+  let tc=null,ldl=null,chSrc='없음',chNote='';
+  if(has(e.tc)||has(e.ldl)){ tc=has(e.tc)?+e.tc:null; ldl=has(e.ldl)?+e.ldl:null; chSrc='검진'; }
+  // 콜레스테롤은 기기 측정 항목이 아니라 항상 검진값
+  let chV=null, chVal='—';
+  if(ldl!=null){ chV = ldl>=160?'주의':(ldl>=130?'경계':'정상'); chVal='LDL '+ldl; }
+  else if(tc!=null){ chV = tc>=240?'주의':(tc>=200?'경계':'정상'); chVal='총 '+tc; }
+  items.push({k:'chol',name:'콜레스테롤',src:chSrc,val:chVal,v:chV,note:chNote+(ldl!=null?' · LDL 우선':'')});
+  // 체질량지수
+  let w=null,bmiSrc='없음',bmiNote='';
+  if(has(e.w)){ w=+e.w; bmiSrc='검진'; }
+  if(has(e.wW)&&newer(e.wWDate)){ w=+e.wW; bmiSrc='체중계 연동'; bmiNote='최신 체중으로 재계산'; }
+  let bmi=null; if(w!=null&&has(e.h)){ bmi=Math.round(w/Math.pow(+e.h/100,2)*10)/10; }
+  const bmiV = bmi==null?null:(bmi>=25?'주의':(bmi>=23?'경계':(bmi<18.5?'저체중':'정상')));
+  items.push({k:'bmi',name:'체질량지수',src:bmiSrc,val:bmi==null?'—':bmi,v:bmiV,note:bmiNote});
+  // 우선순위
+  const flag=(v)=> v==='경계'||v==='주의';
+  let exam='none';
+  if(flag(gluV)) exam='glu'; else if(flag(bpV)) exam='bp'; else if(flag(chV)||flag(bmiV)) exam='lip';
+  return {exam, underweight: bmiV==='저체중', items, manual:false};
+}
+
+/* ---------- 규칙 엔진 ---------- */
+function band(hhmm){
+  const [h,m]=hhmm.split(':').map(Number); const t=h+m/60;
+  if(t<12) return {key:'ydinner',label:'어제 저녁',type:'dinner',t};
+  if(t<15) return {key:'tbreak',label:'오늘 아침',type:'breakfast',t};
+  if(t<21) return {key:'tlunch',label:'오늘 점심',type:'lunch',t};
+  return {key:'tdinner',label:'오늘 저녁',type:'dinner',t};
+}
+function nextMeal(t){ if(t<9) return '오늘 아침'; if(t<13) return '오늘 점심'; return '오늘 저녁'; }
+function targetOfPhrase(p,b){ if(p.tag==='evening') return '오늘 저녁'; if(p.tag==='morning') return b.t<9?'오늘 아침':'오늘 점심'; if(p.tag==='afternoon') return '오늘 저녁'; return nextMeal(b.t); }
+function phraseByText(t){ return PHR.find(p=>p.text===t)||RECOVERY.find(p=>p.text===t)||BURDEN.find(p=>p.text===t); }
+// 어제 목표의 대상 끼니 추정: 저녁 표시면 어제 저녁, 아니면 어제 점심(확인 불가)
+function yGoalTarget(p){ if(!p) return null; if(p.tag==='evening'||p.tag==='afternoon') return '어제 저녁'; return '어제 점심'; }
+
+function run(S){
+  const tr=[]; const T=(n,title,body,fired=true)=>tr.push({n,title,body,fired});
+  const EX=computeExam(S);
+  S=Object.assign({},S,{exam:EX.exam, underweight:EX.underweight});
+  if(EX.manual) T('⓪','검진 경계 (직접 지정)',`<b>${S.exam==='none'?'없음':EXAM_NAME[S.exam]+' 경계'}</b><small>값으로 계산하려면 왼쪽 「검진 경계 정하는 방식」을 바꾼다</small>`,S.exam!=='none');
+  else {
+    const rows=EX.items.map(i=>`${i.name} <b>${i.val}</b> → ${i.v||'판정 없음'} <span style="color:var(--ink-3)">(${i.src}${i.note?' · '+i.note:''})</span>`).join('<br>');
+    T('⓪','검진 경계 계산 — 검진 기본값 · 기기 연동 최신값 우선',`${rows}<br>→ 우선순위(혈당 → 혈압 → 콜레스테롤·체중): <b>${S.exam==='none'?'검진 경계 없음':EXAM_NAME[S.exam]+' 경계'}</b>${EX.underweight?' · <b>저체중</b> → 검진 경계 전용 문구 제외':''}<small>판정이 바뀌면 다음 날 선정부터 반영. 프로토타입은 오늘 값으로 즉시 계산해 보여준다</small>`);
+  }
+  const D=DX[S.dx||'none'];
+  if(S.dx&&S.dx!=='none') T('⓪','확진 질환 (진단 층)',`<b>${D.name}</b> → ${D.axes?'연결 축: '+D.axes.map(k=>AX[k].name).join(' · ')+' (검진 경계보다 우선)':'연결 없음, 금지만'}${(D.ban.length||D.banAxes)?'<small>금지: '+(D.banAxes?D.banAxes.map(k=>AX[k].name+' 축 전체').join(' · ')+' ':'')+D.ban.join(' · ')+'</small>':''}`);
+  const b=band(S.time);
+  T('①','지난 끼니 판정',`첫 진입 ${S.time} → <b>${b.label}</b> (경계 12 · 15 · 21시)`);
+  const isToday = b.key!=='ydinner';
+  // 「아직 저녁 전이에요」 링크는 21시 이후 진입에서만 존재. 그 외 시간대에 notyet이 들어오면 3번째 답으로 본다
+  if(S.fixed==='notyet' && b.key!=='tdinner') S=Object.assign({},S,{fixed:'little'});
+  const stillNot = (S.fixed==='notyet');
+  const fixedLabel = {normal:'평소대로',less:'조금 적게',little:'거의 못 먹었거나 걸렀어요',notyet:'아직 저녁 전이에요 (링크)'}[S.fixed];
+  T('②','고정 문항 (삼지선다)',`"${b.label}은 평소만큼 드셨나요?" → <b>${fixedLabel}</b>` + (S.fixed==='little'?'<small>「끼니 규칙」 축에 개선 필요 1개 적립</small>':'') + (stillNot?'<small>답변 완료로만 처리 · 지표 · 회복 판정에 쓰지 않음</small>':''));
+
+  // 회전 문항
+  let rot=null, rotAxis=null, rotWhy='';
+  if(S.fixed==='little'||S.fixed==='notyet'){ T('③','회전 문항',`내지 않음 — 고정 문항이 ${S.fixed==='little'?'거의 못 먹었거나 걸렀어요':'아직 저녁 전'}`,false); }
+  else {
+    const yg = phraseByText(S.ygoal); const ygAxis = yg&&yg.axis? yg.axis : null;
+    const askable = AXES.filter(a=>a.q && (a.ask==='all' || (a.ask==='ydinner'&&b.key==='ydinner')));
+    if(S.yfixed==='little'){ rotAxis='prot'; rotWhy='어제 고정 문항이 거의 못 먹었거나 걸렀어요 → 「단백질」 축 고정(회복 확인)'; }
+    else if(ygAxis && S.ydone!=='none' && yGoalTarget(yg)===b.label){ rotAxis=ygAxis; rotWhy=`어제 목표 「${S.ygoal}」의 대상 끼니(${yGoalTarget(yg)}) = 지난 끼니 → 확인 질문`; }
+    else {
+      let pool = askable;
+      let why='';
+      if(ygAxis && S.ydone!=='none'){ why+=`어제 목표 대상 끼니(${yGoalTarget(yg)}) ≠ 지난 끼니 → 확인 불가, 건너뜀. `; }
+      if(D.axes){ const c=D.axes.map(k=>AX[k]).filter(a=>askable.includes(a)); if(c.length){pool=c; why+=`${D.name} 연결 축 중 `;} }
+      else if(S.exam!=='none'){ const c=EXAM_AXES[S.exam].map(k=>AX[k]).filter(a=>askable.includes(a)); if(c.length){pool=c; why+=`${EXAM_NAME[S.exam]} 경계 연결 축 중 `;} }
+      if(!D.axes && S.exam==='none') why+='전체 축 중 ';
+      pool=[...pool].sort((x,y)=>S.axes[x.k].n-S.axes[y.k].n || AXES.indexOf(x)-AXES.indexOf(y));
+      rotAxis=pool[0].k; why+=`최근 14일 답이 가장 적은 「${AX[rotAxis].name}」(${S.axes[rotAxis].n}개)`;
+      rotWhy=why;
+    }
+    const a=AX[rotAxis];
+    rot={axis:rotAxis,q:a.q.replace('{M}',b.label),opts:a.opts,ans:S.rot};
+    T('③','회전 문항',`${rotWhy}<small>"${rot.q}"${S.rot==='none'?' → 아직 답하지 않음(타일 잠긴 채 · 다음 구간에 갱신)':' → '+a.opts[{good:0,okay:1,bad:2}[S.rot]]}</small>`);
+  }
+  // 축 적립 (표시용) — 생활지표가 아니라 내일 목표를 고르는 재료
+  if(rot && S.rot!=='none'){ const ax=S.axes[rot.axis]; T('④','축 적립',`「${AX[rot.axis].name}」 축에 ${STATE_LABEL[{good:'good',okay:'okay',bad:'bad'}[S.rot]]} 1개 추가(${b.label}). 상태는 다음 날 선정에 반영`); }
+  else T('④','축 적립','아직 답하지 않아 쌓이는 것 없음',false);
+
+  // 목표 선정
+  let goal=null, kind='axis', axisK=null, stage=null, stageNote='';
+  const evening = b.t>=18;
+  if(S.fixed!=='normal' && !stillNot){
+    kind='recovery';
+    let cands=RECOVERY;
+    let pick = evening? cands.find(p=>p.tag==='evening') : (b.t>=12? cands.find(p=>p.tag==='afternoon') : null);
+    goal = pick || cands.find(p=>!p.tag);
+    T('⑤','축 선정 1단계 — 지난 끼니 양 적음',`<b>회복 풀</b>. 축 · 단계 판정 건너뜀${evening?' · 18시 이후 → 저녁 문구 우선':(b.t>=12?' · 오후 진입 문구 우선':'')}`);
+  } else {
+    T('⑤','축 선정 1단계',`해당 없음 (${stillNot?'아직 저녁 전은 회복 조건 아님':'평소대로'})`,false);
+    if(D.axes){
+      const cands=D.axes.filter(k=>!(D.banAxes||[]).includes(k));
+      const sorted=[...cands].sort((x,y)=>STATE_ORDER[S.axes[x].state]-STATE_ORDER[S.axes[y].state] || cands.indexOf(x)-cands.indexOf(y));
+      const allGood = cands.every(k=>S.axes[k].state==='good');
+      if(allGood){ axisK=cands[0]; stage=3; stageNote='후보 축 모두 양호 → 가장 오래 안 나온 축 · 도전 단계'; }
+      else axisK=sorted[0];
+      T('⑥','축 선정 2단계 — 확진 질환',`${D.name} → 후보 ${cands.map(k=>`${AX[k].name}<span class="badge b-${S.axes[k].state}">${STATE_LABEL[S.axes[k].state]}</span>`).join(' · ')} → <b>「${AX[axisK].name}」</b><small>검진 경계보다 우선${stageNote?' · '+stageNote:''}</small>`);
+    } else if(S.exam!=='none'){
+      const cands=EXAM_AXES[S.exam];
+      const sorted=[...cands].sort((x,y)=>STATE_ORDER[S.axes[x].state]-STATE_ORDER[S.axes[y].state] || cands.indexOf(x)-cands.indexOf(y));
+      const allGood = cands.every(k=>S.axes[k].state==='good');
+      const allObs = cands.every(k=>S.axes[k].state==='obs');
+      if(allGood){ axisK=cands[0]; stage=3; stageNote='후보 축 모두 양호 → 가장 오래 안 나온 축 · 도전 단계'; }
+      else if(allObs){ axisK=cands[0]; stageNote='후보 축 모두 관찰 중 → 기본 축'; }
+      else axisK=sorted[0];
+      T('⑥','축 선정 2단계 — 검진 경계',`${EXAM_NAME[S.exam]} 경계 → 후보 ${cands.map(k=>`${AX[k].name}<span class="badge b-${S.axes[k].state}">${STATE_LABEL[S.axes[k].state]}</span>`).join(' · ')} → <b>「${AX[axisK].name}」</b>${stageNote?'<small>'+stageNote+'</small>':''}`);
+    } else {
+      T('⑥','축 선정 2단계 — 검진 경계','검진 경계 없음',false);
+      if(S.fatigue==='bad'||S.sleep==='4'){
+        kind='burden';
+        goal = evening? BURDEN.find(p=>p.tag==='evening') : (b.t<12? BURDEN.find(p=>p.tag==='morning') : BURDEN[0]);
+        T('⑦','축 선정 3단계 — 피로 · 수면 부족',`<b>부담 줄이기 풀</b>. 단계 없음${evening?' · 저녁 문구 우선':(b.t<12?' · 오전 진입 문구':'')}`);
+      } else {
+        T('⑦','축 선정 3단계 — 피로 · 수면 부족','해당 없음',false);
+        const all=AXES.map(a=>a.k);
+        const allObs=all.every(k=>S.axes[k].state==='obs');
+        const allGood=all.every(k=>S.axes[k].state==='good');
+        if(allObs){ axisK=DOW_ROT[S.dow]; T('⑧','축 선정 4단계 — 일반',`모든 축 관찰 중 → 요일 순환(${S.dow}) → <b>「${AX[axisK].name}」</b>`); }
+        else if(allGood){ axisK=all[0]; stage=3; T('⑧','축 선정 4단계 — 일반',`모든 축 양호 → 가장 오래 안 나온 축 · 도전 → <b>「${AX[axisK].name}」</b>`); }
+        else { const sorted=[...all].sort((x,y)=>STATE_ORDER[S.axes[x].state]-STATE_ORDER[S.axes[y].state] || all.indexOf(x)-all.indexOf(y)); axisK=sorted[0];
+          T('⑧','축 선정 4단계 — 일반',`상태가 가장 나쁜 축 → <b>「${AX[axisK].name}」</b><span class="badge b-${S.axes[axisK].state}">${STATE_LABEL[S.axes[axisK].state]}</span>`); }
+      }
+    }
+  }
+  // 단계 & 문구
+  if(kind==='axis' && axisK){
+    const ax=S.axes[axisK];
+    let st = stage ?? ax.stage; let note=[];
+    if(stage==null){
+      if(ax.state==='good' && S.exam==='none' && ax.stage===1){ st=2; note.push('검진 없고 상태 양호 → 기본에서 시작'); }
+      if(ax.done7>=3 && st<3){ st++; note.push(`7일 완료 ${ax.done7}회 → 한 단계 올림`); }
+      else if(ax.miss>=2 && st>1){ st--; note.push(`연속 미완료 ${ax.miss}회 → 한 단계 내림`); }
+    }
+    let cands=PHR.filter(p=>p.axis===axisK && p.stage===st);
+    // 진단 층 금지 문구 · 금지 축
+    if(D.ban.length||D.banAxes){ const before=cands.length; cands=cands.filter(p=>!D.ban.includes(p.text) && !(D.banAxes||[]).includes(p.axis)); if(cands.length<before) note.push(`${D.name} 금지 문구 제외`); }
+    // 검진 경계 전용 문구는 검진 경계 · 확진 질환 없으면 제외
+    if((S.exam==='none'&&!D.axes)||S.underweight){ const before=cands.length; cands=cands.filter(p=>!p.examOnly); if(cands.length<before) note.push(S.underweight?'저체중 → 검진 경계 전용 문구 제외':'검진 경계 전용 문구 제외'); }
+    // 시간대 제한: morning 문구는 12시 이후 내지 않음
+    cands=cands.filter(p=>!(p.tag==='morning' && b.t>=12));
+    // 어제 미완료 문구 제외
+    if(S.ydone==='miss'){ const before=cands.length; cands=cands.filter(p=>p.text!==S.ygoal); if(cands.length<before) note.push('어제 미완료 문구 제외'); }
+    if(!cands.length && st>1){ st--; cands=PHR.filter(p=>p.axis===axisK && p.stage===st && !(p.tag==='morning'&&b.t>=12) && !(((S.exam==='none'&&!D.axes)||S.underweight)&&p.examOnly) && !D.ban.includes(p.text)); note.push('남은 문구 없음 → 한 단계 아래'); }
+    let pick = evening? (cands.find(p=>p.tag==='evening')||cands[0]) : (cands.find(p=>p.tag!=='evening')||cands[0]);
+    // 회전 답 개선 필요 & 같은 축 → 지난 끼니와 다른 끼니 대상
+    if(rot && S.rot==='bad' && rot.axis===axisK && isToday){ const alt=cands.find(p=>targetOfPhrase(p,b)!==b.label); if(alt){pick=alt; note.push('회전 답 개선 필요 · 같은 축 → 지난 끼니와 다른 끼니 대상 문구');} }
+    goal=pick; stage=st;
+    T('⑨','단계 · 문구',`단계 <b>${STAGE_LABEL[st]}</b>${note.length?'<small>'+note.join(' · ')+'</small>':''}${evening?'<small>18시 이후 진입 → 저녁 표시 문구 우선</small>':''}`);
+  }
+  const target = goal? (kind==='axis'? targetOfPhrase(goal,b) : (goal.tag==='evening'||goal.tag==='afternoon'?'오늘 저녁':nextMeal(b.t))) : null;
+  if(goal) T('⑩','대상 끼니',`「${goal.text}」 → 대상 끼니 <b>${target}</b>`);
+  // 내일
+  let tomorrow='';
+  if(kind!=='axis') tomorrow=`회복 · 부담 줄이기 풀은 축이 없어 확인 질문 없음. ${S.fixed==='little'?'내일 회전 문항은 <b>「단백질」</b> 축 고정(회복 확인).':'내일은 회전 규칙 2 · 3으로.'}`;
+  else if(target==='오늘 저녁') tomorrow=`내일 <b>12시 이전</b> 진입 시 지난 끼니 = 오늘 저녁 → 확인 질문 "어제 저녁${AX[goal.axis].q.replace('{M}','')}"<br>12시 이후 진입이면 확인 불가 → 회전 규칙 2 · 3`;
+  else if(target==='오늘 점심') tomorrow=`오늘 <b>15~21시</b> 재진입해야 확인되지만 식이 문항은 이미 소진 → <b>확인 불가</b>. 내일은 회전 규칙 2 · 3. 이행은 타일 토글로만 남음`;
+  else if(target==='오늘 아침') tomorrow=`오늘 <b>12~15시</b> 재진입해야 확인되지만 식이 문항은 이미 소진 → <b>확인 불가</b>. 이행은 타일 토글로만 남음`;
+  return {b,fixedLabel,stillNot,rot,goal,kind,axisK,stage,target,tomorrow,tr};
+}
+
+/* ---------- 렌더 ---------- */
+function render(){
+  const R=run(S);
+  const ph=document.getElementById('phone');
+  const rotHtml = R.rot? `<div class="qcard"><div class="cat">오늘의 질문 · 식이 2 · ${AX[R.rot.axis].name}</div><div class="q">${R.rot.q}</div><div class="opts">${R.rot.opts.map((o,i)=>`<div class="opt ${['good','okay','bad'][i]===S.rot?'sel':''}">${o}<span class="tag">${['양호','보통','개선 필요'][i]}</span></div>`).join('')}${S.rot==='none'?'<div class="skip">아직 답하지 않음 · 식이 타일은 잠긴 채로 남는다</div>':''}</div></div>`
+    : `<div class="skip">회전 문항 없음 — 고정 문항이 거의 못 먹음 / 아직 저녁 전</div>`;
+  const fixedOpts=['평소대로','조금 적게','거의 못 먹었거나 걸렀어요'];
+  const selIdx={normal:0,less:1,little:2,notyet:-1}[S.fixed];
+  const notyetLink = R.b.key==='tdinner' ? `<div class="skip" style="${R.stillNot?'border-color:var(--brand);color:var(--brand);font-weight:700':''}">아직 저녁 전이에요${R.stillNot?' · 선택됨':''}</div>` : '';
+  const tileCls = R.kind==='recovery'?'tile pool':(R.kind==='burden'?'tile pool2':'tile');
+  const catLabel = R.kind==='recovery'?'식이 · 회복 풀':(R.kind==='burden'?'식이 · 부담 줄이기 풀':`식이 · ${AX[R.axisK].name} · ${STAGE_LABEL[R.stage]}`);
+  ph.innerHTML=`
+    <div class="bar"><span>${S.dow}요일 ${S.time} 첫 진입</span><span>지난 끼니 · ${R.b.label}</span></div>
+    <div class="step"><div class="lab"><i>1</i>고정 문항</div>
+      <div class="qcard"><div class="cat">오늘의 질문 · 식이 1</div><div class="q">${R.b.label}은 평소만큼 드셨나요?</div>
+      <div class="opts">${fixedOpts.map((o,i)=>`<div class="opt ${i===selIdx?'sel':''}">${o}</div>`).join('')}${notyetLink}</div></div></div>
+    <div class="step"><div class="lab"><i>2</i>회전 문항</div>${rotHtml}</div>
+    <div class="step"><div class="lab"><i>3</i>오늘의 목표 · 식이 타일</div>
+      <div class="tile locked" style="margin-bottom:8px"><div class="cat"><span>답변 전</span></div><div class="t">🔒 식사 질문에 답하면 열려요</div></div>
+      <div class="${tileCls}"><div class="cat"><span>${catLabel}</span><span>대상 · ${R.target}</span></div><div class="t">${R.goal.text}</div></div>
+      <div class="meta">홈 타일에는 행동 문구만. 이유 한 줄은 목표분석 탭에 표시(확정)</div>
+    </div>
+    <div class="step"><div class="lab"><i>4</i>목표분석 탭 · 목표 상세</div>
+      <div class="qcard"><div class="cat">오늘 식이 목표</div><div class="q" style="margin-bottom:4px">${R.goal.text}</div><div style="font-size:12.5px;color:var(--ink-2)">${R.goal.why}</div></div>
+    </div>
+    <div class="step"><div class="lab"><i>5</i>내일</div><div class="tomorrow">${R.tomorrow}</div></div>`;
+  const tr=document.getElementById('trace');
+  tr.innerHTML=`<h2>규칙 추적</h2>${R.tr.map(t=>`<div class="tr"><span class="n ${t.fired?'':'x'}">${t.n}</span><div class="r"><b>${t.title}</b><br>${t.body}</div></div>`).join('')}
+    <h2 style="margin-top:16px">축 상태 (입력값)</h2>
+    <div class="states">${AXES.map(a=>`<div><b>${a.name}</b><span class="badge b-${S.axes[a.k].state}">${STATE_LABEL[S.axes[a.k].state]}</span><br>답 ${S.axes[a.k].n} · ${STAGE_LABEL[S.axes[a.k].stage]}</div>`).join('')}</div>`;
+}
+
+/* ---------- 입력 바인딩 ---------- */
+function buildInputs(){
+  const ai=document.getElementById('axesIn'); ai.innerHTML='';
+  AXES.forEach(a=>{ const d=document.createElement('div'); d.className='a'; d.innerHTML=`<span>${a.name}</span><span style="display:flex;gap:4px"><select class="st" data-k="${a.k}" data-f="state"><option value="obs">관찰 중</option><option value="good">양호</option><option value="okay">보통</option><option value="bad">개선 필요</option></select><input type="number" min="0" max="14" data-k="${a.k}" data-f="n" style="width:44px;border:1px solid var(--line);border-radius:8px;padding:4px;font-size:11.5px;font-family:inherit;background:#fafbfd" title="14일 답 개수"></span>`; ai.appendChild(d); });
+  const si=document.getElementById('stageIn'); si.innerHTML='';
+  AXES.forEach(a=>{ const d=document.createElement('div'); d.className='a'; d.innerHTML=`<span>${a.name}</span><span style="display:flex;gap:4px"><select data-k="${a.k}" data-f="stage"><option value="1">입문</option><option value="2">기본</option><option value="3">도전</option></select><input type="number" min="0" max="7" data-k="${a.k}" data-f="done7" style="width:40px;border:1px solid var(--line);border-radius:8px;padding:4px;font-size:11.5px;font-family:inherit;background:#fafbfd" title="7일 완료"><input type="number" min="0" max="5" data-k="${a.k}" data-f="miss" style="width:40px;border:1px solid var(--line);border-radius:8px;padding:4px;font-size:11.5px;font-family:inherit;background:#fafbfd" title="연속 미완료"></span>`; si.appendChild(d); });
+  const yg=document.getElementById('inYGoal'); yg.innerHTML='<option value="">없음</option>'+[...PHR,...RECOVERY,...BURDEN].map(p=>`<option>${p.text}</option>`).join('');
+  document.querySelectorAll('.panel select, .panel input').forEach(el=>{ el.addEventListener('input',readInputs); el.addEventListener('change',readInputs); });
+  const cs=document.getElementById('cases'); CASES.forEach((c,i)=>{ const b=document.createElement('button'); b.textContent=c.name; b.onclick=()=>{S=freshState(); c.set(S); writeInputs(); document.querySelectorAll('.cases button').forEach(x=>x.classList.remove('on')); b.classList.add('on'); render();}; cs.appendChild(b); });
+}
+const EXF={date:'exDate',glu:'exGlu',wGlu:'wGlu',wGluDate:'wGluDate',wGluN:'wGluN',bpS:'exBpS',bpD:'exBpD',wBpS:'wBpS',wBpD:'wBpD',wBpDate:'wBpDate',wBpN:'wBpN',wBpCal:'wBpCal',tc:'exTC',ldl:'exLDL',aTC:'aTC',aLDL:'aLDL',aTCDate:'aTCDate',h:'exH',w:'exW',wW:'wW',wWDate:'wWDate'};
+function toggleExamMode(){ const calc=S.examMode==='calc'; document.getElementById('examManualWrap').style.display=calc?'none':''; document.getElementById('examCalcWrap').style.display=calc?'':'none'; }
+function writeInputs(){
+  document.getElementById('inTime').value=S.time; document.getElementById('inDow').value=S.dow; document.getElementById('inExam').value=S.exam;
+  document.getElementById('inDx').value=S.dx||'none';
+  document.getElementById('inExamMode').value=S.examMode; toggleExamMode();
+  Object.entries(EXF).forEach(([k,id])=>{ const el=document.getElementById(id); const v=S.ex[k]; if(el.type==='checkbox') el.checked=!!v; else el.value=(v===null||v===undefined)?'':v; });
+  document.getElementById('inFatigue').value=S.fatigue; document.getElementById('inSleep').value=S.sleep; document.getElementById('inFixed').value=S.fixed; document.getElementById('inRot').value=S.rot;
+  document.getElementById('inYGoal').value=S.ygoal; document.getElementById('inYDone').value=S.ydone; document.getElementById('inYFixed').value=S.yfixed;
+  document.querySelectorAll('[data-k]').forEach(el=>{ el.value=S.axes[el.dataset.k][el.dataset.f]; });
+}
+function readInputs(){
+  S.time=document.getElementById('inTime').value||'08:00'; S.dow=document.getElementById('inDow').value; S.exam=document.getElementById('inExam').value;
+  S.dx=document.getElementById('inDx').value;
+  S.examMode=document.getElementById('inExamMode').value; toggleExamMode();
+  Object.entries(EXF).forEach(([k,id])=>{ const el=document.getElementById(id); if(el.type==='checkbox') S.ex[k]=el.checked; else if(el.type==='date') S.ex[k]=el.value; else S.ex[k]=el.value===''?null:Number(el.value); });
+  S.fatigue=document.getElementById('inFatigue').value; S.sleep=document.getElementById('inSleep').value; S.fixed=document.getElementById('inFixed').value; S.rot=document.getElementById('inRot').value;
+  S.ygoal=document.getElementById('inYGoal').value; S.ydone=document.getElementById('inYDone').value; S.yfixed=document.getElementById('inYFixed').value;
+  document.querySelectorAll('[data-k]').forEach(el=>{ const v=el.tagName==='INPUT'||el.dataset.f==='stage'? Number(el.value||0) : el.value; S.axes[el.dataset.k][el.dataset.f]=v; });
+  document.querySelectorAll('.cases button').forEach(x=>x.classList.remove('on'));
+  render();
+}
+buildInputs(); S=freshState(); CASES[0].set(S); writeInputs(); document.querySelector('.cases button').classList.add('on'); render();
+</script>
+</body>
+</html>

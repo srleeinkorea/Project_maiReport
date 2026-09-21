@@ -1,0 +1,938 @@
+<title>질문·코칭·목표·지표 산출 흐름</title>
+<meta name="description" content="maiReport 홈 네 축이 각각 어느 테이블에서 어떤 게이트를 거쳐 산출되는지, 그리고 축들이 서로 만나는 지점과 아직 끊어진 지점.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#F1F4F9;
+  --surf:#FFFFFF;
+  --surf-2:#F8FAFD;
+  --surf-3:#EDF1F7;
+  --line:#D9E0EC;
+  --line-strong:#A9B5C9;
+  --ink:#0F1826;
+  --text:#3A4760;
+  --muted:#6B7890;
+  --faint:#8B97AC;
+
+  --accent:#2F66F5;
+  --accent-soft:#E9EFFE;
+
+  --metric:#A25510;
+  --metric-soft:#FBF0E2;
+  --question:#6B45C6;
+  --question-soft:#F0EBFB;
+  --coach:#2F66F5;
+  --coach-soft:#E9EFFE;
+  --goal:#0C6F4F;
+  --goal-soft:#E4F4ED;
+
+  --warn:#9A6206;
+  --warn-soft:#FDF3DC;
+  --stop:#B33131;
+  --stop-soft:#FBEAEA;
+
+  --mono:"JetBrains Mono",Consolas,"Courier New",monospace;
+  --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1219;
+    --surf:#151C26;
+    --surf-2:#1A222E;
+    --surf-3:#212B39;
+    --line:#2C3746;
+    --line-strong:#556479;
+    --ink:#EDF1F7;
+    --text:#B8C3D3;
+    --muted:#8895A8;
+    --faint:#6F7C90;
+
+    --accent:#7BA0FF;
+    --accent-soft:#1B2740;
+
+    --metric:#E0A263;
+    --metric-soft:#2C2318;
+    --question:#B196EE;
+    --question-soft:#251E38;
+    --coach:#7BA0FF;
+    --coach-soft:#1B2740;
+    --goal:#5DC9A1;
+    --goal-soft:#122A23;
+
+    --warn:#E5B45C;
+    --warn-soft:#2B2314;
+    --stop:#EF8080;
+    --stop-soft:#2E1A1A;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1219;
+  --surf:#151C26;
+  --surf-2:#1A222E;
+  --surf-3:#212B39;
+  --line:#2C3746;
+  --line-strong:#556479;
+  --ink:#EDF1F7;
+  --text:#B8C3D3;
+  --muted:#8895A8;
+  --faint:#6F7C90;
+
+  --accent:#7BA0FF;
+  --accent-soft:#1B2740;
+
+  --metric:#E0A263;
+  --metric-soft:#2C2318;
+  --question:#B196EE;
+  --question-soft:#251E38;
+  --coach:#7BA0FF;
+  --coach-soft:#1B2740;
+  --goal:#5DC9A1;
+  --goal-soft:#122A23;
+
+  --warn:#E5B45C;
+  --warn-soft:#2B2314;
+  --stop:#EF8080;
+  --stop-soft:#2E1A1A;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--ground);color:var(--text);
+  font-family:var(--sans);font-size:14.5px;line-height:1.7;
+  letter-spacing:-.012em;-webkit-font-smoothing:antialiased;
+}
+main{max-width:1120px;margin:0 auto;padding:0 24px 80px}
+
+/* ---------- header ---------- */
+.masthead{
+  border-bottom:1px solid var(--line);background:var(--surf);
+}
+.masthead-in{
+  max-width:1120px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.wordmark{
+  position:relative;color:var(--ink);font-size:18px;font-weight:900;
+  letter-spacing:-.06em;line-height:1;
+}
+.wordmark::after{
+  content:"";position:absolute;right:-6px;bottom:1px;
+  width:4px;height:4px;border-radius:50%;background:var(--accent);
+}
+.masthead-tag{
+  margin-left:8px;padding-left:14px;border-left:1px solid var(--line);
+  color:var(--muted);font-size:12px;font-weight:500;
+}
+.masthead-date{margin-left:auto;color:var(--faint);font-size:11.5px;font-family:var(--mono)}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 40px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  display:block;color:var(--accent);font-size:11px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px;
+}
+h1{
+  margin:0;color:var(--ink);font-size:clamp(30px,4.6vw,46px);font-weight:900;
+  line-height:1.18;letter-spacing:-.05em;text-wrap:balance;max-width:17ch;
+}
+.thesis{
+  margin:22px 0 0;max-width:64ch;color:var(--text);
+  font-size:16px;line-height:1.8;
+}
+.thesis b{color:var(--ink);font-weight:700}
+
+.axes{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1px;margin-top:36px;background:var(--line);
+  border:1px solid var(--line);border-radius:10px;overflow:hidden;
+}
+.axis{background:var(--surf);padding:16px 18px}
+.axis-name{
+  display:flex;align-items:center;gap:8px;
+  color:var(--ink);font-size:14px;font-weight:700;margin-bottom:6px;
+}
+.axis-name::before{
+  content:"";width:9px;height:9px;border-radius:2px;background:var(--dot);flex:none;
+}
+.axis p{margin:0;color:var(--muted);font-size:11.5px;line-height:1.6}
+.axis code{font-family:var(--mono);font-size:10.5px;color:var(--dot);font-weight:600}
+.ax-metric{--dot:var(--metric)}
+.ax-question{--dot:var(--question)}
+.ax-coach{--dot:var(--coach)}
+.ax-goal{--dot:var(--goal)}
+
+/* ---------- sections ---------- */
+section.block{padding:52px 0;border-bottom:1px solid var(--line)}
+.sec-no{
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--faint);letter-spacing:.06em;
+}
+h2{
+  margin:8px 0 0;color:var(--ink);font-size:26px;font-weight:900;
+  letter-spacing:-.04em;line-height:1.3;text-wrap:balance;
+}
+.sec-lead{margin:12px 0 0;max-width:66ch;color:var(--text);font-size:14.5px}
+h3{
+  margin:34px 0 10px;color:var(--ink);font-size:15.5px;font-weight:700;
+  letter-spacing:-.02em;
+}
+p{margin:0 0 12px}
+p:last-child{margin-bottom:0}
+code{
+  font-family:var(--mono);font-size:.86em;background:var(--surf-3);
+  padding:1.5px 5px;border-radius:4px;color:var(--ink);
+}
+b{color:var(--ink);font-weight:700}
+
+/* ---------- figures ---------- */
+figure{margin:26px 0 0;padding:0}
+.fig-frame{
+  background:var(--surf);border:1px solid var(--line);border-radius:12px;
+  padding:22px;overflow-x:auto;
+}
+.fig-frame svg{display:block;width:100%;min-width:640px;height:auto}
+figcaption{
+  margin-top:11px;color:var(--muted);font-size:12px;line-height:1.65;max-width:74ch;
+}
+figcaption b{color:var(--text)}
+
+/* svg shared */
+.d-surf{fill:var(--surf-2);stroke:var(--line);stroke-width:1}
+.d-plain{fill:var(--surf-3);stroke:var(--line);stroke-width:1}
+.d-t{fill:var(--ink);font-family:var(--sans);font-size:12.5px;font-weight:700}
+.d-s{fill:var(--muted);font-family:var(--mono);font-size:10.5px;font-weight:400}
+.d-lab{fill:var(--muted);font-family:var(--sans);font-size:11px;font-weight:500}
+.d-head{fill:var(--faint);font-family:var(--sans);font-size:10.5px;font-weight:700;letter-spacing:.1em}
+.d-edge{stroke:var(--line-strong);stroke-width:1.4;fill:none}
+.d-edge-d{stroke:var(--line-strong);stroke-width:1.4;fill:none;stroke-dasharray:5 4}
+.d-arrow{fill:var(--line-strong)}
+.m-fill{fill:var(--metric-soft);stroke:var(--metric);stroke-width:1.3}
+.q-fill{fill:var(--question-soft);stroke:var(--question);stroke-width:1.3}
+.c-fill{fill:var(--coach-soft);stroke:var(--coach);stroke-width:1.3}
+.g-fill{fill:var(--goal-soft);stroke:var(--goal);stroke-width:1.3}
+.m-t{fill:var(--metric)}.q-t{fill:var(--question)}.c-t{fill:var(--coach)}.g-t{fill:var(--goal)}
+.q-edge{stroke:var(--question);stroke-width:1.5;fill:none;stroke-dasharray:5 4}
+.q-arrow{fill:var(--question)}
+.stop-edge{stroke:var(--stop);stroke-width:1.6;fill:none;stroke-dasharray:6 5}
+.d-cell{fill:var(--surf-2);stroke:var(--line);stroke-width:1}
+.d-band{fill:none;stroke:var(--line-strong);stroke-width:1;stroke-dasharray:4 4}
+.d-empty{fill:none;stroke:var(--line-strong);stroke-width:1;stroke-dasharray:5 4}
+.d-hd{fill:var(--surf-3);stroke:none}
+.d-ok{fill:var(--goal);font-family:var(--sans);font-size:12px;font-weight:700}
+.d-no{fill:var(--stop);font-family:var(--sans);font-size:12px;font-weight:700}
+.d-em{fill:var(--faint);font-family:var(--sans);font-size:11.5px;font-weight:500}
+.stop-t{fill:var(--stop);font-family:var(--sans);font-size:11.5px;font-weight:700}
+.warn-fill{fill:var(--warn-soft);stroke:var(--warn);stroke-width:1.3;stroke-dasharray:4 3}
+.warn-t{fill:var(--warn)}
+
+/* ---------- tables ---------- */
+.tbl{
+  margin-top:20px;border:1px solid var(--line);border-radius:10px;
+  overflow-x:auto;background:var(--surf);
+}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:600px}
+thead th{
+  background:var(--surf-2);color:var(--muted);font-size:10.5px;font-weight:700;
+  letter-spacing:.06em;text-align:left;padding:11px 14px;
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody td{
+  padding:12px 14px;border-bottom:1px solid var(--line);
+  color:var(--text);line-height:1.6;vertical-align:top;
+}
+tbody tr:last-child td{border-bottom:0}
+td.key{font-family:var(--mono);font-size:11.5px;color:var(--ink);white-space:nowrap}
+td.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+
+/* ---------- notes ---------- */
+.note{
+  margin-top:22px;padding:16px 20px;border-left:3px solid var(--accent);
+  background:var(--surf);border-radius:0 8px 8px 0;font-size:13px;
+}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.note.stop{border-left-color:var(--stop);background:var(--stop-soft)}
+.note-label{
+  display:block;margin-bottom:5px;font-size:10.5px;font-weight:700;
+  letter-spacing:.1em;color:var(--accent);
+}
+.note.warn .note-label{color:var(--warn)}
+.note.stop .note-label{color:var(--stop)}
+.note p{margin:0 0 8px}
+
+/* ---------- findings ---------- */
+.finds{display:grid;gap:14px;margin-top:24px}
+.find{
+  display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:16px;
+  align-items:start;padding:18px 20px;background:var(--surf);
+  border:1px solid var(--line);border-radius:10px;
+}
+.find-n{
+  font-family:var(--mono);font-size:12px;font-weight:600;color:var(--faint);
+  padding-top:1px;
+}
+.find h4{margin:0 0 5px;color:var(--ink);font-size:14px;font-weight:700;letter-spacing:-.02em}
+.find p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.65}
+.sev{
+  padding:4px 10px;border-radius:20px;font-size:10.5px;font-weight:700;
+  white-space:nowrap;align-self:center;
+}
+.sev-stop{background:var(--stop-soft);color:var(--stop)}
+.sev-warn{background:var(--warn-soft);color:var(--warn)}
+.sev-open{background:var(--surf-3);color:var(--muted)}
+
+/* ---------- sources ---------- */
+.srcs{
+  margin-top:44px;padding:22px 24px;background:var(--surf-2);
+  border:1px solid var(--line);border-radius:10px;
+}
+.srcs h2{font-size:11px;letter-spacing:.1em;color:var(--faint);margin:0 0 12px;font-weight:700}
+.srcs ul{margin:0;padding-left:17px;color:var(--muted);font-size:12px;line-height:1.9}
+.srcs code{font-size:11px}
+
+footer{
+  padding:30px 0 0;color:var(--faint);font-size:11.5px;
+  font-family:var(--mono);
+}
+
+@media (max-width:820px){
+  main{padding:0 18px 60px}
+  .axes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .find{grid-template-columns:24px minmax(0,1fr)}
+  .sev{grid-column:2;justify-self:start}
+  .hero{padding:40px 0 32px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <span class="wordmark">maiReport</span>
+    <span class="masthead-tag">데이터 흐름 · 홈 네 축</span>
+    <span class="masthead-date">2026-09-11</span>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <span class="eyebrow">Derivation Flow</span>
+  <h1>질문·코칭·목표·지표는<br>각각 다른 길로 만들어진다.</h1>
+  <p class="thesis">
+    홈 화면의 네 축은 나란히 놓여 있지만 <b>같은 파이프라인에서 나오지 않는다.</b>
+    각 화면은 <b>공통 카탈로그</b>(문항 풀·코칭 규칙·기본 목표)와 <b>사용자별 데이터</b>를 결합해 만들어지는데,
+    <b>오늘의 컨디션만 카탈로그 쪽이 비어 있다.</b> 기기 데이터가 없을 때 컨디션만 빈 상태가 되는 이유가 그 한 칸이다.
+    아래는 각 축의 산출 경로와, 문서상 아직 이어지지 않은 지점이다.
+  </p>
+
+  <div class="axes">
+    <div class="axis ax-metric">
+      <div class="axis-name">지표</div>
+      <p>사용자 데이터 단독. 카탈로그 기본값 없음<br><code>metric_score</code></p>
+    </div>
+    <div class="axis ax-question">
+      <div class="axis-name">오늘의 질문</div>
+      <p>결측 보완형 + 질환 맞춤형, 최대 3문항<br><code>daily_checkin</code></p>
+    </div>
+    <div class="axis ax-coach">
+      <div class="axis-name">코칭</div>
+      <p>지식DB 추출 계약. 항상 재계산<br><code>coaching_rule</code></p>
+    </div>
+    <div class="axis ax-goal">
+      <div class="axis-name">목표</div>
+      <p>카테고리×일자 기록. 완료·쉬기는 잠금<br><code>테이블 미정의</code></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 1 ============ -->
+<section class="block">
+  <span class="sec-no">01</span>
+  <h2>전체 흐름 — 두 평면이 만나 화면이 된다</h2>
+  <p class="sec-lead">
+    네 축을 나란한 레인으로 보면 어긋난다. 실제 축은 <b>공통 카탈로그</b>(전 사용자 동일, release 단위 교체)와
+    <b>사용자별 데이터</b>(매일 쌓임) 둘이고, 각 화면은 이 둘을 결합해 만들어진다.
+    아래 표에서 빈 칸 하나가 이 문서의 핵심이다.
+  </p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 1040 430" role="img" aria-label="네 화면이 공통 카탈로그와 사용자별 데이터에서 각각 무엇을 가져오는지 보여주는 표. 오늘의 컨디션만 카탈로그 칸이 비어 있고, 그래서 기기 데이터가 없으면 유일하게 빈 상태가 된다">
+        <text x="16" y="44" class="d-head">가져오는 곳</text>
+
+        <rect x="200" y="22" width="200" height="34" rx="6" class="d-hd"/>
+        <text x="300" y="44" class="d-t" text-anchor="middle">오늘의 컨디션</text>
+        <rect x="410" y="22" width="200" height="34" rx="6" class="d-hd"/>
+        <text x="510" y="44" class="d-t" text-anchor="middle">오늘의 질문</text>
+        <rect x="620" y="22" width="200" height="34" rx="6" class="d-hd"/>
+        <text x="720" y="44" class="d-t" text-anchor="middle">오늘의 코칭</text>
+        <rect x="830" y="22" width="200" height="34" rx="6" class="d-hd"/>
+        <text x="930" y="44" class="d-t" text-anchor="middle">오늘의 목표</text>
+
+        <!-- row 1 : catalog -->
+        <text x="16" y="104" class="d-t">공통 카탈로그</text>
+        <text x="16" y="124" class="d-s">전 사용자 동일</text>
+        <text x="16" y="142" class="d-s">release 단위 교체</text>
+
+        <rect x="200" y="74" width="200" height="112" rx="8" class="d-empty"/>
+        <text x="300" y="136" class="d-em" text-anchor="middle">해당 없음</text>
+
+        <rect x="410" y="74" width="200" height="112" rx="8" class="q-fill"/>
+        <text x="426" y="102" class="d-t q-t">문항 풀</text>
+        <text x="426" y="124" class="d-s">결측 보완형 · 질환 맞춤형</text>
+        <text x="426" y="144" class="d-lab">하루 최대 3문항 선택</text>
+
+        <rect x="620" y="74" width="200" height="112" rx="8" class="c-fill"/>
+        <text x="636" y="102" class="d-t c-t">coaching_rule</text>
+        <text x="636" y="124" class="d-s">+ coaching_message</text>
+        <text x="636" y="144" class="d-lab">239건 · 지식DB 추출 계약</text>
+
+        <rect x="830" y="74" width="200" height="112" rx="8" class="g-fill"/>
+        <text x="846" y="102" class="d-t g-t">기본 목표 세트</text>
+        <text x="846" y="124" class="d-s">식이 · 활동 · 수면</text>
+        <text x="846" y="144" class="d-lab">카드 문구 원본</text>
+
+        <!-- row 2 : user data -->
+        <text x="16" y="234" class="d-t">사용자별 데이터</text>
+        <text x="16" y="254" class="d-s">매일 쌓임</text>
+
+        <rect x="200" y="204" width="200" height="112" rx="8" class="m-fill"/>
+        <text x="216" y="232" class="d-t m-t">metric_score</text>
+        <text x="216" y="254" class="d-s">health_sample → baseline</text>
+        <text x="216" y="274" class="d-lab">quality · sufficiency 게이트</text>
+
+        <rect x="410" y="204" width="200" height="112" rx="8" class="q-fill"/>
+        <text x="426" y="232" class="d-t q-t">의료이력 보유 여부</text>
+        <text x="426" y="254" class="d-s">daily_checkin</text>
+        <text x="426" y="274" class="d-lab">답변은 여기에 쌓인다</text>
+
+        <rect x="620" y="204" width="200" height="112" rx="8" class="c-fill"/>
+        <text x="636" y="232" class="d-t c-t">사용자 상태</text>
+        <text x="636" y="254" class="d-s">나이 · 확진 · 가용 입력</text>
+        <text x="636" y="274" class="d-lab warn-t">:metrics 출처 미정</text>
+
+        <rect x="830" y="204" width="200" height="112" rx="8" class="g-fill"/>
+        <text x="846" y="232" class="d-t g-t">목표 기록</text>
+        <text x="846" y="254" class="d-s">카테고리 × 일자</text>
+        <text x="846" y="274" class="d-lab warn-t">테이블 미정의</text>
+
+        <!-- row 3 : consequence -->
+        <line x1="16" y1="340" x2="1030" y2="340" stroke="var(--line)" stroke-width="1"/>
+        <text x="16" y="378" class="d-t">기기 데이터가</text>
+        <text x="16" y="398" class="d-t">없을 때</text>
+
+        <rect x="200" y="354" width="200" height="52" rx="8" class="d-cell" stroke="var(--stop)"/>
+        <text x="300" y="378" class="d-no" text-anchor="middle">빈 상태 + 연동 CTA</text>
+        <text x="300" y="396" class="d-s" text-anchor="middle">계산 불가</text>
+
+        <rect x="410" y="354" width="200" height="52" rx="8" class="d-cell"/>
+        <text x="510" y="385" class="d-ok" text-anchor="middle">정상 동작</text>
+        <rect x="620" y="354" width="200" height="52" rx="8" class="d-cell"/>
+        <text x="720" y="385" class="d-ok" text-anchor="middle">정상 동작</text>
+        <rect x="830" y="354" width="200" height="52" rx="8" class="d-cell"/>
+        <text x="930" y="385" class="d-ok" text-anchor="middle">정상 동작</text>
+      </svg>
+    </div>
+    <figcaption>
+      <b>오늘의 컨디션만 카탈로그 칸이 비어 있다.</b> 나머지 세 화면은 카탈로그에 기본값이 있어
+      사용자 데이터가 없어도 보여줄 것이 남지만, 컨디션은 사용자 데이터 단독이라 없으면 계산 자체가 성립하지 않는다.
+      정책 메모가 컨디션에만 빈 상태와 연동 CTA를 둔 이유가 이 한 칸이다.
+    </figcaption>
+  </figure>
+
+  <h3>답변 한 번이 무엇을 어디까지 바꾸는가</h3>
+  <p>
+    사용자가 질문에 답하면 세 방향으로 파급되지만 <b>권한의 크기가 다르다.</b>
+    코칭은 통째로 다시 계산되고, 목표는 손대지 않은 카드만 바뀌며, 지표는 아예 움직이지 않는다.
+  </p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 960 300" role="img" aria-label="오늘의 답변 저장이 코칭은 전량 재계산하고, 목표는 대기 카드만 교체하며, 지표에는 반영되지 않는 세 갈래 파급 범위">
+        <defs>
+          <marker id="f1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" class="q-arrow"/>
+          </marker>
+        </defs>
+
+        <rect x="24" y="110" width="216" height="80" rx="8" class="q-fill"/>
+        <text x="40" y="140" class="d-t q-t">오늘의 답변 저장</text>
+        <text x="40" y="162" class="d-s">daily_checkin.answers[]</text>
+        <text x="40" y="180" class="d-lab">최대 3문항</text>
+
+        <rect x="580" y="20" width="356" height="66" rx="8" class="c-fill"/>
+        <text x="598" y="48" class="d-t c-t">코칭 — 전량 재계산</text>
+        <text x="598" y="70" class="d-s">기본 코칭 → 개인화 코칭</text>
+
+        <rect x="580" y="117" width="356" height="66" rx="8" class="g-fill"/>
+        <text x="598" y="145" class="d-t g-t">목표 — pending 카드만 교체</text>
+        <text x="598" y="167" class="d-s">done · rest 는 문구·상태 모두 잠금</text>
+
+        <rect x="580" y="214" width="356" height="66" rx="8" class="d-empty"/>
+        <text x="598" y="242" class="d-t d-no">지표 — 반영되지 않음</text>
+        <text x="598" y="264" class="d-s">derived.fatigue_level 채택 미검증</text>
+
+        <path d="M240 138 L400 138 L400 53 L574 53" class="q-edge" marker-end="url(#f1b)"/>
+        <path d="M240 150 L574 150" class="q-edge" marker-end="url(#f1b)"/>
+        <path d="M240 162 L400 162 L400 247 L560 247" class="stop-edge"/>
+
+        <circle cx="574" cy="247" r="11" fill="var(--stop-soft)" stroke="var(--stop)" stroke-width="1.4"/>
+        <path d="M569 242 L579 252 M579 242 L569 252" stroke="var(--stop)" stroke-width="1.7" fill="none"/>
+
+        <text x="410" y="105" class="d-lab q-t">조언이므로 항상 최신 답변 반영</text>
+        <text x="410" y="142" class="d-lab q-t">기록은 보존</text>
+        <text x="410" y="215" class="d-lab">설계상 경로 · 아직 닫혀 있음</text>
+      </svg>
+    </div>
+    <figcaption>
+      <b>“데이터가 없으면 질문이 대신한다”는 정책은 코칭과 목표에서만 성립한다.</b>
+      지표 축에서는 자가보고를 입력으로 채택할지가 미검증이라, 답변을 아무리 해도 컨디션 카드는 관찰 중에 머문다.
+    </figcaption>
+  </figure>
+
+  <div class="note warn">
+    <span class="note-label">이 문서 v1에서 고친 것</span>
+    <p>초판은 네 축을 나란한 레인으로 그렸으나 세 곳이 어긋났다 —
+    질문 레인만 화살표가 역방향이었고(문항 선택과 답변 저장은 방향이 반대인 두 흐름이다),
+    <code>coaching_rule</code>을 <code>health_sample</code>과 같은 ‘저장’ 칸에 두어 공통 카탈로그를 사용자 데이터처럼 보이게 했으며,
+    목표의 ‘완료·쉬기’를 입력 자리에 두어 되먹임을 원인으로 뒤집었다.</p>
+  </div>
+</section>
+
+
+<!-- ============ 2 ============ -->
+<section class="block">
+  <span class="sec-no">02</span>
+  <h2>지표 — 세 개의 게이트를 통과해야 점수가 된다</h2>
+  <p class="sec-lead">
+    회복여유·생활부담·리듬안정성은 원천 측정값에서 곧바로 나오지 않는다.
+    품질 판정, 기준선 표본 수, 충분도 세 관문을 지나며, 어디서 막히든 점수 대신 상태 표시로 떨어진다.
+  </p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 1000 260" role="img" aria-label="health_sample에서 metric_baseline을 거쳐 metric_score가 되기까지의 세 가지 게이트와 각 게이트의 탈락 경로">
+        <defs>
+          <marker id="f2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" class="d-arrow"/>
+          </marker>
+        </defs>
+
+        <rect x="20" y="60" width="180" height="56" rx="7" class="m-fill"/>
+        <text x="34" y="83" class="d-t m-t">health_sample</text>
+        <text x="34" y="101" class="d-s">type · value · measured_at</text>
+
+        <rect x="264" y="60" width="180" height="56" rx="7" class="m-fill"/>
+        <text x="278" y="83" class="d-t m-t">metric_baseline</text>
+        <text x="278" y="101" class="d-s">center · spread</text>
+
+        <rect x="508" y="60" width="180" height="56" rx="7" class="m-fill"/>
+        <text x="522" y="83" class="d-t m-t">metric_score</text>
+        <text x="522" y="101" class="d-s">score · band · direction</text>
+
+        <rect x="752" y="60" width="228" height="56" rx="7" class="d-surf"/>
+        <text x="766" y="83" class="d-t">범주형 상태 표시</text>
+        <text x="766" y="101" class="d-s">숫자 비노출 (지표 기획서 P4)</text>
+
+        <line x1="200" y1="88" x2="258" y2="88" class="d-edge" marker-end="url(#f2a)"/>
+        <line x1="444" y1="88" x2="502" y2="88" class="d-edge" marker-end="url(#f2a)"/>
+        <line x1="688" y1="88" x2="746" y2="88" class="d-edge" marker-end="url(#f2a)"/>
+
+        <!-- gate labels above -->
+        <text x="229" y="44" class="d-lab" text-anchor="middle">게이트 1</text>
+        <text x="473" y="44" class="d-lab" text-anchor="middle">게이트 2</text>
+        <text x="717" y="44" class="d-lab" text-anchor="middle">게이트 3</text>
+
+        <!-- gate conditions below -->
+        <line x1="229" y1="88" x2="229" y2="150" class="d-edge-d"/>
+        <line x1="473" y1="88" x2="473" y2="150" class="d-edge-d"/>
+        <line x1="717" y1="88" x2="717" y2="150" class="d-edge-d"/>
+
+        <rect x="128" y="150" width="202" height="52" rx="6" class="d-plain"/>
+        <text x="142" y="171" class="d-s">quality ∈ {outlier, duplicate}</text>
+        <text x="142" y="190" class="d-lab">집계 제외 · 원본은 보존</text>
+
+        <rect x="372" y="150" width="202" height="52" rx="6" class="d-plain"/>
+        <text x="386" y="171" class="d-s">sample_count &lt; 4</text>
+        <text x="386" y="190" class="d-lab">해당 입력을 산출에서 제외</text>
+
+        <rect x="616" y="150" width="202" height="52" rx="6" class="d-plain"/>
+        <text x="630" y="171" class="d-s">sufficiency = none</text>
+        <text x="630" y="190" class="d-lab">score = null · 밴드 미표시</text>
+
+        <text x="229" y="228" class="d-lab" text-anchor="middle">R9</text>
+        <text x="473" y="228" class="d-lab" text-anchor="middle">R8</text>
+        <text x="717" y="228" class="d-lab" text-anchor="middle">R7</text>
+        <text x="20" y="228" class="d-s">무결성 규칙 →</text>
+      </svg>
+    </div>
+    <figcaption>
+      세 게이트는 데이터 모델의 무결성 규칙 <b>R9 · R8 · R7</b>에 각각 대응한다.
+      게이트에 걸린 값은 삭제되지 않고 집계에서만 빠지므로, 판정 기준이 바뀌면 원본에서 다시 계산할 수 있다.
+      단 <code>ruleset_version</code>이 다른 과거 스냅샷은 재계산하지 않는다(R6).
+    </figcaption>
+  </figure>
+
+  <h3>화면에 무엇이 나가는가</h3>
+  <div class="tbl">
+    <table>
+      <thead>
+        <tr><th>충분도</th><th>내부 상태</th><th>화면 표시</th><th>근거</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="key">full</td>
+          <td>핵심·보조 데이터 모두 확보</td>
+          <td>정상 — 범주형 상태 (좋음 / 보통 / 주의)</td>
+          <td>지표 기획서 8장</td>
+        </tr>
+        <tr>
+          <td class="key">partial</td>
+          <td>핵심은 있고 보조만 결측</td>
+          <td>계산하되 <b>“정확도 낮음 · 참고용”</b> 라벨 동반</td>
+          <td>정책 메모 정책 2</td>
+        </tr>
+        <tr>
+          <td class="key">none</td>
+          <td>핵심 데이터가 하나라도 없음</td>
+          <td><b>“관찰 중”</b> — 점수를 낮추지 않고 상태를 비움</td>
+          <td>정책 메모 정책 2</td>
+        </tr>
+        <tr>
+          <td class="key">권한 없음</td>
+          <td>수집 자체가 불가</td>
+          <td>빈 상태 카드 + 1탭 연동 CTA + 질문 유도</td>
+          <td>정책 메모 상태 ①~④</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="note-label">설계 원칙</span>
+    <p>가짜 수치를 만들지 않는다. <code>0점</code>이나 <code>—점</code>처럼 측정값으로 오인될 자리표시를 쓰지 않고,
+    계산 불가는 계산 불가로 표시한 뒤 오늘의 질문을 대안 입력 경로로 안내한다.</p>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="block">
+  <span class="sec-no">03</span>
+  <h2>오늘의 질문 — 문항을 고르는 근거가 두 가지다</h2>
+  <p class="sec-lead">
+    하루 최대 3문항이며, 무엇을 물을지는 사용자가 가진 데이터에 따라 갈린다.
+    이 분기 때문에 걸음 수만 있는 사용자도 3문항을 채울 수 있다.
+  </p>
+
+  <div class="tbl">
+    <table>
+      <thead>
+        <tr><th>문항 유형</th><th>생성 근거</th><th>필요 조건</th><th>현재 문항</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>① 결측 보완형</b></td>
+          <td>기기에서 받지 못한 값을 대신 묻는다</td>
+          <td>없음 — 항상 생성 가능</td>
+          <td class="key">fatigue · sleep · meal</td>
+        </tr>
+        <tr>
+          <td><b>② 질환 맞춤형</b></td>
+          <td>무엇을 물을지 고르는 근거가 의료이력·AI 리포트</td>
+          <td>검진 / 진료 / AI 리포트 중 하나</td>
+          <td class="key">vision</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="margin-top:20px">
+    선택 규칙은 단순하다. 의료이력이 있으면 <b>질환 맞춤 1문항이 앞자리를 차지하고 결측 보완형 2문항이 뒤를 채운다.</b>
+    없으면 결측 보완형 3문항이다. 답변은 <code>daily_checkin.answers[]</code>에 원본으로 쌓이고,
+    지표 입력으로 쓸 값만 <code>derived</code>로 변환된다 — 다만 이 변환의 채택 여부는 아직 검증 대상이다.
+  </p>
+
+  <div class="note warn">
+    <span class="note-label">미확정</span>
+    <p>자가보고 피로도(<code>daily_checkin.derived.fatigue_level</code>)를 지표 입력으로 채택할지는
+    지표 기획서 9장의 검증 과제로 남아 있다. 채택 전까지 <b>질문 답변은 지표 점수를 움직이지 않고</b>,
+    01의 “결측 보완” 화살표는 설계상의 경로일 뿐 아직 열려 있지 않다.</p>
+  </div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="block">
+  <span class="sec-no">04</span>
+  <h2>코칭 — 6단계 필터를 통과한 규칙만 문구가 된다</h2>
+  <p class="sec-lead">
+    코칭은 기록이 아니라 조언이므로 항상 다시 계산된다. 판정은 사용자 상태를 규칙 집합에 통과시키는
+    한 번의 조회이고, 각 단계가 무엇을 걸러내는지가 그대로 노출 정책이 된다.
+  </p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 900 400" role="img" aria-label="코칭 규칙 239건이 대상·지표구간·관찰·입력·안전게이트·우선순위 6단계를 거쳐 최종 노출 문구로 좁혀지는 과정">
+        <defs>
+          <marker id="f4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" class="d-arrow"/>
+          </marker>
+        </defs>
+
+        <rect x="150" y="20" width="480" height="40" rx="6" class="c-fill"/>
+        <text x="390" y="45" class="d-t c-t" text-anchor="middle">coaching_rule · 239건 (release v1)</text>
+
+        <rect x="186" y="76" width="408" height="40" rx="6" class="d-plain"/>
+        <text x="390" y="101" class="d-t" text-anchor="middle">1 · 대상 일치</text>
+        <text x="646" y="95" class="d-s">health_condition</text>
+        <text x="646" y="110" class="d-s">requires_confirmed_diagnosis</text>
+
+        <rect x="216" y="132" width="348" height="40" rx="6" class="d-plain"/>
+        <text x="390" y="157" class="d-t" text-anchor="middle">2 · 연령 범위</text>
+        <text x="646" y="151" class="d-s">age_min ≤ 나이 &lt; age_max</text>
+        <text x="646" y="166" class="d-lab">나이 모르면 평가 불가</text>
+
+        <rect x="246" y="188" width="288" height="40" rx="6" class="d-plain"/>
+        <text x="390" y="213" class="d-t" text-anchor="middle">3 · 지표 구간</text>
+        <text x="646" y="207" class="d-s">value_min ≤ 값 &lt; value_max</text>
+        <text x="646" y="222" class="d-lab">경계 포함 여부는 별도 컬럼</text>
+
+        <rect x="276" y="244" width="228" height="40" rx="6" class="d-plain"/>
+        <text x="390" y="269" class="d-t" text-anchor="middle">4 · 관찰 충족</text>
+        <text x="646" y="263" class="d-s">eval_window · min_observed</text>
+        <text x="646" y="278" class="d-s">min_match_ratio</text>
+
+        <rect x="306" y="300" width="168" height="40" rx="6" class="d-plain"/>
+        <text x="390" y="325" class="d-t" text-anchor="middle">5 · 입력 유효</text>
+        <text x="646" y="319" class="d-s">context_input_key</text>
+        <text x="646" y="334" class="d-lab">freshness_hours 이내</text>
+
+        <rect x="306" y="356" width="168" height="38" rx="6" class="c-fill"/>
+        <text x="390" y="380" class="d-t c-t" text-anchor="middle">6 · 그룹당 1건</text>
+        <text x="646" y="375" class="d-s">rule_group · priority 최소</text>
+
+        <line x1="390" y1="60" x2="390" y2="72" class="d-edge" marker-end="url(#f4a)"/>
+        <line x1="390" y1="116" x2="390" y2="128" class="d-edge" marker-end="url(#f4a)"/>
+        <line x1="390" y1="172" x2="390" y2="184" class="d-edge" marker-end="url(#f4a)"/>
+        <line x1="390" y1="228" x2="390" y2="240" class="d-edge" marker-end="url(#f4a)"/>
+        <line x1="390" y1="284" x2="390" y2="296" class="d-edge" marker-end="url(#f4a)"/>
+        <line x1="390" y1="340" x2="390" y2="352" class="d-edge" marker-end="url(#f4a)"/>
+
+        <line x1="140" y1="96" x2="90" y2="96" class="stop-edge"/>
+        <text x="84" y="100" class="d-lab" text-anchor="end">확진 미확인 → 전량 탈락</text>
+        <line x1="140" y1="320" x2="90" y2="320" class="stop-edge"/>
+        <text x="84" y="324" class="d-lab" text-anchor="end">입력 없음 → 문구 숨김</text>
+        <line x1="150" y1="96" x2="140" y2="96" class="stop-edge"/>
+        <line x1="316" y1="320" x2="140" y2="320" class="stop-edge"/>
+      </svg>
+    </div>
+    <figcaption>
+      6단계를 통과한 뒤에도 <b>safety_gate가 붙은 문구는 서비스가 별도 확인을 통과하기 전까지 화면에 올리지 않는다.</b>
+      당뇨 규칙 12건은 확진 확인이 없으면 1단계에서 전부 빠지고, 식후 코칭은 <code>meal_event</code> 응답이 없으면 5단계에서 사라진다.
+    </figcaption>
+  </figure>
+
+  <div class="note warn">
+    <span class="note-label">현재 병목</span>
+    <p>규칙 239건 중 다수가 <code>activity_interval</code>(강도가 구분된 활동 구간 샘플)을 요구하지만,
+    현재 앱이 계산할 수 있는 지표는 <code>sleep_hours_per_night</code>, <code>daily_steps</code>,
+    <code>mvpa_minutes_per_day</code> 세 개뿐이다. 3단계에서 대부분이 탈락한다는 뜻이다.</p>
+    <p>게다가 걸음 수 임계(fact 190, 하루 7,000보)에는 연결된 문구가 없다 —
+    <b>가장 많은 사용자가 가진 데이터에 붙는 코칭이 가장 비어 있다.</b></p>
+  </div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="block">
+  <span class="sec-no">05</span>
+  <h2>목표 — 기록은 카드가 아니라 카테고리에 붙는다</h2>
+  <p class="sec-lead">
+    목표 카드의 문구는 표현 계층일 뿐이고, 완료·쉬기 기록은 식이·활동·수면 카테고리와 날짜에 귀속된다.
+    이 분리 덕분에 문구가 개인화로 바뀌어도 주간 달성률과 연속일수가 승계된다.
+  </p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 860 300" role="img" aria-label="목표 카드의 pending, done, rest 상태 전이와 질문 답변이 pending 카드에만 적용되는 범위">
+        <defs>
+          <marker id="f5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" class="d-arrow"/>
+          </marker>
+          <marker id="f5q" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" class="q-arrow"/>
+          </marker>
+        </defs>
+
+        <rect x="300" y="118" width="180" height="56" rx="7" class="g-fill"/>
+        <text x="390" y="141" class="d-t g-t" text-anchor="middle">pending</text>
+        <text x="390" y="159" class="d-s" text-anchor="middle">대기 · 잠금 없음</text>
+
+        <rect x="640" y="40" width="180" height="56" rx="7" class="d-surf"/>
+        <text x="730" y="63" class="d-t" text-anchor="middle">done</text>
+        <text x="730" y="81" class="d-s" text-anchor="middle">완료 · 문구+상태 잠금</text>
+
+        <rect x="640" y="196" width="180" height="56" rx="7" class="d-surf"/>
+        <text x="730" y="219" class="d-t" text-anchor="middle">rest</text>
+        <text x="730" y="237" class="d-s" text-anchor="middle">쉬기 · 문구+상태 잠금</text>
+
+        <path d="M480 134 L560 134 L560 68 L634 68" class="d-edge" marker-end="url(#f5a)"/>
+        <path d="M634 84 L560 84 L560 140 L486 140" class="d-edge" marker-end="url(#f5a)"/>
+        <text x="566" y="104" class="d-lab">완료</text>
+        <text x="566" y="120" class="d-lab">되돌리기</text>
+
+        <path d="M480 158 L560 158 L560 224 L634 224" class="d-edge" marker-end="url(#f5a)"/>
+        <text x="566" y="186" class="d-lab">쉬기</text>
+
+        <!-- 재개인화 -->
+        <path d="M120 146 L294 146" class="q-edge" marker-end="url(#f5q)"/>
+        <rect x="20" y="118" width="100" height="56" rx="7" class="q-fill"/>
+        <text x="70" y="141" class="d-t q-t" text-anchor="middle">질문 답변</text>
+        <text x="70" y="159" class="d-s" text-anchor="middle">재개인화</text>
+        <text x="206" y="138" class="d-lab q-t" text-anchor="middle">문구 교체</text>
+
+        <path d="M556 40 L556 20 L206 20 L206 112" class="stop-edge"/>
+        <circle cx="206" cy="66" r="13" fill="var(--stop-soft)" stroke="var(--stop)" stroke-width="1.4"/>
+        <path d="M200 60 L212 72 M212 60 L200 72" stroke="var(--stop)" stroke-width="1.8" fill="none"/>
+        <text x="228" y="70" class="stop-t">잠긴 카드에는 적용되지 않음</text>
+
+        <text x="20" y="286" class="d-s">달성률 분모 = 그날 제시된 목표 3개 · 분자 = done · rest는 미포함</text>
+      </svg>
+    </div>
+    <figcaption>
+      <b>사용자가 한 번이라도 판단을 내린 카드는 그날 하루 잠긴다.</b>
+      완료 표시를 유지한 채 문구만 개인화 버전으로 바꾸는 대안은, 실제 수행한 행동과 화면 기록이 어긋나
+      “내가 안 한 목표가 완료로 표시된다”는 신뢰 문제를 만들어 기각됐다.
+    </figcaption>
+  </figure>
+
+  <h3>답변 이후 각 요소의 처리</h3>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>대상</th><th>처리</th><th>이유</th></tr></thead>
+      <tbody>
+        <tr><td>완료·쉬기한 목표</td><td><b>유지</b> — 문구·상태 고정</td><td>사용자가 판단을 내린 기록</td></tr>
+        <tr><td>대기 목표</td><td><b>교체</b> — 답변 반영해 문구 갱신</td><td>아직 행동이 붙지 않음</td></tr>
+        <tr><td>오늘의 코칭</td><td><b>항상 재계산</b></td><td>기록이 아니라 조언</td></tr>
+        <tr><td>주간 달성률 · 연속일수</td><td><b>그대로 집계</b></td><td>카테고리 단위라 문구 변경과 무관</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="block">
+  <span class="sec-no">06</span>
+  <h2>아직 이어지지 않은 지점</h2>
+  <p class="sec-lead">
+    위 흐름은 문서상의 설계다. 문서를 겹쳐 읽으면 두 축이 같은 단어를 쓰면서 서로를 모르고 있는 구간이 드러난다.
+  </p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 900 240" role="img" aria-label="앱 도메인의 metric_score와 코칭 계약의 coaching_metric이 같은 metric_key라는 이름을 쓰지만 서로 참조하지 않는 두 개의 분리된 이름공간임을 보여주는 그림">
+        <defs>
+          <marker id="f6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" class="d-arrow"/>
+          </marker>
+        </defs>
+
+        <text x="24" y="30" class="d-head">앱 도메인</text>
+        <rect x="24" y="46" width="300" height="82" rx="7" class="m-fill"/>
+        <text x="40" y="70" class="d-t m-t">metric_score.metric_key</text>
+        <text x="40" y="92" class="d-s">recovery · load · rhythm</text>
+        <text x="40" y="112" class="d-lab">기기 데이터에서 산출 · 화면 표시용</text>
+
+        <text x="576" y="30" class="d-head">코칭 계약</text>
+        <rect x="576" y="46" width="300" height="82" rx="7" class="c-fill"/>
+        <text x="592" y="70" class="d-t c-t">coaching_metric.metric_key</text>
+        <text x="592" y="92" class="d-s">fact:133 · fact:141 · fact:190 …</text>
+        <text x="592" y="112" class="d-lab">지식DB fact 단위 · 규칙 판정용</text>
+
+        <line x1="324" y1="87" x2="570" y2="87" class="stop-edge"/>
+        <circle cx="450" cy="87" r="17" fill="var(--stop-soft)" stroke="var(--stop)" stroke-width="1.5"/>
+        <path d="M442 79 L458 95 M458 79 L442 95" stroke="var(--stop)" stroke-width="2" fill="none"/>
+        <text x="450" y="132" class="stop-t" text-anchor="middle">참조 관계 없음</text>
+
+        <rect x="240" y="170" width="420" height="52" rx="7" class="warn-fill"/>
+        <text x="450" y="192" class="d-t warn-t" text-anchor="middle">코칭 판정에 넣을 :metrics를 누가 만드는가</text>
+        <text x="450" y="210" class="d-s" text-anchor="middle">두 이름공간 사이의 변환 계층이 아직 정의되지 않았다</text>
+
+        <path d="M174 128 L174 196 L234 196" class="d-edge-d" marker-end="url(#f6a)"/>
+        <path d="M726 128 L726 196 L666 196" class="d-edge-d" marker-end="url(#f6a)"/>
+      </svg>
+    </div>
+    <figcaption>
+      두 테이블 모두 컬럼 이름이 <code>metric_key</code>지만 값 공간이 전혀 다르고, 서로를 참조하는 외래 키도 없다.
+      코칭 판정 쿼리가 받는 <code>:metrics</code> JSON은 <b>앱이 계산해 넘긴다</b>고만 적혀 있고,
+      그 값이 <code>metric_score</code>에서 오는지 별도 계산인지는 어느 문서에도 없다.
+    </figcaption>
+  </figure>
+
+  <div class="finds">
+    <div class="find">
+      <span class="find-n">01</span>
+      <div>
+        <h4>지표 이름공간이 둘로 갈려 있다</h4>
+        <p>앱의 <code>recovery·load·rhythm</code>과 코칭 계약의 <code>fact:133</code> 계열 사이에 변환 규칙이 없다.
+        코칭 판정 입력 <code>:metrics</code>를 만드는 어댑터의 소유자와 명세를 정해야 한다.</p>
+      </div>
+      <span class="sev sev-stop">차단</span>
+    </div>
+
+    <div class="find">
+      <span class="find-n">02</span>
+      <div>
+        <h4>목표 기록 테이블이 정의되어 있지 않다</h4>
+        <p>정책 메모는 “카테고리 × 일자”에 저장한다고 못 박았지만, 논리 데이터 모델은
+        코칭·행동 로그를 <b>참조로만</b> 두고 범위에서 제외했다. 주간 달성률·연속일수의 저장 구조가 문서에 없다.</p>
+      </div>
+      <span class="sev sev-stop">차단</span>
+    </div>
+
+    <div class="find">
+      <span class="find-n">03</span>
+      <div>
+        <h4>코칭 산출 방식이 프로토타입과 계약에서 다르다</h4>
+        <p>프로토타입은 답변 4개를 보는 하드코딩 분기로 문구를 고르고, 지식DB 계약은 지표 구간 기반 규칙 239건으로 고른다.
+        둘은 입력도 결과도 다르며, 어느 쪽이 출시 동작인지 결정된 바가 없다.</p>
+      </div>
+      <span class="sev sev-warn">결정 필요</span>
+    </div>
+
+    <div class="find">
+      <span class="find-n">04</span>
+      <div>
+        <h4>질문 답변이 지표로 흘러가는 경로가 닫혀 있다</h4>
+        <p><code>daily_checkin.derived.fatigue_level</code>의 지표 입력 채택 여부가 미검증이라,
+        “데이터가 없으면 질문이 대신한다”는 정책이 지표 축에서는 아직 성립하지 않는다.</p>
+      </div>
+      <span class="sev sev-open">검증</span>
+    </div>
+
+    <div class="find">
+      <span class="find-n">05</span>
+      <div>
+        <h4>가장 흔한 데이터에 붙는 코칭이 비어 있다</h4>
+        <p>걸음 수 임계는 지식DB에 있으나(fact 190) 연결된 문구가 없고, 혈압·혈당·체중은 앱이 수집 중인데
+        임계를 가진 fact가 0건이다. 대다수 사용자에게 나갈 코칭이 없다.</p>
+      </div>
+      <span class="sev sev-warn">의학팀</span>
+    </div>
+  </div>
+</section>
+
+<div class="srcs">
+  <h2>근거 문서</h2>
+  <ul>
+    <li><code>maiReport_데이터모델_v1.0.0.html</code> — 지표·결제 도메인 9개 엔터티, 무결성 규칙 R1~R10, 보존 정책</li>
+    <li><code>지식코칭_maiReport_전달테이블_설계_claude.md</code> — 5개 전달 테이블 계약, 판정 순서 6단계, 런타임 조회 쿼리</li>
+    <li><code>개발팀_전달본_v1_2026-09-07.zip</code> — <code>운영DB_테이블_v1.sql</code>(maireport_kdb_v1 스키마), release 단위 버전 관리, 규칙 239건</li>
+    <li><code>active_coaching_catalog_preview_bundle_2026-09-01.zip</code> — catalog 20행, 걸음수 코칭 예시, 운영 preview 스키마</li>
+    <li><code>maiReport_policy_goal-lock-and-no-data_v1.0.0.html</code> — 목표 잠금 규칙, 데이터 부재 시 화면별 처리, 부분 계산 규칙</li>
+    <li><code>maiReport_prototype_v1.0.0.html</code> — 문항 선택 로직, 코칭 분기, 목표 상태 전이 구현</li>
+  </ul>
+</div>
+
+<footer>maiReport · 산출 흐름 정리 · 내부 검토용 · 2026-09-11</footer>
+
+</main>

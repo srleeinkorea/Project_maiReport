@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="1112" viewBox="0 0 430 1112" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">
+<defs></defs>
+<rect width="430" height="1112" fill="rgb(232, 235, 242)"/>
+<rect x="0" y="0" width="430" height="1112.16" rx="0" fill="rgb(232, 235, 242)"/>
+<rect x="0" y="0" width="430" height="1112.16" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="0" y="0" width="430" height="1032.16" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="0" y="0" width="430" height="56" rx="0" fill="rgb(255, 255, 255)"/>
+<text x="25.66" y="35.42" font-size="22" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">‹</text>
+<text x="154.86" y="33.06" font-size="16" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.32px" xml:space="preserve">전체 건강 데이터</text>
+<rect x="0" y="56" width="430" height="976.16" rx="0" fill="rgb(244, 246, 250)"/>
+<text x="18" y="78.04" font-size="14" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.28px" xml:space="preserve">활동</text>
+<rect x="18" y="93.59" width="394" height="251" rx="16" fill="rgb(255, 255, 255)"/>
+<rect x="34" y="108.59" width="32" height="32" rx="16" fill="rgb(227, 246, 232)"/>
+<text x="40.56" y="129.99" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">👟</text>
+<text x="78" y="128.37" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">걸음 수</text>
+<text x="298.41" y="128.37" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">7,340 걸음</text>
+<text x="388.94" y="130.57" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<line x1="18" y1="156.09" x2="412" y2="156.09" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="34" y="171.59" width="32" height="32" rx="16" fill="rgb(255, 234, 223)"/>
+<text x="40.56" y="192.99" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🔥</text>
+<text x="78" y="191.37" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">활동 칼로리</text>
+<text x="308.81" y="191.37" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">320 kcal</text>
+<text x="388.94" y="193.57" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<line x1="18" y1="219.09" x2="412" y2="219.09" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="34" y="234.59" width="32" height="32" rx="16" fill="rgb(255, 244, 218)"/>
+<text x="40.56" y="255.99" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">⏱️</text>
+<text x="78" y="254.37" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">활동/운동 시간</text>
+<text x="333.88" y="254.37" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">42 분</text>
+<text x="388.94" y="256.57" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<line x1="18" y1="282.09" x2="412" y2="282.09" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="34" y="297.59" width="32" height="32" rx="16" fill="rgb(227, 246, 232)"/>
+<text x="40.56" y="318.99" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🏃</text>
+<text x="78" y="317.37" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">운동 기록</text>
+<text x="347.17" y="317.37" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">3회</text>
+<text x="388.94" y="319.57" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<text x="18" y="378.63" font-size="14" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.28px" xml:space="preserve">심박 · 수면</text>
+<rect x="18" y="394.19" width="394" height="125" rx="16" fill="rgb(255, 255, 255)"/>
+<rect x="34" y="409.19" width="32" height="32" rx="16" fill="rgb(253, 231, 238)"/>
+<text x="40.56" y="430.59" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">❤️</text>
+<text x="78" y="428.96" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">심박수</text>
+<text x="315" y="428.96" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">63 bpm</text>
+<text x="388.94" y="431.17" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<line x1="18" y1="456.69" x2="412" y2="456.69" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="34" y="472.19" width="32" height="32" rx="16" fill="rgb(232, 234, 251)"/>
+<text x="40.56" y="493.59" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🌙</text>
+<text x="78" y="491.96" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">수면</text>
+<text x="299.25" y="491.96" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">7시간 23분</text>
+<text x="388.94" y="494.17" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<text x="18" y="553.23" font-size="14" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.28px" xml:space="preserve">신체 정보</text>
+<rect x="18" y="568.78" width="394" height="188" rx="16" fill="rgb(255, 255, 255)"/>
+<rect x="34" y="583.78" width="32" height="32" rx="16" fill="rgb(255, 239, 217)"/>
+<text x="40.56" y="605.18" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">⚖️</text>
+<text x="78" y="603.55" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">체중</text>
+<text x="315.36" y="603.55" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">68.2 kg</text>
+<text x="388.94" y="605.76" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<line x1="18" y1="631.28" x2="412" y2="631.28" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="34" y="646.78" width="32" height="32" rx="16" fill="rgb(227, 246, 232)"/>
+<text x="43.52" y="668.18" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">◔</text>
+<text x="78" y="666.56" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">체지방률</text>
+<text x="320.14" y="666.56" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">23.1 %</text>
+<text x="388.94" y="668.76" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<line x1="18" y1="694.28" x2="412" y2="694.28" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="34" y="709.78" width="32" height="32" rx="16" fill="rgb(224, 244, 248)"/>
+<text x="40.56" y="731.18" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🧍</text>
+<text x="78" y="729.56" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">BMI</text>
+<text x="337.42" y="729.56" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">23.4</text>
+<text x="388.94" y="731.76" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<text x="18" y="790.82" font-size="14" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.28px" xml:space="preserve">건강 측정</text>
+<rect x="18" y="806.38" width="394" height="125" rx="16" fill="rgb(255, 255, 255)"/>
+<rect x="34" y="821.38" width="32" height="32" rx="16" fill="rgb(253, 236, 236)"/>
+<text x="40.56" y="842.78" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🩺</text>
+<text x="78" y="841.15" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">혈압</text>
+<text x="259.92" y="841.15" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">118 / 76 mmHg</text>
+<text x="388.94" y="843.36" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<line x1="18" y1="868.88" x2="412" y2="868.88" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="34" y="884.38" width="32" height="32" rx="16" fill="rgb(253, 231, 238)"/>
+<text x="40.56" y="905.78" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🩸</text>
+<text x="78" y="904.15" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">혈당</text>
+<text x="293.34" y="904.15" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">112 mg/dL</text>
+<text x="388.94" y="906.36" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<text x="21" y="963.84" font-size="11" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">연결한 건강 앱에서 제공되는 항목만 표시돼요. 활동 시간은 걸음 기록에서 직접</text>
+<text x="21" y="981.43" font-size="11" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">계산하고 운동 시간은 운동 세션 기준이라, 연동한 건강 앱에 보이는 값과 조금</text>
+<text x="21" y="999.02" font-size="11" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">다를 수 있어요.</text>
+</svg>

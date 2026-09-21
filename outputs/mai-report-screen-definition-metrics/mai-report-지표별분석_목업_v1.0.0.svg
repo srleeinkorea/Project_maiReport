@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 760" font-family="Noto Sans KR, -apple-system, sans-serif">
+  <defs>
+    <style>
+      .ink1{fill:#1a2233;} .ink2{fill:#4b5468;} .ink3{fill:#8892a6;}
+      .card{fill:#ffffff;stroke:#e6eaf2;stroke-width:1;}
+      .lab{font-size:9px;font-weight:700;letter-spacing:.03em;fill:#8892a6;text-transform:uppercase;}
+      .h4{font-size:14.5px;font-weight:800;}
+      .sm{font-size:10.5px;}
+      .ins{font-size:11.5px;fill:#4b5468;}
+      .val{font-size:11px;fill:#4b5468;}
+      .chip{font-size:9.5px;font-weight:700;}
+      .dl{font-size:9.5px;fill:#8892a6;text-anchor:middle;}
+      .dl.on{fill:#1a2233;font-weight:800;}
+    </style>
+  </defs>
+
+  <!-- Phone frame -->
+  <rect x="0" y="0" width="380" height="760" fill="#f5f7fb"/>
+  <rect x="10" y="10" width="360" height="740" rx="34" fill="#ffffff" stroke="#e6eaf2" stroke-width="1.5"/>
+
+  <!-- status bar -->
+  <text x="34" y="38" class="sm ink3">9:41</text>
+  <text x="336" y="38" class="sm ink3" text-anchor="end">●●●</text>
+
+  <!-- date strip -->
+  <rect x="26" y="50" width="328" height="40" rx="12" fill="#fafbfd" stroke="#e6eaf2"/>
+  <text x="40" y="75" class="sm ink2">8월 4주</text>
+  <g font-size="10" fill="#8892a6" text-anchor="middle">
+    <text x="192" y="75">월</text><text x="216" y="75">화</text><text x="240" y="75">수</text>
+    <circle cx="264" cy="70" r="11" fill="#2f66f5"/><text x="264" y="74" fill="#fff" font-weight="700">목</text>
+    <text x="288" y="75">금</text><text x="312" y="75">토</text><text x="336" y="75">일</text>
+  </g>
+
+  <!-- ============= helper: week chip row macro (manually repeated) ============= -->
+
+  <!-- ================= Card 1: 생활여유 ================= -->
+  <g>
+    <rect x="26" y="100" width="328" height="192" rx="16" class="card"/>
+    <text x="42" y="128" class="h4 ink1">생활여유</text>
+    <text x="118" y="128" class="sm" fill="#D98A12" font-weight="700">▼ 낮아졌어요</text>
+    <text x="42" y="143" class="sm ink3">오늘 기준 · 높을수록 좋음</text>
+    <rect x="278" y="112" width="62" height="24" rx="12" fill="#fff3e0"/>
+    <text x="309" y="128" text-anchor="middle" font-size="11.5" font-weight="800" fill="#D98A12">보통이에요</text>
+
+    <!-- week chips: 월화(good=green) 수목(보통=amber) 금토일(결측) -->
+    <g transform="translate(42,152)">
+      <rect x="0"   y="0" width="34" height="20" rx="6" fill="#e8f8ee"/>
+      <rect x="41"  y="0" width="34" height="20" rx="6" fill="#e8f8ee"/>
+      <rect x="82"  y="0" width="34" height="20" rx="6" fill="#fff3e0"/>
+      <rect x="123" y="0" width="34" height="20" rx="6" fill="#fff3e0" stroke="#1a2233" stroke-width="2"/>
+      <rect x="164" y="0" width="34" height="20" rx="6" fill="none" stroke="#e6eaf2" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <rect x="205" y="0" width="34" height="20" rx="6" fill="none" stroke="#e6eaf2" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <rect x="246" y="0" width="34" height="20" rx="6" fill="none" stroke="#e6eaf2" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="17" y="34" class="dl">월</text><text x="58" y="34" class="dl">화</text><text x="99" y="34" class="dl">수</text>
+      <text x="140" y="34" class="dl on">목</text><text x="181" y="34" class="dl">금</text><text x="222" y="34" class="dl">토</text><text x="263" y="34" class="dl">일</text>
+    </g>
+
+    <text x="42" y="212" class="lab">이번 주 해석</text>
+    <text x="42" y="228" class="ins">늦은 시간 활동이 늘고 중간에 쉬는 흐름이 줄면서,</text>
+    <text x="42" y="242" class="ins" font-weight="700" fill="#1a2233">생활여유가 보통 구간으로 내려왔어요.</text>
+
+    <text x="42" y="260" class="lab">핵심 산출 데이터</text>
+    <circle cx="46" cy="272" r="3.5" fill="#12A150"/>
+    <text x="56" y="276" class="val" font-weight="700" fill="#1a2233">수면</text>
+    <text x="160" y="276" class="val">7시간 23분</text>
+    <rect x="290" y="266" width="46" height="18" rx="9" fill="#e8f8ee"/><text x="313" y="279" text-anchor="middle" class="chip" fill="#12A150">충분</text>
+  </g>
+
+  <!-- ================= Card 2: 자기돌봄 ================= -->
+  <g>
+    <rect x="26" y="304" width="328" height="192" rx="16" class="card"/>
+    <text x="42" y="332" class="h4 ink1">자기돌봄</text>
+    <text x="118" y="332" class="sm" fill="#12A150" font-weight="700">▲ 좋아졌어요</text>
+    <text x="42" y="347" class="sm ink3">오늘 기준 · 높을수록 좋음</text>
+    <rect x="268" y="316" width="72" height="24" rx="12" fill="#e8f8ee"/>
+    <text x="304" y="332" text-anchor="middle" font-size="11.5" font-weight="800" fill="#12A150">잘하고 있어요</text>
+
+    <g transform="translate(42,356)">
+      <rect x="0"   y="0" width="34" height="20" rx="6" fill="#fff3e0"/>
+      <rect x="41"  y="0" width="34" height="20" rx="6" fill="#fff3e0"/>
+      <rect x="82"  y="0" width="34" height="20" rx="6" fill="#eef0f5"/>
+      <rect x="123" y="0" width="34" height="20" rx="6" fill="#e8f8ee" stroke="#1a2233" stroke-width="2"/>
+      <rect x="164" y="0" width="34" height="20" rx="6" fill="none" stroke="#e6eaf2" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <rect x="205" y="0" width="34" height="20" rx="6" fill="none" stroke="#e6eaf2" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <rect x="246" y="0" width="34" height="20" rx="6" fill="none" stroke="#e6eaf2" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="17" y="34" class="dl">월</text><text x="58" y="34" class="dl">화</text><text x="99" y="34" class="dl">수</text>
+      <text x="140" y="34" class="dl on">목</text><text x="181" y="34" class="dl">금</text><text x="222" y="34" class="dl">토</text><text x="263" y="34" class="dl">일</text>
+    </g>
+
+    <text x="42" y="416" class="lab">이번 주 해석</text>
+    <text x="42" y="432" class="ins">식사 뒤 짧은 움직임이 여러 번 확인되면서,</text>
+    <text x="42" y="446" class="ins" font-weight="700" fill="#1a2233">조절 가능한 순간에 실제 행동이 잘 붙고 있어요.</text>
+
+    <text x="42" y="464" class="lab">핵심 산출 데이터</text>
+    <circle cx="46" cy="476" r="3.5" fill="#D98A12"/>
+    <text x="56" y="480" class="val" font-weight="700" fill="#1a2233">활동 시간</text>
+    <text x="160" y="480" class="val">42분</text>
+    <rect x="290" y="470" width="46" height="18" rx="9" fill="#eef0f5"/><text x="313" y="483" text-anchor="middle" class="chip" fill="#4b5468">비슷</text>
+  </g>
+
+  <!-- ================= Card 3: 일상안정 ================= -->
+  <g>
+    <rect x="26" y="508" width="328" height="192" rx="16" class="card"/>
+    <text x="42" y="536" class="h4 ink1">일상안정</text>
+    <text x="118" y="536" class="sm" fill="#8892a6" font-weight="700">· 변화 없음</text>
+    <text x="42" y="551" class="sm ink3">오늘 기준 · 높을수록 좋음</text>
+    <rect x="272" y="520" width="68" height="24" rx="12" fill="#f1ecff"/>
+    <text x="306" y="536" text-anchor="middle" font-size="11.5" font-weight="800" fill="#7C5CFC">안정적이에요</text>
+
+    <g transform="translate(42,560)">
+      <rect x="0"   y="0" width="34" height="20" rx="6" fill="#eef0f5"/>
+      <rect x="41"  y="0" width="34" height="20" rx="6" fill="#eef0f5"/>
+      <rect x="82"  y="0" width="34" height="20" rx="6" fill="#f1ecff"/>
+      <rect x="123" y="0" width="34" height="20" rx="6" fill="#f1ecff" stroke="#1a2233" stroke-width="2"/>
+      <rect x="164" y="0" width="34" height="20" rx="6" fill="none" stroke="#e6eaf2" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <rect x="205" y="0" width="34" height="20" rx="6" fill="none" stroke="#e6eaf2" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <rect x="246" y="0" width="34" height="20" rx="6" fill="none" stroke="#e6eaf2" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="17" y="34" class="dl">월</text><text x="58" y="34" class="dl">화</text><text x="99" y="34" class="dl">수</text>
+      <text x="140" y="34" class="dl on">목</text><text x="181" y="34" class="dl">금</text><text x="222" y="34" class="dl">토</text><text x="263" y="34" class="dl">일</text>
+    </g>
+
+    <text x="42" y="620" class="lab">이번 주 해석</text>
+    <text x="42" y="636" class="ins">자고 움직이는 시각이 평소 범위 안에서 유지되면서,</text>
+    <text x="42" y="650" class="ins" font-weight="700" fill="#1a2233">생활 리듬이 안정 구간을 이어가고 있어요.</text>
+
+    <text x="42" y="668" class="lab">핵심 산출 데이터</text>
+    <circle cx="46" cy="680" r="3.5" fill="#7C5CFC"/>
+    <text x="56" y="684" class="val" font-weight="700" fill="#1a2233">걸음 수</text>
+    <text x="160" y="684" class="val">7,340걸음</text>
+    <rect x="290" y="674" width="46" height="18" rx="9" fill="#e8f8ee"/><text x="313" y="687" text-anchor="middle" class="chip" fill="#12A150">적정</text>
+  </g>
+
+  <text x="190" y="736" text-anchor="middle" font-size="10" fill="#8892a6">생활 탭 &gt; 지표별 분석 — 목업(값·구간은 예시) · 차트 대신 요일별 구간 칩, 보조 데이터 섹션 없음 · 2026-09-16</text>
+</svg>

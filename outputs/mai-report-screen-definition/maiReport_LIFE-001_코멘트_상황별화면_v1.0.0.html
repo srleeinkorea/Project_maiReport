@@ -1,0 +1,350 @@
+<title>코멘트 상황별 화면</title>
+<meta name="description" content="LIFE-001 목표 이어가기 블록이 10가지 상황에서 어떻게 보이는지 — 타일 상태와 코멘트 문구의 조합.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#EFF2F7;--surf:#FFFFFF;--surf-2:#F7F9FC;--surf-3:#E8EDF4;
+  --line:#DAE1EB;--ink:#0F1826;--text:#3B4860;--muted:#6C7A8E;--faint:#8D99AB;
+  --accent:#2F6BFF;
+  --mono:"JetBrains Mono",Consolas,monospace;
+  --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+
+  /* 앱 고정 팔레트 */
+  --app-bg:#F4F6FA;--app-card:#FFFFFF;--app-ink:#16202F;--app-sub:#7A879A;
+  --app-line:#EDF0F5;
+  --c-diet:#B4611F;--c-diet-bg:#FCEBD8;
+  --c-move:#B93E5F;--c-move-bg:#FBDDE6;
+  --c-sleep:#4A51BC;--c-sleep-bg:#DFE2FA;
+  --quiet:#66748A;--cap:#6E7C90;--cap-off:#95A0B0;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;
+  --line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;
+}}
+:root[data-theme="dark"]{
+  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;
+  --line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);
+  font-size:14px;line-height:1.7;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+main{max-width:1160px;margin:0 auto;padding:0 26px 80px}
+
+.masthead{background:var(--surf);border-bottom:1px solid var(--line)}
+.masthead-in{max-width:1160px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wordmark{position:relative;color:var(--ink);font-size:18px;font-weight:900;letter-spacing:-.06em;line-height:1}
+.wordmark::after{content:"";position:absolute;right:-6px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.mtag{margin-left:8px;padding-left:14px;border-left:1px solid var(--line);color:var(--muted);font-size:12px}
+.mver{margin-left:auto;color:var(--faint);font-size:11.5px;font-family:var(--mono)}
+
+.hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+h1{margin:0;color:var(--ink);font-size:clamp(26px,4vw,36px);font-weight:900;
+  line-height:1.2;letter-spacing:-.05em;text-wrap:balance;max-width:18ch}
+.hero p{margin:16px 0 0;max-width:62ch;font-size:14.5px}
+.hero p b{color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.lg{padding:5px 11px;border-radius:999px;background:var(--surf);border:1px solid var(--line);
+  font-size:11.5px;font-weight:700;color:var(--muted)}
+.lg i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:26px;margin-top:34px}
+.case{display:flex;flex-direction:column}
+.case-h{display:flex;align-items:baseline;gap:9px;margin-bottom:4px}
+.case-n{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--faint)}
+.case-h h2{margin:0;color:var(--ink);font-size:15px;font-weight:800;letter-spacing:-.03em}
+.case-cond{margin:0 0 12px;font-size:11.5px;color:var(--muted);line-height:1.55}
+.case-cond code{font-family:var(--mono);font-size:10.5px;background:var(--surf-3);padding:1px 5px;border-radius:4px;color:var(--ink)}
+
+/* 앱 블록 */
+.blk{background:var(--app-card);border-radius:18px;padding:16px 15px;
+  box-shadow:0 3px 14px rgba(28,44,76,.07)}
+.blk-h{margin:0 0 13px;font-size:15px;font-weight:900;letter-spacing:-.04em;color:var(--app-ink)}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.tile{border-radius:13px;padding:12px 8px 13px;text-align:center}
+.tile .cat{display:block;font-size:11px;font-weight:800;margin-bottom:7px}
+.tile .val{display:block;font-size:18px;font-weight:900;letter-spacing:-.04em;color:var(--app-ink);
+  line-height:1.15;font-variant-numeric:tabular-nums}
+.tile .val small{font-size:12px;font-weight:800}
+.tile .val.txt{font-size:13.5px;letter-spacing:-.03em;color:var(--quiet);padding:2px 0}
+.tile .sub{display:block;font-size:9.5px;color:var(--cap);margin-top:4px;line-height:1.4}
+.tile .sub.carry{font-weight:800}
+.tile .sub.off{color:var(--cap-off)}
+.t-diet{background:var(--c-diet-bg)}.t-diet .cat,.t-diet .sub.carry{color:var(--c-diet)}
+.t-move{background:var(--c-move-bg)}.t-move .cat,.t-move .sub.carry{color:var(--c-move)}
+.t-sleep{background:var(--c-sleep-bg)}.t-sleep .cat,.t-sleep .sub.carry{color:var(--c-sleep)}
+
+.cm{margin-top:13px;padding:12px 14px 13px;border-radius:13px}
+.cm .ttl{display:block;font-size:9.5px;font-weight:800;letter-spacing:.06em;margin-bottom:5px}
+.cm p{margin:0;font-size:12px;line-height:1.7;color:#3C4460}
+.cm b{font-weight:800}
+.cm .big{font-size:15px;font-weight:900;letter-spacing:-.02em}
+.cm-sleep{background:var(--c-sleep-bg)}
+.cm-sleep .ttl{color:#5159CC}.cm-sleep b{color:#4046B8}
+.cm-neutral{background:#ECF1F7}
+.cm-neutral .ttl{color:#5E6C82}.cm-neutral b{color:#2C3A51}
+
+.case-note{margin:11px 0 0;font-size:11.5px;color:var(--muted);line-height:1.6}
+.case-note b{color:var(--ink)}
+
+.rules{margin-top:46px;padding-top:30px;border-top:1px solid var(--line)}
+.rules h2{margin:0 0 16px;color:var(--ink);font-size:13px;font-weight:700;letter-spacing:.08em}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.rule{padding:15px 18px;background:var(--surf);border:1px solid var(--line);border-radius:10px}
+.rule b{display:block;color:var(--ink);font-size:13px;margin-bottom:5px}
+.rule p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.65}
+.rule code{font-family:var(--mono);font-size:11px;background:var(--surf-3);padding:1px 5px;border-radius:4px;color:var(--ink)}
+footer{padding:30px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mono);text-align:center}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <span class="wordmark">maiReport</span>
+    <span class="mtag">LIFE-001 · 코멘트 상황별 화면</span>
+    <span class="mver">v1.0 · 2026-09-11</span>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <h1>같은 블록이<br>열 가지로 보인다.</h1>
+  <p>
+    타일 상태와 코멘트가 맞물려 만들어지는 조합입니다. 번호가 <b>우선순위</b>이며,
+    여러 조건이 동시에 맞으면 <b>앞 번호</b>를 씁니다.
+    코멘트 카드 배경은 <b>언급하는 카테고리가 하나일 때만</b> 그 색을 쓰고, 둘 이상이거나 없으면 중립입니다.
+  </p>
+  <div class="legend">
+    <span class="lg"><i style="background:var(--c-sleep-bg)"></i>카테고리 색 코멘트</span>
+    <span class="lg"><i style="background:#ECF1F7"></i>중립 코멘트</span>
+    <span class="lg">타일 상태 — 이어가는중 · 주넘김 · 끊김 · 기록없음</span>
+  </div>
+</section>
+
+<div class="grid">
+
+  <!-- 01 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">01</span><h2>기록 없음</h2></div>
+    <p class="case-cond">세 카테고리 모두 기록 0건 · 첫 사용</p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val txt">—</span><span class="sub off">오늘 시작해요</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val txt">—</span><span class="sub off">오늘 시작해요</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val txt">—</span><span class="sub off">오늘 시작해요</span></div>
+      </div>
+      <div class="cm cm-neutral">
+        <span class="ttl">오늘부터</span>
+        <p>아직 기록이 없어요. 오늘 하나만 눌러도 <b>1일째</b>가 시작돼요.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">02</span><h2>오랜만에 열었을 때</h2></div>
+    <p class="case-cond">이틀 비우고 복귀 · <code>보류 한도 2일</code> 안이라 수면 흐름은 살아 있음</p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val txt">다시 시작</span><span class="sub off">오늘 하면 1일째</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val txt">다시 시작</span><span class="sub off">오늘 하면 1일째</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val">7<small>일째</small></span><span class="sub carry">지난주부터</span></div>
+      </div>
+      <div class="cm cm-neutral">
+        <span class="ttl">그대로 있어요</span>
+        <p>그동안의 기록은 <b>그대로</b> 있어요. 오늘부터 다시 이어가면 돼요.</p>
+      </div>
+    </div>
+    <p class="case-note"><b>이 화면이 설계의 시험대입니다.</b> 며칠 비었는지 세지 않고, 보류 규칙 덕에 수면은 숫자가 남아 있습니다.</p>
+  </div>
+
+  <!-- 03 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">03</span><h2>마디 도달</h2></div>
+    <p class="case-cond">최장 일수가 <code>7 · 14 · 30 · 100</code> 중 하나에 정확히 도달</p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val">3<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val">6<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val">14<small>일째</small></span><span class="sub carry">지난주부터</span></div>
+      </div>
+      <div class="cm cm-sleep">
+        <span class="ttl">2주 채움</span>
+        <p>수면이 오늘로 <b class="big">14일째</b>예요.<br>2주를 채웠습니다.</p>
+      </div>
+    </div>
+    <p class="case-note">마디 자체가 뉴스라 감탄사를 붙이지 않습니다.</p>
+  </div>
+
+  <!-- 04 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">04</span><h2>최장 기록 경신</h2></div>
+    <p class="case-cond">현재 일수 &gt; 그 카테고리의 과거 최장 · 마디와 겹치면 마디가 이김</p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val txt">다시 시작</span><span class="sub off">오늘 하면 1일째</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val">2<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val">11<small>일째</small></span><span class="sub carry">지난주부터</span></div>
+      </div>
+      <div class="cm cm-sleep">
+        <span class="ttl">최장 기록</span>
+        <p>수면이 <b class="big">11일째</b>예요.<br>지금까지 중 <b>가장 길게</b> 이어가는 중이에요.</p>
+      </div>
+    </div>
+    <p class="case-note">비교 대상이 <b>자기 과거 기록</b>뿐입니다. 남과 비교하지 않는 규칙 안에서 성취감을 줄 수 있는 유일한 축.</p>
+  </div>
+
+  <!-- 05 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">05</span><h2>마디 하루 전</h2></div>
+    <p class="case-cond">최장 일수 + 1 이 마디값 · <code>6 · 13 · 29 · 99</code></p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val">1<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val">4<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val">13<small>일째</small></span><span class="sub carry">지난주부터</span></div>
+      </div>
+      <div class="cm cm-sleep">
+        <span class="ttl">내일이면</span>
+        <p>수면을 <b class="big">13일째</b> 이어가고 있어요.<br><b>내일 한 번</b>이면 2주예요.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">06</span><h2>오늘 세 가지 완료</h2></div>
+    <p class="case-cond">오늘 날짜의 <code>is_done</code> 이 세 카테고리 모두 true</p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val">3<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val">5<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val">11<small>일째</small></span><span class="sub carry">지난주부터</span></div>
+      </div>
+      <div class="cm cm-neutral">
+        <span class="ttl">오늘 마무리</span>
+        <p>오늘 <b>세 가지를 다</b> 채웠어요.<br>내일도 그대로 이어집니다.</p>
+      </div>
+    </div>
+    <p class="case-note">이때만 <b>오늘의 목표 블록도 달라집니다</b> — <code>3/3 완료</code>, 버튼은 <code>✓ 완료</code> 칩으로.</p>
+  </div>
+
+  <!-- 07 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">07</span><h2>3개 동률</h2></div>
+    <p class="case-cond">세 카테고리 일수가 같음 · 2일 이상</p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val">5<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val">5<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val">5<small>일째</small></span><span class="sub">이어가는 중</span></div>
+      </div>
+      <div class="cm cm-neutral">
+        <span class="ttl">세 가지 모두</span>
+        <p>세 가지를 모두 <b class="big">5일째</b> 이어가고 있어요.<br>닷새 내내 셋 다 채웠네요.</p>
+      </div>
+    </div>
+    <p class="case-note">앱을 막 시작해 셋 다 <b>1일째</b>인 경우가 흔합니다. 그때도 같은 틀로 담담하게.</p>
+  </div>
+
+  <!-- 08 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">08</span><h2>2개 동률</h2></div>
+    <p class="case-cond">최장이 둘 · 일수가 같다는 건 <b>같은 날 시작</b>했다는 뜻</p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val txt">다시 시작</span><span class="sub off">오늘 하면 1일째</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val">10<small>일째</small></span><span class="sub carry">지난주부터</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val">10<small>일째</small></span><span class="sub carry">지난주부터</span></div>
+      </div>
+      <div class="cm cm-neutral">
+        <span class="ttl">나란히 이어가는 것</span>
+        <p>수면과 활동을 <b class="big">10일째</b> 나란히 이어가고 있어요.<br>같은 날 시작해서 여기까지 함께 왔네요.</p>
+      </div>
+    </div>
+    <p class="case-note">두 카테고리를 말하므로 코멘트 배경은 <b>중립</b>입니다.</p>
+  </div>
+
+  <!-- 09 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">09</span><h2>기본 · 최장 1개</h2></div>
+    <p class="case-cond">위 조건에 해당하지 않는 평상시</p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val txt">다시 시작</span><span class="sub off">오늘 하면 1일째</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val">1<small>일째</small></span><span class="sub">이어가는 중</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val">10<small>일째</small></span><span class="sub carry">지난주부터</span></div>
+      </div>
+      <div class="cm cm-sleep">
+        <span class="ttl">가장 오래 이어가는 것</span>
+        <p>수면을 <b class="big">10일째</b> 이어가고 있어요.<br><b>나흘만 더</b> 하면 2주예요.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="case">
+    <div class="case-h"><span class="case-n">10</span><h2>이어가는 것 없음</h2></div>
+    <p class="case-cond">기록은 있으나 세 카테고리 모두 흐름이 끊김</p>
+    <div class="blk">
+      <h3 class="blk-h">목표 이어가기</h3>
+      <div class="tiles">
+        <div class="tile t-diet"><span class="cat">식이</span><span class="val txt">다시 시작</span><span class="sub off">오늘 하면 1일째</span></div>
+        <div class="tile t-move"><span class="cat">활동</span><span class="val txt">다시 시작</span><span class="sub off">오늘 하면 1일째</span></div>
+        <div class="tile t-sleep"><span class="cat">수면</span><span class="val txt">다시 시작</span><span class="sub off">오늘 하면 1일째</span></div>
+      </div>
+      <div class="cm cm-neutral">
+        <span class="ttl">다시 시작하기</span>
+        <p>오늘 하나만 해도 다시 <b class="big">1일째</b>예요.<br>어느 것부터 시작해도 괜찮아요.</p>
+      </div>
+    </div>
+    <p class="case-note">끊긴 것을 문장에 올리는 <b>유일한 예외</b>입니다. 그땐 할 말이 그것뿐이고, 어디서든 시작해도 된다는 안내가 도움이 됩니다.</p>
+  </div>
+
+</div>
+
+<section class="rules">
+  <h2>훑어보고 나면</h2>
+  <div class="rgrid">
+    <div class="rule">
+      <b>중립 코멘트가 절반이다</b>
+      <p>10개 중 6개가 중립 배경입니다. 카테고리 색은 <b>한 종목을 콕 집어 말할 때만</b> 쓰므로,
+      색이 들어간 카드는 그 자체로 “이 종목 이야기”라는 신호가 됩니다.</p>
+    </div>
+    <div class="rule">
+      <b>타일은 네 상태뿐</b>
+      <p><code>N일째</code> · <code>N일째 + 지난주부터</code> · <code>다시 시작</code> · <code>—</code>.
+      열 가지 화면이 이 네 가지 조합으로 전부 만들어집니다.</p>
+    </div>
+    <div class="rule">
+      <b>‘다시 시작’이 반복돼도 괜찮다</b>
+      <p>02 · 04 · 08 · 09 · 10에 모두 등장합니다. 실패를 다섯 번 보여주는 게 아니라
+      <b>같은 다음 행동</b>을 다섯 상황에서 똑같이 안내하는 것입니다.</p>
+    </div>
+    <div class="rule">
+      <b>02가 가장 중요하다</b>
+      <p>보류 규칙이 없으면 복귀 화면은 10번과 똑같아집니다. 수면 타일에 <code>7일째</code>가 남아 있는지가
+      이 설계가 작동하는지의 증거입니다.</p>
+    </div>
+  </div>
+</section>
+
+<footer>maiReport · LIFE-001 코멘트 상황별 화면 · 내부 검토용</footer>
+
+</main>

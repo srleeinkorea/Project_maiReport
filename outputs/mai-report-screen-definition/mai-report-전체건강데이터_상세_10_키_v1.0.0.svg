@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="1010" viewBox="0 0 430 1010" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">
+<defs></defs>
+<rect width="430" height="1010" fill="rgb(232, 235, 242)"/>
+<rect x="0" y="0" width="430" height="1010" rx="0" fill="rgb(232, 235, 242)"/>
+<rect x="0" y="0" width="430" height="1010" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="0" y="0" width="430" height="930" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="0" y="0" width="430" height="56" rx="0" fill="rgb(255, 255, 255)"/>
+<text x="25.66" y="35.42" font-size="22" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">‹</text>
+<text x="207.16" y="33.06" font-size="16" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.32px" xml:space="preserve">키</text>
+<rect x="0" y="56" width="430" height="874" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="18" y="64" width="394" height="358.77" rx="20" fill="rgb(255, 255, 255)"/>
+<rect x="38" y="84" width="30" height="30" rx="15" fill="rgb(239, 231, 251)"/>
+<text x="46.78" y="104.4" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">↕</text>
+<text x="78" y="103.24" font-size="14" font-weight="800" fill="rgb(124, 92, 252)" letter-spacing="-0.28px" xml:space="preserve">키</text>
+<text x="186" y="138.46" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">최근 등록값</text>
+<text x="173.44" y="174.95" font-size="26" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.52px" xml:space="preserve">170</text>
+<text x="234.69" y="174.63" font-size="14" font-weight="600" fill="rgb(90, 104, 128)" letter-spacing="-0.52px" xml:space="preserve">cm</text>
+<rect x="38" y="197.19" width="354" height="135.19" rx="12" fill="rgb(245, 247, 251)"/>
+<text x="190.06" y="265.59" font-size="40" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🧍</text>
+<text x="65.73" y="304.51" font-size="12" font-weight="400" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">키는 단기적인 변화가 적어 그래프를 제공하지 않습니다.</text>
+<line x1="38" y1="346.88" x2="392" y2="346.88" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<text x="78.03" y="373.84" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">등록일</text>
+<text x="39.47" y="396.15" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">2026년 3월 15일</text>
+<text x="190.78" y="373.84" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">BMI 계산</text>
+<text x="193.5" y="396.15" font-size="13" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">반영 중</text>
+</svg>

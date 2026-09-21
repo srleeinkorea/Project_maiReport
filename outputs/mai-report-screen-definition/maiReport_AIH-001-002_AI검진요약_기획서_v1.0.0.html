@@ -1,0 +1,453 @@
+<title>건강검진 결과 AI 요약 기획서</title>
+<meta name="description" content="maiReport 건강검진 결과 AI 요약 v1.0 최종 — 사용자가 버튼을 누른 뒤 결과를 보기까지의 흐름을 단계별로 설명하고, 화면 구성·약속·예외·기준 범위를 부록으로 정리한 기획서.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#EFF2F7;--surf:#FFFFFF;--surf-2:#F7F9FC;--surf-3:#E8EDF4;
+  --line:#DAE1EB;--ink:#0F1826;--text:#3B4860;--muted:#6C7A8E;--faint:#8D99AB;
+  --accent:#2F6BFF;--accent-soft:#E7EEFF;
+  --stop:#B23A3A;--stop-soft:#FAE9E9;--ok:#1C7A57;--ok-soft:#E3F3EC;--warn:#96650A;--warn-soft:#FBF1D9;
+  --mono:"JetBrains Mono",Consolas,monospace;--sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;--line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;--accent-soft:#1B2740;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;--warn:#E0B061;--warn-soft:#2B2314;
+}}
+:root[data-theme="dark"]{
+  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;--line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;--accent-soft:#1B2740;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;--warn:#E0B061;--warn-soft:#2B2314;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.8;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+main{max-width:860px;margin:0 auto;padding:0 26px 80px}
+.masthead{background:var(--surf);border-bottom:1px solid var(--line)}
+.masthead-in{max-width:860px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wordmark{position:relative;color:var(--ink);font-size:18px;font-weight:900;letter-spacing:-.06em;line-height:1}
+.wordmark::after{content:"";position:absolute;right:-6px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.mtag{margin-left:8px;padding-left:14px;border-left:1px solid var(--line);color:var(--muted);font-size:12px}
+.mver{margin-left:auto;color:var(--faint);font-size:11.5px;font-family:var(--mono)}
+.hero{padding:52px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{display:block;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:15px}
+h1{margin:0;color:var(--ink);font-size:clamp(28px,4.4vw,40px);font-weight:900;line-height:1.2;letter-spacing:-.05em;text-wrap:balance;max-width:16ch}
+.lead{margin:20px 0 0;max-width:60ch;font-size:16px;line-height:1.85}
+.lead b{color:var(--ink)}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.meta span{display:block;font-size:10px;font-weight:800;color:var(--faint);letter-spacing:.08em;margin-bottom:5px}
+.meta strong{display:block;color:var(--ink);font-size:12.5px;font-weight:700;line-height:1.5}
+section{padding:46px 0;border-bottom:1px solid var(--line)}
+.sec-no{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--faint);letter-spacing:.06em}
+h2{margin:8px 0 0;color:var(--ink);font-size:25px;font-weight:900;letter-spacing:-.04em;line-height:1.32;text-wrap:balance}
+.sub{margin:12px 0 0;max-width:62ch;font-size:14.5px}
+h3{margin:34px 0 10px;color:var(--ink);font-size:16px;font-weight:700;letter-spacing:-.02em}
+p{margin:0 0 12px}p:last-child{margin-bottom:0}
+code{font-family:var(--mono);font-size:.85em;background:var(--surf-3);padding:1.5px 5px;border-radius:4px;color:var(--ink)}
+b{color:var(--ink);font-weight:700}
+ul{margin:10px 0;padding-left:19px}li{margin-bottom:7px;line-height:1.75}
+.mut{color:var(--muted);font-size:12.5px}
+.tbl{margin-top:18px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:var(--surf)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+thead th{background:var(--surf-2);color:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--line);color:var(--text);line-height:1.6;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-weight:700;color:var(--ink);white-space:nowrap}
+td.n{font-family:var(--mono);font-size:11px;color:var(--faint);width:1%}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;padding:2.5px 8px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap}
+.p-ok{background:var(--ok-soft);color:var(--ok)}.p-no{background:var(--stop-soft);color:var(--stop)}.p-wait{background:var(--warn-soft);color:var(--warn)}.p-acc{background:var(--accent-soft);color:var(--accent)}
+.note{margin-top:20px;padding:15px 19px;border-left:3px solid var(--accent);background:var(--surf);border-radius:0 8px 8px 0;font-size:13.5px}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}.note.stop{border-left-color:var(--stop);background:var(--stop-soft)}.note.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.note-label{display:block;margin-bottom:5px;font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--accent)}
+.note.warn .note-label{color:var(--warn)}.note.stop .note-label{color:var(--stop)}.note.ok .note-label{color:var(--ok)}
+
+/* 한 장 요약 흐름 */
+.journey{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:22px}
+.jstep{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px 14px 14px}
+.jstep .no{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:800;align-items:center;justify-content:center;margin-bottom:9px}
+.jstep b{display:block;font-size:14px;color:var(--ink);line-height:1.4}
+.jstep span{display:block;margin-top:5px;font-size:12px;color:var(--muted);line-height:1.5}
+
+/* 단계 카드 */
+.step{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:22px;align-items:start;margin-top:22px;padding:22px 0 26px;border-top:1px dashed var(--line)}
+.step:first-of-type{border-top:0;padding-top:6px}
+.step h3{margin:0 0 10px;font-size:19px;letter-spacing:-.03em}
+.step h3 i{font-style:normal;display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:800;align-items:center;justify-content:center;margin-right:9px;vertical-align:-3px}
+.who{display:grid;grid-template-columns:76px 1fr;gap:8px 12px;margin-top:12px;font-size:14px}
+.who span{font-size:11px;font-weight:800;color:var(--faint);letter-spacing:.06em;padding-top:5px}
+.who p{margin:0}
+.who p b{color:var(--ink)}
+@media (max-width:640px){.step{grid-template-columns:1fr}}
+/* 폰 스케치 */
+.phone{background:var(--surf);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 1px 0 rgba(15,24,38,.03)}
+.phone .cap{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.06em;margin:0 0 10px 4px}
+.blk{border:1px dashed var(--line);border-radius:10px;padding:9px 11px;margin-top:8px;font-size:11.5px;line-height:1.5;color:var(--text);background:var(--surf-2)}
+.blk:first-of-type{margin-top:0}
+.blk b{display:block;font-size:11px;color:var(--ink);margin-bottom:2px}
+.blk.dim{opacity:.6}
+.blk.cta{border-style:solid;border-color:var(--accent);background:var(--accent-soft);color:var(--accent);text-align:center;font-weight:700}
+.blk.cta.ghost{background:transparent;color:var(--muted);border-color:var(--line)}
+.blk .row{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-top:1px solid var(--line)}
+.blk .row:first-of-type{border-top:0}
+.blk .row em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.blk .row i{font-style:normal;font-size:10px;padding:1px 7px;border-radius:20px;font-weight:700}
+.i-stop{background:var(--stop-soft);color:var(--stop)}.i-ok{background:var(--ok-soft);color:var(--ok)}.i-warn{background:var(--warn-soft);color:var(--warn)}
+.scrim{background:var(--surf-3);border-radius:14px;padding:26px 10px 10px;margin-top:8px}
+.dlg{background:var(--surf);border-radius:14px;padding:14px;box-shadow:0 8px 24px rgba(15,24,38,.12)}
+.dlg h4{margin:0 0 6px;color:var(--ink);font-size:13px;line-height:1.45}
+.dlg p{font-size:11px;line-height:1.55;margin:0 0 6px}
+.dlg .btns{display:grid;grid-template-columns:1fr 1.6fr;gap:6px;margin-top:10px}
+.dlg .btns span{display:block;text-align:center;padding:8px;border-radius:9px;font-size:11.5px;font-weight:700}
+.dlg .btns .go{background:var(--accent);color:#fff}.dlg .btns .no{background:var(--surf-3);color:var(--muted)}
+.gen{display:flex;flex-direction:column;gap:6px;padding:4px 0}
+.gen div{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--faint)}
+.gen div.done{color:var(--muted)}.gen div.now{color:var(--ink);font-weight:700}
+.gen i{width:9px;height:9px;border-radius:50%;border:2px solid var(--line);flex:none}
+.gen .done i{background:var(--ok);border-color:var(--ok)}.gen .now i{border-color:var(--accent)}
+.bar{display:flex;height:9px;border-radius:5px;overflow:hidden;margin:6px 0 2px;position:relative}
+.bar i{display:block;height:100%}.bar .g{background:#CFEBDB}.bar .y{background:#F6E3B5}.bar .r{background:#F5C9D1}
+.bar em{position:absolute;top:-3px;width:5px;height:15px;border-radius:3px;background:var(--ink);margin-left:-2px}
+.ppl{display:flex;align-items:flex-end;gap:5px;height:34px;margin:6px 0 2px}
+.ppl i{display:block;width:12px;border-radius:5px 5px 2px 2px;background:#C9D8F7}
+.ppl i.me{background:#3B7BFF}
+.srcs{padding:40px 0 0;font-size:12.5px;color:var(--muted)}
+.srcs h2{font-size:15px;margin-bottom:10px}.srcs code{font-size:11.5px}
+@media (max-width:520px){main{padding:0 16px 60px}.masthead-in{padding:12px 16px}.mver{margin-left:0;width:100%}}
+</style>
+
+<div class="masthead"><div class="masthead-in">
+  <span class="wordmark">maiReport</span>
+  <span class="mtag">병원 › 방문이력 › 검진 상세 › 건강검진 결과 AI 요약</span>
+  <span class="mver">v1.0 최종 · 2026-09-14</span>
+</div></div>
+
+<main>
+
+<div class="hero">
+  <span class="eyebrow">화면 기획서 · 최종</span>
+  <h1>건강검진 결과 AI 요약</h1>
+  <p class="lead">검진 결과지에는 숫자와 판정이 가득하지만, 사용자가 궁금한 건 네 가지뿐입니다.
+  <b>뭘 먼저 봐야 하지?</b> <b>또래랑 비교하면 어디쯤이지?</b> <b>이 숫자는 정상 범위 어디쯤이지?</b> <b>지난번보다 나빠졌나?</b>
+  이 화면은 그 네 가지에 순서대로 답합니다. 검진기관이 내린 판정을 쉽게 풀어 줄 뿐, 새로 진단하지는 않습니다.</p>
+  <div class="meta">
+    <div><span>누가</span><strong>검진 결과를 연동하거나 등록한 사용자</strong></div>
+    <div><span>어디서</span><strong>검진 상세 화면의 버튼 하나</strong></div>
+    <div><span>얼마나</span><strong>동의 1번 · 생성 10초 안팎</strong></div>
+    <div><span>결과</span><strong>한 화면에 위에서 아래로 읽는 요약</strong></div>
+  </div>
+</div>
+
+<!-- 00 -->
+<section>
+  <span class="sec-no">한 장 요약</span>
+  <h2>버튼을 누르면 이런 일이 일어납니다</h2>
+  <p class="sub">전체 흐름은 다섯 단계입니다. 사용자가 직접 하는 일은 <b>버튼 두 번</b>(요약하기, 동의하기)이고 나머지는 앱이 합니다.</p>
+  <div class="journey">
+    <div class="jstep"><span class="no">1</span><b>검진 상세에서 버튼을 누른다</b><span>"ChatGPT로 결과 요약하기"</span></div>
+    <div class="jstep"><span class="no">2</span><b>무엇을 보내는지 확인하고 동의한다</b><span>처음 한 번만 자세히, 이후엔 한 줄 확인</span></div>
+    <div class="jstep"><span class="no">3</span><b>앱이 정리하는 동안 기다린다</b><span>버튼 자리에서 3단계 진행 · 나가도 계속됨</span></div>
+    <div class="jstep"><span class="no">4</span><b>결과 화면이 열린다</b><span>결론 → 또래 비교 → 항목별(화살표로 5회 변화) → 해야 할 행동</span></div>
+    <div class="jstep"><span class="no">5</span><b>다음에 다시 보면 바로 열린다</b><span>검진 1건에 요약 1개 · 검진 데이터가 바뀔 때만 다시</span></div>
+  </div>
+</section>
+
+<!-- 01 -->
+<section>
+  <span class="sec-no">01</span>
+  <h2>단계별로 따라가기</h2>
+  <p class="sub">각 단계마다 <b>사용자가 보는 것</b>, <b>사용자가 하는 일</b>, <b>앱이 하는 일</b>을 나눠 적었습니다.</p>
+
+  <div class="step">
+    <div>
+      <h3><i>1</i>검진 상세에서 시작합니다</h3>
+      <div class="who">
+        <span>보는 것</span><p>검진 상세 화면의 종합 소견 카드 아래에 <b>"ChatGPT로 결과 요약하기"</b> 버튼이 있습니다. 일반 건강검진이고 검사값이 하나라도 있을 때만 보입니다.</p>
+        <span>하는 일</span><p>버튼을 누릅니다.</p>
+        <span>앱</span><p>이 검진에 이미 만든 요약이 있으면 동의 없이 <b>바로 결과 화면</b>을 엽니다. 없으면 다음 단계로 갑니다.</p>
+      </div>
+    </div>
+    <div class="phone"><p class="cap">검진 상세</p>
+      <div class="blk"><b>2025년 건강검진</b>2025.06.19 · 메디피움의원</div>
+      <div class="blk"><b>종합 소견</b>정상 B · 혈압·혈당 생활습관 관리 권고</div>
+      <div class="blk cta">✦ ChatGPT로 결과 요약하기</div>
+      <div class="blk dim"><b>확인이 필요한 결과</b>흉부 X선 재검 권고 · 혈압 148/94 · 공복혈당 128</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <h3><i>2</i>무엇을 보내는지 확인하고 동의합니다</h3>
+      <div class="who">
+        <span>보는 것</span><p>화면 아래에서 시트가 올라옵니다. <b>보내는 것</b>(검사 수치·판정·기관 소견), <b>보내지 않는 것</b>(이름·생년월일·연락처), <b>처리 방식</b>(외부 AI에서 정리하고 결과만 저장) 세 줄이 보입니다. "자세히 보기"를 누르면 AI 제공자와 동의 철회 방법이 나옵니다.</p>
+        <span>하는 일</span><p><b>"동의하고 요약하기"</b>를 누릅니다. 취소하거나 바깥을 누르면 시트만 닫히고 아무것도 나가지 않습니다.</p>
+        <span>앱</span><p>동의는 계정에 한 번 저장됩니다. 두 번째부터는 "2025.06.19 검진 결과를 요약할까요?" 한 줄과 "요약하기" 버튼만 보입니다. 동의 내용이 바뀌면(제공자나 항목이 달라지면) 다시 자세한 시트를 보여줍니다.</p>
+      </div>
+    </div>
+    <div class="phone"><p class="cap">동의 시트 · 최초 1회</p>
+      <div class="scrim"><div class="dlg">
+        <h4>검진 결과를 ChatGPT로 요약할까요?</h4>
+        <p>↑ 검사 수치·판정·기관 소견만 보내요</p>
+        <p>✕ 이름·생년월일·연락처는 보내지 않아요</p>
+        <p>✓ 요약 결과만 저장하고 보낸 데이터는 남기지 않아요</p>
+        <div class="btns"><span class="no">취소</span><span class="go">동의하고 요약하기</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <h3><i>3</i>앱이 정리하는 동안 기다립니다</h3>
+      <div class="who">
+        <span>보는 것</span><p>시트가 닫히고, 방금 누른 버튼 자리에 세 줄이 순서대로 켜집니다. <b>검사 정보 확인 → 검사 결과를 쉽게 정리하고 있어요 → 수치·판정 검증</b>. 전체 화면을 가리는 로딩은 없습니다.</p>
+        <span>하는 일</span><p>기다리거나, 다른 화면으로 가도 됩니다.</p>
+        <span>앱</span><p>보통 10초 안팎입니다. 사용자가 이 화면에 그대로 있으면 끝나는 즉시 결과 화면을 엽니다. 다른 화면에 있었다면 열지 않고, 검진 상세로 돌아왔을 때 "요약 보기" 버튼으로 바뀌어 있습니다. 30초를 넘기면 실패로 처리하고 "다시 시도"를 보여줍니다.</p>
+      </div>
+    </div>
+    <div class="phone"><p class="cap">검진 상세 · 생성 중</p>
+      <div class="blk"><b>종합 소견</b>정상 B
+        <div class="gen"><div class="done"><i></i>검사 정보 확인</div><div class="now"><i></i>검사 결과를 쉽게 정리하고 있어요</div><div><i></i>수치·판정 검증</div></div>
+        <span class="mut" style="font-size:10px">다른 화면으로 이동해도 계속 진행돼요</span></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <h3><i>4</i>결과 화면이 열립니다</h3>
+      <div class="who">
+        <span>보는 것</span><p>제목이 "건강검진 결과 AI 요약"인 한 화면입니다. 위에서 아래로 <b>종합 요약 → 신체계측 또래 비교 → 항목별 해석 → 내가 해야 할 행동</b> 순서라, 맨 위 결론만 읽고 닫아도 되고 끝까지 내려가면 무엇을 하면 되는지까지 볼 수 있습니다. 각 영역은 02장에서 설명합니다.</p>
+        <span>하는 일</span><p>읽습니다. 누를 것은 검사 행 옆의 <b>화살표</b>(그 검사의 최근 5회 변화 그래프가 펼쳐짐)와 뒤로가기뿐입니다. 원본 보기 버튼이나 설명 접기는 없습니다.</p>
+        <span>앱</span><p>숫자·등수·상태는 검진 데이터와 기준 범위에서 규칙으로 계산해 그리고, AI는 결론 카드의 두 문장과 검사군별 해석 한 문장만 씁니다. AI 문장에는 숫자가 들어가지 않습니다.</p>
+      </div>
+    </div>
+    <div class="phone"><p class="cap">건강검진 결과 AI 요약</p>
+      <div class="blk"><b>종합 요약</b>이번 검진에서 확인이 필요한 변화가 있어요</div>
+      <div class="blk"><b>신체계측</b>체중 69.3kg · 또래 100명 중 81등<div class="ppl"><i style="height:14px"></i><i style="height:18px"></i><i style="height:22px"></i><i class="me" style="height:28px"></i><i style="height:32px"></i></div></div>
+      <div class="blk"><b>항목별 해석</b>콜레스테롤 · 총콜레스테롤 232<span class="bar"><i class="g" style="width:44%"></i><i class="y" style="width:22%"></i><i class="r" style="width:34%"></i><em style="left:62%"></em></span></div>
+      <div class="blk dim"><b>내가 해야 할 행동</b>1 흉부 X선 재검 [검진기관 권고] · 2 혈압 재측정 · 3 공복혈당은 진료로</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div>
+      <h3><i>5</i>다음에 다시 보면</h3>
+      <div class="who">
+        <span>보는 것</span><p>검진 상세의 버튼 자리에 한 줄 결론("혈압과 공복혈당을 먼저 확인해 주세요")과 <b>"요약 보기 ›"</b>가 있습니다. 진료요약 탭의 검진 카드에서도 같은 버튼으로 들어올 수 있습니다.</p>
+        <span>하는 일</span><p>누르면 저장된 결과가 바로 열립니다.</p>
+        <span>앱</span><p>검진 1건에 요약은 1개입니다. 같은 검진을 다시 요약하는 버튼은 없습니다. 검진 데이터가 갱신되거나 검수값을 고쳤을 때만 결과 화면 위에 "검진 데이터가 갱신됐어요 · 다시 정리하기" 배너를 띄웁니다.</p>
+      </div>
+      <div class="note">
+        <span class="note-label">왜 다시 요약하기 버튼이 없나</span>
+        <p>같은 데이터를 다시 보내면 매번 조금씩 다른 문장이 나옵니다. 두 번 열어 다른 말을 보면 사용자는 어느 쪽이 맞는지 묻게 됩니다. <b>입력이 같으면 결과도 같아야</b> 신뢰가 유지됩니다.</p>
+      </div>
+    </div>
+    <div class="phone"><p class="cap">검진 상세 · 요약 있음</p>
+      <div class="blk"><b>종합 소견</b>정상 B</div>
+      <div class="blk cta">혈압과 공복혈당을 먼저 확인해 주세요 · 요약 보기 ›</div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <span class="sec-no">02</span>
+  <h2>결과 화면을 위에서 아래로 읽기</h2>
+  <p class="sub">네 영역이 사용자의 네 가지 질문에 하나씩 답합니다.</p>
+
+  <h3>① 종합 요약 — "뭘 먼저 봐야 하지?"</h3>
+  <ul>
+    <li>큰 제목 한 줄이 결론입니다. 상황에 따라 정해진 문장 중 하나가 나옵니다. 예: <b>"이번 검진에서 확인이 필요한 변화가 있어요"</b>, 모두 정상이면 <b>"주요 검사 결과가 대체로 안정적이에요"</b>.</li>
+    <li>아래에 숫자 세 칸: <b>정상 / 관리 필요 / 확인 필요</b>. 항목별 해석의 수치 검사와 그 밖의 검사 결과를 합쳐(예시 13 + 5 = 18개) 상태별로 센 것이라 세 수를 더하면 검사 수가 되고, 아래 섹션의 배지 색과 그대로 이어집니다. 관리 필요는 생활습관으로 지켜볼 값, 확인 필요는 검진기관이 재검·진료를 권고한 값입니다.</li>
+    <li>확인할 것이 있으면 <b>우선 확인 항목</b> 카드에 1·2·3 순위로 최대 3개를 보여줍니다. 검진기관이 확인 필요로 판정한 것이 먼저(흉부 X선 재검 권고처럼 판정형 검사가 있으면 그것이 1순위), 관리 필요 중에서 계속 오르는 것이 다음입니다. 모두 정상이면 이 카드 대신 혈압·혈당·콜레스테롤·BMI 네 값을 격자로 보여줍니다.</li>
+    <li>결론 제목 아래 <b>AI 문장 두 개</b>가 붙습니다. 첫 문장은 무엇이 눈에 띄는지, 둘째 문장은 어떻게 받아들이면 되는지. 숫자 없이 "가까운 시일 내 재검·재측정하고 필요하면 의료진과 상담해 주세요" 정도까지만 말합니다. 별도의 "AI 한줄 정리" 카드는 두지 않습니다(같은 말을 두 번 하게 됩니다).</li>
+  </ul>
+
+  <h3>② 신체계측 — "또래랑 비교하면 어디쯤이지?"</h3>
+  <ul>
+    <li>키·체중·BMI·허리둘레가 <b>각각 카드 하나</b>이고, "동일한 성별·연령대 100명 기준" 안내는 카드 4장 아래에 작게 둡니다. 항목마다 색이 다릅니다(키 파랑, 체중 초록, BMI 보라, 허리둘레 주황).</li>
+    <li>카드 왼쪽에 내 수치, 그 아래 <b>"내 또래 100명 중 70등"</b>처럼 등수를 크게(국민건강영양조사 경계값표로 계산), 그리고 "조금 큰 편이에요" 같은 배지가 있습니다.</li>
+    <li>카드 오른쪽에 사람 그림 5개가 서 있습니다. 왼쪽부터 1~20등, 21~40등, 41~60등, 61~80등, 81~100등 구간이고, 각 사람 아래에는 그 등수 구간 한 줄만 씁니다. <b>내가 속한 구간의 사람만 진한 색에 "나" 말풍선</b>이 붙습니다.</li>
+    <li>사람 그림은 항목을 보면 바로 알 수 있게 그립니다. 키는 사람이 점점 커지고, 체중은 몸 전체가 넓어지고, BMI는 몸통이 둥글게 차오르고, 허리둘레는 옆모습에서 배가 앞으로 나옵니다.</li>
+    <li>검사 의미 같은 설명이나 응원 문구는 넣지 않습니다. 그림과 등수가 설명이고, 무엇을 할지는 ④에서 말합니다. 카드 4개로 섹션이 끝납니다.</li>
+  </ul>
+
+  <h3>③ 항목별 해석 — "이 숫자는 정상 범위 어디쯤이지?"</h3>
+  <ul>
+    <li>혈압·혈당·콜레스테롤·간 기능·신장 기능·빈혈 <b>검사군마다 카드 하나</b>입니다. 카드 위에 정상 / 관리 필요 / 확인 필요 배지가 붙습니다.</li>
+    <li>검사군 안의 개별 검사는 <b>한 줄씩</b> 나옵니다. 콜레스테롤이면 총콜레스테롤·LDL·HDL·중성지방 네 줄, 간 기능이면 AST·ALT·γ-GTP 세 줄입니다.</li>
+    <li>줄마다 왼쪽에 검사명과 내 값, 오른쪽에 <b>기준 범위 막대</b>가 있습니다. 막대는 정상(초록)·관리 필요(노랑)·확인 필요(분홍) 구간으로 칠해져 있고, 구간이 바뀌는 수치가 눈금으로, 내 값이 마커로 찍힙니다. 마커 색은 내 값이 놓인 구간 색과 같습니다.</li>
+    <li>HDL과 eGFR처럼 <b>낮을수록 나쁜</b> 검사는 막대 방향이 반대입니다(확인 필요 구간이 왼쪽).</li>
+    <li>카드 배지는 줄 중에서 가장 나쁜 상태를 따릅니다. 카드 아래에 해석 한 문장과 검사 의미 한 문단이 <b>항상</b> 보입니다.</li>
+    <li>줄 오른쪽 끝의 <b>화살표(›)</b>를 누르면 그 검사의 <b>최근 5회 검진 값</b>이 꺾은선 그래프로 줄 아래에 펼쳐집니다. 위에 "이전보다 높음 / 낮음 / 비슷함" 표시, 아래에 5개 값과 검진일이 붙습니다. 기록이 없는 회차는 점을 찍지 않고, 이전 검진이 아예 없으면 화살표를 두지 않습니다.</li>
+  </ul>
+  <div class="note ok">
+    <span class="note-label">왜 검사군 카드 + 검사별 막대인가</span>
+    <p>콜레스테롤 하나에도 네 값이 있고 방향까지 다릅니다. 한 막대에 대표값만 두면 나머지가 사라지고, 검사마다 카드를 만들면 화면이 두 배로 길어집니다. <b>카드는 검사군, 막대는 검사</b>로 나누면 둘 다 해결됩니다.</p>
+  </div>
+
+  <h3>③-2 그 밖의 검사 결과 — "숫자가 없는 검사는?"</h3>
+  <ul>
+    <li>제목은 "그 밖의 검사 결과"입니다. 흉부 X선, 요검사(요단백), B형간염, 시력, 청력처럼 <b>기준 범위가 숫자로 없는 검사</b>는 막대를 그릴 수 없습니다. 대신 카드 하나에 검사명 · 검진기관 소견 · 판정 배지를 한 줄씩 보여 줍니다. 카드 제목은 따로 두지 않고, 시력과 청력은 각각 한 줄입니다.</li>
+    <li>소견은 결과지 문구 그대로("경화 소견 · 폐렴 의심 · 재검 권고")이고 AI가 고쳐 쓰지 않습니다. 확인 필요가 위로 옵니다.</li>
+    <li>이 검사들도 종합 요약의 개수·우선 확인 항목·행동에 수치 검사와 똑같이 들어갑니다. 재검 권고가 있으면 우선 확인 항목 1순위이자 행동 1번입니다.</li>
+    <li>암검진·구강검진 결과가 연동되면 같은 형식으로 행이 늘어납니다.</li>
+  </ul>
+
+  <h3>④ 내가 해야 할 행동 — "그래서 뭘 하면 되지?"</h3>
+  <ul>
+    <li>번호 목록으로 1~3개. <b>검진기관 권고를 먼저</b>, 그다음 일반 건강관리 안내, 앱 안내 순서입니다. 각 항목은 제목 한 줄과 설명 한 문장뿐이고, 근거 태그는 화면에 붙이지 않습니다(순서만 그 규칙을 따릅니다).</li>
+    <li>확인 필요가 있을 때 예: "흉부 X선 재검을 받으세요"(검진기관 권고) → "혈압을 다시 재 보세요"(검진기관 권고) → "공복혈당은 진료로 확인하세요"(검진기관 권고). 총콜레스테롤은 관리 필요(정상B)라 검진기관 권고에 넣지 않습니다. 권고가 3개를 채우면 "체중과 허리둘레를 조금씩 줄여 보세요" 같은 일반 안내는 밀려납니다.</li>
+    <li>모두 정상일 때 예: "지금 습관을 이어가세요" → "다음 검진 일정을 확인하세요" → "이번 결과를 보관하세요".</li>
+    <li>개수를 맞추려고 억지로 늘리지 않고, 검진기관 권고가 있으면 빼지 않습니다. 재검 날짜나 진료 기한을 앱이 지어내지 않습니다.</li>
+  </ul>
+  <p class="mut">"지난번보다 나빠졌나?"는 별도 섹션 대신 ③의 검사 행마다 화살표로 답합니다. 궁금한 검사만 펼쳐 보면 되므로 화면이 짧아지고, 항목과 변화가 한자리에 있습니다.</p>
+
+  <h3>⑤ 맨 아래 한 줄</h3>
+  <p>"AI 요약은 검진 결과를 이해하기 쉽게 정리한 참고 정보이며, 의학적 진단을 대신하지 않아요. 걱정되는 항목은 의료진과 상담해 주세요."</p>
+</section>
+
+<!-- 03 -->
+<section>
+  <span class="sec-no">03</span>
+  <h2>이 화면이 지키는 다섯 가지 약속</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>약속</th><th>무슨 뜻인가</th><th>화면에서 어떻게 지키나</th></tr></thead>
+    <tbody>
+      <tr><td class="k">판정은 검진기관 것</td><td>정상·관리 필요·확인 필요는 결과지의 판정과 기준 범위로 정한다</td><td>배지·막대 구간·우선순위는 전부 규칙 계산. AI는 등급을 만들지 않는다</td></tr>
+      <tr><td class="k">숫자는 코드가 그린다</td><td>AI가 쓴 문장에는 숫자가 없다</td><td>수치·등수·눈금은 데이터에서 렌더링. AI 문장에 숫자가 섞이면 자동 차단</td></tr>
+      <tr><td class="k">진단하지 않는다</td><td>"고혈압입니다", "위험", "걱정 없어요"를 쓰지 않는다</td><td>"기준보다 높아요", "의료진과 상담해 주세요"까지만. 식이·운동·약 권고는 홈 코칭의 몫</td></tr>
+      <tr><td class="k">동의 없이 보내지 않는다</td><td>식별 정보는 어떤 경우에도 보내지 않는다</td><td>검진일도 "이번·1회 전"으로 바꿔 보낸다. 취소하면 요청이 나가지 않는다</td></tr>
+      <tr><td class="k">군더더기를 두지 않는다</td><td>빈 목록, "0개" 카드, 토글, 원본 보기, 안내 박스, 번호 라벨을 없앤다</td><td>정상이면 우선 확인 카드 자체가 사라진다. 설명은 접지 않고 바로 보여준다</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 04 -->
+<section>
+  <span class="sec-no">04</span>
+  <h2>이런 경우에는</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>상황</th><th>사용자가 보는 것</th></tr></thead>
+    <tbody>
+      <tr><td class="k">이전 검진이 없다</td><td>검사 행의 화살표를 두지 않는다. 종합 요약의 정상 / 관리 필요 / 확인 필요 숫자는 이번 결과만으로 세므로 그대로 보인다</td></tr>
+      <tr><td class="k">검사 일부가 없다</td><td>있는 줄만 그린다. 검사군에 줄이 하나도 없으면 카드를 숨긴다. "누락"이라고 말하지 않는다</td></tr>
+      <tr><td class="k">직접 등록해서 판정이 없다</td><td>기준 범위로만 막대를 그리고 카드 배지는 회색 "판정 정보 확인". 제목은 "검진 항목을 정리했어요"</td></tr>
+      <tr><td class="k">또래 분포 데이터가 없다</td><td>신체계측 카드에서 등수와 사람 그림을 빼고 값만 보여준다</td></tr>
+      <tr><td class="k">요약과 상세의 수치가 다르다</td><td>생성을 멈추고 "검사 정보를 확인한 뒤 다시 요약해 주세요"</td></tr>
+      <tr><td class="k">검수값을 고쳤다</td><td>기존 요약은 그대로 열리되 위에 "검진 데이터가 갱신됐어요 · 다시 정리하기" 배너</td></tr>
+      <tr><td class="k">동의를 철회했다</td><td>새 요약을 만들 수 없고, 이미 만든 요약도 지워진다. 철회 화면에서 미리 알려준다</td></tr>
+      <tr><td class="k">네트워크 오류</td><td>"정리를 마치지 못했어요. 잠시 후 다시 시도해 주세요" + 다시 시도. 동의는 다시 받지 않는다</td></tr>
+      <tr><td class="k">안전 검수에서 걸렸다</td><td>"이번 결과는 AI 요약으로 정리하기 어려워요. 검진기관 판정을 직접 확인해 주세요". 다시 시도 버튼은 없다</td></tr>
+      <tr><td class="k">이미 치료 중인 사용자(유질환자)</td><td>"확인이 필요해요" 대신 변화만 말한다 — "지난 검진과 비교해 혈압은 비슷하게 유지되고 있어요"</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 05 -->
+<section>
+  <span class="sec-no">부록 A</span>
+  <h2>기준 범위 (초안값)</h2>
+  <p class="sub">항목별 해석 막대에 쓰는 구간입니다. <b>국민건강보험공단 판정기준</b>(건강검진 실시기준 [별표 4의 별첨])을 그대로 따르며, 결과지에 검진기관 판정이 있으면 그 판정을 우선합니다. 출처와 학회 지침 대조는 <code>maiReport_AI검진요약_기준범위_레퍼런스</code> 문서에 있습니다.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>검사군</th><th>검사</th><th>정상</th><th>관리 필요</th><th>확인 필요</th><th>막대 축</th><th>단위</th></tr></thead>
+    <tbody>
+      <tr><td class="k" rowspan="2">혈압</td><td>수축기</td><td class="num">&lt;120</td><td class="num">120~139</td><td class="num">≥140</td><td class="num">90~180</td><td>mmHg</td></tr>
+      <tr><td>이완기</td><td class="num">&lt;80</td><td class="num">80~89</td><td class="num">≥90</td><td class="num">50~120</td><td>mmHg</td></tr>
+      <tr><td class="k">혈당</td><td>공복혈당</td><td class="num">&lt;100</td><td class="num">100~125</td><td class="num">≥126</td><td class="num">60~200</td><td>mg/dL</td></tr>
+      <tr><td class="k" rowspan="4">콜레스테롤</td><td>총콜레스테롤</td><td class="num">&lt;200</td><td class="num">200~239</td><td class="num">≥240</td><td class="num">120~300</td><td>mg/dL</td></tr>
+      <tr><td>LDL</td><td class="num">&lt;130</td><td class="num">130~159</td><td class="num">≥160</td><td class="num">50~220</td><td>mg/dL</td></tr>
+      <tr><td>HDL <span class="pill p-acc">낮을수록 나쁨</span></td><td class="num">≥60</td><td class="num">40~59</td><td class="num">&lt;40</td><td class="num">20~100</td><td>mg/dL</td></tr>
+      <tr><td>중성지방</td><td class="num">&lt;150</td><td class="num">150~199</td><td class="num">≥200</td><td class="num">50~300</td><td>mg/dL</td></tr>
+      <tr><td class="k" rowspan="4">간 기능</td><td>AST</td><td class="num">≤40</td><td class="num">41~50</td><td class="num">≥51</td><td class="num">0~100</td><td>IU/L</td></tr>
+      <tr><td>ALT</td><td class="num">≤35</td><td class="num">36~45</td><td class="num">≥46</td><td class="num">0~100</td><td>IU/L</td></tr>
+      <tr><td>γ-GTP · 남 <span class="pill p-acc">예시는 여</span></td><td class="num">≤63</td><td class="num">64~77</td><td class="num">≥78</td><td class="num">0~140</td><td>IU/L</td></tr>
+      <tr><td>γ-GTP · 여</td><td class="num">≤35</td><td class="num">36~45</td><td class="num">≥46</td><td class="num">0~90</td><td>IU/L</td></tr>
+      <tr><td class="k" rowspan="2">신장 기능</td><td>eGFR <span class="pill p-acc">낮을수록 나쁨</span></td><td class="num">≥60</td><td class="num">—</td><td class="num">&lt;60</td><td class="num">30~120</td><td>mL/min/1.73㎡</td></tr>
+      <tr><td>크레아티닌</td><td class="num">≤1.5</td><td class="num">—</td><td class="num">&gt;1.5</td><td class="num">0.4~2.5</td><td>mg/dL</td></tr>
+      <tr><td class="k" rowspan="2">빈혈</td><td>혈색소 · 남 <span class="pill p-acc">양쪽 경계</span></td><td class="num">13.0~16.5</td><td class="num">12.0~12.9 · 16.6~17.5</td><td class="num">&lt;12.0 · &gt;17.5</td><td class="num">8~20</td><td>g/dL</td></tr>
+      <tr><td>혈색소 · 여</td><td class="num">12.0~15.5</td><td class="num">10.0~11.9 · 15.6~16.5</td><td class="num">&lt;10.0 · &gt;16.5</td><td class="num">8~20</td><td>g/dL</td></tr>
+      <tr><td class="k" rowspan="2">신체계측 배지</td><td>BMI</td><td class="num">18.5~24.9</td><td class="num">25~29.9</td><td class="num">&lt;18.5 · ≥30</td><td>—</td><td>kg/m²</td></tr>
+      <tr><td>허리둘레</td><td class="num">남 &lt;90 · 여 &lt;85</td><td class="num">남 ≥90 · 여 ≥85</td><td class="num">—</td><td>—</td><td>cm</td></tr>
+    </tbody>
+  </table></div>
+  <p style="margin-top:12px" class="mut">신장 기능은 공단 기준이 2구간(정상 / 질환의심)이라 막대도 2구간이고, 혈색소는 낮아도 높아도 나쁘므로 5구간입니다. 흉부 X선·요단백·B형간염·시력청력은 숫자 범위가 없어 "그 밖의 검사 결과"에서 결과지 판정을 그대로 씁니다. 화면의 상태 이름은 정상A → "정상", 정상B → "관리 필요", 질환의심 → "확인 필요"로 바꿔 씁니다. "경계"라는 말은 뜻이 모호해 화면에 쓰지 않습니다.</p>
+  <h3>종합 요약 제목 — 상황별 고정 문장</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>상황</th><th>제목</th></tr></thead>
+    <tbody>
+      <tr><td class="k">확인 필요 항목 있음</td><td>이번 검진에서 확인이 필요한 변화가 있어요</td></tr>
+      <tr><td class="k">관리 필요만 있음</td><td>대부분 정상이고, 지켜볼 항목이 있어요</td></tr>
+      <tr><td class="k">모두 정상</td><td>주요 검사 결과가 대체로 안정적이에요</td></tr>
+      <tr><td class="k">판정 없음(직접 등록)</td><td>검진 항목을 정리했어요</td></tr>
+    </tbody>
+  </table></div>
+  <h3>쓰지 않는 말</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>쓰지 않는다</th><th>대신</th></tr></thead>
+    <tbody>
+      <tr><td>고혈압입니다 · 당뇨가 의심됩니다</td><td>기준보다 높아요 · 검진기관에서 확인 필요로 판정했어요</td></tr>
+      <tr><td>식습관 때문에 · 운동 부족으로</td><td>원인을 말하지 않는다</td></tr>
+      <tr><td>약을 드셔야 · 병원 치료가 필요</td><td>의료진과 상담해 주세요</td></tr>
+      <tr><td>위험 · 심각 · 급격히</td><td>이전보다 높아졌어요 · 계속 오르고 있어요</td></tr>
+      <tr><td>문제없습니다 · 건강합니다 · 걱정 없어요</td><td>정상 범위예요 · 대체로 안정적이에요</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 06 -->
+<section>
+  <span class="sec-no">부록 B</span>
+  <h2>만드는 쪽에서 알아야 할 것</h2>
+  <h3>처리 순서</h3>
+  <ol>
+    <li><b>정리</b> — 공단 연계값과 직접 등록 검수값을 같은 형식으로 맞춘다. 검진일은 "이번 · 1회 전 · 2회 전"으로 바꾼다.</li>
+    <li><b>계산</b> — 구간 판정, 카드 배지, 우선순위, 제목 문장, 또래 등수, 추세 방향을 규칙으로 정한다. 여기까지 AI는 관여하지 않는다.</li>
+    <li><b>문장</b> — 계산 결과(예: "혈압: 확인 필요, 2회 연속 상승", "흉부 X선: 재검 권고")만 AI에 주고 결론 카드의 두 문장과 검사군별 해석 한 문장을 받는다. 값은 넘기지 않는다.</li>
+    <li><b>검수</b> — 문장에 숫자나 금지 어휘가 있으면 차단한다.</li>
+    <li><b>저장</b> — 검진 ID당 1개. 입력 해시·모델·프롬프트·기준 범위·또래 분포표 버전을 함께 저장한다. 전송 본문은 남기지 않는다.</li>
+  </ol>
+  <h3>확인해야 할 것 (검수 기준)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>확인 항목</th></tr></thead>
+    <tbody>
+      <tr><td class="n">01</td><td>동의 전에는 외부 요청이 한 건도 나가지 않는가</td></tr>
+      <tr><td class="n">02</td><td>전송 본문에 이름·생년월일·기관명·검진일이 없는가</td></tr>
+      <tr><td class="n">03</td><td>AI 문장에 숫자나 금지 어휘가 있으면 차단되는가</td></tr>
+      <tr><td class="n">04</td><td>같은 검진을 두 번 열면 같은 결과가 나오는가</td></tr>
+      <tr><td class="n">05</td><td>생성 중 나갔다 돌아오면 이어지는가 · 다른 화면에서 자동으로 열리지 않는가</td></tr>
+      <tr><td class="n">06</td><td>모두 정상일 때 우선 확인 카드가 사라지고 빈 목록이 없는가</td></tr>
+      <tr><td class="n">07</td><td>등수와 진한 사람 그림 위치가 일치하는가 · 좁은 화면에서 그림 5개가 넘치지 않는가</td></tr>
+      <tr><td class="n">08</td><td>HDL·eGFR 막대 방향이 반대인가 · 마커 색이 구간 색과 같은가</td></tr>
+      <tr><td class="n">09</td><td>카드 배지가 줄 중 가장 나쁜 상태를 따르는가</td></tr>
+      <tr><td class="n">10</td><td>검사 의미가 토글 없이 항상 보이는가 · 원본 보기·안내 박스·번호 라벨이 없는가</td></tr>
+      <tr><td class="n">11</td><td>화살표를 누르면 그 검사만 펼쳐지는가 · 기록이 빠진 회차가 그래프에서 채워지지 않는가 · 이전 검진이 없으면 화살표가 없는가</td></tr>
+      <tr><td class="n">12</td><td>검수값 수정 시 갱신 배너가 뜨고 기존 요약이 여전히 열리는가</td></tr>
+      <tr><td class="n">13</td><td>동의 철회 후 요약이 삭제되고 버튼이 처음 상태로 돌아가는가</td></tr>
+    </tbody>
+  </table></div>
+  <h3>아직 정하지 않은 것</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>항목</th><th>내용</th><th>상태</th></tr></thead>
+    <tbody>
+      <tr><td class="k">또래 분포표 출처</td><td>성별·연령대별 신체계측 분포(국민건강영양조사 등)와 갱신 주기</td><td><span class="pill p-no">미정</span></td></tr>
+      <tr><td class="k">기준 범위 병합</td><td>공단 판정기준(부록 A)과 검진기관 자체 참고치가 다를 때의 우선순위 · γ-GTP 성별 분기를 위한 성별 정보 포함 여부</td><td><span class="pill p-wait">검토</span></td></tr>
+      <tr><td class="k">전송 데이터 보관</td><td>외부 AI가 전송 데이터를 학습·보관하지 않는 계약 조건</td><td><span class="pill p-no">미정</span></td></tr>
+      <tr><td class="k">나이대·성별 전송</td><td>또래 비교와 참고 범위에 필요. 10세 단위까지만 보내는 안</td><td><span class="pill p-wait">검토</span></td></tr>
+      <tr><td class="k">또래 분포표 산출</td><td>레퍼런스 04장 방법대로 공단 원시자료에서 백분위표를 만들고 검증</td><td><span class="pill p-wait">착수 전</span></td></tr>
+      <tr><td class="k">자녀 프로필 동의</td><td>보호자 동의로 갈음 가능한지</td><td><span class="pill p-no">미정</span></td></tr>
+      <tr><td class="k">문구 의료 검토</td><td>검사 의미 문단과 해석 문장의 의료 자문</td><td><span class="pill p-wait">검토</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<div class="srcs">
+  <h2>같이 보는 문서</h2>
+  <ul>
+    <li><code>maiReport_prototype_v1.0.0.html</code> — 이 기획서의 화면을 그대로 구현한 프로토타입. 파일을 열면 결과 화면이 바로 열립니다.</li>
+    <li><code>maiReport_AI검진요약_기준범위_레퍼런스_v1.0.0.html</code> — 기준 범위의 출처(공단 판정기준 원문, 학회 지침)와 프로토타입 적용값 대조</li>
+    <li><code>prompt_건강검진_AI요약_화면.md</code> — 같은 화면을 다시 만들 때 쓰는 프롬프트</li>
+    <li><code>건강검진 결과 AI 요약 · 기능 기획서.pdf</code> — 화면 흐름과 정책의 바탕이 된 원안</li>
+    <li><code>maiReport_IA</code> · <code>maiReport_기능정의서</code>(AI-006, SAFE-001, PROF-003) · <code>maiReport_지표기획서</code> v0.3</li>
+  </ul>
+</div>
+
+</main>

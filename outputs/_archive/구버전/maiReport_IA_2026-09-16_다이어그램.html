@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>maiReport 정보구조도(IA)</title>
+  <style>
+    /* ===== 기본 토큰 ===== */
+    :root{
+      --navy:#14213d;--blue:#2F66F5;--blue-2:#EAF0FF;--cyan:#dbf2f8;
+      --ink:#1b2942;--muted:#66738a;--line:#dce3ef;--page:#F5F7FB;
+      --card:#FFFFFF;--green:#168252;--green-bg:#E9F7EF;--amber:#A36B00;
+      --amber-bg:#FFF3D6;--red:#C43D3D;--red-bg:#FDECEC;--radius:24px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--page);color:var(--ink);font-family:"Noto Sans KR",sans-serif;line-height:1.6;font-size:14px;letter-spacing:-.015em}
+    button,input{font:inherit}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+    /* ===== 상단 헤더 (스티키 필 헤더) ===== */
+    .top{position:sticky;top:0;z-index:20;padding:10px 20px;background:rgba(245,247,251,.78);border-bottom:0;backdrop-filter:blur(18px) saturate(130%)}
+    .top-in{max-width:1500px;margin:auto;min-height:58px;padding:8px 10px 8px 18px;display:flex;align-items:center;gap:20px;background:rgba(255,255,255,.94);border:1px solid rgba(203,213,229,.72);border-radius:18px;box-shadow:0 10px 32px rgba(36,55,92,.065),0 1px 2px rgba(36,55,92,.04)}
+    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+    .brand-word{position:relative;color:#17233D;font-size:20px;font-weight:900;letter-spacing:-.065em;line-height:1}
+    .brand-word::after{content:"";position:absolute;right:-7px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--blue)}
+    .brand-rule{width:1px;height:20px;margin-left:3px;background:#DDE4EF}
+    .doc-label{display:flex;align-items:center;gap:7px;color:#627089;font-size:12px;font-weight:700;letter-spacing:-.02em}
+    .doc-label em{padding:3px 7px;border-radius:999px;background:var(--blue-2);color:var(--blue);font-size:10px;font-style:normal;font-weight:900;letter-spacing:.03em}
+    .tools{margin-left:auto;display:flex;gap:7px;align-items:center}
+    .search-shell{position:relative;display:flex;align-items:center;width:min(340px,32vw);height:40px;border:1px solid transparent;border-radius:999px;background:#F5F7FB;transition:.18s ease}
+    .search-shell:focus-within{border-color:rgba(47,102,245,.42);background:#FFF;box-shadow:0 0 0 3px rgba(47,102,245,.09)}
+    .search-icon{display:grid;place-items:center;width:38px;color:#8793A8;flex:0 0 auto}
+    .search-icon svg{width:16px;height:16px}
+    .search{width:100%;height:100%;padding:0 12px 0 0;border:0;border-radius:0;background:transparent;color:var(--ink);font-size:13px;outline:none;box-shadow:none}
+    .search:focus{border:0;box-shadow:none}
+    .tool-rule{width:1px;height:22px;margin:0 3px;background:#E3E8F1}
+    .btn{height:40px;padding:0 14px;border:1px solid transparent;border-radius:999px;background:transparent;color:#657188;font-weight:700;font-size:12px;cursor:pointer;transition:.18s ease}
+    .btn:hover{border-color:transparent;background:#F2F5FA;color:#24324C}
+    .btn-primary{padding-inline:16px;background:#17233D;color:#FFF;box-shadow:0 7px 16px rgba(23,35,61,.16)}
+    .btn-primary:hover{background:#0F192D;color:#FFF;box-shadow:0 9px 20px rgba(23,35,61,.2);transform:translateY(-1px)}
+
+    /* ===== 레이아웃 ===== */
+    main{max-width:1540px;margin:auto;padding:30px 28px 60px}
+
+    /* ===== 히어로 (레퍼런스형) ===== */
+    .hero{display:block;padding:46px 56px 36px;background:#FFF;color:var(--ink);border:1px solid #DCE3EE;border-top:4px solid var(--blue);border-radius:22px;box-shadow:0 14px 38px rgba(35,54,91,.055)}
+    .eyebrow{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.02em;text-transform:uppercase}
+    h1{max-width:920px;margin:14px 0 16px;color:#111A2D;font-size:42px;line-height:1.16;font-weight:900;letter-spacing:-.055em}
+    .hero p{max-width:960px;color:#657188;font-size:16px;line-height:1.75}
+    .meta{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 32px}
+    .meta span{padding:8px 13px;border:1px solid #D5E0FB;border-radius:999px;background:#F0F4FF;color:#2B58C9;font-size:11px;font-weight:800}
+    .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px;padding-top:26px;border-top:1px solid #DCE3EE}
+    .stat{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:6px;padding:0;border:0;border-radius:0;background:transparent;color:var(--ink)}
+    .stat b{color:#121B2E;font-size:22px;line-height:1.25;font-weight:900;letter-spacing:-.035em}
+    .stat span{margin:0;color:#718098;font-size:11px;font-weight:800;letter-spacing:0}
+
+    /* ===== 서비스 상위 구조 ===== */
+    .macro-map{margin:24px 0 22px;padding:30px;background:#FFF;border:1px solid #DCE3EE;border-radius:24px;box-shadow:0 12px 34px rgba(35,54,91,.045)}
+    .macro-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:24px}
+    .macro-head .section-label{display:inline-flex;padding:5px 9px;border-radius:999px;background:#F0F4FF;color:#2F5ED7;font-size:10px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+    .macro-head h2{margin:8px 0 0;color:#121B2E;font-size:24px;line-height:1.3;letter-spacing:-.045em}
+    .macro-head p{max-width:560px;margin:0;color:#6C7990;font-size:13px;line-height:1.7;text-align:right}
+    .macro-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .macro-tab{min-height:108px;padding:20px;border:1px solid #DCE3EE;border-radius:18px;background:#FFF;color:var(--ink);text-align:left;cursor:pointer;transition:.18s ease}
+    .macro-tab:hover,.macro-tab:focus-visible{border-color:#AFC3F8;box-shadow:0 10px 24px rgba(47,102,245,.08);transform:translateY(-1px);outline:none}
+    .macro-tab strong{display:block;color:#17233D;font-size:18px;letter-spacing:-.035em}
+    .macro-tab span{display:block;margin-top:8px;color:#6C7990;font-size:12px;line-height:1.55}
+
+    /* ===== 확인 필요 항목 ===== */
+    .open-items{margin:22px 0 6px;padding:24px 26px;background:#FFF9EC;border:1px solid #F1E1B5;border-left:4px solid var(--amber);border-radius:22px;box-shadow:0 8px 24px rgba(31,55,105,.04)}
+    .open-items h2{margin:0 0 6px;color:#7A5B12;font-size:16px;letter-spacing:-.03em}
+    .open-items>p{margin:0 0 12px;color:#8A7333;font-size:11px;font-weight:700}
+    .open-items ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px}
+    .open-items li{color:#6B5A34;font-size:12.5px;line-height:1.6}
+    .open-items li b{color:#3D3115;font-weight:800}
+
+    /* ===== 필터 컨트롤 ===== */
+    .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:24px 0 18px}
+    .controls strong{font-size:14px;margin-right:4px}
+    .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:13px;color:var(--muted);cursor:pointer}
+    .chip.on{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:800}
+    .legend{margin-left:auto;display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+    .legend span{display:flex;align-items:center;gap:6px}
+    .dot{width:8px;height:8px;border-radius:50%}
+    .dot.done{background:var(--green)}.dot.review{background:#e0a500}.dot.link{background:#e45555}
+
+    /* ===== 바로가기 ===== */
+    .overview{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:24px}
+    .overview-link{width:100%;background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;text-decoration:none;text-align:left;color:var(--ink);display:flex;align-items:center;gap:12px;cursor:pointer;box-shadow:0 8px 24px rgba(31,55,105,.045);transition:.18s ease}
+    .overview-link:hover,.overview-link:focus-visible{border-color:var(--blue);transform:translateY(-1px);box-shadow:0 12px 30px rgba(47,102,245,.1);outline:none}
+    .overview .ic{width:42px;height:42px;border-radius:50%;background:var(--blue-2);color:var(--blue);display:grid;place-items:center;font-size:16px;font-weight:900}
+    .overview b{font-size:15px}
+    .overview small{display:block;color:var(--muted);margin-top:2px;font-size:12px;line-height:1.5}
+
+    /* ===== 그룹 / 트리 ===== */
+    .group{background:#fff;border:1px solid var(--line);border-radius:28px;margin-top:16px;overflow:hidden;box-shadow:0 10px 32px rgba(31,55,105,.055);scroll-margin-top:100px}
+    .group-head{display:flex;align-items:center;gap:12px;padding:22px 24px;border-bottom:1px solid var(--line);border-left:5px solid var(--blue);background:linear-gradient(90deg,#FFFFFF 0%,#F8FAFF 58%,var(--blue-2) 100%)}
+    .group-num{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:900;box-shadow:0 6px 14px rgba(47,102,245,.2)}
+    .group-head h2{font-size:20px;margin:0}
+    .group-head p{margin:2px 0 0;color:var(--muted);font-size:12px}
+    .group-count{margin-left:auto;font-size:11px;font-weight:800;color:var(--blue);background:#fff;padding:6px 10px;border-radius:999px;border:1px solid #cddcff}
+    .tree-wrap{padding:26px;overflow-x:auto}
+    .tree{min-width:1240px;display:flex;align-items:flex-start;gap:28px}
+    .level{display:flex;flex-direction:column;gap:12px;min-width:220px;position:relative}
+    .level+.level:before{content:"";position:absolute;left:-17px;top:8px;bottom:8px;border-left:1px dashed #b9c7df}
+    .level-title{font-size:11px;font-weight:900;color:#8794aa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:-4px}
+    .node{position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:15px 16px;min-height:78px;transition:.15s}
+    .level+.level .node:before{content:"";position:absolute;left:-17px;top:34px;width:16px;border-top:1px dashed #b9c7df}
+    .node:hover{border-color:var(--blue);box-shadow:0 5px 16px rgba(47,107,255,.11)}
+    .node.ref{border-style:dashed;background:#fbfcff}
+    .node.ref .id{color:#694fc9;background:#f0ecff}
+    .node.dim{display:none}
+    .node-top{display:flex;align-items:center;gap:7px}
+    .id{font-family:"Noto Sans KR",sans-serif;font-size:10px;font-weight:800;color:var(--blue);background:var(--blue-2);border-radius:999px;padding:3px 7px}
+    .type{margin-left:auto;color:#8c98ac;font-size:10px}
+    .node-parent{display:inline-flex;margin-top:8px;padding:3px 7px;border-radius:999px;background:#F1F4F9;color:#6B7890;font-size:9px;font-weight:800}
+    .node-title{display:block;font-size:14px;font-weight:700;margin:7px 0 0;letter-spacing:-.02em;line-height:1.4}
+    .node p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.55}
+    .node-sections{display:grid;gap:7px;margin-top:12px;padding-top:11px;border-top:1px dashed var(--line)}
+    .node-section{padding:8px 9px;border-radius:9px;background:#f7f9fd}
+    .node-section strong{display:block;font-size:10px;color:#31538f}
+    .node-section span{display:block;margin-top:3px;font-size:9px;line-height:1.45;color:var(--muted)}
+    .status{position:absolute;right:8px;bottom:8px;width:7px;height:7px;border-radius:50%}
+    .status.done{background:var(--green)}.status.review{background:#e0a500}.status.link{background:#e45555}
+
+    /* ===== 프로세스 / 공통 ===== */
+    .flow-section{margin-top:28px}
+    .flow-section h2{font-size:23px;margin:0 0 12px}
+    .flows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .flow{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;border-left:4px solid var(--blue);box-shadow:0 8px 24px rgba(31,55,105,.04)}
+    .flow h3{font-size:15px;margin:0 0 12px}
+    .steps{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+    .step{padding:7px 9px;border-radius:999px;background:var(--blue-2);color:#31538f;font-size:12px;font-weight:700}
+    .arrow{color:#aab4c4;font-size:11px}
+    .common{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+    .common-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;border-left:4px solid var(--blue);box-shadow:0 8px 24px rgba(31,55,105,.04)}
+    .common-card b{font-size:15px}
+    .common-card p{font-size:12px;color:var(--muted);margin:6px 0 0;line-height:1.65}
+    .common-card code{display:inline-block;margin-top:9px;color:#31538f;background:var(--blue-2);padding:3px 6px;border-radius:999px;font-size:10px}
+
+    .empty{display:none;background:#fff;border:1px dashed var(--line);border-radius:24px;padding:36px;text-align:center;color:var(--muted);margin-top:16px}
+    footer{text-align:center;color:#8b96a8;font-size:11px;padding:28px 0 0}
+
+    /* ===== 반응형 ===== */
+    @media(max-width:900px){
+      .top{padding:8px}.top-in{padding:8px 10px 8px 14px;border-radius:16px}
+      .doc-label,.brand-rule{display:none}
+      .search-shell{width:min(300px,42vw)}
+      .hero{padding:34px 32px 30px}.hero h1{font-size:35px}
+      .stats{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px}
+      .macro-map{padding:24px}.macro-head{align-items:flex-start;flex-direction:column;gap:8px}.macro-head p{text-align:left}
+      .macro-tabs,.g4,.overview{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .g2,.g3,.flows,.common{grid-template-columns:1fr}
+      main{padding:20px 16px 45px}
+      .legend{width:100%;margin-left:0}
+    }
+    @media(max-width:600px){
+      .top-in{flex-wrap:wrap;gap:8px}.tools{width:100%;margin-left:0}
+      .search-shell{width:auto;flex:1}.tool-rule{display:none}.btn{padding-inline:11px}
+      .hero{padding:28px 22px 25px;border-radius:20px}.hero h1{font-size:29px}.hero p{font-size:14px}
+      .meta{margin:22px 0 26px}.stats{gap:20px 14px}.stat b{font-size:18px}
+      .macro-map{padding:20px;border-radius:20px}.macro-tabs,.g4,.overview{grid-template-columns:1fr}.macro-tab{min-height:96px}.macro-head h2{font-size:21px}
+    }
+    @media(max-width:520px){.macro-head h2{font-size:21px}}
+    @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+    @media print{
+      body{background:#fff}
+      .top,.controls,.overview{display:none}
+      main{max-width:none;padding:0}
+      .hero{box-shadow:none;border-radius:0;background:#FFF;color:var(--ink);border-top-color:var(--blue);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .hero h1,.stat b{color:#111A2D}
+      .open-items{box-shadow:none;break-inside:avoid;background:#FFF9EC;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .macro-map{box-shadow:none;break-inside:avoid}
+      .group{break-inside:avoid;box-shadow:none}
+      .group-head{border-left-color:var(--blue)}
+      .tree-wrap{overflow:visible}
+      .tree{min-width:0;transform:scale(.72);transform-origin:top left;width:138%;margin-bottom:-11%}
+      .flow-section{break-before:page}
+      .status,.group-head,.node,.step{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-in">
+      <div class="brand" aria-label="maiReport 정보구조도"><span class="brand-word">maiReport</span><span class="brand-rule" aria-hidden="true"></span><span class="doc-label">정보구조도 <em>IA</em></span></div>
+      <div class="tools"><label class="search-shell"><span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></span><input id="search" class="search" type="search" placeholder="화면명 또는 화면 ID 검색" aria-label="정보구조 검색"></label><span class="tool-rule" aria-hidden="true"></span><button id="reset" class="btn" type="button">초기화</button><button id="print" class="btn btn-primary print" type="button">내보내기</button></div>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <div><div class="eyebrow">Information Architecture</div><h1>maiReport 정보구조도(IA)</h1><p>온보딩부터 건강 데이터 분석, 검진정보 등록, 의료이용 조회, AI 분석 및 계정 관리까지 전체 화면 계층과 주요 전환 관계를 정의합니다.</p><div class="meta"><span>기준일 2026-09-01</span><span>Mobile UI · Max 430px</span><span>iOS · Android 권한 분기</span><span>화면 ID 기준 추적</span></div></div>
+      <div class="stats"><div class="stat"><b>53</b><span>전체 화면</span></div><div class="stat"><b>4</b><span>주요 하단 내비게이션</span></div><div class="stat"><b>7</b><span>핵심 업무 프로세스</span></div><div class="stat"><b>5</b><span>기능 영역</span></div></div>
+    </section>
+
+    <section class="macro-map" aria-labelledby="macro-title">
+      <header class="macro-head">
+        <div><span class="section-label">Service Structure</span><h2 id="macro-title">maiReport 서비스 상위 구조</h2></div>
+        <p>maiReport는 홈, 생활, 병원, 계정의 4개 주요 영역으로 구성됩니다.</p>
+      </header>
+      <div class="macro-tabs" aria-label="주요 서비스 영역">
+        <button class="macro-tab" type="button" data-scroll-target="home-02"><strong>홈</strong><span>오늘의 질문 · 건강 코칭 · 목표 · 컨디션</span></button>
+        <button class="macro-tab" type="button" data-scroll-target="life-03"><strong>생활</strong><span>목표 분석 · 지표별 분석 · 생활 분석 · AI 건강 인사이트</span></button>
+        <button class="macro-tab" type="button" data-scroll-target="hospital-04"><strong>병원</strong><span>진료요약 · 방문이력 · 검진 · 진료 · AI REPORT</span></button>
+        <button class="macro-tab" type="button" data-scroll-target="account-05"><strong>계정</strong><span>내 정보 · 알림 · 이용권 · 정책 · 고객지원</span></button>
+      </div>
+    </section>
+
+    <section class="open-items" aria-labelledby="open-items-title">
+      <h2 id="open-items-title">확인 필요 항목 (설계 결정 대기)</h2>
+      <p>아래는 IA가 프로토타입보다 앞서 있거나 다르게 정의한 부분입니다. 범위 확정 후 본 문서에 반영합니다.</p>
+      <ul>
+        <li><b>통합 건강 데이터(LIFE-005)의 범위</b> — 검진·진료·AI REPORT까지 포함하는 통합 허브인지, 웨어러블 중심 ‘전체 건강 데이터’의 확장인지 확정 필요. (프로토타입은 웨어러블 데이터만 표시)</li>
+        <li><b>데이터 연계·갱신(HOSP-009 / HOSP-003)의 소유 영역</b> — 병원 탭 외 생활·통합 허브에서도 연계 진입을 노출할지.</li>
+        <li><b>AI 인사이트(LIFE-004) 입력 데이터</b> — 진료·AI REPORT 반영 여부. (프로토타입은 생활 + 검진만 사용)</li>
+        <li><b>홈 QR 빠른 진입(F-04)</b> — 1차 범위 포함 여부. (프로토타입에서 홈 QR 버튼은 아직 동작 미연결)</li>
+        <li><b>Android Health Connect(ONB-004)</b> — 앱 화면인지 OS 제공 UI인지 표기 확정. (프로토타입은 iOS 시트만 모사)</li>
+        <li><b>알림 센터</b> — 목록·상세 화면 정의 필요. (현재 벨 진입점만 존재, ACC-003은 수신 설정만 다룸)</li>
+        <li><b>Selvy Checkup 표기</b> — 비의료기기 웰니스 포지셔닝상, 질환 위험도 관련 화면·문구(SELVY-001~003, HOSP-001 질환 위험 분석)를 ‘외부 연계 서비스’로 구분할지.</li>
+      </ul>
+    </section>
+
+    <div class="controls"><strong>기능 영역</strong><button class="chip on" type="button" data-filter="all" aria-pressed="true">전체</button><button class="chip" type="button" data-filter="onboarding" aria-pressed="false">온보딩</button><button class="chip" type="button" data-filter="home" aria-pressed="false">홈</button><button class="chip" type="button" data-filter="life" aria-pressed="false">생활</button><button class="chip" type="button" data-filter="hospital" aria-pressed="false">병원·리포트</button><button class="chip" type="button" data-filter="account" aria-pressed="false">계정</button><div class="legend"><span>← 상위 · 유입 경로</span><span><i class="dot done"></i>프로토타입 구현</span><span><i class="dot review"></i>정책·문구 검토</span><span><i class="dot link"></i>외부 연동 의존</span></div></div>
+
+    <nav class="overview" aria-label="주요 화면 바로가기">
+      <button class="overview-link" type="button" data-scroll-target="home-02"><span class="ic">⌂</span><span><b>홈</b><small>질문 · 코칭 · 목표 · 컨디션</small></span></button>
+      <button class="overview-link" type="button" data-scroll-target="life-03"><span class="ic">♡</span><span><b>생활</b><small>목표 · 지표 · 생활 · AI 분석 · 통합 건강 데이터</small></span></button>
+      <button class="overview-link" type="button" data-scroll-target="hospital-04"><span class="ic">✚</span><span><b>병원</b><small>검진 · 진료 · 리포트 등록 · 통합 이력</small></span></button>
+      <button class="overview-link" type="button" data-scroll-target="account-05"><span class="ic">•••</span><span><b>계정</b><small>프로필 · 알림 · 이용권 · 정책</small></span></button>
+    </nav>
+
+    <div id="groups"></div>
+    <div id="empty" class="empty">검색 조건에 일치하는 화면이 없습니다.</div>
+
+    <section class="flow-section">
+      <h2>주요 업무 프로세스</h2>
+      <div class="flows" id="flows"></div>
+    </section>
+
+    <section class="flow-section">
+      <h2>공통 내비게이션 및 외부 인터페이스</h2>
+      <div class="common">
+        <div class="common-card"><b>하단 주요 내비게이션</b><p>홈, 생활, 병원, 계정의 최상위 정보 구조를 제공하며 탭 전환 시 해당 화면의 스크롤 위치는 최상단으로 초기화합니다.</p><code>.nav</code></div>
+        <div class="common-card"><b>OS 건강 데이터 인터페이스</b><p>iOS는 HealthKit, Android는 Health Connect 권한 UI를 사용합니다. Samsung Health 등 출처 앱의 데이터는 Health Connect 공유·권한 설정을 통해 조회합니다.</p><code>HealthKit · Health Connect · Samsung Health</code></div>
+        <div class="common-card"><b>외부 시스템 연계</b><p>카카오 OAuth, 건강 데이터 플랫폼, 검진·진료 데이터, OCR/AI 분석, 앱스토어 결제 시스템과의 연계 지점입니다.</p><code>OAuth · API · OCR · Store</code></div>
+      </div>
+    </section>
+    <footer>maiReport Information Architecture · Internal Use Only · rev. 2026-09-01</footer>
+  </main>
+
+  <script>
+    const S=(name,desc)=>({name,desc});
+    const N=(id,name,type,desc,status='done',parent='',sections=[])=>({id,name,type,desc,status,parent,sections});
+    const R=(id,name,desc,parent='',sections=[])=>({id,name,type:'공통 화면 참조',desc,status:'ref',parent,sections,ref:true});
+    const STATUS_LABEL={done:'프로토타입 구현',review:'정책·문구 검토',link:'외부 연동 의존'};
+    const groups=[
+      {key:'onboarding',no:'01',title:'온보딩 및 권한',desc:'최초 진입, 사용자 인증, 접근 권한 획득',levels:[
+        {title:'Entry',nodes:[N('ONB-001','로그인','전체 화면','카카오 OAuth 기반 사용자 인증')]},
+        {title:'Pre-permission',nodes:[N('ONB-002','접근 권한 사전 고지','전체 화면','선택 권한과 이용 목적 안내')]},
+        {title:'OS Permission',nodes:[N('ONB-003','iOS HealthKit 접근','OS 권한 시트','Apple Health에 저장된 건강 데이터 읽기 권한 설정'),N('ONB-004','Android Health Connect 연동','OS 제공 화면','Samsung Health 등 Health Connect 연결 앱의 데이터 읽기 권한 설정 · OS가 제공하는 시스템 UI','link')]},
+        {title:'Landing',nodes:[N('HOME-001','홈 대시보드','메인 화면','허용·거부 결과에 따라 초기 상태 구성')]}
+      ]},
+      {key:'home',no:'02',title:'홈',desc:'오늘의 질문·코칭·목표·컨디션과 AI REPORT QR 빠른 진입을 제공',levels:[
+        {title:'Main',nodes:[N('HOME-001','홈 대시보드','메인 화면','당일 건강 상태 확인과 실천 관리를 한 화면에서 제공','done','',[
+          S('홈 헤더','maiReport 로고 · AI REPORT QR 스캔(REG-002 빠른 진입) · 알림'),
+          S('오늘의 질문','상태·연계 정보에 따른 5문항 미만 · 응답 진행률 · 답변 조회(HOME-002)'),
+          S('오늘의 코칭','건강 데이터와 문진 응답 기반 핵심 행동 및 추천 사유'),
+          S('오늘의 목표','식이·활동·수면 목표 · 완료·쉬기 상태 · 생활 목표 분석(LIFE-001) 이동'),
+          S('오늘의 컨디션','회복여유·생활부담·리듬안정성 요약 · 상세 펼쳐보기(HOME-003)')
+        ])]},
+        {title:'Question Detail',nodes:[N('HOME-002','오늘의 질문 답변 조회','서브 화면','완료한 3개 문항의 답변 조회 및 재선택','done','HOME-001 오늘의 질문')]},
+        {title:'Condition Section',nodes:[N('HOME-003','오늘의 컨디션','홈 아코디언','회복여유·생활부담·리듬안정성과 근거 데이터 펼쳐보기','review','HOME-001 오늘의 컨디션')]}
+      ]},
+      {key:'life',no:'03',title:'생활',desc:'목표·지표·생활·AI 분석이 웨어러블·검진·진료·AI REPORT의 통합 건강 데이터를 공통 활용',levels:[
+        {title:'Main Tabs',nodes:[
+          N('LIFE-001','목표 분석','생활 메인 탭','주간 목표 달성률과 일자별 실천 기록','done','',[
+            S('분석 기간','주차 이동 · 선택 일자 · 이번 주/과거 주 조회 상태'),
+            S('일자별 실천 기록','선택 일자의 식이·운동·수면 목표 · 완료·쉬기 상태 · 기록 수정'),
+            S('주간 목표 달성','전체 달성률 · 전주 대비 변화 · 완료 횟수 · 주간 해석'),
+            S('목표별 성과','식이·운동·수면별 달성률 · 완료 횟수 · 실천 메시지'),
+            S('데이터 상태','과거 주 읽기 전용 · 기록 미보유 주 안내')
+          ]),
+          N('LIFE-002','지표별 분석','생활 메인 탭','회복여유·생활부담·리듬안정성의 주간 변화','review','',[
+            S('분석 기간','주차 이동 · 선택 일자 · 이번 주/과거 주 조회 상태'),
+            S('핵심 건강 지표','회복여유 · 생활부담 · 리듬안정성 점수 및 상태 방향'),
+            S('변화 추이','일별 점수 그래프 · 직전 일/주 대비 변화 · 기간별 해석'),
+            S('산출 근거','수면·심박·활동 등 핵심 산출 데이터와 보조 데이터 구분'),
+            S('데이터 상태','미수집·부분수집·과거 주 읽기 전용 및 기록 미보유 안내')
+          ]),
+          N('LIFE-003','생활 분석','생활 메인 탭','걸음·수면·심박·활동 데이터의 일별·주간 분석','done','',[
+            S('분석 기간','주차 이동 · 선택 일자 · 이번 주/과거 주 조회 상태'),
+            S('대표 생활 지표','걸음 수 · 활동 칼로리 · 안정 시 심박수 · 수면 시간'),
+            S('지표별 분석','선택 일자 값 · 주간 평균 · 요일별 변화 추이 · 해석 메시지'),
+            S('통합 데이터 진입','체중·체지방률·BMI·키·혈압·혈당 등 전체 건강 데이터 이동'),
+            S('연계 상태','Apple Health·Samsung Health 등 데이터 출처 · 미연동 안내 및 연결 진입')
+          ]),
+          N('LIFE-004','AI 인사이트','생활 메인 탭','가용한 생활·생리 데이터와 검진 결과를 종합한 주간 인사이트','review','',[
+            S('생성 주기','주(월~일) 단위 · 한 주 1회 생성 후 다음 주까지 재생성 제한 · 리포트 삭제 시 해당 주 재생성 가능'),
+            S('분석 실행','최초 생성은 즉시 · 재생성 시점에는 오늘의 질문 응답 완료가 선행 조건'),
+            S('다른 기간 분석','달력에서 과거 주차 선택 후 재분석(AI-004) · 정기 생성 주기에는 영향 없음'),
+            S('리포트 구성','종합 인사이트 · 상세 분석(원본 검진 결과로 이동) · 변화 추이(점수 그래프·분석 이력)'),
+            S('데이터 상태','검진정보 미연동 시 생활 데이터 기반 대체본 · 생성 직후 요약(AI-001) 경유 · 진료·AI REPORT 반영 여부는 정의 확정 필요')
+          ])
+        ]},
+        {title:'Common Data Hub',nodes:[
+          N('LIFE-005','통합 건강 데이터','전 영역 공통 데이터 허브','홈·생활·병원·AI 분석에서 사용하는 건강 데이터를 출처별로 통합 조회','review','HOME-001 · LIFE-001~004 · HOSP-001~002',[
+            S('생활·생리 데이터','Apple Health 및 Samsung Health 등에서 HealthKit·Health Connect로 연계된 걸음·수면·심박·활동·측정값'),
+            S('건강검진 데이터','최근 검진일 · 검진기관 · 신체계측 · 혈압 · 혈당 · 지질 · 간·신장 기능 · 원본 결과지'),
+            S('진료 데이터','최근 방문일 · 의료기관 · 진료과 · 진료 형태 · 처방·투약 · 사용자 메모'),
+            S('AI REPORT','검사 종류 · 검사일 · 판독 결과 · 주요 소견 · 원본 리포트 · 등록 상태'),
+            S('출처·최신성','데이터 제공처 · 연계 여부 · 최종 갱신 시각 · 원본 상세 화면 이동'),
+            S('데이터 관리','미연계 출처 신규 연계 · 연계 데이터 갱신 · AI REPORT 및 검진 리포트 등록 진입'),
+            S('확인 필요','검진·진료·AI REPORT를 포함하는 통합 허브인지, 웨어러블 중심 화면의 확장인지 범위 확정 필요')
+          ]),
+          N('HOSP-009','데이터 연계','공통 데이터 허브 연계 상태','미연계된 건강검진·진료 데이터 출처를 선택해 최초 연결','review','LIFE-005 미연계 출처 · HOSP-001 미연계 상태',[
+            S('연계 대상 선택','건강보험공단 건강검진 데이터 · 진료 데이터를 각각 선택하여 독립적으로 연계'),
+            S('연계 안내·동의','이용 목적 · 수집 항목 · 제공기관 · 보유·이용 범위 확인 및 동의'),
+            S('본인 확인·조회','본인인증 후 선택 데이터 조회 및 최초 가져오기'),
+            S('처리 상태','연계 중 · 완료 · 부분 완료 · 조회 결과 없음 · 오류 및 재시도'),
+            S('완료 후 반영','통합 건강 데이터 · 진료요약 · 방문이력 갱신 및 최종 업데이트 시각 표시')
+          ]),
+          N('HOSP-003','연계 데이터 갱신','공통 데이터 허브 바텀시트','이미 연계된 건강검진·진료 데이터의 갱신 항목 선택','link','LIFE-005 출처·최신성 · HOSP-001 연계 상태',[
+            S('갱신 대상 선택','건강검진 데이터 · 진료 데이터의 독립 선택 및 재조회'),
+            S('갱신 상태','최종 업데이트 시각 · 진행 중 · 완료 · 부분 실패 · 오류 및 재시도')
+          ])
+        ]},
+        {title:'AI Entry',nodes:[N('AI-003','분석 목록','서브 화면','생성된 주간 AI 인사이트 이력','done','LIFE-004 AI 인사이트'),N('AI-004','다른 기간 분석','바텀시트','달력에서 분석할 주차 선택','done','LIFE-004 AI 인사이트')]},
+        {title:'AI Result',nodes:[N('AI-001','분석 완료','서브 화면','생성 직후 점수·핵심 요약과 상세 진입','done','LIFE-004 / AI-004'),N('AI-002','AI 건강 인사이트','서브 화면','종합 인사이트·상세 분석·변화 추이','review','AI-001 / AI-003')]},
+        {title:'AI Action',nodes:[N('AI-005','AI 리포트 삭제 확인','모달','현재 AI 인사이트의 영구 삭제 재확인','done','AI-002 AI 건강 인사이트')]}
+      ]},
+      {key:'hospital',no:'04',title:'병원',desc:'진료요약·방문이력에서 검진·진료·AI REPORT를 조회하고 공통 데이터 허브와 연결',levels:[
+        {title:'Main Tabs',nodes:[
+          N('HOSP-001','진료요약','병원 메인 탭','검진·진료 연계 상태와 주요 요약 카드','done','',[
+            S('데이터 연계 상태','건강보험공단 검진정보·진료정보의 개별 연계 · 부분 연계 · 갱신 상태'),
+            S('검진 요약','건강 나이 · 최근 검진일 · 주요 검진 소견 · 전체 검진 항목 진입'),
+            S('AI REPORT 요약','등록된 AI REPORT의 검사 종류 · 주요 소견 · 확인 상태 · 결과 상세 이동'),
+            S('질환 위험 분석','Selvy Checkup(외부 연계 서비스) 소개 · 분석 신청 · 결과 조회 진입'),
+            S('검진 대상 안내','일반·구강·암 검진 대상 여부 및 검진 안내 이동'),
+            S('진료 이용 요약','자주 이용한 병원·진료과 · 누적 진료비 · 월별 변화 및 상세 현황 이동')
+          ]),
+          N('HOSP-002','방문이력','병원 메인 탭','검진·진료·AI REPORT의 연도별 통합 목록','done','',[
+            S('통합 이력','검진·진료·AI REPORT를 날짜 역순으로 통합한 연도별 타임라인'),
+            S('유형 필터','전체 · 검진 · 진료 · AI REPORT 유형별 조회'),
+            S('이력 요약','일자 · 유형 · 의료기관 · 진료 형태 · 확인 상태 · 메모 보유 여부'),
+            S('상세 이동','검진 결과 · 진료·처방 · AI REPORT 결과 등 유형별 상세 화면 진입'),
+            S('리포트 등록','[+] 버튼에서 AI REPORT QR 또는 일반 검진 리포트 등록 시작'),
+            S('데이터 상태','검진·진료별 미연계 안내 · 빈 결과 · 갱신 중 상태')
+          ])
+        ]},
+        {title:'Common Data Hub',nodes:[
+          R('LIFE-005','통합 건강 데이터','병원 영역에서 사용하는 의료 데이터를 공통 데이터 허브에서 출처별로 통합 조회','공통 데이터 허브 원본 · LIFE-005',[
+            S('건강검진 데이터','최근 검진일 · 검진기관 · 주요 검진값 · 판정 상태 · 문진표·원본 결과지'),
+            S('진료 데이터','방문일 · 의료기관 · 진료과 · 진료 형태 · 처방·투약 · 사용자 메모'),
+            S('AI REPORT','검사 종류 · 검사일 · AI 판독 결과 · 주요 소견 · 원본 리포트 · 등록 상태'),
+            S('공통 메타데이터','데이터 출처 · 연계 상태 · 최종 갱신 시각 · 상세 화면 이동')
+          ]),
+          R('HOSP-009','데이터 연계','미연계된 건강검진·진료 데이터 출처의 최초 연결','공통 데이터 허브 원본 · LIFE-005'),
+          R('HOSP-003','연계 데이터 갱신','이미 연계된 건강검진·진료 데이터의 재조회 및 최신화','공통 데이터 허브 원본 · LIFE-005')
+        ]},
+        {title:'Summary Detail',nodes:[
+          R('HOSP-010','건강나이','진료요약 상단의 건강나이 정보 카드(별도 화면 아님)','HOSP-001 진료요약 내 카드',[
+            S('표시 정보','실제 나이 · 건강나이 · 나이 차이 · 최근 검진일')
+          ]),
+          N('HOSP-004','검진대상조회','서브 화면','일반·구강·암 검진 대상 및 수검 상태','done','HOSP-001 진료요약',[
+            S('대상자 정보','조회 연도 · 대상 여부 · 검진 종류'),
+            S('수검 현황','일반·구강·암 검진별 대상·완료·미수검 상태'),
+            S('이용 안내','검진 주기 · 준비 사항 · 검진기관 확인 안내')
+          ]),
+          N('HOSP-006','진료 이용현황','서브 화면','기간별 진료비·방문 추이·이용 순위','review','HOSP-001 진료요약',[
+            S('기간 필터','최근 5년 및 연도별 진료 이용현황 조회'),
+            S('이용 요약','진료 횟수 · 이용 병원 수 · 진료과 수 · 본인부담 진료비'),
+            S('변화 추이','연도별 방문 횟수 · 기간별 진료비 · 전년 동기간 비교'),
+            S('이용 순위','자주 이용한 병원 · 진료과 순위'),
+            S('산정 안내','연계 진료정보 기준 및 비급여 등 미포함 가능성 고지')
+          ]),
+          N('SELVY-001','Selvy Checkup 소개','서브 화면','진료요약의 질환 위험 분석 카드에서 외부 연계 서비스 안내 진입','done','HOSP-001 진료요약')
+        ]},
+        {title:'Visit Detail',nodes:[
+          N('HOSP-011','검진 상세','검진 상세 화면','방문이력에서 선택한 건강검진의 결과와 판정 정보를 조회','done','HOSP-002 방문이력',[
+            S('검진 기본정보','검진일 · 검진기관 · 검진 종류 · 데이터 출처'),
+            S('검진 결과','신체계측 · 혈압 · 혈당 · 지질 · 간·신장 기능 등 항목별 값과 판정'),
+            S('연계 화면','문진표 · 원본 검진 결과지 · AI 검진 요약 진입')
+          ]),
+          N('HOSP-005','진료 상세','진료 상세 화면','방문이력에서 선택한 진료의 방문·처방·비용·메모를 조회','done','HOSP-002 방문이력',[
+            S('진료 기본정보','진료일 · 의료기관 · 진료과 · 외래·입원 등 진료 형태'),
+            S('이용 정보','방문일수 · 진료비 · 처방 횟수 · 투약일수'),
+            S('처방·메모','약품명 · 복용 정보 · 사용자 메모 등록·수정')
+          ]),
+          N('HOSP-012','AI REPORT 상세','AI 리포트 상세 화면','방문이력에서 선택한 AI REPORT의 판독 결과와 원본 리포트를 조회','done','HOSP-002 방문이력',[
+            S('검사 기본정보','검사일 · 검사 종류 · 분석 대상 · 등록 출처'),
+            S('AI 분석 결과','핵심 요약 · 주요 소견 · 확인 상태 · 항목별 참고 점수'),
+            S('원본·안내','원본 PDF 조회 · 결과 해석 안내')
+          ])
+        ]},
+        {title:'검진 상세 하위',nodes:[
+          N('HOSP-007','문진표','문서형 화면','선택 검진의 흡연·음주·운동·질환력','done','HOSP-011 검진 상세'),
+          N('HOSP-008','검진 결과지','문서 뷰어','선택 검진의 원본 결과지 조회','done','HOSP-011 검진 상세')
+        ]},
+        {title:'Report Registration Entry',nodes:[N('REG-001','리포트 등록 유형 선택','액션 시트','병원 방문이력의 [+]에서 AI REPORT 또는 일반 검진 리포트 선택','done','HOSP-002 방문이력')]},
+        {title:'Shared Camera / AI REPORT',nodes:[N('REG-002','리포트 촬영 카메라','공용 카메라 화면','홈에서는 AI REPORT QR 스캔 모드로 바로 진입하고, 일반 검진 등록에서는 결과지 촬영 모드로 재사용','done','HOME-001 QR 스캔 / REG-001'),N('REG-003','AI REPORT 인식 결과 확인','서브 화면','QR 인식 후 검진일·기관·검사 종류·판독 결과 확인·수정','review','REG-002 QR 스캔 모드')]},
+        {title:'General Report',nodes:[N('REG-004','검진정보 리포트 등록','서브 화면','일반 검진 리포트를 카메라·앨범·PDF로 수집','review','REG-001 일반 검진 리포트'),N('REG-005','데이터 추출중','처리 화면','파일 업로드·문서 인식·검진 결과 정리 진행','done','REG-004 검진정보 리포트 등록'),N('REG-006','추출 데이터 확인','검수 화면','추출된 기본정보·계측·검사값 확인·수정','review','REG-005 데이터 추출중'),N('REG-007','원본 리포트 미리보기','파일 뷰어','검수 중 업로드 원본 확인','done','REG-006 추출 데이터 확인')]},
+        {title:'Registration Completion',nodes:[N('REG-008','검진정보 리포트 등록 완료','완료 화면','등록 결과 보기 선택 시 병원 방문이력으로 이동','done','REG-003 / REG-006')]},
+        {title:'Checkup AI Summary',nodes:[N('AIH-001','AI 검진 요약 실행 확인','모달','선택 검진정보의 AI 요약 실행 재확인','review','HOSP-011 검진 상세'),N('AIH-002','AI 검진 요약 결과','전체 화면','주요 결과·연도별 변화·AI 설명','review','AIH-001 AI 검진 요약 실행 확인')]},
+        {title:'Selvy Checkup Flow',nodes:[N('SELVY-002','분석 신청','결제/신청 화면','검진정보 선택·이용권 확인·분석 신청','done','SELVY-001 Selvy Checkup 소개'),N('SELVY-003','Selvy Checkup 결과','서브 화면','선택 검진정보 기반 위험도 분석 결과(외부 연계 서비스)','review','SELVY-002 분석 신청')]}
+      ]},
+      {key:'account',no:'05',title:'계정 및 서비스 관리',desc:'사용자 정보, 알림, 이용권, 정책 및 고객지원',levels:[
+        {title:'Main',nodes:[N('ACC-001','계정 메인','메인 화면','계정·서비스·고객지원 메뉴')]},
+        {title:'Account',nodes:[N('ACC-002','내 정보 관리','서브 화면','이름·생년월일·탈퇴 진입'),N('ACC-003','알림 설정','서브 화면','질문·리포트·리마인드 수신 설정')]},
+        {title:'Service',nodes:[N('ACC-004','이용권 관리','서브 화면','잔여 이용권 · 구매·사용·취소(환불) 상태 이력 · 스토어 환불 신청 진입'),N('ACC-005','이용권 구매 확인','모달','스토어 결제 사전 확인'),N('ACC-011','이용권 환불 신청 확인','모달','보유 이용권의 스토어 환불 신청 재확인 · 승인 시 상태가 취소됨으로 반영','review','ACC-004 이용권 관리'),N('ACC-006','서비스 이용약관','서브 화면','서비스 이용조건','review'),N('ACC-007','개인정보 처리방침','서브 화면','개인정보·건강정보 처리 기준','review')]},
+        {title:'Support / Exit',nodes:[N('ACC-008','문의하기','서브 화면','FAQ·1:1 문의 접수','done'),N('ACC-009','로그아웃 실행 확인','확인 화면','세션 종료 재확인'),N('ACC-010','회원 탈퇴','위험 확인 화면','삭제·보관 범위 고지','review')]}
+      ]}
+    ];
+    const flowData=[
+      ['F-01 최초 가입/권한',['앱 실행','카카오 인증','권한 사전 고지','iOS HealthKit / Android Health Connect','Samsung Health 등 출처 확인','홈']],
+      ['F-02 일일 문진/개인화',['문항 선택','전체 문항 완료','코칭·목표 재계산','컨디션 확인','답변 조회']],
+      ['F-03 일반 검진 리포트',['병원 방문이력 [+]','등록 유형 선택','카메라·앨범·PDF','데이터 추출·검수','최종 등록','방문이력']],
+      ['F-04 AI REPORT QR',['홈 QR 빠른 진입 또는 병원 [+]','QR 스캔 모드','인식 결과 확인','저장','병원 방문이력']],
+      ['F-05 주간 AI 인사이트',['AI 인사이트 탭','연계·주차 상태 확인','분석 요청','분석 완료','상세 인사이트']],
+      ['F-06 Selvy Checkup(외부 연계)',['서비스 소개','등록 검진정보 선택','이용권 확인','위험도 분석','분석 결과']],
+      ['F-07 검진정보 AI 요약',['검진 방문 상세','AI 요약 실행 확인','분석 요청','주요 결과·연도별 변화']]
+    ];
+
+    const groupsEl=document.getElementById('groups');
+    const render=()=>{groupsEl.innerHTML=groups.map(g=>{const all=g.levels.flatMap(x=>x.nodes),refs=all.filter(n=>n.ref).length,screens=all.length-refs;return `<section class="group" id="${g.key}-${g.no}" data-group="${g.key}"><header class="group-head"><span class="group-num">${g.no}</span><div><h2>${g.title}</h2><p>${g.desc}</p></div><span class="group-count">${screens} Screens${refs?` · ${refs} Shared`:''}</span></header><div class="tree-wrap"><div class="tree">${g.levels.map(l=>`<div class="level"><div class="level-title">${l.title}</div>${l.nodes.map(n=>`<article class="node ${n.ref?'ref':''}" data-search="${[n.id,n.name,n.type,n.desc,n.parent,g.title,...n.sections.flatMap(s=>[s.name,s.desc])].join(' ').toLowerCase()}">${n.ref?'<span class="sr-only">공통 화면 참조</span>':''}<div class="node-top"><span class="id">${n.id}</span><span class="type">${n.type}</span></div>${n.parent?`<span class="node-parent">← ${n.parent}</span>`:''}<h3 class="node-title">${n.name}</h3><p>${n.desc}</p>${n.sections.length?`<div class="node-sections">${n.sections.map(s=>`<div class="node-section"><strong>${s.name}</strong><span>${s.desc}</span></div>`).join('')}</div>`:''}${n.ref?'':`<i class="status ${n.status}" title="${STATUS_LABEL[n.status]||''}" aria-label="상태: ${STATUS_LABEL[n.status]||n.status}"></i>`}</article>`).join('')}</div>`).join('')}</div></div></section>`}).join('')};
+    render();
+    document.getElementById('flows').innerHTML=flowData.map(([t,s])=>`<article class="flow"><h3>${t}</h3><div class="steps">${s.map((x,i)=>`${i?'<span class="arrow">→</span>':''}<span class="step">${x}</span>`).join('')}</div></article>`).join('');
+
+    let active='all';
+    const chips=[...document.querySelectorAll('.chip')];
+    const setActiveChip=selected=>chips.forEach(chip=>{
+      const isActive=chip===selected;
+      chip.classList.toggle('on',isActive);
+      chip.setAttribute('aria-pressed',String(isActive));
+    });
+    const apply=()=>{const q=document.getElementById('search').value.trim().toLowerCase();let total=0;document.querySelectorAll('.group').forEach(g=>{const areaOk=active==='all'||g.dataset.group===active;let visible=0;g.querySelectorAll('.node').forEach(n=>{const ok=areaOk&&(!q||n.dataset.search.includes(q));n.classList.toggle('dim',!ok);if(ok)visible++});g.hidden=!visible;total+=visible});document.getElementById('empty').style.display=total?'none':'block'};
+    const resetView=()=>{
+      active='all';
+      document.getElementById('search').value='';
+      setActiveChip(chips[0]);
+      apply();
+      window.scrollTo({top:0,behavior:'smooth'});
+    };
+    const scrollToSection=id=>{
+      const target=document.getElementById(id);
+      if(!target)return;
+      active='all';
+      document.getElementById('search').value='';
+      setActiveChip(chips[0]);
+      apply();
+      target.scrollIntoView({behavior:'smooth',block:'start'});
+    };
+    document.getElementById('search').addEventListener('input',apply);
+    document.addEventListener('click',event=>{
+      const chip=event.target.closest('.chip');
+      if(chip){active=chip.dataset.filter;setActiveChip(chip);apply();return;}
+      const jump=event.target.closest('[data-scroll-target]');
+      if(jump){scrollToSection(jump.dataset.scrollTarget);return;}
+      if(event.target.closest('#reset')){resetView();return;}
+      if(event.target.closest('#print')){window.print();}
+    });
+    document.body.dataset.interactive='ready';
+  </script>
+</body>
+</html>

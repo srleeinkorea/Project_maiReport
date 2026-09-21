@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 식이 진단 층 · 상병코드 추천</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:760px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  code{font-family:Consolas,"D2Coding",monospace;font-size:12px;background:#f3f5f9;border-radius:5px;padding:1px 5px;color:var(--ink-1)}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .callout.warn{border-left-color:#d98a12;background:#fff6e8;color:#6b4c0f}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .mini{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+  .mini p{font-size:12.5px;margin:0}
+  ul,ol{padding-left:18px;margin-bottom:8px}
+  li{margin-bottom:4px;font-size:13px}
+  .chip{display:inline-block;border-radius:6px;padding:1px 7px;font-size:11.5px;font-weight:700;white-space:nowrap;margin-right:4px}
+  .c1{background:#e8f6ee;color:#1e6b3a}.c2{background:#eef3ff;color:#2f66f5}.ban{background:#fdeeee;color:#a12e2e}.no{background:#eee;color:#555}.q{background:#fff6e8;color:#8a5a0a}
+  .note{font-size:12px;color:var(--ink-3)}
+  @media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 진단 층 상세</span>
+  <h1>식이 진단 층 · 가져올 상병코드 추천</h1>
+  <p>진료정보 연동으로 받을 상병코드(한국표준질병사인분류, KCD) 중 식이 목표 규칙에 실제로 영향을 주는 것만 고른다. 질환마다 코드 범위 · 후보 조건 · 식이에서 왜 중요한지의 근거 · 연결 축과 금지 문구 · 1차/2차를 적었다. 진료정보 연동에 처방 정보는 포함되지 않으므로 모든 조건은 상병코드만으로 정한다. 가정의학 임상 관점의 추천이며, 최종 매핑은 의학팀 검토를 거친다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-18</b></span><span>대상 <b>식이 질문·목표 상세 기획 1.0 ⑤ 진단 층</b></span><span>범위 <b>1차 연결 6 · 금지 전용 5 · 2차 5 · 제외 기준</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 선정 원칙</a><a href="#s2">② 1차 연결 대상</a><a href="#s3">③ 금지 전용 대상</a><a href="#s4">④ 2차 후보</a><a href="#s5">⑤ 가져오지 않는 것</a><a href="#s6">⑥ 후보 조건 요약</a><a href="#s7">⑦ 확인 질문 표기</a><a href="#s8">⑧ 기획안 대비 변경</a><a href="#s9">⑨ 의학팀 검토 포인트</a>
+</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>선정 원칙</h2>
+  <div class="sub">어떤 질환을 가져오고 어떤 질환을 두는지 판단한 기준</div>
+  <div class="grid2">
+    <div class="mini"><b>식이 행동으로 결과가 달라지는 질환만</b><p>나트륨 · 당류 · 포화지방 · 열량 · 단백질 · 칼륨 · 식사 시각 중 하나 이상이 진료지침에서 생활요법의 핵심인 질환. 갑상선 · 골다공증처럼 식이 영향이 간접적인 것은 뺀다.</p></div>
+    <div class="mini"><b>해로울 수 있는 문구를 막는 데 먼저 쓴다</b><p>연결(그 질환에 맞는 축을 열기)보다 금지(위험한 문구를 빼기)가 안전에 직결된다. 그래서 연결은 확진 후, 금지는 후보 단계부터 적용하고, 금지 전용 질환을 따로 둔다.</p></div>
+    <div class="mini"><b>청구 코드의 성격을 감안한다</b><p>진료정보의 상병코드는 청구용이다. 의심 진단, 검사 목적 코드, 약 처방을 위해 붙는 코드가 섞여 있다. 처방 정보는 연동되지 않으므로 코드만으로 판단해야 한다. 그래서 "12개월 내 주상병 2회 이상"을 기본 조건으로 두고, 남용이 잦은 코드는 3회로 강화하고, 급성 사건과 안전 목적 코드는 1회로 완화한다.</p></div>
+    <div class="mini"><b>사용자가 확인하지 않은 질환으로 연결하지 않는다</b><p>연결은 반드시 "지금 관리 중이신가요?" 확인을 거친다. 단, 임신 · 섭식장애 · 암처럼 묻는 것 자체가 부담인 질환은 확인 질문을 내지 않고 금지만 조용히 적용한다.</p></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>1차 연결 대상 · 6개 질환 유형</h2>
+  <div class="sub">확진되면 그 질환의 연결 축을 열고 검진 경계보다 우선한다. 금지 문구는 후보부터</div>
+
+  <h3>2-1 당뇨병</h3>
+  <table>
+    <tr><th style="width:150px">항목</th><th>내용</th></tr>
+    <tr><td class="k">상병코드</td><td><code>E11</code> 2형 당뇨병 · <code>E13</code> 기타 명시된 당뇨병 · <code>E14</code> 상세불명 당뇨병 · <code>E10</code> 1형 당뇨병(아래 별도 처리). 세부 4자리(합병증 표기 <code>E11.2</code> 신장, <code>E11.3</code> 눈 등)는 모두 포함하되 신장 합병증 <code>E11.2</code> <code>E14.2</code>는 만성 신장질환 금지도 함께 적용</td></tr>
+    <tr><td class="k">후보 조건</td><td>12개월 안 주상병 2회 이상</td></tr>
+    <tr><td class="k">식이에서 왜 중요한가</td><td>대한당뇨병학회 진료지침(2023) 의학영양요법: 탄수화물 양과 질 조절, 식이섬유 · 채소 충분히, 당류 · 가당 음료 제한이 혈당 조절의 1차 수단. 식사 순서(채소 먼저)의 식후 혈당 저하 근거가 당뇨 · 당뇨 전단계에서 가장 많다</td></tr>
+    <tr><td class="k">연결 축</td><td>채소 · 단 음료·단 간식 · 식사 속도·양</td></tr>
+    <tr><td class="k">금지 문구</td><td><span class="chip ban">당뇨병 전체</span>「한 끼 밥 양은 평소의 3분의 2」 「단 음료 오늘 하루 쉬기」 제외. 저혈당 위험은 인슐린 · 설포닐우레아 사용자에게 집중되지만(ADA Standards of Care 저혈당 위험 분류) 처방 정보가 없어 약물 종류를 알 수 없으므로 확진 당뇨병 전원에 보수적으로 적용한다</td></tr>
+    <tr><td class="k">1형 당뇨 <code>E10</code></td><td>연결 축은 같지만 인슐린 필수 → 항상 저혈당 위험군. 탄수화물 계산 등 전문 교육 대상이므로 「밥 양」 「단 음료 하루 쉬기」 외에 「저녁 양은 점심보다 적게」도 제외. 회복 풀은 유지(결식이 더 위험)</td></tr>
+    <tr><td class="k">주의</td><td>임신성 당뇨 <code>O24</code>는 임신 유형(③)이 우선. 당뇨 전단계 코드 <code>R73.0</code> <code>R73.9</code>는 R 코드 원칙상 후보에 넣지 않고, 검진 경계(공복혈당)로 이미 잡히므로 중복 불필요</td></tr>
+  </table>
+
+  <h3>2-2 고혈압</h3>
+  <table>
+    <tr><th style="width:150px">항목</th><th>내용</th></tr>
+    <tr><td class="k">상병코드</td><td><code>I10</code> 본태성 고혈압 · <code>I11</code> 고혈압성 심장병 · <code>I12</code> 고혈압성 신장병 · <code>I13</code> 고혈압성 심장 및 신장병 · <code>I15</code> 이차성 고혈압. <code>I12</code> <code>I13</code>은 신장 침범이므로 만성 신장질환 금지도 함께 적용</td></tr>
+    <tr><td class="k">후보 조건</td><td>12개월 안 주상병 2회 이상</td></tr>
+    <tr><td class="k">식이에서 왜 중요한가</td><td>대한고혈압학회 진료지침(2022) 생활요법: 소금 하루 5g 이하가 수축기 혈압 2~8mmHg 저하, 채소 · 과일 · 저지방 식사(DASH)와 칼륨 충분 섭취 권고. 나트륨은 식이 요인 중 효과 크기가 가장 명확하다</td></tr>
+    <tr><td class="k">연결 축</td><td>짠맛·국물 · 채소</td></tr>
+    <tr><td class="k">금지 문구</td><td>없음. 단, 신장 침범(<code>I12</code> <code>I13</code>) 또는 만성 신장질환 동반이면 「채소·과일 한 접시 더」 제외(칼륨)</td></tr>
+  </table>
+
+  <h3>2-3 이상지질혈증</h3>
+  <table>
+    <tr><th style="width:150px">항목</th><th>내용</th></tr>
+    <tr><td class="k">상병코드</td><td><code>E78.0</code> 순수 고콜레스테롤혈증 · <code>E78.1</code> 순수 고글리세라이드혈증 · <code>E78.2</code> 혼합형 · <code>E78.4</code> 기타 · <code>E78.5</code> 상세불명. <code>E78.6</code> 지단백 결핍은 반대 방향이므로 제외</td></tr>
+    <tr><td class="k">후보 조건</td><td>12개월 안 주상병 2회 이상</td></tr>
+    <tr><td class="k">식이에서 왜 중요한가</td><td>한국지질동맥경화학회 진료지침 5판(2022) 식사요법: 포화지방 · 트랜스지방 · 적색육 · 가공육 줄이기, 생선 · 통곡 · 채소 · 콩류 권장. 고중성지방형(<code>E78.1</code>)은 당류 · 술 · 정제 탄수화물 제한이 핵심</td></tr>
+    <tr><td class="k">연결 축</td><td>기름진 음식 · 식사 속도·양. <code>E78.1</code> <code>E78.2</code>는 단 음료·단 간식 추가</td></tr>
+    <tr><td class="k">금지 문구</td><td>없음</td></tr>
+  </table>
+
+  <h3>2-4 만성 신장질환</h3>
+  <table>
+    <tr><th style="width:150px">항목</th><th>내용</th></tr>
+    <tr><td class="k">상병코드</td><td><code>N18.1</code>~<code>N18.5</code> 만성 신장질환 1~5기 · <code>N18.9</code> 상세불명 · <code>N19</code> 상세불명 신부전 · 당뇨 · 고혈압 신장 합병증 <code>E11.2</code> <code>E14.2</code> <code>I12</code> <code>I13</code></td></tr>
+    <tr><td class="k">후보 조건</td><td><code>N18.3</code> 이상 · <code>Z49</code> · <code>Z99.2</code> · <code>Z94.0</code>은 1회. 그 외 12개월 안 2회</td></tr>
+    <tr><td class="k">식이에서 왜 중요한가</td><td>KDIGO 만성 신장질환 진료지침(2024) · 대한신장학회: 3기 이상에서 단백질 0.8g/kg/일 이하, 나트륨 2g 미만, 고칼륨혈증 위험 시 칼륨 제한. 일반인 대상 "채소 · 과일 더" "단백질 더" 문구가 이 집단에는 정반대 방향이다. 진단 층에서 가장 중요한 금지 대상</td></tr>
+    <tr><td class="k">연결 축</td><td>짠맛·국물</td></tr>
+    <tr><td class="k">금지 문구</td><td><span class="chip ban">전 단계</span>「채소·과일 한 접시 더」 「매 끼니 단백질 반찬 하나」 「단백질 반찬 한 가지 챙기기」 「간식은 견과류 한 줌으로」(칼륨 · 인). <span class="chip ban">3기 이상</span>「채소 반찬 한 가지 더」 「매 끼니 채소부터 먼저」도 제외하고 채소 축 자체를 연결에서 뺀다. 회복 풀의 「소량이라도 단백질 한 가지」는 유지(결식 회복이 우선)</td></tr>
+    <tr><td class="k">투석 · 이식</td><td><code>Z49</code> 투석 관리 · <code>Z99.2</code> 투석 의존 · <code>Z94.0</code> 신장 이식 상태 → 전문 영양관리 대상. <b>식이 타일을 내지 않고</b> "담당 의료진의 식사 안내를 따르세요" 고정 문구로 대체 권고(⑨-3)</td></tr>
+  </table>
+
+  <h3>2-5 심혈관질환</h3>
+  <table>
+    <tr><th style="width:150px">항목</th><th>내용</th></tr>
+    <tr><td class="k">상병코드</td><td><code>I20</code>~<code>I25</code> 허혈성 심장질환(협심증 · 심근경색 · 만성 허혈성) · <code>I50</code> 심부전 · <code>I63</code> 뇌경색 · <code>I64</code> 상세불명 뇌졸중 · <code>I69</code> 뇌혈관질환 후유증</td></tr>
+    <tr><td class="k">후보 조건</td><td>급성 사건(<code>I21</code> 심근경색 · <code>I63</code> 뇌경색 · <code>I64</code>)은 1회. <code>I25.2</code> 오래된 심근경색 · <code>I69</code> 후유증도 1회. 협심증 · 만성 허혈 · 심부전은 2회</td></tr>
+    <tr><td class="k">식이에서 왜 중요한가</td><td>이차 예방에서 나트륨 · 포화지방 제한과 지중해식 식사가 재발을 줄인다(한국지질동맥경화학회 · 대한심장학회 이차예방 권고). 심부전은 나트륨 · 수분 제한이 증상 조절의 기본</td></tr>
+    <tr><td class="k">연결 축</td><td>짠맛·국물 · 기름진 음식</td></tr>
+    <tr><td class="k">금지 문구</td><td>없음. 심부전(<code>I50</code>)은 수분 제한 여부가 개인차라 「오늘 물 6잔」류 문구가 있다면 제외 — 현재 문구 세트에는 없음</td></tr>
+  </table>
+
+  <h3>2-6 지방간</h3>
+  <table>
+    <tr><th style="width:150px">항목</th><th>내용</th></tr>
+    <tr><td class="k">상병코드</td><td><code>K76.0</code> 비알코올성 지방간 · <code>K75.8</code> 비알코올성 지방간염 · <code>K70.0</code> 알코올성 지방간</td></tr>
+    <tr><td class="k">후보 조건</td><td>12개월 안 2회, 또는 1회 + <b>검진 간기능(AST · ALT · 감마GT) 경계</b>. 검진값으로 코드 신뢰도를 보강한다</td></tr>
+    <tr><td class="k">식이에서 왜 중요한가</td><td>대한간학회 비알코올 지방간질환 진료지침(2021) · 미국간학회(2023): 체중 7~10% 감량이 유일하게 입증된 치료, 과당(가당 음료) 제한과 포화지방 감소 권고. 검진 인구에서 유병률이 30% 안팎으로 가장 흔한 대사질환 중 하나인데 검진 경계 항목에는 없어 진단 층으로만 잡을 수 있다</td></tr>
+    <tr><td class="k">연결 축</td><td>단 음료·단 간식 · 기름진 음식 · 식사 속도·양</td></tr>
+    <tr><td class="k">금지 문구</td><td>없음. 알코올성(<code>K70</code>)은 술 관련 문구가 있다면 우선 — 현재 세트에 없음(⑨-4)</td></tr>
+  </table>
+
+  <div class="callout">기획안 1.0의 진단 층 표에는 당뇨병 · 고혈압 · 이상지질혈증 · 만성 신장질환 네 가지만 1차 연결이었다. 여기서 <b>심혈관질환과 지방간을 1차로 올리는 것</b>을 추천한다. 심혈관질환은 나트륨 · 지질 관리 필요성이 고혈압 · 이상지질혈증과 같은데 코드가 달라 빠지고, 지방간은 검진 경계로는 잡히지 않는 가장 흔한 식이 관련 질환이기 때문이다.</div>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>금지 전용 대상 · 5개 유형</h2>
+  <div class="sub">연결 축은 열지 않고 해로울 수 있는 문구만 뺀다. 후보 단계부터 적용하며 확인 질문은 내지 않는다</div>
+  <table>
+    <tr><th style="width:130px">유형</th><th style="width:22%">상병코드</th><th>후보 조건</th><th>금지 문구 · 이유</th></tr>
+    <tr><td class="k">임신 · 산후 · 수유</td><td><code>O00</code>~<code>O99</code> 임신 · 출산 · 산후기 전체 · <code>Z32.1</code> 임신 확인 · <code>Z33</code> 임신 상태 · <code>Z34</code> 정상임신 관리 · <code>Z35</code> 고위험임신 관리 · <code>Z39</code> 산후 관리 · 수유</td><td>O · Z34 · Z35는 최근 10개월 안 1회라도 후보. Z39는 12개월. 확인 질문 없음</td><td>양 줄이기 · 저녁 적게 · 밥 양 3분의 2 · 단 음료 하루 쉬기 · 배부르기 전에 수저 놓기 등 <b>섭취 제한형 전부</b>. 임신 중 열량 · 단백질 요구량이 늘고 체중 감량은 권고되지 않는다(대한산부인과학회 · 2020 한국인 영양소 섭취기준 임신부 부가량). 「오후 2시 이후 카페인」은 유지 가능(하루 200mg 이하 권고와 방향 일치)</td></tr>
+    <tr><td class="k">섭식장애</td><td><code>F50.0</code> 신경성 식욕부진 · <code>F50.1</code> 비정형 식욕부진 · <code>F50.2</code> 신경성 폭식증 · <code>F50.3</code> 비정형 폭식증 · <code>F50.8</code> <code>F50.9</code> 기타 · 상세불명</td><td>최근 24개월 안 1회라도 후보(회복 후에도 재발 위험). 확인 질문 없음</td><td><b>식사 속도·양 축 전체 · 식사 시각 축 전체 · 검진 경계 전용 문구 · 「단 음료 오늘 하루 쉬기」 · 회복 풀의 「저녁은 가볍게」</b>. 양 · 시각 · 제한을 말하는 문구가 병리적 통제를 강화할 수 있다(미국정신의학회 섭식장애 진료지침). 남는 축은 채소 · 단백질 · 짠맛 · 기름진 음식의 "더하기형" 문구만</td></tr>
+    <tr><td class="k">영양결핍 · 저체중</td><td><code>E40</code>~<code>E46</code> 단백열량 영양실조 · <code>R63.4</code> 비정상 체중 감소 · <code>R64</code> 카켁시아 · <code>R63.0</code> 식욕부진</td><td>12개월 안 1회. R 코드지만 안전 목적이라 예외 허용</td><td>저체중 규칙과 동일 — 검진 경계 전용 문구(밥 양 · 저녁 적게) 제외. 체질량지수 18.5 미만 규칙이 검진값 없이도 동작하게 하는 보완 경로</td></tr>
+    <tr><td class="k">악성신생물 치료 중</td><td><code>C00</code>~<code>C97</code> 악성신생물 + <code>Z51.1</code> 항암화학요법 · <code>Z51.0</code> 방사선치료 · <code>Z54</code> 회복기</td><td>C 코드 + Z51 6개월 안 동반이면 후보. C 코드만 5년 이상 경과는 제외(완치 추적). 확인 질문 없음</td><td>섭취 제한형 전부 제외. 치료 중 영양 유지가 우선이고 체중 감소가 예후를 나쁘게 한다(유럽임상영양대사학회 암 환자 영양 지침). 연결은 없음. 식이 타일 자체를 회복 풀 3개로만 운영하는 안도 검토(⑨-3)</td></tr>
+    <tr><td class="k">위 절제 · 비만수술 상태</td><td><code>Z90.3</code> 위 후천적 결여 · <code>Z98.0</code> 장 우회 · 문합 상태 · <code>K91.1</code> 위수술 후 증후군(덤핑)</td><td>1회라도 후보(영구 상태)</td><td>「한 끼 밥 양은 평소의 3분의 2」 「저녁 양은 점심보다 적게」 제외(이미 소량 다회 식사 중), 「끼니 사이 4시간」류가 있다면 제외. 「20분 이상 천천히」 「단 음료 대신 물」은 덤핑 예방과 방향이 같아 오히려 유지</td></tr>
+  </table>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>2차 후보 · 데이터 확인 후 연결</h2>
+  <div class="sub">식이 영향은 분명하지만 청구 코드 신뢰도가 낮거나 문구 세트 보강이 먼저 필요한 것</div>
+  <table>
+    <tr><th style="width:130px">유형</th><th style="width:22%">상병코드</th><th>연결 축 · 금지</th><th>2차로 두는 이유</th></tr>
+    <tr><td class="k">비만</td><td><code>E66.0</code> 과식성 · <code>E66.1</code> 약물유발 · <code>E66.8</code> <code>E66.9</code></td><td>식사 속도·양 · 단 음료 · 식사 시각</td><td>진료 현장에서 비만 코드를 주상병으로 붙이는 일이 드물어 청구 코드로는 거의 잡히지 않는다. 검진 체질량지수 경계가 더 안정적이라 코드는 보조 신호에 그친다</td></tr>
+    <tr><td class="k">통풍 · 고요산혈증</td><td><code>M10</code> 통풍 · <code>E79.0</code> 고요산혈증</td><td>단 음료 · 기름진 음식 / 금지: 「붉은 고기 대신 생선이나 두부」(생선 퓨린)</td><td>미국류마티스학회 통풍 지침(2020)은 술 · 퓨린 · 과당 제한을 조건부 권고. <code>M10</code>은 발작 시에만 청구되어 12개월 2회가 드물다. 술 관련 문구가 세트에 없어 효과도 제한적</td></tr>
+    <tr><td class="k">위식도역류</td><td><code>K21.0</code> 식도염 동반 · <code>K21.9</code> 비동반</td><td>식사 시각 · 식사 속도·양</td><td>미국소화기학회 위식도역류 지침(2022)이 취침 2~3시간 내 식사 회피 · 체중 감량을 권고하지만, K21은 위장약 처방을 위해 붙이는 경우가 많아 남용 코드다. 후보 조건을 "12개월 주상병 3회 이상"으로 강화해야 한다</td></tr>
+    <tr><td class="k">만성 간질환 · 간경변</td><td><code>K70.3</code> 알코올성 간경변 · <code>K74.6</code> 기타 간경변 · <code>K73</code> 만성 간염 · <code>B18</code> 만성 바이러스 간염</td><td>짠맛(복수 시 나트륨 제한) / 금지: 단백질 제한은 하지 않음(최신 지침은 오히려 충분 섭취 권고)</td><td>보상 · 비보상 구분이 코드로 안 되고 식이 지침이 단계별로 정반대(단백질)라 자동 규칙이 위험하다. 의학팀과 문구 설계 후</td></tr>
+    <tr><td class="k">철결핍 빈혈</td><td><code>D50</code> 철결핍 빈혈</td><td>단백질 / 금지: 「붉은 고기 대신 생선이나 두부 한 끼」(철 급원 감소)</td><td>금지 1건이라 1차에 넣어도 부담은 없으나 유병 인구 대비 효과가 작아 2차</td></tr>
+  </table>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>가져오지 않는 것 · 제외 기준</h2>
+  <div class="sub">코드는 오더라도 진단 층에서 쓰지 않는 것</div>
+  <table>
+    <tr><th style="width:200px">구분</th><th>코드 예</th><th>이유</th></tr>
+    <tr><td class="k">증상 · 검사 소견 코드</td><td><code>R73</code> 고혈당 · <code>R03.0</code> 혈압 상승 소견 · <code>R74</code> 간효소 이상 · <code>R63.5</code> 비정상 체중 증가</td><td>확진이 아니며 검진 경계로 이미 같은 정보를 더 정확히 얻는다. 단 <code>R63.4</code> <code>R64</code> <code>R63.0</code>은 안전 목적으로 ③에서 예외</td></tr>
+    <tr><td class="k">건강검진 · 상담 목적 코드</td><td><code>Z00</code> 일반 검진 · <code>Z01</code> 특수 검진 · <code>Z13</code> 선별검사 · <code>Z71.3</code> 식이 상담</td><td>질환 정보가 아니다. <code>Z71.3</code>은 "식이 상담을 받았다"는 사실만 있고 무엇 때문인지 없음</td></tr>
+    <tr><td class="k">부상병만 1회</td><td>모든 코드</td><td>주상병 아닌 1회 부상병은 감별 · 동반 표기가 많다. 부상병은 횟수 계산에서 제외</td></tr>
+    <tr><td class="k">식이 영향이 간접적인 만성질환</td><td><code>E03</code> 갑상선기능저하 · <code>M80</code> <code>M81</code> 골다공증 · <code>J44</code> 만성폐쇄성폐질환 · <code>F32</code> <code>F33</code> 우울증</td><td>식이 지침이 있어도 현재 8축 문구와 맞물리는 지점이 없다. 우울증은 식욕 변화가 크지만 규칙으로 다루기보다 회복 풀이 자연히 덮는다</td></tr>
+    <tr><td class="k">인지 · 연하 장애</td><td><code>F00</code>~<code>F03</code> 치매 · <code>G30</code> 알츠하이머 · <code>R13</code> 연하곤란</td><td>자기보고 답의 신뢰도와 식이 목표 자체의 적합성이 의심되는 집단. 진단 층이 아니라 서비스 대상 정책에서 다룰 문제(⑨-5)</td></tr>
+    <tr><td class="k">5년 이상 경과한 급성 사건</td><td>오래된 <code>I21</code> 심근경색 · 완치 추적 중 <code>C</code> 코드</td><td>연동 창을 12개월로 두면 자연히 빠진다. 심근경색은 이차 예방이 평생이므로 12개월 안에 <code>I25.2</code> 오래된 심근경색 코드가 1회라도 있으면 심혈관질환으로 잡힌다</td></tr>
+  </table>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="n">6</span>후보 조건 요약</h2>
+  <div class="sub">처방 정보 없이 상병코드 횟수만으로. 횟수는 최근 12개월 주상병 기준</div>
+  <table>
+    <tr><th style="width:150px">질환 유형</th><th style="width:30%">후보 조건</th><th>비고</th><th style="width:80px">단계</th></tr>
+    <tr><td class="k">당뇨병</td><td>2회</td><td>약물 종류를 알 수 없어 금지 문구는 확진 전원에 적용</td><td><span class="chip c1">1차</span></td></tr>
+    <tr><td class="k">고혈압</td><td>2회</td><td></td><td><span class="chip c1">1차</span></td></tr>
+    <tr><td class="k">이상지질혈증</td><td>2회</td><td></td><td><span class="chip c1">1차</span></td></tr>
+    <tr><td class="k">만성 신장질환</td><td><code>N18.3</code> 이상 · <code>Z49</code> · <code>Z99.2</code> · <code>Z94.0</code> 1회 · 그 외 2회</td><td>3기 이상은 단계 코드 자체가 확진 정보</td><td><span class="chip c1">1차</span></td></tr>
+    <tr><td class="k">심혈관질환</td><td>급성 사건 · 후유증 코드 1회 · 그 외 2회</td><td>급성 사건은 반복 청구되지 않는다</td><td><span class="chip c1">1차</span></td></tr>
+    <tr><td class="k">지방간</td><td>2회 또는 1회 + 검진 ALT 경계</td><td>없음(검진 간기능으로 보강)</td><td><span class="chip c1">1차</span></td></tr>
+    <tr><td class="k">임신 · 산후 · 수유</td><td>10개월 안 1회(<code>Z39</code>는 12개월)</td><td>—</td><td><span class="chip ban">금지</span></td></tr>
+    <tr><td class="k">섭식장애</td><td>24개월 안 1회</td><td>—</td><td><span class="chip ban">금지</span></td></tr>
+    <tr><td class="k">영양결핍 · 저체중</td><td>12개월 안 1회</td><td>—</td><td><span class="chip ban">금지</span></td></tr>
+    <tr><td class="k">악성신생물 치료 중</td><td>C 코드 + <code>Z51</code> 6개월 안</td><td>C 코드만 있고 Z51 없으면 완치 추적으로 보고 제외</td><td><span class="chip ban">금지</span></td></tr>
+    <tr><td class="k">위 절제 · 비만수술</td><td>1회</td><td>—</td><td><span class="chip ban">금지</span></td></tr>
+    <tr><td class="k">비만 · 통풍 · 역류 · 간질환 · 철결핍</td><td>④ 참조</td><td><code>A08A</code> · <code>M04AA</code> · <code>A02BC</code> · <code>B03A</code></td><td><span class="chip c2">2차</span></td></tr>
+  </table>
+  <p class="note">2차 유형의 비고 열에 있던 약 계열은 처방 정보가 연동되지 않아 조건에서 제외했다. 향후 처방 정보가 연동되면 당뇨병 금지를 인슐린 · 설포닐우레아 사용자로 좁히고, 위식도역류 · 비만 · 통풍의 후보 조건을 처방으로 보강할 수 있다.</p>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="n">7</span>확인 질문의 질환명 표기</h2>
+  <div class="sub">"진료 기록에 {질환명} 진료가 있어요. 지금 관리 중이신가요?"에 넣는 말. 코드 한글명이 아니라 사용자가 아는 이름으로</div>
+  <table>
+    <tr><th style="width:170px">유형</th><th style="width:30%">표기</th><th>비고</th></tr>
+    <tr><td class="k">당뇨병</td><td>당뇨병</td><td>1형 · 2형 구분하지 않음</td></tr>
+    <tr><td class="k">고혈압</td><td>고혈압</td><td></td></tr>
+    <tr><td class="k">이상지질혈증</td><td>고지혈증(이상지질혈증)</td><td>사용자 인지도는 "고지혈증"이 높다</td></tr>
+    <tr><td class="k">만성 신장질환</td><td>만성 콩팥병</td><td>대한신장학회 대중 표기</td></tr>
+    <tr><td class="k">심혈관질환</td><td>심장 · 뇌혈관 질환(협심증 · 심근경색 · 뇌졸중 등)</td><td>세부 코드에 따라 괄호 안을 하나로 좁혀 표기</td></tr>
+    <tr><td class="k">지방간</td><td>지방간</td><td></td></tr>
+    <tr><td class="k">금지 전용 5유형</td><td>—</td><td>확인 질문을 내지 않는다. 임신 · 섭식장애 · 암 · 영양결핍 · 수술 이력은 묻는 것 자체가 부담이고, 금지는 확인 없이 적용해도 해가 없다</td></tr>
+  </table>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8">
+  <h2><span class="n">8</span>기획안 1.0 진단 층 대비 바뀌는 것</h2>
+  <div class="sub">이 추천을 받아들이면 「식이 질문·목표 상세 기획」 ⑤ 진단 층 표에서 고칠 부분</div>
+  <table>
+    <tr><th style="width:200px">항목</th><th>기획안 1.0</th><th>추천</th></tr>
+    <tr><td class="k">1차 연결 유형</td><td>당뇨병 · 고혈압 · 이상지질혈증 · 만성 신장질환</td><td>+ 심혈관질환 · 지방간</td></tr>
+    <tr><td class="k">당뇨병 금지</td><td>처방 동반이면 「밥 양」 「단 음료 하루 쉬기」 제외</td><td>처방 정보가 없으므로 확진 당뇨병 전원에 적용. 1형은 「저녁 양 적게」 추가 제외</td></tr>
+    <tr><td class="k">만성 신장질환 금지</td><td>채소·과일 접시 · 단백질 문구 · 견과류</td><td>3기 이상은 채소 축 연결 자체 제외. 투석 · 이식은 식이 타일 비노출</td></tr>
+    <tr><td class="k">이상지질혈증 연결 축</td><td>기름진 음식 · 식사 속도·양</td><td><code>E78.1</code> <code>E78.2</code>는 단 음료·단 간식 추가</td></tr>
+    <tr><td class="k">금지 전용 유형</td><td>임신·수유 · 섭식장애 · 영양결핍</td><td>+ 악성신생물 치료 중 · 위 절제·비만수술 상태. 섭식장애 금지 범위 확대(식사 시각 축 · 회복 풀 「저녁은 가볍게」)</td></tr>
+    <tr><td class="k">후보 조건</td><td>12개월 주상병 2회 또는 처방 동반, 일률</td><td>처방 조건 삭제(연동 안 됨). 코드 횟수만으로 질환별 조정(⑥). 급성 사건 · 안전 유형은 1회, 역류는 3회 강화</td></tr>
+    <tr><td class="k">확인 질문</td><td>후보 발생 시 1회, 모든 유형</td><td>연결 유형만. 금지 전용은 확인 없이 적용</td></tr>
+    <tr><td class="k">R 코드</td><td>후보에 넣지 않음</td><td>원칙 유지. <code>R63.4</code> <code>R64</code> <code>R63.0</code>만 안전 목적 예외</td></tr>
+  </table>
+</section>
+
+<!-- 9 -->
+<section class="card" id="s9">
+  <h2><span class="n">9</span>의학팀 검토 포인트</h2>
+  <div class="sub">이 추천에서 임상 판단이 갈릴 수 있는 지점</div>
+  <table>
+    <tr><th style="width:40px">#</th><th style="width:200px">항목</th><th>쟁점</th></tr>
+    <tr><td>1</td><td class="k">당뇨병 금지 전원 적용</td><td>처방 정보가 없어 확진 당뇨병 전원에 「밥 양 3분의 2」 「단 음료 하루 쉬기」를 빼는 것이 과한지. 식사 조절만 하는 당뇨병 환자에게는 두 문구가 오히려 적절할 수 있다. 대안: 확인 질문에 "약을 드시나요?"를 덧붙여 저혈당 위험군을 가르는 것</td></tr>
+    <tr><td>2</td><td class="k">만성 신장질환 단계 경계</td><td>칼륨 · 단백질 금지를 3기부터 적용하는 것이 맞는지, 1~2기에도 단백질 문구를 뺄지. KDIGO는 3기 이상 단백질 0.8g/kg를 권고하지만 1~2기는 일반인과 같다</td></tr>
+    <tr><td>3</td><td class="k">식이 타일 비노출 대상</td><td>투석 · 이식 · 항암 치료 중은 규칙 문구가 부적절할 수 있다. 회복 풀만 운영할지, 타일 자체를 "담당 의료진 안내" 고정 문구로 바꿀지</td></tr>
+    <tr><td>4</td><td class="k">술 관련 문구 부재</td><td>지방간 · 통풍 · 고중성지방 · 고혈압 모두 절주가 핵심인데 현재 문구 세트에 술 문구가 없다(기존 0.1의 「저녁 술 없이」가 검수에서 빠짐). 「짠맛·국물」 또는 별도 축으로 절주 문구 1~2개 추가를 검토</td></tr>
+    <tr><td>5</td><td class="k">인지 · 연하 장애 대상 정책</td><td>진단 층이 아니라 서비스 대상 정의에서 다룰지. 자기보고 문항 기반 서비스의 한계</td></tr>
+    <tr><td>6</td><td class="k">고혈압 이뇨제와 칼륨</td><td>티아지드 · 루프 이뇨제는 저칼륨, ACE 억제제 · ARB · 칼륨보존 이뇨제는 고칼륨 방향. 신장질환 동반이 아니면 「채소·과일 한 접시 더」를 그대로 둘지</td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

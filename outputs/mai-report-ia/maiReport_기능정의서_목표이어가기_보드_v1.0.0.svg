@@ -1,0 +1,333 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1890" height="1290" viewBox="0 0 1890 1290" font-family="Noto Sans KR, Malgun Gothic, sans-serif">
+  <defs>
+    <g id="fnbase"><rect width="430" height="216" rx="12" fill="#FFFFFF" stroke="#DCE3ED"/><rect width="430" height="34" rx="12" fill="#F7F9FC"/><rect y="22" width="430" height="12" fill="#F7F9FC"/><rect y="34" width="430" height="1" fill="#DCE3ED"/></g>
+    <g id="flabels" font-size="10.5" fill="#8B97AC" font-weight="800">
+      <text x="14" y="72">트리거</text><text x="14" y="94">입력</text><text x="14" y="116">처리</text><text x="14" y="154">출력</text><text x="14" y="176">예외</text>
+    </g>
+  </defs>
+  <rect width="1890" height="1290" fill="#F1F4F9"/>
+
+  <text x="40" y="52" font-size="26" font-weight="900" letter-spacing="-1.1" fill="#101A2B">maiReport · 목표 이어가기 기능정의서</text>
+  <text x="40" y="80" font-size="13" fill="#5A6779">LIFE-001 주간 달성률을 대체하는 기능군 — 트리거 · 입력 · 처리 · 출력 · 예외</text>
+  <text x="1850" y="52" font-size="12.5" font-weight="600" fill="#8B97AC" text-anchor="end" font-family="JetBrains Mono, Consolas, monospace">v1.0 · 2026-09-11</text>
+  <text x="1850" y="78" font-size="11.5" fill="#8B97AC" text-anchor="end">기능 13 · 확정 4 · 검토 6 · 미정 3 · 과거 날짜 기록 허용</text>
+  <rect x="40" y="104" width="1810" height="2" fill="#101A2B"/>
+
+  <!-- ==================== 그룹 01 ==================== -->
+  <text x="40" y="146" font-size="11" font-weight="600" fill="#8B97AC" font-family="JetBrains Mono, Consolas, monospace">01</text>
+  <text x="40" y="168" font-size="17" font-weight="900" letter-spacing="-0.7" fill="#101A2B">목표 실행 기록</text>
+  <text x="40" y="186" font-size="11" fill="#69768B">완료를 남기고 그 기록이 집계의 입력이 되는 구간</text>
+  <rect x="40" y="194" width="430" height="1" fill="#CFD8E4"/>
+
+  <g transform="translate(40,206)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="76" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="50" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">GOAL-001</text>
+    <text x="98" y="22" font-size="13" font-weight="700" fill="#101A2B">완료 처리</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#FBF1D9"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#96650A" text-anchor="middle">검토</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">선택 날짜의 목표를 완료로 기록한다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">미완료 목표 영역 터치 (카드 전체)</text>
+      <text x="70" y="94">사용자 · 카테고리 · 기준일 · 제시 문구</text>
+      <text x="70" y="116">완료 저장 → 문구 잠금 → 카운터 갱신</text>
+      <text x="70" y="132">→ 연속일수 재계산 → 코멘트 재평가</text>
+      <text x="70" y="154">체크 채움 · 본문 흐림 · 블록 갱신</text>
+      <text x="70" y="176">과거 날짜 허용 · 미래만 불가</text>
+      <text x="70" y="192">연타는 마지막만 · 실패 시 이전 상태로</text>
+    </g>
+  </g>
+
+  <g transform="translate(40,436)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="76" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="50" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">GOAL-002</text>
+    <text x="98" y="22" font-size="13" font-weight="700" fill="#101A2B">완료 취소</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#E3F3EC"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#1C7A57" text-anchor="middle">확정</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">같은 영역 재터치로 완료를 되돌린다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">완료 목표 영역 재터치</text>
+      <text x="70" y="94">사용자 · 카테고리 · 취소 날짜</text>
+      <text x="70" y="116">완료 해제 → 잠금 해제 → 카운터 감소</text>
+      <text x="70" y="132">→ 연속 · 최장 재계산 → 코멘트 재평가</text>
+      <text x="70" y="154">미완료 카드 · 갱신된 집계</text>
+      <text x="70" y="176">과거 날짜도 되돌릴 수 있다</text>
+      <text x="70" y="192">확인 대화상자를 두지 않는다</text>
+    </g>
+  </g>
+
+  <g transform="translate(40,666)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="76" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="50" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">GOAL-003</text>
+    <text x="98" y="22" font-size="13" font-weight="700" fill="#101A2B">목표 문구 잠금</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#E3F3EC"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#1C7A57" text-anchor="middle">확정</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">완료한 목표의 문구를 그날 고정한다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">완료 처리 성공</text>
+      <text x="70" y="94">기준일 · 카테고리 · 제시 문구</text>
+      <text x="70" y="116">제시 문구 보존</text>
+      <text x="70" y="132">→ 개인화 교체 대상에서 제외</text>
+      <text x="70" y="154">문구가 고정된 완료 카드</text>
+      <text x="70" y="176">완료 취소 시 잠금 해제</text>
+      <text x="70" y="192">날짜가 바뀌면 잠금 종료</text>
+    </g>
+  </g>
+
+  <!-- ==================== 그룹 02 ==================== -->
+  <text x="500" y="146" font-size="11" font-weight="600" fill="#8B97AC" font-family="JetBrains Mono, Consolas, monospace">02</text>
+  <text x="500" y="168" font-size="17" font-weight="900" letter-spacing="-0.7" fill="#101A2B">연속일수 산출</text>
+  <text x="500" y="186" font-size="11" fill="#69768B">완료 이력에서 일수를 계산하고 타일 표시를 정한다 · 주 경계 무관</text>
+  <rect x="500" y="194" width="430" height="1" fill="#CFD8E4"/>
+
+  <g transform="translate(500,206)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="88" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="56" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">STREAK-001</text>
+    <text x="110" y="22" font-size="13" font-weight="700" fill="#101A2B">연속일수 계산</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#FBF1D9"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#96650A" text-anchor="middle">검토</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">완료가 이어진 날 수를 산출한다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">진입 · 완료/취소 · 기준일 변경</text>
+      <text x="70" y="94">사용자 · 카테고리 · 기준일 · 이력</text>
+      <text x="70" y="116">기준일/전날부터 역산 · 목표없음은 건너뜀</text>
+      <text x="70" y="132">둘 다 미완료면 0 → 과거로 역산</text>
+      <text x="70" y="154">연속일수 · 연속 시작일</text>
+      <text x="70" y="176">주 · 월 경계에서 리셋하지 않음</text>
+      <text x="70" y="192" fill="#B23A3A">건너뛰기 상한 7일 · 값 검토 필요</text>
+    </g>
+  </g>
+
+  <g transform="translate(500,436)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="88" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="56" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">STREAK-002</text>
+    <text x="110" y="22" font-size="13" font-weight="700" fill="#101A2B">최장 기록</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#FBF1D9"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#96650A" text-anchor="middle">검토</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">이력 전체의 최장 연속을 보존한다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">완료 · 취소 처리</text>
+      <text x="70" y="94">완료 이력 전체 · 현재 연속 구간</text>
+      <text x="70" y="116">현재 연속을 뺀 과거 최장(prevBest) 산출</text>
+      <text x="70" y="132">→ 연속일수 &gt; prevBest 면 경신</text>
+      <text x="70" y="154">최장 기록 · prevBest · 경신 여부</text>
+      <text x="70" y="176">현재 연속을 포함하면 경신이 성립 못 한다</text>
+      <text x="70" y="192">과거 기록 없으면 0이 아니라 해당 없음</text>
+    </g>
+  </g>
+
+  <g transform="translate(500,666)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="88" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="56" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">STREAK-003</text>
+    <text x="110" y="22" font-size="13" font-weight="700" fill="#101A2B">기준일 이동</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#E3F3EC"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#1C7A57" text-anchor="middle">확정</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">기준일을 바꾸면 그 시점으로 재계산</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">날짜 스트립 선택 · 주 이동</text>
+      <text x="70" y="94">선택일 · 완료 이력</text>
+      <text x="70" y="116">기준일 설정 → 오늘의 목표 교체</text>
+      <text x="70" y="132">→ 세 카테고리 재계산 → 코멘트</text>
+      <text x="70" y="154">선택일 기준으로 구성된 두 블록</text>
+      <text x="70" y="176">미래 날짜 선택 비활성</text>
+      <text x="70" y="192">세 타일이 같은 기준일을 쓴다</text>
+    </g>
+  </g>
+
+  <g transform="translate(500,896)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="88" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="56" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">STREAK-004</text>
+    <text x="110" y="22" font-size="13" font-weight="700" fill="#101A2B">타일 상태 판정</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#FBF1D9"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#96650A" text-anchor="middle">검토</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">연속일수로 타일 표시를 정한다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">연속일수 산출 완료</text>
+      <text x="70" y="94">연속일수 · 이력 · 시작일 · 기준 주</text>
+      <text x="70" y="116">이력 0 → 시작 전 / 연속 0 → 다시 시작</text>
+      <text x="70" y="132">시작일이 기준 주 이전 → 시작일 표기</text>
+      <text x="70" y="154">주요 표시 · 보조 문구 · 색</text>
+      <text x="70" y="176">0일째를 표시하지 않는다</text>
+      <text x="70" y="192" fill="#B23A3A">시작일 조건 확대 · 어휘 통일 필요</text>
+    </g>
+  </g>
+
+  <!-- ==================== 그룹 03 ==================== -->
+  <text x="960" y="146" font-size="11" font-weight="600" fill="#8B97AC" font-family="JetBrains Mono, Consolas, monospace">03</text>
+  <text x="960" y="168" font-size="17" font-weight="900" letter-spacing="-0.7" fill="#101A2B">코멘트 선택</text>
+  <text x="960" y="186" font-size="11" fill="#69768B">상태를 평가해 10개 상황 중 하나를 고르고 문구와 색을 확정한다</text>
+  <rect x="960" y="194" width="430" height="1" fill="#CFD8E4"/>
+
+  <g transform="translate(960,206)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="72" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="48" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">CMT-001</text>
+    <text x="94" y="22" font-size="13" font-weight="700" fill="#101A2B">상황 평가 · 선택</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#FBF1D9"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#96650A" text-anchor="middle">검토</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">10개 상황 중 최상위 하나 · 오늘일 때만</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">렌더링 · 완료/취소 · 기준일 변경</text>
+      <text x="70" y="94">기준일 · 목표 유무 · 이력 · 방문일 · 최장</text>
+      <text x="70" y="116">과거면 건너뜀 · 1 목표없음 → 2 첫기록 →</text>
+      <text x="70" y="132">3 오랜만 → 4~6 마디·최장 → 7·8 동률 → 9 → 10</text>
+      <text x="70" y="154">상황 코드 · 대상 카테고리</text>
+      <text x="70" y="176">5는 초과만 · 동률은 9가 뜬다</text>
+      <text x="70" y="192">마디 동시 도달은 큰 쪽 하나 · 같으면 묶음</text>
+    </g>
+  </g>
+
+  <g transform="translate(960,436)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="72" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="48" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">CMT-002</text>
+    <text x="94" y="22" font-size="13" font-weight="700" fill="#101A2B">문구 생성</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#FBF1D9"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#96650A" text-anchor="middle">검토</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">상황별 템플릿을 실제 값으로 채운다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">상황 코드 확정</text>
+      <text x="70" y="94">상황 · 카테고리 · 일수 · 기준일 완료 여부</text>
+      <text x="70" y="116">템플릿 선택 → 날짜 · 일수 치환 → 오늘</text>
+      <text x="70" y="132">미완료면 “오늘도 하면 N+1일째” 덧붙임</text>
+      <text x="70" y="154">코멘트 제목 · 본문</text>
+      <text x="70" y="176">금지 어휘 포함 시 배포 차단</text>
+      <text x="70" y="192">과거 기준일엔 미래형 문장 금지</text>
+    </g>
+  </g>
+
+  <g transform="translate(960,666)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="72" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="48" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">CMT-003</text>
+    <text x="94" y="22" font-size="13" font-weight="700" fill="#101A2B">배경색 결정</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#E3F3EC"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#1C7A57" text-anchor="middle">확정</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">언급 카테고리 수로 배경을 정한다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">문구 생성 완료</text>
+      <text x="70" y="94">언급 카테고리 목록</text>
+      <text x="70" y="116">1개면 해당 카테고리 색</text>
+      <text x="70" y="132">2개 이상이거나 없으면 중립색</text>
+      <text x="70" y="154">코멘트 배경색 · 강조 색</text>
+      <text x="70" y="176">색은 그 종목 이야기라는 신호</text>
+      <text x="70" y="192">임의로 채색하지 않는다</text>
+    </g>
+  </g>
+
+  <!-- ==================== 그룹 04 ==================== -->
+  <text x="1420" y="146" font-size="11" font-weight="600" fill="#8B97AC" font-family="JetBrains Mono, Consolas, monospace">04</text>
+  <text x="1420" y="168" font-size="17" font-weight="900" letter-spacing="-0.7" fill="#101A2B">데이터</text>
+  <text x="1420" y="186" font-size="11" fill="#69768B">세 그룹이 딛고 서는 저장소와 공통 계산 · 셋 다 정의 없음</text>
+  <rect x="1420" y="194" width="430" height="1" fill="#CFD8E4"/>
+
+  <g transform="translate(1420,206)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="80" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="52" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">DATA-G01</text>
+    <text x="102" y="22" font-size="13" font-weight="700" fill="#101A2B">목표 기록 저장</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#FAE9E9"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#B23A3A" text-anchor="middle">미정</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">카테고리 × 일자로 완료를 보관한다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">완료 · 취소 처리</text>
+      <text x="70" y="94">사용자 · 카테고리 · 날짜 · 완료 · 문구</text>
+      <text x="70" y="116">goal_record 저장</text>
+      <text x="70" y="132">→ 동일 키 존재 시 갱신</text>
+      <text x="70" y="154">영속화된 목표 기록</text>
+      <text x="70" y="176">카드가 아닌 카테고리에 귀속</text>
+      <text x="70" y="192" fill="#B23A3A">스키마 미정 — 데이터 모델에 없음</text>
+    </g>
+  </g>
+
+  <g transform="translate(1420,436)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="80" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="52" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">DATA-G02</text>
+    <text x="102" y="22" font-size="13" font-weight="700" fill="#101A2B">방문 기록</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#FAE9E9"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#B23A3A" text-anchor="middle">미정</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">화면을 본 날을 남겨 방문을 판정한다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">LIFE-001 진입 · 홈 카드 노출</text>
+      <text x="70" y="94">사용자 · 방문일</text>
+      <text x="70" y="116">goal_visit 저장</text>
+      <text x="70" y="132">→ 최근 방문일 조회</text>
+      <text x="70" y="154">최근 방문일</text>
+      <text x="70" y="176">연속 계산에는 사용하지 않음</text>
+      <text x="70" y="192" fill="#B23A3A">불가 시 상황 3을 제거해야 함</text>
+    </g>
+  </g>
+
+  <g transform="translate(1420,666)">
+    <use href="#fnbase"/><use href="#flabels"/>
+    <rect x="12" y="9" width="80" height="17" rx="5" fill="#E9EFFE"/>
+    <text x="52" y="22" font-size="10.5" font-weight="600" fill="#2F6BFF" text-anchor="middle" font-family="JetBrains Mono, Consolas, monospace">DATA-G03</text>
+    <text x="102" y="22" font-size="13" font-weight="700" fill="#101A2B">홈 카드 공유</text>
+    <rect x="366" y="9" width="52" height="17" rx="8" fill="#FAE9E9"/>
+    <text x="392" y="22" font-size="9.5" font-weight="800" fill="#B23A3A" text-anchor="middle">미정</text>
+    <text x="14" y="52" font-size="11" fill="#3A4760">홈 카드와 같은 산출 결과를 쓴다</text>
+    <g font-size="10.5" fill="#3A4760">
+      <text x="70" y="72">홈 · 생활 화면 렌더링</text>
+      <text x="70" y="94">사용자 · 카테고리 · 기준일</text>
+      <text x="70" y="116">단일 산출 모듈 호출</text>
+      <text x="70" y="132">→ 두 화면에 동일 값 제공</text>
+      <text x="70" y="154">일치하는 일수 표시</text>
+      <text x="70" y="176">정의가 갈리면 숫자가 어긋남</text>
+      <text x="70" y="192">STREAK-001을 유일 출처로 둔다</text>
+    </g>
+  </g>
+
+  <!-- ==================== 연쇄 · 결정 ==================== -->
+  <rect x="960" y="920" width="890" height="1" fill="#CFD8E4"/>
+  <text x="960" y="948" font-size="13" font-weight="900" letter-spacing="-0.5" fill="#101A2B">터치 한 번이 부르는 연쇄</text>
+  <g transform="translate(960,966)">
+    <rect width="150" height="44" rx="9" fill="#E9EFFE" stroke="#CFDEFF"/>
+    <text x="75" y="28" font-size="11" font-weight="800" fill="#2F6BFF" text-anchor="middle">영역 터치</text>
+    <path d="M158 22 L188 22" stroke="#8B97AC" stroke-width="1.5"/><path d="M188 22 L181 18 L181 26 z" fill="#8B97AC"/>
+    <rect x="196" width="150" height="44" rx="9" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <text x="271" y="21" font-size="10.5" font-weight="700" fill="#101A2B" text-anchor="middle">기록 저장 · 잠금</text>
+    <text x="271" y="35" font-size="9" fill="#69768B" text-anchor="middle">DATA-G01 · GOAL-003</text>
+    <path d="M354 22 L384 22" stroke="#8B97AC" stroke-width="1.5"/><path d="M384 22 L377 18 L377 26 z" fill="#8B97AC"/>
+    <rect x="392" width="150" height="44" rx="9" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <text x="467" y="21" font-size="10.5" font-weight="700" fill="#101A2B" text-anchor="middle">연속일수 재계산</text>
+    <text x="467" y="35" font-size="9" fill="#69768B" text-anchor="middle">STREAK-001 · 002 · 004</text>
+    <path d="M550 22 L580 22" stroke="#8B97AC" stroke-width="1.5"/><path d="M580 22 L573 18 L573 26 z" fill="#8B97AC"/>
+    <rect x="588" width="150" height="44" rx="9" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <text x="663" y="21" font-size="10.5" font-weight="700" fill="#101A2B" text-anchor="middle">코멘트 재평가</text>
+    <text x="663" y="35" font-size="9" fill="#69768B" text-anchor="middle">CMT-001 · 002 · 003</text>
+    <path d="M746 22 L776 22" stroke="#8B97AC" stroke-width="1.5"/><path d="M776 22 L769 18 L769 26 z" fill="#8B97AC"/>
+    <rect x="784" width="106" height="44" rx="9" fill="#E3F3EC" stroke="#A9DCC7"/>
+    <text x="837" y="28" font-size="10.5" font-weight="800" fill="#12604A" text-anchor="middle">두 블록 갱신</text>
+  </g>
+  <text x="960" y="1038" font-size="11" fill="#69768B">완료와 취소는 같은 경로를 반대로 지난다 · 화면은 낙관적으로 즉시 반영하고 저장 실패 시에만 되돌린다.</text>
+
+  <text x="960" y="1080" font-size="13" font-weight="900" letter-spacing="-0.5" fill="#101A2B">결정이 필요한 것</text>
+  <g font-size="11">
+    <text x="960" y="1108" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#8B97AC">1</text>
+    <text x="984" y="1108" fill="#101A2B" font-weight="700">goal_record 스키마 확정</text>
+    <text x="1290" y="1108" fill="#69768B">사실상 전 기능이 막혀 있다</text>
+    <text x="960" y="1132" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#8B97AC">2</text>
+    <text x="984" y="1132" fill="#101A2B" font-weight="700">소급 기록 시 최장 기록 재계산 범위</text>
+    <text x="1290" y="1132" fill="#69768B">STREAK-002</text>
+    <text x="960" y="1156" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#8B97AC">3</text>
+    <text x="984" y="1156" fill="#101A2B" font-weight="700">방문 기록 수집 가능 여부</text>
+    <text x="1290" y="1156" fill="#69768B">CMT-001 상황 3 전용</text>
+    <text x="960" y="1180" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#8B97AC">4</text>
+    <text x="984" y="1180" fill="#101A2B" font-weight="700">어휘 통일 · 시작일 조건 · 미기록 해석</text>
+    <text x="1290" y="1180" fill="#69768B">STREAK-001 · 004 · CMT-002</text>
+    <text x="960" y="1204" font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#8B97AC">5</text>
+    <text x="984" y="1204" fill="#101A2B" font-weight="700">마디 365 이후 정의</text>
+    <text x="1290" y="1204" fill="#69768B">CMT-001</text>
+  </g>
+
+  <rect x="40" y="1240" width="1810" height="1" fill="#CFD8E4"/>
+  <text x="40" y="1264" font-size="11" fill="#8B97AC">maiReport · 목표 이어가기 기능정의서 · v1.0 · 내부 검토용 · 2026-09-11</text>
+  <text x="1850" y="1264" font-size="11" fill="#8B97AC" text-anchor="end">함께 보는 보드 — 기획서 · 상황별 10종 · 완료 토글 인터랙션</text>
+</svg>

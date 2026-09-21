@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>maiReport 제품 요구사항 명세서(MRS)</title>
+  <style>
+    :root{
+      --bg:#F5F7FB;--card:#FFFFFF;--ink:#121A2B;--text:#344158;--muted:#68758C;
+      --line:#DCE3EE;--accent:#2F66F5;--accent-soft:#EEF3FF;
+      --green:#168252;--green-soft:#EAF7F0;--amber:#9A6700;--amber-soft:#FFF5D8;
+      --red:#BD2F2F;--red-soft:#FDECEC;
+      --shadow:0 14px 38px rgba(35,54,91,.055);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Malgun Gothic",sans-serif;font-size:14px;line-height:1.65;letter-spacing:-.015em}
+    a{color:var(--accent);text-decoration:none}
+    button{font:inherit}
+    /* ── Top bar ── */
+    .top{position:sticky;top:0;z-index:20;padding:10px 20px;background:rgba(245,247,251,.8);backdrop-filter:blur(18px) saturate(130%)}
+    .top-in{max-width:1200px;min-height:58px;margin:auto;padding:8px 12px 8px 18px;display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.95);border:1px solid rgba(203,213,229,.72);border-radius:18px;box-shadow:0 10px 32px rgba(36,55,92,.06)}
+    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+    .brand-word{position:relative;color:#17233D;font-size:20px;font-weight:900;letter-spacing:-.065em;line-height:1}
+    .brand-word::after{content:"";position:absolute;right:-7px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+    .brand-rule{width:1px;height:20px;margin-left:3px;background:#DDE4EF}
+    .doc-label{display:flex;align-items:center;gap:7px;color:#627089;font-size:12px;font-weight:700}
+    .doc-label em{padding:3px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:10px;font-style:normal;font-weight:900}
+    .top-actions{margin-left:auto;display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .top-link,.print-btn{height:38px;padding:0 12px;display:inline-flex;align-items:center;border:0;border-radius:11px;background:transparent;color:#657188;font-size:11px;font-weight:800;text-decoration:none;cursor:pointer}
+    .top-link:hover,.print-btn:hover{background:#F1F4F8;color:#24324C}
+    .print-btn{padding-inline:15px;background:#17233D;color:#FFF;box-shadow:0 7px 16px rgba(23,35,61,.16)}
+    main{max-width:1200px;margin:auto;padding:30px 26px 72px}
+    /* ── Hero ── */
+    .hero{padding:48px 52px 36px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:22px;box-shadow:var(--shadow)}
+    .eyebrow,.section-label{display:block;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    h1{max-width:900px;margin:15px 0 16px;color:#10192B;font-size:42px;line-height:1.18;font-weight:900;letter-spacing:-.055em}
+    .hero>p{max-width:940px;margin:0;color:#5F6D84;font-size:16px;line-height:1.8}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px}
+    .chip{padding:7px 12px;border:1px solid #D5E0FB;border-radius:999px;background:#F0F4FF;color:#2B58C9;font-size:11px;font-weight:800}
+    .hero-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-top:24px;border-top:1px solid var(--line)}
+    .hero-meta span{display:block;margin-bottom:6px;color:#7A879B;font-size:10px;font-weight:900;letter-spacing:.04em}
+    .hero-meta strong{display:block;color:#1B2942;font-size:13px;line-height:1.55}
+    .hero-meta p{margin:4px 0 0;color:#718098;font-size:11px}
+    /* ── TOC ── */
+    .toc{margin-top:22px;padding:26px 30px;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px rgba(35,54,91,.04)}
+    .toc h2{margin:0 0 16px;font-size:13px;font-weight:900;color:#7A879B;letter-spacing:.06em;text-transform:uppercase}
+    .toc ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 26px;margin:0;padding:0;list-style:none;counter-reset:toc}
+    .toc li{counter-increment:toc;padding:9px 0;border-top:1px solid var(--line);font-size:13px}
+    .toc li a{display:flex;gap:10px;color:var(--text);font-weight:700}
+    .toc li a::before{content:counter(toc,decimal-leading-zero);color:var(--accent);font-weight:900;font-size:11px}
+    .toc li a:hover{color:var(--accent)}
+    /* ── Section shell ── */
+    .section{margin-top:26px;padding:40px;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 30px rgba(35,54,91,.04);scroll-margin-top:96px}
+    .section-head{margin-bottom:26px}
+    .section-head h2{margin:9px 0 0;color:#131D31;font-size:27px;line-height:1.32;letter-spacing:-.045em}
+    .section-head>p{margin:10px 0 0;max-width:900px;color:#66738A;font-size:13.5px;line-height:1.85}
+    h3.block{margin:30px 0 12px;font-size:16px;color:#1B2942;letter-spacing:-.03em}
+    h3.block:first-of-type{margin-top:6px}
+    h3.block small{margin-left:8px;color:#98A2B3;font-size:11px;font-weight:700}
+    p.lead{margin:0 0 14px;color:#5F6D84;font-size:13px;line-height:1.8}
+    /* ── Generic grids ── */
+    .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .card{padding:22px;border:1px solid #E1E6EF;border-radius:18px;background:#FBFCFE}
+    .card .num{width:30px;height:30px;margin-bottom:14px;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:900}
+    .card h4{margin:0 0 7px;color:#1B2942;font-size:14px;letter-spacing:-.03em}
+    .card p{margin:0;color:#68758C;font-size:12px;line-height:1.72}
+    .card ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+    .card li{position:relative;padding-left:12px;color:#708097;font-size:11.5px;line-height:1.6}
+    .card li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:4px;border-radius:50%;background:#9CA8B9}
+    /* ── Callouts ── */
+    .callout{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;margin-top:16px;padding:22px 26px;border-left:4px solid var(--accent);border-radius:14px;background:#F7F9FD}
+    .callout.warn{border-left-color:var(--amber);background:var(--amber-soft)}
+    .callout.ok{border-left-color:var(--green);background:var(--green-soft)}
+    .callout span{color:#6E7B91;font-size:11px;font-weight:900;letter-spacing:.06em}
+    .callout.warn span{color:#856115}.callout.ok span{color:#0F5C3A}
+    .callout p{margin:0;color:#586377;font-size:12.5px;line-height:1.75}
+    .callout strong{color:#121C30}
+    /* ── Tables ── */
+    .table-wrap{margin-top:14px;overflow-x:auto;border:1px solid var(--line);border-radius:16px}
+    table{width:100%;border-collapse:collapse;font-size:12px;min-width:720px}
+    thead th{background:#F3F6FC;color:#41506A;font-size:10.5px;font-weight:900;letter-spacing:.03em;text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+    tbody td{padding:12px 14px;border-bottom:1px solid #EAEEF5;color:#48566E;line-height:1.6;vertical-align:top}
+    tbody tr:last-child td{border-bottom:0}
+    tbody tr.me td{background:#F4F8FF}
+    tbody tr.me td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+    td b{color:#26344E}
+    .pri{display:inline-block;padding:2px 7px;border-radius:999px;font-size:9.5px;font-weight:900;letter-spacing:.02em}
+    .p0{background:var(--red-soft);color:var(--red)}
+    .p1{background:var(--amber-soft);color:var(--amber)}
+    .p2{background:#F1F3F7;color:#5E6B80}
+    .tag{display:inline-block;padding:3px 7px;border-radius:6px;background:var(--accent-soft);color:#31538f;font-size:9.5px;font-weight:800;font-family:Consolas,monospace}
+    .yes{color:var(--green);font-weight:800}
+    .no{color:#B0B8C4}
+    .partial{color:var(--amber);font-weight:700}
+    /* ── Diff list ── */
+    .diff-list{margin-top:6px;border-top:1px solid var(--line)}
+    .diff-item{display:grid;grid-template-columns:52px 250px minmax(0,1fr);gap:22px;align-items:start;padding:22px 4px;border-bottom:1px solid var(--line)}
+    .diff-item>i{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:900;font-style:normal}
+    .diff-item strong{color:#1A273E;font-size:14px}
+    .diff-item p{margin:0;color:#68758C;font-size:12px;line-height:1.75}
+    /* ── Scope columns ── */
+    .scope-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .scope-card{padding:24px;border:1px solid #E1E6EF;border-radius:18px;background:#FFF}
+    .scope-card h4{margin:0 0 6px;color:#1B2942;font-size:15px}
+    .scope-card .cap{display:block;margin-bottom:14px;color:#98A2B3;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .scope-card ul{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+    .scope-card li{position:relative;padding-left:15px;color:#5C6A81;font-size:12px;line-height:1.65}
+    .scope-card li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+    .scope-card.out li::before{background:#D08B22}
+    .scope-card.future li::before{background:var(--green)}
+    /* ── Persona ── */
+    .persona{display:grid;grid-template-columns:200px minmax(0,1fr);gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+    .persona>div{padding:22px 24px}
+    .persona .lbl{background:#F3F5F9;border-right:1px solid var(--line)}
+    .persona .lbl span{display:block;color:#7A879B;font-size:10px;font-weight:900;letter-spacing:.05em}
+    .persona .lbl strong{display:block;margin-top:8px;color:#1B2942;font-size:15px;line-height:1.5}
+    .persona dl{margin:0;display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 16px}
+    .persona dt{color:#8793A6;font-size:11px;font-weight:800}
+    .persona dd{margin:0;color:#4E5C73;font-size:12px;line-height:1.6}
+    /* ── Checklist ── */
+    .check{margin-top:8px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .check-item{display:grid;grid-template-columns:26px minmax(0,1fr) 120px;gap:14px;align-items:center;padding:15px 18px;border-top:1px solid var(--line);background:#FFF}
+    .check-item:first-child{border-top:0}
+    .check-item .box{width:18px;height:18px;border:2px solid var(--accent);border-radius:6px;position:relative}
+    .check-item strong{color:#28364F;font-size:12.5px}
+    .check-item p{margin:3px 0 0;color:#7A8699;font-size:11px;line-height:1.55}
+    .status-badge{width:max-content;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:900}
+    .sb-ready{background:var(--green-soft);color:var(--green)}
+    .sb-review{background:var(--amber-soft);color:var(--amber)}
+    .sb-open{background:#F1F3F7;color:#5E6B80}
+    /* ── Value canvas ── */
+    .vp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+    .vp-col{padding:22px;border:1px solid #E1E6EF;border-radius:18px;background:#FBFCFE}
+    .vp-col h4{margin:0 0 12px;font-size:13px;color:#1B2942}
+    .vp-col .row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;padding:10px 0;border-top:1px dashed var(--line);font-size:11.5px;line-height:1.55}
+    .vp-col .row:first-of-type{border-top:0}
+    .vp-col .row .a{color:#8793A6}
+    .vp-col .row .b{color:#3E4C63;font-weight:600}
+    .statement{margin-top:14px;padding:26px 30px;border-left:4px solid var(--accent);border-radius:14px;background:#F7F9FD;font-size:15px;line-height:1.85;color:#20304B}
+    .statement mark{background:#E4ECFF;color:#1E44A6;padding:1px 5px;border-radius:5px;font-weight:700}
+    footer{padding:30px 0 0;text-align:center;color:#8A96A8;font-size:11px}
+    .src{margin-top:26px;padding:24px 28px;background:#FAFBFD;border:1px solid var(--line);border-radius:18px}
+    .src h2{margin:0 0 12px;font-size:12px;font-weight:900;color:#7A879B;letter-spacing:.06em;text-transform:uppercase}
+    .src ul{margin:0;padding-left:18px;color:#68758C;font-size:11.5px;line-height:1.8}
+    @media(max-width:1080px){
+      .toc ol{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .hero-meta{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:900px){
+      .doc-label,.brand-rule{display:none}
+      .hero{padding:36px 28px 28px}h1{font-size:32px}
+      .section{padding:30px 24px}.section-head h2{font-size:23px}
+      .g2,.g3,.g4,.vp,.scope-grid{grid-template-columns:1fr}
+      .toc ol{grid-template-columns:1fr}
+      .callout{grid-template-columns:1fr;gap:8px}
+      .diff-item{grid-template-columns:40px 1fr;gap:12px}.diff-item p{grid-column:1/-1}
+      .persona{grid-template-columns:1fr}.persona .lbl{border-right:0;border-bottom:1px solid var(--line)}
+      .persona dl{grid-template-columns:90px minmax(0,1fr)}
+      .check-item{grid-template-columns:22px 1fr;gap:10px}.check-item .status-badge{grid-column:2}
+    }
+    @media print{
+      body{background:#FFF}.top{display:none}main{max-width:none;padding:0}
+      .hero,.section,.toc,.src{box-shadow:none;break-inside:avoid}
+      .section{break-before:page}
+      .card,.diff-item,.scope-card,.persona,.check-item,tr{break-inside:avoid}
+      .table-wrap{overflow:visible}table{min-width:0}
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-in">
+      <div class="brand" aria-label="maiReport 제품 요구사항 명세서">
+        <span class="brand-word">maiReport</span>
+        <span class="brand-rule" aria-hidden="true"></span>
+        <span class="doc-label">제품 요구사항 명세서 <em>MRS</em></span>
+      </div>
+      <div class="top-actions">
+        <a class="top-link" href="../mai-report-ia/maiReport_서비스소개_v1.0.0.html">서비스 소개</a>
+        <a class="top-link" href="../mai-report-ia/maiReport_IA_다이어그램_v1.0.0.html">정보구조도</a>
+        <a class="top-link" href="../mai-report-ia/maiReport_기능정의서_v1.0.0.html">기능정의서</a>
+        <button class="print-btn" onclick="window.print()">내보내기</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ══════════════ HERO ══════════════ -->
+    <section class="hero">
+      <span class="eyebrow">maiReport · Market Requirements Specification</span>
+      <h1>목표 시장과 사용자 요구를 바탕으로<br>maiReport의 제품 방향을 확정한다.</h1>
+      <p>본 문서는 목표 시장·유사 서비스 조사와 사용자 요구 분석을 종합해 maiReport의 제품 방향, 서비스 범위, 차별화 요소를 정의합니다. 목표 사용자와 핵심 문제, 사용자 요구사항, 가치제안, 주요 기능과 차별화 포인트, 서비스 범위·제외 범위, 경쟁·유사 서비스 분석, 비의료기기 웰니스 포지셔닝을 하나의 기준선으로 정리해 후속 기획·설계·검증의 출발점으로 삼습니다.</p>
+      <div class="chips">
+        <span class="chip">목표 사용자 정의</span>
+        <span class="chip">사용자 요구사항 17건</span>
+        <span class="chip">가치제안·핵심 메시지</span>
+        <span class="chip">경쟁 분석 7개 서비스</span>
+        <span class="chip">범위·제외 범위 확정</span>
+        <span class="chip">비의료기기 웰니스 경계</span>
+      </div>
+      <div class="hero-meta">
+        <div><span>DOCUMENT</span><strong>maiReport MRS v0.1 (초안)</strong><p>기준일 2026-09-01 · Internal Use Only</p></div>
+        <div><span>SCOPE</span><strong>제품 방향·서비스 범위·차별화 요소 확정</strong><p>상세 기능 설계 이전의 요구 기준선</p></div>
+        <div><span>BASIS</span><strong>서비스 소개·IA·기능정의서·화면정의서</strong><p>유사 서비스 공개 자료 · 규제 가이드라인</p></div>
+        <div><span>BOUNDARY</span><strong>질병 진단·치료가 아닌 일상 웰니스 지원</strong><p>의료기기로 오인될 표현·목적 배제</p></div>
+      </div>
+    </section>
+
+    <!-- ══════════════ TOC ══════════════ -->
+    <nav class="toc" aria-label="목차">
+      <h2>구성</h2>
+      <ol>
+        <li><a href="#s1">목표 시장 및 환경 분석</a></li>
+        <li><a href="#s2">목표 사용자 정의서</a></li>
+        <li><a href="#s3">목표 사용자와 핵심 문제 정의</a></li>
+        <li><a href="#s4">사용자 요구사항 목록</a></li>
+        <li><a href="#s5">제품 가치제안과 핵심 메시지</a></li>
+        <li><a href="#s6">주요 기능과 차별화 포인트</a></li>
+        <li><a href="#s7">경쟁·유사 서비스 분석</a></li>
+        <li><a href="#s8">서비스 범위·제외 범위</a></li>
+        <li><a href="#s9">비의료기기 웰니스 서비스 포지셔닝</a></li>
+        <li><a href="#s10">완료 기준 점검</a></li>
+      </ol>
+    </nav>
+
+    <!-- ══════════════ 1. MARKET ══════════════ -->
+    <section class="section" id="s1">
+      <div class="section-head">
+        <span class="section-label">01 · Target Market</span>
+        <h2>목표 시장 및 환경 분석</h2>
+        <p>maiReport가 겨냥하는 공간은 의료정보를 보관·조회하는 환자 포털과 일상 데이터만 다루는 웰니스 코칭 사이의 공백입니다. 두 영역은 국내외에서 빠르게 성장하고 있으나, 의료 리포트 수신을 진입점으로 삼아 의료·생활 데이터를 함께 해석하고 곧바로 생활 행동으로 연결하는 서비스는 드뭅니다.</p>
+      </div>
+
+      <h3 class="block">시장을 구성하는 세 흐름</h3>
+      <div class="g3">
+        <article class="card"><span class="num">01</span><h4>의료 마이데이터 개인화</h4><p>공공·민간 채널로 검진·진료·처방 이력을 개인이 직접 조회하는 흐름이 자리 잡았습니다. 다만 대부분 &lsquo;기록 조회&rsquo;에 머물러 반복 방문 동기와 행동 연결이 약합니다.</p><ul><li>정부 &lsquo;나의건강기록&rsquo;, 나만의닥터 등 의료 마이데이터</li><li>10년치 검진·처방·예방접종 이력 열람</li><li>해석·행동 제안 기능은 제한적</li></ul></article>
+        <article class="card"><span class="num">02</span><h4>웨어러블 기반 상태 해석</h4><p>워치·링이 수면·활동·심박을 수집하고, 이를 &lsquo;에너지 점수&rsquo;·&lsquo;회복도&rsquo; 같은 복합 지표로 요약하는 방식이 대중화됐습니다. 그러나 의료정보와는 분리되어 있습니다.</p><ul><li>삼성 헬스 에너지 점수, Whoop 회복·부하, Oura 준비도</li><li>개인 기준선 대비 변화 중심 해석</li><li>전용 기기·구독 의존, 의료 맥락 결합은 없음</li></ul></article>
+        <article class="card"><span class="num">03</span><h4>결과 기반 건강 행동 코칭</h4><p>검사·검진 결과를 계기로 생활 습관 개선을 유도하는 코칭 모델이 보험·건강보험공단 사업과 연계되며 확장 중입니다. 진입점은 대체로 다이어트·만성질환입니다.</p><ul><li>눔의 행동심리 코칭, 보험사 제휴 프로그램</li><li>검진 결과 → 위험 예측 → 관리 (셀비 체크업 등)</li><li>체중·질환 중심, 리포트 수신 접점은 미약</li></ul></article>
+      </div>
+
+      <h3 class="block">규제 환경 <small>비의료기기 웰니스로 설계하기 위한 전제</small></h3>
+      <div class="callout">
+        <span>REGULATORY CONTEXT</span>
+        <p>식약처는 <strong>&lsquo;의료기기와 개인용 건강관리(웰니스) 제품 판단 기준&rsquo;</strong>에서 <strong>사용목적</strong>과 <strong>사용 시 위해도</strong>를 기준으로 양자를 구분합니다. 또한 <strong>디지털의료제품법</strong> 체계에서 &lsquo;디지털 의료·건강지원기기&rsquo;는 생체신호·생활습관을 기록·분석해 건강관리 정보를 제공하되 질병의 진단·치료·예후 관찰을 목적으로 하지 않는 제품군으로 정의됩니다. maiReport는 이 경계 안에서 &lsquo;질병 진단·치료가 아닌 건강정보 이해와 일상생활 관리 지원&rsquo;을 사용목적으로 고정합니다. 상세 원칙은 <a href="#s9">9. 비의료기기 웰니스 포지셔닝</a> 참조.</p>
+      </div>
+
+      <h3 class="block">기회 요인과 리스크</h3>
+      <div class="g2">
+        <article class="card"><h4>기회 (Why now)</h4><ul><li>병원에서 생성되는 AI 분석 리포트가 늘어나지만 환자에게 전달·활용되는 경로는 미비 &mdash; 명확한 진입점 공백</li><li>웨어러블 보급으로 &lsquo;걸음 수만 있어도&rsquo; 최소 코칭이 가능한 사용자 기반 확대</li><li>이상 소견 확인 직후는 행동 변화 의지가 가장 높은 시점 &mdash; 개입 타이밍이 뚜렷함</li><li>기존 AI 설치 의료기관을 기반으로 한 B2B2C 유입 구조</li></ul></article>
+        <article class="card"><h4>리스크·검증 필요</h4><ul><li>병원이 환자에게 리포트를 안정적으로 제공하도록 하는 운영·마케팅 체계 필요</li><li>진료·처방 데이터의 적시성(청구 지연, 비급여 누락)</li><li>복합 상태지표(회복여유·생활부담·리듬안정성)의 정의·산식·설명 문구 미확정</li><li>국가별 의료정보 접근성·데이터 국외 이전·웰니스 경계 차이</li><li>지표·표현이 임상 판정으로 오인될 여지</li></ul></article>
+      </div>
+    </section>
+
+    <!-- ══════════════ 2. TARGET USER ══════════════ -->
+    <section class="section" id="s2">
+      <div class="section-head">
+        <span class="section-label">02 · Target User Definition</span>
+        <h2>목표 사용자 정의서</h2>
+        <p>우선 대상은 AI 리포트나 건강검진 결과를 막 확인해 자신의 상태에 대한 관심과 행동 의지가 높아졌지만, 생활에서 무엇을 해야 할지 알기 어려운 성인입니다. 지속 사용을 강제하기보다 필요한 순간에 명확하고 부담이 적은 도움을 제공하는 데 집중합니다.</p>
+      </div>
+
+      <h3 class="block">1차 목표 사용자 (Primary)</h3>
+      <div class="persona">
+        <div class="lbl">
+          <span>PRIMARY PERSONA</span>
+          <strong>결과를 받아든 직후,<br>다음 행동이 필요한 사람</strong>
+        </div>
+        <div>
+          <dl>
+            <dt>계기</dt><dd>병원에서 AI 리포트 QR을 수령했거나, 건강검진 결과에서 이상 소견·경계 수치를 확인함</dd>
+            <dt>상태</dt><dd>건강 우려로 관심과 행동 의지가 일시적으로 높아진 상태. &ldquo;이게 무슨 의미인지, 지금 뭘 해야 하는지&rdquo;를 알고 싶음</dd>
+            <dt>데이터 환경</dt><dd>스마트폰·워치로 걸음·수면 정도는 자동 수집되나 활용법을 모름. 검진·진료 이력은 흩어져 있음</dd>
+            <dt>행동 성향</dt><dd>엄격한 목표 관리·트래킹은 부담스러워함. &lsquo;오늘 한 가지&rsquo; 수준의 가벼운 실천을 선호</dd>
+            <dt>핵심 과업(JTBD)</dt><dd>&ldquo;검진/리포트 결과를 확인한 지금, 내 상태를 쉽게 이해하고 오늘 실천할 행동 한 가지를 알고 싶다&rdquo;</dd>
+            <dt>성공 신호</dt><dd>결과 확인 → 상태 이해 → 행동 선택까지 한 흐름으로 도달. 부담 없이 재방문</dd>
+          </dl>
+        </div>
+      </div>
+
+      <h3 class="block">2차·확장 사용자 (Secondary)</h3>
+      <div class="g3">
+        <article class="card"><span class="num">S1</span><h4>건강 불안 관리형</h4><p>만성적 건강 우려로 검진·진료 이력을 주기적으로 확인하고, 변화 추이를 추적하려는 사용자. 통합 조회와 주간 인사이트의 가치가 큼.</p></article>
+        <article class="card"><span class="num">S2</span><h4>웨어러블 고활용형</h4><p>워치·링을 상시 착용하며 생활 데이터 기반 피드백에 익숙한 사용자. 의료정보가 더해질 때 코칭이 정교해지는 구조에 반응.</p></article>
+        <article class="card"><span class="num">S3</span><h4>가족 건강 관리 보호자</h4><p>자녀·부모의 리포트와 검진 결과를 대신 확인·관리하려는 사용자. 자녀 프로필·보호자 관계 관리가 확장 단계에서 필요.</p></article>
+      </div>
+
+      <h3 class="block">현 단계 비대상 사용자 (Non-target)</h3>
+      <div class="callout warn">
+        <span>OUT OF PERSONA</span>
+        <p><strong>질병 진단·치료 지침을 기대하는 사용자</strong> · <strong>자유 대화형 건강 챗봇(GPT형 Q&amp;A)을 원하는 사용자</strong> · <strong>강한 목표 설정과 이행 추적을 원하는 피트니스 고관여 사용자</strong> · <strong>의료정보 접근이 불가능한 해외 환경의 사용자</strong>(기기 데이터만으로 부분 지원, 전체 경험은 제외). 이들은 현 단계 제품 방향과 어긋나며, 대응 시 웰니스 경계와 개발 초점이 흔들립니다.</p>
+      </div>
+
+      <h3 class="block">사용 맥락과 진입 트리거</h3>
+      <div class="g4">
+        <article class="card"><h4>병원 접점</h4><p>진료·검진 후 AI 리포트 QR을 받은 직후 앱으로 등록·확인</p></article>
+        <article class="card"><h4>결과 통보</h4><p>건강검진 결과지·통보서를 받아 의미와 대응이 궁금해진 시점</p></article>
+        <article class="card"><h4>컨디션 저하</h4><p>몸 상태가 좋지 않아 스스로의 상태에 관심이 올라간 날</p></article>
+        <article class="card"><h4>주간 리듬</h4><p>주간 AI 인사이트·오늘의 질문 알림을 통한 재방문</p></article>
+      </div>
+    </section>
+
+    <!-- ══════════════ 3. CORE PROBLEM ══════════════ -->
+    <section class="section" id="s3">
+      <div class="section-head">
+        <span class="section-label">03 · Core Problem</span>
+        <h2>목표 사용자와 핵심 문제 정의</h2>
+        <p>건강한 일상에서 지속적 관심을 만들어내는 것보다, 이상 소견을 확인하거나 몸이 좋지 않아 관심이 높아진 시점의 행동 변화 가능성이 큽니다. maiReport는 이 순간의 단절을 메우는 것을 핵심 문제로 규정합니다.</p>
+      </div>
+      <div class="g2">
+        <article class="card"><span class="num">P1</span><h4>리포트 이후의 단절</h4><p>사용자는 결과를 확인한 뒤 다음에 무엇을 해야 하는지 알기 어렵고, 의료기관에서 일상생활 관리로 이어지는 후속 경험도 부족합니다.</p><ul><li>병원에서 생성된 AI 리포트의 환자 전달 경로 미비</li><li>결과 확인 → 행동으로 이어지는 안내 부재</li></ul></article>
+        <article class="card"><span class="num">P2</span><h4>의료정보와 생활정보의 분리</h4><p>진료·검진 기록을 다루는 서비스와 웨어러블 기반 웰니스 서비스가 나뉘어 있어, 두 맥락을 함께 반영한 코칭이 드뭅니다.</p><ul><li>환자 포털: 기록은 있으나 생활 데이터·해석 없음</li><li>웰니스 앱: 생활 데이터는 있으나 의료 맥락 없음</li></ul></article>
+        <article class="card"><span class="num">P3</span><h4>정보 나열만으로는 부족</h4><p>수집 데이터를 단순 조회하는 것만으로는 반복 방문의 이유가 약하며, 상태 설명과 행동 제안으로 이어져야 사용자 가치가 생깁니다.</p><ul><li>지표 나열 ≠ 이해 · 지표 나열 ≠ 행동</li><li>&lsquo;오늘 무엇을&rsquo;에 대한 답이 필요</li></ul></article>
+        <article class="card"><span class="num">P4</span><h4>데이터 편차에 취약한 경험</h4><p>특정 기기·권한·의료정보 보유를 전제하면 상당수 사용자가 시작조차 못 합니다. 보유 데이터에 따라 조용히 정교해지는 구조가 필요합니다.</p><ul><li>걸음 수만 있어도 기본 코칭이 가능해야 함</li><li>수면·심박·의료정보가 더해질수록 구체화</li></ul></article>
+      </div>
+      <div class="callout">
+        <span>PROBLEM STATEMENT</span>
+        <p><strong>&ldquo;결과를 확인한 사용자가, 흩어진 건강 신호가 지금 무엇을 의미하는지 이해하고 오늘 실천할 한 가지 행동을 고를 수 있게 한다.&rdquo;</strong> &mdash; maiReport가 해결하는 단일 문제이며, 모든 기능과 범위 판단의 기준입니다.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════ 4. USER REQUIREMENTS ══════════════ -->
+    <section class="section" id="s4">
+      <div class="section-head">
+        <span class="section-label">04 · User Requirements</span>
+        <h2>사용자 요구사항 목록</h2>
+        <p>사용자 관점의 요구를 6개 그룹·17건으로 정리합니다. 우선순위는 <span class="pri p0">P0</span> 현 단계 필수, <span class="pri p1">P1</span> 현 단계 강력 권장, <span class="pri p2">P2</span> 확장 단계로 구분합니다. &lsquo;근거&rsquo;는 서비스 소개·IA·기능정의서에서의 출처를, &lsquo;관련 기능&rsquo;은 기능정의서·IA의 ID를 가리킵니다.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>사용자 요구 (As a user, I want…)</th><th>우선순위</th><th>근거</th><th>관련 기능·화면</th></tr></thead>
+          <tbody>
+            <tr><td><b>UR-01</b></td><td>병원에서 받은 AI 리포트를 내 앱에서 직접 확인하고 보관하고 싶다</td><td><span class="pri p0">P0</span></td><td>서비스 원점 · Phase 01</td><td><span class="tag">REG-002</span> <span class="tag">REG-003</span> <span class="tag">HOME-001</span></td></tr>
+            <tr><td><b>UR-02</b></td><td>리포트·검진 결과의 대상자가 나(또는 내 가족)임을 확인하고 싶다</td><td><span class="pri p0">P0</span></td><td>검증 과제 · 자녀·보호자 인증</td><td><span class="tag">AUTH-001</span> <span class="tag">PROFILE-*</span></td></tr>
+            <tr><td><b>UR-03</b></td><td>검진·진료·처방 이력을 한곳에서 시간 흐름에 따라 조회하고 싶다</td><td><span class="pri p1">P1</span></td><td>Phase 02 · 개인 건강정보 관리</td><td><span class="tag">HOSP-001</span> <span class="tag">HOSP-002</span> <span class="tag">LIFE-005</span></td></tr>
+            <tr><td><b>UR-04</b></td><td>걸음·수면·심박 등 스마트기기 데이터가 자동으로 연계되면 좋겠다</td><td><span class="pri p0">P0</span></td><td>가용 데이터 통합</td><td><span class="tag">AUTH-004</span> <span class="tag">AUTH-006</span> <span class="tag">LIFE-003</span></td></tr>
+            <tr><td><b>UR-05</b></td><td>각 데이터의 출처와 마지막 갱신 시각을 알고 싶다</td><td><span class="pri p1">P1</span></td><td>Product I/O · 출처·최신성</td><td><span class="tag">LIFE-005</span> <span class="tag">HOSP-003</span></td></tr>
+            <tr><td><b>UR-06</b></td><td>지금 내 건강 상태를 한 문장으로 쉽게 설명받고 싶다</td><td><span class="pri p0">P0</span></td><td>홈 대화 구조 · Turn 01</td><td><span class="tag">HOME-001</span> <span class="tag">HOME-003</span></td></tr>
+            <tr><td><b>UR-07</b></td><td>그 상태 설명의 근거가 된 지표와 데이터를 확인하고 싶다</td><td><span class="pri p0">P0</span></td><td>홈 대화 구조 · Turn 02</td><td><span class="tag">HOME-003</span> <span class="tag">LIFE-002</span></td></tr>
+            <tr><td><b>UR-08</b></td><td>일반 기준치가 아니라 &lsquo;평소의 나&rsquo; 대비 변화로 설명받고 싶다</td><td><span class="pri p1">P1</span></td><td>생리 신호 처리 · Baseline</td><td><span class="tag">LIFE-002</span> <span class="tag">DATA-*</span></td></tr>
+            <tr><td><b>UR-09</b></td><td>자동 수집되지 않은 항목은 짧은 질문으로 간단히 보완하고 싶다</td><td><span class="pri p1">P1</span></td><td>동적 문진·데이터 보완</td><td><span class="tag">HOME-002</span> <span class="tag">OPERATION-*</span></td></tr>
+            <tr><td><b>UR-10</b></td><td>오늘 할 수 있는, 부담 낮은 생활 행동 한 가지를 제안받고 싶다</td><td><span class="pri p0">P0</span></td><td>라이트 웰니스 코칭</td><td><span class="tag">HOME-001</span> <span class="tag">LIFE-001</span></td></tr>
+            <tr><td><b>UR-11</b></td><td>행동을 강요·압박당하지 않고 내가 직접 고르고 싶다</td><td><span class="pri p0">P0</span></td><td>차별화 04 · 사용자 선택권</td><td><span class="tag">HOME-001</span></td></tr>
+            <tr><td><b>UR-12</b></td><td>내가 고른 행동의 이력과 그 이후의 변화를 확인하고 싶다</td><td><span class="pri p2">P2</span></td><td>단계적 확장 방향</td><td><span class="tag">LIFE-001</span> <span class="tag">AI-002</span></td></tr>
+            <tr><td><b>UR-13</b></td><td>AI 결과가 의학적 진단이 아니라 참고 정보임을 분명히 알고 싶다</td><td><span class="pri p0">P0</span></td><td>정책 · AI 결과 고지</td><td><span class="tag">전 화면 공통</span></td></tr>
+            <tr><td><b>UR-14</b></td><td>의료적 판단이 필요할 때 의료기관 상담 경로를 안내받고 싶다</td><td><span class="pri p0">P0</span></td><td>Interpretation Rule · Service Boundary</td><td><span class="tag">OPERATION-*</span></td></tr>
+            <tr><td><b>UR-15</b></td><td>내 민감 건강정보의 동의·접근통제·삭제가 보장되면 좋겠다</td><td><span class="pri p0">P0</span></td><td>정책 · PII·PHI·Audit Log</td><td><span class="tag">AUTH-002</span> <span class="tag">ACC-007</span> <span class="tag">ACC-010</span></td></tr>
+            <tr><td><b>UR-16</b></td><td>자녀·부모의 프로필을 만들어 대신 확인·관리하고 싶다</td><td><span class="pri p2">P2</span></td><td>단계적 확장 · 자녀·보호자 관계</td><td><span class="tag">PROFILE-*</span></td></tr>
+            <tr><td><b>UR-17</b></td><td>의료정보가 없어도 기기 데이터만으로 기본 기능을 쓰고 싶다</td><td><span class="pri p1">P1</span></td><td>차별화 05 · 글로벌 웰니스 경계</td><td><span class="tag">LIFE-003</span> <span class="tag">OPERATION-*</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout ok">
+        <span>수용 기준 원칙</span>
+        <p>각 요구는 상세 설계 단계에서 <strong>선행조건 → 트리거 → 처리 → 성공/실패 결과</strong> 형식의 수용 기준으로 전개합니다. P0 15건 중 상태 해석·행동 제안 관련 항목(UR-06~08, UR-10)은 복합 지표 정의가 선행되어야 하며 <a href="#s10">10. 완료 기준</a>의 검증 항목과 연결됩니다.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════ 5. VALUE PROPOSITION ══════════════ -->
+    <section class="section" id="s5">
+      <div class="section-head">
+        <span class="section-label">05 · Value Proposition</span>
+        <h2>제품 가치제안과 핵심 메시지</h2>
+        <p>maiReport의 가치는 &lsquo;정보를 더 많이 보여주는 것&rsquo;이 아니라 &lsquo;결과를 확인한 순간을 이해와 행동으로 잇는 것&rsquo;에 있습니다.</p>
+      </div>
+
+      <h3 class="block">포지셔닝 스테이트먼트</h3>
+      <div class="statement">
+        <mark>검진·AI 리포트 결과를 막 확인한 성인</mark>을 위한 <mark>웰니스 코칭 서비스</mark>로서, maiReport는 <mark>흩어진 의료·생활 데이터를 함께 읽어 현재 상태를 설명하고 오늘 실천할 한 가지 행동을 제안</mark>한다. 기록을 조회하는 환자 포털이나 습관을 추적하는 일반 웰니스 앱과 달리, maiReport는 <mark>의료 리포트라는 분명한 진입점</mark>, <mark>의료·생활 데이터의 결합</mark>, <mark>낮은 행동 부담</mark>을 하나로 묶는다.
+      </div>
+
+      <h3 class="block">핵심 메시지</h3>
+      <div class="callout">
+        <span>CORE KEY MESSAGE</span>
+        <p><strong>&ldquo;결과를 확인한 오늘, 건강한 변화가 시작됩니다.&rdquo;</strong><br>maiReport가 흩어진 건강 신호를 함께 읽고, 지금 나에게 필요한 한 가지 생활 행동을 제안합니다.</p>
+      </div>
+
+      <h3 class="block">제공 가치 (User Value)</h3>
+      <div class="g4">
+        <article class="card"><span class="num">V1</span><h4>이해</h4><p>요약 메시지와 근거 데이터를 순서대로 제시해 단편적 정보 나열을 줄입니다.</p></article>
+        <article class="card"><span class="num">V2</span><h4>실행</h4><p>실행 부담이 낮은 생활 행동을 제안하고 선택권은 사용자에게 둡니다.</p></article>
+        <article class="card"><span class="num">V3</span><h4>저마찰</h4><p>걸음 수와 짧은 문진만으로 시작하고, 데이터가 늘수록 경험이 정교해집니다.</p></article>
+        <article class="card"><span class="num">V4</span><h4>안심</h4><p>질병 판단은 의료진에게 연결하고, 일상생활 지원 범위를 명확히 지킵니다.</p></article>
+      </div>
+
+      <h3 class="block">Pain / Gain 매핑</h3>
+      <div class="vp">
+        <div class="vp-col">
+          <h4>사용자 Pain → maiReport의 완화</h4>
+          <div class="row"><span class="a">결과는 받았는데 뭘 해야 할지 모름</span><span class="b">오늘 실천할 행동 1가지로 좁혀 제안</span></div>
+          <div class="row"><span class="a">지표·수치가 많아 이해가 안 됨</span><span class="b">상태 한 문장 → 근거 지표 순으로 제시</span></div>
+          <div class="row"><span class="a">의료기록과 생활기록이 따로 놈</span><span class="b">두 맥락을 결합해 하나의 상태로 설명</span></div>
+          <div class="row"><span class="a">엄격한 목표·알림이 부담스러움</span><span class="b">비강제 선택형, 미이행 압박 없음</span></div>
+          <div class="row"><span class="a">이게 병인지 아닌지 불안함</span><span class="b">참고 정보임을 고지, 필요 시 의료기관 연결</span></div>
+        </div>
+        <div class="vp-col">
+          <h4>사용자 Gain → maiReport가 만드는 것</h4>
+          <div class="row"><span class="a">내 상태를 남에게 설명할 수 있음</span><span class="b">근거가 있는 범위의 상태 서사 제공</span></div>
+          <div class="row"><span class="a">작은 성취감</span><span class="b">부담 낮은 행동의 선택·완료 경험</span></div>
+          <div class="row"><span class="a">&lsquo;평소의 나&rsquo; 기준의 피드백</span><span class="b">개인 기준선 대비 변화 중심 해석</span></div>
+          <div class="row"><span class="a">데이터가 없어도 시작 가능</span><span class="b">걸음 수·짧은 문진만으로 최소 코칭</span></div>
+          <div class="row"><span class="a">가족 건강도 함께 관리(확장)</span><span class="b">자녀·보호자 프로필 관리 로드맵</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════ 6. FEATURES & DIFFERENTIATION ══════════════ -->
+    <section class="section" id="s6">
+      <div class="section-head">
+        <span class="section-label">06 · Features &amp; Differentiation</span>
+        <h2>주요 기능과 차별화 포인트</h2>
+        <p>핵심 기능은 AI 리포트 수신을 출발점으로, 보유 데이터를 조합해 상태를 설명하고, 부족한 정보는 짧은 질문으로 보완한 뒤, 사용자가 한 가지 생활 행동을 선택하도록 구성합니다.</p>
+      </div>
+
+      <h3 class="block">기능 기둥 (Feature Pillars)</h3>
+      <div class="g3">
+        <article class="card"><span class="num">F1</span><h4>AI 리포트 등록·확인</h4><p>의료기관에서 받은 AI 리포트를 사용자 앱으로 전달하는 핵심 진입 기능.</p><ul><li>QR 촬영 기반 리포트 수신</li><li>대상자 매칭 및 보관</li><li>향후 서버 직접 전달로 확장</li></ul></article>
+        <article class="card"><span class="num">F2</span><h4>가용 데이터 통합</h4><p>특정 데이터 보유를 전제하지 않고 현재 확보된 정보의 조합으로 맥락을 구성.</p><ul><li>리포트·검진·진료·처방</li><li>걸음·수면·심박 등 기기 데이터</li><li>일일 문진·자기보고</li></ul></article>
+        <article class="card"><span class="num">F3</span><h4>동적 문진·보완</h4><p>자동 수집되지 않은 항목을 짧은 선택형 질문으로 보완.</p><ul><li>누락 데이터 기반 질문 노출</li><li>사용자별 질문 차등</li><li>최소 입력으로 활용값 변환</li></ul></article>
+        <article class="card"><span class="num">F4</span><h4>개인 건강정보 조회</h4><p>확보 가능한 건강정보를 유형·시간 흐름에 따라 확인.</p><ul><li>검진 결과·문진표</li><li>진료·처방·방문 이력</li><li>리포트·생활 데이터 통합 조회</li></ul></article>
+        <article class="card"><span class="num">F5</span><h4>상태 요약·근거 지표</h4><p>현재 상태를 요약하고 근거 데이터와 개인 기준선 대비 변화를 제시.</p><ul><li>오늘의 상태 요약</li><li>근거 지표·관련 데이터</li><li>평소 대비 변화·생활 패턴</li></ul></article>
+        <article class="card"><span class="num">F6</span><h4>라이트 웰니스 코칭</h4><p>여러 행동을 강제하지 않고 오늘 할 수 있는 한 가지를 선택하도록 제안.</p><ul><li>수면·활동·식이 중심 제안</li><li>부담 적은 선택형 인터랙션</li><li>선택 이력·변화 확인으로 확장</li></ul></article>
+      </div>
+
+      <h3 class="block">차별화 축 (Differentiation)</h3>
+      <div class="diff-list">
+        <div class="diff-item"><i>01</i><strong>AI 리포트 기반의 명확한 진입점</strong><p>새 앱을 습관적으로 쓰게 만드는 대신, 사용자가 건강정보에 가장 관심을 갖는 리포트 수신·확인 시점을 유입과 코칭의 출발점으로 삼습니다.</p></div>
+        <div class="diff-item"><i>02</i><strong>의료정보와 생활 데이터의 동시 활용</strong><p>AI 리포트·검진·진료 정보와 스마트기기·자기보고 데이터를 함께 사용해, 의료기록 조회와 일반 웰니스 코칭이 분리된 시장의 공백을 메웁니다.</p></div>
+        <div class="diff-item"><i>03</i><strong>보유 데이터에 따라 정교해지는 구조</strong><p>걸음 수만 있어도 기본 코칭이 가능하고, 수면·심박·의료정보가 더해질수록 규칙과 메시지가 구체화되는 가용 데이터 적응형 방식.</p></div>
+        <div class="diff-item"><i>04</i><strong>가볍고 비강제적인 행동 선택</strong><p>과도한 목표와 엄격한 이행 추적 대신 &lsquo;30분 일찍 자기&rsquo;처럼 부담이 낮은 제안을 제공하고, 사용자가 원하는 행동 한 가지를 스스로 선택.</p></div>
+        <div class="diff-item"><i>05</i><strong>글로벌 확장을 고려한 웰니스 경계</strong><p>국가별 의료정보 접근성·규제 차이를 고려해 질병 진단·치료보다 일상생활 지원에 집중하고, 의료정보가 없는 환경에서도 기기 데이터만으로 동작하도록 설계.</p></div>
+      </div>
+    </section>
+
+    <!-- ══════════════ 7. COMPETITIVE ANALYSIS ══════════════ -->
+    <section class="section" id="s7">
+      <div class="section-head">
+        <span class="section-label">07 · Competitive Analysis</span>
+        <h2>경쟁·유사 서비스 분석</h2>
+        <p>maiReport는 어느 한 서비스의 직접 대체재가 아니라, 세 인접 영역(의료 마이데이터 · 웨어러블 상태 해석 · 결과 기반 코칭)의 조합 지점에 있습니다. 국내 4개, 글로벌 3개 서비스를 진입점·데이터 소스·해석·코칭·의료기기성·과금 축으로 비교합니다. 공개 자료 기준이며, 세부 수치·정책은 시점에 따라 달라질 수 있어 재확인이 필요합니다.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>서비스</th><th>유형</th><th>주 진입점</th><th>데이터 소스</th><th>상태 해석</th><th>코칭 방식</th><th>의료기기성</th><th>과금</th></tr></thead>
+          <tbody>
+            <tr class="me"><td><b>maiReport</b></td><td>웰니스 코칭 (B2B2C)</td><td>병원 AI 리포트 QR 수신</td><td>AI 리포트+검진·진료·처방+웨어러블+문진</td><td>복합 상태지표, 개인 기준선 대비</td><td>비강제 선택형, 오늘 1행동</td><td class="no">비의료기기 지향</td><td>이용권(부분 유료) 검토</td></tr>
+            <tr><td><b>삼성 헬스</b></td><td>웨어러블 헬스 플랫폼</td><td>갤럭시 워치·링 연동</td><td>기기 생체·활동·수면 데이터</td><td class="yes">에너지 점수 등 복합 지표</td><td>영역별 인사이트·목표</td><td class="partial">일부 기능 디지털의료·건강지원기기 등록</td><td>무료(기기 필요)</td></tr>
+            <tr><td><b>카카오 파스타</b></td><td>혈당·만성질환 관리</td><td>연속혈당측정(CGM) 착용</td><td>CGM+연동 앱(삼성·애플·인바디)</td><td>혈당 반응 중심 일일 리포트</td><td>식후 혈당 기반 습관 피드백</td><td class="yes">CGM 연계·질환 관리 영역</td><td>구독+CGM 비용</td></tr>
+            <tr><td><b>나만의닥터 / 나의건강기록</b></td><td>의료 마이데이터 조회</td><td>본인인증 후 공공데이터 연계</td><td>건보공단 검진·진료·처방·예방접종</td><td class="no">해석 없음(기록 열람)</td><td class="no">코칭 없음</td><td class="no">비의료기기</td><td>무료</td></tr>
+            <tr><td><b>눔 (Noom)</b></td><td>행동심리 다이어트 코칭</td><td>체중 감량·식단 목표 설정</td><td>사용자 기록(식단·체중)+일부 연동</td><td>식품 색상 분류·행동 패턴 분석</td><td class="yes">코치 배정, 커리큘럼형 코칭</td><td class="no">비의료기기(프로그램)</td><td>구독(제휴 무료 채널 존재)</td></tr>
+            <tr><td><b>Whoop</b></td><td>회복·부하 트래커</td><td>밴드 상시 착용</td><td>기기 HRV·RHR·수면·활동</td><td class="yes">Strain·Recovery 점수</td><td class="yes">AI Strain Coach·Sleep Coach, 저널</td><td class="no">웰니스(비의료기기)</td><td>구독(기기 포함)</td></tr>
+            <tr><td><b>Oura Ring</b></td><td>수면·준비도 트래커</td><td>링 상시 착용</td><td>기기 수면·체온·활동·HRV</td><td class="yes">Sleep·Readiness 점수, 주간 스트레스</td><td>준비도 기반 권고, Resilience</td><td class="no">웰니스(비의료기기)</td><td>기기+구독</td></tr>
+            <tr><td><b>Function Health</b></td><td>구독형 혈액검사 멤버십</td><td>연 2회 100+ 랩 검사</td><td>혈액·소변 등 160+ 바이오마커</td><td class="yes">의사 검토 인사이트·AI 리포트</td><td>개인 건강 플랜(랩 지표 개선)</td><td class="partial">검사 결과 해석 제공(미국)</td><td>연 $365 + 옵션</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="block">서비스별 요지와 maiReport 대비 공백</h3>
+      <div class="g2">
+        <article class="card"><h4>삼성 헬스</h4><p>웨어러블 상태 해석의 사실상 표준. 다만 <b>의료정보 결합이 없고</b> 갤럭시 기기에 종속되며, 진입점이 &lsquo;기기 구매&rsquo;다. maiReport는 <b>의료 리포트 진입점</b>과 <b>의료·생활 데이터 결합</b>으로 차별화.</p></article>
+        <article class="card"><h4>카카오 파스타</h4><p>CGM 기반의 강력한 혈당 관리지만 <b>질환·측정기기 중심</b>이고 진입 장벽(센서 착용)이 높다. maiReport는 <b>비의료기기 경계</b>와 <b>기기 없이 시작</b>으로 대비.</p></article>
+        <article class="card"><h4>나만의닥터 / 나의건강기록</h4><p>의료 마이데이터 조회는 성숙했으나 <b>해석·행동이 없다</b>. maiReport는 같은 데이터를 받아 <b>상태 설명과 오늘의 행동</b>으로 전환하는 계층을 얹는다.</p></article>
+        <article class="card"><h4>눔 (Noom)</h4><p>행동 변화 코칭의 강자이나 <b>체중·식단 목표</b>가 진입점이고 관여도가 높다. maiReport는 <b>결과 확인 순간</b>을 진입점으로, <b>저관여·저마찰</b>로 대비.</p></article>
+        <article class="card"><h4>Whoop / Oura</h4><p>회복·수면 복합 지표의 완성도가 높지만 <b>전용 기기·구독 필수</b>, <b>의료 맥락 부재</b>, 최적화 지향 사용자층. maiReport는 <b>범용 스마트폰 데이터</b>와 <b>의료 결합</b>, <b>일반 사용자</b> 대상.</p></article>
+        <article class="card"><h4>Function Health</h4><p>심층 랩 검사 기반 인사이트지만 <b>고비용·검사 중심</b>이며 미국 시장·자가 채혈 모델. maiReport는 <b>기존 병원 리포트 재활용</b>과 <b>생활 데이터 코칭</b>으로 다른 축.</p></article>
+      </div>
+
+      <div class="callout ok">
+        <span>시장 공백 (White Space)</span>
+        <p><strong>&lsquo;의료 리포트 수신을 진입점으로, 의료·생활 데이터를 함께 해석해, 저마찰 웰니스 행동으로 잇는&rsquo;</strong> 조합을 정면으로 겨냥하는 서비스는 조사 범위 내에서 확인되지 않았습니다. 인접 서비스들은 (1) 기록만 주거나 (2) 생활 데이터만 해석하거나 (3) 특정 질환·목표로 좁습니다. maiReport의 방어선은 이 <strong>조합</strong>과 <strong>병원 접점(B2B2C)</strong>, <strong>가용 데이터 적응형 설계</strong>입니다.</p>
+      </div>
+      <div class="callout warn">
+        <span>경쟁 리스크</span>
+        <p>삼성 헬스·애플 건강이 의료 마이데이터 연계를 강화하거나, 나만의닥터류가 해석·코칭 계층을 얹을 경우 공백이 빠르게 좁아질 수 있습니다. 초기 <strong>병원 파트너십 선점</strong>과 <strong>복합 지표·코칭 콘텐츠의 독자성</strong> 확보 속도가 관건입니다.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════ 8. SCOPE ══════════════ -->
+    <section class="section" id="s8">
+      <div class="section-head">
+        <span class="section-label">08 · Scope</span>
+        <h2>서비스 범위·제외 범위</h2>
+        <p>녹취·기획에서 논의된 방향 중 일부는 확정 기능이 아니라 PoC 단계의 가정입니다. 현 단계 범위, 의도적으로 제외한 범위, 향후 단계적 확장 방향을 구분해 관리합니다.</p>
+      </div>
+      <div class="scope-grid">
+        <article class="scope-card">
+          <span class="cap">In Scope · 현 단계 핵심</span>
+          <h4>지금 만든다</h4>
+          <ul>
+            <li>QR 기반 AI 리포트 수신·확인·보관</li>
+            <li>가용 의료·생활 데이터 통합 조회(출처·최신성 포함)</li>
+            <li>현재 상태 요약과 근거 정보 제공</li>
+            <li>짧은 문진을 통한 누락 데이터 보완</li>
+            <li>사용자 선택형 라이트 웰니스 코칭(오늘 1행동)</li>
+            <li>AI 결과 고지·의료기관 상담 연결 안내</li>
+            <li>민감정보 동의·접근통제·삭제·감사 로그</li>
+          </ul>
+        </article>
+        <article class="scope-card out">
+          <span class="cap">Out of Scope · 현 단계 비목표</span>
+          <h4>지금은 하지 않는다</h4>
+          <ul>
+            <li>질병 진단·치료, 질환별 직접 권고, 위험도 예측 표현</li>
+            <li>GPT 형태의 자유 질의응답 챗봇</li>
+            <li>행동 이행을 강제하는 알림·엄격한 추적</li>
+            <li>복약 알림, 지속 업데이트가 필요한 범용 건강 콘텐츠</li>
+            <li>모든 국가에서 동일한 의료정보 확보 전제</li>
+            <li>전용 측정기기(CGM 등) 판매·연계 의존</li>
+            <li>대면·비대면 진료, 병원 예약·접수</li>
+          </ul>
+        </article>
+        <article class="scope-card future">
+          <span class="cap">Roadmap · 단계적 확장</span>
+          <h4>다음에 검증한다</h4>
+          <ul>
+            <li>QR → 서버 기반 리포트 직접 전달</li>
+            <li>행동 선택 이력과 생활 데이터 변화 연결</li>
+            <li>자녀 프로필·보호자 관계 관리</li>
+            <li>룰 기반 코칭 → 데이터 기반 정교화</li>
+            <li>국가별 데이터·규제 환경에 맞춘 글로벌 버전</li>
+            <li>질환 위험 분석은 별도 서비스(예: 외부 연계)로 분리 운영</li>
+          </ul>
+        </article>
+      </div>
+      <div class="callout">
+        <span>범위 판단 규칙</span>
+        <p>어떤 기능이 <strong>(a)</strong> 결과 확인 → 이해 → 오늘의 행동 흐름에 기여하는가, <strong>(b)</strong> 보유 데이터가 적은 사용자도 시작할 수 있는가, <strong>(c)</strong> 비의료기기 웰니스 경계를 지키는가 &mdash; 셋을 모두 충족하지 않으면 현 단계 범위에서 제외하고 로드맵으로 넘깁니다.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════ 9. WELLNESS POSITIONING ══════════════ -->
+    <section class="section" id="s9">
+      <div class="section-head">
+        <span class="section-label">09 · Wellness Positioning</span>
+        <h2>비의료기기 웰니스 서비스 포지셔닝</h2>
+        <p>maiReport는 &lsquo;의료기기와 개인용 건강관리(웰니스) 제품 판단 기준&rsquo;의 관점에서 <strong>사용목적</strong>과 <strong>위해도</strong>가 웰니스 영역에 머무르도록 설계·표현을 고정합니다. 아래는 그 자가 점검과 표현 가이드입니다.</p>
+      </div>
+
+      <h3 class="block">포지셔닝 스테이트먼트 (비의료기기)</h3>
+      <div class="statement">
+        maiReport의 상태 요약과 코칭은 <mark>건강정보 이해와 일상생활 관리를 돕는 참고 정보</mark>다. 질병의 <mark>진단·치료·예방·예후 관찰</mark>을 목적으로 하지 않으며, 의료진의 판단을 대체하지 않는다. 생체·생활 데이터를 기록·분석해 <mark>생활습관 관리 정보</mark>를 제공하는 범위에서 동작한다.
+      </div>
+
+      <h3 class="block">판단 기준 대비 자가 점검</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>기준</th><th>의료기기로 기우는 방향</th><th>maiReport의 고정 위치</th></tr></thead>
+          <tbody>
+            <tr><td><b>사용목적</b></td><td>질병 진단·치료·예측, 정상/비정상 판정</td><td class="yes">건강정보 이해, 개인 기준선 대비 변화 설명, 생활 행동 제안</td></tr>
+            <tr><td><b>대상</b></td><td>특정 질환자·환자군의 질환 관리</td><td class="yes">결과 확인 후 관심이 높아진 일반 사용자의 일상 관리</td></tr>
+            <tr><td><b>위해도</b></td><td>결과에 따라 치료 지연·오판 위험</td><td class="yes">행동 제안은 저강도·비강제, 이상 시 의료기관 연결로 위험 완화</td></tr>
+            <tr><td><b>데이터 사용</b></td><td>측정값의 임상적 절대 판정</td><td class="yes">데이터 충분도·개인 기준선·문진을 함께 고려한 서술</td></tr>
+            <tr><td><b>표현</b></td><td>&ldquo;위험&rdquo;, &ldquo;진단&rdquo;, &ldquo;질환 예측&rdquo; 등 단정</td><td class="yes">&ldquo;참고&rdquo;, &ldquo;평소 대비 변화&rdquo;, &ldquo;해볼 수 있는 한 가지&rdquo; 등 완화 표현</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="block">표현 가이드 <small>기획·카피·AI 출력 공통</small></h3>
+      <div class="g2">
+        <article class="card"><h4>배제할 표현</h4><ul><li>진단한다 / 판정한다 / 정상·비정상</li><li>질환 위험을 예측한다 / 발병 확률</li><li>치료·처방·복약을 지시·권고한다</li><li>수치가 &lsquo;위험&rsquo;하다 / &lsquo;이상&rsquo;이다(단정)</li><li>의사를 대신한다 / 의료 상담이 필요 없다</li></ul></article>
+        <article class="card"><h4>권장 표현</h4><ul><li>이해를 돕는 참고 정보입니다</li><li>평소(개인 기준선) 대비 이렇게 달라졌습니다</li><li>오늘 부담 없이 해볼 수 있는 한 가지</li><li>데이터가 충분하지 않아 참고만 하세요</li><li>증상·수치가 걱정되면 의료기관 상담을 권합니다</li></ul></article>
+      </div>
+
+      <h3 class="block">경계 사례 처리</h3>
+      <div class="callout warn">
+        <span>BOUNDARY CASES</span>
+        <p><strong>질환 위험도 분석</strong>(예: 검진 기반 10대 질환 위험 예측형 서비스)은 maiReport 본체의 상태 서사·코칭과 <strong>분리</strong>하여, 별도 서비스 또는 외부 연계 형태로만 노출하고 본체 카피에는 위험 예측 표현을 넣지 않습니다. <strong>복합 상태지표 명칭</strong>(회복여유·생활부담·리듬안정성)은 임상 진단명으로 오인되지 않도록 정의·설명 문구를 사전 검토합니다. <strong>OCR 추출값</strong>은 형식 검증만 수행하며 임상적 판정을 하지 않고, 최종 등록 전 사용자 검수를 거칩니다.</p>
+      </div>
+
+      <h3 class="block">안전장치 (Safeguards)</h3>
+      <div class="g3">
+        <article class="card"><span class="num">SG1</span><h4>AI 결과 고지</h4><p>모든 AI 산출 화면에 &lsquo;참고 정보, 의학적 진단·의료진 판단을 대체하지 않음&rsquo; 고지를 상시 노출.</p></article>
+        <article class="card"><span class="num">SG2</span><h4>상담 연결 트리거</h4><p>증상·치료·복약 관련 의사결정이 필요한 맥락에서는 의료기관 상담 경로를 명확히 안내.</p></article>
+        <article class="card"><span class="num">SG3</span><h4>서술 제한 규칙</h4><p>단일 측정값·일반 기준치만으로 상태를 단정하지 않음. 데이터 충분도·기준선·문진을 함께 고려.</p></article>
+      </div>
+
+      <h3 class="block">검증 과제</h3>
+      <div class="check">
+        <div class="check-item"><span class="box"></span><div><strong>복합 상태지표 정의 확정</strong><p>지표명·산식·데이터 요건·설명 문구를 실제 수집 데이터 분석으로 확정하고 임상 오인 여지 리뷰</p></div><span class="status-badge sb-review">정의 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>코칭·질문 콘텐츠 DB</strong><p>상태·데이터 보유 조합별 메시지·행동·질문과 우선순위 규칙, 표현 가이드 준수 검수</p></div><span class="status-badge sb-review">콘텐츠 설계</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>국가별 웰니스·의료기기 경계</strong><p>대상 시장별 의료정보 접근성·데이터 국외 이전 제한·웰니스 규제 검토</p></div><span class="status-badge sb-open">단계적 검증</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>카피·AI 출력 표현 감수</strong><p>배제/권장 표현 목록 기준으로 전 화면 카피와 AI 출력 템플릿 사전 감수 프로세스 수립</p></div><span class="status-badge sb-open">프로세스</span></div>
+      </div>
+    </section>
+
+    <!-- ══════════════ 10. COMPLETION ══════════════ -->
+    <section class="section" id="s10">
+      <div class="section-head">
+        <span class="section-label">10 · Completion Criteria</span>
+        <h2>완료 기준 점검</h2>
+        <p>본 MRS가 충족해야 하는 완료 기준과 현재 상태입니다. <span class="status-badge sb-ready">충족</span> 문서로 정리 완료 · <span class="status-badge sb-review">승인 필요</span> 이해관계자 검토·승인 대기 · <span class="status-badge sb-open">후속</span> 별도 검증 트랙.</p>
+      </div>
+      <div class="check">
+        <div class="check-item"><span class="box"></span><div><strong>목표 사용자와 제품 방향이 확정됨</strong><p>1차·2차·비대상 사용자와 JTBD, 포지셔닝 스테이트먼트 정리 (2·3·5장)</p></div><span class="status-badge sb-review">승인 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>핵심 기능과 차별화 요소가 승인됨</strong><p>기능 기둥 6개와 차별화 축 5개 정리, 경쟁 대비 공백 확인 (6·7장) &mdash; 경영/기획 승인 대기</p></div><span class="status-badge sb-review">승인 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>의료기기로 오인될 사용 목적·표현이 제외됨</strong><p>비의료기기 포지셔닝, 판단 기준 자가 점검, 배제/권장 표현 가이드, 경계 사례 처리 정의 (9장)</p></div><span class="status-badge sb-ready">충족</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>사용자 요구사항 목록이 우선순위와 함께 정리됨</strong><p>UR-01~17, P0/P1/P2 및 근거·관련 기능 매핑 (4장)</p></div><span class="status-badge sb-ready">충족</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>서비스 범위·제외 범위가 구분됨</strong><p>In / Out / Roadmap 3분류와 범위 판단 규칙 (8장)</p></div><span class="status-badge sb-ready">충족</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>복합 상태지표·코칭 콘텐츠 정의</strong><p>MRS 이후 별도 검증 트랙에서 데이터 분석 기반으로 확정 (9장 검증 과제)</p></div><span class="status-badge sb-open">후속</span></div>
+      </div>
+      <div class="callout">
+        <span>다음 단계</span>
+        <p>① 이해관계자 리뷰로 2·3·5·6·7장 승인 → ② 복합 상태지표 정의 및 코칭 콘텐츠 DB 설계 착수 → ③ 승인된 UR 목록을 상세 기능 요구사항(수용 기준 포함)으로 전개 → ④ 대상 시장 선정 후 국가별 규제 적합성 검토.</p>
+      </div>
+    </section>
+
+    <!-- ══════════════ SOURCES ══════════════ -->
+    <div class="src">
+      <h2>근거 자료</h2>
+      <ul>
+        <li>maiReport 서비스 소개 / 정보구조도(IA) / 기능정의서 / 화면정의서 (내부 문서, 2026-08)</li>
+        <li>식약처 &lsquo;의료기기와 개인용 건강관리(웰니스) 제품 판단 기준&rsquo; 및 디지털의료제품법 체계 &mdash; 디지털 의료·건강지원기기 정의, 사용목적·위해도 기준 (공개 자료)</li>
+        <li>삼성 헬스 &mdash; 에너지 점수, 5대 건강 영역, 디지털의료·건강지원기기 등록 관련 공개 보도</li>
+        <li>카카오헬스케어 파스타(PASTA) &mdash; CGM 기반 혈당 관리, 외부 앱 연동, 만성질환 확장 계획 공개 자료</li>
+        <li>나의건강기록(정부)·나만의닥터 &mdash; 의료 마이데이터 검진·진료·처방 조회 범위 공개 자료</li>
+        <li>눔(Noom) &mdash; 행동심리 코칭, 식품 색상 분류, NHIS 시범사업·보험사 제휴 공개 자료</li>
+        <li>Whoop / Oura Ring &mdash; Strain·Recovery·Readiness 지표, Sleep/Strain Coach, 스트레스·Resilience 기능 공개 자료</li>
+        <li>Function Health &mdash; 연 2회 100+ 랩 검사 멤버십, 의사 검토 인사이트, 2025년 가격($365/년) 공개 자료</li>
+        <li>셀바스AI 셀비 체크업 &mdash; 검진정보 기반 10대 질환 발병 위험 예측 서비스 공개 자료 (경계 사례 참고)</li>
+      </ul>
+    </div>
+
+    <footer>maiReport Market Requirements Specification · v0.1 (초안) · Internal Use Only · 2026-09-01</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 내 데이터는 어떻게 흐를까</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:720px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  /* 한눈에 보기 */
+  .journey{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:10px 0 6px}
+  .jstep{background:var(--brand-soft);border-radius:16px;padding:16px 14px;position:relative}
+  .jstep small{display:block;font-size:11px;font-weight:800;color:var(--brand);margin-bottom:6px}
+  .jstep b{display:block;font-size:14px;color:var(--ink-1);margin-bottom:6px;line-height:1.4}
+  .jstep span{font-size:12px;color:var(--ink-2);line-height:1.5}
+  .jstep::after{content:"›";position:absolute;right:-9px;top:50%;transform:translateY(-50%);font-size:18px;color:#98a4b8;font-weight:700}
+  .jstep:last-child::after{content:""}
+  .flow3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px}
+  .col{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .col b{display:block;font-size:12.5px;color:var(--brand);margin-bottom:8px}
+  .col ul{padding-left:16px}
+  .col li{font-size:13px;margin-bottom:4px}
+  /* 단계 카드 */
+  .stage{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px}
+  .stage .box{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:#fff}
+  .stage .box.me{background:#fafbfd}
+  .stage .box.app{background:var(--brand-soft);border-color:#dbe6ff}
+  .stage .box.see{background:#fafbfd}
+  .stage .box b{display:block;font-size:12.5px;margin-bottom:8px;color:var(--ink-3)}
+  .stage .box.app b{color:var(--brand)}
+  .stage .box ul{padding-left:16px}
+  .stage .box li{font-size:13px;margin-bottom:5px;color:var(--ink-1)}
+  .stage .box li small{display:block;color:var(--ink-3);font-size:12px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  .chip{font-size:11.5px;font-weight:700;color:var(--ink-2);background:#f1f3f7;border-radius:999px;padding:4px 10px}
+  .chip.src{background:var(--brand-soft);color:var(--brand)}
+  .when{display:inline-block;font-size:11.5px;font-weight:800;color:var(--ink-3);background:#f1f3f7;border-radius:999px;padding:3px 10px;margin-left:8px;vertical-align:middle}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  /* 원칙 */
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+  .rule{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .rule b{display:block;font-size:13.5px;color:var(--ink-1);margin-bottom:4px}
+  .rule p{font-size:13px;margin:0}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  footer{text-align:center;font-size:12px;color:var(--ink-3);margin-top:10px}
+  @media(max-width:820px){.journey{grid-template-columns:1fr 1fr}.jstep::after{content:""}.flow3,.stage,.rules{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 서비스 안내</span>
+  <h1>내 데이터는 어떻게 흐를까</h1>
+  <p>마이리포트에 들어오는 데이터가 어디서 와서, 앱 안에서 무엇으로 바뀌고, 어떤 화면으로 나에게 돌아오는지를 사용자의 하루와 한 주 순서로 설명합니다. 기술 용어 없이 "내가 하는 일 → 앱이 하는 일 → 내가 보는 것" 세 칸으로 읽습니다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-16</b></span><span>버전 <b>1.0</b></span><span>연관 문서 <b>서비스 데이터 흐름도 · 생활지표 기획서 · 홈/목표 분석/지표별 분석 화면정의서</b></span></div>
+</div>
+
+<!-- 0 한눈에 -->
+<section class="card">
+  <h2><span class="n">0</span>한눈에 보기</h2>
+  <div class="sub">처음 한 번 연결하고 나면, 매일 아침 질문 → 하루 동안 쌓임 → 확인하고 실천 → 한 주 돌아보기가 반복된다</div>
+  <div class="journey">
+    <div class="jstep"><small>처음 한 번</small><b>① 연결하기</b><span>건강 앱 · 검진/진료 기록을 마이리포트에 연결</span></div>
+    <div class="jstep"><small>매일 아침</small><b>② 오늘의 질문</b><span>기기로 알 수 없는 것만 3문항 → 코칭과 목표가 생김</span></div>
+    <div class="jstep"><small>하루 동안</small><b>③ 데이터가 쌓임</b><span>걸음 · 수면 · 심박이 오늘의 컨디션 세 지표로 해석됨</span></div>
+    <div class="jstep"><small>틈틈이</small><b>④ 실천 기록</b><span>목표 타일을 눌러 완료 → 며칠째 이어가는지 표시</span></div>
+    <div class="jstep"><small>주 1회 · 필요할 때</small><b>⑤ 돌아보기</b><span>AI 인사이트 · 병원 탭 검진/진료 요약</span></div>
+  </div>
+  <div class="flow3">
+    <div class="col"><b>들어오는 데이터</b><ul><li>건강 앱: 걸음 · 수면 · 심박 · 활동 · 체중 (Apple 건강 / 삼성헬스 / 헬스 커넥트)</li><li>건강보험공단: 검진 결과 · 진료 · 처방 이력</li><li>내가 직접: 오늘의 질문 답변 · 목표 완료 · 검진 결과지 사진 · AI 리포트 QR</li></ul></div>
+    <div class="col"><b>앱이 만드는 것</b><ul><li>오늘의 코칭 한 줄 · 오늘의 목표 3개</li><li>생활여유 · 자기돌봄 · 일상안정 (좋음/보통/주의)</li><li>목표 연속일수와 코멘트</li><li>주간 AI 인사이트 · 검진/진료 요약</li></ul></div>
+    <div class="col"><b>내가 보는 화면</b><ul><li>홈: 질문 · 코칭 · 목표 · 컨디션 · 건강 데이터</li><li>생활: 목표 분석 · 지표별 분석 · 생활 분석 · AI 인사이트</li><li>병원: 검진요약 · 진료요약 · 방문이력</li></ul></div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="card">
+  <h2><span class="n">1</span>연결하기<span class="when">처음 한 번</span></h2>
+  <div class="sub">내 데이터를 마이리포트가 읽을 수 있게 허락하는 단계. 읽기만 하고 바꾸지 않는다</div>
+  <div class="stage">
+    <div class="box me"><b>내가 하는 일</b><ul>
+      <li>카카오로 로그인</li>
+      <li>건강 데이터 연동 허용<small>iPhone은 건강 앱, 안드로이드는 삼성헬스 또는 헬스 커넥트 중 하나</small></li>
+      <li>병원 탭에서 검진정보 · 진료정보 가져오기<small>간편인증 한 번, 각각 따로 가능</small></li>
+      <li>필요하면 검진 결과지 사진 등록, AI 리포트 QR 스캔</li>
+    </ul></div>
+    <div class="box app"><b>앱이 하는 일</b><ul>
+      <li>건강 앱에서 걸음 · 수면 · 심박 · 활동 · 체중을 읽어 온다<small>기록을 고치거나 쓰지 않는다</small></li>
+      <li>플랫폼마다 다른 항목 정의를 같은 기준으로 맞춘다<small>예: 활동 시간은 걸음 기록에서 직접 계산</small></li>
+      <li>검진 결과지 사진은 항목별 수치로 읽어 내가 확인·수정한 뒤 저장</li>
+    </ul></div>
+    <div class="box see"><b>내가 보는 것</b><ul>
+      <li>홈 하단 "오늘의 건강 데이터" 3개(걸음 · 수면 · 안정 시 심박)</li>
+      <li>병원 탭 검진요약 · 진료요약이 채워짐</li>
+      <li>연동 전에는 "연동하면 볼 수 있어요" 안내만 보인다</li>
+    </ul></div>
+  </div>
+  <div class="chips"><span class="chip src">건강 앱</span><span class="chip src">건강보험공단</span><span class="chip src">검진 결과지 · QR</span><span class="chip">읽기 전용</span><span class="chip">워치 없어도 됨</span></div>
+</section>
+
+<!-- 2 -->
+<section class="card">
+  <h2><span class="n">2</span>오늘의 질문에 답하기<span class="when">매일 아침</span></h2>
+  <div class="sub">기기 데이터로는 알 수 없는 것만 묻는다. 답하면 오늘의 코칭과 목표가 한 번에 만들어진다</div>
+  <div class="stage">
+    <div class="box me"><b>내가 하는 일</b><ul>
+      <li>홈 맨 위 질문에 3지선다로 답한다<small>하루 최대 3문항. 이미 기기로 아는 것(예: 수면 기록이 있으면 수면 질문)은 나오지 않는다</small></li>
+      <li>답을 바꾸고 싶으면 "오늘 답변 모두 보기"에서 수정</li>
+    </ul></div>
+    <div class="box app"><b>앱이 하는 일</b><ul>
+      <li>오늘 들어온 기기 데이터에서 부족한 것을 골라 질문을 만든다</li>
+      <li>모든 문항에 답하는 순간 답변 + 기기 데이터로 <b>오늘의 코칭 한 줄</b>과 <b>오늘의 목표 3개</b>(식이 · 활동 · 수면)를 만든다</li>
+      <li>기기 데이터가 이미 충분한 목표는 답하기 전에 먼저 열리고, 부족한 목표만 잠겨 있다가 답변 뒤 열린다</li>
+      <li>그날의 코칭과 목표 문구는 하루 동안 바뀌지 않는다<small>낮에 데이터가 늘어도 문구는 고정, 진행만 반영</small></li>
+    </ul></div>
+    <div class="box see"><b>내가 보는 것</b><ul>
+      <li>"오늘의 코칭" — 오늘 할 핵심 행동 한 줄 + 이유 한 줄</li>
+      <li>"오늘의 목표" 타일 3개 — 잠긴 타일은 "질문에 답하면 생성돼요"</li>
+    </ul></div>
+  </div>
+  <div class="callout">질문에 답하지 않아도 오늘의 컨디션 지표는 기기 데이터만으로 계산됩니다. 답변은 코칭과 목표를 만드는 데만 쓰이고, 지표 점수를 올리거나 내리지 않습니다.</div>
+  <div class="chips"><span class="chip src">질문 답변</span><span class="chip src">기기 데이터</span><span class="chip">하루 경계 새벽 4시</span></div>
+</section>
+
+<!-- 3 -->
+<section class="card">
+  <h2><span class="n">3</span>데이터가 쌓이는 동안<span class="when">하루 종일 · 자동</span></h2>
+  <div class="sub">내가 아무것도 하지 않아도 기기 데이터가 들어와 "오늘의 컨디션" 세 지표로 해석된다</div>
+  <div class="stage">
+    <div class="box me"><b>내가 하는 일</b><ul>
+      <li>평소처럼 지낸다. 워치나 폰이 걸음 · 수면 · 심박을 기록</li>
+      <li>식사 시각을 남기고 싶으면 기록(선택)</li>
+    </ul></div>
+    <div class="box app"><b>앱이 하는 일</b><ul>
+      <li>들어온 데이터를 정리한다<small>시간대 · 단위 통일, 미착용 구간은 "없음"으로 표시하고 0으로 채우지 않음</small></li>
+      <li>세 가지 질문에 답하는 지표를 계산한다
+        <small>생활여유 — 오늘 리듬에 여유가 있는가 (수면 + 활동 배치)</small>
+        <small>자기돌봄 — 식사 뒤 · 오래 앉은 뒤 같은 순간에 실제로 움직였는가</small>
+        <small>일상안정 — 최근 7일이 내 평소 3주와 비교해 안정적인가</small></li>
+      <li>숫자는 안에서만 쓰고 화면에는 좋음 · 보통 · 주의 세 구간으로만 보여준다</li>
+      <li>데이터가 모자라면 낮은 구간이 아니라 "관찰 중"으로 둔다</li>
+    </ul></div>
+    <div class="box see"><b>내가 보는 것</b><ul>
+      <li>홈 "오늘의 컨디션" — 지표 3개의 게이지와 상태 라벨<small>충분해요 · 잘하고 있어요 · 안정적이에요 …</small></li>
+      <li>생활 › 지표별 분석 — 지표마다 이번 주 흐름 그래프, 왜 그런지 한두 문장, 쓰인 데이터 목록</li>
+      <li>생활 › 생활 분석 — 걸음 · 칼로리 · 심박 · 수면의 주간 막대</li>
+      <li>홈 › 전체 건강 데이터 — 항목별 상세 그래프</li>
+    </ul></div>
+  </div>
+  <div class="chips"><span class="chip src">걸음(시간대별)</span><span class="chip src">수면</span><span class="chip src">안정 시 심박</span><span class="chip src">운동 세션</span><span class="chip src">체중</span><span class="chip">세 지표를 합산하지 않음</span><span class="chip">평가 점수 아님</span></div>
+</section>
+
+<!-- 4 -->
+<section class="card">
+  <h2><span class="n">4</span>실천을 기록하기<span class="when">틈틈이</span></h2>
+  <div class="sub">목표 타일을 한 번 누르면 완료. 그 기록이 "며칠째 이어가는지"로 돌아온다</div>
+  <div class="stage">
+    <div class="box me"><b>내가 하는 일</b><ul>
+      <li>홈이나 생활 › 목표 분석에서 해낸 목표 타일을 누른다<small>다시 누르면 취소. 지난 날짜도 기록 가능</small></li>
+    </ul></div>
+    <div class="box app"><b>앱이 하는 일</b><ul>
+      <li>날짜 · 카테고리별로 완료를 저장하고 그날 목표 문구를 고정한다</li>
+      <li>카테고리마다 완료가 며칠 이어졌는지 센다<small>완료 기록이 없는 날에서 끊김 · 주가 바뀌어도 이어짐</small></li>
+      <li>오늘 상황에 맞는 코멘트 하나를 고른다<small>첫 기록 · 오랜만의 방문 · 마디(1주·2주·한 달…) 도달 · 최장 기록 · 하루 남음 …</small></li>
+    </ul></div>
+    <div class="box see"><b>내가 보는 것</b><ul>
+      <li>"n/3 완료"와 완료 표시된 타일</li>
+      <li>"목표 이어가기" — 코멘트 한 장, 카테고리별 N일째, 최근 7일 기록</li>
+      <li>달성률 · 점수는 없다. 기록이 이어진 날만 센다</li>
+    </ul></div>
+  </div>
+  <div class="chips"><span class="chip src">내 완료 기록</span><span class="chip">홈과 생활 탭이 같은 값</span><span class="chip">"0일째" 없음</span></div>
+</section>
+
+<!-- 5 -->
+<section class="card">
+  <h2><span class="n">5</span>돌아보기<span class="when">주 1회 · 필요할 때</span></h2>
+  <div class="sub">한 주를 정리한 AI 인사이트, 그리고 검진 · 진료 기록을 읽기 쉽게 풀어 주는 병원 탭</div>
+  <h3>AI 인사이트 (생활 탭)</h3>
+  <div class="stage">
+    <div class="box me"><b>내가 하는 일</b><ul><li>"분석하기"를 누른다<small>주 1회. 다른 기간을 골라 분석할 수도 있다</small></li></ul></div>
+    <div class="box app"><b>앱이 하는 일</b><ul><li>그 주의 생활 데이터(+ 연동된 검진정보)를 종합해 요약 · 종합 점수 · 핵심 인사이트 · 상세 분석 · 지난주 대비 변화를 만든다</li><li>검진정보가 없으면 생활 데이터만으로 만들고 "연동하면 더 자세해진다"고 알려준다</li></ul></div>
+    <div class="box see"><b>내가 보는 것</b><ul><li>요약 카드 → 자세히 보기(상세 분석 · 변화 추이)</li><li>분석 이력에서 지난 주와 비교</li></ul></div>
+  </div>
+  <h3>병원 탭</h3>
+  <div class="stage">
+    <div class="box me"><b>내가 하는 일</b><ul><li>검진요약 · 진료요약 · 방문이력을 둘러본다</li><li>원하면 검진 결과를 외부 AI(ChatGPT)로 요약<small>동의한 뒤에만 · 수치와 판정만 보내고 이름 · 생년월일은 보내지 않는다</small></li><li>주요질환 위험도 분석(이용권)</li></ul></div>
+    <div class="box app"><b>앱이 하는 일</b><ul><li>검진 결과를 건강 나이 · 주요 소견 · 검진 대상 안내로 정리</li><li>진료 기록을 자주 간 병원 · 진료과 · 월별 진료비로 정리</li><li>검진 · 진료 · AI 리포트를 시간순 한 목록으로 묶는다</li></ul></div>
+    <div class="box see"><b>내가 보는 것</b><ul><li>검진요약: 건강 나이, 주요 검진 소견 5개, 검진 대상자 안내</li><li>진료요약: 병원 이용 TOP 3, 진료과 TOP 3, 올해 지출한 진료비</li><li>방문이력: 날짜순 카드, 눌러서 상세</li></ul></div>
+  </div>
+  <div class="chips"><span class="chip src">한 주 생활 데이터</span><span class="chip src">검진 · 진료 기록</span><span class="chip">의료 진단 아님 · 참고 정보</span></div>
+</section>
+
+<!-- 6 -->
+<section class="card">
+  <h2><span class="n">6</span>같은 데이터가 어디에 쓰이는지</h2>
+  <div class="sub">한 번 들어온 데이터는 여러 화면에서 다르게 쓰인다. 어디에 쓰이고 어디에는 쓰이지 않는지</div>
+  <table>
+    <tr><th style="width:170px">데이터</th><th>쓰이는 곳</th><th style="width:34%">쓰이지 않는 곳</th></tr>
+    <tr><td class="k">걸음 (시간대별)</td><td>생활여유 · 자기돌봄 · 일상안정 계산, 활동 목표 진행, 생활 분석 그래프, AI 인사이트</td><td>—</td></tr>
+    <tr><td class="k">수면</td><td>생활여유 · 일상안정, 수면 목표 생성, 생활 분석, AI 인사이트</td><td>자기돌봄</td></tr>
+    <tr><td class="k">안정 시 심박</td><td>일상안정, 홈 건강 데이터, AI 인사이트</td><td>생활여유 · 자기돌봄의 점수</td></tr>
+    <tr><td class="k">체중 · 체지방률 · BMI</td><td>전체 건강 데이터 상세, 일상안정 참고</td><td>지표 점수</td></tr>
+    <tr><td class="k">혈압 · 혈당</td><td>전체 건강 데이터 상세, AI 인사이트 참고</td><td>지표 점수</td></tr>
+    <tr><td class="k">오늘의 질문 답변</td><td>오늘의 코칭 · 목표 생성, AI 인사이트 맥락</td><td>지표 점수 (올리거나 내리지 않음)</td></tr>
+    <tr><td class="k">식사 시각 기록</td><td>자기돌봄의 "행동 가능한 순간" 찾기, 식이 목표</td><td>기록했다는 사실로 점수를 올리지 않음</td></tr>
+    <tr><td class="k">목표 완료 기록</td><td>연속일수 · 코멘트 · 최근 7일</td><td>지표 · 코칭</td></tr>
+    <tr><td class="k">검진 · 진료 기록</td><td>병원 탭 요약, AI 인사이트, 질문 문항 선정</td><td>지표 점수 (맥락으로만)</td></tr>
+  </table>
+</section>
+
+<!-- 7 -->
+<section class="card">
+  <h2><span class="n">7</span>알아 두면 좋은 원칙</h2>
+  <div class="sub">데이터를 다룰 때 마이리포트가 지키는 약속</div>
+  <div class="rules">
+    <div class="rule"><b>없는 데이터는 0이 아니다</b><p>워치를 안 찼거나 기록이 안 들어온 날은 "관찰 중"으로 두고, 낮은 상태로 표시하지 않는다.</p></div>
+    <div class="rule"><b>숫자 점수를 보여주지 않는다</b><p>세 지표는 안에서 계산용 숫자를 쓰지만 화면에는 좋음 · 보통 · 주의와 흐름만 보여준다. 세 지표를 합친 종합 점수도 없다.</p></div>
+    <div class="rule"><b>질문에 답하지 않아도 불이익이 없다</b><p>답변은 코칭 · 목표를 만드는 재료일 뿐 지표를 올리거나 내리지 않는다.</p></div>
+    <div class="rule"><b>워치가 없어도 된다</b><p>폰 걸음만으로도 계산한다. 워치가 있으면 더 자세히 볼 뿐이다.</p></div>
+    <div class="rule"><b>기록은 보너스가 아니다</b><p>식사를 기록했다는 사실만으로 상태가 좋아지지 않는다. 실제 움직임이 확인될 때만 반영한다.</p></div>
+    <div class="rule"><b>내 기록을 바꾸지 않는다</b><p>건강 앱과 공단 데이터는 읽기만 한다. 외부 AI로 보내는 것은 내가 동의한 검진 수치뿐이며 이름 · 생년월일은 보내지 않는다.</p></div>
+    <div class="rule"><b>의료 진단이 아니다</b><p>모든 해석과 코칭은 생활 습관 참고 정보다. 정상/비정상 · 위험 · 진단 같은 말을 쓰지 않고, 증상이 있으면 상담을 안내한다.</p></div>
+    <div class="rule"><b>하루의 기준은 새벽 4시</b><p>새벽 4시 전 활동은 전날로, 잠은 일어난 날로 센다. 그날의 코칭 · 목표는 이때 새로 시작된다.</p></div>
+  </div>
+</section>
+
+<footer>마이리포트 v2 · 내 데이터는 어떻게 흐를까 · 2026-09-16</footer>
+</div>
+</body>
+</html>

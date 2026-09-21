@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="828" viewBox="0 0 1240 828" font-family="Noto Sans KR, Malgun Gothic, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9AA7BA"/>
+    </marker>
+  </defs>
+  <rect width="1240" height="828" fill="#EFF2F7"/>
+
+  <text x="40" y="36" font-size="18" font-weight="900" letter-spacing="-0.8" fill="#0F1826">maiReport · LIFE-001 목표 이어가기 — 최종 시나리오</text>
+  <text x="40" y="56" font-size="12" fill="#6C7A8E">목표가 생성된 날만 완료할 수 있고, 완료한 날만 연속이 이어진다 · 건너뛰기 없음</text>
+
+  <!-- ================= 흐름 ================= -->
+  <g font-size="11.5" font-weight="700">
+    <rect x="40" y="96" width="108" height="40" rx="11" fill="#101A2B"/>
+    <text x="94" y="121" fill="#FFFFFF" text-anchor="middle">하루 시작</text>
+
+    <rect x="176" y="96" width="130" height="40" rx="11" fill="#FFFFFF" stroke="#C3CEDD"/>
+    <text x="241" y="121" fill="#1B2739" text-anchor="middle">앱에 접속했나</text>
+
+    <rect x="334" y="96" width="158" height="40" rx="11" fill="#FFFFFF" stroke="#C3CEDD"/>
+    <text x="413" y="115" fill="#1B2739" text-anchor="middle">기기 데이터로</text>
+    <text x="413" y="130" fill="#1B2739" text-anchor="middle">목표를 만들 수 있나</text>
+
+    <rect x="520" y="96" width="140" height="40" rx="11" fill="#FFFFFF" stroke="#C3CEDD"/>
+    <text x="590" y="115" fill="#1B2739" text-anchor="middle">보완 질문에</text>
+    <text x="590" y="130" fill="#1B2739" text-anchor="middle">답했나</text>
+
+    <rect x="688" y="96" width="120" height="40" rx="11" fill="#E9EFFE" stroke="#B9CDFF"/>
+    <text x="748" y="121" fill="#2F6BFF" text-anchor="middle">목표 3개 생성</text>
+
+    <rect x="836" y="96" width="120" height="40" rx="11" fill="#FFFFFF" stroke="#C3CEDD"/>
+    <text x="896" y="121" fill="#1B2739" text-anchor="middle">그날 완료했나</text>
+
+    <rect x="984" y="96" width="116" height="40" rx="11" fill="#E3F3EC" stroke="#A8D9C3"/>
+    <text x="1042" y="121" fill="#1C7A57" text-anchor="middle">연속 +1</text>
+  </g>
+
+  <!-- 화살표 -->
+  <g stroke="#9AA7BA" stroke-width="1.4" fill="none">
+    <path d="M148,116 L172,116" marker-end="url(#ar)"/>
+    <path d="M306,116 L330,116" marker-end="url(#ar)"/>
+    <path d="M492,116 L516,116" marker-end="url(#ar)"/>
+    <path d="M660,116 L684,116" marker-end="url(#ar)"/>
+    <path d="M808,116 L832,116" marker-end="url(#ar)"/>
+    <path d="M956,116 L980,116" marker-end="url(#ar)"/>
+    <path d="M470,96 L470,72 L706,72 L706,92" marker-end="url(#ar)"/>
+    <path d="M241,136 L241,176" marker-end="url(#ar)"/>
+    <path d="M590,136 L590,176" marker-end="url(#ar)"/>
+    <path d="M896,136 L896,176" marker-end="url(#ar)"/>
+  </g>
+  <g font-size="10" fill="#6C7A8E">
+    <text x="588" y="66" text-anchor="middle">예 — 질문을 건너뛴다</text>
+    <text x="318" y="112" text-anchor="middle">예</text>
+    <text x="504" y="112" text-anchor="middle">아니오</text>
+    <text x="672" y="112" text-anchor="middle">예</text>
+    <text x="968" y="112" text-anchor="middle">예</text>
+    <text x="254" y="160" fill="#B23A3A" font-weight="700">아니오</text>
+    <text x="603" y="160" fill="#B23A3A" font-weight="700">아니오</text>
+    <text x="909" y="160" fill="#B23A3A" font-weight="700">아니오</text>
+  </g>
+
+  <!-- 결과 -->
+  <g font-size="11">
+    <rect x="150" y="176" width="184" height="56" rx="11" fill="#FAE9E9"/>
+    <text x="166" y="198" font-weight="800" fill="#B23A3A">끊김 · 목표 없음</text>
+    <text x="166" y="216" fill="#8A5252">접속 안 함 — 미기록과 같다</text>
+
+    <rect x="498" y="176" width="184" height="56" rx="11" fill="#FAE9E9"/>
+    <text x="514" y="198" font-weight="800" fill="#B23A3A">끊김 · 목표 없음</text>
+    <text x="514" y="216" fill="#8A5252">답할 기회를 쓰지 않았다</text>
+
+    <rect x="804" y="176" width="184" height="56" rx="11" fill="#FAE9E9"/>
+    <text x="820" y="198" font-weight="800" fill="#B23A3A">끊김</text>
+    <text x="820" y="216" fill="#8A5252">목표는 있었으나 미완료</text>
+  </g>
+  <text x="40" y="256" font-size="11.5" fill="#6C7A8E">세 갈래 모두 <tspan font-weight="700" fill="#B23A3A">끊김</tspan>이다 — 건너뛰는 경우는 없다.
+    목표가 생성된 날만 완료할 수 있고, 완료한 날만 이어진다.</text>
+
+  <!-- ================= 화면 ================= -->
+  <g transform="translate(40,292)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#6C7A8E">목표가 생성된 날</text>
+    <rect y="12" width="354" height="286" rx="17" fill="#F4F6FA" stroke="#DFE4EC"/>
+    <rect x="14" y="26" width="326" height="112" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="50" font-size="13.5" font-weight="900" letter-spacing="-0.5" fill="#16202F">오늘의 목표</text>
+    <text x="324" y="50" font-size="10" fill="#7A879A" text-anchor="end">1/3 완료</text>
+    <rect x="30" y="62" width="92" height="62" rx="11" fill="#FCEBD8"/>
+    <text x="40" y="80" font-size="9.5" font-weight="800" fill="#B4611F">식이</text>
+    <text x="40" y="96" font-size="10" fill="#A08A72">저녁 균형 식사</text>
+    <circle cx="104" cy="76" r="8" fill="#E0803A"/><text x="104" y="80" font-size="9" font-weight="900" fill="#FFF" text-anchor="middle">✓</text>
+    <rect x="131" y="62" width="92" height="62" rx="11" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="141" y="80" font-size="9.5" font-weight="800" fill="#E0567B">활동</text>
+    <text x="141" y="96" font-size="10" fill="#16202F">식후 10분 걷기</text>
+    <rect x="232" y="62" width="92" height="62" rx="11" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="242" y="80" font-size="9.5" font-weight="800" fill="#6B72D8">수면</text>
+    <text x="242" y="96" font-size="10" fill="#16202F">23시 30분 눕기</text>
+
+    <rect x="14" y="148" width="326" height="136" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="172" font-size="13.5" font-weight="900" letter-spacing="-0.5" fill="#16202F">목표 이어가기</text>
+    <rect x="30" y="182" width="92" height="58" rx="11" fill="#FCEBD8"/>
+    <text x="76" y="200" font-size="9.5" font-weight="800" fill="#B4611F" text-anchor="middle">식이</text>
+    <text x="76" y="222" font-size="15" font-weight="900" fill="#16202F" text-anchor="middle">3<tspan font-size="9.5">일 연속</tspan></text>
+    <rect x="131" y="182" width="92" height="58" rx="11" fill="#FBDDE6"/>
+    <text x="177" y="200" font-size="9.5" font-weight="800" fill="#B93E5F" text-anchor="middle">활동</text>
+    <text x="177" y="222" font-size="15" font-weight="900" fill="#16202F" text-anchor="middle">6<tspan font-size="9.5">일 연속</tspan></text>
+    <rect x="232" y="182" width="92" height="58" rx="11" fill="#DFE2FA"/>
+    <text x="278" y="200" font-size="9.5" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="278" y="222" font-size="15" font-weight="900" fill="#16202F" text-anchor="middle">14<tspan font-size="9.5">일 연속</tspan></text>
+    <rect x="30" y="248" width="294" height="26" rx="9" fill="#DFE2FA"/>
+    <text x="44" y="265" font-size="10.5" fill="#3C4460">수면 목표를 14일 연속 완료했어요.</text>
+  </g>
+
+  <g transform="translate(430,292)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#6C7A8E">목표가 없는 날 — <tspan fill="#2F6BFF">오늘</tspan></text>
+    <rect y="12" width="354" height="286" rx="17" fill="#F4F6FA" stroke="#DFE4EC"/>
+    <rect x="14" y="26" width="326" height="112" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="50" font-size="13.5" font-weight="900" letter-spacing="-0.5" fill="#16202F">오늘의 목표</text>
+    <rect x="30" y="62" width="294" height="62" rx="11" fill="#EDF3FF" stroke="#CFDEFF"/>
+    <text x="44" y="82" font-size="9.5" font-weight="800" fill="#2F6BFF">오늘 목표를 받으려면</text>
+    <text x="44" y="100" font-size="11" fill="#3C4460">몇 가지만 답하면 만들어 드려요.</text>
+    <rect x="226" y="96" width="84" height="20" rx="10" fill="#2F6BFF"/>
+    <text x="268" y="110" font-size="9.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">질문에 답하기</text>
+
+    <rect x="14" y="148" width="326" height="136" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="172" font-size="13.5" font-weight="900" letter-spacing="-0.5" fill="#16202F">목표 이어가기</text>
+    <rect x="30" y="182" width="92" height="58" rx="11" fill="#FCEBD8"/>
+    <text x="76" y="200" font-size="9.5" font-weight="800" fill="#B4611F" text-anchor="middle">식이</text>
+    <text x="76" y="222" font-size="15" font-weight="900" fill="#16202F" text-anchor="middle">3<tspan font-size="9.5">일 연속</tspan></text>
+    <rect x="131" y="182" width="92" height="58" rx="11" fill="#FBDDE6"/>
+    <text x="177" y="200" font-size="9.5" font-weight="800" fill="#B93E5F" text-anchor="middle">활동</text>
+    <text x="177" y="222" font-size="15" font-weight="900" fill="#16202F" text-anchor="middle">6<tspan font-size="9.5">일 연속</tspan></text>
+    <rect x="232" y="182" width="92" height="58" rx="11" fill="#DFE2FA"/>
+    <text x="278" y="200" font-size="9.5" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="278" y="222" font-size="15" font-weight="900" fill="#16202F" text-anchor="middle">14<tspan font-size="9.5">일 연속</tspan></text>
+    <rect x="30" y="248" width="294" height="26" rx="9" fill="#ECF1F7"/>
+    <text x="44" y="265" font-size="10.5" fill="#3C4460">수면 목표를 14일 연속 완료했어요.</text>
+  </g>
+
+  <g transform="translate(820,292)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#6C7A8E">목표가 없는 날 — <tspan fill="#8D99AB">과거</tspan></text>
+    <rect y="12" width="354" height="286" rx="17" fill="#F4F6FA" stroke="#DFE4EC"/>
+    <rect x="14" y="26" width="326" height="112" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="50" font-size="13.5" font-weight="900" letter-spacing="-0.5" fill="#16202F">8월 14일 목표</text>
+    <rect x="30" y="62" width="294" height="62" rx="11" fill="#F2F5FA"/>
+    <text x="44" y="82" font-size="9.5" font-weight="800" fill="#5E6C82">이 날은 목표가 없었어요</text>
+    <text x="44" y="100" font-size="11" fill="#3C4460">질문에 답하지 않아 만들지 못했어요.</text>
+    <text x="44" y="116" font-size="9.5" fill="#95A0B0">지금은 되돌릴 수 없어요 · 버튼 없음</text>
+
+    <rect x="14" y="148" width="326" height="136" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="172" font-size="13.5" font-weight="900" letter-spacing="-0.5" fill="#16202F">목표 이어가기</text>
+    <rect x="30" y="182" width="92" height="58" rx="11" fill="#FCEBD8"/>
+    <text x="76" y="200" font-size="9.5" font-weight="800" fill="#B4611F" text-anchor="middle">식이</text>
+    <text x="76" y="220" font-size="11.5" font-weight="900" fill="#66748A" text-anchor="middle">다시 시작</text>
+    <rect x="131" y="182" width="92" height="58" rx="11" fill="#FBDDE6"/>
+    <text x="177" y="200" font-size="9.5" font-weight="800" fill="#B93E5F" text-anchor="middle">활동</text>
+    <text x="177" y="222" font-size="15" font-weight="900" fill="#16202F" text-anchor="middle">3<tspan font-size="9.5">일 연속</tspan></text>
+    <text x="177" y="236" font-size="8.5" font-weight="800" fill="#1C7A57" text-anchor="middle">8월 14일까지</text>
+    <rect x="232" y="182" width="92" height="58" rx="11" fill="#DFE2FA"/>
+    <text x="278" y="200" font-size="9.5" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="278" y="222" font-size="15" font-weight="900" fill="#16202F" text-anchor="middle">6<tspan font-size="9.5">일 연속</tspan></text>
+    <text x="278" y="236" font-size="8.5" font-weight="800" fill="#1C7A57" text-anchor="middle">8월 14일까지</text>
+    <rect x="30" y="248" width="294" height="26" rx="9" fill="#ECF1F7"/>
+    <text x="44" y="265" font-size="10.5" fill="#3C4460">8월 14일 기준 기록이에요.</text>
+  </g>
+
+  <!-- ================= 정리 ================= -->
+  <g transform="translate(40,616)">
+    <rect width="1134" height="178" rx="15" fill="#FFFFFF" stroke="#DCE3ED"/>
+
+    <text x="24" y="30" font-size="12.5" font-weight="800" fill="#101A2B">과거에는 질문 유도를 하지 않는다</text>
+    <text x="24" y="52" font-size="11.5" fill="#4B586C">지난 날의 컨디션을 지금 답할 수 없고, 사후에 목표를 만들어 체크하면
+      <tspan font-weight="700" fill="#1B2739">끊긴 연속을 되살릴 수 있게 된다</tspan> — 기록이 아니라 편집이 된다.</text>
+    <text x="24" y="71" font-size="11.5" fill="#4B586C">그래서 <tspan font-weight="700" fill="#1B2739">과거 완료 기록은 그날 목표가 생성돼 있던 날만</tspan> 허용한다.
+      목표가 있었다는 건 그날 접속해서 조건을 채웠다는 뜻이다.</text>
+
+    <rect x="24" y="90" width="1086" height="1" fill="#E4EAF2"/>
+
+    <text x="24" y="116" font-size="12.5" font-weight="800" fill="#1C7A57">타일은 목표 유무와 무관하다</text>
+    <text x="24" y="137" font-size="11.5" fill="#4B586C">타일은 <tspan font-weight="700" fill="#1B2739">완료 이력</tspan>으로 계산하고 읽기 전용이다.
+      목표가 없는 날에도 어제까지의 일수가 그대로 뜬다 — 회색 「—」로 비우지 않는다.</text>
+    <text x="24" y="162" font-size="11.5" fill="#4B586C"><tspan font-weight="800" fill="#101A2B">저장 구조</tspan>
+      <tspan font-family="JetBrains Mono, Consolas, monospace" font-size="10.5" fill="#2F6BFF">  goal_record (user_id, category, record_date, is_done, done_at, goal_text)</tspan>
+      — 행이 있으면 그날 목표가 있었던 것 · 생성 사유 · 방문 기록 · 건너뛰기 상한 모두 불필요</text>
+  </g>
+</svg>

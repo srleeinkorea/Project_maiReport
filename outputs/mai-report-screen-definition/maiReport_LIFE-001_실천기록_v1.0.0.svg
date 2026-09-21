@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="680" viewBox="0 0 390 680" font-family="Noto Sans KR, Malgun Gothic, sans-serif">
+  <rect id="screen-bg" width="390" height="680" fill="#F4F6FA"/>
+
+  <g id="Header">
+    <text x="20" y="48" font-size="20" font-weight="900" letter-spacing="-0.8" fill="#16202F">생활</text>
+    <text x="20" y="66" font-size="11" fill="#7A879A">8월 4주차</text>
+    <rect x="300" y="32" width="70" height="30" rx="15" fill="#FFFFFF" stroke="#DFE4EC"/>
+    <text x="335" y="51" font-size="11" font-weight="700" fill="#16202F" text-anchor="middle">오늘</text>
+  </g>
+
+  <g id="DateStrip">
+    <text x="20" y="110" font-size="14" fill="#B9C3D1" text-anchor="middle">‹</text>
+    <text x="370" y="110" font-size="14" fill="#B9C3D1" text-anchor="middle">›</text>
+    <rect id="today-pill" x="171" y="86" width="43" height="38" rx="11" fill="#2F6BFF"/>
+    <text x="63" y="100" font-size="9.5" fill="#7A879A" text-anchor="middle">월</text>
+    <text x="63" y="116" font-size="13.5" font-weight="700" fill="#16202F" text-anchor="middle">17</text>
+    <text x="106" y="100" font-size="9.5" fill="#7A879A" text-anchor="middle">화</text>
+    <text x="106" y="116" font-size="13.5" font-weight="700" fill="#16202F" text-anchor="middle">18</text>
+    <text x="149" y="100" font-size="9.5" fill="#7A879A" text-anchor="middle">수</text>
+    <text x="149" y="116" font-size="13.5" font-weight="700" fill="#16202F" text-anchor="middle">19</text>
+    <text x="192" y="100" font-size="9.5" fill="#DCE7FF" text-anchor="middle">오늘</text>
+    <text x="192" y="116" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">20</text>
+    <text x="235" y="100" font-size="9.5" fill="#C3CCD9" text-anchor="middle">금</text>
+    <text x="235" y="116" font-size="13.5" font-weight="700" fill="#C3CCD9" text-anchor="middle">21</text>
+    <text x="278" y="100" font-size="9.5" fill="#C3CCD9" text-anchor="middle">토</text>
+    <text x="278" y="116" font-size="13.5" font-weight="700" fill="#C3CCD9" text-anchor="middle">22</text>
+    <text x="321" y="100" font-size="9.5" fill="#C3CCD9" text-anchor="middle">일</text>
+    <text x="321" y="116" font-size="13.5" font-weight="700" fill="#C3CCD9" text-anchor="middle">23</text>
+  </g>
+
+  <g id="Tabs">
+    <text x="20" y="150" font-size="12" font-weight="700" fill="#2F6BFF">목표 분석</text>
+    <text x="92" y="150" font-size="12" font-weight="700" fill="#9AA6B6">지표별 분석</text>
+    <text x="176" y="150" font-size="12" font-weight="700" fill="#9AA6B6">생활 분석</text>
+    <text x="248" y="150" font-size="12" font-weight="700" fill="#9AA6B6">AI 인사이트</text>
+    <rect x="20" y="158" width="56" height="2" fill="#2F6BFF"/>
+    <rect x="0" y="159" width="390" height="1" fill="#EDF0F5"/>
+  </g>
+
+  <g id="Block-오늘의목표">
+    <rect x="18" y="176" width="354" height="196" rx="17" fill="#FFFFFF"/>
+    <text x="34" y="204" font-size="15" font-weight="900" letter-spacing="-0.6" fill="#16202F">오늘의 목표</text>
+    <text x="356" y="204" font-size="11" fill="#7A879A" text-anchor="end">0/3 완료</text>
+
+    <g id="Card-식이">
+      <rect x="34" y="216" width="102" height="140" rx="13" fill="#FFFFFF" stroke="#F0F3F8"/>
+      <text x="44" y="238" font-size="10.5" font-weight="800" fill="#E0803A">식이</text>
+      <text x="44" y="256" font-size="12" font-weight="700" fill="#16202F">저녁 균형</text>
+      <text x="44" y="272" font-size="12" font-weight="700" fill="#16202F">식사</text>
+      <rect x="44" y="282" width="82" height="36" rx="9" fill="#FCEBD8"/>
+      <rect x="44" y="326" width="82" height="24" rx="8" fill="#EDF3FF" stroke="#CFDEFF"/>
+      <text x="85" y="342" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">완료</text>
+    </g>
+
+    <g id="Card-활동">
+      <rect x="144" y="216" width="102" height="140" rx="13" fill="#FFFFFF" stroke="#F0F3F8"/>
+      <text x="154" y="238" font-size="10.5" font-weight="800" fill="#E0567B">활동</text>
+      <text x="154" y="256" font-size="12" font-weight="700" fill="#16202F">식후 10분</text>
+      <text x="154" y="272" font-size="12" font-weight="700" fill="#16202F">걷기</text>
+      <rect x="154" y="282" width="82" height="36" rx="9" fill="#FBDDE6"/>
+      <rect x="154" y="326" width="82" height="24" rx="8" fill="#EDF3FF" stroke="#CFDEFF"/>
+      <text x="195" y="342" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">완료</text>
+    </g>
+
+    <g id="Card-수면">
+      <rect x="254" y="216" width="102" height="140" rx="13" fill="#FFFFFF" stroke="#F0F3F8"/>
+      <text x="264" y="238" font-size="10.5" font-weight="800" fill="#6B72D8">수면</text>
+      <text x="264" y="256" font-size="12" font-weight="700" fill="#16202F">23시 30분에</text>
+      <text x="264" y="272" font-size="12" font-weight="700" fill="#16202F">눕기</text>
+      <rect x="264" y="282" width="82" height="36" rx="9" fill="#DFE2FA"/>
+      <rect x="264" y="326" width="82" height="24" rx="8" fill="#EDF3FF" stroke="#CFDEFF"/>
+      <text x="305" y="342" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">완료</text>
+    </g>
+  </g>
+
+  <g id="Block-목표이어가기">
+    <rect x="18" y="386" width="354" height="230" rx="17" fill="#FFFFFF"/>
+    <text x="34" y="414" font-size="15" font-weight="900" letter-spacing="-0.6" fill="#16202F">목표 이어가기</text>
+
+    <g id="Tile-식이">
+      <rect x="34" y="426" width="102" height="88" rx="13" fill="#FCEBD8"/>
+      <text x="85" y="448" font-size="11" font-weight="800" fill="#B4611F" text-anchor="middle">식이</text>
+      <text x="85" y="472" font-size="14" font-weight="900" letter-spacing="-0.4" fill="#66748A" text-anchor="middle">다시 시작</text>
+      <text x="85" y="492" font-size="10" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    </g>
+
+    <g id="Tile-활동">
+      <rect x="144" y="426" width="102" height="88" rx="13" fill="#FBDDE6"/>
+      <text x="195" y="448" font-size="11" font-weight="800" fill="#B93E5F" text-anchor="middle">활동</text>
+      <text x="195" y="474" font-size="18" font-weight="900" letter-spacing="-0.7" fill="#16202F" text-anchor="middle">1<tspan font-size="12">일째</tspan></text>
+      <text x="195" y="492" font-size="10" fill="#6E7C90" text-anchor="middle">이어가는 중</text>
+    </g>
+
+    <g id="Tile-수면">
+      <rect x="254" y="426" width="102" height="88" rx="13" fill="#DFE2FA"/>
+      <text x="305" y="448" font-size="11" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+      <text x="305" y="474" font-size="18" font-weight="900" letter-spacing="-0.7" fill="#16202F" text-anchor="middle">10<tspan font-size="12">일째</tspan></text>
+      <text x="305" y="492" font-size="10" font-weight="800" fill="#4A51BC" text-anchor="middle">8월 11일로부터</text>
+    </g>
+
+    <g id="Comment">
+      <rect x="34" y="526" width="322" height="74" rx="13" fill="#DFE2FA"/>
+      <text x="48" y="546" font-size="9.5" font-weight="800" letter-spacing="0.5" fill="#5159CC">가장 오래 이어가는 것</text>
+      <text x="48" y="570" font-size="12" fill="#3C4460">수면을 <tspan font-size="15" font-weight="900" fill="#4046B8">10일째</tspan> 이어가고 있어요.</text>
+      <text x="48" y="590" font-size="12" fill="#3C4460">오늘도 하면 <tspan font-weight="800" fill="#4046B8">11일째</tspan>예요.</text>
+    </g>
+  </g>
+
+  <g id="TabBar">
+    <rect x="0" y="624" width="390" height="56" fill="#FFFFFF"/>
+    <rect x="0" y="624" width="390" height="1" fill="#EDF0F5"/>
+    <rect x="40" y="638" width="18" height="18" rx="6" fill="#DDE3EC"/>
+    <text x="49" y="670" font-size="9.5" font-weight="700" fill="#9AA6B6" text-anchor="middle">홈</text>
+    <rect x="137" y="638" width="18" height="18" rx="6" fill="#16202F"/>
+    <text x="146" y="670" font-size="9.5" font-weight="700" fill="#16202F" text-anchor="middle">생활</text>
+    <rect x="235" y="638" width="18" height="18" rx="6" fill="#DDE3EC"/>
+    <text x="244" y="670" font-size="9.5" font-weight="700" fill="#9AA6B6" text-anchor="middle">병원</text>
+    <rect x="332" y="638" width="18" height="18" rx="6" fill="#DDE3EC"/>
+    <text x="341" y="670" font-size="9.5" font-weight="700" fill="#9AA6B6" text-anchor="middle">더보기</text>
+  </g>
+</svg>

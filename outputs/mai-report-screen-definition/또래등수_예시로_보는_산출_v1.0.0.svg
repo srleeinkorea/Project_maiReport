@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1500" viewBox="0 0 960 1500" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif">
+  <defs>
+    <style>
+      .h1{font-size:26px;font-weight:800;fill:#16233F;letter-spacing:-.5px}
+      .lead{font-size:13px;fill:#5A6880}
+      .pt{font-size:17px;font-weight:800;fill:#16233F}
+      .who{font-size:12px;fill:#5A6880}
+      .bb{font-size:12px;fill:#3B4860}
+      .bs{font-size:11px;fill:#6C7A8E}
+      .f{font-family:Consolas,'JetBrains Mono',monospace;font-size:11.5px;fill:#16233F}
+      .fb{font-family:Consolas,'JetBrains Mono',monospace;font-size:12px;fill:#2F6BFF;font-weight:700}
+      .th{font-size:10.5px;font-weight:800;fill:#6C7A8E}
+      .td{font-size:11.5px;fill:#3B4860}
+      .tk{font-size:11.5px;font-weight:700;fill:#16233F}
+      .card{fill:#fff;stroke:#DAE1EB}
+      .step{fill:#F3F6FC;stroke:#DAE1EB}
+      .warn{fill:#FFF1DE;stroke:#F2D9A0}
+      .nul{fill:#F5F7FB;stroke:#DAE1EB}
+    </style>
+  </defs>
+  <rect width="960" height="1500" fill="#F4F6FA"/>
+
+  <text x="40" y="52" class="h1">예시로 보는 또래 등수 산출</text>
+  <text x="40" y="76" class="lead">사람 다섯 명의 실제 계산. 모든 숫자는 경계값표 20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv에서 읽은 값이다.</text>
+  <text x="40" y="94" class="lead">공식은 한 가지: k = 내 값 ≤ 인 경계 개수 → P = k + (x−p_k)÷(p_k+1−p_k) → rank = round(P) → band = ceil(rank÷20) → health는 따로.</text>
+
+  <!-- 예시 1 -->
+  <rect x="40" y="118" width="880" height="228" rx="14" class="card"/>
+  <circle cx="66" cy="144" r="13" fill="#2F6BFF"/><text x="61" y="149" font-size="13" font-weight="800" fill="#fff">1</text>
+  <text x="90" y="149" class="pt">여자 42세 · BMI 25.7</text>
+  <text x="330" y="149" class="who">→ 또래 집단 "여자 40-44세" (n = 828)</text>
+  <rect x="56" y="164" width="848" height="28" rx="8" class="step"/>
+  <text x="66" y="183" class="bb">① 행 찾기: T[BMI][여자][40-44세] → … p76 25.35 · <tspan class="tk">p77 25.58</tspan> · <tspan class="tk">p78 25.78</tspan> · p79 25.94 …</text>
+  <text x="66" y="214" class="bb">② k: 25.7보다 작거나 같은 경계는 p1~p77 → <tspan class="fb">k = 77</tspan>   (p78 = 25.78 &gt; 25.7에서 멈춤)</text>
+  <text x="66" y="236" class="bb">③ 보간: lo = 25.58, hi = 25.78 → frac = (25.7 − 25.58) ÷ 0.20 = 0.6 → <tspan class="fb">P = 77.6</tspan></text>
+  <text x="66" y="258" class="bb">④ rank = round(77.6) = <tspan class="fb">78등</tspan>,  band = ceil(78 ÷ 20) = <tspan class="fb">4</tspan></text>
+  <text x="66" y="280" class="bb">⑤ health: 25.7 ≥ 25 → <tspan class="fb">warn</tspan></text>
+  <rect x="56" y="296" width="848" height="36" rx="8" class="warn"/>
+  <text x="66" y="319" class="bb">화면: 내 또래 100명 중 <tspan class="tk">78등</tspan> · 사람 그림 4번째에 "나" · 배지 "조금 높은 편이에요" · 톤 = 주의(warn)</text>
+
+  <!-- 예시 2 -->
+  <rect x="40" y="366" width="880" height="228" rx="14" class="card"/>
+  <circle cx="66" cy="392" r="13" fill="#2F6BFF"/><text x="61" y="397" font-size="13" font-weight="800" fill="#fff">2</text>
+  <text x="90" y="397" class="pt">같은 사람 · 허리둘레 86.0 cm</text>
+  <text x="330" y="397" class="who">→ "여자 40-44세" (n = 798). 값이 경계와 딱 같은 경우</text>
+  <rect x="56" y="412" width="848" height="28" rx="8" class="step"/>
+  <text x="66" y="431" class="bb">① T[허리둘레][여자][40-44세] → … p79 85.7 · <tspan class="tk">p80 86.0</tspan> · <tspan class="tk">p81 86.6</tspan> …</text>
+  <text x="66" y="462" class="bb">② k: 86.0 ≤ x 인 경계는 p1~p80 → <tspan class="fb">k = 80</tspan>   ("작거나 같음"이므로 p80 = 86.0도 센다)</text>
+  <text x="66" y="484" class="bb">③ 보간: lo = 86.0 → frac = 0 → <tspan class="fb">P = 80.0</tspan></text>
+  <text x="66" y="506" class="bb">④ rank = <tspan class="fb">80등</tspan>,  band = ceil(80 ÷ 20) = <tspan class="fb">4</tspan></text>
+  <text x="66" y="528" class="bb">⑤ health: 여자 허리둘레 86 ≥ 85 → <tspan class="fb">warn</tspan></text>
+  <rect x="56" y="544" width="848" height="36" rx="8" class="warn"/>
+  <text x="66" y="567" class="bb">화면: <tspan class="tk">80등</tspan> · 그림 4번째 · "조금 굵은 편이에요" · 주의 톤.   같은 사람의 키 164.2 → 70등(band 4) · 체중 69.3 → 81등(band 5), 둘 다 health ok</text>
+
+  <!-- 예시 3 -->
+  <rect x="40" y="614" width="880" height="200" rx="14" class="card"/>
+  <circle cx="66" cy="640" r="13" fill="#2F6BFF"/><text x="61" y="645" font-size="13" font-weight="800" fill="#fff">3</text>
+  <text x="90" y="645" class="pt">남자 28세 · 키 182 cm</text>
+  <text x="330" y="645" class="who">→ "남자 25-29세" (n = 453). 큰 값 = 높은 등수, 좋고 나쁨은 없음</text>
+  <rect x="56" y="660" width="848" height="28" rx="8" class="step"/>
+  <text x="66" y="679" class="bb">① T[키][남자][25-29세] → … <tspan class="tk">p87 181.8</tspan> · <tspan class="tk">p88 182.1</tspan> …</text>
+  <text x="66" y="710" class="bb">② k = 87   ③ frac = (182 − 181.8) ÷ (182.1 − 181.8) = 0.67 → <tspan class="fb">P = 87.67</tspan>   ④ rank = <tspan class="fb">88등</tspan>, band = <tspan class="fb">5</tspan></text>
+  <text x="66" y="732" class="bb">⑤ health: 키는 항상 <tspan class="fb">ok</tspan></text>
+  <text x="66" y="754" class="bs">같은 사람 체중 92 kg → p84 91.9 · p85 92.7 → k 84, P 84.12 → 84등 band 5 · BMI 27.8 → 75등 band 4, health warn(≥25)</text>
+  <rect x="56" y="768" width="848" height="36" rx="8" class="step"/>
+  <text x="66" y="791" class="bb">화면: 키 <tspan class="tk">88등</tspan> · 그림 5번째 · "큰 편이에요" · 중립 톤(band 5, health ok).  "상위 12%" 같은 말은 쓰지 않는다</text>
+
+  <!-- 예시 4 -->
+  <rect x="40" y="834" width="880" height="200" rx="14" class="card"/>
+  <circle cx="66" cy="860" r="13" fill="#2F6BFF"/><text x="61" y="865" font-size="13" font-weight="800" fill="#fff">4</text>
+  <text x="90" y="865" class="pt">남자 72세 · BMI 17.9</text>
+  <text x="330" y="865" class="who">→ "남자 70-74세" (n = 628). 값이 작을 때: 등수는 그대로, health로 저체중 표시</text>
+  <rect x="56" y="880" width="848" height="28" rx="8" class="step"/>
+  <text x="66" y="899" class="bb">① T[BMI][남자][70-74세] → p1 … · <tspan class="tk">p2 17.52</tspan> · <tspan class="tk">p3 17.96</tspan> · p4 … </text>
+  <text x="66" y="930" class="bb">② k = 2   ③ frac = (17.9 − 17.52) ÷ (17.96 − 17.52) = 0.86 → <tspan class="fb">P = 2.86</tspan>   ④ rank = <tspan class="fb">3등</tspan>, band = <tspan class="fb">1</tspan></text>
+  <text x="66" y="952" class="bb">⑤ health: 17.9 &lt; 18.5 → <tspan class="fb">warn</tspan> (저체중)</text>
+  <text x="66" y="974" class="bs">3등은 "값이 가장 작은 쪽"이라는 위치일 뿐이다. 나쁘다는 판단은 health가 한다.</text>
+  <rect x="56" y="988" width="848" height="36" rx="8" class="warn"/>
+  <text x="66" y="1011" class="bb">화면: <tspan class="tk">3등</tspan> · 그림 1번째 · "낮은 편이에요" · 주의 톤(warn)</text>
+
+  <!-- 예시 5 -->
+  <rect x="40" y="1054" width="880" height="150" rx="14" class="card"/>
+  <circle cx="66" cy="1080" r="13" fill="#98A4B8"/><text x="61" y="1085" font-size="13" font-weight="800" fill="#fff">5</text>
+  <text x="90" y="1085" class="pt">남자 17세 · BMI 24.5</text>
+  <text x="330" y="1085" class="who">→ 20세 미만: 계산하지 않음</text>
+  <text x="66" y="1114" class="bb">① 나이 17 &lt; 20 → <tspan class="fb">rank = null</tspan>. 경계값표에 20세 미만 행이 없고, 청소년은 성장도표 백분위를 따로 쓴다.</text>
+  <text x="66" y="1136" class="bb">성별이 없거나, 항목·성별·연령이 맞는 행이 없을 때도 같은 처리.</text>
+  <rect x="56" y="1152" width="848" height="36" rx="8" class="nul"/>
+  <text x="66" y="1175" class="bb">화면: 등수 "—" · 사람 그림 전부 연한 톤 · "나" 없음 · 안내 "또래 비교 데이터를 준비 중이에요"</text>
+
+  <!-- 요약표 -->
+  <text x="40" y="1240" class="pt">다섯 예시 한눈에</text>
+  <rect x="40" y="1252" width="880" height="200" rx="14" class="card"/>
+  <text x="60" y="1276" class="th">사람</text><text x="200" y="1276" class="th">항목 · 값</text><text x="360" y="1276" class="th">k</text><text x="410" y="1276" class="th">P</text><text x="470" y="1276" class="th">rank</text><text x="530" y="1276" class="th">band</text><text x="590" y="1276" class="th">health</text><text x="660" y="1276" class="th">배지 · 톤</text>
+  <line x1="56" y1="1284" x2="904" y2="1284" stroke="#E9EDF5"/>
+  <text x="60" y="1304" class="td">여 42 (40-44)</text><text x="200" y="1304" class="td">BMI 25.7</text><text x="360" y="1304" class="td">77</text><text x="410" y="1304" class="td">77.6</text><text x="470" y="1304" class="tk">78</text><text x="530" y="1304" class="td">4</text><text x="590" y="1304" class="tk">warn</text><text x="660" y="1304" class="td">조금 높은 편이에요 · 주의</text>
+  <text x="60" y="1326" class="td">여 42 (40-44)</text><text x="200" y="1326" class="td">허리둘레 86.0</text><text x="360" y="1326" class="td">80</text><text x="410" y="1326" class="td">80.0</text><text x="470" y="1326" class="tk">80</text><text x="530" y="1326" class="td">4</text><text x="590" y="1326" class="tk">warn</text><text x="660" y="1326" class="td">조금 굵은 편이에요 · 주의</text>
+  <text x="60" y="1348" class="td">남 28 (25-29)</text><text x="200" y="1348" class="td">키 182</text><text x="360" y="1348" class="td">87</text><text x="410" y="1348" class="td">87.67</text><text x="470" y="1348" class="tk">88</text><text x="530" y="1348" class="td">5</text><text x="590" y="1348" class="td">ok</text><text x="660" y="1348" class="td">큰 편이에요 · 중립</text>
+  <text x="60" y="1370" class="td">남 72 (70-74)</text><text x="200" y="1370" class="td">BMI 17.9</text><text x="360" y="1370" class="td">2</text><text x="410" y="1370" class="td">2.86</text><text x="470" y="1370" class="tk">3</text><text x="530" y="1370" class="td">1</text><text x="590" y="1370" class="tk">warn</text><text x="660" y="1370" class="td">낮은 편이에요 · 주의 (저체중)</text>
+  <text x="60" y="1392" class="td">남 17</text><text x="200" y="1392" class="td">BMI 24.5</text><text x="360" y="1392" class="td">—</text><text x="410" y="1392" class="td">—</text><text x="470" y="1392" class="tk">null</text><text x="530" y="1392" class="td">—</text><text x="590" y="1392" class="td">—</text><text x="660" y="1392" class="td">"—" · 준비 중 안내</text>
+  <text x="60" y="1420" class="bs">모두 같은 공식. 다른 것은 값이 경계와 같은지(예시 2), 값이 아주 작은지(예시 4), 계산 대상인지(예시 5)뿐이다.</text>
+  <text x="60" y="1440" class="bs">PCT-002 검증 벡터(남 45세 BMI 24.5 → 40등, 허리둘레 82 → 21등, 키 172 → 43등, 체중 72.5 → 36등)도 같은 표에서 재현된다.</text>
+
+  <text x="40" y="1484" class="bs">maiReport · 건강검진 결과 AI 요약 · 또래 등수 예시 · 2026-09-14 · 규칙은 통합본 md/svg와 같음</text>
+</svg>

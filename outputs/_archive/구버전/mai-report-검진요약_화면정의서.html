@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 병원 탭 &gt; 검진요약 화면정의서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2;--warn:#E5893A}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:760px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  .flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;gap:14px;margin:10px 0}
+  .flow>div{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:12.5px;line-height:1.5;color:var(--ink-3);min-width:0;word-break:keep-all}
+  .flow .n{display:block;font-size:11px;font-weight:800;color:var(--brand);margin-bottom:2px}
+  .flow b{display:block;font-size:15px;font-weight:700;color:var(--ink-1);line-height:1.4;margin-bottom:4px}
+  @media(max-width:720px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;margin-right:4px}
+  .p-l{background:#FDF0E3;color:var(--warn)}.p-b{background:var(--brand-soft);color:var(--brand)}
+  .note{font-size:12px;color:var(--ink-3)}
+  code{background:#eef1f7;border-radius:6px;padding:1px 6px;font-size:12px;color:#334}
+  @media(max-width:720px){.hero{padding:28px 22px}section.card{padding:22px 18px}td.k{white-space:normal}table{font-size:12.5px}th,td{padding:8px 6px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 화면정의서</span>
+  <h1>병원 탭 &gt; 검진요약 화면정의서</h1>
+  <p>국민건강보험공단에서 가져온 건강검진 결과를 한 화면으로 정리해 보여주는 화면. 건강 나이로 전체 인상을 먼저 주고, 주요 검진 소견에서 항목별 값과 상태를 확인한 뒤, 위험도 분석과 전체 항목으로 이어진다. 데이터를 가져오기 전·가져오는 중·가져온 뒤 세 상태가 같은 자리를 쓴다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-17</b></span><span>버전 <b>1.0</b></span><span>대상 화면 <b>병원 탭 &gt; 검진요약</b></span><span>연관 문서 <b>AI검진요약_화면정의서 · AI검진요약_기준범위_레퍼런스 · AI인사이트_화면정의서</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 화면 개요</a><a href="#s2">② 상단 영역</a><a href="#s3">③ 가져오기 전</a><a href="#s4">④ 가져오는 중</a><a href="#s5">⑤ 건강 나이</a><a href="#s6">⑥ 위험도 분석 진입</a><a href="#s7">⑦ 주요 검진 소견</a><a href="#s8">⑧ 검진 대상자 안내</a><a href="#s9">⑨ 상태 정의</a><a href="#s10">⑩ 연동 규칙</a><a href="#s11">⑪ 확인 필요 사항</a>
+</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>화면 개요</h2>
+  <div class="sub">위치, 역할, 화면 구조</div>
+  <h3>1.1 위치와 역할</h3>
+  <p>병원 탭의 첫 번째 서브탭(<b>검진요약</b> · 진료요약 · 방문이력 · 읽을거리). 사용자가 직접 입력하지 않고 국민건강보험공단에서 받아온 검진 결과를 보여준다. 진료요약·방문이력은 건강보험심사평가원에서 받아오므로 출처가 다르다. 생활 탭이 매일 쌓이는 생활 기록을 다룬다면, 검진요약은 1~2년에 한 번 갱신되는 검진 결과를 다룬다.</p>
+  <h3>1.2 화면 구조</h3>
+  <div class="flow">
+    <div><span class="n">①</span><b>가져오기 전</b>안내 카드 · 무엇을 볼 수 있는지 · "건강검진 데이터 가져오기"</div>
+    <div><span class="n">②</span><b>가져오는 중</b>진행 카드 · 뼈대 화면</div>
+    <div><span class="n">③</span><b>가져온 뒤</b>건강 나이 · 위험도 분석 진입 · 주요 검진 소견 · 검진 대상자 안내</div>
+    <div><span class="n">④</span><b>이어지는 화면</b>주요질환 위험도 · 전체 검진 항목 · 항목 상세</div>
+  </div>
+  <p class="note">세 상태가 같은 자리를 쓴다. ①에서 버튼을 누르면 ②로 바뀌고, 끝나면 ③으로 바뀐다.</p>
+  <h3>1.3 이 화면의 성격</h3>
+  <p>공단이 제공한 결과를 옮겨 보여주는 화면이다. 값을 새로 계산하거나 판정을 바꾸지 않는다. 건강 나이처럼 이 서비스가 계산하는 값은 무엇을 근거로 했는지 함께 밝힌다.</p>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>상단 영역</h2>
+  <div class="sub">병원 탭 네 서브탭이 공유하는 영역</div>
+  <table>
+    <tr><th style="width:160px">요소</th><th>동작</th></tr>
+    <tr><td class="k">제목</td><td>"병원". 생활 탭과 달리 주차·날짜 개념이 없다</td></tr>
+    <tr><td class="k">데이터 가져오기</td><td>오른쪽 상단에 노출. <b>지금 보고 있는 탭의 기관을 대상으로 동작한다.</b> 검진요약에서 누르면 국민건강보험공단 인증으로 간다. 이미 가져온 뒤에도 남아 있어 최신 결과로 갱신할 수 있다(§2.1)</td></tr>
+    <tr><td class="k">서브탭</td><td>검진요약 · 진료요약 · 방문이력 · 읽을거리. 탭 전환 시 각 탭의 스크롤 위치를 따로 기억한다</td></tr>
+  </table>
+  <h3>2.1 탭별 연동</h3>
+  <p>검진은 국민건강보험공단, 진료는 건강보험심사평가원으로 기관이 달라 인증도 따로 한다. 하나의 버튼으로 두 기관을 묶지 않고 각 탭에서 그 탭에 필요한 데이터를 가져온다. 탭별 연동 표와 한쪽만 연동된 상태의 처리는 진료요약_화면정의서 §2.1 · §2.2에 있다.</p>
+  <table>
+    <tr><th style="width:170px">상황</th><th>이 탭의 화면</th></tr>
+    <tr><td class="k">공단 미연동</td><td>가져오기 전 화면(§3). 진료요약이 연동돼 있어도 이 탭은 미연동 화면을 보여준다</td></tr>
+    <tr><td class="k">공단 연동됨</td><td>§5~§8. 상단 버튼은 최신 검진 결과로 갱신하는 경로가 된다</td></tr>
+    <tr><td class="k">마지막 가져온 시점</td><td>연동된 뒤에는 언제 가져온 데이터인지 한 줄로 표시한다 — "2026년 9월 17일에 가져왔어요". 건강 나이 카드의 검진일자(§5)와는 다른 값이므로 구분해서 쓴다</td></tr>
+  </table>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>가져오기 전</h2>
+  <div class="sub">검진 데이터를 한 번도 가져오지 않은 상태</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">일러스트</td><td>검진 결과지 이미지</td><td>화면 가운데 배치</td></tr>
+    <tr><td class="k">제목</td><td>건강검진 정보를 가져와 주세요</td><td></td></tr>
+    <tr><td class="k">설명</td><td>국민건강보험공단에 있는 내 건강검진 결과를 가져와요.</td><td>어디서 가져오는지를 밝힌다. 진료요약과 같은 형식을 쓴다(진료요약_화면정의서 §3.1)</td></tr>
+    <tr><td class="k">기능 목록</td><td>최근 건강검진 결과 조회 · 주요 질환 위험도 예측 · 건강나이 측정 · 건강검진 결과 AI 요약 분석</td><td>가져오면 무엇을 볼 수 있는지 네 줄. 실제로 제공하는 것만 적는다</td></tr>
+    <tr><td class="k">실행 버튼</td><td>건강검진 데이터 가져오기</td><td>탭 → 공단 인증 흐름(§10)</td></tr>
+  </table>
+  <div class="callout">기능 목록에 적은 네 가지는 이 화면과 뒤이어 열리는 화면에서 모두 확인할 수 있어야 한다. 아직 제공하지 않는 기능을 적어 두면 가져온 뒤에 찾을 수 없어진다.</div>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>가져오는 중</h2>
+  <div class="sub">공단 인증을 마치고 데이터를 받아오는 동안</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">진행 카드</td><td>진행 표시 + "검진 데이터를 가져오는 중" + "건강보험에서 데이터를 불러오는 중입니다. 최대 1분 정도 소요될 수 있습니다."</td><td>예상 시간을 밝혀 기다릴지 판단하게 한다</td></tr>
+    <tr><td class="k">뼈대 화면</td><td>아래에 들어올 카드 자리를 회색 블록으로 표시</td><td>빈 화면 대신 무엇이 채워질지 보여준다</td></tr>
+    <tr><td class="k">화면 이탈</td><td>다른 탭으로 옮기거나 앱을 나가도 계속 진행된다. 돌아오면 진행 중이거나 완료된 상태를 보여준다</td><td>이 화면에 머물게 강제하지 않는다</td></tr>
+    <tr><td class="k">완료</td><td>진행 카드와 뼈대가 사라지고 §5~§8로 바뀐다</td><td>중간 단계 없이 한 번에 전환</td></tr>
+  </table>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>건강 나이</h2>
+  <div class="sub">가져온 뒤 첫 번째 카드</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">제목</td><td>"{이름}님의 건강 나이는"</td><td>사용자 이름을 쓴다</td></tr>
+    <tr><td class="k">값</td><td>45세</td><td>만 나이 기준 정수</td></tr>
+    <tr><td class="k">검진일자</td><td>검진일자: 2025년 6월 19일</td><td>어느 검진 결과로 계산했는지 반드시 함께 쓴다. 검진은 1~2년에 한 번이라 값이 오래됐을 수 있다</td></tr>
+    <tr><td class="k">막대</td><td>실제 나이 대비 차이를 막대로 표시. 차이값(+5)과 실제 나이(실제 40세)를 함께 표시</td><td>실제 나이보다 많으면 +, 적으면 −. 같으면 차이 표시 없이 "실제 나이와 같아요"</td></tr>
+  </table>
+  <p>건강 나이는 이 서비스가 계산하는 값이므로, 무엇을 근거로 했는지 알 수 있어야 한다. 값 아래에 근거를 여는 경로를 둔다(§11).</p>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="n">6</span>위험도 분석 진입</h2>
+  <div class="sub">주요질환 위험도 화면으로 가는 카드</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">제목</td><td>주요질환 위험도 분석하기</td><td></td></tr>
+    <tr><td class="k">설명</td><td>최근 검진정보를 기반으로 주요 질환 위험도를 확인해요.</td><td>어떤 데이터로 분석하는지 밝힌다</td></tr>
+    <tr><td class="k">동작</td><td>카드 전체가 터치 영역. 탭 → 주요질환 위험도 화면</td><td></td></tr>
+    <tr><td class="k">노출 조건</td><td>검진 결과가 있을 때만</td><td>위험도 분석에 필요한 항목이 빠져 있으면 카드를 숨긴다</td></tr>
+  </table>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="n">7</span>주요 검진 소견</h2>
+  <div class="sub">항목별 값과 상태를 보여주는 목록</div>
+  <h3>7.1 구성</h3>
+  <table>
+    <tr><th style="width:130px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">항목 행</td><td>아이콘 · 항목명 · 값 · 상태 · ›</td><td>행 전체가 터치 영역. 탭 → 항목 상세</td></tr>
+    <tr><td class="k">값 표기</td><td>단위까지 함께. 항목이 여러 값이면 가운뎃점으로 잇는다</td><td>§7.2</td></tr>
+    <tr><td class="k">상태</td><td>정상 · 관리 필요 · 확인 필요</td><td>§7.3</td></tr>
+    <tr><td class="k">전체 보기</td><td>"전체 검진 항목 보기" → 전체 검진 항목 화면</td><td>목록 맨 아래</td></tr>
+  </table>
+  <h3>7.2 표시 항목</h3>
+  <table>
+    <tr><th style="width:130px">항목</th><th>값 형식</th><th style="width:34%">비고</th></tr>
+    <tr><td class="k">혈압</td><td>128 / 82 mmHg</td><td>수축기 / 이완기</td></tr>
+    <tr><td class="k">혈당</td><td>공복혈당 94 mg/dL</td><td>항목명 앞에 무슨 혈당인지 밝힌다</td></tr>
+    <tr><td class="k">콜레스테롤</td><td>총콜레스테롤 201 mg/dL</td><td>총콜레스테롤만 대표로. 세부 수치는 항목 상세에서</td></tr>
+    <tr><td class="k">간수치</td><td>AST 21 · ALT 26 · γ-GTP 18</td><td>세 값을 함께</td></tr>
+    <tr><td class="k">신장수치</td><td>eGFR 93 · 크레아티닌 1.0 mg/dL</td><td>두 값을 함께</td></tr>
+  </table>
+  <p>순서는 고정한다. 검진 결과에 없는 항목은 행을 숨기고 빈 값으로 두지 않는다.</p>
+  <h3>7.3 상태 표기</h3>
+  <p>공단 판정을 그대로 옮기되, 화면 문구는 서비스 공통 표기를 쓴다. AI검진요약 화면정의서에서 정한 것과 같은 규칙이다.</p>
+  <table>
+    <tr><th style="width:130px">화면 문구</th><th>공단 판정</th><th style="width:34%">뜻</th></tr>
+    <tr><td class="k">정상</td><td>정상A</td><td>지금 수준을 유지하면 되는 값</td></tr>
+    <tr><td class="k">관리 필요</td><td>정상B(경계)</td><td>생활습관으로 지켜볼 값</td></tr>
+    <tr><td class="k">확인 필요</td><td>유질환 의심 · 질환 의심</td><td>의료 상담이 필요한 값</td></tr>
+  </table>
+  <div class="callout">"경계 · 주의 · 위험 · 심각 · 이상"은 화면 어디에도 쓰지 않는다. 사용자가 진단으로 받아들일 수 있고, 같은 값이 화면마다 다른 말로 불리면 신뢰가 떨어진다. 시안에 쓰인 "표준 · 경계 · 주의"는 이 규칙에 맞춰 "정상 · 관리 필요 · 확인 필요"로 바꾼다(§11).</div>
+  <p>여러 값을 가진 항목(간수치·신장수치)은 그중 가장 나쁜 판정을 행의 상태로 쓴다. 어떤 값 때문인지는 항목 상세에서 확인한다.</p>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8">
+  <h2><span class="n">8</span>검진 대상자 안내</h2>
+  <div class="sub">올해 검진 대상인 사용자에게만 보이는 카드</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">문구</td><td>"{이름}님은 2025년도 건강검진 대상자입니다." + "가까운 병원에서 검진을 받으시기 바랍니다."</td><td>연도는 공단이 알려준 대상 연도</td></tr>
+    <tr><td class="k">버튼</td><td>검진 안내 확인하기</td><td>탭 → 검진 안내(대상 항목·기간·기관 찾기)</td></tr>
+    <tr><td class="k">노출 조건</td><td>공단 조회 결과 그 해 검진 대상이고, 아직 받지 않은 경우에만</td><td>이미 받았거나 대상이 아니면 카드를 숨긴다</td></tr>
+    <tr><td class="k">위치</td><td>주요 검진 소견 아래, 화면 맨 끝</td><td>지난 결과를 다 본 뒤 다음 행동으로 이어지는 자리</td></tr>
+  </table>
+</section>
+
+<!-- 9 -->
+<section class="card" id="s9">
+  <h2><span class="n">9</span>상태 정의</h2>
+  <div class="sub">화면 단위 상태</div>
+  <table>
+    <tr><th style="width:170px">상태</th><th>조건</th><th style="width:42%">내용</th></tr>
+    <tr><td class="k">가져오기 전</td><td>한 번도 가져오지 않음</td><td>§3 화면</td></tr>
+    <tr><td class="k">가져오는 중</td><td>인증 완료 후 수신 중</td><td>§4 화면. 화면을 떠나도 계속 진행</td></tr>
+    <tr><td class="k">가져오기 실패</td><td>인증 실패 · 통신 오류 · 공단 시스템 점검</td><td>사유 한 줄과 다시 시도 버튼. 이전에 가져온 결과가 있으면 그대로 보여주고 실패는 안내로만 알린다</td></tr>
+    <tr><td class="k">검진 결과 없음</td><td>가져왔으나 조회된 검진 기록이 없음</td><td>"조회된 건강검진 결과가 없어요" + 대상자 안내(§8)가 있으면 그 카드만 남긴다</td></tr>
+    <tr><td class="k">일부 항목 없음</td><td>일부 검진 항목이 결과에 없음</td><td>해당 행을 숨긴다. 위험도 분석에 필요한 항목이 없으면 §6 카드도 숨긴다</td></tr>
+    <tr><td class="k">결과 있음</td><td>정상 수신</td><td>§5~§8</td></tr>
+    <tr><td class="k">오래된 결과</td><td>마지막 검진일이 오래됨</td><td>검진일자를 항상 함께 보여주는 것으로 갈음한다. 별도 경고 문구는 두지 않는다</td></tr>
+  </table>
+</section>
+
+<!-- 10 -->
+<section class="card" id="s10">
+  <h2><span class="n">10</span>연동 규칙</h2>
+  <div class="sub">다른 화면·조작과의 관계</div>
+  <table>
+    <tr><th style="width:220px">트리거</th><th>반영</th></tr>
+    <tr><td class="k">"건강검진 데이터 가져오기" 탭</td><td>공단 인증 흐름 → 완료 시 수신 시작(§4)</td></tr>
+    <tr><td class="k">상단 "데이터 가져오기" 탭</td><td>검진요약에서 누르면 공단 인증으로 간다. 이미 결과가 있으면 최신 결과로 갱신한다</td></tr>
+    <tr><td class="k">수신 완료</td><td>검진요약이 §5~§8로 바뀐다. 진료요약·방문이력은 심평원에서 받아오므로 함께 채워지지 않고, 그 탭에서 따로 가져와야 한다</td></tr>
+    <tr><td class="k">위험도 분석 카드 탭</td><td>주요질환 위험도 화면 열기</td></tr>
+    <tr><td class="k">검진 소견 행 탭</td><td>항목 상세 열기(값·기준 범위·추이)</td></tr>
+    <tr><td class="k">"전체 검진 항목 보기" 탭</td><td>전체 검진 항목 화면 열기</td></tr>
+    <tr><td class="k">"검진 안내 확인하기" 탭</td><td>검진 안내 화면 열기</td></tr>
+    <tr><td class="k">생활 탭 &gt; AI 인사이트</td><td>여기서 가져온 검진 결과를 건강검진 영역 분석에 쓴다. 가져오기 전에는 그 영역이 만들어지지 않는다(AI인사이트_화면정의서 §3.2)</td></tr>
+    <tr><td class="k">검진 결과 갱신</td><td>AI 인사이트에서 해당 주차를 다시 분석할 수 있게 열린다(AI인사이트_화면정의서 §3.3)</td></tr>
+  </table>
+</section>
+
+<!-- 11 -->
+<section class="card" id="s11">
+  <h2><span class="n">11</span>확인 필요 사항</h2>
+  <div class="sub">이 문서 확정 전 담당자 결정이 필요한 항목</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">항목</th><th>내용</th><th style="width:90px">상태</th></tr>
+    <tr><td>1</td><td class="k">상태 표기 통일</td><td>시안은 "표준 · 경계 · 주의", AI검진요약 화면정의서는 "정상 · 관리 필요 · 확인 필요"이며 "경계 · 주의"를 쓰지 않도록 정해져 있다. 이 문서는 후자를 따랐으나 시안 수정이 필요하다</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>2</td><td class="k">건강 나이 산식</td><td>어떤 검진 항목으로 어떻게 계산하는지, 근거를 사용자에게 어디까지 보여줄지</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>3</td><td class="k">주요 검진 소견 5항목 고정</td><td>혈압·혈당·콜레스테롤·간수치·신장수치 고정 vs 판정 결과에 따라 가변(확인 필요 항목을 위로 올리는 등)</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>4</td><td class="k">여러 값 항목의 상태</td><td>간수치·신장수치처럼 값이 여럿일 때 가장 나쁜 판정을 대표로 쓰는 방식이 맞는지</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>5</td><td class="k">검진 결과 보관 주기</td><td>과거 검진 결과를 몇 회차까지 보관하고 화면에서 비교할 수 있게 할지</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>6</td><td class="k">재인증 주기</td><td>공단 인증이 만료되는 주기와, 만료 시 자동 재인증을 요구할지 사용자가 누를 때만 요구할지</td><td><span class="pill p-b">SDK 확인</span></td></tr>
+    <tr><td>7</td><td class="k">검진 대상자 판정</td><td>대상 여부와 수검 여부를 공단 조회로 확인할 수 있는지</td><td><span class="pill p-b">SDK 확인</span></td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

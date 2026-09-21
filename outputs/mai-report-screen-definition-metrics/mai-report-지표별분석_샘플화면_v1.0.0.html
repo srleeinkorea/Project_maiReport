@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지표별 분석 · 샘플 화면 비교</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent:#2f66f5; --accent-light:#eaf0ff; --bg:#f5f7fb;
+    --ink-1:#1a2233; --ink-2:#4b5468; --ink-3:#8892a6; --line:#e6eaf2;
+    --green:#12A150; --amber:#D98A12; --purple:#7C5CFC;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Noto Sans KR',-apple-system,sans-serif;background:var(--bg);color:var(--ink-1);padding:36px 20px;}
+  .wrap{max-width:1120px;margin:0 auto;}
+  h1{font-size:22px;font-weight:800;margin:0 0 6px;}
+  .lead{font-size:13.5px;color:var(--ink-2);margin:0 0 28px;max-width:760px;line-height:1.65;}
+  .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:28px;align-items:start;}
+  .col-title{font-size:14px;font-weight:800;margin:0 0 4px;display:flex;align-items:center;gap:8px;}
+  .col-sub{font-size:12px;color:var(--ink-3);margin:0 0 14px;line-height:1.6;}
+  .tag{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:999px;}
+  .tag.rec{background:#e8f8ee;color:var(--green);}
+  .tag.alt{background:#eef0f5;color:var(--ink-2);}
+  .tag.old{background:#fff3e0;color:var(--amber);}
+
+  /* phone */
+  .phone{
+    width:100%;max-width:360px;margin:0 auto;background:#fff;border:1px solid var(--line);
+    border-radius:34px;padding:16px 14px 20px;box-shadow:0 10px 30px rgba(20,30,60,.10);
+  }
+  .sb{display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink-3);padding:0 8px 10px;}
+  .tabs{display:flex;gap:16px;font-size:12px;color:var(--ink-3);padding:0 6px 10px;border-bottom:1px solid var(--line);margin-bottom:10px;}
+  .tabs span.on{color:var(--ink-1);font-weight:800;position:relative;}
+  .tabs span.on::after{content:'';position:absolute;left:0;right:0;bottom:-11px;height:2px;background:var(--ink-1);}
+  .strip{display:flex;justify-content:space-between;align-items:center;background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:8px 10px;font-size:11px;color:var(--ink-2);margin-bottom:10px;}
+  .strip .days{display:flex;gap:5px;}
+  .strip .days span{width:24px;height:24px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10.5px;color:var(--ink-3);}
+  .strip .days span.today{background:var(--accent);color:#fff;font-weight:700;}
+  .strip .days span.dis{opacity:.35;}
+
+  .mc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 14px 12px;margin-bottom:10px;}
+  .hd{display:flex;justify-content:space-between;align-items:flex-start;}
+  .hd h4{font-size:15px;font-weight:800;margin:0;display:flex;align-items:center;gap:6px;}
+  .hd small{display:block;font-size:10.5px;color:var(--ink-3);font-weight:500;margin-top:3px;}
+  .band{font-size:12px;font-weight:800;padding:4px 11px;border-radius:999px;white-space:nowrap;}
+  .trend{font-size:10.5px;font-weight:700;}
+  .lab{font-size:10px;font-weight:700;color:var(--ink-3);letter-spacing:.02em;margin:12px 0 5px;}
+  .ins{font-size:12.5px;color:var(--ink-2);margin:0;line-height:1.6;}
+  .ins b{color:var(--ink-1);}
+  .row{display:flex;align-items:center;gap:7px;font-size:12px;padding:6px 0;border-bottom:1px solid #f2f4f8;}
+  .row:last-child{border-bottom:none;}
+  .row .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .row b{flex:1;color:var(--ink-1);font-weight:600;}
+  .row .val{color:var(--ink-2);}
+  .row .chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;}
+  .c-good{background:#e8f8ee;color:var(--green);} .c-mid{background:#eef0f5;color:var(--ink-2);} .c-low{background:#fff3e0;color:var(--amber);}
+
+  /* alt: presence dots */
+  .dots{display:flex;gap:0;justify-content:space-between;margin:10px 2px 0;}
+  .dots .d{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:var(--ink-3);}
+  .dots .d i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink-3);background:transparent;display:block;}
+  .dots .d.has i{background:#c7cdd8;border-color:#c7cdd8;}
+  .dots .d.sel i{background:var(--ink-1);border-color:var(--ink-1);width:11px;height:11px;}
+  .dots .d.sel{color:var(--ink-1);font-weight:800;}
+
+  /* old: colored week chips */
+  .wk{display:flex;gap:6px;margin:10px 0 2px;}
+  .wk .w{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:var(--ink-3);}
+  .wk .w i{width:100%;height:20px;border-radius:7px;display:block;background:#eef0f5;}
+  .wk .w i.e{background:transparent;border:1.5px dashed var(--line);}
+  .wk .w i.s{outline:2px solid var(--ink-1);outline-offset:1px;}
+
+  .note{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.65;margin-top:14px;}
+  .note b{color:var(--ink-1);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>생활 탭 &gt; 지표별 분석 — 샘플 화면 비교</h1>
+  <p class="lead">동일한 데이터(8월 4주 목요일 선택)를 세 가지 표현 방식으로 나란히 두었다. 값·문구는 예시다. 왼쪽이 권장안이며, 가운데는 주간 시각 요소를 완전히 없애기 부담스러울 때의 차선안, 오른쪽은 어색하다고 지적된 요일별 구간 칩 안(비교 기준)이다.</p>
+
+  <div class="cols">
+
+    <!-- ================= A. 권장안 ================= -->
+    <div>
+      <p class="col-title">A. 시계열 제거 <span class="tag rec">권장</span></p>
+      <p class="col-sub">카드 = 구간 배지 + 추세 한 줄 + 이번 주 해석 + 핵심 데이터. 주간 흐름은 해석 문장이 담당하고, 과거 날짜는 상단 스트립에서 눌러 본다.</p>
+      <div class="phone">
+        <div class="sb"><span>9:41</span><span>●●●</span></div>
+        <div class="tabs"><span>목표 분석</span><span class="on">지표별 분석</span><span>생활 분석</span><span>AI 인사이트</span></div>
+        <div class="strip"><span>‹ &nbsp;8월 4주&nbsp; ›</span><div class="days"><span>월</span><span>화</span><span>수</span><span class="today">목</span><span class="dis">금</span><span class="dis">토</span><span class="dis">일</span></div></div>
+
+        <div class="mc">
+          <div class="hd"><div><h4>생활여유 <span class="trend" style="color:var(--amber)">▼ 낮아졌어요</span></h4><small>오늘 기준 · 높을수록 좋음</small></div><div class="band c-low">보통이에요</div></div>
+          <div class="lab">이번 주 해석</div>
+          <p class="ins">이번 주는 대체로 여유가 충분한 편이었는데, 어제부터 늦은 시간 활동이 늘고 중간에 쉬는 흐름이 줄면서 <b>보통 구간으로 내려왔어요.</b></p>
+          <div class="lab">핵심 산출 데이터</div>
+          <div class="row"><span class="dot" style="background:var(--green)"></span><b>수면</b><span class="val">7시간 23분</span><span class="chip c-good">충분</span></div>
+          <div class="row"><span class="dot" style="background:var(--green)"></span><b>활동 시간</b><span class="val">42분</span><span class="chip c-mid">비슷</span></div>
+          <div class="row"><span class="dot" style="background:var(--green)"></span><b>운동 시간</b><span class="val">15분</span><span class="chip c-low">낮음</span></div>
+        </div>
+
+        <div class="mc">
+          <div class="hd"><div><h4>자기돌봄 <span class="trend" style="color:var(--green)">▲ 좋아졌어요</span></h4><small>오늘 기준 · 높을수록 좋음</small></div><div class="band c-good">잘하고 있어요</div></div>
+          <div class="lab">이번 주 해석</div>
+          <p class="ins">주 초반엔 식사 뒤 움직임이 잘 이어지지 않았지만, 오늘은 식사 후 짧은 걷기가 여러 번 확인되면서 <b>조절 가능한 순간에 행동이 잘 붙었어요.</b></p>
+          <div class="lab">핵심 산출 데이터</div>
+          <div class="row"><span class="dot" style="background:var(--amber)"></span><b>활동 시간</b><span class="val">42분</span><span class="chip c-mid">비슷</span></div>
+          <div class="row"><span class="dot" style="background:var(--amber)"></span><b>운동 시간</b><span class="val">15분</span><span class="chip c-low">낮음</span></div>
+          <div class="row"><span class="dot" style="background:var(--amber)"></span><b>운동 기록</b><span class="val">걷기 1회</span><span class="chip c-mid">가벼움</span></div>
+        </div>
+
+        <div class="mc">
+          <div class="hd"><div><h4>일상안정 <span class="trend" style="color:var(--ink-3)">· 변화 없음</span></h4><small>최근 7일 기준 · 높을수록 좋음</small></div><div class="band" style="background:#f1ecff;color:var(--purple)">안정적이에요</div></div>
+          <div class="lab">이번 주 해석</div>
+          <p class="ins">자고 움직이는 시각이 평소 범위 안에서 며칠째 유지되고 있어요. <b>생활 리듬이 안정 구간을 이어가는 중이에요.</b></p>
+          <div class="lab">핵심 산출 데이터</div>
+          <div class="row"><span class="dot" style="background:var(--purple)"></span><b>걸음 수</b><span class="val">7,340걸음</span><span class="chip c-good">적정</span></div>
+          <div class="row"><span class="dot" style="background:var(--purple)"></span><b>수면</b><span class="val">7시간 23분</span><span class="chip c-good">충분</span></div>
+          <div class="row"><span class="dot" style="background:var(--purple)"></span><b>심박수</b><span class="val">63bpm</span><span class="chip c-good">안정</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= B. 차선안 ================= -->
+    <div>
+      <p class="col-title">B. 기록 유무 도트 <span class="tag alt">차선</span></p>
+      <p class="col-sub">좋고 나쁨 색은 쓰지 않는다. 채움 = 그날 지표 산출됨, 빈 원 = 데이터 없음, 선택일만 진하게. "어느 날을 볼 수 있는가"만 알려주는 내비게이션 힌트.</p>
+      <div class="phone">
+        <div class="sb"><span>9:41</span><span>●●●</span></div>
+        <div class="tabs"><span>목표 분석</span><span class="on">지표별 분석</span><span>생활 분석</span><span>AI 인사이트</span></div>
+        <div class="strip"><span>‹ &nbsp;8월 4주&nbsp; ›</span><div class="days"><span>월</span><span>화</span><span>수</span><span class="today">목</span><span class="dis">금</span><span class="dis">토</span><span class="dis">일</span></div></div>
+
+        <div class="mc">
+          <div class="hd"><div><h4>생활여유 <span class="trend" style="color:var(--amber)">▼ 낮아졌어요</span></h4><small>오늘 기준 · 높을수록 좋음</small></div><div class="band c-low">보통이에요</div></div>
+          <div class="dots">
+            <div class="d has"><i></i>월</div><div class="d"><i></i>화</div><div class="d has"><i></i>수</div><div class="d sel"><i></i>목</div><div class="d"><i></i>금</div><div class="d"><i></i>토</div><div class="d"><i></i>일</div>
+          </div>
+          <div class="lab">이번 주 해석</div>
+          <p class="ins">어제부터 늦은 시간 활동이 늘고 중간에 쉬는 흐름이 줄면서 <b>보통 구간으로 내려왔어요.</b></p>
+          <div class="lab">핵심 산출 데이터</div>
+          <div class="row"><span class="dot" style="background:var(--green)"></span><b>수면</b><span class="val">7시간 23분</span><span class="chip c-good">충분</span></div>
+          <div class="row"><span class="dot" style="background:var(--green)"></span><b>활동 시간</b><span class="val">42분</span><span class="chip c-mid">비슷</span></div>
+          <div class="row"><span class="dot" style="background:var(--green)"></span><b>운동 시간</b><span class="val">15분</span><span class="chip c-low">낮음</span></div>
+        </div>
+
+        <div class="mc">
+          <div class="hd"><div><h4>자기돌봄 <span class="trend" style="color:var(--green)">▲ 좋아졌어요</span></h4><small>오늘 기준 · 높을수록 좋음</small></div><div class="band c-good">잘하고 있어요</div></div>
+          <div class="dots">
+            <div class="d has"><i></i>월</div><div class="d has"><i></i>화</div><div class="d has"><i></i>수</div><div class="d sel"><i></i>목</div><div class="d"><i></i>금</div><div class="d"><i></i>토</div><div class="d"><i></i>일</div>
+          </div>
+          <div class="lab">이번 주 해석</div>
+          <p class="ins">식사 후 짧은 걷기가 여러 번 확인되면서 <b>조절 가능한 순간에 행동이 잘 붙었어요.</b></p>
+          <div class="lab">핵심 산출 데이터</div>
+          <div class="row"><span class="dot" style="background:var(--amber)"></span><b>활동 시간</b><span class="val">42분</span><span class="chip c-mid">비슷</span></div>
+          <div class="row"><span class="dot" style="background:var(--amber)"></span><b>운동 시간</b><span class="val">15분</span><span class="chip c-low">낮음</span></div>
+          <div class="row"><span class="dot" style="background:var(--amber)"></span><b>운동 기록</b><span class="val">걷기 1회</span><span class="chip c-mid">가벼움</span></div>
+        </div>
+
+        <div class="mc">
+          <div class="hd"><div><h4>일상안정 <span class="trend" style="color:var(--ink-3)">· 변화 없음</span></h4><small>최근 7일 기준 · 높을수록 좋음</small></div><div class="band" style="background:#f1ecff;color:var(--purple)">안정적이에요</div></div>
+          <div class="dots">
+            <div class="d has"><i></i>월</div><div class="d has"><i></i>화</div><div class="d has"><i></i>수</div><div class="d sel"><i></i>목</div><div class="d"><i></i>금</div><div class="d"><i></i>토</div><div class="d"><i></i>일</div>
+          </div>
+          <div class="lab">이번 주 해석</div>
+          <p class="ins">자고 움직이는 시각이 평소 범위 안에서 며칠째 유지되고 있어요. <b>안정 구간을 이어가는 중이에요.</b></p>
+          <div class="lab">핵심 산출 데이터</div>
+          <div class="row"><span class="dot" style="background:var(--purple)"></span><b>걸음 수</b><span class="val">7,340걸음</span><span class="chip c-good">적정</span></div>
+          <div class="row"><span class="dot" style="background:var(--purple)"></span><b>수면</b><span class="val">7시간 23분</span><span class="chip c-good">충분</span></div>
+          <div class="row"><span class="dot" style="background:var(--purple)"></span><b>심박수</b><span class="val">63bpm</span><span class="chip c-good">안정</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= C. 비교 기준 ================= -->
+    <div>
+      <p class="col-title">C. 요일별 구간 칩 <span class="tag old">비교 기준 · 비권장</span></p>
+      <p class="col-sub">앞서 지적된 안. 요일마다 좋고 나쁨 색이 붙어 '이번 주 성적표'로 읽히고, 헤더가 이미 말한 결론을 더 크게 반복한다.</p>
+      <div class="phone">
+        <div class="sb"><span>9:41</span><span>●●●</span></div>
+        <div class="tabs"><span>목표 분석</span><span class="on">지표별 분석</span><span>생활 분석</span><span>AI 인사이트</span></div>
+        <div class="strip"><span>‹ &nbsp;8월 4주&nbsp; ›</span><div class="days"><span>월</span><span>화</span><span>수</span><span class="today">목</span><span class="dis">금</span><span class="dis">토</span><span class="dis">일</span></div></div>
+
+        <div class="mc">
+          <div class="hd"><div><h4>생활여유 <span class="trend" style="color:var(--amber)">▼ 낮아졌어요</span></h4><small>오늘 기준 · 높을수록 좋음</small></div><div class="band c-low">보통이에요</div></div>
+          <div class="wk">
+            <div class="w"><i style="background:#e8f8ee"></i>월</div><div class="w"><i style="background:#e8f8ee"></i>화</div><div class="w"><i style="background:#fff3e0"></i>수</div><div class="w"><i class="s" style="background:#fff3e0"></i>목</div><div class="w"><i class="e"></i>금</div><div class="w"><i class="e"></i>토</div><div class="w"><i class="e"></i>일</div>
+          </div>
+          <div class="lab">이번 주 해석</div>
+          <p class="ins">늦은 시간 활동이 늘고 중간에 쉬는 흐름이 줄면서 <b>보통 구간으로 내려왔어요.</b></p>
+          <div class="lab">핵심 산출 데이터</div>
+          <div class="row"><span class="dot" style="background:var(--green)"></span><b>수면</b><span class="val">7시간 23분</span><span class="chip c-good">충분</span></div>
+          <div class="row"><span class="dot" style="background:var(--green)"></span><b>활동 시간</b><span class="val">42분</span><span class="chip c-mid">비슷</span></div>
+          <div class="row"><span class="dot" style="background:var(--green)"></span><b>운동 시간</b><span class="val">15분</span><span class="chip c-low">낮음</span></div>
+        </div>
+
+        <div class="mc">
+          <div class="hd"><div><h4>자기돌봄 <span class="trend" style="color:var(--green)">▲ 좋아졌어요</span></h4><small>오늘 기준 · 높을수록 좋음</small></div><div class="band c-good">잘하고 있어요</div></div>
+          <div class="wk">
+            <div class="w"><i style="background:#fff3e0"></i>월</div><div class="w"><i style="background:#fff3e0"></i>화</div><div class="w"><i style="background:#eef0f5"></i>수</div><div class="w"><i class="s" style="background:#e8f8ee"></i>목</div><div class="w"><i class="e"></i>금</div><div class="w"><i class="e"></i>토</div><div class="w"><i class="e"></i>일</div>
+          </div>
+          <div class="lab">이번 주 해석</div>
+          <p class="ins">식사 후 짧은 걷기가 여러 번 확인되면서 <b>행동이 잘 붙었어요.</b></p>
+          <div class="lab">핵심 산출 데이터</div>
+          <div class="row"><span class="dot" style="background:var(--amber)"></span><b>활동 시간</b><span class="val">42분</span><span class="chip c-mid">비슷</span></div>
+          <div class="row"><span class="dot" style="background:var(--amber)"></span><b>운동 시간</b><span class="val">15분</span><span class="chip c-low">낮음</span></div>
+          <div class="row"><span class="dot" style="background:var(--amber)"></span><b>운동 기록</b><span class="val">걷기 1회</span><span class="chip c-mid">가벼움</span></div>
+        </div>
+
+        <div class="mc">
+          <div class="hd"><div><h4>일상안정 <span class="trend" style="color:var(--ink-3)">· 변화 없음</span></h4><small>오늘 기준 · 높을수록 좋음</small></div><div class="band" style="background:#f1ecff;color:var(--purple)">안정적이에요</div></div>
+          <div class="wk">
+            <div class="w"><i style="background:#eef0f5"></i>월</div><div class="w"><i style="background:#eef0f5"></i>화</div><div class="w"><i style="background:#f1ecff"></i>수</div><div class="w"><i class="s" style="background:#f1ecff"></i>목</div><div class="w"><i class="e"></i>금</div><div class="w"><i class="e"></i>토</div><div class="w"><i class="e"></i>일</div>
+          </div>
+          <div class="lab">이번 주 해석</div>
+          <p class="ins">자고 움직이는 시각이 평소 범위 안에서 유지되면서 <b>안정 구간을 이어가고 있어요.</b></p>
+          <div class="lab">핵심 산출 데이터</div>
+          <div class="row"><span class="dot" style="background:var(--purple)"></span><b>걸음 수</b><span class="val">7,340걸음</span><span class="chip c-good">적정</span></div>
+          <div class="row"><span class="dot" style="background:var(--purple)"></span><b>수면</b><span class="val">7시간 23분</span><span class="chip c-good">충분</span></div>
+          <div class="row"><span class="dot" style="background:var(--purple)"></span><b>심박수</b><span class="val">63bpm</span><span class="chip c-good">안정</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <b>비교 포인트.</b> A는 카드 높이가 가장 낮고 시선이 배지 → 해석 → 데이터 순으로 한 번에 내려간다. '이번 주 해석'을 "주 전체 경향 + 최근 변화 + 이유"로 쓰면 C의 색 칸이 하려던 일을 문장이 더 정확히 한다. B는 A에 도트 한 줄만 더한 것이라 채점 프레이밍은 없지만, 상단 날짜 스트립과 역할이 겹친다. C는 헤더의 결론(▼ 낮아졌어요 / 보통이에요)을 색 7칸으로 다시 크게 반복하고, 일상안정은 지표 성격(여러 날의 방향)과 표현 단위(하루 판정)가 어긋난다. A의 일상안정 부제를 "최근 7일 기준"으로 바꾼 것도 같은 이유다.
+  </div>
+</div>
+</body>
+</html>

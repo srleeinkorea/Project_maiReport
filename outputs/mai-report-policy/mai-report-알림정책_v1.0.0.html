@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 알림 정책</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2;--warn:#E5893A;--green:#12A150;--amber:#D98A12}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:720px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mini{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+  .mini p{font-size:12.5px;margin:0}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;margin-right:4px}
+  .p-g{background:#E7F7ED;color:var(--green)}.p-l{background:#FDF0E3;color:var(--warn)}.p-b{background:var(--brand-soft);color:var(--brand)}
+  .flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin:10px 0}
+  .flow div{flex:1;min-width:150px;background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px}
+  .flow div b{display:block;color:var(--ink-1);margin-bottom:4px}
+  ul{padding-left:18px;margin-bottom:8px}
+  li{margin-bottom:4px;font-size:13px}
+  .note{font-size:12px;color:var(--ink-3)}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 정책 문서 · 초안(대체됨)</span>
+  <h1>알림 정책</h1>
+  <p>마이리포트의 알림은 사용자를 재촉하는 도구가 아니라 "오늘 볼 것이 준비됐다"를 알리는 신호다. 이 문서는 어떤 알림을 언제 보내고, 하루에 몇 번까지 보내며, 무엇을 절대 보내지 않는지를 정의한다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-16</b></span><span>상태 <b>초안 · 최종본 아님</b></span><span>기준 <b>무료 배포 버전</b></span><span>연관 문서 <b>홈화면_화면정의서 · 하루생성_순서도 · 기능정의서(알림 수신 설정)</b></span></div>
+  <div class="meta"><span>최종 문서(버전 1.0) <b>마이리포트v2_알림정책.html</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 원칙</a><a href="#s2">② 알림 유형</a><a href="#s3">③ 발송 규칙</a><a href="#s4">④ 문구 규칙</a><a href="#s5">⑤ 탭 시 이동</a><a href="#s6">⑥ 수신 설정과 권한</a><a href="#s7">⑦ 알림 목록</a><a href="#s8">⑧ 확인 필요 사항</a>
+</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>원칙</h2>
+  <div class="sub">알림을 설계할 때 지키는 네 가지</div>
+  <table>
+    <tr><th style="width:170px">원칙</th><th>내용</th></tr>
+    <tr><td class="k">강제하지 않는다</td><td>서비스 원칙상 행동 이행을 압박하는 알림은 만들지 않는다. "아직 안 하셨어요", "연속 기록이 끊겨요" 같은 미이행 압박 문구를 쓰지 않는다. 알림은 "준비됐다"와 "남아 있다"만 말한다.</td></tr>
+    <tr><td class="k">하루에 적게</td><td>정기 알림(건강 관리 리마인드)은 하루 최대 1회. 서비스 알림(공지사항)은 드물게, 운영자가 등록했을 때만 보낸다.</td></tr>
+    <tr><td class="k">이미 봤으면 보내지 않는다</td><td>알림이 가리키는 것을 사용자가 이미 앱에서 확인했으면 보내지 않는다. 발송 직전에 조건을 다시 확인한다.</td></tr>
+    <tr><td class="k">밤에는 보내지 않는다</td><td>건강 관리 리마인드는 22시부터 다음 날 8시 사이에 보내지 않는다. 공지사항은 운영자가 지정한 시각을 따른다(§3.2).</td></tr>
+  </table>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>알림 유형</h2>
+  <div class="sub">하루 알림 2종과 서비스 알림 1종. 알림 설정은 전체 켬/끔 스위치 하나이며 유형별로 나누지 않는다(§6.1)</div>
+  <h3>2.1 하루 알림</h3>
+  <table>
+    <tr><th style="width:130px">유형</th><th>보내는 조건</th><th style="width:130px">시각</th><th style="width:90px">하루 상한</th></tr>
+    <tr><td class="k">오늘의 질문</td><td>그날 아직 홈에 들어오지 않았고, 답하지 않은 문항이 있을 때. 첫 진입 전에는 질문 세트가 만들어지지 않았으므로 "오늘 질문이 준비됐다"는 뜻으로 보낸다. 식사 문항의 첫 끼니 경계가 12시이므로 알림을 보고 12시 전에 들어오면 어제 저녁을 묻는다(식이 질문·목표 상세기획 참조)</td><td>오전 1회 (11시)</td><td>1회</td></tr>
+    <tr><td class="k">건강 관리 리마인드</td><td>그날 생성된 목표 중 완료하지 않은 것이 있을 때. 목표가 하나도 없는 날(질문에 답하지 않아 잠긴 날)에는 보내지 않는다</td><td>저녁 1회 (기본 20시)</td><td>1회</td></tr>
+  </table>
+  <p class="note">오늘의 질문과 건강 관리 리마인드는 서로 다른 시간대에 각 1회씩이라 합쳐서 하루 2회를 넘지 않는다. 저녁에 질문이 남아 있어도 저녁에는 질문 알림을 따로 보내지 않는다. 질문에 답하지 않은 날은 목표가 잠겨 리마인드 조건도 성립하지 않으므로, 결과적으로 그날은 오전 알림 1회로 끝난다.</p>
+
+  <h3>2.2 서비스 알림</h3>
+  <table>
+    <tr><th style="width:130px">유형</th><th>보내는 조건</th><th style="width:130px">시각</th></tr>
+    <tr><td class="k">공지사항</td><td>서버 점검, 앱 업데이트 필수, 정책 변경처럼 운영자가 등록한 공지. 같은 공지는 1회만 보낸다</td><td>운영자가 지정</td></tr>
+  </table>
+  <p class="note">현재 버전은 무료로 배포하므로 이용권 만료·결제·환불 알림은 두지 않는다. 유료 전환 시 결제환불정책에 따라 추가한다. 마케팅·이벤트 알림은 이 문서의 범위 밖이며, 도입하려면 별도 동의 항목과 정책이 필요하다.</p>
+
+  <h3>2.3 만들지 않는 알림</h3>
+  <ul>
+    <li>목표 미완료를 재촉하는 알림, 연속일수가 끊긴다는 알림</li>
+    <li>컨디션 지표가 주의 구간이라는 알림(지표는 앱 안에서만 보여준다)</li>
+    <li>며칠 접속하지 않았다는 복귀 유도 알림(§8 확인 필요)</li>
+    <li>걸음 수·수면 등 기기 데이터 달성 알림</li>
+    <li>끼니마다 보내는 식사 확인 알림</li>
+  </ul>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>발송 규칙</h2>
+  <div class="sub">조건이 성립해도 보내지 않는 경우와 시각 처리</div>
+  <h3>3.1 발송 직전 재확인</h3>
+  <p>예약된 시각에 무조건 보내지 않고, 보내기 직전에 조건을 다시 확인한다. 조건이 사라졌으면 그 알림은 버린다(미루지 않는다).</p>
+  <table>
+    <tr><th style="width:150px">유형</th><th>보내지 않는 경우</th></tr>
+    <tr><td class="k">오늘의 질문</td><td>이미 오늘 홈에 들어왔음 · 알림 시각 기준으로 오늘(새벽 4시 이후) 첫 진입이 있었음 · 건강 데이터 미연동이라 질문 세트를 만들 수 없음</td></tr>
+    <tr><td class="k">건강 관리 리마인드</td><td>목표 3개를 모두 완료함 · 오늘 생성된 목표가 없음 · 저녁 알림 시각 이후 이미 홈에 들어와 있음(앱이 켜져 있으면 알림 대신 화면으로 충분)</td></tr>
+  </table>
+
+  <h3>3.2 시각 처리</h3>
+  <ul>
+    <li>모든 시각은 기기의 현지 시각 기준이다.</li>
+    <li>공지사항은 야간 금지 시간을 적용하지 않고 운영자가 지정한 시각에 그대로 보낸다.</li>
+    <li>아침·저녁 정기 알림의 시각은 기본값을 두되 사용자가 바꿀 수 있게 할지는 §8에서 결정한다.</li>
+    <li>알림의 하루는 세션 날짜(새벽 4시 경계)를 쓴다. 오전 알림의 "오늘 첫 진입" 판정과 하루 상한 세기가 모두 이 기준이다. 기기 데이터가 쓰는 실제 날짜(자정 경계)와는 다른 값이니 혼동하지 않는다.</li>
+  </ul>
+
+  <h3>3.3 중복과 묶음</h3>
+  <ul>
+    <li>같은 유형의 알림은 이전 것이 남아 있으면 새 것으로 교체한다(알림 트레이에 같은 유형이 두 개 쌓이지 않게).</li>
+    <li>같은 시각에 서비스 알림과 정기 알림이 겹치면 서비스 알림을 먼저 보내고 정기 알림은 5분 뒤에 보낸다.</li>
+  </ul>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>문구 규칙</h2>
+  <div class="sub">한 줄, 사실만, 압박 없이</div>
+  <ul>
+    <li>제목 없이 본문 한 줄. 30자 안팎.</li>
+    <li>"준비됐어요", "남아 있어요", "끝났어요"처럼 상태를 말한다. "하세요", "잊지 마세요", "놓치지 마세요"처럼 지시·경고하지 않는다.</li>
+    <li>수치·지표 구간·질문 내용·검진 항목명을 넣지 않는다.</li>
+    <li>이모지는 쓰지 않는다.</li>
+  </ul>
+  <table>
+    <tr><th style="width:150px">유형</th><th>기본 문구</th><th style="width:36%">쓰지 않는 예</th></tr>
+    <tr><td class="k">오늘의 질문</td><td>오늘의 질문이 준비됐어요.</td><td>오늘 질문에 아직 답하지 않았어요 / 수면 상태를 알려주세요</td></tr>
+    <tr><td class="k">건강 관리 리마인드</td><td>자기 전까지 오늘의 목표를 실천할 수 있어요.</td><td>활동 목표를 완료하세요 / 연속 5일이 끊겨요</td></tr>
+    <tr><td class="k">공지사항</td><td>운영자가 등록한 문구. 한 줄 원칙은 같되 점검 일시처럼 필요한 정보는 넣는다</td><td>이모지 · 느낌표 · "꼭"</td></tr>
+  </table>
+  <p class="note">저녁(18시 이후)에 나가는 문구도 별도 저녁형을 두지 않는다. 정기 알림은 시각이 고정돼 있어 시간대별 문구가 필요 없다.</p>
+  <p class="note">앱 업데이트 안내는 새 기능을 소개하면 광고성 문구로 보일 수 있다. "무엇이 추가됐는지"가 아니라 "왜 업데이트가 필요한지"만 담는다. 예: "일부 기기에서 알림이 늦게 오는 문제를 고쳤어요"(O) / "새로워진 홈 화면, 지금 만나보세요"(X)</p>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>탭 시 이동</h2>
+  <div class="sub">알림을 누르면 열리는 화면</div>
+  <table>
+    <tr><th style="width:150px">유형</th><th>이동 화면</th><th style="width:36%">로그인이 풀려 있으면</th></tr>
+    <tr><td class="k">오늘의 질문</td><td>홈 (첫 진입이므로 질문 세트가 이 시점에 생성됨)</td><td rowspan="3">로그인 화면 → 로그인 후 원래 목적지로 이동</td></tr>
+    <tr><td class="k">건강 관리 리마인드</td><td>홈 · 오늘의 목표 영역이 보이는 위치로 스크롤</td></tr>
+    <tr><td class="k">공지사항</td><td>공지 상세</td></tr>
+  </table>
+  <p class="note">이동 대상이 삭제됐거나(공지 삭제 등) 접근할 수 없으면 상위 목록으로 보내고 "해당 항목을 찾을 수 없어요" 안내를 띄운다.</p>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="n">6</span>수신 설정과 권한</h2>
+  <div class="sub">앱 설정 · OS 권한 · 둘의 관계</div>
+  <h3>6.1 앱 안의 알림 설정</h3>
+  <p>계정 &gt; 알림 설정에는 <b>"알림 받기" 스위치 하나</b>만 둔다. 유형별 스위치는 두지 않는다. 켜면 §2의 모든 알림을 받고, 끄면 어떤 알림도 보내지 않는다. 기본값은 켬.</p>
+  <p>스위치 아래에 받게 되는 알림을 한 줄로 안내한다: "오늘의 질문 · 건강 관리 리마인드 · 공지사항". 그 아래에 "하루 2회를 넘지 않고, 밤 10시부터 아침 8시까지는 보내지 않아요"를 둔다.</p>
+  <p class="note">유형별로 나누지 않는 이유: 알림이 세 종류뿐이고 모두 하루 한두 번 수준이라 골라 끌 만큼 많지 않다. 스위치가 하나면 "끌 수 없는 알림"이라는 예외를 둘 필요도 없어 규칙이 단순해진다. 유형별 선택이 필요해지면 그때 나눈다.</p>
+  <h3>6.2 OS 알림 권한</h3>
+  <div class="flow">
+    <div><b>① 요청 시점</b>온보딩의 접근 권한 안내 화면(카메라 · 알림)에서 "확인"을 누른 직후, 카메라 권한에 이어 OS 알림 권한 창을 띄운다. 접근 권한 사전 고지 기능과 같은 흐름이며 별도 요청 시점을 두지 않는다</div>
+    <div><b>② 사전 안내</b>접근 권한 안내 화면의 알림 항목 설명이 사전 안내 역할을 한다. 설명 문구는 "오늘의 질문 · 남은 목표 · 공지사항"으로, 현재 시안의 "서비스 안내, 추천 등"은 이 정책의 유형에 맞게 바꾼다</div>
+    <div><b>③ 거부 시</b>앱은 정상 동작하고 알림만 오지 않는다. 앱 안 알림 목록(§7)에는 기록이 남는다. 다시 묻지 않고, 알림 설정 화면에 OS 설정으로 가는 안내만 둔다</div>
+  </div>
+  <h3>6.3 두 설정의 관계</h3>
+  <table>
+    <tr><th style="width:170px">OS 권한</th><th style="width:170px">앱 설정</th><th>결과</th></tr>
+    <tr><td class="k">허용</td><td>켬</td><td>발송</td></tr>
+    <tr><td class="k">허용</td><td>끔</td><td>발송 안 함. 앱 안 알림 목록에도 남기지 않는다(사용자가 끈 것)</td></tr>
+    <tr><td class="k">거부</td><td>켬</td><td>발송 안 함. 앱 안 알림 목록에는 남긴다. 설정 화면에 "휴대폰 설정에서 알림이 꺼져 있어요" 안내</td></tr>
+    <tr><td class="k">거부</td><td>끔</td><td>발송 안 함, 기록 안 함</td></tr>
+  </table>
+  <p class="note">앱 설정 끔은 모든 유형에 똑같이 적용된다. 공지사항처럼 알림을 껐어도 알아야 할 내용은 앱 안 공지 화면에서 볼 수 있으므로 알림으로 강제하지 않는다.</p>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="n">7</span>알림 목록 (앱 안)</h2>
+  <div class="sub">홈 헤더의 알림 아이콘으로 여는 화면. 현재 IA에서 "준비 중"인 항목의 최소 정의</div>
+  <h3>7.1 구성</h3>
+  <ul>
+    <li>"오늘"(새벽 4시 이후 받은 것)과 "지난 메시지"(그 이전 30일) 두 구역. 30일이 지난 항목은 지운다. 오늘 항목이 없으면 오늘 구역을 숨긴다.</li>
+    <li>카드 = 유형 아이콘 · 유형명 · 받은 시각 · 본문(푸시와 같은 문구). 유형명은 §2의 이름과 같게 쓴다. 누르면 §5와 같은 화면으로 이동한다.</li>
+    <li>읽지 않은 카드는 본문을 굵게, 읽은 카드는 보통 굵기로. 읽지 않은 수를 홈 헤더 알림 아이콘에 표시하고, 목록 화면을 열면 모두 읽음 처리한다.</li>
+    <li>받은 시각은 상대 표기: 1분 미만 "지금", 1시간 미만 "n분 전", 오늘 "n시간 전", 어제 "어제", 7일까지 "n일 전", 그 이후 날짜.</li>
+    <li>비어 있으면 "받은 알림이 없어요" 한 줄.</li>
+  </ul>
+  <h3>7.2 기록 규칙</h3>
+  <ul>
+    <li>실제로 발송된 알림과, OS 권한 거부로 발송되지 못한 알림을 기록한다. 앱 설정에서 알림을 꺼 둔 동안의 알림은 기록하지 않는다(§6.3).</li>
+    <li>발송 직전 재확인에서 버려진 알림은 기록하지 않는다(조건이 사라진 알림이므로).</li>
+    <li>같은 유형으로 교체된 알림(§3.3)은 최신 것만 남긴다.</li>
+  </ul>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8">
+  <h2><span class="n">8</span>확인 필요 사항</h2>
+  <div class="sub">이 문서 확정 전 담당자 결정이 필요한 항목</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:200px">항목</th><th>내용</th><th style="width:110px">상태</th></tr>
+    <tr><td>1</td><td class="k">정기 알림 시각 변경</td><td>오전 11시 · 저녁 20시 기본값을 사용자가 바꿀 수 있게 할지. 허용하면 야간 금지 시간(22~8시)은 선택할 수 없게 막는다. 오전 알림은 식사 문항의 첫 끼니 경계(12시) 전에 들어오게 해야 하므로 12시 이후를 선택할 수 없게 한다</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>2</td><td class="k">복귀 유도 알림</td><td>며칠간 접속하지 않은 사용자에게 알림을 보낼지. 서비스 원칙(비강제)과 충돌할 수 있어 현재는 만들지 않는 쪽으로 둔다</td><td><span class="pill p-l">확인 필요</span></td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

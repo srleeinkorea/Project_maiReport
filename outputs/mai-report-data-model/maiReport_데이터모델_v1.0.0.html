@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="maiReport 논리 데이터 모델 — 복합 건강지표 산출과 분석 이용권·인앱결제에 필요한 엔터티·필드·상태 전이·무결성 규칙·보존 정책 도출(초안).">
+  <title>maiReport 데이터 모델</title>
+  <style>
+    :root{
+      --bg:#F5F7FB;--card:#FFFFFF;--ink:#121A2B;--text:#344158;--muted:#68758C;
+      --line:#DCE3EE;--accent:#2F66F5;--accent-soft:#EEF3FF;
+      --green:#168252;--green-soft:#EAF7F0;--amber:#9A6700;--amber-soft:#FFF5D8;
+      --red:#BD2F2F;--red-soft:#FDECEC;
+      --shadow:0 14px 38px rgba(35,54,91,.055);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Malgun Gothic",sans-serif;font-size:14px;line-height:1.65;letter-spacing:-.015em}
+    a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+    .top{position:sticky;top:0;z-index:20;padding:10px 20px;background:rgba(245,247,251,.8);-webkit-backdrop-filter:blur(18px) saturate(130%);backdrop-filter:blur(18px) saturate(130%)}
+    .top-in{max-width:1200px;min-height:58px;margin:auto;padding:8px 12px 8px 18px;display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.95);border:1px solid rgba(203,213,229,.72);border-radius:18px;box-shadow:0 10px 32px rgba(36,55,92,.06)}
+    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+    .brand-word{position:relative;color:#17233D;font-size:20px;font-weight:900;letter-spacing:-.065em;line-height:1}
+    .brand-word::after{content:"";position:absolute;right:-7px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+    .brand-rule{width:1px;height:20px;margin-left:3px;background:#DDE4EF}
+    .doc-label{display:flex;align-items:center;gap:7px;color:#627089;font-size:12px;font-weight:700}
+    .doc-label em{padding:3px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:10px;font-style:normal;font-weight:900}
+    .top-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .top-link{height:38px;padding:0 12px;display:inline-flex;align-items:center;border-radius:11px;color:#657188;font-size:11px;font-weight:800}
+    .top-link:hover{background:#F1F4F8;color:#24324C}
+    main{max-width:1200px;margin:auto;padding:30px 26px 72px}
+    .hero{padding:44px 48px 32px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:22px;box-shadow:var(--shadow)}
+    .eyebrow,.section-label{display:block;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    h1{max-width:900px;margin:14px 0 14px;color:#10192B;font-size:36px;line-height:1.2;font-weight:900;letter-spacing:-.05em}
+    .hero>p{max-width:940px;margin:0;color:#5F6D84;font-size:15px;line-height:1.8}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0}
+    .chip{padding:7px 12px;border:1px solid #D5E0FB;border-radius:999px;background:#F0F4FF;color:#2B58C9;font-size:11px;font-weight:800}
+    .hero-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+    .hero-meta span{display:block;margin-bottom:6px;color:#7A879B;font-size:10px;font-weight:900}
+    .hero-meta strong{display:block;color:#1B2942;font-size:13px;line-height:1.5}
+    .hero-meta p{margin:4px 0 0;color:#718098;font-size:11px}
+    .toc{margin-top:22px;padding:24px 28px;background:var(--card);border:1px solid var(--line);border-radius:20px}
+    .toc h2{margin:0 0 14px;font-size:12px;font-weight:900;color:#7A879B;letter-spacing:.06em;text-transform:uppercase}
+    .toc ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 24px;margin:0;padding:0;list-style:none;counter-reset:t}
+    .toc li{counter-increment:t;padding:8px 0;border-top:1px solid var(--line);font-size:13px}
+    .toc li a{display:flex;gap:9px;color:var(--text);font-weight:700}
+    .toc li a::before{content:counter(t,decimal-leading-zero);color:var(--accent);font-weight:900;font-size:11px}
+    .section{margin-top:24px;padding:38px;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 30px rgba(35,54,91,.04);scroll-margin-top:96px}
+    .section-head{margin-bottom:22px}
+    .section-head h2{margin:8px 0 0;color:#131D31;font-size:25px;line-height:1.32;letter-spacing:-.04em}
+    .section-head>p{margin:9px 0 0;max-width:900px;color:#66738A;font-size:13px;line-height:1.8}
+    h3.block{margin:28px 0 10px;font-size:15px;color:#1B2942}
+    h3.block:first-of-type{margin-top:4px}
+    h3.block .tag{margin-left:8px}
+    p.lead{margin:0 0 12px;color:#5F6D84;font-size:12.5px;line-height:1.75}
+    .table-wrap{margin-top:12px;overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+    table{width:100%;border-collapse:collapse;font-size:12px;min-width:720px}
+    thead th{background:#F3F6FC;color:#41506A;font-size:10.5px;font-weight:900;text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);white-space:nowrap}
+    tbody td{padding:11px 13px;border-bottom:1px solid #EAEEF5;color:#48566E;line-height:1.55;vertical-align:top}
+    tbody tr:last-child td{border-bottom:0}
+    td b{color:#26344E}
+    code,.mono{font-family:Consolas,"Courier New",monospace;font-size:11.5px;background:#EEF1F6;border-radius:4px;padding:1px 5px;color:#33415B}
+    .tag{display:inline-block;padding:2px 7px;border-radius:6px;background:var(--accent-soft);color:#31538f;font-size:9.5px;font-weight:800;font-family:Consolas,monospace}
+    .k{color:#B5460F;font-weight:800}
+    .fk{color:#2B58C9;font-weight:700}
+    .callout{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px;margin-top:14px;padding:20px 24px;border-left:4px solid var(--accent);border-radius:14px;background:#F7F9FD}
+    .callout.warn{border-left-color:var(--amber);background:var(--amber-soft)}
+    .callout.ok{border-left-color:var(--green);background:var(--green-soft)}
+    .callout span{color:#6E7B91;font-size:11px;font-weight:900}
+    .callout.warn span{color:#856115}.callout.ok span{color:#0F5C3A}
+    .callout p{margin:0;color:#586377;font-size:12.5px;line-height:1.7}
+    .callout p+p{margin-top:8px}
+    .flow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .flow .step{flex:1 1 130px;min-width:120px;padding:13px 15px;border:1px solid #E1E6EF;border-radius:13px;background:#FBFCFE}
+    .flow .step b{display:block;color:#1B2942;font-size:11.5px;margin-bottom:3px}
+    .flow .step p{margin:5px 0 0;color:#68758C;font-size:10.5px;line-height:1.5}
+    .flow .arrow{align-self:center;color:#B7C0CE;font-size:14px;font-weight:900}
+    .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .card{padding:20px;border:1px solid #E1E6EF;border-radius:16px;background:#FBFCFE}
+    .card h4{margin:0 0 7px;color:#1B2942;font-size:13.5px}
+    .card ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+    .card li{position:relative;padding-left:12px;color:#5C6A81;font-size:11.5px;line-height:1.6}
+    .card li::before{content:"";position:absolute;left:0;top:.6em;width:4px;height:4px;border-radius:50%;background:#9CA8B9}
+    .check{margin-top:8px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+    .check-item{display:grid;grid-template-columns:24px minmax(0,1fr) 120px;gap:12px;align-items:center;padding:14px 16px;border-top:1px solid var(--line);background:#FFF}
+    .check-item:first-child{border-top:0}
+    .check-item .box{width:16px;height:16px;border:2px solid var(--accent);border-radius:5px}
+    .check-item strong{color:#28364F;font-size:12px}
+    .check-item p{margin:3px 0 0;color:#7A8699;font-size:10.5px;line-height:1.5}
+    .status-badge{width:max-content;padding:4px 9px;border-radius:999px;font-size:9.5px;font-weight:900}
+    .sb-review{background:var(--amber-soft);color:var(--amber)}
+    .sb-open{background:#F1F3F7;color:#5E6B80}
+    footer{padding:30px 0 0;text-align:center;color:#8A96A8;font-size:11px}
+    .src{margin-top:24px;padding:22px 26px;background:#FAFBFD;border:1px solid var(--line);border-radius:18px}
+    .src h2{margin:0 0 10px;font-size:12px;font-weight:900;color:#7A879B;letter-spacing:.06em;text-transform:uppercase}
+    .src ul{margin:0;padding-left:18px;color:#68758C;font-size:11.5px;line-height:1.8}
+    @media(max-width:1080px){.toc ol{grid-template-columns:repeat(2,1fr)}.hero-meta{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:900px){
+      .doc-label,.brand-rule{display:none}
+      .hero{padding:32px 24px 26px}h1{font-size:28px}
+      .section{padding:28px 22px}.section-head h2{font-size:22px}
+      .toc ol{grid-template-columns:1fr}.g2{grid-template-columns:1fr}
+      .callout{grid-template-columns:1fr;gap:8px}.flow .arrow{display:none}
+      .check-item{grid-template-columns:20px 1fr}.check-item .status-badge{grid-column:2}
+    }
+    @media print{body{background:#FFF}.top{display:none}main{max-width:none;padding:0}.hero,.section,.toc,.src{box-shadow:none;break-inside:avoid}.section{break-before:page}tr,.card,.flow .step,.check-item{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-in">
+      <div class="brand" aria-label="maiReport 데이터 모델">
+        <span class="brand-word">maiReport</span><span class="brand-rule" aria-hidden="true"></span>
+        <span class="doc-label">데이터 모델 <em>DATA</em></span>
+      </div>
+      <div class="top-actions">
+        <a class="top-link" href="../mai-report-metrics/maiReport_지표기획서.html">지표 기획서</a>
+        <a class="top-link" href="../mai-report-payment-policy/maiReport_결제환불정책_v1.0.0.html">결제·환불 정책</a>
+        <a class="top-link" href="../mai-report-ia/maiReport_기능정의서_v1.0.0.html">기능정의서</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <span class="eyebrow">maiReport · Logical Data Model</span>
+      <h1>지표 산출과 이용권 결제에<br>필요한 데이터를 도출한다.</h1>
+      <p>물리 스키마가 아니라 <strong>논리 데이터 모델</strong>입니다. 생활 해석 지표(생활여유·자기돌봄·일상안정) 산출에 필요한 엔터티와, 분석 이용권 인앱결제·환불 운영에 필요한 엔터티를 정의하고, 상태 전이·무결성 규칙·보존 정책·미확정 항목을 정리합니다. 실제 컬럼 타입·인덱스·정규화 수준은 상세 설계에서 확정합니다.</p>
+      <div class="chips">
+        <span class="chip">지표 도메인 4 엔터티</span>
+        <span class="chip">결제 도메인 5 엔터티</span>
+        <span class="chip">상태 전이 3종</span>
+        <span class="chip">PHI 보존·삭제</span>
+        <span class="chip">As-Is ↔ 제안 차이 명시</span>
+      </div>
+      <div class="hero-meta">
+        <div><span>DOCUMENT</span><strong>데이터 모델 v0.2 (초안)</strong><p>기준일 2026-09-11 · Internal Use Only</p></div>
+        <div><span>SCOPE</span><strong>지표 산출 + 분석 이용권·결제</strong><p>사용자·프로필·코칭은 참조로만</p></div>
+        <div><span>BASIS</span><strong>지표 기획서 v0.3 · 결제·환불 정책 · 프로토타입</strong><p>운영자 화면(상품·이용권 내역) 필드</p></div>
+        <div><span>OUT</span><strong>물리 스키마·마이그레이션</strong><p>상세 설계 단계</p></div>
+      </div>
+    </section>
+
+    <nav class="toc" aria-label="목차">
+      <h2>구성</h2>
+      <ol>
+        <li><a href="#s1">범위와 표기</a></li>
+        <li><a href="#s2">도메인 맵</a></li>
+        <li><a href="#s3">지표 도메인 엔터티</a></li>
+        <li><a href="#s4">결제·이용권 도메인 엔터티</a></li>
+        <li><a href="#s5">상태 전이</a></li>
+        <li><a href="#s6">무결성·정책 규칙</a></li>
+        <li><a href="#s7">보존·삭제(PHI)</a></li>
+        <li><a href="#s8">As-Is ↔ 제안 차이</a></li>
+        <li><a href="#s9">미확정 항목</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1 -->
+    <section class="section" id="s1">
+      <div class="section-head"><span class="section-label">01 · Scope &amp; Notation</span><h2>범위와 표기</h2></div>
+      <div class="g2">
+        <article class="card"><h4>포함</h4><ul><li>지표 산출: 원천 건강 데이터, 개인 기준선, 지표 상태, 자가보고</li><li>결제: 인앱결제 상품, 구매, 분석 이용권, 분석 실행, 환불 이벤트</li></ul></article>
+        <article class="card"><h4>참조로만(정의 안 함)</h4><ul><li>사용자·프로필·동의·권한 (<span class="tag">user</span>, <span class="tag">profile</span>)</li><li>코칭·행동 로그, AI 인사이트, 검진·진료 원문</li><li>스토어 결제 대금·영수증(스토어 사업자 소관)</li></ul></article>
+      </div>
+      <h3 class="block">표기 규칙</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>표기</th><th>의미</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">PK</span></td><td>기본 키</td></tr>
+          <tr><td><span class="fk">FK</span></td><td>외래 키(참조)</td></tr>
+          <tr><td><code>enum</code></td><td>허용값 집합 고정</td></tr>
+          <tr><td><code>ts</code></td><td>타임스탬프(UTC 저장, 표시 시 KST)</td></tr>
+          <tr><td>PHI</td><td>민감 건강정보 — 암호화·접근통제·감사 로그 대상</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="section" id="s2">
+      <div class="section-head"><span class="section-label">02 · Domain Map</span><h2>도메인 맵</h2>
+        <p>두 도메인은 <b>사용자</b>와 <b>분석 실행</b>에서 만납니다. 이용권으로 실행한 분석 결과가 지표 도메인의 맥락 데이터가 될 수 있으나, 지표 상태는 이용권과 무관하게 산출됩니다.</p>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>엔터티</th><th>도메인</th><th>주요 참조</th><th>1건의 의미</th></tr></thead>
+        <tbody>
+          <tr><td><b>health_sample</b></td><td>지표</td><td><span class="fk">user</span></td><td>기기·입력에서 수신한 원천 측정값 1건</td></tr>
+          <tr><td><b>metric_baseline</b></td><td>지표</td><td><span class="fk">user</span></td><td>사용자·지표 입력별 개인 기준선(윈도우 집계)</td></tr>
+          <tr><td><b>metric_state</b></td><td>지표</td><td><span class="fk">user</span></td><td>특정 기간(일 또는 주)·지표의 <b>상태 표현·방향</b> 1건. 내부 값은 비노출 필드로 동반 보관 (구 <code>metric_score</code>)</td></tr>
+          <tr><td><b>daily_checkin</b></td><td>지표</td><td><span class="fk">user</span></td><td>하루치 자가보고(문진) 응답 묶음</td></tr>
+          <tr><td><b>iap_product</b></td><td>결제</td><td>—</td><td>스토어에 등록된 인앱결제 상품 1종(플랫폼별)</td></tr>
+          <tr><td><b>purchase</b></td><td>결제</td><td><span class="fk">user</span>, <span class="fk">iap_product</span></td><td>스토어 결제·검증 1건</td></tr>
+          <tr><td><b>analysis_ticket</b></td><td>결제</td><td><span class="fk">user</span>, <span class="fk">purchase</span></td><td>분석 1회 실행 권리 1장</td></tr>
+          <tr><td><b>analysis_run</b></td><td>결제↔지표</td><td><span class="fk">user</span>, <span class="fk">analysis_ticket</span></td><td>분석 이용권을 소모한 실행 1건</td></tr>
+          <tr><td><b>refund_event</b></td><td>결제</td><td><span class="fk">purchase</span></td><td>스토어/운영자 환불 사건 1건</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="section" id="s3">
+      <div class="section-head"><span class="section-label">03 · Metric Domain</span><h2>지표 도메인 엔터티</h2></div>
+
+      <h3 class="block"><span class="tag">health_sample</span> 원천 건강 데이터 · PHI</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">sample_id</span></td><td>id</td><td>PK</td></tr>
+          <tr><td><span class="fk">user_id</span></td><td>id</td><td>FK user</td></tr>
+          <tr><td>type</td><td><code>enum</code></td><td>steps · active_kcal · active_minutes · exercise_minutes · exercise_session · resting_hr · hrv · sleep_duration · sleep_start · sleep_end · weight · bmi · body_fat · blood_pressure · blood_glucose · body_temp …</td></tr>
+          <tr><td>value_num / value_json</td><td>number / json</td><td>수치 또는 구조값(수면 구간·혈압 2값 등)</td></tr>
+          <tr><td>unit</td><td>text</td><td>표준 단위(걸음·분·bpm·시간·kg·mmHg·mg/dL)</td></tr>
+          <tr><td>measured_at / period_start / period_end</td><td>ts</td><td>측정·구간 시각</td></tr>
+          <tr><td>source_platform</td><td><code>enum</code></td><td>ios_healthkit · android_health_connect</td></tr>
+          <tr><td>origin_app</td><td>text</td><td>출처 앱(Apple Health · Samsung Health 등, DataOrigin)</td></tr>
+          <tr><td>quality</td><td><code>enum</code></td><td>ok · stale · outlier · duplicate (2단계 판정 결과)</td></tr>
+          <tr><td>ingested_at</td><td>ts</td><td>수신 시각(최신성 판정 기준)</td></tr>
+        </tbody>
+      </table></div>
+      <p class="lead">유니크: (user_id, type, measured_at, origin_app) 중복 제거. 건보공단·의료이력은 이 테이블에 넣지 않음 — 지표를 직접 산출하지 않음(지표 기획서 3장).</p>
+
+      <h3 class="block"><span class="tag">metric_baseline</span> 개인 기준선</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">baseline_id</span></td><td>id</td><td>PK</td></tr>
+          <tr><td><span class="fk">user_id</span></td><td>id</td><td>FK user</td></tr>
+          <tr><td>input_key</td><td><code>enum</code></td><td>기준선 대상 입력(steps · activity_timeslot_dist · sedentary_bout · sleep_duration · resting_hr · bedtime_variance · weight …)</td></tr>
+          <tr><td>window_days</td><td>int</td><td><b>미확정</b> &mdash; 엔진 28(7+21) / 산출 파이프라인 30 / 기획서 미정. 기획서 9장 B-5에서 통일 후 확정</td></tr>
+          <tr><td>sample_count</td><td>int</td><td>유효 표본 일수. 신호별 최소 관찰일은 B-5에서 함께 확정(체중은 느슨하게)</td></tr>
+          <tr><td>center / spread</td><td>number</td><td>robust 중심(중앙값)·산포(MAD/σ)</td></tr>
+          <tr><td>updated_at</td><td>ts</td><td>재계산 시각</td></tr>
+        </tbody>
+      </table></div>
+      <p class="lead">기준선이 없으면 지표는 값을 내지 않고 <b>&lsquo;관찰 중&rsquo;</b>으로 남습니다. 신규 사용자 기준 형성 기간은 미확정(9장 B-9).</p>
+
+      <h3 class="block"><span class="tag">metric_state</span> 지표 상태 · 화면 바인딩 핵심</h3>
+      <p class="lead">구 <code>metric_score</code>를 대체합니다. 지표 기획서 v0.3은 사용자에게 <b>점수가 아니라 상태 표현</b>을 노출하므로(P4), 0~100 점수를 1급 필드로 두지 않고 <code>state_key</code>를 1급으로, 계산 값은 <code>internal_value</code>(비노출)로 둡니다.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">state_id</span></td><td>id</td><td>PK</td></tr>
+          <tr><td><span class="fk">user_id</span></td><td>id</td><td>FK user</td></tr>
+          <tr><td>metric_key</td><td><code>enum</code></td><td><b>life_margin</b>(생활여유) · <b>self_care</b>(자기돌봄) · <b>life_steadying</b>(일상안정). 구 recovery·load·rhythm 폐기</td></tr>
+          <tr><td>period_type</td><td><code>enum</code></td><td>day · week. life_steadying은 <b>week만</b> 생성(주 단위 갱신)</td></tr>
+          <tr><td>period_start / period_end</td><td>date</td><td>대상 기간. day면 동일 날짜, week면 주 시작·종료일</td></tr>
+          <tr><td>state_key</td><td><code>enum</code> / null</td><td>low · mid · high · <b>observing</b>(관찰 중). 표시 라벨은 metric_key별 상이 &mdash; 아래 매핑표</td></tr>
+          <tr><td>direction</td><td><code>enum</code> / null</td><td>up · flat · down. 비교 기준이 metric_key별로 다름(아래 매핑표). 저해상도 시 null(생략)</td></tr>
+          <tr><td>resolution</td><td><code>enum</code></td><td><b>high</b>(watch+충분한 기준선) · <b>low</b>(폰 활동 데이터만) · <b>none</b>(기준선·기준점 부족) → 화면 상태값 정상/부분수집/미수집</td></tr>
+          <tr><td>internal_value</td><td>number / null</td><td><b>비노출</b> 내부 계산 값. API 응답·클라이언트 바인딩 금지(P4 · PX-M9). 계수·스케일 미확정(9장 B-1)</td></tr>
+          <tr><td>value_scale</td><td><code>enum</code></td><td>high_res · low_res. <b>서로 다른 눈금 &mdash; 비교·차감·연속 시계열 금지</b>. 저해상도 경로는 life_margin에만 존재</td></tr>
+          <tr><td>inputs_used</td><td>json[]</td><td>[{input_key, role: core|aux, contribution}] &mdash; 화면 근거 데이터·이유 문구 생성</td></tr>
+          <tr><td>copy_key / copy_text</td><td>text</td><td>문구 템플릿 키 / 렌더된 문장(상태 서술 + 기여 구성 요소 1~2개)</td></tr>
+          <tr><td>ruleset_version</td><td>text</td><td>산출 규칙 버전(과거 스냅샷 재계산 안 함)</td></tr>
+          <tr><td>computed_at</td><td>ts</td><td>계산 시각</td></tr>
+        </tbody>
+      </table></div>
+      <p class="lead">유니크: (user_id, metric_key, period_type, period_start, ruleset_version). 주간 화면은 period_start 범위 조회. 주간 스냅샷은 period_type=week 행을 확정본으로 사용(확정 시각 미확정 · 9장 B-8).</p>
+      <h3 class="block">state_key ↔ 표시 라벨 · 방향 기준</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>metric_key</th><th>지표명</th><th>low</th><th>mid</th><th>high</th><th>observing</th><th>direction 비교 기준</th></tr></thead>
+        <tbody>
+          <tr><td><code>life_margin</code></td><td>생활여유</td><td>부족해요</td><td>보통이에요</td><td>충분해요</td><td>관찰 중</td><td>최근 해석 대비(일)</td></tr>
+          <tr><td><code>self_care</code></td><td>자기돌봄</td><td>부족해요</td><td>보통이에요</td><td>잘하고 있어요</td><td>관찰 중</td><td>전일 대비(일)</td></tr>
+          <tr><td><code>life_steadying</code></td><td>일상안정</td><td>불안정해요</td><td>보통이에요</td><td>안정적이에요</td><td>관찰 중</td><td><b>전주 대비(주)</b></td></tr>
+        </tbody>
+      </table></div>
+      <p class="lead">low/mid/high는 순서 있는 등급이지만 <b>지표 간 비교·합산 대상이 아닙니다</b>(P5). 지표 2의 최종 명칭은 <b>2026-09-11 &lsquo;자기돌봄&rsquo;으로 확정</b>했습니다(C-1 종결). enum 값(<code>self_care</code>)과 표시명은 분리해 두었으므로 표시명이 바뀌어도 모델은 영향받지 않습니다.</p>
+      <div class="callout"><span>표시 라벨은 저장하지 않습니다 &mdash; C-3 확정</span>
+        <p>어휘는 <b>2026-09-11 문장형으로 확정</b>했습니다(위 표). 기획서 7장의 명사형 표기는 이 결정에 맞춰 갱신 대상입니다.</p>
+        <p>어휘가 확정된 뒤에도 <code>metric_state</code>에는 <b><code>state_key</code>(low/mid/high/observing)만 저장하고 표시 문자열은 저장하지 않습니다.</b> 라벨은 클라이언트·문구 템플릿이 <code>state_key</code>에서 렌더하므로, 문구가 나중에 다듬어져도 <b>데이터 마이그레이션이 필요 없고</b> 과거 스냅샷의 의미도 바뀌지 않습니다.</p></div>
+
+      <h3 class="block"><span class="tag">daily_checkin</span> 자가보고(문진)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">checkin_id</span></td><td>id</td><td>PK</td></tr>
+          <tr><td><span class="fk">user_id</span></td><td>id</td><td>FK user</td></tr>
+          <tr><td>checkin_date</td><td>date</td><td>대상일</td></tr>
+          <tr><td>answers</td><td>json[]</td><td>[{question_key, choice_value, numeric_value}] — 결측 데이터 보완용</td></tr>
+          <tr><td>derived</td><td>json</td><td>지표 입력으로 변환된 값(예: fatigue_level) — 채택 여부 검증(지표 기획서 9장)</td></tr>
+          <tr><td>created_at</td><td>ts</td><td>응답 시각</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="section" id="s4">
+      <div class="section-head"><span class="section-label">04 · Payment Domain</span><h2>결제·이용권 도메인 엔터티</h2>
+        <p>운영자 화면 &lsquo;인앱결제 상품 관리&rsquo;·&lsquo;분석 이용권 내역&rsquo;과 <a href="../mai-report-payment-policy/maiReport_결제환불정책_v1.0.0.html">결제·환불 정책</a> 기준.</p>
+      </div>
+
+      <h3 class="block"><span class="tag">iap_product</span> 인앱결제 상품</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">product_id</span></td><td>id</td><td>PK (운영 상품 ID)</td></tr>
+          <tr><td>store_product_id</td><td>text</td><td>스토어 상품 ID (<code>selvy_test</code>, <code>maireport_anrisk_ticket_1</code>)</td></tr>
+          <tr><td>platform</td><td><code>enum</code></td><td>android · ios</td></tr>
+          <tr><td>analysis_type</td><td><code>enum</code></td><td>SELVY_CHECKUP · ANRISK</td></tr>
+          <tr><td>name</td><td>text</td><td>상품명</td></tr>
+          <tr><td>grant_count</td><td>int</td><td>결제 1건당 지급 이용권 수(현행 1)</td></tr>
+          <tr><td>validity_days</td><td>int / null</td><td>이용권 유효기간 — <b>정책 v1.0: 365</b> (신규 필드, 운영툴 요구사항)</td></tr>
+          <tr><td>is_active</td><td>bool</td><td>판매 활성. ANRISK는 false(우선 제외)</td></tr>
+          <tr><td>is_public</td><td>bool</td><td>앱 구매 화면 노출 여부</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block"><span class="tag">purchase</span> 구매·검증</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">purchase_id</span></td><td>id</td><td>PK (스토어 구매 ID / order id)</td></tr>
+          <tr><td><span class="fk">user_id</span></td><td>id</td><td>FK user</td></tr>
+          <tr><td><span class="fk">product_id</span></td><td>id</td><td>FK iap_product</td></tr>
+          <tr><td>platform</td><td><code>enum</code></td><td>android · ios</td></tr>
+          <tr><td>store_txn_id</td><td>text</td><td>스토어 거래·영수증 토큰</td></tr>
+          <tr><td>amount / currency</td><td>number / text</td><td>스토어 표시 금액(참고). 대금·영수증은 스토어 소관</td></tr>
+          <tr><td>status</td><td><code>enum</code></td><td>PENDING · VERIFIED · GRANTED · REFUNDED · FAILED</td></tr>
+          <tr><td>verified_at / granted_at</td><td>ts</td><td>영수증 검증·이용권 지급 시각</td></tr>
+          <tr><td>is_debug</td><td>bool</td><td>가상 결제(디버그) 여부</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block"><span class="tag">analysis_ticket</span> 분석 이용권</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">ticket_id</span></td><td>id</td><td>PK</td></tr>
+          <tr><td><span class="fk">user_id</span></td><td>id</td><td>FK user</td></tr>
+          <tr><td><span class="fk">purchase_id</span></td><td>id / null</td><td>FK purchase. 프로모션 무상 지급은 null + grant_source</td></tr>
+          <tr><td>analysis_type</td><td><code>enum</code></td><td>SELVY_CHECKUP · ANRISK. 이 타입 분석에서만 사용</td></tr>
+          <tr><td>status</td><td><code>enum</code></td><td>AVAILABLE · RESERVED · USED · CANCELED (As-Is는 RESERVED 없음 — <a href="#s8">8장</a>)</td></tr>
+          <tr><td>grant_source</td><td><code>enum</code></td><td>PURCHASE · PROMOTION · OPERATOR</td></tr>
+          <tr><td>issued_at / reserved_at / used_at / canceled_at</td><td>ts</td><td>상태별 시각</td></tr>
+          <tr><td>expires_at</td><td>ts / null</td><td>issued_at + validity_days (정책 v1.0)</td></tr>
+          <tr><td>memo</td><td>text</td><td>예: &lsquo;스토어 환불로 자동 취소&rsquo;</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block"><span class="tag">analysis_run</span> 분석 실행</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">run_id</span></td><td>id</td><td>PK</td></tr>
+          <tr><td><span class="fk">user_id</span> / <span class="fk">ticket_id</span></td><td>id</td><td>FK user / analysis_ticket</td></tr>
+          <tr><td>analysis_type</td><td><code>enum</code></td><td>SELVY_CHECKUP · ANRISK</td></tr>
+          <tr><td>input_ref</td><td>json</td><td>분석 입력(선택 검진정보 ID 등)</td></tr>
+          <tr><td>status</td><td><code>enum</code></td><td>REQUESTED · RUNNING · SUCCEEDED · FAILED · CANCELED</td></tr>
+          <tr><td>requested_at / completed_at</td><td>ts</td><td>요청·완료 시각</td></tr>
+          <tr><td>result_ref</td><td>id / null</td><td>결과 문서 참조(성공 시)</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block"><span class="tag">refund_event</span> 환불 이벤트</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td><span class="k">refund_id</span></td><td>id</td><td>PK</td></tr>
+          <tr><td><span class="fk">purchase_id</span></td><td>id</td><td>FK purchase</td></tr>
+          <tr><td>source</td><td><code>enum</code></td><td>STORE_NOTIFICATION · OPERATOR · USER_MINOR</td></tr>
+          <tr><td>scope</td><td><code>enum</code></td><td>FULL · PARTIAL (다회권 부분 사용 정산)</td></tr>
+          <tr><td>amount</td><td>number</td><td>환불 인식 금액(참고)</td></tr>
+          <tr><td>reason</td><td>text</td><td>변심·장애·중복·미성년자 등</td></tr>
+          <tr><td>affected_ticket_ids</td><td>id[]</td><td>자동 CANCELED 처리된 이용권</td></tr>
+          <tr><td>occurred_at</td><td>ts</td><td>환불 확정 시각</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="section" id="s5">
+      <div class="section-head"><span class="section-label">05 · State Transitions</span><h2>상태 전이</h2></div>
+      <h3 class="block">analysis_ticket</h3>
+      <div class="flow">
+        <div class="step"><b>AVAILABLE</b><p>구매 검증 후 지급 / 예약 복원</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><b>RESERVED</b><p>분석 요청 접수(결과 전). 실패 시 → AVAILABLE</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><b>USED</b><p>분석 결과 정상 산출. 불가역</p></div>
+      </div>
+      <div class="flow" style="margin-top:8px">
+        <div class="step"><b>AVAILABLE / RESERVED</b><p>스토어 환불 확정 · 운영자 취소</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><b>CANCELED</b><p>미사용 이용권 소멸(memo 기록). USED는 자동 취소 불가</p></div>
+      </div>
+      <h3 class="block">purchase</h3>
+      <div class="flow">
+        <div class="step"><b>PENDING</b><p>결제 완료, 검증 전</p></div><div class="arrow">›</div>
+        <div class="step"><b>VERIFIED</b><p>영수증 검증 성공</p></div><div class="arrow">›</div>
+        <div class="step"><b>GRANTED</b><p>이용권 지급 완료</p></div><div class="arrow">›</div>
+        <div class="step"><b>REFUNDED</b><p>환불 확정</p></div>
+      </div>
+      <h3 class="block">analysis_run</h3>
+      <div class="flow">
+        <div class="step"><b>REQUESTED</b><p>이용권 RESERVED</p></div><div class="arrow">›</div>
+        <div class="step"><b>RUNNING</b><p>분석 진행</p></div><div class="arrow">›</div>
+        <div class="step"><b>SUCCEEDED</b><p>이용권 USED, 결과 연결</p></div>
+      </div>
+      <p class="lead">FAILED · CANCELED → 연결 이용권 RESERVED→AVAILABLE 복원.</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="section" id="s6">
+      <div class="section-head"><span class="section-label">06 · Integrity Rules</span><h2>무결성·정책 규칙</h2></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>ID</th><th>규칙</th><th>근거</th></tr></thead>
+        <tbody>
+          <tr><td><b>R1</b></td><td>analysis_ticket.analysis_type = 연결 purchase.product.analysis_type. 타입 간 전환·차감 대체 불가</td><td>결제 정책 3장</td></tr>
+          <tr><td><b>R2</b></td><td>USED · CANCELED 는 종료 상태. USED→CANCELED 자동 전이 금지(악용 조항으로 별도 처리)</td><td>결제 정책 5·6장</td></tr>
+          <tr><td><b>R3</b></td><td>스토어 환불 알림 수신 시 해당 purchase_id의 AVAILABLE(및 RESERVED, 정책 v1.0) 이용권만 CANCELED</td><td>결제 정책 5장</td></tr>
+          <tr><td><b>R4</b></td><td>ticketCount(잔여) = status=AVAILABLE 개수</td><td>프로토타입 <code>ticketCount()</code></td></tr>
+          <tr><td><b>R5</b></td><td>expires_at 경과 이용권은 USED 불가. 만료 30일 전 1회 고지(정책 v1.0)</td><td>결제 정책 4장</td></tr>
+          <tr><td><b>R6</b></td><td>metric_state 유니크 (user, metric_key, period_type, period_start, ruleset_version). 과거 스냅샷은 규칙 변경 시 재계산 안 함</td><td>지표 기획서 8장</td></tr>
+          <tr><td><b>R7</b></td><td>metric_state.resolution=none 이면 state_key=observing, direction·internal_value=null</td><td>지표 기획서 8장</td></tr>
+          <tr><td><b>R8</b></td><td>metric_baseline 미충족 입력은 상태 산출에서 제외. 지표별 필수 입력이 빠지면 지표 자체가 observing</td><td>지표 기획서 3·8장</td></tr>
+          <tr><td><b>R9</b></td><td>health_sample.quality ∈ {outlier,duplicate}는 집계 제외(원본 보존). 생리적 범위 밖 값은 윈저라이즈 후 사용·로그 기록</td><td>지표 기획서 8장</td></tr>
+          <tr><td><b>R10</b></td><td>건보공단·의료이력 데이터는 metric_state 산출 입력이 될 수 없음(맥락·안전장치로만)</td><td>지표 기획서 3장</td></tr>
+          <tr><td><b>R11</b></td><td><code>metric_key=self_care</code>는 기준점 신호(식사 시각 또는 긴 비활동 종료·일정 전후) <b>와</b> 활동 시간대 분포가 <b>둘 다</b> 있어야 산출. 걸음 총량만으로는 observing</td><td>지표 기획서 3·5장</td></tr>
+          <tr><td><b>R12</b></td><td><code>metric_key=life_steadying</code>은 period_type=week 행만 생성. 일 단위 행 생성·일 단위 direction 금지</td><td>지표 기획서 6·7장</td></tr>
+          <tr><td><b>R13</b></td><td><code>value_scale=low_res</code>는 <code>life_margin</code>에만 허용. high_res 행과 internal_value를 비교·차감·동일 시계열로 잇지 않음</td><td>지표 기획서 2·8장</td></tr>
+          <tr><td><b>R14</b></td><td>daily_checkin(자가보고)과 식사 기록은 state_key를 상향시키는 입력이 될 수 없음 &mdash; inputs_used의 role=aux로만 기록</td><td>지표 기획서 1장 P1·P3</td></tr>
+          <tr><td><b>R15</b></td><td>세 지표를 합산·평균한 종합 점수/종합 등급 엔터티를 두지 않음</td><td>지표 기획서 1장 P5</td></tr>
+          <tr><td><b>R16</b></td><td>internal_value는 클라이언트 응답에 포함하지 않음(서버 내부·분석용)</td><td>지표 기획서 1장 P4</td></tr>
+          <tr><td><b>R17</b></td><td><code>life_steadying</code>의 산출 채널이 기록량뿐이면 <code>state_key=observing</code>으로 저장한다. 기록량 방향은 별도 서술 필드로만 보관하고 state_key를 만들지 않는다</td><td>지표 기획서 3·6장 · 2026-09-11 결정</td></tr>
+          <tr><td><b>R18</b></td><td><code>value_scale=low_res</code> 행에는 기기 보강값·생리 상한을 적용하지 않는다. 보강 여부는 <code>internal_value</code>가 아니라 별도 플래그로 추적한다</td><td>지표 기획서 2·8장 · 2026-09-11 결정</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 7 -->
+    <section class="section" id="s7">
+      <div class="section-head"><span class="section-label">07 · Retention</span><h2>보존·삭제 (PHI)</h2></div>
+      <div class="g2">
+        <article class="card"><h4>보호 대상</h4><ul><li><span class="tag">health_sample</span> · <span class="tag">metric_baseline</span> · <span class="tag">metric_state</span> · <span class="tag">daily_checkin</span> — 암호화 저장, 접근통제, 감사 로그</li><li>결제 도메인은 개인식별·거래정보로 별도 보존기간</li></ul></article>
+        <article class="card"><h4>회원 탈퇴 시(결제 정책 v1.0)</h4><ul><li>미사용 <span class="tag">analysis_ticket</span> → 즉시 CANCELED(소멸), 유예 없음</li><li>탈퇴 화면에서 잔여 수·소멸 고지, 7일 이내 결제 미사용분은 탈퇴 전 환불 안내</li><li>PHI는 처리방침 기준 파기/익명화, 법정 보존 항목만 분리 보관</li></ul></article>
+      </div>
+      <div class="callout warn"><span>확정 필요</span><p>지표 데이터의 구체 보존기간, 익명화 방식, 결제 기록의 전자상거래법상 보존기간(계약·청약철회 5년 등)은 <b>법무 검토</b>에서 확정. → 결제·환불 정책 10장.</p></div>
+    </section>
+
+    <!-- 8 -->
+    <section class="section" id="s8">
+      <div class="section-head"><span class="section-label">08 · As-Is ↔ Proposed</span><h2>As-Is ↔ 제안 차이</h2>
+        <p>프로토타입/운영 화면의 현재 구조와, 정책·지표 기획서가 요구하는 추가 사항의 차이입니다. 운영툴 요구사항으로 이관해야 합니다.</p>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>항목</th><th>As-Is</th><th>제안(정책/기획 반영)</th><th>영향</th></tr></thead>
+        <tbody>
+          <tr><td>이용권 상태</td><td>AVAILABLE · USED · CANCELED (프로토타입 <code>TICKET_STATUS_META</code>)</td><td>+ RESERVED (예약=사용 개시 간주, 실패 시 복원)</td><td>환불 판정·운영 로직 일치</td></tr>
+          <tr><td>이용권 유효기간</td><td>필드 없음(무기한)</td><td><code>validity_days</code>·<code>expires_at</code> 추가(365)</td><td>구매 화면 표기·만료 고지</td></tr>
+          <tr><td>구매 상태</td><td>암시적(발급 여부)</td><td><code>purchase.status</code> 명시(PENDING…REFUNDED)</td><td>미지급·중복 대응</td></tr>
+          <tr><td>다회권</td><td>grant_count=1 고정</td><td>구조는 지원, 현 단계 미도입. 부분 정산 산식 예약</td><td>상품 기획 후</td></tr>
+          <tr><td>지표 스냅샷</td><td>클라이언트 하드코딩 배열</td><td><code>metric_state</code> 영속화 + <code>ruleset_version</code></td><td>주간 화면·과거 주</td></tr>
+          <tr><td>자가보고 피로도</td><td>미구현</td><td><code>daily_checkin.derived.fatigue_level</code> (채택 검증)</td><td>지표 입력 확장(aux 한정 · R14)</td></tr>
+          <tr><td>지표 표현 모델</td><td><code>metric_score.score</code> 0~100 + band, 화면에 점수 노출</td><td><code>metric_state.state_key</code> 1급 + <code>internal_value</code> 비노출</td><td>화면정의 지표 v0.2 전면 · API 응답 스키마</td></tr>
+          <tr><td>지표 키</td><td>recovery · load · rhythm</td><td>life_margin · self_care · life_steadying</td><td>엔진 v5.7 I1/I2/I3 표기도 함께 교체(9장 C-4)</td></tr>
+          <tr><td>산출 주기</td><td>일 단위 3지표 공통</td><td><code>period_type</code> 분리 &mdash; 일상안정은 week만</td><td>배치 스케줄·주간 화면 조회</td></tr>
+          <tr><td>활동 구간 샘플</td><td>일별 총량 중심</td><td>걸음·심박 raw를 15분 이하 버킷으로 롤업(<code>activity_timeslot_dist</code>·<code>sedentary_bout</code>)</td><td><b>A-1 결과에 종속</b> &mdash; 없으면 생활여유 고해상도·자기돌봄 산출 불가</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 9 -->
+    <section class="section" id="s9">
+      <div class="section-head"><span class="section-label">09 · Open Items</span><h2>미확정 항목</h2></div>
+      <div class="check">
+        <div class="check-item"><span class="box"></span><div><strong>metric_state 저장 주기·스냅샷 시각</strong><p>매일 저장 vs 조회 시 계산 후 캐시, 주간 스냅샷 확정 시각 (지표 기획서 9장 B-8)</p></div><span class="status-badge sb-review">정의 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>활동 구간 샘플 수집 형태 (A-1)</strong><p>걸음·심박·활동시간이 일별 총량인지 시간대별 샘플인지. 총량이면 <code>self_care</code>·<code>life_margin</code> 고해상도 행이 생성되지 않아 모델 적용 범위가 축소됨. <b>최우선</b></p></div><span class="status-badge sb-review">개발팀 확인</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>metric_baseline.window_days 통일 (B-5)</strong><p>엔진 28일 / 파이프라인 30일 / 기획서 미정. 신호별 최소 관찰일도 함께</p></div><span class="status-badge sb-review">결정 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>internal_value 스케일·계수 (B-1)</strong><p>엔진 v5.7 고정 계수를 초기 기준으로 채택할지, 백지 캘리브레이션할지. 채택 시 <code>value_scale</code> 정의도 함께 고정</p></div><span class="status-badge sb-review">결정 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>식사 시각 저장 경로 (A-3)</strong><p>센서 추정 불가. 긴 비활동 종료 시점 파생 / 하루 1회 질문(daily_checkin) / 둘 다 &mdash; <code>self_care</code> 기준점 소스 결정</p></div><span class="status-badge sb-review">기획 결정</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>지표 2 명칭 (C-1)</strong><p>2026-09-11 <b>자기돌봄</b>으로 확정. enum <code>self_care</code> 유지</p></div><span class="status-badge sb-ready">확정</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>표현 가이드 조항 갱신 (C-3 후속)</strong><p>결과값 어휘는 문장형으로 확정(2026-09-11). 기획서 5·7장과 MRS 9장의 &lsquo;평가·압박 어투 배제&rsquo; 조항이 이 결정과 충돌하므로 해당 조항 수정 필요 — 의료 판정 표현 금지는 유지</p></div><span class="status-badge sb-review">문서</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>health_sample 보존기간·집계 롤업</strong><p>원본 원시 데이터 보존 기간, 일 단위 롤업 테이블 필요 여부</p></div><span class="status-badge sb-open">설계</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>HRV·자가보고 피로도 스키마</strong><p>지표 기획서 9장 채택 여부 확정 후 필드 확정</p></div><span class="status-badge sb-open">검증</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>RESERVED 도입 및 운영툴 반영</strong><p>이용권 내역 화면·자동 취소 로직에 RESERVED 추가</p></div><span class="status-badge sb-review">정책 결정</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>유효기간·다회권 필드 운영툴 이관</strong><p>인앱결제 상품 관리에 validity_days·grant_count 편집 추가</p></div><span class="status-badge sb-open">운영툴</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>결제·PHI 보존기간</strong><p>전자상거래법·개인정보 처리방침 기준 확정(법무)</p></div><span class="status-badge sb-open">후속</span></div>
+      </div>
+    </section>
+
+    <div class="src">
+      <h2>근거 자료</h2>
+      <ul>
+        <li>maiReport 지표 기획서 v0.3 (2026-09-08) &mdash; 공통 원칙 P1~P6(1장), 파이프라인(2장), 입력 매핑·필수/옵션(3장), 지표별 정의(4·5·6장), 상태 표현 규칙(7장), 해상도·결측(8장), 확인 항목 A~D(9장)</li>
+        <li>maiReport 결제·환불 정책 v1.0 &mdash; 이용권 생애주기(4장), 환불 판정(5장), 자동 취소(5장), 확정값(10장)</li>
+        <li>maiReport 프로토타입 &mdash; <code>TICKETS</code>/<code>TICKET_STATUS_META</code>/<code>ticketCount()</code>, 운영자 화면 &lsquo;인앱결제 상품 관리&rsquo;·&lsquo;분석 이용권 내역&rsquo; 필드</li>
+        <li>maiReport 기능정의서 &mdash; Product I/O 정의(I-01~05, O-01~05), 데이터 품질·지표 산출 기능 영역(08)</li>
+      </ul>
+    </div>
+
+    <footer>maiReport 데이터 모델 · v0.2 (초안) · Internal Use Only · 2026-09-11 · 지표 기획서 v0.3 반영(metric_score → metric_state) · 논리 모델 · 물리 스키마는 상세 설계에서 확정</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<title>건강검진 ChatGPT 요약 화면 예시</title>
+<meta name="description" content="검진결과 화면에서 'ChatGPT로 결과 요약하기'를 눌렀을 때의 화면 흐름 — 동의 확인, 생성 중, 요약 결과(확인 필요 · 정상). 기획서 v1.0 구성 반영.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>
+:root{
+  --ground:#EEF0F6;--ink:#141A2E;--text:#3C4562;--muted:#6E778F;--faint:#9AA2B6;--line:#E6E8F0;
+  --page:#F3F2F9;--card:#FFFFFF;--fill:#F2F3F8;--sh:0 1px 2px rgba(20,26,46,.04),0 8px 24px rgba(20,26,46,.06);
+  --blue:#2F6BFF;--blue-soft:#E9EFFF;--teal:#19B4B4;
+  --ok:#1E7F5B;--ok-soft:#E4F5EC;--warn:#B0661A;--warn-soft:#FDEEDC;--stop:#C4405E;--stop-soft:#FCE8EE;--neu:#5F6880;--neu-soft:#ECEEF3;
+  --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0D1017;--ink:#ECEFF7;--text:#B7BFD3;--muted:#8A93AA;--faint:#66708A;--line:#2A3040;
+  --page:#151824;--card:#1B1F2D;--fill:#232838;--sh:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  --blue:#7FA3FF;--blue-soft:#1E2A48;--teal:#3FCFCF;
+  --ok:#5FCBA3;--ok-soft:#12291F;--warn:#E4A85F;--warn-soft:#2E2314;--stop:#F08AA3;--stop-soft:#31181F;--neu:#A9B1C6;--neu-soft:#262B3A;
+}}
+:root[data-theme="dark"]{
+  --ground:#0D1017;--ink:#ECEFF7;--text:#B7BFD3;--muted:#8A93AA;--faint:#66708A;--line:#2A3040;
+  --page:#151824;--card:#1B1F2D;--fill:#232838;--sh:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  --blue:#7FA3FF;--blue-soft:#1E2A48;--teal:#3FCFCF;
+  --ok:#5FCBA3;--ok-soft:#12291F;--warn:#E4A85F;--warn-soft:#2E2314;--stop:#F08AA3;--stop-soft:#31181F;--neu:#A9B1C6;--neu-soft:#262B3A;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.55;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1400px;margin:0 auto;padding:32px 20px 60px}
+.head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.wordmark{position:relative;color:var(--ink);font-size:18px;font-weight:900;letter-spacing:-.06em}
+.wordmark::after{content:"";position:absolute;right:-6px;bottom:3px;width:4px;height:4px;border-radius:50%;background:var(--blue)}
+h1{margin:0;font-size:20px;color:var(--ink);font-weight:900;letter-spacing:-.04em}
+.head small{color:var(--faint);font-size:12px;margin-left:auto}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px;margin-top:28px;align-items:start}
+.cap{display:flex;align-items:baseline;gap:8px;margin:0 6px 12px;font-size:13px;color:var(--ink);font-weight:700}
+.cap i{font-style:normal;width:22px;height:22px;border-radius:50%;background:var(--ink);color:var(--ground);font-size:11px;display:grid;place-items:center;flex:none}
+.cap span{color:var(--muted);font-weight:400;font-size:12px}
+.why{margin:12px 6px 0;font-size:12.5px;color:var(--muted);line-height:1.6}
+.why b{color:var(--text)}
+
+/* 폰 */
+.phone{background:var(--page);border:1px solid var(--line);border-radius:30px;box-shadow:var(--sh);overflow:hidden;position:relative}
+.scr{height:760px;overflow-y:auto;padding:16px 16px 28px;position:relative;scrollbar-width:thin}
+.nav{display:flex;align-items:center;gap:6px;margin-bottom:12px;min-height:36px}
+.nav .bk{width:32px;height:32px;border-radius:10px;border:0;background:transparent;color:var(--ink);font-size:22px;line-height:1;margin-left:-8px}
+.nav h2{margin:0;font-size:16px;color:var(--ink);font-weight:700;letter-spacing:-.02em}
+.card{background:var(--card);border-radius:18px;padding:18px;box-shadow:var(--sh);margin-bottom:12px}
+.t{font-size:12.5px;font-weight:700;color:var(--muted);margin:22px 4px 8px}
+.btn{width:100%;border:0;border-radius:13px;padding:14px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+.pri{background:var(--blue);color:#fff}.soft{background:var(--blue-soft);color:var(--blue)}.ghost{background:var(--fill);color:var(--muted)}
+.badge{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap;flex:none}
+.b-ok{background:var(--ok-soft);color:var(--ok)}.b-warn{background:var(--warn-soft);color:var(--warn)}.b-stop{background:var(--stop-soft);color:var(--stop)}.b-neu{background:var(--neu-soft);color:var(--neu)}
+
+/* 검진 상세 */
+.meta small{display:block;font-size:12px;color:var(--muted)}
+.meta b{display:block;font-size:18px;color:var(--ink);font-weight:700;letter-spacing:-.02em;margin-top:2px}
+.jd{display:flex;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.jd span{font-size:12.5px;color:var(--muted)}.jd b{margin-left:auto;font-size:18px;color:var(--ink)}
+.li{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
+.li:first-child{border-top:0;padding-top:0}.li:last-child{padding-bottom:0}
+.li b{font-size:14px;color:var(--ink);font-weight:700;flex:1}
+.li .v{font-size:13px;color:var(--text);font-variant-numeric:tabular-nums}
+
+/* 시트 */
+.scrim{position:absolute;inset:0;background:rgba(14,18,32,.45);display:flex;align-items:flex-end}
+.sheet{width:100%;background:var(--card);border-radius:22px 22px 0 0;padding:14px 22px 26px}
+.sheet .h{width:36px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 20px}
+.sheet h3{margin:0 0 6px;font-size:19px;line-height:1.3;color:var(--ink);letter-spacing:-.03em}
+.sheet>p{margin:0;font-size:13px;color:var(--muted)}
+.sheet .pts{margin:18px 0 6px;display:flex;flex-direction:column;gap:10px}
+.sheet .pt{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text)}
+.sheet .pt i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;flex:none;background:var(--fill);color:var(--ink)}
+.sheet .more{display:block;margin:6px 0 0 32px;font-size:12px;color:var(--blue);font-weight:700}
+.sheet .btns{display:grid;grid-template-columns:1fr 1.7fr;gap:8px;margin-top:20px}
+
+/* 생성 중 */
+.gen{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.gen .ln{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--faint)}
+.gen .ln.done{color:var(--muted)}.gen .ln.now{color:var(--ink);font-weight:700}
+.gen .dot{width:10px;height:10px;border-radius:50%;border:2px solid var(--line);flex:none}
+.gen .done .dot{background:var(--ok);border-color:var(--ok)}
+.gen .now .dot{border-color:var(--blue);border-top-color:transparent;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.gen .now .dot{animation:none;border-top-color:var(--blue)}}
+.gen .fine{font-size:11.5px;color:var(--faint);margin:2px 0 0 20px}
+
+/* 리포트 배너 */
+.banner{border-radius:18px;padding:18px 20px;color:#fff;background:linear-gradient(120deg,#2F6BFF 0%,#19B4B4 100%);box-shadow:0 10px 26px rgba(47,107,255,.22);margin-bottom:12px}
+.banner small{display:block;font-size:11px;opacity:.85;letter-spacing:.04em;font-weight:700}
+.banner b{display:block;font-size:17px;font-weight:700;margin-top:4px;letter-spacing:-.02em}
+.banner span{display:block;font-size:12px;opacity:.9;margin-top:2px}
+
+/* 핵심 요약 */
+.ov h2{margin:0 0 8px;font-size:21px;line-height:1.3;color:var(--ink);letter-spacing:-.035em;text-wrap:balance}
+.ov p{margin:0;font-size:13.5px;line-height:1.65}
+
+/* 항목 카드 */
+.item{padding:0}
+.item .hd{display:flex;align-items:center;gap:10px;padding:16px 18px 0}
+.item .ic{width:34px;height:34px;border-radius:11px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:15px;flex:none}
+.item .nm{flex:1;min-width:0}
+.item .nm b{display:block;font-size:15px;color:var(--ink)}
+.item .nm small{display:block;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.item .bd{padding:12px 18px 16px}
+.item .bd p{margin:0;font-size:13px;line-height:1.65}
+.item .sub{display:block;font-size:11px;font-weight:700;color:var(--faint);letter-spacing:.04em;margin:14px 0 4px}
+.item .dz{display:flex;align-items:baseline;gap:8px}
+.item .dz b{font-size:13.5px;color:var(--ink);flex:none}
+.item .dz span{font-size:12.5px;color:var(--muted)}
+.item .act{display:flex;gap:8px;align-items:flex-start;margin-top:4px;padding:11px 12px;border-radius:12px;background:var(--fill);font-size:12.5px;color:var(--text)}
+.item .act i{font-style:normal;color:var(--blue);flex:none}
+.item .fold{padding:0 18px 16px;font-size:12px;color:var(--blue);font-weight:700}
+.item.collapsed .bd{display:none}
+
+/* 다음 행동 */
+.acts{display:flex;flex-direction:column;gap:14px}
+.a{display:flex;gap:12px}
+.a .n{width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center;flex:none}
+.a b{display:block;font-size:14px;color:var(--ink)}
+.a p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.a .src{display:inline-block;margin-top:6px;font-size:10.5px;font-weight:700;color:var(--muted);background:var(--fill);padding:2px 8px;border-radius:20px}
+.a .src.org{color:var(--blue);background:var(--blue-soft)}
+.note{font-size:11.5px;color:var(--faint);line-height:1.6;margin:14px 4px 0}
+@media (max-width:420px){.scr{height:680px}}
+</style>
+
+<div class="wrap">
+  <div class="head"><span class="wordmark">maiReport</span><h1>건강검진 ChatGPT 요약 · 화면 예시</h1><small>검진결과 → ChatGPT로 결과 요약하기 · 기획서 v1.0 반영</small></div>
+
+  <div class="row">
+
+  <!-- 1 -->
+  <div class="col">
+    <p class="cap"><i>1</i>동의 확인 <span>최초 1회</span></p>
+    <div class="phone"><div class="scr">
+      <div class="nav"><button class="bk" aria-label="뒤로">‹</button><h2>검진결과</h2></div>
+      <div class="card">
+        <div class="meta"><small>2026년 4월 12일 · 일반 건강검진</small><b>마이검진센터</b></div>
+        <div class="jd"><span>종합 판정</span><b>일반질환의심</b></div>
+        <button class="btn soft" style="margin-top:16px">✦ ChatGPT로 결과 요약하기</button>
+      </div>
+      <div class="card">
+        <div class="li"><b>혈압</b><span class="v">148/94 mmHg</span><span class="badge b-stop">확인 필요</span></div>
+        <div class="li"><b>공복혈당</b><span class="v">128 mg/dL</span><span class="badge b-stop">확인 필요</span></div>
+        <div class="li"><b>총콜레스테롤</b><span class="v">232 mg/dL</span><span class="badge b-warn">경계</span></div>
+        <div class="li"><b>LDL 콜레스테롤</b><span class="v">126 mg/dL</span><span class="badge b-neu">판정 없음</span></div>
+        <div class="li"><b>eGFR</b><span class="v">93</span><span class="badge b-ok">정상</span></div>
+      </div>
+      <div class="scrim"><div class="sheet">
+        <div class="h"></div>
+        <h3>검진 결과를 ChatGPT로 요약할까요?</h3>
+        <p>먼저 확인할 항목과 검사의 의미, 다음 행동을 정리해 드립니다.</p>
+        <div class="pts">
+          <div class="pt"><i>↑</i><span>검사 수치·판정·기관 소견만 보냅니다</span></div>
+          <div class="pt"><i>✕</i><span>이름·생년월일·연락처는 보내지 않습니다</span></div>
+          <div class="pt"><i>✓</i><span>요약 결과만 저장하고 보낸 데이터는 남기지 않습니다</span></div>
+        </div>
+        <span class="more">자세히 보기 ›</span>
+        <div class="btns"><button class="btn ghost">취소</button><button class="btn pri">동의하고 요약하기</button></div>
+      </div></div>
+    </div></div>
+    <p class="why"><b>배지는 원본 판정 그대로.</b> 확인 필요 · 경계 · 정상 · 판정 없음 네 가지이며, 판정 없음은 중립색입니다.</p>
+  </div>
+
+  <!-- 2 -->
+  <div class="col">
+    <p class="cap"><i>2</i>생성 중 <span>5~15초</span></p>
+    <div class="phone"><div class="scr">
+      <div class="nav"><button class="bk" aria-label="뒤로">‹</button><h2>검진결과</h2></div>
+      <div class="card">
+        <div class="meta"><small>2026년 4월 12일 · 일반 건강검진</small><b>마이검진센터</b></div>
+        <div class="jd"><span>종합 판정</span><b>일반질환의심</b></div>
+        <div class="gen">
+          <div class="ln done"><span class="dot"></span>검사 정보 확인</div>
+          <div class="ln now"><span class="dot"></span>검사 결과를 쉽게 정리하고 있어요</div>
+          <div class="ln"><span class="dot"></span>수치·판정 검증</div>
+          <p class="fine">다른 화면으로 이동해도 계속 진행됩니다</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="li"><b>혈압</b><span class="v">148/94 mmHg</span><span class="badge b-stop">확인 필요</span></div>
+        <div class="li"><b>공복혈당</b><span class="v">128 mg/dL</span><span class="badge b-stop">확인 필요</span></div>
+        <div class="li"><b>총콜레스테롤</b><span class="v">232 mg/dL</span><span class="badge b-warn">경계</span></div>
+        <div class="li"><b>LDL 콜레스테롤</b><span class="v">126 mg/dL</span><span class="badge b-neu">판정 없음</span></div>
+        <div class="li"><b>eGFR</b><span class="v">93</span><span class="badge b-ok">정상</span></div>
+      </div>
+    </div></div>
+    <p class="why"><b>세 단계는 실제 처리 순서입니다.</b> 입력 확인 → 생성 → 서버 검증. 검증에 실패한 요약은 노출하지 않습니다.</p>
+  </div>
+
+  <!-- 3 -->
+  <div class="col">
+    <p class="cap"><i>3</i>요약 결과 <span>확인 필요 포함</span></p>
+    <div class="phone"><div class="scr">
+      <div class="nav"><button class="bk" aria-label="뒤로">‹</button><h2>건강검진 ChatGPT 요약</h2></div>
+      <div class="banner"><small>건강검진 AI 리포트</small><b>마이검진센터 · 2026년 4월 12일</b><span>이전 검진 2025년 3월 20일과 비교</span></div>
+
+      <div class="card ov">
+        <h2>혈압과 공복혈당을 먼저 확인해 주세요</h2>
+        <p>두 항목은 확인이 필요하며, 총콜레스테롤은 경계로 표시되어 있습니다. 간·신장·소변·흉부 검사는 정상으로 판정되었습니다.</p>
+      </div>
+
+      <p class="t">먼저 확인할 항목</p>
+      <div class="card item">
+        <div class="hd"><span class="ic">♥</span><div class="nm"><b>혈압</b><small>148/94 mmHg · 이전 134/86</small></div><span class="badge b-stop">확인 필요</span></div>
+        <div class="bd">
+          <p>혈액이 혈관 벽에 가하는 압력입니다. 앞 숫자는 심장이 수축할 때, 뒤 숫자는 이완할 때의 압력을 뜻합니다.</p>
+          <span class="sub">이 검사와 연관되는 질환</span>
+          <div class="dz"><b>고혈압</b><span>고혈압 여부를 평가하는 기본 지표입니다.</span></div>
+          <span class="sub">다음 행동</span>
+          <div class="act"><i>›</i>검진기관에서 권고한 정기적인 혈압 측정을 확인해 주세요.</div>
+        </div>
+      </div>
+      <div class="card item">
+        <div class="hd"><span class="ic">◆</span><div class="nm"><b>공복혈당</b><small>128 mg/dL · 이전 112</small></div><span class="badge b-stop">확인 필요</span></div>
+        <div class="bd">
+          <p>8시간 이상 공복 상태에서 잰 혈액 속 포도당 양입니다.</p>
+          <span class="sub">이 검사와 연관되는 질환</span>
+          <div class="dz"><b>당뇨병</b><span>당뇨병 선별에 쓰이는 기본 검사입니다.</span></div>
+          <span class="sub">다음 행동</span>
+          <div class="act"><i>›</i>검진기관 권고에 따라 진료를 통해 다시 확인해 주세요.</div>
+        </div>
+      </div>
+      <div class="card item collapsed">
+        <div class="hd"><span class="ic">◯</span><div class="nm"><b>총콜레스테롤</b><small>232 mg/dL</small></div><span class="badge b-warn">경계</span></div>
+        <div class="fold">펼치기 ›</div>
+      </div>
+
+      <p class="t">판정 정보 확인이 필요한 항목</p>
+      <div class="card item">
+        <div class="hd"><span class="ic">◯</span><div class="nm"><b>LDL 콜레스테롤</b><small>126 mg/dL</small></div><span class="badge b-neu">판정 정보 확인</span></div>
+        <div class="bd"><p>개별 판정이 제공되지 않았습니다. 개인별 관리 목표와 함께 확인이 필요합니다.</p></div>
+      </div>
+
+      <p class="t">정상으로 확인된 항목</p>
+      <div class="card item collapsed">
+        <div class="hd"><span class="ic">◐</span><div class="nm"><b>신장 검사</b><small>eGFR 93 · 크레아티닌 1.0</small></div><span class="badge b-ok">정상</span></div>
+        <div class="fold">펼치기 ›</div>
+      </div>
+      <div class="card item collapsed">
+        <div class="hd"><span class="ic">◒</span><div class="nm"><b>간 검사</b><small>AST 21 · ALT 26 · γ-GTP 18</small></div><span class="badge b-ok">정상</span></div>
+        <div class="fold">펼치기 ›</div>
+      </div>
+      <div class="card item collapsed">
+        <div class="hd"><span class="ic">▤</span><div class="nm"><b>소변 · 흉부촬영</b><small>요단백 음성 · 특이소견 없음</small></div><span class="badge b-ok">정상</span></div>
+        <div class="fold">펼치기 ›</div>
+      </div>
+
+      <p class="t">다음에 챙길 일</p>
+      <div class="card acts">
+        <div class="a"><span class="n">1</span><div><b>혈압·혈당 진료 권고를 확인하세요</b><p>검진기관이 권고한 진료·재검 내용을 먼저 확인해 주세요.</p><span class="src org">검진기관 권고</span></div></div>
+        <div class="a"><span class="n">2</span><div><b>LDL 콜레스테롤 판정을 확인하세요</b><p>개인 관리 목표에 따라 판정이 달라질 수 있습니다.</p><span class="src">앱 안내 · 판정 정보 확인</span></div></div>
+      </div>
+
+      <button class="btn ghost">검사 결과 확인하기</button>
+      <p class="note">질환명은 검사의 이해를 돕기 위한 정보이며, 해당 질환을 진단받았다는 의미는 아닙니다. 이 요약은 의학적 진단을 대신하지 않습니다.</p>
+    </div></div>
+    <p class="why"><b>확인 필요 항목만 펼쳐 두고 나머지는 접습니다.</b> 카드 하나에 수치 · 검사 뜻 · 관련 질환 · 다음 행동이 한 세트입니다.</p>
+  </div>
+
+  <!-- 4 -->
+  <div class="col">
+    <p class="cap"><i>3′</i>요약 결과 <span>정상</span></p>
+    <div class="phone"><div class="scr">
+      <div class="nav"><button class="bk" aria-label="뒤로">‹</button><h2>건강검진 ChatGPT 요약</h2></div>
+      <div class="banner"><small>건강검진 AI 리포트</small><b>마이검진센터 · 2026년 4월 12일</b></div>
+
+      <div class="card ov">
+        <h2>확인된 주요 항목이 정상 범위입니다</h2>
+        <p>혈압·혈당·콜레스테롤과 간·신장 검사가 정상으로 판정되었습니다. 소변·청력·흉부 검사에서도 이상 소견이 보고되지 않았습니다.</p>
+      </div>
+
+      <p class="t">정상으로 확인된 항목</p>
+      <div class="card item">
+        <div class="hd"><span class="ic">♥</span><div class="nm"><b>혈압</b><small>118/76 mmHg</small></div><span class="badge b-ok">정상</span></div>
+        <div class="bd">
+          <p>혈액이 혈관 벽에 가하는 압력입니다.</p>
+          <span class="sub">이 검사와 연관되는 질환</span>
+          <div class="dz"><b>고혈압</b><span>고혈압 여부를 평가하는 기본 지표입니다.</span></div>
+        </div>
+      </div>
+      <div class="card item">
+        <div class="hd"><span class="ic">◆</span><div class="nm"><b>공복혈당</b><small>92 mg/dL</small></div><span class="badge b-ok">정상</span></div>
+        <div class="bd">
+          <p>공복 상태의 혈액 속 포도당 양입니다.</p>
+          <span class="sub">이 검사와 연관되는 질환</span>
+          <div class="dz"><b>당뇨병</b><span>당뇨병 선별에 쓰이는 기본 검사입니다.</span></div>
+        </div>
+      </div>
+      <div class="card item">
+        <div class="hd"><span class="ic">◐</span><div class="nm"><b>신장 검사</b><small>eGFR 93 · 크레아티닌 1.0</small></div><span class="badge b-ok">정상</span></div>
+        <div class="bd">
+          <p>콩팥이 노폐물을 걸러내는 상태를 살펴보는 검사입니다.</p>
+          <span class="sub">이 검사와 연관되는 질환</span>
+          <div class="dz"><b>만성콩팥병</b><span>소변검사와 변화가 지속된 기간도 함께 확인합니다.</span></div>
+        </div>
+      </div>
+      <div class="card item collapsed">
+        <div class="hd"><span class="ic">◯</span><div class="nm"><b>콜레스테롤</b><small>총 184 · LDL 108 · HDL 56</small></div><span class="badge b-ok">정상</span></div>
+        <div class="fold">펼치기 ›</div>
+      </div>
+      <div class="card item collapsed">
+        <div class="hd"><span class="ic">◒</span><div class="nm"><b>간 검사</b><small>AST 21 · ALT 26 · γ-GTP 18</small></div><span class="badge b-ok">정상</span></div>
+        <div class="fold">펼치기 ›</div>
+      </div>
+      <div class="card item collapsed">
+        <div class="hd"><span class="ic">▤</span><div class="nm"><b>소변 · 청력 · 흉부촬영</b><small>이상 소견 없음</small></div><span class="badge b-ok">정상</span></div>
+        <div class="fold">펼치기 ›</div>
+      </div>
+
+      <p class="t">앞으로도 이렇게 챙겨 주세요</p>
+      <div class="card acts">
+        <div class="a"><span class="n">1</span><div><b>건강한 생활습관을 이어가세요</b><p>일상에서 실천할 수 있는 습관을 유지해 주세요.</p><span class="src">일반 건강관리 안내</span></div></div>
+        <div class="a"><span class="n">2</span><div><b>다음 검진 대상 연도를 확인하세요</b><p>이번 결과를 보관하면 다음 검사에서 같은 항목의 변화를 볼 수 있습니다.</p><span class="src">앱 안내</span></div></div>
+      </div>
+
+      <button class="btn ghost">검사 결과 확인하기</button>
+      <p class="note">질환명은 검사의 이해를 돕기 위한 정보이며, 해당 질환을 진단받았다는 의미는 아닙니다. 이 요약은 의학적 진단을 대신하지 않습니다.</p>
+    </div></div>
+    <p class="why"><b>"먼저 확인할 항목"과 "판정 정보 확인" 영역이 통째로 없습니다.</b> 빈 카드나 "0개"를 만들지 않습니다.</p>
+  </div>
+
+  </div>
+</div>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 목표 분석 처리 순서도</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:13.5px;line-height:1.6;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  h1{font-size:24px;font-weight:800;color:var(--ink-1);letter-spacing:-.02em;margin-bottom:6px}
+  .lead{font-size:13px;color:var(--ink-3);margin-bottom:22px}
+  .lane{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 26px;margin-bottom:18px}
+  .lane h2{font-size:16px;font-weight:800;color:var(--brand);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .lane h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);display:inline-flex;align-items:center;justify-content:center;font-size:12.5px}
+  /* 흐름 요소 */
+  .flow{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .node{border:1.5px solid #c9d4e8;border-radius:12px;padding:12px 16px;background:#fff;text-align:center;color:var(--ink-1);font-weight:600}
+  .node small{display:block;font-weight:400;color:var(--ink-3);font-size:12px;margin-top:2px}
+  .node.start{background:var(--brand);border-color:var(--brand);color:#fff;border-radius:999px;font-weight:800;align-self:center;padding:10px 24px}
+  .node.end{background:#e8f8ee;border-color:#bde8cf;border-radius:999px;font-weight:800;align-self:center;padding:10px 24px}
+  .node.q{background:var(--brand-soft);border-color:var(--brand);font-weight:800}
+  .node.q::before{content:"?";display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--brand);color:#fff;font-size:12px;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}
+  .node.out{background:#fafbfd;font-weight:500;color:var(--ink-2)}
+  .node.muted{background:#f1f3f7;border-color:#d3d8e2;color:var(--ink-2);font-weight:500}
+  .arrow{text-align:center;color:#98a4b8;font-size:18px;line-height:1;padding:6px 0}
+  .arrow.lbl{font-size:12px;font-weight:700;color:var(--ink-2)}
+  .arrow.lbl::before{content:"↓";display:block;font-size:18px;color:#98a4b8;font-weight:400}
+  /* 분기: 두 갈래 */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  .branch{display:flex;flex-direction:column}
+  .branch .tag{align-self:center;font-size:12px;font-weight:800;padding:3px 12px;border-radius:999px;background:var(--brand-soft);color:var(--brand);margin-bottom:6px}
+  .branch .tag.no{background:#f1f3f7;color:var(--ink-2)}
+  .loop{border:1.5px dashed #c9d4e8;border-radius:14px;padding:14px 16px;margin:4px 0}
+  .loop .cap{font-size:12px;font-weight:800;color:var(--ink-3);margin-bottom:8px;text-align:center}
+  .note{background:#fffbeb;border:1px solid #f5d7a2;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#7a5710;margin-top:12px}
+  /* 코멘트 체인 */
+  .chain{display:flex;flex-direction:column;gap:0}
+  .step{display:grid;grid-template-columns:minmax(0,1.1fr) 44px minmax(0,1.6fr);align-items:center;gap:8px}
+  .step .node{text-align:left}
+  .step .yes{text-align:center;font-size:12px;font-weight:800;color:var(--brand)}
+  .step .yes::after{content:"→";display:block;font-size:16px;color:#98a4b8;font-weight:400}
+  .step .res{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#fafbfd;font-size:13px;color:var(--ink-1)}
+  .step .res b{display:block;font-size:12px;color:var(--ink-3);font-weight:700;margin-bottom:2px}
+  .no-arrow{grid-column:1;text-align:center;font-size:12px;font-weight:700;color:var(--ink-2);padding:2px 0}
+  .no-arrow::before{content:"↓ ";color:#98a4b8}
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .rules div{background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:12.5px}
+  .rules b{display:block;color:var(--ink-1);margin-bottom:4px;font-size:13px}
+  footer{text-align:center;font-size:12px;color:var(--ink-3);margin-top:10px}
+  @media(max-width:720px){.split,.rules{grid-template-columns:1fr}.step{grid-template-columns:1fr}.step .yes::after{content:"↓"}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>목표 분석 · 처리 순서도</h1>
+  <p class="lead">기준일 확정 → 목표 타일 블록 → 카테고리별 연속일수 → 타일 표시 판정 → 코멘트 선택 → 렌더. 화면 진입, 완료·취소, 날짜 변경마다 전체를 다시 실행한다. 근거: 목표분석_화면정의서 §3 · §5 · §6, 목표이어가기_기능정의서.</p>
+
+  <!-- ① -->
+  <section class="lane">
+    <h2><span class="n">1</span>기준일 · 목표 타일 블록</h2>
+    <div class="flow">
+      <div class="node start">진입 / 완료·취소 / 날짜 변경</div>
+      <div class="arrow">↓</div>
+      <div class="node">기준일 확정<small>오늘 · 이번 주 과거 날짜 · 이전 주 일요일(읽기 전용)</small></div>
+      <div class="arrow">↓</div>
+      <div class="node q">기준일에 목표가 하나라도 있는가?</div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="branch"><span class="tag">예</span>
+          <div class="node">타일 3개 표시<small>잠김(질문 미응답) · 기본 · 완료 — 타일 전체가 터치 영역</small></div>
+          <div class="arrow">↓</div>
+          <div class="node">탭 = 완료 / 취소 토글<small>과거 날짜 허용 · 미래 불가 · 완료 시 문구 잠금</small></div>
+          <div class="arrow">↓</div>
+          <div class="node">완료 기록 저장<small>사용자 × 카테고리 × 날짜</small></div>
+          <div class="arrow lbl">② 연속일수 산출로</div>
+        </div>
+        <div class="branch"><span class="tag no">아니오 (세 목표 모두 없음)</span>
+          <div class="node q">기준일이 오늘인가?</div>
+          <div class="arrow">↓</div>
+          <div class="split" style="gap:10px">
+            <div class="branch"><span class="tag">예</span>
+              <div class="node out">"생성된 목표가 없어요"<small>오늘의 질문에 답하면 목표를 만들어 드려요 · [질문에 답하기] → 홈 질문으로 이동</small></div>
+            </div>
+            <div class="branch"><span class="tag no">아니오</span>
+              <div class="node out">"생성된 목표가 없어요"<small>이 날은 목표를 만들 정보가 부족했어요 · 완료 불가</small></div>
+            </div>
+          </div>
+          <div class="arrow">↓</div>
+          <div class="node muted">이어가기 블록: 타일 3개 비활성(—) · 코멘트 = 상황 0<small>②~④ 생략 → 렌더</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="note">목표가 없는 날은 완료 기록이 없으므로 연속일수에서는 미완료와 똑같이 연속이 끊긴다(건너뛰기 없음). 그날 화면에서는 일수를 표시하지 않을 뿐이다.</div>
+  </section>
+
+  <!-- ② -->
+  <section class="lane">
+    <h2><span class="n">2</span>카테고리별 연속일수 산출 — 식이 · 활동 · 수면 각각 실행</h2>
+    <div class="flow">
+      <div class="node">연속일수 = 0 · 확인할 날짜 = 기준일</div>
+      <div class="arrow">↓</div>
+      <div class="node q">기준일에 완료했는가?</div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="branch"><span class="tag">예</span><div class="node out">기준일부터 센다</div></div>
+        <div class="branch"><span class="tag no">아니오</span><div class="node out">전날부터 센다<small>오늘 미완료는 아직 끊김으로 보지 않는다</small></div></div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="loop">
+        <div class="cap">반복</div>
+        <div class="node q">확인할 날짜가 가입일 이후이고, 그날 완료했는가?</div>
+        <div class="arrow">↓</div>
+        <div class="split">
+          <div class="branch"><span class="tag">예</span><div class="node out">연속일수 +1 · 시작일 = 그날 · 하루 전으로 이동<small>→ 반복으로 돌아감</small></div></div>
+          <div class="branch"><span class="tag no">아니오</span><div class="node out">연속 종료<small>완료 기록이 없으면(미완료 · 목표 없음 · 가입 전) 여기서 멈춘다</small></div></div>
+        </div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="node end">결과: 연속일수 · 시작일 · 완료 이력 유무</div>
+    </div>
+    <div class="rules">
+      <div><b>이전 최장 기록</b>지금 이어가는 중인 연속을 뺀, 과거에 가장 길게 이어진 일수. 과거 기록이 없으면 "해당 없음"(1일째에 최장 기록 문구가 뜨지 않게). 완료 취소 시 취소 날짜 기준으로 재계산하고, 연속이 끊겨도 보존한다.</div>
+      <div><b>마디</b>7 · 14 · 30 · 50 · 100 · 150 · 200 · 250 · 300 · 365일, 이후 365의 배수. 표기: 1주 · 2주 · 한 달 · 50일 · 100일 … · 1년.</div>
+      <div><b>공통 규칙</b>주·월 경계에서 리셋하지 않음 · 세 카테고리는 같은 기준일 사용 · 날짜를 옮기면 그 시점 기준으로 다시 계산.</div>
+      <div><b>연속이 끊기는 경우</b>목표가 있었으나 완료하지 않은 날, 목표가 생성되지 않은 날 모두 완료 기록이 없으므로 동일하게 종료.</div>
+    </div>
+  </section>
+
+  <!-- ③ -->
+  <section class="lane">
+    <h2><span class="n">3</span>타일 표시 판정 — 카테고리별</h2>
+    <div class="flow">
+      <div class="node q">완료 이력이 0건인가?</div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="branch"><span class="tag">예</span><div class="node out">시작 전<small>오늘 하면 1일째 (과거 기준일: 기록 없음)</small></div></div>
+        <div class="branch"><span class="tag no">아니오</span>
+          <div class="node q">연속일수가 0인가?</div>
+          <div class="arrow">↓</div>
+          <div class="split" style="gap:10px">
+            <div class="branch"><span class="tag">예</span><div class="node out">다시 시작<small>오늘 하면 1일째 (과거 기준일: 이어가던 기록 없음)</small></div></div>
+            <div class="branch"><span class="tag no">아니오</span>
+              <div class="node out">N일째 + 보조 문구<small>기준일이 과거 → "O월 O일까지"<br>시작일이 기준 주 이전 → "O월 O일로부터"<br>그 외 → "이어가는 중"</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="note">"0일째"는 어디에도 표시하지 않는다. 과거 기준일에는 "이어가는 중"(현재진행형)을 쓰지 않는다. 세 목표가 모두 없는 날은 타일 비활성(—)이며 이 판정을 거치지 않는다.</div>
+  </section>
+
+  <!-- ④ -->
+  <section class="lane">
+    <h2><span class="n">4</span>코멘트 선택 — 위에서부터 평가해 최초 충족 1개</h2>
+    <div class="flow">
+      <div class="node q">기준일이 오늘인가?</div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="branch"><span class="tag no">아니오 (과거 모드)</span>
+          <div class="node out">연속 있음 → "O월 O일 기준으로 {카테고리}을 N일째 이어가고 있었어요."<small>연속 없음 → "O월 O일에는 이어가던 목표가 없었어요." · 미래형 문장 금지</small></div>
+        </div>
+        <div class="branch"><span class="tag">예 (오늘 모드) · 상황 1~9를 아래 순서로 평가</span></div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="chain">
+        <div class="step"><div class="node q">① 세 카테고리 모두 완료 이력 없음</div><div class="yes">예</div><div class="res"><b>첫 실천을 기록해 볼까요?</b>오늘의 목표 중 실천한 것이 있나요? 완료한 목표에 표시해 보세요.</div></div>
+        <div class="no-arrow">아니오</div>
+        <div class="step"><div class="node q">② 마지막 완료일이 7일 이상 전</div><div class="yes">예</div><div class="res"><b>다시 만나 반가워요</b>그동안 쌓아온 기록은 그대로 있어요. 마지막 실천은 O월 O일이었어요.</div></div>
+        <div class="no-arrow">아니오</div>
+        <div class="step"><div class="node q">③ 오늘 완료 상태 · 연속일수가 마디 값과 같음</div><div class="yes">예</div><div class="res"><b>{마디명} 채움</b>{카테고리} 목표를 N일 연속 완료했어요. {마디명}를 채웠어요. (둘 이상이면 큰 마디 우선, 같으면 묶어서)</div></div>
+        <div class="no-arrow">아니오</div>
+        <div class="step"><div class="node q">④ 오늘 완료 상태 · 연속일수가 이전 최장 기록보다 큼</div><div class="yes">예</div><div class="res"><b>최장 기록</b>{카테고리} 목표를 N일 연속 완료했어요. 지금까지 가장 길게 이어온 기록이에요. (초과만, 동률 제외)</div></div>
+        <div class="no-arrow">아니오</div>
+        <div class="step"><div class="node q">⑤ 다음 마디까지 1일</div><div class="yes">예</div><div class="res"><b>내일이면</b>{카테고리}을 N일 연속 완료했어요. 내일도 완료하면 {마디명}를 채워요.</div></div>
+        <div class="no-arrow">아니오</div>
+        <div class="step"><div class="node q">⑥ 세 카테고리 연속일수가 같음 (0 제외)</div><div class="yes">예</div><div class="res"><b>세 가지 모두 이어가는 중</b>식이 · 활동 · 수면 목표를 모두 N일째 이어가고 있어요.</div></div>
+        <div class="no-arrow">아니오</div>
+        <div class="step"><div class="node q">⑦ 상위 두 카테고리 연속일수가 같음 (0 제외)</div><div class="yes">예</div><div class="res"><b>함께 이어온 실천</b>{A}과 {B}을 N일째 나란히 이어가고 있어요.</div></div>
+        <div class="no-arrow">아니오</div>
+        <div class="step"><div class="node q">⑧ 연속일수가 0보다 큰 카테고리가 있음</div><div class="yes">예</div><div class="res"><b>가장 오래 이어온 실천</b>{카테고리}을 N일째 이어가고 있어요. {남은 일수}만 더 하면 {마디명}예요.</div></div>
+        <div class="no-arrow">아니오</div>
+        <div class="step"><div class="node muted">⑨ 그 외 — 이력은 있으나 모든 연속이 0</div><div class="yes">→</div><div class="res"><b>다시 시작하기</b>마지막 기록은 O월 O일이에요. 오늘 실천한 일 하나부터 다시 이어가 보세요.</div></div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="node end">렌더: 목표 타일 블록 + 이어가기 블록 갱신</div>
+    </div>
+    <div class="rules">
+      <div><b>상황 0 (목표 없음)</b>레인 ①에서 세 목표가 모두 없을 때 이미 확정되므로 이 체인(상황 1~9)에 들어오지 않는다.</div>
+      <div><b>문구 규칙</b>언급 카테고리가 1개면 그 카테고리를 구분해 표시, 둘 이상이거나 없으면 중립 처리(표현은 디자인에서 정함). 금지 어휘: 달성률 · 실천 점수 · 순응도 · 의지력 · 꾸준히 · 완주.</div>
+    </div>
+  </section>
+
+  <footer>마이리포트 v2 · 생활 탭 › 목표 분석 처리 순서도 · 2026-09-16</footer>
+</div>
+</body>
+</html>

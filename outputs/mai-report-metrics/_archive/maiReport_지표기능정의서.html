@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="maiReport 생활 해석 지표 3종(생활여유·자기돌봄·일상안정)의 기능 정의서 — 정의, 구성 요소, 산출식과 변수 정의, 상태·방향 판정 규칙, 의미 해석, 결측·해상도 분기, 미확정 계수 일람.">
+  <title>maiReport 지표 기능 정의서</title>
+  <style>
+    :root{
+      --bg:#F5F7FB;--card:#FFFFFF;--ink:#121A2B;--text:#344158;--muted:#68758C;
+      --line:#DCE3EE;--accent:#2F66F5;--accent-soft:#EEF3FF;
+      --green:#168252;--green-soft:#EAF7F0;--amber:#9A6700;--amber-soft:#FFF5D8;
+      --red:#BD2F2F;--red-soft:#FDECEC;
+      --m1:#2F6F57;--m2:#376D92;--m3:#9B4D5C;
+      --shadow:0 14px 38px rgba(35,54,91,.055);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Malgun Gothic",sans-serif;font-size:14px;line-height:1.65;letter-spacing:-.015em}
+    a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+    button{font:inherit}
+    .top{position:sticky;top:0;z-index:20;padding:10px 20px;background:rgba(245,247,251,.8);-webkit-backdrop-filter:blur(18px) saturate(130%);backdrop-filter:blur(18px) saturate(130%)}
+    .top-in{max-width:1200px;min-height:58px;margin:auto;padding:8px 12px 8px 18px;display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.95);border:1px solid rgba(203,213,229,.72);border-radius:18px;box-shadow:0 10px 32px rgba(36,55,92,.06)}
+    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+    .brand-word{position:relative;color:#17233D;font-size:20px;font-weight:900;letter-spacing:-.065em;line-height:1}
+    .brand-word::after{content:"";position:absolute;right:-7px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+    .brand-rule{width:1px;height:20px;margin-left:3px;background:#DDE4EF}
+    .doc-label{display:flex;align-items:center;gap:7px;color:#627089;font-size:12px;font-weight:700}
+    .doc-label em{padding:3px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:10px;font-style:normal;font-weight:900}
+    .top-actions{margin-left:auto;display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .top-link{height:38px;padding:0 12px;display:inline-flex;align-items:center;border:0;border-radius:11px;background:transparent;color:#657188;font-size:11px;font-weight:800;text-decoration:none}
+    .top-link:hover{background:#F1F4F8;color:#24324C}
+    main{max-width:1200px;margin:auto;padding:30px 26px 72px}
+    .hero{padding:48px 52px 36px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:22px;box-shadow:var(--shadow)}
+    .eyebrow,.section-label{display:block;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    h1{max-width:900px;margin:15px 0 16px;color:#10192B;font-size:40px;line-height:1.18;font-weight:900;letter-spacing:-.055em}
+    .hero>p{max-width:940px;margin:0;color:#5F6D84;font-size:16px;line-height:1.8}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px}
+    .chip{padding:7px 12px;border:1px solid #D5E0FB;border-radius:999px;background:#F0F4FF;color:#2B58C9;font-size:11px;font-weight:800}
+    .hero-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-top:24px;border-top:1px solid var(--line)}
+    .hero-meta span{display:block;margin-bottom:6px;color:#7A879B;font-size:10px;font-weight:900;letter-spacing:.04em}
+    .hero-meta strong{display:block;color:#1B2942;font-size:13px;line-height:1.55}
+    .hero-meta p{margin:4px 0 0;color:#718098;font-size:11px}
+    .toc{margin-top:22px;padding:26px 30px;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px rgba(35,54,91,.04)}
+    .toc h2{margin:0 0 16px;font-size:13px;font-weight:900;color:#7A879B;letter-spacing:.06em;text-transform:uppercase}
+    .toc ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 26px;margin:0;padding:0;list-style:none;counter-reset:toc}
+    .toc li{counter-increment:toc;padding:9px 0;border-top:1px solid var(--line);font-size:13px}
+    .toc li a{display:flex;gap:10px;color:var(--text);font-weight:700}
+    .toc li a::before{content:counter(toc,decimal-leading-zero);color:var(--accent);font-weight:900;font-size:11px}
+    .section{margin-top:26px;padding:40px;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 30px rgba(35,54,91,.04);scroll-margin-top:96px}
+    .section-head{margin-bottom:26px}
+    .section-head h2{margin:9px 0 0;color:#131D31;font-size:26px;line-height:1.32;letter-spacing:-.045em}
+    .section-head>p{margin:10px 0 0;max-width:900px;color:#66738A;font-size:13.5px;line-height:1.85}
+    h3.block{margin:30px 0 12px;font-size:16px;color:#1B2942;letter-spacing:-.03em}
+    h3.block:first-of-type{margin-top:6px}
+    h3.block small{margin-left:8px;color:#98A2B3;font-size:11px;font-weight:700}
+    p.lead{margin:0 0 14px;color:#5F6D84;font-size:13px;line-height:1.8}
+    .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .g5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+    .card{padding:22px;border:1px solid #E1E6EF;border-radius:18px;background:#FBFCFE}
+    .card .num{width:30px;height:30px;margin-bottom:14px;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:900}
+    .card h4{margin:0 0 7px;color:#1B2942;font-size:14px;letter-spacing:-.03em}
+    .card p{margin:0;color:#68758C;font-size:12px;line-height:1.72}
+    .card ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+    .card li{position:relative;padding-left:12px;color:#708097;font-size:11.5px;line-height:1.6}
+    .card li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:4px;border-radius:50%;background:#9CA8B9}
+    .callout{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;margin-top:16px;padding:22px 26px;border-left:4px solid var(--accent);border-radius:14px;background:#F7F9FD}
+    .callout.warn{border-left-color:var(--amber);background:var(--amber-soft)}
+    .callout.ok{border-left-color:var(--green);background:var(--green-soft)}
+    .callout span{color:#6E7B91;font-size:11px;font-weight:900;letter-spacing:.06em}
+    .callout.warn span{color:#856115}.callout.ok span{color:#0F5C3A}
+    .callout p{margin:0;color:#586377;font-size:12.5px;line-height:1.75}
+    .callout p+p{margin-top:9px}
+    .callout strong{color:#121C30}
+    .table-wrap{margin-top:14px;overflow-x:auto;border:1px solid var(--line);border-radius:16px}
+    table{width:100%;border-collapse:collapse;font-size:12px;min-width:680px}
+    thead th{background:#F3F6FC;color:#41506A;font-size:10.5px;font-weight:900;letter-spacing:.03em;text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+    tbody td{padding:12px 14px;border-bottom:1px solid #EAEEF5;color:#48566E;line-height:1.6;vertical-align:top}
+    tbody tr:last-child td{border-bottom:0}
+    td b{color:#26344E}
+    .tag{display:inline-block;padding:3px 7px;border-radius:6px;background:var(--accent-soft);color:#31538f;font-size:9.5px;font-weight:800;font-family:Consolas,monospace}
+    .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:9.5px;font-weight:900}
+    .pill.core{background:#EAF0FF;color:#2B58C9}
+    .pill.aux{background:#F1F3F7;color:#5E6B80}
+    .pill.no{background:#FbFbFc;color:#B0B8C4;border:1px solid #E7EBF1}
+    .metric{margin-top:16px;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+    .metric-hd{display:flex;align-items:center;gap:14px;padding:20px 24px;border-left:5px solid var(--mc,#2F66F5);background:linear-gradient(90deg,#FFF 0%,#F8FAFF 60%,#F1F5FF 100%)}
+    .metric-hd .dot{width:14px;height:14px;border-radius:50%;background:var(--mc,#2F66F5);flex:0 0 auto}
+    .metric-hd h3{margin:0;font-size:18px;letter-spacing:-.035em;color:#17233D}
+    .metric-hd .dir{margin-left:auto;font-size:11px;font-weight:800;color:#6E7B91;background:#EEF1F6;padding:5px 10px;border-radius:999px}
+    .metric-bd{padding:22px 24px}
+    .metric-bd dl{display:grid;grid-template-columns:120px minmax(0,1fr);gap:8px 18px;margin:0 0 6px}
+    .metric-bd dt{color:#8793A6;font-size:11px;font-weight:800;padding-top:2px}
+    .metric-bd dd{margin:0;color:#43516A;font-size:12.5px;line-height:1.7}
+    .pipe{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;margin-top:16px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .pipe-step{padding:16px 14px;background:#FFF;border-left:1px solid var(--line)}
+    .pipe-step:first-child{border-left:0}
+    .pipe-step span{display:block;color:var(--accent);font-size:9px;font-weight:900;letter-spacing:.05em}
+    .pipe-step b{display:block;margin:8px 0 5px;color:#1A273E;font-size:12px}
+    .pipe-step p{margin:0;color:#6D7A90;font-size:10.5px;line-height:1.55}
+    .band{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .band .b{flex:1 1 150px;padding:12px 14px;border-radius:12px;border:1px solid #E1E6EF;background:#FBFCFE}
+    .band .b b{display:block;font-size:11px;color:#1B2942}
+    .band .b small{color:#8793A6;font-size:10px;font-weight:700}
+    .check{margin-top:8px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .check-item{display:grid;grid-template-columns:26px minmax(0,1fr) 130px;gap:14px;align-items:center;padding:15px 18px;border-top:1px solid var(--line);background:#FFF}
+    .check-item:first-child{border-top:0}
+    .check-item .box{width:18px;height:18px;border:2px solid var(--accent);border-radius:6px}
+    .check-item strong{color:#28364F;font-size:12.5px}
+    .check-item p{margin:3px 0 0;color:#7A8699;font-size:11px;line-height:1.55}
+    .status-badge{width:max-content;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:900}
+    .sb-review{background:var(--amber-soft);color:var(--amber)}
+    .sb-open{background:#F1F3F7;color:#5E6B80}
+    .sb-ready{background:var(--green-soft);color:var(--green)}
+    .statement{margin-top:14px;padding:24px 28px;border-left:4px solid var(--accent);border-radius:14px;background:#F7F9FD;font-size:13.5px;line-height:1.85;color:#20304B}
+    .statement mark{background:#E4ECFF;color:#1E44A6;padding:1px 5px;border-radius:5px;font-weight:700}
+    footer{padding:30px 0 0;text-align:center;color:#8A96A8;font-size:11px}
+    .src{margin-top:26px;padding:24px 28px;background:#FAFBFD;border:1px solid var(--line);border-radius:18px}
+    .src h2{margin:0 0 12px;font-size:12px;font-weight:900;color:#7A879B;letter-spacing:.06em;text-transform:uppercase}
+    .src ul{margin:0;padding-left:18px;color:#68758C;font-size:11.5px;line-height:1.8}
+    @media(max-width:1080px){.toc ol{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-meta{grid-template-columns:repeat(2,1fr)}.pipe{grid-template-columns:repeat(2,1fr)}.pipe-step:nth-child(odd){border-left:0}.pipe-step:nth-child(n+3){border-top:1px solid var(--line)}}
+    @media(max-width:900px){
+      .doc-label,.brand-rule{display:none}
+      .hero{padding:36px 28px 28px}h1{font-size:30px}
+      .section{padding:30px 24px}.section-head h2{font-size:22px}
+      .g2,.g3,.g4,.g5{grid-template-columns:1fr}
+      .toc ol{grid-template-columns:1fr}
+      .callout{grid-template-columns:1fr;gap:8px}
+      .metric-bd dl{grid-template-columns:1fr}.metric-bd dt{padding-top:8px}
+      .check-item{grid-template-columns:22px 1fr;gap:10px}.check-item .status-badge{grid-column:2}
+    }
+    @media print{
+      body{background:#FFF}.top{display:none}main{max-width:none;padding:0}
+      .hero,.section,.toc,.src{box-shadow:none;break-inside:avoid}
+      .section{break-before:page}
+      .card,.metric,.check-item,.pipe-step,tr{break-inside:avoid}
+      .table-wrap{overflow:visible}table{min-width:0}
+    }
+  </style>
+
+</head>
+<body>
+  <header class="top">
+    <div class="top-in">
+      <div class="brand" aria-label="maiReport 지표 기능 정의서">
+        <span class="brand-word">maiReport</span>
+        <span class="brand-rule" aria-hidden="true"></span>
+        <span class="doc-label">지표 기능 정의서 <em>FUNCTION</em></span>
+      </div>
+      <div class="top-actions">
+        <a class="top-link" href="maiReport_지표기획서.html">지표 기획서</a>
+        <a class="top-link" href="maiReport_지표산출파이프라인_v1.0.0.html">산출 파이프라인</a>
+        <a class="top-link" href="../mai-report-screen-definition-metrics/maiReport_화면정의_지표_v1.0.0.html">지표 화면정의</a>
+        <a class="top-link" href="../mai-report-data-model/maiReport_데이터모델_v1.0.0.html">데이터 모델</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <span class="eyebrow">maiReport · Metric Function Specification</span>
+      <h1>세 지표가 무엇을 재고<br>어떻게 계산되며 무엇을 뜻하는가.</h1>
+      <p>생활 해석 지표 3종 <strong>생활여유 · 자기돌봄 · 일상안정</strong>을 <strong>정의 → 산출식 → 의미 해석</strong> 순으로 한 장씩 정리한 문서입니다. 기획서가 &lsquo;무엇을 보기로 했는가&rsquo;를, 파이프라인이 &lsquo;어떤 단계를 지나는가&rsquo;를 담는다면, 이 문서는 <strong>각 지표를 하나의 기능 단위로 놓고 입력·계산·출력·해석을 한자리에서 읽도록</strong> 만든 것입니다. 개발·의학팀·기획이 같은 표를 보고 이야기하기 위한 참조본입니다.</p>
+      <div class="chips">
+        <span class="chip">정의 · 산출식 · 해석 3단</span>
+        <span class="chip">변수 기호 정의 포함</span>
+        <span class="chip">엔진 v5.7 산식 · 확정값 아님</span>
+        <span class="chip">상태 · 방향 판정 규칙</span>
+        <span class="chip">결측 · 해상도 분기</span>
+        <span class="chip">미확정 계수 일람</span>
+      </div>
+      <div class="hero-meta">
+        <div><span>DOCUMENT</span><strong>지표 기능 정의서 v0.1</strong><p>기준일 2026-09-11 · Internal Use Only</p></div>
+        <div><span>SCOPE</span><strong>생활여유 · 자기돌봄 · 일상안정</strong><p>정의 · 입력 · 산출식 · 상태 판정 · 의미 해석</p></div>
+        <div><span>BASIS</span><strong>지표 기획서 v0.3 · 산출 파이프라인 v0.2 · 엔진 v5.7</strong><p>이 문서는 새로 정의하지 않고 정리·연결한다</p></div>
+        <div><span>OUT</span><strong>계수 확정 · 경계 캘리브레이션 · 화면 문구</strong><p>후속 단계 · 9장</p></div>
+      </div>
+    </section>
+
+    <nav class="toc" aria-label="목차">
+      <h2>구성</h2>
+      <ol>
+        <li><a href="#s1">문서의 위치와 읽는 법</a></li>
+        <li><a href="#s2">공통 산출 프레임</a></li>
+        <li><a href="#s3">공통 원칙 · 기능 제약</a></li>
+        <li><a href="#s4">지표 1 · 생활여유</a></li>
+        <li><a href="#s5">지표 2 · 자기돌봄</a></li>
+        <li><a href="#s6">지표 3 · 일상안정</a></li>
+        <li><a href="#s7">상태 · 방향 판정 규칙</a></li>
+        <li><a href="#s8">결측 · 해상도 분기</a></li>
+        <li><a href="#s9">미확정 계수 일람</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1 -->
+    <section class="section" id="s1">
+      <div class="section-head"><span class="section-label">01 · How to Read</span><h2>문서의 위치와 읽는 법</h2>
+        <p>이 문서는 <b>새로운 정의를 만들지 않습니다.</b> 기획서 v0.3이 확정한 정의·구성 요소와, 파이프라인 v0.2·엔진 v5.7이 가진 계산 내용을 <b>지표 단위로 합쳐 놓은</b> 참조본입니다. 정의가 바뀌면 기획서가 먼저 바뀌고, 이 문서가 따라옵니다.</p>
+      </div>
+
+      <div class="g4">
+        <article class="card"><div class="num">1</div><h4>지표 기획서 v0.3</h4><p>무엇을 보기로 했는가 &mdash; 정의, 사용자 질문, 구성 요소, 말하지 않는 것. <b>정의의 출처</b></p></article>
+        <article class="card"><div class="num">2</div><h4>산출 파이프라인 v0.2</h4><p>어떤 단계를 지나는가 &mdash; Tier 1/2 갈래, 단계별 처리, 입력 계약. <b>계산 방법의 출처</b></p></article>
+        <article class="card"><div class="num">3</div><h4>엔진 v5.7</h4><p>지금 코드가 쓰는 산식 &mdash; 고정 계수. <b>확정값이 아니며</b> 채택 여부는 B-1</p></article>
+        <article class="card"><div class="num">4</div><h4>이 문서</h4><p>지표 하나를 <b>기능 단위</b>로 &mdash; 정의·입력·산출식·출력·해석을 한 화면에서</p></article>
+      </div>
+
+      <h3 class="block">표기 규칙</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:120px">표기</th><th>의미</th></tr></thead>
+        <tbody>
+          <tr><td><span class="status-badge sb-ready">확정</span></td><td>기획서 v0.3이 확정한 항목 &mdash; 지표명·정의·사용자 질문·구성 요소·필수/옵션 데이터·결과값 어휘(C-3)</td></tr>
+          <tr><td><span class="status-badge sb-open">초안</span></td><td>파이프라인 v0.2의 개발팀 초안 &mdash; 구성 요소를 실제 계산으로 내리는 부분</td></tr>
+          <tr><td><span class="status-badge sb-review">미확정</span></td><td>계수·경계값·윈도우 &mdash; 캘리브레이션 대상(9장)</td></tr>
+          <tr><td><span class="tag">내부</span></td><td>서버 내부에서만 쓰는 값. 사용자·클라이언트에 노출하지 않음</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout warn"><span>산식을 읽기 전에</span>
+        <p>4~6장의 산식은 <b>엔진 v5.7이 현재 쓰는 고정 계수</b>입니다. 실데이터 재학습·캘리브레이션을 거치지 않은 값이라 <b>이 문서의 확정값이 아닙니다.</b> 채택할지 백지에서 다시 잡을지는 <b>B-1</b>에서 결정합니다.</p>
+        <p>산식의 <b>기준점 50은 건강 판정 경계가 아닙니다.</b> 개인 기준선 대비 중립 위치일 뿐이며, 사용자에게 숫자로 노출하지 않습니다(P4).</p>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="section" id="s2">
+      <div class="section-head"><span class="section-label">02 · Common Frame</span><h2>공통 산출 프레임</h2>
+        <p>세 지표는 <b>같은 7단계</b>를 지납니다. 지표별로 다른 것은 ④~⑥에 들어가는 <b>구성 요소 · 좋은 방향 · 규칙</b>뿐입니다.</p>
+      </div>
+
+      <div class="pipe">
+        <div class="pipe-step"><span>01 SIGNAL</span><b>원천 수집</b><p>기기 데이터가 기본 축. 질문·기록은 보조</p></div>
+        <div class="pipe-step"><span>02 QUALITY</span><b>품질 · 해상도</b><p>최신성·연속성·이상치. watch 유무로 해상도 결정</p></div>
+        <div class="pipe-step"><span>03 BASELINE</span><b>개인 기준선</b><p>최근 기간의 범위·중심. 윈도우 미확정</p></div>
+        <div class="pipe-step"><span>04 COMPONENT</span><b>구성 요소 평가</b><p>지표별 구성 요소를 규칙으로 평가</p></div>
+        <div class="pipe-step"><span>05 INTERNAL</span><b>내부 값</b><p>구성 요소를 합쳐 산출. 계수 미확정 · 비노출</p></div>
+        <div class="pipe-step"><span>06 STATE</span><b>상태 판정</b><p>내부 값 → 상태 표현 + 방향</p></div>
+        <div class="pipe-step"><span>07 EXPLAIN</span><b>이유 · 행동</b><p>기여 구성 요소로 이유 설명, 코칭 연결</p></div>
+      </div>
+
+      <h3 class="block">지표별 차이 요약</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:110px">지표</th><th style="width:250px">사용자 질문</th><th style="width:120px">산출 단위</th><th style="width:150px">비교 기준</th><th>핵심 판정 대상</th></tr></thead>
+        <tbody>
+          <tr><td><b>생활여유</b></td><td>지금 내 하루를 이어갈 여유가 충분한가?</td><td>일 단위</td><td>최근 해석 대비</td><td>하루의 <b>배치</b> &mdash; 부담(몰림·비활동)과 여유(분산·휴식)의 균형</td></tr>
+          <tr><td><b>자기돌봄</b></td><td>내가 조절 가능한 행동들이 실제 하루 안에서 얼마나 이루어졌는가?</td><td>일 단위</td><td>전일 대비</td><td><b>기준점과 행동의 연결</b> &mdash; 조절 가능한 순간에 짧은 움직임이 붙었는지</td></tr>
+          <tr><td><b>일상안정</b></td><td>최근 내 생활 신호가 나에게 맞는 방향으로 바뀌고 있는가?</td><td><b>주 단위</b></td><td>전주 대비</td><td>개인 기준 범위에서의 <b>변화 방향</b>(양방향) &mdash; 하루 등락은 미반영</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="section" id="s3">
+      <div class="section-head"><span class="section-label">03 · Constraints</span><h2>공통 원칙 · 기능 제약</h2>
+        <p>아래는 문구·화면·구현 판단에 <b>우선하는 제약</b>입니다. 산식이 어떻게 정해지든 이 제약은 바뀌지 않습니다.</p>
+      </div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:60px">ID</th><th style="width:190px">원칙</th><th>기능 요건으로 옮기면</th></tr></thead>
+        <tbody>
+          <tr><td><b>P1</b></td><td>질문은 보조 정보</td><td>질문 응답은 상태를 <b>직접 올리거나 내리는 입력이 아니다.</b> 이유·맥락·신뢰도 보강에만 쓴다. 미응답을 이유로 낮은 상태를 주지 않는다</td></tr>
+          <tr><td><b>P2</b></td><td>디바이스 데이터가 기본 축</td><td>watch 미사용자를 불리하게 하지 않는다. 있으면 고해상도, 없으면 저해상도로 <b>해석의 정밀도만</b> 달라진다</td></tr>
+          <tr><td><b>P3</b></td><td>기록은 점수 보너스가 아님</td><td>&lsquo;기록했다는 사실&rsquo;로 상태를 올리지 않는다. 기록이 있으면 특정 순간을 <b>더 잘 알아볼</b> 뿐이다</td></tr>
+          <tr><td><b>P4</b></td><td>숫자는 내부 계산용</td><td>내부 값·0~100 점수·증감 수치를 <b>API 응답과 화면에 노출하지 않는다.</b> 사용자에게는 상태 표현만</td></tr>
+          <tr><td><b>P5</b></td><td>종합 점수 없음</td><td>세 지표를 <b>합산·평균하지 않는다.</b> 종합 점수·종합 등급 엔터티를 두지 않는다</td></tr>
+          <tr><td><b>P6</b></td><td>rule-based · 후속 보정</td><td>학습 환경이 없으므로 미리 정한 규칙과 안전장치로 동작한다. 실사용 데이터는 <b>이상 반응 확인·보정에만</b> 쓴다</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout warn"><span>표현 제약</span>
+        <p><b>금지</b> &mdash; 정상/비정상 · 위험 · 질환 위험 · 진단 · 치료·복약 지시. 자가보고에서 통증·이상 증상이 감지되면 해석 문구 대신 <b>상담 안내로 전환</b>합니다.</p>
+        <p><b>허용</b> &mdash; 평가로 읽히는 어투(「잘하고 있어요 / 부족해요」)는 <b>2026-09-11 결정으로 허용</b>합니다(C-3). 단 산출이 코칭 순응도·목표 달성률을 재는 것처럼 설명하지는 않습니다. 기획서 5·7장과 MRS 9장의 &lsquo;평가·압박 어투 배제&rsquo; 조항은 이 결정에 맞춰 <b>갱신 대상</b>입니다.</p>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="section" id="s4">
+      <div class="section-head"><span class="section-label">04 · Metric 1</span><h2>지표 1 · 생활여유 <span class="tag">Life Margin</span></h2></div>
+
+      <div class="metric" style="--mc:#2F6F57">
+        <div class="metric-hd"><span class="dot"></span><h3>생활여유</h3><span class="dir">부족해요 ↔ 충분해요 · 일 단위</span></div>
+        <div class="metric-bd">
+          <dl>
+            <dt>정의</dt><dd>오늘 하루를 이어갈 수 있는 여유가 얼마나 남아 있는지를 <b>생활 부담과 생활 여유의 균형</b>으로 설명하는 해석 지표. 이름은 &lsquo;여유&rsquo;가 얼마나 남았는지에 초점을 둔다. <span class="status-badge sb-ready" style="display:inline-block;vertical-align:middle">확정</span></dd>
+            <dt>사용자 질문</dt><dd>&ldquo;지금 내 하루를 이어갈 여유가 충분한가?&rdquo;</dd>
+            <dt>핵심 관점</dt><dd><b>부담</b>(한쪽으로 몰림 · 오래 안 움직임 · 회복할 틈 없이 이어짐) ↔ <b>여유</b>(짧게라도 분산된 움직임 · 무리한 흐름을 낮추는 시간)</dd>
+            <dt>결과값</dt><dd>부족해요 / 보통이에요 / 충분해요 &nbsp;·&nbsp; 데이터 부족 시 <b>관찰 중</b></dd>
+          </dl>
+        </div>
+      </div>
+
+      <h3 class="block">구성 요소 <span class="status-badge sb-ready" style="display:inline-block;vertical-align:middle">확정</span></h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:90px">방향</th><th style="width:180px">구성 요소</th><th style="width:100px">역할</th><th>무엇으로 계산하나 <span class="status-badge sb-open" style="display:inline-block">초안</span></th></tr></thead>
+        <tbody>
+          <tr><td><b>부담 ↑</b></td><td>비활동 압력</td><td><span class="pill core">핵심</span></td><td>활동이 없는 가장 긴 연속 구간의 길이와 개수</td></tr>
+          <tr><td><b>부담 ↑</b></td><td>늦은 시각 / 몰린 활동</td><td><span class="pill aux">보조</span></td><td>늦은 시간대에 몰린 활동의 비중, 하루 활동이 한 시점에 집중된 정도</td></tr>
+          <tr><td><b>부담 ↑</b></td><td>수면 부족</td><td><span class="pill aux">보조</span></td><td>최근 며칠의 수면 시간 &mdash; 절대 기준(7시간)과 개인 평소를 함께</td></tr>
+          <tr><td><b>여유 ↑</b></td><td>분산된 가벼운 움직임</td><td><span class="pill core">핵심</span></td><td>활동이 나타난 시간대의 개수, 하루 중간중간의 짧은 구간 개수</td></tr>
+          <tr><td><b>여유 ↑</b></td><td>쉬는 방향의 맥락</td><td><span class="pill aux">보조</span></td><td>잠·휴식·낮은 자극이 있었는지 (해석 보강)</td></tr>
+          <tr><td>보강</td><td>주관 답변 · 생체 신호</td><td><span class="pill no">비반영</span></td><td>어려움 응답 · HRV · 안정 시 심박 &mdash; <b>상태를 바꾸지 않고 이유·신뢰도에만</b>(P1)</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block">산출식 <span class="status-badge sb-review" style="display:inline-block;vertical-align:middle">엔진 v5.7 · 확정값 아님</span></h3>
+      <div class="statement">
+        <b>고해상도 경로</b><br>
+        <mark>I1 = clip( 50 + (35/85)·(35M − 30G − 20H) − 20D + 12Q , 0, 100 )</mark><br>
+        <b>저해상도 경로</b> &mdash; 채택 여부 미결(B-2)<br>
+        <mark>I1<sub>low</sub> = 50 + clip( 8R + 12Q , −15, +15 )</mark>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:60px">기호</th><th style="width:150px">이름</th><th>정의</th></tr></thead>
+        <tbody>
+          <tr><td><b>M</b></td><td>움직임 분산</td><td>활동이 하루에 걸쳐 얼마나 나뉘어 나타났는지. <b>클수록 여유</b></td></tr>
+          <tr><td><b>G</b></td><td>공백</td><td>움직임이 끊긴 긴 구간. <b>클수록 부담</b></td></tr>
+          <tr><td><b>H</b></td><td>부하</td><td>한 시점에 몰린 활동의 정도. <b>클수록 부담</b></td></tr>
+          <tr><td><b>D</b></td><td>수면 부족</td><td>개인 평소·절대 기준 대비 모자란 정도</td></tr>
+          <tr><td><b>Q</b></td><td>당일 어려움 응답</td><td>1 = 어려움 없음. 미응답 시 중립 처리 &mdash; <b>미응답으로 감점하지 않음</b>(P1)</td></tr>
+          <tr><td><b>R</b></td><td>평소 기록 범위와의 익숙함</td><td>저해상도 전용. 오늘 걸음 총량이 내 평소 범위 안인지</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout warn"><span>두 경로는 다른 눈금</span>
+        <p>저해상도 값은 <b>35~65 범위에 갇힙니다.</b> 고해상도 값과 <b>눈금이 달라 비교·차감·같은 시계열로 잇지 않습니다.</b> 저해상도 대체 경로가 있는 지표는 <b>생활여유뿐</b>입니다.</p>
+        <p><b>2026-09-11 결정</b> &mdash; 저해상도 경로에는 기기 보강값(수면·운동 modifier, 최대 ±14점)과 생리 신호 상한을 <b>적용하지 않습니다.</b> 걸음 총량 프록시에 관측 신호 보강을 더하면 두 눈금이 섞여, 걸음 수만 아는 사용자의 값이 고해상도 구간처럼 보이게 되기 때문입니다. v6.0 산식 패키지에 반영했습니다.</p>
+        <p>채택 자체가 미결입니다(<b>B-2</b>) &mdash; 걸음 합계만으로 값을 띄울지, &lsquo;관찰 중&rsquo;으로 둘지. 파이프라인은 &ldquo;걸음 총량만으론 산출 안 함&rdquo;이라 기획서와 불일치합니다.</p>
+      </div>
+
+      <h3 class="block">의미 해석</h3>
+      <div class="g3">
+        <article class="card"><h4>이 값이 뜻하는 것</h4><p>총량이 아니라 <b>배치</b>입니다. 걸음 수가 같아도 하루에 고르게 퍼졌는지, 저녁에 몰렸는지에 따라 값이 달라집니다. &ldquo;오늘 남은 여력이 평소의 나에 비해 어느 정도인가&rdquo;를 말합니다.</p></article>
+        <article class="card"><h4>말하지 않는 것</h4><p>피로도 · 수면 점수 · 스트레스 점수 · 회복 점수 · readiness 점수. 치료 효과나 건강 상태 판단도 아닙니다.</p></article>
+        <article class="card"><h4>오해하기 쉬운 지점</h4><p>「부족해요」는 <b>몸이 나쁘다는 뜻이 아닙니다.</b> 오늘 하루의 흐름에 회복할 틈이 적었다는 관찰입니다. 걸음이 많아도 「부족해요」가 나올 수 있습니다.</p></article>
+      </div>
+      <div class="callout"><span>해석 예시</span>
+        <p>&ldquo;걸음 수는 평소만큼이지만 활동이 저녁에 몰렸고 중간에 쉬는 흐름이 적었어요. 오늘은 <b>여유가 부족한 편</b>이에요. (참고 정보)&rdquo;</p>
+        <p>&mdash; 기여 구성 요소(몰린 활동 · 비활동 압력)를 이유로 붙이고, 절대 수치의 좋고 나쁨으로 말하지 않습니다.</p>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="section" id="s5">
+      <div class="section-head"><span class="section-label">05 · Metric 2</span><h2>지표 2 · 자기돌봄 <span class="tag">Self-Care Moments</span></h2></div>
+
+      <div class="metric" style="--mc:#376D92">
+        <div class="metric-hd"><span class="dot"></span><h3>자기돌봄</h3><span class="dir">부족해요 ↔ 잘하고 있어요 · 일 단위</span></div>
+        <div class="metric-bd">
+          <dl>
+            <dt>정의</dt><dd>스스로 <b>조절할 수 있었던 순간(기준점)</b>에 실제로 몸을 움직여 챙겼는지를 보는 해석 지표. 많이 움직였는지가 아니라 &lsquo;행동할 수 있는 순간&rsquo;과 &lsquo;그 근처의 짧은 움직임&rsquo;의 <b>연결</b>을 본다. <span class="status-badge sb-ready" style="display:inline-block;vertical-align:middle">확정</span></dd>
+            <dt>사용자 질문</dt><dd>&ldquo;내가 조절 가능한 행동들이 실제 하루 안에서 얼마나 이루어졌는가?&rdquo;</dd>
+            <dt>기준점</dt><dd>식사 후 · 긴 비활동이 끝난 시점 · 일정 전후 &mdash; <b>연결을 보는 출발점</b></dd>
+            <dt>결과값</dt><dd>부족해요 / 보통이에요 / 잘하고 있어요 &nbsp;·&nbsp; 기준점 0개면 <b>관찰 중</b></dd>
+          </dl>
+        </div>
+      </div>
+
+      <h3 class="block">구성 요소 <span class="status-badge sb-ready" style="display:inline-block;vertical-align:middle">확정</span></h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:180px">구성 요소</th><th style="width:100px">역할</th><th>무엇으로 계산하나 <span class="status-badge sb-open" style="display:inline-block">초안</span></th></tr></thead>
+        <tbody>
+          <tr><td><b>조절 가능한 기준점</b></td><td><span class="pill core">출발점</span></td><td>식사 시각(응답) · 긴 비활동이 끝난 시점 · (향후) 일정 전후</td></tr>
+          <tr><td><b>기준점 근처의 실제 행동</b></td><td><span class="pill core">핵심</span></td><td>기준점 이후 관찰 창 안에 중강도 이상 구간이 있었는지</td></tr>
+          <tr><td><b>행동의 배치</b></td><td><span class="pill aux">보조</span></td><td>기준점에서 행동까지의 지연 시간 &mdash; 짧을수록 보정 ↑</td></tr>
+          <tr><td><b>반복되는 연결</b></td><td><span class="pill aux">보조</span></td><td>여러 날에 걸쳐 비슷한 연결이 몇 번 나타났는지 &mdash; 하루 해석의 안정성</td></tr>
+          <tr><td><b>기록 유무</b></td><td><span class="pill aux">보조</span></td><td>식사 시각 응답이 있었는지 &mdash; 평가 가능성·이유 설명 보강</td></tr>
+          <tr><td><b>질문 응답</b></td><td><span class="pill no">비반영</span></td><td>당시 상황·의도 &mdash; <b>맥락만</b>(P1)</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block">산출식 <span class="status-badge sb-review" style="display:inline-block;vertical-align:middle">엔진 v5.7 · 확정값 아님</span></h3>
+      <div class="statement">
+        <mark>I2 = (연결이 성립한 기준점 수 ÷ 전체 기준점 수) × 100</mark><br>
+        관찰 창 = 기준점 이후 <b>30분</b>(엔진값) · 지연이 짧을수록 · 반복이 많을수록 보정
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:150px">요소</th><th>규칙</th><th style="width:120px">상태</th></tr></thead>
+        <tbody>
+          <tr><td><b>기준점 수집</b></td><td>식사 시각 응답이 있으면 그 시각. 없으면 <b>긴 비활동이 끝난 시점</b>을 기준점으로 대체</td><td><span class="status-badge sb-ready">확정</span></td></tr>
+          <tr><td><b>연결 성립 판정</b></td><td>기준점 이후 창 안에 중강도 이상 구간이 <b>있으면 성립</b></td><td><span class="status-badge sb-open">초안</span></td></tr>
+          <tr><td><b>관찰 창 길이</b></td><td>엔진 30분. 근거는 &ldquo;되도록 이른 편이 낫다&rdquo;는 방향만 있어 <b>분 단위 기준 없음</b></td><td><span class="status-badge sb-review">B-4 · 의학팀</span></td></tr>
+          <tr><td><b>어려움 응답</b></td><td>이 지표에 <b>반영하지 않음</b> &mdash; 일반 자가보고로는 대체 불가</td><td><span class="status-badge sb-ready">확정</span></td></tr>
+          <tr><td><b>구조화된 자가보고</b></td><td>&ldquo;점심 12:30, 이후 걸었음&rdquo;을 <b>실제 연결로 인정할지</b> &mdash; 인정 시 저해상도·별도 눈금</td><td><span class="status-badge sb-review">B-3</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout warn"><span>산출 불가 조건</span>
+        <p>기준점 신호와 활동 시간대 분포가 <b>둘 다</b> 있어야 합니다. 하나만으로는 산출되지 않습니다 &mdash; 시간대가 없으면 &lsquo;기회&rsquo; 자체를 정의할 수 없기 때문입니다. <b>걸음 총량만으로는 불가</b>하고, 저해상도 대체 경로도 없습니다.</p>
+        <p>식사 기록만 있고 움직임 데이터가 없으면 <b>&ldquo;식사라는 기준점은 확인됨&rdquo;까지</b>입니다. 기록 행위에 대한 낮은 인정이지 <b>점수 보너스가 아니며</b>, 좋은 상태로 올리지 않습니다(P3).</p>
+      </div>
+
+      <h3 class="block">의미 해석</h3>
+      <div class="g3">
+        <article class="card"><h4>이 값이 뜻하는 것</h4><p><b>연결의 비율</b>입니다. 하루에 조절 가능한 순간이 4번 있었고 그중 2번에 짧은 움직임이 붙었다면, 활동 총량과 무관하게 &lsquo;절반이 이어졌다&rsquo;로 읽습니다.</p></article>
+        <article class="card"><h4>말하지 않는 것</h4><p>의지력 평가 · 코칭 순응도 · 목표 달성률 · 활동량 점수. <b>코칭이 무엇을 제안했는지 대조하지 않습니다.</b></p></article>
+        <article class="card"><h4>오해하기 쉬운 지점</h4><p>하루 걸음이 많아도 기준점과 연결되지 않으면 올라가지 않습니다. 반대로 <b>활동량이 크지 않아도</b> 적절한 순간에 행동이 붙으면 의미 있는 연결로 봅니다.</p></article>
+      </div>
+      <div class="callout"><span>해석 예시</span>
+        <p>&ldquo;점심 기록 뒤 30분 안에 짧게 걸었고, 저녁 뒤에는 앉아 있었어요. 오늘은 조절 가능한 순간 중 <b>일부에서 몸을 챙겼습니다</b>. (참고 정보)&rdquo;</p>
+        <p>&mdash; 어느 기준점에서 연결이 있었는지/없었는지로 이유를 설명하고, <b>다음 행동을 그 기준점에 붙입니다.</b></p>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="section" id="s6">
+      <div class="section-head"><span class="section-label">06 · Metric 3</span><h2>지표 3 · 일상안정 <span class="tag">Life Steadying</span></h2></div>
+
+      <div class="metric" style="--mc:#9B4D5C">
+        <div class="metric-hd"><span class="dot"></span><h3>일상안정</h3><span class="dir">불안정해요 ↔ 안정적이에요 · 주 단위 · 양방향</span></div>
+        <div class="metric-bd">
+          <dl>
+            <dt>정의</dt><dd>최근 며칠의 생활 신호가 <b>개인의 평소 범위에서 어느 방향으로</b> 가고 있는지를 보는 해석 지표. 정해진 목표 달성이 아니라 개인 기준 대비 <b>변화 방향</b>. <span class="status-badge sb-ready" style="display:inline-block;vertical-align:middle">확정</span></dd>
+            <dt>사용자 질문</dt><dd>&ldquo;최근 내 생활 신호가 나에게 맞는 방향으로 바뀌고 있는가?&rdquo;</dd>
+            <dt>핵심 관점</dt><dd>개인 평소 범위 안에서 안정되는지 · 반복되던 <b>막힘</b>(늦은 활동 · 긴 비활동 · 흐름 끊김)이 줄어드는지 · 반대 방향 신호가 커지는지</dd>
+            <dt>결과값</dt><dd>불안정해요 / 보통이에요 / 안정적이에요 &nbsp;·&nbsp; 기준선 미형성 시 <b>관찰 중</b></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="callout warn"><span>이름은 &lsquo;안정&rsquo;이지만 값은 양방향</span>
+        <p>이 지표가 재는 것은 <b>변동의 크기가 아니라 방향</b>입니다. 「안정적이에요」는 &lsquo;제자리를 찾아가는 흐름&rsquo;, 「불안정해요」는 &lsquo;한쪽으로 쏠리는 흐름&rsquo;을 뜻합니다.</p>
+        <p>C-2 정합으로 확정된 성격입니다 &mdash; 이전 파이프라인 초안의 &lsquo;변동성 크기&rsquo; 해석은 <b>폐기</b>되었습니다.</p>
+      </div>
+
+      <h3 class="block">구성 요소 <span class="status-badge sb-ready" style="display:inline-block;vertical-align:middle">확정</span></h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:180px">구성 요소</th><th style="width:100px">역할</th><th>무엇으로 계산하나 <span class="status-badge sb-open" style="display:inline-block">초안</span></th></tr></thead>
+        <tbody>
+          <tr><td><b>개인 기준 범위</b></td><td><span class="pill core">기준</span></td><td>신호별 기준선 구간의 분포(중앙값 + 산포). 신호마다 최소 관찰일 다름</td></tr>
+          <tr><td><b>최근 벗어남</b></td><td><span class="pill core">핵심</span></td><td><b>ⓑ 이탈</b> = 최근 구간 중앙값이 기준선 중앙값에서 벗어난 정도와 <b>부호</b>. 방향을 싣는 값</td></tr>
+          <tr><td><b>흔들림</b></td><td><span class="pill aux">신뢰도</span></td><td><b>ⓐ 변동성</b> = 최근 구간 산포 ÷ 기준선 산포. 이탈을 <b>믿을 수 있는지</b> 재는 보조값</td></tr>
+          <tr><td><b>반복되는 막힘의 완화</b></td><td><span class="pill aux">보조</span></td><td>늦은 활동·긴 비활동·흐름 끊김이 줄어들었는지 &mdash; 안정 쪽으로 민다</td></tr>
+          <tr><td><b>지식 기반 맥락</b></td><td><span class="pill aux">보조</span></td><td>일반적으로 더 나은 방향으로 볼 수 있는 패턴 &mdash; 보조 해석</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block">산출식 <span class="status-badge sb-review" style="display:inline-block;vertical-align:middle">엔진 v5.7 · 확정값 아님</span></h3>
+      <div class="statement">
+        <mark>I3 = 50 + clip( 20B + 20Q , −35, +cap )</mark><br>
+        B = 행동 변화 · Q = 응답 변화 &nbsp;·&nbsp; 비교 = <b>최근 7일 vs 직전 21일</b>(엔진) &nbsp;·&nbsp; cap = 근거량에 따라 가변
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:150px">요소</th><th>규칙</th><th style="width:120px">상태</th></tr></thead>
+        <tbody>
+          <tr><td><b>방향 판정</b></td><td>ⓑ 이탈의 <b>부호</b>가 방향을 결정. ⓐ 변동성이 그 이동의 신뢰도를 보정</td><td><span class="status-badge sb-open">초안</span></td></tr>
+          <tr><td><b>반복성 요건</b></td><td><b>반복 확인된 이동만</b> 방향으로 인정. 하루 등락은 반영하지 않음</td><td><span class="status-badge sb-ready">확정</span></td></tr>
+          <tr><td><b>결측 처리</b></td><td>관찰된 신호만 합산. 결측 신호는 <b>0으로 채우지 않고 분모에서 제외</b></td><td><span class="status-badge sb-ready">확정</span></td></tr>
+          <tr><td><b>비교 구간 길이</b></td><td>엔진 28일(7+21) / 이전 초안 30일 / 기획서 미정 &mdash; <b>하나로 통일 필요</b></td><td><span class="status-badge sb-review">B-5</span></td></tr>
+          <tr><td><b>당일 데이터</b></td><td>이력이 있으면 당일 기록이 없어도 계산됨</td><td><span class="status-badge sb-ready">확정</span></td></tr>
+          <tr><td><b>기록량 채널</b></td><td>행동 연결 채널을 쓸 수 없으면 기록량 채널이 값을 내지만, 이는 <b>서술값이지 지표 상태가 아님.</b> 화면에는 상태 대신 <b>&lsquo;관찰 중&rsquo;</b>을 표시하고 기록량 방향은 참고 서술로만 노출 &mdash; <b>본값 대체 안 함</b></td><td><span class="status-badge sb-ready">2026-09-11 결정</span></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout"><span>왜 ⓐ와 ⓑ가 둘 다 필요한가</span>
+        <p><b>ⓑ만 보면</b> 며칠 널뛴 끝에 우연히 중앙값이 옮겨간 것을 &lsquo;방향&rsquo;으로 오인합니다. ⓐ가 그 이동의 신뢰도를 잡아 줍니다.</p>
+        <p><b>ⓐ만 보면</b> 방향 자체를 알 수 없습니다. 산포가 줄었다는 사실만으로는 좋은 쪽으로 모이는지 나쁜 쪽에 눌러앉는지 구분되지 않습니다.</p>
+      </div>
+
+      <h3 class="block">의미 해석</h3>
+      <div class="g3">
+        <article class="card"><h4>이 값이 뜻하는 것</h4><p><b>이동의 방향</b>입니다. &ldquo;지금 상태가 좋다/나쁘다&rdquo;가 아니라 &ldquo;최근 며칠이 평소의 나에 비해 어느 쪽으로 가고 있다&rdquo;를 말합니다.</p></article>
+        <article class="card"><h4>말하지 않는 것</h4><p>오늘의 몸 상태 · 오늘의 활동량 점수 · 목표 달성률 · 치료 효과. <b>현재 상태 자체를 말하지 않습니다</b>(비단조).</p></article>
+        <article class="card"><h4>균일하게 나빠진 경우</h4><p>매일 5시간씩 자는 사람은 뚜렷한 방향이 없어 <b>「보통이에요」</b>로 떨어집니다. <b>그 상태가 나쁘다는 사실은 이 지표가 말하지 않으며</b>, 절대 임계를 보는 코칭 지표가 맡습니다.</p></article>
+      </div>
+      <div class="callout"><span>해석 예시</span>
+        <p>&ldquo;지난 2주간 늦어지던 저녁 활동이 최근 며칠 이른 시간으로 돌아왔어요. <b>일상이 제자리를 찾아가는 흐름</b>이에요. (참고 정보)&rdquo;</p>
+        <p>&mdash; 가장 크게 방향을 끈 신호를 지목하고, 개인 기준 대비임을 문구에서 분명히 합니다.</p>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="section" id="s7">
+      <div class="section-head"><span class="section-label">07 · State &amp; Direction</span><h2>상태 · 방향 판정 규칙</h2>
+        <p>내부 값은 <b>상태 표현</b>으로 바뀌어야 화면에 나갑니다. 경계값은 사용자 분포·해석 유용성 기준으로 <b>캘리브레이션 후 확정</b>합니다(B-6).</p>
+      </div>
+
+      <h3 class="block">상태 표현 <span class="status-badge sb-ready" style="display:inline-block;vertical-align:middle">C-3 확정 · 문장형</span></h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:110px">지표</th><th style="width:140px">state_key = low</th><th style="width:140px">mid</th><th style="width:140px">high</th><th style="width:110px">observing</th><th>좋은 쪽의 의미</th></tr></thead>
+        <tbody>
+          <tr><td><b>생활여유</b></td><td>부족해요</td><td>보통이에요</td><td><b>충분해요</b></td><td>관찰 중</td><td>여유가 유지됨 · 흐름이 분산</td></tr>
+          <tr><td><b>자기돌봄</b></td><td>부족해요</td><td>보통이에요</td><td><b>잘하고 있어요</b></td><td>관찰 중</td><td>대부분의 기준점에 짧은 행동이 붙음</td></tr>
+          <tr><td><b>일상안정</b></td><td>불안정해요</td><td>보통이에요</td><td><b>안정적이에요</b></td><td>관찰 중</td><td>막힘이 반복적으로 줄고 있음(제자리를 찾아가는 중)</td></tr>
+        </tbody>
+      </table></div>
+      <p class="lead"><b>&lsquo;관찰 중&rsquo;은 나쁜 상태가 아니라 판정 불가</b>입니다. 데이터가 모이는 중이라는 뜻이며, 낮은 쪽으로 취급하지 않습니다. 저장되는 것은 <code>state_key</code>뿐이고 표시 문자열은 저장하지 않으므로, 문구가 다듬어져도 데이터 마이그레이션이 필요 없습니다.</p>
+
+      <h3 class="block">방향 표기</h3>
+      <div class="band">
+        <div class="b"><b>▲ 개선</b><small>좋은 방향으로 반복 확인된 이동. 좋은 방향은 지표마다 다름</small></div>
+        <div class="b"><b>· 유지</b><small>뚜렷한 변화 없음. &ldquo;큰 변화 없이 유지&rdquo;</small></div>
+        <div class="b"><b>▼ 주의</b><small>나쁜 방향으로 이동. 단정 대신 &ldquo;주의가 필요해요&rdquo; 수준</small></div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:110px">지표</th><th style="width:180px">비교 기준</th><th style="width:120px">갱신 주기</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td><b>생활여유</b></td><td>최근 해석 대비</td><td>일 단위</td><td>저해상도 경로에서는 방향 <b>생략 가능</b></td></tr>
+          <tr><td><b>자기돌봄</b></td><td>전일 대비</td><td>일 단위</td><td>▲ 연결이 늘었어요 / ▼ 연결이 줄었어요</td></tr>
+          <tr><td><b>일상안정</b></td><td>전주 대비</td><td><b>주 단위</b></td><td><b>일 단위 화살표를 표시하지 않음.</b> 요일 선택과 무관하게 주 단위 값 고정</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block">문구 생성 규칙</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:50px">#</th><th>규칙</th></tr></thead>
+        <tbody>
+          <tr><td><b>①</b></td><td>문구 = <b>[상태 서술] + [가장 크게 기여한 구성 요소 1~2개]</b>. 예: &ldquo;활동이 저녁에 몰려 여유가 부족한 편이에요&rdquo;</td></tr>
+          <tr><td><b>②</b></td><td>항상 <b>&lsquo;평소(개인 기준) 대비&rsquo;</b> 상대 표현. 절대 수치의 정상/비정상 판정 금지</td></tr>
+          <tr><td><b>③</b></td><td>데이터가 부족하면 <b>&ldquo;관찰 중 · 일부 데이터로 본 참고&rdquo;</b> 명시</td></tr>
+          <tr><td><b>④</b></td><td>질문·기록이 상태를 <b>올린 것처럼 쓰지 않는다</b>(P1·P3)</td></tr>
+          <tr><td><b>⑤</b></td><td>의료 우려 키워드(통증·이상 증상 등 자가보고) 감지 시 문구 대신 <b>상담 안내로 전환</b></td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- 8 -->
+    <section class="section" id="s8">
+      <div class="section-head"><span class="section-label">08 · Resolution</span><h2>결측 · 해상도 분기</h2>
+        <p>입력이 부족해도 멈추지 않고 <b>해상도를 낮춥니다.</b> 어느 경우에도 없는 입력을 나쁜 상태로 해석하지 않습니다.</p>
+      </div>
+
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:190px">조건</th><th style="width:90px">해상도</th><th>표시 범위</th><th style="width:110px">화면 상태값</th></tr></thead>
+        <tbody>
+          <tr><td>watch + 충분한 기준선</td><td><b>높음</b></td><td>상태 표현 + 방향 + 이유 + 근거 구성 요소</td><td>정상</td></tr>
+          <tr><td>폰 활동 데이터만</td><td><b>낮음</b></td><td>상태 표현(개략) + 이유 축약, 방향 생략 가능, &lsquo;참고&rsquo; 배지</td><td>부분수집</td></tr>
+          <tr><td>기준선 / 기준점 부족</td><td>&mdash;</td><td>상태 미표시, &ldquo;관찰 중 · 데이터가 모이면 보여드려요&rdquo;</td><td>미수집</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block">지표별 최소 산출 조건</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:110px">지표</th><th>필수 &mdash; 없으면 산출 불가</th><th style="width:200px">저해상도 대체</th></tr></thead>
+        <tbody>
+          <tr><td><b>생활여유</b></td><td>[고] 움직임 시간대 분포 + 수면 &nbsp;/&nbsp; [저] 걸음 기록 또는 어려움 응답 1개 &nbsp;+ 개인 기준선</td><td><b>있음</b> &mdash; 3종 중 유일(B-2 미결)</td></tr>
+          <tr><td><b>자기돌봄</b></td><td>기준점 신호(식사 시각 또는 긴 비활동 종료·일정 전후) <b>+</b> 움직임 시간대 분포 &mdash; <b>둘 다</b></td><td>없음 &mdash; 걸음 총량으로 대체 불가</td></tr>
+          <tr><td><b>일상안정</b></td><td>약 28일 관측 이력에 <b>걸음·움직임·수면 중 최소 1계열</b> + 개인 기준선</td><td>해상도보다 <b>이력 기간</b>이 관건</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout warn"><span>공통 결측 처리</span>
+        <p>최신성 초과 입력은 제외하고 남은 데이터로 재해석 · 이상치(생리적 범위 밖)는 <b>윈저라이즈 후 사용</b>하고 로그 기록 · watch 미착용일은 해당 지표를 저해상도로 · 기기 연동 해제 시 <b>세 지표 모두 &lsquo;관찰 중&rsquo;</b> + 재연결 유도.</p>
+        <p>질문·기록이 없어도 지표는 표시됩니다. 있으면 <b>이유·신뢰도만 보강</b>하고 상태를 올리지 않습니다. 지표 정의·경계 변경 시 과거 스냅샷은 <b>재계산하지 않습니다</b>(버전 태그).</p>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="section" id="s9">
+      <div class="section-head"><span class="section-label">09 · Open Coefficients</span><h2>미확정 계수 일람</h2>
+        <p>이 문서의 산식이 <b>확정 스펙이 되기 위해 남은 값</b>들입니다. 구현 착수 전에 정해져야 합니다.</p>
+      </div>
+
+      <div class="check">
+        <div class="check-item"><span class="box"></span><div><strong>A-1 · 활동 데이터 수집 형태</strong><p>일별 총량인지 시간대별 샘플인지. <b>시간대 샘플이어야 생활여유 고해상도·자기돌봄이 열린다</b> — 이 문서 4·5장의 산식 성립 여부가 여기 달림</p></div><span class="status-badge sb-review">최우선</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>B-1 · 계수의 기준 문서</strong><p>엔진 v5.7의 고정 계수(35/30/20/12/8/20 등)를 초기 기준으로 채택할지, 백지에서 캘리브레이션할지</p></div><span class="status-badge sb-review">결정 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>B-2 · 생활여유 저해상도 경로</strong><p>걸음 합계만으로 35~65 범위 값을 띄울지, ‘관찰 중’으로 둘지. 기획서와 파이프라인이 불일치</p></div><span class="status-badge sb-review">결정 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>B-3 · 자기돌봄 자가보고 인정 범위</strong><p>구조화된 보고를 실제 연결로 인정할지</p></div><span class="status-badge sb-review">결정 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>B-4 · 자기돌봄 관찰 창</strong><p>기준점 이후 몇 분까지를 연결로 볼지(엔진 30분). 근거는 방향만 존재</p></div><span class="status-badge sb-review">의학팀</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>B-5 · 기준선 윈도우 통일</strong><p>엔진 28일 / 파이프라인 30일 / 기획서 미확정. 신호별 최소 관찰일도 함께</p></div><span class="status-badge sb-review">결정 필요</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>B-6 · 내부 값 → 상태 경계</strong><p>상태 3단계 경계를 사용자 분포·해석 유용성 기준으로. 저해상도 경로는 별도 눈금</p></div><span class="status-badge sb-review">캘리브레이션</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>B-7 · 방향 임계값</strong><p>▲/유지/▼ 판정 임계를 노이즈 수준 분석으로 조정. 일상안정은 주 단위</p></div><span class="status-badge sb-review">캘리브레이션</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>B-9 · 신규 사용자 기준 형성 기간</strong><p>가입 직후 ‘관찰 중’으로만 표시되는 기간</p></div><span class="status-badge sb-review">확인</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>C-4 후속 · 엔진·전달 패키지 표기</strong><p>지표명은 2026-09-11 <b>생활여유 · 자기돌봄 · 일상안정</b>으로 확정(C-1 종결). 엔진 v5.7의 I1/I2/I3와 v6.0 전달 패키지·발표자료가 아직 ‘생활 여유 / 일상 행동 연결 / 개인 기준 변화’를 쓰므로 갱신 필요</p></div><span class="status-badge sb-review">개발팀</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>C-3 후속 · 표현 가이드 조항</strong><p>결과값 어휘는 문장형으로 확정(2026-09-11). 기획서 5·7장과 MRS 9장의 ‘평가·압박 어투 배제’ 조항이 충돌하므로 갱신 필요 — 의료 판정 표현 금지는 유지</p></div><span class="status-badge sb-review">문서</span></div>
+      </div>
+    </section>
+
+    <div class="src">
+      <h2>근거 자료</h2>
+      <ul>
+        <li><b>maiReport 지표 기획서 v0.3</b> (2026-09-08) &mdash; 지표 정의·사용자 질문·구성 요소·공통 원칙 P1~P6·필수/옵션 데이터·상태 표현 규칙·확인 항목 A~D. <b>정의의 출처</b></li>
+        <li><b>maiReport 지표 산출 파이프라인 v0.2</b> (2026-09-11) &mdash; 7단계 프레임의 단계별 처리, 구성 요소 → 계산 재료 매핑, 입력 계약, 근거값 ↔ 임의값 구분. <b>계산 방법의 출처</b></li>
+        <li>산식 시나리오 실험실 (v5.7 엔진) &mdash; I1/I2/I3 현행 산식, 고·저해상도 분기, 산출 불가 규칙, 관측 경로별 눈금 비동등. <b>계수 재학습 없음 &mdash; 확정값 아님</b></li>
+        <li>maiReport 화면정의 · 지표 v0.2 · 데이터 모델 v0.2 (2026-09-11) &mdash; <code>metric_state</code>·<code>state_key</code>·상태 표현 바인딩</li>
+        <li>maiReport MRS v0.1 &mdash; 비의료기기 웰니스 포지셔닝(9장), 표현 가이드</li>
+      </ul>
+    </div>
+
+    <footer>maiReport 지표 기능 정의서 · v0.1 · Internal Use Only · 2026-09-11 · 정의는 기획서 v0.3을 따르며 이 문서가 새로 정의하지 않음 · 계수·경계값 미확정(9장)</footer>
+  </main>
+</body>
+</html>

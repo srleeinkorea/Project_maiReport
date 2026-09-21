@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="1420" viewBox="0 0 430 1420">
+<rect x="0" y="0" width="430" height="1420" fill="#F4F6FA"/>
+
+<!-- 상단 히어로 배경 + 헤더 -->
+<rect x="0" y="0" width="430" height="392" fill="#E8EEFF"/>
+<text x="18" y="42" font-family="Noto Sans KR" font-size="22" font-weight="800" font-style="italic" fill="#2F6BFF">M</text>
+<rect x="296" y="18" width="98" height="30" rx="15" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<text x="345" y="38" font-family="Noto Sans KR" font-size="11.5" font-weight="600" fill="#5A6880" text-anchor="middle">리포트 QR 스캔</text>
+<circle cx="412" cy="33" r="6" fill="none" stroke="#98A4B8" stroke-width="2"/>
+<circle cx="412" cy="33" r="2" fill="#98A4B8"/>
+
+<!-- 오늘의 질문 -->
+<text x="18" y="84" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#2F6BFF">오늘의 질문 · 1/3</text>
+<text x="18" y="112" font-family="Noto Sans KR" font-size="19" font-weight="700" fill="#16233F">오늘 몸의 피로감은 어느</text>
+<text x="18" y="138" font-family="Noto Sans KR" font-size="19" font-weight="700" fill="#16233F">정도인가요?</text>
+<circle cx="370" cy="112" r="42" fill="#FFFFFF"/>
+<circle cx="370" cy="112" r="42" fill="#DCE6FF" opacity="0.6"/>
+<path d="M374 90 l-14 26 h12 l-6 20 l18 -28 h-12 z" fill="#F2A33C"/>
+
+<!-- 선택지 3개 -->
+<rect x="18" y="170" width="124" height="104" rx="16" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<circle cx="80" cy="206" r="18" fill="#7ED09A"/>
+<path d="M72 203 q2 -3 4 0 M84 203 q2 -3 4 0" stroke="#2E8B57" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<path d="M73 211 q7 6 14 0" stroke="#2E8B57" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<text x="80" y="254" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F" text-anchor="middle">괜찮아요</text>
+
+<rect x="153" y="170" width="124" height="104" rx="16" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<circle cx="215" cy="206" r="18" fill="#F7CE55"/>
+<circle cx="209" cy="203" r="1.8" fill="#8A6A00"/><circle cx="221" cy="203" r="1.8" fill="#8A6A00"/>
+<path d="M208 213 h14" stroke="#8A6A00" stroke-width="2.2" stroke-linecap="round"/>
+<text x="215" y="254" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F" text-anchor="middle">조금 피곤해요</text>
+
+<rect x="288" y="170" width="124" height="104" rx="16" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<circle cx="350" cy="206" r="18" fill="#F2A3B3"/>
+<path d="M342 202 q2 3 4 0 M354 202 q2 3 4 0" stroke="#B8325A" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<path d="M343 215 q7 -5 14 0" stroke="#B8325A" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<text x="350" y="254" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F" text-anchor="middle">많이 피곤해요</text>
+
+<!-- 오늘의 코칭 (답변 전) -->
+<rect x="18" y="296" width="394" height="82" rx="18" fill="#FFFFFF" stroke="#7C8BFF" stroke-width="1.6"/>
+<text x="36" y="322" font-family="Noto Sans KR" font-size="12.5" font-weight="700" fill="#2F6BFF">✦ 오늘의 코칭</text>
+<text x="36" y="346" font-family="Noto Sans KR" font-size="15" font-weight="700" fill="#16233F">먼저 오늘의 질문에 답하고,</text>
+<text x="36" y="367" font-family="Noto Sans KR" font-size="15" font-weight="700" fill="#16233F">나에게 맞는 코칭을 받아보세요.</text>
+
+<!-- 오늘의 목표 -->
+<text x="18" y="428" font-family="Noto Sans KR" font-size="16" font-weight="800" fill="#16233F">오늘의 목표</text>
+<text x="412" y="428" font-family="Noto Sans KR" font-size="12" font-weight="600" fill="#98A4B8" text-anchor="end">/3 완료 ›</text>
+<text x="368" y="428" font-family="Noto Sans KR" font-size="12" font-weight="800" fill="#2F6BFF" text-anchor="end">1</text>
+
+<rect x="18" y="442" width="124" height="150" rx="16" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<text x="32" y="466" font-family="Noto Sans KR" font-size="11" font-weight="700" fill="#E5893A">식이</text>
+<text x="32" y="490" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F">오늘의 질문에</text>
+<text x="32" y="508" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F">답하면 목표가</text>
+<text x="32" y="526" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F">생성돼요.</text>
+<rect x="100" y="560" width="26" height="20" rx="4" fill="none" stroke="#D3D8E2" stroke-width="3"/>
+<path d="M106 560 v-5 a7 7 0 0 1 14 0 v5" fill="none" stroke="#D3D8E2" stroke-width="3" stroke-linecap="round"/>
+<circle cx="113" cy="570" r="2.5" fill="#D3D8E2"/>
+
+<rect x="153" y="442" width="124" height="150" rx="16" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<text x="167" y="466" font-family="Noto Sans KR" font-size="11" font-weight="700" fill="#E8365D">활동</text>
+<text x="167" y="490" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#16233F">저녁 전 1,500보</text>
+<text x="167" y="509" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#16233F">더 걷기</text>
+<circle cx="247" cy="550" r="5" fill="#E8365D"/>
+<path d="M247 556 l-2 12 l-6 10 M245 568 l8 8 M247 556 l7 6 l7 -2 M247 559 l-8 4 l-3 8" fill="none" stroke="#E8365D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+<rect x="288" y="442" width="124" height="150" rx="16" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<text x="302" y="466" font-family="Noto Sans KR" font-size="11" font-weight="700" fill="#4B45C6" opacity="0.5">수면</text>
+<text x="302" y="490" font-family="Noto Sans KR" font-size="13" font-weight="600" fill="#98A4B8">23시 30분 전에</text>
+<text x="302" y="509" font-family="Noto Sans KR" font-size="13" font-weight="600" fill="#98A4B8">눕기</text>
+<circle cx="382" cy="562" r="18" fill="#2F6BFF"/>
+<path d="M373 562.5 l6 6 l12 -12" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- 오늘의 컨디션 -->
+<text x="18" y="640" font-family="Noto Sans KR" font-size="16" font-weight="800" fill="#16233F">오늘의 컨디션</text>
+<text x="412" y="640" font-family="Noto Sans KR" font-size="12" font-weight="600" fill="#98A4B8" text-anchor="end">›</text>
+<rect x="18" y="654" width="394" height="224" rx="20" fill="#FFFFFF"/>
+
+<!-- 게이지 1 생활여유 · 좋음 -->
+<text x="84" y="684" font-family="Noto Sans KR" font-size="12" font-weight="600" fill="#98A4B8" text-anchor="middle">생활여유</text>
+<path d="M50 742 A34 34 0 0 1 61.8 715.8" fill="none" stroke="#E3E7EF" stroke-width="7"/>
+<path d="M69 710.6 A34 34 0 0 1 99 710.6" fill="none" stroke="#E3E7EF" stroke-width="7"/>
+<path d="M106.2 715.8 A34 34 0 0 1 118 742" fill="none" stroke="#12A150" stroke-width="9"/>
+<line x1="84" y1="742" x2="106" y2="722" stroke="#12A150" stroke-width="3" stroke-linecap="round"/>
+<circle cx="84" cy="742" r="4.5" fill="#FFFFFF" stroke="#12A150" stroke-width="2.5"/>
+<text x="84" y="772" font-family="Noto Sans KR" font-size="13" font-weight="800" fill="#12A150" text-anchor="middle">충분해요</text>
+
+<!-- 게이지 2 자기돌봄 · 보통 -->
+<text x="215" y="684" font-family="Noto Sans KR" font-size="12" font-weight="600" fill="#98A4B8" text-anchor="middle">자기돌봄</text>
+<path d="M181 742 A34 34 0 0 1 192.8 715.8" fill="none" stroke="#E3E7EF" stroke-width="7"/>
+<path d="M200 710.6 A34 34 0 0 1 230 710.6" fill="none" stroke="#D98A12" stroke-width="9"/>
+<path d="M237.2 715.8 A34 34 0 0 1 249 742" fill="none" stroke="#E3E7EF" stroke-width="7"/>
+<line x1="215" y1="742" x2="215" y2="714" stroke="#D98A12" stroke-width="3" stroke-linecap="round"/>
+<circle cx="215" cy="742" r="4.5" fill="#FFFFFF" stroke="#D98A12" stroke-width="2.5"/>
+<text x="215" y="772" font-family="Noto Sans KR" font-size="13" font-weight="800" fill="#8A93A5" text-anchor="middle">보통이에요</text>
+
+<!-- 게이지 3 일상안정 · 관찰 중 -->
+<text x="346" y="684" font-family="Noto Sans KR" font-size="12" font-weight="600" fill="#98A4B8" text-anchor="middle">일상안정</text>
+<path d="M312 742 A34 34 0 0 1 323.8 715.8" fill="none" stroke="#E3E7EF" stroke-width="7"/>
+<path d="M331 710.6 A34 34 0 0 1 361 710.6" fill="none" stroke="#E3E7EF" stroke-width="7"/>
+<path d="M368.2 715.8 A34 34 0 0 1 380 742" fill="none" stroke="#E3E7EF" stroke-width="7"/>
+<circle cx="346" cy="742" r="4.5" fill="#FFFFFF" stroke="#C5CCD8" stroke-width="2.5"/>
+<text x="346" y="772" font-family="Noto Sans KR" font-size="13" font-weight="800" fill="#98A4B8" text-anchor="middle">관찰 중</text>
+
+<!-- 관찰 중 안내 -->
+<rect x="34" y="796" width="362" height="64" rx="12" fill="#F5F7FB"/>
+<circle cx="52" cy="816" r="6" fill="none" stroke="#98A4B8" stroke-width="1.8"/>
+<path d="M52 812 v4 l3 2" fill="none" stroke="#98A4B8" stroke-width="1.8" stroke-linecap="round"/>
+<text x="66" y="820" font-family="Noto Sans KR" font-size="11.5" font-weight="700" fill="#5A6880">일상안정 지수</text>
+<text x="146" y="820" font-family="Noto Sans KR" font-size="11.5" font-weight="500" fill="#98A4B8">는 아직 관찰 중이에요. 평소 범위를 잡는</text>
+<text x="66" y="840" font-family="Noto Sans KR" font-size="11.5" font-weight="500" fill="#98A4B8">중이에요. 며칠 더 쌓이면 보여드릴게요.</text>
+
+<!-- 오늘의 건강 데이터 -->
+<text x="18" y="922" font-family="Noto Sans KR" font-size="16" font-weight="800" fill="#16233F">오늘의 건강 데이터</text>
+<text x="412" y="922" font-family="Noto Sans KR" font-size="12" font-weight="600" fill="#98A4B8" text-anchor="end">›</text>
+
+<rect x="18" y="936" width="394" height="72" rx="16" fill="#FFFFFF"/>
+<circle cx="49" cy="972" r="15" fill="#E3F6E8"/>
+<path d="M43 976 l4 -8 l4 3 l3 -5 M43 976 h12" fill="none" stroke="#12A150" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="74" y="964" font-family="Noto Sans KR" font-size="11" font-weight="500" fill="#98A4B8">걸음 수</text>
+<text x="74" y="986" font-family="Noto Sans KR" font-size="15" font-weight="800" fill="#16233F">6,420</text>
+<text x="118" y="986" font-family="Noto Sans KR" font-size="11" font-weight="500" fill="#98A4B8">걸음</text>
+<text x="396" y="977" font-family="Noto Sans KR" font-size="11.5" font-weight="700" fill="#E5893A" text-anchor="end">▼ 12% 적어요</text>
+
+<rect x="18" y="1018" width="394" height="72" rx="16" fill="#FFFFFF"/>
+<circle cx="49" cy="1054" r="15" fill="#E8EAFB"/>
+<path d="M53 1046 a8 8 0 1 0 6 12 a6 6 0 0 1 -6 -12 z" fill="#5B5BD6"/>
+<text x="74" y="1046" font-family="Noto Sans KR" font-size="11" font-weight="500" fill="#98A4B8">수면 시간</text>
+<text x="74" y="1068" font-family="Noto Sans KR" font-size="15" font-weight="800" fill="#16233F">7시간 20분</text>
+<text x="396" y="1059" font-family="Noto Sans KR" font-size="11.5" font-weight="700" fill="#12A150" text-anchor="end">▲ 35분 길어요</text>
+
+<rect x="18" y="1100" width="394" height="72" rx="16" fill="#FFFFFF"/>
+<circle cx="49" cy="1136" r="15" fill="#FDE7EE"/>
+<path d="M49 1143 c-5 -4 -9 -7 -9 -11 a4.5 4.5 0 0 1 9 -2 a4.5 4.5 0 0 1 9 2 c0 4 -4 7 -9 11 z" fill="#E8365D"/>
+<text x="74" y="1128" font-family="Noto Sans KR" font-size="11" font-weight="500" fill="#98A4B8">안정 시 심박수</text>
+<text x="74" y="1150" font-family="Noto Sans KR" font-size="15" font-weight="800" fill="#16233F">68</text>
+<text x="96" y="1150" font-family="Noto Sans KR" font-size="11" font-weight="500" fill="#98A4B8">bpm</text>
+<text x="396" y="1141" font-family="Noto Sans KR" font-size="11.5" font-weight="700" fill="#98A4B8" text-anchor="end">· 평소 범위예요</text>
+
+<!-- 하단 내비 -->
+<rect x="0" y="1354" width="430" height="66" fill="#FFFFFF"/>
+<line x1="0" y1="1354" x2="430" y2="1354" stroke="#E9EDF5" stroke-width="1"/>
+<path d="M46 1382 l8 -8 l8 8 v10 h-16 z" fill="none" stroke="#2F6BFF" stroke-width="2" stroke-linejoin="round"/>
+<text x="54" y="1410" font-family="Noto Sans KR" font-size="11" font-weight="800" fill="#2F6BFF" text-anchor="middle">홈</text>
+<path d="M161 1378 c-4 -6 -14 -2 -10 6 l10 10 l10 -10 c4 -8 -6 -12 -10 -6 z" fill="none" stroke="#B6C0D1" stroke-width="2"/>
+<text x="161" y="1410" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#B6C0D1" text-anchor="middle">생활</text>
+<path d="M265 1374 v20 M255 1384 h20" fill="none" stroke="#B6C0D1" stroke-width="3" stroke-linecap="round"/>
+<text x="265" y="1410" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#B6C0D1" text-anchor="middle">병원</text>
+<circle cx="361" cy="1384" r="2" fill="#B6C0D1"/><circle cx="369" cy="1384" r="2" fill="#B6C0D1"/><circle cx="377" cy="1384" r="2" fill="#B6C0D1"/>
+<text x="369" y="1410" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#B6C0D1" text-anchor="middle">더보기</text>
+</svg>

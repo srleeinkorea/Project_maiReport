@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="900" viewBox="0 0 1240 900" font-family="Noto Sans KR, Malgun Gothic, sans-serif">
+  <rect width="1240" height="900" fill="#EFF2F7"/>
+  <text x="40" y="44" font-size="20" font-weight="900" letter-spacing="-0.9" fill="#0F1826">오늘의 목표 — 완료 · 완료 취소 인터랙션</text>
+  <text x="40" y="68" font-size="12.5" fill="#5A6779">별도 버튼 없이 <tspan font-weight="700" fill="#0F1826">카드 영역 전체</tspan>를 터치해 완료하고, 같은 영역을 다시 터치해 취소한다.</text>
+  <rect x="40" y="86" width="1160" height="2" fill="#0F1826"/>
+
+  <!-- ============ 세로 카드 · 미완료 ============ -->
+  <g id="A 세로카드 미완료" transform="translate(40,124)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#6C7A8E">A · 미완료 (기본)</text>
+    <rect y="14" width="354" height="216" rx="17" fill="#FFFFFF"/>
+    <text x="16" y="42" font-size="15" font-weight="900" letter-spacing="-0.6" fill="#16202F">오늘의 목표</text>
+    <text x="338" y="42" font-size="11" fill="#7A879A" text-anchor="end">0/3 완료</text>
+
+    <rect x="16" y="56" width="102" height="158" rx="13" fill="#FFFFFF" stroke="#E4E9F1"/>
+    <text x="30" y="78" font-size="10.5" font-weight="800" fill="#E0803A">식이</text>
+    <text x="30" y="96" font-size="12" font-weight="700" fill="#16202F">저녁 균형</text>
+    <text x="30" y="112" font-size="12" font-weight="700" fill="#16202F">식사</text>
+    <rect x="30" y="124" width="74" height="40" rx="9" fill="#FCEBD8"/>
+    <circle cx="67" cy="188" r="13" fill="none" stroke="#C9D2DE" stroke-width="2"/>
+    <path d="M60 188 L65 193 L74 183" stroke="#C9D2DE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="126" y="56" width="102" height="158" rx="13" fill="#FFFFFF" stroke="#E4E9F1"/>
+    <text x="140" y="78" font-size="10.5" font-weight="800" fill="#E0567B">활동</text>
+    <text x="140" y="96" font-size="12" font-weight="700" fill="#16202F">식후 10분</text>
+    <text x="140" y="112" font-size="12" font-weight="700" fill="#16202F">걷기</text>
+    <rect x="140" y="124" width="74" height="40" rx="9" fill="#FBDDE6"/>
+    <circle cx="177" cy="188" r="13" fill="none" stroke="#C9D2DE" stroke-width="2"/>
+    <path d="M170 188 L175 193 L184 183" stroke="#C9D2DE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="236" y="56" width="102" height="158" rx="13" fill="#FFFFFF" stroke="#E4E9F1"/>
+    <text x="250" y="78" font-size="10.5" font-weight="800" fill="#6B72D8">수면</text>
+    <text x="250" y="96" font-size="12" font-weight="700" fill="#16202F">23시 30분에</text>
+    <text x="250" y="112" font-size="12" font-weight="700" fill="#16202F">눕기</text>
+    <rect x="250" y="124" width="74" height="40" rx="9" fill="#DFE2FA"/>
+    <circle cx="287" cy="188" r="13" fill="none" stroke="#C9D2DE" stroke-width="2"/>
+    <path d="M280 188 L285 193 L294 183" stroke="#C9D2DE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="16" y="56" width="102" height="158" rx="13" fill="none" stroke="#7C4DFF" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <text x="67" y="248" font-size="10.5" font-weight="700" fill="#7C4DFF" text-anchor="middle">터치 영역</text>
+  </g>
+
+  <!-- 화살표 -->
+  <g transform="translate(424,124)">
+    <path d="M8 130 L52 130" stroke="#2F6BFF" stroke-width="2" fill="none"/>
+    <path d="M52 130 L44 125 L44 135 z" fill="#2F6BFF"/>
+    <text x="30" y="118" font-size="11" font-weight="700" fill="#2F6BFF" text-anchor="middle">터치</text>
+    <path d="M52 158 L8 158" stroke="#8D99AB" stroke-width="1.6" fill="none" stroke-dasharray="5 4"/>
+    <path d="M8 158 L16 153 L16 163 z" fill="#8D99AB"/>
+    <text x="30" y="176" font-size="11" font-weight="700" fill="#8D99AB" text-anchor="middle">재터치</text>
+  </g>
+
+  <!-- ============ 세로 카드 · 완료 ============ -->
+  <g id="B 세로카드 완료" transform="translate(524,124)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#6C7A8E">B · 식이 완료</text>
+    <rect y="14" width="354" height="216" rx="17" fill="#FFFFFF"/>
+    <text x="16" y="42" font-size="15" font-weight="900" letter-spacing="-0.6" fill="#16202F">오늘의 목표</text>
+    <text x="338" y="42" font-size="11" font-weight="700" fill="#2F6BFF" text-anchor="end">1/3 완료</text>
+
+    <rect x="16" y="56" width="102" height="158" rx="13" fill="#F7F9FC" stroke="#E4E9F1"/>
+    <text x="30" y="78" font-size="10.5" font-weight="800" fill="#E6B285">식이</text>
+    <text x="30" y="96" font-size="12" font-weight="700" fill="#A7B0BE">저녁 균형</text>
+    <text x="30" y="112" font-size="12" font-weight="700" fill="#A7B0BE">식사</text>
+    <rect x="30" y="124" width="74" height="40" rx="9" fill="#FCEBD8" opacity="0.5"/>
+    <circle cx="67" cy="188" r="13" fill="#2F6BFF"/>
+    <path d="M60 188 L65 193 L74 183" stroke="#FFFFFF" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="126" y="56" width="102" height="158" rx="13" fill="#FFFFFF" stroke="#E4E9F1"/>
+    <text x="140" y="78" font-size="10.5" font-weight="800" fill="#E0567B">활동</text>
+    <text x="140" y="96" font-size="12" font-weight="700" fill="#16202F">식후 10분</text>
+    <text x="140" y="112" font-size="12" font-weight="700" fill="#16202F">걷기</text>
+    <rect x="140" y="124" width="74" height="40" rx="9" fill="#FBDDE6"/>
+    <circle cx="177" cy="188" r="13" fill="none" stroke="#C9D2DE" stroke-width="2"/>
+    <path d="M170 188 L175 193 L184 183" stroke="#C9D2DE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="236" y="56" width="102" height="158" rx="13" fill="#FFFFFF" stroke="#E4E9F1"/>
+    <text x="250" y="78" font-size="10.5" font-weight="800" fill="#6B72D8">수면</text>
+    <text x="250" y="96" font-size="12" font-weight="700" fill="#16202F">23시 30분에</text>
+    <text x="250" y="112" font-size="12" font-weight="700" fill="#16202F">눕기</text>
+    <rect x="250" y="124" width="74" height="40" rx="9" fill="#DFE2FA"/>
+    <circle cx="287" cy="188" r="13" fill="none" stroke="#C9D2DE" stroke-width="2"/>
+    <path d="M280 188 L285 193 L294 183" stroke="#C9D2DE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <text x="67" y="248" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">본문 흐림 · 체크 채움</text>
+  </g>
+
+  <!-- ============ 상태 정의 ============ -->
+  <g id="상태 정의" transform="translate(40,414)">
+    <text x="0" y="0" font-size="14" font-weight="900" letter-spacing="-0.6" fill="#0F1826">상태 정의</text>
+    <rect y="12" width="838" height="1" fill="#CFD8E4"/>
+    <text x="14" y="38" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">상태</text>
+    <text x="140" y="38" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">체크</text>
+    <text x="250" y="38" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">카드 면</text>
+    <text x="400" y="38" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">본문</text>
+    <text x="540" y="38" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">터치 시</text>
+
+    <rect y="48" width="838" height="36" fill="#FFFFFF"/>
+    <text x="14" y="71" font-size="11.5" font-weight="700" fill="#1B2739">미완료</text>
+    <text x="140" y="71" font-size="11.5" fill="#3B4860">빈 원 · 회색 테두리</text>
+    <text x="250" y="71" font-size="11.5" fill="#3B4860">흰색</text>
+    <text x="400" y="71" font-size="11.5" fill="#3B4860">기본 색</text>
+    <text x="540" y="71" font-size="11.5" font-weight="700" fill="#2F6BFF">완료 처리 (GOAL-001)</text>
+
+    <rect y="84" width="838" height="36" fill="#F8FAFD"/>
+    <text x="14" y="107" font-size="11.5" font-weight="700" fill="#1B2739">완료</text>
+    <text x="140" y="107" font-size="11.5" fill="#3B4860">파란 원 · 흰 체크</text>
+    <text x="250" y="107" font-size="11.5" fill="#3B4860">연회색 (#F7F9FC)</text>
+    <text x="400" y="107" font-size="11.5" fill="#3B4860">흐림 (#A7B0BE)</text>
+    <text x="540" y="107" font-size="11.5" font-weight="700" fill="#2F6BFF">완료 취소 (GOAL-002)</text>
+
+    <rect y="120" width="838" height="36" fill="#FFFFFF"/>
+    <text x="14" y="143" font-size="11.5" font-weight="700" fill="#1B2739">저장 중</text>
+    <text x="140" y="143" font-size="11.5" fill="#3B4860">낙관적 갱신 (즉시 반영)</text>
+    <text x="250" y="143" font-size="11.5" fill="#3B4860">-</text>
+    <text x="400" y="143" font-size="11.5" fill="#3B4860">-</text>
+    <text x="540" y="143" font-size="11.5" fill="#3B4860">중복 터치는 마지막 상태만 반영</text>
+
+    <rect y="156" width="838" height="36" fill="#F8FAFD"/>
+    <text x="14" y="179" font-size="11.5" font-weight="700" fill="#B23A3A">저장 실패</text>
+    <text x="140" y="179" font-size="11.5" fill="#3B4860">이전 상태로 복구</text>
+    <text x="250" y="179" font-size="11.5" fill="#3B4860">-</text>
+    <text x="400" y="179" font-size="11.5" fill="#3B4860">-</text>
+    <text x="540" y="179" font-size="11.5" fill="#3B4860">토스트로 재시도 안내</text>
+
+    <rect y="192" width="838" height="36" fill="#FFFFFF"/>
+    <text x="14" y="215" font-size="11.5" font-weight="700" fill="#8D99AB">비활성</text>
+    <text x="140" y="215" font-size="11.5" fill="#3B4860">빈 원 · 흐림</text>
+    <text x="250" y="215" font-size="11.5" fill="#3B4860">흰색</text>
+    <text x="400" y="215" font-size="11.5" fill="#3B4860">흐림</text>
+    <text x="540" y="215" font-size="11.5" fill="#3B4860">미래 날짜 — 터치 무반응</text>
+  </g>
+
+  <!-- ============ 가로 행 변형 ============ -->
+  <g id="가로행 변형" transform="translate(924,124)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#6C7A8E">C · 가로 행 변형</text>
+    <rect y="14" width="276" height="216" rx="17" fill="#FFFFFF"/>
+
+    <rect x="14" y="30" width="248" height="62" rx="12" fill="#FFFFFF"/>
+    <rect x="26" y="44" width="34" height="34" rx="9" fill="#FCEBD8"/>
+    <text x="72" y="56" font-size="10" font-weight="800" fill="#E0803A">식이</text>
+    <text x="72" y="74" font-size="12.5" font-weight="700" fill="#16202F">저녁 균형 접시</text>
+    <circle cx="238" cy="61" r="12" fill="none" stroke="#C9D2DE" stroke-width="2"/>
+    <path d="M232 61 L236 65 L244 57" stroke="#C9D2DE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="26" y="100" width="224" height="1" fill="#EDF0F5"/>
+
+    <rect x="14" y="108" width="248" height="62" rx="12" fill="#F7F9FC"/>
+    <rect x="26" y="122" width="34" height="34" rx="9" fill="#FCEBD8" opacity="0.5"/>
+    <text x="72" y="134" font-size="10" font-weight="800" fill="#E6B285">식이</text>
+    <text x="72" y="152" font-size="12.5" font-weight="700" fill="#A7B0BE">저녁 균형 접시</text>
+    <circle cx="238" cy="139" r="12" fill="#2F6BFF"/>
+    <path d="M232 139 L236 143 L244 135" stroke="#FFFFFF" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <text x="26" y="196" font-size="11" fill="#6C7A8E">행 전체가 터치 영역 · 동작은 세로 카드와</text>
+    <text x="26" y="213" font-size="11" fill="#6C7A8E">동일하며 목록형 화면에서 쓴다.</text>
+  </g>
+
+  <!-- ============ 규칙 ============ -->
+  <g id="규칙" transform="translate(924,414)">
+    <text x="0" y="0" font-size="14" font-weight="900" letter-spacing="-0.6" fill="#0F1826">규칙</text>
+    <rect y="12" width="276" height="1" fill="#CFD8E4"/>
+    <text x="0" y="38" font-size="11.5" fill="#3B4860">· 별도 완료 버튼을 두지 않는다</text>
+    <text x="0" y="60" font-size="11.5" fill="#3B4860">· 카드 안에 다른 링크나 보조 동작을</text>
+    <text x="0" y="77" font-size="11.5" fill="#3B4860">&#160;&#160;두지 않아 오터치를 막는다</text>
+    <text x="0" y="99" font-size="11.5" fill="#3B4860">· 취소에 확인 대화상자를 두지 않는다</text>
+    <text x="0" y="116" font-size="11.5" fill="#3B4860">&#160;&#160;— 되돌리기가 같은 동작이므로</text>
+    <text x="0" y="138" font-size="11.5" fill="#3B4860">· 최소 터치 영역 44 × 44 이상</text>
+    <text x="0" y="160" font-size="11.5" fill="#3B4860">· 체크 아이콘 자체는 버튼이 아니라</text>
+    <text x="0" y="177" font-size="11.5" fill="#3B4860">&#160;&#160;상태 표시다</text>
+    <text x="0" y="199" font-size="11.5" fill="#B23A3A">· 과거 날짜 취소 허용 범위는 미정</text>
+  </g>
+
+  <!-- ============ 연쇄 ============ -->
+  <g id="연쇄" transform="translate(40,678)">
+    <text x="0" y="0" font-size="14" font-weight="900" letter-spacing="-0.6" fill="#0F1826">터치 한 번이 부르는 것</text>
+    <rect y="12" width="1160" height="1" fill="#CFD8E4"/>
+
+    <rect y="30" width="180" height="52" rx="10" fill="#EDF3FF" stroke="#CFDEFF"/>
+    <text x="90" y="52" font-size="11.5" font-weight="800" fill="#2F6BFF" text-anchor="middle">영역 터치</text>
+    <text x="90" y="70" font-size="10" fill="#5A6779" text-anchor="middle">GOAL-001 / 002</text>
+
+    <path d="M188 56 L226 56" stroke="#8D99AB" stroke-width="1.6"/><path d="M226 56 L218 51 L218 61 z" fill="#8D99AB"/>
+
+    <rect x="234" y="30" width="180" height="52" rx="10" fill="#FFFFFF" stroke="#DAE1EB"/>
+    <text x="324" y="52" font-size="11.5" font-weight="700" fill="#1B2739" text-anchor="middle">기록 저장 · 문구 잠금</text>
+    <text x="324" y="70" font-size="10" fill="#6C7A8E" text-anchor="middle">DATA-G01 · GOAL-003</text>
+
+    <path d="M422 56 L460 56" stroke="#8D99AB" stroke-width="1.6"/><path d="M460 56 L452 51 L452 61 z" fill="#8D99AB"/>
+
+    <rect x="468" y="30" width="180" height="52" rx="10" fill="#FFFFFF" stroke="#DAE1EB"/>
+    <text x="558" y="52" font-size="11.5" font-weight="700" fill="#1B2739" text-anchor="middle">연속일수 재계산</text>
+    <text x="558" y="70" font-size="10" fill="#6C7A8E" text-anchor="middle">STREAK-001 · 002 · 004</text>
+
+    <path d="M656 56 L694 56" stroke="#8D99AB" stroke-width="1.6"/><path d="M694 56 L686 51 L686 61 z" fill="#8D99AB"/>
+
+    <rect x="702" y="30" width="180" height="52" rx="10" fill="#FFFFFF" stroke="#DAE1EB"/>
+    <text x="792" y="52" font-size="11.5" font-weight="700" fill="#1B2739" text-anchor="middle">코멘트 재평가</text>
+    <text x="792" y="70" font-size="10" fill="#6C7A8E" text-anchor="middle">CMT-001 · 002 · 003</text>
+
+    <path d="M890 56 L928 56" stroke="#8D99AB" stroke-width="1.6"/><path d="M928 56 L920 51 L920 61 z" fill="#8D99AB"/>
+
+    <rect x="936" y="30" width="224" height="52" rx="10" fill="#E3F3EC" stroke="#A9DCC7"/>
+    <text x="1048" y="52" font-size="11.5" font-weight="800" fill="#12604A" text-anchor="middle">두 블록 동시 갱신</text>
+    <text x="1048" y="70" font-size="10" fill="#12604A" text-anchor="middle">카운터 · 타일 · 코멘트</text>
+
+    <text x="0" y="118" font-size="11.5" fill="#6C7A8E">완료와 취소는 같은 경로를 반대로 지난다 — 취소 시에도 네 단계가 모두 다시 돈다.</text>
+    <text x="0" y="138" font-size="11.5" fill="#6C7A8E">화면 반영은 낙관적으로 즉시 하고, 저장 실패 시에만 이전 상태로 되돌린다.</text>
+  </g>
+</svg>

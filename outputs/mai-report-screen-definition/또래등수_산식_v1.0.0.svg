@@ -1,0 +1,458 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="5554" viewBox="0 0 960 5554" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif"><rect width="960" height="5554" fill="#F4F6FA"/><text x="40" y="56" font-size="30" font-weight="800" fill="#16233F">또래 등수 산식 · 최종본</text><text x="40" y="84" font-size="13" font-weight="400" fill="#5A6880">maiReport 건강검진 결과 AI 요약 › 신체계측(키·체중·BMI·허리둘레) · 계산 엔진 PCT-002(국민건강영양조사 경계값표) · 표시 규칙 화면정의서 AIH-003 · v1.0 · 2026-09-14</text><text x="40" y="106" font-size="13" font-weight="400" fill="#5A6880">① 한 장 규격 → ② 단계별 산출 → ③ 예시 5명 → ④ 검증 벡터 → ⑤ 파일.  등수 = 위치(1등 = 값이 가장 작음), 좋고 나쁨은 health가 따로.</text><svg x="0" y="150" width="960" height="1720" viewBox="0 0 960 1720">
+  <defs>
+    <marker id="aarr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#5A6880"/></marker>
+    <style>
+      .ah1{font-size:26px;font-weight:800;fill:#16233F;letter-spacing:-.5px}
+      .alead{font-size:13px;fill:#5A6880}
+      .aph{font-size:11px;font-weight:800;fill:#2F6BFF;letter-spacing:1px}
+      .apt{font-size:18px;font-weight:800;fill:#16233F}
+      .abt{font-size:14px;font-weight:800;fill:#16233F}
+      .abb{font-size:12px;fill:#3B4860}
+      .abs{font-size:11px;fill:#6C7A8E}
+      .af{font-family:Consolas,'JetBrains Mono',monospace;font-size:12px;fill:#16233F}
+      .afb{font-family:Consolas,'JetBrains Mono',monospace;font-size:12px;fill:#2F6BFF;font-weight:700}
+      .anum{font-size:12px;font-weight:800;fill:#fff}
+      .acard{fill:#fff;stroke:#DAE1EB}
+      .asrc{fill:#F3F6FC;stroke:#DAE1EB}
+      .aout{fill:#EFF4FF;stroke:#BFD0FF}
+      .aex{fill:#FFF9EC;stroke:#F2D9A0}
+      .ano{fill:#FFF0F3;stroke:#F3C6D0}
+      .aln{stroke:#5A6880;stroke-width:1.5;fill:none;marker-end:url(#aarr)}
+      .ath{font-size:11px;font-weight:800;fill:#6C7A8E}
+      .atd{font-size:11.5px;fill:#3B4860}
+      .atk{font-size:11.5px;font-weight:700;fill:#16233F}
+    </style>
+  </defs>
+  <rect width="960" height="1720" fill="#F4F6FA"/>
+
+  <text x="40" y="52" class="ah1">또래 등수 산식 · 통합본</text>
+  <text x="40" y="76" class="alead">대상: 키 · 체중 · BMI · 허리둘레.  계산 엔진 = PCT-002(국민건강영양조사 경계값표), 표시 규칙 = AI 요약 화면정의서.  v1.0 · 2026-09-14</text>
+
+  <!-- 0 준비물 -->
+  <text x="40" y="118" class="aph">0 · 준비물</text>
+  <rect x="40" y="130" width="880" height="86" rx="14" class="asrc"/>
+  <text x="56" y="154" class="abb"><tspan class="atk">경계값표</tspan>  20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv — 항목 × 성별 × 5세 구간 = 104행, 행마다 p1~p99 (서버 메모리 상주)</text>
+  <text x="56" y="176" class="abb"><tspan class="atk">회원 정보</tspan>  성별 · 생년월일        <tspan class="atk">검진 값</tspan>  키 cm · 체중 kg · 허리둘레 cm · BMI · 검진일</text>
+  <text x="56" y="198" class="abs">BMI = 결과지 값. 없으면 체중 ÷ (키/100)² 소수 1자리. 결과지 값과 0.2 이상 차이 나면 결과지 값 사용 + 로그</text>
+
+  <!-- 1 계산 -->
+  <text x="40" y="250" class="aph">1 · 계산 (항목마다 반복)</text>
+
+  <rect x="40" y="264" width="270" height="118" rx="14" class="acard"/>
+  <circle cx="64" cy="288" r="11" fill="#2F6BFF"/><text x="60" y="292" class="anum">1</text>
+  <text x="84" y="292" class="abt">나이 (검진일 기준 만 나이)</text>
+  <text x="56" y="316" class="af">age = 검진일.year − 생년.year</text>
+  <text x="56" y="334" class="af">생일 전이면 age −= 1</text>
+  <text x="56" y="358" class="abs">오늘 기준 아님 — 같은 검진은 몇 년 뒤 봐도 같은 등수</text>
+
+  <rect x="345" y="264" width="270" height="118" rx="14" class="acard"/>
+  <circle cx="369" cy="288" r="11" fill="#2F6BFF"/><text x="365" y="292" class="anum">2</text>
+  <text x="389" y="292" class="abt">나이 구간 (5세)</text>
+  <text x="361" y="316" class="af">age &lt; 20  → rank = null</text>
+  <text x="361" y="334" class="af">age ≥ 80  → "80세이상"</text>
+  <text x="361" y="352" class="af">else lo=(age//5)×5 → "45-49세"</text>
+  <text x="361" y="372" class="abs">20세 미만은 자녀 성장도표로 별도 처리</text>
+
+  <rect x="650" y="264" width="270" height="118" rx="14" class="acard"/>
+  <circle cx="674" cy="288" r="11" fill="#2F6BFF"/><text x="670" y="292" class="anum">3</text>
+  <text x="694" y="292" class="abt">내 행 찾기</text>
+  <text x="666" y="316" class="af">row = T[항목][성별][구간]</text>
+  <text x="666" y="334" class="af">bounds = [p1 … p99]  오름차순</text>
+  <text x="666" y="358" class="abs">행이 없으면 rank = null</text>
+
+  <line x1="310" y1="323" x2="345" y2="323" class="aln"/>
+  <line x1="615" y1="323" x2="650" y2="323" class="aln"/>
+
+  <rect x="40" y="404" width="270" height="130" rx="14" class="acard"/>
+  <circle cx="64" cy="428" r="11" fill="#2F6BFF"/><text x="60" y="432" class="anum">4</text>
+  <text x="84" y="432" class="abt">넘은 경계 개수 k</text>
+  <text x="56" y="456" class="af">k = bisect_right(bounds, x)</text>
+  <text x="56" y="474" class="abs">x보다 작거나 같은 경계값 개수 (0~99)</text>
+  <text x="56" y="492" class="abs">경계값과 정확히 같으면 그 번호가 k</text>
+
+  <rect x="345" y="404" width="270" height="130" rx="14" class="acard"/>
+  <circle cx="369" cy="428" r="11" fill="#2F6BFF"/><text x="365" y="432" class="anum">5</text>
+  <text x="389" y="432" class="abt">경계 사이 보간 → 위치 P</text>
+  <text x="361" y="456" class="af">k==0 → P=1   k≥99 → P=99</text>
+  <text x="361" y="474" class="af">lo=bounds[k−1], hi=bounds[k]</text>
+  <text x="361" y="492" class="af">frac=(x−lo)/(hi−lo)  (hi==lo→0)</text>
+  <text x="361" y="510" class="afb">P = k + frac</text>
+  <text x="361" y="526" class="abs">"나보다 작은 사람이 100명 중 P명"</text>
+
+  <rect x="650" y="404" width="270" height="130" rx="14" class="aout"/>
+  <circle cx="674" cy="428" r="11" fill="#2F6BFF"/><text x="670" y="432" class="anum">6</text>
+  <text x="694" y="432" class="abt">등수 · 구간</text>
+  <text x="666" y="458" class="afb">rank = clamp(round(P), 1, 99)</text>
+  <text x="666" y="480" class="afb">band = ceil(rank ÷ 20) → 1~5</text>
+  <text x="666" y="502" class="abs">방향 뒤집기 없음. 1등 = 값이 가장 작음</text>
+  <text x="666" y="518" class="abs">등수는 위치, 좋고 나쁨 아님</text>
+
+  <line x1="310" y1="469" x2="345" y2="469" class="aln"/>
+  <line x1="615" y1="469" x2="650" y2="469" class="aln"/>
+  <path d="M785,382 L785,404" class="aln"/>
+
+  <rect x="40" y="556" width="575" height="96" rx="14" class="acard"/>
+  <circle cx="64" cy="580" r="11" fill="#2F6BFF"/><text x="60" y="584" class="anum">7</text>
+  <text x="84" y="584" class="abt">건강 기준 health (등수와 별개)</text>
+  <text x="56" y="608" class="af">warn: BMI &lt; 18.5 또는 BMI ≥ 25 · 허리둘레 ≥ 85(여) / ≥ 90(남)</text>
+  <text x="56" y="626" class="abs">그 외 ok. 키·체중은 항상 ok. 근거: 국민건강보험공단 판정기준(비만)</text>
+  <text x="56" y="642" class="abs">등수는 "위치", health는 "기준 초과 여부" — 서로 독립</text>
+
+  <rect x="650" y="556" width="270" height="96" rx="14" class="aout"/>
+  <circle cx="674" cy="580" r="11" fill="#2F6BFF"/><text x="670" y="584" class="anum">8</text>
+  <text x="694" y="584" class="abt">저장</text>
+  <text x="666" y="608" class="af">{ value, unit, P, rank,</text>
+  <text x="666" y="626" class="af">  band, health, cohort }</text>
+  <text x="666" y="644" class="abs">+ table_version · 검진 1건마다 저장, 화면은 읽기만</text>
+
+  <line x1="785" y1="534" x2="785" y2="556" class="aln"/>
+  <line x1="615" y1="604" x2="650" y2="604" class="aln"/>
+
+  <!-- 2 화면 -->
+  <text x="40" y="704" class="aph">2 · 화면 매핑 (앱은 그리기만)</text>
+  <rect x="40" y="716" width="880" height="150" rx="14" class="acard"/>
+  <rect x="60" y="734" width="230" height="114" rx="12" fill="#F7F9FC" stroke="#E9EDF5"/>
+  <circle cx="80" cy="754" r="9" fill="#8B5CF6"/><text x="76" y="758" font-size="10" font-weight="800" fill="#fff">3</text>
+  <text x="96" y="758" font-size="13" font-weight="800" fill="#16233F">BMI</text>
+  <text x="70" y="786" font-size="20" font-weight="800" fill="#16233F">25.7</text><text x="116" y="786" font-size="10" fill="#5A6880">kg/m²</text>
+  <text x="70" y="804" font-size="9" fill="#98A4B8">내 또래 100명 중</text>
+  <text x="70" y="824" font-size="18" font-weight="800" fill="#8B5CF6">76</text><text x="92" y="824" font-size="10" font-weight="700" fill="#8B5CF6">등</text>
+  <rect x="120" y="810" width="92" height="18" rx="9" fill="#FFF1DE"/><text x="128" y="823" font-size="9" font-weight="800" fill="#B86A12">조금 높은 편이에요</text>
+  <g fill="#D8CCF8"><rect x="160" y="754" width="8" height="26" rx="3"/><rect x="180" y="752" width="9" height="28" rx="3"/><rect x="200" y="750" width="10" height="30" rx="3"/><rect x="242" y="746" width="12" height="34" rx="3"/></g>
+  <rect x="220" y="748" width="11" height="32" rx="3" fill="#8B5CF6"/>
+  <rect x="212" y="730" width="26" height="13" rx="6" fill="#8B5CF6"/><text x="220" y="740" font-size="8" font-weight="800" fill="#fff">나</text>
+  <text x="156" y="796" font-size="7" fill="#98A4B8">1~20</text><text x="177" y="796" font-size="7" fill="#98A4B8">21~40</text><text x="198" y="796" font-size="7" fill="#98A4B8">41~60</text><text x="218" y="796" font-size="7" font-weight="800" fill="#8B5CF6">61~80</text><text x="240" y="796" font-size="7" fill="#98A4B8">81~100</text>
+  <text x="320" y="752" class="abb"><tspan class="afb">value · unit</tspan>  →  측정값 "25.7 kg/m²"</text>
+  <text x="320" y="776" class="abb"><tspan class="afb">rank</tspan>  →  "내 또래 100명 중 76등"  (항목 색 강조)</text>
+  <text x="320" y="800" class="abb"><tspan class="afb">band</tspan>  →  사람 그림 5개 중 4번째만 진하게 · "나" 말풍선 · 구간 라벨 61~80등 강조</text>
+  <text x="320" y="824" class="abb"><tspan class="afb">band + health</tspan>  →  배지 문구 사전[BMI][4] = "조금 높은 편이에요" · 톤 = health(warn → 주의)</text>
+  <text x="320" y="848" class="abs">rank = null → 등수 "—", 그림 전부 연한 톤, "나" 없음, 안내 "또래 비교 데이터를 준비 중이에요"</text>
+
+  <!-- 배지 사전 -->
+  <text x="40" y="906" class="aph">배지 문구 사전 (band × 항목)</text>
+  <rect x="40" y="918" width="880" height="150" rx="14" class="acard"/>
+  <text x="60" y="942" class="ath">band</text><text x="130" y="942" class="ath">키</text><text x="330" y="942" class="ath">체중</text><text x="530" y="942" class="ath">BMI</text><text x="730" y="942" class="ath">허리둘레</text>
+  <line x1="56" y1="950" x2="904" y2="950" stroke="#E9EDF5"/>
+  <text x="60" y="970" class="atk">1 (1~20등)</text><text x="130" y="970" class="atd">작은 편이에요</text><text x="330" y="970" class="atd">가벼운 편이에요</text><text x="530" y="970" class="atd">낮은 편이에요</text><text x="730" y="970" class="atd">가는 편이에요</text>
+  <text x="60" y="992" class="atk">2 (21~40등)</text><text x="130" y="992" class="atd">조금 작은 편이에요</text><text x="330" y="992" class="atd">조금 가벼운 편이에요</text><text x="530" y="992" class="atd">조금 낮은 편이에요</text><text x="730" y="992" class="atd">조금 가는 편이에요</text>
+  <text x="60" y="1014" class="atk">3 (41~60등)</text><text x="130" y="1014" class="atd">평균적인 편이에요</text><text x="330" y="1014" class="atd">평균적인 편이에요</text><text x="530" y="1014" class="atd">평균적인 편이에요</text><text x="730" y="1014" class="atd">평균적인 편이에요</text>
+  <text x="60" y="1036" class="atk">4 (61~80등)</text><text x="130" y="1036" class="atd">조금 큰 편이에요</text><text x="330" y="1036" class="atd">조금 무거운 편이에요</text><text x="530" y="1036" class="atd">조금 높은 편이에요</text><text x="730" y="1036" class="atd">조금 굵은 편이에요</text>
+  <text x="60" y="1058" class="atk">5 (81~99등)</text><text x="130" y="1058" class="atd">큰 편이에요</text><text x="330" y="1058" class="atd">무거운 편이에요</text><text x="530" y="1058" class="atd">높은 편이에요</text><text x="730" y="1058" class="atd">굵은 편이에요</text>
+
+  <!-- 검증 벡터 -->
+  <text x="40" y="1108" class="aph">검증 벡터 (허용 오차 ±0.1 · 경계값표 기준)</text>
+  <rect x="40" y="1120" width="880" height="176" rx="14" class="aex"/>
+  <text x="60" y="1144" class="ath">성별·나이</text><text x="160" y="1144" class="ath">항목</text><text x="250" y="1144" class="ath">x</text><text x="320" y="1144" class="ath">k</text><text x="380" y="1144" class="ath">P</text><text x="450" y="1144" class="ath">rank</text><text x="520" y="1144" class="ath">band</text><text x="590" y="1144" class="ath">health</text><text x="670" y="1144" class="ath">배지</text>
+  <line x1="56" y1="1152" x2="904" y2="1152" stroke="#F2D9A0"/>
+  <text x="60" y="1172" class="atd">남 45</text><text x="160" y="1172" class="atd">BMI</text><text x="250" y="1172" class="atd">24.5</text><text x="320" y="1172" class="atd">40</text><text x="380" y="1172" class="atd">40.0</text><text x="450" y="1172" class="atk">40</text><text x="520" y="1172" class="atd">2</text><text x="590" y="1172" class="atd">ok</text><text x="670" y="1172" class="atd">조금 낮은 편이에요</text>
+  <text x="60" y="1194" class="atd">남 45</text><text x="160" y="1194" class="atd">허리둘레</text><text x="250" y="1194" class="atd">82</text><text x="320" y="1194" class="atd">21</text><text x="380" y="1194" class="atd">21.0</text><text x="450" y="1194" class="atk">21</text><text x="520" y="1194" class="atd">2</text><text x="590" y="1194" class="atd">ok</text><text x="670" y="1194" class="atd">조금 가는 편이에요</text>
+  <text x="60" y="1216" class="atd">남 45</text><text x="160" y="1216" class="atd">키</text><text x="250" y="1216" class="atd">172</text><text x="320" y="1216" class="atd">42</text><text x="380" y="1216" class="atd">42.5</text><text x="450" y="1216" class="atk">43</text><text x="520" y="1216" class="atd">3</text><text x="590" y="1216" class="atd">ok</text><text x="670" y="1216" class="atd">평균적인 편이에요</text>
+  <text x="60" y="1238" class="atd">남 45</text><text x="160" y="1238" class="atd">체중</text><text x="250" y="1238" class="atd">72.5</text><text x="320" y="1238" class="atd">36</text><text x="380" y="1238" class="atd">36.3</text><text x="450" y="1238" class="atk">36</text><text x="520" y="1238" class="atd">2</text><text x="590" y="1238" class="atd">ok</text><text x="670" y="1238" class="atd">조금 가벼운 편이에요</text>
+  <text x="60" y="1260" class="atd">여 42</text><text x="160" y="1260" class="atd">BMI</text><text x="250" y="1260" class="atd">17.9</text><text x="320" y="1260" class="atd">(계산)</text><text x="380" y="1260" class="atd">(계산)</text><text x="450" y="1260" class="atk">(계산)</text><text x="520" y="1260" class="atd">1~2</text><text x="590" y="1260" class="atk">warn</text><text x="670" y="1260" class="atd">band 문구 + 주의 톤 (저체중)</text>
+  <text x="60" y="1282" class="atd">남 17</text><text x="160" y="1282" class="atd">BMI</text><text x="250" y="1282" class="atd">24.5</text><text x="320" y="1282" class="atd">—</text><text x="380" y="1282" class="atd">—</text><text x="450" y="1282" class="atk">null</text><text x="520" y="1282" class="atd">—</text><text x="590" y="1282" class="atd">—</text><text x="670" y="1282" class="atd">"—" + 준비 중 안내 (20세 미만)</text>
+
+  <!-- 예외 / 틀리는 곳 -->
+  <text x="40" y="1336" class="aph">예외 · 자주 틀리는 곳</text>
+  <rect x="40" y="1348" width="425" height="180" rx="14" class="ano"/>
+  <text x="60" y="1372" class="abt">예외</text>
+  <text x="60" y="1396" class="abb">· 성별 없음 · 20세 미만 · 행 없음 → rank = null</text>
+  <text x="60" y="1416" class="abb">· 항목 값 없음 → 그 카드 제거, 순서 당김</text>
+  <text x="60" y="1436" class="abb">· 값이 p1 미만 / p99 이상 → P = 1 / 99</text>
+  <text x="60" y="1456" class="abb">· hi == lo → frac = 0</text>
+  <text x="60" y="1476" class="abb">· 단위 다름 → 먼저 환산, 환산표 없으면 계산 안 함</text>
+  <text x="60" y="1496" class="abb">· 저체중(BMI &lt; 18.5)은 등수 유지 + health = warn</text>
+  <text x="60" y="1516" class="abs">  (PCT-002의 "확인 필요 대체"와 다른 점)</text>
+
+  <rect x="495" y="1348" width="425" height="180" rx="14" class="acard"/>
+  <text x="515" y="1372" class="abt">자주 틀리는 곳</text>
+  <text x="515" y="1396" class="abb">· 나이를 오늘 기준으로 → 등수가 해마다 바뀜. 검진일 기준</text>
+  <text x="515" y="1416" class="abb">· k는 "작거나 같음". 같은 값이면 그 경계 번호</text>
+  <text x="515" y="1436" class="abb">· rank를 뒤집지 않는다. 키 1등 = 가장 작은 키</text>
+  <text x="515" y="1456" class="abb">· 0등 · 100등 없음 (1~99)</text>
+  <text x="515" y="1476" class="abb">· "상위/하위 %", 종합 점수, 방향 반전은 화면에 쓰지 않음</text>
+  <text x="515" y="1496" class="abb">· 혈압·혈당·지질 등은 등수화하지 않음 (공단 판정 막대)</text>
+  <text x="515" y="1516" class="abb">· BMI는 결과지 값 우선, 없으면 체중 ÷ (키/100)²</text>
+
+  <!-- 경계값표 생성 -->
+  <text x="40" y="1568" class="aph">경계값표 만드는 절차 (데이터 담당 · 연 1회)</text>
+  <rect x="40" y="1580" width="880" height="100" rx="14" class="asrc"/>
+  <text x="56" y="1604" class="abb">① 질병관리청 국민건강영양조사 → 원시자료 → 3개년(2022~2024) 기본DB (사용자등록, 무료)   ② 변수 sex, age, HE_ht, HE_wt, HE_BMI, HE_wc, wt_itvex</text>
+  <text x="56" y="1626" class="abb">③ 만 19세 이상 · 값 있음 · 가중치 &gt; 0, 연도 가중치 ÷ 3   ④ 성별 × 5세 구간(20-24 … 80세 이상), 표본 30명 미만 집단 제외</text>
+  <text x="56" y="1648" class="abb">⑤ 가중 백분위: 정렬 → 누적 가중치가 W×q/100을 넘는 지점에서 선형보간 → p1~p99   ⑥ 검증: 오름차순, p50 ≈ 가중평균, 통계연보 구간표와 ±2</text>
+  <text x="56" y="1670" class="abs">⑦ 파일명에 조사 연도·생성일·버전. 화면 고지 "국민건강영양조사 2022~2024(질병관리청)". 원시자료는 재배포하지 않음</text>
+
+  <text x="40" y="1706" class="abs">maiReport · 건강검진 결과 AI 요약 · 또래 등수 산식 통합본 · 2026-09-14 · 경계값표 20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv · 재현 엑셀 02_또래등수_산식_v1.0.0.xlsx</text>
+</svg>
+<svg x="0" y="1910" width="960" height="1560" viewBox="0 0 960 1560">
+  <defs>
+    <marker id="barr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#5A6880"/></marker>
+    <style>
+      .bh1{font-size:26px;font-weight:800;fill:#16233F;letter-spacing:-.5px}
+      .blead{font-size:13px;fill:#5A6880}
+      .bstp{font-size:11px;font-weight:800;fill:#2F6BFF;letter-spacing:1px}
+      .bbt{font-size:16px;font-weight:800;fill:#16233F}
+      .bbb{font-size:12.5px;fill:#3B4860}
+      .bbs{font-size:11px;fill:#6C7A8E}
+      .bf{font-family:Consolas,'JetBrains Mono',monospace;font-size:12px;fill:#16233F}
+      .bfb{font-family:Consolas,'JetBrains Mono',monospace;font-size:12.5px;fill:#2F6BFF;font-weight:700}
+      .bex{font-size:12px;fill:#8A5A00}
+      .bexb{font-size:12px;font-weight:800;fill:#8A5A00}
+      .bnum{font-size:13px;font-weight:800;fill:#fff}
+      .bcard{fill:#fff;stroke:#DAE1EB}
+      .bexbox{fill:#FFF9EC;stroke:#F2D9A0}
+      .bln{stroke:#5A6880;stroke-width:1.5;fill:none;marker-end:url(#barr)}
+      .btick{stroke:#98A4B8;stroke-width:1}
+      .btl{font-size:10px;fill:#6C7A8E}
+    </style>
+  </defs>
+  <rect width="960" height="1560" fill="#F4F6FA"/>
+
+  <text x="40" y="52" class="bh1">또래 등수 산출 · 처음부터 끝까지</text>
+  <text x="40" y="76" class="blead">검진 값 하나가 "내 또래 100명 중 N등"이 되기까지 8단계. 오른쪽 노란 칸은 실제 경계값표 값으로 계산한 예(남자 45세, BMI 24.5).</text>
+
+  <!-- STEP 1 -->
+  <rect x="40" y="104" width="560" height="112" rx="14" class="bcard"/>
+  <circle cx="66" cy="130" r="13" fill="#2F6BFF"/><text x="61" y="135" class="bnum">1</text>
+  <text x="90" y="135" class="bbt">나이를 검진일 기준으로 구한다</text>
+  <text x="58" y="162" class="bbb">오늘이 아니라 <tspan font-weight="800">검진받은 날</tspan> 기준 만 나이. 같은 검진은 몇 년 뒤 봐도 같은 등수여야 하니까.</text>
+  <text x="58" y="184" class="bf">age = 검진일.year − 생년.year;  생일이 아직 안 지났으면 −1</text>
+  <text x="58" y="204" class="bbs">20세 미만은 계산하지 않는다(자녀 프로필은 성장도표로 따로).</text>
+  <rect x="620" y="104" width="300" height="112" rx="14" class="bexbox"/>
+  <text x="636" y="130" class="bexb">예</text>
+  <text x="636" y="154" class="bex">생년월일 1981-03-10</text>
+  <text x="636" y="172" class="bex">검진일 2026-04-12</text>
+  <text x="636" y="196" class="bexb">→ 45세</text>
+
+  <!-- STEP 2 -->
+  <rect x="40" y="236" width="560" height="96" rx="14" class="bcard"/>
+  <circle cx="66" cy="262" r="13" fill="#2F6BFF"/><text x="61" y="267" class="bnum">2</text>
+  <text x="90" y="267" class="bbt">5세 단위 구간으로 묶는다</text>
+  <text x="58" y="294" class="bbb">20-24, 25-29, … , 75-79, 80세 이상 — 13개 구간. 성별과 함께 "내 또래"의 범위가 된다.</text>
+  <text x="58" y="316" class="bf">lo = (age ÷ 5 내림) × 5  →  "lo-(lo+4)세"</text>
+  <rect x="620" y="236" width="300" height="96" rx="14" class="bexbox"/>
+  <text x="636" y="262" class="bexb">예</text>
+  <text x="636" y="286" class="bex">45 ÷ 5 = 9 → 9 × 5 = 45</text>
+  <text x="636" y="310" class="bexb">→ 남자 · 45-49세</text>
+
+  <!-- STEP 3 -->
+  <rect x="40" y="352" width="560" height="150" rx="14" class="bcard"/>
+  <circle cx="66" cy="378" r="13" fill="#2F6BFF"/><text x="61" y="383" class="bnum">3</text>
+  <text x="90" y="383" class="bbt">경계값표에서 내 행을 찾는다</text>
+  <text x="58" y="410" class="bbb">파일 <tspan class="bf">20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv</tspan></text>
+  <text x="58" y="430" class="bbb">항목 · 성별 · 연령이 모두 같은 행 하나. 그 행에 <tspan font-weight="800">경계값 99개(p1 ~ p99)</tspan>가 오름차순으로 있다.</text>
+  <text x="58" y="452" class="bbb">p40 = "이 집단에서 값이 작은 쪽부터 40% 되는 지점의 값". 100명 중 40번째 사람의 값이라고 보면 된다.</text>
+  <text x="58" y="474" class="bf">row = T[BMI][남자][45-49세];  bounds = [p1, p2, …, p99]</text>
+  <text x="58" y="492" class="bbs">행이 없으면 등수를 계산하지 않는다(rank = null).</text>
+  <rect x="620" y="352" width="300" height="150" rx="14" class="bexbox"/>
+  <text x="636" y="378" class="bexb">예 · 남자 45-49세 BMI 행 (n = 567)</text>
+  <text x="636" y="402" class="bex">p1 18.0   p10 21.42   p25 23.2</text>
+  <text x="636" y="420" class="bex">p39 24.45   <tspan class="bexb">p40 24.50   p41 24.54</tspan></text>
+  <text x="636" y="438" class="bex">p50 25.29   p75 27.6   p90 30.48</text>
+  <text x="636" y="456" class="bex">p99 35.92</text>
+  <text x="636" y="484" class="bbs">값이 작은 쪽 → 큰 쪽으로 커진다</text>
+
+  <!-- STEP 4 number line -->
+  <rect x="40" y="522" width="560" height="176" rx="14" class="bcard"/>
+  <circle cx="66" cy="548" r="13" fill="#2F6BFF"/><text x="61" y="553" class="bnum">4</text>
+  <text x="90" y="553" class="bbt">내 값이 경계 몇 개를 넘었는지 센다 (k)</text>
+  <text x="58" y="580" class="bbb">99개 경계 중 <tspan font-weight="800">내 값보다 작거나 같은 것</tspan>의 개수 = k. 정렬돼 있으니 이진 탐색 한 번이면 된다.</text>
+  <text x="58" y="600" class="bf">k = bisect_right(bounds, x)          # 0 ~ 99</text>
+  <!-- number line -->
+  <line x1="70" y1="650" x2="570" y2="650" class="btick"/>
+  <g class="btl">
+    <line x1="110" y1="643" x2="110" y2="657" class="btick"/><text x="96" y="674">p38 24.35</text>
+    <line x1="210" y1="643" x2="210" y2="657" class="btick"/><text x="196" y="674">p39 24.45</text>
+    <line x1="310" y1="643" x2="310" y2="657" class="btick"/><text x="296" y="674" font-weight="800" fill="#2F6BFF">p40 24.50</text>
+    <line x1="410" y1="643" x2="410" y2="657" class="btick"/><text x="396" y="674">p41 24.54</text>
+    <line x1="510" y1="643" x2="510" y2="657" class="btick"/><text x="496" y="674">p42 24.58</text>
+  </g>
+  <circle cx="310" cy="650" r="6" fill="#D9485F"/><text x="300" y="634" font-size="11" font-weight="800" fill="#D9485F">x = 24.5</text>
+  <text x="58" y="692" class="bbs">경계값과 정확히 같으면 그 경계 번호가 k. (24.5는 p40과 같으므로 k = 40)</text>
+  <rect x="620" y="522" width="300" height="176" rx="14" class="bexbox"/>
+  <text x="636" y="548" class="bexb">예</text>
+  <text x="636" y="572" class="bex">24.5 ≤ x 인 경계: p1 … p40 (40개)</text>
+  <text x="636" y="590" class="bex">p41 = 24.54 &gt; 24.5 → 여기서 멈춤</text>
+  <text x="636" y="618" class="bexb">→ k = 40</text>
+  <text x="636" y="646" class="bbs">뜻: 나보다 값이 작거나 같은 사람이</text>
+  <text x="636" y="662" class="bbs">100명 중 40명쯤 있다</text>
+
+  <!-- STEP 5 -->
+  <rect x="40" y="718" width="560" height="130" rx="14" class="bcard"/>
+  <circle cx="66" cy="744" r="13" fill="#2F6BFF"/><text x="61" y="749" class="bnum">5</text>
+  <text x="90" y="749" class="bbt">경계 사이 어디쯤인지 더한다 (보간) → 위치 P</text>
+  <text x="58" y="776" class="bbb">k번째 경계와 k+1번째 경계 사이에서 내 값의 비율(0~1)을 k에 더한다. 소수점이 붙은 정밀한 위치가 된다.</text>
+  <text x="58" y="798" class="bf">lo = bounds[k], hi = bounds[k+1]</text>
+  <text x="58" y="816" class="bf">frac = (x − lo) ÷ (hi − lo)    (hi == lo 이면 0)</text>
+  <text x="58" y="836" class="bfb">P = k + frac        (k = 0 → P = 1,  k ≥ 99 → P = 99)</text>
+  <rect x="620" y="718" width="300" height="130" rx="14" class="bexbox"/>
+  <text x="636" y="744" class="bexb">예</text>
+  <text x="636" y="768" class="bex">lo = p40 = 24.50,  hi = p41 = 24.54</text>
+  <text x="636" y="786" class="bex">frac = (24.5 − 24.50) ÷ 0.04 = 0</text>
+  <text x="636" y="812" class="bexb">→ P = 40 + 0 = 40.0</text>
+  <text x="636" y="834" class="bbs">x가 24.52였다면 frac 0.5 → P 40.5</text>
+
+  <!-- STEP 6 -->
+  <rect x="40" y="868" width="560" height="120" rx="14" class="bcard"/>
+  <circle cx="66" cy="894" r="13" fill="#2F6BFF"/><text x="61" y="899" class="bnum">6</text>
+  <text x="90" y="899" class="bbt">등수(rank)와 5칸 구간(band)으로 바꾼다</text>
+  <text x="58" y="926" class="bfb">rank = round(P), 1~99로 자름          band = ceil(rank ÷ 20)  →  1 ~ 5</text>
+  <text x="58" y="950" class="bbb">1등 = 값이 가장 작은 사람, 99등 = 가장 큰 사람. <tspan font-weight="800">뒤집지 않는다.</tspan> 등수는 줄에서의 자리이지 좋고 나쁨이 아니다.</text>
+  <text x="58" y="972" class="bbs">band: 1~20등 → 1 · 21~40등 → 2 · 41~60등 → 3 · 61~80등 → 4 · 81~99등 → 5</text>
+  <rect x="620" y="868" width="300" height="120" rx="14" class="bexbox"/>
+  <text x="636" y="894" class="bexb">예</text>
+  <text x="636" y="918" class="bex">round(40.0) = 40</text>
+  <text x="636" y="942" class="bexb">→ rank = 40등,  band = ceil(40 ÷ 20) = 2</text>
+  <text x="636" y="966" class="bbs">"내 또래 100명 중 40등", 사람 그림 2번째</text>
+
+  <!-- STEP 7 -->
+  <rect x="40" y="1008" width="560" height="104" rx="14" class="bcard"/>
+  <circle cx="66" cy="1034" r="13" fill="#2F6BFF"/><text x="61" y="1039" class="bnum">7</text>
+  <text x="90" y="1039" class="bbt">건강 기준은 등수와 따로 본다 (health)</text>
+  <text x="58" y="1066" class="bf">warn: BMI &lt; 18.5 또는 ≥ 25 · 허리둘레 ≥ 85(여) / ≥ 90(남)    그 외 ok · 키·체중은 항상 ok</text>
+  <text x="58" y="1090" class="bbs">등수는 "어디쯤"(위치), health는 "기준을 넘었나"(공단 판정기준). 둘은 서로 독립이고 health는 배지 색만 바꾼다.</text>
+  <rect x="620" y="1008" width="300" height="104" rx="14" class="bexbox"/>
+  <text x="636" y="1034" class="bexb">예</text>
+  <text x="636" y="1058" class="bex">24.5는 18.5 이상, 25 미만</text>
+  <text x="636" y="1082" class="bexb">→ health = ok</text>
+
+  <!-- STEP 8 -->
+  <rect x="40" y="1132" width="560" height="150" rx="14" class="bcard"/>
+  <circle cx="66" cy="1158" r="13" fill="#2F6BFF"/><text x="61" y="1163" class="bnum">8</text>
+  <text x="90" y="1163" class="bbt">저장하고 화면에 그린다</text>
+  <text x="58" y="1190" class="bbb">검진 1건마다 항목별 결과를 저장. 화면은 저장값만 읽고 계산하지 않는다. 표 버전이 바뀌면 다시 계산.</text>
+  <text x="58" y="1214" class="bbb"><tspan class="bfb">rank</tspan> → "내 또래 100명 중 N등"   <tspan class="bfb">band</tspan> → 사람 그림 위치 · "나" 말풍선 · 구간 라벨 · 배지 문구</text>
+  <text x="58" y="1236" class="bbb"><tspan class="bfb">health</tspan> → 배지 톤 (warn 주의 톤 / band 2~4 안정 톤 / band 1·5 중립 톤)</text>
+  <text x="58" y="1262" class="bf">{ key:"bmi", value:24.5, rank:40, band:2, health:"ok", cohort:"남자|45-49세", table_version:"knhanes-2022-2024.v1" }</text>
+  <!-- mini card -->
+  <rect x="620" y="1132" width="300" height="150" rx="14" class="bexbox"/>
+  <rect x="636" y="1148" width="268" height="118" rx="12" fill="#fff" stroke="#E9EDF5"/>
+  <circle cx="656" cy="1168" r="9" fill="#8B5CF6"/><text x="652" y="1172" font-size="10" font-weight="800" fill="#fff">3</text>
+  <text x="672" y="1172" font-size="13" font-weight="800" fill="#16233F">BMI</text>
+  <text x="648" y="1200" font-size="20" font-weight="800" fill="#16233F">24.5</text><text x="694" y="1200" font-size="10" fill="#5A6880">kg/m²</text>
+  <text x="648" y="1218" font-size="9" fill="#98A4B8">내 또래 100명 중</text>
+  <text x="648" y="1240" font-size="18" font-weight="800" fill="#8B5CF6">40</text><text x="670" y="1240" font-size="10" font-weight="700" fill="#8B5CF6">등</text>
+  <rect x="700" y="1226" width="92" height="18" rx="9" fill="#E7F7EE"/><text x="708" y="1239" font-size="9" font-weight="800" fill="#1F8A55">조금 낮은 편이에요</text>
+  <g fill="#D8CCF8"><rect x="756" y="1170" width="8" height="26" rx="3"/><rect x="800" y="1166" width="10" height="30" rx="3"/><rect x="822" y="1164" width="11" height="32" rx="3"/><rect x="844" y="1162" width="12" height="34" rx="3"/></g>
+  <rect x="777" y="1168" width="9" height="28" rx="3" fill="#8B5CF6"/>
+  <rect x="768" y="1150" width="26" height="13" rx="6" fill="#8B5CF6"/><text x="776" y="1160" font-size="8" font-weight="800" fill="#fff">나</text>
+  <text x="752" y="1210" font-size="7" fill="#98A4B8">1~20</text><text x="773" y="1210" font-size="7" font-weight="800" fill="#8B5CF6">21~40</text><text x="797" y="1210" font-size="7" fill="#98A4B8">41~60</text><text x="819" y="1210" font-size="7" fill="#98A4B8">61~80</text><text x="841" y="1210" font-size="7" fill="#98A4B8">81~100</text>
+
+  <!-- 한 줄 요약 + 검증 -->
+  <rect x="40" y="1302" width="880" height="110" rx="14" fill="#EFF4FF" stroke="#BFD0FF"/>
+  <text x="56" y="1328" class="bbt">한 줄로</text>
+  <text x="56" y="1352" class="bbb">같은 성별·같은 5세 구간 사람들을 값이 작은 순으로 100명 세워 놓고, <tspan font-weight="800">내 앞에 몇 명이 서 있는지</tspan>가 등수다.</text>
+  <text x="56" y="1374" class="bbb">그 "100명"의 위치는 국민건강영양조사 2022~2024 원시자료로 미리 만든 경계값 99개(p1~p99)로 대신한다.</text>
+  <text x="56" y="1398" class="bbs">검증 벡터(남 45세): BMI 24.5 → 40등 · 허리둘레 82 → 21등 · 키 172 → 43등 · 체중 72.5 → 36등  (경계값표 20번 CSV 기준, ±0.1)</text>
+
+  <rect x="40" y="1428" width="880" height="92" rx="14" fill="#FFF0F3" stroke="#F3C6D0"/>
+  <text x="56" y="1454" class="bbt">자주 틀리는 곳</text>
+  <text x="56" y="1478" class="bbb">· 나이를 오늘 기준으로 → 해마다 등수가 바뀜   · k는 "작거나 같음"   · rank를 뒤집지 않는다(키 1등 = 가장 작은 키)</text>
+  <text x="56" y="1500" class="bbb">· 0등·100등은 없다(1~99)   · BMI는 결과지 값 우선, 없으면 체중 ÷ (키/100)²   · "상위/하위 %"는 화면에 쓰지 않는다</text>
+
+  <text x="40" y="1546" class="bbs">maiReport · 건강검진 결과 AI 요약 · 또래 등수 산출 단계별 · 2026-09-14 · 통합본 md/svg와 같은 규칙</text>
+</svg>
+<svg x="0" y="3510" width="960" height="1500" viewBox="0 0 960 1500">
+  <defs>
+    <style>
+      .ch1{font-size:26px;font-weight:800;fill:#16233F;letter-spacing:-.5px}
+      .clead{font-size:13px;fill:#5A6880}
+      .cpt{font-size:17px;font-weight:800;fill:#16233F}
+      .cwho{font-size:12px;fill:#5A6880}
+      .cbb{font-size:12px;fill:#3B4860}
+      .cbs{font-size:11px;fill:#6C7A8E}
+      .cf{font-family:Consolas,'JetBrains Mono',monospace;font-size:11.5px;fill:#16233F}
+      .cfb{font-family:Consolas,'JetBrains Mono',monospace;font-size:12px;fill:#2F6BFF;font-weight:700}
+      .cth{font-size:10.5px;font-weight:800;fill:#6C7A8E}
+      .ctd{font-size:11.5px;fill:#3B4860}
+      .ctk{font-size:11.5px;font-weight:700;fill:#16233F}
+      .ccard{fill:#fff;stroke:#DAE1EB}
+      .cstep{fill:#F3F6FC;stroke:#DAE1EB}
+      .cwarn{fill:#FFF1DE;stroke:#F2D9A0}
+      .cnul{fill:#F5F7FB;stroke:#DAE1EB}
+    </style>
+  </defs>
+  <rect width="960" height="1500" fill="#F4F6FA"/>
+
+  <text x="40" y="52" class="ch1">예시로 보는 또래 등수 산출</text>
+  <text x="40" y="76" class="clead">사람 다섯 명의 실제 계산. 모든 숫자는 경계값표 20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv에서 읽은 값이다.</text>
+  <text x="40" y="94" class="clead">공식은 한 가지: k = 내 값 ≤ 인 경계 개수 → P = k + (x−p_k)÷(p_k+1−p_k) → rank = round(P) → band = ceil(rank÷20) → health는 따로.</text>
+
+  <!-- 예시 1 -->
+  <rect x="40" y="118" width="880" height="228" rx="14" class="ccard"/>
+  <circle cx="66" cy="144" r="13" fill="#2F6BFF"/><text x="61" y="149" font-size="13" font-weight="800" fill="#fff">1</text>
+  <text x="90" y="149" class="cpt">여자 42세 · BMI 25.7</text>
+  <text x="330" y="149" class="cwho">→ 또래 집단 "여자 40-44세" (n = 828)</text>
+  <rect x="56" y="164" width="848" height="28" rx="8" class="cstep"/>
+  <text x="66" y="183" class="cbb">① 행 찾기: T[BMI][여자][40-44세] → … p76 25.35 · <tspan class="ctk">p77 25.58</tspan> · <tspan class="ctk">p78 25.78</tspan> · p79 25.94 …</text>
+  <text x="66" y="214" class="cbb">② k: 25.7보다 작거나 같은 경계는 p1~p77 → <tspan class="cfb">k = 77</tspan>   (p78 = 25.78 &gt; 25.7에서 멈춤)</text>
+  <text x="66" y="236" class="cbb">③ 보간: lo = 25.58, hi = 25.78 → frac = (25.7 − 25.58) ÷ 0.20 = 0.6 → <tspan class="cfb">P = 77.6</tspan></text>
+  <text x="66" y="258" class="cbb">④ rank = round(77.6) = <tspan class="cfb">78등</tspan>,  band = ceil(78 ÷ 20) = <tspan class="cfb">4</tspan></text>
+  <text x="66" y="280" class="cbb">⑤ health: 25.7 ≥ 25 → <tspan class="cfb">warn</tspan></text>
+  <rect x="56" y="296" width="848" height="36" rx="8" class="cwarn"/>
+  <text x="66" y="319" class="cbb">화면: 내 또래 100명 중 <tspan class="ctk">78등</tspan> · 사람 그림 4번째에 "나" · 배지 "조금 높은 편이에요" · 톤 = 주의(warn)</text>
+
+  <!-- 예시 2 -->
+  <rect x="40" y="366" width="880" height="228" rx="14" class="ccard"/>
+  <circle cx="66" cy="392" r="13" fill="#2F6BFF"/><text x="61" y="397" font-size="13" font-weight="800" fill="#fff">2</text>
+  <text x="90" y="397" class="cpt">같은 사람 · 허리둘레 86.0 cm</text>
+  <text x="330" y="397" class="cwho">→ "여자 40-44세" (n = 798). 값이 경계와 딱 같은 경우</text>
+  <rect x="56" y="412" width="848" height="28" rx="8" class="cstep"/>
+  <text x="66" y="431" class="cbb">① T[허리둘레][여자][40-44세] → … p79 85.7 · <tspan class="ctk">p80 86.0</tspan> · <tspan class="ctk">p81 86.6</tspan> …</text>
+  <text x="66" y="462" class="cbb">② k: 86.0 ≤ x 인 경계는 p1~p80 → <tspan class="cfb">k = 80</tspan>   ("작거나 같음"이므로 p80 = 86.0도 센다)</text>
+  <text x="66" y="484" class="cbb">③ 보간: lo = 86.0 → frac = 0 → <tspan class="cfb">P = 80.0</tspan></text>
+  <text x="66" y="506" class="cbb">④ rank = <tspan class="cfb">80등</tspan>,  band = ceil(80 ÷ 20) = <tspan class="cfb">4</tspan></text>
+  <text x="66" y="528" class="cbb">⑤ health: 여자 허리둘레 86 ≥ 85 → <tspan class="cfb">warn</tspan></text>
+  <rect x="56" y="544" width="848" height="36" rx="8" class="cwarn"/>
+  <text x="66" y="567" class="cbb">화면: <tspan class="ctk">80등</tspan> · 그림 4번째 · "조금 굵은 편이에요" · 주의 톤.   같은 사람의 키 164.2 → 70등(band 4) · 체중 69.3 → 81등(band 5), 둘 다 health ok</text>
+
+  <!-- 예시 3 -->
+  <rect x="40" y="614" width="880" height="200" rx="14" class="ccard"/>
+  <circle cx="66" cy="640" r="13" fill="#2F6BFF"/><text x="61" y="645" font-size="13" font-weight="800" fill="#fff">3</text>
+  <text x="90" y="645" class="cpt">남자 28세 · 키 182 cm</text>
+  <text x="330" y="645" class="cwho">→ "남자 25-29세" (n = 453). 큰 값 = 높은 등수, 좋고 나쁨은 없음</text>
+  <rect x="56" y="660" width="848" height="28" rx="8" class="cstep"/>
+  <text x="66" y="679" class="cbb">① T[키][남자][25-29세] → … <tspan class="ctk">p87 181.8</tspan> · <tspan class="ctk">p88 182.1</tspan> …</text>
+  <text x="66" y="710" class="cbb">② k = 87   ③ frac = (182 − 181.8) ÷ (182.1 − 181.8) = 0.67 → <tspan class="cfb">P = 87.67</tspan>   ④ rank = <tspan class="cfb">88등</tspan>, band = <tspan class="cfb">5</tspan></text>
+  <text x="66" y="732" class="cbb">⑤ health: 키는 항상 <tspan class="cfb">ok</tspan></text>
+  <text x="66" y="754" class="cbs">같은 사람 체중 92 kg → p84 91.9 · p85 92.7 → k 84, P 84.12 → 84등 band 5 · BMI 27.8 → 75등 band 4, health warn(≥25)</text>
+  <rect x="56" y="768" width="848" height="36" rx="8" class="cstep"/>
+  <text x="66" y="791" class="cbb">화면: 키 <tspan class="ctk">88등</tspan> · 그림 5번째 · "큰 편이에요" · 중립 톤(band 5, health ok).  "상위 12%" 같은 말은 쓰지 않는다</text>
+
+  <!-- 예시 4 -->
+  <rect x="40" y="834" width="880" height="200" rx="14" class="ccard"/>
+  <circle cx="66" cy="860" r="13" fill="#2F6BFF"/><text x="61" y="865" font-size="13" font-weight="800" fill="#fff">4</text>
+  <text x="90" y="865" class="cpt">남자 72세 · BMI 17.9</text>
+  <text x="330" y="865" class="cwho">→ "남자 70-74세" (n = 628). 값이 작을 때: 등수는 그대로, health로 저체중 표시</text>
+  <rect x="56" y="880" width="848" height="28" rx="8" class="cstep"/>
+  <text x="66" y="899" class="cbb">① T[BMI][남자][70-74세] → p1 … · <tspan class="ctk">p2 17.52</tspan> · <tspan class="ctk">p3 17.96</tspan> · p4 … </text>
+  <text x="66" y="930" class="cbb">② k = 2   ③ frac = (17.9 − 17.52) ÷ (17.96 − 17.52) = 0.86 → <tspan class="cfb">P = 2.86</tspan>   ④ rank = <tspan class="cfb">3등</tspan>, band = <tspan class="cfb">1</tspan></text>
+  <text x="66" y="952" class="cbb">⑤ health: 17.9 &lt; 18.5 → <tspan class="cfb">warn</tspan> (저체중)</text>
+  <text x="66" y="974" class="cbs">3등은 "값이 가장 작은 쪽"이라는 위치일 뿐이다. 나쁘다는 판단은 health가 한다.</text>
+  <rect x="56" y="988" width="848" height="36" rx="8" class="cwarn"/>
+  <text x="66" y="1011" class="cbb">화면: <tspan class="ctk">3등</tspan> · 그림 1번째 · "낮은 편이에요" · 주의 톤(warn)</text>
+
+  <!-- 예시 5 -->
+  <rect x="40" y="1054" width="880" height="150" rx="14" class="ccard"/>
+  <circle cx="66" cy="1080" r="13" fill="#98A4B8"/><text x="61" y="1085" font-size="13" font-weight="800" fill="#fff">5</text>
+  <text x="90" y="1085" class="cpt">남자 17세 · BMI 24.5</text>
+  <text x="330" y="1085" class="cwho">→ 20세 미만: 계산하지 않음</text>
+  <text x="66" y="1114" class="cbb">① 나이 17 &lt; 20 → <tspan class="cfb">rank = null</tspan>. 경계값표에 20세 미만 행이 없고, 청소년은 성장도표 백분위를 따로 쓴다.</text>
+  <text x="66" y="1136" class="cbb">성별이 없거나, 항목·성별·연령이 맞는 행이 없을 때도 같은 처리.</text>
+  <rect x="56" y="1152" width="848" height="36" rx="8" class="cnul"/>
+  <text x="66" y="1175" class="cbb">화면: 등수 "—" · 사람 그림 전부 연한 톤 · "나" 없음 · 안내 "또래 비교 데이터를 준비 중이에요"</text>
+
+  <!-- 요약표 -->
+  <text x="40" y="1240" class="cpt">다섯 예시 한눈에</text>
+  <rect x="40" y="1252" width="880" height="200" rx="14" class="ccard"/>
+  <text x="60" y="1276" class="cth">사람</text><text x="200" y="1276" class="cth">항목 · 값</text><text x="360" y="1276" class="cth">k</text><text x="410" y="1276" class="cth">P</text><text x="470" y="1276" class="cth">rank</text><text x="530" y="1276" class="cth">band</text><text x="590" y="1276" class="cth">health</text><text x="660" y="1276" class="cth">배지 · 톤</text>
+  <line x1="56" y1="1284" x2="904" y2="1284" stroke="#E9EDF5"/>
+  <text x="60" y="1304" class="ctd">여 42 (40-44)</text><text x="200" y="1304" class="ctd">BMI 25.7</text><text x="360" y="1304" class="ctd">77</text><text x="410" y="1304" class="ctd">77.6</text><text x="470" y="1304" class="ctk">78</text><text x="530" y="1304" class="ctd">4</text><text x="590" y="1304" class="ctk">warn</text><text x="660" y="1304" class="ctd">조금 높은 편이에요 · 주의</text>
+  <text x="60" y="1326" class="ctd">여 42 (40-44)</text><text x="200" y="1326" class="ctd">허리둘레 86.0</text><text x="360" y="1326" class="ctd">80</text><text x="410" y="1326" class="ctd">80.0</text><text x="470" y="1326" class="ctk">80</text><text x="530" y="1326" class="ctd">4</text><text x="590" y="1326" class="ctk">warn</text><text x="660" y="1326" class="ctd">조금 굵은 편이에요 · 주의</text>
+  <text x="60" y="1348" class="ctd">남 28 (25-29)</text><text x="200" y="1348" class="ctd">키 182</text><text x="360" y="1348" class="ctd">87</text><text x="410" y="1348" class="ctd">87.67</text><text x="470" y="1348" class="ctk">88</text><text x="530" y="1348" class="ctd">5</text><text x="590" y="1348" class="ctd">ok</text><text x="660" y="1348" class="ctd">큰 편이에요 · 중립</text>
+  <text x="60" y="1370" class="ctd">남 72 (70-74)</text><text x="200" y="1370" class="ctd">BMI 17.9</text><text x="360" y="1370" class="ctd">2</text><text x="410" y="1370" class="ctd">2.86</text><text x="470" y="1370" class="ctk">3</text><text x="530" y="1370" class="ctd">1</text><text x="590" y="1370" class="ctk">warn</text><text x="660" y="1370" class="ctd">낮은 편이에요 · 주의 (저체중)</text>
+  <text x="60" y="1392" class="ctd">남 17</text><text x="200" y="1392" class="ctd">BMI 24.5</text><text x="360" y="1392" class="ctd">—</text><text x="410" y="1392" class="ctd">—</text><text x="470" y="1392" class="ctk">null</text><text x="530" y="1392" class="ctd">—</text><text x="590" y="1392" class="ctd">—</text><text x="660" y="1392" class="ctd">"—" · 준비 중 안내</text>
+  <text x="60" y="1420" class="cbs">모두 같은 공식. 다른 것은 값이 경계와 같은지(예시 2), 값이 아주 작은지(예시 4), 계산 대상인지(예시 5)뿐이다.</text>
+  <text x="60" y="1440" class="cbs">PCT-002 검증 벡터(남 45세 BMI 24.5 → 40등, 허리둘레 82 → 21등, 키 172 → 43등, 체중 72.5 → 36등)도 같은 표에서 재현된다.</text>
+
+  <text x="40" y="1484" class="cbs">maiReport · 건강검진 결과 AI 요약 · 또래 등수 예시 · 2026-09-14 · 규칙은 통합본 md/svg와 같음</text>
+</svg><text x="40" y="5060" font-size="11" font-weight="800" fill="#2F6BFF">검증 벡터 (허용 오차 ±0.1 · 경계값표 20번 CSV 기준)</text><rect x="40" y="5072" width="880" height="280" rx="14" fill="#fff" stroke="#DAE1EB"/><text x="60" y="5098" font-size="11" font-weight="800" fill="#6C7A8E">성별·나이</text><text x="140" y="5098" font-size="11" font-weight="800" fill="#6C7A8E">항목</text><text x="230" y="5098" font-size="11" font-weight="800" fill="#6C7A8E">x</text><text x="300" y="5098" font-size="11" font-weight="800" fill="#6C7A8E">k</text><text x="360" y="5098" font-size="11" font-weight="800" fill="#6C7A8E">P</text><text x="430" y="5098" font-size="11" font-weight="800" fill="#6C7A8E">rank</text><text x="500" y="5098" font-size="11" font-weight="800" fill="#6C7A8E">band</text><text x="570" y="5098" font-size="11" font-weight="800" fill="#6C7A8E">health</text><text x="650" y="5098" font-size="11" font-weight="800" fill="#6C7A8E">배지</text><line x1="56" y1="5106" x2="904" y2="5106" stroke="#E9EDF5"/><text x="60" y="5124" font-size="11.5" font-weight="400" fill="#3B4860">남 45</text><text x="140" y="5124" font-size="11.5" font-weight="400" fill="#3B4860">BMI</text><text x="230" y="5124" font-size="11.5" font-weight="400" fill="#3B4860">24.5</text><text x="300" y="5124" font-size="11.5" font-weight="400" fill="#3B4860">40</text><text x="360" y="5124" font-size="11.5" font-weight="400" fill="#3B4860">40.0</text><text x="430" y="5124" font-size="11.5" font-weight="800" fill="#3B4860">40</text><text x="500" y="5124" font-size="11.5" font-weight="400" fill="#3B4860">2</text><text x="570" y="5124" font-size="11.5" font-weight="400" fill="#3B4860">ok</text><text x="650" y="5124" font-size="11.5" font-weight="400" fill="#3B4860">조금 낮은 편이에요</text><text x="60" y="5148" font-size="11.5" font-weight="400" fill="#3B4860">남 45</text><text x="140" y="5148" font-size="11.5" font-weight="400" fill="#3B4860">허리둘레</text><text x="230" y="5148" font-size="11.5" font-weight="400" fill="#3B4860">82</text><text x="300" y="5148" font-size="11.5" font-weight="400" fill="#3B4860">21</text><text x="360" y="5148" font-size="11.5" font-weight="400" fill="#3B4860">21.0</text><text x="430" y="5148" font-size="11.5" font-weight="800" fill="#3B4860">21</text><text x="500" y="5148" font-size="11.5" font-weight="400" fill="#3B4860">2</text><text x="570" y="5148" font-size="11.5" font-weight="400" fill="#3B4860">ok</text><text x="650" y="5148" font-size="11.5" font-weight="400" fill="#3B4860">조금 가는 편이에요</text><text x="60" y="5172" font-size="11.5" font-weight="400" fill="#3B4860">남 45</text><text x="140" y="5172" font-size="11.5" font-weight="400" fill="#3B4860">키</text><text x="230" y="5172" font-size="11.5" font-weight="400" fill="#3B4860">172</text><text x="300" y="5172" font-size="11.5" font-weight="400" fill="#3B4860">42</text><text x="360" y="5172" font-size="11.5" font-weight="400" fill="#3B4860">42.5</text><text x="430" y="5172" font-size="11.5" font-weight="800" fill="#3B4860">43</text><text x="500" y="5172" font-size="11.5" font-weight="400" fill="#3B4860">3</text><text x="570" y="5172" font-size="11.5" font-weight="400" fill="#3B4860">ok</text><text x="650" y="5172" font-size="11.5" font-weight="400" fill="#3B4860">평균적인 편이에요</text><text x="60" y="5196" font-size="11.5" font-weight="400" fill="#3B4860">남 45</text><text x="140" y="5196" font-size="11.5" font-weight="400" fill="#3B4860">체중</text><text x="230" y="5196" font-size="11.5" font-weight="400" fill="#3B4860">72.5</text><text x="300" y="5196" font-size="11.5" font-weight="400" fill="#3B4860">36</text><text x="360" y="5196" font-size="11.5" font-weight="400" fill="#3B4860">36.3</text><text x="430" y="5196" font-size="11.5" font-weight="800" fill="#3B4860">36</text><text x="500" y="5196" font-size="11.5" font-weight="400" fill="#3B4860">2</text><text x="570" y="5196" font-size="11.5" font-weight="400" fill="#3B4860">ok</text><text x="650" y="5196" font-size="11.5" font-weight="400" fill="#3B4860">조금 가벼운 편이에요</text><text x="60" y="5220" font-size="11.5" font-weight="400" fill="#3B4860">여 42</text><text x="140" y="5220" font-size="11.5" font-weight="400" fill="#3B4860">BMI</text><text x="230" y="5220" font-size="11.5" font-weight="400" fill="#3B4860">25.7</text><text x="300" y="5220" font-size="11.5" font-weight="400" fill="#3B4860">77</text><text x="360" y="5220" font-size="11.5" font-weight="400" fill="#3B4860">77.6</text><text x="430" y="5220" font-size="11.5" font-weight="800" fill="#3B4860">78</text><text x="500" y="5220" font-size="11.5" font-weight="400" fill="#3B4860">4</text><text x="570" y="5220" font-size="11.5" font-weight="800" fill="#3B4860">warn</text><text x="650" y="5220" font-size="11.5" font-weight="400" fill="#3B4860">조금 높은 편이에요 · 주의</text><text x="60" y="5244" font-size="11.5" font-weight="400" fill="#3B4860">여 42</text><text x="140" y="5244" font-size="11.5" font-weight="400" fill="#3B4860">허리둘레</text><text x="230" y="5244" font-size="11.5" font-weight="400" fill="#3B4860">86.0</text><text x="300" y="5244" font-size="11.5" font-weight="400" fill="#3B4860">80</text><text x="360" y="5244" font-size="11.5" font-weight="400" fill="#3B4860">80.0</text><text x="430" y="5244" font-size="11.5" font-weight="800" fill="#3B4860">80</text><text x="500" y="5244" font-size="11.5" font-weight="400" fill="#3B4860">4</text><text x="570" y="5244" font-size="11.5" font-weight="800" fill="#3B4860">warn</text><text x="650" y="5244" font-size="11.5" font-weight="400" fill="#3B4860">조금 굵은 편이에요 · 주의</text><text x="60" y="5268" font-size="11.5" font-weight="400" fill="#3B4860">남 28</text><text x="140" y="5268" font-size="11.5" font-weight="400" fill="#3B4860">키</text><text x="230" y="5268" font-size="11.5" font-weight="400" fill="#3B4860">182</text><text x="300" y="5268" font-size="11.5" font-weight="400" fill="#3B4860">87</text><text x="360" y="5268" font-size="11.5" font-weight="400" fill="#3B4860">87.67</text><text x="430" y="5268" font-size="11.5" font-weight="800" fill="#3B4860">88</text><text x="500" y="5268" font-size="11.5" font-weight="400" fill="#3B4860">5</text><text x="570" y="5268" font-size="11.5" font-weight="400" fill="#3B4860">ok</text><text x="650" y="5268" font-size="11.5" font-weight="400" fill="#3B4860">큰 편이에요 · 중립</text><text x="60" y="5292" font-size="11.5" font-weight="400" fill="#3B4860">남 72</text><text x="140" y="5292" font-size="11.5" font-weight="400" fill="#3B4860">BMI</text><text x="230" y="5292" font-size="11.5" font-weight="400" fill="#3B4860">17.9</text><text x="300" y="5292" font-size="11.5" font-weight="400" fill="#3B4860">2</text><text x="360" y="5292" font-size="11.5" font-weight="400" fill="#3B4860">2.86</text><text x="430" y="5292" font-size="11.5" font-weight="800" fill="#3B4860">3</text><text x="500" y="5292" font-size="11.5" font-weight="400" fill="#3B4860">1</text><text x="570" y="5292" font-size="11.5" font-weight="800" fill="#3B4860">warn</text><text x="650" y="5292" font-size="11.5" font-weight="400" fill="#3B4860">낮은 편이에요 · 주의 (저체중)</text><text x="60" y="5316" font-size="11.5" font-weight="400" fill="#3B4860">남 17</text><text x="140" y="5316" font-size="11.5" font-weight="400" fill="#3B4860">BMI</text><text x="230" y="5316" font-size="11.5" font-weight="400" fill="#3B4860">24.5</text><text x="300" y="5316" font-size="11.5" font-weight="400" fill="#3B4860">—</text><text x="360" y="5316" font-size="11.5" font-weight="400" fill="#3B4860">—</text><text x="430" y="5316" font-size="11.5" font-weight="800" fill="#3B4860">null</text><text x="500" y="5316" font-size="11.5" font-weight="400" fill="#3B4860">—</text><text x="570" y="5316" font-size="11.5" font-weight="400" fill="#3B4860">—</text><text x="650" y="5316" font-size="11.5" font-weight="400" fill="#3B4860">&quot;—&quot; + 준비 중 안내</text><text x="40" y="5392" font-size="11" font-weight="800" fill="#2F6BFF">파일</text><rect x="40" y="5404" width="880" height="110" rx="14" fill="#F3F6FC" stroke="#DAE1EB"/><text x="56" y="5430" font-size="12" font-weight="400" fill="#3B4860">· 경계값표: 20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv — 항목·성별·연령·n·가중평균·가중표준편차·p1~p99, 104행, UTF-8</text><text x="56" y="5452" font-size="12" font-weight="400" fill="#3B4860">· 텍스트 규격: 또래등수_산식_통합본.md   · 그림 원본: 또래등수_산식_통합본_v1.0.0.svg / 또래등수_랭킹산출_단계별_v1.0.0.svg / 또래등수_예시로_보는_산출_v1.0.0.svg</text><text x="56" y="5474" font-size="12" font-weight="400" fill="#3B4860">· 폐기: 통계연보 보간 임시 표(또래등수_참조표_*, 또래등수_경계값표_신체계측4항목_2024.csv), 또래등수_산식_전달본.md</text><text x="56" y="5496" font-size="11" font-weight="400" fill="#6C7A8E">출처: 질병관리청 국민건강영양조사 2022~2024 원시자료(경계값표) · 국민건강보험공단 건강검진 실시기준 별표 4(비만 기준). 원시자료는 재배포하지 않음</text></svg>

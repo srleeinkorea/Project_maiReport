@@ -1,0 +1,485 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="4650" viewBox="0 0 430 4650" font-family='Pretendard, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif' style="word-break:keep-all"><defs><linearGradient id="g0" x1="32.9%" y1="3.02%" x2="67.1%" y2="96.98%"><stop offset="0%" stop-color="rgb(240, 250, 245)"/><stop offset="100%" stop-color="rgb(255, 255, 255)"/></linearGradient></defs><rect width="430" height="4650" fill="#F4F6FA"/><rect x="0" y="0" width="430" height="4649.75" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="0" y="0" width="430" height="57.33" rx="0" fill="rgb(244, 246, 250)"/>
+<text x="16" y="28.67" font-size="22" font-weight="400" fill="rgb(0, 0, 0)" dominant-baseline="central" letter-spacing="-0.14">‹</text>
+<text x="124.01" y="28.14" font-size="16" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.32">건강검진 결과 AI 요약</text>
+<rect x="18" y="65.33" width="193" height="62.73" rx="12" fill="rgb(255, 255, 255)" stroke="rgb(233, 237, 245)" stroke-width="0.67"/>
+<text x="30.67" y="84" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">검진일</text>
+<text x="30.67" y="106.33" font-size="12" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">2025.06.19</text>
+<rect x="219" y="65.33" width="193" height="62.73" rx="12" fill="rgb(255, 255, 255)" stroke="rgb(233, 237, 245)" stroke-width="0.67"/>
+<text x="231.67" y="84" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">검진기관</text>
+<text x="231.67" y="106.33" font-size="12" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">메디피움의원</text>
+<rect x="18" y="140.06" width="394" height="40.67" rx="12" fill="rgb(238, 241, 246)"/>
+<rect x="22" y="144.06" width="189" height="32.67" rx="9" fill="rgb(255, 255, 255)"/>
+<text x="92.91" y="160.4" font-size="11" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상 예시</text>
+<text x="277.19" y="160.4" font-size="11" font-weight="800" fill="rgb(123, 132, 148)" dominant-baseline="central" letter-spacing="-0.14">확인 필요 예시</text>
+<text x="20" y="202.73" font-size="10" font-weight="800" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">이번 검진 한눈에 보기</text>
+<text x="20" y="227.4" font-size="19" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.57">종합 요약</text>
+<rect x="18" y="251.32" width="394" height="294.83" rx="20" fill="url(#g0)" stroke="rgb(220, 239, 229)" stroke-width="0.67"/>
+<text x="38.67" y="281.32" font-size="11" font-weight="600" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">AI 건강검진 요약</text>
+<text x="38.67" y="311.72" font-size="22" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.77">주요 검사 결과가</text>
+<text x="38.67" y="342.96" font-size="22" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.77">대체로 안정적이에요</text>
+<text x="38.67" y="377.53" font-size="13" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">이번 검진의 주요 결과와 이전 기록을 함께 확인했어요. 우선</text>
+<text x="38.67" y="399.36" font-size="13" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">확인이 필요한 항목은 없으니 정기 검진을 이어가며 지금의</text>
+<text x="38.67" y="421.2" font-size="13" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">생활습관을 유지해 주세요.</text>
+<rect x="38.67" y="449.36" width="112.89" height="74.13" rx="12" fill="rgba(255, 255, 255, 0.86)" stroke="rgba(222, 228, 240, 0.8)" stroke-width="0.67"/>
+<text x="84.23" y="474.7" font-size="19" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">18</text>
+<text x="85.24" y="503.09" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<rect x="158.55" y="449.36" width="112.89" height="74.13" rx="12" fill="rgba(255, 255, 255, 0.86)" stroke="rgba(222, 228, 240, 0.8)" stroke-width="0.67"/>
+<text x="209.55" y="474.7" font-size="19" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">0</text>
+<text x="193.58" y="503.09" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">관리 필요</text>
+<rect x="278.44" y="449.36" width="112.89" height="74.13" rx="12" fill="rgba(255, 255, 255, 0.86)" stroke="rgba(222, 228, 240, 0.8)" stroke-width="0.67"/>
+<text x="329.44" y="474.7" font-size="19" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">0</text>
+<text x="313.47" y="503.09" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">확인 필요</text>
+<rect x="18" y="558.16" width="394" height="275.4" rx="18" fill="rgb(255, 255, 255)"/>
+<text x="36" y="584.16" font-size="10" font-weight="700" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">한눈에 보기</text>
+<text x="36" y="605.82" font-size="16" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.32">현재 상태</text>
+<rect x="346.42" y="576.16" width="47.58" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="355.42" y="589.16" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">안정적</text>
+<rect x="36" y="631.55" width="175" height="88" rx="13" fill="rgb(247, 249, 252)"/>
+<text x="48" y="651.55" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">혈압</text>
+<text x="48" y="675.22" font-size="15" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">118/76</text>
+<text x="48" y="699.55" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<rect x="219" y="631.55" width="175" height="88" rx="13" fill="rgb(247, 249, 252)"/>
+<text x="231" y="651.55" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">공복혈당</text>
+<text x="231" y="675.22" font-size="15" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">92</text>
+<text x="231" y="699.55" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<rect x="36" y="727.55" width="175" height="88" rx="13" fill="rgb(247, 249, 252)"/>
+<text x="48" y="747.55" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">총콜레스테롤</text>
+<text x="48" y="771.22" font-size="15" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">188</text>
+<text x="48" y="795.55" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<rect x="219" y="727.55" width="175" height="88" rx="13" fill="rgb(247, 249, 252)"/>
+<text x="231" y="747.55" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">BMI</text>
+<text x="231" y="771.22" font-size="15" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">21.4</text>
+<text x="231" y="795.55" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<rect x="20" y="859.38" width="42" height="42" rx="21" fill="rgb(234, 241, 255)"/>
+<text x="28.02" y="879.84" font-size="19" font-weight="400" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">👤</text>
+<text x="74" y="870.22" font-size="19" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.57">신체계측</text>
+<text x="74" y="896.28" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">내 또래와 비교한 내 신체 상태를 한눈에 확인해보세요.</text>
+<rect x="18" y="913.2" width="394" height="166.89" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34" y="932.99" width="22" height="22" rx="11" fill="rgb(59, 123, 255)"/>
+<text x="41.88" y="943.85" font-size="11" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">1</text>
+<text x="63" y="943.86" font-size="16" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.32">키</text>
+<text x="34" y="976.13" font-size="21" font-weight="850" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.84">164.2</text>
+<text x="86.99" y="979.46" font-size="12" font-weight="600" fill="rgb(90, 104, 128)" dominant-baseline="central">cm</text>
+<text x="34" y="1003.22" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">내 또래 100명 중</text>
+<text x="34" y="1022.89" font-size="22" font-weight="850" fill="rgb(59, 123, 255)" dominant-baseline="central" letter-spacing="-0.66">70</text>
+<text x="59.19" y="1026.89" font-size="12" font-weight="700" fill="rgb(59, 123, 255)" dominant-baseline="central" letter-spacing="-0.66">등</text>
+<rect x="34" y="1044.08" width="91.78" height="22" rx="11" fill="rgb(231, 247, 238)"/>
+<text x="42" y="1055.08" font-size="10" font-weight="800" fill="rgb(31, 138, 85)" dominant-baseline="central" letter-spacing="-0.14">조금 큰 편이에요</text>
+<line x1="140" y1="931.2" x2="140" y2="1057.28" stroke="rgb(233, 237, 245)" stroke-width="0.67"/>
+<svg viewBox="0 0 52 90" width="29" height="50" fill="#C9D8F7" aria-hidden="true" x="157.29" y="987.28"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 L35,52 L17,52 Z"></path>
+      <rect x="11" y="18" width="4.5" height="26" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="26" rx="2.2"></rect>
+      <rect x="17" y="49" width="7.5" height="37" rx="3"></rect><rect x="27.5" y="49" width="7.5" height="37" rx="3"></rect></svg>
+<text x="155.53" y="1051.28" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">1~20등</text>
+<svg viewBox="0 0 52 90" width="34" height="60" fill="#C9D8F7" aria-hidden="true" x="205.06" y="977.28"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 L35,52 L17,52 Z"></path>
+      <rect x="11" y="18" width="4.5" height="26" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="26" rx="2.2"></rect>
+      <rect x="17" y="49" width="7.5" height="37" rx="3"></rect><rect x="27.5" y="49" width="7.5" height="37" rx="3"></rect></svg>
+<text x="203.14" y="1051.28" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">21~40등</text>
+<svg viewBox="0 0 52 90" width="40" height="70" fill="#C9D8F7" aria-hidden="true" x="252.32" y="967.28"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 L35,52 L17,52 Z"></path>
+      <rect x="11" y="18" width="4.5" height="26" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="26" rx="2.2"></rect>
+      <rect x="17" y="49" width="7.5" height="37" rx="3"></rect><rect x="27.5" y="49" width="7.5" height="37" rx="3"></rect></svg>
+<text x="253.41" y="1051.28" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">41~60등</text>
+<rect x="309.91" y="935.28" width="25.36" height="17.4" rx="8.7" fill="rgb(59, 123, 255)"/>
+<text x="317.91" y="943.95" font-size="9.5" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">나</text>
+<svg viewBox="0 0 52 90" width="46" height="80" fill="#3B7BFF" aria-hidden="true" x="299.59" y="957.28"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 L35,52 L17,52 Z"></path>
+      <rect x="11" y="18" width="4.5" height="26" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="26" rx="2.2"></rect>
+      <rect x="17" y="49" width="7.5" height="37" rx="3"></rect><rect x="27.5" y="49" width="7.5" height="37" rx="3"></rect></svg>
+<text x="303" y="1051.28" font-size="10" font-weight="800" fill="rgb(59, 123, 255)" dominant-baseline="central" letter-spacing="-0.2">61~80등</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#C9D8F7" aria-hidden="true" x="349.73" y="957.2"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 L35,52 L17,52 Z"></path>
+      <rect x="11" y="18" width="4.5" height="26" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="26" rx="2.2"></rect>
+      <rect x="17" y="49" width="7.5" height="37" rx="3"></rect><rect x="27.5" y="49" width="7.5" height="37" rx="3"></rect></svg>
+<text x="351.28" y="1051.28" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">81~100등</text>
+<rect x="18" y="1092.08" width="394" height="166.89" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34" y="1111.88" width="22" height="22" rx="11" fill="rgb(34, 176, 142)"/>
+<text x="41.88" y="1122.74" font-size="11" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">2</text>
+<text x="63" y="1122.75" font-size="16" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.32">체중</text>
+<text x="34" y="1155.01" font-size="21" font-weight="850" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.84">57.8</text>
+<text x="75.66" y="1158.34" font-size="12" font-weight="600" fill="rgb(90, 104, 128)" dominant-baseline="central">kg</text>
+<text x="34" y="1182.1" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">내 또래 100명 중</text>
+<text x="34" y="1201.77" font-size="22" font-weight="850" fill="rgb(34, 176, 142)" dominant-baseline="central" letter-spacing="-0.66">47</text>
+<text x="59.19" y="1205.77" font-size="12" font-weight="700" fill="rgb(34, 176, 142)" dominant-baseline="central" letter-spacing="-0.66">등</text>
+<rect x="34" y="1222.97" width="98.26" height="22" rx="11" fill="rgb(231, 247, 238)"/>
+<text x="42" y="1233.97" font-size="10" font-weight="800" fill="rgb(31, 138, 85)" dominant-baseline="central" letter-spacing="-0.14">평균적인 편이에요</text>
+<line x1="140" y1="1110.08" x2="140" y2="1236.17" stroke="rgb(233, 237, 245)" stroke-width="0.67"/>
+<svg viewBox="0 0 52 90" width="46.26" height="80.06" fill="#BFE8DA" aria-hidden="true" x="148.67" y="1136.1"><circle cx="26" cy="9" r="7"></circle><path d="M17,19 Q26,14 35,19 L35,54 Q26,59 17,54 Z"></path>
+      <rect x="12" y="20" width="4" height="28" rx="2"></rect><rect x="36" y="20" width="4" height="28" rx="2"></rect>
+      <rect x="18.5" y="52" width="6" height="34" rx="3"></rect><rect x="27.5" y="52" width="6" height="34" rx="3"></rect></svg>
+<text x="155.53" y="1230.17" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">1~20등</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#BFE8DA" aria-hidden="true" x="198.93" y="1136.08"><circle cx="26" cy="9" r="7.3"></circle><path d="M14.25,19.3 Q26,14.3 37.75,19.3 L38.25,54 Q26,59 13.75,54 Z"></path>
+      <rect x="8.625" y="20.3" width="4.625" height="28" rx="2.3125"></rect><rect x="38.75" y="20.3" width="4.625" height="28" rx="2.3125"></rect>
+      <rect x="17.5" y="52" width="7" height="34" rx="3"></rect><rect x="27.5" y="52" width="7" height="34" rx="3"></rect></svg>
+<text x="203.14" y="1230.17" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">21~40등</text>
+<rect x="259.64" y="1114.1" width="25.36" height="17.4" rx="8.7" fill="rgb(34, 176, 142)"/>
+<text x="267.64" y="1122.77" font-size="9.5" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">나</text>
+<svg viewBox="0 0 52 90" width="46.26" height="80.06" fill="#22B08E" aria-hidden="true" x="249.2" y="1136.1"><circle cx="26" cy="9" r="7.6"></circle><path d="M11.5,19.6 Q26,14.600000000000001 40.5,19.6 L41.5,54 Q26,59 10.5,54 Z"></path>
+      <rect x="5.25" y="20.6" width="5.25" height="28" rx="2.625"></rect><rect x="41.5" y="20.6" width="5.25" height="28" rx="2.625"></rect>
+      <rect x="16.5" y="52" width="8" height="34" rx="3"></rect><rect x="27.5" y="52" width="8" height="34" rx="3"></rect></svg>
+<text x="252.74" y="1230.17" font-size="10" font-weight="800" fill="rgb(34, 176, 142)" dominant-baseline="central" letter-spacing="-0.2">41~60등</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#BFE8DA" aria-hidden="true" x="299.46" y="1136.08"><circle cx="26" cy="9" r="7.9"></circle><path d="M8.75,19.9 Q26,14.899999999999999 43.25,19.9 L44.75,54 Q26,59 7.25,54 Z"></path>
+      <rect x="1.875" y="20.9" width="5.875" height="28" rx="2.9375"></rect><rect x="44.25" y="20.9" width="5.875" height="28" rx="2.9375"></rect>
+      <rect x="15.5" y="52" width="9" height="34" rx="3"></rect><rect x="27.5" y="52" width="9" height="34" rx="3"></rect></svg>
+<text x="303.67" y="1230.17" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">61~80등</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#BFE8DA" aria-hidden="true" x="349.73" y="1136.08"><circle cx="26" cy="9" r="8.2"></circle><path d="M6,20.2 Q26,15.2 46,20.2 L48,54 Q26,59 4,54 Z"></path>
+      <rect x="-1.5" y="21.2" width="6.5" height="28" rx="3.25"></rect><rect x="47" y="21.2" width="6.5" height="28" rx="3.25"></rect>
+      <rect x="14.5" y="52" width="10" height="34" rx="3"></rect><rect x="27.5" y="52" width="10" height="34" rx="3"></rect></svg>
+<text x="351.28" y="1230.17" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">81~100등</text>
+<rect x="18" y="1270.97" width="394" height="166.89" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34" y="1290.76" width="22" height="22" rx="11" fill="rgb(139, 92, 246)"/>
+<text x="41.88" y="1301.63" font-size="11" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">3</text>
+<text x="63" y="1301.64" font-size="16" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.32">BMI</text>
+<text x="34" y="1333.9" font-size="21" font-weight="850" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.84">21.4</text>
+<text x="75.66" y="1337.23" font-size="12" font-weight="600" fill="rgb(90, 104, 128)" dominant-baseline="central">kg/m²</text>
+<text x="34" y="1360.99" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">내 또래 100명 중</text>
+<text x="34" y="1380.66" font-size="22" font-weight="850" fill="rgb(139, 92, 246)" dominant-baseline="central" letter-spacing="-0.66">40</text>
+<text x="59.19" y="1384.66" font-size="12" font-weight="700" fill="rgb(139, 92, 246)" dominant-baseline="central" letter-spacing="-0.66">등</text>
+<rect x="34" y="1401.85" width="101.64" height="22" rx="11" fill="rgb(231, 247, 238)"/>
+<text x="42" y="1412.85" font-size="10" font-weight="800" fill="rgb(31, 138, 85)" dominant-baseline="central" letter-spacing="-0.14">조금 낮은 편이에요</text>
+<line x1="140" y1="1288.97" x2="140" y2="1415.05" stroke="rgb(233, 237, 245)" stroke-width="0.67"/>
+<svg viewBox="0 0 52 90" width="46.26" height="80.06" fill="#D8CCF8" aria-hidden="true" x="148.67" y="1314.99"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 C44.1,29 35,45 32.75,55 L19.25,55 C17,45 7.9,29 16,17 Z"></path>
+      <rect x="11" y="18" width="4.5" height="24" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="24" rx="2.2"></rect>
+      <rect x="18.5" y="52" width="7" height="34" rx="3"></rect><rect x="26.5" y="52" width="7" height="34" rx="3"></rect></svg>
+<text x="155.53" y="1409.05" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">1~20등</text>
+<rect x="209.38" y="1292.97" width="25.36" height="17.4" rx="8.7" fill="rgb(139, 92, 246)"/>
+<text x="217.38" y="1301.64" font-size="9.5" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">나</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#8B5CF6" aria-hidden="true" x="198.93" y="1314.97"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 C46.8,29 38,45 35,55 L17,55 C14,45 5.199999999999999,29 16,17 Z"></path>
+      <rect x="11" y="18" width="4.5" height="24" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="24" rx="2.2"></rect>
+      <rect x="18" y="52" width="7.5" height="34" rx="3"></rect><rect x="26.5" y="52" width="7.5" height="34" rx="3"></rect></svg>
+<text x="202.47" y="1409.05" font-size="10" font-weight="800" fill="rgb(139, 92, 246)" dominant-baseline="central" letter-spacing="-0.2">21~40등</text>
+<svg viewBox="0 0 52 90" width="46.26" height="80.06" fill="#D8CCF8" aria-hidden="true" x="249.2" y="1314.99"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 C49.5,29 41,45 37.25,55 L14.75,55 C11,45 2.5,29 16,17 Z"></path>
+      <rect x="11" y="18" width="4.5" height="24" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="24" rx="2.2"></rect>
+      <rect x="17.5" y="52" width="8" height="34" rx="3"></rect><rect x="26.5" y="52" width="8" height="34" rx="3"></rect></svg>
+<text x="253.41" y="1409.05" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">41~60등</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#D8CCF8" aria-hidden="true" x="299.46" y="1314.97"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 C52.2,29 44,45 39.5,55 L12.5,55 C8,45 -0.1999999999999993,29 16,17 Z"></path>
+      <rect x="11" y="18" width="4.5" height="24" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="24" rx="2.2"></rect>
+      <rect x="17" y="52" width="8.5" height="34" rx="3"></rect><rect x="26.5" y="52" width="8.5" height="34" rx="3"></rect></svg>
+<text x="303.67" y="1409.05" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">61~80등</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#D8CCF8" aria-hidden="true" x="349.73" y="1314.97"><circle cx="26" cy="9" r="7"></circle><path d="M16,17 L36,17 C54.900000000000006,29 47,45 41.75,55 L10.25,55 C5,45 -2.900000000000002,29 16,17 Z"></path>
+      <rect x="11" y="18" width="4.5" height="24" rx="2.2"></rect><rect x="36.5" y="18" width="4.5" height="24" rx="2.2"></rect>
+      <rect x="16.5" y="52" width="9" height="34" rx="3"></rect><rect x="26.5" y="52" width="9" height="34" rx="3"></rect></svg>
+<text x="351.28" y="1409.05" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">81~100등</text>
+<rect x="18" y="1449.85" width="394" height="166.89" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34" y="1469.65" width="22" height="22" rx="11" fill="rgb(255, 122, 33)"/>
+<text x="41.88" y="1480.51" font-size="11" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">4</text>
+<text x="63" y="1480.52" font-size="16" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.32">허리둘레</text>
+<text x="34" y="1512.78" font-size="21" font-weight="850" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.84">71.0</text>
+<text x="75.66" y="1516.11" font-size="12" font-weight="600" fill="rgb(90, 104, 128)" dominant-baseline="central">cm</text>
+<text x="34" y="1539.88" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">내 또래 100명 중</text>
+<text x="34" y="1559.54" font-size="22" font-weight="850" fill="rgb(255, 122, 33)" dominant-baseline="central" letter-spacing="-0.66">29</text>
+<text x="59.19" y="1563.54" font-size="12" font-weight="700" fill="rgb(255, 122, 33)" dominant-baseline="central" letter-spacing="-0.66">등</text>
+<rect x="34" y="1580.74" width="101.64" height="22" rx="11" fill="rgb(231, 247, 238)"/>
+<text x="42" y="1591.74" font-size="10" font-weight="800" fill="rgb(31, 138, 85)" dominant-baseline="central" letter-spacing="-0.14">조금 가는 편이에요</text>
+<line x1="140" y1="1467.85" x2="140" y2="1593.94" stroke="rgb(233, 237, 245)" stroke-width="0.67"/>
+<svg viewBox="0 0 52 90" width="46.26" height="80.06" fill="#FFD4B8" aria-hidden="true" x="148.67" y="1493.88"><circle cx="25" cy="9" r="7"></circle><path d="M17,17 L32,17 C34,23 36,31 36,41 C36,51 32,55 29,55 L17,55 C15,43 15,29 17,17 Z"></path>
+      <rect x="22" y="19" width="5" height="26" rx="2.5" opacity=".55"></rect>
+      <rect x="17" y="52" width="8" height="34" rx="3"></rect><rect x="24" y="52" width="8" height="34" rx="3" opacity=".85"></rect></svg>
+<text x="155.53" y="1587.94" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">1~20등</text>
+<rect x="209.38" y="1471.85" width="25.36" height="17.4" rx="8.7" fill="rgb(255, 122, 33)"/>
+<text x="217.38" y="1480.52" font-size="9.5" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">나</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#FF7A21" aria-hidden="true" x="198.93" y="1493.85"><circle cx="25" cy="9" r="7"></circle><path d="M17,17 L32,17 C34,23 39.5,31 39.5,41 C39.5,51 32,55 29,55 L17,55 C15,43 15,29 17,17 Z"></path>
+      <rect x="22" y="19" width="5" height="26" rx="2.5" opacity=".55"></rect>
+      <rect x="17" y="52" width="8" height="34" rx="3"></rect><rect x="24" y="52" width="8" height="34" rx="3" opacity=".85"></rect></svg>
+<text x="202.47" y="1587.94" font-size="10" font-weight="800" fill="rgb(255, 122, 33)" dominant-baseline="central" letter-spacing="-0.2">21~40등</text>
+<svg viewBox="0 0 52 90" width="46.26" height="80.06" fill="#FFD4B8" aria-hidden="true" x="249.2" y="1493.88"><circle cx="25" cy="9" r="7"></circle><path d="M17,17 L32,17 C34,23 43,31 43,41 C43,51 32,55 29,55 L17,55 C15,43 15,29 17,17 Z"></path>
+      <rect x="22" y="19" width="5" height="26" rx="2.5" opacity=".55"></rect>
+      <rect x="17" y="52" width="8" height="34" rx="3"></rect><rect x="24" y="52" width="8" height="34" rx="3" opacity=".85"></rect></svg>
+<text x="253.41" y="1587.94" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">41~60등</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#FFD4B8" aria-hidden="true" x="299.46" y="1493.85"><circle cx="25" cy="9" r="7"></circle><path d="M17,17 L32,17 C34,23 46.5,31 46.5,41 C46.5,51 32,55 29,55 L17,55 C15,43 15,29 17,17 Z"></path>
+      <rect x="22" y="19" width="5" height="26" rx="2.5" opacity=".55"></rect>
+      <rect x="17" y="52" width="8" height="34" rx="3"></rect><rect x="24" y="52" width="8" height="34" rx="3" opacity=".85"></rect></svg>
+<text x="303.67" y="1587.94" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">61~80등</text>
+<svg viewBox="0 0 52 90" width="46.27" height="80.08" fill="#FFD4B8" aria-hidden="true" x="349.73" y="1493.85"><circle cx="25" cy="9" r="7"></circle><path d="M17,17 L32,17 C34,23 50,31 50,41 C50,51 32,55 29,55 L17,55 C15,43 15,29 17,17 Z"></path>
+      <rect x="22" y="19" width="5" height="26" rx="2.5" opacity=".55"></rect>
+      <rect x="17" y="52" width="8" height="34" rx="3"></rect><rect x="24" y="52" width="8" height="34" rx="3" opacity=".85"></rect></svg>
+<text x="351.28" y="1587.94" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.2">81~100등</text>
+<rect x="20" y="1628.74" width="390" height="50.54" rx="10" fill="rgb(243, 246, 252)"/>
+<text x="32" y="1645.41" font-size="10.5" font-weight="400" fill="rgb(107, 122, 147)" dominant-baseline="central" letter-spacing="-0.14">ⓘ 동일한 성별·연령대(여성 40~44세) 100명을 기준으로 내 결과가 어느</text>
+<text x="32" y="1661.68" font-size="10.5" font-weight="400" fill="rgb(107, 122, 147)" dominant-baseline="central" letter-spacing="-0.14">위치에 있는지 보여드려요. 출처: 국민건강영양조사 2022~2024</text>
+<text x="20" y="1713.28" font-size="10" font-weight="800" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">검사 항목별 이해</text>
+<text x="20" y="1737.95" font-size="19" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.57">항목별 해석</text>
+<text x="20" y="1765.54" font-size="11" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">내 수치가 기준 범위 어디에 있는지 막대로 보여드려요. 화살표를 누르면 최근</text>
+<text x="20" y="1783.14" font-size="11" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">5회 변화를 볼 수 있어요.</text>
+<text x="36" y="1808.06" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<rect x="22" y="1805.06" width="10" height="6" rx="3" fill="rgb(143, 214, 174)"/>
+<text x="81.73" y="1808.06" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">관리 필요</text>
+<rect x="67.73" y="1805.06" width="10" height="6" rx="3" fill="rgb(242, 203, 122)"/>
+<text x="150.55" y="1808.06" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">확인 필요</text>
+<rect x="136.55" y="1805.06" width="10" height="6" rx="3" fill="rgb(241, 154, 170)"/>
+<rect x="18" y="1826.06" width="394" height="452.52" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34.67" y="1842.73" width="30" height="30" rx="10" fill="rgb(238, 244, 255)"/>
+<text x="43.23" y="1857.33" font-size="13" font-weight="400" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">♥</text>
+<text x="73.67" y="1857.4" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">혈압</text>
+<rect x="357.6" y="1844.73" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="1857.73" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<text x="34.67" y="1895.4" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">수축기</text>
+<text x="34.67" y="1913.66" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">118</text>
+<text x="62.85" y="1915.66" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">mmHg</text>
+<rect x="152.67" y="1895.65" width="68.88" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="221.54" y="1895.65" width="45.92" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="267.46" y="1895.65" width="91.83" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="213.96" y="1891.65" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="214.73" y="1912.98" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">120</text>
+<text x="260.68" y="1912.98" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">140</text>
+<rect x="369.33" y="1891.65" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="1904.15" font-size="15" font-weight="400" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<rect x="34.67" y="1930.57" width="360.67" height="173.04" rx="12" fill="rgb(247, 249, 252)"/>
+<text x="46.67" y="1951.91" font-size="10.5" font-weight="700" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">최근 5회 변화</text>
+<rect x="336.25" y="1940.57" width="47.08" height="22.79" rx="11.4" fill="rgb(234, 248, 241)"/>
+<text x="344.25" y="1951.91" font-size="10.5" font-weight="900" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">비슷함</text>
+<svg viewBox="0 0 300 84" aria-hidden="true" x="46.67" y="1967.36" width="336.67" height="94.26">
+        <path d="M16.0,16.0 L83.0,29.0 L150.0,42.0 L217.0,55.0 L284.0,68.0 L284.0,68 L16.0,68 Z" fill="#2F6BFF" opacity=".08"></path>
+        <path d="M16.0,16.0 L83.0,29.0 L150.0,42.0 L217.0,55.0 L284.0,68.0" fill="none" stroke="#2F6BFF" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"></path>
+        <circle cx="16.0" cy="16.0" r="3" fill="#fff" stroke="#2F6BFF" stroke-width="2"></circle><circle cx="83.0" cy="29.0" r="3" fill="#fff" stroke="#2F6BFF" stroke-width="2"></circle><circle cx="150.0" cy="42.0" r="3" fill="#fff" stroke="#2F6BFF" stroke-width="2"></circle><circle cx="217.0" cy="55.0" r="3" fill="#fff" stroke="#2F6BFF" stroke-width="2"></circle><circle cx="284.0" cy="68.0" r="4.5" fill="#2F6BFF" stroke="#2F6BFF" stroke-width="2"></circle>
+      </svg>
+<text x="70.98" y="2072.29" font-size="11" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">122</text>
+<text x="69.78" y="2087.89" font-size="9" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">21.05</text>
+<text x="138.31" y="2072.29" font-size="11" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">121</text>
+<text x="137.11" y="2087.89" font-size="9" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">22.06</text>
+<text x="205.65" y="2072.29" font-size="11" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">120</text>
+<text x="204.45" y="2087.89" font-size="9" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">23.06</text>
+<text x="272.98" y="2072.29" font-size="11" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">119</text>
+<text x="271.78" y="2087.89" font-size="9" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">24.05</text>
+<text x="340.31" y="2072.29" font-size="11" font-weight="700" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">118</text>
+<text x="339.11" y="2087.89" font-size="9" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">25.06</text>
+<line x1="34.67" y1="2112.61" x2="395.33" y2="2112.61" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="2130.95" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">이완기</text>
+<text x="34.67" y="2149.21" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">76</text>
+<text x="54.46" y="2151.21" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">mmHg</text>
+<rect x="152.67" y="2131.2" width="88.56" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="241.23" y="2131.2" width="29.53" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="270.76" y="2131.2" width="88.57" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="226.42" y="2127.2" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="236.7" y="2148.53" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">80</text>
+<text x="266.21" y="2148.53" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">90</text>
+<rect x="369.33" y="2127.2" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="2139.7" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<text x="34.67" y="2186.79" font-size="12.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">수축기·이완기 모두 정상 범위예요.</text>
+<rect x="34.67" y="2207.13" width="360.67" height="56.79" rx="11" fill="rgb(244, 247, 253)"/>
+<text x="46.67" y="2226.13" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">혈액이 혈관 벽에 가하는 압력이에요. 수축기는 심장이 뛸 때,</text>
+<text x="46.67" y="2244.52" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">이완기는 쉴 때의 압력이에요.</text>
+<rect x="18" y="2288.58" width="394" height="198.57" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34.67" y="2305.25" width="30" height="30" rx="10" fill="rgb(238, 244, 255)"/>
+<text x="43.23" y="2319.85" font-size="13" font-weight="400" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">◆</text>
+<text x="73.67" y="2319.92" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">혈당</text>
+<rect x="357.6" y="2307.25" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="2320.25" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<text x="34.67" y="2357.92" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">공복혈당</text>
+<text x="34.67" y="2376.18" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">92</text>
+<text x="54.46" y="2378.18" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">mg/dL</text>
+<rect x="152.67" y="2358.17" width="59.04" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="211.71" y="2358.17" width="38.38" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="250.08" y="2358.17" width="109.24" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="196.91" y="2354.17" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="204.9" y="2375.5" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">100</text>
+<text x="243.27" y="2375.5" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">126</text>
+<rect x="369.33" y="2354.17" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="2366.67" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<text x="34.67" y="2413.76" font-size="12.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">정상 범위이고 이전 결과와 비슷해요.</text>
+<rect x="34.67" y="2434.09" width="360.67" height="38.4" rx="11" fill="rgb(244, 247, 253)"/>
+<text x="46.67" y="2453.09" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">8시간 이상 공복 상태에서 잰 혈액 속 포도당 양이에요.</text>
+<rect x="18" y="2497.16" width="394" height="380.5" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34.67" y="2513.82" width="30" height="30" rx="10" fill="rgb(238, 244, 255)"/>
+<text x="43.23" y="2528.43" font-size="13" font-weight="400" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">◯</text>
+<text x="73.67" y="2528.49" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">콜레스테롤</text>
+<rect x="357.6" y="2515.82" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="2528.82" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<text x="34.67" y="2566.49" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">총콜레스테롤</text>
+<text x="34.67" y="2584.75" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">188</text>
+<text x="62.85" y="2586.75" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">mg/dL</text>
+<rect x="152.67" y="2566.74" width="91.83" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="244.5" y="2566.74" width="45.92" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="290.42" y="2566.74" width="68.88" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="227.74" y="2562.74" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="237.69" y="2584.07" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">200</text>
+<text x="283.64" y="2584.07" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">240</text>
+<rect x="369.33" y="2562.74" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="2575.24" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<line x1="34.67" y1="2602.67" x2="395.33" y2="2602.67" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="2621" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">LDL</text>
+<text x="34.67" y="2639.26" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">108</text>
+<text x="62.85" y="2641.26" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">mg/dL</text>
+<rect x="152.67" y="2621.25" width="97.25" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="249.92" y="2621.25" width="36.47" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="286.39" y="2621.25" width="72.93" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="220.18" y="2617.25" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="243.1" y="2638.58" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">130</text>
+<text x="279.58" y="2638.58" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">160</text>
+<rect x="369.33" y="2617.25" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="2629.75" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<line x1="34.67" y1="2657.18" x2="395.33" y2="2657.18" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="2675.51" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">HDL</text>
+<text x="34.67" y="2693.77" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">62</text>
+<text x="54.46" y="2695.77" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">mg/dL</text>
+<rect x="152.67" y="2675.76" width="51.67" height="9" rx="4.5" fill="rgb(251, 218, 224)"/>
+<rect x="204.33" y="2675.76" width="51.67" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="256" y="2675.76" width="103.33" height="9" rx="0" fill="rgb(221, 243, 230)"/>
+<rect x="258.17" y="2671.76" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="199.79" y="2693.09" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">40</text>
+<text x="251.46" y="2693.09" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">60</text>
+<rect x="369.33" y="2671.76" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="2684.26" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<line x1="34.67" y1="2711.69" x2="395.33" y2="2711.69" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="2730.02" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">중성지방</text>
+<text x="34.67" y="2748.28" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">97</text>
+<text x="54.46" y="2750.28" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">mg/dL</text>
+<rect x="152.67" y="2730.27" width="82.67" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="235.33" y="2730.27" width="41.33" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="276.67" y="2730.27" width="82.67" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="188.51" y="2726.27" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="228.52" y="2747.6" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">150</text>
+<text x="269.85" y="2747.6" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">200</text>
+<rect x="369.33" y="2726.27" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="2738.77" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<text x="34.67" y="2785.86" font-size="12.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">네 가지 지질 수치가 모두 정상 범위예요.</text>
+<rect x="34.67" y="2806.2" width="360.67" height="56.79" rx="11" fill="rgb(244, 247, 253)"/>
+<text x="46.67" y="2825.2" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">혈액 속 지방 성분이에요. LDL은 혈관에 쌓이기 쉬운 쪽, HDL은</text>
+<text x="46.67" y="2843.59" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">걷어내는 쪽이라 HDL은 높을수록 좋아요.</text>
+<rect x="18" y="2887.66" width="394" height="325.99" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34.67" y="2904.32" width="30" height="30" rx="10" fill="rgb(238, 244, 255)"/>
+<text x="43.23" y="2918.93" font-size="13" font-weight="400" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">◒</text>
+<text x="73.67" y="2918.99" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">간 기능</text>
+<rect x="357.6" y="2906.32" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="2919.32" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<text x="34.67" y="2956.99" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">AST</text>
+<text x="34.67" y="2975.25" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">22</text>
+<text x="54.46" y="2977.25" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">IU/L</text>
+<rect x="152.67" y="2957.24" width="84.73" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="237.4" y="2957.24" width="20.67" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="258.06" y="2957.24" width="101.26" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="195.13" y="2953.24" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="232.85" y="2974.57" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">41</text>
+<text x="253.52" y="2974.57" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">51</text>
+<rect x="369.33" y="2953.24" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="2965.74" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<line x1="34.67" y1="2993.17" x2="395.33" y2="2993.17" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="3011.5" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">ALT</text>
+<text x="34.67" y="3029.76" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">19</text>
+<text x="54.46" y="3031.76" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">IU/L</text>
+<rect x="152.67" y="3011.75" width="74.4" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="227.06" y="3011.75" width="20.67" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="247.73" y="3011.75" width="111.59" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="188.93" y="3007.75" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="222.52" y="3029.08" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">36</text>
+<text x="243.19" y="3029.08" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">46</text>
+<rect x="369.33" y="3007.75" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="3020.25" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<line x1="34.67" y1="3047.68" x2="395.33" y2="3047.68" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="3066.01" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">γ-GTP</text>
+<text x="34.67" y="3084.27" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">18</text>
+<text x="54.46" y="3086.27" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">IU/L</text>
+<rect x="152.67" y="3066.26" width="82.67" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="235.33" y="3066.26" width="22.96" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="258.29" y="3066.26" width="101.03" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="191" y="3062.26" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="230.79" y="3083.59" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">36</text>
+<text x="253.75" y="3083.59" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">46</text>
+<rect x="369.33" y="3062.26" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="3074.76" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<text x="34.67" y="3121.85" font-size="12.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">세 가지 효소 모두 정상 범위예요.</text>
+<rect x="34.67" y="3142.19" width="360.67" height="56.79" rx="11" fill="rgb(244, 247, 253)"/>
+<text x="46.67" y="3161.19" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">간에 부담이 있을 때 혈액으로 새어 나오는 효소예요. AST·ALT는</text>
+<text x="46.67" y="3179.58" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">간세포, γ-GTP는 담도와 술·약물의 영향을 주로 반영해요.</text>
+<rect x="18" y="3223.65" width="394" height="289.88" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34.67" y="3240.31" width="30" height="30" rx="10" fill="rgb(238, 244, 255)"/>
+<text x="43.23" y="3254.92" font-size="13" font-weight="400" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">◐</text>
+<text x="73.67" y="3254.98" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">신장 기능</text>
+<rect x="357.6" y="3242.31" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="3255.31" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<text x="34.67" y="3292.98" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">eGFR</text>
+<text x="34.67" y="3311.24" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">96</text>
+<text x="54.46" y="3313.24" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">mL/min</text>
+<rect x="152.67" y="3293.23" width="68.88" height="9" rx="4.5" fill="rgb(251, 218, 224)"/>
+<rect x="221.54" y="3293.23" width="137.78" height="9" rx="0" fill="rgb(221, 243, 230)"/>
+<rect x="301.21" y="3289.23" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="217" y="3310.56" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">60</text>
+<rect x="369.33" y="3289.23" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="3301.73" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<line x1="34.67" y1="3329.16" x2="395.33" y2="3329.16" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="3347.49" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">크레아티닌</text>
+<text x="34.67" y="3365.75" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">0.9</text>
+<text x="58.08" y="3367.75" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">mg/dL</text>
+<rect x="152.67" y="3347.74" width="109.24" height="9" rx="4.5" fill="rgb(221, 243, 230)"/>
+<rect x="261.91" y="3347.74" width="97.42" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="198.86" y="3343.74" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="256.5" y="3365.07" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">1.5</text>
+<rect x="369.33" y="3343.74" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="3356.24" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<text x="34.67" y="3403.33" font-size="12.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">여과 기능과 노폐물 배출 모두 정상이에요.</text>
+<rect x="34.67" y="3423.67" width="360.67" height="75.19" rx="11" fill="rgb(244, 247, 253)"/>
+<text x="46.67" y="3442.67" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">콩팥이 혈액 속 노폐물을 얼마나 잘 걸러내는지 봐요.</text>
+<text x="46.67" y="3461.06" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">크레아티닌은 노폐물 양, eGFR은 그 값으로 계산한 여과</text>
+<text x="46.67" y="3479.46" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">능력이에요.</text>
+<rect x="18" y="3523.52" width="394" height="216.97" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="34.67" y="3540.19" width="30" height="30" rx="10" fill="rgb(238, 244, 255)"/>
+<text x="43.23" y="3554.79" font-size="13" font-weight="400" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">●</text>
+<text x="73.67" y="3554.85" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">빈혈</text>
+<rect x="357.6" y="3542.19" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="3555.19" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<text x="34.67" y="3592.85" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">혈색소</text>
+<text x="34.67" y="3611.11" font-size="15" font-weight="800" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.3">13.2</text>
+<text x="66.48" y="3613.11" font-size="9.5" font-weight="600" fill="rgb(152, 164, 184)" dominant-baseline="central">g/dL</text>
+<rect x="152.67" y="3593.1" width="34.45" height="9" rx="4.5" fill="rgb(251, 218, 224)"/>
+<rect x="187.11" y="3593.1" width="34.45" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="221.56" y="3593.1" width="62" height="9" rx="0" fill="rgb(221, 243, 230)"/>
+<rect x="283.56" y="3593.1" width="17.21" height="9" rx="0" fill="rgb(252, 235, 203)"/>
+<rect x="300.77" y="3593.1" width="58.54" height="9" rx="0" fill="rgb(251, 218, 224)"/>
+<rect x="239.21" y="3589.1" width="6" height="17" rx="3" fill="rgb(31, 138, 85)"/>
+<text x="182.57" y="3610.44" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">10</text>
+<text x="217" y="3610.44" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">12</text>
+<text x="275.86" y="3610.44" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">15.6</text>
+<text x="293.1" y="3610.44" font-size="8.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">16.6</text>
+<rect x="369.33" y="3589.1" width="26" height="26" rx="13" fill="rgb(245, 247, 251)"/>
+<text x="379.98" y="3601.6" font-size="15" font-weight="400" fill="rgb(141, 152, 170)" dominant-baseline="central" letter-spacing="-0.14">›</text>
+<text x="34.67" y="3648.7" font-size="12.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">혈색소가 정상 범위예요.</text>
+<rect x="34.67" y="3669.03" width="360.67" height="56.79" rx="11" fill="rgb(244, 247, 253)"/>
+<text x="46.67" y="3688.03" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">혈색소(헤모글로빈)는 적혈구에서 산소를 운반하는 단백질이에요.</text>
+<text x="46.67" y="3706.43" font-size="11.5" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">낮으면 빈혈을 의심하고, 너무 높아도 확인이 필요해요.</text>
+<text x="20" y="3779.16" font-size="19" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.57">그 밖의 검사 결과</text>
+<text x="20" y="3806.75" font-size="11" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">흉부 X선처럼 숫자 범위가 없는 검사는 검진기관의 판정과 소견을 그대로</text>
+<text x="20" y="3824.34" font-size="11" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">보여드려요.</text>
+<rect x="18" y="3843.27" width="394" height="284" rx="18" fill="rgb(255, 255, 255)"/>
+<text x="34.67" y="3874.67" font-size="12" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">흉부 X선</text>
+<text x="140.67" y="3874.94" font-size="11.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">특이 소견 없음</text>
+<rect x="357.6" y="3861.94" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="3874.94" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<line x1="34.67" y1="3897.94" x2="395.33" y2="3897.94" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="3921.33" font-size="12" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">요검사(요단백)</text>
+<text x="140.67" y="3921.6" font-size="11.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">음성</text>
+<rect x="357.6" y="3908.6" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="3921.6" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<line x1="34.67" y1="3944.6" x2="395.33" y2="3944.6" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="3968" font-size="12" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">B형간염</text>
+<text x="140.67" y="3968.27" font-size="11.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">표면항체 있음 · 면역 상태</text>
+<rect x="357.6" y="3955.27" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="3968.27" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<line x1="34.67" y1="3991.27" x2="395.33" y2="3991.27" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="4014.67" font-size="12" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">시력</text>
+<text x="140.67" y="4014.94" font-size="11.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">좌 1.0 / 우 1.0</text>
+<rect x="357.6" y="4001.94" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="4014.94" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<line x1="34.67" y1="4037.94" x2="395.33" y2="4037.94" stroke="rgb(240, 242, 246)" stroke-width="0.67"/>
+<text x="34.67" y="4061.33" font-size="12" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.14">청력</text>
+<text x="140.67" y="4061.6" font-size="11.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">좌·우 정상</text>
+<rect x="357.6" y="4048.6" width="37.73" height="26" rx="13" fill="rgb(234, 248, 241)"/>
+<text x="366.6" y="4061.6" font-size="10" font-weight="800" fill="rgb(22, 134, 83)" dominant-baseline="central" letter-spacing="-0.14">정상</text>
+<text x="34.67" y="4104.27" font-size="12.5" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">모두 특이 소견이 없어요.</text>
+<text x="20" y="4161.27" font-size="10" font-weight="800" fill="rgb(47, 107, 255)" dominant-baseline="central" letter-spacing="-0.14">다음에 챙길 일</text>
+<text x="20" y="4185.94" font-size="19" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.57">내가 해야 할 행동</text>
+<text x="20" y="4213.53" font-size="11" font-weight="400" fill="rgb(152, 164, 184)" dominant-baseline="central" letter-spacing="-0.14">앞으로도 이렇게 챙겨 주세요.</text>
+<rect x="18" y="4232.46" width="394" height="332.75" rx="18" fill="rgb(255, 255, 255)"/>
+<rect x="36" y="4282.25" width="26" height="26" rx="13" fill="rgb(47, 107, 255)"/>
+<text x="45.58" y="4294.98" font-size="12" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">1</text>
+<text x="74" y="4275.13" font-size="14" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.28">지금 습관을 이어가세요</text>
+<text x="74" y="4297.52" font-size="12" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">주요 항목이 모두 정상 범위예요. 식사·활동·수면 리듬을</text>
+<text x="74" y="4316.11" font-size="12" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">지금처럼 유지해 주세요.</text>
+<rect x="36" y="4385.83" width="26" height="26" rx="13" fill="rgb(47, 107, 255)"/>
+<text x="45.58" y="4398.56" font-size="12" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">2</text>
+<text x="74" y="4378.71" font-size="14" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.28">다음 검진 일정을 확인하세요</text>
+<text x="74" y="4401.1" font-size="12" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">일반검진(2년마다, 비사무직은 매년)과 암검진 대상 여부를</text>
+<text x="74" y="4419.7" font-size="12" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">병원 탭에서 확인할 수 있어요.</text>
+<rect x="36" y="4489.42" width="26" height="26" rx="13" fill="rgb(47, 107, 255)"/>
+<text x="45.58" y="4502.15" font-size="12" font-weight="800" fill="rgb(255, 255, 255)" dominant-baseline="central" letter-spacing="-0.14">3</text>
+<text x="74" y="4482.29" font-size="14" font-weight="700" fill="rgb(22, 35, 63)" dominant-baseline="central" letter-spacing="-0.28">이번 결과를 보관하세요</text>
+<text x="74" y="4504.69" font-size="12" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">다음 검진 때 같은 항목의 변화를 화살표 그래프로 비교할</text>
+<text x="74" y="4523.28" font-size="12" font-weight="400" fill="rgb(90, 104, 128)" dominant-baseline="central" letter-spacing="-0.14">수 있어요.</text>
+<text x="20" y="4576.88" font-size="10.5" font-weight="400" fill="rgb(146, 153, 166)" dominant-baseline="central" letter-spacing="-0.14">AI 요약은 검진 결과를 이해하기 쉽게 정리한 참고 정보이며, 의학적 진단을</text>
+<text x="20" y="4593.15" font-size="10.5" font-weight="400" fill="rgb(146, 153, 166)" dominant-baseline="central" letter-spacing="-0.14">대신하지 않아요. 걱정되는 항목은 의료진과 상담해 주세요.</text></svg>

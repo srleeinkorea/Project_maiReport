@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>마이리포트 홈 · A안</title>
+<style>
+:root{
+  --font:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',Arial,sans-serif;
+  --t-h1:19px;--t-h2:16px;--t-body:14px;--t-sm:13px;--t-cap:12px;--t-mini:11px;
+  --n-md:19px;
+  --ink-1:#16233F;--ink-2:#5A6880;--ink-3:#98A4B8;--line:#E9EDF5;--page:#F4F6FA;--fill:#F5F7FB;
+  --brand:#2F6BFF;--brand-soft:#EFF4FF;--ok:#12A150;--warn:#E5893A;
+  --m1:#0FB5AE;--m2:#8B5CF6;--m3:#3B5BE0;
+  --r:20px;--r-in:14px;--sh:0 1px 2px rgba(22,35,63,.04),0 8px 24px rgba(22,35,63,.04);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);font-size:var(--t-body);line-height:1.6;letter-spacing:-.01em;
+  word-break:keep-all;background:#E8EBF2;color:var(--ink-1);-webkit-font-smoothing:antialiased;
+  padding:22px 12px 60px}
+button{font-family:inherit;letter-spacing:inherit;cursor:pointer}
+h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
+[hidden]{display:none!important}
+
+.wrap{max-width:960px;margin:0 auto;display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+
+/* 데모 컨트롤 */
+.panel{flex:1;min-width:280px;max-width:360px;background:#fff;border-radius:16px;padding:20px;box-shadow:var(--sh)}
+.panel h2{font-size:15px;margin-bottom:6px}
+.panel .desc{font-size:var(--t-cap);color:var(--ink-3);line-height:1.7;margin-bottom:16px}
+.seg{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.seg button{text-align:left;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:12px 14px;
+  font-size:var(--t-sm);font-weight:600;color:var(--ink-2);line-height:1.4}
+.seg button b{display:block;color:var(--ink-1);font-size:var(--t-body);margin-bottom:2px}
+.seg button.on{border-color:var(--brand);background:var(--brand-soft);color:var(--ink-1)}
+.legend{font-size:var(--t-cap);color:var(--ink-2);line-height:1.8;border-top:1px solid var(--line);padding-top:14px}
+.legend b{color:var(--ink-1)}
+.legend .tag{display:inline-block;font-size:var(--t-mini);font-weight:700;padding:2px 7px;border-radius:999px;background:var(--fill);color:var(--ink-3);margin-right:4px}
+.legend .up{background:#E4F6EA;color:var(--ok)}
+
+/* 폰 프레임 */
+.app{width:390px;background:var(--page);min-height:760px;border-radius:30px;overflow:hidden;
+  box-shadow:0 20px 60px rgba(22,35,63,.18);position:relative}
+.content{padding-bottom:78px}
+.hd{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--page)}
+.hd .logo{font-size:22px;font-weight:800;font-style:italic;color:var(--brand);letter-spacing:-.06em}
+.hd .qr{margin-left:auto;padding:8px 13px;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:var(--t-cap);font-weight:600;color:var(--ink-2)}
+.hd .bell{width:30px;height:30px;border:none;background:none;color:var(--ink-3);font-size:var(--t-h2)}
+
+.sec{padding:0 18px;margin-bottom:13px}
+.card{background:#fff;border:none;border-radius:var(--r);padding:20px;box-shadow:var(--sh)}
+.card-t{font-size:var(--t-h2);font-weight:700;color:var(--ink-1)}
+.card-s{font-size:var(--t-cap);font-weight:400;color:var(--ink-3);margin-top:5px;line-height:1.5}
+.eyebrow{font-size:var(--t-mini);font-weight:700;color:var(--brand);margin-bottom:7px;letter-spacing:.02em}
+
+/* 구획 라벨 — 정보 영역 / 실천 영역 나눔 */
+.zone{padding:0 18px;margin:6px 0 10px;display:flex;align-items:center;gap:8px}
+.zone span{font-size:var(--t-mini);font-weight:700;color:var(--ink-3);letter-spacing:.04em;white-space:nowrap}
+.zone i{flex:1;height:1px;background:var(--line)}
+
+/* 컨디션 */
+.cond .top{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+.cond .top .tx{flex:1}
+.m-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.m{padding:14px 4px 12px;border:1px solid var(--line);border-radius:var(--r-in);display:flex;flex-direction:column;align-items:center;gap:8px}
+.m .ring{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:conic-gradient(var(--c) var(--pct),#E9EDF5 0)}
+.m .ring::after{content:'';width:34px;height:34px;border-radius:50%;background:#fff}
+.m .ringwrap{position:relative;display:flex;align-items:center;justify-content:center}
+.m .ringwrap b{position:absolute;font-size:var(--n-md);font-weight:700;color:var(--ink-1)}
+.m .nm{font-size:var(--t-mini);font-weight:700;color:var(--c)}
+.m .dt{font-size:var(--t-mini);font-weight:600;color:var(--ink-3);text-align:center;line-height:1.3}
+.m[data-k=recovery]{--c:var(--m1)} .m[data-k=load]{--c:var(--m2)} .m[data-k=rhythm]{--c:var(--m3)}
+.cond .line{padding:13px;border-radius:var(--r-in);background:var(--fill);font-size:var(--t-cap);color:var(--ink-2);line-height:1.65;display:flex;gap:8px}
+
+/* 생활 데이터 */
+.d-row{display:flex;align-items:center;gap:11px;padding:13px 0;border-top:1px solid var(--line)}
+.d-row:first-child{border-top:none}
+.d-ic{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.d-bd{flex:1;min-width:0}
+.d-bd small{display:block;font-size:var(--t-mini);color:var(--ink-3);font-weight:500}
+.d-bd b{font-size:var(--t-body);font-weight:700}
+.d-bd b i{font-size:var(--t-mini);font-weight:500;color:var(--ink-3);font-style:normal;margin-left:3px}
+.d-dt{font-size:var(--t-mini);font-weight:600;color:var(--ink-3)}
+
+/* AI 인사이트 요약 */
+.ai{background:linear-gradient(135deg,#EEF3FF,#E6ECFF);border-radius:var(--r);padding:20px;position:relative;overflow:hidden}
+.ai .spark{position:absolute;top:16px;right:18px;font-size:20px;opacity:.5}
+.ai .eyebrow{color:#6D5CE7}
+.ai .score{display:flex;align-items:baseline;gap:6px;margin:4px 0 8px}
+.ai .score b{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.ai .score span{font-size:var(--t-h2);color:var(--ink-3);font-weight:600}
+.ai p{font-size:var(--t-sm);color:var(--ink-2);line-height:1.6;margin-bottom:14px}
+.ai .go{width:100%;padding:12px;border:none;border-radius:999px;background:var(--brand);color:#fff;font-size:var(--t-sm);font-weight:700}
+.ai.prompt p{margin-bottom:14px}
+.ai .bar{height:6px;border-radius:4px;background:rgba(255,255,255,.6);overflow:hidden;margin-bottom:12px}
+.ai .bar i{display:block;height:100%;background:var(--brand);border-radius:4px}
+
+/* 연동 유도 (신규) */
+.connect{background:#fff;border-radius:var(--r);padding:22px 20px;box-shadow:var(--sh);text-align:center}
+.connect .ico{width:48px;height:48px;margin:0 auto 12px;border-radius:16px;background:var(--brand-soft);display:flex;align-items:center;justify-content:center;font-size:22px}
+.connect b{display:block;font-size:var(--t-h2);margin-bottom:7px}
+.connect p{font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;margin-bottom:16px}
+.connect .cta{width:100%;padding:14px;border:none;border-radius:var(--r-in);background:var(--brand);color:#fff;font-size:var(--t-body);font-weight:700}
+.connect .later{width:100%;margin-top:8px;padding:12px;border:none;background:none;color:var(--ink-3);font-size:var(--t-cap);font-weight:600}
+.connect .what{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);text-align:left;font-size:var(--t-cap);color:var(--ink-2);line-height:1.9}
+.connect .what span{color:var(--brand);font-weight:700}
+
+/* 오늘의 질문 */
+.q-step{font-size:var(--t-cap);font-weight:600;color:var(--brand);margin-bottom:10px}
+.q-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+.q-row h1{flex:1;font-size:var(--t-h1);font-weight:700;line-height:1.5}
+.q-av{width:52px;height:52px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;background:#EDE9FE}
+.q-opts{display:flex;gap:8px}
+.q-opt{flex:1;padding:13px 4px 12px;border:1px solid var(--line);border-radius:var(--r-in);background:#fff;
+  display:flex;flex-direction:column;align-items:center;gap:9px;font-size:var(--t-cap);font-weight:600;color:var(--ink-2);line-height:1.3}
+.q-opt .f{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--t-body);font-weight:700;color:#fff}
+.q-opt.good .f{background:#7ED09A}.q-opt.okay .f{background:#F2C24B}.q-opt.bad .f{background:#F195AB}.q-opt.neutral .f{background:#B6C0D1}
+.q-opt.on{border-color:var(--brand);background:var(--brand-soft)}
+.q-opt.dim{opacity:.35}
+.q-done{display:flex;align-items:center;gap:11px;background:#fff;border:none;border-radius:var(--r);padding:16px 20px;width:100%;text-align:left;box-shadow:var(--sh)}
+.q-done .ck{width:22px;height:22px;border-radius:50%;background:#E4F6EA;color:var(--ok);font-size:var(--t-cap);font-weight:700;display:flex;align-items:center;justify-content:center}
+.q-done b{flex:1;font-size:var(--t-body);font-weight:600}
+.q-done span{font-size:var(--t-cap);font-weight:600;color:var(--brand)}
+.q-hint{margin-top:10px;font-size:var(--t-mini);color:var(--ink-3);text-align:center}
+
+/* 코칭 */
+.coach{background:var(--brand-soft);border:1px solid #DCE7FF;border-radius:var(--r);padding:20px}
+.coach .lab{font-size:var(--t-mini);font-weight:700;color:var(--brand);margin-bottom:11px}
+.coach .act{display:block;font-size:var(--t-h2);font-weight:700;line-height:1.55;margin-bottom:7px}
+.coach .why{display:block;font-size:var(--t-sm);color:var(--ink-2);line-height:1.7}
+
+/* 실천 행동 */
+.g-hd{display:flex;align-items:flex-start;gap:12px;margin-bottom:6px}
+.g-hd .cnt{margin-left:auto;font-size:var(--t-sm);font-weight:700;color:var(--brand);white-space:nowrap;padding-top:2px}
+.g-hd .cnt small{font-size:var(--t-cap);color:var(--ink-3);font-weight:500}
+.g-item{display:flex;align-items:center;gap:12px;padding:15px 0;border-top:1px solid var(--line)}
+.g-item:first-child{border-top:none}
+.g-ic{width:32px;height:32px;flex-shrink:0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:var(--t-h2)}
+.g-ic.meal{background:#FFF1DC}.g-ic.move{background:#E3F6E8}.g-ic.sleep{background:#E8EAFB}
+.g-bd{flex:1;min-width:0}
+.g-bd small{font-size:var(--t-mini);color:var(--ink-3);font-weight:500}
+.g-bd b{display:block;font-size:var(--t-body);font-weight:600;margin:3px 0}
+.g-bd p{font-size:var(--t-cap);color:var(--ink-3);line-height:1.5}
+.g-chk{flex-shrink:0;padding:9px 13px;border:1.5px solid #D7DEEA;border-radius:10px;background:#fff;color:var(--ink-2);font-size:var(--t-cap);font-weight:600}
+.g-item.done .g-chk{background:var(--ok);border-color:var(--ok);color:#fff}
+.g-item.done .g-bd b{color:var(--ink-3);text-decoration:line-through}
+.g-item.lock .g-ic{background:#F0F2F6;filter:grayscale(1)}
+.g-item.lock .g-bd b{color:var(--ink-2)}
+.g-lockico{width:34px;height:34px;border-radius:10px;background:#EEF1F6;color:#7D889A;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.g-link{width:100%;margin-top:14px;padding:12px;background:var(--fill);border:none;border-radius:var(--r-in);font-size:var(--t-cap);font-weight:600;color:var(--ink-2)}
+
+.nav{position:absolute;bottom:0;width:100%;display:flex;justify-content:space-around;align-items:center;height:64px;background:#fff;border-top:1px solid var(--line)}
+.nav button{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:none;color:#B6C0D1}
+.nav button span{font-size:17px}.nav button small{font-size:var(--t-mini);font-weight:600}
+.nav button.on{color:var(--brand)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="panel">
+    <h2>홈 화면 A안 — 순서 재배치</h2>
+    <div class="desc">상단은 <b>무행동으로 보이는 결과·정보</b>(컨디션·생활 데이터·AI 인사이트 요약), 입력이 필요한 <b>오늘의 질문·코칭·실천 행동</b>은 그 아래로 내렸습니다. 상태를 바꿔가며 확인하세요.</div>
+    <div class="seg" id="seg">
+      <button data-s="new" class="on"><b>미연동 · 신규</b>건강 데이터 연결 전. 상단은 연동 유도 카드</button>
+      <button data-s="linked"><b>연동 · 리포트 없음</b>컨디션·생활 데이터 노출 + AI 분석 유도</button>
+      <button data-s="linkedAI"><b>연동 · AI 리포트 있음</b>상단에 AI 인사이트 점수 요약까지</button>
+    </div>
+    <div class="legend">
+      <p><b>기존 대비 달라지는 점</b></p>
+      <p><span class="tag up">개선</span> 진입 즉시 값이 보임 → 이탈 방지</p>
+      <p><span class="tag up">개선</span> "먼저 답하라"는 압박이 첫 화면에서 사라짐</p>
+      <p><span class="tag">유지</span> 질문·실천 행동 기능은 그대로, 위치만 아래로</p>
+      <p><span class="tag">확인필요</span> 워치 없는 신규는 상단이 연동 카드 → 값이 없는 건 동일</p>
+    </div>
+  </div>
+
+  <div class="app">
+    <div class="content">
+      <div id="home">
+        <header class="hd">
+          <div class="logo">M</div>
+          <button class="qr">▦ 리포트 QR 스캔</button>
+          <button class="bell">◔</button>
+        </header>
+        <div id="homeBody"></div>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="on"><span>⌂</span><small>홈</small></button>
+      <button><span>♡</span><small>생활</small></button>
+      <button><span>✚</span><small>병원</small></button>
+      <button><span>•••</span><small>계정</small></button>
+    </nav>
+  </div>
+
+</div>
+
+<script>
+let STATE = 'new';
+
+/* ── 오늘의 질문 ── */
+const QS = [
+  {id:'fatigue',cat:'피로',av:'⚡',text:'오늘 몸의 피로감은 어느 정도인가요?',
+   opts:[{v:'none',f:'⌣',label:'괜찮아요',tone:'good'},{v:'mild',f:'—',label:'조금 피곤해요',tone:'okay'},{v:'high',f:'⌢',label:'많이 피곤해요',tone:'bad'}]},
+  {id:'sleep',cat:'수면',av:'🌙',text:'어젯밤 얼마나 주무셨나요?',
+   opts:[{v:'lt5',f:'◔',label:'5시간 미만',tone:'neutral'},{v:'5to7',f:'◑',label:'5~7시간',tone:'neutral'},{v:'gte7',f:'◕',label:'7시간 이상',tone:'neutral'}]},
+  {id:'meal',cat:'식사',av:'🍚',text:'오늘 식사는 평소만큼 하셨나요?',
+   opts:[{v:'normal',f:'⌣',label:'평소대로',tone:'good'},{v:'less',f:'—',label:'조금 적게',tone:'okay'},{v:'skip',f:'⌢',label:'거의 못 먹었어요',tone:'bad'}]}
+];
+let ans = {}, qi = 0, qlock = false;
+const answered = ()=>Object.keys(ans).length;
+const allDone = ()=>answered() >= QS.length;
+
+/* ── 실천 행동 ── */
+let goals = [
+  {key:'meal',cat:'식이',icon:'🥗',title:'저녁 균형 접시',how:'채소 ½, 단백질 ¼, 탄수화물 ¼로 채워요',state:'pending'},
+  {key:'move',cat:'활동',icon:'🚶',title:'식후 10분 걷기',how:'천천히, 숨이 차지 않을 만큼 걸어요',state:'pending'},
+  {key:'sleep',cat:'수면',icon:'🛏️',title:'23시 30분까지 눕기',how:'평소 취침 시간을 지켜요',state:'pending',reqAns:'sleep'}
+];
+function goalLocked(g){ return g.reqAns && !ans[g.reqAns]; }
+
+/* ── 섹션 빌더 ── */
+function condSection(){
+  const M = [
+    {k:'recovery',nm:'회복여유',sc:75,pct:'75%',dt:'▲ 좋아졌어요'},
+    {k:'load',nm:'생활부담',sc:42,pct:'42%',dt:'▼ 줄었어요'},
+    {k:'rhythm',nm:'리듬안정성',sc:73,pct:'73%',dt:'= 유지예요'}
+  ];
+  return `<div class="sec"><section class="card cond">
+    <div class="top"><div class="tx">
+      <div class="card-t">오늘의 컨디션</div>
+      <div class="card-s">회복여유 · 생활부담 · 리듬안정성을 최근 7~14일 나의 평소와 비교했어요.</div>
+    </div></div>
+    <div class="m-grid">${M.map(m=>`
+      <div class="m" data-k="${m.k}" style="--pct:${m.pct}">
+        <div class="ringwrap"><div class="ring"></div><b>${m.sc}</b></div>
+        <div class="nm">${m.nm}</div><div class="dt">${m.dt}</div>
+      </div>`).join('')}</div>
+    <div class="line"><span>ⓘ</span><span>오늘은 전반적인 상태가 큰 변화 없이 유지인 편이에요.</span></div>
+  </section></div>`;
+}
+function lifeSection(){
+  const D = [
+    {ic:'👟',bg:'#E3F6E8',label:'걸음 수',v:'6,420',u:'걸음',d:'▼ 12% 적어요'},
+    {ic:'🌙',bg:'#E8EAFB',label:'수면 시간',v:'7시간 20분',u:'',d:'▲ 35분 길어요'},
+    {ic:'❤️',bg:'#FDE7EE',label:'안정 시 심박수',v:'68',u:'bpm',d:'= 평소 범위예요'}
+  ];
+  return `<div class="sec"><section class="card">
+    <div class="card-t" style="margin-bottom:4px">오늘의 생활 데이터</div>
+    <div class="card-s" style="margin-bottom:8px">삼성헬스에서 오늘 오전 8:12에 동기화했어요.</div>
+    ${D.map(d=>`<div class="d-row"><div class="d-ic" style="background:${d.bg}">${d.ic}</div>
+      <div class="d-bd"><small>${d.label}</small><b>${d.v}${d.u?`<i>${d.u}</i>`:''}</b></div>
+      <div class="d-dt">${d.d}</div></div>`).join('')}
+  </section></div>`;
+}
+function aiSection(){
+  if(STATE==='linkedAI'){
+    return `<div class="sec"><section class="ai">
+      <span class="spark">✨</span>
+      <div class="eyebrow">AI 건강 인사이트 · 8월 4주</div>
+      <div class="score"><b>61</b><span>/100</span></div>
+      <div class="bar"><i style="width:61%"></i></div>
+      <p>혈압과 공복혈당이 참고치보다 높게 나타났어요. 생활습관을 점검하며 관리해 보세요.</p>
+      <button class="go">자세히 보기</button>
+    </section></div>`;
+  }
+  return `<div class="sec"><section class="ai prompt">
+    <span class="spark">✨</span>
+    <div class="eyebrow">AI 건강 인사이트</div>
+    <p style="margin-top:2px">이번 주 생활 데이터가 모였어요. 지금 분석하면 맞춤 리포트를 받아볼 수 있어요.</p>
+    <button class="go">이번 주 분석하기</button>
+  </section></div>`;
+}
+function connectSection(){
+  return `<div class="sec"><section class="connect">
+    <div class="ico">🔒</div>
+    <b>건강 데이터를 연결하면<br>오늘의 컨디션을 볼 수 있어요</b>
+    <p>수면·활동 데이터를 바탕으로 회복여유·생활부담·리듬안정성과<br>오늘의 생활 데이터를 보여드려요.</p>
+    <button class="cta">건강 데이터 연결하기</button>
+    <button class="later">연결 없이 계속하기</button>
+    <div class="what">
+      <span>·</span> 걸음 수 · 활동 칼로리 · 심박수 · 수면<br>
+      <span>·</span> 읽기 전용으로만 사용하고 기록은 바꾸지 않아요
+    </div>
+  </section></div>`;
+}
+function qSection(){
+  if(allDone()){
+    return `<div class="sec"><button class="q-done" id="qDone">
+      <span class="ck">✓</span><b>오늘의 질문 ${QS.length}/${QS.length} 완료</b><span>답변 수정 ›</span>
+    </button><p class="q-hint">다음 질문은 내일 아침에 새로 준비돼요</p></div>`;
+  }
+  const q = QS[qi];
+  return `<div class="sec"><section class="card">
+    <div class="q-step">오늘의 질문 · ${qi+1}/${QS.length}</div>
+    <div class="q-row"><h1>${q.text}</h1><div class="q-av">${q.av}</div></div>
+    <div class="q-opts">${q.opts.map((o,i)=>
+      `<button class="q-opt ${o.tone}" data-i="${i}"><span class="f">${o.f}</span>${o.label}</button>`).join('')}</div>
+    <p class="q-hint">답하면 아래 코칭과 실천 행동이 오늘 상태에 맞게 채워져요</p>
+  </section></div>`;
+}
+function coachSection(){
+  let act = '먼저 오늘의 질문에 답해 주세요.', why = '답변이 모이면 오늘 상태에 맞는 코칭을 안내해 드려요.';
+  if(allDone()){
+    if(ans.fatigue && ans.fatigue.v==='high'){ act='오늘은 활동을 줄이고 충분히 쉬어보세요.'; why='피로도가 높다고 답해주셨어요. 가벼운 활동과 규칙적인 식사·수면 위주로 보내는 게 좋아요.'; }
+    else if(ans.sleep && ans.sleep.v==='lt5'){ act='오늘은 평소보다 일찍 잠자리에 들어보세요.'; why='어젯밤 수면이 5시간 미만이었어요. 낮에는 무리한 활동을 줄이는 게 좋아요.'; }
+    else { act='오늘은 지금의 생활 리듬을 그대로 유지해보세요.'; why='답변과 최근 데이터 모두 큰 변화 없이 유지예요. 식후 가벼운 걷기만 더해도 충분해요.'; }
+  }
+  return `<div class="sec"><section class="coach">
+    <div class="lab">✦ 오늘의 코칭</div>
+    <strong class="act">${act}</strong><span class="why">${why}</span>
+  </section></div>`;
+}
+function actSection(){
+  const gen = goals.filter(g=>!goalLocked(g));
+  const done = gen.filter(g=>g.state==='done').length;
+  return `<div class="sec"><section class="card">
+    <div class="g-hd">
+      <div><div class="card-t">오늘의 실천 행동</div>
+      <div class="card-s">오늘 질문·데이터를 반영해 실천하면 좋은 행동이에요.</div></div>
+      <div class="cnt">${done}<small>/${gen.length} 완료</small></div>
+    </div>
+    ${goals.map(g=>{
+      if(goalLocked(g)) return `<div class="g-item lock">
+        <span class="g-ic ${g.key}">${g.icon}</span>
+        <div class="g-bd"><small>${g.cat}</small><b>오늘의 질문에 답하면 ${g.cat} 행동이 생성돼요</b></div>
+        <span class="g-lockico">🔒</span></div>`;
+      return `<div class="g-item ${g.state==='done'?'done':''}" data-k="${g.key}">
+        <span class="g-ic ${g.key}">${g.icon}</span>
+        <div class="g-bd"><small>${g.cat}</small><b>${g.title}</b><p>${g.how}</p></div>
+        <button class="g-chk">${g.state==='done'?'✓ 완료':'완료'}</button></div>`;
+    }).join('')}
+    <button class="g-link">생활 탭에서 실천 기록 관리 ›</button>
+  </section></div>`;
+}
+
+/* ── 조립 ── */
+function renderHome(){
+  let html = '';
+  if(STATE==='new'){
+    html += connectSection();
+  }else{
+    html += condSection();
+    html += lifeSection();
+    html += aiSection();
+  }
+  html += `<div class="zone"><i></i><span>오늘의 기록</span><i></i></div>`;
+  html += qSection();
+  html += coachSection();
+  html += actSection();
+  document.getElementById('homeBody').innerHTML = html;
+  bind();
+}
+function bind(){
+  document.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>{
+    if(qlock) return; qlock = true;
+    const q = QS[qi];
+    ans[q.id] = q.opts[b.dataset.i];
+    b.parentElement.querySelectorAll('.q-opt').forEach(x=>{ if(x!==b) x.classList.add('dim'); });
+    b.classList.add('on');
+    setTimeout(()=>{ qi++; qlock=false; renderHome(); }, 380);
+  });
+  const qd = document.getElementById('qDone');
+  if(qd) qd.onclick = ()=>{ ans = {}; qi = 0; renderHome(); };
+  document.querySelectorAll('.g-item[data-k]').forEach(row=>{
+    const g = goals.find(x=>x.key===row.dataset.k);
+    const chk = row.querySelector('.g-chk');
+    if(chk) chk.onclick = ()=>{ g.state = g.state==='done'?'pending':'done'; renderHome(); };
+  });
+}
+
+document.querySelectorAll('#seg button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('on', x===b));
+  STATE = b.dataset.s;
+  ans = {}; qi = 0; goals.forEach(g=>g.state='pending');
+  renderHome();
+});
+
+renderHome();
+</script>
+</body>
+</html>

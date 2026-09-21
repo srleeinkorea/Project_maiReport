@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="620" viewBox="0 0 1100 620" font-family="Noto Sans KR, Malgun Gothic, sans-serif">
+  <rect width="1100" height="620" fill="#EFF2F7"/>
+  <text x="40" y="42" font-size="18" font-weight="900" letter-spacing="-0.7" fill="#0F1826">A안 — 일주일 만에 열었을 때, 빠진 기록을 채우는 방법</text>
+  <text x="40" y="64" font-size="12" fill="#6C7A8E">8월 15~21일 이레치가 비어 있고, 실제로는 그중 몇 개를 실천했다고 가정</text>
+
+  <!-- ===== 현재 ===== -->
+  <g transform="translate(40,96)">
+    <text x="0" y="0" font-size="13" font-weight="800" fill="#B23A3A">지금 방식 — 하루씩 옮겨가며</text>
+    <rect y="14" width="470" height="452" rx="16" fill="#FFFFFF" stroke="#E3C9C9"/>
+
+    <text x="20" y="46" font-size="11.5" font-weight="700" fill="#5A6779">① 날짜 스트립을 8월 15일로 옮긴다</text>
+    <g transform="translate(20,58)">
+      <rect width="430" height="40" rx="11" fill="#F4F6FA"/>
+      <rect x="4" y="4" width="56" height="32" rx="9" fill="#2F6BFF"/>
+      <text x="32" y="25" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">15</text>
+      <text x="92" y="25" font-size="12" fill="#8D99AB" text-anchor="middle">16</text>
+      <text x="152" y="25" font-size="12" fill="#8D99AB" text-anchor="middle">17</text>
+      <text x="212" y="25" font-size="12" fill="#8D99AB" text-anchor="middle">18</text>
+      <text x="272" y="25" font-size="12" fill="#8D99AB" text-anchor="middle">19</text>
+      <text x="332" y="25" font-size="12" fill="#8D99AB" text-anchor="middle">20</text>
+      <text x="392" y="25" font-size="12" fill="#8D99AB" text-anchor="middle">21</text>
+    </g>
+
+    <text x="20" y="128" font-size="11.5" font-weight="700" fill="#5A6779">② 그날 목표 세 칸이 나온다 · 해당하는 것만 탭</text>
+    <g transform="translate(20,140)">
+      <rect width="138" height="74" rx="12" fill="#FCEBD8"/>
+      <text x="69" y="26" font-size="11" font-weight="800" fill="#B4611F" text-anchor="middle">식이</text>
+      <text x="69" y="50" font-size="12" fill="#8A94A6" text-anchor="middle">미기록</text>
+      <rect x="146" width="138" height="74" rx="12" fill="#FBDDE6"/>
+      <text x="215" y="26" font-size="11" font-weight="800" fill="#B93E5F" text-anchor="middle">활동</text>
+      <text x="215" y="50" font-size="12" fill="#8A94A6" text-anchor="middle">미기록</text>
+      <rect x="292" width="138" height="74" rx="12" fill="#DFE2FA"/>
+      <text x="361" y="26" font-size="11" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+      <text x="361" y="50" font-size="12" fill="#8A94A6" text-anchor="middle">미기록</text>
+    </g>
+
+    <text x="20" y="246" font-size="11.5" font-weight="700" fill="#5A6779">③ 16일로 옮긴다 → 다시 세 칸 → 17일로 옮긴다 → …</text>
+
+    <g transform="translate(20,262)" font-size="11.5" fill="#5A6779">
+      <text x="0" y="14">15일로 이동 → 탭 · 탭</text>
+      <text x="0" y="36">16일로 이동 → 탭</text>
+      <text x="0" y="58">17일로 이동 → 탭 · 탭 · 탭</text>
+      <text x="0" y="80" fill="#A6B0BF">18 · 19 · 20 · 21일도 같은 식으로</text>
+    </g>
+
+    <rect x="20" y="368" width="430" height="76" rx="12" fill="#FAE9E9"/>
+    <text x="40" y="394" font-size="12.5" font-weight="800" fill="#B23A3A">화면 이동 7번 · 그 사이에 기억이 흐려진다</text>
+    <text x="40" y="416" font-size="11.5" fill="#8A5252">한 주가 통째로 안 보여서 어디까지 채웠는지도 모른다</text>
+    <text x="40" y="434" font-size="11.5" fill="#8A5252">대부분은 중간에 그만둔다 — 사실상 복구되지 않는다</text>
+  </g>
+
+  <!-- ===== A안 ===== -->
+  <g transform="translate(550,96)">
+    <text x="0" y="0" font-size="13" font-weight="800" fill="#1C7A57">A안 — 한 주를 한 화면에서</text>
+    <rect y="14" width="510" height="452" rx="16" fill="#FFFFFF" stroke="#C6E3D5"/>
+
+    <text x="20" y="46" font-size="11.5" font-weight="700" fill="#5A6779">이번 주 채우기 — 빈칸만 누르면 된다</text>
+
+    <!-- 격자 헤더 -->
+    <g transform="translate(96,58)" font-size="11" font-weight="700" fill="#8D99AB">
+      <text x="27" y="14" text-anchor="middle">15</text>
+      <text x="85" y="14" text-anchor="middle">16</text>
+      <text x="143" y="14" text-anchor="middle">17</text>
+      <text x="201" y="14" text-anchor="middle">18</text>
+      <text x="259" y="14" text-anchor="middle">19</text>
+      <text x="317" y="14" text-anchor="middle">20</text>
+      <text x="375" y="14" text-anchor="middle">21</text>
+    </g>
+
+    <!-- 식이 -->
+    <text x="20" y="104" font-size="11.5" font-weight="800" fill="#B4611F">식이</text>
+    <g transform="translate(96,84)">
+      <rect width="46" height="30" rx="9" fill="#F4A65A"/><text x="23" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="58" width="46" height="30" rx="9" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="4 3"/>
+      <rect x="116" width="46" height="30" rx="9" fill="#F4A65A"/><text x="139" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="174" width="46" height="30" rx="9" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="4 3"/>
+      <rect x="232" width="46" height="30" rx="9" fill="#F4A65A"/><text x="255" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="290" width="46" height="30" rx="9" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="4 3"/>
+      <rect x="348" width="46" height="30" rx="9" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="4 3"/>
+    </g>
+
+    <!-- 활동 -->
+    <text x="20" y="148" font-size="11.5" font-weight="800" fill="#B93E5F">활동</text>
+    <g transform="translate(96,128)">
+      <rect width="46" height="30" rx="9" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="4 3"/>
+      <rect x="58" width="46" height="30" rx="9" fill="#E87396"/><text x="81" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="116" width="46" height="30" rx="9" fill="#E87396"/><text x="139" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="174" width="46" height="30" rx="9" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="4 3"/>
+      <rect x="232" width="46" height="30" rx="9" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="4 3"/>
+      <rect x="290" width="46" height="30" rx="9" fill="#E87396"/><text x="313" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="348" width="46" height="30" rx="9" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="4 3"/>
+    </g>
+
+    <!-- 수면 -->
+    <text x="20" y="192" font-size="11.5" font-weight="800" fill="#4A51BC">수면</text>
+    <g transform="translate(96,172)">
+      <rect width="46" height="30" rx="9" fill="#7C83DB"/><text x="23" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="58" width="46" height="30" rx="9" fill="#7C83DB"/><text x="81" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="116" width="46" height="30" rx="9" fill="#7C83DB"/><text x="139" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="174" width="46" height="30" rx="9" fill="#7C83DB"/><text x="197" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="232" width="46" height="30" rx="9" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="4 3"/>
+      <rect x="290" width="46" height="30" rx="9" fill="#7C83DB"/><text x="313" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+      <rect x="348" width="46" height="30" rx="9" fill="#7C83DB"/><text x="371" y="20" font-size="13" font-weight="800" fill="#FFFFFF" text-anchor="middle">✓</text>
+    </g>
+
+    <g transform="translate(20,222)" font-size="11" fill="#8D99AB">
+      <rect width="13" height="13" rx="4" fill="#7C83DB"/>
+      <text x="21" y="11" fill="#5A6779">완료 — 누르면 취소</text>
+      <rect x="150" width="13" height="13" rx="4" fill="#FFFFFF" stroke="#D8DFE9" stroke-dasharray="3 2"/>
+      <text x="171" y="11" fill="#5A6779">빈칸 — 누르면 그날 완료로 기록</text>
+    </g>
+
+    <rect x="20" y="256" width="470" height="58" rx="12" fill="#F2F8F5"/>
+    <text x="40" y="282" font-size="12.5" font-weight="800" fill="#1C7A57">한 화면 · 탭만 하면 된다 · 화면 이동 0번</text>
+    <text x="40" y="302" font-size="11.5" fill="#4C7A66">한 주가 통째로 보이니 어디가 비었는지 바로 안다</text>
+
+    <text x="20" y="344" font-size="11.5" font-weight="700" fill="#5A6779">채우고 나면 그 자리에서 결과가 보인다</text>
+    <rect x="20" y="356" width="470" height="88" rx="12" fill="#DFE2FA"/>
+    <text x="40" y="382" font-size="10" font-weight="800" letter-spacing="0.5" fill="#5159CC">이어졌어요</text>
+    <text x="40" y="406" font-size="13" fill="#3C4460">빈 날을 채워서 수면이 지금 <tspan font-size="16" font-weight="900" fill="#4046B8">14일째</tspan>가 됐어요.</text>
+    <text x="40" y="428" font-size="11.5" fill="#6B7490">방금 한 일이 무엇을 바꿨는지 그 자리에서 보인다</text>
+  </g>
+
+  <text x="40" y="592" font-size="11.5" fill="#6C7A8E">핵심은 새 기능이 아니라 <tspan font-weight="800" fill="#3B4860">입력 단위</tspan>다 — 「하루를 골라 세 칸」에서 「한 주를 펼쳐 빈칸만」으로 바꾼다</text>
+  <text x="1060" y="592" font-size="11" fill="#8D99AB" text-anchor="end">maiReport · LIFE-001</text>
+</svg>

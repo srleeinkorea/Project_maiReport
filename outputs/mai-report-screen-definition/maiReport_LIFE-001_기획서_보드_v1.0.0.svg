@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1960" height="1700" viewBox="0 0 1960 1700" font-family="Noto Sans KR, Malgun Gothic, sans-serif">
+  <rect width="1960" height="1700" fill="#EFF2F7"/>
+
+  <!-- ================= HEADER ================= -->
+  <text x="60" y="86" font-size="28" font-weight="900" letter-spacing="-1.2" fill="#0F1826">maiReport · LIFE-001 실천 기록 기획서</text>
+  <text x="60" y="118" font-size="13.5" fill="#5A6779">집계 규칙 · 타일 표시 · 화면 구성 · 문구 체계 · 확정 필요 · 저장 구조 · 디자인 핸드오프</text>
+  <text x="1900" y="86" font-size="12.5" font-weight="600" fill="#8D99AB" text-anchor="end" font-family="JetBrains Mono, Consolas, monospace">v1.0 · 2026-09-11</text>
+  <text x="1900" y="112" font-size="11.5" fill="#8D99AB" text-anchor="end">상황별 화면 11종은 별도 보드</text>
+  <rect x="60" y="150" width="1840" height="2" fill="#0F1826"/>
+
+  <!-- ============================================================ COL 1 -->
+  <text x="60" y="200" font-size="11" font-weight="600" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">01</text>
+  <text x="60" y="226" font-size="19" font-weight="900" letter-spacing="-0.8" fill="#0F1826">연속일수 집계 기준</text>
+  <rect x="60" y="240" width="600" height="1" fill="#CFD8E4"/>
+  <text x="74" y="266" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">항목</text>
+  <text x="252" y="266" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">처리 기준</text>
+  <g font-size="11.5">
+    <rect x="60" y="276" width="600" height="36" fill="#FFFFFF"/>
+    <text x="74" y="299" font-weight="700" fill="#1B2739">집계 단위</text><text x="252" y="299" fill="#3B4860">사용자 · 날짜 · 카테고리</text>
+    <rect x="60" y="312" width="600" height="36" fill="#F8FAFD"/>
+    <text x="74" y="335" font-weight="700" fill="#1B2739">오늘 완료</text><text x="252" y="335" fill="#3B4860">오늘부터 과거 방향으로 연속된 완료 날짜 수</text>
+    <rect x="60" y="348" width="600" height="36" fill="#FFFFFF"/>
+    <text x="74" y="371" font-weight="700" fill="#1B2739">오늘 미완료 · 어제 완료</text><text x="252" y="371" fill="#3B4860">어제까지 유지 · 오늘 끝나기 전 끊지 않음</text>
+    <rect x="60" y="384" width="600" height="36" fill="#F8FAFD"/>
+    <text x="74" y="407" font-weight="700" fill="#1B2739">오늘 · 어제 모두 미완료</text><text x="252" y="407" fill="#3B4860">현재 연속일수 0일</text>
+    <rect x="60" y="420" width="600" height="36" fill="#FFFFFF"/>
+    <text x="74" y="443" font-weight="700" fill="#1B2739">중간 날짜 미기록</text><text x="252" y="443" fill="#3B4860">연속은 종료 · 완료 이력과 최장 기록은 보존</text>
+    <rect x="60" y="456" width="600" height="36" fill="#F8FAFD"/>
+    <text x="74" y="479" font-weight="700" fill="#1B2739">완료 취소</text><text x="252" y="479" fill="#3B4860">취소 날짜 기준으로 연속일수 · 최장 기록 재계산</text>
+    <rect x="60" y="492" width="600" height="36" fill="#FFFFFF"/>
+    <text x="74" y="515" font-weight="700" fill="#1B2739">실제 실천 여부</text><text x="252" y="515" fill="#3B4860">미기록을 실제 미실천으로 단정하지 않음</text>
+  </g>
+  <text x="60" y="550" font-size="11" fill="#6C7A8E">연속은 주에 속하지 않는다 — 월요일에 리셋하지 않고 7일을 넘으면 「45일째」처럼 그대로 센다</text>
+  <text x="60" y="570" font-size="11" fill="#6C7A8E">날짜 스트립으로 과거를 보면 그 시점 기준 일수를 보여준다 — 날짜마다 값이 달라지는 것이 정상</text>
+
+  <!-- 02 의사코드 -->
+  <text x="60" y="620" font-size="11" font-weight="600" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">02</text>
+  <text x="60" y="646" font-size="19" font-weight="900" letter-spacing="-0.8" fill="#0F1826">계산 의사코드</text>
+  <rect x="60" y="660" width="600" height="1" fill="#CFD8E4"/>
+  <rect x="60" y="676" width="600" height="196" rx="10" fill="#FFFFFF" stroke="#DAE1EB"/>
+  <g font-family="JetBrains Mono, Consolas, monospace" font-size="11.5" fill="#3B4860">
+    <text x="78" y="702">streak(C):</text>
+    <text x="78" y="722">  <tspan fill="#2F6BFF">if</tspan>   done(C, 오늘): d = 오늘</text>
+    <text x="78" y="742">  <tspan fill="#2F6BFF">elif</tspan> done(C, 어제): d = 어제   <tspan fill="#8D99AB">// 오늘은 아직 안 끝났다</tspan></text>
+    <text x="78" y="762">  <tspan fill="#2F6BFF">else</tspan>: <tspan fill="#2F6BFF">return</tspan> 0</text>
+    <text x="78" y="788">  days = 0</text>
+    <text x="78" y="808">  <tspan fill="#2F6BFF">while</tspan> done(C, d): days += 1; d -= 1</text>
+    <text x="78" y="828">  <tspan fill="#2F6BFF">return</tspan> days</text>
+    <text x="78" y="854" fill="#8D99AB">// 최장 기록은 완료 이력 전체에서 별도 계산 · 끊겨도 보존</text>
+  </g>
+
+  <!-- 03 타일 표시 -->
+  <text x="60" y="920" font-size="11" font-weight="600" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">03</text>
+  <text x="60" y="946" font-size="19" font-weight="900" letter-spacing="-0.8" fill="#0F1826">타일 표시</text>
+  <rect x="60" y="960" width="600" height="1" fill="#CFD8E4"/>
+  <text x="74" y="986" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">상태</text>
+  <text x="270" y="986" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">주요 표시</text>
+  <text x="410" y="986" font-size="10.5" font-weight="800" letter-spacing="0.4" fill="#8D99AB">보조 문구</text>
+  <g font-size="11.5">
+    <rect x="60" y="996" width="600" height="36" fill="#FFFFFF"/>
+    <text x="74" y="1019" font-weight="700" fill="#1B2739">최초 기록 전</text><text x="270" y="1019" fill="#3B4860">시작 전</text><text x="410" y="1019" fill="#3B4860">오늘 하면 1일째</text>
+    <rect x="60" y="1032" width="600" height="36" fill="#F8FAFD"/>
+    <text x="74" y="1055" font-weight="700" fill="#1B2739">연속 끊김</text><text x="270" y="1055" fill="#3B4860">다시 시작</text><text x="410" y="1055" fill="#3B4860">오늘 하면 1일째</text>
+    <rect x="60" y="1068" width="600" height="36" fill="#FFFFFF"/>
+    <text x="74" y="1091" font-weight="700" fill="#1B2739">이어가는 중</text><text x="270" y="1091" fill="#3B4860">N일째</text><text x="410" y="1091" fill="#3B4860">이어가는 중</text>
+    <rect x="60" y="1104" width="600" height="36" fill="#F8FAFD"/>
+    <text x="74" y="1127" font-weight="700" fill="#1B2739">주를 넘김</text><text x="270" y="1127" fill="#3B4860">N일째</text><text x="410" y="1127" font-weight="700" fill="#4A51BC">시작일(O월O일)로부터</text>
+    <rect x="60" y="1140" width="600" height="36" fill="#FFFFFF"/>
+    <text x="74" y="1163" font-weight="700" fill="#1B2739">과거 날짜 조회</text><text x="270" y="1163" fill="#3B4860">N일째</text><text x="410" y="1163" font-weight="700" fill="#1C7A57">O월O일까지</text>
+  </g>
+  <text x="60" y="1198" font-size="11" fill="#6C7A8E">「0일째」는 쓰지 않는다 · 마지막 완료일은 타일이 아니라 코멘트 문구에 한 번만 넣는다</text>
+  <text x="60" y="1218" font-size="11" fill="#6C7A8E">과거 날짜에는 「이어가는 중」을 쓰지 않는다 — 그 뒤로 끊겼을 수 있어 현재진행형이 거짓이 된다</text>
+
+  <!-- ============================================================ COL 2 -->
+  <text x="700" y="200" font-size="11" font-weight="600" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">04</text>
+  <text x="700" y="226" font-size="19" font-weight="900" letter-spacing="-0.8" fill="#0F1826">화면 구성</text>
+  <rect x="700" y="240" width="600" height="1" fill="#CFD8E4"/>
+  <text x="700" y="264" font-size="11.5" fill="#6C7A8E">기준 프레임 390 × Hug · 목표 카드는 완료 버튼 · 둘째 블록은 이어가기 타일 3 + 코멘트</text>
+
+  <g transform="translate(805,282)">
+    <rect width="390" height="680" rx="24" fill="#F4F6FA" stroke="#DAE1EB"/>
+    <text x="20" y="48" font-size="20" font-weight="900" letter-spacing="-0.8" fill="#16202F">생활</text>
+    <text x="20" y="66" font-size="11" fill="#7A879A">8월 4주차</text>
+    <rect x="300" y="32" width="70" height="30" rx="15" fill="#FFFFFF" stroke="#DFE4EC"/>
+    <text x="335" y="51" font-size="11" font-weight="700" fill="#16202F" text-anchor="middle">오늘</text>
+    <text x="20" y="110" font-size="14" fill="#B9C3D1" text-anchor="middle">‹</text>
+    <text x="370" y="110" font-size="14" fill="#B9C3D1" text-anchor="middle">›</text>
+    <rect x="171" y="86" width="43" height="38" rx="11" fill="#2F6BFF"/>
+    <text x="63" y="100" font-size="9.5" fill="#7A879A" text-anchor="middle">월</text><text x="63" y="116" font-size="13.5" font-weight="700" fill="#16202F" text-anchor="middle">17</text>
+    <text x="106" y="100" font-size="9.5" fill="#7A879A" text-anchor="middle">화</text><text x="106" y="116" font-size="13.5" font-weight="700" fill="#16202F" text-anchor="middle">18</text>
+    <text x="149" y="100" font-size="9.5" fill="#7A879A" text-anchor="middle">수</text><text x="149" y="116" font-size="13.5" font-weight="700" fill="#16202F" text-anchor="middle">19</text>
+    <text x="192" y="100" font-size="9.5" fill="#DCE7FF" text-anchor="middle">오늘</text><text x="192" y="116" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="middle">20</text>
+    <text x="235" y="100" font-size="9.5" fill="#C3CCD9" text-anchor="middle">금</text><text x="235" y="116" font-size="13.5" font-weight="700" fill="#C3CCD9" text-anchor="middle">21</text>
+    <text x="278" y="100" font-size="9.5" fill="#C3CCD9" text-anchor="middle">토</text><text x="278" y="116" font-size="13.5" font-weight="700" fill="#C3CCD9" text-anchor="middle">22</text>
+    <text x="321" y="100" font-size="9.5" fill="#C3CCD9" text-anchor="middle">일</text><text x="321" y="116" font-size="13.5" font-weight="700" fill="#C3CCD9" text-anchor="middle">23</text>
+    <text x="20" y="150" font-size="12" font-weight="700" fill="#2F6BFF">목표 분석</text>
+    <text x="92" y="150" font-size="12" font-weight="700" fill="#9AA6B6">지표별 분석</text>
+    <text x="176" y="150" font-size="12" font-weight="700" fill="#9AA6B6">생활 분석</text>
+    <text x="248" y="150" font-size="12" font-weight="700" fill="#9AA6B6">AI 인사이트</text>
+    <rect x="20" y="158" width="56" height="2" fill="#2F6BFF"/>
+    <rect y="159" width="390" height="1" fill="#EDF0F5"/>
+
+    <rect x="18" y="176" width="354" height="196" rx="17" fill="#FFFFFF"/>
+    <text x="34" y="204" font-size="15" font-weight="900" letter-spacing="-0.6" fill="#16202F">오늘의 목표</text>
+    <text x="356" y="204" font-size="11" fill="#7A879A" text-anchor="end">0/3 완료</text>
+    <rect x="34" y="216" width="102" height="140" rx="13" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="44" y="238" font-size="10.5" font-weight="800" fill="#E0803A">식이</text>
+    <text x="44" y="256" font-size="12" font-weight="700" fill="#16202F">저녁 균형</text><text x="44" y="272" font-size="12" font-weight="700" fill="#16202F">식사</text>
+    <rect x="44" y="282" width="82" height="36" rx="9" fill="#FCEBD8"/>
+    <rect x="44" y="326" width="82" height="24" rx="8" fill="#EDF3FF" stroke="#CFDEFF"/>
+    <text x="85" y="342" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">완료</text>
+    <rect x="144" y="216" width="102" height="140" rx="13" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="154" y="238" font-size="10.5" font-weight="800" fill="#E0567B">활동</text>
+    <text x="154" y="256" font-size="12" font-weight="700" fill="#16202F">식후 10분</text><text x="154" y="272" font-size="12" font-weight="700" fill="#16202F">걷기</text>
+    <rect x="154" y="282" width="82" height="36" rx="9" fill="#FBDDE6"/>
+    <rect x="154" y="326" width="82" height="24" rx="8" fill="#EDF3FF" stroke="#CFDEFF"/>
+    <text x="195" y="342" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">완료</text>
+    <rect x="254" y="216" width="102" height="140" rx="13" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="264" y="238" font-size="10.5" font-weight="800" fill="#6B72D8">수면</text>
+    <text x="264" y="256" font-size="12" font-weight="700" fill="#16202F">23시 30분에</text><text x="264" y="272" font-size="12" font-weight="700" fill="#16202F">눕기</text>
+    <rect x="264" y="282" width="82" height="36" rx="9" fill="#DFE2FA"/>
+    <rect x="264" y="326" width="82" height="24" rx="8" fill="#EDF3FF" stroke="#CFDEFF"/>
+    <text x="305" y="342" font-size="10.5" font-weight="700" fill="#2F6BFF" text-anchor="middle">완료</text>
+
+    <rect x="18" y="386" width="354" height="230" rx="17" fill="#FFFFFF"/>
+    <text x="34" y="414" font-size="15" font-weight="900" letter-spacing="-0.6" fill="#16202F">목표 이어가기</text>
+    <rect x="34" y="426" width="102" height="88" rx="13" fill="#FCEBD8"/>
+    <text x="85" y="448" font-size="11" font-weight="800" fill="#B4611F" text-anchor="middle">식이</text>
+    <text x="85" y="476" font-size="13.5" font-weight="900" fill="#66748A" text-anchor="middle">다시 시작</text>
+    <text x="85" y="494" font-size="10" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <rect x="144" y="426" width="102" height="88" rx="13" fill="#FBDDE6"/>
+    <text x="195" y="448" font-size="11" font-weight="800" fill="#B93E5F" text-anchor="middle">활동</text>
+    <text x="195" y="477" font-size="18" font-weight="900" letter-spacing="-0.7" fill="#16202F" text-anchor="middle">1<tspan font-size="12">일째</tspan></text>
+    <text x="195" y="495" font-size="10" fill="#6E7C90" text-anchor="middle">이어가는 중</text>
+    <rect x="254" y="426" width="102" height="88" rx="13" fill="#DFE2FA"/>
+    <text x="305" y="448" font-size="11" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="305" y="477" font-size="18" font-weight="900" letter-spacing="-0.7" fill="#16202F" text-anchor="middle">10<tspan font-size="12">일째</tspan></text>
+    <text x="305" y="495" font-size="10" font-weight="800" fill="#4A51BC" text-anchor="middle">8월 11일로부터</text>
+    <rect x="34" y="526" width="322" height="74" rx="13" fill="#DFE2FA"/>
+    <text x="48" y="546" font-size="9.5" font-weight="800" letter-spacing="0.5" fill="#5159CC">가장 오래 이어가는 것</text>
+    <text x="48" y="572" font-size="12" fill="#3C4460">수면을 <tspan font-size="15" font-weight="900" fill="#4046B8">10일째</tspan> 이어가고 있어요.</text>
+
+    <rect y="624" width="390" height="56" fill="#FFFFFF"/><rect y="624" width="390" height="1" fill="#EDF0F5"/>
+    <rect x="40" y="638" width="18" height="18" rx="6" fill="#DDE3EC"/><text x="49" y="670" font-size="9.5" font-weight="700" fill="#9AA6B6" text-anchor="middle">홈</text>
+    <rect x="137" y="638" width="18" height="18" rx="6" fill="#16202F"/><text x="146" y="670" font-size="9.5" font-weight="700" fill="#16202F" text-anchor="middle">생활</text>
+    <rect x="235" y="638" width="18" height="18" rx="6" fill="#DDE3EC"/><text x="244" y="670" font-size="9.5" font-weight="700" fill="#9AA6B6" text-anchor="middle">병원</text>
+    <rect x="332" y="638" width="18" height="18" rx="6" fill="#DDE3EC"/><text x="341" y="670" font-size="9.5" font-weight="700" fill="#9AA6B6" text-anchor="middle">더보기</text>
+  </g>
+
+  <!-- 05 코멘트 -->
+  <text x="700" y="1010" font-size="11" font-weight="600" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">05</text>
+  <text x="700" y="1036" font-size="19" font-weight="900" letter-spacing="-0.8" fill="#0F1826">코멘트 문구 10종</text>
+  <rect x="700" y="1050" width="600" height="1" fill="#CFD8E4"/>
+  <text x="700" y="1074" font-size="11.5" fill="#6C7A8E">번호가 우선순위 · 기준일이 오늘일 때만 · 동시 충족 시 1개만 · 마디 7·14·30·50·100·150·200·250·300·365 · 오랜만 7일 이상</text>
+  <g font-size="12">
+    <text x="712" y="1100" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">1</text>
+    <text x="738" y="1100" font-size="11" fill="#5A6779">이 날은 목표가 준비되지 않았어요. 이어가던 기록은 그대로예요.</text>
+    <text x="712" y="1140" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">2</text>
+    <text x="738" y="1140" font-size="11" fill="#5A6779">아직 기록이 없어요. 오늘 실천한 일 하나를 남겨보세요.</text>
+    <text x="712" y="1180" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">3</text>
+    <text x="738" y="1180" font-size="11" fill="#5A6779">그동안의 기록은 그대로 있어요. 마지막 실천은 8월 11일이었어요.</text>
+    <text x="712" y="1220" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">4</text>
+    <text x="738" y="1220" font-size="11" fill="#5A6779">수면을 14일째 이어가고 있어요. 오늘로 2주를 채웠어요.</text>
+    <text x="712" y="1260" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">5</text>
+    <text x="738" y="1260" font-size="11" fill="#5A6779">수면을 11일째 이어가고 있어요. 지금까지 중 가장 길어요.</text>
+    <text x="712" y="1300" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">6</text>
+    <text x="738" y="1300" font-size="11" fill="#5A6779">수면을 13일째 이어가고 있어요. 내일도 이어가면 2주예요.</text>
+    <text x="712" y="1340" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">7</text>
+    <text x="738" y="1340" font-size="11" fill="#5A6779">식이 · 활동 · 수면을 모두 5일째 이어가고 있어요.</text>
+    <text x="712" y="1380" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">8</text>
+    <text x="738" y="1380" font-size="11" fill="#5A6779">수면과 활동을 나란히 10일째 이어가고 있어요.</text>
+    <text x="712" y="1420" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">9</text>
+    <text x="738" y="1420" font-size="11" fill="#5A6779">수면을 10일째 이어가고 있어요. <tspan fill="#8D99AB">오늘 미완료면 — 오늘도 이어가면 11일째예요.</tspan></text>
+    <text x="712" y="1460" font-size="10.5" font-weight="800" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">10</text>
+    <text x="738" y="1460" font-size="11" fill="#5A6779">마지막 기록은 8월 18일이에요. 오늘부터 다시 셀 수 있어요.</text>
+  </g>
+  <rect x="700" y="1510" width="600" height="76" rx="9" fill="#FFFFFF"/>
+  <text x="716" y="1533" font-size="11" fill="#5A6779">부정형을 쓰지 않는다 · 끊긴 것은 문장에 올리지 않는다 · 동률은 묶어서 말한다</text>
+  <text x="716" y="1552" font-size="11" fill="#5A6779">코멘트 배경은 언급 카테고리가 하나일 때만 그 색 · 비교 대상은 자기 기록뿐</text>
+  <text x="716" y="1571" font-size="11" font-weight="700" fill="#B23A3A">금지 어휘 — 달성률 · 실천 점수 · 순응도 · 의지력 · 꾸준히 · 완주</text>
+
+  <!-- ============================================================ COL 3 -->
+  <text x="1340" y="200" font-size="11" font-weight="600" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">06</text>
+  <text x="1340" y="226" font-size="19" font-weight="900" letter-spacing="-0.8" fill="#0F1826">확정 필요</text>
+  <rect x="1340" y="240" width="560" height="1" fill="#CFD8E4"/>
+  <text x="1340" y="264" font-size="11.5" fill="#6C7A8E">빨강 = 구현 전 정리 · 노랑 = 결정 확인</text>
+  <g font-size="12" fill="#1B2739">
+    <circle cx="1352" cy="292" r="10" fill="#FAE9E9"/><text x="1352" y="296" font-size="10" font-weight="800" fill="#B23A3A" text-anchor="middle">A</text>
+    <text x="1374" y="296">끊김 처리와 “미실천으로 단정하지 않음”이 충돌</text>
+    <text x="1374" y="313" font-size="11" fill="#6C7A8E">→ “연속 집계에서만 제외”로 문구를 좁힌다</text>
+    <circle cx="1352" cy="338" r="10" fill="#FAE9E9"/><text x="1352" y="342" font-size="10" font-weight="800" fill="#B23A3A" text-anchor="middle">D</text>
+    <text x="1374" y="342">「지난주 시작」 조건이 좁아 3주 전 흐름은 시작일 소실</text>
+    <text x="1374" y="359" font-size="11" fill="#6C7A8E">→ “이번 주 이전에 시작”으로 넓힌다</text>
+    <circle cx="1352" cy="384" r="10" fill="#FAE9E9"/><text x="1352" y="388" font-size="10" font-weight="800" fill="#B23A3A" text-anchor="middle">E</text>
+    <text x="1374" y="388">「연속」과 「일째」가 한 화면에 혼용</text>
+    <text x="1374" y="405" font-size="11" fill="#6C7A8E">→ 어휘를 하나로 통일</text>
+    <circle cx="1352" cy="430" r="10" fill="#E3F3EC"/><text x="1352" y="434" font-size="10" font-weight="800" fill="#1C7A57" text-anchor="middle">H</text>
+    <text x="1374" y="434">완료 취소 UI — <tspan font-weight="700">영역 터치 토글로 확정</tspan></text>
+    <text x="1374" y="451" font-size="11" fill="#6C7A8E">→ 카드 전체를 누르면 완료 · 다시 누르면 취소 · 과거 날짜도 가능</text>
+    <circle cx="1352" cy="476" r="10" fill="#FBF1D9"/><text x="1352" y="480" font-size="10" font-weight="800" fill="#96650A" text-anchor="middle">C</text>
+    <text x="1374" y="480">이틀 비우면 열지 않아도 흐름이 0으로</text>
+    <text x="1374" y="497" font-size="11" fill="#6C7A8E">→ 의도된 선택인지 확인 (보류 규칙 없음)</text>
+    <circle cx="1352" cy="522" r="10" fill="#FBF1D9"/><text x="1352" y="526" font-size="10" font-weight="800" fill="#96650A" text-anchor="middle">F</text>
+    <text x="1374" y="526">1 · 9번의 “남기다”와 버튼 「완료」가 다른 동사</text>
+    <text x="1374" y="543" font-size="11" fill="#6C7A8E">→ 어느 쪽에 맞출지 결정</text>
+    <circle cx="1352" cy="568" r="10" fill="#FBF1D9"/><text x="1352" y="572" font-size="10" font-weight="800" fill="#96650A" text-anchor="middle">I</text>
+    <text x="1374" y="572">마디 간격 불균등 (100 · 200 · 300 · 365)</text>
+    <text x="1374" y="589" font-size="11" fill="#6C7A8E">→ 365 이후 정의 · 마디 하루 전 알림의 의미 검토</text>
+    <circle cx="1352" cy="614" r="10" fill="#FBF1D9"/><text x="1352" y="618" font-size="10" font-weight="800" fill="#96650A" text-anchor="middle">J</text>
+    <text x="1374" y="618">상태표의 1일 · 2일 행이 표시가 같아 중복</text>
+    <text x="1374" y="635" font-size="11" fill="#6C7A8E">→ 한 행으로 합친다</text>
+  </g>
+
+  <!-- 07 저장 구조 -->
+  <text x="1340" y="694" font-size="11" font-weight="600" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">07</text>
+  <text x="1340" y="720" font-size="19" font-weight="900" letter-spacing="-0.8" fill="#0F1826">저장 구조 — 미정의</text>
+  <rect x="1340" y="734" width="560" height="1" fill="#CFD8E4"/>
+  <rect x="1340" y="750" width="560" height="128" rx="10" fill="#FFFFFF" stroke="#DAE1EB"/>
+  <g font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#3B4860">
+    <text x="1358" y="772">CREATE TABLE goal_record (</text>
+    <text x="1358" y="791">  user_id id, category enum, record_date date,</text>
+    <text x="1358" y="810">  is_done boolean, done_at ts, goal_text text,</text>
+    <text x="1358" y="829">  PRIMARY KEY (user_id, category, record_date) );</text>
+    <text x="1358" y="854">CREATE TABLE goal_visit ( user_id, visit_date );</text>
+  </g>
+  <g font-size="11" fill="#6C7A8E">
+    <text x="1340" y="900"><tspan font-weight="700" fill="#1B2739">category</tspan> — 기록이 카드가 아니라 카테고리에 붙어 문구가 바뀌어도 일수 승계</text>
+    <text x="1340" y="920"><tspan font-weight="700" fill="#1B2739">goal_text</tspan> — 그날 화면에 뜬 문구 · 잠금 규칙의 근거이자 이력</text>
+    <text x="1340" y="940"><tspan font-weight="700" fill="#1B2739">goal_visit</tspan> — 연속 계산에는 불필요 · 4번 문구(오랜만) 판정에만 필요</text>
+    <text x="1340" y="960">홈 카드의 「3일째」 표시는 같은 계산을 공유해야 숫자가 어긋나지 않는다</text>
+  </g>
+
+  <!-- 08 핸드오프 -->
+  <text x="1340" y="1012" font-size="11" font-weight="600" fill="#8D99AB" font-family="JetBrains Mono, Consolas, monospace">08</text>
+  <text x="1340" y="1038" font-size="19" font-weight="900" letter-spacing="-0.8" fill="#0F1826">디자인 핸드오프</text>
+  <rect x="1340" y="1052" width="560" height="1" fill="#CFD8E4"/>
+  <text x="1340" y="1076" font-size="11.5" fill="#6C7A8E">타일과 카드는 Fill로 두고 컨테이너가 폭을 나눈다</text>
+
+  <text x="1340" y="1106" font-size="11" font-weight="800" letter-spacing="0.4" fill="#8D99AB">VARIABLES</text>
+  <g font-size="11" font-family="JetBrains Mono, Consolas, monospace">
+    <text x="1340" y="1130" fill="#1B2739">color/bg/ground</text><text x="1620" y="1130" fill="#5A6779">#F4F6FA</text>
+    <text x="1340" y="1150" fill="#1B2739">color/text/ink · sub · quiet</text><text x="1620" y="1150" fill="#5A6779">#16202F · #7A879A · #66748A</text>
+    <text x="1340" y="1170" fill="#1B2739">color/brand/primary</text><text x="1620" y="1170" fill="#5A6779">#2F6BFF · bg #EDF3FF</text>
+    <text x="1340" y="1190" fill="#1B2739">color/cat/diet</text><text x="1620" y="1190" fill="#5A6779">#E0803A · #FCEBD8 · #B4611F</text>
+    <text x="1340" y="1210" fill="#1B2739">color/cat/activity</text><text x="1620" y="1210" fill="#5A6779">#E0567B · #FBDDE6 · #B93E5F</text>
+    <text x="1340" y="1230" fill="#1B2739">color/cat/sleep</text><text x="1620" y="1230" fill="#5A6779">#6B72D8 · #DFE2FA · #4A51BC</text>
+    <text x="1340" y="1250" fill="#1B2739">size/radius/block · card</text><text x="1620" y="1250" fill="#5A6779">17 · 13 (art 9 · button 8)</text>
+    <text x="1340" y="1270" fill="#1B2739">size/space/screen · pad · gap</text><text x="1620" y="1270" fill="#5A6779">18 · 16 · 13 / 8</text>
+  </g>
+
+  <text x="1340" y="1310" font-size="11" font-weight="800" letter-spacing="0.4" fill="#8D99AB">COMPONENTS</text>
+  <g font-size="11">
+    <text x="1340" y="1334" font-family="JetBrains Mono, Consolas, monospace" fill="#1B2739">Goal/Card</text><text x="1620" y="1334" fill="#5A6779">카테고리 3 × 상태 2 + 목표문구 Text</text>
+    <text x="1340" y="1354" font-family="JetBrains Mono, Consolas, monospace" fill="#1B2739">Streak/Tile</text><text x="1620" y="1354" fill="#5A6779">카테고리 3 × 상태 4 + 일수 Text</text>
+    <text x="1340" y="1374" font-family="JetBrains Mono, Consolas, monospace" fill="#1B2739">Comment/Card</text><text x="1620" y="1374" fill="#5A6779">카테고리 3 + 중립 · 제목/본문 Text</text>
+    <text x="1340" y="1394" font-family="JetBrains Mono, Consolas, monospace" fill="#1B2739">Button/Complete</text><text x="1620" y="1394" fill="#5A6779">상태 2 — 기본 · 완료</text>
+    <text x="1340" y="1414" font-family="JetBrains Mono, Consolas, monospace" fill="#1B2739">Nav/DateChip</text><text x="1620" y="1414" fill="#5A6779">상태 3 — 기본 · 오늘 · 미래</text>
+    <text x="1340" y="1434" font-family="JetBrains Mono, Consolas, monospace" fill="#1B2739">Nav/TabItem</text><text x="1620" y="1434" fill="#5A6779">상태 2</text>
+    <text x="1340" y="1454" font-family="JetBrains Mono, Consolas, monospace" fill="#1B2739">Nav/BottomTab</text><text x="1620" y="1454" fill="#5A6779">상태 2</text>
+  </g>
+
+  <rect x="1340" y="1478" width="560" height="60" rx="9" fill="#FFFFFF"/>
+  <text x="1356" y="1501" font-size="11" fill="#5A6779">조립 순서 — Variables → Text styles → 컴포넌트 3종 → Block → 프레임</text>
+  <text x="1356" y="1522" font-size="11" fill="#5A6779">SVG를 직접 컴포넌트로 승격하지 않는다 (고정 좌표가 남는다)</text>
+
+  <!-- footer -->
+  <rect x="60" y="1616" width="1840" height="1" fill="#CFD8E4"/>
+  <text x="60" y="1642" font-size="11" fill="#8D99AB">maiReport · LIFE-001 실천 기록 기획서 · v1.0 · 내부 검토용 · 2026-09-11</text>
+  <text x="1900" y="1642" font-size="11" fill="#8D99AB" text-anchor="end">함께 보는 보드 — 상황별 화면 11종 (1214 × 1338) · 완료 토글 인터랙션</text>
+</svg>

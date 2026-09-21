@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1640" viewBox="0 0 960 1640" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#5A6880"/></marker>
+    <style>
+      .h1{font-size:26px;font-weight:800;fill:#16233F;letter-spacing:-.5px}
+      .lead{font-size:13px;fill:#5A6880}
+      .ph{font-size:11px;font-weight:800;fill:#2F6BFF;letter-spacing:1px}
+      .pt{font-size:18px;font-weight:800;fill:#16233F}
+      .bt{font-size:14px;font-weight:800;fill:#16233F}
+      .bb{font-size:12px;fill:#3B4860}
+      .bs{font-size:11px;fill:#6C7A8E}
+      .f{font-family:Consolas,'JetBrains Mono',monospace;font-size:13px;fill:#16233F}
+      .fb{font-family:Consolas,'JetBrains Mono',monospace;font-size:12px;fill:#2F6BFF;font-weight:700}
+      .num{font-size:12px;font-weight:800;fill:#fff}
+      .card{fill:#fff;stroke:#DAE1EB}
+      .src{fill:#F3F6FC;stroke:#DAE1EB}
+      .out{fill:#EFF4FF;stroke:#BFD0FF}
+      .ex{fill:#FFF9EC;stroke:#F2D9A0}
+      .ln{stroke:#5A6880;stroke-width:1.5;fill:none;marker-end:url(#arr)}
+      .dash{stroke:#98A4B8;stroke-width:1.2;stroke-dasharray:4 4;fill:none}
+    </style>
+  </defs>
+  <rect width="960" height="1640" fill="#F4F6FA"/>
+
+  <!-- title -->
+  <text x="40" y="52" class="h1">또래 등수 산식 · 처음부터 끝까지</text>
+  <text x="40" y="76" class="lead">"내 또래 100명 중 N등"이 어떤 자료를 참조해, 어떤 순서로 계산되어, 화면의 어느 요소가 되는지</text>
+  <text x="40" y="94" class="lead">준비 단계는 연 1회(서버 배치), 계산 단계는 요약을 만들 때마다, 화면 단계는 앱이 그리기만 한다.</text>
+
+  <!-- ===== PHASE A ===== -->
+  <text x="40" y="140" class="ph">PHASE A · 준비 (연 1회, 서버 배치)</text>
+  <text x="40" y="166" class="pt">분포표 만들기</text>
+
+  <!-- A1 sources -->
+  <rect x="40" y="184" width="270" height="176" rx="14" class="src"/>
+  <circle cx="64" cy="208" r="11" fill="#2F6BFF"/><text x="60" y="212" class="num">1</text>
+  <text x="84" y="212" class="bt">참조 자료 내려받기</text>
+  <text x="56" y="238" class="bb">① 공공데이터포털</text>
+  <text x="56" y="255" class="bs">국민건강보험공단_건강검진정보 (최신 연도)</text>
+  <text x="56" y="272" class="bs">연 100만 명 표본 · 성별 · 5세 연령대 · 키 · 체중 · 허리둘레</text>
+  <text x="56" y="296" class="bb">② 검증용 (선택)</text>
+  <text x="56" y="313" class="bs">건강검진통계연보 · 국민건강영양조사(KNHANES)</text>
+  <text x="56" y="330" class="bs">→ 평균·분포가 ①과 크게 다르지 않은지 확인</text>
+  <text x="56" y="350" class="bs">자녀 프로필: 질병관리청 소아청소년 성장도표</text>
+
+  <!-- A2 group -->
+  <rect x="345" y="184" width="270" height="176" rx="14" class="card"/>
+  <circle cx="369" cy="208" r="11" fill="#2F6BFF"/><text x="365" y="212" class="num">2</text>
+  <text x="389" y="212" class="bt">또래 집단으로 나누기</text>
+  <text x="361" y="238" class="bb">성별 × 5세 연령대 = 집단 하나</text>
+  <text x="361" y="255" class="bs">예: 여성 40~44세, 남성 60~64세 …</text>
+  <text x="361" y="279" class="bb">표본이 500명 미만이면</text>
+  <text x="361" y="296" class="bs">인접 연령대와 합친다 (예: 85세 이상 → 80세 이상)</text>
+  <text x="361" y="320" class="bb">항목별로 결측·이상치 제거</text>
+  <text x="361" y="337" class="bs">키 0, 체중 400kg 같은 입력 오류 제외</text>
+
+  <!-- A3 table -->
+  <rect x="650" y="184" width="270" height="176" rx="14" class="out"/>
+  <circle cx="674" cy="208" r="11" fill="#2F6BFF"/><text x="670" y="212" class="num">3</text>
+  <text x="694" y="212" class="bt">백분위 경계값 표 저장</text>
+  <text x="666" y="238" class="bb">집단마다, 항목마다 값을 정렬해</text>
+  <text x="666" y="255" class="bb">1%, 2%, … 100% 지점의 값 100개를 저장</text>
+  <text x="666" y="279" class="f">table[성별][연령대][항목][p] = 값</text>
+  <text x="666" y="303" class="bs">예: table[여][40~44][체중][78] = 68.4</text>
+  <text x="666" y="320" class="bs">→ "여성 40~44세 체중 78% 지점은 68.4kg"</text>
+  <text x="666" y="344" class="bs">표 버전(연도)을 함께 기록한다</text>
+
+  <line x1="310" y1="272" x2="345" y2="272" class="ln"/>
+  <line x1="615" y1="272" x2="650" y2="272" class="ln"/>
+
+  <!-- ===== PHASE B ===== -->
+  <text x="40" y="420" class="ph">PHASE B · 계산 (AI 요약을 만들 때마다, 서버)</text>
+  <text x="40" y="446" class="pt">사용자 값 → 등수</text>
+
+  <!-- B4 input -->
+  <rect x="40" y="464" width="270" height="150" rx="14" class="src"/>
+  <circle cx="64" cy="488" r="11" fill="#2F6BFF"/><text x="60" y="492" class="num">4</text>
+  <text x="84" y="492" class="bt">입력값 준비</text>
+  <text x="56" y="518" class="bb">검진 결과지에서</text>
+  <text x="56" y="535" class="bs">키 · 체중 · 허리둘레 (BMI는 키·체중으로 계산)</text>
+  <text x="56" y="559" class="bb">프로필에서</text>
+  <text x="56" y="576" class="bs">성별 · 검진일 기준 만 나이 → 5세 연령대</text>
+  <text x="56" y="600" class="bs">성별이 없으면 등수를 계산하지 않는다 (rank = null)</text>
+
+  <!-- B5 lookup -->
+  <rect x="345" y="464" width="270" height="150" rx="14" class="card"/>
+  <circle cx="369" cy="488" r="11" fill="#2F6BFF"/><text x="365" y="492" class="num">5</text>
+  <text x="389" y="492" class="bt">표에서 위치 찾기</text>
+  <text x="361" y="518" class="bb">내 집단·항목의 경계값 100개 중</text>
+  <text x="361" y="535" class="bb">내 값보다 작은 경계값 개수 = a</text>
+  <text x="361" y="552" class="bb">내 값과 같은 경계값 개수 = b</text>
+  <text x="361" y="576" class="bs">(원시자료로 직접 셀 때는 a·b·N을 사람 수로 센다)</text>
+  <text x="361" y="600" class="bs">표를 쓰면 N = 100</text>
+
+  <!-- B6 formula -->
+  <rect x="650" y="464" width="270" height="150" rx="14" class="out"/>
+  <circle cx="674" cy="488" r="11" fill="#2F6BFF"/><text x="670" y="492" class="num">6</text>
+  <text x="694" y="492" class="bt">산식</text>
+  <text x="666" y="520" class="fb">P = (a + 0.5 × b) ÷ N × 100</text>
+  <text x="666" y="540" class="bs">백분위. 같은 값은 중간에 둔다</text>
+  <text x="666" y="566" class="fb">rank = 올림(P)   (0이면 1) → 1~100</text>
+  <text x="666" y="586" class="bs">화면의 "N등"</text>
+  <text x="666" y="606" class="fb">band = 올림(rank ÷ 20) → 1~5</text>
+
+  <line x1="310" y1="539" x2="345" y2="539" class="ln"/>
+  <line x1="615" y1="539" x2="650" y2="539" class="ln"/>
+  <!-- table reference arrow from A3 to B5 -->
+  <path d="M785,360 L785,400 L480,400 L480,464" class="dash" marker-end="url(#arr)"/>
+  <text x="500" y="394" class="bs">③에서 만든 표를 참조</text>
+
+  <!-- B7 health -->
+  <rect x="40" y="640" width="575" height="96" rx="14" class="card"/>
+  <circle cx="64" cy="664" r="11" fill="#2F6BFF"/><text x="60" y="668" class="num">7</text>
+  <text x="84" y="668" class="bt">건강 기준은 등수와 따로 판단 (health)</text>
+  <text x="56" y="694" class="bb">BMI ≥ 25 → warn · 허리둘레 여 ≥ 85 / 남 ≥ 90 → warn · 그 외 ok</text>
+  <text x="56" y="712" class="bs">근거: 국민건강보험공단 판정기준(비만) · 대한비만학회 기준. 키·체중은 health를 두지 않는다.</text>
+  <text x="56" y="728" class="bs">등수는 "위치", health는 "기준 초과 여부" — 두 값은 서로 독립이다.</text>
+
+  <!-- B8 output json -->
+  <rect x="650" y="640" width="270" height="96" rx="14" class="out"/>
+  <circle cx="674" cy="664" r="11" fill="#2F6BFF"/><text x="670" y="668" class="num">8</text>
+  <text x="694" y="668" class="bt">화면에 내려주는 값</text>
+  <text x="666" y="694" class="f">body[] = { key, value, unit,</text>
+  <text x="666" y="712" class="f">           rank, band, health }</text>
+  <text x="666" y="730" class="bs">+ 분포표 버전, 계산 일시</text>
+
+  <line x1="785" y1="614" x2="785" y2="640" class="ln"/>
+  <line x1="615" y1="688" x2="650" y2="688" class="ln"/>
+
+  <!-- ===== PHASE C ===== -->
+  <text x="40" y="796" class="ph">PHASE C · 화면 (앱은 계산하지 않고 그리기만)</text>
+  <text x="40" y="822" class="pt">값이 화면 요소가 되는 자리</text>
+
+  <rect x="40" y="840" width="880" height="150" rx="14" class="card"/>
+  <!-- mini card mock -->
+  <rect x="60" y="860" width="230" height="110" rx="12" fill="#F7F9FC" stroke="#E9EDF5"/>
+  <circle cx="80" cy="880" r="9" fill="#22B08E"/><text x="76" y="884" font-size="10" font-weight="800" fill="#fff">2</text>
+  <text x="96" y="884" font-size="13" font-weight="800" fill="#16233F">체중</text>
+  <text x="70" y="912" font-size="20" font-weight="800" fill="#16233F">68.4</text><text x="116" y="912" font-size="10" fill="#5A6880">kg</text>
+  <text x="70" y="930" font-size="9" fill="#98A4B8">내 또래 100명 중</text>
+  <text x="70" y="950" font-size="18" font-weight="800" fill="#22B08E">78</text><text x="92" y="950" font-size="10" font-weight="700" fill="#22B08E">등</text>
+  <rect x="120" y="936" width="98" height="18" rx="9" fill="#E7F7EE"/><text x="128" y="949" font-size="9" font-weight="800" fill="#1F8A55">조금 무거운 편이에요</text>
+  <!-- people -->
+  <g fill="#BFE8DA">
+    <rect x="160" y="880" width="8" height="26" rx="3"/><rect x="180" y="878" width="9" height="28" rx="3"/><rect x="200" y="876" width="10" height="30" rx="3"/><rect x="242" y="872" width="12" height="34" rx="3"/>
+  </g>
+  <rect x="220" y="874" width="11" height="32" rx="3" fill="#22B08E"/>
+  <rect x="212" y="856" width="26" height="13" rx="6" fill="#22B08E"/><text x="220" y="866" font-size="8" font-weight="800" fill="#fff">나</text>
+  <text x="156" y="922" font-size="7" fill="#98A4B8">1~20</text><text x="177" y="922" font-size="7" fill="#98A4B8">21~40</text><text x="198" y="922" font-size="7" fill="#98A4B8">41~60</text><text x="218" y="922" font-size="7" font-weight="800" fill="#22B08E">61~80</text><text x="240" y="922" font-size="7" fill="#98A4B8">81~100</text>
+
+  <!-- mapping list -->
+  <text x="320" y="880" class="bb"><tspan class="fb">value · unit</tspan>  →  D03-3 측정값 "68.4 kg"</text>
+  <text x="320" y="904" class="bb"><tspan class="fb">rank</tspan>  →  D03-5 "내 또래 100명 중 78등"</text>
+  <text x="320" y="928" class="bb"><tspan class="fb">band</tspan>  →  D03-7 사람 그림 중 4번째만 진하게 · D03-8 "나" 말풍선 · D03-9 구간 라벨 강조</text>
+  <text x="320" y="952" class="bb"><tspan class="fb">band + health</tspan>  →  D03-6 배지 문구(배지 사전[체중][4] = "조금 무거운 편이에요") · 톤(health)</text>
+  <text x="320" y="976" class="bs">rank가 null이면: 등수 "—", 사람 그림 전부 연한 톤, "나" 없음, 안내 문구 "또래 비교 데이터를 준비 중이에요"</text>
+
+  <!-- ===== EXAMPLE ===== -->
+  <text x="40" y="1050" class="ph">계산 예 · 처음부터 끝까지 한 번</text>
+  <rect x="40" y="1066" width="880" height="236" rx="14" class="ex"/>
+  <text x="60" y="1096" class="bt">여성 42세 · 체중 68.4 kg</text>
+  <text x="60" y="1124" class="bb">① 또래 집단 = 여성 40~44세. 공단 표본에서 이 집단은 12,000명 (N)</text>
+  <text x="60" y="1148" class="bb">② 68.4보다 가벼운 사람 9,240명 (a), 68.4와 같은 사람 120명 (b)</text>
+  <text x="60" y="1176" class="fb">③ P = (9,240 + 0.5 × 120) ÷ 12,000 × 100 = (9,240 + 60) ÷ 12,000 × 100 = 77.5</text>
+  <text x="60" y="1204" class="fb">④ rank = 올림(77.5) = 78   →   "내 또래 100명 중 78등"</text>
+  <text x="60" y="1232" class="fb">⑤ band = 올림(78 ÷ 20) = 올림(3.9) = 4   →   사람 그림 4번째에 "나", 라벨 61~80등 강조</text>
+  <text x="60" y="1260" class="bb">⑥ 배지 사전[체중][band 4] = "조금 무거운 편이에요". 체중은 health를 두지 않으므로 band 2~4 규칙대로 안정 톤</text>
+  <text x="60" y="1286" class="bs">같은 사람의 BMI 25.7 → BMI 81등, band 5 "높은 편이에요" + BMI ≥ 25 라 health = warn → 주의 톤</text>
+
+  <!-- ===== RULES ===== -->
+  <text x="40" y="1352" class="ph">지켜야 할 규칙</text>
+  <rect x="40" y="1368" width="425" height="220" rx="14" class="card"/>
+  <text x="60" y="1396" class="bt">등수 해석</text>
+  <text x="60" y="1420" class="bb">· 1등 = 값이 가장 작음, 100등 = 가장 큼. 네 항목 모두 같은 방향</text>
+  <text x="60" y="1440" class="bb">· 좋고 나쁨이 아니라 위치. 건강 판단은 health 하나로만</text>
+  <text x="60" y="1460" class="bb">· "상위/하위"라는 말을 화면에 쓰지 않는다 (키 상위 = 큰 키, 체중 상위 = 무거움으로 뜻이 갈림)</text>
+  <text x="60" y="1490" class="bt">데이터 한계</text>
+  <text x="60" y="1514" class="bb">· 공단 표본은 "검진을 받은 사람"이라 전체 인구와 조금 다를 수 있다</text>
+  <text x="60" y="1534" class="bb">· 화면 문구는 "동일한 성별·연령대 100명을 기준으로"까지만 말한다</text>
+  <text x="60" y="1554" class="bb">· 분포표 연도를 요약과 함께 저장해, 표가 바뀌어도 옛 요약의 등수가 흔들리지 않게 한다</text>
+
+  <rect x="495" y="1368" width="425" height="220" rx="14" class="card"/>
+  <text x="515" y="1396" class="bt">참조 자료 (링크는 기준 범위 레퍼런스 04장)</text>
+  <text x="515" y="1420" class="bb">· 공공데이터포털 · 국민건강보험공단_건강검진정보 — 분포표 원천</text>
+  <text x="515" y="1440" class="bb">· 국민건강보험 · 건강검진 통계연보 — 검증</text>
+  <text x="515" y="1460" class="bb">· 질병관리청 · 국민건강영양조사 — 검증</text>
+  <text x="515" y="1480" class="bb">· 질병관리청 · 소아청소년 성장도표 — 자녀 프로필</text>
+  <text x="515" y="1500" class="bb">· 국민건강보험공단 판정기준(비만) · 대한비만학회 — health 기준</text>
+  <text x="515" y="1530" class="bt">아직 정하지 않은 것</text>
+  <text x="515" y="1554" class="bb">· 분포표 산출 실행 주체와 일정 · 표본 500명 기준의 최종 수치</text>
+  <text x="515" y="1574" class="bb">· 허리둘레 결측 시 BMI만으로 카드 3장을 보여줄지</text>
+
+  <text x="40" y="1622" class="bs">maiReport · 건강검진 결과 AI 요약 · 또래 등수 산식 · 2026-09-14 · 화면정의서 부록 / 기준 범위 레퍼런스 04장과 같은 내용</text>
+</svg>

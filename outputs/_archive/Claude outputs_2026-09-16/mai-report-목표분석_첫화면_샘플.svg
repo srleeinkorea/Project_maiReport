@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="960" viewBox="0 0 430 960">
+<rect x="0" y="0" width="430" height="960" fill="#F4F6FA"/>
+
+<!-- 상단 헤더 -->
+<rect x="0" y="0" width="430" height="120" fill="#EDF3FD"/>
+<text x="18" y="44" font-family="Noto Sans KR" font-size="22" font-weight="800" fill="#16233F">생활</text>
+<text x="18" y="63" font-family="Noto Sans KR" font-size="12" font-weight="500" fill="#98A4B8">8월 4주차</text>
+<rect x="356" y="26" width="56" height="30" rx="15" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<text x="384" y="46" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F" text-anchor="middle">오늘</text>
+
+<!-- 날짜 스트립 -->
+<text x="28" y="98" font-family="Noto Sans KR" font-size="14" font-weight="600" fill="#98A4B8" text-anchor="middle">‹</text>
+<g font-family="Noto Sans KR" text-anchor="middle">
+  <text x="66" y="84" font-size="11" font-weight="600" fill="#98A4B8">월</text><text x="66" y="104" font-size="16" font-weight="700" fill="#5A6880">17</text>
+  <text x="111" y="84" font-size="11" font-weight="600" fill="#98A4B8">화</text><text x="111" y="104" font-size="16" font-weight="700" fill="#5A6880">18</text>
+  <text x="156" y="84" font-size="11" font-weight="600" fill="#98A4B8">수</text><text x="156" y="104" font-size="16" font-weight="700" fill="#5A6880">19</text>
+</g>
+<rect x="181" y="70" width="40" height="46" rx="14" fill="#2F6BFF"/>
+<text x="201" y="84" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#FFFFFF" text-anchor="middle">오늘</text>
+<text x="201" y="104" font-family="Noto Sans KR" font-size="16" font-weight="700" fill="#FFFFFF" text-anchor="middle">20</text>
+<g font-family="Noto Sans KR" text-anchor="middle" opacity="0.4">
+  <text x="246" y="84" font-size="11" font-weight="600" fill="#98A4B8">금</text><text x="246" y="104" font-size="16" font-weight="700" fill="#5A6880">21</text>
+  <text x="291" y="84" font-size="11" font-weight="600" fill="#98A4B8">토</text><text x="291" y="104" font-size="16" font-weight="700" fill="#5A6880">22</text>
+  <text x="336" y="84" font-size="11" font-weight="600" fill="#98A4B8">일</text><text x="336" y="104" font-size="16" font-weight="700" fill="#5A6880">23</text>
+</g>
+<text x="374" y="98" font-family="Noto Sans KR" font-size="14" font-weight="600" fill="#98A4B8" text-anchor="middle" opacity="0.3">›</text>
+
+<!-- 서브탭 -->
+<rect x="0" y="120" width="430" height="44" fill="#F4F6FA"/>
+<line x1="0" y1="164" x2="430" y2="164" stroke="#E9EDF5" stroke-width="1"/>
+<text x="18" y="148" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#2F6BFF">목표 분석</text>
+<rect x="18" y="162" width="58" height="2" fill="#2F6BFF"/>
+<text x="98" y="148" font-family="Noto Sans KR" font-size="14" font-weight="600" fill="#98A4B8">지표별 분석</text>
+<text x="192" y="148" font-family="Noto Sans KR" font-size="14" font-weight="600" fill="#98A4B8">생활 분석</text>
+<text x="272" y="148" font-family="Noto Sans KR" font-size="14" font-weight="600" fill="#98A4B8">AI 인사이트</text>
+
+<!-- 오늘의 목표 -->
+<text x="20" y="200" font-family="Noto Sans KR" font-size="16" font-weight="800" fill="#16233F">오늘의 목표</text>
+<text x="410" y="200" font-family="Noto Sans KR" font-size="12" font-weight="600" fill="#98A4B8" text-anchor="end">1/3 완료</text>
+<text x="380" y="200" font-family="Noto Sans KR" font-size="12" font-weight="800" fill="#2F6BFF" text-anchor="end">1</text>
+
+<!-- 타일 1 식이 · 잠김 -->
+<rect x="18" y="214" width="124" height="150" rx="16" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<text x="32" y="238" font-family="Noto Sans KR" font-size="11" font-weight="700" fill="#E5893A">식이</text>
+<text x="32" y="262" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F">오늘의 질문에</text>
+<text x="32" y="280" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F">답하면 목표가</text>
+<text x="32" y="298" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#16233F">생성돼요.</text>
+<rect x="100" y="332" width="26" height="20" rx="4" fill="none" stroke="#D3D8E2" stroke-width="3"/>
+<path d="M106 332 v-5 a7 7 0 0 1 14 0 v5" fill="none" stroke="#D3D8E2" stroke-width="3" stroke-linecap="round"/>
+<circle cx="113" cy="342" r="2.5" fill="#D3D8E2"/>
+
+<!-- 타일 2 활동 · 기본 -->
+<rect x="153" y="214" width="124" height="150" rx="16" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<text x="167" y="238" font-family="Noto Sans KR" font-size="11" font-weight="700" fill="#E8365D">활동</text>
+<text x="167" y="262" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#16233F">저녁 전 1,500보</text>
+<text x="167" y="281" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#16233F">더 걷기</text>
+<circle cx="247" cy="322" r="5" fill="#E8365D"/>
+<path d="M247 328 l-2 12 l-6 10 M245 340 l8 8 M247 328 l7 6 l7 -2 M247 331 l-8 4 l-3 8" fill="none" stroke="#E8365D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- 타일 3 수면 · 완료 -->
+<rect x="288" y="214" width="124" height="150" rx="16" fill="#FFFFFF" stroke="#E9EDF5" stroke-width="1"/>
+<text x="302" y="238" font-family="Noto Sans KR" font-size="11" font-weight="700" fill="#4B45C6" opacity="0.5">수면</text>
+<text x="302" y="262" font-family="Noto Sans KR" font-size="13" font-weight="600" fill="#98A4B8">23시 30분 전에</text>
+<text x="302" y="281" font-family="Noto Sans KR" font-size="13" font-weight="600" fill="#98A4B8">눕기</text>
+<circle cx="382" cy="334" r="18" fill="#2F6BFF"/>
+<path d="M373 334.5 l6 6 l12 -12" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- 목표 이어가기 -->
+<text x="20" y="404" font-family="Noto Sans KR" font-size="16" font-weight="800" fill="#16233F">목표 이어가기</text>
+<rect x="18" y="418" width="394" height="352" rx="20" fill="#FFFFFF"/>
+
+<!-- 코멘트 (상황 9 · 수면 색 배경) -->
+<rect x="34" y="434" width="362" height="88" rx="12" fill="#EEF0FF"/>
+<text x="48" y="458" font-family="Noto Sans KR" font-size="11" font-weight="800" fill="#5B5BD6">가장 오래 이어온 실천</text>
+<text x="48" y="482" font-family="Noto Sans KR" font-size="13.5" font-weight="500" fill="#16233F">수면을 10일째 이어가고 있어요.</text>
+<text x="48" y="504" font-family="Noto Sans KR" font-size="13.5" font-weight="800" fill="#16233F">나흘만 더 하면 2주예요.</text>
+
+<!-- 연속일수 타일 -->
+<rect x="34" y="538" width="116" height="92" rx="14" fill="#FFF4E8"/>
+<text x="92" y="562" font-family="Noto Sans KR" font-size="11" font-weight="700" fill="#E5893A" text-anchor="middle">식이</text>
+<text x="92" y="588" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#5A6880" text-anchor="middle">시작 전</text>
+<text x="92" y="612" font-family="Noto Sans KR" font-size="10.5" font-weight="600" fill="#98A4B8" text-anchor="middle">오늘 하면 1일째</text>
+
+<rect x="157" y="538" width="116" height="92" rx="14" fill="#FFEEF2"/>
+<text x="215" y="562" font-family="Noto Sans KR" font-size="11" font-weight="700" fill="#E8365D" text-anchor="middle">활동</text>
+<text x="215" y="590" font-family="Noto Sans KR" font-size="18" font-weight="800" fill="#16233F" text-anchor="middle">1일째</text>
+<text x="215" y="612" font-family="Noto Sans KR" font-size="10.5" font-weight="600" fill="#98A4B8" text-anchor="middle">이어가는 중</text>
+
+<rect x="280" y="538" width="116" height="92" rx="14" fill="#EEF0FF"/>
+<text x="338" y="562" font-family="Noto Sans KR" font-size="11" font-weight="700" fill="#5B5BD6" text-anchor="middle">수면</text>
+<text x="338" y="590" font-family="Noto Sans KR" font-size="18" font-weight="800" fill="#16233F" text-anchor="middle">10일째</text>
+<text x="338" y="612" font-family="Noto Sans KR" font-size="10.5" font-weight="700" fill="#5B5BD6" text-anchor="middle">8월 11일로부터</text>
+
+<!-- 최근 7일 -->
+<text x="34" y="662" font-family="Noto Sans KR" font-size="12" font-weight="600" fill="#5A6880">최근 7일</text>
+<!-- 칸 7개: x = 34 + i*52, 폭 46 -->
+<rect x="34" y="674" width="46" height="72" rx="12" fill="#F5F7FB"/>
+<rect x="86" y="674" width="46" height="72" rx="12" fill="#F5F7FB"/>
+<rect x="138" y="674" width="46" height="72" rx="12" fill="#F5F7FB"/>
+<rect x="190" y="674" width="46" height="72" rx="12" fill="#F5F7FB"/>
+<rect x="242" y="674" width="46" height="72" rx="12" fill="#F5F7FB"/>
+<rect x="294" y="674" width="46" height="72" rx="12" fill="#F5F7FB"/>
+<rect x="346" y="674" width="46" height="72" rx="12" fill="#EEF3FF"/>
+<!-- 육각형(위 면=식이 · 왼쪽=활동 · 오른쪽=수면). 셋 다 완료면 초록 체크 -->
+<!-- 목: 수면만 -->
+<polygon points="57,684 68,690 68,702 57,708 46,702 46,690" fill="#E4E8EF"/>
+<polygon points="57,696 68,690 68,702 57,708" fill="#8B7CF6"/>
+<!-- 금: 수면만 -->
+<polygon points="109,684 120,690 120,702 109,708 98,702 98,690" fill="#E4E8EF"/>
+<polygon points="109,696 120,690 120,702 109,708" fill="#8B7CF6"/>
+<!-- 토: 활동+수면 -->
+<polygon points="161,684 172,690 172,702 161,708 150,702 150,690" fill="#E4E8EF"/>
+<polygon points="161,696 150,702 150,690 161,684" fill="#F27A9B"/>
+<polygon points="161,696 172,690 172,702 161,708" fill="#8B7CF6"/>
+<!-- 일: 셋 다 -->
+<circle cx="213" cy="696" r="12" fill="#34C27A"/>
+<path d="M207 696.5 l4 4 l8 -8" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- 월: 수면만 -->
+<polygon points="265,684 276,690 276,702 265,708 254,702 254,690" fill="#E4E8EF"/>
+<polygon points="265,696 276,690 276,702 265,708" fill="#8B7CF6"/>
+<!-- 화: 식이+수면 -->
+<polygon points="317,684 328,690 328,702 317,708 306,702 306,690" fill="#E4E8EF"/>
+<polygon points="317,696 306,690 317,684 328,690" fill="#F5A25A"/>
+<polygon points="317,696 328,690 328,702 317,708" fill="#8B7CF6"/>
+<!-- 수(오늘): 수면만 -->
+<polygon points="369,684 380,690 380,702 369,708 358,702 358,690" fill="#E4E8EF"/>
+<polygon points="369,696 380,690 380,702 369,708" fill="#8B7CF6"/>
+<g font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#98A4B8" text-anchor="middle">
+  <text x="57" y="736">목</text><text x="109" y="736">금</text><text x="161" y="736">토</text><text x="213" y="736">일</text><text x="265" y="736">월</text><text x="317" y="736">화</text>
+</g>
+<text x="369" y="736" font-family="Noto Sans KR" font-size="11" font-weight="800" fill="#2F6BFF" text-anchor="middle">수</text>
+
+<!-- 하단 내비 -->
+<rect x="0" y="894" width="430" height="66" fill="#FFFFFF"/>
+<line x1="0" y1="894" x2="430" y2="894" stroke="#E9EDF5" stroke-width="1"/>
+<path d="M46 922 l8 -8 l8 8 v10 h-16 z" fill="none" stroke="#B6C0D1" stroke-width="2" stroke-linejoin="round"/>
+<text x="54" y="950" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#B6C0D1" text-anchor="middle">홈</text>
+<path d="M161 918 c-4 -6 -14 -2 -10 6 l10 10 l10 -10 c4 -8 -6 -12 -10 -6 z" fill="#2F6BFF"/>
+<text x="161" y="950" font-family="Noto Sans KR" font-size="11" font-weight="800" fill="#2F6BFF" text-anchor="middle">생활</text>
+<path d="M265 914 v20 M255 924 h20" fill="none" stroke="#B6C0D1" stroke-width="3" stroke-linecap="round"/>
+<text x="265" y="950" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#B6C0D1" text-anchor="middle">병원</text>
+<circle cx="361" cy="924" r="2" fill="#B6C0D1"/><circle cx="369" cy="924" r="2" fill="#B6C0D1"/><circle cx="377" cy="924" r="2" fill="#B6C0D1"/>
+<text x="369" y="950" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#B6C0D1" text-anchor="middle">더보기</text>
+</svg>

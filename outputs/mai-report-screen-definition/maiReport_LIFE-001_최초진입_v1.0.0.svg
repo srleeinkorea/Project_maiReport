@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1214" height="672" viewBox="0 0 1214 672" font-family="Noto Sans KR, Malgun Gothic, sans-serif">
+  <defs>
+    <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9AA7BA"/>
+    </marker>
+  </defs>
+  <rect width="1214" height="672" fill="#EFF2F7"/>
+
+  <text x="40" y="40" font-size="18" font-weight="900" letter-spacing="-0.8" fill="#0F1826">maiReport · LIFE-001 — 최초 진입부터 첫 기록까지</text>
+  <text x="40" y="61" font-size="12" fill="#6C7A8E">기기 데이터가 모자라면 질문으로 보충하므로, 가입 직후 처음 보는 것은 목표 카드가 아니라 질문이다</text>
+
+  <!-- ===== 1 최초 진입 ===== -->
+  <g transform="translate(40,92)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#6C7A8E">1 · 가입 후 처음 들어왔을 때</text>
+    <rect y="12" width="354" height="330" rx="17" fill="#F4F6FA" stroke="#DFE4EC"/>
+
+    <rect x="14" y="26" width="326" height="128" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="52" font-size="14" font-weight="900" letter-spacing="-0.5" fill="#16202F">오늘의 목표</text>
+    <rect x="30" y="64" width="294" height="76" rx="12" fill="#EDF3FF" stroke="#CFDEFF"/>
+    <text x="44" y="86" font-size="10" font-weight="800" fill="#2F6BFF">오늘 목표를 받으려면</text>
+    <text x="44" y="106" font-size="12" fill="#3C4460">몇 가지만 답하면 오늘 목표를</text>
+    <text x="44" y="122" font-size="12" fill="#3C4460">만들어 드려요.</text>
+    <rect x="230" y="108" width="80" height="22" rx="11" fill="#2F6BFF"/>
+    <text x="270" y="123" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">질문에 답하기</text>
+
+    <rect x="14" y="164" width="326" height="164" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="190" font-size="14" font-weight="900" letter-spacing="-0.5" fill="#16202F">목표 이어가기</text>
+    <rect x="30" y="202" width="92" height="66" rx="12" fill="#FCEBD8"/>
+    <text x="76" y="222" font-size="10" font-weight="800" fill="#B4611F" text-anchor="middle">식이</text>
+    <text x="76" y="242" font-size="12.5" font-weight="900" fill="#66748A" text-anchor="middle">시작 전</text>
+    <text x="76" y="258" font-size="9" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <rect x="131" y="202" width="92" height="66" rx="12" fill="#FBDDE6"/>
+    <text x="177" y="222" font-size="10" font-weight="800" fill="#B93E5F" text-anchor="middle">활동</text>
+    <text x="177" y="242" font-size="12.5" font-weight="900" fill="#66748A" text-anchor="middle">시작 전</text>
+    <text x="177" y="258" font-size="9" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <rect x="232" y="202" width="92" height="66" rx="12" fill="#DFE2FA"/>
+    <text x="278" y="222" font-size="10" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="278" y="242" font-size="12.5" font-weight="900" fill="#66748A" text-anchor="middle">시작 전</text>
+    <text x="278" y="258" font-size="9" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <rect x="30" y="278" width="294" height="38" rx="11" fill="#ECF1F7"/>
+    <text x="44" y="302" font-size="11.5" fill="#3C4460">아직 기록이 없어요. 여기에 쌓입니다.</text>
+  </g>
+
+  <!-- ===== 2 질문에 답한 직후 ===== -->
+  <g transform="translate(430,92)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#6C7A8E">2 · 질문에 답해서 목표가 생긴 뒤</text>
+    <rect y="12" width="354" height="330" rx="17" fill="#F4F6FA" stroke="#DFE4EC"/>
+
+    <rect x="14" y="26" width="326" height="128" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="52" font-size="14" font-weight="900" letter-spacing="-0.5" fill="#16202F">오늘의 목표</text>
+    <text x="324" y="52" font-size="10" fill="#7A879A" text-anchor="end">0/3 완료</text>
+    <rect x="30" y="64" width="92" height="76" rx="12" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="40" y="82" font-size="9.5" font-weight="800" fill="#E0803A">식이</text>
+    <text x="40" y="98" font-size="10.5" font-weight="700" fill="#16202F">저녁 균형</text>
+    <text x="40" y="112" font-size="10.5" font-weight="700" fill="#16202F">식사</text>
+    <rect x="40" y="120" width="72" height="12" rx="6" fill="#FCEBD8"/>
+    <rect x="131" y="64" width="92" height="76" rx="12" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="141" y="82" font-size="9.5" font-weight="800" fill="#E0567B">활동</text>
+    <text x="141" y="98" font-size="10.5" font-weight="700" fill="#16202F">식후 10분</text>
+    <text x="141" y="112" font-size="10.5" font-weight="700" fill="#16202F">걷기</text>
+    <rect x="141" y="120" width="72" height="12" rx="6" fill="#FBDDE6"/>
+    <rect x="232" y="64" width="92" height="76" rx="12" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="242" y="82" font-size="9.5" font-weight="800" fill="#6B72D8">수면</text>
+    <text x="242" y="98" font-size="10.5" font-weight="700" fill="#16202F">23시 30분에</text>
+    <text x="242" y="112" font-size="10.5" font-weight="700" fill="#16202F">눕기</text>
+    <rect x="242" y="120" width="72" height="12" rx="6" fill="#DFE2FA"/>
+
+    <rect x="14" y="164" width="326" height="164" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="190" font-size="14" font-weight="900" letter-spacing="-0.5" fill="#16202F">목표 이어가기</text>
+    <rect x="30" y="202" width="92" height="66" rx="12" fill="#FCEBD8"/>
+    <text x="76" y="222" font-size="10" font-weight="800" fill="#B4611F" text-anchor="middle">식이</text>
+    <text x="76" y="242" font-size="12.5" font-weight="900" fill="#66748A" text-anchor="middle">시작 전</text>
+    <text x="76" y="258" font-size="9" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <rect x="131" y="202" width="92" height="66" rx="12" fill="#FBDDE6"/>
+    <text x="177" y="222" font-size="10" font-weight="800" fill="#B93E5F" text-anchor="middle">활동</text>
+    <text x="177" y="242" font-size="12.5" font-weight="900" fill="#66748A" text-anchor="middle">시작 전</text>
+    <text x="177" y="258" font-size="9" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <rect x="232" y="202" width="92" height="66" rx="12" fill="#DFE2FA"/>
+    <text x="278" y="222" font-size="10" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="278" y="242" font-size="12.5" font-weight="900" fill="#66748A" text-anchor="middle">시작 전</text>
+    <text x="278" y="258" font-size="9" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <rect x="30" y="278" width="294" height="38" rx="11" fill="#ECF1F7"/>
+    <text x="44" y="295" font-size="10" font-weight="800" fill="#5E6C82">첫 실천을 기록해 볼까요?</text>
+    <text x="44" y="310" font-size="11" fill="#3C4460">완료한 목표에 표시해 보세요.</text>
+  </g>
+
+  <!-- ===== 3 첫 완료 ===== -->
+  <g transform="translate(820,92)">
+    <text x="0" y="0" font-size="12" font-weight="700" fill="#6C7A8E">3 · 하나를 완료한 뒤</text>
+    <rect y="12" width="354" height="330" rx="17" fill="#F4F6FA" stroke="#DFE4EC"/>
+
+    <rect x="14" y="26" width="326" height="128" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="52" font-size="14" font-weight="900" letter-spacing="-0.5" fill="#16202F">오늘의 목표</text>
+    <text x="324" y="52" font-size="10" fill="#7A879A" text-anchor="end">1/3 완료</text>
+    <rect x="30" y="64" width="92" height="76" rx="12" fill="#FCEBD8"/>
+    <text x="40" y="82" font-size="9.5" font-weight="800" fill="#B4611F">식이</text>
+    <text x="40" y="98" font-size="10.5" font-weight="700" fill="#A08A72">저녁 균형</text>
+    <text x="40" y="112" font-size="10.5" font-weight="700" fill="#A08A72">식사</text>
+    <circle cx="104" cy="78" r="9" fill="#E0803A"/>
+    <text x="104" y="82" font-size="10" font-weight="900" fill="#FFFFFF" text-anchor="middle">✓</text>
+    <rect x="131" y="64" width="92" height="76" rx="12" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="141" y="82" font-size="9.5" font-weight="800" fill="#E0567B">활동</text>
+    <text x="141" y="98" font-size="10.5" font-weight="700" fill="#16202F">식후 10분</text>
+    <text x="141" y="112" font-size="10.5" font-weight="700" fill="#16202F">걷기</text>
+    <rect x="141" y="120" width="72" height="12" rx="6" fill="#FBDDE6"/>
+    <rect x="232" y="64" width="92" height="76" rx="12" fill="#FFFFFF" stroke="#F0F3F8"/>
+    <text x="242" y="82" font-size="9.5" font-weight="800" fill="#6B72D8">수면</text>
+    <text x="242" y="98" font-size="10.5" font-weight="700" fill="#16202F">23시 30분에</text>
+    <text x="242" y="112" font-size="10.5" font-weight="700" fill="#16202F">눕기</text>
+    <rect x="242" y="120" width="72" height="12" rx="6" fill="#DFE2FA"/>
+
+    <rect x="14" y="164" width="326" height="164" rx="14" fill="#FFFFFF"/>
+    <text x="30" y="190" font-size="14" font-weight="900" letter-spacing="-0.5" fill="#16202F">목표 이어가기</text>
+    <rect x="30" y="202" width="92" height="66" rx="12" fill="#FCEBD8"/>
+    <text x="76" y="222" font-size="10" font-weight="800" fill="#B4611F" text-anchor="middle">식이</text>
+    <text x="76" y="244" font-size="16" font-weight="900" letter-spacing="-0.6" fill="#16202F" text-anchor="middle">1<tspan font-size="10">일 연속</tspan></text>
+    <text x="76" y="259" font-size="9" fill="#6E7C90" text-anchor="middle">이어가는 중</text>
+    <rect x="131" y="202" width="92" height="66" rx="12" fill="#FBDDE6"/>
+    <text x="177" y="222" font-size="10" font-weight="800" fill="#B93E5F" text-anchor="middle">활동</text>
+    <text x="177" y="242" font-size="12.5" font-weight="900" fill="#66748A" text-anchor="middle">시작 전</text>
+    <text x="177" y="258" font-size="9" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <rect x="232" y="202" width="92" height="66" rx="12" fill="#DFE2FA"/>
+    <text x="278" y="222" font-size="10" font-weight="800" fill="#4A51BC" text-anchor="middle">수면</text>
+    <text x="278" y="242" font-size="12.5" font-weight="900" fill="#66748A" text-anchor="middle">시작 전</text>
+    <text x="278" y="258" font-size="9" fill="#95A0B0" text-anchor="middle">오늘 하면 1일째</text>
+    <rect x="30" y="278" width="294" height="38" rx="11" fill="#FCEBD8"/>
+    <text x="44" y="295" font-size="10" font-weight="800" fill="#B4611F">가장 오래 이어온 실천</text>
+    <text x="44" y="310" font-size="11" fill="#3C4460">식이를 1일 연속 이어가고 있어요.</text>
+  </g>
+
+  <!-- 화살표 -->
+  <g stroke="#9AA7BA" stroke-width="1.4" fill="none">
+    <path d="M398,262 L424,262" marker-end="url(#a2)"/>
+    <path d="M788,262 L814,262" marker-end="url(#a2)"/>
+  </g>
+  <text x="411" y="252" font-size="9.5" fill="#8D99AB" text-anchor="middle">답함</text>
+  <text x="801" y="252" font-size="9.5" fill="#8D99AB" text-anchor="middle">완료</text>
+
+  <!-- 하단 정리 -->
+  <g transform="translate(40,460)">
+    <rect width="1134" height="176" rx="15" fill="#FFFFFF" stroke="#DCE3ED"/>
+    <text x="24" y="32" font-size="12.5" font-weight="800" fill="#101A2B">최초 진입에 목표 카드는 없다</text>
+    <text x="24" y="55" font-size="11.5" fill="#4B586C">기기 데이터가 모자라면 질문으로 보충하는 구조라, 가입 직후 처음 보는 것은 <tspan font-weight="700" fill="#1B2739">질문 유도</tspan>다.</text>
+    <text x="24" y="74" font-size="11.5" fill="#4B586C">「첫 실천을 기록해 볼까요 · 완료한 목표에 표시해 보세요」는 <tspan font-weight="700" fill="#1B2739">질문에 답한 뒤에야</tspan> 맞는 말이 된다 — 표시할 목표가 그때 생기므로.</text>
+
+    <rect x="24" y="92" width="1086" height="1" fill="#E4EAF2"/>
+
+    <text x="24" y="118" font-size="12.5" font-weight="800" fill="#1C7A57">타일은 목표가 없어도 정상으로 나온다</text>
+    <text x="24" y="140" font-size="11.5" fill="#4B586C">타일은 <tspan font-weight="700" fill="#1B2739">완료 이력</tspan>으로 계산하므로 목표 유무와 무관하다. 읽기 전용이라 비활성할 이유도 없다.</text>
+    <text x="24" y="159" font-size="11.5" fill="#4B586C">앞서 그린 <tspan font-family="JetBrains Mono, Consolas, monospace" font-size="11">—</tspan> 세 칸은 틀렸다 — 어제까지 10일 연속이었다면 목표가 없는 날에도 <tspan font-weight="700" fill="#1B2739">10일 연속</tspan>이 그대로 떠야 한다.</text>
+  </g>
+
+  <text x="1174" y="660" font-size="10.5" fill="#8D99AB" text-anchor="end">기획서 v2.0 · 04장 타일 표시 · 06장 안내 문구</text>
+</svg>

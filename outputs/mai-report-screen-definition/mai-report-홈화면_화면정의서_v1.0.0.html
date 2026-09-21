@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 홈 화면 화면정의서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2;--ok:#12A150;--warn:#E5893A;--green:#12A150;--amber:#D98A12;--purple:#7C5CFC}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:720px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .callout.warn{border-left-color:var(--amber);background:#fff6e8;color:#6b4c0f}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mini{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+  .mini p{font-size:12.5px;margin:0}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;margin-right:4px}
+  .p-g{background:#E7F7ED;color:var(--green)}.p-m{background:#F1F3F7;color:#8A93A5}.p-l{background:#FDF0E3;color:var(--warn)}.p-b{background:var(--brand-soft);color:var(--brand)}
+  code{background:#eef1f7;border-radius:6px;padding:1px 6px;font-size:12px;color:#334}
+  .flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin:10px 0}
+  .flow div{flex:1;min-width:150px;background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px}
+  .flow div b{display:block;color:var(--ink-1);margin-bottom:4px}
+  ul{padding-left:18px;margin-bottom:8px}
+  li{margin-bottom:4px;font-size:13px}
+  .note{font-size:12px;color:var(--ink-3)}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 화면정의서</span>
+  <h1>홈 화면 화면정의서</h1>
+  <p>홈은 데이터를 보여주는 화면이 아니라 "오늘 무엇을 할지 정해주는 화면"이다. 오늘의 질문 → 오늘의 코칭 → 오늘의 목표 → 오늘의 컨디션 → 오늘의 건강 데이터 순으로 결론과 실행을 먼저 두고, 근거는 뒤에 둔다. 이 문서는 각 영역의 구성·상태·문구·연동 규칙을 정의한다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-16</b></span><span>버전 <b>1.0</b></span><span>대상 화면 <b>홈 탭</b></span><span>연관 문서 <b>생활지표_기획서 · 지표별분석_화면정의서 · 프로토타입(mai-report-prototype_v1.0.0.html)</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 화면 개요</a><a href="#s2">② 상단 헤더</a><a href="#s3">③ 오늘의 질문</a><a href="#s4">④ 오늘의 코칭</a><a href="#s5">⑤ 오늘의 목표</a><a href="#s6">⑥ 오늘의 컨디션</a><a href="#s7">⑦ 오늘의 건강 데이터</a><a href="#s8">⑧ 영역 간 연동 규칙</a><a href="#s10">⑨ 확인 필요 사항</a>
+</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>화면 개요</h2>
+  <div class="sub">홈의 역할과 영역 순서</div>
+  <h3>1.1 화면의 역할</h3>
+  <p>사용자가 앱을 열었을 때 30초 안에 "오늘 내 상태가 어떤지 → 오늘 무엇을 하면 되는지"를 알고 나갈 수 있어야 한다. 수치 해석은 생활 탭이 맡고, 홈은 결론과 실행만 보여준다.</p>
+  <h3>1.2 영역 순서</h3>
+  <div class="flow">
+    <div><b>헤더</b>로고 · 리포트 QR 스캔 · 알림</div>
+    <div><b>① 오늘의 질문</b>답변 유도 히어로</div>
+    <div><b>② 오늘의 코칭</b>핵심 행동 한 줄</div>
+    <div><b>③ 오늘의 목표</b>식이·활동·수면 타일 3개</div>
+    <div><b>④ 오늘의 컨디션</b>계기판 게이지 3개</div>
+    <div><b>⑤ 오늘의 건강 데이터</b>걸음·수면·심박 카드 + 전체 보기</div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>상단 헤더</h2>
+  <div class="sub">고정 요소 3개</div>
+  <table>
+    <tr><th style="width:160px">요소</th><th>동작</th></tr>
+    <tr><td class="k">로고</td><td>탭 없음</td></tr>
+    <tr><td class="k">리포트 QR 스캔</td><td>AI 리포트 QR 스캔 화면(카메라)으로 이동</td></tr>
+    <tr><td class="k">알림</td><td>알림 목록(준비 중)</td></tr>
+  </table>
+  <p>스크롤 시 고정된다.</p>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>오늘의 질문</h2>
+  <div class="sub">기기 데이터로 알 수 없거나 부족한 상태를 보완하는 하루 5문항 미만의 질문. 모든 문항에 답하면 코칭과 잠긴 목표가 한 번에 생성된다</div>
+  <h3>3.1 구성</h3>
+  <ul>
+    <li>구성 요소: 진행 표시("오늘의 질문 · n/N", N은 그날 문항 수) · 질문 · 문항 일러스트 · 선택지 3개.</li>
+    <li>한 번에 1문항. 선택하면 잠시 선택 상태를 보여준 뒤 다음 문항으로 자동 전환.</li>
+  </ul>
+  <h3>3.2 문항 생성 원칙</h3>
+  <p>문항과 선택지는 고정 세트가 아니다. 그날 연동된 기기 데이터에서 <b>부족하거나 확인되지 않은 상태</b>를 골라, 그것을 보완하는 질문을 만든다. 따라서 사용자마다, 날마다 문항이 다르다.</p>
+  <div class="flow">
+    <div><b>① 데이터 파악</b>오늘 수집된 기기 데이터(걸음·수면·심박·활동 등)와 의료 이력을 확인</div>
+    <div><b>② 확인할 상태 선정</b>결측·부족 항목과 기기로 알 수 없는 주관 상태를 우선</div>
+    <div><b>③ 선택형 질문 생성</b>한 번에 답할 수 있는 3지선다. 하루 5문항 미만</div>
+    <div><b>④ 답변 활용</b>모두 답하면 코칭·잠긴 목표 생성(1회), 수치 답변은 데이터로 저장</div>
+  </div>
+
+  <p class="note">수면 데이터가 이미 있으면 수면 문항은 내지 않는 식으로, 기기로 알 수 있는 것은 묻지 않는다. 단 <b>식사 문항은 매일 고정으로 포함</b>한다. 식이는 기기로 알 수 있는 데이터가 없어 식이 목표를 만들려면 답변이 반드시 필요하기 때문이다. 나머지 문항은 부족한 항목에서 고른다. 하루 문항 수는 <b>5문항 미만</b>으로 두되, 컨디션 지표 산출이나 코칭에 필요한 상태가 늘어나면 문항 종류가 추가될 수 있다. 문항 풀·선정 규칙·문구는 별도 문서(오늘의 질문 생성 규칙)에서 확정한다.</p>
+  <h3>3.3 상태</h3>
+  <table>
+    <tr><th style="width:140px">상태</th><th>내용</th></tr>
+    <tr><td class="k">진행 중</td><td>현재 문항 히어로. 답하지 않은 문항은 하루 동안 그대로 남는다.</td></tr>
+    <tr><td class="k">모두 완료</td><td>"오늘의 질문 완료 / 잘 했어요 👍 답변을 모두 완료했어요!" + 클립보드 일러스트 + 카드 「오늘 답변 모두 보기 › · 오늘의 몸 상태를 계속 유지해 봐요!」</td></tr>
+    <tr><td class="k">답변 수정</td><td>답변 보기 화면에서 언제든 수정. 수정 시 코칭을 다시 생성하고, 답변으로 만들어진 목표도 수정된 답변으로 다시 만든다. 기기 데이터로 만들어진 목표와 이미 완료한 목표는 바꾸지 않는다(§5.4).</td></tr>
+  </table>
+  <h3>3.4 세트 확정 시점</h3>
+  <ul>
+    <li>그날의 문항 세트(5문항 미만)는 첫 진입 시 그 시점의 데이터 부족분으로 한 번 정하고 바꾸지 않는다.</li>
+    <li>문구는 시간대에 맞춘다. 아침·낮은 현재형, 18시 이후 첫 진입은 과거형. 하루 경계는 새벽 4시.</li>
+    <li>목표 완료 여부는 질문으로 묻지 않는다(완료는 타일에서만 기록).</li>
+  </ul>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>오늘의 코칭</h2>
+  <div class="sub">화면의 주인공. 오늘 실천할 핵심 행동 한 줄</div>
+  <h3>4.1 구성</h3>
+  <p>라벨 "오늘의 코칭" · 핵심 행동 한 줄로 구성한다. 이유나 근거 문장은 붙이지 않는다.</p>
+  <h3>4.2 상태 3단계</h3>
+  <table>
+    <tr><th style="width:140px">상태</th><th style="width:40%">문구</th><th>비고</th></tr>
+    <tr><td class="k">① 답변 전</td><td>먼저 오늘의 질문에 답하고,<br>나에게 맞는 코칭을 받아보세요.</td><td>모든 문항에 답하기 전까지 그대로 유지. 일부 답변 상태에서 코칭·목표는 생성·변경되지 않는다</td></tr>
+    <tr><td class="k">② 생성 중</td><td>(생성 중 표시)</td><td>마지막 답변 직후부터 응답 도착까지</td></tr>
+    <tr><td class="k">③ 결과</td><td>핵심 행동 한 줄</td><td>모든 문항 답변 완료 시점에 코칭과 잠긴 목표를 함께 1회 생성. 답변 수정 시 ②→③ 반복. 답변으로 만들어진 목표도 함께 다시 생성(§5.4)</td></tr>
+  </table>
+  <h3>4.3 생성 규칙</h3>
+  <p>결과 문구는 그날의 질문 답변과 기기 데이터를 종합해 생성한다. 조건별 우선순위와 문구 세트는 별도 문서(코칭 생성 규칙)에서 확정한다.</p>
+  <p>코칭은 모든 문항에 답한 시점에 한 번 생성되며, 답변을 수정하지 않는 한 그날 바뀌지 않는다. 낮 동안 기기 데이터가 갱신되어도 코칭 문구는 다시 만들지 않는다. 저녁(18시 이후)에 생성되는 경우에는 남은 시간에 맞는 마무리형 문구를 쓴다.</p>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>오늘의 목표</h2>
+  <div class="sub">식이 · 활동 · 수면 각 1개. 홈과 생활 탭 &gt; 목표 분석이 같은 타일 컴포넌트를 쓴다</div>
+  <h3>5.1 구성</h3>
+  <p>섹션 제목 "오늘의 목표"와 "n/3 완료 ›"(탭 → 생활 탭 &gt; 목표 분석). 목표 타일 3개(식이·활동·수면). 타일에는 카테고리와 목표 문구만 두고 근거·비교 문구·연속일수는 쓰지 않는다.</p>
+  <h3>5.2 타일 상태</h3>
+  <table>
+    <tr><th style="width:120px">상태</th><th>내용</th><th style="width:30%">동작</th></tr>
+    <tr><td class="k">기본</td><td>카테고리 · 목표 문구</td><td>탭 → 완료</td></tr>
+    <tr><td class="k">완료</td><td>완료 표시. 목표 문구는 그대로 읽을 수 있어야 함(취소선 없음)</td><td>탭 → 완료 취소</td></tr>
+    <tr><td class="k">잠김</td><td>카테고리 · "오늘의 질문에 답하면 목표가 생성돼요." · 잠금 표시</td><td>탭 → 남은 질문으로 이동</td></tr>
+  </table>
+  <p>목표 상태는 완료 / 미완료 두 가지뿐이다. '쉬기' 상태는 두지 않으며, 완료하지 않은 날은 미완료로 집계한다.</p>
+  <h3>5.3 잠금 규칙(질문 보완 생성)</h3>
+  <p>목표별로 필요한 기기 데이터가 충분하면 첫 진입 시 바로 생성해 보여주고, 부족하면 그 목표만 잠근다. 잠긴 목표는 문항마다 하나씩 열리지 않고, <b>그날의 질문에 모두 답한 시점에 코칭과 함께 한 번에 생성</b>된다. <b>식이 목표는 기기 데이터로 만들 수 없으므로 항상 잠긴 채 시작</b>하고, 매일 고정으로 나오는 식사 문항을 포함한 질문에 답해야 생성된다. 활동·수면은 데이터 충족 여부로 매일 판정하며, 이 둘까지 모두 잠그지는 않는다.</p>
+  <table>
+    <tr><th style="width:120px">목표</th><th>기기 데이터가 있으면 첫 진입 시 생성</th><th>부족하면</th></tr>
+    <tr><td class="k">식이</td><td>해당 없음 — 기기 데이터로 만들지 않는다</td><td>항상 잠금 → 질문(식사 문항 고정 포함) 완료 시 검진 결과 + 답변으로 생성</td></tr>
+    <tr><td class="k">활동</td><td>걸음·활동 시간이 오늘 수집될 때</td><td>잠금 → 질문 완료 시 생성</td></tr>
+    <tr><td class="k">수면</td><td>어젯밤 수면 기록이 있을 때</td><td>잠금 → 질문 완료 시 생성</td></tr>
+  </table>
+  <p class="note">잠긴 타일을 누르면 남은 질문으로 이동한다. 일부만 답한 상태에서는 어떤 목표도 생성·변경되지 않는다.</p>
+  <h3>5.4 생성 · 고정 규칙</h3>
+  <ul>
+    <li>목표는 그날 <b>첫 진입 시</b> 그 시점의 데이터와 답변으로 만들고, 그날은 문구를 바꾸지 않는다(사용자와의 약속). 연속일수도 이 고정된 목표를 기준으로 센다.</li>
+    <li>하루 경계는 새벽 4시. 저녁(18시 이후) 첫 진입이면 남은 시간 안에 할 수 있는 형태로 생성한다.</li>
+    <li>낮 동안의 데이터 변화는 목표 문구를 바꾸지 않는다. 걸음 데이터로 목표를 넘었더라도 타일에 별도 표시를 하지 않으며, 완료는 사용자가 직접 누른다(자동 완료 없음).</li>
+    <li>질문 전체 답변 완료 시점에 <b>잠긴 목표만</b> 답변을 반영해 생성한다. 첫 진입 때 기기 데이터로 이미 만들어진 목표는 답변이 들어와도 절대 바꾸지 않는다. 답변으로 만들어진 목표는 답변에 종속되므로, 답변을 수정하면 수정된 답변으로 다시 만든다. 단 이미 완료 처리한 목표는 내용과 상태를 유지한다. 낮 동안의 기기 데이터 변화만으로는 어떤 목표도 다시 만들지 않는다.</li>
+  </ul>
+  <h3>5.5 문구 생성</h3>
+  <p>목표 문구와 숫자는 기기 데이터(최근 개인 기록)와 질문 답변으로 산출한다. 카테고리별 문구 세트와 산출 규칙은 별도 문서(목표 생성 규칙)에서 확정한다.</p>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="n">6</span>오늘의 컨디션</h2>
+  <div class="sub">생활여유 · 자기돌봄 · 일상안정 세 지표의 오늘 상태. 숫자 없이 세 구간으로만 보여준다</div>
+  <h3>6.1 구성</h3>
+  <p>섹션 제목 "오늘의 컨디션"과 "›"(탭 → 생활 탭 &gt; 지표별 분석). 지표 3개(생활여유 · 자기돌봄 · 일상안정) 각각 지표명 · 3구간 게이지 · 구간 라벨로 구성. 항상 펼쳐진 상태이며 접힘/펼침 없음. 전일 대비(▲▼·변화 없음), 점수, 이유 문장, 핵심 데이터는 홈에 두지 않는다.</p>
+  <h3>6.2 3구간 게이지</h3>
+  <p>주의 · 보통 · 좋음 세 구간 중 현재 구간 하나를 가리키는 게이지. 숫자·눈금값은 표시하지 않는다. 산정 불가 시 아무 구간도 가리키지 않는 빈 상태로 둔다.</p>
+  <h3>6.3 지표와 라벨</h3>
+  <table>
+    <tr><th style="width:90px">지표</th><th>한 줄 정의(? 토글)</th><th style="width:32%">구간 라벨 좋음 / 보통 / 주의</th></tr>
+    <tr><td class="k">생활여유</td><td>오늘 남아 있는 몸의 여유</td><td><span class="pill p-g">충분해요</span><span class="pill p-m">보통이에요</span><span class="pill p-l">부족해요</span></td></tr>
+    <tr><td class="k">자기돌봄</td><td>오늘 나를 챙긴 정도</td><td><span class="pill p-g">잘하고 있어요</span><span class="pill p-m">보통이에요</span><span class="pill p-l">부족해요</span></td></tr>
+    <tr><td class="k">일상안정</td><td>최근 생활 리듬의 일정함</td><td><span class="pill p-g">안정적이에요</span><span class="pill p-m">비슷해요</span><span class="pill p-l">불안정해요</span></td></tr>
+  </table>
+  <p class="note">구간 경계는 잠정 66 / 33(0~100 내부 규칙값). 지표 정의·산식·부연 설명은 생활지표_기획서, 지표별 카드 규칙은 지표별분석_화면정의서를 따른다. 홈에서는 정의 문장을 노출하지 않는다.</p>
+  <h3>6.4 요약 문장 노출 조건</h3>
+  <p>세 라벨이 이미 상태를 말하므로 평상시에는 요약 문장을 두지 않는다. 다음 경우에만 한 줄을 붙인다.</p>
+  <table>
+    <tr><th style="width:150px">조건</th><th>문구</th></tr>
+    <tr><td class="k">주의 구간 지표 있음</td><td>{지표명}에서 살펴볼 점이 있어요.</td></tr>
+    <tr><td class="k">관찰 중 지표 있음</td><td>{지표명}은 아직 관찰 중이에요. + 지표별 사유 한 줄 (요약 문장은 붙이지 않음)</td></tr>
+    <tr><td class="k">세 지표 모두 관찰 중</td><td>아직 관찰 중이에요. 며칠 더 쌓이면 상태를 보여드릴게요. (요약 문장은 붙이지 않음)</td></tr>
+  </table>
+  <h3>6.5 산정 불가 · 미연동 처리</h3>
+  <div class="grid2">
+    <div class="mini"><b>관찰 중(데이터 부족)</b><p>빈 게이지 + 라벨 "관찰 중" + §6.4 문구. 결측을 0이나 낮은 구간으로 치환하지 않고, 다른 날 값으로 메우지 않는다. 지표별 사유 문구는 지표 산출 규칙에 따라 정한다.</p></div>
+    <div class="mini"><b>건강 데이터 미연동</b><p>게이지 대신 연동 안내: "건강 데이터를 연동하면 오늘의 컨디션을 볼 수 있어요 / 걸음·수면·심박 데이터로 생활여유 · 자기돌봄 · 일상안정을 계산해 드려요 [건강 데이터 연동하기]". 관찰 중과 반드시 구분한다.</p></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="n">7</span>오늘의 건강 데이터</h2>
+  <div class="sub">대표 3개만 홈에, 나머지는 전체 건강 데이터 화면에서</div>
+  <h3>7.1 홈 구성</h3>
+  <p>섹션 제목 "오늘의 건강 데이터"와 "›"(탭 → 전체 건강 데이터). 섹션 우측에 보조 라벨 "어제 대비". 걸음 수 · 수면 시간 · 안정 시 심박수 3개 행이 고정 순서로 놓인다. 각 행 = 항목 아이콘 · 항목명 · 오늘 값(숫자 + 단위) · 어제 대비 문구. 행 자체는 누르는 동작이 없다(이동은 §7.2).</p>
+  <p>홈에서는 해석이나 조언을 붙이지 않는다. "오늘 얼마인가"와 "어제보다 어떤가" 두 가지만 말하고, 의미 해석은 컨디션(§6)과 코칭(§4)이 맡는다.</p>
+
+  <h3>7.1.1 값 정의</h3>
+  <p>세 항목 모두 연동된 건강 앱에서 읽어 온 값을 그대로 쓴다. 앱이 추정하거나 보정하지 않는다.</p>
+  <table>
+    <tr><th style="width:110px">항목</th><th style="width:34%">오늘 값의 정의</th><th>표기</th><th style="width:26%">갱신</th></tr>
+    <tr><td class="k">걸음 수</td><td>오늘 자정(0시)부터 지금 시각까지 누적된 걸음 합계. 건강 앱의 달력일 집계와 같은 숫자여야 한다. 새벽 4시 경계를 적용하지 않는다</td><td>천 단위 구분 정수 + "걸음". 예: 6,420 걸음</td><td>홈 진입·재진입 시. 하루 동안 계속 늘어난다</td></tr>
+    <tr><td class="k">수면 시간</td><td>어젯밤 수면 세션의 총 수면 시간(잠든 시간만, 깬 구간 제외). 오늘 새벽 4시 이전에 시작해 오늘에 끝난 세션을 "어젯밤"으로 본다. 세션이 여러 개면 합산하되 낮잠(정오~18시 사이 시작)은 제외</td><td>"n시간 m분". 1시간 미만이면 "m분". 예: 7시간 20분</td><td>기상 후 수면 세션이 동기화되면 한 번 확정. 그날 값이 바뀌지 않는다</td></tr>
+    <tr><td class="k">안정 시 심박수</td><td>건강 앱이 제공하는 오늘의 안정 시 심박 대표값. 앱이 안정 시 값을 주지 않으면 오늘 심박 기록 중 수면 구간 평균으로 대체하지 않고 "기록 없음"으로 둔다</td><td>정수 + "bpm". 예: 68 bpm</td><td>건강 앱 값이 갱신될 때마다. 보통 하루 1회</td></tr>
+  </table>
+  <p class="note">단위는 값 뒤에 작게 붙이고 항목명에는 단위를 쓰지 않는다. 걸음 수는 "지금까지" 누적이므로 오전에는 작은 값이 정상이다. 비교(§7.1.2)는 어제 하루 전체와 하므로, 하루가 지나면서 차이가 줄어드는 것이 자연스러운 흐름이다.</p>
+  <p class="note">새벽 4시 하루 경계는 질문·코칭·목표의 하루 단위와 수면의 귀속일에만 쓴다. 건강 데이터 표시값에는 쓰지 않는다. 걸음 수는 건강 앱과 같은 자정 기준이어야 두 숫자가 어긋나지 않고, 하루 합계만 주는 기기에서는 4시 기준으로 나눌 방법도 없기 때문이다.</p>
+
+  <h3>7.1.2 어제 대비(비교) 정의</h3>
+  <p><b>기준은 어제 값</b>이다. 권고치(예: 1만 걸음, 7시간), 또래 평균, 여러 날 평균과 비교하지 않는다. 오늘과 어제 두 값만 있으면 계산되므로 연동 다음 날부터 바로 보이고, 사용자가 "어제보다"라는 기준을 직관적으로 이해한다.</p>
+  <table>
+    <tr><th style="width:110px">항목</th><th>비교 대상(어제 값)</th><th style="width:30%">차이 표기</th></tr>
+    <tr><td class="k">걸음 수</td><td>어제 <b>하루 전체 걸음 합계</b>(어제 0시~24시, 자정 기준). 시각을 맞추지 않고 오늘 지금까지 누적과 어제 하루 합계를 그대로 비교한다. 시간대별 기록이 없는 기기에서도 같은 방식으로 계산된다</td><td>걸음 수 절대값(천 단위 구분). "▲ 820걸음" / "▼ 1,240걸음". 백분율은 쓰지 않는다</td></tr>
+    <tr><td class="k">수면 시간</td><td>그저께 밤(어제 표시값)의 총 수면 시간</td><td>분 단위(60분 이상이면 "n시간 m분"). "▲ 35분" / "▼ 1시간 10분"</td></tr>
+    <tr><td class="k">안정 시 심박수</td><td>어제의 안정 시 심박 대표값</td><td>bpm 정수. "▲ 5bpm" / "▼ 4bpm"</td></tr>
+  </table>
+  <p>비교 문구는 <b>방향 기호와 차이 숫자만</b> 쓴다. "많아요·적어요·길어요·높아요" 같은 서술어는 붙이지 않고, "비슷해요" 같은 폭 판정도 두지 않는다. 차이가 정확히 0이면 방향 기호 없이 <b>"· 어제와 같음"</b>으로 쓴다. ▲는 오늘 값이 어제보다 큼, ▼는 작음을 뜻할 뿐이며, 좋다·나쁘다를 뜻하는 색이나 표현은 쓰지 않는다. 걸음이 많은 것, 심박이 낮은 것을 홈에서 좋은 것으로 단정하지 않기 위해서다. 어제 값이 0이면 비교하지 않고 "어제 기록 없음"으로 처리한다.</p>
+  <table>
+    <tr><th style="width:170px">상태</th><th>비교 문구</th></tr>
+    <tr><td class="k">오늘 · 어제 모두 있음</td><td>위 규칙대로 비교 문구 표시</td></tr>
+    <tr><td class="k">어제 값 없음</td><td>"어제 기록 없음". 오늘 값은 그대로 보여준다. 그저께 이전 값으로 대신 비교하지 않는다</td></tr>
+    <tr><td class="k">오늘 값 없음</td><td>값 자리에 "—", 비교 문구 자리에 "기록 없음". 걸음 수는 자정 이후 첫 동기화 전, 수면은 어젯밤 세션이 없을 때, 심박은 오늘 대표값이 없을 때</td></tr>
+    <tr><td class="k">기기 미착용 의심</td><td>어젯밤 수면과 오늘 심박이 모두 없고 걸음만 있으면(휴대폰만 소지) 수면·심박 행에 "기록 없음"을 두되 미연동 안내로 바꾸지 않는다</td></tr>
+    <tr><td class="k">건강 데이터 미연동</td><td>세 행 대신 §6.5와 같은 연동 안내 카드 한 장. 컨디션 영역과 안내를 중복해서 두 번 보여주지 않고, 컨디션 영역에 안내가 있으면 이 영역은 숨긴다</td></tr>
+  </table>
+  <p class="note">"평소 대비"(여러 날 기준선과의 비교)는 홈에서 쓰지 않는다. 평소 범위와의 비교는 컨디션 지표(§6)와 생활 탭이 맡는다. 어제 하루가 특이했던 날(여행·휴일 등)에는 비교 문구가 크게 흔들릴 수 있으나, 홈은 해석 없이 사실만 보여주므로 그대로 둔다.</p>
+  <h3>7.2 이동 화면</h3>
+  <p>섹션 제목의 "›"를 누르면 전체 건강 데이터 목록으로 이동한다. 전체 목록 화면은 홈이 아니므로 구성은 별도 화면정의서(건강 데이터)에서 정의한다.</p>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8">
+  <h2><span class="n">8</span>영역 간 연동 규칙</h2>
+  <div class="sub">한 영역의 변화가 다른 영역에 미치는 영향</div>
+  <table>
+    <tr><th style="width:220px">트리거</th><th>반영</th></tr>
+        <tr><td class="k">질문 모두 답변</td><td>① 코칭 카드가 "생성 중" 표시 후 결과 문구로 바뀐다 ② 잠겨 있던 목표가 답변으로 생성된다. 기기 데이터로 이미 만들어진 목표는 바꾸지 않는다 ③ 질문 영역이 완료 상태로 바뀐다</td></tr>
+    <tr><td class="k">답변 수정</td><td>코칭을 다시 생성하고, 답변으로 만들어진 목표를 수정된 답변으로 다시 만든다. 기기 데이터로 만들어진 목표와 완료 처리한 목표는 바꾸지 않는다</td></tr>
+    <tr><td class="k">홈에서 목표 완료/취소</td><td>"n/3 완료" 갱신 · 생활 탭 오늘의 목표 동일 상태 · 목표 이어가기 연속일수·코멘트·최근 7일 즉시 갱신</td></tr>
+    <tr><td class="k">생활 탭에서 목표 완료/취소</td><td>홈 타일 동일 상태(같은 컴포넌트)</td></tr>
+    <tr><td class="k">잠긴 목표 탭</td><td>홈으로 이동(생활 탭에서 눌렀을 때) · 남은 질문으로 문항 전환</td></tr>
+    <tr><td class="k">컨디션 카드 / › 탭</td><td>생활 탭 &gt; 지표별 분석(오늘 기준일)</td></tr>
+    <tr><td class="k">건강 데이터 섹션 › 탭</td><td>전체 건강 데이터 목록으로 이동</td></tr>
+    <tr><td class="k">건강 데이터 연동 완료</td><td>컨디션 게이지·건강 데이터 카드·생활 분석 즉시 렌더 · 데이터가 있는 목표 잠금 해제</td></tr>
+    <tr><td class="k">연동 해제</td><td>컨디션·건강 데이터 미연동 상태 · 기존 완료 기록과 리포트는 유지</td></tr>
+    <tr><td class="k">낮 동안 기기 데이터 갱신</td><td>컨디션 지표 재산정(라벨 변경 가능) · 건강 데이터 값 갱신 · 코칭·목표 문구와 타일 표시는 불변</td></tr>
+  </table>
+</section>
+
+<!-- 10 -->
+<section class="card" id="s10">
+  <h2><span class="n">9</span>확인 필요 사항</h2>
+  <div class="sub">이 문서 확정 전 담당자 결정이 필요한 항목</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">항목</th><th>내용</th><th style="width:90px">상태</th></tr>
+    <tr><td>1</td><td class="k">목표 생성 규칙</td><td>개인 중앙값 기반 숫자 산출(걸음·취침), 트리거 우선순위, 마디별 난이도 조정을 별도 문서로 확정</td><td><span class="pill p-b">작성 예정</span></td></tr>
+    <tr><td>2</td><td class="k">잠금 판정 기준</td><td>목표별 "데이터 충분" 임계값(예: 어젯밤 수면 기록 존재, 오늘 걸음 ≥ 1시간 수집). 테스트 후 확정</td><td><span class="pill p-b">테스트 후 확정</span></td></tr>
+    <tr><td>3</td><td class="k">하루 경계·저녁 기준</td><td>하루 경계는 새벽 4시로 둔다. 사유 ① 수면이 자정을 넘기므로 잠든 시각과 무관하게 기상일에 수면 전체를 귀속시키기 위해 ② 밤 12시 이후의 활동은 사용자 체감상 "오늘 밤"이므로 활동 목표 진행과 늦은 활동 판정이 다음 날로 넘어가지 않게 하기 위해 ③ 새벽 3~5시가 활동이 가장 적어 경계에 걸리는 데이터가 최소이기 때문 ④ 질문·코칭·목표가 아침에 처음 열 때 새로 시작되게 하기 위해. 용어는 세션 날짜(새벽 4시 경계)와 실제 날짜(자정 경계)로 나눠 쓴다. 새벽 4시가 적용되는 것은 세션 날짜, 즉 질문·코칭·목표의 하루 단위와 「오늘 첫 진입」 판정이다. 홈 건강 데이터의 걸음 수를 비롯한 기기 값은 건강 앱과 같은 실제 날짜를 쓰고(§7.1.1), 수면만 기상 시각이 속한 날로 귀속한다. 두 날짜는 자정~새벽 4시에만 어긋난다(생활지표 기획서 §2.3). 남은 결정: 18시 이후 저녁 문구 적용 시각</td><td><span class="pill p-l">경계 확정 · 저녁 시각 확인 필요</span></td></tr>
+    <tr><td>4</td><td class="k">활동/운동 시간 산출</td><td>Apple appleExerciseTime은 "빠르게 걷기 이상 강도의 1분 단위 누적"(Watch 필요, 워크아웃 합산), Samsung TOTAL_ACTIVE_TIME은 강도 기준 없는 활동 총합. 앱은 활동 시간을 걸음 interval에서 직접 산출하고 운동 시간은 세션 기반으로 통일 — 개발 확인</td><td><span class="pill p-b">SDK 확인</span></td></tr>
+    <tr><td>5</td><td class="k">구간 경계 66/33</td><td>지표 엔진이 구간을 직접 내려주는지, 앱이 점수로 변환하는지. 지표 산출 테스트 후 확정</td><td><span class="pill p-b">산출 테스트 후 확정</span></td></tr>
+    
+    <tr><td>6</td><td class="k">코칭 생성 지연</td><td>실제 응답 시간에 따른 생성 중 상태의 최대 유지 시간과 실패 시 기본 코칭 대체</td><td><span class="pill p-l">확인 필요</span></td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

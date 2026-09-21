@@ -1,0 +1,570 @@
+<title>저장소 기준 데이터 흐름도</title>
+<meta name="description" content="maiReport의 외부 입력·처리·데이터 저장소를 노드로 세운 Level-1 DFD — 어떤 테이블에 누가 쓰고 누가 읽는지, 그리고 아직 없는 저장소와 끊긴 연결.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#F1F4F9;--surf:#FFFFFF;--surf-2:#F8FAFD;--surf-3:#E9EEF5;
+  --line:#D9E0EC;--line-strong:#A2AFC3;
+  --ink:#0F1826;--text:#3A4760;--muted:#6B7890;--faint:#8B97AC;
+  --accent:#2F66F5;--accent-soft:#E9EFFE;
+  --store:#0C6F4F;--store-soft:#E4F4ED;
+  --proc:#2F66F5;--proc-soft:#E9EFFE;
+  --ext:#6B45C6;--ext-soft:#F0EBFB;
+  --warn:#96650A;--warn-soft:#FBF1D9;
+  --stop:#B23A3A;--stop-soft:#FAE9E9;
+  --mono:"JetBrains Mono",Consolas,monospace;
+  --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0C1117;--surf:#151B24;--surf-2:#1A212B;--surf-3:#232C39;
+  --line:#2A3442;--line-strong:#5A697D;
+  --ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6D798C;
+  --accent:#7CA1FF;--accent-soft:#1B2740;
+  --store:#5DC9A1;--store-soft:#112A22;
+  --proc:#7CA1FF;--proc-soft:#1B2740;
+  --ext:#B196EE;--ext-soft:#241D37;
+  --warn:#E0B061;--warn-soft:#2B2314;
+  --stop:#EC8484;--stop-soft:#2E1A1A;
+}}
+:root[data-theme="dark"]{
+  --ground:#0C1117;--surf:#151B24;--surf-2:#1A212B;--surf-3:#232C39;
+  --line:#2A3442;--line-strong:#5A697D;
+  --ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6D798C;
+  --accent:#7CA1FF;--accent-soft:#1B2740;
+  --store:#5DC9A1;--store-soft:#112A22;
+  --proc:#7CA1FF;--proc-soft:#1B2740;
+  --ext:#B196EE;--ext-soft:#241D37;
+  --warn:#E0B061;--warn-soft:#2B2314;
+  --stop:#EC8484;--stop-soft:#2E1A1A;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);
+  font-size:14.5px;line-height:1.7;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+main{max-width:1160px;margin:0 auto;padding:0 24px 80px}
+
+.masthead{background:var(--surf);border-bottom:1px solid var(--line)}
+.masthead-in{max-width:1160px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wordmark{position:relative;color:var(--ink);font-size:18px;font-weight:900;letter-spacing:-.06em;line-height:1}
+.wordmark::after{content:"";position:absolute;right:-6px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.mtag{margin-left:8px;padding-left:14px;border-left:1px solid var(--line);color:var(--muted);font-size:12px}
+.mdate{margin-left:auto;color:var(--faint);font-size:11.5px;font-family:var(--mono)}
+
+.hero{padding:52px 0 38px;border-bottom:1px solid var(--line)}
+.eyebrow{display:block;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+h1{margin:0;color:var(--ink);font-size:clamp(28px,4.4vw,42px);font-weight:900;line-height:1.2;letter-spacing:-.05em;text-wrap:balance;max-width:18ch}
+.lead{margin:20px 0 0;max-width:64ch;font-size:15.5px;line-height:1.8}
+.lead b{color:var(--ink)}
+
+section.block{padding:48px 0;border-bottom:1px solid var(--line)}
+.sec-no{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--faint);letter-spacing:.06em}
+h2{margin:8px 0 0;color:var(--ink);font-size:24px;font-weight:900;letter-spacing:-.04em;line-height:1.32;text-wrap:balance}
+.sub{margin:12px 0 0;max-width:66ch;font-size:14px}
+h3{margin:32px 0 10px;color:var(--ink);font-size:15px;font-weight:700;letter-spacing:-.02em}
+p{margin:0 0 12px}p:last-child{margin-bottom:0}
+code{font-family:var(--mono);font-size:.86em;background:var(--surf-3);padding:1.5px 5px;border-radius:4px;color:var(--ink)}
+b{color:var(--ink);font-weight:700}
+
+figure{margin:26px 0 0;padding:0}
+.fig-frame{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:20px;overflow-x:auto}
+.fig-frame svg{display:block;width:100%;min-width:880px;height:auto}
+figcaption{margin-top:11px;color:var(--muted);font-size:12px;line-height:1.65;max-width:76ch}
+figcaption b{color:var(--text)}
+
+/* svg node styles */
+.n-ext{fill:var(--ext-soft);stroke:var(--ext);stroke-width:1.3;stroke-dasharray:5 4}
+.n-proc{fill:var(--proc-soft);stroke:var(--proc);stroke-width:1.4}
+.n-store{fill:var(--store-soft);stroke:var(--store);stroke-width:1.3}
+.n-miss{fill:none;stroke:var(--warn);stroke-width:1.3;stroke-dasharray:5 4}
+.n-out{fill:var(--surf-2);stroke:var(--line-strong);stroke-width:1.2}
+.bar-store{fill:var(--store)}
+.bar-miss{fill:var(--warn)}
+.t-ext{fill:var(--ext)}.t-proc{fill:var(--proc)}.t-store{fill:var(--store)}.t-miss{fill:var(--warn)}
+.tt{font-family:var(--sans);font-size:12.5px;font-weight:700;fill:var(--ink)}
+.ss{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+.sk{font-family:var(--sans);font-size:10.5px;fill:var(--muted)}
+.lane{font-family:var(--sans);font-size:10.5px;font-weight:700;fill:var(--faint);letter-spacing:.1em}
+.al{font-family:var(--sans);font-size:10px;font-weight:600;fill:var(--muted)}
+.ed{fill:none;stroke:var(--line-strong);stroke-width:1.4}
+.ed-broke{fill:none;stroke:var(--stop);stroke-width:1.6;stroke-dasharray:6 5}
+.ed-back{fill:none;stroke:var(--line-strong);stroke-width:1.3;stroke-dasharray:5 4}
+.ed-miss{fill:none;stroke:var(--warn);stroke-width:1.5;stroke-dasharray:6 4}
+.ed-loop{fill:none;stroke:var(--accent);stroke-width:1.8}
+.ah{fill:var(--line-strong)}
+.ah-miss{fill:var(--warn)}
+.ah-loop{fill:var(--accent)}
+.al.t-miss{fill:var(--warn)}
+.al.t-loop{fill:var(--accent);font-size:11px;font-weight:700}
+.rule{stroke:var(--line);stroke-width:1}
+
+.tbl{margin-top:20px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:var(--surf)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:700px}
+thead th{background:var(--surf-2);color:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.06em;
+  text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--line);color:var(--text);line-height:1.55;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.id{font-family:var(--mono);font-size:11px;color:var(--faint);white-space:nowrap}
+td.nm{font-family:var(--mono);font-size:11.5px;color:var(--ink);white-space:nowrap}
+.tag{display:inline-block;padding:2.5px 8px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap}
+.tg-ok{background:var(--store-soft);color:var(--store)}
+.tg-miss{background:var(--warn-soft);color:var(--warn)}
+.tg-ext{background:var(--ext-soft);color:var(--ext)}
+
+.note{margin-top:22px;padding:16px 20px;border-left:3px solid var(--accent);background:var(--surf);border-radius:0 8px 8px 0;font-size:13px}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}
+.note.stop{border-left-color:var(--stop);background:var(--stop-soft)}
+.note-label{display:block;margin-bottom:5px;font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--accent)}
+.note.warn .note-label{color:var(--warn)}
+.note.stop .note-label{color:var(--stop)}
+
+.srcs{margin-top:44px;padding:20px 24px;background:var(--surf-2);border:1px solid var(--line);border-radius:10px}
+.srcs h2{font-size:11px;letter-spacing:.1em;color:var(--faint);margin:0 0 10px;font-weight:700}
+.srcs ul{margin:0;padding-left:17px;color:var(--muted);font-size:12px;line-height:1.9}
+footer{padding:28px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mono)}
+@media (max-width:760px){main{padding:0 18px 60px}.hero{padding:40px 0 30px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <span class="wordmark">maiReport</span>
+    <span class="mtag">데이터 흐름도 · 저장소 기준 (Level-1 DFD)</span>
+    <span class="mdate">2026-09-11</span>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <span class="eyebrow">Data Flow · Store View</span>
+  <h1>어떤 테이블에<br>누가 쓰고 누가 읽는가.</h1>
+  <p class="lead">
+    기존 <b>서비스 데이터 흐름도 v0.1</b>(09-08)은 지식이 해석을 거쳐 화면이 되는 <b>개념 흐름</b>을 그렸습니다.
+    이 문서는 같은 서비스를 <b>저장소 기준</b>으로 다시 세웁니다 — 외부 입력, 처리, 데이터 저장소를 노드로 놓고
+    각 흐름에 이름을 붙였습니다. 그러면 개념도에서는 보이지 않던 것이 드러납니다:
+    <b>질문은 파이프라인의 시작이 아니라 되먹임이고, 지표 계산은 두 갈래인데 한 갈래가 통째로 비어 있으며,
+    목표 기록 저장소가 없습니다.</b>
+  </p>
+</section>
+
+<!-- ============ 1 ============ -->
+<section class="block">
+  <span class="sec-no">01</span>
+  <h2>흐름도</h2>
+  <p class="sub">
+    세 개의 띠는 서로 다른 생애주기를 가집니다. 지식은 release 단위로 통째 교체되고,
+    생활 데이터는 매일 쌓이며, 상호작용은 하루 단위로 리셋됩니다.
+    결제 · 분석 이용권은 홈 네 축과 데이터를 주고받지 않아 제외했습니다.
+  </p>
+
+  <figure>
+    <div class="fig-frame">
+      <svg viewBox="0 0 1240 780" role="img" aria-label="maiReport 홈 네 축의 외부 입력, 처리, 데이터 저장소를 세 개의 띠로 나눈 데이터 흐름도. 생활 데이터는 지표 산출과 코칭 지표 계산 두 갈래로 읽히고, 코칭과 목표가 불충분하면 되먹임 경로를 따라 문항 선택으로 돌아간다. 코칭 지표 계산과 목표 기록 저장소는 미정의이며, metric_score에서 규칙 평가로 가는 연결은 이름공간 불일치로 끊겨 있다.">
+        <defs>
+          <marker id="dh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" class="ah"/>
+          </marker>
+          <marker id="dh2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" class="ah-miss"/>
+          </marker>
+          <marker id="dh3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" class="ah-loop"/>
+          </marker>
+        </defs>
+
+        <!-- ===== BAND 1 ===== -->
+        <text x="24" y="32" class="lane">지식 파이프라인 — 오프라인 · release 단위 통째 교체</text>
+        <line x1="24" y1="40" x2="1224" y2="40" class="rule"/>
+
+        <rect x="24" y="52" width="160" height="64" rx="9" class="n-ext"/>
+        <text x="40" y="76" class="tt t-ext">지식DB 서버</text>
+        <text x="40" y="95" class="ss">health_knowledge</text>
+
+        <rect x="224" y="52" width="170" height="64" rx="9" class="n-proc"/>
+        <text x="240" y="76" class="tt t-proc">P1 추출 · 검증</text>
+        <text x="240" y="95" class="sk">평탄화 · 점검 V1–V9</text>
+
+        <rect x="434" y="52" width="390" height="64" rx="3" class="n-store"/>
+        <rect x="434" y="52" width="4" height="64" class="bar-store"/>
+        <text x="452" y="76" class="tt t-store">D1 coaching_rule · message · metric · signal · input</text>
+        <text x="452" y="95" class="ss">maireport_kdb_v1 · release_id 단위 · 239 rules</text>
+
+        <text x="860" y="78" class="sk">전 사용자 공통</text>
+        <text x="860" y="96" class="sk">증분 없음 · 통째 교체</text>
+
+        <line x1="184" y1="84" x2="218" y2="84" class="ed" marker-end="url(#dh)"/>
+        <line x1="394" y1="84" x2="428" y2="84" class="ed" marker-end="url(#dh)"/>
+
+        <!-- ===== BAND 2 ===== -->
+        <text x="24" y="186" class="lane">생활 데이터 → 지표 — 매일 쌓임 · PHI · 아래 두 띠가 모두 여기서 읽는다</text>
+        <line x1="24" y1="194" x2="1224" y2="194" class="rule"/>
+
+        <rect x="24" y="206" width="160" height="64" rx="9" class="n-ext"/>
+        <text x="40" y="230" class="tt t-ext">기기 플랫폼</text>
+        <text x="40" y="249" class="sk">HealthKit · Health Connect</text>
+
+        <rect x="224" y="206" width="170" height="64" rx="9" class="n-proc"/>
+        <text x="240" y="230" class="tt t-proc">P2 수집 · 정규화</text>
+        <text x="240" y="249" class="sk">quality 판정 · 중복 제거</text>
+
+        <rect x="434" y="206" width="180" height="56" rx="3" class="n-store"/>
+        <rect x="434" y="206" width="4" height="56" class="bar-store"/>
+        <text x="452" y="228" class="tt t-store">D2 health_sample</text>
+        <text x="452" y="246" class="ss">원천 측정값</text>
+
+        <rect x="434" y="276" width="180" height="56" rx="3" class="n-store"/>
+        <rect x="434" y="276" width="4" height="56" class="bar-store"/>
+        <text x="452" y="298" class="tt t-store">D3 metric_baseline</text>
+        <text x="452" y="316" class="ss">7–14일 · n ≥ 4</text>
+
+        <rect x="654" y="206" width="170" height="60" rx="9" class="n-proc"/>
+        <text x="670" y="230" class="tt t-proc">P3 지표 산출</text>
+        <text x="670" y="249" class="sk">3지표 · sufficiency</text>
+
+        <rect x="654" y="286" width="170" height="60" rx="9" class="n-miss"/>
+        <text x="670" y="310" class="tt t-miss">P3b 코칭 지표 계산</text>
+        <text x="670" y="329" class="ss">미정의 · 어댑터 필요</text>
+
+        <rect x="864" y="206" width="180" height="60" rx="3" class="n-store"/>
+        <rect x="864" y="206" width="4" height="60" class="bar-store"/>
+        <text x="882" y="230" class="tt t-store">D4 metric_score</text>
+        <text x="882" y="249" class="ss">생활여유 · 자기돌봄 · 일상안정</text>
+
+        <rect x="1084" y="206" width="140" height="60" rx="9" class="n-out"/>
+        <text x="1098" y="230" class="tt">오늘의 컨디션</text>
+        <text x="1098" y="249" class="ss">HOME-003</text>
+
+        <line x1="184" y1="238" x2="218" y2="238" class="ed" marker-end="url(#dh)"/>
+        <line x1="394" y1="236" x2="428" y2="234" class="ed" marker-end="url(#dh)"/>
+        <line x1="614" y1="226" x2="648" y2="226" class="ed" marker-end="url(#dh)"/>
+        <path d="M614 290 L622 290 L622 248 L648 248" class="ed" marker-end="url(#dh)"/>
+        <path d="M614 250 L632 250 L632 302 L648 302" class="ed-miss" marker-end="url(#dh2)"/>
+        <line x1="614" y1="322" x2="648" y2="322" class="ed-miss" marker-end="url(#dh2)"/>
+        <line x1="824" y1="236" x2="858" y2="236" class="ed" marker-end="url(#dh)"/>
+        <line x1="1044" y1="236" x2="1078" y2="236" class="ed" marker-end="url(#dh)"/>
+        <text x="828" y="228" class="al">상태</text>
+        <text x="640" y="350" class="al t-miss">mvpa · steps · sleep 분 단위</text>
+
+        <!-- ===== BAND 3 ===== -->
+        <text x="24" y="400" class="lane">상호작용 → 질문 · 코칭 · 목표 — 하루 단위</text>
+        <line x1="24" y1="408" x2="1224" y2="408" class="rule"/>
+
+        <rect x="24" y="420" width="160" height="56" rx="9" class="n-ext"/>
+        <text x="40" y="442" class="tt t-ext">병원 · 마이데이터</text>
+        <text x="40" y="460" class="sk">검진 · 진료 · AI 리포트</text>
+
+        <rect x="24" y="490" width="160" height="64" rx="9" class="n-ext"/>
+        <text x="40" y="514" class="tt t-ext">사용자</text>
+        <text x="40" y="533" class="sk">답변 · 완료 · 쉬기</text>
+
+        <rect x="224" y="420" width="170" height="60" rx="9" class="n-proc"/>
+        <text x="240" y="444" class="tt t-proc">P4 문항 선택</text>
+        <text x="240" y="463" class="sk">부족한 만큼 · 최대 3문항</text>
+
+        <rect x="224" y="510" width="170" height="56" rx="3" class="n-store"/>
+        <rect x="224" y="510" width="4" height="56" class="bar-store"/>
+        <text x="242" y="532" class="tt t-store">D5 daily_checkin</text>
+        <text x="242" y="550" class="ss">answers · derived</text>
+
+        <rect x="224" y="586" width="170" height="52" rx="3" class="n-store"/>
+        <rect x="224" y="586" width="4" height="52" class="bar-store"/>
+        <text x="242" y="607" class="tt t-store">D6 프로필</text>
+        <text x="242" y="625" class="ss">생년월일 · 확진</text>
+
+        <rect x="1084" y="420" width="140" height="60" rx="9" class="n-out"/>
+        <text x="1098" y="444" class="tt">오늘의 질문</text>
+        <text x="1098" y="463" class="ss">HOME-001</text>
+
+        <rect x="434" y="516" width="390" height="68" rx="9" class="n-proc"/>
+        <text x="452" y="542" class="tt t-proc">P5 규칙 평가</text>
+        <text x="452" y="562" class="sk">대상 → 연령 → 지표 구간 → 관찰 → 입력 → 안전 게이트 → 그룹당 1건</text>
+
+        <rect x="1084" y="516" width="140" height="60" rx="9" class="n-out"/>
+        <text x="1098" y="540" class="tt">오늘의 코칭</text>
+        <text x="1098" y="559" class="ss">HOME-002</text>
+
+        <rect x="434" y="610" width="390" height="60" rx="9" class="n-proc"/>
+        <text x="452" y="634" class="tt t-proc">P6 목표 개인화</text>
+        <text x="452" y="654" class="sk">pending 카드만 교체 · 생활 데이터 읽지 않음 (정책: 기기 불필요)</text>
+
+        <rect x="864" y="610" width="180" height="60" rx="3" class="n-miss"/>
+        <rect x="864" y="610" width="4" height="60" class="bar-miss"/>
+        <text x="882" y="634" class="tt t-miss">D7 목표 기록</text>
+        <text x="882" y="653" class="ss">카테고리 × 일자 · 미정의</text>
+
+        <rect x="1084" y="610" width="140" height="60" rx="9" class="n-out"/>
+        <text x="1098" y="634" class="tt">오늘의 목표</text>
+        <text x="1098" y="653" class="ss">HOME-004</text>
+
+        <line x1="184" y1="448" x2="218" y2="448" class="ed" marker-end="url(#dh)"/>
+        <text x="150" y="440" class="al">질환 맥락</text>
+        <path d="M184 512 L204 512 L204 460 L218 460" class="ed" marker-end="url(#dh)"/>
+        <path d="M184 528 L204 528 L204 612 L218 612" class="ed" marker-end="url(#dh)"/>
+        <line x1="309" y1="480" x2="309" y2="504" class="ed" marker-end="url(#dh)"/>
+        <text x="316" y="498" class="al">답변</text>
+        <line x1="394" y1="440" x2="1078" y2="440" class="ed" marker-end="url(#dh)"/>
+        <text x="700" y="432" class="al">문항 3개</text>
+
+        <!-- D2 → P4 : 결측 현황 읽기 -->
+        <path d="M434 240 L410 240 L410 392 L286 392 L286 414" class="ed-miss" marker-end="url(#dh2)"/>
+        <text x="294" y="388" class="al t-miss">결측 현황 — 무엇을 물을지 고르는 근거</text>
+
+        <line x1="394" y1="526" x2="428" y2="526" class="ed" marker-end="url(#dh)"/>
+        <path d="M394 554 L424 554 L424 646 L428 646" class="ed" marker-end="url(#dh)"/>
+        <path d="M394 612 L414 612 L414 566 L428 566" class="ed" marker-end="url(#dh)"/>
+        <text x="332" y="666" class="al">나이 · 확진</text>
+
+        <path d="M824 84 L852 84 L852 478 L800 478 L800 510" class="ed" marker-end="url(#dh)"/>
+        <text x="860" y="150" class="al">규칙 · 문구</text>
+
+        <path d="M824 316 L836 316 L836 496 L770 496 L770 510" class="ed-miss" marker-end="url(#dh2)"/>
+        <text x="700" y="492" class="al t-miss" text-anchor="end">:metrics — 코칭 판정 입력</text>
+
+        <path d="M954 266 L954 460 L896 460" class="ed-broke"/>
+        <circle cx="880" cy="460" r="11" fill="var(--stop-soft)" stroke="var(--stop)" stroke-width="1.4"/>
+        <path d="M875 455 L885 465 M885 455 L875 465" stroke="var(--stop)" stroke-width="1.7" fill="none"/>
+        <text x="1044" y="486" class="al" text-anchor="end" fill="var(--stop)">3지표는 코칭 판정에 쓰이지 않는다 · 이름공간 불일치</text>
+
+        <line x1="824" y1="540" x2="1078" y2="540" class="ed" marker-end="url(#dh)"/>
+        <text x="900" y="532" class="al">문구 1건 + 근거</text>
+        <line x1="824" y1="634" x2="858" y2="634" class="ed" marker-end="url(#dh)"/>
+        <line x1="1044" y1="634" x2="1078" y2="634" class="ed" marker-end="url(#dh)"/>
+
+        <!-- 불충분 → 문항 선택 되돌림 루프 -->
+        <path d="M824 570 L844 570 L844 686 L404 686 L404 462 L388 462" class="ed-loop" marker-end="url(#dh3)"/>
+        <path d="M824 660 L844 660" class="ed-loop"/>
+        <circle cx="844" cy="660" r="3.5" class="ah-loop"/>
+        <text x="470" y="678" class="al t-loop">코칭·목표를 채우지 못한 만큼 → 문항으로 묻는다 (최대 3)</text>
+
+        <!-- ===== LEGEND ===== -->
+        <line x1="24" y1="716" x2="1224" y2="716" class="rule"/>
+        <rect x="24" y="736" width="26" height="20" rx="5" class="n-ext"/>
+        <text x="58" y="751" class="sk">외부 입력</text>
+        <rect x="164" y="736" width="26" height="20" rx="5" class="n-proc"/>
+        <text x="198" y="751" class="sk">처리</text>
+        <rect x="264" y="736" width="26" height="20" rx="3" class="n-store"/>
+        <rect x="264" y="736" width="3" height="20" class="bar-store"/>
+        <text x="298" y="751" class="sk">데이터 저장소</text>
+        <rect x="424" y="736" width="26" height="20" rx="5" class="n-out"/>
+        <text x="458" y="751" class="sk">화면</text>
+        <line x1="534" y1="746" x2="568" y2="746" class="ed"/>
+        <text x="576" y="751" class="sk">존재하는 흐름</text>
+        <line x1="680" y1="746" x2="714" y2="746" class="ed-loop"/>
+        <text x="722" y="751" class="sk">되먹임</text>
+        <rect x="800" y="736" width="26" height="20" rx="3" class="n-miss"/>
+        <text x="834" y="751" class="sk">미정의 · 미구현</text>
+        <line x1="962" y1="746" x2="996" y2="746" class="ed-broke"/>
+        <text x="1004" y="751" class="sk">이어질 수 없는 연결</text>
+      </svg>
+    </div>
+    <figcaption>
+      <b>파란 선이 이 그림의 중심입니다.</b> 질문은 코칭·목표보다 먼저 오지 않습니다 —
+      P5·P6가 먼저 돌고, 채우지 못한 만큼을 P4가 문항으로 바꿔 되묻습니다. 그래서 문항 수는 고정이 아니라
+      <b>부족분이 정하는 예산(최대 3)</b>입니다. 답변은 D5에 쌓여 다음 바퀴의 입력이 됩니다.
+      한편 D2에서 나가는 읽기는 세 갈래(P3 · P3b · P4)이고 목표만 읽지 않습니다.
+    </figcaption>
+  </figure>
+
+  <div class="note">
+    <span class="note-label">읽는 순서</span>
+    <p>① 생활 데이터로 지표를 만든다 → ② 규칙 평가와 목표 개인화를 <b>일단 돌린다</b> →
+    ③ 결과가 불충분하면 <b>부족분만큼 문항을 고른다</b> → ④ 답변이 쌓이면 ②를 다시 돈다.
+    질문이 화면 맨 위에 있다고 해서 파이프라인의 시작인 것은 아닙니다.</p>
+  </div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="block">
+  <span class="sec-no">02</span>
+  <h2>저장소 목록 — 누가 쓰는가</h2>
+  <p class="sub">
+    저장소마다 쓰기 주체가 하나뿐인지 확인하는 것이 이 표의 목적입니다.
+    쓰기 주체가 불분명한 저장소는 동시성·정합성 문제가 먼저 생깁니다.
+  </p>
+
+  <div class="tbl">
+    <table>
+      <thead>
+        <tr><th></th><th>저장소</th><th>쓰기</th><th>읽기</th><th>생애주기</th><th>상태</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="id">D1</td><td class="nm">coaching_* 5종</td>
+          <td>P1 (오프라인 적재)</td><td>P5</td>
+          <td>release 단위 교체</td><td><span class="tag tg-ok">정의됨</span></td>
+        </tr>
+        <tr>
+          <td class="id">D2</td><td class="nm">health_sample</td>
+          <td>P2</td><td>P3 · P3b · P4</td>
+          <td>매일 · PHI</td><td><span class="tag tg-ok">정의됨</span></td>
+        </tr>
+        <tr>
+          <td class="id">D3</td><td class="nm">metric_baseline</td>
+          <td>P3</td><td>P3</td>
+          <td>7–14일 윈도우 갱신</td><td><span class="tag tg-ok">정의됨</span></td>
+        </tr>
+        <tr>
+          <td class="id">D4</td><td class="nm">metric_score</td>
+          <td>P3</td><td>화면 <span style="color:var(--stop)">(P5 미연결)</span></td>
+          <td>일 단위 · 스냅샷 보존</td><td><span class="tag tg-ok">정의됨</span></td>
+        </tr>
+        <tr>
+          <td class="id">D5</td><td class="nm">daily_checkin</td>
+          <td>P4</td><td>P5 · P6</td>
+          <td>하루 단위</td><td><span class="tag tg-ok">정의됨</span></td>
+        </tr>
+        <tr>
+          <td class="id">D6</td><td class="nm">프로필</td>
+          <td>온보딩 · 설정</td><td>P5</td>
+          <td>영속</td><td><span class="tag tg-ext">참조만</span></td>
+        </tr>
+        <tr>
+          <td class="id">D7</td><td class="nm">목표 기록</td>
+          <td>사용자 (완료 · 쉬기)</td><td>P6 · 주간 달성률</td>
+          <td>카테고리 × 일자</td><td><span class="tag tg-miss">미정의</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note warn">
+    <span class="note-label">읽는 곳이 셋인 저장소</span>
+    <p><code>health_sample</code>은 P3(3지표) · P3b(코칭 지표) · P4(결측 현황) 셋이 읽습니다.
+    <b>생활 데이터는 컨디션 전용이 아닙니다</b> — 코칭과 질문도 여기서 읽어 갑니다.
+    다만 P3b의 산출물을 담을 저장소가 없어, 코칭용 지표는 요청마다 즉석 계산하거나
+    새 저장소를 두어야 합니다. 어느 쪽인지 정해야 합니다.</p>
+  </div>
+
+  <div class="note">
+    <span class="note-label">범위 밖</span>
+    <p>결제 · 분석 이용권(<code>purchase</code> · <code>analysis_ticket</code>)은 셀비 체크업 / ANRISK 전용 도메인이라
+    이 흐름도에서 제외했습니다. 홈 네 축과 데이터를 주고받지 않습니다.
+    해당 도메인은 <code>maiReport_데이터모델_v1.0.0.html</code> 4~5장이 이미 상태 전이까지 정의하고 있습니다.</p>
+  </div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="block">
+  <span class="sec-no">03</span>
+  <h2>개념도에서는 보이지 않던 것</h2>
+  <p class="sub">
+    저장소를 노드로 세우자 드러난 항목입니다. 기존 서비스 데이터 흐름도 v0.1과 대조한 결과입니다.
+  </p>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>항목</th><th>개념도 v0.1</th><th>저장소 기준에서 드러난 것</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="nm">목표 축</td>
+          <td>없음 — 출력이 “3지표 + 행동 1개”</td>
+          <td><b>D7이 통째로 비어 있다.</b> 완료·쉬기 기록, 주간 달성률, 연속일수의 저장 구조가 어느 문서에도 없다</td>
+        </tr>
+        <tr>
+          <td class="nm">질문 축</td>
+          <td>수집 항목의 하나로만 등장</td>
+          <td>질문은 파이프라인의 <b>입력이 아니라 되먹임</b>이다. 코칭·목표를 먼저 돌려 부족분을 안 뒤,
+          그만큼만 문항으로 바꿔 되묻는다 — 최대 3문항은 상한이지 정원이 아니다</td>
+        </tr>
+        <tr>
+          <td class="nm">지표 → 코칭</td>
+          <td>“통과한 지표값”이 그대로 흐름</td>
+          <td>지표 계산이 <b>두 갈래로 갈라진다</b> — 화면용 3지표(P3)와 코칭 판정용 지표(P3b)는
+          같은 <code>health_sample</code>을 읽지만 다른 것을 만든다. D4는 코칭에 쓰이지 않으며, P3b는 아직 없다</td>
+        </tr>
+        <tr>
+          <td class="nm">질문 ← 생활 데이터</td>
+          <td>질문이 수집 항목으로만 등장</td>
+          <td>결측 보완형 문항은 <b>무엇이 비었는지 읽어야</b> 고를 수 있다. 현재 구현은 의료이력 유무만 본다</td>
+        </tr>
+        <tr>
+          <td class="nm">기본 목표 세트</td>
+          <td>없음</td>
+          <td>카드 문구의 원본이 프로토타입 하드코딩에만 있다. 카탈로그로 올릴지 미정</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note stop">
+    <span class="note-label">목표만 다르다 — 화면 문구가 틀렸다</span>
+    <p>질문과 코칭은 생활 데이터를 읽지만 <b>목표는 읽지 않는 것이 설계</b>입니다.
+    정책 메모가 목표 분석을 두고 <b>“목표·실천 기록은 수동. 기기 불필요”</b>라고 못 박았고,
+    개인화 로직도 질문 답변만 봅니다.</p>
+    <p>그런데 홈 화면의 목표 카드 부제는 답변 전 상태에서
+    <b>“현재 건강 데이터를 바탕으로 추천한 목표예요”</b>라고 말합니다.
+    읽지 않는 데이터를 근거로 제시하고 있으므로, 흐름이 아니라 <b>문구를 고쳐야 합니다</b> —
+    예: “먼저 추천하는 기본 목표예요”.</p>
+  </div>
+
+  <div class="note stop">
+    <span class="note-label">추가로 발견한 이름 불일치</span>
+    <p>지표 이름이 문서 세 곳에서 각각 다릅니다 —
+    데이터 모델 v0.1은 <code>recovery · load · rhythm</code>(회복여유·생활부담·리듬안정성),
+    서비스 데이터 흐름도 v0.1은 <b>생활여유 · 건강돌봄 · 일상안정</b>,
+    지표 기획서 v0.3은 <b>생활여유 · 자기돌봄 · 일상안정</b>입니다.
+    같은 날(09-08) 나온 두 문서가 가운데 지표를 <b>‘건강돌봄’과 ‘자기돌봄’으로 다르게</b> 부르고 있습니다.</p>
+  </div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="block">
+  <span class="sec-no">04</span>
+  <h2>이 흐름도가 요구하는 결정</h2>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>결정</th><th>내용</th><th>막히는 것</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="nm">D7 스키마</td>
+          <td>목표 기록을 카테고리 × 일자로 저장하는 테이블 정의. 완료·쉬기·잠금 상태와 연속일수 포함</td>
+          <td>오늘의 목표 · 주간 목표 분석 전체</td>
+        </tr>
+        <tr>
+          <td class="nm">P3b 코칭 지표 계산</td>
+          <td><code>health_sample</code>에서 코칭 계약의 <code>:metrics</code>를 직접 계산하는 처리.
+          결과를 저장할지(새 저장소) 요청마다 계산할지도 함께 결정</td>
+          <td>코칭 239건 중 지표 기반 전부</td>
+        </tr>
+        <tr>
+          <td class="nm">P4 결측 판정</td>
+          <td>문항 선택이 수집 현황을 읽도록 구현. 현재는 의료이력 유무만 분기</td>
+          <td>결측 보완형 문항의 실효성</td>
+        </tr>
+        <tr>
+          <td class="nm">목표 카드 부제 수정</td>
+          <td>“현재 건강 데이터를 바탕으로” → 기기 데이터를 읽지 않으므로 문구 교체</td>
+          <td>화면 문구와 설계의 불일치</td>
+        </tr>
+        <tr>
+          <td class="nm">지표명 통일</td>
+          <td>세 문서의 이름을 하나로. <code>metric_score.metric_key</code> 값까지 함께 교체</td>
+          <td>화면 · 데이터 모델 · 흐름 문서</td>
+        </tr>
+        <tr>
+          <td class="nm">기본 목표 세트 위치</td>
+          <td>D1 계약에 넣을지, 별도 카탈로그로 둘지, 앱 상수로 남길지</td>
+          <td>목표 문구 운영 · 버전 관리</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="srcs">
+  <h2>근거 문서</h2>
+  <ul>
+    <li><code>maiReport_데이터모델_v1.0.0.html</code> v0.1 — D2·D3·D4·D5 필드, 무결성 규칙 R6–R10 (4~5장 결제 도메인은 범위 밖)</li>
+    <li><code>운영DB_테이블_v1.sql</code> (개발팀 전달본 v1) — D1의 실제 DDL, <code>coaching_contract_release</code></li>
+    <li><code>지식코칭_maiReport_전달테이블_설계_claude.md</code> — P5 판정 순서, <code>:metrics</code> 바인딩</li>
+    <li><code>maiReport_policy_goal-lock-and-no-data_v1.0.0.html</code> — P6 잠금 규칙, D7의 “카테고리 × 일자” 서술</li>
+    <li><code>maiReport_서비스_데이터흐름도_v1.0.0.html</code> v0.1 — 이 문서가 대조한 개념도</li>
+  </ul>
+</div>
+
+<footer>maiReport · 저장소 기준 데이터 흐름도 · 내부 검토용 · 2026-09-11</footer>
+
+</main>

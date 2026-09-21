@@ -1,0 +1,311 @@
+<title>기준 범위 레퍼런스</title>
+<meta name="description" content="건강검진 결과 AI 요약 화면의 기준 범위 출처 — 국민건강보험공단 판정기준(건강검진 실시기준 별표 4)을 1차 기준으로, 학회 진료지침을 보조 기준으로 정리하고 프로토타입 적용값을 대조한 문서.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{--ground:#EFF2F7;--surf:#FFFFFF;--surf-2:#F7F9FC;--surf-3:#E8EDF4;--line:#DAE1EB;--ink:#0F1826;--text:#3B4860;--muted:#6C7A8E;--faint:#8D99AB;--accent:#2F6BFF;--accent-soft:#E7EEFF;--stop:#B23A3A;--stop-soft:#FAE9E9;--ok:#1C7A57;--ok-soft:#E3F3EC;--warn:#96650A;--warn-soft:#FBF1D9;--mono:"JetBrains Mono",Consolas,monospace;--sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;--line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;--accent:#7CA1FF;--accent-soft:#1B2740;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;--warn:#E0B061;--warn-soft:#2B2314}}
+:root[data-theme="dark"]{--ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;--line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;--accent:#7CA1FF;--accent-soft:#1B2740;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;--warn:#E0B061;--warn-soft:#2B2314}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);font-size:14.5px;line-height:1.75;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+main{max-width:900px;margin:0 auto;padding:0 26px 80px}
+.masthead{background:var(--surf);border-bottom:1px solid var(--line)}
+.masthead-in{max-width:900px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wordmark{position:relative;color:var(--ink);font-size:18px;font-weight:900;letter-spacing:-.06em;line-height:1}
+.wordmark::after{content:"";position:absolute;right:-6px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.mtag{margin-left:8px;padding-left:14px;border-left:1px solid var(--line);color:var(--muted);font-size:12px}
+.mver{margin-left:auto;color:var(--faint);font-size:11.5px;font-family:var(--mono)}
+.hero{padding:52px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{display:block;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:15px}
+h1{margin:0;color:var(--ink);font-size:clamp(28px,4.4vw,40px);font-weight:900;line-height:1.2;letter-spacing:-.05em;max-width:16ch}
+.lead{margin:20px 0 0;max-width:62ch;font-size:15.5px;line-height:1.8}.lead b{color:var(--ink)}
+section{padding:46px 0;border-bottom:1px solid var(--line)}
+.sec-no{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--faint);letter-spacing:.06em}
+h2{margin:8px 0 0;color:var(--ink);font-size:24px;font-weight:900;letter-spacing:-.04em;line-height:1.32}
+.sub{margin:12px 0 0;max-width:64ch;font-size:14px}
+h3{margin:32px 0 10px;color:var(--ink);font-size:15px;font-weight:700}
+p{margin:0 0 12px}p:last-child{margin-bottom:0}
+code{font-family:var(--mono);font-size:.85em;background:var(--surf-3);padding:1.5px 5px;border-radius:4px;color:var(--ink)}
+b{color:var(--ink);font-weight:700}
+ul{margin:10px 0;padding-left:19px}li{margin-bottom:7px;line-height:1.7}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}a:hover{border-bottom-color:var(--accent)}
+.tbl{margin-top:18px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:var(--surf)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:600px}
+thead th{background:var(--surf-2);color:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--line);color:var(--text);line-height:1.6;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-weight:700;color:var(--ink);white-space:nowrap}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.diff{background:var(--warn-soft)}
+.pill{display:inline-block;padding:2.5px 8px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap}
+.p-ok{background:var(--ok-soft);color:var(--ok)}.p-no{background:var(--stop-soft);color:var(--stop)}.p-wait{background:var(--warn-soft);color:var(--warn)}.p-acc{background:var(--accent-soft);color:var(--accent)}
+.note{margin-top:20px;padding:15px 19px;border-left:3px solid var(--accent);background:var(--surf);border-radius:0 8px 8px 0;font-size:13px}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}.note.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.note-label{display:block;margin-bottom:5px;font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--accent)}
+.note.warn .note-label{color:var(--warn)}.note.ok .note-label{color:var(--ok)}
+.src{font-size:12.5px;color:var(--muted)}
+@media (max-width:520px){main{padding:0 16px 60px}.masthead-in{padding:12px 16px}.mver{margin-left:0;width:100%}}
+</style>
+
+<div class="masthead"><div class="masthead-in">
+  <span class="wordmark">maiReport</span>
+  <span class="mtag">건강검진 결과 AI 요약 · 기준 범위 출처</span>
+  <span class="mver">v1.0 · 2026-09-14</span>
+</div></div>
+
+<main>
+<div class="hero">
+  <span class="eyebrow">Reference</span>
+  <h1>기준 범위 레퍼런스</h1>
+  <p class="lead">항목별 해석 막대와 상태 배지에 쓰는 기준 범위의 출처입니다.
+  <b>1차 기준은 국민건강보험공단 판정기준</b>(건강검진 실시기준 별표 4)입니다. 검진 결과지의 정상A·정상B·질환의심이 이 표로 정해지므로, 화면의 상태가 결과지와 어긋나지 않습니다.
+  학회 진료지침은 공단 표에 없는 세부 구간을 보완하는 <b>보조 기준</b>입니다.</p>
+</div>
+
+<!-- 01 -->
+<section>
+  <span class="sec-no">01</span>
+  <h2>1차 기준 · 국민건강보험공단 판정기준</h2>
+  <p class="sub">보건복지부 고시 「건강검진 실시기준」 [별표 4의 별첨] 검사항목별 판정기준. 원문에서 그대로 옮겼습니다. 정상A = 정상, 정상B(경계) = 자기관리 필요, 질환의심 = 추적검사·진료 필요.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>목표질환</th><th>검사항목</th><th>단위</th><th>정상A</th><th>정상B(경계)</th><th>질환의심</th></tr></thead>
+    <tbody>
+      <tr><td class="k" rowspan="2">고혈압</td><td>혈압 · 수축기</td><td>mmHg</td><td class="num">120 미만 이며</td><td class="num">120~139 또는</td><td class="num">140 이상 또는</td></tr>
+      <tr><td>혈압 · 이완기</td><td>mmHg</td><td class="num">80 미만</td><td class="num">80~89</td><td class="num">90 이상</td></tr>
+      <tr><td class="k" rowspan="2">비만</td><td>BMI</td><td>kg/m²</td><td class="num">18.5~24.9</td><td class="num">25~29.9</td><td class="num">18.5 미만 · 30 이상</td></tr>
+      <tr><td>허리둘레</td><td>cm</td><td class="num">남 90 미만 · 여 85 미만</td><td class="num">남 90 이상 · 여 85 이상</td><td class="num">—</td></tr>
+      <tr><td class="k">당뇨병</td><td>공복혈당</td><td>mg/dL</td><td class="num">100 미만</td><td class="num">100~125</td><td class="num">126 이상</td></tr>
+      <tr><td class="k" rowspan="4">이상지질혈증</td><td>총콜레스테롤</td><td>mg/dL</td><td class="num">200 미만</td><td class="num">200~239</td><td class="num">240 이상</td></tr>
+      <tr><td>HDL 콜레스테롤</td><td>mg/dL</td><td class="num">60 이상</td><td class="num">40~59</td><td class="num">40 미만</td></tr>
+      <tr><td>중성지방</td><td>mg/dL</td><td class="num">150 미만</td><td class="num">150~199</td><td class="num">200 이상</td></tr>
+      <tr><td>LDL 콜레스테롤</td><td>mg/dL</td><td class="num">130 미만</td><td class="num">130~159</td><td class="num">160 이상</td></tr>
+      <tr><td class="k" rowspan="4">간장질환</td><td>AST(SGOT)</td><td>U/L</td><td class="num">40 이하</td><td class="num">41~50</td><td class="num">51 이상</td></tr>
+      <tr><td>ALT(SGPT)</td><td>U/L</td><td class="num">35 이하</td><td class="num">36~45</td><td class="num">46 이상</td></tr>
+      <tr><td>γ-GTP · 남</td><td>U/L</td><td class="num">11~63</td><td class="num">64~77</td><td class="num">78 이상</td></tr>
+      <tr><td>γ-GTP · 여</td><td>U/L</td><td class="num">8~35</td><td class="num">36~45</td><td class="num">46 이상</td></tr>
+      <tr><td class="k" rowspan="3">신장질환</td><td>요단백</td><td>—</td><td class="num">음성(−)</td><td class="num">약양성(±)</td><td class="num">양성(+1) 이상</td></tr>
+      <tr><td>혈청크레아티닌</td><td>mg/dL</td><td class="num">1.5 이하</td><td class="num">—</td><td class="num">1.5 초과</td></tr>
+      <tr><td>eGFR</td><td>mL/min/1.73㎡</td><td class="num">60 이상</td><td class="num">—</td><td class="num">60 미만</td></tr>
+      <tr><td class="k" rowspan="2">빈혈</td><td>혈색소 · 남</td><td>g/dL</td><td class="num">13.0~16.5</td><td class="num">12.0~12.9</td><td class="num">12.0 미만</td></tr>
+      <tr><td>혈색소 · 여</td><td>g/dL</td><td class="num">12.0~15.5</td><td class="num">10.0~11.9</td><td class="num">10.0 미만</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src" style="margin-top:12px">출처: 보건복지부 고시 「건강검진 실시기준」 [별표 4] 일반건강검진 및 의료급여생애전환기검진 결과 판정기준, [별표 4의 별첨] 검사항목별 판정기준 —
+  <a href="https://www.law.go.kr/LSW/flDownload.do?flSeq=160922523&flNm=%5B%EB%B3%84%ED%91%9C+4%5D+%EC%9D%BC%EB%B0%98%EA%B1%B4%EA%B0%95%EA%B2%80%EC%A7%84+%EB%B0%8F+%EC%9D%98%EB%A3%8C%EA%B8%89%EC%97%AC%EC%83%9D%EC%95%A0%EC%A0%84%ED%99%98%EA%B8%B0%EA%B2%80%EC%A7%84+%EA%B2%B0%EA%B3%BC+%ED%8C%90%EC%A0%95%EA%B8%B0%EC%A4%80&bylClsCd=200201">국가법령정보센터 원문(PDF)</a> ·
+  <a href="https://www.nhis.or.kr/lm/lmxsrv/law/lawDetail.do?SEQ=80&LAWGROUP=1">국민건강보험 건강Law · 건강검진 실시기준</a></p>
+
+  <div class="note warn">
+    <span class="note-label">주의</span>
+    <p>이상지질혈증 항목에는 "당뇨병을 동반한 경우 LDL &lt; 100, 의사 판단 시 수정 가능"이라는 단서가 있습니다. 또 결과지의 <b>판정은 검진기관 의사가 최종 확정</b>하므로, 화면의 구간과 결과지 판정이 다를 수 있습니다. 다르면 결과지 판정을 우선 표시합니다.</p>
+  </div>
+</section>
+
+<!-- 02 -->
+<section>
+  <span class="sec-no">02</span>
+  <h2>보조 기준 · 학회 진료지침</h2>
+  <p class="sub">공단 표보다 세분화된 구간이 필요하거나(신장 기능의 60~89 구간, LDL의 적정/매우 높음), 또래 비교와 문구 검토의 근거로 쓰는 지침입니다.</p>
+
+  <h3>혈압 — 대한고혈압학회 진료지침 (2022 제5판)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>분류</th><th>수축기 (mmHg)</th><th></th><th>이완기 (mmHg)</th></tr></thead>
+    <tbody>
+      <tr><td class="k">정상혈압</td><td class="num">&lt;120</td><td>그리고</td><td class="num">&lt;80</td></tr>
+      <tr><td class="k">주의혈압</td><td class="num">120~129</td><td>그리고</td><td class="num">&lt;80</td></tr>
+      <tr><td class="k">고혈압전단계</td><td class="num">130~139</td><td>또는</td><td class="num">80~89</td></tr>
+      <tr><td class="k">고혈압 1기</td><td class="num">140~159</td><td>또는</td><td class="num">90~99</td></tr>
+      <tr><td class="k">고혈압 2기</td><td class="num">≥160</td><td>또는</td><td class="num">≥100</td></tr>
+      <tr><td class="k">수축기단독고혈압</td><td class="num">≥140</td><td>그리고</td><td class="num">&lt;90</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src" style="margin-top:12px">공단 표의 정상B(120~139 또는 80~89)는 학회의 주의혈압 + 고혈압전단계를 합친 구간입니다. 화면은 공단 3구간을 쓰고, 학회 분류는 문구 검토 근거로만 씁니다.
+  출처: <a href="https://www.koreanhypertension.org/reference/guide">대한고혈압학회 진료지침 목록</a> ·
+  <a href="https://www.amc.seoul.kr/asan/healthinfo/disease/diseaseDetail.do?contentId=31322">서울아산병원 질환백과 · 고혈압(분류표 인용)</a> ·
+  <a href="https://www.medifonews.com/news/article.html?no=167011">2022 진료지침 발표 기사</a></p>
+
+  <h3>혈당 — 대한당뇨병학회 진료지침 (2023)</h3>
+  <ul>
+    <li>공복혈당장애(당뇨병전단계): 공복혈장포도당 <b>100~125 mg/dL</b></li>
+    <li>당뇨병 진단: 8시간 이상 공복 혈장포도당 <b>≥126 mg/dL</b>, 또는 당화혈색소 ≥6.5%, 경구당부하 2시간 ≥200, 무작위 혈당 ≥200 + 증상</li>
+  </ul>
+  <p class="src">공단 표와 동일합니다. 출처: <a href="https://www.diabetes.or.kr/bbs/?code=faq&category=B">대한당뇨병학회 FAQ</a> · <a href="https://dm.amc.seoul.kr/asan/depts/dm/K/content.do?menuId=5101">서울아산병원 당뇨병센터 · 진단기준</a></p>
+
+  <h3>지질 — 한국지질·동맥경화학회 이상지질혈증 진료지침 (2022 제5판)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>항목</th><th>적정</th><th>정상</th><th>경계</th><th>높음</th><th>매우 높음</th></tr></thead>
+    <tbody>
+      <tr><td class="k">LDL 콜레스테롤</td><td class="num">&lt;100</td><td class="num">100~129</td><td class="num">130~159</td><td class="num">160~189</td><td class="num">≥190</td></tr>
+      <tr><td class="k">총콜레스테롤</td><td class="num">&lt;200</td><td>—</td><td class="num">200~239</td><td>—</td><td class="num">≥240</td></tr>
+      <tr><td class="k">중성지방</td><td class="num">&lt;150</td><td>—</td><td class="num">150~199</td><td class="num">200~499</td><td class="num">≥500</td></tr>
+      <tr><td class="k">HDL 콜레스테롤</td><td class="num">≥60</td><td>—</td><td>—</td><td class="num">&lt;60 (낮음)</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src" style="margin-top:12px">공단 표의 3구간과 경계값(200/240, 130/160, 150/200, 40/60)이 일치합니다. 학회는 LDL을 5단계로 더 나누고 위험군별 목표치를 따로 둡니다(고위험군 LDL &lt;70 등). 화면은 공단 3구간을 쓰고, 학회 5단계는 향후 "적정" 표기 확장 시 참고합니다.
+  출처: <a href="https://lipid.or.kr/dtp/diagnosis.php">한국지질·동맥경화학회 · 진단</a> · <a href="https://lipid.or.kr/reference/guideline.php">이상지질혈증 진료지침서</a> · <a href="https://www.pharmnews.com/news/articleView.html?idxno=210361">2022 지침 발표 기사</a></p>
+
+  <h3>간 기능 — 검사실 참고치 (질병관리청 국가건강정보포털)</h3>
+  <ul>
+    <li>AST 0~40 IU/L, ALT 0~40 IU/L, γ-GT 남 11~63 · 여 8~35 IU/L. 검사실마다 참고치가 조금씩 다르므로 검사를 시행한 기관의 참고치를 우선합니다.</li>
+    <li>공단 표는 ALT 상한을 35로 두고 정상B 구간(AST 41~50, ALT 36~45, γ-GTP 남 64~77 · 여 36~45)을 따로 정의합니다. <b>화면은 공단 표를 따릅니다.</b></li>
+  </ul>
+  <p class="src">출처: <a href="https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5444">질병관리청 국가건강정보포털 · 간기능검사</a></p>
+
+  <h3>신장 기능 — KDIGO 2024 CKD 가이드라인</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>GFR 분류</th><th>eGFR (mL/min/1.73㎡)</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td class="k">G1</td><td class="num">≥90</td><td>정상 또는 높음</td></tr>
+      <tr><td class="k">G2</td><td class="num">60~89</td><td>경도 감소 (다른 신장 손상 증거 없으면 CKD 아님)</td></tr>
+      <tr><td class="k">G3a</td><td class="num">45~59</td><td>경도~중등도 감소</td></tr>
+      <tr><td class="k">G3b</td><td class="num">30~44</td><td>중등도~중증 감소</td></tr>
+      <tr><td class="k">G4</td><td class="num">15~29</td><td>중증 감소</td></tr>
+      <tr><td class="k">G5</td><td class="num">&lt;15</td><td>신부전</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src" style="margin-top:12px">공단 표는 eGFR 60을 기준으로 2구간(정상 / 질환의심)만 둡니다. 화면의 막대에서 60~89를 "주의"로 칠하는 것은 KDIGO G2를 빌린 <b>보조 표기</b>이며, 카드 배지는 공단 기준(60 미만일 때만 확인 필요)을 따릅니다.
+  출처: <a href="https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf">KDIGO 2024 Clinical Practice Guideline for CKD (PDF)</a> · <a href="https://www.ukkidney.org/health-professionals/information-resources/uk-eckd-guide/ckd-staging">UK Kidney Association · CKD staging</a></p>
+
+  <h3>신체계측 — 대한비만학회 비만 진료지침 (2020 제8판 · 2022 개정)</h3>
+  <ul>
+    <li>BMI: 18.5 미만 저체중 · 18.5~22.9 정상 · <b>23~24.9 비만 전단계(과체중)</b> · 25~29.9 1단계 비만 · 30~34.9 2단계 · ≥35 3단계</li>
+    <li>복부비만(허리둘레): <b>남 ≥90 cm · 여 ≥85 cm</b></li>
+  </ul>
+  <p class="src">공단 표는 BMI 25 이상을 정상B, 30 이상을 질환의심으로 두고 23~24.9는 정상A에 포함합니다. 신체계측 카드의 "관리 필요" 배지는 공단 기준(BMI ≥25 또는 허리둘레 기준 초과)을 따르고, 또래 등수는 성별·연령대 분포표에서 따로 구합니다.
+  출처: <a href="https://general.kosso.or.kr/html/?pmode=obesityDiagnosis">대한비만학회 · 비만 진단기준</a> · <a href="https://general.kosso.or.kr/html/?pmode=BBBS0001300004&smode=view&seq=1429">비만 진단기준에 관한 대한비만학회 성명서</a></p>
+</section>
+
+<!-- 03 -->
+<section>
+  <span class="sec-no">03</span>
+  <h2>프로토타입 적용값 대조</h2>
+  <p class="sub">항목별 해석 막대에 적용한 구간입니다. 초안(v0)과 공단 기준이 달랐던 항목은 <span class="pill p-wait">수정</span>으로 표시했고, 프로토타입은 이 표대로 갱신했습니다.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>검사</th><th>초안(v0)</th><th>적용값(v1 · 공단 기준)</th><th>막대 축</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td class="k">수축기 혈압</td><td class="num">&lt;120 / 120~139 / ≥140</td><td class="num">동일</td><td class="num">90~180</td><td><span class="pill p-ok">일치</span></td></tr>
+      <tr><td class="k">이완기 혈압</td><td class="num">&lt;80 / 80~89 / ≥90</td><td class="num">동일</td><td class="num">50~120</td><td><span class="pill p-ok">일치</span></td></tr>
+      <tr><td class="k">공복혈당</td><td class="num">&lt;100 / 100~125 / ≥126</td><td class="num">동일</td><td class="num">60~200</td><td><span class="pill p-ok">일치</span></td></tr>
+      <tr><td class="k">총콜레스테롤</td><td class="num">&lt;200 / 200~239 / ≥240</td><td class="num">동일</td><td class="num">120~300</td><td><span class="pill p-ok">일치</span></td></tr>
+      <tr><td class="k">LDL</td><td class="num">&lt;130 / 130~159 / ≥160</td><td class="num">동일</td><td class="num">50~220</td><td><span class="pill p-ok">일치</span></td></tr>
+      <tr><td class="k">HDL</td><td class="num">≥60 / 40~59 / &lt;40</td><td class="num">동일</td><td class="num">20~100</td><td><span class="pill p-ok">일치</span> · 방향 반대</td></tr>
+      <tr><td class="k">중성지방</td><td class="num">&lt;150 / 150~199 / ≥200</td><td class="num">동일</td><td class="num">50~300</td><td><span class="pill p-ok">일치</span></td></tr>
+      <tr><td class="k">AST</td><td class="num diff">≤40 / 41~80 / &gt;80</td><td class="num">≤40 / 41~50 / ≥51</td><td class="num">0~100</td><td><span class="pill p-wait">수정</span> 정상B·질환의심 경계</td></tr>
+      <tr><td class="k">ALT</td><td class="num diff">≤40 / 41~80 / &gt;80</td><td class="num">≤35 / 36~45 / ≥46</td><td class="num">0~100</td><td><span class="pill p-wait">수정</span> 상한 35</td></tr>
+      <tr><td class="k">γ-GTP</td><td class="num diff">≤60 / 61~120 / &gt;120</td><td class="num">남 ≤63 / 64~77 / ≥78<br>여 ≤35 / 36~45 / ≥46</td><td class="num">남 0~140 · 여 0~90</td><td><span class="pill p-wait">수정</span> 성별 분기 · 예시 사용자는 여성 기준</td></tr>
+      <tr><td class="k">eGFR</td><td class="num diff">≥90 / 60~89 / &lt;60</td><td class="num">≥60 정상 / &lt;60 확인 필요<br>(60~89는 KDIGO G2 참고 표기)</td><td class="num">30~120</td><td><span class="pill p-wait">수정</span> 배지는 2구간</td></tr>
+      <tr><td class="k">크레아티닌</td><td class="num diff">≤1.2 / 1.2~1.5 / &gt;1.5</td><td class="num">≤1.5 정상 / &gt;1.5 확인 필요</td><td class="num">0.4~2.5</td><td><span class="pill p-wait">수정</span> 2구간</td></tr>
+      <tr><td class="k">혈색소</td><td class="num diff">—</td><td class="num">여 &lt;10 / 10~11.9 / 12~15.5 / 15.6~16.5 / &gt;16.5<br>남 &lt;12 / 12~12.9 / 13~16.5 / 16.6~17.5 / &gt;17.5</td><td class="num">8~20</td><td><span class="pill p-acc">추가</span> 5구간(양쪽 경계)</td></tr>
+      <tr><td class="k">흉부 X선 · 요단백 · B형간염 · 시력 · 청력</td><td class="num diff">—</td><td class="num">결과지 판정 그대로(정상A/정상B/질환의심·재검)</td><td>막대 없음</td><td><span class="pill p-acc">추가</span> "그 밖의 검사 결과"</td></tr>
+      <tr><td class="k">BMI (신체계측 배지)</td><td class="num diff">—</td><td class="num">18.5~24.9 정상 / 25~29.9 관리 필요 / &lt;18.5·≥30 확인 필요</td><td>—</td><td><span class="pill p-acc">추가</span></td></tr>
+      <tr><td class="k">허리둘레 (신체계측 배지)</td><td class="num diff">—</td><td class="num">남 &lt;90 · 여 &lt;85 정상 / 이상 관리 필요</td><td>—</td><td><span class="pill p-acc">추가</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note ok">
+    <span class="note-label">적용 원칙</span>
+    <p>① 결과지에 검진기관 판정이 있으면 그 판정을 배지에 그대로 씁니다. ② 판정이 없는 항목(직접 등록 등)만 위 표로 구간을 정합니다. ③ 검진기관이 결과지에 자체 참고치를 적어 보냈다면 막대의 눈금은 그 참고치를 우선합니다.</p>
+  </div>
+</section>
+
+<!-- 04 -->
+<section>
+  <span class="sec-no">04</span>
+  <h2>또래 등수 분포표 · 출처</h2>
+  <p class="sub">신체계측 카드의 "내 또래 100명 중 N등"은 <b>같은 성별·연령대의 키·체중·BMI·허리둘레 분포</b>에서 내 값의 백분위를 구해 등수로 바꾼 것입니다. 분포표를 만들 수 있는 공개 자료는 네 가지입니다.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>자료</th><th>제공 기관</th><th>담긴 것</th><th>쓰임</th></tr></thead>
+    <tbody>
+      <tr><td class="k">건강검진정보 (원시자료)</td><td>국민건강보험공단 · 공공데이터포털</td><td>수검자 약 100만 명 표본의 성별 · 연령대(5세 단위) · 키 · 체중 · 허리둘레 · 혈압 · 혈당 · 지질 등 검진 항목별 값. 매년 갱신</td><td><span class="pill p-acc">1차</span> 성별·연령대별 백분위를 직접 계산. 검진 수검자 모집단이라 이 화면의 사용자와 같은 집단</td></tr>
+      <tr><td class="k">건강검진통계연보</td><td>국민건강보험공단 · KOSIS</td><td>연도별 성별·연령별 신장·체중·BMI·허리둘레 평균과 구간별 분포(예: BMI 25 이상 비율), 판정 결과 분포</td><td>1차 자료의 검증용. 평균·분포 비율이 계산 결과와 맞는지 대조</td></tr>
+      <tr><td class="k">국민건강영양조사 (KNHANES)</td><td>질병관리청</td><td>가구 표본조사의 검진 원시자료(키·체중·허리둘레 실측). 통계집에 성별·연령별 평균과 비만 유병률. KOSIS에 시도별·연령별·성별 평균 신장·체중 표</td><td><span class="pill p-acc">보조</span> 검진 미수검자를 포함한 전체 인구 기준 분포. 공단 자료와 편차 확인</td></tr>
+      <tr><td class="k">한국인 인체치수조사 (Size Korea)</td><td>국가기술표준원</td><td>5년 주기 실측 인체치수. 성별·연령별 키·몸무게·허리둘레 백분위표 제공</td><td><span class="pill p-acc">보조</span> 키 백분위의 교차 검증. 표본이 작고 조사 주기가 길어 단독 기준으로는 쓰지 않음</td></tr>
+      <tr><td class="k">비만 팩트시트 2025</td><td>대한비만학회</td><td>공단 검진 자료 기반 성별·연령별 비만·복부비만 유병률 추이</td><td>BMI·허리둘레 배지 문구 검토 근거</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>권장 산출 방법</h3>
+  <ul>
+    <li><b>기준 자료</b>: ① 질병관리청 국민건강영양조사(KNHANES) 원시자료(무료, 신장·체중·허리둘레·가중치, 3개년 합산) ② 국민건강보험공단 NHISS 표본연구DB(검진 100만 명 표본, 신청·승인 필요). <span class="pill p-wait">변경</span> 공공데이터포털 "건강검진정보(15007122)"는 2026-09 현재 삭제되어 쓸 수 없다.</li>
+    <li><b>집단 나누기</b>: 성별 × 연령대. 원시자료는 5세 단위이므로 화면에는 10세 단위(20대·30대…)로 합쳐 표본을 키운다. 한 집단 표본이 500명 미만이면 인접 연령대와 합친다.</li>
+    <li><b>백분위 계산</b>: 항목별로 집단 안에서 내 값보다 작은 사람과 같은 사람을 센다. 모든 항목에서 값이 작은 쪽이 1등, 큰 쪽이 100등이다(화면의 5구간 라벨과 같은 방향).</li>
+    <li><b>등수 표기</b>: 백분위를 올림한 정수(1~100). 5구간은 등수를 20으로 나눠 올림한다.</li>
+    <li><b>버전 관리</b>: 분포표는 연 1회 갱신하고, 요약 저장 시 분포표 버전을 함께 기록한다(09장 저장 규칙과 동일).</li>
+    <li><b>한계 고지</b>: 공단 자료는 검진 수검자만 포함하므로 전체 인구와 조금 다를 수 있다. 화면 안내 문구 "동일한 성별·연령대 100명을 기준으로"는 이 한계를 넘어서는 표현을 쓰지 않는다.</li>
+  </ul>
+
+  <h3>산식 (처음 보는 사람용)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>단계</th><th>하는 일</th><th>식 · 규칙</th></tr></thead>
+    <tbody>
+      <tr><td class="k">① 또래 집단</td><td>사용자와 같은 성별, 같은 5세 연령대의 표본 전체(KNHANES는 가중치 적용)</td><td>예: 여성 40~44세 → N명</td></tr>
+      <tr><td class="k">② 세기</td><td>그 집단에서 내 값보다 작은 사람 수 a, 같은 사람 수 b</td><td>정렬 후 계수</td></tr>
+      <tr><td class="k">③ 백분위</td><td>같은 값은 중간에 둔다</td><td class="num">P = (a + 0.5 × b) ÷ N × 100</td></tr>
+      <tr><td class="k">④ 등수</td><td>화면의 "내 또래 100명 중 N등"</td><td class="num">등수 = 올림(P), 0이면 1 → 1~100</td></tr>
+      <tr><td class="k">⑤ 구간</td><td>사람 그림 5개 중 진하게 칠할 위치</td><td class="num">band = 올림(등수 ÷ 20) → 1~5</td></tr>
+    </tbody>
+  </table></div>
+  <p class="mut" style="margin-top:10px"><b>계산 예</b> — 여성 42세, BMI 25.7 (2024 통계연보 Ⅵ-2 실제 값). 여성 40~44세 N = 895,583명, 구간별 인원 18.5 미만 56,655 · 18.5~24.9 605,744 · 25~29.9 170,802 · 30~39.9 59,714 · 40 이상 2,668.
+  25.7보다 작은 사람 a = 56,655 + 605,744 + 170,802 × (25.7 − 25) ÷ 5 = 686,311, 같은 사람 b ≈ 0 → P = 686,311 ÷ 895,583 × 100 = 76.6 → 77등 → band 4 "조금 높은 편이에요". BMI ≥ 25라 배지는 주의 톤.</p>
+  <ul>
+    <li><b>등수의 뜻</b>: 1등 = 값이 가장 작음, 100등 = 가장 큼. 좋고 나쁨이 아니라 위치다. 건강 기준(BMI ≥ 25, 허리둘레 여 ≥ 85 / 남 ≥ 90)은 등수와 별개로 배지 톤에만 반영한다.</li>
+    <li><b>미리 계산</b>: 성별 × 5세 연령대 × 항목마다 1~100 백분위 경계값 100개를 표로 저장해 두고, 사용자 값을 그 표에서 찾는다. 매번 표본 전체를 세지 않는다.</li>
+    <li><b>표본이 적을 때</b>: 집단이 500명 미만이면 인접 연령대와 합치고, 그래도 부족하면 등수를 표시하지 않고 "또래 비교 데이터를 준비 중이에요"로 대체한다.</li>
+    <li><b>자녀 프로필</b>: 성인 검진 표본이 없으므로 질병관리청 소아청소년 성장도표 백분위를 쓴다.</li>
+  </ul>
+  <p class="src">출처:
+    <a href="https://knhanes.kdca.go.kr/knhanes/main.do">질병관리청 · 국민건강영양조사 원시자료 (메뉴: 원시자료 → 다운로드)</a> ·
+    <a href="https://nhiss.nhis.or.kr">국민건강보험공단 · 건강보험자료 공유서비스(NHISS) 표본연구DB</a> ·
+    <a href="https://www.data.go.kr/data/15144521/fileData.do">공공데이터포털 · 직역별 성별 연령별 건강검진정보 (판정 인원수, 검증용)</a> ·
+    <a href="https://kosis.kr/statisticsList/statisticsListIndex.do?vwcd=MT_ZTITLE&menuId=M_01_01&parmTabId=M_01_01&parentId=D.1;D2.2;350_35007.3;">KOSIS · 건강검진통계 목록</a> ·
+    <a href="https://www.nhis.or.kr/nhis/together/wbhaec07000m01.do">국민건강보험 · 건강검진 통계연보</a> ·
+    <a href="https://www.data.go.kr/data/15103039/fileData.do">공공데이터포털 · 건강검진통계연보</a> ·
+    <a href="https://knhanes.kdca.go.kr/knhanes/main.do">질병관리청 · 국민건강영양조사</a> ·
+    <a href="https://kosis.kr/statHtml/statHtml.do?orgId=350&tblId=DT_35007_N130">KOSIS · 시도별 연령별 성별 평균 신장</a> ·
+    <a href="https://kosis.kr/statHtml/statHtml.do?orgId=350&tblId=DT_35007_N132">KOSIS · 시도별 연령별 성별 평균 체중</a> ·
+    <a href="https://sizekorea.kr/page/data/1_1">Size Korea · 한국인 인체치수조사</a> ·
+    <a href="https://general.kosso.or.kr/html/user/core/view/reaction/main/kosso/inc/data/2025_Obesity_Fact_sheet_web_kor.pdf">대한비만학회 · 2025 비만 팩트시트 (PDF)</a></p>
+</section>
+
+<!-- 06 -->
+<section>
+  <span class="sec-no">06</span>
+  <h2>참조 데이터 · 연령별 또래 등수 표 (2024 건강검진통계연보)</h2>
+  <p class="sub">국민건강보험공단 「2024 건강검진통계연보」 제6편 검진성적(Ⅵ-2 연령별 체질량 분포, Ⅵ-4 연령별 허리둘레 분포, Ⅵ-38·40 평균 신장·체중)에서 계산한 <b>1차 참조표</b>입니다. 일반건강검진 수검자 약 1,750만 명 집계라 표본이 충분하지만, 구간별 인원수 집계이므로 구간 안은 선형보간입니다. 국민건강영양조사 원시자료로 다시 계산하기 전까지 이 표를 씁니다.</p>
+  <div class="note ok"><span class="note-label">읽는 법</span><p>P20 = 그 집단에서 값이 작은 쪽 20% 지점. 화면의 5구간은 P20 · P40 · P60 · P80이 경계입니다. 예: 여성 40~44세 BMI 25.7 → P60(23.7)과 P80(26.6) 사이 → 약 74등 → band 4 "조금 높은 편이에요". 허리둘레 86.0 → P80(83.0)과 P90(88.9) 사이 → 약 85등 → band 5.</p></div>
+  <h3>BMI (kg/m²) · 성별 × 5세 연령대</h3>
+  <div class="tbl"><table><thead><tr><th>연령대</th><th>성별</th><th>표본수</th><th>P20 (1~20등 상한)</th><th>P40</th><th>P60</th><th>P80 (81~100등 하한)</th><th>중앙값 P50</th></tr></thead><tbody><tr><td class="k">19세이하</td><td>남</td><td class="num">5723</td><td class="num">20.2</td><td class="num">22.6</td><td class="num">25.1</td><td class="num">29</td><td class="num">23.8</td></tr><tr><td class="k">19세이하</td><td>여</td><td class="num">2930</td><td class="num">19.3</td><td class="num">21.4</td><td class="num">23.4</td><td class="num">26.4</td><td class="num">22.4</td></tr><tr><td class="k">20~24세</td><td>남</td><td class="num">232290</td><td class="num">20.3</td><td class="num">22.7</td><td class="num">25.1</td><td class="num">28.6</td><td class="num">23.9</td></tr><tr><td class="k">20~24세</td><td>여</td><td class="num">312274</td><td class="num">19.1</td><td class="num">21</td><td class="num">23</td><td class="num">24.9</td><td class="num">22</td></tr><tr><td class="k">25~29세</td><td>남</td><td class="num">626802</td><td class="num">20.9</td><td class="num">23.5</td><td class="num">26.2</td><td class="num">29</td><td class="num">24.8</td></tr><tr><td class="k">25~29세</td><td>여</td><td class="num">577951</td><td class="num">19.4</td><td class="num">21.2</td><td class="num">23.1</td><td class="num">25</td><td class="num">22.2</td></tr><tr><td class="k">30~34세</td><td>남</td><td class="num">923035</td><td class="num">21.3</td><td class="num">24.3</td><td class="num">26.9</td><td class="num">29.4</td><td class="num">25.6</td></tr><tr><td class="k">30~34세</td><td>여</td><td class="num">715175</td><td class="num">19.5</td><td class="num">21.5</td><td class="num">23.4</td><td class="num">25.9</td><td class="num">22.4</td></tr><tr><td class="k">35~39세</td><td>남</td><td class="num">771493</td><td class="num">21.6</td><td class="num">24.9</td><td class="num">27.2</td><td class="num">29.5</td><td class="num">26.1</td></tr><tr><td class="k">35~39세</td><td>여</td><td class="num">528021</td><td class="num">19.7</td><td class="num">21.7</td><td class="num">23.6</td><td class="num">26.7</td><td class="num">22.7</td></tr><tr><td class="k">40~44세</td><td>남</td><td class="num">1102746</td><td class="num">21.5</td><td class="num">24.7</td><td class="num">27</td><td class="num">29.3</td><td class="num">25.9</td></tr><tr><td class="k">40~44세</td><td>여</td><td class="num">895583</td><td class="num">19.8</td><td class="num">21.7</td><td class="num">23.7</td><td class="num">26.6</td><td class="num">22.7</td></tr><tr><td class="k">45~49세</td><td>남</td><td class="num">893962</td><td class="num">21.4</td><td class="num">24.3</td><td class="num">26.7</td><td class="num">29</td><td class="num">25.6</td></tr><tr><td class="k">45~49세</td><td>여</td><td class="num">714506</td><td class="num">19.9</td><td class="num">21.9</td><td class="num">23.8</td><td class="num">26.7</td><td class="num">22.8</td></tr><tr><td class="k">50~54세</td><td>남</td><td class="num">1122396</td><td class="num">21.1</td><td class="num">23.9</td><td class="num">26.3</td><td class="num">28.6</td><td class="num">25.2</td></tr><tr><td class="k">50~54세</td><td>여</td><td class="num">1050737</td><td class="num">20</td><td class="num">21.9</td><td class="num">23.8</td><td class="num">26.7</td><td class="num">22.9</td></tr><tr><td class="k">55~59세</td><td>남</td><td class="num">882086</td><td class="num">20.9</td><td class="num">23.5</td><td class="num">26</td><td class="num">28.3</td><td class="num">24.8</td></tr><tr><td class="k">55~59세</td><td>여</td><td class="num">869857</td><td class="num">20.2</td><td class="num">22.1</td><td class="num">24.1</td><td class="num">27.1</td><td class="num">23.1</td></tr><tr><td class="k">60~64세</td><td>남</td><td class="num">951102</td><td class="num">20.7</td><td class="num">23.1</td><td class="num">25.5</td><td class="num">28</td><td class="num">24.3</td></tr><tr><td class="k">60~64세</td><td>여</td><td class="num">1023357</td><td class="num">20.2</td><td class="num">22.2</td><td class="num">24.2</td><td class="num">27.3</td><td class="num">23.2</td></tr><tr><td class="k">65~69세</td><td>남</td><td class="num">626911</td><td class="num">20.6</td><td class="num">23</td><td class="num">25.3</td><td class="num">27.9</td><td class="num">24.1</td></tr><tr><td class="k">65~69세</td><td>여</td><td class="num">657664</td><td class="num">20.3</td><td class="num">22.5</td><td class="num">24.6</td><td class="num">27.6</td><td class="num">23.5</td></tr><tr><td class="k">70~74세</td><td>남</td><td class="num">515549</td><td class="num">20.5</td><td class="num">22.8</td><td class="num">25</td><td class="num">27.7</td><td class="num">23.9</td></tr><tr><td class="k">70~74세</td><td>여</td><td class="num">568333</td><td class="num">20.5</td><td class="num">22.7</td><td class="num">25</td><td class="num">27.9</td><td class="num">23.9</td></tr><tr><td class="k">75~79세</td><td>남</td><td class="num">228794</td><td class="num">20.4</td><td class="num">22.6</td><td class="num">24.8</td><td class="num">27.5</td><td class="num">23.7</td></tr><tr><td class="k">75~79세</td><td>여</td><td class="num">246721</td><td class="num">20.5</td><td class="num">22.8</td><td class="num">25.2</td><td class="num">28</td><td class="num">24</td></tr><tr><td class="k">80~84세</td><td>남</td><td class="num">164332</td><td class="num">20.2</td><td class="num">22.3</td><td class="num">24.3</td><td class="num">27.2</td><td class="num">23.3</td></tr><tr><td class="k">80~84세</td><td>여</td><td class="num">192353</td><td class="num">20.4</td><td class="num">22.7</td><td class="num">25.1</td><td class="num">27.9</td><td class="num">23.9</td></tr><tr><td class="k">85세이상</td><td>남</td><td class="num">44465</td><td class="num">19.9</td><td class="num">21.8</td><td class="num">23.8</td><td class="num">26.4</td><td class="num">22.8</td></tr><tr><td class="k">85세이상</td><td>여</td><td class="num">62933</td><td class="num">19.7</td><td class="num">21.8</td><td class="num">24</td><td class="num">27</td><td class="num">22.9</td></tr></tbody></table></div>
+  <p class="mut" style="margin-top:8px">원 구간: 18.5 미만 / 18.5~24.9 / 25.0~29.9 / 30.0~39.9 / 40 이상. 구간이 넓어(특히 18.5~24.9) P20~P60은 보간 오차가 ±0.5 정도 있을 수 있습니다.</p>
+  <h3>허리둘레 (cm) · 성별 × 5세 연령대</h3>
+  <div class="tbl"><table><thead><tr><th>연령대</th><th>성별</th><th>표본수</th><th>P20 (1~20등 상한)</th><th>P40</th><th>P60</th><th>P80 (81~100등 하한)</th><th>중앙값 P50</th></tr></thead><tbody><tr><td class="k">19세이하</td><td>남</td><td class="num">5725</td><td class="num">65.6</td><td class="num">75.7</td><td class="num">82.4</td><td class="num">91.4</td><td class="num">79.1</td></tr><tr><td class="k">19세이하</td><td>여</td><td class="num">2929</td><td class="num">60.5</td><td class="num">66.1</td><td class="num">71.6</td><td class="num">78.6</td><td class="num">68.8</td></tr><tr><td class="k">20~24세</td><td>남</td><td class="num">232371</td><td class="num">67.9</td><td class="num">77.6</td><td class="num">83.2</td><td class="num">90.6</td><td class="num">80.5</td></tr><tr><td class="k">20~24세</td><td>여</td><td class="num">312312</td><td class="num">60.2</td><td class="num">65.4</td><td class="num">70.6</td><td class="num">76.8</td><td class="num">68</td></tr><tr><td class="k">25~29세</td><td>남</td><td class="num">626992</td><td class="num">75.2</td><td class="num">80.8</td><td class="num">85.6</td><td class="num">92.6</td><td class="num">83.2</td></tr><tr><td class="k">25~29세</td><td>여</td><td class="num">577266</td><td class="num">60.3</td><td class="num">65.7</td><td class="num">71</td><td class="num">77.8</td><td class="num">68.4</td></tr><tr><td class="k">30~34세</td><td>남</td><td class="num">923367</td><td class="num">77.8</td><td class="num">83.1</td><td class="num">88</td><td class="num">94.6</td><td class="num">85.5</td></tr><tr><td class="k">30~34세</td><td>여</td><td class="num">710787</td><td class="num">60.9</td><td class="num">66.8</td><td class="num">72.6</td><td class="num">80.4</td><td class="num">69.7</td></tr><tr><td class="k">35~39세</td><td>남</td><td class="num">771715</td><td class="num">80</td><td class="num">84.9</td><td class="num">89.6</td><td class="num">96.1</td><td class="num">87.3</td></tr><tr><td class="k">35~39세</td><td>여</td><td class="num">525956</td><td class="num">61.5</td><td class="num">68.1</td><td class="num">74.6</td><td class="num">82.7</td><td class="num">71.3</td></tr><tr><td class="k">40~44세</td><td>남</td><td class="num">1102916</td><td class="num">80.4</td><td class="num">85.2</td><td class="num">89.6</td><td class="num">95.6</td><td class="num">87.4</td></tr><tr><td class="k">40~44세</td><td>여</td><td class="num">895355</td><td class="num">61.8</td><td class="num">68.6</td><td class="num">75.4</td><td class="num">83</td><td class="num">72</td></tr><tr><td class="k">45~49세</td><td>남</td><td class="num">894022</td><td class="num">80.2</td><td class="num">84.8</td><td class="num">89</td><td class="num">94.5</td><td class="num">86.9</td></tr><tr><td class="k">45~49세</td><td>여</td><td class="num">714547</td><td class="num">62.1</td><td class="num">69.3</td><td class="num">76.3</td><td class="num">83.3</td><td class="num">72.8</td></tr><tr><td class="k">50~54세</td><td>남</td><td class="num">1122442</td><td class="num">80</td><td class="num">84.3</td><td class="num">88.5</td><td class="num">93.7</td><td class="num">86.4</td></tr><tr><td class="k">50~54세</td><td>여</td><td class="num">1050784</td><td class="num">62.6</td><td class="num">70.2</td><td class="num">77.1</td><td class="num">83.6</td><td class="num">73.9</td></tr><tr><td class="k">55~59세</td><td>남</td><td class="num">882130</td><td class="num">79.7</td><td class="num">84.1</td><td class="num">88.2</td><td class="num">93.2</td><td class="num">86.2</td></tr><tr><td class="k">55~59세</td><td>여</td><td class="num">869892</td><td class="num">63.9</td><td class="num">72.7</td><td class="num">79</td><td class="num">84.7</td><td class="num">76.3</td></tr><tr><td class="k">60~64세</td><td>남</td><td class="num">951131</td><td class="num">79.6</td><td class="num">84</td><td class="num">88.1</td><td class="num">93</td><td class="num">86.1</td></tr><tr><td class="k">60~64세</td><td>여</td><td class="num">1023381</td><td class="num">65.3</td><td class="num">75.3</td><td class="num">80.4</td><td class="num">85.8</td><td class="num">77.8</td></tr><tr><td class="k">65~69세</td><td>남</td><td class="num">626942</td><td class="num">80</td><td class="num">84.3</td><td class="num">88.4</td><td class="num">93.3</td><td class="num">86.4</td></tr><tr><td class="k">65~69세</td><td>여</td><td class="num">657684</td><td class="num">67.4</td><td class="num">77</td><td class="num">81.9</td><td class="num">87.4</td><td class="num">79.6</td></tr><tr><td class="k">70~74세</td><td>남</td><td class="num">515579</td><td class="num">80.1</td><td class="num">84.7</td><td class="num">88.7</td><td class="num">93.7</td><td class="num">86.7</td></tr><tr><td class="k">70~74세</td><td>여</td><td class="num">568352</td><td class="num">70.8</td><td class="num">79</td><td class="num">83.6</td><td class="num">89</td><td class="num">81.4</td></tr><tr><td class="k">75~79세</td><td>남</td><td class="num">228808</td><td class="num">80.1</td><td class="num">84.9</td><td class="num">89</td><td class="num">94</td><td class="num">86.9</td></tr><tr><td class="k">75~79세</td><td>여</td><td class="num">246729</td><td class="num">73.4</td><td class="num">80.3</td><td class="num">84.7</td><td class="num">90</td><td class="num">82.5</td></tr><tr><td class="k">80~84세</td><td>남</td><td class="num">164346</td><td class="num">79.5</td><td class="num">84.6</td><td class="num">88.9</td><td class="num">94.1</td><td class="num">86.8</td></tr><tr><td class="k">80~84세</td><td>여</td><td class="num">192369</td><td class="num">74.6</td><td class="num">81</td><td class="num">85.4</td><td class="num">91</td><td class="num">83.1</td></tr><tr><td class="k">85세이상</td><td>남</td><td class="num">44469</td><td class="num">77.5</td><td class="num">83.4</td><td class="num">88.1</td><td class="num">93.5</td><td class="num">85.8</td></tr><tr><td class="k">85세이상</td><td>여</td><td class="num">63002</td><td class="num">69.9</td><td class="num">79.3</td><td class="num">84.1</td><td class="num">89.9</td><td class="num">81.8</td></tr></tbody></table></div>
+  <p class="mut" style="margin-top:8px">원 구간: 75 미만 / 75~79 / … / 105~109 / 110 이상(5cm 간격). 여성 젊은 층은 절반 이상이 "75 미만" 한 구간에 몰려 P20·P40이 보간값(하한 55cm 가정)이므로 참고만 하고, 원시자료로 보정이 필요합니다.</p>
+<h3>그 밖의 수치 검사 13항목 · 성별 × 5세 연령대 (P20 / P50 / P80)</h3><p class="mut">화면의 등수에는 신체계측 4개만 쓰지만, 검사 수치도 또래 분포를 참고할 수 있도록 함께 뽑았습니다. 전체 P5~P95와 백분위 1~100은 <code>또래등수_참조표_전항목_2024_v1.0.0.xlsx</code>에 있습니다. 표는 남/여 순, 값은 P20 · P50 · P80.</p><div class="tbl"><table><thead><tr><th>연령대</th><th>성별</th><th>수축기혈압</th><th>이완기혈압</th><th>공복혈당</th><th>총콜레스테롤</th><th>HDL</th><th>중성지방</th><th>LDL</th><th>AST</th><th>ALT</th><th>감마지티피</th><th>크레아티닌</th><th>eGFR</th><th>혈색소</th></tr></thead><tbody><tr><td class="k">19세이하</td><td>남</td><td class="num">111.1 · <b>119.3</b> · 130.6</td><td class="num">55 · <b>72.4</b> · 79.8</td><td class="num">69.6 · <b>84</b> · 98.3</td><td class="num">100 · <b>100</b> · 100</td><td class="num">15 · <b>15</b> · 15</td><td class="num">20 · <b>20</b> · 20</td><td class="num">30 · <b>30</b> · 30</td><td class="num">11.1 · <b>20.2</b> · 29.3</td><td class="num">12.3 · <b>23.3</b> · 34.3</td><td class="num">16 · <b>24.9</b> · 33.9</td><td class="num">0.7 · <b>1</b> · 1.1</td><td class="num">103.5 · <b>121.2</b> · 138.8</td><td class="num">14.6 · <b>15.5</b> · 16.3</td></tr><tr><td class="k">19세이하</td><td>여</td><td class="num">94.1 · <b>112</b> · 120.9</td><td class="num">50.6 · <b>66.5</b> · 77.2</td><td class="num">69.4 · <b>83.4</b> · 97.5</td><td class="num">100 · <b>100</b> · 100</td><td class="num">15 · <b>15</b> · 15</td><td class="num">20 · <b>20</b> · 20</td><td class="num">30 · <b>30</b> · 30</td><td class="num">10.5 · <b>18.6</b> · 26.8</td><td class="num">11.5 · <b>21.2</b> · 30.9</td><td class="num">11.5 · <b>21</b> · 30.6</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">104.3 · <b>121.9</b> · 139.4</td><td class="num">12.3 · <b>13.2</b> · 13.9</td></tr><tr><td class="k">20~24세</td><td>남</td><td class="num">111.2 · <b>120</b> · 131.1</td><td class="num">56.6 · <b>73.4</b> · 81.4</td><td class="num">69.6 · <b>84.1</b> · 98.6</td><td class="num">156 · <b>181.7</b> · 211.3</td><td class="num">43.8 · <b>53.9</b> · 65.3</td><td class="num">58.8 · <b>90.4</b> · 145.1</td><td class="num">81 · <b>107</b> · 132.7</td><td class="num">11.3 · <b>20.7</b> · 30.2</td><td class="num">12.7 · <b>24.4</b> · 36</td><td class="num">16.4 · <b>26.1</b> · 35.7</td><td class="num">0.8 · <b>1</b> · 1.1</td><td class="num">96.1 · <b>117.1</b> · 137</td><td class="num">14.7 · <b>15.6</b> · 16.4</td></tr><tr><td class="k">20~24세</td><td>여</td><td class="num">93.8 · <b>111.8</b> · 120.6</td><td class="num">50.8 · <b>67</b> · 77.4</td><td class="num">68.9 · <b>82.3</b> · 95.7</td><td class="num">100 · <b>100</b> · 100</td><td class="num">15 · <b>15</b> · 15</td><td class="num">20 · <b>20</b> · 20</td><td class="num">30 · <b>30</b> · 30</td><td class="num">10.5 · <b>18.7</b> · 26.9</td><td class="num">11.5 · <b>21.2</b> · 30.9</td><td class="num">10.6 · <b>20.3</b> · 30.5</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">104.5 · <b>121.7</b> · 138.8</td><td class="num">12.4 · <b>13.3</b> · 14</td></tr><tr><td class="k">25~29세</td><td>남</td><td class="num">112.1 · <b>121.4</b> · 132.7</td><td class="num">60.4 · <b>74.9</b> · 83.6</td><td class="num">70.2 · <b>85.6</b> · 101.1</td><td class="num">165.4 · <b>192.4</b> · 222.9</td><td class="num">43.5 · <b>53.7</b> · 65.6</td><td class="num">63.3 · <b>98.6</b> · 167.2</td><td class="num">87.4 · <b>115</b> · 144.6</td><td class="num">11.5 · <b>21.3</b> · 31.4</td><td class="num">13.2 · <b>25.5</b> · 40.5</td><td class="num">17.3 · <b>28</b> · 44.3</td><td class="num">0.8 · <b>1</b> · 1.1</td><td class="num">94.6 · <b>116.1</b> · 136.5</td><td class="num">14.7 · <b>15.5</b> · 16.3</td></tr><tr><td class="k">25~29세</td><td>여</td><td class="num">94.3 · <b>112.3</b> · 121.5</td><td class="num">51.4 · <b>68.6</b> · 78</td><td class="num">69.1 · <b>82.8</b> · 96.4</td><td class="num">100 · <b>100</b> · 100</td><td class="num">15 · <b>15</b> · 15</td><td class="num">20 · <b>20</b> · 20</td><td class="num">30 · <b>30</b> · 30</td><td class="num">10.5 · <b>18.8</b> · 27.1</td><td class="num">11.5 · <b>21.3</b> · 31</td><td class="num">10.7 · <b>20.6</b> · 30.9</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">103.1 · <b>120.7</b> · 138.4</td><td class="num">12.4 · <b>13.3</b> · 14.1</td></tr><tr><td class="k">30~34세</td><td>남</td><td class="num">112.6 · <b>122.5</b> · 134</td><td class="num">64.8 · <b>76.4</b> · 85.4</td><td class="num">71.2 · <b>87.9</b> · 104.1</td><td class="num">172.7 · <b>201.5</b> · 233.8</td><td class="num">42.8 · <b>52.7</b> · 64.7</td><td class="num">68.4 · <b>112.9</b> · 189.3</td><td class="num">94.6 · <b>121.6</b> · 152.1</td><td class="num">11.8 · <b>22.1</b> · 33.9</td><td class="num">13.8 · <b>27</b> · 45.1</td><td class="num">18.3 · <b>30.2</b> · 54.7</td><td class="num">0.8 · <b>1</b> · 1.1</td><td class="num">87.2 · <b>106.5</b> · 132.6</td><td class="num">14.6 · <b>15.5</b> · 16.3</td></tr><tr><td class="k">30~34세</td><td>여</td><td class="num">94.7 · <b>112.7</b> · 122.9</td><td class="num">51.9 · <b>69.9</b> · 78.7</td><td class="num">69.4 · <b>83.5</b> · 97.6</td><td class="num">100 · <b>100</b> · 100</td><td class="num">15 · <b>15</b> · 15</td><td class="num">20 · <b>20</b> · 20</td><td class="num">30 · <b>30</b> · 30</td><td class="num">10.6 · <b>18.9</b> · 27.3</td><td class="num">11.6 · <b>21.4</b> · 31.3</td><td class="num">10.8 · <b>21</b> · 31.4</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">92.4 · <b>114.2</b> · 135.8</td><td class="num">12.4 · <b>13.3</b> · 14.1</td></tr><tr><td class="k">35~39세</td><td>남</td><td class="num">113.4 · <b>124</b> · 135.3</td><td class="num">70.4 · <b>78.2</b> · 87</td><td class="num">72.5 · <b>91.3</b> · 106.9</td><td class="num">176.8 · <b>206.7</b> · 238.9</td><td class="num">42 · <b>51.4</b> · 63.2</td><td class="num">74.3 · <b>125.8</b> · 212.9</td><td class="num">98.1 · <b>125.1</b> · 155.6</td><td class="num">12 · <b>22.6</b> · 35.1</td><td class="num">14.3 · <b>28.2</b> · 47.6</td><td class="num">19.3 · <b>32.6</b> · 61.8</td><td class="num">0.8 · <b>1</b> · 1.1</td><td class="num">85.4 · <b>102.4</b> · 131</td><td class="num">14.6 · <b>15.5</b> · 16.3</td></tr><tr><td class="k">35~39세</td><td>여</td><td class="num">96.4 · <b>113.9</b> · 125.2</td><td class="num">53.2 · <b>71.3</b> · 79.9</td><td class="num">69.9 · <b>84.7</b> · 99.5</td><td class="num">100 · <b>100</b> · 100</td><td class="num">15 · <b>15</b> · 15</td><td class="num">20 · <b>20</b> · 20</td><td class="num">30 · <b>30</b> · 30</td><td class="num">10.6 · <b>19</b> · 27.5</td><td class="num">11.6 · <b>21.5</b> · 31.4</td><td class="num">11.5 · <b>21.8</b> · 32.2</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">92.4 · <b>114.2</b> · 135.7</td><td class="num">12.3 · <b>13.3</b> · 14</td></tr><tr><td class="k">40~44세</td><td>남</td><td class="num">113.7 · <b>124.5</b> · 135.9</td><td class="num">71.2 · <b>79.5</b> · 88</td><td class="num">74 · <b>94.9</b> · 109.2</td><td class="num">176.9 · <b>209.5</b> · 243.6</td><td class="num">41.9 · <b>51.2</b> · 63.2</td><td class="num">80.2 · <b>135.9</b> · 234.2</td><td class="num">94.7 · <b>126</b> · 157.5</td><td class="num">12.3 · <b>23.2</b> · 36.3</td><td class="num">14.3 · <b>28.3</b> · 46.8</td><td class="num">20.2 · <b>34.7</b> · 67.8</td><td class="num">0.8 · <b>1</b> · 1.1</td><td class="num">84.9 · <b>101.3</b> · 130.5</td><td class="num">14.5 · <b>15.5</b> · 16.4</td></tr><tr><td class="k">40~44세</td><td>여</td><td class="num">98.7 · <b>115.4</b> · 127.5</td><td class="num">54.9 · <b>72.7</b> · 82</td><td class="num">70.4 · <b>86</b> · 101.9</td><td class="num">172.1 · <b>199.5</b> · 230.5</td><td class="num">52.2 · <b>64.5</b> · 78.2</td><td class="num">56.7 · <b>84.9</b> · 133.2</td><td class="num">88 · <b>115.7</b> · 145.6</td><td class="num">10.7 · <b>19.3</b> · 27.9</td><td class="num">11.6 · <b>21.6</b> · 31.5</td><td class="num">12.6 · <b>22.7</b> · 32.9</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">89.4 · <b>113.3</b> · 135.3</td><td class="num">12.1 · <b>13.2</b> · 14</td></tr><tr><td class="k">45~49세</td><td>남</td><td class="num">113.8 · <b>124.8</b> · 136.2</td><td class="num">71.7 · <b>80.1</b> · 88.2</td><td class="num">75.7 · <b>99.4</b> · 114.1</td><td class="num">169.9 · <b>206.2</b> · 241.3</td><td class="num">42 · <b>51.4</b> · 63.5</td><td class="num">83.1 · <b>138.9</b> · 236.8</td><td class="num">86.4 · <b>121.7</b> · 155.3</td><td class="num">12.3 · <b>23.1</b> · 36</td><td class="num">14 · <b>27.4</b> · 44.2</td><td class="num">20.4 · <b>35.1</b> · 67.9</td><td class="num">0.8 · <b>1</b> · 1.1</td><td class="num">81.4 · <b>99.4</b> · 129.6</td><td class="num">14.4 · <b>15.4</b> · 16.3</td></tr><tr><td class="k">45~49세</td><td>여</td><td class="num">102.8 · <b>117.6</b> · 130.1</td><td class="num">57.1 · <b>74</b> · 83.7</td><td class="num">71.1 · <b>87.7</b> · 104.4</td><td class="num">175.7 · <b>205.4</b> · 237.3</td><td class="num">52.1 · <b>64.5</b> · 78.6</td><td class="num">59.4 · <b>89.1</b> · 140.5</td><td class="num">90.4 · <b>119.4</b> · 150.7</td><td class="num">10.8 · <b>19.6</b> · 28.3</td><td class="num">11.7 · <b>21.7</b> · 31.7</td><td class="num">13.1 · <b>23.2</b> · 33.3</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">87.5 · <b>112.5</b> · 135</td><td class="num">12.1 · <b>13.2</b> · 14.1</td></tr><tr><td class="k">50~54세</td><td>남</td><td class="num">113.9 · <b>125.2</b> · 136.7</td><td class="num">71.7 · <b>80.1</b> · 88.2</td><td class="num">77.3 · <b>101.5</b> · 118.3</td><td class="num">164 · <b>201.6</b> · 237.7</td><td class="num">42.2 · <b>51.7</b> · 63.8</td><td class="num">81 · <b>134.9</b> · 224.2</td><td class="num">81.3 · <b>117.7</b> · 152.9</td><td class="num">12.4 · <b>23.4</b> · 36.3</td><td class="num">13.6 · <b>26.5</b> · 41.8</td><td class="num">20.1 · <b>34.4</b> · 64.8</td><td class="num">0.8 · <b>1</b> · 1.1</td><td class="num">76.2 · <b>91</b> · 115.3</td><td class="num">14.4 · <b>15.3</b> · 16.3</td></tr><tr><td class="k">50~54세</td><td>여</td><td class="num">107.2 · <b>119.6</b> · 133</td><td class="num">59.2 · <b>75</b> · 84.6</td><td class="num">72 · <b>89.9</b> · 106.7</td><td class="num">180 · <b>213.1</b> · 248.7</td><td class="num">52.2 · <b>64.6</b> · 78.9</td><td class="num">61.1 · <b>92.6</b> · 145.1</td><td class="num">93.8 · <b>125.5</b> · 157.9</td><td class="num">11.3 · <b>20.7</b> · 30.1</td><td class="num">11.9 · <b>22.3</b> · 32.8</td><td class="num">14.5 · <b>24.5</b> · 34.4</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">83.2 · <b>98.9</b> · 129.1</td><td class="num">12.4 · <b>13.4</b> · 14.3</td></tr><tr><td class="k">55~59세</td><td>남</td><td class="num">114.4 · <b>126.1</b> · 137.4</td><td class="num">71.5 · <b>79.7</b> · 87.9</td><td class="num">78.9 · <b>103.1</b> · 121.3</td><td class="num">157.8 · <b>195.8</b> · 233.2</td><td class="num">42.1 · <b>51.6</b> · 63.8</td><td class="num">77.7 · <b>129.2</b> · 206.8</td><td class="num">77.2 · <b>113.4</b> · 149.6</td><td class="num">12.3 · <b>23.3</b> · 36</td><td class="num">13.2 · <b>25.5</b> · 39.2</td><td class="num">19.5 · <b>32.8</b> · 60.7</td><td class="num">0.8 · <b>1</b> · 1.1</td><td class="num">76.1 · <b>88.6</b> · 98.5</td><td class="num">14.2 · <b>15.2</b> · 16.1</td></tr><tr><td class="k">55~59세</td><td>여</td><td class="num">110.7 · <b>121.9</b> · 134.8</td><td class="num">60.7 · <b>75.4</b> · 84.8</td><td class="num">73.5 · <b>93.7</b> · 109.3</td><td class="num">173.2 · <b>211.6</b> · 249.8</td><td class="num">50.8 · <b>62.5</b> · 76.7</td><td class="num">62.8 · <b>96</b> · 148.7</td><td class="num">88.8 · <b>125.3</b> · 159.8</td><td class="num">11.7 · <b>21.7</b> · 32.4</td><td class="num">12.1 · <b>22.8</b> · 33.5</td><td class="num">15.6 · <b>25.2</b> · 34.8</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">82.2 · <b>94.4</b> · 122.5</td><td class="num">12.6 · <b>13.5</b> · 14.4</td></tr><tr><td class="k">60~64세</td><td>남</td><td class="num">115.1 · <b>127.3</b> · 138.3</td><td class="num">70.7 · <b>78.6</b> · 87.2</td><td class="num">79.7 · <b>103.9</b> · 122.9</td><td class="num">148.2 · <b>186.3</b> · 224.4</td><td class="num">42 · <b>51.8</b> · 64.2</td><td class="num">72.6 · <b>119.4</b> · 188.1</td><td class="num">71.4 · <b>106</b> · 143.3</td><td class="num">12.5 · <b>23.8</b> · 36.8</td><td class="num">13 · <b>25</b> · 37.8</td><td class="num">18.9 · <b>31.4</b> · 56.6</td><td class="num">0.8 · <b>1</b> · 1.1</td><td class="num">71.1 · <b>86.3</b> · 96.6</td><td class="num">14.1 · <b>15.1</b> · 16</td></tr><tr><td class="k">60~64세</td><td>여</td><td class="num">112.5 · <b>124.6</b> · 137</td><td class="num">60.9 · <b>75.4</b> · 84.7</td><td class="num">74.5 · <b>96.2</b> · 112.1</td><td class="num">161.5 · <b>199.5</b> · 239.3</td><td class="num">49.2 · <b>60.4</b> · 74.4</td><td class="num">64 · <b>97.8</b> · 149.5</td><td class="num">79.3 · <b>115</b> · 153.5</td><td class="num">12 · <b>22.5</b> · 34.4</td><td class="num">12.1 · <b>22.8</b> · 33.5</td><td class="num">15.6 · <b>25</b> · 34.3</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">73 · <b>87.2</b> · 97.5</td><td class="num">12.6 · <b>13.5</b> · 14.4</td></tr><tr><td class="k">65~69세</td><td>남</td><td class="num">116.2 · <b>128.6</b> · 139.3</td><td class="num">68.8 · <b>77.4</b> · 86.3</td><td class="num">79.9 · <b>104.2</b> · 123.6</td><td class="num">140.1 · <b>175.7</b> · 214.6</td><td class="num">41.6 · <b>51.3</b> · 63.9</td><td class="num">68.8 · <b>110.4</b> · 172.4</td><td class="num">63.5 · <b>97.7</b> · 134.5</td><td class="num">12.6 · <b>23.9</b> · 36.8</td><td class="num">12.7 · <b>24.3</b> · 35.9</td><td class="num">18.3 · <b>30</b> · 50.8</td><td class="num">0.8 · <b>1</b> · 1.2</td><td class="num">66.7 · <b>81.8</b> · 93.6</td><td class="num">13.8 · <b>14.9</b> · 15.9</td></tr><tr><td class="k">65~69세</td><td>여</td><td class="num">114.6 · <b>127.4</b> · 139</td><td class="num">60.8 · <b>75.4</b> · 84.7</td><td class="num">75.1 · <b>97.6</b> · 114.2</td><td class="num">152.5 · <b>187.9</b> · 228.9</td><td class="num">47.7 · <b>59</b> · 72.4</td><td class="num">65.4 · <b>99.8</b> · 149.7</td><td class="num">73.3 · <b>104.4</b> · 144.2</td><td class="num">12.1 · <b>22.8</b> · 34.9</td><td class="num">12.1 · <b>22.6</b> · 33.2</td><td class="num">15.5 · <b>24.7</b> · 34</td><td class="num">0.6 · <b>0.7</b> · 0.9</td><td class="num">69.2 · <b>85</b> · 95.8</td><td class="num">12.4 · <b>13.4</b> · 14.3</td></tr><tr><td class="k">70~74세</td><td>남</td><td class="num">117.3 · <b>130.1</b> · 141.4</td><td class="num">63.2 · <b>76.2</b> · 85.4</td><td class="num">79.9 · <b>104.3</b> · 124</td><td class="num">133.3 · <b>168.7</b> · 207.3</td><td class="num">41.2 · <b>50.9</b> · 63.4</td><td class="num">67.3 · <b>105.7</b> · 162.8</td><td class="num">59 · <b>92.5</b> · 127.7</td><td class="num">12.6 · <b>24</b> · 36.9</td><td class="num">12.5 · <b>23.7</b> · 35</td><td class="num">17.8 · <b>28.7</b> · 45.3</td><td class="num">0.8 · <b>1</b> · 1.2</td><td class="num">64.3 · <b>80.3</b> · 92.8</td><td class="num">13.5 · <b>14.6</b> · 15.7</td></tr><tr><td class="k">70~74세</td><td>여</td><td class="num">117.3 · <b>130.4</b> · 142.4</td><td class="num">60.3 · <b>75.3</b> · 84.7</td><td class="num">76.4 · <b>100.6</b> · 118.1</td><td class="num">147.1 · <b>179.4</b> · 218.4</td><td class="num">46.6 · <b>57.8</b> · 70.7</td><td class="num">66.9 · <b>102.9</b> · 151.7</td><td class="num">68.3 · <b>96.7</b> · 134.2</td><td class="num">12.3 · <b>23.2</b> · 35.5</td><td class="num">12 · <b>22.4</b> · 32.9</td><td class="num">15.5 · <b>24.6</b> · 33.8</td><td class="num">0.6 · <b>0.8</b> · 0.9</td><td class="num">66.8 · <b>83.2</b> · 93.8</td><td class="num">12.3 · <b>13.3</b> · 14.2</td></tr><tr><td class="k">75~79세</td><td>남</td><td class="num">118.7 · <b>131.5</b> · 143.9</td><td class="num">60 · <b>75.2</b> · 84.6</td><td class="num">79.7 · <b>104.1</b> · 123.6</td><td class="num">130.2 · <b>164.9</b> · 202.2</td><td class="num">40.8 · <b>50.5</b> · 63.1</td><td class="num">66.3 · <b>101.8</b> · 153.4</td><td class="num">57.3 · <b>89.9</b> · 125</td><td class="num">12.3 · <b>23.3</b> · 35.8</td><td class="num">12.2 · <b>22.9</b> · 33.6</td><td class="num">17.2 · <b>27.6</b> · 42</td><td class="num">0.8 · <b>1</b> · 1.2</td><td class="num">59 · <b>77.7</b> · 91.5</td><td class="num">13.1 · <b>14.3</b> · 15.4</td></tr><tr><td class="k">75~79세</td><td>여</td><td class="num">120.1 · <b>132.7</b> · 145.7</td><td class="num">59.7 · <b>75.2</b> · 84.7</td><td class="num">77.2 · <b>101.5</b> · 119.9</td><td class="num">144.1 · <b>175</b> · 212.9</td><td class="num">45.5 · <b>56.9</b> · 69.6</td><td class="num">68.1 · <b>104.8</b> · 153.4</td><td class="num">64.2 · <b>93.2</b> · 128.2</td><td class="num">12.1 · <b>22.8</b> · 34.8</td><td class="num">11.8 · <b>22</b> · 32.1</td><td class="num">15.3 · <b>24.4</b> · 33.5</td><td class="num">0.6 · <b>0.8</b> · 1</td><td class="num">63.8 · <b>81.4</b> · 93</td><td class="num">12.1 · <b>13.1</b> · 14</td></tr><tr><td class="k">80~84세</td><td>남</td><td class="num">119.4 · <b>132.5</b> · 145.9</td><td class="num">58 · <b>74.5</b> · 84.2</td><td class="num">79.4 · <b>103.8</b> · 123.2</td><td class="num">127.8 · <b>161.5</b> · 198.2</td><td class="num">40.2 · <b>49.9</b> · 62.7</td><td class="num">65.9 · <b>99.2</b> · 148.7</td><td class="num">56 · <b>88</b> · 122.4</td><td class="num">12 · <b>22.6</b> · 34.5</td><td class="num">11.9 · <b>22.2</b> · 32.6</td><td class="num">16.9 · <b>27</b> · 39.6</td><td class="num">0.8 · <b>1</b> · 1.3</td><td class="num">55.1 · <b>70.8</b> · 87.2</td><td class="num">12.6 · <b>13.9</b> · 15.1</td></tr><tr><td class="k">80~84세</td><td>여</td><td class="num">121.1 · <b>134</b> · 147.9</td><td class="num">59.9 · <b>75.5</b> · 85.2</td><td class="num">77.7 · <b>102.1</b> · 121.1</td><td class="num">141.4 · <b>171.4</b> · 208.6</td><td class="num">44.1 · <b>55.4</b> · 68.1</td><td class="num">71 · <b>110.3</b> · 159.7</td><td class="num">60.7 · <b>90.7</b> · 125.4</td><td class="num">11.8 · <b>22.1</b> · 33.3</td><td class="num">11.6 · <b>21.5</b> · 31.5</td><td class="num">15 · <b>24.2</b> · 33.3</td><td class="num">0.6 · <b>0.8</b> · 1</td><td class="num">55.1 · <b>74.6</b> · 90.5</td><td class="num">11.7 · <b>12.8</b> · 13.8</td></tr><tr><td class="k">85세이상</td><td>남</td><td class="num">118.4 · <b>132.3</b> · 146.6</td><td class="num">56.7 · <b>74</b> · 84</td><td class="num">78.3 · <b>102.7</b> · 121.5</td><td class="num">126.8 · <b>159.4</b> · 194.7</td><td class="num">39.3 · <b>49.3</b> · 62.3</td><td class="num">65.7 · <b>97.6</b> · 145.1</td><td class="num">56.1 · <b>87.3</b> · 119.9</td><td class="num">11.7 · <b>21.8</b> · 32.7</td><td class="num">11.6 · <b>21.6</b> · 31.6</td><td class="num">16.3 · <b>26.2</b> · 36.3</td><td class="num">0.9 · <b>1.1</b> · 1.4</td><td class="num">47.4 · <b>64.4</b> · 77.9</td><td class="num">11.9 · <b>13.3</b> · 14.6</td></tr><tr><td class="k">85세이상</td><td>여</td><td class="num">118.4 · <b>132.3</b> · 147.4</td><td class="num">59.4 · <b>75.5</b> · 85.4</td><td class="num">77.1 · <b>101.5</b> · 121.4</td><td class="num">136.9 · <b>168.7</b> · 205.8</td><td class="num">40.8 · <b>51.8</b> · 65.1</td><td class="num">73.8 · <b>114.5</b> · 163.7</td><td class="num">60.3 · <b>91</b> · 125.1</td><td class="num">11.4 · <b>21.1</b> · 30.8</td><td class="num">11.5 · <b>21.2</b> · 30.9</td><td class="num">13.8 · <b>23.3</b> · 32.9</td><td class="num">0.6 · <b>0.8</b> · 1.1</td><td class="num">49.1 · <b>63.9</b> · 79.5</td><td class="num">11.1 · <b>12.3</b> · 13.5</td></tr></tbody></table></div><p class="mut" style="margin-top:8px">단위: 혈압 mmHg, 혈당·지질 mg/dL, 간 효소 U/L, 크레아티닌 mg/dL, eGFR mL/min/1.73㎡, 혈색소 g/dL. 지질 4종은 검사 주기(남 24세·여 40세부터 4년) 때문에 표본이 절반 정도입니다. 하한 쪽 열린 구간(예: 이완기 70 미만, 크레아티닌 0.9 미만)은 가정값이라 P5~P20이 실제보다 낮게 나올 수 있습니다.</p>
+<h3>판정형 검사 · 범주 비율</h3><p class="mut">요단백(음성/±/+1~+4), 흉부 X선(정상A/질환의심/기타), 시력 좌·우(0.1 이하 ~ 1.6~2.0)의 성별 × 연령대별 비율(%)은 <code>또래등수_참조표_판정형_비율_2024.csv</code>(xlsx의 '판정형 비율' 시트)에 있습니다. 예: 여성 40~44세 흉부 X선 질환의심 2.13%, 요단백 음성 89.27%.</p>
+  <h3>신장·체중 · 평균만 제공 (성별 × 10세 연령대)</h3>
+  <div class="tbl"><table><thead><tr><th>항목</th><th>성별</th><th>19세이하</th><th>20대</th><th>30대</th><th>40대</th><th>50대</th><th>60대</th><th>70대</th><th>80세이상</th></tr></thead><tbody><tr><td class="k">신장(cm)</td><td>남</td><td class="num">174.2</td><td class="num">174.2</td><td class="num">174.5</td><td class="num">173.9</td><td class="num">171.1</td><td class="num">168.3</td><td class="num">165.8</td><td class="num">163.8</td></tr><tr><td class="k">신장(cm)</td><td>여</td><td class="num">161.9</td><td class="num">161.8</td><td class="num">161.9</td><td class="num">160.9</td><td class="num">158.3</td><td class="num">155.6</td><td class="num">152.9</td><td class="num">149.3</td></tr><tr><td class="k">체중(kg)</td><td>남</td><td class="num">75.4</td><td class="num">76.8</td><td class="num">79.8</td><td class="num">78.4</td><td class="num">73.9</td><td class="num">69.8</td><td class="num">66.9</td><td class="num">63.5</td></tr><tr><td class="k">체중(kg)</td><td>여</td><td class="num">60.3</td><td class="num">58.6</td><td class="num">60.2</td><td class="num">60.2</td><td class="num">58.9</td><td class="num">58</td><td class="num">57.1</td><td class="num">53.7</td></tr></tbody></table></div>
+  <p class="mut" style="margin-top:8px">통계연보에는 신장·체중의 분포(구간별 인원)가 없고 평균만 있어 등수 경계를 만들 수 없습니다. 키·체중 등수는 국민건강영양조사 원시자료(또는 공단 NHISS)로 계산해야 하며, 그 전까지 프로토타입의 키·체중 등수는 예시값입니다.</p>
+  <h3>파일</h3>
+  <ul>
+    <li><code>또래등수_참조표_전항목_2024_v1.0.0.xlsx</code> — 시트 5개: 안내 · 전항목 요약(수치 15항목, P5~P95) · 전항목 백분위 1~100(45,000행) · 판정형 비율 · 신장체중 평균</li>
+    <li><code>또래등수_참조표_2024_v1.0.0.xlsx</code> — 신체계측(BMI·허리둘레)만 담은 초기 버전</li>
+    <li>같은 내용의 CSV 3개(<code>또래등수_참조표_요약_2024.csv</code>, <code>…백분위1-100_2024.csv</code>, <code>…신장체중평균_2024.csv</code>)</li>
+    <li>원본: 국민건강보험공단 › 건강검진 통계연보 › 2024년 건강검진통계연보 첨부 "2024 건강검진통계연보(엑셀 등).zip" (2025-12-31 게시) — <a href="https://www.nhis.or.kr/nhis/together/wbhaec07000m01.do?mode=view&articleNo=11008126">게시글</a></li>
+  </ul>
+  <p class="mut">계산: 구간별 인원 누적 → 목표 백분위 지점이 속한 구간에서 선형보간. 양 끝 열린 구간은 BMI 14~18.5 / 40~50, 허리둘레 55~75 / 110~125로 가정. 값은 소수 1자리 반올림. 백분위 → 등수 → band 규칙은 04장 산식과 같다.</p>
+</section>
+<!-- 05 -->
+<section>
+  <span class="sec-no">07</span>
+  <h2>아직 정하지 않은 것</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>항목</th><th>필요한 것</th><th>상태</th></tr></thead>
+    <tbody>
+      <tr><td class="k">분포표 산출 실행</td><td>04장 방법대로 공단 원시자료에서 성별·연령대별 백분위표를 실제로 만들고 검증</td><td><span class="pill p-wait">착수 전</span></td></tr>
+      <tr><td class="k">γ-GTP 성별 정보</td><td>성별 분기를 위해 프로필의 성별을 요약 입력에 포함할지 결정</td><td><span class="pill p-wait">검토</span></td></tr>
+      <tr><td class="k">공단 표 개정 추적</td><td>「건강검진 실시기준」 고시 개정 시 표 갱신 절차와 버전 기록</td><td><span class="pill p-wait">검토</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+</main>

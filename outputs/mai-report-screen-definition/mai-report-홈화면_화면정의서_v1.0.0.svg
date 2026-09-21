@@ -1,0 +1,639 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="8166" viewBox="0 0 1240 8166" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">
+<defs><linearGradient id="heroGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f66f5"/><stop offset=".55" stop-color="#5170ff"/><stop offset="1" stop-color="#7c5cfc"/></linearGradient></defs>
+<rect width="1240" height="8166" fill="rgb(245, 247, 251)"/>
+<rect x="0" y="0" width="1240" height="8166.05" rx="0" fill="rgb(245, 247, 251)"/>
+<rect x="100" y="32" width="1040" height="326.69" rx="28" fill="url(#heroGrad)"/>
+<rect x="140" y="70" width="169.11" height="28.39" rx="999" fill="rgba(255, 255, 255, 0.18)"/>
+<text x="152" y="88.32" font-size="12" font-weight="700" fill="rgb(255, 255, 255)" letter-spacing="-0.14px" xml:space="preserve">마이리포트 v2 · 화면정의서</text>
+<text x="140" y="145.97" font-size="28" font-weight="800" fill="rgb(255, 255, 255)" letter-spacing="-0.84px" xml:space="preserve">홈 화면 화면정의서</text>
+<text x="140" y="187.2" font-size="14.5" font-weight="400" fill="rgba(255, 255, 255, 0.9)" letter-spacing="-0.14px" xml:space="preserve">홈은 데이터를 보여주는 화면이 아니라 &quot;오늘 무엇을 할지 정해주는 화면&quot;이다. 오늘의 질문 → 오늘의 코칭 →</text>
+<text x="140" y="211.85" font-size="14.5" font-weight="400" fill="rgba(255, 255, 255, 0.9)" letter-spacing="-0.14px" xml:space="preserve">오늘의 목표 → 오늘의 컨디션 → 오늘의 건강 데이터 순으로 결론과 실행을 먼저 두고, 근거는 뒤에 둔다. 이 문</text>
+<text x="140" y="236.49" font-size="14.5" font-weight="400" fill="rgba(255, 255, 255, 0.9)" letter-spacing="-0.14px" xml:space="preserve">서는 각 영역의 구성·상태·문구·연동 규칙과 QA 기준을 정의한다.</text>
+<text x="140" y="276.23" font-size="12" font-weight="400" fill="rgba(255, 255, 255, 0.82)" letter-spacing="-0.14px" xml:space="preserve">작성일</text>
+<text x="178.78" y="276.23" font-size="12" font-weight="700" fill="rgb(255, 255, 255)" letter-spacing="-0.14px" xml:space="preserve">2026-09-16</text>
+<text x="256.77" y="276.23" font-size="12" font-weight="400" fill="rgba(255, 255, 255, 0.82)" letter-spacing="-0.14px" xml:space="preserve">버전</text>
+<text x="283.69" y="276.23" font-size="12" font-weight="700" fill="rgb(255, 255, 255)" letter-spacing="-0.14px" xml:space="preserve">1.0</text>
+<text x="317.95" y="276.23" font-size="12" font-weight="400" fill="rgba(255, 255, 255, 0.82)" letter-spacing="-0.14px" xml:space="preserve">대상 화면</text>
+<text x="371.78" y="276.23" font-size="12" font-weight="700" fill="rgb(255, 255, 255)" letter-spacing="-0.14px" xml:space="preserve">홈 탭</text>
+<text x="416.7" y="276.23" font-size="12" font-weight="400" fill="rgba(255, 255, 255, 0.82)" letter-spacing="-0.14px" xml:space="preserve">연관 문서</text>
+<text x="470.53" y="276.23" font-size="12" font-weight="700" fill="rgb(255, 255, 255)" letter-spacing="-0.14px" xml:space="preserve">생활지표_기획서 · 지표별분석_화면정의서 · 프로토타입(mai-report-prototype_v1.0.0.html)</text>
+<text x="140" y="314.62" font-size="12" font-weight="400" fill="rgba(255, 255, 255, 0.82)" letter-spacing="-0.14px" xml:space="preserve">작성자</text>
+<text x="178.78" y="314.62" font-size="12" font-weight="700" fill="rgb(255, 255, 255)" letter-spacing="-0.14px" xml:space="preserve">Sarah Lee · 마이허브 코퍼레이션</text>
+<rect x="100.5" y="381.19" width="92.7" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="114" y="402.01" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">① 화면 개요</text>
+<rect x="202.2" y="381.19" width="92.7" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="215.7" y="402.01" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">② 상단 헤더</text>
+<rect x="303.91" y="381.19" width="104.56" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="317.41" y="402.01" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">③ 오늘의 질문</text>
+<rect x="417.47" y="381.19" width="104.56" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="430.97" y="402.01" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">④ 오늘의 코칭</text>
+<rect x="531.03" y="381.19" width="104.56" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="544.53" y="402.01" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">⑤ 오늘의 목표</text>
+<rect x="644.59" y="381.19" width="116.42" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="658.09" y="402.01" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">⑥ 오늘의 컨디션</text>
+<rect x="770.02" y="381.19" width="143.33" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="783.52" y="402.01" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">⑦ 오늘의 건강 데이터</text>
+<rect x="922.34" y="381.19" width="134.66" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="935.84" y="402.01" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">⑧ 영역 간 연동 규칙</text>
+<rect x="100.5" y="423.58" width="128.22" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="114" y="444.4" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">⑨ 상태 및 QA 체크</text>
+<rect x="237.72" y="423.58" width="119.61" height="33.39" rx="998.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="251.22" y="444.4" font-size="12" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">⑩ 확인 필요 사항</text>
+<rect x="100.5" y="479.97" width="1039" height="383.17" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="513.61" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="142.7" y="530.48" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">1</text>
+<text x="169" y="532.81" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">화면 개요</text>
+<text x="133" y="563.27" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">홈의 역할과 영역 순서</text>
+<text x="133" y="609.24" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">1.1 화면의 역할</text>
+<text x="133" y="640.7" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">사용자가 앱을 열었을 때 30초 안에 &quot;오늘 내 상태가 어떤지 → 오늘 무엇을 하면 되는지&quot;를 알고 나갈 수 있어야 한다. 수치 해석은 생활 탭이 맡고, 홈은 결론과</text>
+<text x="133" y="664.49" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">실행만 보여준다.</text>
+<text x="133" y="711.47" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">1.2 영역 순서</text>
+<rect x="133.5" y="729.39" width="154.67" height="92.75" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="146" y="756.39" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">헤더</text>
+<text x="146" y="781.64" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">로고 · 리포트 QR 스캔</text>
+<text x="146" y="802.89" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">· 알림</text>
+<rect x="297.17" y="729.39" width="154.67" height="92.75" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="309.67" y="756.39" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">① 오늘의 질문</text>
+<text x="309.67" y="781.64" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">답변 유도 히어로</text>
+<rect x="460.84" y="729.39" width="154.67" height="92.75" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="473.34" y="756.39" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">② 오늘의 코칭</text>
+<text x="473.34" y="781.64" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">결론 한 줄 + 이유 한</text>
+<text x="473.34" y="802.89" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">줄</text>
+<rect x="624.52" y="729.39" width="154.67" height="92.75" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="637.02" y="756.39" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">③ 오늘의 목표</text>
+<text x="637.02" y="781.64" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">식이·활동·수면 타일 3</text>
+<text x="637.02" y="802.89" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">개</text>
+<rect x="788.19" y="729.39" width="154.67" height="92.75" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="800.69" y="756.39" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">④ 오늘의 컨디션</text>
+<text x="800.69" y="781.64" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">계기판 게이지 3개</text>
+<rect x="951.86" y="729.39" width="154.67" height="92.75" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="964.36" y="756.39" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">⑤ 오늘의 건강 데이터</text>
+<text x="964.36" y="781.64" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">걸음·수면·심박 카드 +</text>
+<text x="964.36" y="802.89" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">전체 보기</text>
+<rect x="100.5" y="882.14" width="1039" height="343.02" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="915.78" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="142.7" y="932.66" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">2</text>
+<text x="169" y="934.98" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">상단 헤더</text>
+<text x="133" y="965.44" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">고정 요소 3개. 홈 히어로 배경 위에 투명하게 얹힌다</text>
+<line x1="133" y1="1026.58" x2="293" y2="1026.58" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="1012.51" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">요소</text>
+<line x1="293" y1="1026.58" x2="775.84" y2="1026.58" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="303" y="1012.51" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">동작</text>
+<line x1="775.84" y1="1026.58" x2="1107" y2="1026.58" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="785.84" y="1012.51" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">비고</text>
+<line x1="133" y1="1069.67" x2="293" y2="1069.67" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="1052.76" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">로고</text>
+<line x1="293" y1="1069.67" x2="775.84" y2="1069.67" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="303" y="1052.76" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">탭 없음</text>
+<line x1="775.84" y1="1069.67" x2="1107" y2="1069.67" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="785.84" y="1052.76" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">좌측</text>
+<line x1="133" y1="1112.77" x2="293" y2="1112.77" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="1095.85" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">리포트 QR 스캔</text>
+<line x1="293" y1="1112.77" x2="775.84" y2="1112.77" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="303" y="1095.85" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">AI 리포트 QR 스캔 화면(카메라)으로 이동</text>
+<line x1="775.84" y1="1112.77" x2="1107" y2="1112.77" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="785.84" y="1095.85" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">흰 알약 버튼, 우측</text>
+<line x1="133" y1="1155.86" x2="293" y2="1155.86" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="1138.95" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">알림</text>
+<line x1="293" y1="1155.86" x2="775.84" y2="1155.86" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="303" y="1138.95" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">알림 목록(준비 중)</text>
+<line x1="775.84" y1="1155.86" x2="1107" y2="1155.86" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="785.84" y="1138.95" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">아이콘만</text>
+<text x="133" y="1178.9" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">헤더는 오늘의 질문 히어로와 하나의 면으로 보이도록 같은 배경을 공유한다. 스크롤 시 상단에 고정된다.</text>
+<rect x="100.5" y="1244.16" width="1039" height="905.52" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="1277.8" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="142.7" y="1294.67" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">3</text>
+<text x="169" y="1297" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">오늘의 질문</text>
+<text x="133" y="1327.45" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">기기 데이터로 알 수 없거나 부족한 상태를 보완하는 하루 최대 3문항. 모든 문항에 답하면 코칭과 잠긴 목표가 한 번에 생성된다</text>
+<text x="133" y="1373.42" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">3.1 구성</text>
+<text x="151" y="1404.02" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">히어로 형태. 좌측에 &quot;오늘의 질문 · n/3&quot; + 질문 2줄, 우측에 원형 일러스트, 아래에 선택지 카드 3개.</text>
+<text x="151" y="1430.12" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">한 번에 1문항. 선택 → 0.5초 선택 강조(나머지 흐림) → 다음 문항 자동 전환.</text>
+<text x="133" y="1476.25" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">3.2 문항 생성 원칙</text>
+<text x="133" y="1507.71" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">문항과 선택지는 고정 세트가 아니다. 그날 연동된 기기 데이터에서</text>
+<text x="544.72" y="1507.71" font-size="14" font-weight="700" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">부족하거나 확인되지 않은 상태</text>
+<text x="736.16" y="1507.71" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">를 골라, 그것을 보완하는 질문을 만든다. 따라서 사용자마다,</text>
+<text x="133" y="1531.51" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">날마다 문항이 다르다.</text>
+<rect x="133.5" y="1549.77" width="236.5" height="114" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="146" y="1576.77" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">① 데이터 파악</text>
+<text x="146" y="1602.02" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">오늘 수집된 기기 데이터(걸음·수면·</text>
+<text x="146" y="1623.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">심박·활동 등)와 의료 이력을 확인</text>
+<rect x="379" y="1549.77" width="236.5" height="114" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="391.5" y="1576.77" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">② 확인할 상태 선정</text>
+<text x="391.5" y="1602.02" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">결측·부족 항목과 기기로 알 수 없는</text>
+<text x="391.5" y="1623.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">주관 상태(피로감·불편감·식사·시야</text>
+<text x="391.5" y="1644.52" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">등)를 우선</text>
+<rect x="624.5" y="1549.77" width="236.5" height="114" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="637" y="1576.77" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">③ 선택형 질문 생성</text>
+<text x="637" y="1602.02" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">한 번에 답할 수 있는 3지선다. 하루</text>
+<text x="637" y="1623.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">최대 3문항</text>
+<rect x="870" y="1549.77" width="236.5" height="114" rx="11.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="882.5" y="1576.77" font-size="12.5" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">④ 답변 활용</text>
+<text x="882.5" y="1602.02" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">모두 답하면 코칭·잠긴 목표 생성(1</text>
+<text x="882.5" y="1623.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">회), 수치 답변은 데이터로 저장</text>
+<text x="133" y="1688.59" font-size="12" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">수면 데이터가 이미 있으면 수면 문항은 내지 않는 식으로, 기기로 알 수 있는 것은 묻지 않는다. 문항 풀·선정 규칙·문구는 별도 문서(오늘의 질문 생성 규칙)에서 확정한다.</text>
+<text x="133" y="1733.88" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">3.3 상태</text>
+<line x1="133" y1="1785.69" x2="273" y2="1785.69" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="1771.62" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">상태</text>
+<line x1="273" y1="1785.69" x2="1107" y2="1785.69" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="283" y="1771.62" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">화면</text>
+<line x1="133" y1="1828.78" x2="273" y2="1828.78" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="1811.87" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">진행 중</text>
+<line x1="273" y1="1828.78" x2="1107" y2="1828.78" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="283" y="1811.87" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">현재 문항 히어로. 답하지 않은 문항은 하루 동안 그대로 남는다.</text>
+<line x1="133" y1="1893.97" x2="273" y2="1893.97" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="1854.96" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">모두 완료</text>
+<line x1="273" y1="1893.97" x2="1107" y2="1893.97" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="283" y="1854.96" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">&quot;오늘의 질문 완료 / 잘 했어요 👍 답변을 모두 완료했어요!&quot; + 클립보드 일러스트 + 카드 「오늘 답변 모두 보기 › · 오늘의 몸 상태를 계속 유지해</text>
+<text x="283" y="1877.06" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">봐요!」</text>
+<line x1="133" y1="1937.06" x2="273" y2="1937.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="1920.15" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">답변 수정</text>
+<line x1="273" y1="1937.06" x2="1107" y2="1937.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="283" y="1920.15" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">답변 보기 화면에서 언제든 수정. 수정 시 코칭·목표 재계산 규칙(§4·§5)을 다시 적용한다.</text>
+<text x="133" y="1977.28" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">3.4 세트 확정 시점</text>
+<text x="151" y="2007.88" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">그날의 문항 세트(최대 3문항)는 첫 진입 시 그 시점의 데이터 부족분으로 한 번 정하고 바꾸지 않는다. 저녁에 처음 진입하면 그 시점 데이터로 세트를 만들므로(이미 수면</text>
+<text x="151" y="2029.98" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">·걸음이 있으면 해당 문항 제외) 별도 저녁 세트를 두지 않는다.</text>
+<text x="151" y="2056.07" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">문구는 시간대에 맞춘다. 아침·낮은 현재형(&quot;오늘 몸의 피로감은 어느 정도인가요?&quot;), 18시 이후 첫 진입은 과거형(&quot;오늘 하루 몸 상태는 어땠나요?&quot;). 하루 경계는 새벽 4</text>
+<text x="151" y="2078.16" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">시.</text>
+<text x="151" y="2104.26" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">목표 완료 여부는 질문으로 묻지 않는다(완료는 타일에서만 기록).</text>
+<rect x="100.5" y="2168.67" width="1039" height="671.7" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="2202.31" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="142.7" y="2219.19" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">4</text>
+<text x="169" y="2221.51" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">오늘의 코칭</text>
+<text x="133" y="2251.97" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">화면의 주인공. 오늘 실천할 핵심 행동 한 줄과 그 이유 한 줄</text>
+<text x="133" y="2297.94" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">4.1 구성</text>
+<text x="133" y="2329.4" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">홈에서 유일하게 강조 스타일을 쓰는 카드. 라벨 &quot;✦ 오늘의 코칭&quot;, 1줄 핵심 행동(굵게), 2줄 이유(본문).</text>
+<text x="133" y="2376.38" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">4.2 상태 4단계</text>
+<line x1="133" y1="2428.19" x2="273" y2="2428.19" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="2414.12" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">상태</text>
+<line x1="273" y1="2428.19" x2="662.59" y2="2428.19" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="283" y="2414.12" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">문구</text>
+<line x1="662.59" y1="2428.19" x2="1107" y2="2428.19" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="672.59" y="2414.12" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">비고</text>
+<line x1="133" y1="2493.38" x2="273" y2="2493.38" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="2454.37" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">① 답변 전</text>
+<line x1="273" y1="2493.38" x2="662.59" y2="2493.38" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="283" y="2454.37" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">먼저 오늘의 질문에 답하고,</text>
+<text x="283" y="2476.46" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">나에게 맞는 코칭을 받아보세요.</text>
+<line x1="662.59" y1="2493.38" x2="1107" y2="2493.38" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="672.59" y="2454.37" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">이유 줄 없음</text>
+<line x1="133" y1="2558.56" x2="273" y2="2558.56" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="2519.55" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">② 진행 중</text>
+<line x1="273" y1="2558.56" x2="662.59" y2="2558.56" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="283" y="2519.55" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">좋아요!</text>
+<text x="283" y="2541.65" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">다음 질문도 계속 답해주세요.</text>
+<line x1="662.59" y1="2558.56" x2="1107" y2="2558.56" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="672.59" y="2519.55" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">1개 이상 답변, 아직 미완. 이 단계에서는 코칭·목표를 생성하거나 바꾸지</text>
+<text x="672.59" y="2541.65" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">않는다</text>
+<line x1="133" y1="2601.66" x2="273" y2="2601.66" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="2584.74" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">③ 생성 중</text>
+<line x1="273" y1="2601.66" x2="662.59" y2="2601.66" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="283" y="2584.74" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">(스켈레톤 3줄)</text>
+<line x1="662.59" y1="2601.66" x2="1107" y2="2601.66" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="672.59" y="2584.74" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">마지막 답변 직후 약 1.3초. 실제 서비스에서는 응답 도착까지</text>
+<line x1="133" y1="2666.84" x2="273" y2="2666.84" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="2627.84" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">④ 결과</text>
+<line x1="273" y1="2666.84" x2="662.59" y2="2666.84" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="283" y="2627.84" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">행동 한 줄 + 이유 한 줄</text>
+<line x1="662.59" y1="2666.84" x2="1107" y2="2666.84" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="672.59" y="2627.84" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">모든 문항 답변 완료 시점에 1회 생성. 전환 시 카드 1회 하이라이트. 답변</text>
+<text x="672.59" y="2649.93" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">수정 시 ③→④ 반복</text>
+<text x="133" y="2707.06" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">4.3 생성 규칙</text>
+<text x="133" y="2738.52" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">결과 문구는 그날의 질문 답변과 기기 데이터를 종합해 생성한다. 조건별 우선순위와 문구 세트는 별도 문서(코칭 생성 규칙)에서 확정한다.</text>
+<text x="133" y="2770.32" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">코칭은 모든 문항에 답한 시점에 한 번 생성되며, 답변을 수정하지 않는 한 그날 바뀌지 않는다. 낮 동안 기기 데이터가 갱신되어도 코칭 문구는 다시 만들지 않는</text>
+<text x="133" y="2794.12" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">다. 저녁(18시 이후)에 생성되는 경우에만 같은 규칙의 마무리형 문구를 쓴다(예: &quot;오늘 걸음은 충분했어요. 남은 건 23시 30분 전에 눕는 것 하나예요.&quot;).</text>
+<rect x="100.5" y="2859.38" width="1039" height="1154.61" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="2893.02" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="142.7" y="2909.89" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">5</text>
+<text x="169" y="2912.22" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">오늘의 목표</text>
+<text x="133" y="2942.67" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">식이 · 활동 · 수면 각 1개. 홈과 생활 탭 &gt; 목표 분석이 같은 타일 컴포넌트를 쓴다</text>
+<text x="133" y="2988.64" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">5.1 구성</text>
+<text x="133" y="3020.1" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">섹션 제목 &quot;오늘의 목표&quot;와 우측 &quot;n/3 완료 ›&quot;(탭 → 생활 탭 &gt; 목표 분석). 아래에 타일 3개. 타일 = 카테고리 라벨(카테고리 구분색) + 목표 문구(굵게, 최대 2줄) +</text>
+<text x="133" y="3043.9" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">우하단 일러스트. 근거·비교 문구·연속일수는 타일에 쓰지 않는다.</text>
+<text x="133" y="3090.88" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">5.2 타일 상태</text>
+<line x1="133" y1="3142.69" x2="253" y2="3142.69" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="3128.62" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">상태</text>
+<line x1="253" y1="3142.69" x2="814.81" y2="3142.69" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="263" y="3128.62" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">표현</text>
+<line x1="814.81" y1="3142.69" x2="1107" y2="3142.69" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="824.81" y="3128.62" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">동작</text>
+<line x1="133" y1="3185.78" x2="253" y2="3185.78" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="3168.87" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">기본</text>
+<line x1="253" y1="3185.78" x2="814.81" y2="3185.78" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="263" y="3168.87" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">기본 카드 · 카테고리 · 목표 문구 · 일러스트</text>
+<line x1="814.81" y1="3185.78" x2="1107" y2="3185.78" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="824.81" y="3168.87" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">탭 → 완료</text>
+<line x1="133" y1="3228.88" x2="253" y2="3228.88" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="3211.96" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">완료</text>
+<line x1="253" y1="3228.88" x2="814.81" y2="3228.88" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="263" y="3211.96" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">문구·카테고리 비활성 톤, 우하단 일러스트 자리에 완료 체크. 취소선 없음</text>
+<line x1="814.81" y1="3228.88" x2="1107" y2="3228.88" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="824.81" y="3211.96" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">탭 → 완료 취소</text>
+<line x1="133" y1="3294.06" x2="253" y2="3294.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="3255.06" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">잠김</text>
+<line x1="253" y1="3294.06" x2="814.81" y2="3294.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="263" y="3255.06" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">기본 카드 · 카테고리 · &quot;오늘의 질문에 답하면 목표가 생성돼요.&quot; · 우하단 자물쇠 아이콘</text>
+<line x1="814.81" y1="3294.06" x2="1107" y2="3294.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="824.81" y="3255.06" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">탭 → 히어로의 남은 질문으로 이동(히어로 1회</text>
+<text x="824.81" y="3277.15" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">강조)</text>
+<text x="133" y="3317.1" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">목표 상태는 완료 / 미완료 두 가지뿐이다. '쉬기' 상태는 두지 않으며, 완료하지 않은 날은 미완료로 집계한다.</text>
+<text x="133" y="3364.08" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">5.3 잠금 규칙(질문 보완 생성)</text>
+<text x="133" y="3395.54" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">목표별로 필요한 기기 데이터가 충분하면 첫 진입 시 바로 생성해 보여주고, 부족하면 그 목표만 잠근다. 잠긴 목표는 문항마다 하나씩 열리지 않고,</text>
+<text x="1026.88" y="3395.54" font-size="14" font-weight="700" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">그날의 질문</text>
+<text x="133" y="3419.34" font-size="14" font-weight="700" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">에 모두 답한 시점에 코칭과 함께 한 번에 생성</text>
+<text x="412.48" y="3419.34" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">된다. 어떤 목표가 잠기는지는 카테고리로 고정하지 않고 사용자의 데이터 충족 여부로 매일 판정하며, 모두 잠그</text>
+<text x="133" y="3443.13" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">지 않는다.</text>
+<line x1="133" y1="3495.28" x2="253" y2="3495.28" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="3481.21" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">목표</text>
+<line x1="253" y1="3495.28" x2="753.02" y2="3495.28" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="263" y="3481.21" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">기기 데이터가 있으면 첫 진입 시 생성</text>
+<line x1="753.02" y1="3495.28" x2="1107" y2="3495.28" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="763.02" y="3481.21" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">부족하면</text>
+<line x1="133" y1="3538.38" x2="253" y2="3538.38" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="3521.46" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">식이</text>
+<line x1="253" y1="3538.38" x2="753.02" y2="3538.38" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="263" y="3521.46" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">식사 시각 기록·혈당 측정값이 있을 때</text>
+<line x1="753.02" y1="3538.38" x2="1107" y2="3538.38" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="763.02" y="3521.46" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">잠금 → 질문 완료 시 생성</text>
+<line x1="133" y1="3581.47" x2="253" y2="3581.47" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="3564.56" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">활동</text>
+<line x1="253" y1="3581.47" x2="753.02" y2="3581.47" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="263" y="3564.56" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">걸음·활동 시간이 오늘 수집될 때</text>
+<line x1="753.02" y1="3581.47" x2="1107" y2="3581.47" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="763.02" y="3564.56" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">잠금 → 질문 완료 시 생성</text>
+<line x1="133" y1="3624.56" x2="253" y2="3624.56" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="3607.65" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">수면</text>
+<line x1="253" y1="3624.56" x2="753.02" y2="3624.56" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="263" y="3607.65" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">어젯밤 수면 기록이 있을 때</text>
+<line x1="753.02" y1="3624.56" x2="1107" y2="3624.56" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="763.02" y="3607.65" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">잠금 → 질문 완료 시 생성</text>
+<text x="133" y="3645.88" font-size="12" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">잠긴 타일을 누르면 남은 질문으로 이동한다. 일부만 답한 상태에서는 어떤 목표도 생성·변경되지 않는다.</text>
+<text x="133" y="3691.17" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">5.4 생성 · 고정 규칙</text>
+<text x="151" y="3721.77" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">목표는 그날</text>
+<text x="222.25" y="3721.77" font-size="13" font-weight="700" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">첫 진입 시</text>
+<text x="284.11" y="3721.77" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">그 시점의 데이터와 답변으로 만들고, 그날은 문구를 바꾸지 않는다(사용자와의 약속). 연속일수도 이 고정된 목표를 기준으로 센다.</text>
+<text x="151" y="3747.87" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">하루 경계는 새벽 4시. 저녁(18시 이후) 첫 진입이면 남은 시간 안에 할 수 있는 형태로 생성한다(활동: &quot;저녁 식후 10분 걷기&quot;, 식이: &quot;저녁은 채소부터 먼저&quot;, 수면: 취침 시</text>
+<text x="151" y="3769.96" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">간 목표 그대로).</text>
+<text x="151" y="3796.06" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">낮 동안의 데이터 변화는 목표를 바꾸지 않고 진행에만 반영한다. 걸음 데이터로 이미 달성됐으면 타일에 &quot;달성됐어요 · 완료로 표시할까요?&quot; 힌트만 보여주고 완료는 사</text>
+<text x="151" y="3818.15" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">용자가 누른다(자동 완료 없음).</text>
+<text x="151" y="3844.24" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">질문 전체 답변 완료 시점에 잠긴 목표를 생성하고, 이미 열려 있던 목표는 답변을 반영해 1회 재계산한다. 이미 완료한 목표는 내용과 상태를 바꾸지 않는다. 재계산은 기</text>
+<text x="151" y="3866.34" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">본 목표에서 다시 산출한다(현재 목표 덮어쓰기 금지).</text>
+<text x="133" y="3912.47" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">5.5 문구 생성</text>
+<text x="133" y="3943.93" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">목표 문구와 숫자는 최근 7~21일의 개인 기록에서 산출한다(걸음: 평소 중앙값 − 오늘 누적, 취침: 최근 취침 시각 중앙값 ±15분). 카테고리별 문구 세트와 답변별</text>
+<text x="133" y="3967.73" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">변형 규칙은 별도 문서(목표 생성 규칙)에서 확정한다.</text>
+<rect x="100.5" y="4032.98" width="1039" height="1066.98" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="4066.63" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="142.7" y="4083.5" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">6</text>
+<text x="169" y="4085.82" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">오늘의 컨디션</text>
+<text x="133" y="4116.28" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">생활여유 · 자기돌봄 · 일상안정 세 지표의 오늘 상태. 숫자 없이 세 구간으로만 보여준다</text>
+<text x="133" y="4162.25" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">6.1 구성</text>
+<text x="133" y="4193.71" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">섹션 제목 &quot;오늘의 컨디션&quot;과 우측 &quot;›&quot;(탭 → 생활 탭 &gt; 지표별 분석). 카드 안에 지표 3열. 각 열 = 지표명(소제목) → 계기판형 게이지 → 구간 라벨(지표 구분색, 굵</text>
+<text x="133" y="4217.51" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">게). 항상 펼쳐진 상태이며 접힘/펼침 없음. 전일 대비(▲▼·변화 없음), 점수, 이유 문장, 핵심 데이터는 홈에 두지 않는다.</text>
+<text x="133" y="4264.49" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">6.2 계기판 게이지</text>
+<text x="133" y="4295.95" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">반원 눈금판을 세 칸(왼쪽 주의 → 가운데 보통 → 오른쪽 좋음)으로 나누고, 현재 구간 칸만 지표 구분색으로 채운 뒤 바늘이 그 칸의 중앙을 가리킨다. 구간 경계</text>
+<text x="133" y="4319.74" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">에 짧은 눈금. 숫자·눈금값 없음. 산정 불가 시 모든 칸 비활성, 바늘 없음.</text>
+<text x="133" y="4366.72" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">6.3 지표와 라벨</text>
+<line x1="133" y1="4418.53" x2="223" y2="4418.53" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="4404.46" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">지표</text>
+<line x1="223" y1="4418.53" x2="795.33" y2="4418.53" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="233" y="4404.46" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">한 줄 정의(? 토글)</text>
+<line x1="795.33" y1="4418.53" x2="1107" y2="4418.53" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="805.33" y="4404.46" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">구간 라벨 좋음 / 보통 / 주의</text>
+<line x1="133" y1="4462.22" x2="223" y2="4462.22" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="4444.71" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">생활여유</text>
+<line x1="223" y1="4462.22" x2="795.33" y2="4462.22" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="233" y="4444.71" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">오늘 남아 있는 몸의 여유</text>
+<line x1="795.33" y1="4462.22" x2="1107" y2="4462.22" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="805.33" y="4429.53" width="61.45" height="22.69" rx="999" fill="rgb(231, 247, 237)"/>
+<text x="814.33" y="4444.49" font-size="11" font-weight="800" fill="rgb(18, 161, 80)" letter-spacing="-0.14px" xml:space="preserve">충분해요</text>
+<rect x="870.78" y="4429.53" width="72.31" height="22.69" rx="999" fill="rgb(241, 243, 247)"/>
+<text x="879.78" y="4444.49" font-size="11" font-weight="800" fill="rgb(138, 147, 165)" letter-spacing="-0.14px" xml:space="preserve">보통이에요</text>
+<rect x="947.09" y="4429.53" width="61.45" height="22.69" rx="999" fill="rgb(253, 240, 227)"/>
+<text x="956.09" y="4444.49" font-size="11" font-weight="800" fill="rgb(229, 137, 58)" letter-spacing="-0.14px" xml:space="preserve">부족해요</text>
+<line x1="133" y1="4505.91" x2="223" y2="4505.91" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="4488.4" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">자기돌봄</text>
+<line x1="223" y1="4505.91" x2="795.33" y2="4505.91" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="233" y="4488.4" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">오늘 나를 챙긴 정도</text>
+<line x1="795.33" y1="4505.91" x2="1107" y2="4505.91" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="805.33" y="4473.22" width="86.08" height="22.69" rx="999" fill="rgb(231, 247, 237)"/>
+<text x="814.33" y="4488.18" font-size="11" font-weight="800" fill="rgb(18, 161, 80)" letter-spacing="-0.14px" xml:space="preserve">잘하고 있어요</text>
+<rect x="895.41" y="4473.22" width="72.31" height="22.69" rx="999" fill="rgb(241, 243, 247)"/>
+<text x="904.41" y="4488.18" font-size="11" font-weight="800" fill="rgb(138, 147, 165)" letter-spacing="-0.14px" xml:space="preserve">보통이에요</text>
+<rect x="971.72" y="4473.22" width="61.45" height="22.69" rx="999" fill="rgb(253, 240, 227)"/>
+<text x="980.72" y="4488.18" font-size="11" font-weight="800" fill="rgb(229, 137, 58)" letter-spacing="-0.14px" xml:space="preserve">부족해요</text>
+<line x1="133" y1="4549.59" x2="223" y2="4549.59" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="4532.09" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">일상안정</text>
+<line x1="223" y1="4549.59" x2="795.33" y2="4549.59" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="233" y="4532.09" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">최근 생활 리듬의 일정함</text>
+<line x1="795.33" y1="4549.59" x2="1107" y2="4549.59" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="805.33" y="4516.91" width="83.17" height="22.69" rx="999" fill="rgb(231, 247, 237)"/>
+<text x="814.33" y="4531.87" font-size="11" font-weight="800" fill="rgb(18, 161, 80)" letter-spacing="-0.14px" xml:space="preserve">안정적이에요</text>
+<rect x="892.5" y="4516.91" width="61.45" height="22.69" rx="999" fill="rgb(241, 243, 247)"/>
+<text x="901.5" y="4531.87" font-size="11" font-weight="800" fill="rgb(138, 147, 165)" letter-spacing="-0.14px" xml:space="preserve">비슷해요</text>
+<rect x="957.95" y="4516.91" width="72.31" height="22.69" rx="999" fill="rgb(253, 240, 227)"/>
+<text x="966.95" y="4531.87" font-size="11" font-weight="800" fill="rgb(229, 137, 58)" letter-spacing="-0.14px" xml:space="preserve">불안정해요</text>
+<text x="133" y="4570.91" font-size="12" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">구간 경계는 잠정 66 / 33(0~100 내부 규칙값). 지표 정의·산식·부연 설명은 생활지표_기획서, 지표별 카드 규칙은 지표별분석_화면정의서를 따른다. 홈에서는 정의 문장을 노출하지 않는</text>
+<text x="133" y="4591.3" font-size="12" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">다.</text>
+<text x="133" y="4636.6" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">6.4 요약 문장 노출 조건</text>
+<text x="133" y="4668.06" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">세 라벨이 이미 상태를 말하므로 평상시(모두 보통 이상)에는 요약 문장을 두지 않는다. 다음 두 경우에만 카드 하단에 한 줄을 붙인다.</text>
+<line x1="133" y1="4720.2" x2="283" y2="4720.2" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="4706.13" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">조건</text>
+<line x1="283" y1="4720.2" x2="1107" y2="4720.2" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="293" y="4706.13" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">문구</text>
+<line x1="133" y1="4763.3" x2="283" y2="4763.3" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="4746.38" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">주의 구간 지표 있음</text>
+<line x1="283" y1="4763.3" x2="1107" y2="4763.3" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="293" y="4746.38" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">생활여유에서 살펴볼 점이 있어요.</text>
+<line x1="133" y1="4828.48" x2="283" y2="4828.48" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="4789.48" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">관찰 중 지표 있음</text>
+<line x1="283" y1="4828.48" x2="1107" y2="4828.48" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="293" y="4789.48" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">자기돌봄 · 일상안정은 아직 관찰 중이에요. 오늘의 질문에 답하면 더 빨리 확인할 수 있어요. (질문 완료 후에는 &quot;며칠 더 쌓이면 보여드릴게</text>
+<text x="293" y="4811.57" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">요.&quot;)</text>
+<line x1="133" y1="4871.58" x2="283" y2="4871.58" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="4854.66" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">세 지표 모두 관찰 중</text>
+<line x1="283" y1="4871.58" x2="1107" y2="4871.58" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="293" y="4854.66" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">아직 관찰 중이에요. 며칠 더 쌓이면 상태를 보여드릴게요.</text>
+<text x="133" y="4911.8" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">6.5 산정 불가 · 미연동 처리</text>
+<rect x="133.5" y="4927.72" width="480" height="141.25" rx="13.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="150" y="4956.72" font-size="12.5" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">관찰 중(데이터 부족)</text>
+<text x="150" y="4983.97" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">빈 눈금판 + 라벨 &quot;관찰 중&quot; + §6.4 문구. 결측을 0이나 낮은 구간으로 치환하지</text>
+<text x="150" y="5005.22" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">않고, 다른 날 값으로 메우지 않는다. 지표별 사유 문구: 자기돌봄 &quot;식사 시각을</text>
+<text x="150" y="5026.47" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">알려주시면 식후에 움직였는지 확인할 수 있어요&quot; · 일상안정 &quot;평소 범위를 잡는</text>
+<text x="150" y="5047.72" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">중이에요&quot;.</text>
+<rect x="626.5" y="4927.72" width="480" height="141.25" rx="13.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="643" y="4956.72" font-size="12.5" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">건강 데이터 미연동</text>
+<text x="643" y="4983.97" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">게이지 대신 연동 안내 카드: &quot;건강 데이터를 연동하면 오늘의 컨디션을 볼 수 있</text>
+<text x="643" y="5005.22" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">어요 / 걸음·수면·심박 데이터로 생활여유 · 자기돌봄 · 일상안정을 계산해 드려</text>
+<text x="643" y="5026.47" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">요 [건강 데이터 연동하기]&quot;. 관찰 중과 반드시 구분한다.</text>
+<rect x="100.5" y="5118.97" width="1039" height="1177.53" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="5152.61" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="142.7" y="5169.48" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">7</text>
+<text x="169" y="5171.81" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">오늘의 건강 데이터</text>
+<text x="133" y="5202.27" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">대표 3개만 홈에, 나머지는 전체 건강 데이터 화면에서</text>
+<text x="133" y="5248.24" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">7.1 홈 구성</text>
+<text x="133" y="5279.7" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">섹션 제목 &quot;오늘의 건강 데이터&quot;와 우측 &quot;›&quot;(탭 → 전체 건강 데이터). 걸음 수 · 수면 시간 · 안정 시 심박수 3개를 각각 독립 카드로. 카드 = 아이콘 + 항목명 + 오늘</text>
+<text x="133" y="5303.49" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">값(굵게). 평소 대비 문구(&quot;▼ 12% 적어요&quot;, &quot;평소 범위예요&quot;)는 쓰지 않는다. 홈에서 이동은 섹션 제목의 › 하나뿐이며, 개별 카드는 탭해도 이동하지 않는다(항목</text>
+<text x="133" y="5327.29" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">상세는 전체 건강 데이터 목록에서만 진입).</text>
+<text x="133" y="5374.27" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">7.2 전체 건강 데이터(목록)</text>
+<text x="133" y="5405.73" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">그룹별 카드에 행(아이콘 · 항목명 · 오늘 값 · ›). 행 전체가 터치 영역이며 항목 상세로 이동한다. 상단에 연동 기기·앱 이름을 쓰지 않는다.</text>
+<line x1="133" y1="5457.88" x2="243" y2="5457.88" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5443.8" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">그룹</text>
+<line x1="243" y1="5457.88" x2="1107" y2="5457.88" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="253" y="5443.8" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">항목</text>
+<line x1="133" y1="5500.97" x2="243" y2="5500.97" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5484.06" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">활동</text>
+<line x1="243" y1="5500.97" x2="1107" y2="5500.97" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="253" y="5484.06" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">걸음 수 · 활동 칼로리 · 활동/운동 시간 · 운동 기록</text>
+<line x1="133" y1="5544.06" x2="243" y2="5544.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5527.15" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">심박 · 수면</text>
+<line x1="243" y1="5544.06" x2="1107" y2="5544.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="253" y="5527.15" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">심박수 · 수면</text>
+<line x1="133" y1="5587.16" x2="243" y2="5587.16" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5570.24" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">신체 정보</text>
+<line x1="243" y1="5587.16" x2="1107" y2="5587.16" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="253" y="5570.24" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">체중 · 체지방률 · BMI · 키</text>
+<line x1="133" y1="5630.25" x2="243" y2="5630.25" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5613.34" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">건강 측정</text>
+<line x1="243" y1="5630.25" x2="1107" y2="5630.25" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="253" y="5613.34" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">혈압 · 혈당</text>
+<text x="133" y="5651.57" font-size="12" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">하단 안내: &quot;연결한 건강 앱에서 제공되는 항목만 표시돼요. 활동 시간은 걸음 기록에서 직접 계산하고 운동 시간은 운동 세션 기준이라, 건강 앱에 보이는 값과 조금 다를 수 있어요.&quot;</text>
+<text x="133" y="5696.86" font-size="14.5" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">7.3 항목 상세(그래프)</text>
+<text x="133" y="5728.32" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">상단 시간 / 일 / 주 / 월 탭(기본 일. 시간 탭은 걸음 수·활동 칼로리·심박수만 활성). 큰 값 영역은 현재 선택한 지점의 라벨과 값을 보여준다(기본 &quot;오늘&quot;). 그래프</text>
+<text x="133" y="5752.12" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">위에 &quot;‹ 8월 14일 – 8월 20일 ›&quot; 기간 이동, 그래프에는 축 숫자·선택값 말풍선, 막대나 점을 누르면 선택이 바뀐다. 그래프 아래에 기간 요약(평균 · 최고 · 최저) 3</text>
+<text x="133" y="5775.92" font-size="14" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">칸. 선택 날짜·값을 그래프 아래에 반복하지 않는다.</text>
+<line x1="133" y1="5828.06" x2="275.84" y2="5828.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5813.99" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">항목</text>
+<line x1="275.84" y1="5828.06" x2="385.84" y2="5828.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="5813.99" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">그래프</text>
+<line x1="385.84" y1="5828.06" x2="1107" y2="5828.06" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="5813.99" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">표현 · 이유</text>
+<line x1="133" y1="5871.16" x2="275.84" y2="5871.16" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5854.24" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">걸음 수</text>
+<line x1="275.84" y1="5871.16" x2="385.84" y2="5871.16" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="5854.24" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">막대</text>
+<line x1="385.84" y1="5871.16" x2="1107" y2="5871.16" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="5854.24" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">기간별 걸음 수를 막대 높이로. 날짜별 활동량 비교에 적합. 오늘일 때 &quot;목표 10,000 걸음&quot; 보조 표시</text>
+<line x1="133" y1="5914.25" x2="275.84" y2="5914.25" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5897.34" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">활동 칼로리</text>
+<line x1="275.84" y1="5914.25" x2="385.84" y2="5914.25" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="5897.34" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">막대</text>
+<line x1="385.84" y1="5914.25" x2="1107" y2="5914.25" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="5897.34" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">기간별 소모 kcal</text>
+<line x1="133" y1="5957.34" x2="275.84" y2="5957.34" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5940.43" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">활동/운동 시간</text>
+<line x1="275.84" y1="5957.34" x2="385.84" y2="5957.34" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="5940.43" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">막대</text>
+<line x1="385.84" y1="5957.34" x2="1107" y2="5957.34" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="5940.43" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">누적 시간 데이터라 기간 비교에 적합. 플랫폼별 정의 차이는 §10 참조</text>
+<line x1="133" y1="6000.44" x2="275.84" y2="6000.44" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="5983.52" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">운동 기록</text>
+<line x1="275.84" y1="6000.44" x2="385.84" y2="6000.44" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="5983.52" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">리스트</text>
+<line x1="385.84" y1="6000.44" x2="1107" y2="6000.44" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="5983.52" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">날짜 총합 + 운동 종류·시간·거리 목록. 속성이 달라 단일 그래프로 표현하지 않음</text>
+<line x1="133" y1="6043.53" x2="275.84" y2="6043.53" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6026.62" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">심박수</text>
+<line x1="275.84" y1="6043.53" x2="385.84" y2="6043.53" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="6026.62" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">막대</text>
+<line x1="385.84" y1="6043.53" x2="1107" y2="6043.53" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="6026.62" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">시간/일별 평균 심박. 오늘일 때 &quot;최소 · 최대&quot; 보조 표시</text>
+<line x1="133" y1="6086.63" x2="275.84" y2="6086.63" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6069.71" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">수면</text>
+<line x1="275.84" y1="6086.63" x2="385.84" y2="6086.63" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="6069.71" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">막대</text>
+<line x1="385.84" y1="6086.63" x2="1107" y2="6086.63" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="6069.71" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">일별 총 수면시간. 오늘일 때 수면 단계 범례</text>
+<line x1="133" y1="6129.72" x2="275.84" y2="6129.72" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6112.81" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">체중 · 체지방률 · BMI</text>
+<line x1="275.84" y1="6129.72" x2="385.84" y2="6129.72" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="6112.81" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">라인</text>
+<line x1="385.84" y1="6129.72" x2="1107" y2="6129.72" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="6112.81" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">측정값을 점으로 찍고 선으로 연결. 단기 값보다 추이가 중요. 변화폭이 작아 축을 값 범위에 맞춰 확대</text>
+<line x1="133" y1="6172.81" x2="275.84" y2="6172.81" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6155.9" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">키</text>
+<line x1="275.84" y1="6172.81" x2="385.84" y2="6172.81" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="6155.9" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">미제공</text>
+<line x1="385.84" y1="6172.81" x2="1107" y2="6172.81" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="6155.9" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">최근 등록값 + 등록일 + &quot;키는 단기적인 변화가 적어 그래프를 제공하지 않습니다.&quot;</text>
+<line x1="133" y1="6215.91" x2="275.84" y2="6215.91" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6198.99" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">혈압</text>
+<line x1="275.84" y1="6215.91" x2="385.84" y2="6215.91" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="6198.99" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">포인트(2점)</text>
+<line x1="385.84" y1="6215.91" x2="1107" y2="6215.91" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="6198.99" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">측정 시점마다 수축기·이완기 두 점(구분색)을 세로선으로 연결. 요약은 &quot;121 / 80&quot;처럼 쌍으로</text>
+<line x1="133" y1="6259" x2="275.84" y2="6259" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6242.09" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">혈당</text>
+<line x1="275.84" y1="6259" x2="385.84" y2="6259" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="285.84" y="6242.09" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">포인트</text>
+<line x1="385.84" y1="6259" x2="1107" y2="6259" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="395.84" y="6242.09" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">실제 측정 시점만 점으로, 점선 연결. 측정 간격이 일정하지 않음</text>
+<rect x="100.5" y="6315.5" width="1039" height="655.97" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="6349.14" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="142.7" y="6366.02" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">8</text>
+<text x="169" y="6368.34" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">영역 간 연동 규칙</text>
+<text x="133" y="6398.8" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">한 영역의 변화가 다른 영역에 미치는 영향</text>
+<line x1="133" y1="6459.94" x2="353" y2="6459.94" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6445.87" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">트리거</text>
+<line x1="353" y1="6459.94" x2="1107" y2="6459.94" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6445.87" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">반영</text>
+<line x1="133" y1="6503.03" x2="353" y2="6503.03" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6486.12" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">질문 1문항 답변</text>
+<line x1="353" y1="6503.03" x2="1107" y2="6503.03" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6486.12" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">코칭 ①→② 문구만 전환 · 목표 변화 없음</text>
+<line x1="133" y1="6546.13" x2="353" y2="6546.13" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6529.21" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">질문 모두 답변</text>
+<line x1="353" y1="6546.13" x2="1107" y2="6546.13" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6529.21" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">코칭 ③ 생성 중 → ④ 결과 · 잠긴 목표 생성(타일 등장 애니메이션) + 열린 목표 1회 재계산(완료 목표 제외) · 질문 영역 완료 상태</text>
+<line x1="133" y1="6589.22" x2="353" y2="6589.22" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6572.31" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">답변 수정</text>
+<line x1="353" y1="6589.22" x2="1107" y2="6589.22" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6572.31" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">코칭 ③→④ 다시 · 목표 재계산(기본 목표에서) · 완료 목표는 유지</text>
+<line x1="133" y1="6632.31" x2="353" y2="6632.31" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6615.4" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">홈에서 목표 완료/취소</text>
+<line x1="353" y1="6632.31" x2="1107" y2="6632.31" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6615.4" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">&quot;n/3 완료&quot; 갱신 · 생활 탭 오늘의 목표 동일 상태 · 목표 이어가기 연속일수·코멘트·최근 7일 즉시 갱신</text>
+<line x1="133" y1="6675.41" x2="353" y2="6675.41" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6658.49" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">생활 탭에서 목표 완료/취소</text>
+<line x1="353" y1="6675.41" x2="1107" y2="6675.41" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6658.49" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">홈 타일 동일 상태(같은 컴포넌트)</text>
+<line x1="133" y1="6718.5" x2="353" y2="6718.5" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6701.59" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">잠긴 목표 탭</text>
+<line x1="353" y1="6718.5" x2="1107" y2="6718.5" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6701.59" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">홈으로 이동(생활 탭에서 눌렀을 때) · 남은 질문으로 문항 전환 · 상단 스크롤 · 히어로 1회 강조</text>
+<line x1="133" y1="6761.59" x2="353" y2="6761.59" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6744.68" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">컨디션 카드 / › 탭</text>
+<line x1="353" y1="6761.59" x2="1107" y2="6761.59" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6744.68" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">생활 탭 &gt; 지표별 분석(오늘 기준일)</text>
+<line x1="133" y1="6804.69" x2="353" y2="6804.69" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6787.77" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">건강 데이터 섹션 › 탭</text>
+<line x1="353" y1="6804.69" x2="1107" y2="6804.69" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6787.77" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">전체 건강 데이터 목록 → 행 탭 시 항목 상세. 홈의 개별 카드는 이동 없음</text>
+<line x1="133" y1="6847.78" x2="353" y2="6847.78" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6830.87" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">건강 데이터 연동 완료</text>
+<line x1="353" y1="6847.78" x2="1107" y2="6847.78" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6830.87" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">컨디션 게이지·건강 데이터 카드·생활 분석 즉시 렌더 · 데이터가 있는 목표 잠금 해제</text>
+<line x1="133" y1="6890.88" x2="353" y2="6890.88" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6873.96" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">연동 해제</text>
+<line x1="353" y1="6890.88" x2="1107" y2="6890.88" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6873.96" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">컨디션·건강 데이터 미연동 상태 · 기존 완료 기록과 리포트는 유지</text>
+<line x1="133" y1="6933.97" x2="353" y2="6933.97" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="6917.06" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">낮 동안 기기 데이터 갱신</text>
+<line x1="353" y1="6933.97" x2="1107" y2="6933.97" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="363" y="6917.06" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">컨디션 지표 재산정(라벨 변경 가능) · 건강 데이터 값 갱신 · 코칭·목표 문구는 불변(목표는 달성 힌트만)</text>
+<rect x="100.5" y="6990.47" width="1039" height="483.05" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="7024.11" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="142.7" y="7040.98" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">9</text>
+<text x="169" y="7043.31" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">상태 및 QA 체크</text>
+<text x="133" y="7073.77" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">출시 전 반드시 확인하는 화면 상태 조합</text>
+<rect x="133.5" y="7099.02" width="480" height="98.75" rx="13.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="150" y="7128.02" font-size="12.5" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">오늘의 질문</text>
+<text x="150" y="7155.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">1/3 진행 · 2/3 진행 · 완료 · 데이터 유무에 따른 문항 제외 · 저녁 첫 진입 과거형</text>
+<text x="150" y="7176.52" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">· 답변 수정 후 재계산</text>
+<rect x="626.5" y="7099.02" width="480" height="98.75" rx="13.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="643" y="7128.02" font-size="12.5" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">오늘의 코칭</text>
+<text x="643" y="7155.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">①②③④ 4단계 · 저녁 마무리형 · 하이라이트 1회만 · 스켈레톤 중 화면 이동 시</text>
+<text x="643" y="7176.52" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">결과 유지</text>
+<rect x="133.5" y="7210.77" width="480" height="120" rx="13.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="150" y="7239.77" font-size="12.5" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">오늘의 목표</text>
+<text x="150" y="7267.02" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">기본/완료/잠김 3상태 · 잠금 0/1/2개 · 일부 답변 시 목표 불변 · 전체 답변 시 잠</text>
+<text x="150" y="7288.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">긴 목표 일괄 생성 · 잠긴 타일 탭 이동 · 완료 후 재계산 시 유지 · 홈↔생활 동기</text>
+<text x="150" y="7309.52" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">화 · 첫 진입 저녁 생성 · 달성 힌트 · 하루 경계(새벽 4시) 넘김</text>
+<rect x="626.5" y="7210.77" width="480" height="120" rx="13.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="643" y="7239.77" font-size="12.5" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">오늘의 컨디션</text>
+<text x="643" y="7267.02" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">세 구간 × 세 지표 · 일부 관찰 중 · 전체 관찰 중 · 미연동 · 주의 구간 요약 문장 ·</text>
+<text x="643" y="7288.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">평상시 요약 문장 없음 · 탭 이동</text>
+<rect x="133.5" y="7343.77" width="480" height="98.75" rx="13.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="150" y="7372.77" font-size="12.5" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">오늘의 건강 데이터</text>
+<text x="150" y="7400.02" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">3카드 값 · 미연동 &quot;연동 후 표시돼요&quot; · 목록 4그룹 · 상세 그래프 6형태 · 시간 탭</text>
+<text x="150" y="7421.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">비활성 항목 · 기간 이동 끝(다음 비활성) · 선택 변경 시 상단 값 갱신 · 요약 3칸</text>
+<rect x="626.5" y="7343.77" width="480" height="98.75" rx="13.5" fill="rgb(250, 251, 253)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="643" y="7372.77" font-size="12.5" font-weight="700" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">공통</text>
+<text x="643" y="7400.02" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">브랜드명 미노출 · 숫자 점수/증감폭 미노출 · 잠금 목표 카운터 &quot;n/3 완료&quot; 유지 ·</text>
+<text x="643" y="7421.27" font-size="12.5" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">접근성 라벨(aria) · 360px 폭 줄바꿈</text>
+<rect x="100.5" y="7492.52" width="1039" height="575.03" rx="21.5" fill="rgb(255, 255, 255)" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="133" y="7526.16" width="26" height="26" rx="8" fill="rgb(238, 243, 255)"/>
+<text x="139.42" y="7543.03" font-size="12.5" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.38px" xml:space="preserve">10</text>
+<text x="169" y="7545.36" font-size="19" font-weight="800" fill="rgb(26, 34, 51)" letter-spacing="-0.38px" xml:space="preserve">확인 필요 사항</text>
+<text x="133" y="7575.81" font-size="12.5" font-weight="400" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">이 문서 확정 전 담당자 결정이 필요한 항목</text>
+<line x1="133" y1="7636.95" x2="169" y2="7636.95" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="7622.88" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">#</text>
+<line x1="169" y1="7636.95" x2="389" y2="7636.95" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="179" y="7622.88" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">항목</text>
+<line x1="389" y1="7636.95" x2="1017" y2="7636.95" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="399" y="7622.88" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">내용</text>
+<line x1="1017" y1="7636.95" x2="1107" y2="7636.95" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="1027" y="7622.88" font-size="12" font-weight="600" fill="rgb(136, 146, 166)" letter-spacing="-0.14px" xml:space="preserve">상태</text>
+<line x1="133" y1="7680.64" x2="169" y2="7680.64" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="7663.13" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">1</text>
+<line x1="169" y1="7680.64" x2="389" y2="7680.64" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="179" y="7663.13" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">목표 생성 규칙</text>
+<line x1="389" y1="7680.64" x2="1017" y2="7680.64" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="399" y="7663.13" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">개인 중앙값 기반 숫자 산출(걸음·취침), 트리거 우선순위, 마디별 난이도 조정을 별도 문서로 확정</text>
+<line x1="1017" y1="7680.64" x2="1107" y2="7680.64" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="1027" y="7647.95" width="64.36" height="22.69" rx="999" fill="rgb(238, 243, 255)"/>
+<text x="1036" y="7662.91" font-size="11" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">작성 예정</text>
+<line x1="133" y1="7724.33" x2="169" y2="7724.33" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="7706.82" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">2</text>
+<line x1="169" y1="7724.33" x2="389" y2="7724.33" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="179" y="7706.82" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">잠금 판정 기준</text>
+<line x1="389" y1="7724.33" x2="1017" y2="7724.33" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="399" y="7706.82" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">목표별 &quot;데이터 충분&quot; 임계값(예: 어젯밤 수면 기록 존재, 오늘 걸음 ≥ 1시간 수집)</text>
+<line x1="1017" y1="7724.33" x2="1107" y2="7724.33" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="1027" y="7691.64" width="64.36" height="22.69" rx="999" fill="rgb(253, 240, 227)"/>
+<text x="1036" y="7706.6" font-size="11" font-weight="800" fill="rgb(229, 137, 58)" letter-spacing="-0.14px" xml:space="preserve">확인 필요</text>
+<line x1="133" y1="7768.02" x2="169" y2="7768.02" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="7750.51" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">3</text>
+<line x1="169" y1="7768.02" x2="389" y2="7768.02" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="179" y="7750.51" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">하루 경계·저녁 기준</text>
+<line x1="389" y1="7768.02" x2="1017" y2="7768.02" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="399" y="7750.51" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">새벽 4시 경계, 18시 이후 저녁 문구 적용 시각</text>
+<line x1="1017" y1="7768.02" x2="1107" y2="7768.02" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="1027" y="7735.33" width="64.36" height="22.69" rx="999" fill="rgb(253, 240, 227)"/>
+<text x="1036" y="7750.29" font-size="11" font-weight="800" fill="rgb(229, 137, 58)" letter-spacing="-0.14px" xml:space="preserve">확인 필요</text>
+<line x1="133" y1="7855.3" x2="169" y2="7855.3" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="7794.2" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">4</text>
+<line x1="169" y1="7855.3" x2="389" y2="7855.3" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="179" y="7794.2" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">활동/운동 시간 산출</text>
+<line x1="389" y1="7855.3" x2="1017" y2="7855.3" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="399" y="7794.2" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">Apple appleExerciseTime은 &quot;빠르게 걷기 이상 강도의 1분 단위 누적&quot;(Watch 필요, 워크아웃 합산),</text>
+<text x="399" y="7816.29" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">Samsung TOTAL_ACTIVE_TIME은 강도 기준 없는 활동 총합. 앱은 활동 시간을 걸음 interval에서 직접 산</text>
+<text x="399" y="7838.38" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">출하고 운동 시간은 세션 기반으로 통일 — 개발 확인</text>
+<line x1="1017" y1="7855.3" x2="1107" y2="7855.3" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="1027" y="7779.02" width="65.45" height="22.69" rx="999" fill="rgb(238, 243, 255)"/>
+<text x="1036" y="7793.98" font-size="11" font-weight="800" fill="rgb(47, 102, 245)" letter-spacing="-0.14px" xml:space="preserve">SDK 확인</text>
+<line x1="133" y1="7898.98" x2="169" y2="7898.98" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="7881.48" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">5</text>
+<line x1="169" y1="7898.98" x2="389" y2="7898.98" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="179" y="7881.48" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">구간 경계 66/33</text>
+<line x1="389" y1="7898.98" x2="1017" y2="7898.98" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="399" y="7881.48" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">지표 엔진이 구간을 직접 내려주는지, 앱이 점수로 변환하는지</text>
+<line x1="1017" y1="7898.98" x2="1107" y2="7898.98" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="1027" y="7866.3" width="64.36" height="22.69" rx="999" fill="rgb(253, 240, 227)"/>
+<text x="1036" y="7881.26" font-size="11" font-weight="800" fill="rgb(229, 137, 58)" letter-spacing="-0.14px" xml:space="preserve">확인 필요</text>
+<line x1="133" y1="7942.67" x2="169" y2="7942.67" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="7925.16" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">6</text>
+<line x1="169" y1="7942.67" x2="389" y2="7942.67" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="179" y="7925.16" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">시야 문항 적용 조건</text>
+<line x1="389" y1="7942.67" x2="1017" y2="7942.67" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="399" y="7925.16" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">검진·진료 소견 중 어떤 코드/키워드로 분기할지, 의료 표현 검토</text>
+<line x1="1017" y1="7942.67" x2="1107" y2="7942.67" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="1027" y="7909.98" width="64.36" height="22.69" rx="999" fill="rgb(253, 240, 227)"/>
+<text x="1036" y="7924.94" font-size="11" font-weight="800" fill="rgb(229, 137, 58)" letter-spacing="-0.14px" xml:space="preserve">확인 필요</text>
+<line x1="133" y1="7986.36" x2="169" y2="7986.36" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="7968.85" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">7</text>
+<line x1="169" y1="7986.36" x2="389" y2="7986.36" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="179" y="7968.85" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">코칭 생성 지연</text>
+<line x1="389" y1="7986.36" x2="1017" y2="7986.36" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="399" y="7968.85" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">실제 응답 시간에 따른 스켈레톤 최대 노출 시간과 실패 시 기본 코칭 대체</text>
+<line x1="1017" y1="7986.36" x2="1107" y2="7986.36" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="1027" y="7953.67" width="64.36" height="22.69" rx="999" fill="rgb(253, 240, 227)"/>
+<text x="1036" y="7968.63" font-size="11" font-weight="800" fill="rgb(229, 137, 58)" letter-spacing="-0.14px" xml:space="preserve">확인 필요</text>
+<line x1="133" y1="8030.05" x2="169" y2="8030.05" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="143" y="8012.54" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">8</text>
+<line x1="169" y1="8030.05" x2="389" y2="8030.05" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="179" y="8012.54" font-size="13" font-weight="700" fill="rgb(26, 34, 51)" letter-spacing="-0.14px" xml:space="preserve">달성 힌트 문구</text>
+<line x1="389" y1="8030.05" x2="1017" y2="8030.05" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<text x="399" y="8012.54" font-size="13" font-weight="400" fill="rgb(75, 84, 104)" letter-spacing="-0.14px" xml:space="preserve">기기 데이터로 목표 달성이 확인됐을 때의 힌트 문구와 노출 위치</text>
+<line x1="1017" y1="8030.05" x2="1107" y2="8030.05" stroke="rgb(230, 234, 242)" stroke-width="1"/>
+<rect x="1027" y="7997.36" width="64.36" height="22.69" rx="999" fill="rgb(253, 240, 227)"/>
+<text x="1036" y="8012.32" font-size="11" font-weight="800" fill="rgb(229, 137, 58)" letter-spacing="-0.14px" xml:space="preserve">확인 필요</text>
+</svg>

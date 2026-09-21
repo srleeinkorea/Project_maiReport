@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>maiReport 정책 메모 — 목표 기록 잠금 · 생활 데이터 부재</title>
+<style>
+  :root{
+    --blue:#2F66F5;--blue-2:#EAF0FF;--blue-ink:#2B58C9;
+    --page:#F5F7FB;--card:#FFFFFF;--ink:#17233D;--muted:#657188;--faint:#8A94A8;
+    --line:#E1E7F1;--radius:22px;
+    --ok:#12734A;--ok-bg:#E7F5EE;--ok-line:#BEE4CE;
+    --warn:#8A5A00;--warn-bg:#FBF1DA;--warn-line:#EBD9AC;
+    --stop:#B23A3A;--stop-bg:#FBEBEB;--stop-line:#EDC9C9;
+    --font:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--page);color:var(--ink);font-family:var(--font);
+    line-height:1.68;letter-spacing:-.015em;font-size:15px;word-break:keep-all;overflow-wrap:break-word;
+    -webkit-font-smoothing:antialiased;
+  }
+  .top{position:sticky;top:0;z-index:10;padding:10px 18px;background:rgba(245,247,251,.82);backdrop-filter:blur(16px) saturate(130%)}
+  .top-in{max-width:920px;margin:auto;display:flex;align-items:center;gap:12px;min-height:52px;
+    padding:8px 16px;background:rgba(255,255,255,.94);border:1px solid rgba(203,213,229,.7);
+    border-radius:16px;box-shadow:0 10px 30px rgba(36,55,92,.06),0 1px 2px rgba(36,55,92,.04)}
+  .brand-word{position:relative;font-size:19px;font-weight:900;letter-spacing:-.065em;color:#17233D;line-height:1}
+  .brand-word::after{content:"";position:absolute;right:-7px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--blue)}
+  .brand-rule{width:1px;height:18px;background:#DDE4EF}
+  .doc-label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#627089}
+  .doc-label em{font-style:normal;font-weight:900;font-size:10px;letter-spacing:.04em;color:var(--blue);background:var(--blue-2);border-radius:999px;padding:3px 7px}
+
+  main{max-width:920px;margin:auto;padding:34px 22px 72px}
+
+  .hero{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:var(--radius);padding:34px 34px 28px;box-shadow:0 14px 38px rgba(35,54,91,.05)}
+  .eyebrow{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+  h1{margin:12px 0 12px;font-size:27px;font-weight:900;letter-spacing:-.04em;line-height:1.32}
+  .hero p{margin:0;color:var(--muted);font-size:14px;line-height:1.75}
+  .meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+  .meta span{font-size:11px;font-weight:800;color:var(--blue-ink);background:#F0F4FF;border:1px solid #D5E0FB;border-radius:999px;padding:6px 11px}
+
+  section.block{margin-top:30px}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;color:var(--blue-ink);background:#F0F4FF;border-radius:999px;padding:5px 11px;letter-spacing:.02em}
+  h2{margin:12px 0 4px;font-size:20px;font-weight:900;letter-spacing:-.035em}
+  .lead{color:var(--muted);font-size:13.5px;margin:0 0 14px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 24px;box-shadow:0 8px 24px rgba(31,55,105,.045)}
+  .card + .card{margin-top:12px}
+  .card h3{margin:0 0 8px;font-size:15px;font-weight:900;letter-spacing:-.02em}
+  .card p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.72}
+  .card p + p{margin-top:8px}
+  .card b{color:var(--ink);font-weight:800}
+
+  .verdict{display:flex;gap:12px;align-items:flex-start;background:var(--ok-bg);border:1px solid var(--ok-line);border-radius:16px;padding:16px 18px;margin-bottom:12px}
+  .verdict .tag{flex:0 0 auto;font-size:11px;font-weight:900;color:#fff;background:var(--ok);border-radius:999px;padding:4px 10px;letter-spacing:.02em}
+  .verdict p{margin:0;color:#1B4A34;font-size:13.5px;font-weight:700;line-height:1.65}
+
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px;margin-top:12px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  thead th{background:#F4F7FC;font-size:10.5px;font-weight:900;letter-spacing:.05em;color:#5C6B85;text-transform:uppercase;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  td b{font-weight:800;color:var(--ink)}
+  td .muted{color:var(--muted)}
+  .pill{display:inline-block;font-size:10.5px;font-weight:900;border-radius:999px;padding:3px 9px;white-space:nowrap}
+  .pill.keep{background:var(--ok-bg);color:var(--ok)}
+  .pill.swap{background:var(--blue-2);color:var(--blue-ink)}
+  .pill.calc{background:var(--warn-bg);color:var(--warn)}
+  .pill.block{background:var(--stop-bg);color:var(--stop)}
+  .pill.na{background:#EEF1F6;color:var(--faint)}
+
+  ul.rules{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+  ul.rules li{position:relative;padding-left:20px;font-size:13.5px;color:var(--muted);line-height:1.7}
+  ul.rules li::before{content:"";position:absolute;left:3px;top:9px;width:6px;height:6px;border-radius:2px;background:var(--blue)}
+  ul.rules li b{color:var(--ink);font-weight:800}
+
+  .quote{border-left:3px solid var(--blue);background:#F7F9FF;border-radius:0 12px 12px 0;padding:12px 16px;margin-top:12px;font-size:13px;color:#3A4A6B;line-height:1.72}
+  .quote span{display:block;font-size:11px;font-weight:900;color:var(--faint);letter-spacing:.04em;margin-bottom:5px;text-transform:uppercase}
+
+  .alt{background:#FBFCFE;border:1px dashed var(--line);border-radius:14px;padding:14px 16px;margin-top:12px}
+  .alt h4{margin:0 0 5px;font-size:12px;font-weight:900;color:var(--muted);letter-spacing:.02em}
+  .alt p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.7}
+
+  .todo{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px 24px;box-shadow:0 8px 24px rgba(31,55,105,.045)}
+  .todo li{font-size:13px;color:var(--muted);line-height:1.7}
+  .todo li b{color:var(--ink);font-weight:800}
+
+  footer{margin-top:40px;text-align:center;color:var(--faint);font-size:11px}
+
+  @media (max-width:600px){
+    main{padding:24px 14px 56px}
+    .hero{padding:26px 22px 22px}
+    h1{font-size:22px}
+  }
+  @media print{
+    body{background:#fff}
+    .top{display:none}
+    .card,.todo,.hero{box-shadow:none;break-inside:avoid}
+    .tbl-wrap{overflow:visible}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <span class="brand-word">maiReport</span>
+    <span class="brand-rule" aria-hidden="true"></span>
+    <span class="doc-label">정책 메모 <em>POLICY</em></span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Product Policy Memo</div>
+    <h1>목표 기록 잠금 · 생활 데이터 부재 시 표시 정책</h1>
+    <p>온보딩·질문 답변 순서와 건강 데이터 권한 상태에 따라 발생하는 두 가지 경계 상황에 대한 처리 원칙을 정의합니다.
+    ① 질문 답변 전에 완료한 기본 목표의 기록을 어떻게 다룰지, ② 생활(웨어러블) 데이터가 없을 때 각 화면을 어떻게 보여줄지.</p>
+    <div class="meta">
+      <span>작성일 2026-09-07</span>
+      <span>상태 검토용 v0.1</span>
+      <span>관련 화면 HOME-001 · HOME-003 · LIFE-001~004</span>
+      <span>비의료기기 웰니스 기준</span>
+    </div>
+  </section>
+
+  <!-- ===================== 정책 1 ===================== -->
+  <section class="block">
+    <span class="kicker">정책 1</span>
+    <h2>질문 답변 전에 완료한 기본 목표의 기록 처리</h2>
+    <p class="lead">시나리오 — 사용자가 오늘의 질문에 답하기 전, 기본 목표(식이·운동·수면)를 <b>완료</b> 또는 <b>쉬기</b>로 처리한다.
+      이후 질문에 답하면 목표가 답변에 맞춰 재개인화된다. 이때 이미 처리한 기록이 사라지는가?</p>
+
+    <div class="verdict">
+      <span class="tag">결론</span>
+      <p>사라지지 않는다. 사용자가 한 번이라도 <b>완료·쉬기</b>로 처리한 목표는 그날 하루 동안 <b>내용과 상태를 모두 잠근다.</b>
+        재개인화는 아직 손대지 않은(대기 상태) 목표에만 적용한다.</p>
+    </div>
+
+    <div class="card">
+      <h3>저장 모델 — 기록은 목표 "카드"가 아니라 "카테고리 × 일자"에 귀속</h3>
+      <p>완료·쉬기 기록은 <b>식이 / 운동 / 수면</b> 카테고리별로 날짜에 저장된다. 화면에 보이는 목표 카드의 문구(제목·실행 방법)는
+        표현 계층일 뿐이며, 주간 목표 분석(LIFE-001)의 달성률은 이 <b>카테고리 단위 기록</b>을 기준으로 집계된다.</p>
+      <p>따라서 "기록이 사라지는가"의 실제 쟁점은 <b>완료 표시가 붙은 카드의 문구를 개인화 버전으로 바꿔치기할 것인가</b>이다.
+        바꿔치면 사용자가 실제로 한 행동(예: "식후 10분 걷기")과 화면에 남은 문구가 어긋나므로, <b>바꾸지 않는다.</b></p>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>대상</th><th>질문 답변 후 처리</th><th>비고</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>완료</b>한 목표</td>
+            <td><span class="pill keep">유지</span> 문구·완료 상태 그대로 고정</td>
+            <td class="muted">되돌리기(완료 취소) 전까지 잠금</td>
+          </tr>
+          <tr>
+            <td><b>쉬기</b>한 목표</td>
+            <td><span class="pill keep">유지</span> 문구·쉬기 상태 그대로 고정</td>
+            <td class="muted">완료와 동일하게 "사용자가 판단을 내린" 기록으로 취급</td>
+          </tr>
+          <tr>
+            <td><b>대기</b>(미처리) 목표</td>
+            <td><span class="pill swap">교체</span> 답변을 반영한 개인화 목표로 문구 갱신</td>
+            <td class="muted">상태는 계속 대기</td>
+          </tr>
+          <tr>
+            <td>오늘의 코칭</td>
+            <td><span class="pill calc">항상 재계산</span></td>
+            <td class="muted">기록이 아니라 조언이므로 최신 답변을 항상 반영</td>
+          </tr>
+          <tr>
+            <td>주간 달성률 (LIFE-001)</td>
+            <td><span class="pill keep">그대로 집계</span></td>
+            <td class="muted">그날 제시된 목표 3개가 분모. 완료한 기본 목표는 정상적으로 분자에 포함</td>
+          </tr>
+          <tr>
+            <td>목표별 연속일수(streak)</td>
+            <td><span class="pill keep">유지</span></td>
+            <td class="muted">카테고리 기준이므로 문구가 바뀌어도 연속 기록 승계</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>경계 사례</h3>
+      <p><b>3개 모두 완료 후 답변</b> — 교체할 대기 목표가 없으므로 목표 카드는 그대로. 코칭만 개인화된다. 오늘은 개인화 목표를 보지 못하지만,
+        이미 실천을 마쳤으므로 문제되지 않는다(다음 날 정상적으로 개인화 목표 제시).</p>
+      <p><b>일부만 완료 후 답변</b> — 완료 1개(기본) + 대기 2개(개인화)로 카드가 섞인다. 섞임 자체는 허용하되,
+        대기 목표 상단에 <b>"답변을 반영해 목표를 새로 추천했어요"</b> 안내를 1회 노출한다.</p>
+      <p><b>답변을 되돌려 다시 선택</b> — 재계산이 다시 돌지만 여전히 대기 목표에만 적용된다. 이미 완료·쉬기한 목표는 계속 잠금.</p>
+      <p><b>완료를 취소</b>(사용자가 직접 되돌림) — 잠금 해제되어 대기로 돌아가며, 이후에는 개인화 규칙을 다시 따른다.</p>
+    </div>
+
+    <div class="alt">
+      <h4>기각한 대안 — "완료 상태를 개인화 목표로 이관"</h4>
+      <p>완료 표시를 유지한 채 카드 문구만 개인화 버전으로 교체하는 방식. 사용자가 실제 수행한 행동과 화면 기록이 불일치하고,
+        "내가 안 한 목표가 완료로 표시된다"는 신뢰 문제가 생겨 채택하지 않는다.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 정책 2 ===================== -->
+  <section class="block">
+    <span class="kicker">정책 2</span>
+    <h2>생활(웨어러블) 데이터가 없을 때의 표시</h2>
+    <p class="lead">시나리오 — 건강 데이터 접근 권한이 없거나(거부·미설정), 권한은 있으나 아직 수집된 데이터가 없다.
+      회복여유·생활부담·리듬안정성 등 <b>생활 데이터 기반 지표</b>를 계산할 수 없다.</p>
+
+    <div class="verdict">
+      <span class="tag">결론</span>
+      <p>가짜 수치를 만들지 않는다. 데이터가 필요한 영역은 <b>빈 상태 + 1탭 연동 경로</b>로 보여주고,
+        오늘의 질문을 <b>대안 입력 수단</b>으로 안내한다. 질문·코칭·목표·병원(검진·진료) 영역은 정상 동작한다.</p>
+    </div>
+
+    <div class="card">
+      <h3>상태 3분류 — 원인에 따라 다르게 안내</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>상태</th><th>화면 처리</th><th>주 CTA</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>① 권한 미허용</b><br><span class="muted">앱 내 거부 또는 미설정</span></td>
+              <td>빈 상태 카드 + 이 지표로 무엇을 볼 수 있는지 한 줄 설명</td>
+              <td><b>건강 데이터 연동</b> → OS 권한 시트</td>
+            </tr>
+            <tr>
+              <td><b>② OS 레벨 거부</b><br><span class="muted">시스템 설정에서 차단</span></td>
+              <td>동일하되 문구를 "설정에서 허용" 으로</td>
+              <td><b>설정 열기</b> → OS 설정 딥링크</td>
+            </tr>
+            <tr>
+              <td><b>③ 권한 허용·데이터 없음</b><br><span class="muted">신규/미착용/미동기화</span></td>
+              <td>"데이터를 모으는 중" 안내. CTA 대신 동기화·착용 힌트</td>
+              <td>없음 (하루 이상 사용 시 자동 표시)</td>
+            </tr>
+            <tr>
+              <td><b>④ 부분 허용</b><br><span class="muted">일부 항목만 허용</span></td>
+              <td>계산 가능한 지표는 표시, 나머지만 빈 상태</td>
+              <td>부족 지표에 한해 <b>추가 연동</b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>화면별 처리</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>화면</th><th>데이터 없을 때</th><th>근거</th></tr></thead>
+          <tbody>
+            <tr><td>홈 · 오늘의 질문 / 코칭 / 목표</td><td><span class="pill keep">정상</span></td><td class="muted">질문 답변이 입력을 대체. 코칭·목표는 답변만으로 산출</td></tr>
+            <tr><td>홈 · 오늘의 컨디션 (HOME-003)</td><td><span class="pill block">빈 상태 + 연동 CTA</span></td><td class="muted">회복여유·생활부담·리듬안정성은 연속 활동·수면 신호 필요</td></tr>
+            <tr><td>생활 · 지표별 분석 (LIFE-002)</td><td><span class="pill block">빈 상태 + 연동 CTA</span></td><td class="muted">오늘의 컨디션과 동일 지표. 미연동 시 게이트 처리 필요</td></tr>
+            <tr><td>생활 · 생활 분석 (LIFE-003)</td><td><span class="pill block">빈 상태 + 연동 CTA</span></td><td class="muted">걸음·수면·심박·활동 원본 데이터가 표시 대상</td></tr>
+            <tr><td>생활 · AI 인사이트 (LIFE-004)</td><td><span class="pill block">빈 상태 + 연동 CTA</span></td><td class="muted">필수 입력이 생활 데이터. 검진은 옵션</td></tr>
+            <tr><td>생활 · 목표 분석 (LIFE-001)</td><td><span class="pill keep">정상</span></td><td class="muted">목표·실천 기록은 수동. 기기 불필요</td></tr>
+            <tr><td>병원 · 진료요약 / 방문이력</td><td><span class="pill na">무관</span></td><td class="muted">검진·진료는 별도 연동(마이데이터). 웨어러블 권한과 독립</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>지표별 부분 계산 규칙 (상태 ④)</h3>
+      <ul class="rules">
+        <li>각 지표에는 <b>핵심 산출 데이터</b>가 정의된다 — 회복여유: 심박·수면 / 생활부담: 걸음·활동칼로리·활동시간 / 리듬안정성: 취침시각·수면·활동.</li>
+        <li><b>핵심 데이터가 하나라도 없으면</b> 해당 지표는 계산하지 않고 "데이터 부족"으로 표시한다.</li>
+        <li>핵심은 있고 <b>보조 데이터만 없으면</b> 계산하되, "정확도 낮음 · 참고용" 라벨을 함께 노출한다.</li>
+        <li>지표 간 독립적으로 판단한다 — 한 지표가 빠져도 나머지는 정상 표시.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>공통 원칙</h3>
+      <ul class="rules">
+        <li><b>가짜 수치 금지</b> — 0점·"—점"처럼 측정값으로 오인될 자리표시를 쓰지 않는다.</li>
+        <li><b>질문을 대안으로 제시</b> — 빈 상태 문구에서 "대신 오늘의 질문에 답하면 상태를 파악해 코칭해 드려요"로 연결한다.</li>
+        <li><b>항상 1탭 복구 경로</b> — 모든 빈 상태에 연동/설정 CTA를 둔다.</li>
+        <li><b>데이터 없을 때 질문 확장</b> — 결측을 보완하도록 그날 질문 세트를 더 넓게 구성할 수 있다(문항 수·주제 조정은 별도 정의).</li>
+        <li><b>비의료 톤 유지</b> — 진단·위험 표현 없이 "상태를 계산할 수 없다 / 참고용"으로 서술한다.</li>
+      </ul>
+      <div class="quote">
+        <span>빈 상태 카피 예시 — 오늘의 컨디션</span>
+        지금은 연동된 생활 데이터가 없어 컨디션을 계산할 수 없어요.
+        건강 데이터를 연동하면 회복여유·생활부담·리듬안정성을 매일 확인할 수 있어요.
+        연동 전에는 오늘의 질문 답변으로 상태를 파악해 코칭해 드려요.
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 반영 필요 ===================== -->
+  <section class="block">
+    <span class="kicker">반영 필요</span>
+    <h2>후속 작업</h2>
+    <div class="todo">
+      <ul class="rules">
+        <li><b>기능정의서</b> — 정책 1의 "완료·쉬기 잠금" 규칙과 "혼합 시 1회 안내" 문구를 오늘의 목표 상세에 추가.</li>
+        <li><b>기능정의서 / IA</b> — LIFE-002 지표별 분석에 <b>미연동 게이트(빈 상태)</b>를 명시(현재 정의상 누락).</li>
+        <li><b>화면정의서</b> — 상태 3분류(①~④)별 빈 상태 화면과 카피, CTA 목적지(권한 시트 / 설정 딥링크)를 정의.</li>
+        <li><b>지표 정의 문서</b> — 지표별 "핵심 / 보조" 데이터 목록과 "정확도 낮음" 판정 기준을 확정(복합지표 공식 미정 항목과 연결).</li>
+        <li><b>구현</b> — 홈 오늘의 컨디션 렌더가 현재 미연동 상태에서도 하드코딩 점수를 노출. 빈 상태 분기 반영 필요.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>maiReport · 정책 메모 v0.1 · 내부 검토용 · 2026-09-07</footer>
+</main>
+</body>
+</html>

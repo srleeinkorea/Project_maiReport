@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 식이 문구 세트 확장 초안</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1180px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:760px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);font-size:11.5px}
+  td{padding:8px 8px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1)}
+  td.n{color:var(--ink-3);font-size:11.5px;white-space:nowrap}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .mini{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+  .mini .big{font-size:24px;font-weight:800;color:var(--ink-1);line-height:1.2}
+  .mini p{font-size:12px;margin:0}
+  .chip{display:inline-block;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700;white-space:nowrap;margin:0 3px 3px 0}
+  .t-eve{background:#eef3ff;color:#2f66f5}.t-am{background:#fff6e8;color:#8a5a0a}.t-pm{background:#fff6e8;color:#8a5a0a}.t-only{background:#fdeeee;color:#a12e2e}.t-weak{background:#f3f3f3;color:#666}.t-ban{background:#fdeeee;color:#a12e2e}.t-new{background:#e8f6ee;color:#1e6b3a}.t-link{background:#f5f3ff;color:#7c3aed}
+  .note{font-size:12px;color:var(--ink-3)}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .callout.warn{border-left-color:#d98a12;background:#fff6e8;color:#6b4c0f}
+  .cnt{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0}
+  .cnt div{background:#fafbfd;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12px}
+  .cnt b{display:block;color:var(--ink-1)}
+  @media(max-width:900px){.grid4,.cnt{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 문구 세트</span>
+  <h1>식이 문구 세트 · 186개</h1>
+  <p>기존 38항목에 더할 문구 초안. 원칙은 「같은 근거 아래 다른 구체 행동」이다. 새 근거를 끌어오지 않고 기존 축의 지침 근거 안에서 행동만 바꿨다. 1차 묶음(46개)은 칸마다 최소 3개를 채우고, 2차 묶음(47개)은 편의점 · 배달 · 회식 · 카페 · 사무실 같은 상황별 행동으로 칸마다 5개 안팎이 되게 했다. 3차 묶음(53개)은 구내식당 · 마트 · 명절 · 여행 · 야근 · 주말로 장면을 넓히고, 곡류 · 식이섬유 소축을 새로 제안해 칸마다 7개 안팎이 되게 했다. 4차 묶음(45개)은 아직 얇은 곡류 · 식이섬유 소축과 도전 칸을 채우고 혼밥 · 도시락 · 가족 식사 · 계절 · 식후 장면을 더했다. 모두 타일 22자 한도 안이고, 사용자가 스스로 완료 여부를 알 수 있는 행동 하나다. 의학팀 문구 단위 검수 전이라 기획안 ⑥에는 아직 넣지 않았다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-18</b></span><span>4차 추가 <b>2026-09-21</b></span><span>추가 <b>186개 (1차 46 · 2차 47 · 3차 53 · 4차 45 · 검수 −5)</b></span><span>결과 <b>38 → 224항목</b></span><span>버전 <b>v1.0</b></span><span>상태 <b>의학팀 최종 승인 전</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s0">확장 원칙 · 결과</a><a href="#s1">끼니 규칙</a><a href="#s2">채소</a><a href="#s3">단 음료·단 간식</a><a href="#s4">짠맛·국물 · 절주</a><a href="#s5">식사 시각</a><a href="#s6">식사 속도·양</a><a href="#s7">단백질</a><a href="#s8">기름진 음식</a><a href="#s9">회복 · 부담 풀</a><a href="#s9b">2차 묶음 · 상황별</a><a href="#s9c">3차 묶음 · 생활 반경</a><a href="#s9d">4차 묶음 · 얇은 칸</a><a href="#s9e">의학 검수 결과</a><a href="#s10">규칙 변경</a><a href="#s11">검수 요청</a>
+</div>
+
+<section class="card" id="s0">
+  <h2>확장 원칙과 결과</h2>
+  <div class="sub">무엇을 기준으로 썼고, 칸별로 몇 개가 되는지</div>
+  <div class="grid4">
+    <div class="mini"><b>근거는 새로 안 만든다</b><p>축에 이미 붙은 지침(식생활지침 · WHO · 학회 진료지침) 범위 안의 행동만. 새 출처가 필요한 곳은 절주 2개(고혈압학회 · 간학회)와 3차의 곡류 · 식이섬유 5개(당뇨병학회 · 지질학회)뿐이다</p></div>
+    <div class="mini"><b>행동 하나 · 확인 가능</b><p>"덜", "조금" 같은 정도 표현 대신 "반만", "한 가지", "빼기"처럼 했는지 바로 알 수 있는 말. 재야 하는 수치(g · kcal) 없음</p></div>
+    <div class="mini"><b>한국 식탁 기준</b><p>김치 · 국 · 찌개 · 라면 · 반주 · 회식처럼 실제로 자주 마주치는 장면에서 행동을 잡았다</p></div>
+    <div class="mini"><b>제한은 축을 따른다</b><p>새 문구도 축의 금지(신장 · 섭식장애 등)를 그대로 물려받고, 문구 고유의 제한만 따로 표시</p></div>
+  </div>
+  <p style="margin-top:14px;font-weight:700;color:var(--ink-1)">확장 후 칸별 개수 (기존 → 1차 → 2차 → 3차)</p>
+  <div class="cnt">
+    <div><b>끼니 규칙</b>입문 1→3→5→7 · 기본 2→3→5→7 · 도전 1→3→5→7</div>
+    <div><b>채소</b>입문 1→3→5→7 · 기본 2→3→5→7 · 도전 1→3→5→7</div>
+    <div><b>단 음료·단 간식</b>입문 1→3→5→7 · 기본 2→4→6→8 · 도전 2→3→5→7</div>
+    <div><b>짠맛·국물</b>입문 1→3→5→7 · 기본 2→4→6→8 · 도전 2→4→6→8 · 절주 0→2</div>
+    <div><b>식사 시각</b>입문 1→2→4→6 · 기본 1→3→5→7 · 도전 1→2→3→4</div>
+    <div><b>식사 속도·양</b>입문 1→3→5→7 · 기본 2→4→6→8 · 도전 2→3→5→6</div>
+    <div><b>단백질</b>입문 1→3→5→7 · 기본 1→3→5→7 · 도전 1→2→4→5</div>
+    <div><b>기름진 음식</b>입문 1→3→5→7 · 기본 1→3→5→7 · 도전 1→3→5→6</div>
+  </div>
+  <p class="note">여기에 3차에서 제안하는 곡류 · 식이섬유 소축 5개(입문 2 · 기본 2 · 도전 1)가 붙는다. 회복 풀 3→5→5→7, 부담 줄이기 풀 4→5→5→7. 축 문구 합계 31 → 74 → 121 → 170 → 211, 상황 풀 7 → 10 → 10 → 14 → 18. 총 229항목. 칸마다 6~8개가 되어 같은 단계에 2주를 머물러도 문구가 겹치지 않고, 어제 미완료 문구와 상황이 맞지 않는 문구를 둘 다 빼도 같은 단계 안에 후보가 남는다.</p>
+</section>
+
+<section class="card" id="s1">
+  <h2><span class="n">1</span>끼니 규칙 <span class="chip t-new">+5</span></h2>
+  <div class="sub">근거: 식생활지침 수칙 1(균형) · 4(과식 회피 · 건강체중) · 5(아침식사)</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:100px">표시</th><th style="width:160px">근거</th><th style="width:100px">제한</th></tr>
+    <tr><td class="n">N1</td><td>입문</td><td class="k">아침에 우유나 두유 한 잔</td><td>마실 것 하나라도 아침 끼니가 돼요.</td><td><span class="chip t-am">오전 진입</span></td><td>식생활지침 수칙 1 · 5</td><td>—</td></tr>
+    <tr><td class="n">N3</td><td>기본</td><td class="k">점심은 늦지 않게 챙기기</td><td>점심이 늦어지면 저녁까지 몰아 먹게 돼요.</td><td>—</td><td>식생활지침 수칙 4</td><td>—</td></tr>
+    <tr><td class="n">N4</td><td>도전</td><td class="k">오늘 세 끼 모두 챙기기</td><td>세 끼가 다 있으면 한 끼 양이 자연히 줄어요.</td><td>—</td><td>식생활지침 수칙 1 · 4</td><td>—</td></tr>
+    <tr><td class="n">N5</td><td>도전</td><td class="k">주말에도 아침 거르지 않기</td><td>주말 아침을 지키면 주중 리듬이 무너지지 않아요.</td><td><span class="chip t-am">오전 진입</span> 토 · 일</td><td>식생활지침 수칙 5</td><td>—</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s2">
+  <h2><span class="n">2</span>채소 <span class="chip t-new">+5</span></h2>
+  <div class="sub">근거: 식생활지침 수칙 1 · WHO 채소·과일 하루 400g(5접시) · 식사 순서 연구. 신장질환 3기 이상은 축 전체 제외</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:100px">표시</th><th style="width:160px">근거</th><th style="width:100px">제한</th></tr>
+    <tr><td class="n">N6</td><td>입문</td><td class="k">국 대신 나물 한 접시</td><td>국물 자리에 채소를 넣으면 나트륨도 함께 줄어요.</td><td>—</td><td>식생활지침 수칙 1 · 2</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N7</td><td>입문</td><td class="k">고기 먹을 땐 쌈 채소 함께</td><td>쌈 채소는 가장 쉽게 채소를 더하는 방법이에요.</td><td>—</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N8</td><td>기본</td><td class="k">외식 때 채소 반찬 하나 추가</td><td>외식은 채소가 가장 빠지기 쉬운 끼니예요.</td><td>—</td><td>식생활지침 수칙 1 · WHO 400g</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N9</td><td>도전</td><td class="k">매 끼니 채소 두 가지</td><td>끼니마다 두 가지면 하루 다섯 접시에 가까워져요.</td><td>—</td><td>WHO 400g(5접시)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N10</td><td>도전</td><td class="k">점심도 채소부터 먼저</td><td>저녁뿐 아니라 점심에도 순서를 바꿔 보는 단계예요.</td><td>—</td><td>식사 순서 무작위 대조 연구</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+  </table>
+</section>
+
+<section class="card" id="s3">
+  <h2><span class="n">3</span>단 음료 · 단 간식 <span class="chip t-new">+5</span></h2>
+  <div class="sub">근거: WHO 당류 지침(유리당 10% · 5% 미만) · 식생활지침 수칙 2 · 3</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:100px">표시</th><th style="width:160px">근거</th><th style="width:100px">제한</th></tr>
+    <tr><td class="n">N11</td><td>입문</td><td class="k">커피는 시럽 · 크림 빼고</td><td>커피 한 잔의 시럽이 하루 당 권고량의 절반이에요.</td><td>—</td><td>WHO 당류 지침</td><td>—</td></tr>
+    <tr><td class="n">N12</td><td>입문</td><td class="k">탄산음료 대신 탄산수</td><td>톡 쏘는 느낌은 그대로, 당만 빠져요.</td><td>—</td><td>WHO 당류 지침</td><td>—</td></tr>
+    <tr><td class="n">N13</td><td>기본</td><td class="k">요구르트는 무가당으로</td><td>가당 요구르트 한 개에 각설탕 세 개 분량이 들어 있어요.</td><td>—</td><td>WHO 당류 지침 · 식약처 당류 표시</td><td>—</td></tr>
+    <tr><td class="n">N14</td><td>기본</td><td class="k">과일주스 대신 생과일</td><td>주스는 과일의 당만 남고 섬유질은 빠져요.</td><td>—</td><td>WHO 당류 지침(주스는 유리당)</td><td>—</td></tr>
+    <tr><td class="n">N15</td><td>도전</td><td class="k">단 간식 오늘 하루 쉬기</td><td>간식의 당은 끼니보다 눈에 안 띄게 쌓여요.</td><td>—</td><td>WHO 당류 지침</td><td><span class="chip t-ban">섭식장애</span><span class="chip t-ban">임신·수유</span></td></tr>
+  </table>
+</section>
+
+<section class="card" id="s4">
+  <h2><span class="n">4</span>짠맛 · 국물 <span class="chip t-new">+6</span> · 절주 <span class="chip t-new">+2</span></h2>
+  <div class="sub">근거: WHO 나트륨 2,000mg · 대한고혈압학회 2022 생활요법 · 식약처 나트륨 실측. 절주는 고혈압학회 · 대한간학회 근거</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:100px">표시</th><th style="width:160px">근거</th><th style="width:100px">제한</th></tr>
+    <tr><td class="n">N16</td><td>입문</td><td class="k">라면 국물은 남기기</td><td>라면 나트륨의 3분의 2는 국물에 있어요.</td><td>—</td><td>식약처 나트륨 실측</td><td>—</td></tr>
+    <tr><td class="n">N17</td><td>입문</td><td class="k">간장 · 소스에 찍지 않기</td><td>찍어 먹는 간장이 반찬 하나만큼 짜요.</td><td>—</td><td>고혈압학회 2022(식탁 소금 추가 금지)</td><td>—</td></tr>
+    <tr><td class="n">N18</td><td>기본</td><td class="k">김치는 평소의 절반</td><td>한국인 나트륨의 첫째 급원이 김치예요.</td><td>—</td><td>국민건강영양조사 나트륨 급원 · WHO</td><td>—</td></tr>
+    <tr><td class="n">N19</td><td>기본</td><td class="k">젓갈 · 장아찌 한 끼 빼기</td><td>절임 반찬 한 젓가락이 국 한 그릇만큼 짜요.</td><td>—</td><td>식약처 나트륨 실측</td><td>—</td></tr>
+    <tr><td class="n">N20</td><td>도전</td><td class="k">외식 때 소스는 따로 달라고</td><td>따로 받으면 양을 내가 정할 수 있어요.</td><td>—</td><td>고혈압학회 2022</td><td>—</td></tr>
+    <tr><td class="n">N21</td><td>도전</td><td class="k">오늘 세 끼 국물 없이</td><td>국물을 하루 끊으면 나트륨이 절반 가까이 줄어요.</td><td>—</td><td>식약처 실측 · WHO</td><td>—</td></tr>
+    <tr><td class="n">N22</td><td>기본</td><td class="k">저녁 술 없이 보내기</td><td>절주는 혈압 · 간 · 요산 모두에 첫 번째 권고예요.</td><td><span class="chip t-eve">저녁</span><span class="chip t-link">연결 전용</span></td><td>고혈압학회 2022 · 대한간학회 지방간 지침 · 통풍 지침</td><td><span class="chip t-ban">임신·수유</span>(금주 문구로 대체 검토)</td></tr>
+    <tr><td class="n">N23</td><td>도전</td><td class="k">반주는 한 잔까지</td><td>하루 한 잔을 넘기면 혈압과 중성지방이 함께 올라요.</td><td><span class="chip t-eve">저녁</span><span class="chip t-link">연결 전용</span></td><td>고혈압학회 2022(남 2잔 · 여 1잔 이하)</td><td><span class="chip t-ban">임신·수유</span><span class="chip t-ban">간질환</span></td></tr>
+  </table>
+  <div class="callout warn">절주 2개는 <b>연결 전용</b>으로 제안한다. 고혈압 · 지방간 · 통풍 · 고중성지방 · 심혈관질환 연결이 있을 때만 후보에 넣고, 일반 사용자에게는 내지 않는다. 술을 마시지 않는 사용자에게 "술 없이"는 뜻이 없고, 술 여부를 묻는 문항이 없기 때문이다. 축 이름을 「짠맛·국물·술」로 바꿀지, 별도 소축으로 둘지는 의학팀 · 기획 결정.</div>
+</section>
+
+<section class="card" id="s5">
+  <h2><span class="n">5</span>식사 시각 <span class="chip t-new">+4</span></h2>
+  <div class="sub">근거: 비만학회 식사요법(야식 회피) · ACG 위식도역류 지침 · 관찰 연구. 회전 문항은 12시 전 진입에서만. 섭식장애는 축 전체 금지</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:100px">표시</th><th style="width:160px">근거</th><th style="width:100px">제한</th></tr>
+    <tr><td class="n">N25</td><td>기본</td><td class="k">저녁은 8시 전에 마치기</td><td>저녁이 늦어질수록 야식과 수면 둘 다 영향을 받아요.</td><td><span class="chip t-eve">저녁</span></td><td>ACG 위식도역류 지침 · 관찰 연구</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N26</td><td>기본</td><td class="k"><span class="chip t-weak">보류</span>야식 대신 일찍 잠자리로</td><td>늦은 허기는 졸림과 헷갈리기 쉬워요.</td><td><span class="chip t-eve">저녁</span></td><td>수면위생 <span class="chip t-weak">약함</span></td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N27</td><td>도전</td><td class="k">저녁 뒤엔 먹지 않고 마무리</td><td>저녁이 하루의 마지막 끼니가 되게 하는 단계예요.</td><td><span class="chip t-eve">저녁</span></td><td>비만학회 식사요법 · 관찰 연구</td><td><span class="chip t-ban">섭식장애</span><span class="chip t-ban">당뇨병</span></td></tr>
+  </table>
+</section>
+
+<section class="card" id="s6">
+  <h2><span class="n">6</span>식사 속도 · 양 <span class="chip t-new">+5</span></h2>
+  <div class="sub">근거: 식생활지침 수칙 4 · 식사 속도 메타분석(2014) · 비만학회 행동치료(자극 조절). 섭식장애는 축 전체 금지</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:100px">표시</th><th style="width:160px">근거</th><th style="width:100px">제한</th></tr>
+    <tr><td class="n">N28</td><td>입문</td><td class="k">밥은 작은 그릇에 담기</td><td>그릇이 작아지면 양은 줄고 포만감은 같아요.</td><td>—</td><td>비만학회 행동치료(자극 조절)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N29</td><td>입문</td><td class="k">TV · 휴대폰 끄고 식사</td><td>화면을 보며 먹으면 얼마나 먹었는지 놓쳐요.</td><td>—</td><td>비만학회 행동치료(자극 조절)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N30</td><td>기본</td><td class="k">한 입에 스무 번 씹기</td><td>씹는 횟수가 늘면 속도가 자연히 느려져요.</td><td>—</td><td>식사 속도 메타분석 · 20회는 통용값</td><td><span class="chip t-ban">섭식장애</span><span class="chip t-ban">연하곤란 · 뇌졸중 후유증</span></td></tr>
+    <tr><td class="n">N31</td><td>기본</td><td class="k">밥은 젓가락으로 먹기</td><td>젓가락은 한 번에 덜 뜨게 해서 속도를 늦춰요.</td><td>—</td><td>식사 속도 메타분석</td><td><span class="chip t-ban">섭식장애</span><span class="chip t-ban">연하곤란 · 뇌졸중 후유증</span></td></tr>
+    <tr><td class="n">N32</td><td>도전</td><td class="k">밥 더 담지 않기</td><td>한 그릇에서 멈추는 습관이 과식을 막아요.</td><td>—</td><td>식생활지침 수칙 4</td><td><span class="chip t-ban">섭식장애</span><span class="chip t-ban">임신·수유</span><span class="chip t-ban">암 치료 중</span></td></tr>
+  </table>
+</section>
+
+<section class="card" id="s7">
+  <h2><span class="n">7</span>단백질 <span class="chip t-new">+5</span></h2>
+  <div class="sub">근거: 2020 한국인 영양소 섭취기준 · 식생활지침 수칙 1. 만성 신장질환은 전 단계 금지(회복 풀 34번 제외)</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:100px">표시</th><th style="width:160px">근거</th><th style="width:100px">제한</th></tr>
+    <tr><td class="n">N33</td><td>입문</td><td class="k">아침에 달걀 하나</td><td>달걀 하나로 아침 단백질이 채워져요.</td><td><span class="chip t-am">오전 진입</span></td><td>영양소 섭취기준 · 식생활지침 수칙 1</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N34</td><td>입문</td><td class="k">두유나 우유 한 잔 챙기기</td><td>마시는 단백질은 반찬이 없어도 챙길 수 있어요.</td><td>—</td><td>식생활지침 수칙 1(우유 · 유제품)</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N35</td><td>기본</td><td class="k">생선 반찬 한 끼</td><td>생선은 단백질과 좋은 지방을 함께 줘요.</td><td>—</td><td>식생활지침 수칙 1 · 지질동맥경화학회 5판</td><td><span class="chip t-ban">신장질환</span><span class="chip t-ban">통풍(2차)</span></td></tr>
+    <tr><td class="n">N36</td><td>기본</td><td class="k">두부 반 모 반찬으로</td><td>두부 반 모가 고기 한 접시 단백질과 비슷해요.</td><td>—</td><td>영양소 섭취기준(콩류)</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N37</td><td>도전</td><td class="k">끼니마다 다른 단백질 반찬</td><td>고기 · 생선 · 달걀 · 콩을 돌리면 영양이 고르게 돼요.</td><td>—</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장질환</span></td></tr>
+  </table>
+</section>
+
+<section class="card" id="s8">
+  <h2><span class="n">8</span>기름진 음식 <span class="chip t-new">+6</span></h2>
+  <div class="sub">근거: 한국지질동맥경화학회 5판 · WHO 건강식(포화지방 10% 미만 · 불포화 대체) · 식생활지침 수칙 2</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:100px">표시</th><th style="width:160px">근거</th><th style="width:100px">제한</th></tr>
+    <tr><td class="n">N38</td><td>입문</td><td class="k">튀김 대신 구이 · 찜 한 끼</td><td>조리법만 바꿔도 지방이 절반 이하로 줘요.</td><td>—</td><td>식생활지침 수칙 2 · 지질학회 5판</td><td>—</td></tr>
+    <tr><td class="n">N39</td><td>입문</td><td class="k">삼겹살 대신 목살 · 안심</td><td>같은 고기라도 부위로 포화지방이 크게 달라요.</td><td>—</td><td>지질학회 5판(포화지방)</td><td>—</td></tr>
+    <tr><td class="n">N40</td><td>기본</td><td class="k">드레싱 · 마요네즈는 반만</td><td>샐러드의 지방은 대부분 드레싱에서 와요.</td><td>—</td><td>WHO 건강식(지방 30% 미만)</td><td>—</td></tr>
+    <tr><td class="n">N41</td><td>기본</td><td class="k">라면 대신 국수 · 밥 한 끼</td><td>라면 한 봉지 지방이 하루 권고의 4분의 1이에요.</td><td>—</td><td>식약처 영양표시 · WHO</td><td>—</td></tr>
+    <tr><td class="n">N42</td><td>도전</td><td class="k">튀김 없는 하루</td><td>튀김을 하루 끊는 것이 포화지방을 줄이는 가장 큰 한 걸음이에요.</td><td>—</td><td>지질학회 5판</td><td>—</td></tr>
+    <tr><td class="n">N43</td><td>도전</td><td class="k">기름진 음식은 점심에만</td><td>저녁 지방은 활동으로 쓰이지 못하고 남아요.</td><td>—</td><td>열량 배분 연구 · 지질학회 <span class="chip t-weak">약함</span></td><td>—</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s9">
+  <h2><span class="n">9</span>회복 풀 <span class="chip t-new">+2</span> · 부담 줄이기 풀 <span class="chip t-new">+1</span></h2>
+  <div class="sub">단계 없음. 시간대 표시로 우선순위</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:60px">풀</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:100px">표시</th><th style="width:160px">근거</th><th style="width:100px">제한</th></tr>
+    <tr><td class="n">N44</td><td>회복</td><td class="k">따뜻한 물 한 잔으로 시작</td><td>못 먹은 뒤엔 물부터 채우는 게 부담이 없어요.</td><td><span class="chip t-am">오전 진입</span></td><td>식생활지침 수칙 3(물) <span class="chip t-weak">약함</span></td><td><span class="chip t-ban">심부전 · 투석</span></td></tr>
+    <tr><td class="n">N45</td><td>회복</td><td class="k">빈 끼는 우유나 두유 한 잔</td><td>과일은 준비 없이 바로 먹을 수 있는 회복 끼니예요.</td><td><span class="chip t-pm">오후 진입</span></td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑(칼륨 · 인)</span></td></tr>
+    <tr><td class="n">N46</td><td>부담</td><td class="k">커피 대신 따뜻한 차 한 잔</td><td>피곤한 날 카페인은 잠을 더 밀어내요.</td><td>—</td><td>카페인 · 수면 실험(2013)</td><td>—</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s9b">
+  <h2><span class="n">9-2</span>2차 묶음 · 상황별 행동 <span class="chip t-new">+47</span></h2>
+  <div class="sub">편의점 · 배달 · 회식 · 카페 · 사무실 · 뷔페처럼 실제 장면에서의 행동. 근거는 1차와 같고, 상황 태그는 2차에 진입 맥락(요일 · 시각 · 일정)이 생기면 필터로 쓸 수 있다. 지금은 태그만 붙이고 필터하지 않는다</div>
+
+  <h3>끼니 규칙 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N47</td><td>입문</td><td class="k">일어나서 한 시간 안에 한 입</td><td>시간을 정해 두면 아침을 건너뛰기 어려워져요.</td><td><span class="chip t-am">오전 진입</span></td><td>식생활지침 수칙 5</td><td>—</td></tr>
+    <tr><td class="n">N48</td><td>입문</td><td class="k">아침 대신 바나나 하나</td><td>준비 없이 먹을 수 있는 아침 대용이에요.</td><td><span class="chip t-am">오전 진입</span></td><td>식생활지침 수칙 1 · 5</td><td><span class="chip t-ban">신장 3기↑</span><span class="chip t-ban">당뇨병</span></td></tr>
+    <tr><td class="n">N49</td><td>기본</td><td class="k">회의 · 일정 사이 점심 챙기기</td><td>바쁜 날 거른 점심은 저녁 과식으로 돌아와요.</td><td>사무실</td><td>식생활지침 수칙 4</td><td>—</td></tr>
+    <tr><td class="n">N50</td><td>기본</td><td class="k">늦어도 저녁은 가볍게라도</td><td>늦은 저녁을 거르면 야식으로 이어지기 쉬워요.</td><td><span class="chip t-eve">저녁</span></td><td>식생활지침 수칙 1 · 4</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N51</td><td>도전</td><td class="k">출근길에 아침 챙겨 먹기</td><td>집에서 못 먹었어도 아침은 챙길 수 있어요.</td><td><span class="chip t-am">오전 진입</span> 평일</td><td>식생활지침 수칙 5</td><td>—</td></tr>
+    <tr><td class="n">N52</td><td>도전</td><td class="k">세 끼 시각 모두 평소대로</td><td>끼니 시각이 고정되면 허기의 리듬도 고정돼요.</td><td>—</td><td>관찰 연구 <span class="chip t-weak">약함</span></td><td>—</td></tr>
+  </table>
+
+  <h3>채소 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N53</td><td>입문</td><td class="k">편의점 끼니엔 샐러드 하나 추가</td><td>편의점 끼니는 채소가 가장 빠지는 자리예요.</td><td>편의점</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N54</td><td>입문</td><td class="k">배달 주문에 채소 메뉴 하나</td><td>배달은 채소 메뉴를 따로 고르지 않으면 없어요.</td><td>배달</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N55</td><td>기본</td><td class="k">회식 안주는 채소부터</td><td>채소를 먼저 먹으면 술과 기름진 안주가 줄어요.</td><td><span class="chip t-eve">저녁</span> 회식</td><td>식사 순서 연구 · 식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N56</td><td>기본</td><td class="k">국에 채소 한 줌 더 넣기</td><td>끓이는 국에 채소를 더하면 나트륨 대비 채소 비율이 올라요.</td><td>—</td><td>식생활지침 수칙 1 · 2</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N57</td><td>도전</td><td class="k">채소 없는 끼니 없이 하루</td><td>세 끼 모두 채소가 있으면 하루 권고량에 닿아요.</td><td>—</td><td>WHO 400g</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N58</td><td>도전</td><td class="k">저녁 반찬 절반은 채소로</td><td>저녁 접시의 절반을 채소로 채우는 것이 권고 형태예요.</td><td><span class="chip t-eve">저녁</span></td><td>식생활지침 · WHO(접시 절반 채소)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+  </table>
+
+  <h3>단 음료 · 단 간식 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N59</td><td>입문</td><td class="k">편의점에선 물이나 무가당 차</td><td>편의점 음료 코너의 대부분이 가당 음료예요.</td><td>편의점</td><td>WHO 당류 지침</td><td>—</td></tr>
+    <tr><td class="n">N60</td><td>입문</td><td class="k">카페 음료는 한 사이즈 작게</td><td>사이즈 하나 차이가 각설탕 두세 개 차이예요.</td><td>카페</td><td>WHO 당류 지침</td><td>—</td></tr>
+    <tr><td class="n">N61</td><td>기본</td><td class="k">사무실 단 간식은 한 번만</td><td>사무실 간식은 세지 않으면 하루 서너 번이 돼요.</td><td>사무실</td><td>WHO 당류 지침</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N62</td><td>기본</td><td class="k">운동 후 스포츠음료 대신 물</td><td>한 시간 안 운동엔 물로 충분해요.</td><td>—</td><td>WHO 당류 지침</td><td>—</td></tr>
+    <tr><td class="n">N63</td><td>도전</td><td class="k">디저트는 나눠 먹기</td><td>반만 먹어도 맛은 그대로, 당은 절반이에요.</td><td>—</td><td>WHO 당류 지침</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N64</td><td>도전</td><td class="k">빵 · 케이크 대신 과일 한 줌</td><td>같은 단맛이라도 과일은 섬유질이 따라와요.</td><td>—</td><td>식생활지침 수칙 1 · 2</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+  </table>
+
+  <h3>짠맛 · 국물 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N65</td><td>입문</td><td class="k">찌개는 앞접시에 건더기만</td><td>앞접시로 옮기면 국물을 자연히 덜 먹게 돼요.</td><td>—</td><td>식약처 나트륨 실측</td><td>—</td></tr>
+    <tr><td class="n">N66</td><td>입문</td><td class="k">국은 반 그릇만 담기</td><td>담는 양을 줄이는 게 남기는 것보다 쉬워요.</td><td>—</td><td>WHO 나트륨</td><td>—</td></tr>
+    <tr><td class="n">N67</td><td>기본</td><td class="k">짠 반찬은 한 끼에 한 가지만</td><td>김치 · 장아찌 · 젓갈이 겹치면 한 끼에 하루치가 돼요.</td><td>—</td><td>국민건강영양조사 나트륨 급원</td><td>—</td></tr>
+    <tr><td class="n">N68</td><td>기본</td><td class="k">볶음밥 대신 흰밥에 반찬</td><td>볶음밥 한 그릇은 흰밥 한 끼보다 나트륨이 두 배예요.</td><td>—</td><td>식약처 나트륨 실측</td><td>—</td></tr>
+    <tr><td class="n">N69</td><td>도전</td><td class="k">배달 음식엔 소스 반만</td><td>배달 음식 나트륨의 절반은 함께 오는 소스에 있어요.</td><td>배달</td><td>식약처 나트륨 실측</td><td>—</td></tr>
+    <tr><td class="n">N70</td><td>도전</td><td class="k">오늘 김치는 한 접시만</td><td>김치 한 접시면 하루 나트륨 권고의 3분의 1이에요.</td><td>—</td><td>국민건강영양조사 · WHO</td><td>—</td></tr>
+  </table>
+
+  <h3>식사 시각 <span class="chip t-new">+5</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N71</td><td>입문</td><td class="k">저녁 먹고 바로 양치</td><td>양치를 하면 다시 먹을 마음이 줄어요.</td><td><span class="chip t-eve">저녁</span></td><td>행동치료 자극 조절 <span class="chip t-weak">약함</span></td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N72</td><td>입문</td><td class="k">야식 생각나면 물 한 잔 먼저</td><td>물 한 잔 뒤에도 배고프면 그때 정해요.</td><td><span class="chip t-eve">저녁</span></td><td>대체 행동 <span class="chip t-weak">약함</span></td><td><span class="chip t-ban">섭식장애</span><span class="chip t-ban">심부전 · 투석</span></td></tr>
+    <tr><td class="n">N73</td><td>기본</td><td class="k">저녁 시각 어제와 같게</td><td>저녁 시각이 일정하면 야식 욕구도 일정해져요.</td><td><span class="chip t-eve">저녁</span></td><td>관찰 연구 <span class="chip t-weak">약함</span></td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N74</td><td>기본</td><td class="k">회식 뒤 2차 음식은 건너뛰기</td><td>회식 후 라면 · 국수가 하루 중 가장 늦은 열량이에요.</td><td><span class="chip t-eve">저녁</span> 회식</td><td>비만학회 식사요법(야식 회피)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N75</td><td>도전</td><td class="k">잠들기 전 2시간은 물만</td><td>취침 전 2시간 공복이 역류와 수면에 좋아요.</td><td><span class="chip t-eve">저녁</span></td><td>ACG 위식도역류 지침(2~3시간)</td><td><span class="chip t-ban">섭식장애</span><span class="chip t-ban">당뇨병</span></td></tr>
+  </table>
+
+  <h3>식사 속도 · 양 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N76</td><td>입문</td><td class="k">첫 숟갈 뒤 물 한 모금</td><td>시작을 늦추면 식사 전체가 느려져요.</td><td>—</td><td>식사 속도 메타분석</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N77</td><td>입문</td><td class="k">한 숟갈 양을 절반으로</td><td>숟갈이 작아지면 씹는 시간이 늘어요.</td><td>—</td><td>식사 속도 메타분석</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N78</td><td>기본</td><td class="k">식사 중간에 한 번 멈추기</td><td>중간에 멈추면 배부른지 확인할 틈이 생겨요.</td><td>—</td><td>비만학회 행동치료</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N79</td><td>기본</td><td class="k">배달 음식은 접시에 옮겨 담기</td><td>용기째 먹으면 얼마나 먹었는지 안 보여요.</td><td>배달</td><td>비만학회 행동치료(자극 조절)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N80</td><td>도전</td><td class="k">뷔페 · 회식에선 한 접시만</td><td>한 접시로 정하면 양을 세지 않아도 돼요.</td><td>회식 · 뷔페</td><td>식생활지침 수칙 4</td><td><span class="chip t-ban">섭식장애</span><span class="chip t-ban">임신·수유</span></td></tr>
+    <tr><td class="n">N81</td><td>도전</td><td class="k">배부르면 남기기</td><td>남기는 것이 과식보다 나아요.</td><td>—</td><td>식생활지침 수칙 4 · 6(필요한 만큼만)</td><td><span class="chip t-ban">섭식장애</span><span class="chip t-ban">임신·수유</span><span class="chip t-ban">암 치료 중</span></td></tr>
+  </table>
+
+  <h3>단백질 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N82</td><td>입문</td><td class="k">간식으로 삶은 달걀 하나</td><td>과자 대신 달걀은 배도 오래 차요.</td><td>—</td><td>영양소 섭취기준</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N83</td><td>입문</td><td class="k">편의점 끼니엔 달걀 · 두부 추가</td><td>편의점 끼니는 탄수화물만 남기 쉬워요.</td><td>편의점</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N84</td><td>기본</td><td class="k">닭가슴살 · 살코기 한 끼</td><td>기름 적은 고기가 단백질을 채우는 가장 쉬운 길이에요.</td><td>—</td><td>영양소 섭취기준 · 지질학회 5판</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N85</td><td>기본</td><td class="k">콩 반찬 한 가지 챙기기</td><td>콩은 고기 없이도 단백질을 채워요.</td><td>—</td><td>식생활지침 수칙 1(콩류)</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N86</td><td>도전</td><td class="k">매 끼니 단백질 손바닥 크기</td><td>손바닥 크기가 한 끼 단백질 권고량의 눈대중이에요.</td><td>—</td><td>영양소 섭취기준(성인 끼니 20g 안팎)</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N87</td><td>도전</td><td class="k">저녁 단백질은 생선 · 두부로</td><td>저녁엔 소화가 가벼운 단백질이 좋아요.</td><td><span class="chip t-eve">저녁</span></td><td>지질학회 5판 · 식생활지침</td><td><span class="chip t-ban">신장질환</span><span class="chip t-ban">통풍(2차)</span></td></tr>
+  </table>
+
+  <h3>기름진 음식 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N88</td><td>입문</td><td class="k">치킨은 껍질 빼고</td><td>치킨 지방의 절반은 껍질에 있어요.</td><td>배달</td><td>지질학회 5판(포화지방)</td><td>—</td></tr>
+    <tr><td class="n">N89</td><td>입문</td><td class="k">볶음 대신 데친 반찬 한 가지</td><td>데치면 기름이 거의 들어가지 않아요.</td><td>—</td><td>식생활지침 수칙 2</td><td>—</td></tr>
+    <tr><td class="n">N90</td><td>기본</td><td class="k">삼겹살 대신 수육</td><td>삶으면 기름이 빠져 같은 고기라도 지방이 줄어요.</td><td>—</td><td>지질학회 5판</td><td>—</td></tr>
+    <tr><td class="n">N91</td><td>기본</td><td class="k">패스트푸드 대신 한식 한 끼</td><td>한식 백반이 햄버거 세트보다 포화지방이 적어요.</td><td>—</td><td>식약처 영양표시 · WHO</td><td>—</td></tr>
+    <tr><td class="n">N92</td><td>도전</td><td class="k">배달 음식 없는 하루</td><td>배달 메뉴 대부분이 튀김 · 볶음이에요.</td><td>배달</td><td>지질학회 5판 · 식생활지침 수칙 2</td><td>—</td></tr>
+    <tr><td class="n">N93</td><td>도전</td><td class="k">저녁은 기름 없이 조리한 것만</td><td>저녁 포화지방은 밤새 남아요.</td><td><span class="chip t-eve">저녁</span></td><td>지질학회 5판 <span class="chip t-weak">약함</span></td><td>—</td></tr>
+  </table>
+
+  <p class="note">회복 · 부담 풀은 2차 묶음에서 늘리지 않았다. 컨디션이 낮은 날 문구는 다양성보다 단순함이 우선이며, 1차 확장으로 각 5개가 되었다.</p>
+</section>
+
+<section class="card" id="s9c">
+  <h2><span class="n">9-3</span>3차 묶음 · 생활 반경 확장 <span class="chip t-new">+53</span></h2>
+  <div class="sub">2차가 편의점 · 배달 · 회식 · 카페 · 사무실이었다면, 3차는 구내식당 · 마트 · 명절 · 여행 · 야근 · 주말처럼 남은 장면을 채운다. 여기에 곡류 · 식이섬유 소축을 새로 제안한다. 근거는 앞과 같은 범위이며, 소축만 새 근거(당뇨병학회 · 지질학회 식이섬유 권고)를 쓴다</div>
+
+  <h3>끼니 규칙 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N94</td><td>입문</td><td class="k">전날 밤에 아침거리 꺼내 두기</td><td>아침에 고민할 일이 없으면 덜 거르게 돼요.</td><td><span class="chip t-eve">저녁</span></td><td>비만학회 행동치료(자극 조절)</td><td>—</td></tr>
+    <tr><td class="n">N95</td><td>입문</td><td class="k">점심 시각 알림 맞춰 두기</td><td>바쁜 날엔 알림 하나가 끼니를 지켜 줘요.</td><td>사무실</td><td>식생활지침 수칙 4 <span class="chip t-weak">약함</span></td><td>—</td></tr>
+    <tr><td class="n">N96</td><td>기본</td><td class="k">구내식당 점심 챙기기</td><td>정해진 시각에 나오는 끼니가 리듬을 만들어요.</td><td>급식</td><td>식생활지침 수칙 1 · 4</td><td>—</td></tr>
+    <tr><td class="n">N97</td><td>기본</td><td class="k">출장 · 여행에도 아침 챙기기</td><td>일정이 바뀌어도 첫 끼는 지킬 수 있어요.</td><td><span class="chip t-am">오전 진입</span> 여행</td><td>식생활지침 수칙 5</td><td>—</td></tr>
+    <tr><td class="n">N98</td><td>도전</td><td class="k">야근하는 날에도 저녁 제때</td><td>늦춘 저녁은 야식 한 끼로 바뀌어요.</td><td><span class="chip t-eve">저녁</span> 야근</td><td>비만학회 식사요법(야식 회피)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N99</td><td>도전</td><td class="k">연휴에도 끼니 시각 지키기</td><td>연휴에 무너진 리듬은 되돌리는 데 더 걸려요.</td><td>명절 · 연휴</td><td>관찰 연구 <span class="chip t-weak">약함</span></td><td>—</td></tr>
+  </table>
+
+  <h3>채소 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N100</td><td>입문</td><td class="k">장 볼 때 채소 한 가지 담기</td><td>집에 있어야 끼니에 올라와요.</td><td>마트</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N101</td><td>입문</td><td class="k">구내식당에선 나물 반찬 먼저</td><td>이미 나온 반찬이라 고르기만 하면 돼요.</td><td>급식</td><td>식사 순서 연구 · 식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N102</td><td>기본</td><td class="k">아침에도 채소 한 가지</td><td>아침은 채소가 가장 자주 빠지는 끼니예요.</td><td><span class="chip t-am">오전 진입</span></td><td>WHO 400g(5접시)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N103</td><td>기본</td><td class="k">김밥 · 덮밥엔 채소 더 넣기</td><td>한 그릇 음식은 채소를 따로 챙겨야 해요.</td><td>편의점 · 배달</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N104</td><td>도전</td><td class="k">명절 상에서도 나물 먼저</td><td>명절 상엔 나물이 있으니 순서만 바꾸면 돼요.</td><td>명절</td><td>식사 순서 무작위 대조 연구</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N105</td><td>도전</td><td class="k">하루 채소 다섯 접시 채우기</td><td>다섯 접시가 하루 400g에 해당해요.</td><td>—</td><td>WHO 400g(5접시)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+  </table>
+
+  <h3>단 음료 · 단 간식 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N106</td><td>입문</td><td class="k">물병 채워 두고 시작하기</td><td>손에 물이 있으면 단 음료를 덜 찾게 돼요.</td><td>사무실</td><td>식생활지침 수칙 3(물)</td><td><span class="chip t-ban">심부전 · 투석</span></td></tr>
+    <tr><td class="n">N107</td><td>입문</td><td class="k">단 간식은 사 두지 않기</td><td>집에 없으면 먹을 일도 없어요.</td><td>마트</td><td>비만학회 행동치료(자극 조절)</td><td>—</td></tr>
+    <tr><td class="n">N108</td><td>기본</td><td class="k">카페에선 아메리카노나 차</td><td>카페 음료 한 잔이 하루 당 권고량을 채우기도 해요.</td><td>카페</td><td>WHO 당류 지침</td><td>—</td></tr>
+    <tr><td class="n">N109</td><td>기본</td><td class="k">모임 음료는 물로 하기</td><td>모임에선 마시는 횟수가 눈에 안 띄게 늘어요.</td><td>명절 · 회식</td><td>WHO 당류 지침</td><td>—</td></tr>
+    <tr><td class="n">N110</td><td>도전</td><td class="k">달달한 커피 오늘은 쉬기</td><td>매일 마시던 한 잔을 하루 빼 보는 단계예요.</td><td><span class="chip t-am">오전 진입</span></td><td>WHO 당류 지침</td><td>—</td></tr>
+    <tr><td class="n">N111</td><td>도전</td><td class="k">후식 · 디저트 없이 하루</td><td>끼니 뒤 습관으로 먹는 단것이 하루 당의 큰 몫이에요.</td><td>—</td><td>WHO 당류 지침(5% ≈ 25g)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+  </table>
+
+  <h3>짠맛 · 국물 <span class="chip t-new">+6</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N112</td><td>입문</td><td class="k">식탁에 소금 · 간장 두지 않기</td><td>손이 닿지 않으면 더 넣지 않게 돼요.</td><td>—</td><td>고혈압학회 2022(식탁 소금 추가 금지)</td><td>—</td></tr>
+    <tr><td class="n">N113</td><td>입문</td><td class="k">국은 마지막에 간하기</td><td>끓이며 간하면 짠맛이 겹쳐 쌓여요.</td><td>—</td><td>WHO 나트륨 <span class="chip t-weak">약함</span></td><td>—</td></tr>
+    <tr><td class="n">N114</td><td>기본</td><td class="k">구내식당 국은 받지 않기</td><td>받지 않는 쪽이 남기는 것보다 쉬워요.</td><td>급식</td><td>식약처 나트륨 실측</td><td>—</td></tr>
+    <tr><td class="n">N115</td><td>기본</td><td class="k">장 볼 때 나트륨 표시 보기</td><td>같은 제품군에도 나트륨 차이가 두 배까지 나요.</td><td>마트</td><td>식약처 영양표시</td><td>—</td></tr>
+    <tr><td class="n">N116</td><td>도전</td><td class="k">오늘은 라면 · 즉석식품 없이</td><td>즉석식품 한 끼가 하루 나트륨의 절반이에요.</td><td>—</td><td>식약처 나트륨 실측 · WHO</td><td>—</td></tr>
+    <tr><td class="n">N117</td><td>도전</td><td class="k">명절 음식은 국물 없이</td><td>명절엔 탕 · 국이 끼니마다 올라와요.</td><td>명절</td><td>식약처 실측 · WHO</td><td>—</td></tr>
+  </table>
+
+  <h3>식사 시각 <span class="chip t-new">+5</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N118</td><td>입문</td><td class="k">야근 간식 대신 저녁 먼저</td><td>저녁을 챙기면 밤에 군것질이 줄어요.</td><td><span class="chip t-eve">저녁</span> 야근</td><td>비만학회 식사요법(야식 회피)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N119</td><td>입문</td><td class="k">저녁 먹고 부엌 정리하기</td><td>정리해 두면 다시 꺼내 먹기 번거로워져요.</td><td><span class="chip t-eve">저녁</span></td><td>비만학회 행동치료(자극 조절)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N120</td><td>기본</td><td class="k">주말에도 저녁 시각 지키기</td><td>주말 저녁이 늦어지면 야식으로 이어져요.</td><td><span class="chip t-eve">저녁</span> 토 · 일</td><td>관찰 연구 <span class="chip t-weak">약함</span></td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N121</td><td>기본</td><td class="k">회식은 1차까지만</td><td>2차가 하루 중 가장 늦은 끼니가 돼요.</td><td><span class="chip t-eve">저녁</span> 회식</td><td>비만학회 식사요법(야식 회피)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N122</td><td>도전</td><td class="k">저녁부터 아침까지 12시간 비우기</td><td>밤 사이 공복 시간이 길수록 체중 관리에 유리했어요.</td><td><span class="chip t-eve">저녁</span></td><td>관찰 연구 <span class="chip t-weak">약함</span></td><td><span class="chip t-ban">섭식장애</span> <span class="chip t-ban">당뇨 약물</span></td></tr>
+  </table>
+
+  <h3>식사 속도 · 양 <span class="chip t-new">+5</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N123</td><td>입문</td><td class="k">한 끼는 앉아서 먹기</td><td>서서 먹으면 빨리 먹고 양도 놓쳐요.</td><td>사무실</td><td>비만학회 행동치료(자극 조절)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N124</td><td>입문</td><td class="k">먹을 만큼만 덜어 담기</td><td>덜어 담으면 얼마나 먹는지 처음부터 보여요.</td><td>명절 · 뷔페</td><td>식생활지침 수칙 4</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N125</td><td>기본</td><td class="k">배달은 1인분만 주문하기</td><td>남은 양은 대개 그날 다 먹게 돼요.</td><td>배달</td><td>비만학회 행동치료(자극 조절)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N126</td><td>기본</td><td class="k">회식에선 앞접시 쓰기</td><td>덜어 먹으면 함께 먹는 자리에서도 양이 보여요.</td><td><span class="chip t-eve">저녁</span> 회식</td><td>식생활지침 수칙 4</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N127</td><td>도전</td><td class="k">명절 상에선 한 접시만</td><td>한 접시로 정하면 양을 세지 않아도 돼요.</td><td>명절</td><td>식생활지침 수칙 4</td><td><span class="chip t-ban">섭식장애</span> <span class="chip t-ban">임신·수유</span></td></tr>
+  </table>
+
+  <h3>단백질 <span class="chip t-new">+5</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N128</td><td>입문</td><td class="k">저녁에 두부 한 가지</td><td>데우기만 하면 되는 단백질 반찬이에요.</td><td><span class="chip t-eve">저녁</span></td><td>영양소 섭취기준(콩류)</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N129</td><td>입문</td><td class="k">무가당 요구르트 하나 챙기기</td><td>반찬을 차리지 않아도 단백질을 더할 수 있어요.</td><td>편의점</td><td>식생활지침 수칙 1(우유 · 유제품)</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N130</td><td>기본</td><td class="k">점심 단백질 반찬 확인하기</td><td>한 그릇 점심엔 단백질이 빠져 있기도 해요.</td><td>급식</td><td>영양소 섭취기준</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N131</td><td>기본</td><td class="k">샐러드에 달걀이나 닭가슴살</td><td>채소만 먹으면 금방 배가 꺼져요.</td><td>편의점</td><td>영양소 섭취기준 · 지질학회 5판</td><td><span class="chip t-ban">신장질환</span></td></tr>
+    <tr><td class="n">N132</td><td>도전</td><td class="k">아침 단백질까지 챙기기</td><td>아침이 하루 중 단백질이 가장 적은 끼니예요.</td><td><span class="chip t-am">오전 진입</span></td><td>영양소 섭취기준(끼니 분산)</td><td><span class="chip t-ban">신장질환</span></td></tr>
+  </table>
+
+  <h3>기름진 음식 <span class="chip t-new">+5</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N133</td><td>입문</td><td class="k">과자 대신 견과류 사 두기</td><td>집에 둔 간식이 그날 먹는 간식이에요.</td><td>마트</td><td>WHO 건강식 · 비만학회 행동치료</td><td><span class="chip t-ban">만성 신장질환</span></td></tr>
+    <tr><td class="n">N134</td><td>입문</td><td class="k">구내식당 튀김은 한 조각만</td><td>덜 담는 것으로 충분해요. 빼지 않아도 돼요.</td><td>급식</td><td>식생활지침 수칙 2</td><td>—</td></tr>
+    <tr><td class="n">N135</td><td>기본</td><td class="k">고기 구울 땐 기름 두르지 않기</td><td>고기에서 나온 기름으로 충분해요.</td><td>—</td><td>지질학회 5판(포화지방)</td><td>—</td></tr>
+    <tr><td class="n">N136</td><td>기본</td><td class="k">명절 전 · 튀김은 한 접시만</td><td>명절 상은 기름진 음식이 한꺼번에 올라와요.</td><td>명절</td><td>지질학회 5판 · 식생활지침 수칙 2</td><td>—</td></tr>
+    <tr><td class="n">N137</td><td>도전</td><td class="k">회식 안주는 구이 · 찜으로</td><td>안주 조리법만 바꿔도 지방이 크게 줄어요.</td><td><span class="chip t-eve">저녁</span> 회식</td><td>지질학회 5판</td><td>—</td></tr>
+  </table>
+
+  <h3>곡류 · 식이섬유 <span class="chip t-new">신설 +5</span> <span class="chip t-link">검진 경계 전용 제안</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N138</td><td>입문</td><td class="k">흰밥에 잡곡 한 숟갈 섞기</td><td>한 숟갈부터 섞으면 입에 붙어요.</td><td>—</td><td>식생활지침 수칙 1(통곡물)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N139</td><td>입문</td><td class="k">흰빵 대신 통밀빵</td><td>같은 빵이라도 식후 혈당이 덜 올라요.</td><td>편의점 · 카페</td><td>당뇨병학회 진료지침(식이섬유)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N140</td><td>기본</td><td class="k">한 끼는 잡곡밥으로</td><td>끼니 하나만 바꿔도 하루 식이섬유가 늘어요.</td><td>—</td><td>당뇨병학회 · 지질학회 5판</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N141</td><td>기본</td><td class="k">장 볼 때 통곡물 한 가지</td><td>사 두어야 끼니에 올릴 수 있어요.</td><td>마트</td><td>식생활지침 수칙 1(통곡물)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N142</td><td>도전</td><td class="k">오늘 밥은 모두 잡곡으로</td><td>하루 전부를 바꿔 보는 단계예요.</td><td>—</td><td>당뇨병학회 진료지침(식이섬유)</td><td><span class="chip t-ban">신장 3기↑</span> <span class="chip t-ban">위장 수술 후</span></td></tr>
+  </table>
+  <p class="note">곡류 · 식이섬유는 아홉 번째 축이 아니라 <b>검진 경계 전용 소축</b>으로 제안한다. 공복혈당 · 콜레스테롤 · 체질량지수 경계가 켜져 있을 때만 후보에 넣는다. 회전 문항은 만들지 않는다. 문항을 더하면 하루 한 문항 원칙이 흔들리고, 축 상태 판정에 쓸 답이 쌓이지 않기 때문이다. 단계는 다른 축의 단계를 그대로 따라간다.</p>
+
+  <h3>회복 풀 <span class="chip t-new">+2</span> · 부담 줄이기 풀 <span class="chip t-new">+2</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">풀</th><th style="width:210px">타일 문구</th><th>이유 한 줄</th><th style="width:110px">표시 · 상황</th><th style="width:150px">근거</th><th style="width:90px">제한</th></tr>
+    <tr><td class="n">N143</td><td>회복</td><td class="k">죽이나 국밥으로 한 끼</td><td>속이 편한 한 그릇이 다시 먹기 시작하기 좋아요.</td><td>—</td><td>영양상담 표준 조언 <span class="chip t-weak">약함</span></td><td>—</td></tr>
+    <tr><td class="n">N144</td><td>회복</td><td class="k">먹을 수 있는 것부터 반 그릇</td><td>못 먹은 날엔 양보다 시작이 먼저예요.</td><td>—</td><td>식생활지침 수칙 1 <span class="chip t-weak">약함</span></td><td>—</td></tr>
+    <tr><td class="n">N145</td><td>부담</td><td class="k">저녁은 익힌 채소로 가볍게</td><td>익힌 채소는 속에 부담이 적어요.</td><td><span class="chip t-eve">저녁</span></td><td>식생활지침 수칙 1 <span class="chip t-weak">약함</span></td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N146</td><td>부담</td><td class="k">늦은 저녁엔 국물 적게</td><td>늦게 먹은 국물은 속쓰림과 부기로 남아요.</td><td><span class="chip t-eve">저녁</span></td><td>ACG 위식도역류 지침 <span class="chip t-weak">약함</span></td><td>—</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s9d">
+  <h2><span class="n">9-4</span>4차 묶음 · 얇은 칸 메우기와 남은 장면 <span class="chip t-new">+45</span></h2>
+  <div class="sub">3차까지 칸마다 6~8개가 되었지만 두 곳이 남았다. 하나는 3차에서 새로 제안한 곡류 · 식이섬유 소축이 5개뿐이라 칸을 못 채운 것, 다른 하나는 「도전」 칸 몇 개가 4~6개에 머문 것이다. 여기에 아직 없던 장면 — 혼밥 · 도시락 · 가족 식사 · 계절 · 식후 — 을 더했다. 새 근거는 쓰지 않았다</div>
+  <h3>곡류 · 식이섬유 <span class="chip t-new">+16</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N147</td><td>입문</td><td class="k">아침에 오트밀 한 그릇</td><td>12</td><td>귀리는 섬유질이 많은 아침거리예요.</td><td><span class="chip t-eve">오전 진입</span></td><td>당뇨병학회 식이섬유 · 전곡</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N148</td><td>입문</td><td class="k">밥에 콩 한 숟갈 섞기</td><td>12</td><td>콩을 섞으면 섬유질과 단백질이 같이 늘어요.</td><td>—</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N149</td><td>입문</td><td class="k">간식은 고구마 반 개로</td><td>12</td><td>고구마는 섬유질이 많아 오래 든든해요.</td><td>—</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span><span class="chip t-ban">당뇨병</span></td></tr>
+    <tr><td class="n">N150</td><td>입문</td><td class="k">시리얼은 당 적은 것으로</td><td>13</td><td>통곡물이라도 첨가당이 많을 수 있어요.</td><td>—</td><td>지질동맥경화학회 5판(통곡)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N151</td><td>입문</td><td class="k">국수는 메밀 · 통밀면으로</td><td>14</td><td>같은 면이라도 거친 곡물이 천천히 소화돼요.</td><td>—</td><td>당뇨병학회 식이섬유 · 전곡</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N152</td><td>기본</td><td class="k">잡곡밥 하루 두 끼로</td><td>11</td><td>한 끼에서 두 끼로 늘리는 단계예요.</td><td>—</td><td>당뇨병학회 식이섬유 · 전곡</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N153</td><td>기본</td><td class="k">반찬에 버섯 한 가지</td><td>11</td><td>버섯은 열량 부담 없이 섬유질을 더해요.</td><td>—</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N155</td><td>기본</td><td class="k">과일은 껍질째 먹기</td><td>10</td><td>껍질 쪽에 섬유질이 몰려 있어요.</td><td>—</td><td>WHO 채소·과일 400g</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N156</td><td>기본</td><td class="k">샐러드에 콩 한 줌 더</td><td>12</td><td>콩을 더하면 포만감이 오래 가요.</td><td>—</td><td>지질동맥경화학회 5판(콩류)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N157</td><td>도전</td><td class="k">밥 · 빵 · 면 모두 통곡으로</td><td>17</td><td>하루 곡류를 통째로 바꿔 보는 단계예요.</td><td>—</td><td>당뇨병학회 식이섬유 · 전곡</td><td><span class="chip t-ban">신장 3기↑</span><span class="chip t-ban">위 절제 · 비만수술</span></td></tr>
+    <tr><td class="n">N158</td><td>도전</td><td class="k">매 끼니 섬유질 반찬 하나</td><td>14</td><td>끼니마다 있으면 하루 권고량에 가까워져요.</td><td>—</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N160</td><td>도전</td><td class="k">간식은 과일 · 견과로만</td><td>13</td><td>가공 간식을 통째로 바꾸는 단계예요.</td><td>—</td><td>WHO 건강식</td><td><span class="chip t-ban">만성 신장질환</span></td></tr>
+    <tr><td class="n">N161</td><td>도전</td><td class="k">콩류 반찬 하루 두 번</td><td>12</td><td>콩은 섬유질과 단백질을 같이 채워요.</td><td>—</td><td>지질동맥경화학회 5판(콩류)</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+    <tr><td class="n">N162</td><td>도전</td><td class="k">아침은 통곡물로 고정하기</td><td>13</td><td>하루 첫 끼를 정해 두면 흔들리지 않아요.</td><td><span class="chip t-eve">오전 진입</span></td><td>당뇨병학회 식이섬유 · 전곡</td><td><span class="chip t-ban">신장 3기↑</span><span class="chip t-ban">위 절제 · 비만수술</span></td></tr>
+  </table>
+  <h3>식사 시각 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N163</td><td>도전</td><td class="k">저녁 시각 30분 당기기</td><td>13</td><td>조금씩 당기면 무리 없이 바뀌어요.</td><td><span class="chip t-eve">저녁</span></td><td>관찰 연구</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+    <tr><td class="n">N164</td><td>도전</td><td class="k">약속 있는 날에도 저녁 제때</td><td>15</td><td>약속이 있는 날이 가장 어려운 날이에요.</td><td><span class="chip t-eve">저녁</span></td><td>비만학회 식사요법(야식 회피)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+  </table>
+  <h3>단백질 <span class="chip t-new">+4</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N166</td><td>도전</td><td class="k">간식도 단백질로 챙기기</td><td>12</td><td>견과 · 요구르트 · 달걀이면 충분해요.</td><td>—</td><td>영양소 섭취기준</td><td><span class="chip t-ban">만성 신장질환</span></td></tr>
+    <tr><td class="n">N167</td><td>도전</td><td class="k">붉은 고기 없는 하루</td><td>11</td><td>생선 · 콩 · 달걀로도 채워져요.</td><td>—</td><td>지질동맥경화학회 5판</td><td><span class="chip t-ban">신장 3기↑</span><span class="chip t-ban">철결핍 빈혈</span></td></tr>
+  </table>
+  <h3>기름진 음식 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N168</td><td>도전</td><td class="k">오늘 조리는 굽거나 찌기로</td><td>14</td><td>조리법만 바꿔도 기름이 크게 줄어요.</td><td>—</td><td>지질동맥경화학회 5판</td><td><span class="chip">—</span></td></tr>
+  </table>
+  <h3>식사 속도 · 양 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N169</td><td>도전</td><td class="k"><span class="chip t-weak">보류</span>한 끼를 30분에 걸쳐 먹기</td><td>15</td><td>20분에서 한 단계 더 늘려 보는 단계예요.</td><td>—</td><td>식사 속도 메타분석</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+  </table>
+  <h3>끼니 규칙 <span class="chip t-new">+2</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N170</td><td>입문</td><td class="k">혼자 먹어도 상 차려 먹기</td><td>14</td><td>대충 때우는 끼니가 줄어요.</td><td>—</td><td>식생활지침 수칙 1</td><td><span class="chip">—</span></td></tr>
+  </table>
+  <h3>식사 속도 · 양 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N171</td><td>입문</td><td class="k">혼밥에도 그릇에 덜어 먹기</td><td>14</td><td>봉지째 먹으면 양을 놓쳐요.</td><td>—</td><td>비만학회 행동치료(자극 조절)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+  </table>
+  <h3>채소 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N172</td><td>입문</td><td class="k">혼밥에도 채소 한 가지</td><td>12</td><td>혼자 먹는 끼니에서 채소가 먼저 빠져요.</td><td>—</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+  </table>
+  <h3>단백질 <span class="chip t-new">+4</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N173</td><td>입문</td><td class="k">혼밥에도 단백질 한 가지</td><td>13</td><td>간단히 먹을수록 단백질이 빠지기 쉬워요.</td><td>—</td><td>영양소 섭취기준</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+  </table>
+  <h3>채소 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N174</td><td>입문</td><td class="k">도시락에 채소 한 칸</td><td>11</td><td>미리 담아 두면 그날 채소가 확보돼요.</td><td>—</td><td>식생활지침 수칙 1</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+  </table>
+  <h3>단백질 <span class="chip t-new">+4</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N175</td><td>입문</td><td class="k">도시락에 달걀 하나</td><td>10</td><td>가장 손쉬운 단백질 한 가지예요.</td><td>—</td><td>영양소 섭취기준</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+  </table>
+  <h3>짠맛 · 국물 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N176</td><td>기본</td><td class="k">도시락 국물은 빼기</td><td>10</td><td>국물을 빼면 짠맛이 가장 많이 줄어요.</td><td>—</td><td>식약처 나트륨 실측</td><td><span class="chip">—</span></td></tr>
+  </table>
+  <h3>기름진 음식 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N177</td><td>기본</td><td class="k">도시락 반찬은 구이로</td><td>11</td><td>튀김은 식으면 기름이 더 느껴져요.</td><td>—</td><td>지질동맥경화학회 5판</td><td><span class="chip">—</span></td></tr>
+  </table>
+  <h3>채소 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N178</td><td>기본</td><td class="k">가족 반찬에 채소 하나 더</td><td>14</td><td>함께 먹는 반찬이 늘면 나도 늘어요.</td><td>—</td><td>식생활지침 수칙 1 · WHO 400g</td><td><span class="chip t-ban">신장 3기↑</span></td></tr>
+  </table>
+  <h3>짠맛 · 국물 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N179</td><td>기본</td><td class="k">국은 각자 그릇에 덜기</td><td>12</td><td>큰 냄비째 두면 더 먹게 돼요.</td><td>—</td><td>비만학회 행동치료(자극 조절)</td><td><span class="chip">—</span></td></tr>
+  </table>
+  <h3>식사 속도 · 양 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N180</td><td>기본</td><td class="k">같이 먹을 땐 속도 맞추기</td><td>14</td><td>빨리 먹는 사람을 따라가지 않게 돼요.</td><td>—</td><td>식사 속도 메타분석</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+  </table>
+  <h3>짠맛 · 국물 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N181</td><td>입문</td><td class="k">냉면 국물은 반만</td><td>9</td><td>여름 면 요리 나트륨도 국물에 있어요.</td><td>—</td><td>식약처 나트륨 실측</td><td><span class="chip">—</span></td></tr>
+  </table>
+  <h3>단 음료 · 단 간식 <span class="chip t-new">+4</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N182</td><td>기본</td><td class="k">아이스크림 대신 얼린 과일</td><td>14</td><td>시원한 느낌은 그대로 당만 줄어요.</td><td>—</td><td>WHO 당류 지침</td><td><span class="chip">—</span></td></tr>
+  </table>
+  <h3>기름진 음식 <span class="chip t-new">+3</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N183</td><td>입문</td><td class="k">국물 위 기름은 걷어내기</td><td>13</td><td>떠 있는 기름만 걷어도 달라져요.</td><td>—</td><td>지질동맥경화학회 5판</td><td><span class="chip">—</span></td></tr>
+  </table>
+  <h3>단 음료 · 단 간식 <span class="chip t-new">+4</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N184</td><td>입문</td><td class="k">더운 날 음료는 물부터</td><td>12</td><td>갈증부터 채우면 단 음료가 덜 당겨요.</td><td>—</td><td>WHO 당류 지침</td><td><span class="chip">—</span></td></tr>
+    <tr><td class="n">N185</td><td>입문</td><td class="k">식후 커피는 무가당으로</td><td>12</td><td>식후 한 잔이 매일이면 쌓여요.</td><td>—</td><td>WHO 당류 지침</td><td><span class="chip">—</span></td></tr>
+    <tr><td class="n">N186</td><td>입문</td><td class="k">목마르면 물 한 잔 먼저</td><td>13</td><td>갈증을 허기로 착각하기 쉬워요.</td><td>—</td><td>WHO 당류 지침</td><td><span class="chip t-ban">심부전 · 투석</span></td></tr>
+  </table>
+  <h3>끼니 규칙 <span class="chip t-new">+2</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N187</td><td>기본</td><td class="k">식사 뒤 바로 치우기</td><td>11</td><td>남은 음식을 계속 집는 걸 막아요.</td><td>—</td><td>비만학회 행동치료(자극 조절)</td><td><span class="chip t-ban">섭식장애</span></td></tr>
+  </table>
+  <h3>회복 풀 <span class="chip t-new">+2</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N188</td><td>—</td><td class="k">조금씩 자주 나눠 먹기</td><td>12</td><td>한 번에 못 먹으면 횟수를 늘려요.</td><td>—</td><td>영양상담 표준 조언</td><td><span class="chip">—</span></td></tr>
+    <tr><td class="n">N189</td><td>—</td><td class="k">미지근한 물부터 한 잔</td><td>13</td><td>못 먹은 날엔 수분부터 채워요.</td><td>—</td><td>영양상담 표준 조언</td><td><span class="chip t-ban">심부전 · 투석</span></td></tr>
+  </table>
+  <h3>부담 줄이기 풀 <span class="chip t-new">+2</span></h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:50px">단계</th><th style="width:210px">타일 문구</th><th style="width:30px">자</th><th>이유 한 줄</th><th style="width:90px">표시</th><th style="width:170px">근거</th><th style="width:110px">제한</th></tr>
+    <tr><td class="n">N190</td><td>—</td><td class="k">저녁은 익숙한 음식으로</td><td>12</td><td>피곤한 날엔 새로운 음식이 부담돼요.</td><td>—</td><td>영양상담 표준 조언</td><td><span class="chip">—</span></td></tr>
+    <tr><td class="n">N191</td><td>—</td><td class="k">저녁은 차리기 쉬운 것으로</td><td>13</td><td>차리는 수고를 줄이는 것도 방법이에요.</td><td><span class="chip t-eve">저녁</span></td><td>영양상담 표준 조언</td><td><span class="chip">—</span></td></tr>
+  </table>
+
+  <div class="callout">곡류 · 식이섬유 소축이 5 → 21개가 되어 칸마다 7개를 채운다. 소축 도입 여부가 아직 미정이므로, 도입하지 않으면 이 16개는 채소 · 끼니 규칙 축으로 나눠 붙일 수 있다. 소축 문구 전체에 신장 3기 이상 제한을 걸었다 — 잡곡 · 콩 · 해조류는 칼륨과 인이 높다.</div>
+  <div class="callout warn">확인 필요 — 「붉은 고기 없는 하루」는 철결핍 빈혈 금지와 겹친다(철 급원 감소). 「한 끼를 30분에 걸쳐 먹기」는 기본 칸의 「20분 이상」과 같은 축이라 단계 차이가 20분과 30분뿐인데, 도전 단계로 적절한지 의학팀 판단이 필요하다.</div>
+</section>
+
+<section class="card" id="s9e">
+  <h2><span class="n">9-5</span>의학 검수에서 뺀 문구 <span class="chip t-only">−5</span></h2>
+  <div class="sub">가정의학 임상 관점 검수(2026-09-21) 결과 세트에서 제외한 것. 지우지 않고 남기는 이유는 같은 문구가 다시 후보로 올라오지 않게 하기 위해서다</div>
+  <table>
+    <tr><th style="width:44px">#</th><th style="width:220px">문구</th><th>뺀 이유</th></tr>
+    <tr><td class="n">N2</td><td class="k">아침에 과일 한 조각</td><td>대체가 아니라 「더 먹기」로 권하는 문구다. 당뇨 · 비만 사용자에게 열량과 당이 순증하고, 빈속에 과일만 먹으면 식후 혈당이 크게 오른다. 대체형 과일 문구(주스 → 생과일, 케이크 → 과일, 아이스크림 → 얼린 과일)는 근거가 분명하므로 그대로 둔다.</td></tr>
+    <tr><td class="n">N24</td><td class="k">밤 9시 이후엔 물만</td><td>N75(잠들기 전 2시간은 물만)와 같은 행동이고, 「밤 9시」는 취침 시각이 제각각인 사용자에게 임의값이다. 취침 기준인 N75를 남긴다.</td></tr>
+    <tr><td class="n">N154</td><td class="k">해조류 반찬 한 가지</td><td>미역 · 김은 요오드가 매우 높아 갑상선기능항진증 · 자가면역 갑상선질환에서 문제가 된다. 갑상선(E03 · E05 · E06)은 진단 층에서 「가져오지 않음」이라 제한을 걸 수단이 없다. 문구 하나 때문에 질환 유형을 늘리는 것보다 빼는 쪽이 낫다.</td></tr>
+    <tr><td class="n">N159</td><td class="k">흰쌀 없이 하루 보내기</td><td>N142(오늘 밥은 모두 잡곡으로) · N157(밥 · 빵 · 면 모두 통곡으로)과 같은 행동이다. 같은 칸에 셋을 두면 회전의 의미가 없다.</td></tr>
+    <tr><td class="n">N165</td><td class="k">저녁 뒤엔 마시는 것도 물로</td><td>N75와 중복. 4차에서 추가했으나 기존 문구가 근거(ACG 위식도역류 지침)가 더 분명하다.</td></tr>
+  </table>
+
+  <h3>수정한 문구 <span class="chip t-new">6</span></h3>
+  <table>
+    <tr><th style="width:44px">#</th><th style="width:190px">원안</th><th style="width:190px">수정</th><th>사유</th></tr>
+    <tr><td class="n">N43</td><td>기름진 음식은 점심에만</td><td>이유 문장만 완화</td><td>열량 배분 연구는 총열량 · 체중에 대한 것이지 지방을 낮에 먹으면 낫다는 근거가 아니다.</td></tr>
+    <tr><td class="n">N45</td><td>과일 한 조각으로 빈 끼 메우기</td><td class="k">빈 끼는 우유나 두유 한 잔</td><td>회복 풀은 결식을 메우는 자리인데 과일만으로는 단백질과 열량이 모자란다.</td></tr>
+    <tr><td class="n">N149</td><td>간식은 고구마 한 개로</td><td class="k">간식은 고구마 반 개로</td><td>고구마 한 개(약 200g)는 탄수화물 40g 안팎으로 간식 한 번 분량을 넘는다. 당뇨병 제한 추가.</td></tr>
+    <tr><td class="n">N150</td><td>시리얼은 통곡물로 고르기</td><td class="k">시리얼은 당 적은 것으로</td><td>시판 통곡물 시리얼도 첨가당이 많다. 「통곡물」만 보게 하면 당을 놓친다.</td></tr>
+    <tr><td class="n">N189</td><td>물이나 국물로 수분 먼저</td><td class="k">미지근한 물부터 한 잔</td><td>국물은 나트륨 급원이라 고혈압 · 신장 · 심부전에 역방향이다. 심부전 · 투석 제한 추가.</td></tr>
+    <tr><td class="n">N191</td><td>저녁은 한 그릇 음식으로</td><td class="k">저녁은 차리기 쉬운 것으로</td><td>「한 그릇 음식」은 국밥 · 덮밥 · 라면을 떠올리게 해 나트륨이 높다. 부담을 줄인다는 취지는 조리 수고로 표현한다.</td></tr>
+  </table>
+
+  <h3>제한을 추가한 문구 <span class="chip t-ban">14</span></h3>
+  <table>
+    <tr><th style="width:150px">추가한 제한</th><th style="width:34%">대상 문구</th><th>임상 근거</th></tr>
+    <tr><td class="k">심부전 · 투석</td><td>N44 · N72 · N106 · N186 · N189</td><td>수분 섭취를 늘리는 행동이다. 심부전(I50)은 울혈 악화, 투석(Z49 · Z99.2)은 체중 증가와 폐부종 위험. 상병코드 추천 ⑤가 「그런 문구가 생기면 제외하라」고 미리 적어 둔 항목이 확장으로 실제 생겼다.</td></tr>
+    <tr><td class="k">당뇨병</td><td>N27 · N75 · N48 · N149</td><td>야간 공복 연장은 인슐린 · 설포닐우레아 사용자에게 야간 저혈당 위험. 처방 정보가 연동되지 않아 약물을 알 수 없으므로 확진 전원에 적용한다. 바나나 · 고구마는 혈당지수와 탄수화물량이 간식 분량을 넘는다.</td></tr>
+    <tr><td class="k">만성 신장질환(전 단계)</td><td>N133 · N160 · N166</td><td>견과류와 과일은 칼륨 · 인이 높다. 확정 세트의 「간식은 견과류 한 줌으로」가 이미 같은 이유로 금지인데 동일 성격 문구에 빠져 있었다.</td></tr>
+    <tr><td class="k">위 절제 · 비만수술</td><td>N157 · N162</td><td>섬유질을 한 번에 크게 늘리면 소화 부담과 덤핑을 유발할 수 있다. N142에는 이미 표시돼 있었다.</td></tr>
+    <tr><td class="k">연하곤란 · 뇌졸중 후유증</td><td>N30 · N31</td><td>해롭지는 않으나 수행이 불가능한 집단이 있다. 진단 층이 아니라 서비스 대상 정책에서 다룰 문제라는 기존 판단과 같은 성격이다.</td></tr>
+  </table>
+
+  <div class="callout warn">보류 2건 — N26(야식 대신 일찍 잠자리로)은 식이 축 문구인데 실제 행동이 취침이라 수면 목표와 겹칠 수 있다. N169(한 끼를 30분에 걸쳐 먹기)는 기본 칸의 「20분 이상」과 10분 차이뿐이라 단계 구분이 되는지 확인이 필요하다. 표에 「보류」로 표시했다.</div>
+  <div class="callout">이 검수는 가정의학 임상 관점에서 지침 대조와 안전 검토를 수행한 것으로, 의학팀 최종 승인을 대체하지 않는다. 특히 제한 추가 5종은 상병코드 매핑 변경이므로 의학팀 확인 후 반영한다. 판정 전체는 「식이 문구 세트 의학 검수」 엑셀에 있다.</div>
+</section>
+<section class="card" id="s10">
+  <h2><span class="n">10</span>문구가 늘면 바뀌는 규칙</h2>
+  <div class="sub">기획안 ⑤ 3단계 「문구 선택」에 추가할 것</div>
+  <table>
+    <tr><th style="width:200px">항목</th><th>지금</th><th>확장 후</th></tr>
+    <tr><td class="k">칸 안 선택</td><td>후보 1~2개 · 표 순서 첫 문구</td><td>후보 3~4개 · <b>최근 14일 노출 이력이 가장 오래된 문구</b> 우선(기존 0.1의 "3일 미노출 우선"을 되살림). 동률이면 표 순서</td></tr>
+    <tr><td class="k">어제 미완료 제외</td><td>칸이 비면 한 단계 아래</td><td>칸에 남는 문구가 있으므로 같은 단계 안에서 다른 문구. 아래 단계로 내려가는 일이 줄어든다</td></tr>
+    <tr><td class="k">연결 전용 표시</td><td>없음</td><td>절주 2개에 「연결 전용」 태그. 해당 질환 · 검진 연결이 없으면 후보에서 제외(검진 경계 전용과 같은 처리)</td></tr>
+    <tr><td class="k">요일 표시</td><td>없음</td><td>N5 「주말에도 아침」 · N120 「주말에도 저녁 시각」 토 · 일, N51 「출근길에 아침」 평일 태그. 시간대 표시와 같은 방식으로 필터</td></tr>
+    <tr><td class="k">상황 태그</td><td>없음</td><td>편의점 · 배달 · 회식 · 카페 · 사무실 · 뷔페에 3차의 급식 · 마트 · 명절 · 여행 · 야근을 더해 문구에 붙여 저장. 1차에는 필터하지 않고 노출 이력 우선 규칙 안에서 자연히 섞인다. 진입 맥락(요일 · 시각 · 일정 연동)이 생기면 2차에서 필터로 켠다</td></tr>
+    <tr><td class="k">노출 이력 창</td><td>—</td><td>2차까지는 칸당 5개 안팎이라 "최근 14일 미노출 우선"으로 충분했다. 3차로 칸당 7~8개가 되면 14일 창 안에 다 돌지 못해 뒤쪽 문구가 나오지 않는다. <b>창을 30일로 늘린다.</b> 축 상태 판정의 14일 창과는 별개 값</td></tr>
+    <tr><td class="k">검진 경계 전용 칸</td><td>문구 2개(24 · 26번)에 표시</td><td>곡류 · 식이섬유 소축 5개가 통째로 검진 경계 전용이 된다. 공복혈당 · 콜레스테롤 · 체질량지수 경계가 하나라도 켜져 있을 때만 후보에 넣고, 단계는 같은 날 선택된 축의 단계를 따라간다</td></tr>
+    <tr><td class="k">소축의 회전 문항</td><td>축 8개 = 문항 8종</td><td>곡류 · 식이섬유는 문항을 만들지 않는다. 하루 한 문항 원칙을 지키고, 축 상태 판정용 답이 쌓이지 않는 대신 검진 경계로만 켠다</td></tr>
+    <tr><td class="k">노출 이력 저장</td><td>목표 기록에 문구 저장(있음)</td><td>같은 데이터로 계산 가능. 창만 30일로 늘리면 되고 추가 저장 없음</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s11">
+  <h2><span class="n">11</span>의학팀 검수 요청</h2>
+  <div class="sub">이번에도 문구 단위로. 특히 볼 곳</div>
+  <table>
+    <tr><th style="width:40px">#</th><th style="width:200px">항목</th><th>쟁점</th></tr>
+    <tr><td>1</td><td class="k">이유 문장의 수치</td><td>N11 "시럽이 권고량의 절반", N13 "각설탕 세 개", N16 "국물에 3분의 2", N41 "하루 권고의 4분의 1"은 식약처 영양표시 · 실측 기준의 대략값이다. 정확한 값으로 다듬거나 수치를 뺄지</td></tr>
+    <tr><td>2</td><td class="k">절주 문구 2개</td><td>연결 전용으로 두는 것이 맞는지, 일반 사용자에게도 낼지. 「반주는 한 잔까지」가 음주를 허용하는 표현으로 읽히지 않는지. 임신 · 간질환은 금주 문구로 대체할지</td></tr>
+    <tr><td>3</td><td class="k">시각 수치 문구</td><td>N24 「밤 9시 이후엔 물만」 N25 「저녁은 8시 전에」는 사용자가 확인할 수 있는 수치라 원칙에 맞지만, 근무 형태에 따라 비현실적일 수 있다. 야근 · 교대 근무자 예외를 둘지</td></tr>
+    <tr><td>4</td><td class="k">신장질환 금지 범위</td><td>N45 과일(칼륨), N33~N37 단백질 문구가 신장 1~2기에도 빠져야 하는지. 상병코드 추천 ⑨-2와 같은 쟁점</td></tr>
+    <tr><td>5</td><td class="k">약함 표시 4건</td><td>N24 · N26 · N43 · N44. 지침 권고가 없는 대체 행동 · 관찰 연구 수준. 유지 여부</td></tr>
+    <tr><td>6</td><td class="k">문구 폭</td><td>최장 N53 「편의점 끼니엔 샐러드 하나 추가」 18자 · N79 「배달 음식은 접시에 옮겨 담기」 17자. 한도 22자 안. 디자인 확인만</td></tr>
+    <tr><td>7</td><td class="k">2차 묶음의 대략 수치</td><td>N60 "각설탕 두세 개", N68 "나트륨 두 배", N70 "권고의 3분의 1", N86 "손바닥 크기 = 한 끼 20g 안팎", N88 "지방의 절반은 껍질"은 영양표시 · 조사 자료 기준의 대략값. 1번과 같은 방식으로 다듬을지 뺄지</td></tr>
+    <tr><td>8</td><td class="k">상황 문구의 전제</td><td>편의점 · 배달 · 회식 문구는 그 상황이 아닌 날엔 완료할 수 없다. 1차에서는 노출 이력 우선 규칙으로 섞이므로 "해당 없는 날"에 나올 수 있다. 완료 토글에 「해당 없음(쉬기)」이 있어 단계에는 영향 없지만, 빈도가 높으면 상황 태그 필터를 앞당겨야 한다</td></tr>
+    <tr><td>9</td><td class="k">곡류 · 식이섬유 소축</td><td>3차에서 새로 제안한 5개(N138~N142). 별도 축 없이 검진 경계 전용으로 두는 것이 맞는지, 아니면 아홉 번째 축으로 올려 회전 문항까지 만들지. 신장 3기 이상 금지(인 · 칼륨) 범위와 위장 수술 이력 제한이 적절한지</td></tr>
+    <tr><td>10</td><td class="k">야간 공복 문구</td><td>N122 「저녁부터 아침까지 12시간 비우기」는 관찰 연구 수준이고, 인슐린 · 설폰요소제를 쓰는 당뇨 사용자에게는 저혈당 위험이 있다. 약물 정보는 연동되지 않으므로 당뇨 연결이 있으면 통째로 빼는 방식이 맞는지</td></tr>
+    <tr><td>11</td><td class="k">3차의 대략 수치</td><td>N105 "다섯 접시 = 400g", N108 "한 잔이 하루 권고량", N115 "나트륨 차이가 두 배", N116 "즉석식품 한 끼가 절반"은 앞 묶음과 같은 성격의 대략값. 1 · 7번과 함께 판단</td></tr>
+    <tr><td>12</td><td class="k">약함 표시 9건</td><td>3차에서 N95 · N99 · N113 · N120 · N122 · N143 · N144 · N145 · N146. 준비 행동 · 자극 조절 · 관찰 연구 수준이라 지침 권고가 없다. 유지할지, 이유 문장을 더 조심스럽게 바꿀지</td></tr>
+    <tr><td>13</td><td class="k">명절 · 여행 문구</td><td>N99 · N104 · N109 · N117 · N127 · N136은 1년에 며칠뿐인 상황이다. 상황 태그 필터가 켜지기 전까지는 평일에도 나올 수 있어 「해당 없음(쉬기)」 빈도가 높아진다. 필터 전까지 보류할지, 노출 이력 우선순위를 뒤로 둘지</td></tr>
+  </table>
+  <div class="callout">검수를 통과한 문구는 기획안 ⑥에 편입하고, 프로토타입 문구 데이터와 「문구 세트 정리」에 같은 번호로 반영한다. 통과 전까지 화면에는 기존 38항목만 쓴다.</div>
+</section>
+
+</div>
+</body>
+</html>

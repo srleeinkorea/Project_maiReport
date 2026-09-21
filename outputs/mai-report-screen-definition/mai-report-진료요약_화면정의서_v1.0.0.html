@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 병원 탭 &gt; 진료요약 화면정의서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2;--warn:#E5893A}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:760px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  .flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;gap:14px;margin:10px 0}
+  .flow>div{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:12.5px;line-height:1.5;color:var(--ink-3);min-width:0;word-break:keep-all}
+  .flow .n{display:block;font-size:11px;font-weight:800;color:var(--brand);margin-bottom:2px}
+  .flow b{display:block;font-size:15px;font-weight:700;color:var(--ink-1);line-height:1.4;margin-bottom:4px}
+  @media(max-width:720px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;margin-right:4px}
+  .p-l{background:#FDF0E3;color:var(--warn)}.p-b{background:var(--brand-soft);color:var(--brand)}
+  .note{font-size:12px;color:var(--ink-3)}
+  code{background:#eef1f7;border-radius:6px;padding:1px 6px;font-size:12px;color:#334}
+  @media(max-width:720px){.hero{padding:28px 22px}section.card{padding:22px 18px}td.k{white-space:normal}table{font-size:12.5px}th,td{padding:8px 6px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 화면정의서</span>
+  <h1>병원 탭 &gt; 진료요약 화면정의서</h1>
+  <p>건강보험심사평가원에서 가져온 진료 내역을 올해 단위로 정리해 보여주는 화면. 어느 병원을 많이 갔는지, 어느 진료과를 많이 봤는지, 진료비를 얼마나 썼는지 세 가지를 보여준다. 개별 방문 기록을 훑는 화면이 아니라 한 해를 요약하는 화면이므로, 낱낱의 내역은 방문이력에서 본다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-17</b></span><span>버전 <b>1.0</b></span><span>대상 화면 <b>병원 탭 &gt; 진료요약</b></span><span>연관 문서 <b>검진요약_화면정의서 · 방문이력_화면정의서 · AI검진요약_화면정의서</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 화면 개요</a><a href="#s2">② 상단 영역</a><a href="#s3">③ 가져오기 전</a><a href="#s4">④ 화면 머리말</a><a href="#s5">⑤ 병원 이용 TOP 3</a><a href="#s6">⑥ 진료과 TOP 3</a><a href="#s7">⑦ 올해 지출한 진료비</a><a href="#s8">⑧ 금액 표기 원칙</a><a href="#s9">⑨ 상태 정의</a><a href="#s10">⑩ 연동 규칙</a><a href="#s11">⑪ 확인 필요 사항</a>
+</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>화면 개요</h2>
+  <div class="sub">위치, 역할, 화면 구조</div>
+  <h3>1.1 위치와 역할</h3>
+  <p>병원 탭의 두 번째 서브탭(검진요약 · <b>진료요약</b> · 방문이력 · 읽을거리). 검진요약이 몸 상태를 다룬다면 진료요약은 병원을 어떻게 이용했는지를 다룬다. 값을 판정하거나 조언하지 않고 집계해 보여주는 화면이다.</p>
+  <p><b>출처가 검진요약과 다르다.</b> 검진 결과는 국민건강보험공단에서, 진료 내역은 건강보험심사평가원에서 가져온다. 기관이 다르므로 인증과 갱신 시점도 따로 움직일 수 있다(§2 · §10).</p>
+  <h3>1.2 화면 구조</h3>
+  <div class="flow">
+    <div><span class="n">①</span><b>가져오기 전</b>안내 카드 · 무엇을 볼 수 있는지 · "진료 데이터 가져오기"</div>
+    <div><span class="n">②</span><b>머리말</b>대상 연도 · "올해 병원 이용을 정리했어요"</div>
+    <div><span class="n">③</span><b>이용 요약</b>병원 이용 TOP 3 · 진료과 TOP 3</div>
+    <div><span class="n">④</span><b>진료비</b>연 누적 · 분기별 막대 · 전년 같은 기간 비교</div>
+  </div>
+  <h3>1.3 집계 단위</h3>
+  <p>모든 집계는 <b>올해(1월 1일~오늘)</b>가 기준이다. 검진요약과 달리 주차·검진 회차 개념이 없고, 해가 바뀌면 처음부터 다시 쌓인다. 지난해 수치는 진료비의 전년 비교에서만 쓴다.</p>
+  <h3>1.4 이 화면의 성격</h3>
+  <p>심평원에 청구·심사된 진료 내역을 근거로 한 집계다. 실제로 병원에서 결제한 금액과는 다를 수 있고, 심사가 끝나야 올라오므로 최근 달은 값이 비어 있거나 나중에 늘어난다. 이 두 가지를 화면에서 밝힌다(§7 · §8).</p>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>상단 영역</h2>
+  <div class="sub">병원 탭 네 서브탭이 공유하는 영역. 동작은 검진요약 화면정의서 §2와 동일</div>
+  <table>
+    <tr><th style="width:160px">요소</th><th>동작</th></tr>
+    <tr><td class="k">제목</td><td>"병원"</td></tr>
+    <tr><td class="k">데이터 가져오기</td><td>오른쪽 상단에 노출. <b>지금 보고 있는 탭의 기관을 대상으로 동작한다</b>(§2.1)</td></tr>
+    <tr><td class="k">서브탭</td><td>검진요약 · 진료요약 · 방문이력 · 읽을거리</td></tr>
+  </table>
+  <h3>2.1 탭별 연동</h3>
+  <p>검진은 국민건강보험공단, 진료는 건강보험심사평가원으로 기관이 달라 인증도 따로 한다. 하나의 버튼으로 두 기관을 묶지 않고, <b>각 탭에서 그 탭에 필요한 데이터를 가져온다.</b></p>
+  <table>
+    <tr><th style="width:130px">탭</th><th style="width:150px">기관</th><th>데이터 가져오기 동작</th></tr>
+    <tr><td class="k">검진요약</td><td>국민건강보험공단</td><td>공단 인증 → 건강검진 결과 수신</td></tr>
+    <tr><td class="k">진료요약</td><td>건강보험심사평가원</td><td>심평원 인증 → 진료 내역 수신. 방문이력도 함께 채워진다</td></tr>
+    <tr><td class="k">방문이력</td><td>건강보험심사평가원</td><td>진료요약과 같은 연동을 쓴다. 한쪽에서 가져오면 다른 쪽도 채워진다</td></tr>
+    <tr><td class="k">읽을거리</td><td>없음</td><td>연동과 무관하므로 버튼을 노출하지 않는다</td></tr>
+  </table>
+  <h3>2.2 한쪽만 연동된 상태</h3>
+  <p>검진만 가져오고 진료는 안 가져온 경우(또는 그 반대)가 흔하다. 탭마다 자기 연동 상태를 따로 보여준다.</p>
+  <table>
+    <tr><th style="width:170px">상황</th><th>화면</th></tr>
+    <tr><td class="k">그 탭이 미연동</td><td>가져오기 전 화면(§3). 다른 탭이 연동돼 있어도 이 탭은 미연동 화면을 보여준다</td></tr>
+    <tr><td class="k">그 탭이 연동됨</td><td>요약 화면. 상단 버튼은 최신 데이터로 갱신하는 경로가 된다</td></tr>
+    <tr><td class="k">마지막 가져온 시점</td><td>연동된 탭에는 언제 가져온 데이터인지 한 줄로 표시한다 — "2026년 9월 17일에 가져왔어요"</td></tr>
+  </table>
+  <div class="callout">한 탭에서 가져왔다고 다른 탭이 채워지지 않는다. 사용자가 "이미 가져왔는데 왜 비어 있지"라고 느끼지 않도록, 미연동 탭의 가져오기 전 화면에 어느 기관에서 가져오는지를 문구로 밝힌다(§3.1).</div>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>가져오기 전</h2>
+  <div class="sub">진료 데이터를 한 번도 가져오지 않은 상태</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">일러스트</td><td>청진기 이미지</td><td>화면 가운데 배치</td></tr>
+    <tr><td class="k">제목</td><td>진료 정보를 가져와 주세요</td><td></td></tr>
+    <tr><td class="k">설명</td><td>건강보험심사평가원에 있는 내 진료 내역을 가져와요.</td><td>§3.1. 시안에는 "건강보험공단의 검진 정보"로 되어 있다. 기관과 대상이 모두 다르다(§11)</td></tr>
+    <tr><td class="k">기능 목록</td><td>병원 방문 내역 조회 · 처방 이력 조회 · 진료비 지출 통계</td><td>가져오면 무엇을 볼 수 있는지 세 줄</td></tr>
+    <tr><td class="k">실행 버튼</td><td>진료 데이터 가져오기</td><td>탭 → 심평원 인증 흐름(§10)</td></tr>
+  </table>
+  <h3>3.1 출처를 밝히는 방식</h3>
+  <p>병원 탭의 두 서브탭이 같은 형식을 쓴다 — <b>{기관명}에 있는 내 {대상}을 가져와요</b>.</p>
+  <table>
+    <tr><th style="width:150px">탭</th><th>문구</th></tr>
+    <tr><td class="k">검진요약</td><td>국민건강보험공단에 있는 내 건강검진 결과를 가져와요.</td></tr>
+    <tr><td class="k">진료요약</td><td>건강보험심사평가원에 있는 내 진료 내역을 가져와요.</td></tr>
+  </table>
+  <table>
+    <tr><th style="width:150px">요소</th><th>이유</th></tr>
+    <tr><td class="k">기관 이름을 쓴다</td><td>민감정보를 외부 기관에서 받아오는 동작이므로 어디서 가져오는지가 동의의 근거가 된다. 두 탭의 기관이 다르다는 사실도 이 문구로 드러난다</td></tr>
+    <tr><td class="k">"에 있는"</td><td>기관이 소유한 정보가 아니라 거기 보관된 사용자 본인의 기록이라는 뜻을 담는다</td></tr>
+    <tr><td class="k">"내"</td><td>남의 정보가 아니라 본인 것을 가져온다는 점을 분명히 한다</td></tr>
+    <tr><td class="k">대상 표현</td><td>진료는 건별로 쌓이므로 "내역", 검진은 회차마다 판정이 나오므로 "결과". "정보"처럼 뭉뚱그린 말은 쓰지 않는다</td></tr>
+  </table>
+  <div class="callout">기능 목록에 적은 "처방 이력 조회"는 이 화면에 없고 방문이력에서 확인한다. 가져온 뒤 사용자가 이 탭에서 찾지 못하는 일이 없도록, 방문이력으로 이어지는 경로를 화면에 두거나 목록 문구를 이 탭이 제공하는 것으로 좁힌다(§11).</div>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>화면 머리말</h2>
+  <div class="sub">가져온 뒤 맨 위에 오는 두 줄</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">대상 연도</td><td>2026년 진료 정보</td><td>집계 대상 연도를 밝힌다</td></tr>
+    <tr><td class="k">제목</td><td>올해 병원 이용을 정리했어요</td><td>카드 바깥, 배경 위에 둔다</td></tr>
+  </table>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>병원 이용 TOP 3</h2>
+  <div class="sub">올해 가장 많이 방문한 의료기관</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">제목</td><td>병원 이용 TOP 3</td><td></td></tr>
+    <tr><td class="k">순위</td><td>1 · 2 · 3</td><td>방문 횟수 내림차순</td></tr>
+    <tr><td class="k">기관명</td><td>조은이비인후과의원</td><td>심평원이 준 기관명을 그대로 쓴다. 길면 말줄임</td></tr>
+    <tr><td class="k">마지막 방문일</td><td>2026년 2월 7일 마지막 방문</td><td>그 기관에 마지막으로 간 날</td></tr>
+    <tr><td class="k">횟수</td><td>5회</td><td>올해 방문 횟수</td></tr>
+  </table>
+  <h3>5.1 집계 규칙</h3>
+  <table>
+    <tr><th style="width:150px">항목</th><th>규칙</th></tr>
+    <tr><td class="k">세는 단위</td><td>진료 건 단위로 센다. 같은 날 같은 기관에 두 번 청구된 건은 한 번으로 본다</td></tr>
+    <tr><td class="k">동점</td><td>횟수가 같으면 마지막 방문일이 최근인 기관을 위에 둔다</td></tr>
+    <tr><td class="k">3곳 미만</td><td>있는 만큼만 보여준다. 빈 순위 자리를 만들지 않는다</td></tr>
+    <tr><td class="k">기록 없음</td><td>카드를 숨긴다(§9)</td></tr>
+    <tr><td class="k">행 동작</td><td>탭하지 않는다. 기관별 상세는 방문이력에서 본다</td></tr>
+  </table>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="n">6</span>진료과 TOP 3</h2>
+  <div class="sub">올해 가장 많이 본 진료과</div>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">제목</td><td>진료과 TOP 3</td><td></td></tr>
+    <tr><td class="k">순위 · 과명 · 횟수</td><td>1 이비인후과 5회</td><td>병원 이용 TOP 3와 같은 형식. 마지막 방문일은 두지 않는다</td></tr>
+    <tr><td class="k">집계 단위</td><td>진료 건의 진료과 코드로 센다</td><td>한 기관에서 여러 과를 봤으면 각각 센다</td></tr>
+    <tr><td class="k">동점 · 3개 미만 · 기록 없음</td><td>§5.1과 같다</td><td>동점은 마지막 진료일이 최근인 과를 위에 둔다</td></tr>
+  </table>
+  <p class="note">병원 이용 TOP 3의 횟수 합계와 진료과 TOP 3의 횟수 합계는 다를 수 있다. 같은 값처럼 보이지 않도록 두 카드를 나란히 두되 합계는 쓰지 않는다.</p>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="n">7</span>올해 지출한 진료비</h2>
+  <div class="sub">연 누적 금액과 분기별 흐름</div>
+  <h3>7.1 구성</h3>
+  <table>
+    <tr><th style="width:150px">영역</th><th>내용</th><th style="width:34%">규칙</th></tr>
+    <tr><td class="k">제목</td><td>올해 지출한 진료비</td><td></td></tr>
+    <tr><td class="k">누적 금액</td><td>"2026년 누적" + 1,451,500원</td><td>올해 1월 1일부터 오늘까지의 본인부담금 합계(§8)</td></tr>
+    <tr><td class="k">분기 라벨</td><td>3분기 진료비 + ‹ ›</td><td>기본은 오늘이 속한 분기. ‹ › 로 분기 이동</td></tr>
+    <tr><td class="k">막대</td><td>그 분기에 속한 3개월. 월 이름과 금액을 함께 표시</td><td>§7.2</td></tr>
+    <tr><td class="k">전년 비교</td><td>"지난해 같은 기간보다 27,000원 더 지출했어요" + "전년 대비 63% 증가"</td><td>§7.3</td></tr>
+    <tr><td class="k">안내 문구</td><td>연동된 진료정보의 본인부담금을 기준으로 계산한 금액이에요. 비급여 등 실제 결제 금액과 차이가 있을 수 있어요.</td><td>항상 노출(§8)</td></tr>
+  </table>
+  <h3>7.2 막대 규칙</h3>
+  <table>
+    <tr><th style="width:150px">상황</th><th>표시</th></tr>
+    <tr><td class="k">금액 있음</td><td>금액에 비례한 막대 + 위에 금액(4만 · 3만처럼 줄여서) + 아래 월(7월)</td></tr>
+    <tr><td class="k">지출 없음</td><td>막대를 그리지 않고 "0원". 지출이 없었다는 뜻이다</td></tr>
+    <tr><td class="k">아직 오지 않은 달</td><td>막대 자리를 비우고 "집계 전 · 0원". 0원과 구분한다</td></tr>
+    <tr><td class="k">심사 지연</td><td>심평원 심사가 끝나야 내역이 올라오므로 최근 달은 값이 나중에 늘어날 수 있다. 이 사실은 §8의 안내 문구로 갈음한다</td></tr>
+    <tr><td class="k">분기 이동</td><td>‹ 로 이전 분기, › 로 다음 분기. 오늘이 속한 분기에서는 › 를 비활성. 올해 1분기 이전으로는 가지 않는다</td></tr>
+  </table>
+  <h3>7.3 전년 비교</h3>
+  <table>
+    <tr><th style="width:150px">항목</th><th>규칙</th></tr>
+    <tr><td class="k">비교 대상</td><td>지금 보고 있는 분기를 지난해 같은 분기와 비교한다. <b>진행 중인 분기는 오늘까지만 비교한다</b> — 올해 7월 1일~오늘과 지난해 7월 1일~같은 날짜를 맞대어 본다. 끝난 분기는 3개월 전체를 비교한다</td></tr>
+    <tr><td class="k">이 방식을 쓰는 이유</td><td>진행 중인 분기를 지난해 3개월 전체와 비교하면 아직 지나지 않은 기간까지 상대편에 들어가 항상 "덜 썼다"로 나온다. 같은 길이의 기간끼리 비교해야 증감이 뜻을 갖는다</td></tr>
+    <tr><td class="k">기준일 표기</td><td>진행 중인 분기에서는 비교 문구에 "지난해 같은 기간"이라고만 쓰고 날짜를 적지 않는다. 오늘까지라는 뜻이 "같은 기간"에 담긴다</td></tr>
+    <tr><td class="k">문구</td><td>더 썼으면 "지난해 같은 기간보다 n원 더 지출했어요", 덜 썼으면 "n원 덜 지출했어요", 같으면 "지난해 같은 기간과 비슷해요"</td></tr>
+    <tr><td class="k">증감률</td><td>"전년 대비 n% 증가 / 감소". 지난해 금액이 0원이면 비율을 쓰지 않고 금액만 말한다</td></tr>
+    <tr><td class="k">지난해 기록 없음</td><td>비교 블록 전체를 숨긴다</td></tr>
+  </table>
+  <div class="callout">금액과 비율은 반드시 같은 기간에서 나와야 한다. 시안의 "27,000원 더 지출 · 63% 증가"는 두 값이 서로 맞지 않는다(63%가 맞으려면 지난해 금액이 약 43,000원이어야 하는데, 같은 화면의 분기 막대 합계와 어긋난다). 위 기준으로 다시 계산해 두 값을 맞춘다.</div>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8">
+  <h2><span class="n">8</span>금액 표기 원칙</h2>
+  <div class="sub">진료비를 다룰 때 공통으로 적용</div>
+  <table>
+    <tr><th style="width:150px">원칙</th><th>내용</th></tr>
+    <tr><td class="k">정확한 값</td><td>누적 금액과 비교 금액은 원 단위까지 그대로 쓴다(1,451,500원 · 27,000원)</td></tr>
+    <tr><td class="k">줄인 값</td><td>막대 위 금액처럼 자리가 좁은 곳만 만 단위로 줄인다(4만). 줄인 값은 비교·계산에 쓰지 않는다</td></tr>
+    <tr><td class="k">출처와 한계</td><td>심평원에 청구·심사된 내역 기준이며 비급여가 빠져 있어 실제 결제액과 다를 수 있다는 점을 진료비 카드에 항상 쓴다</td></tr>
+    <tr><td class="k">해석하지 않는다</td><td>많이 썼다·아껴야 한다 같은 평가를 하지 않는다. 늘었다·줄었다는 사실만 쓴다</td></tr>
+    <tr><td class="k">기준 금액</td><td>화면의 모든 금액은 <b>본인부담금</b>이다. 총진료비와 공단부담금은 쓰지 않는다. 사용자가 궁금한 것은 자기가 낸 돈이고, 총진료비를 쓰면 실제로 낸 금액보다 훨씬 큰 수가 보여 "올해 지출한 진료비"라는 제목과 어긋난다</td></tr>
+    <tr><td class="k">기준 밝히기</td><td>진료비 카드 안내 문구에 본인부담금 기준임을 쓴다. 다른 금액을 섞어 쓰지 않으므로 항목마다 따로 표기하지는 않는다</td></tr>
+  </table>
+</section>
+
+<!-- 9 -->
+<section class="card" id="s9">
+  <h2><span class="n">9</span>상태 정의</h2>
+  <div class="sub">화면 단위 상태</div>
+  <table>
+    <tr><th style="width:170px">상태</th><th>조건</th><th style="width:42%">내용</th></tr>
+    <tr><td class="k">가져오기 전</td><td>한 번도 가져오지 않음</td><td>§3 화면</td></tr>
+    <tr><td class="k">가져오는 중</td><td>인증 완료 후 수신 중</td><td>진행 카드와 뼈대 화면. 검진요약 화면정의서 §4와 같은 형식</td></tr>
+    <tr><td class="k">가져오기 실패</td><td>인증 실패 · 통신 오류 · 심평원 점검</td><td>사유 한 줄과 다시 시도. 이전에 가져온 결과가 있으면 그대로 보여준다</td></tr>
+    <tr><td class="k">올해 진료 기록 없음</td><td>가져왔으나 올해 진료 내역이 없음</td><td>세 카드를 모두 숨기고 "올해 병원 이용 기록이 없어요" 한 줄. 지난해 기록이 있어도 올해 기준이므로 보여주지 않는다</td></tr>
+    <tr><td class="k">진료비만 없음</td><td>방문 기록은 있으나 금액 정보가 없음</td><td>TOP 3 카드만 보여주고 진료비 카드를 숨긴다</td></tr>
+    <tr><td class="k">연초</td><td>1~2월처럼 올해 기록이 적음</td><td>있는 만큼 보여준다. 적다는 안내를 따로 두지 않는다</td></tr>
+    <tr><td class="k">결과 있음</td><td>정상 수신</td><td>§4~§7</td></tr>
+  </table>
+</section>
+
+<!-- 10 -->
+<section class="card" id="s10">
+  <h2><span class="n">10</span>연동 규칙</h2>
+  <div class="sub">다른 화면·조작과의 관계</div>
+  <table>
+    <tr><th style="width:220px">트리거</th><th>반영</th></tr>
+    <tr><td class="k">"진료 데이터 가져오기" 탭</td><td>심평원 인증 흐름 → 완료 시 수신 시작. 진료요약과 방문이력이 함께 채워진다</td></tr>
+    <tr><td class="k">상단 "데이터 가져오기" 탭</td><td>진료요약에서 누르면 심평원 인증으로 간다. 이미 연동돼 있으면 최신 내역으로 갱신한다</td></tr>
+    <tr><td class="k">검진요약에서 가져오기 완료</td><td>공단 데이터만 들어오므로 진료요약은 그대로 미연동이다. 이 탭에서 따로 가져와야 한다</td></tr>
+    <tr><td class="k">방문이력에서 가져오기 완료</td><td>같은 심평원 연동이므로 진료요약도 함께 채워진다</td></tr>
+    <tr><td class="k">분기 ‹ › 이동</td><td>막대와 전년 비교를 그 분기 기준으로 다시 계산한다. 누적 금액은 연 단위이므로 바뀌지 않는다</td></tr>
+    <tr><td class="k">해가 바뀜</td><td>대상 연도와 누적 금액이 새해 기준으로 초기화된다. 지난해 값은 전년 비교에서만 쓰인다</td></tr>
+    <tr><td class="k">방문이력 탭</td><td>여기서 요약한 방문·처방의 낱낱 내역을 본다</td></tr>
+  </table>
+</section>
+
+<!-- 11 -->
+<section class="card" id="s11">
+  <h2><span class="n">11</span>확인 필요 사항</h2>
+  <div class="sub">이 문서 확정 전 담당자 결정이 필요한 항목</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">항목</th><th>내용</th><th style="width:90px">상태</th></tr>
+    <tr><td>1</td><td class="k">가져오기 전 안내 문구</td><td>시안 설명이 "건강보험공단의 검진 정보"로 되어 있다. 진료 내역은 건강보험심사평가원이 출처이므로 기관과 대상을 모두 고쳐야 한다</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>2</td><td class="k">처방 이력 경로</td><td>기능 목록에 있는 처방 이력을 이 탭에서 보여줄지, 방문이력으로 보낼지</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>3</td><td class="k">심사 지연 범위</td><td>심평원 심사가 끝나 내역이 올라오기까지 얼마나 걸리는지. 최근 달 값이 나중에 늘어나는 폭을 안내에 반영할지</td><td><span class="pill p-b">SDK 확인</span></td></tr>
+    <tr><td>4</td><td class="k">조회 가능 기간</td><td>심평원에서 몇 년치 진료 내역을 가져올 수 있는지. 전년 비교가 가능한지가 여기에 달려 있다</td><td><span class="pill p-b">SDK 확인</span></td></tr>
+    <tr><td>5</td><td class="k">본인부담금 제공 여부</td><td>심평원 연동 항목에 본인부담금이 포함되는지. 총진료비만 온다면 화면 기준(§8)을 다시 정해야 한다</td><td><span class="pill p-b">SDK 확인</span></td></tr>
+    <tr><td>6</td><td class="k">TOP 3 개수</td><td>3개 고정 vs 더보기로 확장</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>7</td><td class="k">민감정보 노출</td><td>정신건강의학과 등 민감할 수 있는 진료과가 TOP 3에 노출되는 경우의 처리 방침</td><td><span class="pill p-l">확인 필요</span></td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

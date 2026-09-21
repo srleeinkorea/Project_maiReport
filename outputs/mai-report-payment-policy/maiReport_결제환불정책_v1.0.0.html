@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="maiReport 결제·환불 정책 v1.0 확정본 — 분석 이용권 인앱결제·환불 기준, v0.1 미정 항목의 확정 결정(유효기간 12개월·7일 경과 미사용분 환불 수용·RESERVED=사용 개시·탈퇴 시 즉시 소멸 등).">
+  <title>maiReport 결제·환불 정책 v1.0</title>
+  <style>
+    :root{
+      --bg:#F5F7FB;--card:#FFFFFF;--ink:#121A2B;--text:#344158;--muted:#68758C;
+      --line:#DCE3EE;--accent:#2F66F5;--accent-soft:#EEF3FF;
+      --green:#168252;--green-soft:#EAF7F0;--amber:#9A6700;--amber-soft:#FFF5D8;
+      --red:#BD2F2F;--red-soft:#FDECEC;
+      --shadow:0 14px 38px rgba(35,54,91,.055);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR","Malgun Gothic",sans-serif;font-size:14px;line-height:1.65;letter-spacing:-.015em}
+    a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+    .top{position:sticky;top:0;z-index:20;padding:10px 20px;background:rgba(245,247,251,.8);-webkit-backdrop-filter:blur(18px) saturate(130%);backdrop-filter:blur(18px) saturate(130%)}
+    .top-in{max-width:1200px;min-height:58px;margin:auto;padding:8px 12px 8px 18px;display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.95);border:1px solid rgba(203,213,229,.72);border-radius:18px;box-shadow:0 10px 32px rgba(36,55,92,.06)}
+    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+    .brand-word{position:relative;color:#17233D;font-size:20px;font-weight:900;letter-spacing:-.065em;line-height:1}
+    .brand-word::after{content:"";position:absolute;right:-7px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+    .brand-rule{width:1px;height:20px;margin-left:3px;background:#DDE4EF}
+    .doc-label{display:flex;align-items:center;gap:7px;color:#627089;font-size:12px;font-weight:700}
+    .doc-label em{padding:3px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:10px;font-style:normal;font-weight:900}
+    .top-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .top-link{height:38px;padding:0 12px;display:inline-flex;align-items:center;border-radius:11px;color:#657188;font-size:11px;font-weight:800}
+    .top-link:hover{background:#F1F4F8;color:#24324C}
+    main{max-width:1200px;margin:auto;padding:30px 26px 72px}
+    .hero{padding:48px 52px 36px;background:var(--card);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:22px;box-shadow:var(--shadow)}
+    .eyebrow,.section-label{display:block;color:var(--accent);font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}
+    h1{max-width:900px;margin:15px 0 16px;color:#10192B;font-size:40px;line-height:1.18;font-weight:900;letter-spacing:-.055em}
+    .hero>p{max-width:940px;margin:0;color:#5F6D84;font-size:16px;line-height:1.8}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 30px}
+    .chip{padding:7px 12px;border:1px solid #D5E0FB;border-radius:999px;background:#F0F4FF;color:#2B58C9;font-size:11px;font-weight:800}
+    .hero-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-top:24px;border-top:1px solid var(--line)}
+    .hero-meta span{display:block;margin-bottom:6px;color:#7A879B;font-size:10px;font-weight:900;letter-spacing:.04em}
+    .hero-meta strong{display:block;color:#1B2942;font-size:13px;line-height:1.55}
+    .hero-meta p{margin:4px 0 0;color:#718098;font-size:11px}
+    .toc{margin-top:22px;padding:26px 30px;background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px rgba(35,54,91,.04)}
+    .toc h2{margin:0 0 16px;font-size:13px;font-weight:900;color:#7A879B;letter-spacing:.06em;text-transform:uppercase}
+    .toc ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 26px;margin:0;padding:0;list-style:none;counter-reset:toc}
+    .toc li{counter-increment:toc;padding:9px 0;border-top:1px solid var(--line);font-size:13px}
+    .toc li a{display:flex;gap:10px;color:var(--text);font-weight:700}
+    .toc li a::before{content:counter(toc,decimal-leading-zero);color:var(--accent);font-weight:900;font-size:11px}
+    .section{margin-top:26px;padding:40px;background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 30px rgba(35,54,91,.04);scroll-margin-top:96px}
+    .section-head{margin-bottom:26px}
+    .section-head h2{margin:9px 0 0;color:#131D31;font-size:26px;line-height:1.32;letter-spacing:-.045em}
+    .section-head>p{margin:10px 0 0;max-width:900px;color:#66738A;font-size:13.5px;line-height:1.85}
+    h3.block{margin:30px 0 12px;font-size:16px;color:#1B2942;letter-spacing:-.03em}
+    h3.block:first-of-type{margin-top:6px}
+    h3.block small{margin-left:8px;color:#98A2B3;font-size:11px;font-weight:700}
+    p.lead{margin:0 0 14px;color:#5F6D84;font-size:13px;line-height:1.8}
+    .g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .card{padding:22px;border:1px solid #E1E6EF;border-radius:18px;background:#FBFCFE}
+    .card .num{width:30px;height:30px;margin-bottom:14px;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:10px;font-weight:900}
+    .card h4{margin:0 0 7px;color:#1B2942;font-size:14px;letter-spacing:-.03em}
+    .card p{margin:0;color:#68758C;font-size:12px;line-height:1.72}
+    .card ul{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+    .card li{position:relative;padding-left:12px;color:#708097;font-size:11.5px;line-height:1.6}
+    .card li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:4px;border-radius:50%;background:#9CA8B9}
+    .callout{display:grid;grid-template-columns:150px minmax(0,1fr);gap:22px;margin-top:16px;padding:22px 26px;border-left:4px solid var(--accent);border-radius:14px;background:#F7F9FD}
+    .callout.warn{border-left-color:var(--amber);background:var(--amber-soft)}
+    .callout.ok{border-left-color:var(--green);background:var(--green-soft)}
+    .callout span{color:#6E7B91;font-size:11px;font-weight:900;letter-spacing:.06em}
+    .callout.warn span{color:#856115}.callout.ok span{color:#0F5C3A}
+    .callout p{margin:0;color:#586377;font-size:12.5px;line-height:1.75}
+    .callout p+p{margin-top:9px}
+    .callout strong{color:#121C30}
+    .table-wrap{margin-top:14px;overflow-x:auto;border:1px solid var(--line);border-radius:16px}
+    table{width:100%;border-collapse:collapse;font-size:12px;min-width:720px}
+    thead th{background:#F3F6FC;color:#41506A;font-size:10.5px;font-weight:900;letter-spacing:.03em;text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+    tbody td{padding:12px 14px;border-bottom:1px solid #EAEEF5;color:#48566E;line-height:1.6;vertical-align:top}
+    tbody tr:last-child td{border-bottom:0}
+    td b{color:#26344E}
+    .tag{display:inline-block;padding:3px 7px;border-radius:6px;background:var(--accent-soft);color:#31538f;font-size:9.5px;font-weight:800;font-family:Consolas,monospace}
+    .st{display:inline-block;padding:2px 8px;border-radius:999px;font-size:9.5px;font-weight:900;letter-spacing:.02em}
+    .st-a{background:var(--green-soft);color:var(--green)}
+    .st-u{background:var(--accent-soft);color:#2B58C9}
+    .st-c{background:var(--red-soft);color:var(--red)}
+    .yes{color:var(--green);font-weight:800}
+    .no{color:#B0B8C4}
+    .decision{display:inline-block;padding:2px 8px;border-radius:999px;font-size:9.5px;font-weight:900}
+    .d-fixed{background:var(--green-soft);color:var(--green)}
+    .d-hold{background:#F1F3F7;color:#5E6B80}
+    .d-input{background:var(--amber-soft);color:var(--amber)}
+    .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin-top:16px}
+    .flow .step{flex:1 1 150px;min-width:140px;padding:16px 18px;border:1px solid #E1E6EF;border-radius:16px;background:#FBFCFE}
+    .flow .step b{display:block;color:#1B2942;font-size:12.5px;margin-bottom:4px}
+    .flow .step small{color:#8793A6;font-size:10.5px;font-weight:700;letter-spacing:.03em}
+    .flow .step p{margin:7px 0 0;color:#68758C;font-size:11px;line-height:1.6}
+    .flow .arrow{align-self:center;color:#B7C0CE;font-size:16px;font-weight:900}
+    .diff-list{margin-top:6px;border-top:1px solid var(--line)}
+    .diff-item{display:grid;grid-template-columns:52px 250px minmax(0,1fr);gap:22px;align-items:start;padding:22px 4px;border-bottom:1px solid var(--line)}
+    .diff-item>i{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-size:11px;font-weight:900;font-style:normal}
+    .diff-item strong{color:#1A273E;font-size:14px}
+    .diff-item p{margin:0;color:#68758C;font-size:12px;line-height:1.75}
+    .check{margin-top:8px;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+    .check-item{display:grid;grid-template-columns:26px minmax(0,1fr) 130px;gap:14px;align-items:center;padding:15px 18px;border-top:1px solid var(--line);background:#FFF}
+    .check-item:first-child{border-top:0}
+    .check-item .box{width:18px;height:18px;border:2px solid var(--accent);border-radius:6px}
+    .check-item strong{color:#28364F;font-size:12.5px}
+    .check-item p{margin:3px 0 0;color:#7A8699;font-size:11px;line-height:1.55}
+    .status-badge{width:max-content;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:900}
+    .sb-ready{background:var(--green-soft);color:var(--green)}
+    .sb-review{background:var(--amber-soft);color:var(--amber)}
+    .sb-open{background:#F1F3F7;color:#5E6B80}
+    .statement{margin-top:14px;padding:26px 30px;border-left:4px solid var(--accent);border-radius:14px;background:#F7F9FD;font-size:14px;line-height:1.85;color:#20304B}
+    .statement mark{background:#E4ECFF;color:#1E44A6;padding:1px 5px;border-radius:5px;font-weight:700}
+    footer{padding:30px 0 0;text-align:center;color:#8A96A8;font-size:11px}
+    .src{margin-top:26px;padding:24px 28px;background:#FAFBFD;border:1px solid var(--line);border-radius:18px}
+    .src h2{margin:0 0 12px;font-size:12px;font-weight:900;color:#7A879B;letter-spacing:.06em;text-transform:uppercase}
+    .src ul{margin:0;padding-left:18px;color:#68758C;font-size:11.5px;line-height:1.8}
+    @media(max-width:1080px){.toc ol{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-meta{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:900px){
+      .doc-label,.brand-rule{display:none}
+      .hero{padding:36px 28px 28px}h1{font-size:31px}
+      .section{padding:30px 24px}.section-head h2{font-size:22px}
+      .g2,.g3{grid-template-columns:1fr}
+      .toc ol{grid-template-columns:1fr}
+      .callout{grid-template-columns:1fr;gap:8px}
+      .diff-item{grid-template-columns:40px 1fr;gap:12px}.diff-item p{grid-column:1/-1}
+      .check-item{grid-template-columns:22px 1fr;gap:10px}.check-item .status-badge{grid-column:2}
+      .flow .arrow{display:none}
+    }
+    @media print{
+      body{background:#FFF}.top{display:none}main{max-width:none;padding:0}
+      .hero,.section,.toc,.src{box-shadow:none;break-inside:avoid}
+      .section{break-before:page}
+      .card,.diff-item,.check-item,.flow .step,tr{break-inside:avoid}
+      .table-wrap{overflow:visible}table{min-width:0}
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-in">
+      <div class="brand" aria-label="maiReport 결제·환불 정책 v1.0">
+        <span class="brand-word">maiReport</span>
+        <span class="brand-rule" aria-hidden="true"></span>
+        <span class="doc-label">결제·환불 정책 <em>v1.0</em></span>
+      </div>
+      <div class="top-actions">
+        <a class="top-link" href="maiReport_결제환불정책.html">v0.1 (초안)</a>
+        <a class="top-link" href="../mai-report-screen-definition-payment/maiReport_화면정의_결제_v1.0.0.html">결제 화면정의</a>
+        <a class="top-link" href="../mai-report-data-model/maiReport_데이터모델_v1.0.0.html">데이터 모델</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <span class="eyebrow">maiReport · Payment &amp; Refund Policy · v1.0</span>
+      <h1>분석 이용권 결제·환불 기준을<br>미정 항목까지 확정한다.</h1>
+      <p>v0.1 초안에서 &lsquo;확정 필요&rsquo;로 남았던 항목(이용권 유효기간, 7일 경과 미사용분 환불, RESERVED 상태 취급, 회원 탈퇴 시 처리 등)에 <strong>권장 결정값</strong>을 반영한 확정본입니다. 사업자·고객센터 실값 삽입과 법무 검토는 약관·앱 내 고지문 작성 단계로 넘깁니다.</p>
+      <div class="chips">
+        <span class="chip">인앱결제 전용</span>
+        <span class="chip">현 단계 SELVY_CHECKUP 한정</span>
+        <span class="chip">이용권 유효기간 12개월 (확정)</span>
+        <span class="chip">7일 청약철회 + 경과 후 미사용분 환불 수용</span>
+        <span class="chip">RESERVED = 사용 개시 (확정)</span>
+        <span class="chip">탈퇴 시 즉시 소멸 (확정)</span>
+        <span class="chip">스토어 환불 자동 연동</span>
+      </div>
+      <div class="hero-meta">
+        <div><span>DOCUMENT</span><strong>결제·환불 정책 v1.0 (확정본)</strong><p>기준일 2026-09-01 · Internal Use Only · v0.1 대체</p></div>
+        <div><span>SCOPE</span><strong>분석 이용권 인앱결제·환불·상태 조정</strong><p>SELVY_CHECKUP · ANRISK 보류 유지</p></div>
+        <div><span>BASIS</span><strong>운영 화면 · Google Play·App Store 정책</strong><p>전자상거래법 · 콘텐츠 이용자 보호지침</p></div>
+        <div><span>NEXT</span><strong>사업자 실값 삽입 + 법무 검토</strong><p>약관·앱 내 고지문 작성 단계</p></div>
+      </div>
+    </section>
+
+    <nav class="toc" aria-label="목차">
+      <h2>구성</h2>
+      <ol>
+        <li><a href="#s1">목적과 적용 범위</a></li>
+        <li><a href="#s2">확정 결정 요약</a></li>
+        <li><a href="#s3">결제 수단과 결제 주체</a></li>
+        <li><a href="#s4">판매 상품: 분석 이용권</a></li>
+        <li><a href="#s5">이용권의 발급·상태·유효기간</a></li>
+        <li><a href="#s6">청약철회 및 환불 기준</a></li>
+        <li><a href="#s7">환불 불가·제한 사유</a></li>
+        <li><a href="#s8">환불 절차와 처리 기간</a></li>
+        <li><a href="#s9">오류·중복·미성년자·탈퇴</a></li>
+        <li><a href="#s10">잔여 확정 항목과 다음 단계</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1 -->
+    <section class="section" id="s1">
+      <div class="section-head"><span class="section-label">01 · Purpose &amp; Scope</span><h2>목적과 적용 범위</h2>
+        <p>maiReport 앱에서 유료로 제공되는 <strong>분석 이용권</strong>의 구매와 환불 기준을 정의합니다. 현 단계 적용 대상은 <strong>SELVY_CHECKUP</strong> 이용권이며, <strong>ANRISK</strong> 이용권은 판매에서 우선 제외합니다.</p>
+      </div>
+      <div class="g2">
+        <article class="card"><span class="num">IN</span><h4>적용되는 거래</h4><ul><li>앱 내 인앱결제로 구매한 분석 이용권(SELVY_CHECKUP)</li><li>1회 결제로 지급되는 이용권과 그 사용·예약·취소</li><li>스토어(Google·Apple) 환불에 따른 이용권 상태 조정</li></ul></article>
+        <article class="card"><span class="num">OUT</span><h4>범위 밖</h4><ul><li>ANRISK 이용권 — 현 단계 판매 제외</li><li>병원·기관 무상 제공 리포트·분석</li><li>이벤트·프로모션 무상 지급 이용권(별도 기준)</li><li>결제 대금 정산·영수증 — 스토어 사업자 소관</li></ul></article>
+      </div>
+      <div class="callout"><span>근거 규정</span><p>전자상거래 등에서의 소비자보호에 관한 법률 제17조·제18조 및 디지털콘텐츠 청약철회 제한, 콘텐츠산업진흥법·문화체육관광부 콘텐츠 이용자 보호지침, Google Play 개발자 배포 계약·환불 정책, Apple App Store 미디어 서비스 이용약관. 본 정책과 스토어 정책이 상충하면 <strong>사용자에게 더 유리한 기준</strong>을 적용합니다.</p></div>
+    </section>
+
+    <!-- 2 확정 결정 요약 -->
+    <section class="section" id="s2">
+      <div class="section-head"><span class="section-label">02 · Decisions</span><h2>확정 결정 요약</h2>
+        <p>v0.1의 &lsquo;확정 필요 항목&rsquo;에 대한 결정입니다. <span class="decision d-fixed">확정</span> 본 정책에 반영 · <span class="decision d-hold">보류</span> 현 단계 미적용 · <span class="decision d-input">실값 입력</span> 약관화 전 삽입 필요.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>항목</th><th>결정</th><th>확정값</th><th>근거 / 재검토 조건</th></tr></thead>
+          <tbody>
+            <tr><td><b>D1. 미사용 이용권 유효기간</b></td><td><span class="decision d-fixed">확정</span></td><td>발급일로부터 <b>365일(12개월)</b>. 만료 30일 전 앱 알림 1회. 만료 시 자동 소멸(<span class="tag">EXPIRED</span>), 환불 없음</td><td>장기 미행사 이용권의 회계·CS 부담 축소. 구매 화면·상품 설명에 기간 명시. 사용 데이터로 사용까지 소요 기간 확인 후 재조정</td></tr>
+            <tr><td><b>D2. 7일 경과 미사용분 자체 환불</b></td><td><span class="decision d-fixed">확정</span></td><td><b>수용</b>. 조건: 발급 후 12개월 내 미사용(AVAILABLE), 스토어 환불 승인 전제, <b>계정당 12개월 롤링 2회 한도</b>, 프로모션 지급분 제외</td><td>법정 청약철회권(7일) 소멸 이후에도 미사용분은 사용자 불이익이 없어 수용. 남용 시 한도·악용 조항으로 관리</td></tr>
+            <tr><td><b>D3. ANRISK 판매 개시</b></td><td><span class="decision d-hold">보류</span></td><td>현 단계 판매 제외 유지. 스토어 상품 비공개(<span class="tag">is_public=false</span>)</td><td>개시 시 가격·유효기간·환불 문구 확정 후 본 정책 개정. 별도 승인 필요</td></tr>
+            <tr><td><b>D4. 다회권 도입</b></td><td><span class="decision d-hold">보류</span></td><td>현 단계 <b>1회권 전용</b>(grant_count=1). 부분 사용 정산 산식·필드는 예약</td><td>상품 기획 확정 시 도입. 개당 단가 = 결제액 ÷ 지급 수량(프로모션분 제외)</td></tr>
+            <tr><td><b>D5. RESERVED(예약) 환불 취급</b></td><td><span class="decision d-fixed">확정</span></td><td><b>예약 시점을 &lsquo;사용 개시&rsquo;로 간주</b>. 분석이 실패·취소되면 이용권을 AVAILABLE로 자동 복원 → 그 시점부터 미사용분 환불 대상</td><td>운영 로직(<span class="tag">analysis_run</span> 상태)과 일치. 결과 산출 전 중단 시 사용자 불이익 없음</td></tr>
+            <tr><td><b>D6. 회원 탈퇴 시 잔여 이용권</b></td><td><span class="decision d-fixed">확정</span></td><td><b>즉시 소멸</b>(CANCELED, memo: 탈퇴). 유예기간 없음. 탈퇴 화면에서 잔여 수·소멸 예정 고지. 7일 내 결제 미사용분은 탈퇴 전 환불 안내</td><td>탈퇴 후 계정·이용 기록 접근 불가 원칙과 일치. 환불 기회는 탈퇴 전 안내로 보장</td></tr>
+            <tr><td><b>D7. 사업자·고객센터 실값</b></td><td><span class="decision d-input">실값 입력</span></td><td>상호·대표자·사업자등록번호·통신판매업신고번호·주소·대표 연락처·고객센터 채널·운영시간</td><td>약관·앱 내 고지문 작성 전 필수. 미확보 시 배포 불가</td></tr>
+            <tr><td><b>D8. 법무 검토</b></td><td><span class="decision d-input">후속</span></td><td>전자상거래법·콘텐츠 이용자 보호지침·스토어 개발자 약관 대조, 국외 판매 시 현지 소비자법</td><td>고지문 초안 완료 후 진행</td></tr>
+            <tr><td><b>D9. 가격 표기</b></td><td><span class="decision d-fixed">확정</span></td><td>각 스토어 표시 금액(부가세 포함)이 기준. 플랫폼 간 표시가 차이는 <b>보전하지 않음</b></td><td>스토어 정책·환율·수수료 차이 반영. v0.1 유지</td></tr>
+            <tr><td><b>D10. 결제정보 저장</b></td><td><span class="decision d-fixed">확정</span></td><td>maiReport는 카드번호 등 <b>결제수단 정보를 저장하지 않음</b>. 스토어 구매 ID·검증 결과만 보관</td><td>PCI 범위 축소. v0.1 유지</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="section" id="s3">
+      <div class="section-head"><span class="section-label">03 · Payment Method</span><h2>결제 수단과 결제 주체</h2>
+        <p>분석 이용권은 <strong>앱 내 인앱결제로만</strong> 판매합니다. 카드 직접결제·계좌이체·상품권 결제는 제공하지 않습니다.</p>
+      </div>
+      <div class="g3">
+        <article class="card"><span class="num">01</span><h4>결제 수단</h4><p>Android는 Google Play 인앱결제, iOS는 Apple App Store 인앱결제. 실제 결제수단은 사용자의 스토어 계정 등록 수단을 따릅니다.</p></article>
+        <article class="card"><span class="num">02</span><h4>대금·영수증</h4><p>대금 청구, 구매내역·영수증, 세금계산서, 결제수단 관리는 스토어 사업자가 수행합니다.</p></article>
+        <article class="card"><span class="num">03</span><h4>maiReport의 역할</h4><p>스토어 구매 검증(영수증 확인) 후 구매 ID에 대해 이용권을 지급하고, 이후 사용·예약·취소 상태를 관리합니다.</p></article>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="section" id="s4">
+      <div class="section-head"><span class="section-label">04 · Products</span><h2>판매 상품: 분석 이용권</h2>
+        <p>판매 상품은 특정 분석 타입 <strong>1회 실행 권리</strong>인 <strong>분석 이용권</strong>입니다. 한 번 사용하면 소멸하는 소모성 콘텐츠이며, 결제 1건은 상품의 지급 수량(현행 1)만큼 이용권을 발급합니다.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>상품 ID</th><th>스토어 상품 ID</th><th>플랫폼</th><th>분석 타입</th><th>지급 수량</th><th>유효기간</th><th>판매 상태</th></tr></thead>
+          <tbody>
+            <tr><td><b>1</b></td><td><span class="tag">selvy_test</span></td><td>android</td><td>SELVY_CHECKUP</td><td>1</td><td>365일</td><td class="yes">판매</td></tr>
+            <tr><td><b>2</b></td><td><span class="tag">selvy_test</span></td><td>ios</td><td>SELVY_CHECKUP</td><td>1</td><td>365일</td><td class="yes">판매</td></tr>
+            <tr><td><b>3</b></td><td><span class="tag">maireport_anrisk_ticket_1</span></td><td>android</td><td>ANRISK</td><td>1</td><td>—</td><td class="no">보류(비공개)</td></tr>
+            <tr><td><b>4</b></td><td><span class="tag">maireport_anrisk_ticket_1</span></td><td>ios</td><td>ANRISK</td><td>1</td><td>—</td><td class="no">보류(비공개)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="g2">
+        <article class="card"><h4>분석 타입 전용</h4><p>이용권은 결제한 분석 타입에서만 사용하며, 타입 간 전환·차감 대체는 없습니다.</p></article>
+        <article class="card"><h4>결과물의 성격</h4><p>이용권으로 실행한 분석 결과는 이해를 돕는 참고 정보이며 의학적 진단·의료진 판단을 대체하지 않습니다. 결과 내용에 대한 불만족은 환불 사유가 아니며, 결과가 <b>정상 제공되지 않은 경우</b>에 한해 장애 환불 대상입니다.</p></article>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="section" id="s5">
+      <div class="section-head"><span class="section-label">05 · Ticket Lifecycle</span><h2>이용권의 발급·상태·유효기간</h2>
+        <p>이용권은 상태와 시각(발급·예약·사용·취소·만료)으로 관리됩니다. 환불 가능 여부는 <strong>분석 사용(콘텐츠 제공 개시) 여부</strong>로 판정합니다.</p>
+      </div>
+      <div class="flow">
+        <div class="step"><b>발급</b><small>AVAILABLE</small><p>스토어 구매 검증 후 지급. <span class="st st-a">사용 가능</span>. <b>발급일 + 365일</b> 만료 예정 설정</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><b>예약</b><small>RESERVED</small><p>분석 요청 접수(결과 전). <b>사용 개시로 간주</b>. 실패·취소 시 AVAILABLE 복원</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><b>사용</b><small>USED</small><p>분석 결과 정상 산출. <span class="st st-u">사용 완료</span>. 불가역</p></div>
+      </div>
+      <div class="flow" style="margin-top:10px">
+        <div class="step"><b>취소</b><small>CANCELED</small><p>스토어 환불 확정·운영자 취소·회원 탈퇴로 미사용 이용권 소멸(memo 기록)</p></div>
+        <div class="arrow">›</div>
+        <div class="step"><b>만료</b><small>EXPIRED</small><p>발급 후 365일 미사용 시 자동 소멸. 환불 없음. 만료 30일 전 1회 고지</p></div>
+      </div>
+      <h3 class="block">상태 정의와 환불 판정</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>상태</th><th>의미</th><th>환불 판정</th></tr></thead>
+          <tbody>
+            <tr><td><span class="st st-a">AVAILABLE</span></td><td>발급, 미사용</td><td class="yes">환불 대상 — 미사용</td></tr>
+            <tr><td><b>RESERVED</b></td><td>분석 요청 접수, 결과 전</td><td style="color:var(--amber);font-weight:700">사용 개시로 간주(환불 불가). 분석 실패 시 AVAILABLE로 복원되면 그때 환불 대상</td></tr>
+            <tr><td><span class="st st-u">USED</span></td><td>분석 결과 정상 제공</td><td class="no">환불 불가 — 콘텐츠 제공 완료(장애 제외)</td></tr>
+            <tr><td><span class="st st-c">CANCELED</span></td><td>환불·운영자·탈퇴로 소멸</td><td class="no">처리 완료 — 추가 환불 없음</td></tr>
+            <tr><td><b>EXPIRED</b></td><td>유효기간 경과 소멸</td><td class="no">환불 불가 — 사전 고지된 만료</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="section" id="s6">
+      <div class="section-head"><span class="section-label">06 · Refund Criteria</span><h2>청약철회 및 환불 기준</h2>
+        <p>환불 신청 접수와 대금 반환은 원칙적으로 <strong>각 스토어를 통해</strong> 이루어집니다. maiReport는 스토어의 환불 확정 알림을 받아 이용권 상태를 조정하고, 스토어를 거치기 어려운 오류·장애 건은 직접 지원합니다.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>상황</th><th>이용권 상태</th><th>환불 범위</th><th>근거</th></tr></thead>
+          <tbody>
+            <tr><td><b>단순 변심 — 미사용</b></td><td><span class="st st-a">AVAILABLE</span></td><td class="yes">결제일로부터 7일 이내 전액 환불</td><td>전자상거래법 제17조</td></tr>
+            <tr><td><b>7일 경과 — 미사용</b></td><td><span class="st st-a">AVAILABLE</span></td><td class="yes">발급 후 12개월 내 · 계정당 12개월 2회 한도 · 스토어 승인 시 환불(프로모션분 제외)</td><td>maiReport 자체 기준 (D2)</td></tr>
+            <tr><td><b>단순 변심 — 예약·사용 후</b></td><td>RESERVED / <span class="st st-u">USED</span></td><td class="no">환불 불가(콘텐츠 제공 개시)</td><td>청약철회 제한 (D5)</td></tr>
+            <tr><td><b>분석 장애·미제공</b></td><td>RESERVED 후 실패 / 결과 오류</td><td class="yes">이용권 복원 또는 전액 환불(사용자 선택)</td><td>사업자 귀책</td></tr>
+            <tr><td><b>중복·오결제</b></td><td>무관</td><td class="yes">중복·오결제분 전액 환불</td><td>계약 불성립·착오</td></tr>
+            <tr><td><b>유효기간 만료</b></td><td>EXPIRED</td><td class="no">환불 불가(사전 고지)</td><td>maiReport 자체 기준 (D1)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><span>스토어 환불 자동 취소</span><p>스토어에서 환불이 <strong>확정</strong>되면 maiReport 서버는 환불 알림을 수신해 해당 구매 ID로 지급된 이용권 중 <span class="st st-a">AVAILABLE</span> 및 <b>RESERVED</b> 상태인 것을 자동으로 <span class="st st-c">CANCELED</span> 처리합니다(memo: &lsquo;스토어 환불로 자동 취소&rsquo;). 이미 <span class="st st-u">USED</span> 상태이면 자동 취소가 불가하며, maiReport는 사용 이력을 근거로 스토어에 이의를 제기하거나 해당 계정의 이용권 지급·분석 이용을 제한할 수 있습니다.</p></div>
+      <h3 class="block">부분 사용 정산 산식 <small>다회권 도입 시(현재 미적용)</small></h3>
+      <div class="statement">환불액 = <mark>결제 금액</mark> − ( <mark>사용(USED)·예약(RESERVED) 이용권 수</mark> × <mark>결제 금액 ÷ 지급 수량</mark> ) − <mark>스토어가 반환하지 않는 실비</mark><br><small style="color:#7A8699">프로모션으로 추가 지급된 이용권은 분모·분자에서 제외.</small></div>
+    </section>
+
+    <!-- 7 -->
+    <section class="section" id="s7">
+      <div class="section-head"><span class="section-label">07 · Non-refundable</span><h2>환불 불가·제한 사유</h2>
+        <p>사업자 귀책(장애·오결제)은 이 조항의 예외로, 항상 환불·복원 대상입니다.</p>
+      </div>
+      <div class="diff-list">
+        <div class="diff-item"><i>01</i><strong>이미 사용된 이용권</strong><p>분석 결과가 정상 제공되어 <span class="st st-u">USED</span>로 기록된 이용권. 결과 내용·해석에 대한 주관적 불만족은 환불 사유가 아닙니다.</p></div>
+        <div class="diff-item"><i>02</i><strong>예약(RESERVED) 상태</strong><p>분석 요청이 접수된 시점부터 사용 개시로 봅니다. 단 분석이 실패·취소되어 AVAILABLE로 복원되면 미사용분으로 환불 대상이 됩니다.</p></div>
+        <div class="diff-item"><i>03</i><strong>유효기간 만료(EXPIRED)</strong><p>발급 후 365일이 지나 소멸한 이용권. 만료 30일 전 고지가 이루어집니다.</p></div>
+        <div class="diff-item"><i>04</i><strong>이벤트·프로모션 무상 지급분</strong><p>현금 환불 대상이 아니며, 지급 조건 위반·오지급 시 사전 통지 후 회수될 수 있습니다.</p></div>
+        <div class="diff-item"><i>05</i><strong>부정 결제·악용</strong><p>결제수단 도용, 환불 후 결과물 계속 이용, 비정상적 반복 구매·환불, 결제 우회·변조 확인 시 환불 거부 및 이용 제한.</p></div>
+        <div class="diff-item"><i>06</i><strong>스토어 정책상 환불 대상 아님</strong><p>스토어가 자체 기준으로 승인을 거부한 건은 대금 반환 불가. 다만 미사용 이용권이면 스토어 승인 시 이용권 소멸로 협조.</p></div>
+        <div class="diff-item"><i>07</i><strong>7일 경과 미사용분 한도 초과</strong><p>D2의 계정당 12개월 2회 한도를 넘긴 요청은 자체 환불 대상에서 제외(법정 청약철회 기간 내는 예외).</p></div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="section" id="s8">
+      <div class="section-head"><span class="section-label">08 · Process &amp; Timeline</span><h2>환불 절차와 처리 기간</h2>
+        <p>대금 환불은 <strong>스토어에서 신청</strong>하고, 이용권 상태 조정·장애 대응은 <strong>maiReport 고객지원</strong>이 담당합니다.</p>
+      </div>
+      <div class="g3">
+        <article class="card"><span class="num">A</span><h4>Android</h4><p>Play 스토어 &gt; 결제 및 정기결제 &gt; 주문 내역에서 환불 요청, 또는 play.google.com/store/account &gt; 문제 신고.</p></article>
+        <article class="card"><span class="num">B</span><h4>iOS</h4><p>reportaproblem.apple.com &gt; 결제 항목 선택 &gt; 환불 요청.</p></article>
+        <article class="card"><span class="num">C</span><h4>maiReport 고객지원</h4><p>결제됐으나 이용권 미지급, 분석 장애, 중복결제, 스토어 환불 후 이용권 잔존 등은 <b>구매 ID·결제 일시</b>와 함께 접수.</p></article>
+      </div>
+      <div class="g2">
+        <article class="card"><h4>스토어 환불</h4><ul><li>승인·소요 기간은 각 스토어 정책에 따름(통상 수일~2주)</li><li>maiReport 이용권 자동 취소는 스토어 알림 수신 후 지연 없이 반영</li></ul></article>
+        <article class="card"><h4>maiReport 직접 처리</h4><ul><li>접수·본인 및 결제 확인 후 <b>3영업일 이내</b> 상태 조정</li><li>대금 환불 필요 건은 스토어 절차로 안내·협조</li></ul></article>
+      </div>
+      <div class="callout ok"><span>사용자 고지 문구(안)</span><p>&ldquo;분석 이용권은 Google Play·App Store 인앱결제로 판매되며, 발급일로부터 <strong>12개월간</strong> 유효합니다. <strong>분석을 실행하지 않은 이용권</strong>은 결제일로부터 7일 이내 스토어를 통해 환불 요청할 수 있고, 7일이 지난 미사용분도 스토어 승인 시 환불받을 수 있습니다(횟수 제한 있음). <strong>분석을 요청했거나 사용한 이용권</strong>은 환불되지 않습니다. 결제 오류·중복결제·분석 오류는 고객센터로 문의해 주세요.&rdquo;</p></div>
+    </section>
+
+    <!-- 9 -->
+    <section class="section" id="s9">
+      <div class="section-head"><span class="section-label">09 · Errors · Minors · Withdrawal</span><h2>오류·중복·미성년자·탈퇴</h2></div>
+      <div class="g3">
+        <article class="card"><span class="num">01</span><h4>결제됨 · 이용권 미지급</h4><p>앱의 <b>구매 복원</b> 또는 재실행 시 자동 재검증으로 지급. 안 되면 구매 ID로 접수 → 소급 지급.</p></article>
+        <article class="card"><span class="num">02</span><h4>중복 결제</h4><p>확인 후 중복분 스토어 환불 안내 + 이용권 취소. 1건 사용됐다면 사용분 유지, 나머지만 환불.</p></article>
+        <article class="card"><span class="num">03</span><h4>결제 취소됐으나 이용권 잔존</h4><p>스토어 알림 누락 시 확인 즉시 미사용분 취소(memo). 그 사이 사용됐다면 악용 조항으로 처리.</p></article>
+        <article class="card"><span class="num">04</span><h4>미성년자 결제</h4><p>법정대리인 동의 없는 결제는 취소 가능(민법 제5조). 스토어의 미성년자 결제 취소 절차로 진행, maiReport는 이용권 상태 조정으로 협조.</p></article>
+        <article class="card"><span class="num">05</span><h4>가격·상품 변경</h4><p>시행 전 앱 공지 또는 스토어 상품 설명으로 고지. 변경 이후 결제분부터 적용, 기존 이용권 권리 불변.</p></article>
+        <article class="card"><span class="num">06</span><h4>양도·현금화 불가</h4><p>이용권은 결제 계정에 귀속. 타인·타계정 양도, 현금·포인트 환급·교환 불가.</p></article>
+      </div>
+      <div class="callout warn"><span>회원 탈퇴 시 (D6 확정)</span><p>탈퇴하면 보유 중인 <strong>미사용 이용권은 즉시 소멸</strong>합니다(유예기간 없음). 탈퇴 화면에서 잔여 이용권 수와 소멸 예정을 고지하고, <strong>결제일로부터 7일 이내의 미사용분</strong>이 있으면 탈퇴 전에 스토어 환불 절차를 안내합니다.</p></div>
+    </section>
+
+    <!-- 10 -->
+    <section class="section" id="s10">
+      <div class="section-head"><span class="section-label">10 · Remaining &amp; Next</span><h2>잔여 확정 항목과 다음 단계</h2>
+        <p>본 정책을 약관·앱 내 고지문으로 확정하기 전에 남은 항목입니다.</p>
+      </div>
+      <div class="check">
+        <div class="check-item"><span class="box"></span><div><strong>사업자·판매자 정보 및 고객센터 실값 (D7)</strong><p>상호·대표자·사업자등록번호·통신판매업신고번호·주소·연락처·고객센터 채널·운영시간</p></div><span class="status-badge sb-review">실값 입력</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>법무 검토 (D8)</strong><p>전자상거래법·콘텐츠 이용자 보호지침·스토어 개발자 약관 대조, 국외 판매 시 현지 소비자법</p></div><span class="status-badge sb-open">후속</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>운영툴 반영</strong><p>인앱결제 상품 관리에 <span class="tag">validity_days</span> 편집, 이용권 내역에 RESERVED·EXPIRED 상태 추가 (데이터 모델 8장)</p></div><span class="status-badge sb-open">운영툴</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>ANRISK 판매 재개 시 개정 (D3)</strong><p>가격·유효기간·환불 문구·스토어 상품 공개</p></div><span class="status-badge sb-open">보류</span></div>
+      </div>
+      <div class="callout"><span>다음 단계</span><p>① D7 실값 확보 → ② 확정값 반영한 <strong>결제·환불 약관 및 앱 내 고지문</strong> 작성 → ③ 법무 검토 → ④ 운영툴 요구사항 이관(유효기간·RESERVED·EXPIRED) → ⑤ <a href="../mai-report-screen-definition-payment/maiReport_화면정의_결제_v1.0.0.html">결제 화면정의</a>의 문구·상태에 반영.</p></div>
+    </section>
+
+    <div class="src">
+      <h2>근거 자료</h2>
+      <ul>
+        <li>maiReport 결제·환불 정책 v0.1 (초안) &mdash; 본 문서가 대체. 미정 10항목의 결정값을 반영</li>
+        <li>maiReport 운영자 화면 &mdash; &lsquo;인앱결제 상품 관리&rsquo;, &lsquo;분석 이용권 내역&rsquo; (상태·시각·메모)</li>
+        <li>maiReport 프로토타입 &mdash; 이용권 관리·구매 확인 모달·스토어 환불 시뮬레이션, ₩100 테스트 가격, SELVY_CHECKUP 단일 노출</li>
+        <li>전자상거래 등에서의 소비자보호에 관한 법률 제17조·제18조 / 콘텐츠 이용자 보호지침 / 민법 제5조</li>
+        <li>Google Play 개발자 배포 계약·환불 정책, Apple App Store 미디어 서비스 이용약관</li>
+        <li>maiReport MRS v0.1 &mdash; 비의료기기 웰니스 포지셔닝, 분석 결과의 &lsquo;참고 정보&rsquo; 성격</li>
+      </ul>
+    </div>
+
+    <footer>maiReport 결제·환불 정책 · v1.0 (확정본) · Internal Use Only · 2026-09-01 · v0.1 대체 · 사업자 실값·법무 검토 전</footer>
+  </main>
+</body>
+</html>

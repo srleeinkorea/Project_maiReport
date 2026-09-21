@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 1060" width="540" height="1060" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6f6ee"/><stop offset=".6" stop-color="#e9efff"/><stop offset="1" stop-color="#f7f8fb"/></linearGradient><linearGradient id="coach" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12A150"/><stop offset=".5" stop-color="#2f66f5"/><stop offset="1" stop-color="#7C5CFC"/></linearGradient><filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1a2233" flood-opacity=".06"/></filter></defs>
+<rect x="0" y="0" width="540" height="1060" rx="0" fill="#f7f8fb" stroke="none" stroke-width="1" />
+<rect x="0" y="0" width="540" height="380" rx="0" fill="url(#bg)" stroke="none" stroke-width="1" />
+<path d="M28,58 c6,-14 16,-14 22,0 c6,14 16,14 22,0" fill="none" stroke="#2f66f5" stroke-width="4" stroke-linecap="round"/>
+<path d="M50,58 c6,-14 16,-14 22,0" fill="none" stroke="#7C5CFC" stroke-width="4" stroke-linecap="round" opacity=".6"/>
+<rect x="372" y="44" width="104" height="26" rx="13" fill="#ffffffaa" stroke="#e6eaf2" stroke-width="1" />
+<text x="424" y="61" font-size="10.5" fill="#4b5468" font-weight="600" text-anchor="middle" >▦ 리포트 QR 스캔</text>
+<text x="500" y="64" font-size="14" fill="#8892a6" font-weight="400" text-anchor="middle" >🔔</text>
+<text x="28" y="110" font-size="11" fill="#2f66f5" font-weight="600" text-anchor="start" >오늘의 질문 · 1/2</text>
+<text x="28" y="138" font-size="19" fill="#1a2233" font-weight="800" text-anchor="start" >요즘 몸 상태는</text>
+<text x="28" y="162" font-size="19" fill="#1a2233" font-weight="800" text-anchor="start" >스스로 어떻게 느끼세요?</text>
+<rect x="400" y="96" width="110" height="84" rx="14" fill="#e3ecff" stroke="none" stroke-width="1" />
+<text x="455" y="146" font-size="30" fill="#4b5468" font-weight="400" text-anchor="middle" >🙂</text>
+<rect x="28" y="186" width="156" height="66" rx="14" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<text x="106" y="214" font-size="18" fill="#4b5468" font-weight="400" text-anchor="middle" >😊</text>
+<text x="106" y="240" font-size="11.5" fill="#1a2233" font-weight="600" text-anchor="middle" >좋았어요</text>
+<rect x="192" y="186" width="156" height="66" rx="14" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="270" y="214" font-size="18" fill="#4b5468" font-weight="400" text-anchor="middle" >😐</text>
+<text x="270" y="240" font-size="11.5" fill="#1a2233" font-weight="600" text-anchor="middle" >그저 그럼</text>
+<rect x="356" y="186" width="156" height="66" rx="14" fill="#fdeef1" stroke="none" stroke-width="1" />
+<text x="434" y="214" font-size="18" fill="#4b5468" font-weight="400" text-anchor="middle" >😞</text>
+<text x="434" y="240" font-size="11.5" fill="#1a2233" font-weight="600" text-anchor="middle" >나빴어요</text>
+<rect x="28" y="270" width="484" height="86" rx="16" fill="#fff" stroke="url(#coach)" stroke-width="1.5" />
+<text x="44" y="296" font-size="12" fill="#2f66f5" font-weight="700" text-anchor="start" >✦ 오늘의 코칭</text>
+<text x="44" y="320" font-size="13.5" fill="#1a2233" font-weight="700" text-anchor="start" >먼저 오늘의 질문에 답하고,</text>
+<text x="44" y="340" font-size="13.5" fill="#1a2233" font-weight="700" text-anchor="start" >나에게 맞는 코칭을 받아보세요.</text>
+<text x="28" y="392" font-size="16" fill="#1a2233" font-weight="800" text-anchor="start" >오늘의 목표</text>
+<text x="486" y="392" font-size="11" fill="#8892a6" font-weight="400" text-anchor="end" >0/3 완료  ›</text>
+<rect x="28" y="406" width="156" height="120" rx="16" fill="#fff" stroke="#e6eaf2" stroke-width="1" filter="url(#sh)"/>
+<text x="42" y="428" font-size="11" fill="#E8863A" font-weight="600" text-anchor="start" >식이</text>
+<text x="42" y="452" font-size="13.5" fill="#1a2233" font-weight="700" text-anchor="start" >저녁 균형</text>
+<text x="42" y="472" font-size="13.5" fill="#1a2233" font-weight="700" text-anchor="start" >식사</text>
+<text x="152" y="514" font-size="24" fill="#4b5468" font-weight="400" text-anchor="middle" >🥗</text>
+<rect x="192" y="406" width="156" height="120" rx="16" fill="#fff" stroke="#e6eaf2" stroke-width="1" filter="url(#sh)"/>
+<text x="206" y="428" font-size="11" fill="#E8365D" font-weight="600" text-anchor="start" >활동</text>
+<text x="206" y="452" font-size="13.5" fill="#1a2233" font-weight="700" text-anchor="start" >식후 10분</text>
+<text x="206" y="472" font-size="13.5" fill="#1a2233" font-weight="700" text-anchor="start" >걷기</text>
+<text x="316" y="514" font-size="24" fill="#4b5468" font-weight="400" text-anchor="middle" >👟</text>
+<rect x="356" y="406" width="156" height="120" rx="16" fill="#fff" stroke="#e6eaf2" stroke-width="1" filter="url(#sh)"/>
+<text x="370" y="428" font-size="11" fill="#7C5CFC" font-weight="600" text-anchor="start" >수면</text>
+<text x="370" y="452" font-size="13.5" fill="#1a2233" font-weight="700" text-anchor="start" >23시 30분에</text>
+<text x="370" y="472" font-size="13.5" fill="#1a2233" font-weight="700" text-anchor="start" >눕기</text>
+<text x="480" y="514" font-size="24" fill="#4b5468" font-weight="400" text-anchor="middle" >🛏</text>
+<text x="28" y="566" font-size="16" fill="#1a2233" font-weight="800" text-anchor="start" >오늘의 컨디션</text>
+<text x="500" y="566" font-size="14" fill="#8892a6" font-weight="400" text-anchor="end" >›</text>
+<rect x="28" y="582" width="484" height="224" rx="18" fill="#fff" stroke="#e6eaf2" stroke-width="1" filter="url(#sh)"/>
+<path d="M75.2,648.8 A34,34 0 0 1 86.0,614.1" fill="none" stroke="#d9dee8" stroke-width="6" stroke-linecap="round"/>
+<path d="M89.8,611.3 A34,34 0 0 1 126.2,611.3" fill="none" stroke="#12A150" stroke-width="8" stroke-linecap="round"/>
+<path d="M130.0,614.1 A34,34 0 0 1 140.8,648.8" fill="none" stroke="#d9dee8" stroke-width="6" stroke-linecap="round"/>
+<text x="108" y="644" font-size="11.5" fill="#12A150" font-weight="800" text-anchor="middle" >보통</text>
+<text x="108" y="692" font-size="13" fill="#12A150" font-weight="800" text-anchor="middle" >생활여유</text>
+<rect x="74.5" y="700" width="67" height="20" rx="10.0" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="108.0" y="713.6" font-size="10.5" fill="#4b5468" font-weight="800" text-anchor="middle" >보통이에요</text>
+<text x="108" y="738" font-size="10.5" fill="#D98A12" font-weight="700" text-anchor="middle" >▼ 낮아졌어요</text>
+<path d="M237.2,648.8 A34,34 0 0 1 248.0,614.1" fill="none" stroke="#d9dee8" stroke-width="6" stroke-linecap="round"/>
+<path d="M251.8,611.3 A34,34 0 0 1 288.2,611.3" fill="none" stroke="#d9dee8" stroke-width="6" stroke-linecap="round"/>
+<path d="M292.0,614.1 A34,34 0 0 1 302.8,648.8" fill="none" stroke="#D98A12" stroke-width="8" stroke-linecap="round"/>
+<text x="270" y="644" font-size="11.5" fill="#D98A12" font-weight="800" text-anchor="middle" >좋음</text>
+<text x="270" y="692" font-size="13" fill="#D98A12" font-weight="800" text-anchor="middle" >자기돌봄</text>
+<rect x="226.5" y="700" width="87" height="20" rx="10.0" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<text x="270.0" y="713.6" font-size="10.5" fill="#12A150" font-weight="800" text-anchor="middle" >잘하고 있어요</text>
+<text x="270" y="738" font-size="10.5" fill="#12A150" font-weight="700" text-anchor="middle" >▲ 좋아졌어요</text>
+<path d="M399.2,648.8 A34,34 0 0 1 410.0,614.1" fill="none" stroke="#d9dee8" stroke-width="6" stroke-linecap="round"/>
+<path d="M413.8,611.3 A34,34 0 0 1 450.2,611.3" fill="none" stroke="#d9dee8" stroke-width="6" stroke-linecap="round"/>
+<path d="M454.0,614.1 A34,34 0 0 1 464.8,648.8" fill="none" stroke="#7C5CFC" stroke-width="8" stroke-linecap="round"/>
+<text x="432" y="644" font-size="11.5" fill="#7C5CFC" font-weight="800" text-anchor="middle" >좋음</text>
+<text x="432" y="692" font-size="13" fill="#7C5CFC" font-weight="800" text-anchor="middle" >일상안정</text>
+<rect x="393.5" y="700" width="77" height="20" rx="10.0" fill="#f1ecff" stroke="none" stroke-width="1" />
+<text x="432.0" y="713.6" font-size="10.5" fill="#7C5CFC" font-weight="800" text-anchor="middle" >안정적이에요</text>
+<text x="432" y="738" font-size="10.5" fill="#8892a6" font-weight="700" text-anchor="middle" >· 변화 없음</text>
+<rect x="44" y="758" width="452" height="34" rx="10" fill="#f2f4f8" stroke="none" stroke-width="1" />
+<text x="270" y="780" font-size="10.5" fill="#4b5468" font-weight="400" text-anchor="middle" >오늘은 대체로 안정적인 흐름이에요. 저녁에 무리하지 않으면 여유가 회복될 거예요.</text>
+<text x="28" y="840" font-size="16" fill="#1a2233" font-weight="800" text-anchor="start" >오늘의 건강 데이터</text>
+<text x="500" y="840" font-size="14" fill="#8892a6" font-weight="400" text-anchor="end" >›</text>
+<rect x="28" y="856" width="484" height="48" rx="14" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<circle cx="52" cy="880" r="14" fill="#e8f8ee"/>
+<text x="52" y="885" font-size="13" fill="#4b5468" font-weight="400" text-anchor="middle" >👟</text>
+<text x="76" y="875" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >걸음 수</text>
+<text x="76" y="894" font-size="14" fill="#1a2233" font-weight="800" text-anchor="start" >6,420 걸음</text>
+<text x="496" y="885" font-size="10.5" fill="#4b5468" font-weight="600" text-anchor="end" >▼ 12% 적어요</text>
+<rect x="28" y="912" width="484" height="48" rx="14" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<circle cx="52" cy="936" r="14" fill="#e9efff"/>
+<text x="52" y="941" font-size="13" fill="#4b5468" font-weight="400" text-anchor="middle" >🌙</text>
+<text x="76" y="931" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >수면 시간</text>
+<text x="76" y="950" font-size="14" fill="#1a2233" font-weight="800" text-anchor="start" >7시간 20분</text>
+<text x="496" y="941" font-size="10.5" fill="#4b5468" font-weight="600" text-anchor="end" >▼ 35분 길어요</text>
+<rect x="28" y="968" width="484" height="48" rx="14" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<circle cx="52" cy="992" r="14" fill="#fdeef1"/>
+<text x="52" y="997" font-size="13" fill="#4b5468" font-weight="400" text-anchor="middle" >❤</text>
+<text x="76" y="987" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >안정 시 심박수</text>
+<text x="76" y="1006" font-size="14" fill="#1a2233" font-weight="800" text-anchor="start" >68 bpm</text>
+<text x="496" y="997" font-size="10.5" fill="#4b5468" font-weight="600" text-anchor="end" >= 평소 범위예요</text>
+</svg>

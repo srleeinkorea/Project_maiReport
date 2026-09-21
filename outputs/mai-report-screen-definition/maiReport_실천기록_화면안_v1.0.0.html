@@ -1,0 +1,471 @@
+<title>실천 기록 화면</title>
+<meta name="description" content="LIFE-001 목표 분석의 기존 디자인을 유지한 채 달성률을 사용자가 정한 주간 횟수와 이어가는 일수로 교체한 화면안.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#EFF2F7;--surf:#FFFFFF;--surf-2:#F7F9FC;--surf-3:#E8EDF4;
+  --line:#DAE1EB;--ink:#0F1826;--text:#3B4860;--muted:#6C7A8E;--faint:#8D99AB;
+  --accent:#2F6BFF;
+  --stop:#B23A3A;--stop-soft:#FAE9E9;
+  --ok:#1C7A57;--ok-soft:#E3F3EC;
+  --mono:"JetBrains Mono",Consolas,monospace;
+  --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+
+  /* 앱 고정 팔레트 — 원본 화면 색 */
+  --app-bg:#F4F6FA;--app-card:#FFFFFF;--app-ink:#16202F;--app-sub:#7A879A;
+  --app-line:#EDF0F5;--app-blue:#2F6BFF;
+  --c-diet:#E0803A;--c-diet-bg:#FCEBD8;
+  --c-move:#E0567B;--c-move-bg:#FBDDE6;
+  --c-sleep:#6B72D8;--c-sleep-bg:#DFE2FA;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;
+  --line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;
+}}
+:root[data-theme="dark"]{
+  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;
+  --line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);
+  font-size:14px;line-height:1.7;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+main{max-width:860px;margin:0 auto;padding:0 24px 72px}
+
+.masthead{background:var(--surf);border-bottom:1px solid var(--line)}
+.masthead-in{max-width:860px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wordmark{position:relative;color:var(--ink);font-size:18px;font-weight:900;letter-spacing:-.06em;line-height:1}
+.wordmark::after{content:"";position:absolute;right:-6px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.mtag{margin-left:8px;padding-left:14px;border-left:1px solid var(--line);color:var(--muted);font-size:12px}
+.mdate{margin-left:auto;color:var(--faint);font-size:11.5px;font-family:var(--mono)}
+
+.hero{padding:44px 0 26px;text-align:center}
+h1{margin:0;color:var(--ink);font-size:clamp(26px,4vw,34px);font-weight:900;
+  line-height:1.22;letter-spacing:-.05em;text-wrap:balance}
+.hero p{margin:14px auto 0;max-width:44ch;font-size:14px;color:var(--muted)}
+
+.stage{display:flex;justify-content:center;padding:8px 0 6px}
+
+/* ---------- phone ---------- */
+.phone{
+  width:400px;max-width:100%;background:var(--app-bg);border:1px solid var(--line);
+  border-radius:26px;overflow:hidden;box-shadow:0 18px 44px rgba(24,40,72,.13);color:var(--app-ink);
+}
+.ph-top{padding:22px 20px 0}
+.ph-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.ph-h h2{margin:0;font-size:21px;font-weight:900;letter-spacing:-.04em;color:var(--app-ink)}
+.ph-h .wk{margin:3px 0 0;font-size:11.5px;color:var(--app-sub)}
+.today-btn{padding:7px 15px;border:1px solid #DFE4EC;border-radius:999px;background:var(--app-card);
+  font-size:11.5px;font-weight:700;color:var(--app-ink)}
+
+.datestrip{display:flex;align-items:center;gap:2px;margin:18px 0 2px}
+.ds-arrow{width:22px;text-align:center;color:#B9C3D1;font-size:15px;flex:none}
+.ds-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;flex:1}
+.ds-d{padding:5px 0 7px;border-radius:12px;text-align:center}
+.ds-d small{display:block;font-size:10px;color:var(--app-sub);margin-bottom:3px}
+.ds-d b{display:block;font-size:14.5px;font-weight:700;color:var(--app-ink);font-variant-numeric:tabular-nums}
+.ds-d.on{background:var(--app-blue)}
+.ds-d.on small{color:#DCE7FF}
+.ds-d.on b{color:#fff}
+.ds-d.fut small,.ds-d.fut b{color:#C3CCD9}
+
+.ph-tabs{display:flex;gap:16px;margin:12px -20px 0;padding:0 20px;border-bottom:1px solid var(--app-line);overflow-x:auto}
+.ph-tab{padding:9px 0 10px;font-size:12.5px;font-weight:700;color:#9AA6B6;white-space:nowrap;border-bottom:2px solid transparent}
+.ph-tab.on{color:var(--app-blue);border-bottom-color:var(--app-blue)}
+
+.ph-body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:14px}
+.blk{background:var(--app-card);border-radius:18px;padding:18px 16px}
+.blk-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px}
+.blk-h h3{margin:0;font-size:16px;font-weight:900;letter-spacing:-.04em;color:var(--app-ink)}
+.blk-h .cnt{font-size:11.5px;font-weight:500;color:var(--app-sub)}
+
+/* 오늘의 목표 — 원본 세로 카드 3장 */
+.goals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.goal{border-radius:14px;padding:12px 11px 11px;background:var(--app-card);
+  box-shadow:0 2px 10px rgba(30,45,75,.07);display:flex;flex-direction:column}
+.goal .cat{font-size:11px;font-weight:800;margin-bottom:6px}
+.goal .ttl{font-size:12.5px;font-weight:700;line-height:1.42;color:var(--app-ink);min-height:3.1em}
+.goal .art{height:40px;border-radius:10px;margin-top:8px}
+.goal .acts{display:flex;margin-top:10px}
+.g-diet .cat{color:var(--c-diet)}.g-diet .art{background:var(--c-diet-bg)}
+.g-move .cat{color:var(--c-move)}.g-move .art{background:var(--c-move-bg)}
+.g-sleep .cat{color:var(--c-sleep)}.g-sleep .art{background:var(--c-sleep-bg)}
+.btn{flex:1;font-family:inherit;padding:7px 0;border-radius:8px;font-size:11px;font-weight:700;
+  border:1px solid #CFDEFF;background:#EDF3FF;color:var(--app-blue);cursor:pointer;line-height:1.3}
+.btn:focus-visible{outline:2px solid var(--app-blue);outline-offset:2px}
+
+.t-diet{--dotc:#C96A22}
+.t-move{--dotc:#CC4468}
+.t-sleep{--dotc:#5159CC}
+
+/* 이번 주 실천 기록 — 원본 타일 3개 유지 */
+.insight{margin-top:14px;padding:13px 15px 14px;border-radius:13px;background:var(--c-sleep-bg)}
+.insight .ttl{display:block;font-size:10px;font-weight:800;color:#5159CC;letter-spacing:.06em;margin-bottom:6px}
+.insight p{margin:0;font-size:12.5px;line-height:1.7;color:#3C4460}
+.insight b{color:#4046B8;font-weight:800}
+.insight .big{font-size:15px;font-weight:900;letter-spacing:-.02em}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.tile{border-radius:13px;padding:12px 10px 13px;text-align:center}
+.tile .cat{display:block;font-size:11.5px;font-weight:800;margin-bottom:7px}
+.tile .val{display:block;font-size:19px;font-weight:900;letter-spacing:-.04em;color:var(--app-ink);
+  line-height:1.15;font-variant-numeric:tabular-nums}
+.tile .val small{font-size:13px;font-weight:800}
+.tile .sub{display:block;font-size:10.5px;color:#6E7C90;margin-top:4px;line-height:1.4}
+.tile .sub.carry{color:var(--dotc);font-weight:800}
+.tile .sub.stop{color:#95A0B0}
+.tile .val.txt{font-size:15px;font-weight:800;color:#66748A;letter-spacing:-.03em;padding:2px 0}
+.t-diet{background:var(--c-diet-bg)}.t-diet .cat{color:#B4611F}
+.t-move{background:var(--c-move-bg)}.t-move .cat{color:#B93E5F}
+.t-sleep{background:var(--c-sleep-bg)}.t-sleep .cat{color:#4A51BC}
+
+.tabbar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--app-line);background:var(--app-card)}
+.tb{padding:10px 0 13px;text-align:center;font-size:10px;color:#9AA6B6;font-weight:700}
+.tb .ic{display:block;width:19px;height:19px;margin:0 auto 4px;border-radius:6px;background:#DDE3EC}
+.tb.on{color:var(--app-ink)}
+.tb.on .ic{background:var(--app-ink)}
+
+/* ---------- notes ---------- */
+.changes{margin-top:42px;border-top:1px solid var(--line);padding-top:28px}
+.changes h2{margin:0 0 16px;color:var(--ink);font-size:13px;font-weight:700;letter-spacing:.08em}
+.clist{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.crow{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;background:var(--surf);padding:13px 16px;align-items:baseline}
+.ab{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.was{padding:2px 8px;border-radius:6px;background:var(--stop-soft);color:var(--stop);font-size:11px;font-weight:700;text-decoration:line-through}
+.now{padding:2px 8px;border-radius:6px;background:var(--ok-soft);color:var(--ok);font-size:11px;font-weight:700}
+.crow p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.6}
+
+.rules{margin-top:22px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.rule{padding:15px 18px;background:var(--surf);border:1px solid var(--line);border-radius:10px}
+.rule b{display:block;color:var(--ink);font-size:13px;margin-bottom:5px}
+.rule p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.65}
+
+.open{margin-top:24px;font-size:12.5px;color:var(--muted)}
+.open b{color:var(--ink)}
+.open ul{margin:8px 0 0;padding-left:18px;line-height:1.9}
+footer{padding:30px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mono);text-align:center}
+
+@media (max-width:720px){
+  main{padding:0 18px 56px}
+  .crow{grid-template-columns:1fr;gap:6px}
+  .rules{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <span class="wordmark">maiReport</span>
+    <span class="mtag">LIFE-001 목표 분석 · 화면안</span>
+    <span class="mdate">2026-09-11</span>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <h1>독려하되<br>벌하지 않는다.</h1>
+  <p>원본 디자인을 유지한 채 달성률을 걷어내고, 그 자리에 사용자가 스스로 정한 주간 횟수를 놓았습니다.</p>
+</section>
+
+<div class="stage">
+  <div class="phone">
+    <div class="ph-top">
+      <div class="ph-h">
+        <div>
+          <h2>생활</h2>
+          <p class="wk">8월 4주차</p>
+        </div>
+        <span class="today-btn">오늘</span>
+      </div>
+
+      <div class="datestrip">
+        <span class="ds-arrow">‹</span>
+        <div class="ds-days">
+          <div class="ds-d"><small>월</small><b>17</b></div>
+          <div class="ds-d"><small>화</small><b>18</b></div>
+          <div class="ds-d"><small>수</small><b>19</b></div>
+          <div class="ds-d on"><small>오늘</small><b>20</b></div>
+          <div class="ds-d fut"><small>금</small><b>21</b></div>
+          <div class="ds-d fut"><small>토</small><b>22</b></div>
+          <div class="ds-d fut"><small>일</small><b>23</b></div>
+        </div>
+        <span class="ds-arrow">›</span>
+      </div>
+
+      <div class="ph-tabs">
+        <span class="ph-tab on">목표 분석</span>
+        <span class="ph-tab">지표별 분석</span>
+        <span class="ph-tab">생활 분석</span>
+        <span class="ph-tab">AI 인사이트</span>
+      </div>
+    </div>
+
+    <div class="ph-body">
+
+      <!-- 오늘의 목표 — 원본 그대로 + 완료·쉬기 -->
+      <div class="blk">
+        <div class="blk-h">
+          <h3>오늘의 목표</h3>
+          <span class="cnt">0/3 완료</span>
+        </div>
+        <div class="goals">
+          <div class="goal g-diet">
+            <span class="cat">식이</span>
+            <span class="ttl">저녁 균형<br>식사</span>
+            <span class="art"></span>
+            <span class="acts">
+              <button class="btn" type="button">완료</button>
+            </span>
+          </div>
+          <div class="goal g-move">
+            <span class="cat">활동</span>
+            <span class="ttl">식후 10분<br>걷기</span>
+            <span class="art"></span>
+            <span class="acts">
+              <button class="btn" type="button">완료</button>
+            </span>
+          </div>
+          <div class="goal g-sleep">
+            <span class="cat">수면</span>
+            <span class="ttl">23시 30분에<br>눕기</span>
+            <span class="art"></span>
+            <span class="acts">
+              <button class="btn" type="button">완료</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 이번 주 챌린지 — 세 카테고리에 녹임 -->
+      <div class="blk">
+        <div class="blk-h">
+          <h3>목표 이어가기</h3>
+        </div>
+
+        <div class="tiles">
+          <div class="tile t-diet">
+            <span class="cat">식이</span>
+            <span class="val txt">다시 시작</span>
+            <span class="sub stop">오늘 하면 1일째</span>
+          </div>
+          <div class="tile t-move">
+            <span class="cat">활동</span>
+            <span class="val">1<small>일째</small></span>
+            <span class="sub">이어가는 중</span>
+          </div>
+          <div class="tile t-sleep">
+            <span class="cat">수면</span>
+            <span class="val">10<small>일째</small></span>
+            <span class="sub carry">지난주부터</span>
+          </div>
+        </div>
+
+        <div class="insight">
+          <span class="ttl">가장 오래 이어가는 것</span>
+          <p>수면을 <b class="big">10일째</b> 이어가고 있어요.<br>
+          <b>나흘만 더</b> 하면 2주예요.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="tabbar">
+      <span class="tb"><i class="ic"></i>홈</span>
+      <span class="tb on"><i class="ic"></i>생활</span>
+      <span class="tb"><i class="ic"></i>병원</span>
+      <span class="tb"><i class="ic"></i>더보기</span>
+    </div>
+  </div>
+</div>
+
+<section class="changes">
+  <h2>바뀐 것</h2>
+  <div class="clist">
+    <div class="crow">
+      <span class="ab"><span class="was">50% · 2/4회</span><span class="now">10일째</span></span>
+      <p>비율도 횟수도 쓰지 않는다. 타일에 남는 값은 <b>이어가는 일수</b> 하나뿐이라
+      무엇을 보는 화면인지가 분명해진다. 별도 블록도, 뱃지도, ‘챌린지’ 같은 새 용어도 없다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">주를 넘어간다</span></span>
+      <p>이어가는 날은 <b>월요일에 리셋되지 않는다</b>. 주 경계를 넘은 항목에는
+      <code>지난주부터</code>를 카테고리 색으로 달아, 이 숫자가 이번 주에 갇힌 값이 아님을 보인다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="was">58% ▲2%</span><span class="now">삭제</span></span>
+      <p>진행바와 “12개 목표 중 7개” 문장도 함께. 분모가 사라지면 앱을 안 연 날이 성적을 깎지 않는다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="was">50% · 2/4회</span><span class="now">1일 연속</span></span>
+      <p>타일 디자인은 그대로. 값만 비율에서 연속 일수로 바꿨다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="was">쉬기</span><span class="now">완료만</span></span>
+      <p>실행 여부를 <b>완료 / 완료 아님</b> 이진으로. 버튼이 하나라 카드 폭을 다 쓴다.
+      상태도 <code>done</code>과 그 외 둘뿐이라 저장 구조가 단순해진다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="was">이번 주 실천 기록</span><span class="now">실천 기록</span></span>
+      <p>연속은 주에 속하지 않는 값이다. 제목에 ‘이번 주’가 있으면 8일 연속부터 모순이 되고,
+      날짜 스트립을 지난주로 옮길 때 타일 한쪽만 바뀌어 버그처럼 보인다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="was">0일 · 지난 흐름</span><span class="now">다시 시작</span></span>
+      <p>끊긴 것을 0이나 지난 기록의 길이로 보여주면 <b>실패한 칸</b>이 된다.
+      되짚는 대신 앞을 가리킨다 — <code>오늘 하면 1일째</code>는 무엇을 하면 되는지까지 말한다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="was">1일 연속</span><span class="now">1일째</span></span>
+      <p>‘연속’은 이틀 이상에 쓰는 말이라 하루엔 붙지 않는다. <code>N일째 · 이어지는 중</code>은
+      1일에도 7일에도 자연스럽다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="was">가장 꾸준히 실천(75%)</span><span class="now">나흘만 더 하면 2주</span></span>
+      <p>숫자를 되풀이하지 않고 타일이 못 하는 말만 남긴다 — <b>다음 마디까지 얼마</b>인지.
+      색을 입힌 코멘트 카드로 분리해 눈이 먼저 가게 했다.</p>
+    </div>
+  </div>
+
+  <h2 style="margin-top:34px">코멘트 문구 — 상황별</h2>
+  <p style="margin:-6px 0 16px;font-size:12.5px;color:var(--muted)">
+    위에서부터 우선순위. 여러 조건이 동시에 맞으면 <b>먼저 오는 것</b>을 쓴다.
+  </p>
+  <div class="clist">
+    <div class="crow">
+      <span class="ab"><span class="now">기록 없음</span></span>
+      <p><b>오늘부터</b><br>
+      아직 기록이 없어요. 오늘 하나만 눌러도 <b>1일째</b>가 시작돼요.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">오랜만에 열었을 때</span></span>
+      <p><b>그대로 있어요</b><br>
+      그동안의 기록은 <b>그대로</b> 있어요. 오늘부터 다시 이어가면 돼요.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">마디 도달</span><span class="now">7 · 14 · 30 · 100</span></span>
+      <p><b>2주 채움</b><br>
+      수면이 오늘로 <b>14일째</b>예요. 2주를 채웠습니다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">최장 기록 경신</span></span>
+      <p><b>최장 기록</b><br>
+      수면이 <b>11일째</b>예요. 지금까지 중 가장 길게 이어가는 중이에요.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">마디 하루 전</span></span>
+      <p><b>내일이면</b><br>
+      수면을 <b>13일째</b> 이어가고 있어요. 내일 한 번이면 2주예요.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">오늘 세 가지 완료</span></span>
+      <p><b>오늘 마무리</b><br>
+      오늘 <b>세 가지를 다</b> 채웠어요. 내일도 그대로 이어집니다.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">3개 동률</span></span>
+      <p><b>세 가지 모두</b><br>
+      세 가지를 모두 <b>5일째</b> 이어가고 있어요. 닷새 내내 셋 다 채웠네요.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">2개 동률</span></span>
+      <p><b>나란히 이어가는 것</b><br>
+      수면과 활동을 <b>10일째</b> 나란히 이어가고 있어요. 같은 날 시작해서 여기까지 함께 왔네요.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">기본 · 최장 1개</span></span>
+      <p><b>가장 오래 이어가는 것</b><br>
+      수면을 <b>10일째</b> 이어가고 있어요. 나흘만 더 하면 2주예요.</p>
+    </div>
+    <div class="crow">
+      <span class="ab"><span class="now">이어가는 것 없음</span></span>
+      <p><b>다시 시작하기</b><br>
+      오늘 하나만 해도 다시 <b>1일째</b>예요. 어느 것부터 시작해도 괜찮아요.</p>
+    </div>
+  </div>
+
+  <div class="rules">
+    <div class="rule">
+      <b>복귀가 가장 조심할 순간</b>
+      <p>오랜만에 연 사람에게 먼저 할 말은 <b>“기록은 그대로 있다”</b>이다.
+      며칠 비었는지 세거나 “오랜만이네요”로 공백을 짚지 않는다.</p>
+    </div>
+    <div class="rule">
+      <b>동률은 묶어서 말한다</b>
+      <p>하나를 임의로 뽑으면 <b>왜 그것인지 설명되지 않는다</b>. 둘이면 나란히, 셋이면 “모두”로.
+      일수가 같다는 건 <b>같은 날 시작했다</b>는 뜻이라, 그 자체가 쓸 만한 재료가 된다.</p>
+    </div>
+    <div class="rule">
+      <b>분모를 아예 두지 않는다</b>
+      <p>달성률이 무의미했던 이유는 <b>분모가 강제</b>였기 때문이다. 목표 횟수를 정해도 결국 비율이 되므로,
+      분모 없는 값 하나만 남긴다. 이어가는 일수에는 상한이 없다.</p>
+    </div>
+    <div class="rule">
+      <b>실패라는 상태가 없다</b>
+      <p>끊긴 것을 0이나 미달로 세지 않는다. <code>다시 시작</code>은 상태이자 다음 행동이다.
+      숫자나 색으로 지적하지 않는다.</p>
+    </div>
+    <div class="rule">
+      <b>비교 대상은 자기 기록뿐</b>
+      <p>순위표·친구 비교·평균 대비를 넣지 않는다. 비의료기기 웰니스 톤과
+      기획서의 ‘주체성을 긍정적으로’ 기준에 걸린다.</p>
+    </div>
+    <div class="rule">
+      <b>7일을 넘어도 그대로 센다</b>
+      <p><code>10일째</code>, <code>45일째</code>처럼 일수를 유지한다. ‘2주째’로 환산하면
+      사용자가 며칠인지 되계산해야 해서 오히려 흐려진다.</p>
+    </div>
+    <div class="rule">
+      <b>끊긴 것은 문장에 올리지 않는다</b>
+      <p>코멘트는 <b>이어가는 쪽만</b> 말한다. 끊긴 것은 타일의 <code>다시 시작</code>이 이미 보여주므로,
+      문장에서 또 짚으면 지적이 된다.</p>
+    </div>
+    <div class="rule">
+      <b>재미는 사실에서만 뽑는다</b>
+      <p>“나흘만 더 하면 2주” “지금까지 중 가장 길게”처럼 <b>기록에서 바로 나오는 사실</b>로 만든다.
+      건강 효과를 주장하거나(“습관이 자리 잡아요”) 감탄사를 붙이지 않는다 — 비의료기기 톤을 벗어난다.</p>
+    </div>
+    <div class="rule">
+      <b>부정형을 쓰지 않는다</b>
+      <p>“주말도 <b>건너뛰지 않았고</b>”는 건너뛸 수도 있었다는 쪽을 먼저 떠올리게 한다.
+      한 일을 그대로 말하거나 앞을 가리킨다. 주말을 굳이 짚는 것도
+      “주말엔 흐트러지는 게 보통”이라는 전제를 깐다.</p>
+    </div>
+    <div class="rule">
+      <b>날짜를 옮기면 그 시점 기준</b>
+      <p>지난주를 보면 <b>그 주 마지막 날 기준</b> 연속을 보여준다. 세 타일이 같은 기준을 쓰므로
+      스트립을 움직여도 어긋나지 않는다.</p>
+    </div>
+    <div class="rule">
+      <b>쉬기를 없애면 두 가지가 합쳐진다</b>
+      <p>“의식적으로 안 한 날”과 “앱을 안 연 날”이 똑같이 <b>완료 아님</b>이 된다.
+      달성률을 무의미하게 만들었던 바로 그 합침이다.</p>
+    </div>
+    <div class="rule">
+      <b>구분은 방문 기록으로</b>
+      <p>목표 카드를 본 날을 남기면 둘을 다시 가를 수 있다. 방문했는데 완료 안 한 날만 흐름을 끊고,
+      방문하지 않은 날은 2일까지 보류한다.</p>
+    </div>
+  </div>
+
+  <div class="open">
+    <b>정해야 할 것</b>
+    <ul>
+      <li><b>연속의 정의</b> — 완료 아닌 날을 모두 끊을지, 방문 기록으로 갈라 미방문만 보류할지.
+      전자는 가끔 쓰는 사용자에게 다시 가혹해지고, 후자는 방문 이벤트가 필요하다</li>
+      <li>D7 목표 기록 스키마 — 카테고리 × 일자에 <code>done</code> 여부. 이 화면의 전제이며 미정의</li>
+      <li>연속 계산은 홈 카드의 <code>3일째</code> 표시와 공유 — 두 화면 숫자가 어긋나지 않도록</li>
+      <li>완료를 누른 뒤의 표시 — 버튼 자리를 <code>✓ 완료</code> 칩으로 바꾸면 줄 높이가 흔들리지 않는다</li>
+      <li><b>이어가기를 더 독려할지</b> — 일수만으로 부족하다면 7일 · 30일 같은 마디에
+      한 번 알려주는 정도. 배지가 한계선이고 등급 · 포인트 · 랭킹은 넣지 않는다</li>
+      <li>기록이 하나도 없는 상태 — 세 타일 모두 <code>오늘 시작해요</code></li>
+    </ul>
+  </div>
+</section>
+
+<footer>maiReport · LIFE-001 실천 기록 화면안 · 내부 검토용</footer>
+
+</main>

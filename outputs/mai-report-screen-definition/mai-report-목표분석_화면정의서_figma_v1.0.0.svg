@@ -1,0 +1,459 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="6102" viewBox="0 0 1600 6102">
+<rect x="0" y="0" width="1600" height="6102" fill="#F5F7FB"/>
+<rect x="70" y="60" width="1460" height="280" rx="34" fill="#2F66F5"/>
+<rect x="110" y="102" width="230" height="36" rx="18" fill="#4F7DFF"/>
+<text x="225" y="126" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">마이리포트 v2 · 화면정의서</text>
+<text x="110" y="200" font-family="Noto Sans KR" font-size="44" font-weight="800" fill="#FFFFFF" text-anchor="start">생활 탭 › 목표 분석 화면정의서</text>
+<text x="110" y="248" font-family="Noto Sans KR" font-size="19" font-weight="500" fill="#EDF2FF" text-anchor="start">그날의 목표를 완료 처리하고, 그 기록이 며칠째 이어지는지를 보여주는 화면</text>
+<text x="110" y="296" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#DDE5FF" text-anchor="start">작성일 2026-09-16  ·  버전 1.0  ·  대상 화면 생활 탭 › 목표 분석  ·  연관 문서 홈화면_화면정의서 · 목표이어가기_기능정의서 · 프로토타입</text>
+<rect x="70" y="380" width="1460" height="502" rx="26" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="104" y="402" width="30" height="30" rx="9" fill="#EAF0FF"/>
+<text x="119" y="424" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#2F66F5" text-anchor="middle">1</text>
+<text x="146" y="426" font-family="Noto Sans KR" font-size="24" font-weight="800" fill="#1A2233" text-anchor="start">화면 개요</text>
+<text x="106" y="454" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#8892A6" text-anchor="start">위치, 역할, 화면 구조</text>
+<text x="106" y="498" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">1.1 위치와 역할</text>
+<text x="106" y="522" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">생활 탭의 첫 번째 서브탭(목표 분석 · 지표별 분석 · 생활 분석 · AI 인사이트). 생활 탭 진입 시 기본으로 열리며, 홈의 &quot;n/3 완료 ›&quot;를 누르면 이 탭으로 들어온다. 사용자는 위에서 그날의 목표를 완료 처리하고, 아래에서 &quot;며칠째</text>
+<text x="106" y="544.475" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">이어가고 있는지&quot;를 확인한다. 이 화면은 실천을 평가하지 않는다. 기록이 이어진 날을 세어 보여줄 뿐이며, 달성률·점수·순위·비교 문구를 두지 않는다.</text>
+<text x="106" y="587" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">1.2 화면 구조</text>
+<rect x="106" y="611" width="453" height="110" rx="14" fill="#FBFCFE" stroke="#E6EAF2" stroke-width="1"/>
+<text x="122" y="643" font-family="Noto Sans KR" font-size="15" font-weight="700" fill="#1A2233" text-anchor="start">상단 공통</text>
+<text x="122" y="669" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#8892A6" text-anchor="start">생활 헤더(주차 · 오늘 버튼) · 날짜 스트립 · 서브탭</text>
+<rect x="573" y="611" width="453" height="110" rx="14" fill="#FBFCFE" stroke="#E6EAF2" stroke-width="1"/>
+<text x="589" y="643" font-family="Noto Sans KR" font-size="15" font-weight="700" fill="#1A2233" text-anchor="start">블록 ① 목표 타일</text>
+<text x="589" y="669" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#8892A6" text-anchor="start">제목(&quot;오늘의 목표&quot; 또는 &quot;8월 N일 목표&quot;) · n/3 완료 · 식이·활동·수면 타일</text>
+<text x="589" y="688.5" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#8892A6" text-anchor="start">3개</text>
+<rect x="1040" y="611" width="453" height="110" rx="14" fill="#FBFCFE" stroke="#E6EAF2" stroke-width="1"/>
+<text x="1056" y="643" font-family="Noto Sans KR" font-size="15" font-weight="700" fill="#1A2233" text-anchor="start">블록 ② 목표 이어가기</text>
+<text x="1056" y="669" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#8892A6" text-anchor="start">코멘트 한 줄 · 카테고리별 연속일수 타일 3개 · 최근 7일</text>
+<text x="106" y="735" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">두 블록 순서는 고정이며 접힘/펼침이 없다. 주간 달성률 막대, 목표별 실천율, 편집 목록 같은 요약·집계 영역은 두지 않는다.</text>
+<text x="106" y="777" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">1.3 기준일</text>
+<text x="106" y="801" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">날짜 스트립에서 선택한 날이 기준일이다. 기본은 오늘. 과거 날짜를 선택하면 그날의 목표 타일을 보여주고 그날 기준으로 완료·취소를 기록할 수 있다. 미래 날짜는 선택할 수 없다. 이전 주로 이동하면 그 주 일요일이 기준일이 되며</text>
+<text x="106" y="823.475" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">목표 타일 블록 없이 이어가기 블록만 읽기 전용으로 보여준다.</text>
+<rect x="70" y="906" width="1460" height="324" rx="26" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="104" y="928" width="30" height="30" rx="9" fill="#EAF0FF"/>
+<text x="119" y="950" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#2F66F5" text-anchor="middle">2</text>
+<text x="146" y="952" font-family="Noto Sans KR" font-size="24" font-weight="800" fill="#1A2233" text-anchor="start">상단 영역</text>
+<text x="106" y="980" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#8892A6" text-anchor="start">생활 탭 네 서브탭이 공유하는 영역</text>
+<rect x="106" y="1010" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="1032" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">요소</text>
+<text x="394" y="1032" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">동작</text>
+<text x="116" y="1068" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">제목 · 주차</text>
+<text x="394" y="1068" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;생활&quot; + 현재 보고 있는 주(예: 8월 4주차)</text>
+<line x1="106" y1="1082" x2="1494" y2="1082" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="1082" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="1104" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">오늘 버튼</text>
+<text x="394" y="1104" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">이번 주 · 오늘로 복귀. 이미 오늘이면 비활성</text>
+<line x1="106" y1="1118" x2="1494" y2="1118" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="1140" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">날짜 스트립</text>
+<text x="394" y="1140" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">월~일 7칸, 오늘 표시. 탭 → 기준일 변경 → 두 블록 재렌더. 미래 날짜 비활성. ‹ › 로 주 이동(이전 주는 읽기 전용, 다음 주 이동 불가)</text>
+<line x1="106" y1="1154" x2="1494" y2="1154" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="1154" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="1176" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">서브탭</text>
+<text x="394" y="1176" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">목표 분석 · 지표별 분석 · 생활 분석 · AI 인사이트. 탭 전환 시 기준일 유지</text>
+<line x1="106" y1="1190" x2="1494" y2="1190" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="70" y="1254" width="1460" height="939" rx="26" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="104" y="1276" width="30" height="30" rx="9" fill="#EAF0FF"/>
+<text x="119" y="1298" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#2F66F5" text-anchor="middle">3</text>
+<text x="146" y="1300" font-family="Noto Sans KR" font-size="24" font-weight="800" fill="#1A2233" text-anchor="start">목표 타일 블록</text>
+<text x="106" y="1328" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#8892A6" text-anchor="start">홈 오늘의 목표와 같은 타일 컴포넌트를 쓴다. 기준일이 오늘이면 홈과 동일한 상태를 공유한다</text>
+<text x="106" y="1372" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">3.1 구성</text>
+<rect x="106" y="1396" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="1418" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">영역</text>
+<text x="364" y="1418" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">내용</text>
+<text x="959" y="1418" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">규칙</text>
+<text x="116" y="1454" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">제목</text>
+<text x="364" y="1454" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">기준일이 오늘이면 &quot;오늘의 목표&quot;, 과거면 &quot;8월 N일 목표&quot;</text>
+<text x="959" y="1454" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">우측에 &quot;n/3 완료&quot;. 목표가 없는 날은 카운트를 두지 않는다</text>
+<line x1="106" y1="1468" x2="1494" y2="1468" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="1468" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="1490" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">타일 × 3</text>
+<text x="364" y="1490" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">식이 · 활동 · 수면 순서 고정. 카테고리 라벨(카테고리 색) + 목표 문구 + 우하단 일러스트</text>
+<text x="959" y="1490" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">근거·비교 문구·연속일수는 타일에 쓰지 않는다. 문구는 그날 생성된 것이 고정된다</text>
+<line x1="106" y1="1504" x2="1494" y2="1504" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="1526" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">터치 영역</text>
+<text x="364" y="1526" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">타일 전체</text>
+<text x="959" y="1526" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">별도 완료 버튼을 두지 않는다. 타일 안에 링크나 보조 동작을 두지 않는다</text>
+<line x1="106" y1="1540" x2="1494" y2="1540" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="1556" width="560" height="150" rx="16" fill="#F5F7FB"/>
+<rect x="118" y="1568" width="173" height="126" rx="14" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<text x="132" y="1592" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#E5893A" text-anchor="start">식이</text>
+<text x="132" y="1614" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">오늘의 질문에 답하면</text>
+<text x="132" y="1632.2" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">목표가 생성돼요.</text>
+<text x="259" y="1682" font-family="Noto Sans KR" font-size="22" font-weight="400" fill="#1A2233" text-anchor="start">🔒</text>
+<rect x="307" y="1568" width="173" height="126" rx="14" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<text x="321" y="1592" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#E8365D" text-anchor="start">활동</text>
+<text x="321" y="1614" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">저녁 전 1,500보 더 걷기</text>
+<text x="448" y="1682" font-family="Noto Sans KR" font-size="22" font-weight="400" fill="#1A2233" text-anchor="start">🚶</text>
+<rect x="496" y="1568" width="173" height="126" rx="14" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<text x="510" y="1592" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#5B5BD6" text-anchor="start">수면</text>
+<text x="510" y="1614" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">23시 30분 전에 눕기</text>
+<text x="637" y="1682" font-family="Noto Sans KR" font-size="22" font-weight="400" fill="#1A2233" text-anchor="start">✅</text>
+<text x="706" y="1596" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">샘플 · 기준일 오늘</text>
+<text x="706" y="1622" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">식이 = 잠김(질문 미응답) · 활동 = 기본 · 수면 = 완료</text>
+<text x="706" y="1646" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">완료 타일은 문구를 회색으로만 흐리고 취소선을 쓰지 않는다</text>
+<text x="106" y="1734" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">3.2 타일 상태</text>
+<rect x="106" y="1758" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="1780" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">상태</text>
+<text x="307" y="1780" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">표시</text>
+<text x="1025" y="1780" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">탭 동작</text>
+<text x="116" y="1816" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">기본</text>
+<text x="307" y="1816" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">카테고리 · 목표 문구 · 일러스트</text>
+<text x="1025" y="1816" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">완료로 기록</text>
+<line x1="106" y1="1830" x2="1494" y2="1830" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="1830" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="1852" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">완료</text>
+<text x="307" y="1852" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">파란 체크 아이콘. 문구는 회색으로 흐려지되 그대로 읽을 수 있어야 한다(취소선 없음)</text>
+<text x="1025" y="1852" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">완료 취소. 확인 대화상자 없음(되돌리기가 같은 동작)</text>
+<line x1="106" y1="1866" x2="1494" y2="1866" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="1888" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">잠김</text>
+<text x="307" y="1888" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">카테고리 · &quot;오늘의 질문에 답하면 목표가 생성돼요.&quot; · 자물쇠 아이콘</text>
+<text x="1025" y="1888" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">홈으로 이동해 남은 질문으로 전환. 기준일이 오늘일 때만 존재</text>
+<line x1="106" y1="1902" x2="1494" y2="1902" stroke="#E6EAF2" stroke-width="1"/>
+<text x="106" y="1912" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">목표 상태는 완료 / 미완료 두 가지뿐이다. 쉬기 상태는 두지 않으며, 완료하지 않은 날은 미완료로 집계한다.</text>
+<text x="106" y="1954" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">3.3 완료 · 취소 규칙</text>
+<text x="110" y="1978" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#2F66F5" text-anchor="start">•</text>
+<text x="128" y="1978" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#4B5468" text-anchor="start">과거 날짜도 완료·취소할 수 있다. 날짜 스트립으로 이동한 날에 그대로 기록한다. 미래 날짜만 불가.</text>
+<text x="110" y="2002" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#2F66F5" text-anchor="start">•</text>
+<text x="128" y="2002" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#4B5468" text-anchor="start">완료하면 그날의 목표 문구가 잠긴다. 답변 수정으로 목표가 재계산돼도 완료한 목표는 내용과 상태를 바꾸지 않는다.</text>
+<text x="110" y="2026" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#2F66F5" text-anchor="start">•</text>
+<text x="128" y="2026" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#4B5468" text-anchor="start">완료·취소 즉시 n/3 카운트, 홈 타일, 이어가기 블록(연속일수 · 코멘트 · 최근 7일)이 함께 갱신된다.</text>
+<text x="110" y="2050" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#2F66F5" text-anchor="start">•</text>
+<text x="128" y="2050" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#4B5468" text-anchor="start">연타 시 마지막 상태만 반영한다. 저장 실패 시 타일을 이전 상태로 복구하고 재시도를 안내한다.</text>
+<text x="106" y="2088" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">3.4 잠금 규칙</text>
+<text x="106" y="2112" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">목표별로 필요한 기기 데이터가 충분하면 첫 진입 시 바로 생성해 보여주고, 부족하면 그 목표만 잠근다. 잠긴 목표는 그날의 질문에 모두 답한 시점에 코칭과 함께 한 번에 생성된다. 어떤 목표가 잠기는지는 카테고리로 고정하지 않고</text>
+<text x="106" y="2134.475" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">데이터 충족 여부로 매일 판정하며, 모두 잠그지 않는다. 판정 기준은 홈화면 화면정의서 §5.3을 따른다.</text>
+<rect x="70" y="2217" width="1460" height="749" rx="26" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="104" y="2239" width="30" height="30" rx="9" fill="#EAF0FF"/>
+<text x="119" y="2261" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#2F66F5" text-anchor="middle">4</text>
+<text x="146" y="2263" font-family="Noto Sans KR" font-size="24" font-weight="800" fill="#1A2233" text-anchor="start">목표 이어가기 블록</text>
+<text x="106" y="2291" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#8892A6" text-anchor="start">달성률 대신 &quot;며칠째 이어가고 있는가&quot;를 보여주는 카드 하나</text>
+<text x="106" y="2335" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">4.1 구성</text>
+<rect x="106" y="2359" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="2381" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">영역</text>
+<text x="364" y="2381" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">내용</text>
+<text x="959" y="2381" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">규칙</text>
+<text x="116" y="2417" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">코멘트</text>
+<text x="364" y="2417" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">기준일 상황에 맞는 문장 1~2줄. 카테고리명은 카테고리 색으로 강조</text>
+<text x="959" y="2417" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">§6의 10개 상황 중 최상위 하나. 제목 없이 본문만 쓴다</text>
+<line x1="106" y1="2431" x2="1494" y2="2431" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="2431" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="2453" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">연속일수 타일 × 3</text>
+<text x="364" y="2453" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">식이 · 활동 · 수면. 카테고리 라벨 + 주요 표시 + 보조 문구</text>
+<text x="959" y="2453" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">주요 표시는 &quot;N일째&quot; / &quot;시작 전&quot; / &quot;다시 시작&quot; 셋 중 하나. §5.3</text>
+<line x1="106" y1="2467" x2="1494" y2="2467" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="2489" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">최근 7일</text>
+<text x="364" y="2489" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">기준일까지 7일을 요일과 함께 육각 아이콘으로 표시. 기준일 칸 강조</text>
+<text x="959" y="2489" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">육각형 위 면=식이, 왼쪽 면=활동, 오른쪽 면=수면. 완료한 면만 카테고리 색, 셋 다 완료면 초록</text>
+<text x="959" y="2508.5" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">체크 하나로 표시</text>
+<line x1="106" y1="2522" x2="1494" y2="2522" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="2538" width="600" height="250" rx="18" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<text x="126" y="2572" font-family="Noto Sans KR" font-size="15" font-weight="600" fill="#1A2233" text-anchor="start">수면을 10일째 이어가고 있어요. 나흘만 더 하면 2주예요.</text>
+<rect x="126" y="2592" width="181" height="88" rx="12" fill="#FFF4E8"/>
+<text x="216.5" y="2616" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#E5893A" text-anchor="middle">식이</text>
+<text x="216.5" y="2646" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#4B5468" text-anchor="middle">시작 전</text>
+<text x="216.5" y="2668" font-family="Noto Sans KR" font-size="11" font-weight="500" fill="#8892A6" text-anchor="middle">오늘 하면 1일째</text>
+<rect x="315" y="2592" width="181" height="88" rx="12" fill="#FFEEF2"/>
+<text x="405.5" y="2616" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#E8365D" text-anchor="middle">활동</text>
+<text x="405.5" y="2646" font-family="Noto Sans KR" font-size="20" font-weight="800" fill="#1A2233" text-anchor="middle">1일째</text>
+<text x="405.5" y="2668" font-family="Noto Sans KR" font-size="11" font-weight="500" fill="#8892A6" text-anchor="middle">이어가는 중</text>
+<rect x="504" y="2592" width="181" height="88" rx="12" fill="#EEF0FF"/>
+<text x="594.5" y="2616" font-family="Noto Sans KR" font-size="12" font-weight="700" fill="#5B5BD6" text-anchor="middle">수면</text>
+<text x="594.5" y="2646" font-family="Noto Sans KR" font-size="20" font-weight="800" fill="#1A2233" text-anchor="middle">10일째</text>
+<text x="594.5" y="2668" font-family="Noto Sans KR" font-size="11" font-weight="500" fill="#8892A6" text-anchor="middle">8월 10일로부터</text>
+<text x="126" y="2708" font-family="Noto Sans KR" font-size="12" font-weight="600" fill="#4B5468" text-anchor="start">최근 7일</text>
+<rect x="126" y="2718" width="75" height="52" rx="10" fill="#F5F7FB"/>
+<polygon points="163.5,2728 174.5,2734 174.5,2746 163.5,2752 152.5,2746 152.5,2734" fill="#34C27A"/>
+<text x="163.5" y="2766" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#8892A6" text-anchor="middle">목</text>
+<rect x="207" y="2718" width="75" height="52" rx="10" fill="#F5F7FB"/>
+<polygon points="244.5,2728 255.5,2734 255.5,2746 244.5,2752 233.5,2746 233.5,2734" fill="#34C27A"/>
+<text x="244.5" y="2766" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#8892A6" text-anchor="middle">금</text>
+<rect x="288" y="2718" width="75" height="52" rx="10" fill="#F5F7FB"/>
+<polygon points="325.5,2728 336.5,2734 336.5,2746 325.5,2752 314.5,2746 314.5,2734" fill="#34C27A"/>
+<text x="325.5" y="2766" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#8892A6" text-anchor="middle">토</text>
+<rect x="369" y="2718" width="75" height="52" rx="10" fill="#F5F7FB"/>
+<polygon points="406.5,2728 417.5,2734 417.5,2746 406.5,2752 395.5,2746 395.5,2734" fill="#DDE3EC"/>
+<text x="406.5" y="2766" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#8892A6" text-anchor="middle">일</text>
+<rect x="450" y="2718" width="75" height="52" rx="10" fill="#F5F7FB"/>
+<polygon points="487.5,2728 498.5,2734 498.5,2746 487.5,2752 476.5,2746 476.5,2734" fill="#DDE3EC"/>
+<text x="487.5" y="2766" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#8892A6" text-anchor="middle">월</text>
+<rect x="531" y="2718" width="75" height="52" rx="10" fill="#F5F7FB"/>
+<polygon points="568.5,2728 579.5,2734 579.5,2746 568.5,2752 557.5,2746 557.5,2734" fill="#DDE3EC"/>
+<text x="568.5" y="2766" font-family="Noto Sans KR" font-size="11" font-weight="600" fill="#8892A6" text-anchor="middle">화</text>
+<rect x="612" y="2718" width="75" height="52" rx="10" fill="#EEF3FF"/>
+<polygon points="649.5,2728 660.5,2734 660.5,2746 649.5,2752 638.5,2746 638.5,2734" fill="#DDE3EC"/>
+<text x="649.5" y="2766" font-family="Noto Sans KR" font-size="11" font-weight="800" fill="#2F66F5" text-anchor="middle">수</text>
+<text x="736" y="2578" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">샘플 · 상황 9 (가장 긴 기록 하나)</text>
+<text x="736" y="2604" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">코멘트는 제목 없이 본문만. 카테고리명은 카테고리 색으로 강조하고 일수·마디는 굵게 표시한다.</text>
+<text x="736" y="2658" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">최근 7일 육각형: 셋 다 완료한 날은 초록 체크 하나, 일부만 완료한 날은 해당 면만 카테고리 색.</text>
+<text x="106" y="2816" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">4.2 표시하지 않는 것</text>
+<text x="110" y="2840" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#2F66F5" text-anchor="start">•</text>
+<text x="128" y="2840" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#4B5468" text-anchor="start">주간·월간 달성률, 완료 횟수 합계, 목표별 실천율 막대, 평균선.</text>
+<text x="110" y="2864" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#2F66F5" text-anchor="start">•</text>
+<text x="128" y="2864" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#4B5468" text-anchor="start">&quot;0일째&quot;. 연속이 없으면 숫자 대신 &quot;시작 전&quot; 또는 &quot;다시 시작&quot;을 쓴다.</text>
+<text x="110" y="2888" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#2F66F5" text-anchor="start">•</text>
+<text x="128" y="2888" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#4B5468" text-anchor="start">끊긴 기록에 대한 언급. 코멘트는 이어진 기록만 말하며, 상황 10(현재 연속 없음)에서만 마지막 기록일을 안내한다.</text>
+<text x="110" y="2912" font-family="Noto Sans KR" font-size="14" font-weight="700" fill="#2F66F5" text-anchor="start">•</text>
+<text x="128" y="2912" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#4B5468" text-anchor="start">금지 어휘: 달성률 · 실천 점수 · 순응도 · 의지력 · 꾸준히 · 완주. 부정형·건강 효과 주장·감탄사도 쓰지 않는다.</text>
+<rect x="70" y="2990" width="1460" height="800" rx="26" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="104" y="3012" width="30" height="30" rx="9" fill="#EAF0FF"/>
+<text x="119" y="3034" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#2F66F5" text-anchor="middle">5</text>
+<text x="146" y="3036" font-family="Noto Sans KR" font-size="24" font-weight="800" fill="#1A2233" text-anchor="start">연속일수 산출 규칙</text>
+<text x="106" y="3064" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#8892A6" text-anchor="start">카테고리별로 &quot;완료가 이어진 날&quot;을 센다. 홈 목표 카드와 같은 산출 모듈을 쓴다</text>
+<text x="106" y="3108" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">5.1 계산 기준</text>
+<rect x="106" y="3132" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="3154" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">항목</text>
+<text x="415" y="3154" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">규칙</text>
+<text x="116" y="3190" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">시작점</text>
+<text x="415" y="3190" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">기준일이 완료면 그날부터, 미완료면 전날부터 과거로 센다. 둘 다 미완료면 0</text>
+<line x1="106" y1="3204" x2="1494" y2="3204" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="3204" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="3226" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">역산</text>
+<text x="415" y="3226" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">완료면 +1, 미완료(미기록)면 종료. 가입일 이전으로는 세지 않는다</text>
+<line x1="106" y1="3240" x2="1494" y2="3240" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="3262" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">목표 없는 날</text>
+<text x="415" y="3262" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">질문에 답하지 않아 목표가 생성되지 않은 날은 앱 사정이므로 일수를 올리지 않고 건너뛴다. 연속 건너뜀은 최대 7일(초과 시 종료)</text>
+<line x1="106" y1="3276" x2="1494" y2="3276" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="3276" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="3298" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">주·월 경계</text>
+<text x="415" y="3298" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">리셋하지 않는다. 지난 주에서 이어온 기록은 그대로 센다</text>
+<line x1="106" y1="3312" x2="1494" y2="3312" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="3334" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">기준일이 끝나기 전</text>
+<text x="415" y="3334" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">오늘 아직 미완료여도 끊김으로 처리하지 않는다(전날까지의 연속을 보여준다)</text>
+<line x1="106" y1="3348" x2="1494" y2="3348" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="3348" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="3370" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">최장 기록</text>
+<text x="415" y="3370" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">현재 진행 중인 연속 구간을 제외한 과거 최장 연속(prevBest). 연속이 끊겨도 보존한다. 과거 기록이 없으면 &quot;해당 없음&quot;으로 두어 1일째에 최장 기록 문구가 나오지 않게 한다</text>
+<line x1="106" y1="3384" x2="1494" y2="3384" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="3406" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">마디</text>
+<text x="415" y="3406" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">7 · 14 · 30 · 50 · 100 · 150 · 200 · 250 · 300 · 365일. 이후는 365의 배수. 표기: 1주 · 2주 · 한 달 · 50일 · 100일 … · 1년</text>
+<line x1="106" y1="3420" x2="1494" y2="3420" stroke="#E6EAF2" stroke-width="1"/>
+<text x="106" y="3444" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">5.2 기준일 이동</text>
+<text x="106" y="3468" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">날짜 스트립으로 기준일을 바꾸면 그 시점 기준으로 세 카테고리 연속일수를 다시 계산한다. 날짜를 옮기면 일수가 달라지는 것이 정상이다. 세 타일은 반드시 같은 기준일을 써야 값이 어긋나지 않는다.</text>
+<text x="106" y="3510" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">5.3 타일 표시 판정</text>
+<rect x="106" y="3534" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="3556" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">조건</text>
+<text x="483" y="3556" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">주요 표시</text>
+<text x="719" y="3556" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">보조 문구</text>
+<text x="116" y="3592" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">완료 이력 0건</text>
+<text x="483" y="3592" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">시작 전</text>
+<text x="719" y="3592" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">기준일이 오늘이면 &quot;오늘 하면 1일째&quot;, 과거면 &quot;기록 없음&quot;</text>
+<line x1="106" y1="3606" x2="1494" y2="3606" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="3606" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="3628" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">이력 있음 · 연속 0</text>
+<text x="483" y="3628" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">다시 시작</text>
+<text x="719" y="3628" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">기준일이 오늘이면 &quot;오늘 하면 1일째&quot;, 과거면 &quot;이어가던 기록 없음&quot;</text>
+<line x1="106" y1="3642" x2="1494" y2="3642" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="3664" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">연속 N · 시작일이 기준 주 이전</text>
+<text x="483" y="3664" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">N일째</text>
+<text x="719" y="3664" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;O월 O일로부터&quot;</text>
+<line x1="106" y1="3678" x2="1494" y2="3678" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="3678" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="3700" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">연속 N · 시작일이 기준 주 안</text>
+<text x="483" y="3700" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">N일째</text>
+<text x="719" y="3700" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;이어가는 중&quot;</text>
+<line x1="106" y1="3714" x2="1494" y2="3714" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="3736" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">기준일이 과거 · 연속 N</text>
+<text x="483" y="3736" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">N일째</text>
+<text x="719" y="3736" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;O월 O일까지&quot;. 과거 기준일에는 &quot;이어가는 중&quot;을 쓰지 않는다(그 뒤로 끊겼을 수 있음)</text>
+<line x1="106" y1="3750" x2="1494" y2="3750" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="70" y="3814" width="1460" height="755" rx="26" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="104" y="3836" width="30" height="30" rx="9" fill="#EAF0FF"/>
+<text x="119" y="3858" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#2F66F5" text-anchor="middle">6</text>
+<text x="146" y="3860" font-family="Noto Sans KR" font-size="24" font-weight="800" fill="#1A2233" text-anchor="start">코멘트 선택 규칙</text>
+<text x="106" y="3888" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#8892A6" text-anchor="start">기준일이 오늘일 때 10개 상황을 위에서부터 평가해 최초 충족 항목 하나만 쓴다. 과거 기준일은 과거 모드 문구</text>
+<rect x="106" y="3918" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="3940" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">#</text>
+<text x="179" y="3940" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">상황</text>
+<text x="410" y="3940" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">조건</text>
+<text x="831" y="3940" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">문구 예시</text>
+<text x="116" y="3976" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">1</text>
+<text x="179" y="3976" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">목표 없음</text>
+<text x="410" y="3976" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">세 카테고리 목표가 모두 생성되지 않음</text>
+<text x="831" y="3976" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;오늘의 목표를 받으려면 질문 몇 가지만 답하면 만들어 드려요.&quot; + [질문에 답하기] 버튼. 일부만 없으면 해당 타일만</text>
+<text x="831" y="3995.5" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">잠김</text>
+<line x1="106" y1="4009" x2="1494" y2="4009" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="4009" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="4031" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">2</text>
+<text x="179" y="4031" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">첫 기록 전</text>
+<text x="410" y="4031" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">세 카테고리 모두 완료 이력 없음</text>
+<text x="831" y="4031" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;오늘의 목표 중 실천한 것이 있나요? 완료한 목표에 표시해 보세요.&quot;</text>
+<line x1="106" y1="4045" x2="1494" y2="4045" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="4067" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">3</text>
+<text x="179" y="4067" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">오랜만의 방문</text>
+<text x="410" y="4067" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">마지막 완료일이 7일 이상 전</text>
+<text x="831" y="4067" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;그동안 쌓아온 기록은 그대로 있어요. 마지막 실천은 O월 O일이었어요.&quot;</text>
+<line x1="106" y1="4081" x2="1494" y2="4081" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="4081" width="1388" height="55" rx="0" fill="#FAFBFD"/>
+<text x="116" y="4103" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">4</text>
+<text x="179" y="4103" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">마디 도달</text>
+<text x="410" y="4103" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">오늘 완료 상태에서 연속일수가 마디 값과 정확히 같음</text>
+<text x="831" y="4103" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;{카테고리} 목표를 N일 연속 완료했어요. {마디명} 동안 꾸준히 해냈어요.&quot; 둘 이상이면 마디 값이 큰 쪽, 같으면</text>
+<text x="831" y="4122.5" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">묶어서</text>
+<line x1="106" y1="4136" x2="1494" y2="4136" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="4158" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">5</text>
+<text x="179" y="4158" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">최장 기록 경신</text>
+<text x="410" y="4158" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">오늘 완료 상태에서 연속일수 &gt; prevBest (초과만, 동률 제외)</text>
+<text x="831" y="4158" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;{카테고리} 목표를 N일 연속 완료했어요. 지금까지 가장 길게 이어온 기록이에요.&quot;</text>
+<line x1="106" y1="4172" x2="1494" y2="4172" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="4172" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="4194" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">6</text>
+<text x="179" y="4194" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">마디 하루 전</text>
+<text x="410" y="4194" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">다음 마디까지 1일</text>
+<text x="831" y="4194" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;{카테고리}을 N일 연속 완료했어요. 내일도 완료하면 {마디명}를 채워요.&quot;</text>
+<line x1="106" y1="4208" x2="1494" y2="4208" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="4230" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">7</text>
+<text x="179" y="4230" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">세 카테고리 동률</text>
+<text x="410" y="4230" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">세 연속일수가 같고 0이 아님</text>
+<text x="831" y="4230" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;식이 · 활동 · 수면 목표를 모두 N일 연속 이어가고 있어요.&quot;</text>
+<line x1="106" y1="4244" x2="1494" y2="4244" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="4244" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="4266" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">8</text>
+<text x="179" y="4266" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">두 카테고리 동률</text>
+<text x="410" y="4266" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">상위 두 연속일수가 같고 0이 아님</text>
+<text x="831" y="4266" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;{A}과 {B}을 N일 연속 나란히 이어가고 있어요.&quot;</text>
+<line x1="106" y1="4280" x2="1494" y2="4280" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="4302" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">9</text>
+<text x="179" y="4302" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">가장 긴 기록 하나</text>
+<text x="410" y="4302" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">최대 연속일수가 0이 아님</text>
+<text x="831" y="4302" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;{카테고리}을 N일째 이어가고 있어요. {남은 일수}만 더 하면 {마디명}예요.&quot;</text>
+<line x1="106" y1="4316" x2="1494" y2="4316" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="4316" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="4338" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">10</text>
+<text x="179" y="4338" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">현재 연속 없음</text>
+<text x="410" y="4338" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">이력은 있으나 모든 연속이 0</text>
+<text x="831" y="4338" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;마지막 기록은 O월 O일이에요. 오늘 실천한 일 하나부터 다시 이어가 보세요.&quot;</text>
+<line x1="106" y1="4352" x2="1494" y2="4352" stroke="#E6EAF2" stroke-width="1"/>
+<text x="106" y="4376" font-family="Noto Sans KR" font-size="17" font-weight="700" fill="#1A2233" text-anchor="start">과거 기준일</text>
+<text x="106" y="4400" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">위 목록을 건너뛰고 과거 모드 문구를 쓴다. 연속이 있으면 &quot;O월 O일 기준으로 {카테고리}을 N일째 이어가고 있었어요.&quot;, 없으면 &quot;O월 O일에는 이어가던 목표가 없었어요.&quot; 과거 기준일에는 미래형(&quot;내일도&quot; · &quot;오늘 하면&quot; ·</text>
+<text x="106" y="4422.475" font-family="Noto Sans KR" font-size="14.5" font-weight="400" fill="#4B5468" text-anchor="start">&quot;오랜만이에요&quot;)을 쓰지 않는다.</text>
+<rect x="106" y="4451" width="1388" height="78" rx="12" fill="#EAF0FF"/>
+<rect x="106" y="4451" width="4" height="78" rx="0" fill="#2F66F5"/>
+<text x="126" y="4479" font-family="Noto Sans KR" font-size="13.5" font-weight="400" fill="#2A3A6B" text-anchor="start">상황 4는 마디 값과 정확히 같을 때만 성립한다(15일째에 2주를 다시 띄우지 않음). 상황 5의 prevBest는 현재 연속을 뺀 과거 최장이며, 동률이면 상황 9로 내려간다. 상황 3은 방문 기록이 아니라 마지막 완료일 기준으로 판정한다(방문</text>
+<text x="126" y="4499.925" font-family="Noto Sans KR" font-size="13.5" font-weight="400" fill="#2A3A6B" text-anchor="start">기록 수집 여부는 §9).</text>
+<rect x="70" y="4593" width="1460" height="441" rx="26" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="104" y="4615" width="30" height="30" rx="9" fill="#EAF0FF"/>
+<text x="119" y="4637" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#2F66F5" text-anchor="middle">7</text>
+<text x="146" y="4639" font-family="Noto Sans KR" font-size="24" font-weight="800" fill="#1A2233" text-anchor="start">상태 정의</text>
+<text x="106" y="4667" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#8892A6" text-anchor="start">기준일과 데이터 유무에 따라 두 블록이 어떻게 달라지는지</text>
+<rect x="106" y="4697" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="4719" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">상태</text>
+<text x="385" y="4719" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">조건</text>
+<text x="788" y="4719" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">화면</text>
+<text x="116" y="4755" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">오늘</text>
+<text x="385" y="4755" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">기준일 = 오늘</text>
+<text x="788" y="4755" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">목표 타일(잠금 가능) + 이어가기(오늘 모드 코멘트). 완료·취소 가능</text>
+<line x1="106" y1="4769" x2="1494" y2="4769" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="4769" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="4791" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">이번 주 과거 날짜</text>
+<text x="385" y="4791" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">날짜 스트립에서 지난 날 선택</text>
+<text x="788" y="4791" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">제목 &quot;8월 N일 목표&quot; + 그날 타일(잠금 없음) + 이어가기(과거 모드). 완료·취소 가능</text>
+<line x1="106" y1="4805" x2="1494" y2="4805" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="4827" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">목표가 없던 날 · 오늘</text>
+<text x="385" y="4827" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">질문 미응답으로 세 목표 모두 미생성</text>
+<text x="788" y="4827" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">타일 대신 안내 카드 &quot;오늘의 목표를 받으려면 질문 몇 가지만 답하면 만들어 드려요.&quot; + [질문에 답하기]. n/3 카운트 없음</text>
+<line x1="106" y1="4841" x2="1494" y2="4841" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="4841" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="4863" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">목표가 없던 날 · 과거</text>
+<text x="385" y="4863" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">그날 목표 미생성</text>
+<text x="788" y="4863" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">안내 카드 &quot;이 날은 목표가 없었어요 · 질문에 답하지 않아 만들지 못했어요.&quot; 완료 불가</text>
+<line x1="106" y1="4877" x2="1494" y2="4877" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="4899" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">이전 주</text>
+<text x="385" y="4899" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">‹ 로 지난 주 이동</text>
+<text x="788" y="4899" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">읽기 전용 안내 한 줄(&quot;O월 N주는 이미 끝난 주라 읽기 전용이에요. O월 O일 기준으로 보여드려요.&quot;) + 그 주 일요일 기준</text>
+<text x="788" y="4918.5" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">이어가기 블록만. 목표 타일 블록 없음</text>
+<line x1="106" y1="4932" x2="1494" y2="4932" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="4932" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="4954" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">기록이 준비되지 않은 주</text>
+<text x="385" y="4954" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">가입일 이전 또는 데이터 없음</text>
+<text x="788" y="4954" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">&quot;아직 상세 기록이 준비되지 않았어요&quot; 안내만</text>
+<line x1="106" y1="4968" x2="1494" y2="4968" stroke="#E6EAF2" stroke-width="1"/>
+<text x="106" y="4978" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#8892A6" text-anchor="start">이 화면은 기기 연동 여부와 무관하게 동작한다. 목표 생성이 기기 데이터에 의존하더라도(잠금), 완료 기록과 연속일수는 사용자 입력만으로 성립한다.</text>
+<rect x="70" y="5058" width="1460" height="504" rx="26" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="104" y="5080" width="30" height="30" rx="9" fill="#EAF0FF"/>
+<text x="119" y="5102" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#2F66F5" text-anchor="middle">8</text>
+<text x="146" y="5104" font-family="Noto Sans KR" font-size="24" font-weight="800" fill="#1A2233" text-anchor="start">연동 규칙</text>
+<text x="106" y="5132" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#8892A6" text-anchor="start">다른 화면·조작과의 관계</text>
+<rect x="106" y="5162" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="5184" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">트리거</text>
+<text x="476" y="5184" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">반영</text>
+<text x="116" y="5220" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">홈 &quot;n/3 완료 ›&quot; 탭</text>
+<text x="476" y="5220" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">생활 탭 → 목표 분석 서브탭 → 기준일 오늘</text>
+<line x1="106" y1="5234" x2="1494" y2="5234" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="5234" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="5256" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">타일 완료/취소 (이 화면)</text>
+<text x="476" y="5256" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">홈 타일 동일 상태(같은 컴포넌트) · n/3 카운트 · 이어가기 블록 즉시 갱신</text>
+<line x1="106" y1="5270" x2="1494" y2="5270" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="5292" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">홈에서 완료/취소</text>
+<text x="476" y="5292" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">이 화면의 오늘 타일과 이어가기 블록 동일하게 갱신</text>
+<line x1="106" y1="5306" x2="1494" y2="5306" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="5306" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="5328" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">잠긴 타일 탭 · [질문에 답하기]</text>
+<text x="476" y="5328" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">홈으로 이동, 남은 질문으로 문항 전환, 질문 영역 강조</text>
+<line x1="106" y1="5342" x2="1494" y2="5342" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="5364" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">오늘의 질문 모두 답변</text>
+<text x="476" y="5364" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">잠긴 목표 생성 → 타일 활성. 이미 열려 있던 목표는 답변을 반영해 1회 재계산(완료한 목표는 불변)</text>
+<line x1="106" y1="5378" x2="1494" y2="5378" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="5378" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="5400" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">날짜 스트립 탭</text>
+<text x="476" y="5400" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">기준일 변경 → 두 블록 재렌더(그날 타일 · 그날 기준 연속일수 · 과거/오늘 모드 코멘트)</text>
+<line x1="106" y1="5414" x2="1494" y2="5414" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="5436" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">‹ › 주 이동</text>
+<text x="476" y="5436" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">이전 주는 읽기 전용 이어가기 블록만. 다음 주 불가</text>
+<line x1="106" y1="5450" x2="1494" y2="5450" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="5450" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="5472" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">오늘 버튼</text>
+<text x="476" y="5472" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">이번 주 · 오늘로 복귀</text>
+<line x1="106" y1="5486" x2="1494" y2="5486" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="5508" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">하루 경계(새벽 4시)</text>
+<text x="476" y="5508" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">날짜가 바뀌면 문구 잠금 종료, 새 목표 생성 대기. 연속일수는 전날까지의 값을 유지</text>
+<line x1="106" y1="5522" x2="1494" y2="5522" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="70" y="5586" width="1460" height="432" rx="26" fill="#FFFFFF" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="104" y="5608" width="30" height="30" rx="9" fill="#EAF0FF"/>
+<text x="119" y="5630" font-family="Noto Sans KR" font-size="14" font-weight="800" fill="#2F66F5" text-anchor="middle">9</text>
+<text x="146" y="5632" font-family="Noto Sans KR" font-size="24" font-weight="800" fill="#1A2233" text-anchor="start">확인 필요 사항</text>
+<text x="106" y="5660" font-family="Noto Sans KR" font-size="14" font-weight="400" fill="#8892A6" text-anchor="start">이 문서 확정 전 담당자 결정이 필요한 항목</text>
+<rect x="106" y="5690" width="1388" height="36" rx="8" fill="#EEF2F8"/>
+<text x="116" y="5712" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">#</text>
+<text x="183" y="5712" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">항목</text>
+<text x="496" y="5712" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">내용</text>
+<text x="1302" y="5712" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#8892A6" text-anchor="start">상태</text>
+<text x="116" y="5748" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">1</text>
+<text x="183" y="5748" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">목표 없는 날 건너뛰기</text>
+<text x="496" y="5748" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">연속 건너뜀 상한 7일이 적정한지. 프로토타입은 아직 건너뛰기를 구현하지 않고 미완료로 끊는다</text>
+<text x="1302" y="5748" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">확인 필요</text>
+<line x1="106" y1="5762" x2="1494" y2="5762" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="5762" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="5784" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">2</text>
+<text x="183" y="5784" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">방문 기록 수집</text>
+<text x="496" y="5784" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">상황 3을 마지막 완료일 기준으로 둘지, 별도 방문 기록(goal_visit)을 수집해 판정할지</text>
+<text x="1302" y="5784" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">확인 필요</text>
+<line x1="106" y1="5798" x2="1494" y2="5798" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="5820" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">3</text>
+<text x="183" y="5820" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">코멘트 배경색</text>
+<text x="496" y="5820" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">언급 카테고리가 1개면 카테고리 색 배경, 2개 이상·없음이면 중립색으로 할지. 프로토타입은 중립 카드에 카테고리명만 색 강조</text>
+<text x="1302" y="5820" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">확인 필요</text>
+<line x1="106" y1="5834" x2="1494" y2="5834" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="5834" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="5856" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">4</text>
+<text x="183" y="5856" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">과거 날짜 소급 기록 범위</text>
+<text x="496" y="5856" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">날짜 스트립으로 갈 수 있는 과거 주 수(현재 8주)와 소급 기록 시 최장 기록 재계산 범위</text>
+<text x="1302" y="5856" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">확인 필요</text>
+<line x1="106" y1="5870" x2="1494" y2="5870" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="5892" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">5</text>
+<text x="183" y="5892" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">잠금 판정 기준</text>
+<text x="496" y="5892" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">목표별 &quot;데이터 충분&quot; 임계값. 프로토타입은 식이만 고정 잠금으로 시연</text>
+<text x="1302" y="5892" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">홈 §9-2와 공통</text>
+<line x1="106" y1="5906" x2="1494" y2="5906" stroke="#E6EAF2" stroke-width="1"/>
+<rect x="106" y="5906" width="1388" height="36" rx="0" fill="#FAFBFD"/>
+<text x="116" y="5928" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">6</text>
+<text x="183" y="5928" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">goal_record 스키마</text>
+<text x="496" y="5928" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">사용자 × 카테고리 × 날짜 단위 완료 여부·완료 시각·제시 문구 저장 구조. 기록은 카드가 아니라 카테고리에 귀속</text>
+<text x="1302" y="5928" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">개발</text>
+<line x1="106" y1="5942" x2="1494" y2="5942" stroke="#E6EAF2" stroke-width="1"/>
+<text x="116" y="5964" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">7</text>
+<text x="183" y="5964" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">마디 365 이후</text>
+<text x="496" y="5964" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">365의 배수 표기(&quot;2년&quot; · &quot;3년&quot;)와 그 사이 마디 추가 여부</text>
+<text x="1302" y="5964" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">확인 필요</text>
+<line x1="106" y1="5978" x2="1494" y2="5978" stroke="#E6EAF2" stroke-width="1"/>
+<text x="800" y="6052" font-family="Noto Sans KR" font-size="12.5" font-weight="500" fill="#8892A6" text-anchor="middle">마이리포트 v2 · 생활 탭 › 목표 분석 화면정의서 v1.0 · 2026-09-16 · 연관 문서: 홈화면_화면정의서 · 목표이어가기_기능정의서 · mai-report-prototype_v1.0.0.html</text>
+</svg>

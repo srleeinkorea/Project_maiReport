@@ -1,0 +1,409 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 3120" width="1240" height="3120" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">
+<defs><linearGradient id="hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f66f5"/><stop offset=".55" stop-color="#5170ff"/><stop offset="1" stop-color="#7c5cfc"/></linearGradient></defs>
+<rect x="0" y="0" width="1240" height="3120" rx="0" fill="#f5f7fb" stroke="none" stroke-width="1" />
+<rect x="40" y="40" width="1160" height="190" rx="28" fill="url(#hero)" stroke="none" stroke-width="1" />
+<circle cx="1150" cy="60" r="130" fill="rgba(255,255,255,.08)"/>
+<rect x="70" y="66" width="190" height="24" rx="12" fill="rgba(255,255,255,.18)" stroke="none" stroke-width="1" />
+<text x="165" y="83" font-size="12" fill="#fff" font-weight="700" text-anchor="middle" >마이리포트 v2 · 화면정의서</text>
+<text x="70" y="128" font-size="28" fill="#fff" font-weight="800" text-anchor="start" >생활 탭 &gt; 지표별 분석 화면정의서</text>
+<text x="70" y="158" font-size="13" fill="rgba(255,255,255,.9)" font-weight="400" text-anchor="start" >생활 3대 지표(생활여유·자기돌봄·일상안정)를 카드 단위로 보여주는 서브탭. 지표는 숫자를 노출하지 않고 세 구간 띠 위에 그린 주간 그래프와</text>
+<text x="70" y="177" font-size="13" fill="rgba(255,255,255,.9)" font-weight="400" text-anchor="start" >구간 라벨로 보여주며, 구간의 이유를 한두 문장으로 설명하고 근거가 되는 핵심 데이터만 함께 노출한다.</text>
+<text x="70" y="212" font-size="11.5" fill="rgba(255,255,255,.8)" font-weight="400" text-anchor="start" >작성일 2026-09-16  ·  대상 화면 생활 탭 &gt; 지표별 분석  ·  산식 근거 mai-report-생활지표_기획서.html  ·  Sarah Lee · 마이허브 코퍼레이션</text>
+<rect x="40" y="260" width="1160" height="250" rx="22" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<rect x="70" y="278" width="26" height="26" rx="8" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="83" y="296" font-size="12.5" fill="#2f66f5" font-weight="800" text-anchor="middle" >1</text>
+<text x="106" y="297" font-size="18" fill="#1a2233" font-weight="800" text-anchor="start" >화면의 목적과 표시 원칙</text>
+<text x="70" y="334" font-size="12.5" fill="#4b5468" font-weight="400" text-anchor="start" >홈 탭 '오늘의 컨디션'이 세 지표의 오늘 상태를 한 줄씩 요약해 준다면, 이 화면은 그 상태가 왜 그런지와 어떤 데이터에서 나왔는지를 지표별로 풀어 보여주는 자리다.</text>
+<text x="70" y="353" font-size="12.5" fill="#4b5468" font-weight="400" text-anchor="start" >사용자는 세 카드를 내려 보며  지금 내 하루에 여유가 있나(생활여유) → 몸을 챙길 수 있는 순간에 실제로 움직였나(자기돌봄) → 최근 며칠 생활 리듬이 유지되나(일상안정)  를 차례로 확인한다.</text>
+<rect x="70" y="386" width="356" height="104" rx="14" fill="#fafbfd" stroke="#e6eaf2" stroke-width="1" />
+<text x="86" y="410" font-size="11.5" fill="#2f66f5" font-weight="700" text-anchor="start" >숫자를 보여주지 않는다</text>
+<text x="86" y="432" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >지표는 내부적으로 0~100 규칙값으로 계산되지만</text>
+<text x="86" y="449" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >화면에는 숫자·퍼센트·증감폭을 노출하지 않는다.</text>
+<text x="86" y="466" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >세 구간의 상태 라벨과 구간 띠 위의 흐름으로만 표현한다.</text>
+<rect x="442" y="386" width="356" height="104" rx="14" fill="#fafbfd" stroke="#e6eaf2" stroke-width="1" />
+<text x="458" y="410" font-size="11.5" fill="#2f66f5" font-weight="700" text-anchor="start" >숫자 대신 흐름을 보여준다</text>
+<text x="458" y="432" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >지표는 하루를 채점하는 점수가 아니라 생활 흐름을</text>
+<text x="458" y="449" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >이해하도록 돕는 해석 지표다. 세 구간을 배경 띠로 깐</text>
+<text x="458" y="466" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >주간 그래프 위에 흐름만 그린다 — 선은 움직임, 띠는 의미.</text>
+<rect x="814" y="386" width="356" height="104" rx="14" fill="#fafbfd" stroke="#e6eaf2" stroke-width="1" />
+<text x="830" y="410" font-size="11.5" fill="#2f66f5" font-weight="700" text-anchor="start" >필요한 정보만 보여준다</text>
+<text x="830" y="432" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >카드에는 지표 산출에 실제로 쓰인 핵심 데이터만</text>
+<text x="830" y="449" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >값과 함께 노출한다. 맥락 보강에만 쓰이는 보조</text>
+<text x="830" y="466" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >데이터는 화면에 나열하지 않는다.</text>
+<rect x="40" y="532" width="1160" height="1160" rx="22" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<rect x="70" y="550" width="26" height="26" rx="8" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="83" y="568" font-size="12.5" fill="#2f66f5" font-weight="800" text-anchor="middle" >2</text>
+<text x="106" y="569" font-size="18" fill="#1a2233" font-weight="800" text-anchor="start" >샘플 화면</text>
+<text x="106" y="588" font-size="12" fill="#8892a6" font-weight="400" text-anchor="start" >왼쪽: 세 지표 모두 산출된 목요일 · 오른쪽: 월요일이라 점이 하나뿐이고 데이터 부족으로 두 지표가 안내 카드로 대체된 상태. 값·문구는 예시.</text>
+<rect x="160" y="622" width="360" height="1050" rx="32" fill="#fff" stroke="#e6eaf2" stroke-width="1.5" />
+<text x="184" y="648" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >9:41</text>
+<text x="496" y="648" font-size="10" fill="#8892a6" font-weight="400" text-anchor="end" >●●●</text>
+<text x="182" y="672" font-size="11.5" fill="#8892a6" font-weight="400" text-anchor="start" >목표 분석</text>
+<text x="252.625" y="672" font-size="11.5" fill="#1a2233" font-weight="800" text-anchor="start" >지표별 분석</text>
+<rect x="252.625" y="678" width="65.55" height="2" rx="0" fill="#1a2233" stroke="none" stroke-width="1" />
+<text x="334.175" y="672" font-size="11.5" fill="#8892a6" font-weight="400" text-anchor="start" >생활 분석</text>
+<text x="404.8" y="672" font-size="11.5" fill="#8892a6" font-weight="400" text-anchor="start" >AI 인사이트</text>
+<line x1="174" y1="682" x2="506" y2="682" stroke="#e6eaf2"/>
+<rect x="174" y="692" width="332" height="34" rx="12" fill="#fafbfd" stroke="#e6eaf2" stroke-width="1" />
+<text x="188" y="714" font-size="11" fill="#4b5468" font-weight="400" text-anchor="start" >‹  8월 4주  ›</text>
+<text x="314.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="1">월</text>
+<text x="341.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="1">화</text>
+<text x="368.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="1">수</text>
+<rect x="384" y="698" width="23" height="23" rx="8" fill="#2f66f5" stroke="none" stroke-width="1" />
+<text x="395.5" y="714" font-size="10" fill="#fff" font-weight="700" text-anchor="middle" >목</text>
+<text x="422.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="0.35">금</text>
+<text x="449.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="0.35">토</text>
+<text x="476.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="0.35">일</text>
+<rect x="174" y="736" width="332" height="294" rx="16" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<text x="188" y="760" font-size="14.5" fill="#1a2233" font-weight="800" text-anchor="start" >생활여유</text>
+<text x="251.1" y="760" font-size="10.5" fill="#D98A12" font-weight="700" text-anchor="start" >▼ 낮아졌어요</text>
+<text x="188" y="776" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >오늘 하루를 무리 없이 이어갈 힘이 남아 있는지</text>
+<rect x="415" y="748" width="77" height="22" rx="11.0" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="453.5" y="762.96" font-size="12" fill="#D98A12" font-weight="800" text-anchor="middle" >보통이에요</text>
+<rect x="188" y="790.0" width="252" height="19.039999999999964" rx="0" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<rect x="188" y="809.04" width="252" height="18.480000000000018" rx="0" fill="#f1f3f7" stroke="none" stroke-width="1" />
+<rect x="188" y="827.52" width="252" height="18.480000000000018" rx="0" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="448" y="802.52" font-size="9" fill="#12A150" font-weight="700" text-anchor="start" >충분</text>
+<text x="448" y="821.0" font-size="9" fill="#8892a6" font-weight="700" text-anchor="start" >보통</text>
+<text x="448" y="840.04" font-size="9" fill="#D98A12" font-weight="700" text-anchor="start" >부족</text>
+<polyline points="194.0,805.7 234.0,806.8 274.0,813.5 314.0,816.9" fill="none" stroke="#12A150" stroke-width="2"/>
+<circle cx="194.0" cy="805.7" r="3" fill="#12A150"/>
+<circle cx="234.0" cy="806.8" r="3" fill="#12A150"/>
+<circle cx="274.0" cy="813.5" r="3" fill="#12A150"/>
+<circle cx="314.0" cy="816.9" r="4.5" fill="#fff" stroke="#12A150" stroke-width="2.5"/>
+<text x="194.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >월</text>
+<text x="234.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >화</text>
+<text x="274.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >수</text>
+<text x="314.0" y="860" font-size="9.5" fill="#1a2233" font-weight="800" text-anchor="middle" >목</text>
+<text x="354.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >금</text>
+<text x="394.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >토</text>
+<text x="434.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >일</text>
+<text x="188" y="882" font-size="10" fill="#8892a6" font-weight="700" text-anchor="start" >지금 흐름</text>
+<text x="188" y="898" font-size="12" fill="#4b5468">어제부터 늦은 시간 활동이 늘고 중간에 쉬는 흐름이</text>
+<text x="188" y="915" font-size="12" fill="#4b5468">줄면서 <tspan font-weight="700" fill="#1a2233">보통 구간으로 내려왔어요.</tspan></text>
+<text x="188" y="940" font-size="10" fill="#8892a6" font-weight="700" text-anchor="start" >핵심 데이터</text>
+<circle cx="192" cy="966" r="3.5" fill="#12A150"/>
+<text x="204" y="970" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >수면</text>
+<text x="324" y="970" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >7시간 23분</text>
+<rect x="448" y="957" width="35" height="17" rx="8.5" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<text x="465.5" y="968.56" font-size="10" fill="#12A150" font-weight="800" text-anchor="middle" >충분</text>
+<circle cx="192" cy="988" r="3.5" fill="#12A150"/>
+<text x="204" y="992" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >활동 시간</text>
+<text x="324" y="992" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >42분</text>
+<rect x="448" y="979" width="35" height="17" rx="8.5" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="465.5" y="990.56" font-size="10" fill="#4b5468" font-weight="800" text-anchor="middle" >비슷</text>
+<circle cx="192" cy="1010" r="3.5" fill="#12A150"/>
+<text x="204" y="1014" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >운동 시간</text>
+<text x="324" y="1014" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >15분</text>
+<rect x="448" y="1001" width="35" height="17" rx="8.5" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="465.5" y="1012.56" font-size="10" fill="#D98A12" font-weight="800" text-anchor="middle" >낮음</text>
+<rect x="174" y="1040" width="332" height="294" rx="16" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<text x="188" y="1064" font-size="14.5" fill="#1a2233" font-weight="800" text-anchor="start" >자기돌봄</text>
+<text x="251.1" y="1064" font-size="10.5" fill="#12A150" font-weight="700" text-anchor="start" >▲ 좋아졌어요</text>
+<text x="188" y="1080" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >몸을 챙길 수 있는 순간에 실제로 움직였는지</text>
+<rect x="393" y="1052" width="99" height="22" rx="11.0" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<text x="442.5" y="1066.96" font-size="12" fill="#12A150" font-weight="800" text-anchor="middle" >잘하고 있어요</text>
+<rect x="188" y="1094.0" width="252" height="19.039999999999964" rx="0" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<rect x="188" y="1113.04" width="252" height="18.480000000000018" rx="0" fill="#f1f3f7" stroke="none" stroke-width="1" />
+<rect x="188" y="1131.52" width="252" height="18.480000000000018" rx="0" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="448" y="1106.52" font-size="9" fill="#12A150" font-weight="700" text-anchor="start" >잘함</text>
+<text x="448" y="1125.0" font-size="9" fill="#8892a6" font-weight="700" text-anchor="start" >보통</text>
+<text x="448" y="1144.04" font-size="9" fill="#D98A12" font-weight="700" text-anchor="start" >부족</text>
+<polyline points="194.0,1133.2 234.0,1134.3 274.0,1124.8 314.0,1108.6" fill="none" stroke="#D98A12" stroke-width="2"/>
+<circle cx="194.0" cy="1133.2" r="3" fill="#D98A12"/>
+<circle cx="234.0" cy="1134.3" r="3" fill="#D98A12"/>
+<circle cx="274.0" cy="1124.8" r="3" fill="#D98A12"/>
+<circle cx="314.0" cy="1108.6" r="4.5" fill="#fff" stroke="#D98A12" stroke-width="2.5"/>
+<text x="194.0" y="1164" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >월</text>
+<text x="234.0" y="1164" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >화</text>
+<text x="274.0" y="1164" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >수</text>
+<text x="314.0" y="1164" font-size="9.5" fill="#1a2233" font-weight="800" text-anchor="middle" >목</text>
+<text x="354.0" y="1164" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >금</text>
+<text x="394.0" y="1164" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >토</text>
+<text x="434.0" y="1164" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >일</text>
+<text x="188" y="1186" font-size="10" fill="#8892a6" font-weight="700" text-anchor="start" >지금 흐름</text>
+<text x="188" y="1202" font-size="12" fill="#4b5468">오늘은 식사 뒤 짧은 걷기가 여러 번 확인됐어요.</text>
+<text x="188" y="1219" font-size="12" fill="#4b5468"><tspan font-weight="700" fill="#1a2233">움직일 수 있는 순간에 실제 행동이 잘 붙고 있어요.</tspan></text>
+<text x="188" y="1244" font-size="10" fill="#8892a6" font-weight="700" text-anchor="start" >핵심 데이터</text>
+<circle cx="192" cy="1270" r="3.5" fill="#D98A12"/>
+<text x="204" y="1274" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >활동 시간</text>
+<text x="324" y="1274" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >42분</text>
+<rect x="448" y="1261" width="35" height="17" rx="8.5" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="465.5" y="1272.56" font-size="10" fill="#4b5468" font-weight="800" text-anchor="middle" >비슷</text>
+<circle cx="192" cy="1292" r="3.5" fill="#D98A12"/>
+<text x="204" y="1296" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >운동 시간</text>
+<text x="324" y="1296" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >15분</text>
+<rect x="448" y="1283" width="35" height="17" rx="8.5" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="465.5" y="1294.56" font-size="10" fill="#D98A12" font-weight="800" text-anchor="middle" >낮음</text>
+<circle cx="192" cy="1314" r="3.5" fill="#D98A12"/>
+<text x="204" y="1318" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >운동 기록</text>
+<text x="324" y="1318" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >걷기 1회</text>
+<rect x="448" y="1305" width="44" height="17" rx="8.5" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="470.0" y="1316.56" font-size="10" fill="#4b5468" font-weight="800" text-anchor="middle" >가벼움</text>
+<rect x="174" y="1344" width="332" height="294" rx="16" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<text x="188" y="1368" font-size="14.5" fill="#1a2233" font-weight="800" text-anchor="start" >일상안정</text>
+<text x="251.1" y="1368" font-size="10.5" fill="#8892a6" font-weight="700" text-anchor="start" >· 변화 없음</text>
+<text x="188" y="1384" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >자고 일어나고 움직이는 시간이 평소 리듬대로 유지되는지</text>
+<rect x="404" y="1356" width="88" height="22" rx="11.0" fill="#f1ecff" stroke="none" stroke-width="1" />
+<text x="448.0" y="1370.96" font-size="12" fill="#7C5CFC" font-weight="800" text-anchor="middle" >안정적이에요</text>
+<rect x="188" y="1398.0" width="252" height="19.039999999999964" rx="0" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<rect x="188" y="1417.04" width="252" height="18.480000000000018" rx="0" fill="#f1f3f7" stroke="none" stroke-width="1" />
+<rect x="188" y="1435.52" width="252" height="18.480000000000018" rx="0" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="448" y="1410.52" font-size="9" fill="#12A150" font-weight="700" text-anchor="start" >안정</text>
+<text x="448" y="1429.0" font-size="9" fill="#8892a6" font-weight="700" text-anchor="start" >비슷</text>
+<text x="448" y="1448.04" font-size="9" fill="#D98A12" font-weight="700" text-anchor="start" >불안정</text>
+<polyline points="194.0,1420.4 234.0,1419.3 274.0,1414.8 314.0,1414.2" fill="none" stroke="#7C5CFC" stroke-width="2"/>
+<circle cx="194.0" cy="1420.4" r="3" fill="#7C5CFC"/>
+<circle cx="234.0" cy="1419.3" r="3" fill="#7C5CFC"/>
+<circle cx="274.0" cy="1414.8" r="3" fill="#7C5CFC"/>
+<circle cx="314.0" cy="1414.2" r="4.5" fill="#fff" stroke="#7C5CFC" stroke-width="2.5"/>
+<text x="194.0" y="1468" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >월</text>
+<text x="234.0" y="1468" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >화</text>
+<text x="274.0" y="1468" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >수</text>
+<text x="314.0" y="1468" font-size="9.5" fill="#1a2233" font-weight="800" text-anchor="middle" >목</text>
+<text x="354.0" y="1468" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >금</text>
+<text x="394.0" y="1468" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >토</text>
+<text x="434.0" y="1468" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >일</text>
+<text x="188" y="1490" font-size="10" fill="#8892a6" font-weight="700" text-anchor="start" >지금 흐름</text>
+<text x="188" y="1506" font-size="12" fill="#4b5468">자고 움직이는 시각이 평소 범위 안에서 며칠째 유지되고</text>
+<text x="188" y="1523" font-size="12" fill="#4b5468">있어요. <tspan font-weight="700" fill="#1a2233">생활 리듬이 안정 구간을 이어가는 중이에요.</tspan></text>
+<text x="188" y="1548" font-size="10" fill="#8892a6" font-weight="700" text-anchor="start" >핵심 데이터</text>
+<circle cx="192" cy="1574" r="3.5" fill="#7C5CFC"/>
+<text x="204" y="1578" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >걸음 수</text>
+<text x="324" y="1578" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >7,340걸음</text>
+<rect x="448" y="1565" width="35" height="17" rx="8.5" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<text x="465.5" y="1576.56" font-size="10" fill="#12A150" font-weight="800" text-anchor="middle" >적정</text>
+<circle cx="192" cy="1596" r="3.5" fill="#7C5CFC"/>
+<text x="204" y="1600" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >수면</text>
+<text x="324" y="1600" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >7시간 23분</text>
+<rect x="448" y="1587" width="35" height="17" rx="8.5" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<text x="465.5" y="1598.56" font-size="10" fill="#12A150" font-weight="800" text-anchor="middle" >충분</text>
+<circle cx="192" cy="1618" r="3.5" fill="#7C5CFC"/>
+<text x="204" y="1622" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >심박수</text>
+<text x="324" y="1622" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >63bpm</text>
+<rect x="448" y="1609" width="35" height="17" rx="8.5" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<text x="465.5" y="1620.56" font-size="10" fill="#12A150" font-weight="800" text-anchor="middle" >안정</text>
+<rect x="720" y="622" width="360" height="1050" rx="32" fill="#fff" stroke="#e6eaf2" stroke-width="1.5" />
+<text x="744" y="648" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >9:41</text>
+<text x="1056" y="648" font-size="10" fill="#8892a6" font-weight="400" text-anchor="end" >●●●</text>
+<text x="742" y="672" font-size="11.5" fill="#8892a6" font-weight="400" text-anchor="start" >목표 분석</text>
+<text x="812.625" y="672" font-size="11.5" fill="#1a2233" font-weight="800" text-anchor="start" >지표별 분석</text>
+<rect x="812.625" y="678" width="65.55" height="2" rx="0" fill="#1a2233" stroke="none" stroke-width="1" />
+<text x="894.175" y="672" font-size="11.5" fill="#8892a6" font-weight="400" text-anchor="start" >생활 분석</text>
+<text x="964.8" y="672" font-size="11.5" fill="#8892a6" font-weight="400" text-anchor="start" >AI 인사이트</text>
+<line x1="734" y1="682" x2="1066" y2="682" stroke="#e6eaf2"/>
+<rect x="734" y="692" width="332" height="34" rx="12" fill="#fafbfd" stroke="#e6eaf2" stroke-width="1" />
+<text x="748" y="714" font-size="11" fill="#4b5468" font-weight="400" text-anchor="start" >‹  8월 4주  ›</text>
+<rect x="863" y="698" width="23" height="23" rx="8" fill="#2f66f5" stroke="none" stroke-width="1" />
+<text x="874.5" y="714" font-size="10" fill="#fff" font-weight="700" text-anchor="middle" >월</text>
+<text x="901.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="0.35">화</text>
+<text x="928.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="0.35">수</text>
+<text x="955.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="0.35">목</text>
+<text x="982.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="0.35">금</text>
+<text x="1009.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="0.35">토</text>
+<text x="1036.5" y="714" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" opacity="0.35">일</text>
+<rect x="734" y="736" width="332" height="250" rx="16" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<text x="748" y="760" font-size="14.5" fill="#1a2233" font-weight="800" text-anchor="start" >생활여유</text>
+<text x="748" y="776" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >오늘 하루를 무리 없이 이어갈 힘이 남아 있는지</text>
+<rect x="975" y="748" width="77" height="22" rx="11.0" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="1013.5" y="762.96" font-size="12" fill="#4b5468" font-weight="800" text-anchor="middle" >보통이에요</text>
+<rect x="748" y="790.0" width="252" height="19.039999999999964" rx="0" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<rect x="748" y="809.04" width="252" height="18.480000000000018" rx="0" fill="#f1f3f7" stroke="none" stroke-width="1" />
+<rect x="748" y="827.52" width="252" height="18.480000000000018" rx="0" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="1008" y="802.52" font-size="9" fill="#12A150" font-weight="700" text-anchor="start" >충분</text>
+<text x="1008" y="821.0" font-size="9" fill="#8892a6" font-weight="700" text-anchor="start" >보통</text>
+<text x="1008" y="840.04" font-size="9" fill="#D98A12" font-weight="700" text-anchor="start" >부족</text>
+<circle cx="754.0" cy="818.0" r="4.5" fill="#fff" stroke="#12A150" stroke-width="2.5"/>
+<text x="754.0" y="860" font-size="9.5" fill="#1a2233" font-weight="800" text-anchor="middle" >월</text>
+<text x="794.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >화</text>
+<text x="834.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >수</text>
+<text x="874.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >목</text>
+<text x="914.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >금</text>
+<text x="954.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >토</text>
+<text x="994.0" y="860" font-size="9.5" fill="#8892a6" font-weight="400" text-anchor="middle" >일</text>
+<text x="748" y="882" font-size="10" fill="#8892a6" font-weight="700" text-anchor="start" >지금 흐름</text>
+<text x="748" y="898" font-size="12" fill="#4b5468">오늘 걸음 기록만으로 대략적인 상태를 봤어요.</text>
+<text x="748" y="915" font-size="12" fill="#4b5468"><tspan font-weight="700" fill="#1a2233">수면이나 활동 시간이 함께 연동되면 더 자세히 알려드려요.</tspan></text>
+<text x="748" y="940" font-size="10" fill="#8892a6" font-weight="700" text-anchor="start" >핵심 데이터</text>
+<circle cx="752" cy="966" r="3.5" fill="#12A150"/>
+<text x="764" y="970" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >걸음 수</text>
+<text x="884" y="970" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >5,120걸음</text>
+<rect x="1008" y="957" width="35" height="17" rx="8.5" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="1025.5" y="968.56" font-size="10" fill="#4b5468" font-weight="800" text-anchor="middle" >비슷</text>
+<rect x="734" y="996" width="332" height="82" rx="16" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<text x="900.0" y="1026" font-size="13" fill="#1a2233" font-weight="700" text-anchor="middle" >자기돌봄</text>
+<text x="900.0" y="1046" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" >식사 뒤나 오래 앉아 있던 뒤의 움직임을 확인할</text>
+<text x="900.0" y="1062" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" >데이터가 아직 부족해요. 시간대별 활동 기록이 쌓이면 보여드릴게요.</text>
+<rect x="734" y="1088" width="332" height="82" rx="16" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<text x="900.0" y="1118" font-size="13" fill="#1a2233" font-weight="700" text-anchor="middle" >일상안정</text>
+<text x="900.0" y="1138" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" >평소 리듬과 비교하려면 최근 며칠의 기록이 더 필요해요.</text>
+<text x="900.0" y="1154" font-size="10" fill="#8892a6" font-weight="400" text-anchor="middle" >데이터가 쌓이면 자동으로 표시돼요.</text>
+<rect x="40" y="1714" width="1160" height="340" rx="22" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<rect x="70" y="1732" width="26" height="26" rx="8" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="83" y="1750" font-size="12.5" fill="#2f66f5" font-weight="800" text-anchor="middle" >3</text>
+<text x="106" y="1751" font-size="18" fill="#1a2233" font-weight="800" text-anchor="start" >구간 표시 규칙</text>
+<text x="106" y="1770" font-size="12" fill="#8892a6" font-weight="400" text-anchor="start" >내부 점수를 사용자에게는 세 개의 상태 라벨로만 보여준다. 경계 점수는 잠정치(8장).</text>
+<text x="78" y="1820" font-size="11" fill="#8892a6" font-weight="700" text-anchor="start" >지표</text>
+<text x="178" y="1820" font-size="11" fill="#8892a6" font-weight="700" text-anchor="start" >구간 3 · 좋음</text>
+<text x="328" y="1820" font-size="11" fill="#8892a6" font-weight="700" text-anchor="start" >구간 2 · 보통</text>
+<text x="478" y="1820" font-size="11" fill="#8892a6" font-weight="700" text-anchor="start" >구간 1 · 주의</text>
+<text x="628" y="1820" font-size="11" fill="#8892a6" font-weight="700" text-anchor="start" >경계(잠정)</text>
+<line x1="70" y1="1830" x2="810" y2="1830" stroke="#e6eaf2" stroke-width="2"/>
+<text x="78" y="1858" font-size="12.5" fill="#1a2233" font-weight="700" text-anchor="start" >생활여유</text>
+<rect x="178" y="1844" width="61" height="20" rx="10.0" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<text x="208.5" y="1857.6" font-size="11" fill="#12A150" font-weight="800" text-anchor="middle" >충분해요</text>
+<rect x="328" y="1844" width="72" height="20" rx="10.0" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="364.0" y="1857.6" font-size="11" fill="#4b5468" font-weight="800" text-anchor="middle" >보통이에요</text>
+<rect x="478" y="1844" width="61" height="20" rx="10.0" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="508.5" y="1857.6" font-size="11" fill="#D98A12" font-weight="800" text-anchor="middle" >부족해요</text>
+<text x="628" y="1858" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >66 이상 / 33~65 / 33 미만</text>
+<line x1="70" y1="1870" x2="810" y2="1870" stroke="#e6eaf2"/>
+<text x="78" y="1894" font-size="12.5" fill="#1a2233" font-weight="700" text-anchor="start" >자기돌봄</text>
+<rect x="178" y="1880" width="93" height="20" rx="10.0" fill="#e8f8ee" stroke="none" stroke-width="1" />
+<text x="224.5" y="1893.6" font-size="11" fill="#12A150" font-weight="800" text-anchor="middle" >잘하고 있어요</text>
+<rect x="328" y="1880" width="72" height="20" rx="10.0" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="364.0" y="1893.6" font-size="11" fill="#4b5468" font-weight="800" text-anchor="middle" >보통이에요</text>
+<rect x="478" y="1880" width="61" height="20" rx="10.0" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="508.5" y="1893.6" font-size="11" fill="#D98A12" font-weight="800" text-anchor="middle" >부족해요</text>
+<text x="628" y="1894" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >66 이상 / 33~65 / 33 미만</text>
+<line x1="70" y1="1906" x2="810" y2="1906" stroke="#e6eaf2"/>
+<text x="78" y="1930" font-size="12.5" fill="#1a2233" font-weight="700" text-anchor="start" >일상안정</text>
+<rect x="178" y="1916" width="82" height="20" rx="10.0" fill="#f1ecff" stroke="none" stroke-width="1" />
+<text x="219.0" y="1929.6" font-size="11" fill="#7C5CFC" font-weight="800" text-anchor="middle" >안정적이에요</text>
+<rect x="328" y="1916" width="61" height="20" rx="10.0" fill="#eef0f5" stroke="none" stroke-width="1" />
+<text x="358.5" y="1929.6" font-size="11" fill="#4b5468" font-weight="800" text-anchor="middle" >비슷해요</text>
+<rect x="478" y="1916" width="72" height="20" rx="10.0" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="514.0" y="1929.6" font-size="11" fill="#D98A12" font-weight="800" text-anchor="middle" >불안정해요</text>
+<text x="628" y="1930" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >66 이상 / 33~65 / 33 미만</text>
+<line x1="70" y1="1942" x2="810" y2="1942" stroke="#e6eaf2"/>
+<text x="846" y="1820" font-size="12" fill="#2f66f5" font-weight="700" text-anchor="start" >전일 대비</text>
+<text x="846" y="1838" font-size="11" fill="#4b5468" font-weight="400" text-anchor="start" >선택일과 직전일의 구간이 달라진 경우에만 지표명 옆에</text>
+<text x="846" y="1854" font-size="11" fill="#4b5468" font-weight="400" text-anchor="start" >▲ 좋아졌어요 / ▼ 낮아졌어요 표시. 같은 구간이면 · 변화 없음.</text>
+<text x="846" y="1894" font-size="12" fill="#2f66f5" font-weight="700" text-anchor="start" >주간 그래프</text>
+<text x="846" y="1912" font-size="11" fill="#4b5468" font-weight="400" text-anchor="start" >세 구간을 배경 띠로 깔고 실제 값이 있는 날만 점·선을 그린다.</text>
+<text x="846" y="1928" font-size="11" fill="#4b5468" font-weight="400" text-anchor="start" >y축 눈금·숫자·점 위 값 표기는 하지 않는다. 선택일은 속 빈 큰 원.</text>
+<text x="846" y="1944" font-size="11" fill="#4b5468" font-weight="400" text-anchor="start" >결측일은 선을 끊고 점을 찍지 않는다. 미래 요일은 비운다.</text>
+<text x="846" y="1984" font-size="12" fill="#2f66f5" font-weight="700" text-anchor="start" >구간 배지</text>
+<text x="846" y="2002" font-size="11" fill="#4b5468" font-weight="400" text-anchor="start" >카드 우측 상단에 라벨만. 좋음 = 지표 고유색, 보통 = 회색,</text>
+<text x="846" y="2018" font-size="11" fill="#4b5468" font-weight="400" text-anchor="start" >주의 = 경고색. 데이터 점(●) 색은 지표 고유색을 유지.</text>
+<rect x="40" y="2076" width="1160" height="390" rx="22" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<rect x="70" y="2094" width="26" height="26" rx="8" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="83" y="2112" font-size="12.5" fill="#2f66f5" font-weight="800" text-anchor="middle" >4</text>
+<text x="106" y="2113" font-size="18" fill="#1a2233" font-weight="800" text-anchor="start" >카드 구성과 지표별 문구</text>
+<rect x="70" y="2152" width="22" height="22" rx="7" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="81" y="2167" font-size="11" fill="#2f66f5" font-weight="800" text-anchor="middle" >1</text>
+<text x="102" y="2167" font-size="12.5" fill="#1a2233" font-weight="700" text-anchor="start" >헤더</text>
+<text x="200" y="2167" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >지표명 · 전일 대비 방향 · 지표 설명 한 줄 · 우측 구간 배지</text>
+<rect x="70" y="2182" width="22" height="22" rx="7" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="81" y="2197" font-size="11" fill="#2f66f5" font-weight="800" text-anchor="middle" >2</text>
+<text x="102" y="2197" font-size="12.5" fill="#1a2233" font-weight="700" text-anchor="start" >주간 그래프</text>
+<text x="200" y="2197" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >세 구간 배경 띠 위에 선택 주의 흐름을 선으로. 숫자 없음</text>
+<rect x="70" y="2212" width="22" height="22" rx="7" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="81" y="2227" font-size="11" fill="#2f66f5" font-weight="800" text-anchor="middle" >3</text>
+<text x="102" y="2227" font-size="12.5" fill="#1a2233" font-weight="700" text-anchor="start" >지금 흐름</text>
+<text x="200" y="2227" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >구간이 그렇게 나온 이유를 1~2문장. 그래프가 흐름을 맡으므로 최근 변화와 이유에 집중</text>
+<rect x="70" y="2242" width="22" height="22" rx="7" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="81" y="2257" font-size="11" fill="#2f66f5" font-weight="800" text-anchor="middle" >4</text>
+<text x="102" y="2257" font-size="12.5" fill="#1a2233" font-weight="700" text-anchor="start" >핵심 데이터</text>
+<text x="200" y="2257" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >지표 산출에 쓰인 항목만 값 + 상태 칩으로. 보조 데이터 영역은 두지 않는다</text>
+<line x1="70" y1="2288" x2="1170" y2="2288" stroke="#e6eaf2"/>
+<rect x="70" y="2300" width="8" height="20" rx="3" fill="#12A150" stroke="none" stroke-width="1" />
+<text x="86" y="2314" font-size="12.5" fill="#1a2233" font-weight="800" text-anchor="start" >생활여유</text>
+<text x="170" y="2314" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >오늘 하루를 무리 없이 이어갈 힘이 남아 있는지</text>
+<text x="170" y="2329" font-size="10.5" fill="#8892a6" font-weight="400" text-anchor="start" >오늘 하루 안에서 움직임이 얼마나 분산되어 있는지, 오래 굳어 있는 구간과 늦은 시간에 몰린 활동, 수면 부족을 본다</text>
+<rect x="70" y="2340" width="8" height="20" rx="3" fill="#D98A12" stroke="none" stroke-width="1" />
+<text x="86" y="2354" font-size="12.5" fill="#1a2233" font-weight="800" text-anchor="start" >자기돌봄</text>
+<text x="170" y="2354" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >몸을 챙길 수 있는 순간에 실제로 움직였는지</text>
+<text x="170" y="2369" font-size="10.5" fill="#8892a6" font-weight="400" text-anchor="start" >식사 뒤·오래 앉아 있던 뒤처럼 조절할 수 있는 순간이 몇 번 있었고 그중 몇 번에 실제 움직임이 이어졌는지를 본다</text>
+<rect x="70" y="2380" width="8" height="20" rx="3" fill="#7C5CFC" stroke="none" stroke-width="1" />
+<text x="86" y="2394" font-size="12.5" fill="#1a2233" font-weight="800" text-anchor="start" >일상안정</text>
+<text x="170" y="2394" font-size="12" fill="#1a2233" font-weight="600" text-anchor="start" >자고 일어나고 움직이는 시간이 평소 리듬대로 유지되는지</text>
+<text x="170" y="2409" font-size="10.5" fill="#8892a6" font-weight="400" text-anchor="start" >최근 7일의 생활 신호가 그 사람의 평소 범위(직전 21일) 안에서 유지되는지, 어느 방향으로 벗어나는지를 본다</text>
+<text x="70" y="2446" font-size="10.5" fill="#8892a6" font-weight="400" text-anchor="start" >문장 규칙 — 설명 한 줄은 '~인지' 질문형, 판단어 없이, 데이터 용어 대신 생활 장면으로. 지금 흐름은 '이번 주는' 같은 달력 주어를 쓰지 않고 '며칠째 ~하다가 어제부터'처럼 상대 시간으로 쓴다.</text>
+<rect x="40" y="2488" width="1160" height="340" rx="22" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<rect x="70" y="2506" width="26" height="26" rx="8" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="83" y="2524" font-size="12.5" fill="#2f66f5" font-weight="800" text-anchor="middle" >5</text>
+<text x="106" y="2525" font-size="18" fill="#1a2233" font-weight="800" text-anchor="start" >핵심 데이터 매핑 · 예외 처리</text>
+<text x="106" y="2544" font-size="12" fill="#8892a6" font-weight="400" text-anchor="start" >● 카드에 값과 함께 노출 / – 비노출. 활동 칼로리·체지방률·BMI·혈압·혈당·식사 기록·질문 응답은 화면에 노출하지 않는다.</text>
+<text x="78" y="2590" font-size="10.5" fill="#8892a6" font-weight="700" text-anchor="start" >데이터</text>
+<text x="188" y="2590" font-size="10.5" fill="#8892a6" font-weight="700" text-anchor="start" >생활여유</text>
+<text x="278" y="2590" font-size="10.5" fill="#8892a6" font-weight="700" text-anchor="start" >자기돌봄</text>
+<text x="368" y="2590" font-size="10.5" fill="#8892a6" font-weight="700" text-anchor="start" >일상안정</text>
+<text x="458" y="2590" font-size="10.5" fill="#8892a6" font-weight="700" text-anchor="start" >상태 칩 예</text>
+<line x1="70" y1="2598" x2="600" y2="2598" stroke="#e6eaf2" stroke-width="2"/>
+<text x="78" y="2616" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >수면</text>
+<text x="188" y="2616" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="278" y="2616" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >–</text>
+<text x="368" y="2616" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="458" y="2616" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >충분 / 보통 / 부족</text>
+<line x1="70" y1="2624" x2="600" y2="2624" stroke="#e6eaf2"/>
+<text x="78" y="2640" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >활동 시간</text>
+<text x="188" y="2640" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="278" y="2640" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="368" y="2640" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="458" y="2640" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >많음 / 비슷 / 적음</text>
+<line x1="70" y1="2648" x2="600" y2="2648" stroke="#e6eaf2"/>
+<text x="78" y="2664" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >운동 시간</text>
+<text x="188" y="2664" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="278" y="2664" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="368" y="2664" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="458" y="2664" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >많음 / 비슷 / 낮음</text>
+<line x1="70" y1="2672" x2="600" y2="2672" stroke="#e6eaf2"/>
+<text x="78" y="2688" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >운동 기록</text>
+<text x="188" y="2688" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >–</text>
+<text x="278" y="2688" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="368" y="2688" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="458" y="2688" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >활발 / 가벼움 / 없음</text>
+<line x1="70" y1="2696" x2="600" y2="2696" stroke="#e6eaf2"/>
+<text x="78" y="2712" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >걸음 수</text>
+<text x="188" y="2712" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●*</text>
+<text x="278" y="2712" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >–</text>
+<text x="368" y="2712" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="458" y="2712" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >많음 / 적정 / 적음</text>
+<line x1="70" y1="2720" x2="600" y2="2720" stroke="#e6eaf2"/>
+<text x="78" y="2736" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >심박수</text>
+<text x="188" y="2736" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >–</text>
+<text x="278" y="2736" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >–</text>
+<text x="368" y="2736" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●</text>
+<text x="458" y="2736" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >안정 / 비슷 / 높음</text>
+<line x1="70" y1="2744" x2="600" y2="2744" stroke="#e6eaf2"/>
+<text x="78" y="2760" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >체중</text>
+<text x="188" y="2760" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >–</text>
+<text x="278" y="2760" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >–</text>
+<text x="368" y="2760" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >●*</text>
+<text x="458" y="2760" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >비슷 / 변화</text>
+<line x1="70" y1="2768" x2="600" y2="2768" stroke="#e6eaf2"/>
+<text x="70" y="2784" font-size="10" fill="#8892a6" font-weight="400" text-anchor="start" >* 걸음 수: 생활여유는 걸음만 있는 날에만 노출 · 체중: 기록이 있을 때만</text>
+<text x="650" y="2592" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >지표 산출 불가(데이터 부족)</text>
+<text x="650" y="2608" font-size="10.5" fill="#4b5468" font-weight="400" text-anchor="start" >배지·그래프·해석 대신 지표명 + 안내 두 줄 카드로 대체. 최저 구간으로 대체하지 않는다</text>
+<text x="650" y="2632" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >저해상도 산출(걸음만, 생활여유)</text>
+<text x="650" y="2648" font-size="10.5" fill="#4b5468" font-weight="400" text-anchor="start" >배지는 표시하되 문장에 대략적 판단임과 연동 안내를 담고 방향 표시는 생략</text>
+<text x="650" y="2672" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >범위로만 산출(일상안정)</text>
+<text x="650" y="2688" font-size="10.5" fill="#4b5468" font-weight="400" text-anchor="start" >한 구간 안이면 그 구간으로. 여러 구간에 걸치면 '판단하기엔 아직 이른 상태예요' 안내</text>
+<text x="650" y="2712" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >디바이스 미연동</text>
+<text x="650" y="2728" font-size="10.5" fill="#4b5468" font-weight="400" text-anchor="start" >세 카드를 연동 유도 카드 하나로 대체</text>
+<text x="650" y="2752" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >지난 주 조회</text>
+<text x="650" y="2768" font-size="10.5" fill="#4b5468" font-weight="400" text-anchor="start" >'이미 끝난 주라 읽기 전용이에요' 안내 후 그 주 데이터로 렌더링</text>
+<text x="650" y="2792" font-size="11.5" fill="#1a2233" font-weight="700" text-anchor="start" >세 지표가 서로 다른 방향</text>
+<text x="650" y="2808" font-size="10.5" fill="#4b5468" font-weight="400" text-anchor="start" >각 카드는 독립 렌더링, 서로 참조해 조정하지 않는다</text>
+<rect x="40" y="2850" width="1160" height="200" rx="22" fill="#fff" stroke="#e6eaf2" stroke-width="1" />
+<rect x="70" y="2868" width="26" height="26" rx="8" fill="#eaf0ff" stroke="none" stroke-width="1" />
+<text x="83" y="2886" font-size="12.5" fill="#2f66f5" font-weight="800" text-anchor="middle" >6</text>
+<text x="106" y="2887" font-size="18" fill="#1a2233" font-weight="800" text-anchor="start" >확인 필요 항목</text>
+<rect x="70" y="2911" width="64" height="18" rx="5" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="102" y="2924" font-size="10" fill="#D98A12" font-weight="700" text-anchor="middle" >확인 필요</text>
+<text x="146" y="2924" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >1. 구간 경계 점수 — 세 지표 모두 66/33 잠정. 생활여유 저해상도 경로(35~65)는 이 경계로 항상 '보통'이 되므로 경로별 경계 분리 여부 포함 확정 필요</text>
+<rect x="70" y="2935" width="64" height="18" rx="5" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="102" y="2948" font-size="10" fill="#D98A12" font-weight="700" text-anchor="middle" >확인 필요</text>
+<text x="146" y="2948" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >2. 상태 칩 판정 기준 — 개인 기준선 대비인지 절대 기준인지</text>
+<rect x="70" y="2959" width="64" height="18" rx="5" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="102" y="2972" font-size="10" fill="#D98A12" font-weight="700" text-anchor="middle" >확인 필요</text>
+<text x="146" y="2972" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >3. 경계 부근 왕복 방지 — 경계 근처에서 매일 구간이 바뀌면 방향 표시가 잦아진다. 완충 폭(±2점 유지) 적용 여부</text>
+<rect x="70" y="2983" width="64" height="18" rx="5" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="102" y="2996" font-size="10" fill="#D98A12" font-weight="700" text-anchor="middle" >확인 필요</text>
+<text x="146" y="2996" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >4. 해석 문장 생성 방식 — 룰 기반 템플릿인지 생성형인지에 따라 검수 프로세스가 달라진다</text>
+<rect x="70" y="3007" width="64" height="18" rx="5" fill="#fff3e0" stroke="none" stroke-width="1" />
+<text x="102" y="3020" font-size="10" fill="#D98A12" font-weight="700" text-anchor="middle" >확인 필요</text>
+<text x="146" y="3020" font-size="11.5" fill="#4b5468" font-weight="400" text-anchor="start" >5. 주간 그래프 시각 디자인 — 띠 색 농도·라벨 위치·선 굵기, 지표 설명 한 줄의 위치(헤더 상시 vs ⓘ 툴팁)</text>
+<text x="620.0" y="3080" font-size="10.5" fill="#8892a6" font-weight="400" text-anchor="middle" >마이리포트 v2 · 생활 탭 &gt; 지표별 분석 화면정의서 — 산식 근거: mai-report-생활지표_기획서.html · 관련 정책: mai-report-홈생활화면정책.md · Sarah Lee · 마이허브 코퍼레이션 · 2026-09-16</text>
+</svg>

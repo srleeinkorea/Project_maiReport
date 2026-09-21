@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · AI 인사이트 처리 순서도</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:13.5px;line-height:1.6;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  h1{font-size:24px;font-weight:800;color:var(--ink-1);letter-spacing:-.02em;margin-bottom:6px}
+  .lead{font-size:13px;color:var(--ink-3);margin-bottom:22px}
+  .lane{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 26px;margin-bottom:18px}
+  .lane h2{font-size:16px;font-weight:800;color:var(--brand);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .lane h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);display:inline-flex;align-items:center;justify-content:center;font-size:12.5px}
+  /* 흐름 요소 */
+  .flow{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .node{border:1.5px solid #c9d4e8;border-radius:12px;padding:12px 16px;background:#fff;text-align:center;color:var(--ink-1);font-weight:600}
+  .node small{display:block;font-weight:400;color:var(--ink-3);font-size:12px;margin-top:2px}
+  .node.start{background:var(--brand);border-color:var(--brand);color:#fff;border-radius:999px;font-weight:800;align-self:center;padding:10px 24px}
+  .node.end{background:#e8f8ee;border-color:#bde8cf;border-radius:999px;font-weight:800;align-self:center;padding:10px 24px}
+  .node.q{background:var(--brand-soft);border-color:var(--brand);font-weight:800}
+  .node.q::before{content:"?";display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--brand);color:#fff;font-size:12px;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}
+  .node.out{background:#fafbfd;font-weight:500;color:var(--ink-2)}
+  .node.muted{background:#f1f3f7;border-color:#d3d8e2;color:var(--ink-2);font-weight:500}
+  .arrow{text-align:center;color:#98a4b8;font-size:18px;line-height:1;padding:6px 0}
+  .arrow.lbl{font-size:12px;font-weight:700;color:var(--ink-2)}
+  .arrow.lbl::before{content:"↓";display:block;font-size:18px;color:#98a4b8;font-weight:400}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  .branch{display:flex;flex-direction:column}
+  .branch .tag{align-self:center;font-size:12px;font-weight:800;padding:3px 12px;border-radius:999px;background:var(--brand-soft);color:var(--brand);margin-bottom:6px}
+  .branch .tag.no{background:#f1f3f7;color:var(--ink-2)}
+  .loop{border:1.5px dashed #c9d4e8;border-radius:14px;padding:14px 16px;margin:4px 0}
+  .loop .cap{font-size:12px;font-weight:800;color:var(--ink-3);margin-bottom:8px;text-align:center}
+  .note{background:#fffbeb;border:1px solid #f5d7a2;border-radius:10px;padding:10px 14px;font-size:12.5px;color:#7a5710;margin-top:12px}
+  .chain{display:flex;flex-direction:column;gap:0}
+  .step{display:grid;grid-template-columns:minmax(0,1.1fr) 44px minmax(0,1.6fr);align-items:center;gap:8px}
+  .step .node{text-align:left}
+  .step .yes{text-align:center;font-size:12px;font-weight:800;color:var(--brand)}
+  .step .yes::after{content:"→";display:block;font-size:16px;color:#98a4b8;font-weight:400}
+  .step .res{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#fafbfd;font-size:13px;color:var(--ink-1)}
+  .step .res b{display:block;font-size:12px;color:var(--ink-3);font-weight:700;margin-bottom:2px}
+  .no-arrow{grid-column:1;text-align:center;font-size:12px;font-weight:700;color:var(--ink-2);padding:2px 0}
+  .no-arrow::before{content:"↓ ";color:#98a4b8}
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .rules div{background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:12.5px}
+  .rules b{display:block;color:var(--ink-1);margin-bottom:4px;font-size:13px}
+  footer{text-align:center;font-size:12px;color:var(--ink-3);margin-top:10px}
+  @media(max-width:720px){.split,.rules{grid-template-columns:1fr}.step{grid-template-columns:1fr}.step .yes::after{content:"↓"}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AI 인사이트 · 처리 순서도</h1>
+  <p class="lead">탭 진입 → 보고 있는 주 판정 → 실행 가능 판정 → 분석 생성 → 결과 열람 → 주 종료 후 처리. 탭 진입과 주 이동, 분석 실행, 삭제마다 처음부터 다시 판정한다. 근거: AI인사이트_화면정의서 §1.4 · §3 · §5 · §6 · §9.</p>
+
+  <!-- ① -->
+  <section class="lane">
+    <h2><span class="n">1</span>진입 · 보고 있는 주 판정</h2>
+    <div class="flow">
+      <div class="node start">탭 진입 / 주 이동(‹ ›) / 오늘 버튼</div>
+      <div class="arrow">↓</div>
+      <div class="node">보고 있는 주 확정<small>날짜를 눌러도 바뀌지 않는다 · 주 단위로만 움직인다</small></div>
+      <div class="arrow">↓</div>
+      <div class="node q">그 주차에 분석 결과가 있는가?</div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="branch"><span class="tag">있음</span>
+          <div class="node out">요약 화면<small>한 줄 요약 · 종합 점수 · 종합 소견 · 핵심 인사이트</small></div>
+          <div class="arrow">↓</div>
+          <div class="node">버튼은 "다시 분석하기"<small>실행 가능 여부는 ②에서 판정</small></div>
+        </div>
+        <div class="branch"><span class="tag no">없음</span>
+          <div class="node out">분석 전 화면<small>안내 카드 · 검진정보 연동 안내(미연동일 때만)</small></div>
+          <div class="arrow">↓</div>
+          <div class="node">버튼은 "이번 주 분석하기"<small>지난 주면 "8월 3주 분석하기"</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="note">대상 기간은 주가 끝났는지에 따라 다르다. 끝난 주는 월~일 7일, 진행 중인 주는 어제를 마지막 날로 한 최근 7일. 기간 날짜는 화면에 쓰지 않되, 진행 중인 주는 "오늘 기준 최근 7일 기록을 분석해요"라고 문장으로 알린다(분석 전 · 요약 · 상세 세 곳). 본문이 지난 주 날짜를 인용해도 어긋나 보이지 않게 하기 위해서다.</div>
+  </section>
+
+  <!-- ② -->
+  <section class="lane">
+    <h2><span class="n">2</span>실행 가능 판정</h2>
+    <p class="lead">위에서부터 차례로 보고, 걸리는 즉시 버튼을 비활성하고 그 사유만 한 줄 보여준다.</p>
+    <div class="chain">
+      <div class="step">
+        <div class="node q">건강 데이터가 연동돼 있는가?</div>
+        <div class="yes">아니오</div>
+        <div class="res"><b>실행 불가</b>버튼 대신 건강 데이터 연동 안내</div>
+      </div>
+      <div class="no-arrow">예</div>
+      <div class="step">
+        <div class="node q">최근 4주 안의 주차인가?</div>
+        <div class="yes">아니오</div>
+        <div class="res"><b>실행 불가</b>결과가 있으면 조회만, 없으면 "지난 기록은 분석할 수 없어요"</div>
+      </div>
+      <div class="no-arrow">예</div>
+      <div class="step">
+        <div class="node q">대상 기간 7일 중 기록이 기준 일수 이상인가?<small>기준 일수는 기개발 버전을 따른다</small></div>
+        <div class="yes">아니오</div>
+        <div class="res"><b>실행 불가</b>"기록이 아직 적어요. 며칠 더 쌓이면 분석할 수 있어요"</div>
+      </div>
+      <div class="no-arrow">예</div>
+      <div class="step">
+        <div class="node q">이미 결과가 있는가?</div>
+        <div class="yes">아니오</div>
+        <div class="res"><b>실행 가능</b>최초 분석 → ③</div>
+      </div>
+      <div class="no-arrow">예 (재분석 판정으로)</div>
+      <div class="step">
+        <div class="node q">진행 중인 주인가?</div>
+        <div class="yes">예</div>
+        <div class="res"><b>주차당 3회까지</b>3회를 다 썼으면 "이번 주 분석 가능 횟수를 모두 썼어요. 주가 끝나면 한 주 전체로 다시 분석할 수 있어요" · 오늘 이미 썼으면 "오늘 이미 분석했어요. 남은 n회는 내일부터 쓸 수 있어요" · 아니면 실행 가능</div>
+      </div>
+      <div class="no-arrow">아니오 (끝난 주)</div>
+      <div class="step">
+        <div class="node q">주가 끝난 뒤 처음 보는가?</div>
+        <div class="yes">예</div>
+        <div class="res"><b>실행 가능</b>"이번 주가 끝났어요. 한 주 전체로 다시 분석할 수 있어요"</div>
+      </div>
+      <div class="no-arrow">아니오</div>
+      <div class="step">
+        <div class="node q">검진정보나 기록이 새로 들어왔는가?</div>
+        <div class="yes">예</div>
+        <div class="res"><b>실행 가능</b>"검진정보가 연동돼 다시 분석할 수 있어요" / "기록이 추가돼 다시 분석할 수 있어요"</div>
+      </div>
+      <div class="no-arrow">아니오</div>
+      <div class="step">
+        <div class="node muted">그 외</div>
+        <div class="yes">—</div>
+        <div class="res"><b>실행 불가</b>"새로 반영할 기록이 없어요"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ -->
+  <section class="lane">
+    <h2><span class="n">3</span>분석 생성</h2>
+    <div class="flow">
+      <div class="node start">분석 실행</div>
+      <div class="arrow lbl">이미 결과가 있으면 확인 시트("새 결과로 바뀌고 지금 결과는 저장되지 않아요")</div>
+      <div class="node">진행 표시<small>화면을 떠나도 계속 진행 · 돌아오면 상태를 이어서 보여준다</small></div>
+      <div class="arrow">↓</div>
+      <div class="node">대상 기간 7일의 기록을 읽는다<small>활동 · 수면 · 심박 · (연동돼 있으면) 검진 결과</small></div>
+      <div class="arrow">↓</div>
+      <div class="loop">
+        <div class="cap">영역마다 반복 — 활동량 · 수면 · 심박수 · 건강검진 · 기타</div>
+        <div class="node q">그 영역 기록이 기준 일수 이상인가?<small>기준 일수는 기개발 버전을 따른다</small></div>
+        <div class="arrow">↓</div>
+        <div class="split">
+          <div class="branch"><span class="tag">예</span>
+            <div class="node out">영역 카드 생성<small>소제목 · 설명(근거 값과 날짜 포함) · 제안 1~3가지</small></div>
+          </div>
+          <div class="branch"><span class="tag no">아니오</span>
+            <div class="node muted">카드 만들지 않음<small>종합 소견에 한 문장으로 밝히고 점수 계산에서도 제외</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="node">종합 점수 계산<small>카드가 만들어진 영역만으로 0~100 산출</small></div>
+      <div class="arrow">↓</div>
+      <div class="node">요약 문장 작성<small>한 줄 요약 · 종합 소견 · 핵심 인사이트(영역별 한 줄)</small></div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="branch"><span class="tag">성공</span>
+          <div class="node end">요약 화면으로 전환 · 이력에 그 주차 한 줄<small>이전 결과가 있었다면 대체되고 남지 않는다</small></div>
+        </div>
+        <div class="branch"><span class="tag no">실패</span>
+          <div class="node muted">안내 한 줄 + 다시 시도<small>기존 결과가 있으면 그대로 유지</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="note">검진정보가 없으면 건강검진 영역을 만들지 않고, 그 사실을 종합 소견에 밝힌다. 기록 일수가 실행 기준을 겨우 넘긴 주도 종합 소견에 함께 쓴다.<br>실행에 필요한 최소 기록 일수와 영역 카드를 만드는 데 필요한 기록 일수는 새로 정하지 않고 현재 개발이 완료된 기개발 버전의 기준을 그대로 따른다.</div>
+  </section>
+
+  <!-- ④ -->
+  <section class="lane">
+    <h2><span class="n">4</span>결과 열람 · 삭제</h2>
+    <div class="flow">
+      <div class="node start">요약 화면</div>
+      <div class="arrow lbl">"자세히 보기"</div>
+      <div class="node">주차 인사이트 상세<small>기본은 상세 분석 탭 · 스크롤 위치는 탭별로 기억</small></div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="branch"><span class="tag">상세 분석</span>
+          <div class="node out">영역 카드 목록<small>활동량 → 수면 → 심박수 → 건강검진 → 기타</small></div>
+        </div>
+        <div class="branch"><span class="tag">변화 추이</span>
+          <div class="node out">이번 주 점수 변화 · 주차별 분석 이력<small>행을 누르면 그 주차 상세로 이동</small></div>
+        </div>
+      </div>
+      <div class="arrow lbl">삭제</div>
+      <div class="node q">확인 시트에서 삭제를 선택했는가?</div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="branch"><span class="tag">예</span>
+          <div class="node end">그 주차 결과·이력 행 제거 → 이후 주차 변화량 재계산 → 생활 탭 복귀</div>
+        </div>
+        <div class="branch"><span class="tag no">아니오</span>
+          <div class="node muted">상세 화면 유지</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ -->
+  <section class="lane">
+    <h2><span class="n">5</span>주가 끝난 뒤</h2>
+    <div class="flow">
+      <div class="node start">일요일 경과</div>
+      <div class="arrow">↓</div>
+      <div class="node q">그 주차 결과가 진행 중 기준으로 만들어졌는가?</div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="branch"><span class="tag">예</span>
+          <div class="node">다시 분석하기가 열린다<small>다시 분석하면 월~일 기준 새 결과로 대체 · 기준 안내 문구가 사라지고 이력 행의 기간이 채워진다</small></div>
+          <div class="arrow lbl">다시 분석하지 않으면</div>
+          <div class="node muted">진행 중 기준 결과가 그대로 남는다<small>이력의 기간 자리에 "최근 7일 기준"이 적혀 기준 차이가 드러난다</small></div>
+        </div>
+        <div class="branch"><span class="tag no">아니오</span>
+          <div class="node out">월~일 기준 결과 유지<small>입력이 바뀌지 않으면 재분석 불가</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="note">시스템이 주 종료 시 자동으로 다시 계산하지 않고, 이력에서 빼지도 않는다. 사용자가 누르지 않으면 진행 중 기준 결과가 그 주차의 결과로 남는다. 겹친 주차는 직전 주차와 점수가 실제보다 비슷하게 나올 수 있는데, 이는 감수한다(화면정의서 §6.2).</div>
+  </section>
+
+  <!-- ⑥ -->
+  <section class="lane">
+    <h2><span class="n">6</span>다시 판정하는 경우</h2>
+    <div class="rules">
+      <div><b>주 이동 ‹ ›</b>그 주차 결과를 불러오고 ①부터 다시 판정한다. 결과가 없으면 그 주차 이름의 실행 버튼</div>
+      <div><b>날짜 스트립 탭</b>화면 내용이 바뀌지 않는다. 다시 판정하지 않는다</div>
+      <div><b>검진정보 연동 완료</b>분석 전이면 연동 안내 블록이 사라지고, 결과가 있으면 재분석이 열린다</div>
+      <div><b>건강 데이터 동기화로 기록 증가</b>그 주차의 기록 일수를 다시 세고 재분석 가능 여부를 갱신한다</div>
+      <div><b>건강 데이터 연동 해제</b>기존 결과와 이력은 유지하고 새 분석만 막는다</div>
+      <div><b>결과 삭제</b>그 주차는 분석 전 상태로 돌아가고 이력에서도 빠진다</div>
+      <div><b>날짜가 바뀜(자정 경과)</b>진행 중인 주의 대상 기간이 하루 이동한다. 주차당 3회 중 남은 횟수가 있으면 다시 누를 수 있다</div>
+      <div><b>주가 끝남</b>⑤로 넘어간다</div>
+    </div>
+  </section>
+
+  <footer>마이리포트 v2 · AI 인사이트 처리 순서도 · 2026-09-17</footer>
+</div>
+</body>
+</html>

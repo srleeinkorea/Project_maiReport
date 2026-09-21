@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  body{font-family:Inter,-apple-system,"Noto Sans KR",sans-serif;font-size:12px;color:#1a2233;margin:0;padding:16px;background:#fff}
+  h1{font-size:14px;margin:0 0 6px}
+  p{margin:0 0 12px;color:#4b5468;line-height:1.5}
+  .drop{border:1.5px dashed #c9d4e8;border-radius:10px;padding:22px 12px;text-align:center;color:#6e788c;cursor:pointer;background:#f7f9fc}
+  .drop.on{border-color:#2f66f5;background:#eef3ff}
+  .drop b{display:block;color:#1a2233;margin-bottom:4px}
+  input[type=file]{display:none}
+  .file{margin-top:10px;padding:10px 12px;border-radius:8px;background:#f1f3f7;font-size:11.5px;display:none;line-height:1.5}
+  .file.show{display:block}
+  .opt{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+  label{display:flex;align-items:center;gap:8px;font-size:11.5px;color:#4b5468}
+  input[type=number]{width:70px;padding:5px 7px;border:1px solid #d7deea;border-radius:6px;font-size:11.5px}
+  button{margin-top:14px;width:100%;padding:11px;border:0;border-radius:8px;background:#2f66f5;color:#fff;font-weight:700;font-size:12.5px;cursor:pointer}
+  button:disabled{background:#c9d4e8;cursor:not-allowed}
+  .st{margin-top:10px;font-size:11px;color:#8892a6;min-height:16px}
+  .err{color:#e8365d}
+</style>
+</head>
+<body>
+  <h1>문서 보드 생성</h1>
+  <p>화면정의서·기획서 <b>HTML</b>(또는 JSON)을 고르면 오토 레이아웃 프레임으로 만들어요. 생성 후에는 Figma에서 바로 편집할 수 있어요.</p>
+  <div class="drop" id="drop"><b>HTML · JSON 파일 선택 또는 끌어다 놓기</b>mai-report-*.html 그대로 넣으면 돼요</div>
+  <input type="file" id="file" accept=".html,.htm,.json,text/html,application/json">
+  <div class="file" id="fileInfo"></div>
+  <div class="opt">
+    <label>보드 폭 <input type="number" id="width" value="1200" min="800" max="2400" step="50"> px</label>
+    <label><input type="checkbox" id="replace" checked> 같은 제목의 기존 보드가 있으면 지우고 다시 만들기</label>
+  </div>
+  <button id="go" disabled>보드 생성</button>
+  <div class="st" id="status"></div>
+<script>
+/* ───────── HTML → 문서 블록 변환 ─────────
+   maiReport 문서 공통 구조를 읽는다.
+   hero: .hero h1 / .hero p / .hero .meta      장: section.card | div.card  (h2 안의 .n/.num = 번호)
+   블록: h3 · p · ul/ol · table · .callout(.warn/.risk) · .formula-box · .grid2/.grid3(.mini/.minicard) · .flow · .tile · .band · .sample */
+function txt(el){
+  if(!el) return '';
+  const c = el.cloneNode(true);
+  c.querySelectorAll('br').forEach(b => b.replaceWith('\n'));
+  c.querySelectorAll('script,style').forEach(n => n.remove());
+  // 라벨(.pill)이 붙어 있으면 텍스트가 이어져 버리므로 " / "로 구분한다
+  const pills = [...c.querySelectorAll('.pill')].map(p => ({ p, afterPill: !!(p.previousElementSibling && p.previousElementSibling.classList.contains('pill')) }));
+  pills.forEach(({p, afterPill}) => p.replaceWith(document.createTextNode((afterPill ? ' / ' : '') + p.textContent.trim())));
+  return c.textContent.replace(/[ \t]+/g,' ').replace(/\s*\n\s*/g,'\n').trim();
+}
+function tableBlock(tbl){
+  const trs = [...tbl.querySelectorAll('tr')].filter(tr => !tr.closest('table').isSameNode(tbl) ? false : true);
+  // 셀 = {text, span}. colspan은 span으로 넘겨 플러그인이 폭을 합친다
+  const rows = trs.map(tr => [...tr.children].map(td => ({ text: txt(td), span: Math.max(1, +(td.getAttribute('colspan')||1)) })));
+  if(!rows.length) return null;
+  const n = Math.max(...rows.map(r => r.reduce((a,c)=>a+c.span,0)));
+  // 열 폭: th의 width(px | %)가 있으면 고정 px(%는 1000px 기준 환산), 없으면 null(남는 폭을 나눠 가짐)
+  let cols = [...trs[0].children].map(th => { const m = /width:\s*([\d.]+)\s*(px|%)/.exec(th.getAttribute('style')||''); if(!m) return null; return m[2]==='%' ? Math.round(+m[1]*10) : +m[1]; });
+  const spans0 = [...trs[0].children].map(th => Math.max(1, +(th.getAttribute('colspan')||1)));
+  const expanded = []; cols.forEach((c,i)=>{ for(let k=0;k<spans0[i];k++) expanded.push(k===0 ? c : null); }); cols = expanded;
+  while(cols.length < n) cols.push(null);
+  // 남은 셀은 빈 칸으로 채움
+  rows.forEach(r => { let w = r.reduce((a,c)=>a+c.span,0); while(w < n){ r.push({text:'', span:1}); w++; } });
+  return { type:'table', cols, rows };
+}
+/* 샘플 화면(.sample) → 구조 블록. 색은 인라인 style의 CSS 변수/hex를 읽는다 */
+const VARS = { meal:'#E5893A', move:'#E8365D', sleep:'#5B5BD6', brand:'#2F66F5', green:'#12A150', amber:'#D98A12', warn:'#E5893A', purple:'#7C5CFC', 'ink-1':'#1A2233', 'ink-2':'#4B5468', 'ink-3':'#8892A6' };
+function colorOf(el){
+  if(!el) return null;
+  const st = el.getAttribute('style') || '';
+  const v = /color:\s*var\(--([\w-]+)\)/.exec(st); if(v && VARS[v[1]]) return VARS[v[1]];
+  const h = /color:\s*(#[0-9a-fA-F]{6})/.exec(st); if(h) return h[1];
+  for(const k of ['meal','move','sleep']) if(el.classList.contains(k)) return VARS[k];
+  return null;
+}
+function sampleBlock(el){
+  const items = [];
+  for(const c of [...el.children]){
+    const cl = c.classList;
+    if(cl.contains('lab')) items.push({kind:'label', text:txt(c)});
+    else if(cl.contains('s-tiles')){
+      items.push({kind:'tiles', items:[...c.children].map(t => ({ label:txt(t.querySelector('small')), labelColor:colorOf(t.querySelector('small')), text:txt(t.querySelector('b')), emoji:txt(t.querySelector('.em')), done:t.classList.contains('done'), lock:t.classList.contains('lock') }))});
+    }
+    else if(cl.contains('sk-lead')) items.push({kind:'lead', text:txt(c)});
+    else if(cl.contains('sk-tiles')){
+      items.push({kind:'streak', items:[...c.children].map(t => { const k=['meal','move','sleep'].find(x=>t.classList.contains(x)); const off=t.classList.contains('off'); return { label:txt(t.querySelector('small')), color:off?'#B6C0D1':(VARS[k]||'#8892A6'), tint:off?'#EEF1F6':k==='meal'?'#FFF4E8':k==='move'?'#FFEEF2':k==='sleep'?'#EEF0FF':'#F5F7FB', big:txt(t.querySelector('b')), sub:txt(t.querySelector('span')), soft:off||t.classList.contains('before')||t.classList.contains('restart') }; })});
+    }
+    else if(cl.contains('sk-recent')){
+      items.push({kind:'days', items:[...c.children].map(d => ({ label:txt(d.querySelector('small')), on:d.classList.contains('on') }))});
+    }
+    else if(cl.contains('hd')){
+      items.push({kind:'head', text:txt(c.querySelector('b')), badge:txt(c.querySelector('.badge')), badgeColor:colorOf(c.querySelector('.badge'))});
+    }
+    else if(c.tagName==='H4'){ items.push({kind:'head', text:txt(c)}); }
+    else if(cl.contains('cmt')){
+      const k = ['meal','move','sleep'].find(x=>cl.contains(x));
+      const body = c.querySelector('p'); const btn = c.querySelector('.btn');
+      items.push({kind:'comment', title:txt(c.querySelector('small')), body:txt(body), button:txt(btn), color:k?VARS[k]:'#4B5468', tint:k==='meal'?'#FFF4E8':k==='move'?'#FFEEF2':k==='sleep'?'#EEF0FF':'#EEF1F6'});
+    }
+    else if(cl.contains('ins')) items.push({kind:'p', text:txt(c)});
+    else if(cl.contains('row')){ const parts=[...c.children].map(txt); items.push({kind:'kv', k:parts[0]||txt(c), v:parts[1]||''}); }
+    else if(c.tagName==='P') items.push({kind:'lead', text:txt(c)});
+    else items.push({kind:'p', text:txt(c)});
+  }
+  return { type:'sample', items };
+}
+function isMuted(el){ const st = el.getAttribute('style')||''; const m=/font-size:\s*([\d.]+)px/.exec(st); return (m && +m[1] <= 13) || el.classList.contains('note'); }
+/* 순서도 요소(.flow .node .arrow .split .loop .chain) */
+function nodeKind(cl){ return cl.contains('start')?'start':cl.contains('end')?'end':cl.contains('q')?'q':cl.contains('muted')?'muted':cl.contains('out')?'out':'node'; }
+function flowNode(el){ const small = el.querySelector('small'); const main = [...el.childNodes].filter(n => n.nodeType===3 || (n.nodeType===1 && n.tagName!=='SMALL')).map(n => n.textContent).join('').replace(/\s+/g,' ').trim(); return {type:'fnode', kind:nodeKind(el.classList), text: main, sub: txt(small)}; }
+function flowBlocks(container){
+  const out = [];
+  for(const el of [...container.children]){
+    const cl = el.classList;
+    if(cl.contains('node')) out.push(flowNode(el));
+    else if(cl.contains('arrow')){ const lbl = cl.contains('lbl') ? txt(el) : ''; out.push({type:'farrow', label:lbl}); }
+    else if(cl.contains('split')){
+      out.push({type:'fsplit', branches:[...el.children].filter(b=>b.classList.contains('branch')).map(b => ({ tag: txt(b.querySelector(':scope > .tag')), no: !!(b.querySelector(':scope > .tag') && b.querySelector(':scope > .tag').classList.contains('no')), blocks: flowBlocks({children:[...b.children].filter(c=>!c.classList.contains('tag'))}) }))});
+    }
+    else if(cl.contains('loop')){ out.push({type:'floop', cap: txt(el.querySelector(':scope > .cap')), blocks: flowBlocks({children:[...el.children].filter(c=>!c.classList.contains('cap'))})}); }
+    else if(cl.contains('chain')){
+      const steps = []; let pendingNo = false;
+      for(const c of [...el.children]){
+        if(c.classList.contains('no-arrow')){ pendingNo = true; continue; }
+        if(c.classList.contains('step')){ const q = c.querySelector('.node'); const res = c.querySelector('.res'); steps.push({ q: txt(q), qkind: nodeKind(q.classList), yes: txt(c.querySelector('.yes')), title: txt(res && res.querySelector('b')), body: res ? txt(res).replace(txt(res.querySelector('b')),'').trim() : '', noBefore: pendingNo }); pendingNo=false; }
+      }
+      out.push({type:'fchain', steps});
+    }
+    else if(cl.contains('flow')){ out.push(...flowBlocks(el)); }
+    else if(cl.contains('rules')){ out.push({type:'cards', columns:2, items:[...el.children].map(c => ({label: txt(c.querySelector('b')), text: txt(c).replace(txt(c.querySelector('b')),'').trim()}))}); }
+    else if(cl.contains('note')){ out.push({type:'callout', tone:'warn', text:txt(el)}); }
+    else if(el.tagName==='H2' || el.tagName==='H3'){ if(el.tagName==='H3') out.push({type:'h3', text:txt(el)}); }
+    else if(el.tagName==='P'){ const t=txt(el); if(t) out.push({type:'p', text:t}); }
+  }
+  return out;
+}
+function walk(container, blocks){
+  for(const el of [...container.children]){
+    const cl = el.classList;
+    const isFlowchart = (cl.contains('flow') && el.querySelector('.node')) || cl.contains('node') || cl.contains('split') || cl.contains('loop') || cl.contains('chain') || cl.contains('rules') || cl.contains('arrow');
+    if(isFlowchart){ blocks.push(...flowBlocks({children:[el]})); continue; }
+    if(el.tagName==='H3'){ blocks.push({type:'h3', text:txt(el)}); }
+    else if(el.tagName==='P'){ const t=txt(el); if(t) blocks.push({type:'p', text:t, muted:isMuted(el)}); }
+    else if(el.tagName==='UL' || el.tagName==='OL'){ blocks.push({type:'bullets', items:[...el.querySelectorAll(':scope > li')].map(txt)}); }
+    else if(el.tagName==='TABLE'){ const b=tableBlock(el); if(b) blocks.push(b); }
+    else if(cl.contains('callout')){ blocks.push({type:'callout', tone: cl.contains('risk')?'risk':cl.contains('warn')?'warn':'info', text:txt(el)}); }
+    else if(cl.contains('formula-box')){ blocks.push({type:'formula', lines: txt(el).split('\n')}); }
+    else if(cl.contains('grid2') || cl.contains('grid3')){
+      const items = [...el.children].map(c => ({ label: txt(c.querySelector('.label, b')), text: [...c.querySelectorAll('p')].map(txt).filter(Boolean).join('\n') || txt(c) })).filter(it => it.label || it.text);
+      if(items.length) blocks.push({type:'cards', columns: cl.contains('grid3')?3:2, items});
+    }
+    else if(cl.contains('flow')){
+      const items = [...el.children].map((c,i) => { const b=c.querySelector('b'); const nEl=c.querySelector('.n'); const title=txt(b); const num=nEl?txt(nEl):''; let rest=txt(c); if(num) rest=rest.replace(num,''); if(title) rest=rest.replace(title,''); return {num, title, text:rest.trim()}; });
+      blocks.push({type:'steps', items});
+    }
+    else if(cl.contains('tile')){
+      const cur = blocks[blocks.length-1];
+      const t = { tag: txt(el.querySelector('.tag')), name: txt(el.querySelector('.name')), q: txt(el.querySelector('p')), small: txt(el.querySelector('.small')) };
+      if(cur && cur.type==='tiles') cur.items.push(t); else blocks.push({type:'tiles', items:[t]});
+    }
+    else if(cl.contains('band')){ blocks.push({type:'callout', tone:'info', text:[...el.children].map(txt).join('  ·  ')}); }
+    else if(cl.contains('sample')){ blocks.push(sampleBlock(el)); }
+    else if(cl.contains('ex-grid')){
+      // 상황별 예시 화면 묶음: 각 .ex = 제목(.ex-t) + 카드(.card2) + 근거(.fix)
+      const exTitle = t => t ? [...t.childNodes].map(n => (n.textContent||'').trim()).filter(Boolean).join(' · ') : '';
+      const items = [...el.querySelectorAll(':scope > .ex')].map(ex => ({ title: exTitle(ex.querySelector('.ex-t')), sample: sampleBlock(ex.querySelector('.card2') || ex), note: txt(ex.querySelector('.fix')) }));
+      blocks.push({type:'examples', items});
+    }
+    else if(cl.contains('ind-head') || cl.contains('h-row') || cl.contains('toc') || cl.contains('sub')){ /* 제목·목차는 장 헤더에서 처리 */ }
+    else if(el.children.length){ walk(el, blocks); }   // 래퍼 div는 안으로
+  }
+}
+function fromHtml(html){
+  const d = new DOMParser().parseFromString(html, 'text/html');
+  const hero = d.querySelector('.hero');
+  const doc = {
+    eyebrow: txt(hero && (hero.querySelector('.tag') || hero.querySelector('.eyebrow'))) || '마이리포트 v2',
+    title: txt(hero && hero.querySelector('h1')) || d.title,
+    subtitle: txt(hero && hero.querySelector('p')),
+    meta: hero && hero.querySelector('.meta') ? [...hero.querySelector('.meta').children].map(txt).filter(Boolean).join('  ·  ') || txt(hero.querySelector('.meta')) : '',
+    footer: txt(d.querySelector('footer')).replace(/\n/g,' '),
+    sections: []
+  };
+  if(!hero){ const h1 = d.querySelector('h1'); const lead = d.querySelector('.lead'); doc.title = txt(h1) || d.title; doc.subtitle = txt(lead); doc.eyebrow = '마이리포트 v2'; }
+  const cards = [...d.querySelectorAll('section.card, div.card, section.lane')].filter(c => !c.closest('.sample'));
+  let auto = 0;
+  for(const card of cards){
+    const h2 = card.querySelector('h2');
+    if(!h2) continue;
+    const numEl = h2.querySelector('.n, .num');
+    let num = numEl ? txt(numEl) : '';
+    let title = txt(h2); if(num) title = title.replace(num,'').trim();
+    const small = h2.querySelector('small'); if(small){ title = title.replace(txt(small),'').trim() + ' · ' + txt(small); }
+    num = String(++auto);   // 문서 순서대로 다시 매긴다(번호 요소가 없는 지표 장이 섞여 있어도 1..n 연속)
+    const sub = txt(card.querySelector(':scope > .sub, :scope > p.sub'));
+    const blocks = [];
+    walk(card, blocks);
+    // 첫 p가 sub와 같으면 제거
+    if(blocks.length && blocks[0].type==='p' && blocks[0].text===sub) blocks.shift();
+    doc.sections.push({ num, title, sub, blocks });
+  }
+  return doc;
+}
+
+let doc = null, building = false, watchdog = null;
+const drop = document.getElementById('drop'), file = document.getElementById('file'), info = document.getElementById('fileInfo'), go = document.getElementById('go'), st = document.getElementById('status');
+const setStatus = (m, err) => { st.textContent = m; st.className = 'st' + (err ? ' err' : ''); };
+function endBuild(){ building = false; clearTimeout(watchdog); go.disabled = !doc; }
+function load(f){
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      doc = /\.json$/i.test(f.name) ? JSON.parse(r.result) : fromHtml(r.result);
+      if(!doc.sections || !doc.sections.length) throw new Error('장(section.card)을 찾지 못했어요');
+      const nb = doc.sections.reduce((a,s)=>a+s.blocks.length,0);
+      info.textContent = `${f.name}\n${doc.title} · ${doc.sections.length}개 장 · 블록 ${nb}개`; info.classList.add('show'); setStatus('');
+    } catch(e){ doc = null; setStatus('읽을 수 없어요: ' + e.message, true); }
+    endBuild();
+  };
+  r.onerror = () => { doc = null; setStatus('파일을 읽지 못했어요', true); endBuild(); };
+  r.readAsText(f, 'utf-8');
+}
+drop.onclick = () => { file.value = ''; file.click(); };     // 같은 파일을 다시 골라도 change가 발생하도록 초기화
+file.onchange = () => { if(file.files[0]) load(file.files[0]); file.value = ''; };
+drop.ondragover = e => { e.preventDefault(); drop.classList.add('on'); };
+drop.ondragleave = () => drop.classList.remove('on');
+drop.ondrop = e => { e.preventDefault(); drop.classList.remove('on'); if(e.dataTransfer.files[0]) load(e.dataTransfer.files[0]); };
+go.onclick = () => {
+  if(!doc || building) return;
+  building = true; go.disabled = true; setStatus('생성 중… 표가 많으면 수십 초 걸릴 수 있어요.');
+  clearTimeout(watchdog);
+  watchdog = setTimeout(() => { if(building){ setStatus('응답이 없어요. 플러그인을 닫았다가 다시 실행해 주세요.', true); endBuild(); } }, 120000);
+  parent.postMessage({ pluginMessage: { type:'build', doc: JSON.parse(JSON.stringify(doc)), width:+document.getElementById('width').value || 1200, replace:document.getElementById('replace').checked } }, '*');
+};
+window.onmessage = e => {
+  const m = e.data && e.data.pluginMessage; if(!m) return;
+  if(m.type==='done'){
+    // 생성이 끝나면 읽어 둔 문서와 파일 정보를 비워 다음 문서를 새로 고르게 한다
+    doc = null; info.textContent = ''; info.classList.remove('show');
+    setStatus(`완료 · ${m.nodes}개 노드 생성. 다른 문서를 넣어 이어서 만들 수 있어요.`); endBuild();
+  }
+  else if(m.type==='error'){ setStatus(m.message, true); endBuild(); }
+  else if(m.type==='progress'){ setStatus(m.message); }
+};
+</script>
+</body>
+</html>

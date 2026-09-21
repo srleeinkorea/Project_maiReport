@@ -1,0 +1,8 @@
+{
+  "name": "maiReport LIFE-001 실천 기록",
+  "id": "maireport-life001-streak",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": ["figma"],
+  "networkAccess": { "allowedDomains": ["none"] }
+}

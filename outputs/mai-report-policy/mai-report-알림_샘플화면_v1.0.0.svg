@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1580" viewBox="0 0 1400 1580" font-family="Noto Sans KR, Apple SD Gothic Neo, sans-serif">
+  <title>마이리포트 v2 · 알림 샘플 화면 (참고 화면 구조 기준)</title>
+  <defs>
+    <g id="ic-q"><rect width="40" height="40" rx="12" fill="#EEF3FF"/><text x="20" y="27" font-size="18" font-weight="800" fill="#2F66F5" text-anchor="middle">?</text></g>
+    <g id="ic-goal"><rect width="40" height="40" rx="12" fill="#E7F7ED"/><text x="20" y="27" font-size="17" font-weight="800" fill="#12A150" text-anchor="middle">✓</text></g>
+    <g id="ic-report"><rect width="40" height="40" rx="12" fill="#EEF0FF"/><text x="20" y="26" font-size="13" font-weight="800" fill="#5B5BD6" text-anchor="middle">AI</text></g>
+    <g id="ic-notice"><rect width="40" height="40" rx="12" fill="#FFF4E8"/><text x="20" y="27" font-size="17" font-weight="800" fill="#E5893A" text-anchor="middle">!</text></g>
+    <g id="ic-link"><rect width="40" height="40" rx="12" fill="#F1F3F7"/><text x="20" y="27" font-size="17" font-weight="800" fill="#8A93A5" text-anchor="middle">⟲</text></g>
+  </defs>
+  <rect width="1400" height="1580" fill="#EDEFF4"/>
+  <text x="40" y="44" font-size="20" font-weight="800" fill="#1A2233">알림 샘플 화면</text>
+  <text x="40" y="66" font-size="12" fill="#6E788C">참고 화면 구조 기준 · 무료 배포 기준 · 문구는 알림 정책 §4</text>
+
+  <!-- ================= 1. 알림 목록 (기본) ================= -->
+  <text x="40" y="104" font-size="13" font-weight="800" fill="#2F66F5">1. 알림 목록 · 기본</text>
+  <rect x="40" y="116" width="400" height="1400" rx="36" fill="#F5F6FA"/>
+  <text x="66" y="190" font-size="24" fill="#1A2233">‹</text>
+  <text x="240" y="188" font-size="19" font-weight="800" fill="#1A2233" text-anchor="middle">알림</text>
+
+  <text x="64" y="254" font-size="22" font-weight="800" fill="#1A2233">오늘</text>
+  <!-- card: 오늘의 질문 (읽지 않음) -->
+  <rect x="60" y="274" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-q" x="82" y="298"/>
+  <text x="136" y="318" font-size="14" fill="#8A93A5">오늘의 질문</text>
+  <text x="398" y="318" font-size="14" fill="#8A93A5" text-anchor="end">지금</text>
+  <text x="136" y="352" font-size="16" font-weight="700" fill="#1A2233">오늘의 질문이 준비됐어요.</text>
+
+  <!-- card: 리포트 (읽지 않음) -->
+  <rect x="60" y="398" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-notice" x="82" y="422"/>
+  <text x="136" y="442" font-size="14" fill="#8A93A5">공지사항</text>
+  <text x="398" y="442" font-size="14" fill="#8A93A5" text-anchor="end">30분 전</text>
+  <text x="136" y="476" font-size="16" font-weight="700" fill="#1A2233">앱이 새 버전으로 업데이트됐어요.</text>
+
+  <!-- card: 공지 (읽음, 두 줄) -->
+  <rect x="60" y="522" width="360" height="140" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-notice" x="82" y="546"/>
+  <text x="136" y="566" font-size="14" fill="#8A93A5">공지사항</text>
+  <text x="398" y="566" font-size="14" fill="#8A93A5" text-anchor="end">7시간 전</text>
+  <text x="136" y="600" font-size="16" fill="#4B5468">9월 18일 자정부터 새벽 1시까지 서버</text>
+  <text x="136" y="626" font-size="16" fill="#4B5468">작업으로 이용이 어려울 수 있어요.</text>
+
+  <text x="64" y="730" font-size="22" font-weight="800" fill="#1A2233">지난 메시지</text>
+  <rect x="60" y="750" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-goal" x="82" y="774"/>
+  <text x="136" y="794" font-size="14" fill="#8A93A5">건강 관리 리마인드</text>
+  <text x="398" y="794" font-size="14" fill="#8A93A5" text-anchor="end">어제</text>
+  <text x="136" y="828" font-size="16" fill="#4B5468">자기 전까지 오늘의 목표를 실천할 수 있어요.</text>
+
+  <rect x="60" y="874" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-q" x="82" y="898"/>
+  <text x="136" y="918" font-size="14" fill="#8A93A5">오늘의 질문</text>
+  <text x="398" y="918" font-size="14" fill="#8A93A5" text-anchor="end">어제</text>
+  <text x="136" y="952" font-size="16" fill="#4B5468">오늘의 질문이 준비됐어요.</text>
+
+  <rect x="60" y="998" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-q" x="82" y="1022"/>
+  <text x="136" y="1042" font-size="14" fill="#8A93A5">오늘의 질문</text>
+  <text x="398" y="1042" font-size="14" fill="#8A93A5" text-anchor="end">3일 전</text>
+  <text x="136" y="1076" font-size="16" fill="#4B5468">오늘의 질문이 준비됐어요.</text>
+
+  <rect x="60" y="1122" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-goal" x="82" y="1146"/>
+  <text x="136" y="1166" font-size="14" fill="#8A93A5">건강 관리 리마인드</text>
+  <text x="398" y="1166" font-size="14" fill="#8A93A5" text-anchor="end">5일 전</text>
+  <text x="136" y="1200" font-size="16" fill="#4B5468">자기 전까지 오늘의 목표를 실천할 수 있어요.</text>
+
+  <rect x="60" y="1246" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-notice" x="82" y="1270"/>
+  <text x="136" y="1290" font-size="14" fill="#8A93A5">공지사항</text>
+  <text x="398" y="1290" font-size="14" fill="#8A93A5" text-anchor="end">9월 9일</text>
+  <text x="136" y="1324" font-size="16" fill="#4B5468">앱이 새 버전으로 업데이트됐어요.</text>
+
+  <text x="240" y="1410" font-size="11" fill="#8A93A5" text-anchor="middle">읽지 않음 = 본문 굵게 · 읽음 = 보통 굵기</text>
+  <text x="240" y="1428" font-size="11" fill="#8A93A5" text-anchor="middle">화면을 열면 모두 읽음 처리 · 30일 지나면 삭제</text>
+  <text x="240" y="1446" font-size="11" fill="#8A93A5" text-anchor="middle">카드를 누르면 푸시와 같은 화면으로 이동</text>
+
+  <!-- ================= 2. 오늘 없음 ================= -->
+  <text x="480" y="104" font-size="13" font-weight="800" fill="#2F66F5">2. 알림 목록 · 오늘 받은 알림 없음</text>
+  <rect x="480" y="116" width="400" height="660" rx="36" fill="#F5F6FA"/>
+  <text x="506" y="190" font-size="24" fill="#1A2233">‹</text>
+  <text x="680" y="188" font-size="19" font-weight="800" fill="#1A2233" text-anchor="middle">알림</text>
+  <text x="504" y="254" font-size="22" font-weight="800" fill="#1A2233">지난 메시지</text>
+  <rect x="500" y="274" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-goal" x="522" y="298"/>
+  <text x="576" y="318" font-size="14" fill="#8A93A5">건강 관리 리마인드</text>
+  <text x="838" y="318" font-size="14" fill="#8A93A5" text-anchor="end">어제</text>
+  <text x="576" y="352" font-size="16" fill="#4B5468">자기 전까지 오늘의 목표를 실천할 수 있어요.</text>
+  <rect x="500" y="398" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-q" x="522" y="422"/>
+  <text x="576" y="442" font-size="14" fill="#8A93A5">오늘의 질문</text>
+  <text x="838" y="442" font-size="14" fill="#8A93A5" text-anchor="end">어제</text>
+  <text x="576" y="476" font-size="16" fill="#4B5468">오늘의 질문이 준비됐어요.</text>
+  <rect x="500" y="522" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <use href="#ic-notice" x="522" y="546"/>
+  <text x="576" y="566" font-size="14" fill="#8A93A5">공지사항</text>
+  <text x="838" y="566" font-size="14" fill="#8A93A5" text-anchor="end">3일 전</text>
+  <text x="576" y="600" font-size="16" fill="#4B5468">앱이 새 버전으로 업데이트됐어요.</text>
+  <text x="680" y="700" font-size="11" fill="#8A93A5" text-anchor="middle">오늘 항목이 없으면 "오늘" 구역을 숨긴다</text>
+  <text x="680" y="718" font-size="11" fill="#8A93A5" text-anchor="middle">(오전 알림이 재확인에서 버려진 날 등)</text>
+
+  <!-- ================= 3. 빈 상태 ================= -->
+  <text x="480" y="824" font-size="13" font-weight="800" fill="#2F66F5">3. 알림 목록 · 빈 상태</text>
+  <rect x="480" y="836" width="400" height="680" rx="36" fill="#F5F6FA"/>
+  <text x="506" y="910" font-size="24" fill="#1A2233">‹</text>
+  <text x="680" y="908" font-size="19" font-weight="800" fill="#1A2233" text-anchor="middle">알림</text>
+  <rect x="650" y="1080" width="60" height="60" rx="18" fill="#E9ECF3"/>
+  <text x="680" y="1120" font-size="24" fill="#B6C0D1" text-anchor="middle">◔</text>
+  <text x="680" y="1176" font-size="16" font-weight="700" fill="#4B5468" text-anchor="middle">받은 알림이 없어요</text>
+  <text x="680" y="1202" font-size="13" fill="#8A93A5" text-anchor="middle">오늘의 질문과 남은 목표 알림을 여기서 볼 수 있어요.</text>
+  <text x="680" y="1440" font-size="11" fill="#8A93A5" text-anchor="middle">첫 사용자 · 앱 설정에서 모든 유형을 끈 사용자</text>
+  <text x="680" y="1458" font-size="11" fill="#8A93A5" text-anchor="middle">앱 설정에서 끈 유형은 기록되지 않는다</text>
+
+  <!-- ================= 4. 알림 설정 ================= -->
+  <text x="920" y="104" font-size="13" font-weight="800" fill="#2F66F5">4. 알림 설정 · 기본</text>
+  <rect x="920" y="116" width="400" height="660" rx="36" fill="#F5F6FA"/>
+  <text x="946" y="190" font-size="24" fill="#1A2233">‹</text>
+  <text x="1120" y="188" font-size="19" font-weight="800" fill="#1A2233" text-anchor="middle">알림 설정</text>
+
+  <rect x="940" y="230" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <text x="964" y="278" font-size="17" font-weight="700" fill="#1A2233">알림 받기</text>
+  <text x="964" y="304" font-size="12.5" fill="#8A93A5">마이리포트의 모든 알림을 받아요.</text>
+  <rect x="1230" y="270" width="50" height="28" rx="14" fill="#2F66F5"/><circle cx="1266" cy="284" r="11" fill="#FFFFFF"/>
+
+  <rect x="940" y="362" width="360" height="150" rx="26" fill="#FFFFFF"/>
+  <text x="964" y="400" font-size="14" font-weight="700" fill="#1A2233">받게 되는 알림</text>
+  <text x="964" y="426" font-size="12.5" fill="#4B5468">오늘의 질문 · 건강 관리 리마인드</text>
+  <text x="964" y="446" font-size="12.5" fill="#4B5468">공지사항</text>
+  <text x="964" y="476" font-size="12" fill="#8A93A5">하루 2회를 넘지 않고, 밤 10시부터 아침 8시까지는</text>
+  <text x="964" y="494" font-size="12" fill="#8A93A5">보내지 않아요.</text>
+
+  <text x="1120" y="700" font-size="11" fill="#8A93A5" text-anchor="middle">스위치 하나 · 유형별 스위치 없음 · 기본값 켬</text>
+  <text x="1120" y="718" font-size="11" fill="#8A93A5" text-anchor="middle">끄면 어떤 알림도 보내지 않고 목록에도 기록하지 않는다</text>
+
+  <!-- ================= 5. 알림 설정 · OS 거부 ================= -->
+  <text x="920" y="824" font-size="13" font-weight="800" fill="#2F66F5">5. 알림 설정 · 휴대폰 알림이 꺼진 상태</text>
+  <rect x="920" y="836" width="400" height="680" rx="36" fill="#F5F6FA"/>
+  <text x="946" y="910" font-size="24" fill="#1A2233">‹</text>
+  <text x="1120" y="908" font-size="19" font-weight="800" fill="#1A2233" text-anchor="middle">알림 설정</text>
+
+  <rect x="940" y="950" width="360" height="120" rx="26" fill="#FFF4E8"/>
+  <text x="964" y="986" font-size="15" font-weight="700" fill="#6B4C0F">휴대폰 설정에서 알림이 꺼져 있어요</text>
+  <text x="964" y="1010" font-size="12.5" fill="#6B4C0F">앱 설정과 별개로 알림이 오지 않아요.</text>
+  <text x="964" y="1030" font-size="12.5" fill="#6B4C0F">받은 알림은 이 앱의 알림 목록에 남아요.</text>
+  <text x="1280" y="1054" font-size="12.5" font-weight="700" fill="#6B4C0F" text-anchor="end">휴대폰 설정 열기 ›</text>
+
+  <rect x="940" y="1090" width="360" height="112" rx="26" fill="#FFFFFF"/>
+  <text x="964" y="1138" font-size="17" font-weight="700" fill="#1A2233">알림 받기</text>
+  <text x="964" y="1164" font-size="12.5" fill="#8A93A5">마이리포트의 모든 알림을 받아요.</text>
+  <rect x="1230" y="1130" width="50" height="28" rx="14" fill="#2F66F5" fill-opacity="0.4"/><circle cx="1266" cy="1144" r="11" fill="#FFFFFF"/>
+
+  <rect x="940" y="1222" width="360" height="150" rx="26" fill="#FFFFFF"/>
+  <text x="964" y="1260" font-size="14" font-weight="700" fill="#1A2233">받게 되는 알림</text>
+  <text x="964" y="1286" font-size="12.5" fill="#4B5468">오늘의 질문 · 건강 관리 리마인드</text>
+  <text x="964" y="1306" font-size="12.5" fill="#4B5468">공지사항</text>
+  <text x="964" y="1336" font-size="12" fill="#8A93A5">하루 2회를 넘지 않고, 밤 10시부터 아침 8시까지는</text>
+  <text x="964" y="1354" font-size="12" fill="#8A93A5">보내지 않아요.</text>
+
+  <text x="1120" y="1440" font-size="11" fill="#8A93A5" text-anchor="middle">스위치는 켠 상태 그대로 흐리게 · 앱은 다시 묻지 않는다</text>
+  <text x="1120" y="1458" font-size="11" fill="#8A93A5" text-anchor="middle">OS 권한을 다시 허용하면 그대로 발송 재개</text>
+</svg>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 · 병원 탭 &gt; 검진요약 기획서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.75;letter-spacing:-.01em}
+  .wrap{max-width:1000px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:26px;padding:36px 38px;color:#fff;margin-bottom:20px}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:12px}
+  .hero h1{font-size:27px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.92);max-width:760px}
+  .hero .meta{margin-top:16px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px 30px;margin-bottom:16px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:16px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:20px 0 8px}
+  p{margin-bottom:8px}
+  ul{margin:4px 0 8px 18px}li{margin-bottom:4px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  .flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:10px 0}
+  .flow>div{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:12.5px;color:var(--ink-3);word-break:keep-all}
+  .flow .n{display:block;font-size:11px;font-weight:800;color:var(--brand)}
+  .flow b{display:block;font-size:15px;font-weight:700;color:var(--ink-1);margin:2px 0 4px}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .note{font-size:12px;color:var(--ink-3)}
+  @media(max-width:720px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:26px 20px}section.card{padding:22px 18px}td.k{white-space:normal}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 기획서</span>
+  <h1>병원 탭 &gt; 검진요약</h1>
+  <p>건강보험공단에서 받아온 검진 결과를, 숫자를 읽을 줄 몰라도 내 몸 상태가 지금 어떤지 한 화면에서 알 수 있게 정리해 주는 영역입니다. 생활 탭이 매일 쌓이는 기록을 다룬다면, 검진요약은 1~2년에 한 번 갱신되는 검진 결과를 다룹니다.</p>
+  <div class="meta"><span>버전 <b>2.0</b></span><span>기준일 <b>2026-09-17</b></span><span>대상 화면 <b>병원 탭 &gt; 검진요약</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">1 배경과 목표</a><a href="#s2">2 사용자</a><a href="#s3">3 해결하려는 것</a><a href="#s4">4 화면 구성</a><a href="#s5">5 이어지는 화면</a><a href="#s6">6 데이터</a><a href="#s7">7 원칙</a><a href="#s8">8 성공 기준</a><a href="#s9">9 범위</a><a href="#s10">10 확인 필요</a>
+</div>
+
+<section class="card" id="s1">
+  <h2><span class="n">1</span>배경과 목표</h2>
+  <div class="sub">왜 이 화면이 필요한가</div>
+  <p>사람들은 건강검진을 받고 나서 결과지를 한 번 훑어보고 서랍에 넣습니다. 수치는 남아 있는데 그게 좋은 건지 나쁜 건지, 작년보다 나아진 건지 판단이 안 되기 때문입니다. 병원이나 공단 사이트에 다시 들어가는 일도 번거롭습니다.</p>
+  <p><b>목표는 단순합니다.</b> 검진 결과를 앱 안으로 끌고 들어와, 사용자가 "내 몸 상태는 지금 이렇구나"를 한 번에 이해하고, 필요하면 다음 행동(위험도 분석, 항목별 상세, 올해 검진 예약)으로 이어지게 만드는 것입니다.</p>
+</section>
+
+<section class="card" id="s2">
+  <h2><span class="n">2</span>사용자</h2>
+  <div class="sub">누가, 어떤 상황에서 들어오는가</div>
+  <table>
+    <tr><th style="width:190px">사용자</th><th>상황</th><th>이 화면에서 원하는 것</th></tr>
+    <tr><td class="k">검진을 막 받은 사람</td><td>결과지를 받았는데 항목이 많아 무슨 뜻인지 모른다</td><td>중요한 것만 골라서 쉬운 말로</td></tr>
+    <tr><td class="k">몇 년째 안 받은 사람</td><td>내가 올해 대상인지 모른다</td><td>대상 여부와 다음 할 일</td></tr>
+    <tr><td class="k">관리 중인 사람</td><td>혈압·혈당 등 특정 수치를 계속 보고 있다</td><td>지난 결과와 비교, 항목별 상세</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s3">
+  <h2><span class="n">3</span>해결하려는 것</h2>
+  <div class="sub">문제 → 이 화면의 답</div>
+  <table>
+    <tr><th style="width:44%">사용자가 겪는 문제</th><th>화면이 주는 답</th></tr>
+    <tr><td>결과지를 다시 찾아보기 번거롭다</td><td>공단 인증 한 번으로 앱 안에 결과를 가져온다</td></tr>
+    <tr><td>수치만 봐서는 좋은지 나쁜지 모른다</td><td>항목마다 상태를 한 단어로 붙여준다</td></tr>
+    <tr><td>전체적으로 내 몸이 어떤지 감이 없다</td><td>건강 나이 한 숫자로 전체 인상을 먼저 준다</td></tr>
+    <tr><td>항목이 너무 많아 다 못 본다</td><td>주요 소견 몇 개만 먼저, 나머지는 펼쳐 보게 한다</td></tr>
+    <tr><td>결과를 봐도 뭘 해야 할지 모른다</td><td>위험도 분석과 검진 안내로 다음 행동을 연결한다</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s4">
+  <h2><span class="n">4</span>화면 구성</h2>
+  <div class="sub">세 가지 상태와 가져온 뒤의 카드 순서</div>
+  <div class="flow">
+    <div><span class="n">①</span><b>가져오기 전</b>무엇을 볼 수 있는지 안내하고 가져오기를 권한다</div>
+    <div><span class="n">②</span><b>가져오는 중</b>진행 상태와 예상 시간을 보여준다</div>
+    <div><span class="n">③</span><b>가져온 뒤</b>건강 나이 → 위험도 분석 → 주요 소견 → 검진 안내</div>
+    <div><span class="n">④</span><b>이어지는 화면</b>위험도 분석 · 전체 항목 · 항목 상세 · 검진 안내</div>
+  </div>
+  <h3>4.1 카드 순서를 이렇게 잡은 이유</h3>
+  <ul>
+    <li><b>건강 나이를 맨 위에</b> — 숫자 하나로 전체 인상을 먼저 준다. 실제 나이와의 차이를 같이 보여줘서 좋고 나쁨의 기준을 즉시 알 수 있게 한다.</li>
+    <li><b>위험도 분석을 두 번째에</b> — 전체 인상을 본 직후가 "그래서 나는 뭐가 위험한가"가 가장 궁금한 순간이다.</li>
+    <li><b>주요 소견을 세 번째에</b> — 근거가 되는 실제 수치. 왜 그런 건강 나이가 나왔는지 여기서 확인한다.</li>
+    <li><b>검진 안내를 맨 아래에</b> — 결과를 다 본 뒤에 나오는 다음 행동. 위에 있으면 결과 읽기를 방해한다.</li>
+  </ul>
+  <h3>4.2 주요 소견에 넣는 항목</h3>
+  <p>혈압 · 혈당 · 콜레스테롤 · 간 수치 · 신장 수치. 검진 항목 중 만성질환과 가장 직접 연결되고, 사용자가 이름만 들어도 무엇인지 아는 다섯 가지입니다. 나머지 항목은 전체 항목 보기로 넘깁니다.</p>
+  <div class="callout">항목마다 값 옆에 상태를 한 단어로 붙입니다. 사용자가 숫자를 해석할 필요 없이 "괜찮다 / 지켜봐야 한다 / 챙겨야 한다"를 바로 알 수 있게 하는 것이 이 카드의 핵심입니다.</div>
+</section>
+
+<section class="card" id="s5">
+  <h2><span class="n">5</span>이어지는 화면</h2>
+  <div class="sub">이 화면에서 나갈 수 있는 곳</div>
+  <table>
+    <tr><th style="width:200px">진입점</th><th>가는 곳</th><th>거기서 하는 일</th></tr>
+    <tr><td class="k">위험도 분석 배너</td><td>셀비 체크업</td><td>검진 결과를 근거로 10대 질환 위험도를 분석한 리포트를 본다. 외부 유료 서비스</td></tr>
+    <tr><td class="k">소견 항목</td><td>항목 상세</td><td>해당 항목의 의미, 기준 범위, 지난 결과와 비교</td></tr>
+    <tr><td class="k">전체 검진 항목 보기</td><td>전체 항목 목록</td><td>가져온 모든 항목을 본다</td></tr>
+    <tr><td class="k">검진 안내 확인하기</td><td>검진대상조회</td><td>올해 받을 수 있는 일반검진·암검진 항목과 수검 여부를 본다</td></tr>
+  </table>
+  <p class="note">위험도 분석은 외부 서비스인 셀비 체크업이 담당한다. 검진 결과와 생활 습관 입력을 받아 유료 리포트를 주며, 검진요약은 진입까지만 책임진다. 검진대상조회는 공단 조회 결과를 그대로 보여주는 화면으로, 앱에서 대상 여부를 판단하지 않는다.</p>
+</section>
+
+<section class="card" id="s6">
+  <h2><span class="n">6</span>데이터</h2>
+  <div class="sub">어디서 오고, 무엇을 계산하는가</div>
+  <table>
+    <tr><th style="width:200px">항목</th><th>출처</th><th>비고</th></tr>
+    <tr><td class="k">검진 수치</td><td>건강보험공단</td><td>그대로 보여준다. 앱에서 값을 바꾸지 않는다</td></tr>
+    <tr><td class="k">검진일자</td><td>건강보험공단</td><td>가장 최근 검진 기준</td></tr>
+    <tr><td class="k">검진 대상 여부</td><td>건강보험공단</td><td>해당 연도 기준</td></tr>
+    <tr><td class="k">항목별 상태</td><td>앱에서 판정</td><td>기준 범위 문서를 따른다</td></tr>
+    <tr><td class="k">건강 나이</td><td>앱에서 계산</td><td>검진 수치를 근거로 산출. 산식 문서를 따른다</td></tr>
+  </table>
+  <p class="note">앱이 계산하는 값(건강 나이, 항목별 상태)은 무엇을 근거로 했는지 화면에서 확인할 수 있어야 합니다. 사용자가 납득하지 못하면 숫자 자체가 의미를 잃습니다.</p>
+</section>
+
+<section class="card" id="s7">
+  <h2><span class="n">7</span>원칙</h2>
+  <div class="sub">이 화면을 만들 때 지키는 것</div>
+  <ul>
+    <li><b>진단하지 않는다.</b> 상태를 알려주되 병명을 붙이거나 치료를 권하지 않는다.</li>
+    <li><b>겁주지 않는다.</b> 좋지 않은 결과도 다음에 할 수 있는 일과 함께 전달한다.</li>
+    <li><b>숫자를 숨기지 않는다.</b> 쉬운 말로 요약하되 실제 수치를 항상 같이 보여준다.</li>
+    <li><b>빈 상태도 화면이다.</b> 데이터가 없을 때도 무엇을 얻을 수 있는지 먼저 보여준다.</li>
+    <li><b>먼저 보여줄 것을 고른다.</b> 모든 항목을 같은 무게로 늘어놓지 않는다.</li>
+  </ul>
+</section>
+
+<section class="card" id="s8">
+  <h2><span class="n">8</span>성공 기준</h2>
+  <div class="sub">무엇을 보고 잘 됐다고 판단하는가</div>
+  <table>
+    <tr><th style="width:240px">보는 것</th><th>의미</th></tr>
+    <tr><td class="k">가져오기 완료 비율</td><td>안내 화면이 가져올 이유를 충분히 설득했는가</td></tr>
+    <tr><td class="k">가져오기 중 이탈 비율</td><td>대기 시간이 견딜 만한가</td></tr>
+    <tr><td class="k">소견 항목 상세 진입 비율</td><td>요약이 더 알고 싶게 만들었는가</td></tr>
+    <tr><td class="k">위험도 분석 진입 비율</td><td>다음 행동으로 이어졌는가</td></tr>
+    <tr><td class="k">재방문 비율</td><td>한 번 보고 마는 화면이 아닌가</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s9">
+  <h2><span class="n">9</span>범위</h2>
+  <div class="sub">이번에 하는 것과 하지 않는 것</div>
+  <table>
+    <tr><th style="width:50%">이번에 하는 것</th><th>이번에 하지 않는 것</th></tr>
+    <tr><td>공단 검진 결과 가져오기와 요약 표시</td><td>병원에서 받은 종합검진 결과지 직접 등록</td></tr>
+    <tr><td>건강 나이, 항목별 상태 표시</td><td>가족력·문진 기반 추가 분석</td></tr>
+    <tr><td>위험도 분석·전체 항목·검진 안내 연결</td><td>검진 예약 자체를 앱에서 완료하기</td></tr>
+    <tr><td>가장 최근 검진 결과 표시</td><td>여러 해 결과를 겹쳐 보는 추이 화면</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s10">
+  <h2><span class="n">10</span>확인 필요</h2>
+  <div class="sub">결정이 남아 있는 것</div>
+  <ul>
+    <li>가져온 검진 결과를 앱에서 얼마 동안 보관하고, 언제 다시 받아오도록 권할지</li>
+    <li>공단에 검진 기록이 아예 없는 사용자에게 무엇을 보여줄지</li>
+    <li>주요 소견 다섯 항목을 고정으로 둘지, 사용자 상태에 따라 바꿀지</li>
+    <li>건강 나이를 계산할 수 없을 만큼 항목이 부족할 때 카드를 어떻게 처리할지</li>
+    <li>검진 대상 안내를 대상이 아닐 때도 다른 문구로 보여줄지, 아예 감출지</li>
+  </ul>
+</section>
+
+</div>
+</body>
+</html>

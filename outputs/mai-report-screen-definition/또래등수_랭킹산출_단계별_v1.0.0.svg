@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1560" viewBox="0 0 960 1560" font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#5A6880"/></marker>
+    <style>
+      .h1{font-size:26px;font-weight:800;fill:#16233F;letter-spacing:-.5px}
+      .lead{font-size:13px;fill:#5A6880}
+      .stp{font-size:11px;font-weight:800;fill:#2F6BFF;letter-spacing:1px}
+      .bt{font-size:16px;font-weight:800;fill:#16233F}
+      .bb{font-size:12.5px;fill:#3B4860}
+      .bs{font-size:11px;fill:#6C7A8E}
+      .f{font-family:Consolas,'JetBrains Mono',monospace;font-size:12px;fill:#16233F}
+      .fb{font-family:Consolas,'JetBrains Mono',monospace;font-size:12.5px;fill:#2F6BFF;font-weight:700}
+      .ex{font-size:12px;fill:#8A5A00}
+      .exb{font-size:12px;font-weight:800;fill:#8A5A00}
+      .num{font-size:13px;font-weight:800;fill:#fff}
+      .card{fill:#fff;stroke:#DAE1EB}
+      .exbox{fill:#FFF9EC;stroke:#F2D9A0}
+      .ln{stroke:#5A6880;stroke-width:1.5;fill:none;marker-end:url(#arr)}
+      .tick{stroke:#98A4B8;stroke-width:1}
+      .tl{font-size:10px;fill:#6C7A8E}
+    </style>
+  </defs>
+  <rect width="960" height="1560" fill="#F4F6FA"/>
+
+  <text x="40" y="52" class="h1">또래 등수 산출 · 처음부터 끝까지</text>
+  <text x="40" y="76" class="lead">검진 값 하나가 "내 또래 100명 중 N등"이 되기까지 8단계. 오른쪽 노란 칸은 실제 경계값표 값으로 계산한 예(남자 45세, BMI 24.5).</text>
+
+  <!-- STEP 1 -->
+  <rect x="40" y="104" width="560" height="112" rx="14" class="card"/>
+  <circle cx="66" cy="130" r="13" fill="#2F6BFF"/><text x="61" y="135" class="num">1</text>
+  <text x="90" y="135" class="bt">나이를 검진일 기준으로 구한다</text>
+  <text x="58" y="162" class="bb">오늘이 아니라 <tspan font-weight="800">검진받은 날</tspan> 기준 만 나이. 같은 검진은 몇 년 뒤 봐도 같은 등수여야 하니까.</text>
+  <text x="58" y="184" class="f">age = 검진일.year − 생년.year;  생일이 아직 안 지났으면 −1</text>
+  <text x="58" y="204" class="bs">20세 미만은 계산하지 않는다(자녀 프로필은 성장도표로 따로).</text>
+  <rect x="620" y="104" width="300" height="112" rx="14" class="exbox"/>
+  <text x="636" y="130" class="exb">예</text>
+  <text x="636" y="154" class="ex">생년월일 1981-03-10</text>
+  <text x="636" y="172" class="ex">검진일 2026-04-12</text>
+  <text x="636" y="196" class="exb">→ 45세</text>
+
+  <!-- STEP 2 -->
+  <rect x="40" y="236" width="560" height="96" rx="14" class="card"/>
+  <circle cx="66" cy="262" r="13" fill="#2F6BFF"/><text x="61" y="267" class="num">2</text>
+  <text x="90" y="267" class="bt">5세 단위 구간으로 묶는다</text>
+  <text x="58" y="294" class="bb">20-24, 25-29, … , 75-79, 80세 이상 — 13개 구간. 성별과 함께 "내 또래"의 범위가 된다.</text>
+  <text x="58" y="316" class="f">lo = (age ÷ 5 내림) × 5  →  "lo-(lo+4)세"</text>
+  <rect x="620" y="236" width="300" height="96" rx="14" class="exbox"/>
+  <text x="636" y="262" class="exb">예</text>
+  <text x="636" y="286" class="ex">45 ÷ 5 = 9 → 9 × 5 = 45</text>
+  <text x="636" y="310" class="exb">→ 남자 · 45-49세</text>
+
+  <!-- STEP 3 -->
+  <rect x="40" y="352" width="560" height="150" rx="14" class="card"/>
+  <circle cx="66" cy="378" r="13" fill="#2F6BFF"/><text x="61" y="383" class="num">3</text>
+  <text x="90" y="383" class="bt">경계값표에서 내 행을 찾는다</text>
+  <text x="58" y="410" class="bb">파일 <tspan class="f">20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv</tspan></text>
+  <text x="58" y="430" class="bb">항목 · 성별 · 연령이 모두 같은 행 하나. 그 행에 <tspan font-weight="800">경계값 99개(p1 ~ p99)</tspan>가 오름차순으로 있다.</text>
+  <text x="58" y="452" class="bb">p40 = "이 집단에서 값이 작은 쪽부터 40% 되는 지점의 값". 100명 중 40번째 사람의 값이라고 보면 된다.</text>
+  <text x="58" y="474" class="f">row = T[BMI][남자][45-49세];  bounds = [p1, p2, …, p99]</text>
+  <text x="58" y="492" class="bs">행이 없으면 등수를 계산하지 않는다(rank = null).</text>
+  <rect x="620" y="352" width="300" height="150" rx="14" class="exbox"/>
+  <text x="636" y="378" class="exb">예 · 남자 45-49세 BMI 행 (n = 567)</text>
+  <text x="636" y="402" class="ex">p1 18.0   p10 21.42   p25 23.2</text>
+  <text x="636" y="420" class="ex">p39 24.45   <tspan class="exb">p40 24.50   p41 24.54</tspan></text>
+  <text x="636" y="438" class="ex">p50 25.29   p75 27.6   p90 30.48</text>
+  <text x="636" y="456" class="ex">p99 35.92</text>
+  <text x="636" y="484" class="bs">값이 작은 쪽 → 큰 쪽으로 커진다</text>
+
+  <!-- STEP 4 number line -->
+  <rect x="40" y="522" width="560" height="176" rx="14" class="card"/>
+  <circle cx="66" cy="548" r="13" fill="#2F6BFF"/><text x="61" y="553" class="num">4</text>
+  <text x="90" y="553" class="bt">내 값이 경계 몇 개를 넘었는지 센다 (k)</text>
+  <text x="58" y="580" class="bb">99개 경계 중 <tspan font-weight="800">내 값보다 작거나 같은 것</tspan>의 개수 = k. 정렬돼 있으니 이진 탐색 한 번이면 된다.</text>
+  <text x="58" y="600" class="f">k = bisect_right(bounds, x)          # 0 ~ 99</text>
+  <!-- number line -->
+  <line x1="70" y1="650" x2="570" y2="650" class="tick"/>
+  <g class="tl">
+    <line x1="110" y1="643" x2="110" y2="657" class="tick"/><text x="96" y="674">p38 24.35</text>
+    <line x1="210" y1="643" x2="210" y2="657" class="tick"/><text x="196" y="674">p39 24.45</text>
+    <line x1="310" y1="643" x2="310" y2="657" class="tick"/><text x="296" y="674" font-weight="800" fill="#2F6BFF">p40 24.50</text>
+    <line x1="410" y1="643" x2="410" y2="657" class="tick"/><text x="396" y="674">p41 24.54</text>
+    <line x1="510" y1="643" x2="510" y2="657" class="tick"/><text x="496" y="674">p42 24.58</text>
+  </g>
+  <circle cx="310" cy="650" r="6" fill="#D9485F"/><text x="300" y="634" font-size="11" font-weight="800" fill="#D9485F">x = 24.5</text>
+  <text x="58" y="692" class="bs">경계값과 정확히 같으면 그 경계 번호가 k. (24.5는 p40과 같으므로 k = 40)</text>
+  <rect x="620" y="522" width="300" height="176" rx="14" class="exbox"/>
+  <text x="636" y="548" class="exb">예</text>
+  <text x="636" y="572" class="ex">24.5 ≤ x 인 경계: p1 … p40 (40개)</text>
+  <text x="636" y="590" class="ex">p41 = 24.54 &gt; 24.5 → 여기서 멈춤</text>
+  <text x="636" y="618" class="exb">→ k = 40</text>
+  <text x="636" y="646" class="bs">뜻: 나보다 값이 작거나 같은 사람이</text>
+  <text x="636" y="662" class="bs">100명 중 40명쯤 있다</text>
+
+  <!-- STEP 5 -->
+  <rect x="40" y="718" width="560" height="130" rx="14" class="card"/>
+  <circle cx="66" cy="744" r="13" fill="#2F6BFF"/><text x="61" y="749" class="num">5</text>
+  <text x="90" y="749" class="bt">경계 사이 어디쯤인지 더한다 (보간) → 위치 P</text>
+  <text x="58" y="776" class="bb">k번째 경계와 k+1번째 경계 사이에서 내 값의 비율(0~1)을 k에 더한다. 소수점이 붙은 정밀한 위치가 된다.</text>
+  <text x="58" y="798" class="f">lo = bounds[k], hi = bounds[k+1]</text>
+  <text x="58" y="816" class="f">frac = (x − lo) ÷ (hi − lo)    (hi == lo 이면 0)</text>
+  <text x="58" y="836" class="fb">P = k + frac        (k = 0 → P = 1,  k ≥ 99 → P = 99)</text>
+  <rect x="620" y="718" width="300" height="130" rx="14" class="exbox"/>
+  <text x="636" y="744" class="exb">예</text>
+  <text x="636" y="768" class="ex">lo = p40 = 24.50,  hi = p41 = 24.54</text>
+  <text x="636" y="786" class="ex">frac = (24.5 − 24.50) ÷ 0.04 = 0</text>
+  <text x="636" y="812" class="exb">→ P = 40 + 0 = 40.0</text>
+  <text x="636" y="834" class="bs">x가 24.52였다면 frac 0.5 → P 40.5</text>
+
+  <!-- STEP 6 -->
+  <rect x="40" y="868" width="560" height="120" rx="14" class="card"/>
+  <circle cx="66" cy="894" r="13" fill="#2F6BFF"/><text x="61" y="899" class="num">6</text>
+  <text x="90" y="899" class="bt">등수(rank)와 5칸 구간(band)으로 바꾼다</text>
+  <text x="58" y="926" class="fb">rank = round(P), 1~99로 자름          band = ceil(rank ÷ 20)  →  1 ~ 5</text>
+  <text x="58" y="950" class="bb">1등 = 값이 가장 작은 사람, 99등 = 가장 큰 사람. <tspan font-weight="800">뒤집지 않는다.</tspan> 등수는 줄에서의 자리이지 좋고 나쁨이 아니다.</text>
+  <text x="58" y="972" class="bs">band: 1~20등 → 1 · 21~40등 → 2 · 41~60등 → 3 · 61~80등 → 4 · 81~99등 → 5</text>
+  <rect x="620" y="868" width="300" height="120" rx="14" class="exbox"/>
+  <text x="636" y="894" class="exb">예</text>
+  <text x="636" y="918" class="ex">round(40.0) = 40</text>
+  <text x="636" y="942" class="exb">→ rank = 40등,  band = ceil(40 ÷ 20) = 2</text>
+  <text x="636" y="966" class="bs">"내 또래 100명 중 40등", 사람 그림 2번째</text>
+
+  <!-- STEP 7 -->
+  <rect x="40" y="1008" width="560" height="104" rx="14" class="card"/>
+  <circle cx="66" cy="1034" r="13" fill="#2F6BFF"/><text x="61" y="1039" class="num">7</text>
+  <text x="90" y="1039" class="bt">건강 기준은 등수와 따로 본다 (health)</text>
+  <text x="58" y="1066" class="f">warn: BMI &lt; 18.5 또는 ≥ 25 · 허리둘레 ≥ 85(여) / ≥ 90(남)    그 외 ok · 키·체중은 항상 ok</text>
+  <text x="58" y="1090" class="bs">등수는 "어디쯤"(위치), health는 "기준을 넘었나"(공단 판정기준). 둘은 서로 독립이고 health는 배지 색만 바꾼다.</text>
+  <rect x="620" y="1008" width="300" height="104" rx="14" class="exbox"/>
+  <text x="636" y="1034" class="exb">예</text>
+  <text x="636" y="1058" class="ex">24.5는 18.5 이상, 25 미만</text>
+  <text x="636" y="1082" class="exb">→ health = ok</text>
+
+  <!-- STEP 8 -->
+  <rect x="40" y="1132" width="560" height="150" rx="14" class="card"/>
+  <circle cx="66" cy="1158" r="13" fill="#2F6BFF"/><text x="61" y="1163" class="num">8</text>
+  <text x="90" y="1163" class="bt">저장하고 화면에 그린다</text>
+  <text x="58" y="1190" class="bb">검진 1건마다 항목별 결과를 저장. 화면은 저장값만 읽고 계산하지 않는다. 표 버전이 바뀌면 다시 계산.</text>
+  <text x="58" y="1214" class="bb"><tspan class="fb">rank</tspan> → "내 또래 100명 중 N등"   <tspan class="fb">band</tspan> → 사람 그림 위치 · "나" 말풍선 · 구간 라벨 · 배지 문구</text>
+  <text x="58" y="1236" class="bb"><tspan class="fb">health</tspan> → 배지 톤 (warn 주의 톤 / band 2~4 안정 톤 / band 1·5 중립 톤)</text>
+  <text x="58" y="1262" class="f">{ key:"bmi", value:24.5, rank:40, band:2, health:"ok", cohort:"남자|45-49세", table_version:"knhanes-2022-2024.v1" }</text>
+  <!-- mini card -->
+  <rect x="620" y="1132" width="300" height="150" rx="14" class="exbox"/>
+  <rect x="636" y="1148" width="268" height="118" rx="12" fill="#fff" stroke="#E9EDF5"/>
+  <circle cx="656" cy="1168" r="9" fill="#8B5CF6"/><text x="652" y="1172" font-size="10" font-weight="800" fill="#fff">3</text>
+  <text x="672" y="1172" font-size="13" font-weight="800" fill="#16233F">BMI</text>
+  <text x="648" y="1200" font-size="20" font-weight="800" fill="#16233F">24.5</text><text x="694" y="1200" font-size="10" fill="#5A6880">kg/m²</text>
+  <text x="648" y="1218" font-size="9" fill="#98A4B8">내 또래 100명 중</text>
+  <text x="648" y="1240" font-size="18" font-weight="800" fill="#8B5CF6">40</text><text x="670" y="1240" font-size="10" font-weight="700" fill="#8B5CF6">등</text>
+  <rect x="700" y="1226" width="92" height="18" rx="9" fill="#E7F7EE"/><text x="708" y="1239" font-size="9" font-weight="800" fill="#1F8A55">조금 낮은 편이에요</text>
+  <g fill="#D8CCF8"><rect x="756" y="1170" width="8" height="26" rx="3"/><rect x="800" y="1166" width="10" height="30" rx="3"/><rect x="822" y="1164" width="11" height="32" rx="3"/><rect x="844" y="1162" width="12" height="34" rx="3"/></g>
+  <rect x="777" y="1168" width="9" height="28" rx="3" fill="#8B5CF6"/>
+  <rect x="768" y="1150" width="26" height="13" rx="6" fill="#8B5CF6"/><text x="776" y="1160" font-size="8" font-weight="800" fill="#fff">나</text>
+  <text x="752" y="1210" font-size="7" fill="#98A4B8">1~20</text><text x="773" y="1210" font-size="7" font-weight="800" fill="#8B5CF6">21~40</text><text x="797" y="1210" font-size="7" fill="#98A4B8">41~60</text><text x="819" y="1210" font-size="7" fill="#98A4B8">61~80</text><text x="841" y="1210" font-size="7" fill="#98A4B8">81~100</text>
+
+  <!-- 한 줄 요약 + 검증 -->
+  <rect x="40" y="1302" width="880" height="110" rx="14" fill="#EFF4FF" stroke="#BFD0FF"/>
+  <text x="56" y="1328" class="bt">한 줄로</text>
+  <text x="56" y="1352" class="bb">같은 성별·같은 5세 구간 사람들을 값이 작은 순으로 100명 세워 놓고, <tspan font-weight="800">내 앞에 몇 명이 서 있는지</tspan>가 등수다.</text>
+  <text x="56" y="1374" class="bb">그 "100명"의 위치는 국민건강영양조사 2022~2024 원시자료로 미리 만든 경계값 99개(p1~p99)로 대신한다.</text>
+  <text x="56" y="1398" class="bs">검증 벡터(남 45세): BMI 24.5 → 40등 · 허리둘레 82 → 21등 · 키 172 → 43등 · 체중 72.5 → 36등  (경계값표 20번 CSV 기준, ±0.1)</text>
+
+  <rect x="40" y="1428" width="880" height="92" rx="14" fill="#FFF0F3" stroke="#F3C6D0"/>
+  <text x="56" y="1454" class="bt">자주 틀리는 곳</text>
+  <text x="56" y="1478" class="bb">· 나이를 오늘 기준으로 → 해마다 등수가 바뀜   · k는 "작거나 같음"   · rank를 뒤집지 않는다(키 1등 = 가장 작은 키)</text>
+  <text x="56" y="1500" class="bb">· 0등·100등은 없다(1~99)   · BMI는 결과지 값 우선, 없으면 체중 ÷ (키/100)²   · "상위/하위 %"는 화면에 쓰지 않는다</text>
+
+  <text x="40" y="1546" class="bs">maiReport · 건강검진 결과 AI 요약 · 또래 등수 산출 단계별 · 2026-09-14 · 통합본 md/svg와 같은 규칙</text>
+</svg>

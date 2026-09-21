@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 목표 생성 규칙 · 식이</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:720px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .callout.warn{border-left-color:#d98a12;background:#fff6e8;color:#6b4c0f}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mini{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+  .mini p{font-size:12.5px;margin:0}
+  ul{padding-left:18px;margin-bottom:8px}
+  li{margin-bottom:4px;font-size:13px}
+  .flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin:10px 0}
+  .flow div{flex:1;min-width:150px;background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px}
+  .flow div b{display:block;color:var(--ink-1);margin-bottom:4px}
+  .note{font-size:12px;color:var(--ink-3)}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 기획 문서</span>
+  <h1>목표 생성 규칙 · 식이</h1>
+  <p>오늘의 목표 세 개 중 식이 타일에 들어갈 문구를 사용자 유형과 오늘의 상태에 따라 고르는 규칙과 문구 세트. 일반 사용자를 기본 축으로 두고, 검진 결과와 오늘의 질문 답변이 있을 때 그에 맞는 문구로 바꾼다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-16</b></span><span>버전 <b>0.1 · 대체됨</b></span><span>연관 문서 <b>홈화면_화면정의서 §5 · 목표분석_화면정의서 §3 · 생활지표_기획서</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 원칙</a><a href="#s2">② 사용자 유형과 입력</a><a href="#s3">③ 선정 순서</a><a href="#s4">④ 문구 세트</a><a href="#s5">⑤ 돌리기 · 중복 방지</a><a href="#s6">⑥ 쓰지 않는 문구</a><a href="#s7">⑦ 확인 필요 사항</a>
+</div>
+
+<div style="background:#fdeeee;border:1.5px solid #f5b5b5;border-left:5px solid #b91c1c;border-radius:0 12px 12px 0;padding:14px 18px;margin:0 0 20px;font-size:14px;color:#7a1f1f;line-height:1.7"><b style="display:block;font-size:15px;margin-bottom:4px">이 문서는 대체되었습니다</b>「식이 질문·목표 상세 기획」 <b>v1.0</b>이 이 문서를 대신합니다. 문구 세트는 풀 A~F 구조에서 <b>8축 × 3단계</b>로 재배치되었고, 선정 순서·단계 규칙·검진 판정 기준도 모두 바뀌었습니다. 규칙을 확인하실 때는 상세 기획 v1.0과 「식이 문구 세트」를 보세요. 이 문서는 결정 이력 확인용으로만 보관합니다.</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>원칙</h2>
+  <div class="sub">문구 하나가 지켜야 할 조건</div>
+  <div class="grid2">
+    <div class="mini"><b>오늘 안에 끝나는 행동 하나</b><p>"채소를 많이 드세요" 같은 태도가 아니라 "저녁은 채소부터 먼저"처럼 오늘 한 번 할 수 있는 동작이어야 한다.</p></div>
+    <div class="mini"><b>사용자가 스스로 완료 여부를 알 수 있을 것</b><p>칼로리 · 그램 · 당 지수처럼 재야 하는 목표는 두지 않는다. 했는지 안 했는지 바로 답할 수 있어야 타일을 누를 수 있다.</p></div>
+    <div class="mini"><b>타일에는 행동 문구만</b><p>근거 · 비교 · 수치 설명은 타일에 쓰지 않는다. 이유는 오늘의 코칭 "이유 한 줄"이 맡는다.</p></div>
+    <div class="mini"><b>평가 · 지시 어투 금지</b><p>"~하세요", "~해야 합니다", "줄이세요" 대신 명사형 또는 "~하기"로 끝낸다. 의료 지시(혈당을 낮추기, 저염식)는 쓰지 않는다.</p></div>
+    <div class="mini"><b>한 줄 20자 안팎</b><p>타일 폭에서 두 줄을 넘기지 않는다. 가장 긴 후보 기준으로 폭을 검증한다.</p></div>
+    <div class="mini"><b>하루 한 번 고정</b><p>질문 답변 완료 시 정해지면 그날은 바꾸지 않는다. 답변을 수정해도 이미 생성된 목표는 다시 고르지 않는다.</p></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>사용자 유형과 입력</h2>
+  <div class="sub">식이 목표에 쓰이는 입력은 세 가지뿐이다. 없으면 일반 사용자로 본다</div>
+  <table>
+    <tr><th style="width:150px">입력</th><th>내용</th><th style="width:34%">없을 때</th></tr>
+    <tr><td class="k">검진 결과</td><td>병원 탭에 연동된 최근 검진의 공복혈당 · 혈압 · 총콜레스테롤 · 체질량지수 판정(표준 / 경계 / 주의)</td><td>일반 사용자 문구 풀만 쓴다</td></tr>
+    <tr><td class="k">오늘의 질문 답변</td><td>식사량(평소대로 / 조금 적게 / 거의 못 먹음) · 피로감 · 수면 시간 · 시야 변화 등 그날 나온 문항의 답</td><td>식이 목표는 답변으로만 만든다. 식사 문항은 매일 고정으로 나오고, 식이 타일은 항상 잠긴 채 시작해 답변 완료 시 생성</td></tr>
+    <tr><td class="k">시간대</td><td>첫 진입이 18시 이후인지</td><td>—</td></tr>
+  </table>
+  <h3>유형 정의</h3>
+  <table>
+    <tr><th style="width:150px">유형</th><th>조건</th><th style="width:34%">문구 풀</th></tr>
+    <tr><td class="k">일반</td><td>검진 결과가 없거나 모두 표준, 오늘 답변에 특이 없음</td><td>④-A 기본 풀</td></tr>
+    <tr><td class="k">혈당 경계</td><td>공복혈당 경계·주의, 또는 시야 질문에 "조금 있었어요 / 뚜렷했어요"</td><td>④-B 혈당 풀 우선</td></tr>
+    <tr><td class="k">혈압 경계</td><td>혈압 경계·주의</td><td>④-C 혈압 풀 우선</td></tr>
+    <tr><td class="k">콜레스테롤 · 체중 경계</td><td>총콜레스테롤 경계·주의, 체질량지수 관리 필요</td><td>④-D 지질·체중 풀 우선</td></tr>
+    <tr><td class="k">오늘 식사량 적음</td><td>식사 질문 "조금 적게" 또는 "거의 못 먹었어요"</td><td>④-E 회복 풀 (유형과 무관하게 최우선)</td></tr>
+    <tr><td class="k">오늘 피로·수면 부족</td><td>피로 "많이 피곤해요" 또는 수면 "5시간 미만"</td><td>④-F 부담 줄이기 풀</td></tr>
+  </table>
+  <p class="note">검진 경계가 둘 이상이면 혈당 → 혈압 → 콜레스테롤·체중 순으로 하나만 적용한다. 병원 AI 리포트 소견은 확진이 아니므로 유형을 바꾸지 않는다.</p>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>선정 순서</h2>
+  <div class="sub">위에서부터 처음 해당하는 풀에서 한 문구를 고른다</div>
+  <div class="flow">
+    <div><b>1 오늘 식사량 적음</b>답변이 "조금 적게 / 거의 못 먹음"이면 유형과 무관하게 회복 풀(E)</div>
+    <div><b>2 검진 경계</b>혈당(B) → 혈압(C) → 콜레스테롤·체중(D) 순. 시야 질문 이상 답변은 혈당으로 본다</div>
+    <div><b>3 오늘 피로 · 수면 부족</b>부담 줄이기 풀(F)</div>
+    <div><b>4 일반</b>기본 풀(A)에서 요일·최근 이력 기준으로 돌린다</div>
+  </div>
+  <div class="callout">18시 이후 첫 진입이면 고른 풀 안에서 "저녁 마무리형" 표시가 있는 문구를 우선한다. 없으면 그 풀의 일반 문구를 그대로 쓴다.</div>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>문구 세트</h2>
+  <div class="sub">타일 문구 · 코칭 이유 한 줄 · 적용 조건. "저녁"은 18시 이후 첫 진입 시 우선하는 문구</div>
+
+  <h3>A · 일반 사용자 기본 풀</h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">타일 문구</th><th>코칭 이유 한 줄 (예)</th><th style="width:130px">비고</th></tr>
+    <tr><td>A1</td><td class="k">아침 거르지 않기</td><td>아침을 먹으면 점심 과식이 줄어요.</td><td>오전 진입</td></tr>
+    <tr><td>A2</td><td class="k">끼니 사이 4시간 넘기지 않기</td><td>간격이 길어지면 다음 끼니에 몰아 먹기 쉬워요.</td><td></td></tr>
+    <tr><td>A3</td><td class="k">한 끼는 20분 이상 천천히</td><td>천천히 먹으면 포만감을 제때 느낄 수 있어요.</td><td></td></tr>
+    <tr><td>A4</td><td class="k">채소 반찬 한 가지 더</td><td>채소가 늘면 식후 혈당이 완만해져요.</td><td></td></tr>
+    <tr><td>A5</td><td class="k">오늘 물 6잔 이상</td><td>물이 부족하면 피로와 허기를 헷갈리기 쉬워요.</td><td></td></tr>
+    <tr><td>A6</td><td class="k">단 음료 대신 물이나 무가당 차</td><td>음료로 들어오는 당은 티가 안 나게 쌓여요.</td><td></td></tr>
+    <tr><td>A7</td><td class="k">간식은 정해진 시간에 한 번</td><td>무심코 집는 간식이 하루 열량을 가장 많이 늘려요.</td><td></td></tr>
+    <tr><td>A8</td><td class="k">저녁은 잠들기 3시간 전에 마치기</td><td>늦은 식사는 수면과 다음 날 아침 컨디션에 영향을 줘요.</td><td>저녁</td></tr>
+    <tr><td>A9</td><td class="k">야식 없이 하루 마무리</td><td>밤 늦은 식사는 다음 날 아침 몸을 무겁게 해요.</td><td>저녁</td></tr>
+    <tr><td>A10</td><td class="k">외식할 때 국물은 반만</td><td>국물에 나트륨이 가장 많이 들어 있어요.</td><td>점심 전후</td></tr>
+    <tr><td>A11</td><td class="k">과일은 한 줌만</td><td>과일도 당이라 양을 정해 두는 게 좋아요.</td><td></td></tr>
+    <tr><td>A12</td><td class="k">단백질 반찬 한 가지 챙기기</td><td>단백질이 있으면 포만감이 오래 가요.</td><td></td></tr>
+  </table>
+
+  <h3>B · 혈당 경계 풀</h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">타일 문구</th><th>코칭 이유 한 줄 (예)</th><th style="width:130px">비고</th></tr>
+    <tr><td>B1</td><td class="k">저녁은 채소부터 먼저</td><td>채소를 먼저 먹으면 식후 혈당이 덜 출렁여요.</td><td>현재 기본 문구</td></tr>
+    <tr><td>B2</td><td class="k">탄수화물은 맨 나중에</td><td>먹는 순서만 바꿔도 혈당 오르는 속도가 달라져요.</td><td></td></tr>
+    <tr><td>B3</td><td class="k">한 끼 밥 양은 평소의 3분의 2</td><td>양을 조금 줄이면 식후 혈당 정점이 낮아져요.</td><td></td></tr>
+    <tr><td>B4</td><td class="k">단 음료 오늘 하루 쉬기</td><td>액상 당은 혈당을 가장 빠르게 올려요.</td><td></td></tr>
+    <tr><td>B5</td><td class="k">흰 빵 · 흰 밥 대신 잡곡 한 끼</td><td>거친 곡물은 혈당이 천천히 올라요.</td><td></td></tr>
+    <tr><td>B6</td><td class="k">저녁 후 단 디저트 건너뛰기</td><td>저녁 뒤 당은 밤사이 혈당을 높게 유지해요.</td><td>저녁</td></tr>
+  </table>
+
+  <h3>C · 혈압 경계 풀</h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">타일 문구</th><th>코칭 이유 한 줄 (예)</th><th style="width:130px">비고</th></tr>
+    <tr><td>C1</td><td class="k">국물은 건더기 위주로</td><td>국물 한 그릇에 하루 나트륨의 절반이 들어 있기도 해요.</td><td></td></tr>
+    <tr><td>C2</td><td class="k">한 끼는 소금 · 장 덜 넣기</td><td>짠맛을 조금 줄이면 혈압에 바로 영향을 줘요.</td><td></td></tr>
+    <tr><td>C3</td><td class="k">가공식품 대신 생재료 한 끼</td><td>가공식품은 보이지 않는 나트륨이 많아요.</td><td></td></tr>
+    <tr><td>C4</td><td class="k">저녁 술 없이 보내기</td><td>술은 그날 밤 혈압을 올려요.</td><td>저녁</td></tr>
+    <tr><td>C5</td><td class="k">채소 · 과일 한 접시 더</td><td>칼륨이 많은 음식은 나트륨 배출을 도와요.</td><td></td></tr>
+  </table>
+
+  <h3>D · 콜레스테롤 · 체중 경계 풀</h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">타일 문구</th><th>코칭 이유 한 줄 (예)</th><th style="width:130px">비고</th></tr>
+    <tr><td>D1</td><td class="k">튀김 · 기름진 반찬은 한 가지만</td><td>기름진 음식이 겹치면 지질 수치가 오르기 쉬워요.</td><td></td></tr>
+    <tr><td>D2</td><td class="k">붉은 고기 대신 생선이나 두부 한 끼</td><td>포화지방을 줄이는 가장 쉬운 방법이에요.</td><td></td></tr>
+    <tr><td>D3</td><td class="k">간식은 견과류 한 줌으로</td><td>과자 대신 견과류는 좋은 지방을 더해요.</td><td></td></tr>
+    <tr><td>D4</td><td class="k">저녁 양은 점심보다 적게</td><td>저녁을 가볍게 하면 체중 관리가 수월해요.</td><td>저녁</td></tr>
+    <tr><td>D5</td><td class="k">배부르기 전에 수저 놓기</td><td>80% 정도에서 멈추는 습관이 체중을 지켜요.</td><td></td></tr>
+  </table>
+
+  <h3>E · 회복 풀 (오늘 식사량이 적었을 때)</h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">타일 문구</th><th>코칭 이유 한 줄 (예)</th><th style="width:130px">비고</th></tr>
+    <tr><td>E1</td><td class="k">저녁은 가볍게, 거르지 않기</td><td>오늘 식사량이 적어 혈당이 흔들리기 쉬워요.</td><td>현재 문구</td></tr>
+    <tr><td>E2</td><td class="k">소량이라도 단백질 한 가지</td><td>달걀 · 두부 · 생선 한 가지면 충분해요.</td><td></td></tr>
+    <tr><td>E3</td><td class="k">오후에 간식 한 번으로 빈 끼 채우기</td><td>3~4시간 간격으로 가볍게 채우면 저녁 과식을 막아요.</td><td>오후 진입</td></tr>
+    <tr><td>E4</td><td class="k">따뜻한 국이나 죽 한 그릇</td><td>속이 편한 음식으로 먼저 채워요.</td><td>"거의 못 먹음"</td></tr>
+  </table>
+
+  <h3>F · 부담 줄이기 풀 (피로 · 수면 부족)</h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">타일 문구</th><th>코칭 이유 한 줄 (예)</th><th style="width:130px">비고</th></tr>
+    <tr><td>F1</td><td class="k">오후 2시 이후 카페인 멈추기</td><td>늦은 카페인은 오늘 밤 잠을 얕게 해요.</td><td></td></tr>
+    <tr><td>F2</td><td class="k">저녁은 자극적이지 않게</td><td>맵고 짠 저녁은 잠드는 데 시간을 더 들게 해요.</td><td>저녁</td></tr>
+    <tr><td>F3</td><td class="k">야식 대신 따뜻한 물 한 잔</td><td>피곤한 날엔 허기와 졸림이 헷갈려요.</td><td>저녁</td></tr>
+    <tr><td>F4</td><td class="k">점심은 평소 양으로 규칙적으로</td><td>피곤할수록 끼니를 거르지 않는 게 회복에 좋아요.</td><td>오전 진입</td></tr>
+  </table>
+
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>돌리기 · 중복 방지</h2>
+  <div class="sub">같은 문구가 반복되지 않게, 그러나 완료한 문구는 이어갈 수 있게</div>
+  <ul>
+    <li>같은 풀 안에서는 최근 3일 동안 나오지 않은 문구를 우선한다.</li>
+    <li>어제 그 문구를 완료했다면 오늘 같은 문구가 나와도 된다. 연속일수 계산은 카테고리 단위라 문구가 바뀌어도 이어진다.</li>
+    <li>어제 완료하지 못한 문구는 오늘 다시 내지 않는다(같은 실패를 반복시키지 않는다).</li>
+    <li>시간대 표시가 있는 문구는 그 시간대 외에는 내지 않는다(예: "아침 거르지 않기"는 오후 첫 진입에 내지 않는다).</li>
+    <li>풀에 남은 후보가 없으면 기본 풀(A)로 내려간다.</li>
+  </ul>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="n">6</span>쓰지 않는 문구</h2>
+  <div class="sub">후보에서 걸러야 하는 유형</div>
+  <table>
+    <tr><th style="width:200px">유형</th><th>예</th><th style="width:36%">이유</th></tr>
+    <tr><td class="k">잴 수 없는 수치 목표</td><td>"1,800kcal 이하로", "당 25g 이내"</td><td>사용자가 확인할 수 없어 완료 판정이 불가능</td></tr>
+    <tr><td class="k">의료 지시</td><td>"혈당을 낮추세요", "저염식 하세요", "약 드세요"</td><td>비의료기기 표현 가이드 위반</td></tr>
+    <tr><td class="k">금지 · 압박</td><td>"절대 야식 금지", "군것질 끊기"</td><td>실패 시 좌절감. 행동을 "대신 ~하기"로 바꾼다</td></tr>
+    <tr><td class="k">비교 · 평가</td><td>"평소보다 많이 드셨어요", "잘 못 지키고 계세요"</td><td>타일에는 행동만. 평가 어투 배제</td></tr>
+    <tr><td class="k">여러 행동 묶음</td><td>"채소 먼저 먹고 물 많이 마시고 천천히"</td><td>완료 기준이 흐려짐. 하나만</td></tr>
+    <tr><td class="k">질환 단정</td><td>"당뇨 관리 식단", "고혈압 식단"</td><td>검진 경계는 확진이 아니다</td></tr>
+  </table>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="n">7</span>확인 필요 사항</h2>
+  <div class="sub">이 초안을 확정하기 전에 결정할 것</div>
+  <table>
+    <tr><th style="width:40px">#</th><th style="width:180px">항목</th><th>내용</th><th style="width:90px">상태</th></tr>
+    <tr><td>1</td><td class="k">문구 감수</td><td>B~D 풀의 코칭 이유 문장이 의학적으로 무리 없는지, 근거 문헌과 맞는지 의학팀 검토</td><td>의학팀</td></tr>
+    <tr><td>2</td><td class="k">검진 판정 기준</td><td>확정 — 「식이 질문·목표 상세 기획」 1.0 ⑦ 판정 구간 표 참조(공복혈당 100~125 경계 · 126 이상 주의, 혈압 120~139/80~89 경계 · 140/90 이상 주의, 콜레스테롤 200~239 경계 · 240 이상 주의 · LDL 우선, 체질량지수 23~24.9 경계 · 25 이상 주의). 시야 질문 단독으로 혈당 경계를 켜는 규칙(본 문서 §2)은 삭제</td><td>확정</td></tr>
+    <tr><td>3</td><td class="k">식사 기록 활용</td><td>식사 시각 기록이 있을 때 "저녁 후 ~" 문구의 완료 힌트(달성됐어요)를 자동으로 띄울지</td><td>확인 필요</td></tr>
+    <tr><td>4</td><td class="k">잠금 판정</td><td>확정 — 식이 타일은 기기 데이터로 열지 않는다. 항상 잠긴 채 시작하고 식사 문항(매일 고정) 답변 완료 시 생성</td><td>확정</td></tr>
+    <tr><td>5</td><td class="k">문구 폭 검증</td><td>가장 긴 후보("붉은 고기 대신 생선이나 두부 한 끼") 기준으로 타일 두 줄 안에 들어가는지</td><td>디자인</td></tr>
+    <tr><td>6</td><td class="k">활동 · 수면 문구 세트</td><td>같은 형식으로 활동 · 수면 목표 풀을 별도 작성</td><td>작성 예정</td></tr>
+    <tr><td>7</td><td class="k">심야 첫 진입</td><td>확정 — 21시 이후 진입의 대상 끼니 처리는 「식이 질문·목표 상세 기획」 1.0 ⑤ 4단계 표에서 다룬다. 이 문서(0.1)에 별도 심야 풀을 두지 않는다</td><td>확정 · 상세기획으로 이관</td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

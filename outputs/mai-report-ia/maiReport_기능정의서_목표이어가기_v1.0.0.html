@@ -1,0 +1,410 @@
+<title>목표 이어가기 기능정의서</title>
+<meta name="description" content="생활 탭 › 목표 분석 · 목표 이어가기 기능의 트리거·입력·처리·출력·예외를 기능 13개 단위로 정의한 문서.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#F1F4F9;--surf:#FFFFFF;--surf-2:#F7F9FC;--surf-3:#E9EEF5;
+  --line:#DCE3ED;--ink:#101A2B;--text:#3A4760;--muted:#69768B;--faint:#8B97AC;
+  --accent:#2F6BFF;--accent-soft:#E9EFFE;
+  --ok:#1C7A57;--ok-soft:#E3F3EC;
+  --warn:#96650A;--warn-soft:#FBF1D9;
+  --stop:#B23A3A;--stop-soft:#FAE9E9;
+  --mono:"JetBrains Mono",Consolas,monospace;
+  --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0C1117;--surf:#151C26;--surf-2:#1A222D;--surf-3:#232C39;
+  --line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;--accent-soft:#1B2740;
+  --ok:#5DC9A1;--ok-soft:#112A22;
+  --warn:#E0B061;--warn-soft:#2B2314;
+  --stop:#EC8484;--stop-soft:#2E1A1A;
+}}
+:root[data-theme="dark"]{
+  --ground:#0C1117;--surf:#151C26;--surf-2:#1A222D;--surf-3:#232C39;
+  --line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;--accent-soft:#1B2740;
+  --ok:#5DC9A1;--ok-soft:#112A22;
+  --warn:#E0B061;--warn-soft:#2B2314;
+  --stop:#EC8484;--stop-soft:#2E1A1A;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);
+  font-size:14px;line-height:1.7;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+main{max-width:1060px;margin:0 auto;padding:0 26px 80px}
+
+.masthead{background:var(--surf);border-bottom:1px solid var(--line)}
+.masthead-in{max-width:1060px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wordmark{position:relative;color:var(--ink);font-size:18px;font-weight:900;letter-spacing:-.06em;line-height:1}
+.wordmark::after{content:"";position:absolute;right:-6px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.mtag{margin-left:8px;padding-left:14px;border-left:1px solid var(--line);color:var(--muted);font-size:12px}
+.mver{margin-left:auto;color:var(--faint);font-size:11.5px;font-family:var(--mono)}
+
+.hero{padding:50px 0 32px;border-bottom:1px solid var(--line)}
+.eyebrow{display:block;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:15px}
+h1{margin:0;color:var(--ink);font-size:clamp(27px,4.2vw,38px);font-weight:900;
+  line-height:1.2;letter-spacing:-.05em;text-wrap:balance;max-width:17ch}
+.lead{margin:19px 0 0;max-width:62ch;font-size:15px;line-height:1.8}
+.lead b{color:var(--ink)}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+.meta span{display:block;font-size:10px;font-weight:800;color:var(--faint);letter-spacing:.08em;margin-bottom:5px}
+.meta strong{display:block;color:var(--ink);font-size:12.5px;font-weight:700;line-height:1.5}
+
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.st{padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:800;white-space:nowrap}
+.st-done{background:var(--ok-soft);color:var(--ok)}
+.st-review{background:var(--warn-soft);color:var(--warn)}
+.st-open{background:var(--stop-soft);color:var(--stop)}
+
+section.grp{padding:44px 0 0}
+.grp-h{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.grp-no{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--faint)}
+h2{margin:0;color:var(--ink);font-size:22px;font-weight:900;letter-spacing:-.04em}
+.grp-desc{margin:0 0 20px;font-size:13px;color:var(--muted);max-width:64ch}
+
+.fn{background:var(--surf);border:1px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden}
+.fn-h{display:flex;align-items:center;gap:11px;padding:14px 18px;border-bottom:1px solid var(--line);
+  background:var(--surf-2);flex-wrap:wrap}
+.fn-id{font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--accent);
+  background:var(--accent-soft);padding:3px 9px;border-radius:6px}
+.fn-h b{color:var(--ink);font-size:14.5px;font-weight:700;letter-spacing:-.02em;flex:1;min-width:180px}
+.fn-sum{padding:13px 18px;font-size:13px;color:var(--text);border-bottom:1px solid var(--line)}
+dl{margin:0;padding:4px 18px 14px;display:grid;grid-template-columns:86px minmax(0,1fr);gap:0}
+dt{padding:9px 0 9px;font-size:11px;font-weight:800;color:var(--faint);letter-spacing:.03em;
+  border-top:1px solid var(--line)}
+dd{margin:0;padding:9px 0 9px 14px;font-size:12.5px;line-height:1.65;border-top:1px solid var(--line)}
+dl>dt:first-of-type,dl>dt:first-of-type+dd{border-top:0}
+dd code{font-family:var(--mono);font-size:11px;background:var(--surf-3);padding:1.5px 5px;border-radius:4px;color:var(--ink)}
+dd b{color:var(--ink);font-weight:700}
+.scr{display:flex;flex-wrap:wrap;gap:5px}
+.scr i{font-style:normal;font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--muted);
+  background:var(--surf-3);padding:2.5px 8px;border-radius:5px}
+
+.notes{margin-top:44px;padding-top:30px;border-top:1px solid var(--line)}
+.notes h2{font-size:13px;font-weight:700;letter-spacing:.08em;margin-bottom:16px}
+.tbl{border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:var(--surf)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:620px}
+thead th{background:var(--surf-2);color:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.06em;
+  text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--line);color:var(--text);line-height:1.6;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-family:var(--mono);font-size:11.5px;color:var(--ink);white-space:nowrap}
+
+.srcs{margin-top:38px;padding:20px 24px;background:var(--surf-2);border:1px solid var(--line);border-radius:10px}
+.srcs h2{font-size:11px;letter-spacing:.1em;color:var(--faint);margin:0 0 10px;font-weight:700}
+.srcs ul{margin:0;padding-left:17px;color:var(--muted);font-size:12px;line-height:1.9}
+footer{padding:28px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mono);text-align:center}
+
+@media (max-width:720px){
+  main{padding:0 18px 60px}
+  .meta{grid-template-columns:repeat(2,1fr)}
+  dl{grid-template-columns:1fr;gap:0}
+  dt{border-top:1px solid var(--line);padding-bottom:0}
+  dd{padding-left:0;padding-top:2px;border-top:0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <span class="wordmark">maiReport</span>
+    <span class="mtag">기능정의서 · 목표 이어가기</span>
+    <span class="mver">v1.1 · 2026-09-11</span>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <span class="eyebrow">Functional Specification</span>
+  <h1>목표 이어가기<br>기능 정의</h1>
+  <p class="lead">
+    생활 › 목표 분석의 <b>주간 달성률을 대체하는 기능군</b>입니다.
+    목표 실행 기록, 연속일수 산출, 코멘트 선택, 데이터 네 영역으로 나눠
+    트리거 · 입력 · 처리 · 출력 · 예외를 정의합니다.
+    모든 기능은 <b>목표 분석 화면</b>에 속하며, 완료 처리 · 완료 취소 · 문구 잠금 · 연속일수 계산 · 목표 기록 저장 · 홈 카드와 계산 공유는
+    <b>홈 목표 카드</b>에도 그대로 적용됩니다.
+  </p>
+  <div class="meta">
+    <div><span>범위</span><strong>생활 탭 › 목표 분석 · 목표 이어가기</strong></div>
+    <div><span>기능 수</span><strong>13개 · 4개 그룹</strong></div>
+    <div><span>기록 가능 범위</span><strong>과거 날짜 허용 · 미래 불가</strong></div>
+    <div><span>문서 상태</span><strong>기획서 v2.0 기준</strong></div>
+  </div>
+  <div class="legend">
+    <span class="st st-done">확정 — 정의 완료</span>
+    <span class="st st-review">검토 — 세부 확정 필요</span>
+    <span class="st st-open">미정 — 정의 없음</span>
+  </div>
+</section>
+
+<!-- ========== 01 ========== -->
+<section class="grp">
+  <div class="grp-h"><span class="grp-no">01</span><h2>목표 실행 기록</h2></div>
+  <p class="grp-desc">사용자가 그날의 목표를 완료로 남기고, 그 기록이 집계의 입력이 되는 구간입니다.</p>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">GOAL-001</span><b>오늘의 목표 완료 처리</b><span class="st st-review">검토</span></div>
+    <div class="fn-sum">선택 날짜의 카테고리별 목표를 완료로 기록하고 관련 집계를 갱신한다.</div>
+    <dl>
+      <dt>트리거</dt><dd><b>미완료 상태의 목표 영역 터치</b> — 별도 완료 버튼을 두지 않고 카드 전체가 터치 영역</dd>
+      <dt>입력</dt><dd>사용자, 카테고리(식이 · 활동 · 수면), 기준일, 그날 제시된 목표 문구</dd>
+      <dt>처리</dt><dd>완료 여부 저장 → 목표 문구 잠금(문구 잠금) → 완료 카운터 갱신 →
+        <b>완료 날짜를 기준으로</b> 연속일수 재계산 요청(연속일수 계산) → 코멘트 재평가 요청(상황 평가)</dd>
+      <dt>출력</dt><dd>체크 표시가 채워지고 본문이 흐려진 완료 상태 카드, 갱신된 이어가기 블록과 코멘트</dd>
+      <dt>예외</dt><dd><b>과거 날짜는 허용</b>하고 미래 날짜만 불가 — 날짜 스트립으로 이동한 날에 그대로 기록한다 ·
+        연타 시 마지막 상태만 반영 · 저장 실패 시 카드 상태를 이전으로 복구하고 재시도 안내 ·
+        터치 영역 안의 링크나 보조 동작을 두지 않아 오터치를 막는다</dd>
+    </dl>
+  </div>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">GOAL-002</span><b>완료 취소</b><span class="st st-done">확정</span></div>
+    <div class="fn-sum">완료 상태의 목표를 같은 영역 재터치로 되돌리고 관련 집계를 재계산한다.</div>
+    <dl>
+      <dt>트리거</dt><dd><b>완료 상태의 목표 영역 재터치</b> — 완료와 같은 영역을 쓰는 토글</dd>
+      <dt>입력</dt><dd>사용자, 카테고리, 취소 대상 날짜</dd>
+      <dt>처리</dt><dd>완료 해제 → 목표 문구 잠금 해제(문구 잠금) → 완료 카운터 감소 →
+        취소 날짜를 기준으로 연속일수와 최장 기록 재계산 → 코멘트 재평가</dd>
+      <dt>출력</dt><dd>미완료 상태로 돌아간 카드, 갱신된 집계와 코멘트</dd>
+      <dt>예외</dt><dd><b>과거 날짜도 취소 허용</b> — 날짜 스트립으로 볼 수 있는 날은 모두 되돌릴 수 있다 ·
+        재계산 실패 시 취소 전 상태로 원복 · 별도 확인 대화상자를 두지 않는다(되돌리기가 같은 동작이므로)</dd>
+    </dl>
+  </div>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">GOAL-003</span><b>목표 문구 잠금</b><span class="st st-done">확정</span></div>
+    <div class="fn-sum">완료 처리한 목표의 문구와 상태를 그날 동안 고정한다.</div>
+    <dl>
+      <dt>트리거</dt><dd>완료 처리 성공</dd>
+      <dt>입력</dt><dd>기준일, 카테고리, 그날 제시된 문구</dd>
+      <dt>처리</dt><dd>제시 문구 보존 → 개인화 교체 대상에서 제외 → 잠금 상태 유지</dd>
+      <dt>출력</dt><dd>문구가 고정된 완료 카드</dd>
+      <dt>예외</dt><dd>완료 취소 시 잠금 해제 · 날짜가 바뀌면 잠금 종료 · 사용자가 실제로 한 행동과 화면 문구가 어긋나지 않도록 교체하지 않는다</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ========== 02 ========== -->
+<section class="grp">
+  <div class="grp-h"><span class="grp-no">02</span><h2>연속일수 산출</h2></div>
+  <p class="grp-desc">완료 이력에서 이어가는 일수를 계산하고 타일 표시 상태를 정하는 구간입니다. 주 경계와 무관하게 동작합니다.</p>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">STREAK-001</span><b>연속일수 계산</b><span class="st st-review">검토</span></div>
+    <div class="fn-sum">카테고리별로 완료가 이어진 날 수를 산출한다.</div>
+    <dl>
+      <dt>트리거</dt><dd>화면 진입, 완료·취소 처리, 기준일 변경</dd>
+      <dt>입력</dt><dd>사용자, 카테고리, 기준일, 완료 이력</dd>
+      <dt>처리</dt><dd>기준일 완료 시 그날부터 · 미완료이고 전날 완료 시 전날부터 · 둘 다 미완료면 0 →
+        과거로 역산하되 <b>완료면 일수 +1, 완료 기록이 없으면 종료</b> (목표가 생성되지 않은 날도 완료 기록이 없으므로 동일하게 종료)</dd>
+      <dt>출력</dt><dd>카테고리별 현재 연속일수, 연속 시작일</dd>
+      <dt>예외</dt><dd>주·월 경계에서 리셋하지 않음 · 기준일이 끝나기 전에는 끊김 처리하지 않음 ·
+        건너뛰기 규칙 없음(2026-09-16 확정 — 목표 없는 날을 따로 저장하지 않는다) ·
+        이 숫자는 실천이 아니라 <b>기록이 이어진 날</b>을 센다</dd>
+    </dl>
+  </div>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">STREAK-002</span><b>최장 기록 산출 및 보존</b><span class="st st-review">검토</span></div>
+    <div class="fn-sum">완료 이력 전체에서 최장 연속일수를 계산하고 연속이 끊겨도 보존한다.</div>
+    <dl>
+      <dt>트리거</dt><dd>완료·취소 처리</dd>
+      <dt>입력</dt><dd>카테고리별 완료 이력 전체, 현재 연속 구간</dd>
+      <dt>처리</dt><dd><b>현재 진행 중인 연속 구간을 제외한</b> 과거 최장 연속 구간 산출(이전 최장 기록)
+        → 현재 연속일수와 비교 → 연속일수가 이전 최장 기록보다 크면 경신</dd>
+      <dt>출력</dt><dd>카테고리별 최장 기록, 이전 최장 기록, 경신 여부</dd>
+      <dt>예외</dt><dd><b>비교 대상은 현재 연속을 뺀 과거 최장이다</b> — 현재 연속을 포함해 계산하면 둘이 항상 같아져
+        경신이 영원히 성립하지 않는다(상황 평가 상황 4가 동률을 제외하기 때문) ·
+        <b>과거 기록이 없으면 이전 최장 기록을 0이 아니라 “해당 없음”</b>으로 두어
+        1일째에 “지금까지 가장 길게”가 나오지 않게 한다 ·
+        연속이 끊겨도 최장 기록은 삭제하지 않음 · 완료 취소 시 취소 날짜 기준으로 재계산 ·
+        성능을 위해 증분 갱신 여부 결정 필요</dd>
+    </dl>
+  </div>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">STREAK-003</span><b>기준일 이동 재계산</b><span class="st st-done">확정</span></div>
+    <div class="fn-sum">날짜 스트립으로 기준일을 바꾸면 그 시점 기준으로 다시 계산한다.</div>
+    <dl>
+      <dt>트리거</dt><dd>날짜 스트립에서 날짜 선택, 주 이동</dd>
+      <dt>입력</dt><dd>선택일, 완료 이력</dd>
+      <dt>처리</dt><dd>기준일 설정 → 오늘의 목표를 그날 기록으로 교체 → 세 카테고리 연속일수 재계산 → 코멘트 재평가</dd>
+      <dt>출력</dt><dd>선택일 기준으로 구성된 두 블록</dd>
+      <dt>예외</dt><dd>미래 날짜 선택 비활성 · <b>세 타일이 반드시 같은 기준일을 사용</b>해야 값이 어긋나지 않음 ·
+        <b>날짜를 옮기면 일수가 달라지는 것이 정상</b>(그 시점 기준) · 대신 보조 문구를 <code>O월O일까지</code>로 바꿔
+        현재진행형과 구분한다 — 타일 상태 판정</dd>
+    </dl>
+  </div>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">STREAK-004</span><b>타일 상태 판정</b><span class="st st-review">검토</span></div>
+    <div class="fn-sum">연속일수와 이력 유무로 타일의 주요 표시와 보조 문구를 정한다.</div>
+    <dl>
+      <dt>트리거</dt><dd>연속일수 산출 완료</dd>
+      <dt>입력</dt><dd>연속일수, 완료 이력 유무, 연속 시작일, 기준 주, <b>기준일이 오늘인지 과거인지</b></dd>
+      <dt>처리</dt><dd>이력 0건 → <code>시작 전</code> · 연속 0 → <code>다시 시작</code> ·
+        <b>기준일이 과거 → <code>N일째 / O월O일까지</code></b> ·
+        시작일이 기준 주 이전 → <code>N일째 / 시작일(O월O일)로부터</code> · 그 외 → <code>N일째 / 이어가는 중</code></dd>
+      <dt>출력</dt><dd>타일 주요 표시, 보조 문구, 보조 문구 색</dd>
+      <dt>예외</dt><dd><code>0일째</code>를 표시하지 않음 ·
+        <b>과거 기준일에 <code>이어가는 중</code>을 쓰지 않는다</b> — 그 뒤로 끊겼을 수 있어 현재진행형이 거짓이 된다 ·
+        시작일 표기 조건을 <b>“지난주”에서 “기준 주 이전”으로 확대</b> 필요 ·
+        <code>연속</code>과 <code>일째</code> 어휘 통일 필요</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ========== 03 ========== -->
+<section class="grp">
+  <div class="grp-h"><span class="grp-no">03</span><h2>코멘트 선택</h2></div>
+  <p class="grp-desc">상태를 평가해 상황 0~9 중 하나를 고르고 문구와 카테고리 구분 표시를 확정하는 구간입니다.</p>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">CMT-001</span><b>상황 평가 및 우선순위 선택</b><span class="st st-review">검토</span></div>
+    <div class="fn-sum">상황 0~9 중 충족하는 최상위 하나를 고른다. <b>기준일이 오늘일 때만 적용한다.</b></div>
+    <dl>
+      <dt>트리거</dt><dd>이어가기 블록 렌더링, 완료·취소 처리, 기준일 변경</dd>
+      <dt>입력</dt><dd>기준일, 목표 생성 여부, 완료 이력 유무, 최근 방문일, 카테고리별 연속일수, 최장 기록, 마디 목록</dd>
+      <dt>처리</dt><dd><b>기준일이 과거면 이 목록을 건너뛰고 기준일 이동 재계산의 과거 모드 문구를 쓴다.</b>
+        오늘이면 0 목표 없음 → 1 첫 기록 전 → 2 오랜만의 방문 → 3 마디 도달 → 4 최장 기록 경신 →
+        5 마디 하루 전 → 6 세 카테고리 동률 → 7 두 카테고리 동률 → 8 가장 긴 기록 하나 →
+        9 현재 연속 없음 순으로 평가하여 최초 충족 항목 확정 (번호는 화면정의서 예시 화면 00~09와 같다)</dd>
+      <dt>출력</dt><dd>선택된 상황 코드, 대상 카테고리 목록</dd>
+      <dt>예외</dt><dd>동시 충족 시 상위 1개만 노출 · 동률은 하나를 임의로 고르지 않고 묶어서 처리 ·
+        상황 0은 <b>세 카테고리 목표가 모두 없을 때</b>만 성립(일부만 없으면 해당 타일만 비활성) ·
+        상황 2은 방문 기록 수집(방문 기록 수집)이 전제이고 <b>방문일 기준</b>이라 과거 모드에서는 평가하지 않는다 ·
+        상황 4는 연속일수가 이전 최장 기록보다 클 때만 성립한다 — <b>초과만, 동률은 제외</b>(동률이면 상황 8가 뜬다) ·
+        이전 최장 기록은 <b>지금 이어가는 중인 연속을 뺀 과거 최장 일수</b>이며(최장 기록 산출) 과거 기록이 없으면 상황 4 자체가 해당 없음 ·
+        마디는 <code>7 · 14 · 30 · 50 · 100 · 150 · 200 · 250 · 300 · 365</code>이고 그 뒤로는 365의 배수 ·
+        상황 3는 <b>오늘 완료 상태에서 연속일수가 마디 값과 정확히 같을 때만</b> 성립(15일째에 14를 다시 띄우지 않음) ·
+        <b>같은 날 둘 이상이 마디에 닿으면 마디 값이 큰 쪽 하나만, 값이 같으면 묶어서</b> 말한다 ·
+        상황 4의 동시 경신도 같은 규칙</dd>
+    </dl>
+  </div>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">CMT-002</span><b>코멘트 문구 생성</b><span class="st st-review">검토</span></div>
+    <div class="fn-sum">선택된 상황의 제목과 본문을 실제 값으로 채워 만든다.</div>
+    <dl>
+      <dt>트리거</dt><dd>상황 코드 확정</dd>
+      <dt>입력</dt><dd>상황 코드, 대상 카테고리, 연속일수, 마지막 완료일, 도달 마디 값, <b>기준일 완료 여부</b></dd>
+      <dt>처리</dt><dd>상황별 템플릿 선택 → 날짜·일수 치환 → <b>기준일이 오늘이고 아직 미완료면 “오늘도 하면 N+1일째예요” 한 문장을 덧붙임</b>
+        → 금지 어휘와 부정형 검사</dd>
+      <dt>출력</dt><dd>코멘트 제목과 본문 1~2줄</dd>
+      <dt>예외</dt><dd>금지 어휘(달성률 · 실천 점수 · 순응도 · 의지력 · <b>꾸준히</b> · 완주) 포함 시 배포 차단 ·
+        부정형 금지 · 건강 효과 주장과 감탄사 금지 · 끊긴 것은 문장에 올리지 않되 상황 9만 예외 ·
+        <b>기준일이 과거면 미래형 문장(“내일도” · “오늘 하면” · “오랜만이에요”)을 쓰지 않는다</b> ·
+        <b>같은 권유를 여러 상황에 반복하지 않는다</b></dd>
+    </dl>
+  </div>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">CMT-003</span><b>코멘트 카테고리 구분 표시</b><span class="st st-done">확정</span></div>
+    <div class="fn-sum">코멘트가 언급하는 카테고리 수로 카드 배경을 정한다.</div>
+    <dl>
+      <dt>트리거</dt><dd>문구 생성 완료</dd>
+      <dt>입력</dt><dd>언급 카테고리 목록</dd>
+      <dt>처리</dt><dd>1개면 해당 카테고리로 구분 표시 · 2개 이상이거나 없으면 중립 처리 (시각 표현은 디자인에서 정한다)</dd>
+      <dt>출력</dt><dd>코멘트 카드의 구분 표시 대상 카테고리</dd>
+      <dt>예외</dt><dd>카테고리 구분 표시는 그 자체로 “이 종목 이야기”라는 신호이므로 임의로 붙이지 않는다</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ========== 04 ========== -->
+<section class="grp">
+  <div class="grp-h"><span class="grp-no">04</span><h2>데이터</h2></div>
+  <p class="grp-desc">위 세 그룹이 딛고 서는 저장소와 공통 계산입니다. 세 기능 모두 정의가 없어 선행 작업입니다.</p>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">DATA-G01</span><b>목표 기록 저장</b><span class="st st-open">미정</span></div>
+    <div class="fn-sum">카테고리 × 일자 단위로 완료 여부와 제시 문구를 보관한다.</div>
+    <dl>
+      <dt>트리거</dt><dd>완료·취소 처리</dd>
+      <dt>입력</dt><dd>사용자, 카테고리, 날짜, 완료 여부, 완료 시각, 그날 제시된 문구</dd>
+      <dt>처리</dt><dd>목표 기록 저장 → 동일 키(사용자 · 카테고리 · 날짜) 존재 시 갱신</dd>
+      <dt>출력</dt><dd>영속화된 목표 기록</dd>
+      <dt>예외</dt><dd><b>스키마 미정</b> — 논리 데이터 모델이 행동 로그를 범위에서 제외해 두어 정의가 없음 ·
+        기록이 <b>카드가 아니라 카테고리에 귀속</b>되어야 문구가 바뀌어도 일수가 승계됨 ·
+        제시 문구를 함께 남겨야 잠금 규칙의 근거가 됨 · 과거 날짜 기록이 가능하므로 날짜는 입력값으로 받는다</dd>
+    </dl>
+  </div>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">DATA-G02</span><b>방문 기록 수집</b><span class="st st-open">미정</span></div>
+    <div class="fn-sum">목표 화면을 본 날을 남겨 오랜만의 방문을 판정한다.</div>
+    <dl>
+      <dt>트리거</dt><dd>목표 분석 화면 진입 또는 홈 목표 카드 노출</dd>
+      <dt>입력</dt><dd>사용자, 방문일</dd>
+      <dt>처리</dt><dd>방문 기록 저장 → 최근 방문일 조회</dd>
+      <dt>출력</dt><dd>최근 방문일</dd>
+      <dt>예외</dt><dd><b>수집 가능 여부와 보존 기간 미정</b> · <b>연속일수 계산에는 사용하지 않음</b> —
+        코멘트 상황 2(오랜만의 방문) 판정 전용 · 수집이 불가하면 상황 2을 제거하거나 다른 기준을 정해야 함</dd>
+    </dl>
+  </div>
+
+  <div class="fn">
+    <div class="fn-h"><span class="fn-id">DATA-G03</span><b>홈 카드와 계산 공유</b><span class="st st-open">미정</span></div>
+    <div class="fn-sum">홈 목표 카드의 일수 표시와 같은 산출 결과를 사용한다.</div>
+    <dl>
+      <dt>트리거</dt><dd>홈 또는 생활 화면 렌더링</dd>
+      <dt>입력</dt><dd>사용자, 카테고리, 기준일</dd>
+      <dt>처리</dt><dd>단일 산출 모듈(연속일수 계산) 호출 → 두 화면에 동일 값 제공</dd>
+      <dt>출력</dt><dd>일치하는 일수 표시</dd>
+      <dt>예외</dt><dd><b>산출 로직의 공통 모듈화가 전제</b> · 정의가 갈라지면 같은 사용자에게 두 화면이
+        서로 다른 일수를 보여줌 · 연속일수 계산을 유일한 출처로 둔다</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- ========== 의존 ========== -->
+<section class="notes">
+  <h2>기능 간 의존</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>기능</th><th>호출/의존</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="k">완료 처리</td><td class="k">문구 잠금 · 연속일수 계산 · 상황 평가 · 목표 기록 저장</td><td>완료 한 번이 네 기능을 연쇄로 부른다</td></tr>
+        <tr><td class="k">완료 취소</td><td class="k">문구 잠금 · 연속일수 계산 · 최장 기록 산출 · 상황 평가</td><td>완료와 같은 영역을 쓰는 토글이라 경로가 대칭</td></tr>
+        <tr><td class="k">연속일수 계산</td><td class="k">목표 기록 저장</td><td>완료 이력만으로 계산 · 방문 기록 불필요</td></tr>
+        <tr><td class="k">타일 상태 판정</td><td class="k">연속일수 계산</td><td>연속일수와 시작일이 입력</td></tr>
+        <tr><td class="k">상황 평가</td><td class="k">연속일수 계산 · 최장 기록 산출 · 방문 기록 수집</td><td>상황 2만 방문 기록을 쓴다</td></tr>
+        <tr><td class="k">코멘트 문구 생성</td><td class="k">상황 평가</td><td>상황 코드가 템플릿을 고른다</td></tr>
+        <tr><td class="k">홈 카드와 계산 공유</td><td class="k">연속일수 계산</td><td>같은 모듈을 홈과 공유</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 style="margin-top:32px">선행 작업</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>순서</th><th>작업</th><th>막히는 기능</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1</td><td>목표 기록 저장 구조 확정</td><td class="k">완료 처리 · 연속일수 계산 · 사실상 전부</td></tr>
+        <tr><td class="k">2</td><td>소급 기록 시 <b>최장 기록 재계산 범위</b> — 과거 날짜 허용에 따라 전체 재산출이 필요한지</td><td class="k">최장 기록 산출</td></tr>
+        <tr><td class="k">3</td><td>방문 기록 수집 가능 여부 확인</td><td class="k">상황 평가 · 상황 2(오랜만의 방문)</td></tr>
+        <tr><td class="k">4</td><td>어휘 통일 · 시작일 조건 확대 · 미기록 해석 문구 정리</td><td class="k">연속일수 계산 · 타일 상태 판정 · 코멘트 문구 생성</td></tr>
+        <tr><td class="k">5</td><td>마디 365 이후 정의</td><td class="k">상황 평가</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="srcs">
+  <h2>근거 문서</h2>
+  <ul>
+    <li><code>maiReport_목표 분석 화면_실천기록_기획서</code> v1.0 — v2.0 — 집계 기준 · 타일 표시 · 안내 10종 · 과거 날짜 모드</li>
+    <li><code>maiReport_화면정의서_목표 분석 화면_실천기록.xlsx</code> — 화면·상태 목록과 정책 20건</li>
+    <li><code>maiReport_policy_goal-lock-and-no-data_v1.0.0.html</code> v0.1 — 문구 잠금 잠금 규칙</li>
+    <li><code>maiReport_지표기획서.html</code> v0.3 — 코멘트 문구 생성 금지 어휘</li>
+    <li><code>maiReport_데이터모델_v1.0.0.html</code> v0.1 — 목표 기록 저장이 범위에서 제외된 근거</li>
+  </ul>
+</div>
+
+<footer>maiReport · 목표 이어가기 기능정의서 · v1.0 · 내부 검토용 · 2026-09-11</footer>
+
+</main>

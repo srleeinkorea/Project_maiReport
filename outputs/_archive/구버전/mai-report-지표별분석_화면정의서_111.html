@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 생활 탭 &gt; 지표별 분석 화면정의서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2;--green:#12A150;--amber:#D98A12;--warn:#E5893A;--purple:#7C5CFC}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:720px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .mini{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+  .mini p{font-size:12.5px;margin:0}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;margin-right:4px}
+  .p-g{background:#E7F7ED;color:var(--green)}.p-m{background:#F1F3F7;color:#8A93A5}.p-l{background:#FDF0E3;color:var(--warn)}.p-b{background:var(--brand-soft);color:var(--brand)}
+  .flow{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin:10px 0}
+  .flow div{flex:1;min-width:150px;background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px}
+  .flow div b{display:block;color:var(--ink-1);margin-bottom:4px}
+  ul{padding-left:18px;margin-bottom:8px}
+  li{margin-bottom:4px;font-size:13px}
+  .note{font-size:12px;color:var(--ink-3)}
+  /* 샘플 카드 */
+  .sample{max-width:360px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;margin:10px 0}
+  .sample .hd{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .sample .hd b{font-size:16px;color:var(--ink-1)}
+  .sample .q{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);font-size:11px;font-weight:800;color:var(--ink-3);display:inline-flex;align-items:center;justify-content:center}
+  .sample .badge{margin-left:auto;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:800;background:#E7F7ED;color:var(--green)}
+  .sample .lab{font-size:11px;font-weight:700;color:var(--ink-3);margin:12px 0 4px}
+  .sample .ins{font-size:13px;color:var(--ink-1)}
+  .sample .row{display:flex;justify-content:space-between;font-size:12.5px;padding:8px 10px;border:1px solid var(--line);border-top:0}
+  .sample .row:first-of-type{border-top:1px solid var(--line);border-radius:10px 10px 0 0}
+  .sample .row:last-of-type{border-radius:0 0 10px 10px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 화면정의서</span>
+  <h1>생활 탭 &gt; 지표별 분석 화면정의서</h1>
+  <p>홈 '오늘의 컨디션'이 세 지표의 오늘 상태를 한 눈에 보여준다면, 이 화면은 그 상태가 어떤 흐름 위에 있는지와 어떤 데이터에서 나왔는지를 지표별 카드로 풀어 보여준다. 숫자 점수는 쓰지 않고 세 구간 띠 위의 주간 그래프, 구간 라벨, 흐름 설명, 핵심 데이터로만 구성한다.</p>
+  <div class="meta"><span>작성일 <b>2026-09-16</b></span><span>버전 <b>1.0</b></span><span>대상 화면 <b>생활 탭 &gt; 지표별 분석</b></span><span>연관 문서 <b>홈화면_화면정의서 · 생활지표_기획서 · 프로토타입(mai-report-prototype_v1.0.0.html)</b></span><span>작성자 <b>Sarah Lee · 마이허브 코퍼레이션</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 화면 개요</a><a href="#s2">② 상단 영역</a><a href="#s3">③ 지표 카드 구성</a><a href="#s4">④ 주간 그래프 규칙</a><a href="#s5">⑤ 지표 정의와 구간 라벨</a><a href="#s6">⑥ 핵심 데이터</a><a href="#s7">⑦ 상태 정의</a><a href="#s8">⑧ 연동 규칙</a><a href="#s9">⑨ QA 체크</a><a href="#s10">⑩ 확인 필요 사항</a>
+</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>화면 개요</h2>
+  <div class="sub">위치, 역할, 화면 구조</div>
+  <h3>1.1 위치와 역할</h3>
+  <p>생활 탭의 두 번째 서브탭(목표 분석 · <b>지표별 분석</b> · 생활 분석 · AI 인사이트). 홈의 오늘의 컨디션 카드나 › 를 누르면 이 탭으로 들어온다. 사용자는 세 카드를 내려 보며 생활여유 → 자기돌봄 → 일상안정 순으로 "지금 어느 구간인지 · 이번 주 어떻게 움직였는지 · 왜 그런지 · 어떤 데이터가 쓰였는지"를 확인한다.</p>
+  <h3>1.2 화면 구조</h3>
+  <div class="flow">
+    <div><b>상단 공통</b>생활 헤더(주차 · 오늘 버튼) · 날짜 스트립 · 서브탭</div>
+    <div><b>카드 ① 생활여유</b>헤더 · 주간 그래프 · 현재 흐름 · 핵심 데이터</div>
+    <div><b>카드 ② 자기돌봄</b>동일 구성</div>
+    <div><b>카드 ③ 일상안정</b>동일 구성 (기준: 최근 7일)</div>
+  </div>
+  <p>카드 순서는 고정이며 접힘/펼침이 없다. 세 카드 외의 요약·합산 영역은 두지 않는다.</p>
+  <h3>1.3 기준일</h3>
+  <p>날짜 스트립에서 선택한 날이 기준일이다. 기본은 오늘. 과거 날짜를 선택하면 그날의 구간·흐름·핵심 데이터를 보여주고, 미래 날짜는 선택할 수 없다. 이전 주로 이동하면 그 주 일요일이 기준일이 되며 읽기 전용이다.</p>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>상단 영역</h2>
+  <div class="sub">생활 탭 네 서브탭이 공유하는 영역</div>
+  <table>
+    <tr><th style="width:160px">요소</th><th>동작</th></tr>
+    <tr><td class="k">제목 · 주차</td><td>"생활" + 현재 보고 있는 주(예: 8월 4주차)</td></tr>
+    <tr><td class="k">오늘 버튼</td><td>이번 주 · 오늘로 복귀. 이미 오늘이면 비활성 톤</td></tr>
+    <tr><td class="k">날짜 스트립</td><td>월~일 7칸, 오늘 표시. 탭 → 기준일 변경 → 세 카드 재렌더. 미래 날짜 비활성. ‹ › 로 주 이동(이전 주는 읽기 전용, 다음 주 이동 불가)</td></tr>
+    <tr><td class="k">서브탭</td><td>목표 분석 · 지표별 분석 · 생활 분석 · AI 인사이트. 탭 전환 시 기준일 유지</td></tr>
+  </table>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>지표 카드 구성</h2>
+  <div class="sub">세 카드가 같은 뼈대를 쓴다. 위에서 아래로 헤더 → 주간 그래프 → 현재 흐름 → 핵심 데이터</div>
+  <table>
+    <tr><th style="width:130px">영역</th><th>내용</th><th style="width:36%">규칙</th></tr>
+    <tr><td class="k">헤더</td><td>지표명 + <b>?</b> 버튼(좌) · 구간 배지(우)</td><td>구간 배지는 기준일의 구간 라벨. 전일 대비 방향(▲▼·변화 없음), 점수, 기준 캡션은 두지 않는다</td></tr>
+    <tr><td class="k">정의 토글</td><td>? 를 누르면 헤더 아래에 "한 줄 정의 + 부연 설명"이 펼쳐진다. 다시 누르면 닫힘</td><td>지표명을 반복하지 않고 정의로 바로 시작. 기본 닫힘</td></tr>
+    <tr><td class="k">주간 그래프</td><td>세 구간 띠 위에 그리는 월~일 흐름</td><td>§4</td></tr>
+    <tr><td class="k">현재 흐름</td><td>기준일의 구간이 왜 그런지 한두 문장</td><td>"이번 주는" 같은 달력 주어 없이 최근 변화와 이유에 집중. 문장 생성 규칙은 별도 문서(지표 해석 문구 규칙)</td></tr>
+    <tr><td class="k">핵심 데이터</td><td>지표 산출에 실제로 쓰인 항목의 기준일 값 목록</td><td>항목명 + 값만. 판정 칩(비슷·낮춤·충분 등)과 평소 대비 문구는 쓰지 않는다. §6</td></tr>
+  </table>
+  <h3>3.1 카드 예시(생활여유 · 기준일 오늘)</h3>
+  <div class="sample">
+    <div class="hd"><b>생활여유</b><span class="q">?</span><span class="badge">충분해요</span></div>
+    <div style="height:78px;border-radius:8px;background:linear-gradient(180deg,#E7F7ED 0 34%,#F1F3F7 34% 67%,#FDF0E3 67%);position:relative"><span style="position:absolute;right:8px;top:8px;font-size:10px;color:var(--green);font-weight:700">충분</span><span style="position:absolute;right:8px;top:33px;font-size:10px;color:#8A93A5;font-weight:700">보통</span><span style="position:absolute;right:8px;bottom:8px;font-size:10px;color:var(--warn);font-weight:700">부족</span></div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);font-size:11px;color:var(--ink-3);text-align:center;margin-top:4px"><span>월</span><span>화</span><span>수</span><span style="color:var(--brand);font-weight:800">목</span><span>금</span><span>토</span><span>일</span></div>
+    <div class="lab">현재 흐름</div>
+    <div class="ins">늦은 시간에 몰려 있던 활동이 하루 중간으로 나뉘고 수면이 채워지면서, <b>여유가 다시 앞선 하루</b>가 됐어요.</div>
+    <div class="lab">핵심 데이터</div>
+    <div class="row"><span>● 활동 시간</span><b>42분</b></div>
+    <div class="row"><span>● 운동 시간</span><b>15분</b></div>
+    <div class="row"><span>● 수면</span><b>7시간 23분</b></div>
+  </div>
+  <p class="note">그래프 영역은 구성 설명용 도식이다. 실제 선·점 규칙은 §4를 따른다.</p>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>주간 그래프 규칙</h2>
+  <div class="sub">숫자를 노출하지 않으면서 흐름을 읽게 하는 장치. 띠는 의미, 선은 움직임</div>
+  <table>
+    <tr><th style="width:150px">요소</th><th>규칙</th></tr>
+    <tr><td class="k">배경 띠</td><td>위에서부터 좋음 · 보통 · 주의 세 구간을 가로 띠로 깐다. 띠 오른쪽 끝에 구간 짧은 이름(§5). 띠 높이 비율은 구간 경계(잠정 66 / 33)를 따른다</td></tr>
+    <tr><td class="k">가로축</td><td>월~일 7칸. 기준일 라벨만 강조. 이전 주로 이동하면 그 주의 요일</td></tr>
+    <tr><td class="k">점과 선</td><td>값이 있는 날만 점을 찍고 이웃한 날끼리 선으로 잇는다. 색은 지표 구분색</td></tr>
+    <tr><td class="k">기준일</td><td>속이 빈 큰 원으로 표시</td></tr>
+    <tr><td class="k">결측 · 미래</td><td>점을 찍지 않고 선을 끊는다. 0이나 이전 값으로 메우지 않는다. 미래 요일은 비워 둔다</td></tr>
+    <tr><td class="k">숨기는 것</td><td>세로축 눈금·숫자, 점 위 값 표기, 평균선, 증감 표시. 점을 눌러도 값이 뜨지 않는다</td></tr>
+    <tr><td class="k">일상안정</td><td>다른 두 지표와 같은 형식으로 그리되, 각 날의 값은 "그날 기준 최근 7일"로 산정한 것이다(§5)</td></tr>
+  </table>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>지표 정의와 구간 라벨</h2>
+  <div class="sub">? 토글에 들어가는 문구와 구간 배지·띠에 쓰는 이름</div>
+  <table>
+    <tr><th style="width:90px">지표</th><th style="width:170px">한 줄 정의</th><th>부연 설명(? 토글)</th><th style="width:110px">시간축</th></tr>
+    <tr><td class="k">생활여유</td><td>오늘 남아 있는 몸의 여유</td><td>잠은 충분했는지, 움직임이 하루에 고르게 퍼져 있었는지를 함께 보고 오늘을 편안하게 보낼 힘이 얼마나 남았는지 알려드려요.</td><td>기준일 하루</td></tr>
+    <tr><td class="k">자기돌봄</td><td>오늘 나를 챙긴 정도</td><td>식사 뒤, 오래 앉아 있던 뒤처럼 몸을 챙기기 좋은 순간에 실제로 가볍게 움직였는지 살펴봐요. 많이 움직였는지가 아니라 알맞은 때에 움직였는지가 기준이에요.</td><td>기준일 하루</td></tr>
+    <tr><td class="k">일상안정</td><td>최근 생활 리듬의 일정함</td><td>하루하루의 리듬이 평소처럼 일정하게 흐르고 있는지 봐요. 어제와 오늘이 크게 다르지 않을수록 안정적이에요.</td><td>기준일까지 최근 7일</td></tr>
+  </table>
+  <table>
+    <tr><th style="width:90px">지표</th><th>구간 배지(좋음 / 보통 / 주의)</th><th style="width:36%">띠 오른쪽 짧은 이름</th></tr>
+    <tr><td class="k">생활여유</td><td><span class="pill p-g">충분해요</span><span class="pill p-m">보통이에요</span><span class="pill p-l">부족해요</span></td><td>충분 · 보통 · 부족</td></tr>
+    <tr><td class="k">자기돌봄</td><td><span class="pill p-g">잘하고 있어요</span><span class="pill p-m">보통이에요</span><span class="pill p-l">부족해요</span></td><td>잘함 · 보통 · 부족</td></tr>
+    <tr><td class="k">일상안정</td><td><span class="pill p-g">안정적이에요</span><span class="pill p-m">비슷해요</span><span class="pill p-l">불안정해요</span></td><td>안정 · 비슷 · 불안정</td></tr>
+  </table>
+  <p class="note">구간 경계는 잠정 66 / 33(0~100 내부 규칙값). 산식과 결측 원칙은 생활지표_기획서를 따른다.</p>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="n">6</span>핵심 데이터</h2>
+  <div class="sub">카드 하단 목록에 올리는 항목. 지표 산출에 실제로 쓰인 것만, 값만</div>
+  <table>
+    <tr><th style="width:130px">항목</th><th style="width:110px">생활여유</th><th style="width:110px">자기돌봄</th><th style="width:110px">일상안정</th><th>비고</th></tr>
+    <tr><td class="k">수면</td><td>●</td><td>–</td><td>●</td><td>시간 표기(예: 7시간 23분)</td></tr>
+    <tr><td class="k">활동 시간</td><td>●</td><td>●</td><td>●</td><td>걸음 기록에서 직접 산출한 값</td></tr>
+    <tr><td class="k">운동 시간</td><td>●</td><td>●</td><td>●</td><td>운동 세션 합계. 세션 없으면 "기록 없음"</td></tr>
+    <tr><td class="k">운동 기록</td><td>–</td><td>●</td><td>●</td><td>종류·횟수(예: 걷기 1회)</td></tr>
+    <tr><td class="k">걸음 수</td><td>–</td><td>–</td><td>●</td><td>생활여유는 걸음만 있는 날 산출에만 보조로 쓰므로 목록에 올리지 않음</td></tr>
+    <tr><td class="k">심박수</td><td>–</td><td>–</td><td>●</td><td>안정 시 심박</td></tr>
+    <tr><td class="k">체중</td><td>–</td><td>–</td><td>●</td><td>기록이 있는 날만</td></tr>
+  </table>
+  <p>활동 칼로리 · 체지방률 · BMI · 혈압 · 혈당 · 식사 기록 · 질문 응답은 산식의 맥락 보강에만 쓰이므로 이 목록에 올리지 않는다. 항목 옆에 지표 구분색 점(●)만 두고, 값은 우측 정렬로 굵게 표시한다.</p>
+</section>
+
+<!-- 7 -->
+<section class="card" id="s7">
+  <h2><span class="n">7</span>상태 정의</h2>
+  <div class="sub">카드 단위로 판정한다. 한 화면에 상태가 다른 카드가 섞일 수 있다</div>
+  <table>
+    <tr><th style="width:150px">상태</th><th>조건</th><th style="width:44%">화면</th></tr>
+    <tr><td class="k">산정 가능</td><td>기준일 구간이 산출됨</td><td>§3 전체 구성</td></tr>
+    <tr><td class="k">관찰 중</td><td>기준일 구간을 산출할 수 없음(데이터 부족, 기준선 미형성 등)</td><td>헤더(지표명 · ?)만 두고 그래프·흐름·핵심 데이터 대신 빈 상태 카드: "아직 관찰 중이에요" + 지표별 사유 한 줄. 구간 배지 없음. 결측을 낮은 구간으로 표시하지 않는다</td></tr>
+    <tr><td class="k">주 중 일부 결측</td><td>기준일은 산정되지만 주 중 일부 날이 결측</td><td>정상 카드. 그래프에서 해당 날만 점 없이 선을 끊는다</td></tr>
+    <tr><td class="k">과거 날짜 선택</td><td>이번 주의 지난 날을 기준일로 선택</td><td>그날 기준 구간·흐름·핵심 데이터. 흐름 문장은 과거형</td></tr>
+    <tr><td class="k">이전 주</td><td>‹ 로 지난 주 이동</td><td>상단에 읽기 전용 안내 한 줄, 그 주 일요일을 기준일로 세 카드 표시. 기록이 준비되지 않은 주는 안내만</td></tr>
+    <tr><td class="k">건강 데이터 미연동</td><td>연동 없음</td><td>세 카드 대신 연동 안내 카드 하나("건강 데이터를 연동하면 지표별 흐름을 볼 수 있어요" + 연동 버튼). 관찰 중과 구분</td></tr>
+  </table>
+</section>
+
+<!-- 8 -->
+<section class="card" id="s8">
+  <h2><span class="n">8</span>연동 규칙</h2>
+  <div class="sub">다른 화면·조작과의 관계</div>
+  <table>
+    <tr><th style="width:220px">트리거</th><th>반영</th></tr>
+    <tr><td class="k">홈 컨디션 카드 / › 탭</td><td>생활 탭으로 이동 → 지표별 분석 서브탭 → 기준일 오늘</td></tr>
+    <tr><td class="k">날짜 스트립 탭</td><td>기준일 변경 → 세 카드의 구간 배지·기준일 표시·흐름 문장·핵심 데이터 값 갱신. 그래프는 같은 주를 유지하고 강조 점만 이동</td></tr>
+    <tr><td class="k">‹ › 주 이동</td><td>그 주의 그래프·요일로 교체. 이전 주는 읽기 전용, 다음 주 불가</td></tr>
+    <tr><td class="k">오늘 버튼</td><td>이번 주 · 오늘로 복귀</td></tr>
+    <tr><td class="k">? 버튼</td><td>해당 카드의 정의 토글만 열고 닫음. 다른 카드에 영향 없음. 화면을 떠나면 닫힘</td></tr>
+    <tr><td class="k">낮 동안 기기 데이터 갱신</td><td>오늘 기준 구간·흐름·핵심 데이터가 재산정될 수 있다(홈 컨디션과 동일 값)</td></tr>
+    <tr><td class="k">건강 데이터 연동 완료 / 해제</td><td>연동 시 세 카드 즉시 렌더, 해제 시 미연동 상태</td></tr>
+  </table>
+</section>
+
+<!-- 9 -->
+<section class="card" id="s9">
+  <h2><span class="n">9</span>QA 체크</h2>
+  <div class="sub">출시 전 확인하는 상태 조합</div>
+  <div class="grid2">
+    <div class="mini"><b>카드 구성</b><p>세 카드 순서 고정 · 헤더에 전일 대비·점수·기준 캡션 없음 · ? 토글 열림/닫힘 · 핵심 데이터에 판정 칩·비교 문구 없음 · 값 우측 정렬</p></div>
+    <div class="mini"><b>그래프</b><p>세 구간 띠 비율 · 오른쪽 짧은 이름 · 기준일 빈 원 · 결측 날 선 끊김 · 미래 요일 비움 · 숫자·눈금·평균선 없음 · 점 탭 시 값 미노출</p></div>
+    <div class="mini"><b>상태</b><p>산정 가능 · 관찰 중(지표별 사유) · 주 중 일부 결측 · 과거 날짜 선택 · 이전 주 읽기 전용 · 기록 없는 주 · 미연동 안내</p></div>
+    <div class="mini"><b>연동</b><p>홈에서 진입 시 기준일 오늘 · 날짜 변경 시 세 카드 동시 갱신 · 서브탭 전환 시 기준일 유지 · 오늘 버튼 · 홈 컨디션과 같은 구간</p></div>
+    <div class="mini"><b>문구</b><p>구간 라벨 지표별 3종 · 정의 토글 문구 · 흐름 문장 달력 주어 없음 · 과거 날짜 과거형 · 브랜드명 미노출</p></div>
+    <div class="mini"><b>레이아웃</b><p>360px 폭 줄바꿈 · 배지 2줄 방지 · 핵심 데이터 값 길이(예: 7시간 23분) 줄바꿈 없음</p></div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="card" id="s10">
+  <h2><span class="n">10</span>확인 필요 사항</h2>
+  <div class="sub">이 문서 확정 전 담당자 결정이 필요한 항목</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:220px">항목</th><th>내용</th><th style="width:90px">상태</th></tr>
+    <tr><td>1</td><td class="k">흐름 문장 생성 규칙</td><td>구간·변화 방향·핵심 데이터 조합별 문장 템플릿과 금지 어휘를 별도 문서로 확정</td><td><span class="pill p-b">작성 예정</span></td></tr>
+    <tr><td>2</td><td class="k">관찰 중 사유 문구</td><td>지표별 산출 불가 원인(데이터 부족, 기준선 미형성, 기회 미관측 등)에 대응하는 문구 세트</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>3</td><td class="k">구간 경계 66/33</td><td>지표 엔진이 구간을 직접 내려주는지, 그래프 띠 비율을 고정할지</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>4</td><td class="k">이전 주 조회 범위</td><td>‹ 로 몇 주까지 거슬러 올라갈지(가입일 하한)</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>5</td><td class="k">일상안정 주간 표현</td><td>날마다 "그날 기준 최근 7일"로 그리는 방식이 사용자에게 자연스러운지 검증</td><td><span class="pill p-l">확인 필요</span></td></tr>
+    <tr><td>6</td><td class="k">핵심 데이터 값 형식</td><td>운동 기록(종류·횟수) · 체중(기록 있는 날만) 표기 규칙</td><td><span class="pill p-l">확인 필요</span></td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

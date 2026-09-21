@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="1010" viewBox="0 0 430 1010" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">
+<defs></defs>
+<rect width="430" height="1010" fill="rgb(232, 235, 242)"/>
+<rect x="0" y="0" width="430" height="1010" rx="0" fill="rgb(232, 235, 242)"/>
+<rect x="0" y="0" width="430" height="1010" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="0" y="0" width="430" height="930" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="0" y="0" width="430" height="56" rx="0" fill="rgb(255, 255, 255)"/>
+<text x="25.66" y="35.42" font-size="22" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">‹</text>
+<text x="181" y="33.06" font-size="16" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.32px" xml:space="preserve">운동 기록</text>
+<rect x="0" y="56" width="430" height="874" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="18" y="64" width="394" height="363.58" rx="20" fill="rgb(255, 255, 255)"/>
+<rect x="38" y="84" width="30" height="30" rx="15" fill="rgb(227, 246, 232)"/>
+<text x="43.56" y="104.4" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🏃</text>
+<text x="78" y="103.24" font-size="14" font-weight="800" fill="rgb(18, 161, 80)" letter-spacing="-0.28px" xml:space="preserve">운동 기록</text>
+<text x="156.55" y="138.46" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">2026년 8월 20일 (목)</text>
+<text x="137.92" y="174.95" font-size="26" font-weight="800" fill="rgb(22, 35, 63)" letter-spacing="-0.52px" xml:space="preserve">총 2시간 2분</text>
+<rect x="38.5" y="197.69" width="353" height="209.39" rx="15.5" fill="rgb(255, 255, 255)" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="55" y="216.58" width="32" height="32" rx="16" fill="rgb(227, 246, 232)"/>
+<text x="61.56" y="237.98" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🚶</text>
+<text x="99" y="227.37" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">걷기</text>
+<text x="99" y="247.08" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">30분 · 2.8 km</text>
+<text x="367.94" y="238.56" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<line x1="39" y1="267.48" x2="391" y2="267.48" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="55" y="286.38" width="32" height="32" rx="16" fill="rgb(232, 234, 251)"/>
+<text x="61.56" y="307.77" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🏃</text>
+<text x="99" y="297.16" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">러닝</text>
+<text x="99" y="316.88" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">1시간 12분 · 1.5 km</text>
+<text x="367.94" y="308.36" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<line x1="39" y1="337.28" x2="391" y2="337.28" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="55" y="356.17" width="32" height="32" rx="16" fill="rgb(255, 244, 218)"/>
+<text x="61.56" y="377.57" font-size="15" font-weight="400" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">🚴</text>
+<text x="99" y="366.96" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">자전거</text>
+<text x="99" y="386.68" font-size="10" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">20분 · 6.1 km</text>
+<text x="367.94" y="378.15" font-size="18" font-weight="400" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+</svg>

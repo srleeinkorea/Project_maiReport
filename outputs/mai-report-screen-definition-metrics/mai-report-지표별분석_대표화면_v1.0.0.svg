@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="1861" viewBox="0 0 430 1861" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">
+<defs><linearGradient id="g1" x1="0.500" y1="0.000" x2="0.500" y2="1.000"><stop offset="0" stop-color="rgb(237, 243, 253)" stop-opacity="1"/><stop offset="1" stop-color="rgb(244, 246, 250)" stop-opacity="1"/></linearGradient></defs>
+<rect width="430" height="1861" fill="rgb(232, 235, 242)"/>
+<rect x="0" y="0" width="430" height="1861" rx="0" fill="rgb(232, 235, 242)"/>
+<rect x="0" y="0" width="430" height="1861" rx="0" fill="rgb(244, 246, 250)"/>
+<rect x="0" y="0" width="430" height="168.69" rx="0" fill="url(#g1)"/>
+<text x="18" y="41.42" font-size="22" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.66px" xml:space="preserve">생활</text>
+<text x="18" y="62.82" font-size="12" font-weight="500" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">8월 4주차</text>
+<rect x="358.77" y="20.5" width="52.73" height="34" rx="17" fill="rgb(255, 255, 255)" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<text x="373.27" y="41.32" font-size="12" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">오늘</text>
+<text x="25.36" y="123.67" font-size="18" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">‹</text>
+<text x="59.13" y="104.15" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">월</text>
+<text x="53.56" y="123.95" font-size="16" font-weight="700" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">17</text>
+<text x="109.27" y="104.15" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">화</text>
+<text x="103.7" y="123.95" font-size="16" font-weight="700" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">18</text>
+<text x="159.41" y="104.15" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">수</text>
+<text x="153.84" y="123.95" font-size="16" font-weight="700" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">19</text>
+<rect x="192.42" y="84.69" width="45.14" height="66" rx="14" fill="rgb(47, 107, 255)"/>
+<text x="209.55" y="104.15" font-size="11" font-weight="600" fill="rgb(255, 255, 255)" letter-spacing="-0.14px" xml:space="preserve">목</text>
+<text x="203.98" y="123.95" font-size="16" font-weight="700" fill="rgb(255, 255, 255)" letter-spacing="-0.14px" xml:space="preserve">20</text>
+<text x="205.13" y="139.79" font-size="10" font-weight="600" fill="rgba(255, 255, 255, 0.85)" letter-spacing="-0.14px" xml:space="preserve">오늘</text>
+<text x="259.69" y="104.15" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">금</text>
+<text x="254.13" y="123.95" font-size="16" font-weight="700" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">21</text>
+<text x="309.83" y="104.15" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">토</text>
+<text x="304.27" y="123.95" font-size="16" font-weight="700" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">22</text>
+<text x="359.97" y="104.15" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">일</text>
+<text x="354.41" y="123.95" font-size="16" font-weight="700" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">23</text>
+<text x="397.36" y="123.67" font-size="18" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">›</text>
+<rect x="0" y="168.69" width="430" height="47.59" rx="0" fill="rgb(244, 246, 250)"/>
+<text x="19" y="195.73" font-size="14" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">목표 분석</text>
+<line x1="100.19" y1="215.28" x2="176.23" y2="215.28" stroke="rgb(47, 107, 255)" stroke-width="2"/>
+<text x="101.19" y="195.73" font-size="14" font-weight="700" fill="rgb(47, 107, 255)" letter-spacing="-0.14px" xml:space="preserve">지표별 분석</text>
+<text x="197.23" y="195.73" font-size="14" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">생활 분석</text>
+<text x="279.42" y="195.73" font-size="14" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">AI 인사이트</text>
+<rect x="18" y="230.28" width="394" height="438.34" rx="20" fill="rgb(255, 255, 255)"/>
+<text x="38" y="270.14" font-size="16" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.32px" xml:space="preserve">생활여유</text>
+<rect x="107.23" y="256.56" width="17" height="17" rx="8.5" fill="rgb(255, 255, 255)" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<text x="112.7" y="269.02" font-size="11" font-weight="800" fill="rgb(152, 164, 184)" letter-spacing="-0.32px" xml:space="preserve">?</text>
+<rect x="318.47" y="250.28" width="73.53" height="29.59" rx="14.8" fill="rgb(231, 247, 237)"/>
+<text x="331.47" y="268.6" font-size="12" font-weight="750" fill="rgb(18, 161, 80)" letter-spacing="-0.12px" xml:space="preserve">충분해요</text>
+<svg viewBox="0 0 320 78" preserveAspectRatio="none" x="38" y="287.88" width="354" height="78"><rect x="0" y="2" width="276" height="25.159999999999997" fill="rgb(231, 247, 237)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></rect><rect x="0" y="27.159999999999997" width="276" height="24.42" fill="rgb(241, 243, 247)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></rect><rect x="0" y="51.58" width="276" height="24.42" fill="rgb(253, 240, 227)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></rect><text x="284" y="18.080000000000005" font-size="9.5" font-weight="700" fill="rgb(18, 161, 80)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter" text-anchor="start" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">충분</text><text x="284" y="42.5" font-size="9.5" font-weight="700" fill="rgb(138, 147, 165)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter" text-anchor="start" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">보통</text><text x="284" y="67.66" font-size="9.5" font-weight="700" fill="rgb(229, 137, 58)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter" text-anchor="start" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">부족</text><polyline points="4.0,30.1 48.7,35.3 93.3,39.0 138.0,20.5" fill="none" stroke="rgb(18, 161, 80)" stroke-width="2.2px" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline><circle cx="4.0" cy="30.1" r="3" fill="rgb(18, 161, 80)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></circle><circle cx="48.7" cy="35.3" r="3" fill="rgb(18, 161, 80)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></circle><circle cx="93.3" cy="39.0" r="3" fill="rgb(18, 161, 80)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></circle><circle cx="138.0" cy="20.5" r="5" fill="rgb(255, 255, 255)" stroke="rgb(18, 161, 80)" stroke-width="2.5px" vector-effect="non-scaling-stroke" stroke-linecap="butt" stroke-linejoin="miter"></circle></svg>
+<text x="55.56" y="381.34" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">월</text>
+<text x="99.56" y="381.34" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">화</text>
+<text x="143.56" y="381.34" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">수</text>
+<text x="187.56" y="381.34" font-size="11" font-weight="700" fill="rgb(47, 107, 255)" letter-spacing="-0.14px" xml:space="preserve">목</text>
+<text x="231.56" y="381.34" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">금</text>
+<text x="275.56" y="381.34" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">토</text>
+<text x="319.56" y="381.34" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">일</text>
+<text x="38" y="412.73" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">현재 흐름</text>
+<text x="38" y="440.84" font-size="13" font-weight="400" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">늦은 시간에 몰려 있던 활동이 하루 중간으로 나뉘고 수면이</text>
+<text x="38" y="462.93" font-size="13" font-weight="400" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">채워지면서,</text>
+<text x="110.3" y="462.93" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">여유가 다시 앞선 하루</text>
+<text x="239.2" y="462.93" font-size="13" font-weight="400" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">가 됐어요.</text>
+<text x="38" y="497.3" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">핵심 데이터</text>
+<rect x="38.5" y="510.73" width="353" height="137.39" rx="13.5" fill="none" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="530.13" width="7" height="7" rx="3.5" fill="rgb(18, 161, 80)"/>
+<text x="68" y="537.41" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">활동 시간</text>
+<text x="347.33" y="537.41" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">42분</text>
+<line x1="39" y1="556.53" x2="391" y2="556.53" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="575.92" width="7" height="7" rx="3.5" fill="rgb(18, 161, 80)"/>
+<text x="68" y="583.21" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">운동 시간</text>
+<text x="347.33" y="583.21" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">15분</text>
+<line x1="39" y1="602.33" x2="391" y2="602.33" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="621.72" width="7" height="7" rx="3.5" fill="rgb(18, 161, 80)"/>
+<text x="68" y="629.01" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">수면</text>
+<text x="308.31" y="629.01" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">7시간 23분</text>
+<rect x="18" y="680.63" width="394" height="438.34" rx="20" fill="rgb(255, 255, 255)"/>
+<text x="38" y="720.48" font-size="16" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.32px" xml:space="preserve">자기돌봄</text>
+<rect x="107.23" y="706.91" width="17" height="17" rx="8.5" fill="rgb(255, 255, 255)" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<text x="112.7" y="719.37" font-size="11" font-weight="800" fill="rgb(152, 164, 184)" letter-spacing="-0.32px" xml:space="preserve">?</text>
+<rect x="306.59" y="700.63" width="85.41" height="29.59" rx="14.8" fill="rgb(241, 243, 247)"/>
+<text x="319.59" y="718.95" font-size="12" font-weight="750" fill="rgb(138, 147, 165)" letter-spacing="-0.12px" xml:space="preserve">보통이에요</text>
+<svg viewBox="0 0 320 78" preserveAspectRatio="none" x="38" y="738.22" width="354" height="78"><rect x="0" y="2" width="276" height="25.159999999999997" fill="rgb(231, 247, 237)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></rect><rect x="0" y="27.159999999999997" width="276" height="24.42" fill="rgb(241, 243, 247)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></rect><rect x="0" y="51.58" width="276" height="24.42" fill="rgb(253, 240, 227)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></rect><text x="284" y="18.080000000000005" font-size="9.5" font-weight="700" fill="rgb(18, 161, 80)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter" text-anchor="start" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">잘함</text><text x="284" y="42.5" font-size="9.5" font-weight="700" fill="rgb(138, 147, 165)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter" text-anchor="start" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">보통</text><text x="284" y="67.66" font-size="9.5" font-weight="700" fill="rgb(229, 137, 58)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter" text-anchor="start" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">부족</text><polyline points="4.0,37.5 48.7,55.3 93.3,52.3 138.0,33.1" fill="none" stroke="rgb(217, 138, 18)" stroke-width="2.2px" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline><circle cx="4.0" cy="37.5" r="3" fill="rgb(217, 138, 18)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></circle><circle cx="48.7" cy="55.3" r="3" fill="rgb(217, 138, 18)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></circle><circle cx="93.3" cy="52.3" r="3" fill="rgb(217, 138, 18)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></circle><circle cx="138.0" cy="33.1" r="5" fill="rgb(255, 255, 255)" stroke="rgb(217, 138, 18)" stroke-width="2.5px" vector-effect="non-scaling-stroke" stroke-linecap="butt" stroke-linejoin="miter"></circle></svg>
+<text x="55.56" y="831.68" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">월</text>
+<text x="99.56" y="831.68" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">화</text>
+<text x="143.56" y="831.68" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">수</text>
+<text x="187.56" y="831.68" font-size="11" font-weight="700" fill="rgb(47, 107, 255)" letter-spacing="-0.14px" xml:space="preserve">목</text>
+<text x="231.56" y="831.68" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">금</text>
+<text x="275.56" y="831.68" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">토</text>
+<text x="319.56" y="831.68" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">일</text>
+<text x="38" y="863.07" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">현재 흐름</text>
+<text x="38" y="891.18" font-size="13" font-weight="400" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">식사 뒤와 오래 앉아 있던 뒤에</text>
+<text x="216.28" y="891.18" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">짧은 걷기가 이어진 날이</text>
+<text x="38" y="913.27" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">늘었어요.</text>
+<text x="98.23" y="913.27" font-size="13" font-weight="400" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">아직 절반쯤이에요.</text>
+<text x="38" y="947.65" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">핵심 데이터</text>
+<rect x="38.5" y="961.08" width="353" height="137.39" rx="13.5" fill="none" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="980.47" width="7" height="7" rx="3.5" fill="rgb(217, 138, 18)"/>
+<text x="68" y="987.76" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">활동 시간</text>
+<text x="347.33" y="987.76" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">42분</text>
+<line x1="39" y1="1006.88" x2="391" y2="1006.88" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="1026.27" width="7" height="7" rx="3.5" fill="rgb(217, 138, 18)"/>
+<text x="68" y="1033.56" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">운동 시간</text>
+<text x="347.33" y="1033.56" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">15분</text>
+<line x1="39" y1="1052.67" x2="391" y2="1052.67" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="1072.06" width="7" height="7" rx="3.5" fill="rgb(217, 138, 18)"/>
+<text x="68" y="1079.35" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">운동 기록</text>
+<text x="326.13" y="1079.35" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">걷기 1회</text>
+<rect x="18" y="1130.97" width="394" height="621.53" rx="20" fill="rgb(255, 255, 255)"/>
+<text x="38" y="1170.82" font-size="16" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.32px" xml:space="preserve">일상안정</text>
+<rect x="107.23" y="1157.25" width="17" height="17" rx="8.5" fill="rgb(255, 255, 255)" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<text x="112.7" y="1169.71" font-size="11" font-weight="800" fill="rgb(152, 164, 184)" letter-spacing="-0.32px" xml:space="preserve">?</text>
+<rect x="294.72" y="1150.97" width="97.28" height="29.59" rx="14.8" fill="rgb(231, 247, 237)"/>
+<text x="307.72" y="1169.29" font-size="12" font-weight="750" fill="rgb(18, 161, 80)" letter-spacing="-0.12px" xml:space="preserve">안정적이에요</text>
+<svg viewBox="0 0 320 78" preserveAspectRatio="none" x="38" y="1188.56" width="354" height="78"><rect x="0" y="2" width="276" height="25.159999999999997" fill="rgb(231, 247, 237)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></rect><rect x="0" y="27.159999999999997" width="276" height="24.42" fill="rgb(241, 243, 247)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></rect><rect x="0" y="51.58" width="276" height="24.42" fill="rgb(253, 240, 227)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></rect><text x="284" y="18.080000000000005" font-size="9.5" font-weight="700" fill="rgb(18, 161, 80)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter" text-anchor="start" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">안정</text><text x="284" y="42.5" font-size="9.5" font-weight="700" fill="rgb(138, 147, 165)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter" text-anchor="start" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">비슷</text><text x="284" y="67.66" font-size="9.5" font-weight="700" fill="rgb(229, 137, 58)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter" text-anchor="start" font-family="Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, sans-serif">불안정</text><polyline points="4.0,37.5 48.7,39.0 93.3,18.3 138.0,22.0" fill="none" stroke="rgb(124, 92, 252)" stroke-width="2.2px" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline><circle cx="4.0" cy="37.5" r="3" fill="rgb(124, 92, 252)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></circle><circle cx="48.7" cy="39.0" r="3" fill="rgb(124, 92, 252)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></circle><circle cx="93.3" cy="18.3" r="3" fill="rgb(124, 92, 252)" stroke="none" stroke-linecap="butt" stroke-linejoin="miter"></circle><circle cx="138.0" cy="22.0" r="5" fill="rgb(255, 255, 255)" stroke="rgb(124, 92, 252)" stroke-width="2.5px" vector-effect="non-scaling-stroke" stroke-linecap="butt" stroke-linejoin="miter"></circle></svg>
+<text x="55.56" y="1282.02" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">월</text>
+<text x="99.56" y="1282.02" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">화</text>
+<text x="143.56" y="1282.02" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">수</text>
+<text x="187.56" y="1282.02" font-size="11" font-weight="700" fill="rgb(47, 107, 255)" letter-spacing="-0.14px" xml:space="preserve">목</text>
+<text x="231.56" y="1282.02" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">금</text>
+<text x="275.56" y="1282.02" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">토</text>
+<text x="319.56" y="1282.02" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">일</text>
+<text x="38" y="1313.41" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">현재 흐름</text>
+<text x="38" y="1341.52" font-size="13" font-weight="400" fill="rgb(90, 104, 128)" letter-spacing="-0.14px" xml:space="preserve">자고 움직이는 시각이 다시 일정해지면서,</text>
+<text x="280.58" y="1341.52" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">평소 범위 안에서</text>
+<text x="38" y="1363.62" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">흔들림이 줄었어요.</text>
+<text x="38" y="1397.99" font-size="11" font-weight="600" fill="rgb(152, 164, 184)" letter-spacing="-0.14px" xml:space="preserve">핵심 데이터</text>
+<rect x="38.5" y="1411.42" width="353" height="320.58" rx="13.5" fill="none" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="1430.81" width="7" height="7" rx="3.5" fill="rgb(124, 92, 252)"/>
+<text x="68" y="1438.1" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">걸음 수</text>
+<text x="307.47" y="1438.1" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">7,340 걸음</text>
+<line x1="39" y1="1457.22" x2="391" y2="1457.22" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="1476.61" width="7" height="7" rx="3.5" fill="rgb(124, 92, 252)"/>
+<text x="68" y="1483.9" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">활동 시간</text>
+<text x="347.33" y="1483.9" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">42분</text>
+<line x1="39" y1="1503.02" x2="391" y2="1503.02" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="1522.41" width="7" height="7" rx="3.5" fill="rgb(124, 92, 252)"/>
+<text x="68" y="1529.7" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">운동 시간</text>
+<text x="347.33" y="1529.7" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">15분</text>
+<line x1="39" y1="1548.81" x2="391" y2="1548.81" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="1568.2" width="7" height="7" rx="3.5" fill="rgb(124, 92, 252)"/>
+<text x="68" y="1575.49" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">운동 기록</text>
+<text x="326.13" y="1575.49" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">걷기 1회</text>
+<line x1="39" y1="1594.61" x2="391" y2="1594.61" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="1614" width="7" height="7" rx="3.5" fill="rgb(124, 92, 252)"/>
+<text x="68" y="1621.29" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">심박수</text>
+<text x="324.06" y="1621.29" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">63 bpm</text>
+<line x1="39" y1="1640.41" x2="391" y2="1640.41" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="1659.8" width="7" height="7" rx="3.5" fill="rgb(124, 92, 252)"/>
+<text x="68" y="1667.09" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">수면</text>
+<text x="308.31" y="1667.09" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">7시간 23분</text>
+<line x1="39" y1="1686.2" x2="391" y2="1686.2" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<rect x="52" y="1705.59" width="7" height="7" rx="3.5" fill="rgb(124, 92, 252)"/>
+<text x="68" y="1712.88" font-size="13" font-weight="600" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">체중</text>
+<text x="324.42" y="1712.88" font-size="13" font-weight="700" fill="rgb(22, 35, 63)" letter-spacing="-0.14px" xml:space="preserve">68.2 kg</text>
+<rect x="0.5" y="1795.5" width="429" height="65" rx="0" fill="rgb(255, 255, 255)"/>
+<rect x="0" y="1795" width="430" height="66" rx="0" fill="rgb(255, 255, 255)"/>
+<line x1="0" y1="1795.5" x2="430" y2="1795.5" stroke="rgb(233, 237, 245)" stroke-width="1"/>
+<text x="42.98" y="1826.62" font-size="17" font-weight="400" fill="rgb(182, 192, 209)" letter-spacing="-0.14px" xml:space="preserve">⌂</text>
+<text x="42.88" y="1842.96" font-size="11" font-weight="600" fill="rgb(182, 192, 209)" letter-spacing="-0.14px" xml:space="preserve">홈</text>
+<text x="142.83" y="1826.62" font-size="17" font-weight="400" fill="rgb(47, 107, 255)" letter-spacing="-0.14px" xml:space="preserve">♡</text>
+<text x="139.52" y="1842.96" font-size="11" font-weight="700" fill="rgb(47, 107, 255)" letter-spacing="-0.14px" xml:space="preserve">생활</text>
+<text x="250.83" y="1826.62" font-size="17" font-weight="400" fill="rgb(182, 192, 209)" letter-spacing="-0.14px" xml:space="preserve">✚</text>
+<text x="247.02" y="1842.96" font-size="11" font-weight="600" fill="rgb(182, 192, 209)" letter-spacing="-0.14px" xml:space="preserve">병원</text>
+<text x="355.97" y="1826.62" font-size="17" font-weight="400" fill="rgb(182, 192, 209)" letter-spacing="-0.14px" xml:space="preserve">•••</text>
+<text x="354.52" y="1842.96" font-size="11" font-weight="600" fill="rgb(182, 192, 209)" letter-spacing="-0.14px" xml:space="preserve">더보기</text>
+</svg>

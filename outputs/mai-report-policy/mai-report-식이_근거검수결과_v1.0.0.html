@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 식이 근거 검수 결과</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:760px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1)}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .callout.warn{border-left-color:#d98a12;background:#fff6e8;color:#6b4c0f}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .mini{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+  .mini p{font-size:12.5px;margin:0}
+  .mini .big{font-size:26px;font-weight:800;color:var(--ink-1);line-height:1.2}
+  ul{padding-left:18px;margin-bottom:8px}
+  li{margin-bottom:4px;font-size:13px}
+  .chip{display:inline-block;border-radius:6px;padding:1px 7px;font-size:11.5px;font-weight:700;white-space:nowrap}
+  .ok{background:#e8f6ee;color:#1e6b3a}.fix{background:#fff6e8;color:#8a5a0a}.weak{background:#fdeeee;color:#a12e2e}.none{background:#eee;color:#555}
+  del{color:var(--ink-3)}
+  .note{font-size:12px;color:var(--ink-3)}
+  a{color:var(--brand)}
+  @media(max-width:720px){.grid3{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 검수 문서</span>
+  <h1>식이 근거 검수 결과</h1>
+  <p>「식이 질문·목표 상세 기획」 ② 축 표와 ⑥ 문구 세트의 근거 표기가 실제 지침 내용과 맞는지, 코칭 이유 문장이 지침을 넘어 말하지 않는지 1차 검수한 결과. 기획 단계 검수이며 의학팀 2차 검토를 전제로 한다.</p>
+  <div class="meta"><span>검수일 <b>2026-09-16</b></span><span>대상 <b>식이 질문·목표 상세 기획 0.1</b></span><span>방법 <b>지침 · 학회 자료 · 원 논문 웹 확인</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 요약</a><a href="#s2">② 출처별 확인 결과</a><a href="#s3">③ 문구별 판정</a><a href="#s4">④ 반영 내역</a><a href="#s5">⑤ 의학팀 2차 검토 요청</a><a href="#s6">⑥ 참고 자료</a>
+</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>요약</h2>
+  <div class="sub">문구 42건(축 8 × 단계 + 회복 · 부담 줄이기 풀) 기준</div>
+  <div class="grid3">
+    <div class="mini"><b>출처 그대로 유지</b><div class="big">18</div><p>지침 · 학회 권고에 해당 행동이 명시되어 있고 이유 문장도 범위 안</p></div>
+    <div class="mini"><b>이유 문장 또는 출처 수정</b><div class="big">14</div><p>행동은 타당하나 이유가 지침을 넘거나, 출처를 잘못 붙였던 것</p></div>
+    <div class="mini"><b>근거 약함 · 없음 표시</b><div class="big">10</div><p>국내 지침 · 진료지침에 권고가 없어 관찰 연구 또는 소규모 실험만 있음. 유지 여부는 의학팀 결정</p></div>
+  </div>
+  <h3>가장 큰 발견 세 가지</h3>
+  <ul>
+    <li><b>「한국인을 위한 식생활지침」에는 야식 · 끼니 간격 · 식사 시각에 관한 수칙이 없다.</b> 9개 수칙은 균형 섭취, 덜 짜게 · 덜 달게 · 덜 기름지게, 물, 과식 회피 · 건강체중, 아침식사, 위생, 덜어 먹기, 절주, 지역 식재료다. 「식사 시각」 축 전체와 「끼니 규칙」 축의 간격 · 시각 문구는 지침 출처를 뗐다.</li>
+    <li><b>"아침을 먹으면 점심 과식이 줄어요"는 근거와 반대다.</b> 무작위 대조 연구 13건 메타분석(BMJ 2019)에서 아침을 먹은 쪽이 하루 총 섭취 열량이 더 많았다. 아침식사 자체는 지침 수칙이므로 행동은 유지하고 이유를 바꿨다.</li>
+    <li><b>"국물 한 그릇에 하루 나트륨의 절반"은 실제보다 약하게 말한 것이다.</b> 식약처 실측에서 김치찌개 · 된장찌개 1인분(400g) 나트륨은 약 1,960~2,020mg으로 WHO 하루 권고(2,000mg) 전부에 해당한다. "하루치 나트륨이 거의 다"로 고쳤다.</li>
+  </ul>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>출처별 확인 결과</h2>
+  <div class="sub">기획안이 인용한 출처 9종. 무엇을 확인했고 무엇이 확인되지 않았는지</div>
+  <table>
+    <tr><th style="width:200px">출처</th><th>확인된 내용</th><th style="width:30%">확인되지 않은 것 · 주의</th><th style="width:70px">판정</th></tr>
+    <tr><td class="k">한국인을 위한 식생활지침(2021, 보건복지부 · 농식품부 · 식약처)</td><td>9개 수칙 확인. 채소 · 과일 · 곡류 · 고기 · 생선 · 달걀 · 콩류 · 유제품 균형, 덜 짜게 · 덜 달게 · 덜 기름지게, 물 충분히, 과식 회피, 아침식사, 절주</td><td>야식 · 끼니 간격 · 식사 시각 · 식사 속도에 관한 수칙 없음. 기획안이 이 출처를 붙였던 5개 문구에서 출처 제거</td><td><span class="chip fix">수정</span></td></tr>
+    <tr><td class="k">WHO 당류 지침(2015)</td><td>유리당 총 에너지 10% 미만(강한 권고), 5% 미만(조건부 권고). 5%는 성인 약 25g, 각설탕 6개</td><td>—</td><td><span class="chip ok">확인</span></td></tr>
+    <tr><td class="k">WHO 나트륨 지침 · 팩트시트</td><td>성인 나트륨 하루 2,000mg 미만(소금 5g)</td><td>—</td><td><span class="chip ok">확인</span></td></tr>
+    <tr><td class="k">WHO 건강식 팩트시트</td><td>채소 · 과일 하루 400g 이상, 포화지방 총 에너지 10% 미만, 불포화지방(생선 · 견과류 · 식물성 기름)으로 대체</td><td>—</td><td><span class="chip ok">확인</span></td></tr>
+    <tr><td class="k">대한고혈압학회 진료지침(2022)</td><td>생활요법: 소금 하루 5g 이하, 식탁에서 소금 더 넣지 않기, 칼륨 충분히(나트륨 배설), 채소 · 과일 충분한 식사(DASH)</td><td>—</td><td><span class="chip ok">확인</span></td></tr>
+    <tr><td class="k">한국지질동맥경화학회 이상지질혈증 진료지침 5판(2022)</td><td>포화지방 · 적색육 · 가공육 줄이기, 트랜스지방 제한, 통곡 · 채소 · 콩류 · 생선 권장</td><td>포화지방 7% 같은 구체 수치와 견과류 권고는 웹 요약에서 확인 안 됨. 견과류 문구는 WHO 건강식으로 출처 교체</td><td><span class="chip fix">수정</span></td></tr>
+    <tr><td class="k">대한당뇨병학회 진료지침(2023)</td><td>의학영양요법 장 존재. 식사의 질 · 식이섬유 · 채소 충분히</td><td>"채소 먼저" 식사 순서는 진료지침 권고문에서 확인되지 않음. 학회 대중 안내 자료와 원 논문(Shukla 2015 Diabetes Care, Imai 2011~2014)에 있음. 출처를 "식사 순서 무작위 대조 연구"로 교체</td><td><span class="chip fix">수정</span></td></tr>
+    <tr><td class="k">대한비만학회 비만 진료지침(2022, 8판)</td><td>행동치료(자가 모니터, 목표 설정, 자극 조절 등) 권고</td><td>식사 속도 · "80% 포만" 권고는 지침 요약본에서 확인 안 됨. 식사 속도 문구는 Robinson 2014 메타분석(22건, 느리게 먹을 때 섭취량 감소)으로 출처 교체. 80%는 근거 없어 삭제</td><td><span class="chip fix">수정</span></td></tr>
+    <tr><td class="k">2020 한국인 영양소 섭취기준</td><td>성인 단백질 권장섭취량 0.91g/kg/일</td><td>끼니 분산 권고는 섭취기준에 없음. 끼니 분산 문구는 Mamerow 2014 소규모 실험(8명)으로 출처 교체, 「약함」 표시</td><td><span class="chip fix">수정</span></td></tr>
+  </table>
+  <h3>새로 추가한 출처</h3>
+  <table>
+    <tr><th style="width:200px">출처</th><th>쓰인 문구</th><th style="width:30%">근거 수준</th></tr>
+    <tr><td class="k">식약처 외식 나트륨 실측</td><td>국물 반만 · 건더기 위주로</td><td>전국 72개 시료 실측. 김치찌개 1인분 1,962mg, 된장찌개 2,021mg</td></tr>
+    <tr><td class="k">식사 순서 무작위 대조 연구(Shukla 2015 · 2019, Imai 2011~2023)</td><td>채소부터 먼저</td><td>2형 당뇨 · 당뇨 전단계 · 건강 성인에서 채소 → 단백질 → 탄수화물 순서 시 식후 혈당 정점 · 곡선하면적 감소. 소규모지만 반복 재현</td></tr>
+    <tr><td class="k">식사 속도 메타분석(Robinson 2014, AJCN)</td><td>천천히 · 수저 내려놓기</td><td>22건 종합. 느리게 먹으면 섭취량 감소. 단, 식후 허기 차이는 없었음 → "포만감을 제때" 표현은 삭제</td></tr>
+    <tr><td class="k">카페인 · 수면 실험(Drake 2013, JCSM)</td><td>오후 2시 이후 카페인 멈추기</td><td>취침 6시간 전 400mg에서도 총 수면 1시간 이상 감소. "오후 2시"는 23시 취침 기준 9시간 전으로 보수적 임의값</td></tr>
+    <tr><td class="k">매운 식사 · 수면 실험(Edwards 1992)</td><td>저녁은 자극적이지 않게</td><td>건강 남성 6명. 매운 저녁 후 서파수면 감소 · 각성 증가. 근거 약함. "짠" 음식과 수면은 근거 없어 이유 문장에서 삭제</td></tr>
+    <tr><td class="k">아침식사 메타분석(Sievert 2019, BMJ)</td><td>아침 거르지 않기(이유 수정 근거)</td><td>RCT 13건. 아침 섭취군이 하루 총 열량 약 260kcal 더 높고 체중 차이 미미. "점심 과식이 줄어요" 주장 폐기</td></tr>
+  </table>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>문구별 판정</h2>
+  <div class="sub">고친 것과 표시한 것만 적는다. 표에 없는 문구는 출처 · 이유 문장 그대로 유지</div>
+
+  <h3>이유 문장 또는 출처를 고친 문구 (14건)</h3>
+  <table>
+    <tr><th style="width:170px">타일 문구</th><th style="width:30%">이전 이유 · 출처</th><th>수정 후</th><th style="width:24%">이유</th></tr>
+    <tr><td class="k">아침에 무엇이든 한 가지 먹기</td><td><del>빈속으로 시작하면 점심에 몰아 먹기 쉬워요</del></td><td>가볍게라도 먹으면 아침 끼니 리듬이 생겨요</td><td>아침 → 점심 과식 감소는 RCT 메타분석과 반대</td></tr>
+    <tr><td class="k">아침 거르지 않기</td><td><del>아침을 먹으면 점심 과식이 줄어요</del></td><td>식생활지침이 권하는 하루 첫 끼예요</td><td>같음. 행동은 지침 수칙 5로 유지</td></tr>
+    <tr><td class="k">오늘 한 끼는 채소 반찬 한 가지</td><td><del>한 가지만 더해도 식후 혈당이 완만해져요</del></td><td>채소가 있으면 포만감이 커지고 식후 혈당이 덜 올라요</td><td>양 한 가지로 혈당 효과 단정 완화</td></tr>
+    <tr><td class="k">채소 반찬 한 가지 더</td><td><del>채소가 늘면 식후 혈당이 완만해져요</del></td><td>하루 채소 400g은 반찬 한 가지씩 더하는 데서 시작해요</td><td>WHO 400g 권고에 직접 연결</td></tr>
+    <tr><td class="k">저녁은 채소부터 먼저 · 매 끼니 채소부터 먼저</td><td><del>출처: 당뇨병학회 식사요법</del></td><td>출처: 식사 순서 무작위 대조 연구</td><td>진료지침 권고문 미확인</td></tr>
+    <tr><td class="k">단 음료 대신 물이나 무가당 차</td><td><del>액상 당은 혈당을 가장 빠르게 올려요</del></td><td>음료의 당은 하루 당 섭취에서 가장 큰 몫을 차지해요</td><td>"가장 빠르게"는 비교 근거 없음</td></tr>
+    <tr><td class="k">저녁 후 단 디저트 건너뛰기</td><td><del>저녁 뒤 당은 밤사이 혈당을 높게 유지해요</del></td><td>저녁 뒤 단것까지 더하면 하루 당 권고량을 넘기기 쉬워요</td><td>야간 혈당 지속 주장은 일반 사용자에게 근거 없음</td></tr>
+    <tr><td class="k">단 음료 오늘 하루 쉬기</td><td><del>하루만 쉬어도 다음 날 단맛에 덜 끌려요</del></td><td>하루 당 권고량은 각설탕 6개 정도예요. 음료 한 잔이면 넘어요</td><td>단맛 선호 변화 주장은 근거 없음. WHO 5% ≈ 25g으로 대체</td></tr>
+    <tr><td class="k">국물은 건더기 위주로</td><td><del>국물 한 그릇에 하루 나트륨의 절반</del></td><td>찌개 한 그릇에 하루치 나트륨이 거의 다 들어 있기도 해요</td><td>식약처 실측 약 2,000mg = WHO 하루치</td></tr>
+    <tr><td class="k">한 끼는 소금 · 장 덜 넣기</td><td><del>짠맛을 조금 줄이면 혈압에 바로 영향을 줘요</del></td><td>소금을 줄이면 혈압이 내려가요</td><td>"바로"는 시간 경과 근거 없음</td></tr>
+    <tr><td class="k">한 끼는 20분 이상 천천히 · 수저 한 번 내려놓기</td><td><del>포만감을 제때 느낄 수 있어요 / 포만감을 느낄 시간이 생겨요 · 출처: 비만학회</del></td><td>천천히 먹으면 같은 만족감에 덜 먹게 돼요 / 잠깐 멈추면 먹는 속도가 느려져요 · 출처: Robinson 2014</td><td>메타분석에서 허기 차이는 없고 섭취량만 감소</td></tr>
+    <tr><td class="k">배부르기 전에 수저 놓기</td><td><del>80% 정도에서 멈추는 습관이 체중을 지켜요</del></td><td>배부르기 전에 멈추는 것이 과식을 피하는 방법이에요</td><td>80% 수치 근거 없음. 지침 수칙 4로 연결</td></tr>
+    <tr><td class="k">저녁은 가볍게, 거르지 않기</td><td><del>오늘 식사량이 적어 혈당이 흔들리기 쉬워요</del></td><td>끼니를 건너뛴 날엔 저녁까지 거르지 않는 게 좋아요</td><td>비당뇨 사용자에게 혈당 변동 단정 부적절</td></tr>
+    <tr><td class="k">오후에 간식 한 번으로 빈 끼 채우기</td><td><del>3~4시간 간격으로</del></td><td>간격 수치 삭제</td><td>간격 수치 근거 없음</td></tr>
+    <tr><td class="k">붉은 고기 대신 생선이나 두부 한 끼</td><td><del>포화지방을 줄이는 가장 쉬운 방법이에요</del></td><td>붉은 고기를 줄이고 생선 · 콩류를 늘리는 것이 진료지침 권고예요</td><td>"가장 쉬운"은 판단 표현</td></tr>
+  </table>
+
+  <h3>근거 「약함」 표시 (9건) · 「없음」 (1건)</h3>
+  <p>행동 자체는 해롭지 않고 상식에 부합하지만, 국내 지침이나 학회 진료지침에 권고가 없다. 유지 · 삭제 · 문구 교체는 의학팀이 결정한다.</p>
+  <table>
+    <tr><th style="width:190px">타일 문구</th><th style="width:100px">축</th><th>현재 근거 수준</th><th style="width:26%">대안</th></tr>
+    <tr><td class="k">끼니 사이 4시간 넘기지 않기</td><td>끼니 규칙</td><td>지침 권고 없음. 4시간은 임의값</td><td>삭제하거나 "끼니 거르지 않기"로 교체</td></tr>
+    <tr><td class="k">세 끼 시각을 어제와 비슷하게</td><td>끼니 규칙</td><td>식사 시각 규칙성과 대사 지표의 관찰 연구 수준</td><td>도전 단계에서 유지 가능. 이유 문장은 "리듬" 수준으로 완화됨</td></tr>
+    <tr><td class="k">야식 대신 따뜻한 물 한 잔</td><td>식사 시각 · 부담 줄이기</td><td>지침 권고 없음</td><td>행동은 무해. 유지 가능</td></tr>
+    <tr><td class="k">야식 없이 하루 마무리</td><td>식사 시각</td><td>늦은 식사 · 체중 관찰 연구 종합</td><td>유지 가능. 지침 출처는 제거됨</td></tr>
+    <tr><td class="k">저녁은 잠들기 3시간 전에 마치기</td><td>식사 시각</td><td>관찰 연구 종합. 3시간은 임의값(일반 권장 2~3시간)</td><td>"잠들기 전 2~3시간"으로 폭을 두거나 시간 삭제</td></tr>
+    <tr><td class="k">저녁 양은 점심보다 적게</td><td>식사 속도·양</td><td>하루 중 열량 분배와 체중의 관찰 · 소규모 중재 연구</td><td>유지 가능. 이유 문장은 관찰 결과 표현으로 완화됨</td></tr>
+    <tr><td class="k">매 끼니 단백질 반찬 하나</td><td>단백질</td><td>끼니 분산 실험(2014, 8명). 노인 RCT는 차이 없음</td><td>도전 단계에서 유지 가능. 효과 주장은 삭제됨</td></tr>
+    <tr><td class="k">오후에 간식 한 번으로 빈 끼 채우기</td><td>회복</td><td>과식 회피 일반 원리. 지침 권고 없음</td><td>유지 가능</td></tr>
+    <tr><td class="k">저녁은 자극적이지 않게</td><td>부담 줄이기</td><td>매운 식사 · 수면 실험 1건(6명)</td><td>"매운 저녁은 피하기"로 좁히거나 삭제</td></tr>
+    <tr><td class="k">따뜻한 국이나 죽 한 그릇</td><td>회복</td><td><b>근거 없음.</b> 상식 수준</td><td>"거의 못 먹음" 상황의 배려 문구로만 유지할지 결정. 삭제해도 회복 풀에 3개 남음</td></tr>
+  </table>
+
+  <h3>임의값으로 표기한 수치 (5건)</h3>
+  <p>행동은 근거가 있으나 수치는 지침에 없어 서비스가 정한 값이다. 근거 열에 "서비스 임의값"으로 남겼다.</p>
+  <ul>
+    <li>끼니 사이 <b>4시간</b> · 천천히 <b>20분</b> · 밥 양 <b>3분의 2</b> · 잠들기 <b>3시간</b> 전 · 카페인 <b>오후 2시</b>(취침 6시간 전 근거 대비 보수적)</li>
+  </ul>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>반영 내역</h2>
+  <div class="sub">「식이 질문·목표 상세 기획」 0.1에 이미 반영한 것</div>
+  <ul>
+    <li>② 축 표: 8개 축 모두 근거 출처를 확인된 내용으로 다시 썼다. 확인되지 않은 부분은 「주의」, 관찰 연구 수준은 「약함」으로 표시.</li>
+    <li>⑥ 문구 세트: 이유 문장 14건 수정, 출처 열 전면 교체. 「약함」 9건 · 「없음」 1건 · 임의값 5건 표시.</li>
+    <li>⑨-1 확인 필요 사항: 1차 검수 완료로 갱신, 의학팀 2차 검토 범위 명시.</li>
+  </ul>
+  <div class="callout warn">타일 문구(행동) 자체는 한 건도 바꾸지 않았다. 바뀐 것은 코칭 이유 한 줄과 근거 표기다. 문구 폭 검증(⑨-9)에는 영향 없다.</div>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>의학팀 2차 검토 요청</h2>
+  <div class="sub">기획 검수로는 결정할 수 없는 것. 최종 요청서는 별도 문서 「식이 문구 의학팀 2차 검토 요청」이며, 아래는 그 요약이다</div>
+  <table>
+    <tr><th style="width:40px">#</th><th style="width:200px">항목</th><th>요청 내용</th></tr>
+    <tr><td>1</td><td class="k">「약함」 10건 유지 여부</td><td>③의 표에서 유지 · 삭제 · 교체를 문구별로 결정. 특히 「식사 시각」 축은 4개 문구 중 3개가 약함이라 축 자체를 뺄지도 판단 필요</td></tr>
+    <tr><td>2</td><td class="k">식사 순서 문구의 대상 범위</td><td>"채소부터 먼저"의 근거는 대부분 당뇨 · 당뇨 전단계 대상이다. 일반 사용자(검진 표준)에게도 내도 되는지, 혈당 경계 사용자에게만 낼지</td></tr>
+    <tr><td>3</td><td class="k">진료지침 원문 대조</td><td>대한당뇨병학회 · 대한비만학회 · 한국지질동맥경화학회 진료지침은 웹 요약본으로만 확인했다. 원문에서 식사 순서 · 식사 속도 · 포화지방 수치 · 견과류 권고가 있는지 대조 요청</td></tr>
+    <tr><td>4</td><td class="k">이유 문장 어투</td><td>수정한 14개 문장이 비의료기기 표현 가이드 안에 있는지. 특히 "혈압이 내려가요", "나쁜 콜레스테롤이 올라요"처럼 생리 효과를 말하는 문장</td></tr>
+    <tr><td>5</td><td class="k">임의값 5건</td><td>4시간 · 20분 · 3분의 2 · 3시간 · 오후 2시를 그대로 둘지, 폭으로 바꿀지, 수치를 뺄지</td></tr>
+  </table>
+</section>
+
+<!-- 6 -->
+<section class="card" id="s6">
+  <h2><span class="n">6</span>참고 자료</h2>
+  <div class="sub">검수에 쓴 공개 자료. 진료지침 원문 PDF는 학회 사이트에서 별도 확인 필요</div>
+  <ul>
+    <li>보건복지부 보도자료, 「한국인을 위한 식생활지침」 발표(2021-04-14) — <a href="https://www.korea.kr/news/pressReleaseView.do?newsId=156446483">korea.kr</a> · 9개 수칙 전문은 <a href="https://medicalworldnews.co.kr/news/view.php?idx=1510941544">메디컬월드뉴스</a></li>
+    <li>WHO, Guideline: Sugars intake for adults and children (2015) — <a href="https://www.ncbi.nlm.nih.gov/books/NBK285525/">권고 요약</a></li>
+    <li>WHO, Sodium reduction fact sheet — <a href="https://www.who.int/news-room/fact-sheets/detail/sodium-reduction">who.int</a></li>
+    <li>WHO, Healthy diet fact sheet — <a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet">who.int</a></li>
+    <li>대한고혈압학회 2022 진료지침 생활요법 요약 — <a href="https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5999">질병관리청 국가건강정보포털</a> · <a href="https://www.koreanhypertension.org/">학회 사이트</a></li>
+    <li>한국지질동맥경화학회 이상지질혈증 진료지침 5판(2022) — <a href="https://www.lipid.or.kr/uploaded/board/guideline/_50e8f3527d0798a82a29b8ef6c363cce2.pdf">원문 PDF</a></li>
+    <li>대한당뇨병학회 2023 진료지침 자료실 — <a href="https://www.diabetes.or.kr/bbs/?code=guide">diabetes.or.kr</a></li>
+    <li>대한비만학회 비만 진료지침 2022 요약본 — <a href="https://general.kosso.or.kr/html/user/core/view/reaction/main/kosso/inc/data/guideline2022_vol8.pdf">원문 PDF</a></li>
+    <li>2020 한국인 영양소 섭취기준 단백질 — <a href="https://e-jnh.org/DOIx.php?id=10.4163%2Fjnh.2022.55.1.10">J Nutr Health 2022 해설</a></li>
+    <li>식약처 외식 나트륨 실측(김치찌개 · 된장찌개) — <a href="https://m.realfoods.co.kr/article/1247762">리얼푸드 보도</a></li>
+    <li>Shukla AP et al. Food order has a significant impact on postprandial glucose and insulin levels. Diabetes Care 2015 — <a href="https://diabetesjournals.org/care/article/38/11/e196/37637/Comment-on-Shukla-et-al-Food-Order-Has-a">관련 논의</a> · Shukla 2019 당뇨 전단계 — <a href="https://dom-pubs.onlinelibrary.wiley.com/doi/abs/10.1111/dom.13503">DOM</a></li>
+    <li>Imai S et al. 채소 먼저 식사 순서 · 건강 여성 교차 연구(2023) — <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10005673/">PMC</a></li>
+    <li>Robinson E et al. Eating rate and energy intake meta-analysis. Am J Clin Nutr 2014 — <a href="https://academic.oup.com/ajcn/article/100/1/123/4576445">AJCN</a></li>
+    <li>Sievert K et al. Effect of breakfast on weight and energy intake. BMJ 2019 — <a href="https://pubmed.ncbi.nlm.nih.gov/30700403/">PubMed</a></li>
+    <li>Drake C et al. Caffeine effects on sleep taken 0, 3, or 6 hours before going to bed. J Clin Sleep Med 2013 — <a href="https://pubmed.ncbi.nlm.nih.gov/24235903/">PubMed</a></li>
+    <li>Edwards SJ et al. Spicy meal disturbs sleep. Int J Psychophysiol 1992 — <a href="https://pubmed.ncbi.nlm.nih.gov/1399758/">PubMed</a></li>
+    <li>Mamerow MM et al. Dietary protein distribution and 24-h muscle protein synthesis. J Nutr 2014 — <a href="https://pubmed.ncbi.nlm.nih.gov/24477298/">PubMed</a> · 노인 대상 반대 결과 — <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9654411/">PMC</a></li>
+  </ul>
+</section>
+
+</div>
+</body>
+</html>

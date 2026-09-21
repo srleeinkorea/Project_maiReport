@@ -1,0 +1,580 @@
+<title>AI 검진 요약 화면정의서</title>
+<meta name="description" content="maiReport 건강검진 결과 AI 요약 결과 화면(AIH-003)의 화면정의서 — 요소별 노출 값·출처·조건, 태그 사전, 데이터 정의, 예외.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#EFF2F7;--surf:#FFFFFF;--surf-2:#F7F9FC;--surf-3:#E8EDF4;
+  --line:#DAE1EB;--ink:#0F1826;--text:#3B4860;--muted:#6C7A8E;--faint:#8D99AB;
+  --accent:#2F6BFF;--accent-soft:#E7EEFF;
+  --stop:#B23A3A;--stop-soft:#FAE9E9;--ok:#1C7A57;--ok-soft:#E3F3EC;--warn:#96650A;--warn-soft:#FBF1D9;
+  --mono:"JetBrains Mono",Consolas,monospace;--sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;--line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;--accent-soft:#1B2740;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;--warn:#E0B061;--warn-soft:#2B2314;
+}}
+:root[data-theme="dark"]{
+  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;--line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
+  --accent:#7CA1FF;--accent-soft:#1B2740;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;--warn:#E0B061;--warn-soft:#2B2314;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.8;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
+main{max-width:860px;margin:0 auto;padding:0 26px 80px}
+.masthead{background:var(--surf);border-bottom:1px solid var(--line)}
+.masthead-in{max-width:860px;margin:0 auto;padding:14px 26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wordmark{position:relative;color:var(--ink);font-size:18px;font-weight:900;letter-spacing:-.06em;line-height:1}
+.wordmark::after{content:"";position:absolute;right:-6px;bottom:1px;width:4px;height:4px;border-radius:50%;background:var(--accent)}
+.mtag{margin-left:8px;padding-left:14px;border-left:1px solid var(--line);color:var(--muted);font-size:12px}
+.mver{margin-left:auto;color:var(--faint);font-size:11.5px;font-family:var(--mono)}
+.hero{padding:52px 0 34px;border-bottom:1px solid var(--line)}
+.eyebrow{display:block;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:15px}
+h1{margin:0;color:var(--ink);font-size:clamp(28px,4.4vw,40px);font-weight:900;line-height:1.2;letter-spacing:-.05em;text-wrap:balance;max-width:16ch}
+.lead{margin:20px 0 0;max-width:60ch;font-size:16px;line-height:1.85}
+.lead b{color:var(--ink)}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.meta span{display:block;font-size:10px;font-weight:800;color:var(--faint);letter-spacing:.08em;margin-bottom:5px}
+.meta strong{display:block;color:var(--ink);font-size:12.5px;font-weight:700;line-height:1.5}
+section{padding:46px 0;border-bottom:1px solid var(--line)}
+.sec-no{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--faint);letter-spacing:.06em}
+h2{margin:8px 0 0;color:var(--ink);font-size:25px;font-weight:900;letter-spacing:-.04em;line-height:1.32;text-wrap:balance}
+.sub{margin:12px 0 0;max-width:62ch;font-size:14.5px}
+h3{margin:34px 0 10px;color:var(--ink);font-size:16px;font-weight:700;letter-spacing:-.02em}
+p{margin:0 0 12px}p:last-child{margin-bottom:0}
+code{font-family:var(--mono);font-size:.85em;background:var(--surf-3);padding:1.5px 5px;border-radius:4px;color:var(--ink)}
+b{color:var(--ink);font-weight:700}
+ul{margin:10px 0;padding-left:19px}li{margin-bottom:7px;line-height:1.75}
+.mut{color:var(--muted);font-size:12.5px}
+.tbl{margin-top:18px;border:1px solid var(--line);border-radius:10px;overflow-x:auto;background:var(--surf)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+thead th{background:var(--surf-2);color:var(--muted);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--line);color:var(--text);line-height:1.6;vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.k{font-weight:700;color:var(--ink);white-space:nowrap}
+td.n{font-family:var(--mono);font-size:11px;color:var(--faint);width:1%}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;padding:2.5px 8px;border-radius:20px;font-size:10.5px;font-weight:700;white-space:nowrap}
+.p-ok{background:var(--ok-soft);color:var(--ok)}.p-no{background:var(--stop-soft);color:var(--stop)}.p-wait{background:var(--warn-soft);color:var(--warn)}.p-acc{background:var(--accent-soft);color:var(--accent)}
+.note{margin-top:20px;padding:15px 19px;border-left:3px solid var(--accent);background:var(--surf);border-radius:0 8px 8px 0;font-size:13.5px}
+.note.warn{border-left-color:var(--warn);background:var(--warn-soft)}.note.stop{border-left-color:var(--stop);background:var(--stop-soft)}.note.ok{border-left-color:var(--ok);background:var(--ok-soft)}
+.note-label{display:block;margin-bottom:5px;font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--accent)}
+.note.warn .note-label{color:var(--warn)}.note.stop .note-label{color:var(--stop)}.note.ok .note-label{color:var(--ok)}
+
+/* 한 장 요약 흐름 */
+.journey{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:22px}
+.jstep{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:16px 14px 14px}
+.jstep .no{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:800;align-items:center;justify-content:center;margin-bottom:9px}
+.jstep b{display:block;font-size:14px;color:var(--ink);line-height:1.4}
+.jstep span{display:block;margin-top:5px;font-size:12px;color:var(--muted);line-height:1.5}
+
+/* 단계 카드 */
+.step{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:22px;align-items:start;margin-top:22px;padding:22px 0 26px;border-top:1px dashed var(--line)}
+.step:first-of-type{border-top:0;padding-top:6px}
+.step h3{margin:0 0 10px;font-size:19px;letter-spacing:-.03em}
+.step h3 i{font-style:normal;display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;font-weight:800;align-items:center;justify-content:center;margin-right:9px;vertical-align:-3px}
+.who{display:grid;grid-template-columns:76px 1fr;gap:8px 12px;margin-top:12px;font-size:14px}
+.who span{font-size:11px;font-weight:800;color:var(--faint);letter-spacing:.06em;padding-top:5px}
+.who p{margin:0}
+.who p b{color:var(--ink)}
+@media (max-width:640px){.step{grid-template-columns:1fr}}
+/* 폰 스케치 */
+.phone{background:var(--surf);border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 1px 0 rgba(15,24,38,.03)}
+.phone .cap{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.06em;margin:0 0 10px 4px}
+.blk{border:1px dashed var(--line);border-radius:10px;padding:9px 11px;margin-top:8px;font-size:11.5px;line-height:1.5;color:var(--text);background:var(--surf-2)}
+.blk:first-of-type{margin-top:0}
+.blk b{display:block;font-size:11px;color:var(--ink);margin-bottom:2px}
+.blk.dim{opacity:.6}
+.blk.cta{border-style:solid;border-color:var(--accent);background:var(--accent-soft);color:var(--accent);text-align:center;font-weight:700}
+.blk.cta.ghost{background:transparent;color:var(--muted);border-color:var(--line)}
+.blk .row{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-top:1px solid var(--line)}
+.blk .row:first-of-type{border-top:0}
+.blk .row em{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.blk .row i{font-style:normal;font-size:10px;padding:1px 7px;border-radius:20px;font-weight:700}
+.i-stop{background:var(--stop-soft);color:var(--stop)}.i-ok{background:var(--ok-soft);color:var(--ok)}.i-warn{background:var(--warn-soft);color:var(--warn)}
+.scrim{background:var(--surf-3);border-radius:14px;padding:26px 10px 10px;margin-top:8px}
+.dlg{background:var(--surf);border-radius:14px;padding:14px;box-shadow:0 8px 24px rgba(15,24,38,.12)}
+.dlg h4{margin:0 0 6px;color:var(--ink);font-size:13px;line-height:1.45}
+.dlg p{font-size:11px;line-height:1.55;margin:0 0 6px}
+.dlg .btns{display:grid;grid-template-columns:1fr 1.6fr;gap:6px;margin-top:10px}
+.dlg .btns span{display:block;text-align:center;padding:8px;border-radius:9px;font-size:11.5px;font-weight:700}
+.dlg .btns .go{background:var(--accent);color:#fff}.dlg .btns .no{background:var(--surf-3);color:var(--muted)}
+.gen{display:flex;flex-direction:column;gap:6px;padding:4px 0}
+.gen div{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--faint)}
+.gen div.done{color:var(--muted)}.gen div.now{color:var(--ink);font-weight:700}
+.gen i{width:9px;height:9px;border-radius:50%;border:2px solid var(--line);flex:none}
+.gen .done i{background:var(--ok);border-color:var(--ok)}.gen .now i{border-color:var(--accent)}
+.bar{display:flex;height:9px;border-radius:5px;overflow:hidden;margin:6px 0 2px;position:relative}
+.bar i{display:block;height:100%}.bar .g{background:#CFEBDB}.bar .y{background:#F6E3B5}.bar .r{background:#F5C9D1}
+.bar em{position:absolute;top:-3px;width:5px;height:15px;border-radius:3px;background:var(--ink);margin-left:-2px}
+.ppl{display:flex;align-items:flex-end;gap:5px;height:34px;margin:6px 0 2px}
+.ppl i{display:block;width:12px;border-radius:5px 5px 2px 2px;background:#C9D8F7}
+.ppl i.me{background:#3B7BFF}
+.srcs{padding:40px 0 0;font-size:12.5px;color:var(--muted)}
+.srcs h2{font-size:15px;margin-bottom:10px}.srcs code{font-size:11.5px}
+@media (max-width:520px){main{padding:0 16px 60px}.masthead-in{padding:12px 16px}.mver{margin-left:0;width:100%}}
+.shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#F4F6FA;width:100%;max-width:430px}
+.shot img{display:block;width:430px;max-width:none}
+.shotwrap{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:22px;align-items:start;margin-top:18px}
+.shotwrap .cap{font-family:var(--mono);font-size:10.5px;color:var(--faint);letter-spacing:.06em;margin:0 0 8px 2px}
+@media (max-width:900px){.shotwrap{grid-template-columns:1fr}.shotwrap>div:last-child{max-width:430px}.shot img{width:100%}}
+table.def{min-width:760px}
+table.def td.id{font-family:var(--mono);font-size:10.5px;color:var(--faint);white-space:nowrap}
+table.def td.el{font-weight:700;color:var(--ink);white-space:nowrap}
+table.def td.ty{white-space:nowrap;color:var(--muted);font-size:11.5px}
+table.def td.v{color:var(--ink)}
+table.def td code{white-space:nowrap}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:5px;border:1px solid rgba(0,0,0,.08)}
+pre{background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:11.5px;line-height:1.6;overflow-x:auto;color:var(--ink);margin:14px 0 0}
+.map{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:18px}
+.map div{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.map b{display:block;color:var(--ink);font-size:13.5px}.map b i{font-style:normal;font-family:var(--mono);color:var(--accent);margin-right:6px}
+.map span{display:block;font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5}
+</style>
+
+<div class="masthead"><div class="masthead-in">
+  <span class="wordmark">maiReport</span>
+  <span class="mtag">병원 › 방문이력 › 검진 상세 › 건강검진 결과 AI 요약</span>
+  <span class="mver">AIH-003 화면정의서 v1.0 · 2026-09-14</span>
+</div></div>
+
+<main>
+
+<div class="hero">
+  <span class="eyebrow">화면정의서 · 결과 화면</span>
+  <h1>건강검진 결과 AI 요약 화면정의서</h1>
+  <p class="lead">결과 화면의 <b>모든 요소가 무엇을, 어떤 값으로, 어떤 조건에서</b> 보여 주는지 정의합니다.
+  왼쪽 표의 ID는 오른쪽 화면 이미지(확인 필요 예시)와 대응하고, 값의 출처는 아래 <b>08 데이터 정의</b>의 필드명으로 적었습니다. 크기·색·간격 같은 시각 디자인은 정하지 않습니다. 오른쪽 이미지는 구조를 보여 주는 참고안이고, 최종 디자인은 디자이너가 정합니다.
+  화면 이미지는 프로토타입에서 그대로 뽑은 SVG라 표와 어긋나지 않습니다.</p>
+  <div class="meta">
+    <div><span>화면 ID</span><strong>AIH-003 · 건강검진 결과 AI 요약(결과)</strong></div>
+    <div><span>진입</span><strong>검진 상세 CTA → 동의 시트(AIH-001) → 생성(AIH-002) → 본 화면</strong></div>
+    <div><span>기준 폭</span><strong>모바일 세로 단일 스크롤 · 상단 헤더 고정</strong></div>
+    <div><span>같이 보는 문서</span><strong>기획서 v1.0 · 기준 범위 레퍼런스 · 프로토타입</strong></div>
+  </div>
+</div>
+
+<!-- 00 -->
+<section>
+  <span class="sec-no">00</span>
+  <h2>화면 지도</h2>
+  <p class="sub">위에서 아래로 여덟 영역입니다. 영역 문자(A~H)가 요소 ID의 앞자리입니다. 예: <code>E04</code>는 E 영역의 4번 요소. H는 E와 F 사이에 놓입니다.</p>
+  <div class="map">
+    <div><b><i>A</i>헤더</b><span>뒤로가기 · 화면 제목. 스크롤해도 고정</span></div>
+    <div><b><i>B</i>검진 메타</b><span>검진일 · 검진기관 두 칸</span></div>
+    <div><b><i>C</i>종합 요약</b><span>결론 카드(제목 + AI 문장 + 숫자 세 칸) · 우선 확인 항목(또는 현재 상태)</span></div>
+    <div><b><i>D</i>신체계측</b><span>키·체중·BMI·허리둘레 카드 4개, 또래 100명 중 등수</span></div>
+    <div><b><i>E</i>항목별 해석</b><span>검사군 카드 6개(혈압·혈당·콜레스테롤·간·신장·빈혈), 검사 행마다 기준 범위 막대와 5회 변화</span></div>
+    <div><b><i>H</i>그 밖의 검사 결과</b><span>흉부 X선·요검사·B형간염·시력·청력. 막대 대신 검진기관 판정과 소견</span></div>
+    <div><b><i>F</i>내가 해야 할 행동</b><span>번호 목록 1~3개, 근거 태그</span></div>
+    <div><b><i>G</i>면책</b><span>한 문장 고정 문구</span></div>
+  </div>
+  <div class="note">
+    <span class="note-label">표 읽는 법</span>
+    <p><b>유형</b>은 텍스트 / 숫자 / 배지 / 버튼 / 그래픽 / 컨테이너 중 하나. <b>노출 값</b>은 화면에 실제로 찍히는 문자열 또는 그 규칙. <b>출처</b>는 08의 필드명이며, <code>[AI]</code>가 붙은 것만 AI가 생성한 문장이고 나머지는 전부 규칙 계산입니다. <b>조건</b>이 비어 있으면 항상 노출합니다.</p>
+  </div>
+</section>
+
+<!-- 01 A -->
+<section>
+  <span class="sec-no">01 · A</span>
+  <h2>헤더</h2>
+  <div class="shotwrap">
+    <div>
+      <div class="tbl"><table class="def">
+        <thead><tr><th>ID</th><th>요소</th><th>유형</th><th>노출 값</th><th>출처</th><th>조건 · 규칙</th></tr></thead>
+        <tbody>
+          <tr><td class="id">A01</td><td class="el">뒤로가기</td><td class="ty">버튼</td><td class="v">‹</td><td>—</td><td>탭하면 검진 상세(직전 화면)로 돌아간다. 요약은 저장돼 있으므로 다시 열면 즉시 표시</td></tr>
+          <tr><td class="id">A02</td><td class="el">화면 제목</td><td class="ty">텍스트</td><td class="v">건강검진 결과 AI 요약</td><td>고정</td><td>가운데 정렬</td></tr>
+        </tbody></table></div>
+    </div>
+    <div><p class="cap">A · y 0–57</p><div class="shot" style="height:60px"><img src="maiReport_AI검진요약_화면_확인필요예시_v1.0.0.svg" alt="" style="margin-top:0"></div></div>
+  </div>
+</section>
+
+<!-- 02 B -->
+<section>
+  <span class="sec-no">02 · B</span>
+  <h2>검진 메타</h2>
+  <div class="shotwrap">
+    <div>
+      <div class="tbl"><table class="def">
+        <thead><tr><th>ID</th><th>요소</th><th>유형</th><th>노출 값</th><th>출처</th><th>조건 · 규칙</th></tr></thead>
+        <tbody>
+          <tr><td class="id">B01</td><td class="el">검진일</td><td class="ty">라벨+값</td><td class="v">검진일 / 2025.06.19</td><td><code>checkup.examDate</code></td><td><code>yyyy.MM.dd</code>. 검진일이 없으면 등록일을 쓰고 라벨을 "등록일"로 바꾼다</td></tr>
+          <tr><td class="id">B02</td><td class="el">검진기관</td><td class="ty">라벨+값</td><td class="v">검진기관 / 메디피움의원</td><td><code>checkup.orgName</code></td><td>없으면 "검진기관 정보 없음". 두 칸은 같은 폭으로 나란히</td></tr>
+          <tr><td class="id">B03</td><td class="el">예시 전환 토글</td><td class="ty">세그먼트</td><td class="v">정상 예시 / 확인 필요 예시</td><td>—</td><td><b>프로토타입 전용.</b> 실서비스에는 노출하지 않는다. 실서비스에서는 <code>summary.level</code>에 따라 한 가지 화면만 그린다</td></tr>
+        </tbody></table></div>
+    </div>
+    <div><p class="cap">B · y 65–181</p><div class="shot" style="height:124px"><img src="maiReport_AI검진요약_화면_확인필요예시_v1.0.0.svg" alt="" style="margin-top:-60px"></div></div>
+  </div>
+</section>
+
+<!-- 03 C -->
+<section>
+  <span class="sec-no">03 · C</span>
+  <h2>종합 요약</h2>
+  <p class="sub">"뭘 먼저 봐야 하지?"에 답하는 영역. 결론 카드 하나(제목 + AI 문장 + 숫자 세 칸), 상황에 따라 <b>우선 확인 항목</b> 또는 <b>현재 상태</b> 카드 하나. 별도의 "AI 한줄 정리" 카드는 두지 않고 결론 카드에 합친다.</p>
+  <div class="shotwrap">
+    <div>
+      <div class="tbl"><table class="def">
+        <thead><tr><th>ID</th><th>요소</th><th>유형</th><th>노출 값</th><th>출처</th><th>조건 · 규칙</th></tr></thead>
+        <tbody>
+          <tr><td class="id">C01</td><td class="el">섹션 라벨</td><td class="ty">텍스트</td><td class="v">이번 검진 한눈에 보기 / 종합 요약</td><td>고정</td><td>작은 라벨 + 제목</td></tr>
+          <tr><td class="id">C02</td><td class="el">결론 카드</td><td class="ty">컨테이너</td><td class="v">배경 톤</td><td><code>summary.level</code></td><td><code>attention</code>과 <code>normal</code>의 배경 톤을 구분한다(확인 필요 = 주의 톤, 정상 = 안정 톤)</td></tr>
+          <tr><td class="id">C03</td><td class="el">카드 라벨</td><td class="ty">텍스트</td><td class="v">AI 건강검진 요약</td><td>고정</td><td>강조 색</td></tr>
+          <tr><td class="id">C04</td><td class="el">결론 제목</td><td class="ty">텍스트</td><td class="v">이번 검진에서<br>확인이 필요한 변화가 있어요</td><td><code>summary.headlineKey</code></td><td>정해진 문장 중 하나(→ 07 문장 사전). AI가 만들지 않는다. 두 줄</td></tr>
+          <tr><td class="id">C05</td><td class="el">결론 설명</td><td class="ty">텍스트</td><td class="v">흉부 X선에 재검 소견이 있고, 혈압과 공복혈당이 이전보다 높아졌어요. 이번 결과만으로 진단할 수는 없지만, 가까운 시일 내 재검·재측정하고 필요하면 의료진과 상담해 주세요.</td><td><code>summary.lead</code> [AI]</td><td>정확히 2문장: 1문장 = 무엇이 눈에 띄는지, 2문장 = 어떻게 받아들이면 되는지. 수치 없음 · 검사명은 넣어도 된다. 옛 "AI 한줄 정리"의 역할을 여기서 한다</td></tr>
+          <tr><td class="id">C06</td><td class="el">숫자 칸 · 정상</td><td class="ty">숫자+라벨</td><td class="v">10 / 정상</td><td><code>counts.ok</code></td><td>E 영역 검사 행 + H 영역 판정형 검사 중 상태가 <code>ok</code>인 개수</td></tr>
+          <tr><td class="id">C07</td><td class="el">숫자 칸 · 관리 필요</td><td class="ty">숫자+라벨</td><td class="v">4 / 관리 필요</td><td><code>counts.caution</code></td><td>상태 <code>caution</code> 개수</td></tr>
+          <tr><td class="id">C08</td><td class="el">숫자 칸 · 확인 필요</td><td class="ty">숫자+라벨</td><td class="v">4 / 확인 필요</td><td><code>counts.high</code></td><td>상태 <code>high</code> 개수. 세 칸의 합 = 수치 검사 행 수 + 판정형 검사 수(예시 13 + 5 = 18). 칸 아래 설명 문장은 두지 않는다</td></tr>
+          <tr><td class="id">C09</td><td class="el">우선 확인 항목 카드</td><td class="ty">컨테이너</td><td class="v">우선 확인 항목 / 중요한 변화부터 정리했어요 + 배지 "확인 필요"</td><td><code>priority[]</code></td><td><b>조건: <code>counts.high &gt; 0</code> 또는 <code>counts.caution &gt; 0</code>.</b> 최대 3행. 정렬: 검진기관 판정 확인 필요(판정형 검사의 재검 권고가 가장 앞) → 수치 검사 확인 필요 중 상승 추세 → 관리 필요 중 상승 추세 → 나머지 관리 필요</td></tr>
+          <tr><td class="id">C09-1</td><td class="el">순위 번호</td><td class="ty">배지</td><td class="v">1 · 2 · 3</td><td>index</td><td>순위 배지</td></tr>
+          <tr><td class="id">C09-2</td><td class="el">검사명</td><td class="ty">텍스트</td><td class="v">흉부 X선 / 혈압 / 공복혈당</td><td><code>priority[].name</code></td><td>혈압은 수축기·이완기를 묶어 하나로. 판정형 검사도 올 수 있다</td></tr>
+          <tr><td class="id">C09-3</td><td class="el">값 흐름</td><td class="ty">텍스트</td><td class="v">134/86 → 140/90 → <b>148/94 mmHg</b><br>판정형: 검진기관 소견 <b>경화 소견 · 폐렴 의심</b></td><td><code>priority[].history</code> · <code>priority[].note</code></td><td>수치 검사는 최근 3회, 마지막 값만 굵게 + 단위. 이전 기록이 1개면 2개, 없으면 "최근 결과 <b>232 mg/dL</b>". 판정형 검사는 "검진기관 소견" + 소견 문구</td></tr>
+          <tr><td class="id">C09-4</td><td class="el">변화 태그</td><td class="ty">배지</td><td class="v">재검 권고 / 높아짐 / 낮아짐 / 관리 필요</td><td><code>priority[].trend</code></td><td>판정형 검사→재검 권고(분홍) · <code>up</code>→높아짐(분홍) · <code>down</code>→낮아짐(파랑) · 이전 기록 없거나 변화 없음→행 상태명(관리 필요=노랑, 확인 필요=분홍)</td></tr>
+          <tr><td class="id">C10</td><td class="el">현재 상태 카드</td><td class="ty">컨테이너</td><td class="v">한눈에 보기 / 현재 상태 + 배지 "안정적"</td><td>—</td><td><b>조건: C09 조건이 거짓일 때(모두 정상)</b> C09 대신 노출. 2×2 격자로 혈압·공복혈당·총콜레스테롤·BMI 값과 "정상" 라벨</td></tr>
+        </tbody></table></div>
+    </div>
+    <div><p class="cap">C · y 190–831</p><div class="shot" style="height:641px"><img src="maiReport_AI검진요약_화면_확인필요예시_v1.0.0.svg" alt="" style="margin-top:-190px"></div></div>
+  </div>
+</section>
+
+<!-- 04 D -->
+<section>
+  <span class="sec-no">04 · D</span>
+  <h2>신체계측</h2>
+  <p class="sub">"또래랑 비교하면 어디쯤이지?"에 답하는 영역. 항목마다 카드 하나, 카드마다 사람 그림 5개. 응원 문구나 검사 의미 설명은 두지 않는다.</p>
+  <div class="shotwrap">
+    <div>
+      <div class="tbl"><table class="def">
+        <thead><tr><th>ID</th><th>요소</th><th>유형</th><th>노출 값</th><th>출처</th><th>조건 · 규칙</th></tr></thead>
+        <tbody>
+          <tr><td class="id">D01</td><td class="el">섹션 헤더</td><td class="ty">아이콘+텍스트</td><td class="v">👤 신체계측 / 내 또래와 비교한 내 신체 상태를 한눈에 확인해보세요.</td><td>고정</td><td>아이콘 + 제목 + 부제</td></tr>
+          <tr><td class="id">D02</td><td class="el">기준 안내 (카드 아래)</td><td class="ty">텍스트</td><td class="v">ⓘ 동일한 성별·연령대 100명을 기준으로 내 결과가 어느 위치에 있는지 보여드려요.</td><td>고정</td><td>안내 박스. <b>카드 4장 아래</b>에 둔다(카드보다 먼저 읽을 필요가 없는 보조 설명). 또래 분포 데이터가 없으면 "또래 비교 데이터를 준비 중이에요"로 교체</td></tr>
+          <tr><td class="id">D03</td><td class="el">항목 카드</td><td class="ty">컨테이너</td><td class="v">4장 고정 순서: 키 → 체중 → BMI → 허리둘레</td><td><code>body[]</code></td><td>값이 없는 항목은 카드를 빼고 순서를 당긴다. 항목마다 고유 색을 하나씩 두어 카드 안의 번호·등수·사람 그림·말풍선이 같은 색으로 묶이게 한다(색 자체는 디자이너 결정)</td></tr>
+          <tr><td class="id">D03-1</td><td class="el">번호 배지</td><td class="ty">배지</td><td class="v">1~4</td><td>index</td><td>항목 색 배경</td></tr>
+          <tr><td class="id">D03-2</td><td class="el">항목명</td><td class="ty">텍스트</td><td class="v">키 / 체중 / BMI / 허리둘레</td><td><code>body[].name</code></td><td>—</td></tr>
+          <tr><td class="id">D03-3</td><td class="el">측정값</td><td class="ty">숫자+단위</td><td class="v">164.2 cm · 69.3 kg · 25.7 kg/m² · 86.0 cm</td><td><code>body[].value</code> · <code>body[].unit</code></td><td>소수 1자리 고정. 카드에서 가장 큰 숫자, 단위는 작게</td></tr>
+          <tr><td class="id">D03-4</td><td class="el">등수 라벨</td><td class="ty">텍스트</td><td class="v">내 또래 100명 중</td><td>고정</td><td>보조 텍스트</td></tr>
+          <tr><td class="id">D03-5</td><td class="el">등수</td><td class="ty">숫자</td><td class="v">70등 · 81등 · 78등 · 80등</td><td><code>body[].rank</code></td><td>경계값표(국민건강영양조사 2022~2024, 여자 40-44세)로 계산한 값. 1~99 정수, 값이 작은 쪽이 1등. 항목 색으로 크게 강조. rank가 없으면 "—"와 D03-7을 전부 연한 톤으로</td></tr>
+          <tr><td class="id">D03-6</td><td class="el">상태 배지</td><td class="ty">배지</td><td class="v">조금 큰 편이에요 / 무거운 편이에요 / 조금 높은 편이에요 / 조금 굵은 편이에요</td><td><code>band</code> × <code>body[].health</code></td><td>문구는 07 배지 사전. 톤: <code>health=warn</code>이면 주의 톤, 아니면 band 2~4는 안정 톤, band 1·5는 중립 톤</td></tr>
+          <tr><td class="id">D03-7</td><td class="el">사람 그림 ×5</td><td class="ty">그래픽</td><td class="v">왼쪽부터 band 1~5</td><td><code>band = ceil(rank/20)</code></td><td>내 band만 항목 색, 나머지는 같은 색의 연한 톤. 그림은 항목 특성을 따른다: 키=전체 크기, 체중=몸 전체 폭, BMI=몸통 둥근 정도, 허리둘레=옆모습 배 돌출</td></tr>
+          <tr><td class="id">D03-8</td><td class="el">"나" 말풍선</td><td class="ty">배지</td><td class="v">나</td><td>내 band</td><td>내 그림 위에만, 항목 색 배경</td></tr>
+          <tr><td class="id">D03-9</td><td class="el">등수 구간 라벨</td><td class="ty">텍스트</td><td class="v">1~20등 · 21~40등 · 41~60등 · 61~80등 · 81~100등</td><td>고정</td><td>그림 아래 한 줄, 줄바꿈 없음. 내 band만 항목 색으로 강조. 구간 이름(작은 편 등)은 여기에 쓰지 않는다</td></tr>
+        </tbody></table></div>
+    </div>
+    <div><p class="cap">D · y 831–1674</p><div class="shot" style="height:843px"><img src="maiReport_AI검진요약_화면_확인필요예시_v1.0.0.svg" alt="" style="margin-top:-831px"></div></div>
+  </div>
+</section>
+
+<!-- 05 E -->
+<section>
+  <span class="sec-no">05 · E</span>
+  <h2>항목별 해석</h2>
+  <p class="sub">"이 숫자는 정상 범위 어디쯤이지?"와 "지난번보다 나빠졌나?"에 답하는 영역. <b>검사군 = 카드, 검사 = 행</b>. 행마다 자기 기준 범위 막대와 화살표가 있다.</p>
+  <div class="shotwrap">
+    <div>
+      <div class="tbl"><table class="def">
+        <thead><tr><th>ID</th><th>요소</th><th>유형</th><th>노출 값</th><th>출처</th><th>조건 · 규칙</th></tr></thead>
+        <tbody>
+          <tr><td class="id">E01</td><td class="el">섹션 헤더</td><td class="ty">텍스트</td><td class="v">검사 항목별 이해 / 항목별 해석 / 내 수치가 기준 범위 어디에 있는지 막대로 보여드려요. 화살표를 누르면 최근 5회 변화를 볼 수 있어요.</td><td>고정</td><td>이전 검진이 하나도 없으면 부제의 두 번째 문장을 뺀다</td></tr>
+          <tr><td class="id">E02</td><td class="el">색 범례</td><td class="ty">텍스트</td><td class="v">정상 · 관리 필요 · 확인 필요 (각 상태 색 견본과 함께)</td><td>고정</td><td>한 줄. "경계"·"주의"라는 말은 쓰지 않는다</td></tr>
+          <tr><td class="id">E03</td><td class="el">검사군 카드</td><td class="ty">컨테이너</td><td class="v">순서 고정: 혈압 → 혈당 → 콜레스테롤 → 간 기능 → 신장 기능 → 빈혈</td><td><code>groups[]</code></td><td>행이 하나도 없는 검사군은 카드를 뺀다. 확인 필요·관리 필요 카드는 정상 카드와 시각적으로 구분한다</td></tr>
+          <tr><td class="id">E03-1</td><td class="el">검사군 아이콘</td><td class="ty">그래픽</td><td class="v">♥ ◆ ◯ ◒ ◐ ●</td><td><code>groups[].key</code></td><td>카드 상태 톤을 따른다</td></tr>
+          <tr><td class="id">E03-2</td><td class="el">검사군명</td><td class="ty">텍스트</td><td class="v">혈압 / 혈당 / 콜레스테롤 / 간 기능 / 신장 기능 / 빈혈</td><td><code>groups[].name</code></td><td>—</td></tr>
+          <tr><td class="id">E03-3</td><td class="el">카드 상태 배지</td><td class="ty">배지</td><td class="v">정상 / 관리 필요 / 확인 필요</td><td><code>groups[].status</code></td><td>= 행 상태 중 가장 나쁜 것(high &gt; caution &gt; ok). 색은 07 상태 사전</td></tr>
+          <tr><td class="id">E04</td><td class="el">검사 행</td><td class="ty">컨테이너</td><td class="v">검사군당 1~4행</td><td><code>groups[].rows[]</code></td><td>행 사이 구분. 값이 없는 검사는 행을 뺀다</td></tr>
+          <tr><td class="id">E04-1</td><td class="el">검사명</td><td class="ty">텍스트</td><td class="v">수축기 · 이완기 · 공복혈당 · 총콜레스테롤 · LDL · HDL · 중성지방 · AST · ALT · γ-GTP · eGFR · 크레아티닌 · 혈색소</td><td><code>rows[].name</code></td><td>보조 텍스트</td></tr>
+          <tr><td class="id">E04-2</td><td class="el">측정값+단위</td><td class="ty">숫자+단위</td><td class="v">148 mmHg · 128 mg/dL · 1.0 mg/dL · 11.6 g/dL …</td><td><code>rows[].value</code> · <code>rows[].unit</code></td><td>글자색 = 행 상태 톤(정상은 기본색). 크레아티닌·혈색소만 소수 1자리, 나머지 정수</td></tr>
+          <tr><td class="id">E04-3</td><td class="el">기준 범위 막대</td><td class="ty">그래픽</td><td class="v">구간 3개(또는 2개)</td><td><code>rows[].axis</code> · <code>rows[].zones[]</code></td><td>구간 폭 = (구간 끝−시작)/(축 끝−축 시작). 구간색은 07 상태 사전의 연한 톤. HDL·eGFR은 high가 왼쪽. 2구간 검사(eGFR·크레아티닌)는 caution 없음. 혈색소는 양쪽이 나쁜 5구간(high·caution·ok·caution·high), 성별로 구간이 다름</td></tr>
+          <tr><td class="id">E04-4</td><td class="el">구간 눈금</td><td class="ty">숫자</td><td class="v">120 · 140 / 100 · 126 / 60 / 1.5 / 10 · 12 · 15.6 · 16.6 …</td><td><code>rows[].zones[].to</code></td><td>구간 경계마다 막대 아래에 표시. 축 양 끝 값은 쓰지 않는다</td></tr>
+          <tr><td class="id">E04-5</td><td class="el">내 값 마커</td><td class="ty">그래픽</td><td class="v">세로 마커</td><td><code>rows[].value</code></td><td>위치 = (값−축 시작)/(축 끝−축 시작). 축 밖이면 끝에 붙인다. 색 = 값이 놓인 구간의 진한 톤</td></tr>
+          <tr><td class="id">E04-6</td><td class="el">화살표 버튼</td><td class="ty">버튼</td><td class="v">›</td><td><code>rows[].history.length ≥ 2</code></td><td><b>조건: 이전 검진 기록이 1개 이상.</b> 탭하면 E05를 그 행 아래에 펼치고 열림 상태를 표시한다. 한 번에 여러 행을 펼칠 수 있다. 접근성 라벨 "최근 5회 변화 보기"</td></tr>
+          <tr><td class="id">E05</td><td class="el">5회 변화 패널</td><td class="ty">컨테이너</td><td class="v">행 아래 펼침 영역</td><td><code>rows[].history[]</code></td><td>기본 접힘. 프로토타입 SVG는 수축기 행을 펼친 상태로 뽑았다</td></tr>
+          <tr><td class="id">E05-1</td><td class="el">패널 라벨</td><td class="ty">텍스트</td><td class="v">최근 5회 변화</td><td>고정</td><td>기록이 5회 미만이면 "최근 N회 변화"</td></tr>
+          <tr><td class="id">E05-2</td><td class="el">변화 태그</td><td class="ty">배지</td><td class="v">이전보다 높음 / 이전보다 낮음 / 비슷함</td><td>마지막 2개 값 차이</td><td>|차이| ≤ 허용폭이면 "비슷함"(허용폭 = 축 길이의 2%, 최소 1, 크레아티닌 0.05). 색 = 마지막 값의 구간색. 이전보다 낮음이라도 구간이 high면 분홍</td></tr>
+          <tr><td class="id">E05-3</td><td class="el">꺾은선 그래프</td><td class="ty">그래픽</td><td class="v">점 최대 5개</td><td><code>history[].value</code></td><td>y축은 그 검사 값들의 최소~최대에 맞춤(기준 범위 아님). 마지막 점만 강조. 선 색 = E05-2 톤. 값이 없는 회차는 점을 찍지 않고 선을 끊는다</td></tr>
+          <tr><td class="id">E05-4</td><td class="el">값 · 검진일</td><td class="ty">숫자+텍스트</td><td class="v">126 / 21.05 … 148 / 25.06</td><td><code>history[].value</code> · <code>history[].date</code></td><td>5칸 균등. 날짜는 <code>yy.MM</code>. 마지막 값만 강조</td></tr>
+          <tr><td class="id">E06</td><td class="el">해석 문장</td><td class="ty">텍스트</td><td class="v">혈압이 기준 범위를 넘었고, 최근 몇 년 사이 계속 오르고 있어요.</td><td><code>groups[].comment</code> [AI]</td><td>1문장. 글자색은 카드 상태 톤(정상은 기본). 수치·진단명 금지. 배지와 어긋나는 서술 금지(예: 배지가 정상인데 "정상에 못 미친다")</td></tr>
+          <tr><td class="id">E07</td><td class="el">검사 의미</td><td class="ty">텍스트</td><td class="v">혈액이 혈관 벽에 가하는 압력이에요. 수축기는 심장이 뛸 때, 이완기는 쉴 때의 압력이에요.</td><td><code>groups[].meaning</code> (앱 고정 사전)</td><td>설명 박스, <b>항상 노출</b>(접기 없음). AI가 쓰지 않는다</td></tr>
+        </tbody></table></div>
+    </div>
+    <div><p class="cap">E · y 1674–3820 (혈압 카드는 수축기 행을 펼친 상태)</p><div class="shot" style="height:2146px"><img src="maiReport_AI검진요약_화면_확인필요예시_v1.0.0.svg" alt="" style="margin-top:-1674px"></div></div>
+  </div>
+</section>
+
+<!-- 05-2 H -->
+<section>
+  <span class="sec-no">05-2 · H</span>
+  <h2>그 밖의 검사 결과</h2>
+  <p class="sub">기준 범위가 숫자로 정해지지 않아 막대를 그릴 수 없는 검사. 검진기관의 판정과 소견을 그대로 옮긴다. 종합 요약의 개수·우선 확인 항목·행동에는 수치 검사와 똑같이 포함된다.</p>
+  <div class="shotwrap">
+    <div>
+      <div class="tbl"><table class="def">
+        <thead><tr><th>ID</th><th>요소</th><th>유형</th><th>노출 값</th><th>출처</th><th>조건 · 규칙</th></tr></thead>
+        <tbody>
+          <tr><td class="id">H01</td><td class="el">섹션 헤더</td><td class="ty">텍스트</td><td class="v">그 밖의 검사 결과 / 흉부 X선처럼 숫자 범위가 없는 검사는 검진기관의 판정과 소견을 그대로 보여드려요.</td><td>고정</td><td>판정형 검사가 하나도 없으면 H 영역 전체 제거</td></tr>
+          <tr><td class="id">H02</td><td class="el">카드</td><td class="ty">컨테이너</td><td class="v">행 목록만 (카드 제목·아이콘 없음)</td><td><code>judgments[]</code></td><td>카드 하나. 행마다 검사명과 배지가 있으므로 카드 제목을 따로 두지 않는다. 카드 테두리 톤은 행 중 가장 나쁜 상태</td></tr>
+          <tr><td class="id">H02-1</td><td class="el">검사명</td><td class="ty">텍스트</td><td class="v">흉부 X선 · 요검사(요단백) · B형간염 · 시력 · 청력</td><td><code>judgments[].name</code></td><td>결과지에 있는 것만, 확인 필요 → 관리 필요 → 정상 순으로 정렬. 암검진·구강검진 결과가 연동되면 같은 형식으로 행 추가</td></tr>
+          <tr><td class="id">H02-2</td><td class="el">소견</td><td class="ty">텍스트</td><td class="v">경화 소견 · 폐렴 의심 · 재검 권고 / 음성 / 표면항체 있음 · 면역 상태 / 좌 0.8 / 우 1.0 / 좌·우 정상</td><td><code>judgments[].note</code></td><td>결과지 소견을 그대로, 최대 2줄. AI가 고쳐 쓰지 않는다. 확인 필요 행은 분홍 글자</td></tr>
+          <tr><td class="id">H02-3</td><td class="el">상태 배지</td><td class="ty">배지</td><td class="v">정상 / 관리 필요 / 확인 필요</td><td><code>judgments[].status</code></td><td>결과지 판정을 그대로 매핑: 정상A→정상, 정상B→관리 필요, 질환의심·재검·요주의→확인 필요. 판정이 없으면 <code>neu</code> "판정 정보 확인"</td></tr>
+          <tr><td class="id">H03</td><td class="el">해석 문장</td><td class="ty">텍스트</td><td class="v">흉부 X선에 재검 소견이 있어요. 검진기관 권고에 따라 다시 확인해 주세요. / 모두 특이 소견이 없어요.</td><td><code>judgments.comment</code> [AI]</td><td>1문장. E06과 같은 규칙</td></tr>
+        </tbody></table></div>
+    </div>
+    <div><p class="cap">H · y 3820–4247</p><div class="shot" style="height:427px"><img src="maiReport_AI검진요약_화면_확인필요예시_v1.0.0.svg" alt="" style="margin-top:-3820px"></div></div>
+  </div>
+</section>
+
+<!-- 06 F G -->
+<section>
+  <span class="sec-no">06 · F–G</span>
+  <h2>내가 해야 할 행동 · 면책</h2>
+  <div class="shotwrap">
+    <div>
+      <div class="tbl"><table class="def">
+        <thead><tr><th>ID</th><th>요소</th><th>유형</th><th>노출 값</th><th>출처</th><th>조건 · 규칙</th></tr></thead>
+        <tbody>
+          <tr><td class="id">F01</td><td class="el">섹션 헤더</td><td class="ty">텍스트</td><td class="v">다음에 챙길 일 / 내가 해야 할 행동 / 검진기관 권고부터 순서대로 챙겨 보세요.</td><td><code>summary.level</code></td><td>부제: <code>normal</code>이면 "앞으로도 이렇게 챙겨 주세요."</td></tr>
+          <tr><td class="id">F02</td><td class="el">행동 카드</td><td class="ty">컨테이너</td><td class="v">흰 카드 1장, 행 1~3개</td><td><code>actions[]</code></td><td>정렬: 근거 <code>org</code> → <code>general</code> → <code>app</code>. 상한 3개. 검진기관 권고가 있으면 절대 빼지 않고, 권고가 3개를 채우면 일반 안내·앱 안내는 밀려난다(예시가 그 경우). 개수를 맞추려고 채우지 않는다</td></tr>
+          <tr><td class="id">F02-1</td><td class="el">번호</td><td class="ty">배지</td><td class="v">1 · 2 · 3</td><td>index</td><td>번호 배지</td></tr>
+          <tr><td class="id">F02-2</td><td class="el">행동 제목</td><td class="ty">텍스트</td><td class="v">흉부 X선 재검을 받으세요 / 혈압을 다시 재 보세요 / 공복혈당은 진료로 확인하세요</td><td><code>actions[].title</code></td><td>1줄. 관리 필요(정상B) 항목은 검진기관 권고로 쓰지 않는다(예시의 총콜레스테롤). <code>org</code>는 검진기관 소견에서 규칙으로, 나머지는 사전 문구</td></tr>
+          <tr><td class="id">F02-3</td><td class="el">행동 설명</td><td class="ty">텍스트</td><td class="v">검진기관이 폐렴 의심 소견으로 재검을 권고했어요. 가까운 병원에서 다시 촬영해 주세요.</td><td><code>actions[].body</code></td><td>최대 2줄. 재검 날짜·진료 기한은 앱이 지어내지 않는다</td></tr>
+          <tr><td class="id">F02-4</td><td class="el">근거 (비노출)</td><td class="ty">—</td><td class="v">화면에 표시하지 않음</td><td><code>actions[].source</code></td><td>정렬과 검수에만 쓴다. "검진기관 권고 / 일반 건강관리 안내 / 앱 안내" 같은 태그를 화면에 붙이지 않는다</td></tr>
+          <tr><td class="id">G01</td><td class="el">면책</td><td class="ty">텍스트</td><td class="v">AI 요약은 검진 결과를 이해하기 쉽게 정리한 참고 정보이며, 의학적 진단을 대신하지 않아요. 걱정되는 항목은 의료진과 상담해 주세요.</td><td>고정</td><td>보조 텍스트. 항상 맨 아래. 문구 변경은 의료 검토를 거친다</td></tr>
+        </tbody></table></div>
+    </div>
+    <div><p class="cap">F–G · y 4247–4748</p><div class="shot" style="height:501px"><img src="maiReport_AI검진요약_화면_확인필요예시_v1.0.0.svg" alt="" style="margin-top:-4247px"></div></div>
+  </div>
+</section>
+
+<!-- 07 -->
+<section>
+  <span class="sec-no">07</span>
+  <h2>태그 · 배지 · 문장 사전</h2>
+  <p class="sub">화면에 노출되는 고정 문자열을 한곳에 모았습니다. 코드의 enum 값 ↔ 화면 문구 대응표입니다. 각 상태는 "톤"으로만 구분하고 실제 색은 디자이너가 정합니다.</p>
+
+  <h3>검사 상태 <code>status</code></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>값</th><th>화면 문구</th><th>뜻 (공단 판정기준)</th><th>톤</th></tr></thead>
+    <tbody>
+      <tr><td><code>ok</code></td><td class="k">정상</td><td>정상A</td><td>안정 톤(초록 계열). 값 글자는 기본색</td></tr>
+      <tr><td><code>caution</code></td><td class="k">관리 필요</td><td>정상B(경계) — 생활습관으로 지켜볼 값</td><td>주의 톤(노랑·주황 계열)</td></tr>
+      <tr><td><code>high</code></td><td class="k">확인 필요</td><td>질환의심 — 검진기관이 재검·진료를 권고한 값</td><td>경고 톤(분홍·빨강 계열)</td></tr>
+      <tr><td><code>neu</code></td><td class="k">판정 정보 확인</td><td>결과지에 판정이 없고 기준 범위도 없을 때</td><td>중립 톤. 막대 없음</td></tr>
+    </tbody></table></div>
+  <p class="mut" style="margin-top:8px">"경계", "주의", "위험", "심각", "이상"은 화면 어디에도 쓰지 않는다.</p>
+
+  <h3>변화 태그 <code>trend</code></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>값</th><th>E05-2 (5회 패널)</th><th>C09-4 (우선 확인 항목)</th><th>판정</th></tr></thead>
+    <tbody>
+      <tr><td><code>up</code></td><td>이전보다 높음</td><td>높아짐</td><td>마지막 − 직전 &gt; 허용폭</td></tr>
+      <tr><td><code>down</code></td><td>이전보다 낮음</td><td>낮아짐</td><td>직전 − 마지막 &gt; 허용폭</td></tr>
+      <tr><td><code>flat</code></td><td>비슷함</td><td>(행 상태명)</td><td>|차이| ≤ 허용폭 · 허용폭 = 축 길이 2%, 최소 1, 크레아티닌 0.05</td></tr>
+      <tr><td><code>none</code></td><td>패널 없음(화살표 없음)</td><td>(행 상태명)</td><td>이전 기록 없음</td></tr>
+    </tbody></table></div>
+
+  <h3>근거 <code>source</code> (내부 값 · 화면 비노출)</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>값</th><th>뜻</th><th>어디서 오나</th><th>쓰임</th></tr></thead>
+    <tbody>
+      <tr><td><code>org</code></td><td class="k">검진기관 권고</td><td>결과지의 판정·소견(재검, 진료 권고)을 규칙으로 옮긴 것</td><td>항상 맨 앞, 절대 생략 불가</td></tr>
+      <tr><td><code>general</code></td><td class="k">일반 건강관리 안내</td><td>관리 필요 항목·신체계측 band에 따른 사전 문구</td><td>org 다음</td></tr>
+      <tr><td><code>app</code></td><td class="k">앱 안내</td><td>다음 검진 일정, 결과 보관 등 앱 기능 안내</td><td>마지막</td></tr>
+    </tbody></table></div>
+
+  <h3>신체계측 배지 <code>band</code> × 항목</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>band (등수)</th><th>키</th><th>체중</th><th>BMI</th><th>허리둘레</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1 (1~20)</td><td>작은 편이에요</td><td>가벼운 편이에요</td><td>낮은 편이에요</td><td>가는 편이에요</td></tr>
+      <tr><td class="num">2 (21~40)</td><td>조금 작은 편이에요</td><td>조금 가벼운 편이에요</td><td>조금 낮은 편이에요</td><td>조금 가는 편이에요</td></tr>
+      <tr><td class="num">3 (41~60)</td><td>평균적인 편이에요</td><td>평균적인 편이에요</td><td>평균적인 편이에요</td><td>평균적인 편이에요</td></tr>
+      <tr><td class="num">4 (61~80)</td><td>조금 큰 편이에요</td><td>조금 무거운 편이에요</td><td>조금 높은 편이에요</td><td>조금 굵은 편이에요</td></tr>
+      <tr><td class="num">5 (81~100)</td><td>큰 편이에요</td><td>무거운 편이에요</td><td>높은 편이에요</td><td>굵은 편이에요</td></tr>
+    </tbody></table></div>
+  <p class="mut" style="margin-top:8px">배지 색은 band가 아니라 <code>health</code>로 정한다: BMI ≥ 25 또는 허리둘레 남 ≥ 90 / 여 ≥ 85면 <code>warn</code>(주의 톤). 키·체중은 항상 band 규칙(2~4 안정 톤, 1·5 중립 톤).</p>
+
+  <h3>결론 제목 <code>headlineKey</code></h3>
+  <div class="tbl"><table>
+    <thead><tr><th>값</th><th>조건</th><th>C04 문구</th><th>C02 배경</th></tr></thead>
+    <tbody>
+      <tr><td><code>high</code></td><td><code>counts.high ≥ 1</code></td><td>이번 검진에서<br>확인이 필요한 변화가 있어요</td><td>분홍</td></tr>
+      <tr><td><code>caution</code></td><td><code>counts.high = 0</code>, <code>counts.caution ≥ 1</code></td><td>대부분 정상이고,<br>지켜볼 항목이 있어요</td><td>분홍(연하게)</td></tr>
+      <tr><td><code>normal</code></td><td>모두 <code>ok</code></td><td>주요 검사 결과가<br>대체로 안정적이에요</td><td>초록</td></tr>
+      <tr><td><code>partial</code></td><td>판정 없는 검사가 절반 이상</td><td>일부 항목만<br>정리할 수 있었어요</td><td>회색</td></tr>
+    </tbody></table></div>
+
+  <h3>AI 문장 규칙 (C05 · E06 · H03)</h3>
+  <ul>
+    <li>입력은 계산 결과(예: "혈압: 확인 필요, 2회 연속 상승")만. 값은 넘기지 않으므로 문장에 숫자가 들어갈 수 없다.</li>
+    <li>금지어: 고혈압입니다 · 당뇨가 의심됩니다 · 위험 · 심각 · 걱정 없어요 · 정상입니다(단정). 대신 "기준보다 높아요", "검진기관에서 확인 필요로 판정했어요".</li>
+    <li>행동은 "의료진과 상의", "다음 검진에서 확인"까지만. 날짜·기한·약·식단 처방 금지.</li>
+    <li>문체: "~이에요 / ~해 주세요". 문장 길이 60자 이내.</li>
+    <li>생성 실패 시 C05·E06·H03은 사전 문구로 대체하고 나머지 화면은 그대로 그린다.</li>
+  </ul>
+</section>
+
+<!-- 08 -->
+<section>
+  <span class="sec-no">08</span>
+  <h2>데이터 정의</h2>
+  <p class="sub">화면이 받는 객체 하나. 값 계산(상태·등수·추세·개수)은 서버가 끝내서 내려주고, 화면은 그리기만 합니다. 아래는 확인 필요 예시의 일부입니다.</p>
+<pre>{
+  "checkup":  { "id": "chk_2025_0619", "examDate": "2025-06-19", "orgName": "메디피움의원", "sex": "F", "age": 42 },
+  "summary":  { "level": "attention", "headlineKey": "high",
+                "lead": "흉부 X선에 재검 소견이 있고, 혈압과 공복혈당이 이전보다 높아졌어요. 이번 결과만으로 진단할 수는 없지만, 가까운 시일 내 재검·재측정하고 필요하면 의료진과 상담해 주세요." },
+  "counts":   { "ok": 10, "caution": 4, "high": 4, "total": 18 },
+  "priority": [ { "name": "흉부 X선", "kind": "judgment", "note": "경화 소견 · 폐렴 의심", "status": "high", "trend": "recheck" },
+                { "name": "혈압", "history": ["134/86","140/90","148/94"], "unit": "mmHg", "status": "high", "trend": "up" },
+                { "name": "공복혈당", "history": [112,119,128], "unit": "mg/dL", "status": "high", "trend": "up" } ],
+  "body":     [ { "key": "height", "name": "키", "value": 164.2, "unit": "cm", "rank": 70, "band": 4, "health": "ok" },
+                { "key": "weight", "name": "체중", "value": 69.3, "unit": "kg", "rank": 81, "band": 5, "health": "ok" },
+                { "key": "bmi", "name": "BMI", "value": 25.7, "unit": "kg/m²", "rank": 78, "band": 4, "health": "warn" },
+                { "key": "waist", "name": "허리둘레", "value": 86.0, "unit": "cm", "rank": 80, "band": 4, "health": "warn" } ],
+  "groups":   [ { "key": "bp", "name": "혈압", "status": "high",
+                  "comment": "혈압이 기준 범위를 넘었고, 최근 몇 년 사이 계속 오르고 있어요.",
+                  "meaning": "혈액이 혈관 벽에 가하는 압력이에요. 수축기는 심장이 뛸 때, 이완기는 쉴 때의 압력이에요.",
+                  "rows": [ { "name": "수축기", "value": 148, "unit": "mmHg", "status": "high",
+                              "axis": [90, 180], "zones": [ {"to":120,"cls":"ok"}, {"to":140,"cls":"caution"}, {"to":180,"cls":"high"} ],
+                              "trend": "up",
+                              "history": [ {"date":"2021-05","value":126}, {"date":"2022-06","value":130}, {"date":"2023-06","value":134},
+                                           {"date":"2024-05","value":140}, {"date":"2025-06","value":148} ] },
+                            { "name": "이완기", "value": 94, "unit": "mmHg", "status": "high", "axis": [50,120],
+                              "zones": [ {"to":80,"cls":"ok"}, {"to":90,"cls":"caution"}, {"to":120,"cls":"high"} ], "trend": "up", "history": [ "…" ] } ] },
+                { "key": "kidney", "name": "신장 기능", "status": "ok", "comment": "…", "meaning": "…",
+                  "rows": [ { "name": "eGFR", "value": 88, "unit": "mL/min", "status": "ok", "axis": [30,120],
+                              "zones": [ {"to":60,"cls":"high"}, {"to":120,"cls":"ok"} ], "trend": "down", "history": [ "…" ] } ] },
+                { "key": "anemia", "name": "빈혈", "status": "caution", "comment": "…", "meaning": "…",
+                  "rows": [ { "name": "혈색소", "value": 11.6, "unit": "g/dL", "status": "caution", "axis": [8,20],
+                              "zones": [ {"to":10,"cls":"high"}, {"to":12,"cls":"caution"}, {"to":15.6,"cls":"ok"}, {"to":16.6,"cls":"caution"}, {"to":20,"cls":"high"} ],
+                              "trend": "down", "history": [ "…" ] } ] } ],
+  "judgments": { "comment": "흉부 X선에 재검 소견이 있어요. 검진기관 권고에 따라 다시 확인해 주세요.",
+                 "items": [ { "name": "흉부 X선", "status": "high", "note": "경화 소견 · 폐렴 의심 · 재검 권고" },
+                            { "name": "요검사(요단백)", "status": "ok", "note": "음성" },
+                            { "name": "B형간염", "status": "ok", "note": "표면항체 있음 · 면역 상태" },
+                            { "name": "시력", "status": "ok", "note": "좌 0.8 / 우 1.0" },
+                            { "name": "청력", "status": "ok", "note": "좌·우 정상" } ] },
+  "actions":  [ { "title": "흉부 X선 재검을 받으세요", "body": "검진기관이 폐렴 의심 소견으로 재검을 권고했어요. 가까운 병원에서 다시 촬영해 주세요.", "source": "org" },
+                { "title": "혈압을 다시 재 보세요", "body": "가까운 시일 내 병원이나 약국에서 다시 측정하고, 검진기관이 권고한 정기 측정을 이어가 주세요.", "source": "org" },
+                { "title": "혈당과 콜레스테롤은 진료로 확인하세요", "body": "공복혈당과 총콜레스테롤이 기준을 넘었어요. 의료진과 상담해 재검 여부를 정해 주세요.", "source": "org" },
+                { "title": "공복혈당은 진료로 확인하세요", "body": "공복혈당이 검진기관의 확인 필요 기준을 넘었어요. 의료진과 상담해 추가 검사 여부를 정해 주세요.", "source": "org" } ],
+  "generatedAt": "2025-06-19T14:02:11+09:00", "model": "…", "promptVersion": "…"
+}</pre>
+  <div class="tbl"><table>
+    <thead><tr><th>필드</th><th>타입</th><th>필수</th><th>규칙</th></tr></thead>
+    <tbody>
+      <tr><td><code>summary.level</code></td><td>enum normal | attention</td><td>필수</td><td><code>counts.high + counts.caution &gt; 0</code>이면 attention</td></tr>
+      <tr><td><code>counts.*</code></td><td>int</td><td>필수</td><td>groups[].rows[].status + judgments.items[].status 집계. total = ok + caution + high</td></tr>
+      <tr><td><code>judgments.items[]</code></td><td>array</td><td>선택</td><td>판정형 검사. status는 결과지 판정 매핑, note는 소견 원문. 비어 있으면 H 영역 제거</td></tr>
+      <tr><td><code>priority[]</code></td><td>array ≤ 3</td><td>선택</td><td>비어 있으면 C10(현재 상태) 노출</td></tr>
+      <tr><td><code>body[].rank</code></td><td>int 1~100 | null</td><td>선택</td><td>또래 분포표(성별·5세 연령대)에서 산출. null이면 등수·그림을 연하게</td></tr>
+      <tr><td><code>rows[].zones[].to</code></td><td>number</td><td>필수</td><td>왼쪽부터 오름차순, 마지막 to = axis[1]. 값은 기준 범위 레퍼런스(공단 판정기준)를 따른다</td></tr>
+      <tr><td><code>rows[].history[]</code></td><td>array ≤ 5</td><td>선택</td><td>오래된 순. 길이 ≥ 2일 때만 화살표(E04-6). 값 없는 회차는 <code>value:null</code></td></tr>
+      <tr><td><code>groups[].meaning</code></td><td>string</td><td>필수</td><td>앱 고정 사전. AI 생성 아님</td></tr>
+      <tr><td><code>*.comment / lead</code></td><td>string</td><td>필수(실패 시 대체 문구)</td><td>AI 생성. 숫자 포함 시 서버가 거부하고 사전 문구로 대체</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- 09 -->
+<section>
+  <span class="sec-no">09</span>
+  <h2>인터랙션</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>동작</th><th>결과</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td>A01 뒤로가기 탭 · 시스템 뒤로가기</td><td>검진 상세로. 스크롤 위치는 저장하지 않는다</td></tr>
+      <tr><td class="n">2</td><td>E04-6 화살표 탭</td><td>해당 행 아래 E05 펼침/접힘 토글(150ms). 다른 행은 건드리지 않는다</td></tr>
+      <tr><td class="n">3</td><td>세로 스크롤</td><td>A 헤더 고정, 나머지 스크롤. 가로 스크롤 없음</td></tr>
+      <tr><td class="n">4</td><td>당겨서 새로고침</td><td>없음. 요약은 검진 데이터가 바뀔 때만 서버가 다시 만든다</td></tr>
+      <tr><td class="n">5</td><td>텍스트 길게 누르기</td><td>기본 복사 허용</td></tr>
+      <tr><td class="n">6</td><td>화면 진입</td><td>이벤트 <code>ai_summary_view</code> {checkupId, level, counts}. 화살표 탭 시 <code>ai_summary_history_open</code> {rowName}</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- 10 -->
+<section>
+  <span class="sec-no">10</span>
+  <h2>예외 · 빈 상태</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>상황</th><th>화면</th></tr></thead>
+    <tbody>
+      <tr><td class="k">이전 검진 없음</td><td>모든 행에서 E04-6 화살표 제거, E01 부제 두 번째 문장 제거, C09-3은 "최근 결과 <b>값</b>", C09-4는 행 상태명</td></tr>
+      <tr><td class="k">일부 검사만 있음</td><td>없는 행·검사군은 빼고 counts.total도 그만큼. 절반 이상 판정 불가면 headlineKey = partial</td></tr>
+      <tr><td class="k">판정형 검사만 있고 수치 검사 없음</td><td>E 영역 제거, H만 노출. counts는 판정형만으로 센다</td></tr>
+      <tr><td class="k">신체계측 없음</td><td>D 영역 전체 제거. C10 격자의 BMI 칸은 "—"</td></tr>
+      <tr><td class="k">또래 분포 없음(rank null)</td><td>D02 문구를 "또래 비교 데이터를 준비 중이에요"로, D03-5는 "—", D03-7 전부 연한 톤, D03-8 없음, D03-6은 health 기준으로만(warn 또는 "기록됐어요")</td></tr>
+      <tr><td class="k">성별 정보 없음</td><td>γ-GTP·혈색소 기준을 남성 값으로 적용하고 E07 끝에 "(남성 기준)" 표기. 허리둘레 health는 판단하지 않음. 예시 사용자는 여성이라 여성 기준이 적용돼 있다</td></tr>
+      <tr><td class="k">판정도 기준도 없는 검사</td><td>행 상태 <code>neu</code>, 막대 대신 "기준 범위 정보 없음" 텍스트, 값은 그대로</td></tr>
+      <tr><td class="k">AI 문장 생성 실패</td><td>C05·E06·H03을 사전 문구로. 나머지는 정상 노출. 화면 상단에 배너 없음</td></tr>
+      <tr><td class="k">긴 기관명 · 긴 검사명</td><td>B02는 말줄임 없이 2줄까지. E04-1은 최대 8자, 넘으면 약어(예: 감마지티피 → γ-GTP)</td></tr>
+      <tr><td class="k">다크 모드</td><td>v1.0 미지원. 라이트 고정</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- 11 -->
+<section>
+  <span class="sec-no">11</span>
+  <h2>검수 체크리스트</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>#</th><th>확인 항목</th></tr></thead>
+    <tbody>
+      <tr><td class="n">01</td><td>C06+C07+C08 = E 영역 행 수인가</td></tr>
+      <tr><td class="n">02</td><td>E03-3 카드 배지가 행 중 가장 나쁜 상태와 같은가</td></tr>
+      <tr><td class="n">03</td><td>E04-5 마커 색과 E04-2 값 글자색이 값이 놓인 구간과 일치하는가</td></tr>
+      <tr><td class="n">04</td><td>HDL·eGFR 막대에서 확인 필요 구간이 왼쪽인가</td></tr>
+      <tr><td class="n">05</td><td>eGFR·크레아티닌 막대가 2구간(관리 필요 없음)인가</td></tr>
+      <tr><td class="n">06</td><td>이전 기록이 없는 행에 화살표가 없는가 · 있는 행은 탭 시 그 행만 펼쳐지는가</td></tr>
+      <tr><td class="n">07</td><td>E05-2 태그가 마지막 두 값의 차이와 허용폭 규칙대로 나오는가</td></tr>
+      <tr><td class="n">08</td><td>D03-5 등수와 D03-8 "나" 위치(band = ceil(rank/20))가 맞는가</td></tr>
+      <tr><td class="n">09</td><td>D03-6 배지 문구가 07 사전과 같고, BMI·허리둘레 warn 색이 맞는가</td></tr>
+      <tr><td class="n">10</td><td>AI 문장(C05·E06·H03)에 숫자·금지어가 없는가</td></tr>
+      <tr><td class="n">11</td><td>F02 첫 행이 검진기관 권고인가(있을 때) · 재검 날짜를 지어내지 않았는가 · 근거 태그가 화면에 없는가</td></tr>
+      <tr><td class="n">12</td><td>"경계·주의·위험·심각"이 화면에 없는가</td></tr>
+      <tr><td class="n">13</td><td>좁은 화면에서 사람 그림 5개와 막대가 넘치지 않는가</td></tr>
+      <tr><td class="n">14</td><td>G01 면책 문구가 원문과 한 글자도 다르지 않은가</td></tr>
+      <tr><td class="n">15</td><td>H02-2 소견이 결과지 원문 그대로인가 · 판정형 확인 필요가 C09 1순위와 F02 1행에 왔는가</td></tr>
+      <tr><td class="n">16</td><td>혈색소 막대가 5구간이고 성별에 맞는 구간인가</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- 부록 -->
+<section>
+  <span class="sec-no">부록</span>
+  <h2>또래 등수 산식</h2>
+  <p class="sub">D03-5 "내 또래 100명 중 N등"과 D03-7 사람 그림 위치가 어떻게 정해지는지. 서버가 계산해 <code>body[].rank</code>·<code>body[].band</code>로 내려주고, 화면은 그리기만 합니다.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>단계</th><th>하는 일</th><th>식 · 규칙</th></tr></thead>
+    <tbody>
+      <tr><td class="k">① 또래 집단</td><td>사용자와 같은 성별, 같은 5세 연령대의 검진 표본 전체</td><td>예: 여성 40~44세 → N명. 출처는 질병관리청 국민건강영양조사 원시자료(1차) 또는 공단 NHISS 표본연구DB(승인 후). 연 1회 갱신</td></tr>
+      <tr><td class="k">② 세기</td><td>그 집단에서 내 값보다 작은 사람 수 a, 같은 사람 수 b</td><td>값을 정렬한 뒤 계수</td></tr>
+      <tr><td class="k">③ 백분위</td><td>같은 값은 중간에 둔다</td><td class="num">P = (a + 0.5 × b) ÷ N × 100</td></tr>
+      <tr><td class="k">④ 등수</td><td>화면의 "내 또래 100명 중 N등" (D03-5)</td><td class="num">rank = 올림(P), 0이면 1 → 1~100</td></tr>
+      <tr><td class="k">⑤ 구간</td><td>사람 그림 5개 중 진하게 칠할 위치 (D03-7 · D03-8)</td><td class="num">band = 올림(rank ÷ 20) → 1~5</td></tr>
+      <tr><td class="k">⑥ 배지</td><td>D03-6 상태 배지 문구와 톤</td><td>문구 = 07 배지 사전[항목][band]. 톤은 <code>health</code>가 정한다(BMI ≥ 25, 허리둘레 여 ≥ 85 / 남 ≥ 90이면 주의 톤)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="mut" style="margin-top:10px"><b>계산 예</b> — 여성 42세, BMI 25.7 (2024 통계연보 Ⅵ-2 실제 값). 여성 40~44세 N = 895,583명, 구간별 인원 18.5 미만 56,655 · 18.5~24.9 605,744 · 25~29.9 170,802 · 30~39.9 59,714 · 40 이상 2,668.
+  25.7보다 작은 사람 a = 56,655 + 605,744 + 170,802 × (25.7 − 25) ÷ 5 = 686,311, 같은 사람 b ≈ 0 → P = 686,311 ÷ 895,583 × 100 = 76.6 → 77등 → band 4 "조금 높은 편이에요". BMI ≥ 25라 배지는 주의 톤.</p>
+  <ul>
+    <li><b>등수의 뜻</b>: 1등 = 값이 가장 작음, 100등 = 가장 큼. 키·체중·BMI·허리둘레 모두 같은 방향이며 좋고 나쁨이 아니라 위치다.</li>
+    <li><b>미리 계산</b>: 성별 × 5세 연령대 × 항목마다 백분위 경계값 100개를 표로 저장해 두고 사용자 값을 그 표에서 찾는다. 표 버전을 요약과 함께 저장한다.</li>
+    <li><b>표본 부족</b>: 집단이 500명 미만이면 인접 연령대와 합치고, 그래도 부족하면 <code>rank = null</code> → D02 문구 교체, D03-5 "—", D03-7 전부 연한 톤(10장 예외 참고).</li>
+    <li><b>자녀 프로필</b>: 질병관리청 소아청소년 성장도표 백분위를 같은 방식으로 등수화한다.</li>
+    <li>출처 목록과 검증 자료는 기준 범위 레퍼런스 04장에 있다.</li>
+  </ul>
+</section>
+
+<div class="srcs">
+  <h2>같이 보는 문서</h2>
+  <ul>
+    <li>기획서 — <code>maiReport_AIH-001-002_AI검진요약_기획서_v1.0.0.html</code> (흐름·약속·예외)</li>
+    <li>기준 범위 레퍼런스 — <code>maiReport_AI검진요약_기준범위_레퍼런스_v1.0.0.html</code> (구간 값 출처)</li>
+    <li>프로토타입 — <code>outputs/maiReport_prototype_v1.0.0.html</code> (열면 본 화면으로 시작)</li>
+    <li>화면 SVG — <code>maiReport_AI검진요약_화면_확인필요예시_v1.0.0.svg</code> · <code>…_정상예시.svg</code></li>
+    <li>재현 프롬프트 — <code>prompt_건강검진_AI요약_화면.md</code></li>
+  </ul>
+</div>
+
+</main>
