@@ -993,7 +993,7 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 @keyframes scan{0%,100%{top:10%}50%{top:88%}}
 .cam-hint{position:absolute;left:-10px;right:-10px;bottom:-52px;text-align:center;font-size:var(--t-sm);font-weight:500;color:rgba(255,255,255,.72);line-height:1.6}
 /* 스캔 결과 — 카메라 위에 겹쳐 띄운다 */
-.cam-result{position:absolute;inset:0;z-index:5;background:rgba(10,14,24,.86);backdrop-filter:blur(3px);
+.cam-result{position:absolute;inset:0;z-index:5;background:rgba(10,14,24,.94);
   display:flex;align-items:center;justify-content:center;padding:24px}
 .cam-card{width:100%;max-width:300px;padding:26px 22px;border-radius:20px;background:rgba(255,255,255,.08);
   border:1px solid rgba(255,255,255,.14);text-align:center;color:#fff}
@@ -1455,7 +1455,7 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 .home-hero.tone-bad{--h1:#FBD9DE;--h2:#FCEEF0}
 /* 홈 헤더는 히어로 안에서 고정된다. 배경이 비어 있으면 스크롤한 본문이
    로고 · 버튼 뒤로 비쳐 흰 띠처럼 보이므로, 히어로 위쪽 색을 그대로 깐다. */
-.hd-hero{background:var(--h1);background:color-mix(in srgb,var(--h1) 72%,transparent);backdrop-filter:blur(10px);transition:background .6s ease}
+.hd-hero{background:var(--h1);transition:background .6s ease}
 .home-hero .q-card{background:transparent;box-shadow:none;padding:4px 0 6px}
 .home-hero .q-row{align-items:flex-start;margin-bottom:16px;gap:10px}
 .home-hero .q-tx{flex:1;min-width:0}
@@ -1464,7 +1464,7 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 .home-hero .q-av{width:84px;height:84px;font-size:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0%,#DCE6FF 70%);box-shadow:0 10px 24px rgba(47,102,245,.16),inset 0 -6px 12px rgba(47,102,245,.08);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:-6px}
 .home-hero .q-av.done{background:radial-gradient(circle at 35% 30%,#fff 0%,#E6EDFF 70%)}
 .home-hero .q-opts{gap:10px;margin-bottom:0}
-.home-hero .q-opt{background:rgba(255,255,255,.72);border:1.5px solid rgba(255,255,255,.9);border-radius:16px;padding:16px 4px 14px;gap:10px;font-weight:700;color:var(--ink-1);box-shadow:0 4px 14px rgba(30,50,90,.06);backdrop-filter:blur(6px);transition:all .18s ease}
+.home-hero .q-opt{background:rgba(255,255,255,.86);border:1.5px solid rgba(255,255,255,.9);border-radius:16px;padding:16px 4px 14px;gap:10px;font-weight:700;color:var(--ink-1);box-shadow:0 4px 14px rgba(30,50,90,.06);transition:all .18s ease}
 .home-hero .q-opt .f{width:40px;height:40px;font-size:26px;background:none;box-shadow:none;color:var(--ink-1)}
 .home-hero .q-opt.good.on{border-color:#2FB46A;background:rgba(255,255,255,.92)}
 .home-hero .q-opt.okay.on{border-color:#E9B807;background:rgba(255,255,255,.92)}
@@ -1472,7 +1472,7 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 .home-hero .q-opt.neutral.on{border-color:var(--brand);background:rgba(255,255,255,.92)}
 .home-hero .q-opt.neutral .f{background:#EEF3FF;color:var(--brand);font-size:18px;width:40px;height:40px;border-radius:50%}
 .home-hero .q-opt.dim{opacity:.45}
-.home-hero .q-done{background:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.9);border-radius:16px;padding:16px 16px;box-shadow:0 4px 14px rgba(30,50,90,.06);backdrop-filter:blur(6px);gap:12px}
+.home-hero .q-done{background:rgba(255,255,255,.9);border:1.5px solid rgba(255,255,255,.9);border-radius:16px;padding:16px 16px;box-shadow:0 4px 14px rgba(30,50,90,.06);gap:12px}
 .home-hero .q-done .ck{width:32px;height:32px;background:#E4F6EA;color:#2FB46A;font-size:15px;border-radius:50%}
 .home-hero .q-done .tx{flex:1;display:flex;flex-direction:column;gap:2px}
 .home-hero .q-done .tx b{font-size:var(--t-body);font-weight:700;color:var(--ink-1)}
@@ -6275,7 +6275,14 @@ function registerAiReport(){
       /* 생활지표는 홈으로 돌아온 뒤에 바꾼다 — 등록 화면에 가려진 채로 끝나면
          바늘이 내려가는 장면을 못 보기 때문이다. 오늘의 컨디션 카드로 시선을 옮긴 뒤 다시 잰다. */
       const cond = document.getElementById('cond');
-      if(cond) cond.scrollIntoView({behavior:'smooth', block:'center'});
+      const scroller = document.querySelector('.content');
+      if(cond && scroller && scroller.scrollHeight > scroller.clientHeight + 4){
+        /* 임베드에서는 본문이 앱 안에서 스크롤되므로 그 컨테이너를 직접 움직인다 */
+        const top = cond.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - 90;
+        scroller.scrollTo({top, behavior:'smooth'});
+      } else if(cond){
+        cond.scrollIntoView({behavior:'smooth', block:'center'});
+      }
       setTimeout(()=>{
         applyCaseData('sick');
         if(cond){ cond.classList.remove('flash'); void cond.offsetWidth; cond.classList.add('flash'); }
