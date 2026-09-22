@@ -33,7 +33,10 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 /* 구글 사이트처럼 iframe 안에 넣으면 화면 높이가 고정돼 아래가 잘린다.
    이때는 앱이 내용만큼 늘어나고 바텀 네비가 화면 바닥이 아니라 내용 끝에 붙도록 바꾼다. */
 html.embed,html.embed body{height:100%;overflow:hidden}
-html.embed body{display:flex;flex-direction:column;align-items:center;margin:0}
+html.embed body{display:flex;flex-direction:column;align-items:center;margin:0;background:transparent}
+/* 앱 양옆·바깥은 삽입한 페이지 배경이 그대로 비치게 둔다 —
+   우리 배경색을 깔면 구글 사이트의 흰 페이지와 만나 경계선처럼 보인다. */
+html.embed .app{box-shadow:none}
 html.embed .app{min-height:0;width:100%;max-width:430px;flex:1 1 auto;display:flex;flex-direction:column}
 html.embed .content{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:12px}
 html.embed .nav{position:relative;flex:0 0 auto;width:100%;max-width:430px}
@@ -1414,7 +1417,9 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 .home-hero.tone-good{--h1:#D4F3DE;--h2:#EAF8EE}
 .home-hero.tone-okay{--h1:#FBF0C4;--h2:#FCF7E3}
 .home-hero.tone-bad{--h1:#FBD9DE;--h2:#FCEEF0}
-.hd-hero{background:transparent}
+/* 홈 헤더는 히어로 안에서 고정된다. 배경이 비어 있으면 스크롤한 본문이
+   로고 · 버튼 뒤로 비쳐 흰 띠처럼 보이므로, 히어로 위쪽 색을 그대로 깐다. */
+.hd-hero{background:var(--h1);background:color-mix(in srgb,var(--h1) 72%,transparent);backdrop-filter:blur(10px);transition:background .6s ease}
 .home-hero .q-card{background:transparent;box-shadow:none;padding:4px 0 6px}
 .home-hero .q-row{align-items:flex-start;margin-bottom:16px;gap:10px}
 .home-hero .q-tx{flex:1;min-width:0}
