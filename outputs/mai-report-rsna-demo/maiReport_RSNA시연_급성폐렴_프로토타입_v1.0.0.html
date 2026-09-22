@@ -2392,14 +2392,28 @@ const MEAL_PHRASES = {
   }
 };
 /* 폐렴 급성기 기본 목표 — 식이는 답변 뒤에 생성되므로 잠금 상태의 자리만 잡아둔다 */
-const BASE_GOALS = [
-  {key:'meal', cat:'식이', icon:'🍚', streak:3, title:MEAL_PHRASES.protein.입문[0].title,
-   why:MEAL_PHRASES.protein.입문[0].why, how:'오늘의 질문 답변으로 문구를 고릅니다'},
-  {key:'move', cat:'활동', icon:'🫁', streak:2, title:'앉아서 깊게 숨쉬기 3회',
-   why:'폐 아래쪽이 잘 펴져요', how:'천천히 들이마시고 길게 내쉬기를 다섯 차례씩 해요'},
-  {key:'sleep',cat:'수면', icon:'🛏️', streak:5, title:'상체 높여 눕기',
-   why:'기침으로 깨는 횟수가 줄어요', how:'베개를 하나 더 받쳐 상체를 높여요'}
-];
+/* 기본 목표는 케이스에 따라 다르다.
+   AI REPORT를 등록하기 전(평소 상태)에는 평소 목표를 깔고,
+   폐렴 소견이 등록된 뒤에야 급성기 목표로 바뀐다. */
+const GOALS_BY_CASE = {
+  well:[
+    {key:'meal', cat:'식이', icon:'🥗', streak:3, title:'저녁은 채소부터 먼저',
+     why:'식후 혈당이 덜 출렁여요', how:'채소·단백질을 먼저, 밥은 마지막에 천천히 드세요'},
+    {key:'move', cat:'활동', icon:'🚶', streak:2, title:'저녁 전 1,500보 더 걷기',
+     why:'평소 걸음 수를 채우는 정도예요', how:'식후 10분 걷기 한 번이면 채워져요'},
+    {key:'sleep',cat:'수면', icon:'🛏️', streak:5, title:'잠들기 한 시간 전 화면 끄기',
+     why:'잠드는 시간이 일정해져요', how:'자기 전 한 시간은 화면 대신 조명을 낮춰요'}
+  ],
+  sick:[
+    {key:'meal', cat:'식이', icon:'🍚', streak:3, title:MEAL_PHRASES.protein.입문[0].title,
+     why:MEAL_PHRASES.protein.입문[0].why, how:'오늘의 질문 답변으로 문구를 고릅니다'},
+    {key:'move', cat:'활동', icon:'🫁', streak:2, title:'앉아서 깊게 숨쉬기 3회',
+     why:'폐 아래쪽이 잘 펴져요', how:'천천히 들이마시고 길게 내쉬기를 다섯 차례씩 해요'},
+    {key:'sleep',cat:'수면', icon:'🛏️', streak:5, title:'상체 높여 눕기',
+     why:'기침으로 깨는 횟수가 줄어요', how:'베개를 하나 더 받쳐 상체를 높여요'}
+  ]
+};
+let BASE_GOALS = GOALS_BY_CASE.sick;
 let goals = BASE_GOALS.map(g=>({...g, state:'pending'}));
 
 /* ── 식이 목표 선정 ──
@@ -2422,6 +2436,8 @@ function mealGoal(b){
 }
 function adjust(b){
   const {breath} = ans;
+  /* 폐렴 케이스가 아닐 때는 평소 목표를 그대로 둔다 — 급성기 문구는 리포트가 있어야 나온다 */
+  if(!hasAiReport) return {...b};
   if(b.key==='meal') return mealGoal(b);
   if(b.key==='move'){
     if(breath && breath.v==='bad') return {...b, title:'오늘은 움직이지 말고 쉬기', why:'가만히 있어도 숨참 · 진료 먼저', how:'연락이 닿을 때까지 앉거나 누워서 쉬어요'};
@@ -3516,8 +3532,13 @@ const CASE_DATA = {
     hdNum:{ steps:8210, kcal:388, active:50, hr:63, sleep:7.3, weight:68.4 }
   },
   sick:{
-    metricState:{ margin:'low', selfcare:'low', steady:'low' },
-    metricWeek:{ margin:[74,42,26,22,null,null,null], selfcare:[68,40,30,26,null,null,null], steady:[72,46,28,22,null,null,null] },
+    /* 자기돌봄은 '기회 대비 행동' 비율이라, 아파서 식사·활동 기준점 자체가 거의 없으면
+       유효 기회가 최소치(2)에 못 미쳐 산출하지 않는다 → 관찰 중.
+       기회가 없는 것을 낮은 구간으로 치환하지 않는다(생활지표 기획서 §I2 · 화면정의서 §6.5). */
+    metricState:{ margin:'low', selfcare:'none', steady:'low' },
+    metricNote:{ selfcare:'오늘은 챙길 순간이 아직 확인되지 않았어요.' },
+    metricWeek:{ margin:[74,42,26,22,null,null,null], selfcare:[68,40,null,null,null,null,null], steady:[72,46,28,22,null,null,null] },
+    metricEmpty:{ selfcare:{title:'아직 관찰 중이에요', body:'식사 뒤나 오래 앉아 있던 뒤처럼 몸을 챙길 순간이 있어야 계산할 수 있어요. 아픈 동안에는 그 순간 자체가 적어 판단하지 않고 기다려요.'} },
     metricIns:{
       margin:'월요일까지는 평소와 같았는데, <b>화요일부터 수면이 짧아지고 낮 활동이 거의 멈추면서</b> 여유가 사흘째 줄고 있어요.',
       selfcare:'식사 뒤나 오래 누워 있던 뒤에 <b>이어지는 움직임이 화요일부터 거의 없어요.</b> 아픈 동안에는 무리해서 채우지 않아도 돼요.',
@@ -3557,11 +3578,16 @@ const CASE_DATA = {
     hdNum:{ steps:1840, kcal:110, active:12, hr:82, sleep:5.17, weight:67.7 }
   }
 };
-let METRIC_WEEK = CASE_DATA.sick.metricWeek, METRIC_INS = CASE_DATA.sick.metricIns;
+let METRIC_WEEK = CASE_DATA.sick.metricWeek, METRIC_INS = CASE_DATA.sick.metricIns,
+    METRIC_EMPTY = CASE_DATA.sick.metricEmpty || {};
 function applyCaseData(key){
   const c = CASE_DATA[key];
-  METRIC_WEEK = c.metricWeek; METRIC_INS = c.metricIns;
-  METRICS.forEach(m=>{ m.state = c.metricState[m.k]; m.prev = c.metricState[m.k]; });
+  METRIC_WEEK = c.metricWeek; METRIC_INS = c.metricIns; METRIC_EMPTY = c.metricEmpty || {};
+  BASE_GOALS = GOALS_BY_CASE[key];                       /* 기본 목표도 케이스를 따라간다 */
+  goals = BASE_GOALS.map(g=>({...g, state:'pending'}));
+  if(document.getElementById('gList')) renderGoals();
+  METRICS.forEach(m=>{ m.state = c.metricState[m.k]; m.prev = c.metricState[m.k];
+    m.noneNote = (c.metricNote && c.metricNote[m.k]) || ''; });
   Object.keys(c.series).forEach(k=>{ SERIES[k] = c.series[k]; });
   Object.keys(c.dayvals).forEach(k=>{ DAYVALS[k] = c.dayvals[k]; });
   Object.keys(c.dayjudge).forEach(k=>{ DAYJUDGE[k] = c.dayjudge[k]; });
@@ -3778,9 +3804,12 @@ function renderMetricPane(){
      자기돌봄은 예전 '생활부담'(낮을수록 좋음) 데이터를 뒤집어 재사용한다.
      '현재 흐름' 문장은 달력 주어("이번 주는") 없이 최근 변화와 이유에 집중한다. */
   const cards = [
-    {nm:'생활여유', k:'margin',   s:METRIC_WEEK.margin,   ins:METRIC_INS.margin},
-    {nm:'자기돌봄', k:'selfcare', s:METRIC_WEEK.selfcare, ins:METRIC_INS.selfcare},
-    {nm:'일상안정', k:'steady',   s:METRIC_WEEK.steady,   ins:METRIC_INS.steady}
+    {nm:'생활여유', k:'margin',   s:METRIC_WEEK.margin,   ins:METRIC_INS.margin,
+     emptyTitle:(METRIC_EMPTY.margin||{}).title,   emptyBody:(METRIC_EMPTY.margin||{}).body},
+    {nm:'자기돌봄', k:'selfcare', s:METRIC_WEEK.selfcare, ins:METRIC_INS.selfcare,
+     emptyTitle:(METRIC_EMPTY.selfcare||{}).title, emptyBody:(METRIC_EMPTY.selfcare||{}).body},
+    {nm:'일상안정', k:'steady',   s:METRIC_WEEK.steady,   ins:METRIC_INS.steady,
+     emptyTitle:(METRIC_EMPTY.steady||{}).title,   emptyBody:(METRIC_EMPTY.steady||{}).body}
   ];
   const html = cards.map(m=>metricCard(m, m.s, i, WEEK.map(w=>w.d),
     m.k==='steady' ? `${D} 기준 · 최근 7일을 평소 21일과 비교` : `${D} 기준 · 내 평소 범위와 비교`, valOf, judgeOf)).join('');
