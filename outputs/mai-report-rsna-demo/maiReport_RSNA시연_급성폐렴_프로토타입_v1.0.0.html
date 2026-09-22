@@ -2496,26 +2496,26 @@ const METRICS = [
   {k:'margin', nm:'생활여유', en:'Life Margin',
    desc:'오늘 남아 있는 몸의 여유', expl:'잠은 충분했는지, 움직임이 하루에 고르게 퍼져 있었는지를 함께 보고 오늘을 편안하게 보낼 힘이 얼마나 남았는지 알려드려요.',
    states:{good:'충분해요', mid:'보통이에요', low:'부족해요'},
-   state:'good', prev:'mid',
-   line:'오늘은 하루를 이어갈 여유가 충분한 편이에요.',
+   state:'low', prev:'low',
+   line:'오늘은 하루를 이어갈 여유가 많이 부족해요.',
    title:'생활여유를 본 데이터',
-   note:'수면이 평소보다 길었고 활동이 하루 중 고르게 나뉘어, 부담보다 여유가 앞선 하루였어요.',
+   note:'화요일부터 수면이 짧고 자주 끊겼고 낮 활동도 거의 없어, 회복에 쓸 여유가 계속 줄어든 사흘이었어요.',
    rows:['sleep','active','exercise']},
   {k:'selfcare', nm:'자기돌봄', en:'Self-Care Moments',
    desc:'오늘 나를 챙긴 정도', expl:'식사 뒤, 오래 앉아 있던 뒤처럼 몸을 챙기기 좋은 순간에 실제로 가볍게 움직였는지 살펴봐요. 많이 움직였는지가 아니라 알맞은 때에 움직였는지가 기준이에요.',
    states:{good:'잘하고 있어요', mid:'보통이에요', low:'부족해요'},
-   state:'mid', prev:'low',
-   line:'조절할 수 있는 순간에 일부 움직임이 이어졌어요.',
+   state:'low', prev:'low',
+   line:'움직일 수 있는 순간에도 거의 쉬고 있어요.',
    title:'자기돌봄을 본 데이터',
-   note:'식사 뒤와 오래 앉아 있던 뒤 세 번의 기회 중 한 번에 걷기가 이어졌어요.',
+   note:'화요일 이후 식사 뒤나 오래 누워 있던 뒤에 이어지는 움직임이 거의 없었어요. 아픈 동안에는 자연스러운 흐름이에요.',
    rows:['active','exercise','record']},
   {k:'steady', nm:'일상안정', en:'Life Steadying',
    desc:'최근 생활 리듬의 일정함', expl:'하루하루의 리듬이 평소처럼 일정하게 흐르고 있는지 봐요. 어제와 오늘이 크게 다르지 않을수록 안정적이에요.',
    states:{good:'안정적이에요', mid:'비슷해요', low:'불안정해요'},
-   state:'good', prev:'good',
-   line:'최근 생활 신호가 평소 범위 안에서 고르게 이어지고 있어요.',
+   state:'low', prev:'low',
+   line:'화요일부터 생활 신호가 평소 범위를 크게 벗어나 있어요.',
    title:'일상안정을 본 데이터',
-   note:'수면·걸음·심박이 최근 2주 내 평소 범위 안에서 크게 흔들리지 않았어요.',
+   note:'걸음과 활동이 평소의 4분의 1 수준으로 떨어졌고, 안정 시 심박은 평소보다 높은 상태가 사흘째 이어지고 있어요.',
    rows:['steps','sleep','hr','active']}
 ];
 function josa(word, pair){
@@ -2559,14 +2559,14 @@ function gaugeSvg(state, color){
   return `<svg class="m-g" viewBox="0 0 ${W} ${H}" aria-hidden="true">${g}</svg>`;
 }
 const DATA = {
-  steps:   {ic:'👟',bg:'#E3F6E8',label:'걸음 수',      v:'6,420',u:'걸음',d:'▼ 12% 적어요'},
-  sleep:   {ic:'🌙',bg:'#E8EAFB',label:'수면 시간',    v:'7시간 20분',u:'',d:'▲ 35분 길어요'},
-  hr:      {ic:'❤️',bg:'#FDE7EE',label:'안정 시 심박수',v:'68',u:'bpm',d:'· 평소 범위에요'},
-  kcal:    {ic:'🔥',bg:'#FFEADF',label:'활동 칼로리',  v:'320',u:'kcal',d:'▼ 8% 적어요'},
-  active:  {ic:'⏱️',bg:'#FFF4DA',label:'활동 시간',    v:'42',u:'분',d:'· 평소와 비슷해요'},
-  exercise:{ic:'🏃',bg:'#E3F6E8',label:'운동 시간',    v:'15',u:'분',d:'▼ 평소보다 짧아요'},
-  record:  {ic:'📝',bg:'#EEF3FF',label:'운동 기록',    v:'걷기 1회',u:'',d:'· 가벼움'},
-  bedtime: {ic:'🛏️',bg:'#E8EAFB',label:'취침 시각',    v:'23:40',u:'',d:'· 평소와 비슷해요'}
+  steps:   {ic:'👟',bg:'#E3F6E8',label:'걸음 수',      v:'1,840',u:'걸음',d:'▼ 평소보다 크게 적어요'},
+  sleep:   {ic:'🌙',bg:'#E8EAFB',label:'수면 시간',    v:'5시간 10분',u:'',d:'▼ 2시간 짧아요'},
+  hr:      {ic:'❤️',bg:'#FDE7EE',label:'안정 시 심박수',v:'82',u:'bpm',d:'▲ 평소보다 높아요'},
+  kcal:    {ic:'🔥',bg:'#FFEADF',label:'활동 칼로리',  v:'110',u:'kcal',d:'▼ 크게 적어요'},
+  active:  {ic:'⏱️',bg:'#FFF4DA',label:'활동 시간',    v:'12',u:'분',d:'▼ 크게 짧아요'},
+  exercise:{ic:'🏃',bg:'#E3F6E8',label:'운동 시간',    v:'0',u:'분',d:'· 사흘째 없어요'},
+  record:  {ic:'📝',bg:'#EEF3FF',label:'운동 기록',    v:'없음',u:'',d:'· 기록 없음'},
+  bedtime: {ic:'🛏️',bg:'#E8EAFB',label:'취침 시각',    v:'23:30',u:'',d:'· 평소와 비슷해요'}
 };
 const DEF_ROWS = ['steps','sleep','hr'];
 let sel = null;
@@ -2629,13 +2629,12 @@ function renderMetrics(){
 }
 /* 샘플 상태 전환 (프로토타입 시연용) — 각 시나리오는 오늘 state와 전일 prev를 함께 갖는다 */
 const METRIC_SCENARIOS = [
-  { label:'기본(일상안정 관찰 중)',
-    set:{ margin:'good', selfcare:'mid', steady:'none' },
-    prev:{ margin:'mid', selfcare:'low', steady:'none' },
-    note:{ steady:'평소 범위를 잡는 중이에요. 며칠 더 쌓이면 보여드릴게요.' } },
-  { label:'데이터 충분',
+  { label:'기본(폐렴 3일차 · 화요일 발병)',
+    set:{ margin:'low', selfcare:'low', steady:'low' },
+    prev:{ margin:'low', selfcare:'low', steady:'low' } },
+  { label:'발병 전(월요일)',
     set:{ margin:'good', selfcare:'mid', steady:'good' },
-    prev:{ margin:'mid', selfcare:'low', steady:'good' } },
+    prev:{ margin:'good', selfcare:'mid', steady:'good' } },
   { label:'구간 하락 예시',
     set:{ margin:'mid', selfcare:'good', steady:'good' },
     prev:{ margin:'good', selfcare:'mid', steady:'good' } },
@@ -3139,19 +3138,20 @@ function marker(v,w,h,p,i,c){
 }
 const dayLabel = ()=> selDay===TODAY ? '오늘' : `8월 ${selDay}일`;
 
+/* 이번 주 생활 데이터 — 월요일까지는 평소대로, 화요일 발병 이후 사흘째 낮은 상태가 이어진다 */
 const SERIES = {
-  sleep:{v:[6.17,5.67,6.5,7.38,null,null,null],
-         t:['6시간 10분','5시간 40분','6시간 30분','7시간 23분','–','–','–'], avg:'6시간 27분'},
-  bed:  {v:[23.25,23.6,24.3,23.25,null,null,null],
-         t:['23시 15분','23시 36분','00시 18분','23시 15분','–','–','–'], avg:'23시 36분'},
-  step: {v:[6235,8216,5863,7340,null,null,null],
-         t:['6,235','8,216','5,863','7,340','–','–','–'], avg:'6,914'},
-  kcal: {v:[298,412,276,320,null,null,null],
-         t:['298','412','276','320','–','–','–'], avg:'327'},
-  hr:   {v:[67,69,68.5,63,null,null,null],
-         t:['67','69','68.5','63','–','–','–'], avg:'66.9'},
-  bp:   {sys:[122,119,126,118,null,null,null], dia:[81,77,84,76,null,null,null],
-         t:['122 / 81','119 / 77','126 / 84','118 / 76','–','–','–'], avg:'121 / 80'}
+  sleep:{v:[7.2,5.9,5.3,5.17,null,null,null],
+         t:['7시간 12분','5시간 54분','5시간 18분','5시간 10분','–','–','–'], avg:'5시간 54분'},
+  bed:  {v:[23.17,23.83,24.67,23.5,null,null,null],
+         t:['23시 10분','23시 50분','00시 40분','23시 30분','–','–','–'], avg:'23시 47분'},
+  step: {v:[8120,4260,2150,1840,null,null,null],
+         t:['8,120','4,260','2,150','1,840','–','–','–'], avg:'4,093'},
+  kcal: {v:[395,210,130,110,null,null,null],
+         t:['395','210','130','110','–','–','–'], avg:'211'},
+  hr:   {v:[64,74,81,82,null,null,null],
+         t:['64','74','81','82','–','–','–'], avg:'75.3'},
+  bp:   {sys:[118,124,126,122,null,null,null], dia:[76,80,82,79,null,null,null],
+         t:['118 / 76','124 / 80','126 / 82','122 / 79','–','–','–'], avg:'123 / 79'}
 };
 /* 혈압 범위 막대 — 하루를 이완기(아래)~수축기(위) 구간 하나로 그린다. 선택일만 색 + 양 끝 숫자, 나머지 회색. */
 function bpBars(sys,dia,l,color,selI){
@@ -3253,14 +3253,14 @@ function renderDaily(){
    · 자기돌봄 — 활동 시간 · 운동 시간 · 운동 기록이 핵심(기준점 뒤에 움직임이 붙었는가).
    · 일상안정 — 걸음 수 · 수면 · 심박수 · 활동 시간 · 운동 시간 · 운동 기록 · 체중(기록 있을 때). */
 const DATA_MAP = [
-  {n:'걸음 수',     s:1,a:1, margin:'aux',  selfcare:'no',  steady:'core', today:'6,420 걸음', judge:'적정'},
-  {n:'활동 칼로리', s:1,a:1, margin:'aux',  selfcare:'aux', steady:'aux',  today:'320 kcal',   judge:'낮춤'},
-  {n:'활동 시간',   s:1,a:0, margin:'core', selfcare:'core',steady:'core', today:'42분',       judge:'비슷'},
-  {n:'운동 시간',   s:0,a:1, margin:'core', selfcare:'core',steady:'core', today:'15분',       judge:'낮춤'},
-  {n:'운동 기록',   s:0,a:1, margin:'no',   selfcare:'core',steady:'core', today:'걷기 1회',   judge:'가벼움'},
-  {n:'심박수',      s:1,a:1, margin:'no',   selfcare:'no',  steady:'core', today:'63 bpm',     judge:'안정'},
-  {n:'수면',        s:1,a:1, margin:'core', selfcare:'no',  steady:'core', today:'7시간 23분', judge:'충분'},
-  {n:'체중',        s:1,a:1, margin:'no',   selfcare:'no',  steady:'core', today:'68.2 kg',    judge:'유지'},
+  {n:'걸음 수',     s:1,a:1, margin:'aux',  selfcare:'no',  steady:'core', today:'1,840 걸음', judge:'매우 적음'},
+  {n:'활동 칼로리', s:1,a:1, margin:'aux',  selfcare:'aux', steady:'aux',  today:'110 kcal',   judge:'매우 낮음'},
+  {n:'활동 시간',   s:1,a:0, margin:'core', selfcare:'core',steady:'core', today:'12분',       judge:'매우 낮음'},
+  {n:'운동 시간',   s:0,a:1, margin:'core', selfcare:'core',steady:'core', today:'0분',        judge:'없음'},
+  {n:'운동 기록',   s:0,a:1, margin:'no',   selfcare:'core',steady:'core', today:'없음',      judge:'없음'},
+  {n:'심박수',      s:1,a:1, margin:'no',   selfcare:'no',  steady:'core', today:'82 bpm',     judge:'높음'},
+  {n:'수면',        s:1,a:1, margin:'core', selfcare:'no',  steady:'core', today:'5시간 10분', judge:'부족'},
+  {n:'체중',        s:1,a:1, margin:'no',   selfcare:'no',  steady:'core', today:'67.7 kg',    judge:'줄어듦'},
   {n:'체지방률',    s:1,a:1, margin:'no',   selfcare:'no',  steady:'no',   today:'23.1 %',     judge:'유지'},
   {n:'BMI',        s:1,a:0, margin:'no',   selfcare:'no',  steady:'no',   today:'23.4',       judge:'정상'},
   {n:'키',          s:1,a:1, margin:'no',   selfcare:'no',  steady:'no',   today:'170 cm',     judge:'—'},
@@ -3268,25 +3268,25 @@ const DATA_MAP = [
   {n:'혈당',        s:1,a:1, margin:'aux',  selfcare:'aux', steady:'no',   today:'112 mg/dL',  judge:'주의'}
 ];
 const DAYVALS = {
-  '심박수':      ['67 bpm','69 bpm','68.5 bpm','63 bpm','–','–','–'],
-  '수면':        ['6시간 10분','5시간 40분','6시간 30분','7시간 23분','–','–','–'],
-  '걸음 수':     ['6,235 걸음','8,216 걸음','5,863 걸음','7,340 걸음','–','–','–'],
-  '활동 칼로리': ['298 kcal','412 kcal','276 kcal','320 kcal','–','–','–'],
-  '활동 시간':   ['38분','54분','31분','42분','–','–','–'],
-  '운동 시간':   ['0분','20분','0분','15분','–','–','–'],
-  '운동 기록':   ['없음','걷기 1회','없음','걷기 1회','–','–','–'],
-  '체중':        ['68.4 kg','68.3 kg','68.2 kg','68.2 kg','–','–','–']
+  '심박수':      ['64 bpm','74 bpm','81 bpm','82 bpm','–','–','–'],
+  '수면':        ['7시간 12분','5시간 54분','5시간 18분','5시간 10분','–','–','–'],
+  '걸음 수':     ['8,120 걸음','4,260 걸음','2,150 걸음','1,840 걸음','–','–','–'],
+  '활동 칼로리': ['395 kcal','210 kcal','130 kcal','110 kcal','–','–','–'],
+  '활동 시간':   ['52분','26분','15분','12분','–','–','–'],
+  '운동 시간':   ['25분','0분','0분','0분','–','–','–'],
+  '운동 기록':   ['걷기 1회','없음','없음','없음','–','–','–'],
+  '체중':        ['68.4 kg','68.2 kg','67.9 kg','67.7 kg','–','–','–']
 };
 const valOf = (name,i) => (DAYVALS[name] && DAYVALS[name][i]) || DATA_MAP.find(d=>d.n===name).today;
 const DAYJUDGE = {
-  '심박수':      ['보통','다소 높음','보통','안정','–','–','–'],
-  '수면':        ['부족','부족','보통','충분','–','–','–'],
-  '걸음 수':     ['적음','충분','적음','적정','–','–','–'],
-  '활동 칼로리': ['보통','높음','낮음','낮춤','–','–','–'],
-  '활동 시간':   ['보통','높음','낮음','비슷','–','–','–'],
-  '운동 시간':   ['없음','충분','없음','낮춤','–','–','–'],
-  '운동 기록':   ['없음','있음','없음','가벼움','–','–','–'],
-  '체중':        ['유지','유지','유지','유지','–','–','–']
+  '심박수':      ['안정','다소 높음','높음','높음','–','–','–'],
+  '수면':        ['충분','부족','부족','부족','–','–','–'],
+  '걸음 수':     ['충분','적음','매우 적음','매우 적음','–','–','–'],
+  '활동 칼로리': ['높음','낮음','매우 낮음','매우 낮음','–','–','–'],
+  '활동 시간':   ['높음','낮음','매우 낮음','매우 낮음','–','–','–'],
+  '운동 시간':   ['충분','없음','없음','없음','–','–','–'],
+  '운동 기록':   ['있음','없음','없음','없음','–','–','–'],
+  '체중':        ['유지','유지','줄어듦','줄어듦','–','–','–']
 };
 const judgeOf = (name,i) => (DAYJUDGE[name] && DAYJUDGE[name][i]) || DATA_MAP.find(d=>d.n===name).judge;
 const judgeTone = j => ['부족','다소 높음','높음','없음','낮춤','낮음'].includes(j) ? 'warn' : j==='–' ? 'muted' : 'ok';
@@ -3429,9 +3429,9 @@ const HD_GROUPS = [
   {title:'신체 정보', keys:['weight','fat','bmi','height']},
   {title:'건강 측정', keys:['bp','glucose']}
 ];
-const HD_TODAY_TXT = {steps:'7,340 걸음', kcal:'320 kcal', active:'42 분', workout:'3회', hr:'63 bpm', sleep:'7시간 23분', weight:'68.2 kg', fat:'23.1 %', bmi:'23.4', height:'170 cm', bp:'118 / 76 mmHg', glucose:'112 mg/dL'};
+const HD_TODAY_TXT = {steps:'1,840 걸음', kcal:'110 kcal', active:'12 분', workout:'0회', hr:'82 bpm', sleep:'5시간 10분', weight:'67.7 kg', fat:'23.1 %', bmi:'23.4', height:'170 cm', bp:'118 / 76 mmHg', glucose:'112 mg/dL'};
 /* 샘플 시계열 — 항목 base·spread로 날짜별 결정적(seed) 값을 만든다. 오늘 값은 실제 표시값과 맞춘다 */
-const HD_TODAY_NUM = {steps:7340, kcal:320, active:42, hr:63, sleep:7.38, weight:68.2, fat:23.1, bmi:23.4, height:170.0, glucose:112};
+const HD_TODAY_NUM = {steps:1840, kcal:110, active:12, hr:82, sleep:5.17, weight:67.7, fat:23.1, bmi:23.4, height:170.0, glucose:112};
 function seeded(n){ const x=Math.sin(n*9301+49297)*233280; return x-Math.floor(x); }
 function hdVal(k, dayOffset){          /* dayOffset 0=오늘, -1=어제 … */
   const d=HD_ITEMS[k]; if(dayOffset===0 && HD_TODAY_NUM[k]!=null) return HD_TODAY_NUM[k];
@@ -3639,15 +3639,14 @@ function renderMetricPane(){
      '현재 흐름' 문장은 달력 주어("이번 주는") 없이 최근 변화와 이유에 집중한다. */
   const cards = [
     {nm:'생활여유', k:'margin',
-     s:[62,55,50,75,null,null,null],
-     ins:'늦은 시간에 몰려 있던 활동이 하루 중간으로 나뉘고 수면이 채워지면서, <b>여유가 다시 앞선 하루</b>가 됐어요.'},
+     s:[74,42,26,22,null,null,null],
+     ins:'월요일까지는 평소와 같았는데, <b>화요일부터 수면이 짧아지고 낮 활동이 거의 멈추면서</b> 여유가 사흘째 줄고 있어요.'},
     {nm:'자기돌봄', k:'selfcare',
-     s:[52,28,32,58,null,null,null],
-     ins:'식사 뒤와 오래 앉아 있던 뒤에 <b>짧은 걷기가 이어진 날이 늘었어요.</b> 아직 절반쯤이에요.'},
+     s:[68,40,30,26,null,null,null],
+     ins:'식사 뒤나 오래 누워 있던 뒤에 <b>이어지는 움직임이 화요일부터 거의 없어요.</b> 아픈 동안에는 무리해서 채우지 않아도 돼요.'},
     {nm:'일상안정', k:'steady',
-     s: steadyReady ? [52,50,78,73,null,null,null] : [null,null,null,null,null,null,null],   /* 샘플: 기본은 관찰 중, 홈 게이지나 이 카드를 누르면 값 있는 상태로 전환 */
-     emptyTitle:'아직 관찰 중이에요', emptyBody:'평소 범위를 잡으려면 며칠 더 기록이 필요해요. 쌓이는 대로 자동으로 보여드릴게요.',
-     ins:'자고 움직이는 시각이 다시 일정해지면서, <b>평소 범위 안에서 흔들림이 줄었어요.</b>'}
+     s:[72,46,28,22,null,null,null],
+     ins:'화요일을 기점으로 걸음·수면·심박이 모두 평소 범위를 벗어났어요. <b>안정 시 심박이 높은 상태가 사흘째</b> 이어지고 있어요.'}
   ];
   const html = cards.map(m=>metricCard(m, m.s, i, WEEK.map(w=>w.d),
     m.k==='steady' ? `${D} 기준 · 최근 7일을 평소 21일과 비교` : `${D} 기준 · 내 평소 범위와 비교`, valOf, judgeOf)).join('');
@@ -3781,7 +3780,6 @@ const loadingView = kind => `<section class="card loading">
 /* 마지막 업데이트 일시 · 가져온 기간 — 더보기 > 검진 · 진료정보 연동의 카드에 표시한다(§4) */
 const MED_UPDATED = { checkup:'2026.08.20', clinic:'2026.08.25' };
 const MED_RANGE   = { checkup:'2016 ~ 2025', clinic:'2021 ~ 2026' };
-const MED_QUEUE = [];                                 /* "모두 업데이트"로 연달아 실행할 소스 */
 function refreshMedlinkSub(){
   const sub = document.getElementById('accountSub');
   if(sub.classList.contains('open') && sub.dataset.type==='medlink') renderAccountSub('medlink');
@@ -3794,7 +3792,6 @@ function startImport(kind){
     importing = null; imp[kind] = true; MED_UPDATED[kind] = '2026.09.18';
     renderHosp(); renderMore(); refreshHome(); refreshMedlinkSub();
     if(kind==='checkup') renderAiInsightEntry();
-    if(MED_QUEUE.length) startImport(MED_QUEUE.shift());
   }, 1600);
 }
 function importCard(kind){
@@ -5546,25 +5543,24 @@ function renderAccountSub(type){
   if(type==='medlink'){
     /* 소스 카드 2개 · 상태 · 마지막 업데이트 · 가져온 기간 · 업데이트 · 카드별 해제(§4) */
     const card = (k,name,org,desc)=>{
-      const on=imp[k], ing=importing===k, wait=MED_QUEUE.includes(k), busy=!!importing;
+      const on=imp[k], ing=importing===k, busy=!!importing;
       const st = ing ? `<span class="acc-badge">가져오는 중</span>`
         : on ? `<span class="acc-badge" style="background:#E7F7ED;color:var(--ok)">연동됨</span>`
              : `<span class="acc-badge" style="background:var(--fill);color:var(--ink-3)">미연동</span>`;
       const meta = on ? `<div class="acc-row"><div class="tx"><b style="font-weight:600;font-size:var(--t-sm)">마지막 업데이트</b></div><span class="val">${MED_UPDATED[k]}</span></div>
         <div class="acc-row"><div class="tx"><b style="font-weight:600;font-size:var(--t-sm)">가져온 기간</b></div><span class="val">${MED_RANGE[k]}</span></div>` : '';
       const act = on
-        ? `<button class="acc-link is-action" style="color:var(--brand)" ${busy?'disabled':''} onclick="startImport('${k}')">${ing?'가져오는 중…':wait?'대기 중…':'업데이트'}</button>
+        ? `<button class="acc-link is-action" style="color:var(--brand)" ${busy?'disabled':''} onclick="startImport('${k}')">${ing?'가져오는 중…':'업데이트'}</button>
            <button class="acc-link is-action danger" ${busy?'disabled':''} onclick="openMedUnlink('${k}')">연동 해제</button>`
         : `<button class="acc-link is-action" style="color:var(--brand)" ${busy?'disabled':''} onclick="startImport('${k}')">${ing?'가져오는 중…':'연동하기'}</button>`;
       return `<div class="acc-sec"><div class="acc-card">
         <div class="acc-row"><div class="tx"><b>${name}</b><small>${org} · ${desc}</small></div>${st}</div>
         ${meta}${act}</div></div>`;
     };
-    const both = imp.checkup && imp.clinic;
-    el.innerHTML = `${both?`<button class="acc-cta" style="margin:0 0 12px" ${importing?'disabled':''} onclick="MED_QUEUE.push('clinic'); startImport('checkup')">모두 업데이트</button>`:''}
+    el.innerHTML = `
       ${card('checkup','검진정보','국민건강보험공단','건강검진 결과')}
       ${card('clinic','진료정보','건강보험심사평가원','병원 방문 · 처방 기록')}
-      <p class="acc-note">간편인증 후 가져오며, 요약 · 분석에만 사용해요. 가져오는 동안 다른 화면으로 이동해도 계속 진행돼요.<br>연동을 해제하면 가져온 정보와 이를 바탕으로 만든 화면(건강나이 · 주요 소견 · 진료비 통계)이 삭제돼요. QR로 등록한 AI REPORT와 직접 등록한 검진 리포트는 남아요.</p>`;
+      <p class="acc-note">검진정보와 진료정보는 제공 기관이 달라 각각 인증해야 해요. 간편인증 후 가져오며, 요약 · 분석에만 사용해요. 가져오는 동안 다른 화면으로 이동해도 계속 진행돼요.<br>연동을 해제하면 가져온 정보와 이를 바탕으로 만든 화면(건강나이 · 주요 소견 · 진료비 통계)이 삭제돼요. QR로 등록한 AI REPORT와 직접 등록한 검진 리포트는 남아요.</p>`;
     return;
   }
   if(type==='device'){

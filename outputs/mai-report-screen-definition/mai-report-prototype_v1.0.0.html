@@ -3679,7 +3679,6 @@ const loadingView = kind => `<section class="card loading">
 /* 마지막 업데이트 일시 · 가져온 기간 — 더보기 > 검진 · 진료정보 연동의 카드에 표시한다(§4) */
 const MED_UPDATED = { checkup:'2026.08.20', clinic:'2026.08.25' };
 const MED_RANGE   = { checkup:'2016 ~ 2025', clinic:'2021 ~ 2026' };
-const MED_QUEUE = [];                                 /* "모두 업데이트"로 연달아 실행할 소스 */
 function refreshMedlinkSub(){
   const sub = document.getElementById('accountSub');
   if(sub.classList.contains('open') && sub.dataset.type==='medlink') renderAccountSub('medlink');
@@ -3692,7 +3691,6 @@ function startImport(kind){
     importing = null; imp[kind] = true; MED_UPDATED[kind] = '2026.09.18';
     renderHosp(); renderMore(); refreshHome(); refreshMedlinkSub();
     if(kind==='checkup') renderAiInsightEntry();
-    if(MED_QUEUE.length) startImport(MED_QUEUE.shift());
   }, 1600);
 }
 function importCard(kind){
@@ -5440,25 +5438,24 @@ function renderAccountSub(type){
   if(type==='medlink'){
     /* 소스 카드 2개 · 상태 · 마지막 업데이트 · 가져온 기간 · 업데이트 · 카드별 해제(§4) */
     const card = (k,name,org,desc)=>{
-      const on=imp[k], ing=importing===k, wait=MED_QUEUE.includes(k), busy=!!importing;
+      const on=imp[k], ing=importing===k, busy=!!importing;
       const st = ing ? `<span class="acc-badge">가져오는 중</span>`
         : on ? `<span class="acc-badge" style="background:#E7F7ED;color:var(--ok)">연동됨</span>`
              : `<span class="acc-badge" style="background:var(--fill);color:var(--ink-3)">미연동</span>`;
       const meta = on ? `<div class="acc-row"><div class="tx"><b style="font-weight:600;font-size:var(--t-sm)">마지막 업데이트</b></div><span class="val">${MED_UPDATED[k]}</span></div>
         <div class="acc-row"><div class="tx"><b style="font-weight:600;font-size:var(--t-sm)">가져온 기간</b></div><span class="val">${MED_RANGE[k]}</span></div>` : '';
       const act = on
-        ? `<button class="acc-link is-action" style="color:var(--brand)" ${busy?'disabled':''} onclick="startImport('${k}')">${ing?'가져오는 중…':wait?'대기 중…':'업데이트'}</button>
+        ? `<button class="acc-link is-action" style="color:var(--brand)" ${busy?'disabled':''} onclick="startImport('${k}')">${ing?'가져오는 중…':'업데이트'}</button>
            <button class="acc-link is-action danger" ${busy?'disabled':''} onclick="openMedUnlink('${k}')">연동 해제</button>`
         : `<button class="acc-link is-action" style="color:var(--brand)" ${busy?'disabled':''} onclick="startImport('${k}')">${ing?'가져오는 중…':'연동하기'}</button>`;
       return `<div class="acc-sec"><div class="acc-card">
         <div class="acc-row"><div class="tx"><b>${name}</b><small>${org} · ${desc}</small></div>${st}</div>
         ${meta}${act}</div></div>`;
     };
-    const both = imp.checkup && imp.clinic;
-    el.innerHTML = `${both?`<button class="acc-cta" style="margin:0 0 12px" ${importing?'disabled':''} onclick="MED_QUEUE.push('clinic'); startImport('checkup')">모두 업데이트</button>`:''}
+    el.innerHTML = `
       ${card('checkup','검진정보','국민건강보험공단','건강검진 결과')}
       ${card('clinic','진료정보','건강보험심사평가원','병원 방문 · 처방 기록')}
-      <p class="acc-note">간편인증 후 가져오며, 요약 · 분석에만 사용해요. 가져오는 동안 다른 화면으로 이동해도 계속 진행돼요.<br>연동을 해제하면 가져온 정보와 이를 바탕으로 만든 화면(건강나이 · 주요 소견 · 진료비 통계)이 삭제돼요. QR로 등록한 AI REPORT와 직접 등록한 검진 리포트는 남아요.</p>`;
+      <p class="acc-note">검진정보와 진료정보는 제공 기관이 달라 각각 인증해야 해요. 간편인증 후 가져오며, 요약 · 분석에만 사용해요. 가져오는 동안 다른 화면으로 이동해도 계속 진행돼요.<br>연동을 해제하면 가져온 정보와 이를 바탕으로 만든 화면(건강나이 · 주요 소견 · 진료비 통계)이 삭제돼요. QR로 등록한 AI REPORT와 직접 등록한 검진 리포트는 남아요.</p>`;
     return;
   }
   if(type==='device'){

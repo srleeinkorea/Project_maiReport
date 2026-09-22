@@ -1,0 +1,137 @@
+[
+  {
+    "file": "candidate_01.dcm",
+    "source_archive": "https://s3.amazonaws.com/east1.public.rsna.org/AI/2018/pneumonia-challenge-dataset-adjudicated-kaggle_2018.zip",
+    "archive_member": "mdai_rsna_project_x9N20BZa_images_2018-07-20-153330/1.2.276.0.7230010.3.1.2.8323329.4518.1517874308.125502/1.2.276.0.7230010.3.1.3.8323329.4518.1517874308.125501/1.2.276.0.7230010.3.1.4.8323329.4518.1517874308.125503.dcm",
+    "sha256": "1f6d6c646637e19da8c9cd277b55f6d53d3abd0b978706555566ad563e8f7b01",
+    "label": "Lung Opacity",
+    "severity": "NOT PROVIDED; NOT confirmed mild pneumonia",
+    "selection": "Single calculated bounding box, PA projection, box area >=1%; ascending box area",
+    "bbox": {
+      "x": 197,
+      "y": 659,
+      "width": 175,
+      "height": 63
+    },
+    "bbox_percent_of_whole_image": 1.0514259338378906,
+    "rows": 1024,
+    "columns": 1024,
+    "view": "PA",
+    "transfer_syntax": "1.2.840.10008.1.2.4.50",
+    "annotation": {
+      "id": "A_xd64pv",
+      "createdAt": "2018-07-03T22:56:25.773Z",
+      "createdById": "U_1z6",
+      "updatedAt": "2018-07-03T22:56:25.778Z",
+      "updatedById": "U_1z6",
+      "machineLearningModelId": null,
+      "StudyInstanceUID": "1.2.276.0.7230010.3.1.2.8323329.4518.1517874308.125502",
+      "SeriesInstanceUID": "1.2.276.0.7230010.3.1.3.8323329.4518.1517874308.125501",
+      "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.8323329.4518.1517874308.125503",
+      "labelId": "L_v8n",
+      "annotationNumber": 1,
+      "height": 1024,
+      "width": 1024,
+      "data": {
+        "x": 197,
+        "y": 659,
+        "width": 175,
+        "height": 63
+      },
+      "note": null,
+      "radlexTagIds": [],
+      "reviewsPositiveCount": 0,
+      "reviewsNegativeCount": 0
+    }
+  },
+  {
+    "file": "candidate_02.dcm",
+    "source_archive": "https://s3.amazonaws.com/east1.public.rsna.org/AI/2018/pneumonia-challenge-dataset-adjudicated-kaggle_2018.zip",
+    "archive_member": "mdai_rsna_project_x9N20BZa_images_2018-07-20-153330/1.2.276.0.7230010.3.1.2.8323329.26914.1517874474.824054/1.2.276.0.7230010.3.1.3.8323329.26914.1517874474.824053/1.2.276.0.7230010.3.1.4.8323329.26914.1517874474.824055.dcm",
+    "sha256": "0e7dcf1d43b7cf5136d10882c67918fb9a5b558e0cf0b8a55fa406fe080dde75",
+    "label": "Lung Opacity",
+    "severity": "NOT PROVIDED; NOT confirmed mild pneumonia",
+    "selection": "Single calculated bounding box, PA projection, box area >=1%; ascending box area",
+    "bbox": {
+      "x": 347.99027,
+      "y": 417.73885,
+      "width": 97.99839,
+      "height": 112.94727
+    },
+    "bbox_percent_of_whole_image": 1.0555887808699895,
+    "rows": 1024,
+    "columns": 1024,
+    "view": "PA",
+    "transfer_syntax": "1.2.840.10008.1.2.4.50",
+    "annotation": {
+      "id": "A_xog1nk",
+      "createdAt": "2018-07-03T22:38:30.830Z",
+      "createdById": "U_1z6",
+      "updatedAt": "2018-07-03T22:38:30.835Z",
+      "updatedById": "U_1z6",
+      "machineLearningModelId": null,
+      "StudyInstanceUID": "1.2.276.0.7230010.3.1.2.8323329.26914.1517874474.824054",
+      "SeriesInstanceUID": "1.2.276.0.7230010.3.1.3.8323329.26914.1517874474.824053",
+      "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.8323329.26914.1517874474.824055",
+      "labelId": "L_v8n",
+      "annotationNumber": 1,
+      "height": 1024,
+      "width": 1024,
+      "data": {
+        "x": 347.99027,
+        "y": 417.73885,
+        "width": 97.99839,
+        "height": 112.94727
+      },
+      "note": null,
+      "radlexTagIds": [],
+      "reviewsPositiveCount": 0,
+      "reviewsNegativeCount": 0
+    }
+  },
+  {
+    "file": "candidate_03.dcm",
+    "source_archive": "https://s3.amazonaws.com/east1.public.rsna.org/AI/2018/pneumonia-challenge-dataset-adjudicated-kaggle_2018.zip",
+    "archive_member": "mdai_rsna_project_x9N20BZa_images_2018-07-20-153330/1.2.276.0.7230010.3.1.2.8323329.13056.1517874369.186464/1.2.276.0.7230010.3.1.3.8323329.13056.1517874369.186463/1.2.276.0.7230010.3.1.4.8323329.13056.1517874369.186465.dcm",
+    "sha256": "f6c70446a41ec1fb514dbae0d0d5b3da9c89ac5cec9589a629b9c551f5285e62",
+    "label": "Lung Opacity",
+    "severity": "NOT PROVIDED; NOT confirmed mild pneumonia",
+    "selection": "Single calculated bounding box, PA projection, box area >=1%; ascending box area",
+    "bbox": {
+      "x": 325.55393,
+      "y": 420.23033,
+      "width": 101.32038,
+      "height": 109.62528
+    },
+    "bbox_percent_of_whole_image": 1.0592722918707276,
+    "rows": 1024,
+    "columns": 1024,
+    "view": "PA",
+    "transfer_syntax": "1.2.840.10008.1.2.4.50",
+    "annotation": {
+      "id": "A_rkzql0",
+      "createdAt": "2018-07-03T22:49:19.130Z",
+      "createdById": "U_1z6",
+      "updatedAt": "2018-07-03T22:49:19.136Z",
+      "updatedById": "U_1z6",
+      "machineLearningModelId": null,
+      "StudyInstanceUID": "1.2.276.0.7230010.3.1.2.8323329.13056.1517874369.186464",
+      "SeriesInstanceUID": "1.2.276.0.7230010.3.1.3.8323329.13056.1517874369.186463",
+      "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.8323329.13056.1517874369.186465",
+      "labelId": "L_v8n",
+      "annotationNumber": 1,
+      "height": 1024,
+      "width": 1024,
+      "data": {
+        "x": 325.55393,
+        "y": 420.23033,
+        "width": 101.32038,
+        "height": 109.62528
+      },
+      "note": null,
+      "radlexTagIds": [],
+      "reviewsPositiveCount": 0,
+      "reviewsNegativeCount": 0
+    }
+  }
+]
