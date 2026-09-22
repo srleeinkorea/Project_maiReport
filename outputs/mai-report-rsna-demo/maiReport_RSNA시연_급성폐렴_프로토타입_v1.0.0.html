@@ -3960,8 +3960,8 @@ const PROFILE = {name:'김마이', birth:'1984-01-01', phone:'010-1234-5678', em
 let imp = {checkup:false, clinic:false};
 let importing = null;
 const SOURCES = {
-  checkup:{t:'검진정보', d:'최근 검진정보 요약', ic:'🩺'},
-  clinic: {t:'진료정보', d:'병원 방문 기록과 처방받은 약', ic:'📋'}
+  checkup:{t:'검진정보', d:'최근 검진정보 요약', ic:'🩺', org:'국민건강보험공단'},
+  clinic: {t:'진료정보', d:'병원 방문 기록과 처방받은 약', ic:'📋', org:'건강보험심사평가원'}
 };
 /* 검진요약 · 주요 검진 소견 5행 — 상태 라벨은 표준 / 경계 / 주의 */
 const FINDINGS = [
@@ -4072,7 +4072,7 @@ function emptyView(emo, title, desc, withDetail, kind){
 }
 const loadingView = kind => `<section class="card loading">
   <div class="spin"></div><b>${SOURCES[kind].t}를 불러오는 중이에요</b>
-  <small>건강보험공단에서 ${SOURCES[kind].d}을 가져오고 있어요</small></section>`;
+  <small>${SOURCES[kind].org}에서 ${SOURCES[kind].d}을 가져오고 있어요</small></section>`;
 
 /* 마지막 업데이트 일시 · 가져온 기간 — 더보기 > 검진 · 진료정보 연동의 카드에 표시한다(§4) */
 const MED_UPDATED = { checkup:'2026.08.20', clinic:'2026.08.25' };
@@ -4118,7 +4118,7 @@ function renderClinicSum(){
     el.innerHTML = `<section class="card empty" style="padding-bottom:22px">
       <span class="emo">📋</span>
       <b>진료정보를 불러와 주세요</b>
-      <p>다녀온 병원과 진료과, 진료비 흐름을<br>한눈에 정리해 드려요.</p>
+      <p>건강보험심사평가원에서 진료 · 처방 기록을 가져와<br>다녀온 병원과 진료과, 진료비 흐름을 정리해 드려요.</p>
       <div class="imp-list">${importCard('clinic')}</div>
     </section>`;
     return;
@@ -4141,7 +4141,7 @@ function renderCheckupSum(){
     el.innerHTML = `<section class="card empty" style="padding-bottom:22px">
       <span class="emo">🩺</span>
       <b>검진정보를 불러와 주세요</b>
-      <p>건강 나이, 주요 검진 소견,<br>검진 대상 안내를 확인할 수 있어요.</p>
+      <p>국민건강보험공단에서 검진 결과를 가져와<br>건강 나이, 주요 검진 소견, 검진 대상 안내를 보여드려요.</p>
       <div class="imp-list">${importCard('checkup')}</div>
     </section>`;
     return;
@@ -4264,7 +4264,7 @@ function clinicAiSummary(){
   const navBtn = (id,dir,label,ch)=>`<button type="button" id="${id}" onclick="moveClinicCostPage(${dir})" aria-label="${label}" style="width:40px;height:40px;border:1px solid #E6EAF2;border-radius:12px;background:#fff;color:var(--ink-1);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center">${ch}</button>`;
   return `
   <div style="padding:6px 2px 14px">
-    <div style="font-size:var(--t-sm);color:var(--ink-3);font-weight:500">2026년 진료 정보</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:var(--t-sm);color:var(--ink-3);font-weight:500"><span style="font-size:var(--t-mini);font-weight:700;color:var(--brand);background:var(--brand-soft);padding:3px 8px;border-radius:999px">건강보험심사평가원</span>2026년 진료 정보</div>
     <div style="font-size:var(--t-h1);font-weight:800;color:var(--ink-1);letter-spacing:-.02em;margin-top:2px">올해 병원 이용을 정리했어요</div>
   </div>
   <section class="card" style="margin-bottom:14px">
@@ -4288,7 +4288,7 @@ function clinicAiSummary(){
       <div id="clinicCostMonths" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:4px 8px 0"></div>
     </div>
     <div id="clinicCostInsight" style="margin-top:18px;padding:16px;border-radius:14px;background:var(--fill);font-size:var(--t-sm);color:var(--ink-1);line-height:1.6"></div>
-    <p style="margin-top:14px;font-size:var(--t-cap);line-height:1.6;color:var(--ink-3)">연동된 진료정보를 기준으로 계산한 금액이에요. 비급여 등 실제 결제 금액과 차이가 있을 수 있어요.</p>
+    <p style="margin-top:14px;font-size:var(--t-cap);line-height:1.6;color:var(--ink-3)">건강보험심사평가원에서 가져온 진료 · 처방 내역을 기준으로 계산한 금액이에요. 최근 한 달 이내 진료는 아직 반영되지 않을 수 있어요. 비급여 등 실제 결제 금액과 차이가 있을 수 있어요.</p>
   </section>`;
 }
 
