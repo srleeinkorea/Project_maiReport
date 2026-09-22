@@ -33,7 +33,7 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 /* 구글 사이트처럼 iframe 안에 넣으면 화면 높이가 고정돼 아래가 잘린다.
    이때는 앱이 내용만큼 늘어나고 바텀 네비가 화면 바닥이 아니라 내용 끝에 붙도록 바꾼다. */
 html.embed,html.embed body{height:100%;overflow:hidden}
-html.embed body{display:flex;flex-direction:column;align-items:center;margin:0}
+html.embed body{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;margin:0}
 html.embed .app{min-height:0;width:100%;max-width:430px;flex:1 1 auto;display:flex;flex-direction:column}
 html.embed .content{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:12px}
 html.embed .nav{position:relative;flex:0 0 auto;width:100%;max-width:430px}
@@ -42,6 +42,16 @@ html.embed .nav{position:relative;flex:0 0 auto;width:100%;max-width:430px}
 html.embed .sub,html.embed .pay{left:0;right:0;margin-left:auto;margin-right:auto}
 html.embed .ai-report,html.embed .update-dim,html.embed .act,html.embed .cam,html.embed .ios,html.embed .login,html.embed .perm{left:0;right:0;margin-left:auto;margin-right:auto;transform:none}
 html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto;margin-right:auto}
+/* 페이지에 끼워 넣으면 앱은 iframe 높이만큼 자리를 잡지만, 화면에 실제로 보이는 것은 그 일부다.
+   (창이 낮으면 위아래가 잘려 보인다) 보이는 구간을 재서 --vis-top · --vis-h에 담고,
+   앱과 화면 전체를 덮는 것들을 그 안에 앉힌다. 잘릴 일이 없으면 값이 그대로라 평소와 같다.
+   선택자를 앱 바로 아래 화면들로 한정한다 — .act · .sub 같은 이름은 카드 안에서도 쓰이기 때문이다. */
+html.embed{--vis-top:0px;--vis-h:100%}
+html.embed .app{margin-top:var(--vis-top);height:var(--vis-h);flex:0 0 auto}
+html.embed .app > .sub,html.embed .app > .pay,html.embed .app > .ai-report,html.embed .app > .update-dim,
+html.embed .app > .act,html.embed .app > .cam,html.embed .app > .ios,html.embed .app > .login,
+html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,html.embed .app > .done-report{
+  top:var(--vis-top);bottom:auto;height:var(--vis-h)}
 .content{padding-bottom:80px}
 [hidden]{display:none !important}
 
@@ -2181,7 +2191,43 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 
 <script>
 /* iframe(구글 사이트 등)에 올렸는지 확인해 레이아웃을 맞춘다 */
-if(window.self !== window.top) document.documentElement.classList.add("embed");
+if(window.self !== window.top){
+  document.documentElement.classList.add("embed");
+  /* 보이는 구간 재기 — 브라우저가 알려주는 교차 영역은 이 문서 좌표로 오므로
+     그대로 --vis-top · --vis-h에 넣으면 앱이 화면에 보이는 만큼만 차지한다.
+     잘리는 일이 없으면 값이 0 · 전체 높이라 평소와 똑같이 보인다. */
+  (function fitToVisibleBand(){
+    var root = document.documentElement;
+    /* 기준점은 화면에 고정된 자리를 잡는 빈 칸이다 — 앱 자체를 재면 앱이 움직일 때마다
+       다시 재게 되어 값이 어긋난다. 이 칸은 어떤 값에도 움직이지 않는다. */
+    var probe = document.createElement('div');
+    probe.setAttribute('aria-hidden','true');
+    probe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:100%;opacity:0;pointer-events:none';
+    function apply(top, h){
+      var vh = window.innerHeight || root.clientHeight;
+      if(!h || h < 1) return;                        /* 완전히 벗어난 동안에는 직전 값을 지킨다 */
+      if(h > vh - 2){ top = 0; h = vh; }             /* 다 보이면 평소 상태로 되돌린다 */
+      if(h < 380){ h = Math.min(380, vh); top = Math.max(0, Math.min(top, vh - h)); }
+      root.style.setProperty('--vis-top', Math.max(0, Math.round(top)) + 'px');
+      root.style.setProperty('--vis-h', Math.round(h) + 'px');
+    }
+    function start(){
+      document.body.appendChild(probe);
+      if(!('IntersectionObserver' in window)) return;
+      var steps = []; for(var i = 0; i <= 100; i++) steps.push(i / 100);
+      var io = new IntersectionObserver(function(es){
+        var e = es[es.length - 1];
+        apply(e.intersectionRect.top, e.intersectionRect.height);
+      }, {threshold: steps});
+      io.observe(probe);
+      /* 스크롤 도중 단계를 건너뛰어도 따라가도록 주기적으로 한 번 더 확인한다 */
+      setInterval(function(){ io.unobserve(probe); io.observe(probe); }, 400);
+      window.addEventListener('resize', function(){ io.unobserve(probe); io.observe(probe); });
+    }
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+    else start();
+  })();
+}
 /* ════════════════════════════════════════════════════════════
    1. 오늘의 질문
    ════════════════════════════════════════════════════════════ */
