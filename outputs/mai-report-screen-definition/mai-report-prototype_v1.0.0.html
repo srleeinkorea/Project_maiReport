@@ -35,7 +35,7 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 
 /* ── 헤더 ── */
 .hd{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--page);position:sticky;top:0;z-index:20}
-.hd .logo{font-size:22px;font-weight:700;font-style:italic;color:var(--brand);letter-spacing:-.06em;line-height:1}
+.hd .logo{border:none;padding:0;cursor:pointer;font-size:22px;font-weight:700;font-style:italic;color:var(--brand);letter-spacing:-.06em;line-height:1}
 .hd .qr{margin-left:auto;padding:8px 13px;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:var(--t-cap);font-weight:600;color:var(--ink-2);cursor:pointer;line-height:1.2}
 .hd .bell{width:30px;height:30px;border:none;background:none;color:var(--ink-3);font-size:var(--t-h2);cursor:pointer}
 
@@ -1634,7 +1634,7 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 <div id="home">
   <div class="home-hero">
     <header class="hd hd-hero">
-      <div class="logo">M</div>
+      <button class="logo" id="logoHome" aria-label="처음 화면으로">M</button>
       <button class="qr">▦ 리포트 QR 스캔</button>
       <button class="bell">◔</button>
     </header>
@@ -1673,7 +1673,7 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
   <div class="sec">
     <div class="h-sec">
       <div class="h-t">오늘의 건강 데이터</div>
-      <button class="h-more" id="dMore">›</button>
+      <button class="h-more" id="dMore"><span>어제 대비</span> ›</button>
     </div>
     <div class="d-cards" id="dList"></div>
   </div>
@@ -2457,14 +2457,14 @@ function gaugeSvg(state, color){
   return `<svg class="m-g" viewBox="0 0 ${W} ${H}" aria-hidden="true">${g}</svg>`;
 }
 const DATA = {
-  steps:   {ic:'👟',bg:'#E3F6E8',label:'걸음 수',      v:'6,420',u:'걸음',d:'▼ 12% 적어요'},
-  sleep:   {ic:'🌙',bg:'#E8EAFB',label:'수면 시간',    v:'7시간 20분',u:'',d:'▲ 35분 길어요'},
-  hr:      {ic:'❤️',bg:'#FDE7EE',label:'안정 시 심박수',v:'68',u:'bpm',d:'· 평소 범위에요'},
-  kcal:    {ic:'🔥',bg:'#FFEADF',label:'활동 칼로리',  v:'320',u:'kcal',d:'▼ 8% 적어요'},
-  active:  {ic:'⏱️',bg:'#FFF4DA',label:'활동 시간',    v:'42',u:'분',d:'· 평소와 비슷해요'},
-  exercise:{ic:'🏃',bg:'#E3F6E8',label:'운동 시간',    v:'15',u:'분',d:'▼ 평소보다 짧아요'},
-  record:  {ic:'📝',bg:'#EEF3FF',label:'운동 기록',    v:'걷기 1회',u:'',d:'· 가벼움'},
-  bedtime: {ic:'🛏️',bg:'#E8EAFB',label:'취침 시각',    v:'23:40',u:'',d:'· 평소와 비슷해요'}
+  steps:   {ic:'👟',bg:'#E3F6E8',label:'걸음 수',      v:'6,420',u:'걸음',d:'▲ 1,477걸음'},
+  sleep:   {ic:'🌙',bg:'#E8EAFB',label:'수면 시간',    v:'7시간 20분',u:'',d:'▲ 53분'},
+  hr:      {ic:'❤️',bg:'#FDE7EE',label:'안정 시 심박수',v:'68',u:'bpm',d:'▼ 6bpm'},
+  kcal:    {ic:'🔥',bg:'#FFEADF',label:'활동 칼로리',  v:'320',u:'kcal',d:'▲ 44kcal'},
+  active:  {ic:'⏱️',bg:'#FFF4DA',label:'활동 시간',    v:'42',u:'분',d:'▲ 11분'},
+  exercise:{ic:'🏃',bg:'#E3F6E8',label:'운동 시간',    v:'15',u:'분',d:'▲ 15분'},
+  record:  {ic:'📝',bg:'#EEF3FF',label:'운동 기록',    v:'걷기 1회',u:'',d:'▲ 1회'},
+  bedtime: {ic:'🛏️',bg:'#E8EAFB',label:'취침 시각',    v:'23:40',u:'',d:'· 어제와 같음'}
 };
 const DEF_ROWS = ['steps','sleep','hr'];
 let sel = null;
@@ -5884,6 +5884,8 @@ navs[0].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===0)); sho
 navs[1].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===1)); show('life'); };
 navs[2].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===2)); show('hosp'); };
 navs[3].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===3)); show('more'); };
+/* 로고를 누르면 처음 화면(앱을 막 연 상태)으로 되돌린다 — 시연을 다시 시작할 때 쓴다 */
+document.getElementById('logoHome').onclick = ()=>location.reload();
 document.getElementById('gLink').onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===1)); show('life'); const t=document.querySelector('.l-tab[data-t=goal]'); if(t) t.click(); };
 
 renderQ(); renderCoach(); renderGoals(); renderMetrics(); renderDateStrip();
