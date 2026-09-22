@@ -32,10 +32,15 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 .app{width:100%;max-width:430px;background:var(--page);min-height:100vh;min-height:100dvh;position:relative}
 /* 구글 사이트처럼 iframe 안에 넣으면 화면 높이가 고정돼 아래가 잘린다.
    이때는 앱이 내용만큼 늘어나고 바텀 네비가 화면 바닥이 아니라 내용 끝에 붙도록 바꾼다. */
-html.embed body{display:flex;flex-direction:column;align-items:center}
-html.embed .app{min-height:0;width:100%;max-width:430px}
+html.embed body{display:flex;flex-direction:column;align-items:center;min-height:100vh}
+html.embed .app{min-height:0;width:100%;max-width:430px;flex:1 0 auto}
 html.embed .content{padding-bottom:12px}
 html.embed .nav{position:sticky;width:100%;max-width:430px}
+/* 덮는 화면(카메라 · 상세 · 시트)은 iframe 전체가 아니라 앱 폭 안에 맞춘다.
+   그대로 두면 앱보다 아래쪽까지 흰 면이 깔리고, 넓은 화면에서는 왼쪽으로 쏠린다. */
+html.embed .sub,html.embed .pay{left:0;right:0;margin-left:auto;margin-right:auto}
+html.embed .ai-report,html.embed .update-dim,html.embed .act,html.embed .cam,html.embed .ios,html.embed .login,html.embed .perm{left:0;right:0;margin-left:auto;margin-right:auto;transform:none}
+html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto;margin-right:auto}
 .content{padding-bottom:80px}
 [hidden]{display:none !important}
 
