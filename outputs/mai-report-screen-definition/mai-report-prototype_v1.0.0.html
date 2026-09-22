@@ -2518,14 +2518,40 @@ function renderMetrics(){
       <span class="m-state" style="color:${labelColor}">${s.label}</span>
     </div>`;
   }).join('');
-  document.querySelectorAll("#mGrid .m-needle").forEach(n=>{
-    const k=n.closest(".m").dataset.k;
-    if(NEEDLE_LAST[k]!=null){ n.style.transition="none"; n.style.transform="rotate("+NEEDLE_LAST[k]+"deg)"; }
+  document.querySelectorAll('#mGrid .m-needle').forEach(n=>{
+    const k = n.closest('.m').dataset.k;
+    const target = n.dataset.deg;
+    const last = NEEDLE_LAST[k];
+    const from = last ? last.deg : null;
+    /* 값이 바뀌었을 때만 훑는다. 같은 값이어도 방금 시작한 움직임이면 이어서 다시 보여준다
+       (초기 렌더가 여러 번 겹쳐도 한 번의 움직임으로 보이게) */
+    const changed = (from == null) || (from !== target) || (Date.now() - last.at < 1200);
+    n.classList.add('set');
+    if(!changed){                        /* 값이 그대로면 움직이지 않는다 — 다시 그릴 때마다 흔들리지 않게 */
+      n.style.transition = 'none';
+      n.style.transform = `rotate(${target}deg)`;
+      n.getBoundingClientRect();
+      n.style.transition = '';
+      return;
+    }
+    /* 처음 재거나 값이 바뀐 때만 한 번 훑는다 — 목표에서 먼 쪽 끝까지 갔다가 제자리로 돌아온다 */
+    const t = parseFloat(target);
+    const far = t > 88 ? 6 : 170;
+    const delay = parseFloat(getComputedStyle(n).getPropertyValue('--d')) * 1000 || 0;
+    n.style.transition = 'none';
+    n.style.transform = `rotate(${from != null ? from : 0}deg)`;
     n.getBoundingClientRect();
-    n.style.transition=""; n.classList.add("set");
-    n.style.transform="rotate("+n.dataset.deg+"deg)";
-    NEEDLE_LAST[k]=n.dataset.deg;
+    setTimeout(()=>{
+      n.style.transition = 'transform .40s cubic-bezier(.4,0,.2,1)';
+      n.style.transform = `rotate(${far}deg)`;
+      setTimeout(()=>{
+        n.style.transition = 'transform .62s cubic-bezier(.34,1.35,.5,1)';
+        n.style.transform = `rotate(${target}deg)`;
+      }, 420);
+    }, delay);
+    NEEDLE_LAST[k] = {deg:target, at:Date.now()};
   });
+
   const obs = document.getElementById("mObserving");
   if(observing){
     const obsNames = METRICS.filter(x=>x.state==="none").map(x=>x.nm);
