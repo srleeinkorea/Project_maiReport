@@ -33,10 +33,7 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 /* 구글 사이트처럼 iframe 안에 넣으면 화면 높이가 고정돼 아래가 잘린다.
    이때는 앱이 내용만큼 늘어나고 바텀 네비가 화면 바닥이 아니라 내용 끝에 붙도록 바꾼다. */
 html.embed,html.embed body{height:100%;overflow:hidden}
-html.embed body{display:flex;flex-direction:column;align-items:center;margin:0;background:transparent}
-/* 앱 양옆·바깥은 삽입한 페이지 배경이 그대로 비치게 둔다 —
-   우리 배경색을 깔면 구글 사이트의 흰 페이지와 만나 경계선처럼 보인다. */
-html.embed .app{box-shadow:none}
+html.embed body{display:flex;flex-direction:column;align-items:center;margin:0}
 html.embed .app{min-height:0;width:100%;max-width:430px;flex:1 1 auto;display:flex;flex-direction:column}
 html.embed .content{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-bottom:12px}
 html.embed .nav{position:relative;flex:0 0 auto;width:100%;max-width:430px}
