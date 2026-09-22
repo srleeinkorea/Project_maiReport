@@ -2460,8 +2460,8 @@ const GOALS_BY_CASE = {
   well:[
     {key:'meal', cat:'식이', icon:'🥗', streak:3, title:'저녁은 채소부터 먼저',
      why:'식후 혈당이 덜 출렁여요', how:'채소·단백질을 먼저, 밥은 마지막에 천천히 드세요'},
-    {key:'move', cat:'활동', icon:'🚶', streak:2, title:'저녁 전 1,500보 더 걷기',
-     why:'평소 걸음 수를 채우는 정도예요', how:'식후 10분 걷기 한 번이면 채워져요'},
+    {key:'move', cat:'활동', icon:'🚶', streak:2, title:'출근길 한 정거장 걷기',
+     why:'따로 시간을 내지 않고 걸음을 채워요', how:'한 정거장 일찍 내려 걷거나, 가는 길만이라도 걸어요'},
     {key:'sleep',cat:'수면', icon:'🛏️', streak:5, title:'잠들기 한 시간 전 화면 끄기',
      why:'잠드는 시간이 일정해져요', how:'자기 전 한 시간은 화면 대신 조명을 낮춰요'}
   ],
@@ -2530,7 +2530,10 @@ const GOAL_UNLOCK_Q = { meal:['meal','protein'], move:['breath'], sleep:['sleep'
    원본은 식이만 잠그지만, 폐렴 급성기에는 '오늘 숨이 찬지'가 활동 목표를 가르는
    결정적 조건이고 그 값은 워치 데이터로 알 수 없어 질문 답변이 있어야 한다.
    수면은 기본 목표(상체 높여 눕기)를 그대로 깔아 두고 답변으로 바꾸지 않는다. */
-const GOAL_LOCK_KEYS = ['meal','move'];
+let GOAL_LOCK_KEYS = ['meal','move'];
+/* 평소 상태에서는 활동 목표를 기기 데이터(걸음·활동 시간)로 만들 수 있어 바로 열린다.
+   폐렴 급성기에는 '오늘 숨이 찬지'가 활동 목표를 가르는데 그 값은 기기에 없어 답변이 필요하다. */
+const GOAL_LOCK_BY_CASE = { well:['meal'], sick:['meal','move'] };
 function goalLocked(key, dayN){
   if(!GOAL_LOCK_BY_QUESTION) return false;
   const today = typeof TODAY!=='undefined' ? TODAY : 20;
@@ -3643,6 +3646,7 @@ function applyCaseData(key){
   const c = CASE_DATA[key];
   METRIC_WEEK = c.metricWeek; METRIC_INS = c.metricIns; METRIC_EMPTY = c.metricEmpty || {};
   BASE_GOALS = GOALS_BY_CASE[key];                       /* 기본 목표도 케이스를 따라간다 */
+  GOAL_LOCK_KEYS = GOAL_LOCK_BY_CASE[key];
   goals = BASE_GOALS.map(g=>({...g, state:'pending'}));
   if(document.getElementById('gList')) renderGoals();
   METRICS.forEach(m=>{ m.state = c.metricState[m.k]; m.prev = c.metricState[m.k];
