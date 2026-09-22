@@ -5173,15 +5173,20 @@ document.getElementById('allHealthBack').onclick=()=>document.getElementById('al
 document.getElementById('medicalCostBack').onclick=()=>document.getElementById('medicalCostHistory').classList.remove('open');
 document.getElementById('vdBack').onclick = ()=>{ document.getElementById('visitDet').classList.remove('open'); renderVisit(); };
 
-function renderHosp(){
-  renderSum(); renderVisit();
+/* 병원 탭에는 첫 연동 진입만 둔다. 업데이트 · 해제는 더보기 > 검진 · 진료정보 연동에서 한다(§6)
+   방문이력 탭에서는 검진 · 진료정보를 각각 연동하므로, 무엇을 가져올지 알 수 없는
+   한 번에 가져오기 버튼을 감춘다 */
+let hospTab = 'ck';
+function syncImportBtn(){
   const n = (imp.checkup?1:0) + (imp.clinic?1:0);
   const btn = document.getElementById('hImport');
-  /* 병원 탭에는 첫 연동 진입만 둔다. 업데이트 · 해제는 더보기 > 검진 · 진료정보 연동에서 한다(§6) */
   btn.textContent = importing ? '불러오는 중…' : '데이터 가져오기';
-  btn.hidden = n===2 && !importing;
+  btn.hidden = hospTab==='visit' || (n===2 && !importing);
   btn.classList.remove('done');
   btn.disabled = !!importing;
+}
+function renderHosp(){
+  renderSum(); renderVisit(); syncImportBtn();
 }
 document.getElementById('hImport').onclick = ()=>{
   if(importing) return;
@@ -5193,6 +5198,7 @@ document.querySelectorAll('.h-tab').forEach(t=>{
     document.querySelectorAll('.h-tab').forEach(x=>x.classList.toggle('on', x===t));
     const map = {ck:'pCk', cl:'pCl', visit:'pVisit', read:'pRead'};
     Object.entries(map).forEach(([k,id])=>document.getElementById(id).hidden = k!==t.dataset.t);
+    hospTab = t.dataset.t; syncImportBtn();
   };
 });
 
