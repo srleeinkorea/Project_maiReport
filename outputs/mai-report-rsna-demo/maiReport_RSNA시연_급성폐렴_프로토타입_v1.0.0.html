@@ -37,7 +37,14 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 .hd{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--page);position:sticky;top:0;z-index:20}
 .hd .logo{font-size:22px;font-weight:700;font-style:italic;color:var(--brand);letter-spacing:-.06em;line-height:1}
 .hd .qr{margin-left:auto;padding:8px 13px;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:var(--t-cap);font-weight:600;color:var(--ink-2);cursor:pointer;line-height:1.2}
-.hd .bell{width:30px;height:30px;border:none;background:none;color:var(--ink-3);font-size:var(--t-h2);cursor:pointer}
+/* 알림 — 기본은 회색 종. 새 리포트가 등록되면 활성(파란 종 + 빨간 점)으로 바뀐다 */
+.hd .bell{position:relative;width:32px;height:32px;border:none;background:none;color:var(--ink-3);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.hd .bell svg{width:22px;height:22px;display:block}
+.hd .bell .dot{display:none;position:absolute;top:3px;right:3px;width:9px;height:9px;border-radius:50%;background:var(--alert);border:2px solid var(--page)}
+.hd .bell.on{color:var(--brand)}
+.hd .bell.on .dot{display:block}
+.hd .bell.ring svg{animation:bellRing .7s ease}
+@keyframes bellRing{0%,100%{transform:rotate(0)}20%{transform:rotate(14deg)}40%{transform:rotate(-12deg)}60%{transform:rotate(8deg)}80%{transform:rotate(-5deg)}}
 
 /* ── 공통 섹션 / 카드 ── */
 .sec{padding:0 18px;margin-bottom:14px}
@@ -1640,7 +1647,10 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
     <header class="hd hd-hero">
       <div class="logo">M</div>
       <button class="qr">▦ 리포트 QR 스캔</button>
-      <button class="bell">◔</button>
+      <button class="bell" id="bellBtn" aria-label="알림">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a5.5 5.5 0 0 0-5.5 5.5v3.2L5 15.4h14l-1.5-3.2V9A5.5 5.5 0 0 0 12 3.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 18a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <i class="dot"></i>
+      </button>
     </header>
     <div class="sec" id="secQ"></div>
   </div>
@@ -5741,10 +5751,27 @@ const CAM = {
   ai : {title:'AI 리포트 QR 스캔', hint:'리포트에 인쇄된 QR 코드를<br>사각형 안에 맞춰 주세요.', qr:true},
   gen: {title:'검진 리포트 촬영',  hint:'검진 결과지를 사각형 안에 맞춰 주세요.<br>표가 잘리지 않게 찍어 주세요.', qr:false}
 };
+/* QR로 읽어 들이는 값 — 이 시연의 AI REPORT 케이스와 같은 내용이다 */
 const OCR = { ai: [
-    {k:'검진일', v:'2026.03.11', low:false},{k:'검진기관', v:'조은이비인후과의원', low:false},
-    {k:'검사 종류', v:'흉부 X-ray', low:false},{k:'판독 결과', v:'경화 소견 · 폐렴 의심', low:false} ] };
+    {k:'검진일', v:'2026.09.22', low:false},{k:'검진기관', v:'MAIHUB', low:false},
+    {k:'검사 종류', v:'흉부 X-ray (R-PA)', low:false},
+    {k:'판독 결과', v:'경화 · AI 점수 16', low:false} ] };
 let camMode = 'gen';
+/* 홈 헤더의 'QR 스캔' → QR 카메라 → 촬영 → 인식 확인 → 저장(AI REPORT 등록)까지 이어진다.
+   방문이력 화면의 + 버튼에서 시작하는 등록 경로와 같은 흐름을 쓴다. */
+document.querySelector('.hd .qr').onclick = ()=>{ camMode = 'ai'; openCam(); };
+/* 알림 종 — 리포트가 등록되면 활성화되고, 눌러서 결과를 보면 읽음 처리한다 */
+function setBell(on, ring){
+  const b = document.getElementById('bellBtn'); if(!b) return;
+  b.classList.toggle('on', !!on);
+  if(ring){ b.classList.remove('ring'); void b.offsetWidth; b.classList.add('ring'); }
+}
+document.getElementById('bellBtn').onclick = ()=>{
+  const b = document.getElementById('bellBtn');
+  if(!b.classList.contains('on')) return;      /* 새 알림이 없으면 아무 일도 하지 않는다 */
+  setBell(false);
+  openAiImagingResult();                        /* 등록된 AI REPORT 결과로 이동 */
+};
 let shots = [], cfPage = 0;
 let reportFiles = [], reportPreviewIndex = 0, extractTimers = [];
 const REPORT_SECTIONS = [
@@ -5796,6 +5823,7 @@ document.getElementById('cfBack').onclick = ()=>document.getElementById('confirm
 document.getElementById('cfRetake').onclick = ()=>{document.getElementById('confirm').classList.remove('open');openCam();};
 document.getElementById('cfSave').onclick = ()=>{
   hasAiReport = true;
+  setBell(true, true);            /* 등록되면 홈의 알림 종이 활성화된다 */
   refreshHome(); renderHosp();
   document.getElementById('cfBody').innerHTML = `<section class="card empty" style="margin-top:44px"><span class="emo">✅</span><b>AI REPORT 분석이 완료됐어요</b><p>방문이력에 AI 분석 결과가 추가됐어요.</p></section>`;
   document.querySelector('.cf-cta').style.display='none';
@@ -5894,9 +5922,12 @@ document.getElementById('rpNext').onclick=()=>{if(reportPreviewIndex<reportFiles
 document.getElementById('rdView').onclick=()=>{document.getElementById('reportDone').classList.remove('open');navs.forEach((b,i)=>b.classList.toggle('on',i===2));show('hosp');renderHosp();};
 document.getElementById('rdMore').onclick=()=>document.getElementById('reportDone').classList.remove('open');
 
-/* 시연본은 AI REPORT가 이미 등록된 상태에서 시작한다 — 폐렴 소견이 질문·코칭·목표로
-   이어지는 흐름을 첫 화면부터 보여주기 위함이다. 원본 프로토타입의 기본값은 false다. */
-let hasAiReport = true;
+/* 시작 상태 — true면 AI REPORT가 이미 등록된 상태로 시작해 폐렴 소견이 질문·코칭·목표로
+   이어지는 흐름을 첫 화면부터 보여준다.
+   false로 두면 QR 스캔으로 리포트를 등록하는 장면부터 시연할 수 있다.
+   (헤더의 'QR 스캔' → 촬영 → 인식 확인 → 저장 → 질문 세트가 폐렴 문항으로 바뀜) */
+const DEMO_AI_REPORT_REGISTERED = true;
+let hasAiReport = DEMO_AI_REPORT_REGISTERED;
 function refreshHome(){
   QUESTIONS = pickQuestions();
   if(qi >= QUESTIONS.length && !allDone()) qi = 0;
@@ -5993,6 +6024,7 @@ navs[2].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===2)); sho
 navs[3].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===3)); show('more'); };
 document.getElementById('gLink').onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===1)); show('life'); const t=document.querySelector('.l-tab[data-t=goal]'); if(t) t.click(); };
 
+setBell(hasAiReport);   /* 등록된 상태로 시작하면 종도 활성으로 시작한다 */
 renderQ(); renderCoach(); renderGoals(); renderMetrics(); renderDateStrip();
 renderDaily(); renderMetricPane(); renderGoalPane(); renderHosp(); renderMore(); refreshHome();
 
