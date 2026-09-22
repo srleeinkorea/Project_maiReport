@@ -2510,8 +2510,14 @@ function renderMetrics(){
       <span class="m-state" style="color:${labelColor}">${s.label}</span>
     </div>`;
   }).join('');
-  document.querySelectorAll("#mGrid .m-needle").forEach(n=>{ const k=n.closest(".m").dataset.k; if(NEEDLE_LAST[k]!=null) n.style.transform="rotate("+NEEDLE_LAST[k]+"deg)"; });
-  requestAnimationFrame(()=>{ document.querySelectorAll("#mGrid .m-needle").forEach(n=>{ const k=n.closest(".m").dataset.k; n.classList.add("set"); n.style.transform="rotate("+n.dataset.deg+"deg)"; NEEDLE_LAST[k]=n.dataset.deg; }); });
+  document.querySelectorAll("#mGrid .m-needle").forEach(n=>{
+    const k=n.closest(".m").dataset.k;
+    if(NEEDLE_LAST[k]!=null){ n.style.transition="none"; n.style.transform="rotate("+NEEDLE_LAST[k]+"deg)"; }
+    n.getBoundingClientRect();
+    n.style.transition=""; n.classList.add("set");
+    n.style.transform="rotate("+n.dataset.deg+"deg)";
+    NEEDLE_LAST[k]=n.dataset.deg;
+  });
   const obs = document.getElementById("mObserving");
   if(observing){
     const obsNames = METRICS.filter(x=>x.state==="none").map(x=>x.nm);
