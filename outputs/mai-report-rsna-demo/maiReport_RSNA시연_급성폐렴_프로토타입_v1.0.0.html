@@ -2239,10 +2239,10 @@ const Q_ROTATION = {
       opts:[{v:'good',f:'⌣',label:'안 드셨어요',  tone:'good'},
             {v:'mid', f:'—',label:'한 번 드셨어요',tone:'okay'},
             {v:'bad', f:'⌢',label:'여러 번 드셨어요',tone:'bad'}] },
-  4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL} 국물은 어느 정도 드셨나요?`,
-      opts:[{v:'good',f:'⌣',label:'거의 안 드셨어요',tone:'good'},
-            {v:'mid', f:'—',label:'절반쯤 드셨어요', tone:'okay'},
-            {v:'bad', f:'⌢',label:'다 드셨어요',    tone:'bad'}] },
+  4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL}에 국이나 찌개를 드셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'안 드셨어요',          tone:'good'},
+            {v:'mid', f:'—',label:'건더기 위주로 드셨어요', tone:'okay'},
+            {v:'bad', f:'⌢',label:'국물까지 다 드셨어요',   tone:'bad'}] },
   5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}은 어떻게 마치셨나요?`,
       opts:[{v:'good',f:'⌣',label:'천천히 적당히',  tone:'good'},
             {v:'mid', f:'—',label:'보통이었어요',   tone:'okay'},
@@ -2256,7 +2256,11 @@ function rotationQuestion(){
   /* 요일 순환 — 시연 날짜(목요일)를 기준으로 고정한다.
      앱의 나머지 화면이 같은 주 목요일을 오늘로 쓰고 있어, 실제 요일을 따르면 서로 어긋난다. */
   const dow = 4;
-  return Q_ROTATION[dow] || Q_ROTATION[2];
+  const q = Q_ROTATION[dow] || Q_ROTATION[2];
+  /* 끼니에 맞지 않는 축은 그날 묻지 않는다 — 아침에 국물·기름진 반찬을 묻는 것은 어색하다.
+     이럴 때는 어느 끼니에나 물을 수 있는 채소 축으로 넘긴다. */
+  if(LAST_MEAL === '오늘 아침' && (q.id === 'salt' || q.id === 'fat')) return Q_ROTATION[2];
+  return q;
 }
 /* 질문 세트
    · 식이는 늘 두 문항(고정 + 회전)이다. 일반 사용자든 케이스가 있든 줄이지 않는다.
@@ -2450,6 +2454,15 @@ const MEAL_PHRASES = {
     {title:'저녁은 익숙한 음식으로',   why:'피곤한 날엔 새로운 음식이 부담돼요'},
     {title:'늦은 저녁엔 국물 적게',    why:'늦게 먹은 국물은 속쓰림과 부기로 남아요'}
   ],
+  /* 채소 축 — 어느 끼니에나 물을 수 있어 아침 진입의 대체 축으로도 쓴다 */
+  veg:{
+    입문:[{title:'아침에도 채소 한 가지',      why:'아침은 채소가 가장 자주 빠지는 끼니예요'},
+          {title:'고기 먹을 땐 쌈 채소 함께',  why:'쌈 채소는 가장 쉽게 채소를 더하는 방법이에요'}],
+    기본:[{title:'외식 때 채소 반찬 하나 추가', why:'외식은 채소가 가장 빠지기 쉬운 끼니예요'},
+          {title:'김밥 · 덮밥엔 채소 더 넣기',  why:'한 그릇 음식은 채소를 따로 챙겨야 해요'}],
+    도전:[{title:'매 끼니 채소 두 가지',       why:'끼니마다 두 가지면 하루 다섯 접시에 가까워져요'},
+          {title:'저녁 반찬 절반은 채소로',    why:'저녁 접시의 절반을 채소로 채우는 것이 권고 형태예요'}]
+  },
   /* 짠맛 · 국물 축 — 요일 순환에서 목요일에 걸리는 축 */
   salt:{
     입문:[{title:'국은 반 그릇만 담기',        why:'담는 양을 줄이는 게 남기는 것보다 쉬워요'},
@@ -2510,10 +2523,11 @@ function mealGoal(b){
        (수면 5시간 미만도 같은 조건이지만 평소 세트에는 수면 문항이 없어 피로 답만 본다) */
     if(fatigue && fatigue.v==='high')
       { const p = pick(MEAL_PHRASES.burden, 0); return {...b, title:p.title, why:p.why, how:'부담 줄이기 · 피곤한 날'}; }
-    const rot = salt || veg || sweet || pace || fat;
-    const step = !rot ? '입문' : rot.v==='bad' ? '입문' : rot.v==='mid' ? '기본' : '도전';
-    const p = pick(MEAL_PHRASES.salt[step], 0);
-    return {...b, title:p.title, why:p.why, how:`짠맛 · 국물 · ${step} 단계`};
+    /* 오늘 물은 회전 축의 답으로 단계를 정하고, 그 축의 문구세트에서 고른다 */
+    const axis = salt ? {k:'salt', nm:'짠맛 · 국물', a:salt} : {k:'veg', nm:'채소', a:veg};
+    const step = !axis.a ? '입문' : axis.a.v==='bad' ? '입문' : axis.a.v==='mid' ? '기본' : '도전';
+    const p = pick(MEAL_PHRASES[axis.k][step], 0);
+    return {...b, title:p.title, why:p.why, how:`${axis.nm} · ${step} 단계`};
   }
   if(meal && (meal.v==='skip' || meal.v==='less')){          /* ① 회복 풀 — 1순위 */
     const idx = meal.v==='skip' ? 2 : 3;                      /* 거의 못 먹음 → 반 그릇 · 조금 적게 → 나눠 먹기 */
