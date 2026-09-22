@@ -992,6 +992,16 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 .scanline{position:absolute;left:8px;right:8px;height:2px;background:var(--brand);box-shadow:0 0 12px var(--brand);animation:scan 2.2s ease-in-out infinite}
 @keyframes scan{0%,100%{top:10%}50%{top:88%}}
 .cam-hint{position:absolute;left:-10px;right:-10px;bottom:-52px;text-align:center;font-size:var(--t-sm);font-weight:500;color:rgba(255,255,255,.72);line-height:1.6}
+/* 스캔 결과 — 카메라 위에 겹쳐 띄운다 */
+.cam-result{position:absolute;inset:0;z-index:5;background:rgba(10,14,24,.86);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;padding:24px}
+.cam-card{width:100%;max-width:300px;padding:26px 22px;border-radius:20px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);text-align:center;color:#fff}
+.cam-card .spin{width:30px;height:30px;margin:0 auto 14px;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite}
+.cam-card .ok{display:flex;width:44px;height:44px;margin:0 auto 14px;border-radius:50%;background:#2FB46A;color:#fff;
+  align-items:center;justify-content:center;font-size:22px;font-weight:800}
+.cam-card b{display:block;font-size:16px;font-weight:700;margin-bottom:6px}
+.cam-card small{display:block;font-size:12px;line-height:1.65;color:rgba(255,255,255,.7)}
 .cam-foot{flex-shrink:0;padding:34px 30px 40px;display:flex;align-items:center;justify-content:space-between}
 .cam-foot .side{width:46px;height:46px;border:none;border-radius:12px;background:rgba(255,255,255,.12);color:#fff;font-size:19px;cursor:pointer}
 .shutter{width:70px;height:70px;border-radius:50%;border:4px solid rgba(255,255,255,.35);background:#fff;cursor:pointer;transition:transform .1s}
@@ -2013,6 +2023,8 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
       <div class="shots" id="camShots"></div>
     </div>
   </div>
+  <!-- 스캔 직후 결과 — 카메라 화면 위에 그대로 띄운다(빈 흰 화면을 만들지 않기 위함) -->
+  <div class="cam-result" id="camResult" hidden></div>
   <div class="cam-foot">
     <button class="side" id="camGallery">🖼</button>
     <button class="shutter" id="camShot"></button>
@@ -6223,10 +6235,11 @@ document.getElementById('camDone').onclick = ()=>finishCapture();
 function shoot(){ shots.push(shots.length+1); if(camMode === 'ai'){ finishCapture(); return; } renderShots(); }
 function finishCapture(){
   if(!shots.length) shots=[1];
-  document.getElementById('cam').classList.remove('open');
   /* QR 스캔은 리포트에 담긴 값을 그대로 읽어 오므로 값을 고치는 확인 화면을 두지 않는다.
-     촬영하면 바로 분석 → 등록까지 이어진다. (사진 인식 방식일 때만 확인 화면이 필요하다) */
+     촬영하면 카메라 화면 위에서 바로 분석 → 등록까지 이어진다.
+     (사진 인식 방식일 때만 값을 고치는 확인 화면이 필요하다) */
   if(camMode === 'ai'){ registerAiReport(); return; }
+  document.getElementById('cam').classList.remove('open');
   cfPage=0; renderConfirm(); document.getElementById('confirm').classList.add('open');
 }
 /* 리포트가 등록되면 오늘의 질문·코칭·목표를 처음 상태로 되돌린다.
@@ -6239,22 +6252,22 @@ function resetToday(){
   goals = BASE_GOALS.map(g=>({...g, state:'pending'}));
   heroTone = 'neutral';
 }
-/* QR 스캔 후 등록 — 분석 중 화면을 잠깐 보여주고 등록을 마친다 */
+/* QR 스캔 후 등록 — 카메라 화면 위에서 바로 처리한다.
+   별도 화면으로 넘기면 카드 하나만 있는 빈 밝은 면이 길게 깔려 보이기 때문이다. */
 function registerAiReport(){
-  const sub = document.getElementById('confirm');
-  document.querySelector('#confirm .rs-h h2').textContent = 'AI REPORT 등록';
-  document.querySelector('.cf-cta').style.display = 'none';
-  document.getElementById('cfBody').innerHTML = `<section class="card loading" style="margin-top:40px"><div class="spin"></div><b>리포트를 불러오고 있어요</b><small>QR에 담긴 분석 결과를 확인하는 중이에요</small></section>`;
-  sub.classList.add('open');
+  const cam = document.getElementById('cam');
+  const box = document.getElementById('camResult');
+  cam.classList.add('open');                    /* 카메라는 그대로 두고 그 위에 결과를 얹는다 */
+  box.hidden = false;
+  box.innerHTML = `<div class="cam-card"><div class="spin"></div><b>리포트를 불러오고 있어요</b><small>QR에 담긴 분석 결과를 확인하는 중이에요</small></div>`;
   setTimeout(()=>{
     hasAiReport = true;
     resetToday();                   /* 폐렴 케이스로 오늘의 질문을 새로 만든다 */
     refreshHome(); renderHosp();
-    document.getElementById('cfBody').innerHTML = `<section class="card empty" style="margin-top:44px"><span class="emo">✅</span><b>AI REPORT가 등록됐어요</b><p>흉부 X-ray · 경화 소견 (AI 점수 16)<br>방문이력에서 결과를 확인할 수 있어요.</p></section>`;
+    box.innerHTML = `<div class="cam-card done"><span class="ok">✓</span><b>AI REPORT가 등록됐어요</b><small>흉부 X-ray · 경화 소견 (AI 점수 16)<br>방문이력에서 결과를 확인할 수 있어요</small></div>`;
     setTimeout(()=>{
-      sub.classList.remove('open');
-      document.querySelector('.cf-cta').style.display = 'flex';
-      document.querySelector('#confirm .rs-h h2').textContent = '인식 결과 확인';
+      cam.classList.remove('open');
+      box.hidden = true; box.innerHTML = '';
       /* 등록을 마치면 홈으로 돌아온다 — 등록된 소견이 오늘의 질문·코칭·목표로
          이어지는 것을 바로 보여주는 것이 이 흐름의 목적이다. 방문이력은 병원 탭에서 볼 수 있다. */
       navs.forEach((b,i)=>b.classList.toggle('on', i===0)); show('home');
