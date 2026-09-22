@@ -3198,7 +3198,7 @@ function renderDaily(){
     </section>`;
   };
   const dl = () => WEEK.map(w=>w.d);
-  /* 상태 바는 더보기에 둔다 — 여기에는 연동 관리로 가는 링크만 남긴다 */
+  /* 연동 상태 · 연동 관리는 더보기에만 둔다 — 생활 탭에서는 데이터만 보여준다 */
   document.getElementById('pDaily').innerHTML =
     card('👟','#E3F6E8','걸음수', '이번 주 걸음 수의 흐름을 확인해요. 하루 수치보다 <b>며칠간의 변화</b>를 함께 보는 게 좋아요.', 'step','걸음', dl()) +
     card('🔥','#FFEADF','활동 칼로리', '움직임으로 소모한 활동 칼로리예요. 걸음 수와 함께 보면 <b>활동량의 변화를</b> 이해하기 쉬워요.', 'kcal','kcal', dl()) +
@@ -3207,7 +3207,7 @@ function renderDaily(){
     `<section class="card all-hd" id="allHealthBtn">
       <span class="ic">☰</span>
       <div class="tx"><b>전체 건강 데이터</b><small>체중 · 체지방률 · 혈압 · 혈당 등</small></div><span class="ch">›</span>
-    </section>` + manageLink('device');
+    </section>`;
   const allBtn=document.getElementById('allHealthBtn');
   if(allBtn) allBtn.onclick=openAllHealthData;
 }
