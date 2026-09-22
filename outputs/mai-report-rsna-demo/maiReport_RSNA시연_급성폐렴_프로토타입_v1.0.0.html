@@ -6492,6 +6492,7 @@ function restartDemo(){
   deviceLinked = true; hasAiReport = DEMO_AI_REPORT_REGISTERED;
   AI_REPORTS = []; visitFilter = 'all'; selDay = TODAY; weekOffset = 0;
   NOTICES.forEach(n=>{ n.read = (n.id === 'n1'); });   /* 지난 안내 한 건만 읽음 */
+  Object.keys(NEEDLE_LAST).forEach(k=>delete NEEDLE_LAST[k]);   /* 게이지도 처음 재는 것처럼 다시 움직인다 */
   applyCaseData(hasAiReport ? 'sick' : 'well');
   resetToday();
   /* 홈 탭으로 돌아가 다시 그린다 */

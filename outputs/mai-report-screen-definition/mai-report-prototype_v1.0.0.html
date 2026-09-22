@@ -5954,6 +5954,7 @@ function restartDemo(){
   imp.checkup = false; imp.clinic = false; importing = null;
   deviceLinked = true; hasAiReport = false;
   AI_REPORTS = []; visitFilter = 'all'; selDay = TODAY; weekOffset = 0;
+  Object.keys(NEEDLE_LAST).forEach(k=>delete NEEDLE_LAST[k]);   /* 게이지도 처음 재는 것처럼 다시 움직인다 */
   navs.forEach((b,i)=>b.classList.toggle('on', i===0)); show('home');
   refreshHome(); renderDateStrip(); renderHosp(); renderMore();
   window.scrollTo(0,0);
