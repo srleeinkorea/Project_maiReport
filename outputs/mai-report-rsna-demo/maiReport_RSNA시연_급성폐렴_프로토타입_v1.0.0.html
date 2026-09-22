@@ -101,6 +101,8 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 .q-opt .f{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--t-body);font-weight:700;color:#fff;line-height:1}
 .q-opt.good .f{background:#7ED09A}.q-opt.okay .f{background:#F2C24B}.q-opt.bad .f{background:#F195AB}
 .q-opt.neutral .f{background:#B6C0D1}
+.q-opt.neutral .f.face{background:none;width:30px;height:30px}
+.q-opt.neutral .f.face svg{width:30px;height:30px}
 .q-opt:hover{border-color:#C9D4E8;background:var(--fill)}
 .q-opt.on{border-color:var(--brand);background:var(--brand-soft)}
 .q-opt.dim{opacity:.35}
@@ -1470,6 +1472,8 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 .home-hero .q-opt.bad.on{border-color:#E8365D;background:rgba(255,255,255,.92)}
 .home-hero .q-opt.neutral.on{border-color:var(--brand);background:rgba(255,255,255,.92)}
 .home-hero .q-opt.neutral .f{background:#EEF3FF;color:var(--brand);font-size:18px;width:40px;height:40px;border-radius:50%}
+.home-hero .q-opt.neutral .f.face{background:none}
+.home-hero .q-opt.neutral .f.face svg{width:40px;height:40px}
 .home-hero .q-opt.dim{opacity:.45}
 .home-hero .q-done{background:rgba(255,255,255,.9);border:1.5px solid rgba(255,255,255,.9);border-radius:16px;padding:16px 16px;box-shadow:0 4px 14px rgba(30,50,90,.06);gap:12px}
 .home-hero .q-done .ck{width:32px;height:32px;background:#E4F6EA;color:#2FB46A;font-size:15px;border-radius:50%}
@@ -2230,16 +2234,16 @@ const Q_BASE = [
       치료가 어디까지 왔는지다. 회복 중인지 아닌지에 따라 오늘의 코칭이 갈린다. */
 const Q_CARE = { id:'care', cat:'기타', av:'🩺', tint:'eye',
   text:'현재 폐렴 치료를 마치고 회복 중인가요?',
-  opts:[{v:'yes',    f:'⌣',label:'네, 회복 중이에요', tone:'good'},
+  opts:[{v:'yes',    f:'⌣',label:'회복 중이에요', tone:'good'},
         {v:'no',     f:'⌢',label:'아니요',           tone:'bad'},
         {v:'unsure', f:'?', label:'잘 모르겠어요',    tone:'neutral'}] };
 /* ② 걷기 — 급성기·회복기에는 걸음 수가 아니라 '걸을 수 있을 것 같은지'가
       오늘의 활동을 가른다. 워치 데이터로는 알 수 없어 답변으로 받는다. */
 const Q_WALK = { id:'walk', cat:'활동', av:'🚶', tint:'energy',
   text:'오늘은 가볍게 걸어볼 수 있을 것 같나요?',
-  opts:[{v:'yes',    f:'⌣',label:'네, 짧게 걸어볼 수 있어요', tone:'good'},
+  opts:[{v:'yes',    f:'⌣',label:'짧게 걸을 수 있어요', tone:'good'},
         {v:'rest',   f:'⌢',label:'오늘은 쉬고 싶어요',        tone:'bad'},
-        {v:'unsure', f:'?', label:'몸 상태를 잘 모르겠어요',   tone:'neutral'}] };
+        {v:'unsure', f:'?', label:'잘 모르겠어요',   tone:'neutral'}] };
 /* ── 식이 문항 — 식이 질문·목표 아키텍처(v1.0)를 그대로 따른다 ──
    ① 지난 끼니는 첫 진입 시각으로 정한다(12 · 15 · 21시 경계).
    ② 고정 문항은 매일 같다 — "{지난 끼니}은 평소만큼 드셨나요?". 케이스에 따라 바꾸지 않는다.
@@ -2256,9 +2260,9 @@ const LAST_MEAL = lastMealLabel();
 const Q_ACUTE = [
   { id:'meal', cat:'식이', av:'🍚', tint:'moon',
     text:`${LAST_MEAL}은 평소만큼 드셨나요?`,
-    opts:[{v:'normal',f:'⌣',label:'평소대로 먹었어요',   tone:'good'},
-          {v:'less',  f:'—',label:'조금 적게 먹었어요', tone:'okay'},
-          {v:'skip',  f:'⌢',label:'거의 못 먹었거나 걸렀어요', tone:'bad'}] },
+    opts:[{v:'normal',f:'⌣',label:'평소대로',   tone:'good'},
+          {v:'less',  f:'—',label:'조금 적게', tone:'okay'},
+          {v:'skip',  f:'⌢',label:'거의 못 먹었어요', tone:'bad'}] },
   { id:'protein', cat:'식이', av:'🥚', tint:'moon',
     text:`${LAST_MEAL}에 고기 · 생선 · 달걀 · 두부 반찬이 있었나요?`,
     opts:[{v:'good',f:'⌣',label:'있었어요',       tone:'good'},
@@ -2325,18 +2329,25 @@ const allDone  = ()=>answered() === QUESTIONS.length;
 /* 오늘의 질문 히어로 — 답변 톤(good/okay/bad)에 따라 배경 색조가 바뀐다. 얼굴 이모지 카드 3개, 선택 시 테두리 강조·나머지 흐림. */
 /* 얼굴 아이콘은 기기 이모지 대신 SVG로 그려 색을 통일한다(초록·노랑·분홍) */
 function faceSvg(tone){
-  const c = {good:['#7ED09A','#2E8B57'], okay:['#F7CE55','#8A6A00'], bad:['#F2A3B3','#B8325A']}[tone] || ['#B6C0D1','#5A6880'];
+  const c = {good:['#7ED09A','#2E8B57'], okay:['#F7CE55','#8A6A00'], bad:['#F2A3B3','#B8325A'],
+             unsure:['#D7DFEC','#4A5975']}[tone] || ['#B6C0D1','#5A6880'];
   const eyes = tone==='good'
     ? `<path d="M12.5 17.5q2 -2.5 4 0M23.5 17.5q2 -2.5 4 0" stroke="${c[1]}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
     : tone==='bad'
     ? `<path d="M12.5 16q2 2.5 4 0M23.5 16q2 2.5 4 0" stroke="${c[1]}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
+    /* 잘 모르겠는 얼굴 — 눈은 그대로 두고 한쪽 눈썹만 올려 '가늠이 안 된다'를 표시한다 */
+    : tone==='unsure'
+    ? `<path d="M11.6 13.2q2.8 -2.1 5.6 -.6" stroke="${c[1]}" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+       <circle cx="14.5" cy="17.6" r="1.7" fill="${c[1]}"/><circle cx="25.5" cy="17.6" r="1.7" fill="${c[1]}"/>`
     : `<circle cx="14.5" cy="16.5" r="1.7" fill="${c[1]}"/><circle cx="25.5" cy="16.5" r="1.7" fill="${c[1]}"/>`;
   const mouth = tone==='good' ? `<path d="M13.5 24q6.5 6 13 0" stroke="${c[1]}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
     : tone==='bad' ? `<path d="M14 27q6 -5 12 0" stroke="${c[1]}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`
+    /* 물결 입 — 웃지도 찡그리지도 않은, 판단을 미룬 표정 */
+    : tone==='unsure' ? `<path d="M13.6 25.6q2.6 -2.6 5.2 0t5.2 0" stroke="${c[1]}" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`
     : `<path d="M14.5 25h11" stroke="${c[1]}" stroke-width="2.2" stroke-linecap="round"/>`;
   return `<svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="${c[0]}"/>${eyes}${mouth}</svg>`;
 }
-const FACE = {good:faceSvg('good'), okay:faceSvg('okay'), bad:faceSvg('bad')};
+const FACE = {good:faceSvg('good'), okay:faceSvg('okay'), bad:faceSvg('bad'), unsure:faceSvg('unsure')};
 let heroTone = 'neutral';
 function setHeroTone(t){
   heroTone = t || 'neutral';
@@ -2368,7 +2379,7 @@ function renderQ(){
       <div class="q-av ${q.tint}">${q.av}</div>
     </div>
     <div class="q-opts">${q.opts.map((o,i)=>
-      `<button class="q-opt ${o.tone}" data-i="${i}"><span class="f">${o.tone==='neutral' ? o.f : FACE[o.tone]}</span>${o.label}</button>`).join('')}</div>
+      `<button class="q-opt ${o.tone}" data-i="${i}"><span class="f${o.tone==='neutral' && o.f==='?' ? ' face' : ''}">${o.tone==='neutral' ? (o.f==='?' ? FACE.unsure : o.f) : FACE[o.tone]}</span>${o.label}</button>`).join('')}</div>
   </section>`;
   el.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>pick(q,q.opts[b.dataset.i],b));
 }
@@ -2606,10 +2617,20 @@ function mealGoal(b){
   return {...b, title:p.title, why:p.why, how:`단백질 · ${step} 단계 · ${TARGET_MEAL}`};
 }
 function adjust(b){
-  const {care,walk} = ans;
+  const {care,walk,fatigue} = ans;
   if(b.key==='meal') return mealGoal(b);
-  /* 식이 외의 목표는 폐렴 케이스에서만 답변으로 바뀐다 — 평소에는 기기 데이터로 만든 목표를 둔다 */
-  if(!hasAiReport) return {...b};
+  if(!hasAiReport){
+    /* 평소 상태의 활동 목표 — 피로 답으로 오늘 낼 수 있는 만큼을 정한다.
+       기기 데이터(걸음·활동 시간)는 어제까지의 기록이라 오늘 컨디션을 대신하지 못한다. */
+    if(b.key==='move'){
+      if(fatigue && fatigue.v==='high') return {...b, title:'저녁 먹고 5분만 걷기',
+        why:'많이 피곤한 날 · 부담 낮게', how:'집 근처를 5분만 천천히 걸어요'};
+      if(fatigue && fatigue.v==='mild') return {...b, title:'점심 먹고 10분 걷기',
+        why:'조금 피곤한 날 · 짧게 나눠서', how:'점심 뒤 자리에서 일어나 10분만 걸어요'};
+      if(fatigue && fatigue.v==='none') return {...b, why:'피로감 없음 · 평소 속도 유지'};
+    }
+    return {...b};
+  }
   if(b.key==='move'){
     /* 오늘의 활동은 걷기 답이 정한다. 아직 회복 중이 아니면 같은 '걸을 수 있다'도 한 단계 낮춰 잡는다 */
     if(walk && walk.v==='rest') return {...b, title:'오늘은 앉거나 누워서 쉬기',
@@ -2639,16 +2660,16 @@ const GOAL_TINT = {meal:{c:'#C56A00',bg:'#FDEBD3'}, move:{c:'#D6336C',bg:'#FBD9E
 /* 초기 잠금: 오늘의 목표는 관련 질문에 답해야 열린다(식이 ← 식사/시야 질문, 활동 ← 피로 질문, 수면 ← 수면 질문).
    잠긴 타일을 누르면 해당 질문으로 이동한다. 과거 날짜에는 적용하지 않는다. */
 const GOAL_LOCK_BY_QUESTION = true;
-const GOAL_UNLOCK_Q = { meal:['meal'], move:['walk'], sleep:['sleep'] };
+const GOAL_UNLOCK_Q = { meal:['meal'], move:['walk','fatigue'], sleep:['sleep'] };
 /* 잠그는 카테고리만 지정한다 — 나머지는 처음부터 열린 상태로 보여준다 */
 /* 이 시연본은 식이와 활동을 잠가 두고 답변 완료 시 생성한다.
    원본은 식이만 잠그지만, 폐렴 케이스에서는 '오늘 걸을 수 있는지'가 활동 목표를 가르는
    결정적 조건이고 그 값은 워치 데이터로 알 수 없어 질문 답변이 있어야 한다.
    수면은 기본 목표(상체 높여 눕기)를 그대로 깔아 두고 답변으로 바꾸지 않는다. */
 let GOAL_LOCK_KEYS = ['meal','move'];
-/* 평소 상태에서는 활동 목표를 기기 데이터(걸음·활동 시간)로 만들 수 있어 바로 열린다.
-   폐렴 케이스에서는 '오늘 걸을 수 있는지'가 활동 목표를 가르는데 그 값은 기기에 없어 답변이 필요하다. */
-const GOAL_LOCK_BY_CASE = { well:['meal'], sick:['meal','move'] };
+/* 활동 목표는 두 케이스 모두 답변으로 연다 — 평소에는 피로 답이, 폐렴 케이스에서는 걷기 답이
+   오늘 얼마나 움직일 수 있는지를 가른다. 기기 데이터만으로는 알 수 없는 값이다. */
+const GOAL_LOCK_BY_CASE = { well:['meal','move'], sick:['meal','move'] };
 function goalLocked(key, dayN){
   if(!GOAL_LOCK_BY_QUESTION) return false;
   const today = typeof TODAY!=='undefined' ? TODAY : 20;
