@@ -3478,10 +3478,10 @@ function renderSum(){
 
     ${hasAiReport ? `<section class="card">
       <div class="dz-hd">
-        <div class="tt"><small>AI REPORT에서 확인된 주요 소견</small><b>흉부 X-ray · 오른쪽 아래 폐 경화 소견</b></div>
+        <div class="tt"><small>AI REPORT에서 확인된 주요 소견</small><b>흉부 X-ray · 경화 소견 (AI 점수 16)</b></div>
         <span class="dz-tag">확인 필요</span>
       </div>
-      <div class="dz-box"><b>오른쪽 아래 폐에 폐렴으로 보이는 음영이 있어요.</b> 소량의 흉수도 함께 의심돼 경과를 봐야 해요. 결핵·기흉·폐 결절 소견은 확인되지 않았어요. 숨이 갑자기 더 차거나 38도가 넘는 열이 이어지면 바로 진료를 받으세요.</div>
+      <div class="dz-box"><b>오른쪽 폐 아래쪽에 하얗게 보이는 경화 소견이 검출됐어요.</b> 폐렴 같은 감염·염증성 질환이 대표적인 원인이에요. 결절·기흉·흉막 삼출은 검출되지 않았어요. 숨이 갑자기 더 차거나 38도가 넘는 열이 이어지면 바로 진료를 받으세요.</div>
       <button class="fd-all" style="margin-top:12px" onclick="openAiImagingResult()">AI REPORT 결과 보기</button>
     </section>` : ``}
 
@@ -3545,18 +3545,22 @@ const AI_REPORT_RESULT = {
   date:'2026.09.22',
   type:'AI REPORT',
   title:'흉부 X-ray AI 분석',
-  summary:'오른쪽 아래 폐 경화 소견 · 폐렴 의심',
+  summary:'오른쪽 폐 경화 소견 · AI 점수 16',
   status:'확인 필요',
   tone:'purple',
   icon:'AI',
-  source:'흉부 X-ray',
+  source:'흉부 X-ray (R-PA)',
+  engine:'Lunit INSIGHT CXR',
+  /* 소견 이름은 원본 리포트가 쓰는 10가지 이상 소견 명칭을 그대로 따른다.
+     검출된 것은 경화 하나이고, 나머지는 기준값 미만이다. */
   findings:[
-    {name:'폐 경화', value:'오른쪽 아래 폐에 음영이 보여요', tone:'caution'},
-    {name:'흉수', value:'소량 의심 · 경과 확인이 필요해요', tone:'caution'},
-    {name:'활동성 결핵', value:'의심 소견 없음', tone:'normal'},
-    {name:'기흉', value:'확인되지 않았어요', tone:'normal'},
-    {name:'폐 결절', value:'확인되지 않았어요', tone:'normal'},
-    {name:'심장 크기', value:'정상 범위로 보여요', tone:'normal'}
+    {name:'경화', value:'오른쪽 폐 아래쪽에 하얗게 보이는 부분이 있어요', tone:'caution'},
+    {name:'결절', value:'검출되지 않았어요', tone:'normal'},
+    {name:'기흉', value:'검출되지 않았어요', tone:'normal'},
+    {name:'흉막 삼출', value:'검출되지 않았어요', tone:'normal'},
+    {name:'무기폐', value:'검출되지 않았어요', tone:'normal'},
+    {name:'심장비대', value:'낮음으로 표시됐어요', tone:'normal'},
+    {name:'종격동 비대', value:'낮음으로 표시됐어요', tone:'normal'}
   ]
 };
 
@@ -3957,33 +3961,32 @@ function openAiImagingResult(){
   const toneLabel=t=>t==='caution'?['확인 필요','caution']:['특이 소견 없음','normal'];
   document.querySelector('#visitDet .rs-h h2').textContent = 'AI REPORT 결과';
   document.getElementById('vdBody').innerHTML = `
-    <div class="ck-meta"><b>${r.title}</b><small>${r.date} · ${r.source}</small></div>
+    <div class="ck-meta"><b>${r.title}</b><small>${r.date} · ${r.source} · ${r.engine}</small></div>
     <section class="card" style="margin-bottom:14px;background:linear-gradient(135deg,#F7F4FF 0%,#F4F8FF 100%);border:1px solid #E7E1FF">
       <div style="display:flex;align-items:flex-start;gap:12px">
         <span style="width:38px;height:38px;border-radius:12px;background:#6D5CE7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;flex:0 0 auto">PDF</span>
         <div style="flex:1;min-width:0"><div style="font-size:11px;font-weight:900;color:#6D5CE7;margin-bottom:4px">원본 AI REPORT</div><b style="font-size:15px">AI 기반 흉부 촬영 영상 분석 보고서</b><p style="margin:5px 0 0;font-size:12px;line-height:1.55;color:var(--ink-3)">AI 요약과 함께 원본 보고서도 저장할 수 있어요.</p></div>
       </div>
-      <a href="AI_REPORT_CXR_20260922.pdf" download="AI_REPORT_CXR_20260922.pdf" style="display:flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;margin-top:14px;padding:12px 14px;border-radius:12px;background:#171A1F;color:#fff;text-decoration:none;font-size:13px;font-weight:900">PDF 리포트 저장하기</a>
+      <a href="AI_REPORT_CXR_20211015.pdf" download="AI_REPORT_CXR_20211015.pdf" style="display:flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;margin-top:14px;padding:12px 14px;border-radius:12px;background:#171A1F;color:#fff;text-decoration:none;font-size:13px;font-weight:900">PDF 리포트 저장하기</a>
     </section>
     <section class="ai-report-overview" style="margin-bottom:14px">
       <div class="label">AI가 먼저 정리했어요</div>
-      <h2>오른쪽 아래 폐에<br>폐렴으로 보이는 소견이 있어요</h2>
-      <p>염증이 생긴 부위가 하얗게 보이는 폐 경화 소견이 확인됐어요. 소량의 흉수도 함께 의심돼 경과를 봐야 해요. 결핵·기흉·폐 결절 소견은 확인되지 않았어요.</p>
+      <h2>오른쪽 폐 아래쪽에<br>경화 소견이 검출됐어요</h2>
+      <p>경화는 액체나 세포가 폐 안의 공기 공간을 채워 흉부 X선에서 하얗게 보이는 소견이에요. 폐렴이나 결핵 같은 감염·염증성 질환이 대표적인 원인이에요. 결절·기흉·흉막 삼출·무기폐는 검출되지 않았고, 심장비대와 종격동 비대는 낮음으로 표시됐어요.</p>
     </section>
     <div class="ck-sec-title">AI가 확인한 결과</div>
     <div class="ck-list">${r.findings.map(f=>{const st=toneLabel(f.tone);return `<div class="ck-row"><div class="ck-name"><b>${f.name}</b><small>${f.value}</small></div><span class="ck-status ${st[1]}">${st[0]}</span></div>`}).join('')}</div>
     <section class="card" style="margin-top:14px">
       <div class="card-t">이 결과에서 중요한 점</div>
-      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2);line-height:1.75"><b style="color:var(--ink-1)">폐 경화 소견</b>은 폐렴 외의 이유로도 보일 수 있어요. AI 결과만으로 질환을 확정할 수 없으므로 증상·진찰·의료진 판독과 함께 확인해 주세요. 다만 <b style="color:var(--ink-1)">숨이 갑자기 더 차거나 38도가 넘는 열이 이어지면</b> 결과를 기다리지 말고 바로 진료를 받으세요.</p>
+      <p style="margin:10px 0 0;font-size:13px;color:var(--ink-2);line-height:1.75"><b style="color:var(--ink-1)">경화 소견</b>은 폐렴 외의 이유로도 보일 수 있어요. AI 분석은 판독의를 돕는 보조 정보라서 확인되지 않은 소견이 있을 수 있고, 최종 판독은 전문의가 하며 AI 결과와 다를 수 있어요. 다만 <b style="color:var(--ink-1)">숨이 갑자기 더 차거나 38도가 넘는 열이 이어지면</b> 판독 결과를 기다리지 말고 바로 진료를 받으세요.</p>
     </section>
     <section class="card" style="margin-top:12px">
       <div class="card-t">AI 분석 참고값</div>
-      <div class="ck-cat"><b>폐 경화</b><small>AI 점수 87.40 · 기준값 15 초과</small></div>
-      <div class="ck-cat"><b>흉수</b><small>AI 점수 21.60 · 기준값 15 초과</small></div>
-      <div class="ck-cat"><b>활동성 결핵</b><small>AI 점수 2.10 · 기준값 15 미만</small></div>
-      <div class="ck-cat"><b>폐 결절</b><small>AI 점수 6.80 · 기준값 15 미만</small></div>
-      <div class="ck-cat"><b>심장 크기 확대</b><small>AI 점수 9.30 · 기준값 15 미만</small></div>
-      <p style="margin:10px 0 0;font-size:11px;color:var(--ink-3);line-height:1.6">점수는 AI 모델의 판독 보조값이며 질환의 확률이나 중증도를 의미하지 않아요.</p>
+      <div class="ck-cat"><b>이상 소견 점수</b><small>16 · 경화로 검출됐어요</small></div>
+      <div class="ck-cat"><b>심장비대</b><small>낮음</small></div>
+      <div class="ck-cat"><b>종격동 비대</b><small>낮음</small></div>
+      <div class="ck-cat"><b>그 밖의 소견</b><small>결절 · 기흉 · 흉막 삼출 · 무기폐 · 석회 · 폐섬유화 · 기복증 — 검출되지 않았어요</small></div>
+      <p style="margin:10px 0 0;font-size:11px;color:var(--ink-3);line-height:1.6">AI 점수는 흉부 이상 소견이 있을 상대적 가능성을 100점으로 환산한 값이며, 실제 확률이나 중증도를 뜻하지 않아요. 점수가 높은 영상일수록 이상 소견이 있을 가능성이 높다고 해석해요.</p>
     </section>
     <p class="ai-disclaimer-v2">AI REPORT는 흉부 X-ray 영상을 분석한 참고 결과이며, 의학적 진단이나 의료진의 판독을 대신하지 않습니다.</p>`;
   document.getElementById('visitDet').classList.add('open');
