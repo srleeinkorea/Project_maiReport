@@ -4201,7 +4201,6 @@ function renderVisit(){
     return;
   }
   let html = '';
-  html += importBanner();
   html += `<div class="vf-chips" aria-label="방문이력 필터">
     <button class="vf ${visitFilter==='all'?'on':''}" data-f="all">전체</button>
     <button class="vf ${visitFilter==='checkup'?'on':''}" data-f="checkup">검진</button>
@@ -4224,6 +4223,8 @@ function renderVisit(){
       }).join('')}</div>`;
     }).join('');
   }
+  /* 연동 안내는 목록 끝에 둔다 — 지금 보러 온 기록을 밀어내지 않도록 */
+  html += importBanner();
   html += `<button class="fab" onclick="openAct()" aria-label="리포트 등록">+</button>`;
   el.innerHTML = html;
   el.querySelectorAll('.vf').forEach(b=>{ b.onclick = ()=>{ visitFilter = b.dataset.f; renderVisit(); }; });
