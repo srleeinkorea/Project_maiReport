@@ -1,0 +1,36 @@
+{
+  "maiReport_식이_의학근거대조_전문의승인대기_v1.1.0.xlsx": {
+    "sheets": [
+      "검토요약",
+      "문구별검토",
+      "상병코드검토",
+      "출처목록"
+    ],
+    "formula_errors": [],
+    "formulas": 0
+  },
+  "maiReport_식이_참조설정데이터_v1.1.0.xlsx": {
+    "sheets": [
+      "안내",
+      "문구세트",
+      "축정의",
+      "상병코드매핑",
+      "설정값"
+    ],
+    "formula_errors": [],
+    "formulas": 231
+  },
+  "phrase_count": 225,
+  "statuses": {
+    "사용": 163,
+    "보류": 62
+  },
+  "questions": {
+    "fixed": 1,
+    "rotating_pool": 7,
+    "max_per_session": 2,
+    "choices_each": 3
+  },
+  "broken_local_links": [],
+  "scope": "엑셀 데이터·수식·선택지·문서 연결 검사. HTML 브라우저 화면은 로컬 URL 보안 정책으로 미확인. 시나리오는 설명용이며 앱 실행 검증 아님."
+}

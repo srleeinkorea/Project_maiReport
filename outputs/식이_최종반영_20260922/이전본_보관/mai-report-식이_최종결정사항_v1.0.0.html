@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 식이 기획 최종 결정 사항</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:760px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1)}
+  td.d{background:#f3f8f4;border-left:2px solid #4c9a63}
+  td.d b{color:#1e6b3a}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .callout.warn{border-left-color:#d98a12;background:#fff6e8;color:#6b4c0f}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .mini{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+  .mini p{font-size:12.5px;margin:0}
+  .mini .big{font-size:24px;font-weight:800;color:var(--ink-1);line-height:1.2}
+  ul,ol{padding-left:18px;margin-bottom:8px}
+  li{margin-bottom:4px;font-size:13px}
+  .chip{display:inline-block;border-radius:6px;padding:1px 7px;font-size:11.5px;font-weight:700;white-space:nowrap;margin-right:4px}
+  .ok{background:#e8f6ee;color:#1e6b3a}.v2{background:#eef3ff;color:#2f66f5}.rem{background:#fff6e8;color:#8a5a0a}
+  .role{display:inline-block;border-radius:6px;padding:1px 8px;font-size:11.5px;font-weight:700;margin-right:4px}
+  .r-pm{background:#eef3ff;color:#2f66f5}.r-ds{background:#fdf0f7;color:#b1348a}.r-dev{background:#eaf7ef;color:#1e6b3a}.r-md{background:#fff6e8;color:#8a5a0a}
+  .note{font-size:12px;color:var(--ink-3)}
+  @media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 결정 기록</span>
+  <h1>식이 기획 최종 결정 사항</h1>
+  <p>「식이 질문·목표 상세 기획」이 열어 두었던 결정 항목을 모두 닫는다. 항목마다 결정과 이유, 바뀌는 문서, 후속 작업을 적었다. 출시 전 테스트에서 볼 것은 지표와 기준을 미리 정해 두었고, 1차 범위에서 뺀 것은 이유와 함께 2차로 넘겼다.</p>
+  <div class="meta"><span>결정일 <b>2026-09-16</b></span><span>대상 <b>식이 질문·목표 상세 기획 1.0 ⑩ 확인 필요 사항 12건 + 진행 중 논점 3건</b></span><span>결과 <b>확정 13 · 출시 전 테스트에서 재검토 2 · 잔여 1(출처 표기만 영향)</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">① 결정 원칙</a><a href="#s2">② 결정표</a><a href="#s3">③ 출시 전 테스트 지표</a><a href="#s4">④ 2차 범위</a><a href="#s5">⑤ 후속 작업</a>
+</div>
+
+<!-- 1 -->
+<section class="card" id="s1">
+  <h2><span class="n">1</span>결정 원칙</h2>
+  <div class="sub">개별 결정에 일관되게 적용한 기준 네 가지</div>
+  <div class="grid2">
+    <div class="mini"><b>1차는 고정 규칙으로 출시한다</b><p>사용자별 적응(끼니 시간대, 문항 빈도, 문구 배분)은 데이터가 있어야 설계할 수 있다. 1차는 전원 같은 규칙으로 내고, 무엇을 측정해 언제 바꿀지를 지금 정한다.</p></div>
+    <div class="mini"><b>사용자에게 평가를 보이지 않는다</b><p>축 상태 · 단계 · 등급 라벨은 내부 판정이다. 화면에는 행동 문구와 이유 한 줄만 나간다. 이 원칙이 노출 관련 결정을 모두 정한다.</p></div>
+    <div class="mini"><b>확신할 수 없는 입력은 쓰지 않는다</b><p>보정 여부를 확인할 수 없는 스마트워치 혈압, 공복 표시가 없는 혈당처럼 값의 성격을 알 수 없는 입력은 판정에서 뺀다. 빠져도 검진값이 남으므로 서비스는 동작한다.</p></div>
+    <div class="mini"><b>검증은 출시를 막지 않는다</b><p>문안 사용자 테스트, 원문 쪽수 대조는 결과가 문구 표기만 바꾸는 작업이다. 진행하되 출시 조건으로 두지 않는다.</p></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="card" id="s2">
+  <h2><span class="n">2</span>결정표</h2>
+  <div class="sub">기획안 ⑩ 번호 순. 「진행 중 논점」 3건은 뒤에 덧붙였다</div>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:150px">항목</th><th style="width:36%">결정</th><th>이유</th><th style="width:18%">바뀌는 곳</th></tr>
+    <tr><td>1</td><td class="k">근거 2차 검토</td><td class="d"><b><span class="chip ok">확정</span>의학팀 회신대로 반영 완료.</b> 진료지침 원문 쪽수 대조 4건은 <span class="chip rem">잔여</span>로 두되 출시 조건에서 제외</td><td>대조 결과는 근거 표기만 바꾸고 문구 · 규칙에 영향 없음. 출시를 기다릴 이유가 없다</td><td>—</td></tr>
+    <tr><td>2</td><td class="k">질문 문안 검증</td><td class="d"><b><span class="chip ok">확정</span>현재 문안으로 출시.</b> 단 음료 문항의 "앞뒤로"를 "전후로"로 고친다. 사용자 5명 확인은 디자인 검수 때 함께 진행하며 출시 조건이 아니다</td><td>"앞뒤로"는 구어이고 뜻이 흔들린다. 그 외 7문항은 끼니 이름을 넣어도 한 줄 안에서 읽힌다. 문안 이탈은 회전 문항 건너뛰기율로 출시 후 잡는다(③)</td><td>기획안 ④ · 프로토타입</td></tr>
+    <tr><td>3</td><td class="k">끼니 시간대 경계</td><td class="d"><b><span class="chip ok">확정</span>12 · 15 · 21시 고정.</b> 사용자별 경계는 <span class="chip v2">2차</span></td><td>오늘의 질문 알림이 오전 11시에 나가므로 알림을 보고 들어온 진입이 "어제 저녁" 구간에 들어오도록 첫 경계를 12시로 둔다. 사용자별 경계는 식사 시각 기록이 사용자당 최소 2주 쌓여야 산출 가능. 1차에는 그 데이터가 없다. 고정 경계로 출시하고 ③의 지표로 재조정</td><td>기획안 ④ 주석</td></tr>
+    <tr><td>4</td><td class="k">첫 진입 시각 분포</td><td class="d"><b><span class="chip ok">확정</span>1차 규칙 그대로. 출시 전 테스트에서 재검토.</b> 기준: 12시 전 첫 진입이 전체 진입일의 40% 미만이면 대상 끼니 배분 변경 착수</td><td>지금은 분포를 모른다. 미리 규칙을 바꾸는 것보다 기준선을 정하고 기다리는 것이 맞다</td><td>③ 지표</td></tr>
+    <tr><td>5</td><td class="k">설정값</td><td class="d"><b><span class="chip ok">확정</span>비율 경계 0.5 · 0.6 · 0.2, 관찰 창 14일, 단계 조정 7일 3회 · 연속 2회, 임의값 20분 · 3분의 2 · 3시간 · 오후 2시.</b> 모두 설정 테이블로 관리. 출시 전 테스트의 답 분포로 1회 재조정</td><td>의학팀이 임의값을 승인했고, 비율 경계는 답 분포가 있어야 조정할 수 있다. 하드코딩만 막아 두면 된다</td><td>기획안 ⑦ 주석</td></tr>
+    <tr><td>6</td><td class="k">회복 풀 조건 변경</td><td class="d"><b><span class="chip ok">승인</span>"지난 끼니 양 적음 · 결식 → 회복 풀".</b> 어제 저녁 결식이 오늘 오전 회복 풀을 켜는 것 포함</td><td>어제 저녁을 걸렀으면 오늘 첫 끼를 챙기라는 것이 회복 풀의 취지와 정확히 맞다. 오히려 "오늘 식사량"은 오전 진입에서 답할 수 없어 기존 규칙이 결함이었다</td><td>목표 생성 규칙 0.1 ⑦-4 참조 갱신</td></tr>
+    <tr><td>7</td><td class="k">검진 판정 기준</td><td class="d"><b><span class="chip ok">확정</span>의학팀 회신 구간 그대로.</b> AI 검진요약의 판정 구간도 이 표에 맞춘다</td><td>같은 검진 결과가 두 화면에서 다르게 판정되면 안 된다. 식이 규칙이 아니라 검진요약이 따라온다</td><td>AI 검진요약 기준범위 레퍼런스 대조</td></tr>
+    <tr><td>8</td><td class="k">축 상태 노출</td><td class="d"><b><span class="chip ok">확정</span>1차 비노출.</b> 목표분석 탭에는 오늘 목표 · 이유 한 줄 · 지난 목표 이력만. 축 상태 · 단계는 <span class="chip v2">2차</span> 검토</td><td>「개선 필요」 같은 라벨은 평가로 읽힌다(원칙 2). 보여 주려면 표현 · 근거 · 개인화 설명이 함께 필요해 1차 범위를 넘는다</td><td>목표분석 화면정의서 §3</td></tr>
+    <tr><td>9</td><td class="k">문구 폭</td><td class="d"><b><span class="chip ok">확정</span>타일 최대 22자(2줄 × 11자), 질문 카드 최대 32자(2줄 × 16자), 답 버튼 최대 14자.</b> 현재 가장 긴 문구는 각 19 · 27 · 12자로 안에 들어간다. 새 문구는 이 한도를 넘지 않는다</td><td>디자인이 폭을 검증할 기준이 필요했다. 여유를 두고 상한을 정하면 이후 문구 추가 때 다시 묻지 않는다</td><td>기획안 ③ 폭 검증 표 · 홈화면 화면정의서</td></tr>
+    <tr><td>10</td><td class="k">질문 개수 부담</td><td class="d"><b><span class="chip ok">확정</span>1차 매일 2개.</b> 회전 문항에 건너뛰기를 두지 않는다 — 답할 수 없는 질문이 나오지 않게 하는 것이 먼저다. 미응답률이 2주 연속 40% 이상이면 격일로 전환하는 스위치를 설정값으로 둔다</td><td>두 문항 모두 답해야 타일이 열린다. 이탈이 실제로 나타나면 코드 수정 없이 빈도를 낮출 수 있게 한다</td><td>기획안 ⑦ 설정값 · ③ 지표</td></tr>
+    <tr><td>11</td><td class="k">활동 · 수면 동일 구조</td><td class="d"><b><span class="chip v2">2차</span>식이 출시 후 별도 기획.</b> 식이 출시 전 테스트 데이터로 축 × 단계 구조의 효과를 본 뒤 결정</td><td>활동 · 수면은 지식DB 규칙과 겹쳐 설계 쟁점이 다르다. 식이에서 구조가 동작하는지 먼저 확인하는 것이 순서다</td><td>—</td></tr>
+    <tr><td>12</td><td class="k">기기 연동값의 유효 조건</td><td class="d"><b><span class="chip ok">확정</span>1차: 혈압은 가정용 혈압계 연동값만(스마트워치 혈압 제외 · 수기 입력 화면 없음). 혈당은 공복 표시된 값만. 체중은 하루 첫 측정 1건.</b> 스마트워치 혈압 · 체중 7일 중앙값은 <span class="chip v2">2차</span></td><td>스마트워치 혈압은 커프 보정 여부를 서비스가 확인할 방법이 없다(원칙 3). 공복 미표시 혈당은 공복혈당 판정에 쓸 수 없다. 체중 변동은 판정이 다음 날 반영되므로 1건으로도 하루 안 흔들림은 없다</td><td>기획안 ⑦ 값의 출처 표 · 프로토타입 혈압 체크 → 「가정용 혈압계」 표기</td></tr>
+  </table>
+
+  <h3>진행 중 논점 3건</h3>
+  <table>
+    <tr><th style="width:36px">#</th><th style="width:150px">항목</th><th style="width:36%">결정</th><th>이유</th><th style="width:18%">바뀌는 곳</th></tr>
+    <tr><td>13</td><td class="k">이유 한 줄 위치</td><td class="d"><b><span class="chip ok">확정</span>목표분석 탭 상시 표시, 홈 타일 탭 시 짧게 노출, 오늘의 코칭에는 싣지 않음</b></td><td>이유는 목표 기록에 귀속되는 데이터다. 오늘의 코칭은 컨디션 한 줄로 분리 유지</td><td>기획안 ③ · ⑨(반영 완료) · 홈 · 목표분석 화면정의서</td></tr>
+    <tr><td>14</td><td class="k">오늘 회전 답의 지표 반영 시점</td><td class="d"><b><span class="chip ok">확정</span>축 상태는 다음 날부터, 문구 선택에는 오늘 답 사용(현행 유지)</b></td><td>답 하나로 오늘 목표 축이 갈리면 답변을 의식하게 된다. 축 상태는 추세를 보는 지표라는 취지 유지. 문구 선택(다른 끼니 겨냥)은 오늘 답이 있어야 의미가 있어 예외</td><td>—</td></tr>
+    <tr><td>15</td><td class="k">지식DB 편입 시점</td><td class="d"><b><span class="chip ok">확정</span>1차 서비스 자체 규칙.</b> 편입은 11번(활동 · 수면 구조) 결정과 함께 검토</td><td>식이는 웨어러블 지표 기반이 아니라 자기보고 기반이어서 지식DB의 지표 구간 규칙과 성격이 다르다. 표 형식만 맞춰 두었으므로 편입 비용은 낮다</td><td>—</td></tr>
+  </table>
+</section>
+
+<!-- 3 -->
+<section class="card" id="s3">
+  <h2><span class="n">3</span>출시 전 테스트 지표와 재검토 기준</h2>
+  <div class="sub">출시 전 테스트에서 측정한다. 기준을 넘으면 정해진 조치를 실행한다</div>
+  <table>
+    <tr><th style="width:190px">지표</th><th>정의</th><th style="width:22%">기준</th><th style="width:24%">넘으면</th></tr>
+    <tr><td class="k">오전 첫 진입 비율</td><td>첫 진입이 12시 전인 날 ÷ 전체 진입일</td><td>40% 미만</td><td>대상 끼니 배분 변경(저녁 문구 비중 축소, 점심 목표를 다음 날 오전에 확인하는 대체 규칙 설계)</td></tr>
+    <tr><td class="k">회전 문항 미응답률</td><td>답하지 않은 채 하루가 끝난 건수 ÷ 회전 문항 노출</td><td>2주 연속 40% 이상</td><td>격일 전환 스위치 켬</td></tr>
+    <tr><td class="k">고정 문항 미응답율</td><td>첫 진입했으나 고정 문항에 답하지 않은 날 비율</td><td>30% 이상</td><td>문항 위치 · 문안 재검토. 식이 타일 잠금 규칙 자체는 유지</td></tr>
+    <tr><td class="k">확인 질문 성립률</td><td>확인 질문이 실제로 나간 날 ÷ 축 목표가 있었던 날</td><td>30% 미만</td><td>4번과 같은 조치</td></tr>
+    <tr><td class="k">축 상태 「관찰 중」 지속</td><td>가입 3주 후에도 관찰 중인 축의 비율</td><td>50% 이상</td><td>관찰 창 14일 → 21일 또는 유효 답 3개 → 2개 조정</td></tr>
+    <tr><td class="k">식이 목표 완료율</td><td>완료 토글 ÷ 생성된 식이 목표</td><td>활동 · 수면 완료율 대비 15%p 이상 낮음</td><td>단계 시작값 · 올리기 조건 재조정</td></tr>
+    <tr><td class="k">답 분포</td><td>축별 양호 · 보통 · 개선 필요 비율</td><td>한 축이 90% 이상 한 답에 몰림</td><td>그 축의 답 구간 · 문항 재설계</td></tr>
+  </table>
+</section>
+
+<!-- 4 -->
+<section class="card" id="s4">
+  <h2><span class="n">4</span>2차 범위로 넘긴 것</h2>
+  <div class="sub">이유와 착수 조건</div>
+  <table>
+    <tr><th style="width:200px">항목</th><th>착수 조건</th></tr>
+    <tr><td class="k">사용자별 끼니 시간대 경계</td><td>식사 시각 기록 또는 고정 문항 응답 시각이 사용자당 2주 이상 축적</td></tr>
+    <tr><td class="k">축 상태 · 단계 노출</td><td>평가로 읽히지 않는 표현 설계 완료, 개인화 설명 문안 의학팀 감수</td></tr>
+    <tr><td class="k">활동 · 수면 축 × 단계 구조</td><td>식이 출시 전 테스트 결과 확인 후</td></tr>
+    <tr><td class="k">스마트워치 혈압 · 체중 7일 중앙값</td><td>플랫폼별 보정 정보 확보 여부 확인(데이터 흐름 문서)</td></tr>
+    <tr><td class="k">지식DB 편입</td><td>활동 · 수면 구조 결정과 동시</td></tr>
+    <tr><td class="k">최초 식습관 스크리닝(온보딩)</td><td>1차 데이터로 축 상태 「관찰 중」 기간이 문제로 확인될 때</td></tr>
+  </table>
+</section>
+
+<!-- 5 -->
+<section class="card" id="s5">
+  <h2><span class="n">5</span>후속 작업</h2>
+  <div class="sub">이 결정으로 발생하는 작업. 담당은 실행 주체</div>
+  <table>
+    <tr><th style="width:36px">#</th><th>작업</th><th style="width:110px">담당</th><th style="width:90px">시점</th></tr>
+    <tr><td>1</td><td>기획안 ④ 단 음료 문항 "앞뒤로" → "전후로", ⑩ 결정 반영, ⑦ 웨어러블 혈압 조건 갱신</td><td><span class="role r-pm">기획</span></td><td>완료</td></tr>
+    <tr><td>2</td><td>홈화면 화면정의서 §5 갱신 — 식사 문항 문안 · 답 4개 · 회전 카드 · 건너뛰기 버튼 삭제 · 아직 안 먹음 · 타일 탭 시 이유 노출 · 오늘의 코칭에서 목표 이유 제거 · 문구 폭 한도</td><td><span class="role r-pm">기획</span><span class="role r-ds">디자인</span></td><td>다음 주</td></tr>
+    <tr><td>3</td><td>목표분석 화면정의서 §3 갱신 — 목표 상세에 이유 한 줄, 지난 날짜 목표 이유, 축 상태 비노출 명시</td><td><span class="role r-pm">기획</span><span class="role r-ds">디자인</span></td><td>다음 주</td></tr>
+    <tr><td>4</td><td>질문 카드 · 답 버튼 · 타일 폭 한도(32 · 14 · 22자) 반영, 가장 긴 문구로 검증</td><td><span class="role r-ds">디자인</span></td><td>화면정의서와 함께</td></tr>
+    <tr><td>5</td><td>데이터 모델에 ⑦ 사용자 데이터 7종(답 이력 · 축 지표 · 축 단계 · 목표 기록 · 문항 상태 · 질환 유형 상태 · 검진 경계 판정) + 참조 · 설정 4종(문구 세트 · 축 정의 · 상병코드 매핑 · 설정값) 추가</td><td><span class="role r-dev">개발</span></td><td>구현 전</td></tr>
+    <tr><td>6</td><td>설정 테이블 — 비율 경계 · 관찰 창 · 단계 조정 · 임의값 · 격일 전환 스위치</td><td><span class="role r-dev">개발</span></td><td>구현 시</td></tr>
+    <tr><td>7</td><td>AI 검진요약 판정 구간을 ⑦ 표와 대조, 다르면 검진요약 쪽을 맞춤</td><td><span class="role r-pm">기획</span><span class="role r-dev">개발</span></td><td>구현 전</td></tr>
+    <tr><td>8</td><td>데이터 흐름 문서 대조 — 가정용 혈압계 · 혈당계 · 체중 연동 항목이 현재 수집되는지, 공복 표시가 들어오는지</td><td><span class="role r-dev">개발</span></td><td>구현 전</td></tr>
+    <tr><td>9</td><td>③ 지표 7종을 이벤트 로그 설계에 포함</td><td><span class="role r-dev">개발</span><span class="role r-pm">기획</span></td><td>구현 시</td></tr>
+    <tr><td>10</td><td>진료지침 3종 원문 쪽수 대조 → 근거 표기 갱신</td><td><span class="role r-md">의학팀</span></td><td>출시 전후 무관</td></tr>
+    <tr><td>11</td><td>회전 문항 7개 사용자 5명 읽기 확인</td><td><span class="role r-pm">기획</span><span class="role r-ds">디자인</span></td><td>디자인 검수 때</td></tr>
+    <tr><td>12</td><td>출시 전 테스트 일정 등록 — ③ 지표와 5번 설정값 재조정</td><td><span class="role r-pm">기획</span></td><td>출시일 확정 시</td></tr>
+  </table>
+  <div class="callout">이 문서 이후 식이 기획에서 열린 결정은 없다. 잔여 1건(원문 쪽수 대조)은 근거 표기만 바꾸며, 2차 항목은 각각의 착수 조건이 충족될 때 다시 연다.</div>
+</section>
+
+</div>
+</body>
+</html>
