@@ -2405,15 +2405,9 @@ function pick(q,o,btn){
 const C_BASE = {act:'오늘은 충분히 쉬고 물을 자주 드세요.',
   why:'오늘의 질문에 답하면 현재 상태를 반영해 더 알맞은 코칭을 안내해 드려요.'};
 
-/* 바로 진료가 필요한 답변 — 회복 중이 아닌데 걷기도 어렵고 끼니도 거른 날은
-   혼자 관리할 상태가 아니다. 이때는 다른 코칭을 내보내지 않고 진료 안내만 남긴다. */
-function redFlag(){
-  const {care,walk,meal} = ans;
-  if(care && care.v==='no' && walk && walk.v==='rest' && meal && meal.v==='skip') return {urgent:true,
-    act:'오늘 중으로 병원에 가보세요.',
-    why:'기록에 남은 폐렴이 실제 진단이 아니더라도, 오늘은 걷기도 힘들고 끼니도 거의 못 드셨어요. 이유가 무엇이든 이런 날이 이어지면 진료로 확인하는 편이 안전해요.'};
-  return null;
-}
+/* 이 시연본은 위험을 알리는 경고 문구를 쓰지 않는다 — 놀라게 하지 않고
+   오늘 할 수 있는 행동만 남기는 것이 이 화면의 역할이다.
+   답이 모두 나쁜 쪽인 날에도 먹기 · 쉬기 같은 실행 코칭으로 이어간다. */
 /* 리포트가 없는 평소 상태의 코칭 — 식이 두 문항과 피로 답으로 만든다 */
 function coachingGeneral(){
   const {meal,fatigue,veg,sweet,salt,pace,fat} = ans;
@@ -2460,8 +2454,6 @@ function coachingNotPneumonia(){
 function coachingFor(){
   if(!allDone()) return C_BASE;
   if(!hasAiReport) return coachingGeneral();
-  const flag = redFlag();
-  if(flag) return flag;
   const {care,walk,meal,protein} = ans;
   if(care && care.v==='no') return coachingNotPneumonia();
   if(meal && meal.v==='skip') return {act:'죽처럼 편한 것부터 조금씩 드세요.',
