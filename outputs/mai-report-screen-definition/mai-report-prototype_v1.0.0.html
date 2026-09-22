@@ -1130,6 +1130,8 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 .preview-stage img{max-width:100%;height:auto;background:#fff}
 .preview-stage .pdf-card{width:100%;max-width:310px;aspect-ratio:3/4;background:#fff;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:4px;gap:10px}
 .preview-stage .pdf-card b{font-size:20px}.preview-stage .pdf-card small{color:var(--ink-3)}
+.preview-h .preview-save{flex-shrink:0;width:auto;height:auto;padding:7px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;background:transparent;color:#fff;font-size:var(--t-mini);font-weight:600;cursor:pointer}
+.preview-h .preview-save:disabled{opacity:.6}
 .preview-pager{position:absolute;left:0;right:0;bottom:22px;text-align:center;color:#fff;font-size:var(--t-cap);font-weight:700}
 .preview-hit{position:absolute;top:54px;bottom:0;width:50%;border:none;background:transparent}.preview-prev{left:0}.preview-next{right:0}
 .done-report{background:#fff;display:flex;flex-direction:column}
@@ -2044,7 +2046,7 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 
 <!-- 원본 리포트 미리보기 -->
 <div class="sub preview-sub" id="reportPreview">
-  <div class="preview-h"><button id="rpClose">✕</button><b id="rpTitle">1/1</b><span style="width:32px"></span></div>
+  <div class="preview-h"><button id="rpClose">✕</button><b id="rpTitle">1/1</b><button class="preview-save" id="rpSave">저장하기</button></div>
   <div class="preview-stage" id="rpStage"></div>
   <button class="preview-hit preview-prev" id="rpPrev" aria-label="이전 파일"></button>
   <button class="preview-hit preview-next" id="rpNext" aria-label="다음 파일"></button>
@@ -5859,6 +5861,16 @@ function renderReportPreview(){
   document.getElementById('rpStage').innerHTML=x.isPdf?`<div class="pdf-card"><b>PDF</b><small>${x.file.name}</small><small>PDF 원본 문서</small></div>`:`<img src="${x.url}" alt="원본 검진정보 리포트">`;
 }
 document.getElementById('rpClose').onclick=()=>document.getElementById('reportPreview').classList.remove('open');
+/* 화면에 띄운 원본 리포트를 그대로 내려받는다 */
+document.getElementById('rpSave').onclick=function(){
+  const x=reportFiles[reportPreviewIndex]; if(!x||!x.url) return;
+  const nm=(x.file&&x.file.name?x.file.name:'AI REPORT').replace(/[\\/:*?"<>|]/g,'').replace(/\.(webp|png|jpg|jpeg|pdf)$/i,'');
+  const a=document.createElement('a');
+  a.href=x.url; a.download=nm+(x.isPdf?'.pdf':'.webp');
+  document.body.appendChild(a); a.click(); a.remove();
+  const b=this; b.textContent='저장했어요'; b.disabled=true;
+  setTimeout(()=>{b.textContent='저장하기'; b.disabled=false;},1500);
+};
 document.getElementById('rpPrev').onclick=()=>{if(reportPreviewIndex>0){reportPreviewIndex--;renderReportPreview();}};
 document.getElementById('rpNext').onclick=()=>{if(reportPreviewIndex<reportFiles.length-1){reportPreviewIndex++;renderReportPreview();}};
 document.getElementById('rdView').onclick=()=>{document.getElementById('reportDone').classList.remove('open');navs.forEach((b,i)=>b.classList.toggle('on',i===2));show('hosp');renderHosp();};
