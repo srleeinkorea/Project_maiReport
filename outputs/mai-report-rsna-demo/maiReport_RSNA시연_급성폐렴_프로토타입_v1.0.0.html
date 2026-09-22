@@ -3532,13 +3532,11 @@ const CASE_DATA = {
     hdNum:{ steps:8210, kcal:388, active:50, hr:63, sleep:7.3, weight:68.4 }
   },
   sick:{
-    /* 자기돌봄은 '기회 대비 행동' 비율이라, 아파서 식사·활동 기준점 자체가 거의 없으면
-       유효 기회가 최소치(2)에 못 미쳐 산출하지 않는다 → 관찰 중.
-       기회가 없는 것을 낮은 구간으로 치환하지 않는다(생활지표 기획서 §I2 · 화면정의서 §6.5). */
-    metricState:{ margin:'low', selfcare:'none', steady:'low' },
-    metricNote:{ selfcare:'오늘은 챙길 순간이 아직 확인되지 않았어요.' },
-    metricWeek:{ margin:[74,42,26,22,null,null,null], selfcare:[68,40,null,null,null,null,null], steady:[72,46,28,22,null,null,null] },
-    metricEmpty:{ selfcare:{title:'아직 관찰 중이에요', body:'식사 뒤나 오래 앉아 있던 뒤처럼 몸을 챙길 순간이 있어야 계산할 수 있어요. 아픈 동안에는 그 순간 자체가 적어 판단하지 않고 기다려요.'} },
+    /* 시연에서는 세 지표가 모두 값을 가진 상태로 보여준다 —
+       발병 주에 세 축이 한꺼번에 내려가는 모습이 한 화면에서 보이게 하기 위함이다.
+       (실제 산식에서는 자기돌봄의 유효 기회가 2회 미만이면 관찰 중으로 빠질 수 있다) */
+    metricState:{ margin:'low', selfcare:'low', steady:'low' },
+    metricWeek:{ margin:[74,42,26,22,null,null,null], selfcare:[68,40,30,26,null,null,null], steady:[72,46,28,22,null,null,null] },
     metricIns:{
       margin:'월요일까지는 평소와 같았는데, <b>화요일부터 수면이 짧아지고 낮 활동이 거의 멈추면서</b> 여유가 사흘째 줄고 있어요.',
       selfcare:'식사 뒤나 오래 누워 있던 뒤에 <b>이어지는 움직임이 화요일부터 거의 없어요.</b> 아픈 동안에는 무리해서 채우지 않아도 돼요.',
