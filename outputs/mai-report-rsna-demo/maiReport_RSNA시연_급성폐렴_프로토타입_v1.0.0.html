@@ -2228,12 +2228,46 @@ const Q_ACUTE = [
           {v:'5to7',f:'—',label:'한두 번 깼어요', tone:'okay'},
           {v:'lt5', f:'⌢',label:'여러 번 깼어요', tone:'bad'}] }
 ];
-/* 질문 세트 — 급성기에는 증상 문항이 앞자리를 차지하고, 식이 두 문항(고정 · 회전)과
-   수면 문항이 뒤를 잇는다. 식이가 두 문항인 것은 아키텍처 규칙이라 줄이지 않는다. */
+/* 일반 사용자의 회전 문항 — 여덟 축을 요일로 돌린다.
+   (월 끼니 규칙은 별도 문항이 없어 고정 문항의 결식 답으로 쌓이므로 회전에서 빠진다) */
+const Q_ROTATION = {
+  2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬이 있었나요?`,
+      opts:[{v:'good',f:'⌣',label:'있었어요',   tone:'good'},
+            {v:'mid', f:'—',label:'조금 있었어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'없었어요',   tone:'bad'}] },
+  3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후로 단 음료나 단 간식을 드셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'안 드셨어요',  tone:'good'},
+            {v:'mid', f:'—',label:'한 번 드셨어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'여러 번 드셨어요',tone:'bad'}] },
+  4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL} 국물은 어느 정도 드셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'거의 안 드셨어요',tone:'good'},
+            {v:'mid', f:'—',label:'절반쯤 드셨어요', tone:'okay'},
+            {v:'bad', f:'⌢',label:'다 드셨어요',    tone:'bad'}] },
+  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}은 어떻게 마치셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'천천히 적당히',  tone:'good'},
+            {v:'mid', f:'—',label:'보통이었어요',   tone:'okay'},
+            {v:'bad', f:'⌢',label:'빠르게 배부르게',tone:'bad'}] },
+  6:{ id:'fat',   cat:'식이', av:'🍖', tint:'moon', text:`${LAST_MEAL}에 튀김이나 기름진 반찬이 있었나요?`,
+      opts:[{v:'good',f:'⌣',label:'없었어요',   tone:'good'},
+            {v:'mid', f:'—',label:'조금 있었어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'있었어요',   tone:'bad'}] }
+};
+function rotationQuestion(){
+  /* 요일 순환 — 시연 날짜(목요일)를 기준으로 고정한다.
+     앱의 나머지 화면이 같은 주 목요일을 오늘로 쓰고 있어, 실제 요일을 따르면 서로 어긋난다. */
+  const dow = 4;
+  return Q_ROTATION[dow] || Q_ROTATION[2];
+}
+/* 질문 세트
+   · 식이는 늘 두 문항(고정 + 회전)이다. 일반 사용자든 케이스가 있든 줄이지 않는다.
+   · 급성기에는 증상 문항이 앞자리를 차지하고, 회전 축은 회복 풀과 이어지는 단백질로 고정된다
+     (어제 고정 답이 '거의 못 먹음'이면 단백질 축, 확진 질환이 있으면 연결 축).
+   · 고정 답이 '거의 못 먹었어요'면 회전 문항은 묻지 않는다(pick에서 뺀다). */
 function pickQuestions(){
   const hasMedical = imp.checkup || imp.clinic || hasAiReport;
-  const meal = Q_BASE[2];
-  return hasMedical ? [Q_COND[0], Q_COND[1], Q_ACUTE[0], Q_ACUTE[1], Q_ACUTE[2]] : [Q_BASE[0], Q_BASE[1], meal];
+  return hasMedical
+    ? [Q_COND[0], Q_COND[1], Q_ACUTE[0], Q_ACUTE[1], Q_ACUTE[2]]
+    : [Q_ACUTE[0], rotationQuestion(), Q_BASE[0]];
 }
 let QUESTIONS = Q_BASE.slice(0,3);
 
@@ -2295,6 +2329,12 @@ function renderQ(){
 function pick(q,o,btn){
   if(lock) return; lock = true;
   ans[q.id] = o;
+  /* 거의 못 먹은 끼니에는 그 끼니의 행동을 물을 것이 없다 → 회전 문항을 빼고 넘어간다 */
+  if(q.id === 'meal' && o.v === 'skip'){
+    const rot = ['protein','veg','sweet','salt','pace','fat'];
+    QUESTIONS = QUESTIONS.filter(x=>!rot.includes(x.id));
+    rot.forEach(k=>{ delete ans[k]; });
+  }
   btn.parentElement.querySelectorAll('.q-opt').forEach(b=>{ if(b!==btn) b.classList.add('dim'); });
   btn.classList.add('on');
   setHeroTone(o.tone==='neutral' ? heroTone : o.tone);
@@ -2319,8 +2359,29 @@ function redFlag(){
     why:'38도가 넘는 열이 이어지고 있어요. 약을 시작한 뒤에도 열이 내리지 않으면 치료 방향을 다시 볼 필요가 있어요. 해열제를 드시기 전 체온과 시간을 적어 두면 진료에 도움이 돼요.'};
   return null;
 }
+/* 리포트가 없는 평소 상태의 코칭 — 식이 두 문항과 피로 답으로 만든다 */
+function coachingGeneral(){
+  const {meal,fatigue,veg,sweet,salt,pace,fat} = ans;
+  if(meal && meal.v==='skip') return {act:'다음 끼니는 거르지 말고 가볍게 챙겨 드세요.',
+    why:'한 끼를 거의 거르면 다음 끼니에 몰아 먹게 되기 쉬워요. 양보다 거르지 않는 것이 먼저예요.'};
+  if(salt && salt.v==='bad') return {act:'다음 끼니 국물은 절반만 드셔보세요.',
+    why:'국물에는 하루 나트륨의 상당 부분이 들어 있어요. 건더기 위주로 드시면 짠맛은 그대로 두고 양만 줄일 수 있어요.'};
+  if(veg && veg.v==='bad') return {act:'다음 끼니에 채소 반찬을 한 가지 더해보세요.',
+    why:'채소가 있으면 포만감이 커지고 식후 혈당이 덜 올라요.'};
+  if(sweet && sweet.v==='bad') return {act:'단 음료는 물이나 무가당 차로 바꿔보세요.',
+    why:'마시는 당은 배가 부르지 않아 그대로 더해져요.'};
+  if(pace && pace.v==='bad') return {act:'다음 끼니는 수저를 한 번씩 내려놓으며 드셔보세요.',
+    why:'배부름 신호는 먹기 시작하고 20분쯤 뒤에 와요.'};
+  if(fat && fat.v==='bad') return {act:'다음 끼니 기름진 반찬은 생선이나 두부로 바꿔보세요.',
+    why:'같은 단백질이라도 조리법에 따라 지방 양이 크게 달라져요.'};
+  if(fatigue && fatigue.v==='high') return {act:'오늘은 활동을 조금 줄이고 충분히 쉬어보세요.',
+    why:'피로도가 높은 날은 규칙적인 식사·수면과 가벼운 활동 위주로 보내는 것이 좋아요.'};
+  return {act:'오늘은 지금의 생활 리듬을 그대로 유지해보세요.',
+    why:'답변과 최근 데이터 모두 평소와 비슷해요. 식후 가벼운 걷기만 더해도 충분해요.'};
+}
 function coachingFor(){
   if(!allDone()) return C_BASE;
+  if(!hasAiReport) return coachingGeneral();
   const flag = redFlag();
   if(flag) return flag;
   const {breath,fever,sleep,meal,protein} = ans;
