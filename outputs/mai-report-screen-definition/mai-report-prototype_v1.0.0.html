@@ -29,7 +29,13 @@ button{font-family:inherit;letter-spacing:inherit}
 h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 .num,.sum .pct,.sum .rt b,.mc-sc,.m .sc,.dday b,.la-n div b,.gp-t .pc,.g-hd .cnt,.d-bd b,.mc-row span{font-variant-numeric:tabular-nums}
 
-.app{width:100%;max-width:430px;background:var(--page);min-height:100vh;position:relative}
+.app{width:100%;max-width:430px;background:var(--page);min-height:100vh;min-height:100dvh;position:relative}
+/* 구글 사이트처럼 iframe 안에 넣으면 화면 높이가 고정돼 아래가 잘린다.
+   이때는 앱이 내용만큼 늘어나고 바텀 네비가 화면 바닥이 아니라 내용 끝에 붙도록 바꾼다. */
+html.embed body{display:flex;flex-direction:column;align-items:center}
+html.embed .app{min-height:0;width:100%;max-width:430px}
+html.embed .content{padding-bottom:12px}
+html.embed .nav{position:sticky;width:100%;max-width:430px}
 .content{padding-bottom:80px}
 [hidden]{display:none !important}
 
@@ -2137,6 +2143,8 @@ h1,h2,h3{line-height:1.4;font-weight:700;letter-spacing:-.02em}
 </div>
 
 <script>
+/* iframe(구글 사이트 등)에 올렸는지 확인해 레이아웃을 맞춘다 */
+if(window.self !== window.top) document.documentElement.classList.add("embed");
 /* ════════════════════════════════════════════════════════════
    1. 오늘의 질문
    ════════════════════════════════════════════════════════════ */
