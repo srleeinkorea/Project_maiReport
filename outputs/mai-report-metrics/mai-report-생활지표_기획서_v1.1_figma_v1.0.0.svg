@@ -144,9 +144,9 @@
 <rect x="106" y="2054" width="1388" height="55" rx="0" fill="#FAFBFD"/>
 <text x="116" y="2076" font-family="Noto Sans KR" font-size="13" font-weight="700" fill="#1A2233" text-anchor="start">resting_hr</text>
 <text x="334" y="2076" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">HKQuantityTypeIdentifierRestingHeartRate</text>
-<text x="334" y="2095.5" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">(일 1값)</text>
-<text x="671" y="2076" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">HeartRate 샘플에서 일별 안정 시 대표값 산출</text>
-<text x="671" y="2095.5" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">(수면·저활동 구간의 하위 분위)</text>
+<text x="334" y="2095.5" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">애플 워치가 전달한 값 그대로 (일 1값)</text>
+<text x="671" y="2076" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">HeartRate 샘플 → 어제 하루를 5분 평균으로 묶어</text>
+<text x="671" y="2095.5" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">가장 낮은 값. 부담 크면 하루 최저 심박수</text>
 <text x="1008" y="2076" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">bpm/일</text>
 <text x="1206" y="2076" font-family="Noto Sans KR" font-size="13" font-weight="400" fill="#4B5468" text-anchor="start">I3 신호 · I1 해석 보조</text>
 <line x1="106" y1="2109" x2="1494" y2="2109" stroke="#E6EAF2" stroke-width="1"/>

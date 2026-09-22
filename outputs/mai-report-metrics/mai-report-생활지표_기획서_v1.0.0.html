@@ -186,7 +186,7 @@
         <tr><td class="k">movement_minutes</td><td>step_interval에서 직접 산출 (플랫폼 활동 시간 값 미사용)</td><td>동일 (<code>TOTAL_ACTIVE_TIME</code> 미사용)</td><td>분/일</td><td>I1 · I2 · I3 「활동 시간」</td></tr>
         <tr><td class="k">sleep_session</td><td><code>HKCategoryTypeIdentifierSleepAnalysis</code> (inBed / asleepCore·Deep·REM 구분)</td><td><code>Sleep</code> 세션 (start_time · end_time · stage). CSV <code>sleep_combined</code></td><td>취침·기상 시각, 총 수면 분</td><td>I1 D · I3 신호</td></tr>
         <tr><td class="k">workout_session</td><td><code>HKWorkout</code> (workoutActivityType · duration · start/end)</td><td><code>Exercise</code> 세션 (exercise_type · duration · start/end). 워치 자동 감지 세션 포함</td><td>세션 단위</td><td>I1 활동 구간 보강 · I2 행동 판정 보강 · 「운동 시간 · 운동 기록」</td></tr>
-        <tr><td class="k">resting_hr</td><td><code>HKQuantityTypeIdentifierRestingHeartRate</code> (일 1값)</td><td><code>HeartRate</code> 샘플에서 일별 안정 시 대표값 산출 (수면·저활동 구간의 하위 분위)</td><td>bpm/일</td><td>I3 신호 · I1 해석 보조</td></tr>
+        <tr><td class="k">resting_hr</td><td><code>HKQuantityTypeIdentifierRestingHeartRate</code> — 애플 워치가 전달한 값을 그대로 쓴다 (일 1값)</td><td><code>HeartRate</code> 샘플에서 산출 — <b>어제 하루의 심박 샘플을 5분 평균으로 묶고, 그중 가장 낮은 값</b>을 그날의 안정 시 심박으로 한다. 구현 부담이 크면 하루 최저 심박수를 그대로 노출해도 된다</td><td>bpm/일</td><td>I3 신호 · I1 해석 보조</td></tr>
         <tr><td class="k">body_weight</td><td><code>HKQuantityTypeIdentifierBodyMass</code></td><td><code>BodyComposition</code> (weight)</td><td>kg, 기록 있는 날만</td><td>I3 해석 보조 · 핵심 데이터 목록</td></tr>
         <tr><td class="k">meal_time</td><td colspan="2">디바이스 원본 없음 — 앱 내 식사 시각 기록(사용자 입력)</td><td>시각</td><td>I2 기준점</td></tr>
         <tr><td class="k">answer</td><td colspan="2">디바이스 원본 없음 — 오늘의 질문 응답</td><td>범주</td><td>해석·코칭 보조(산식 비반영)</td></tr>
