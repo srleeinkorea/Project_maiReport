@@ -2512,22 +2512,48 @@ let goals = BASE_GOALS.map(g=>({...g, state:'pending'}));
    이 케이스는 진료정보에 폐렴이 있어 확진 질환 경로에서 단백질 축이 열린다.
    단계는 실제로는 최근 7일 완료 횟수로 오르내리지만(7일 3회↑ · 연속 2회↓),
    시연에서는 하루만 보므로 회전 문항 답으로 대신 고른다. */
+/* ── 대상 끼니 ──
+   목표는 앞으로 올 끼니에 붙는다. 지금 시각에서 다음에 오는 끼니를 대상으로 삼고,
+   끼니가 박힌 문구(「아침에도 채소 한 가지」)는 대상 끼니와 같을 때만 쓴다.
+   지난 끼니를 가리키는 문구는 오늘 실행할 수 없기 때문이다. */
+function targetMeal(h){
+  const hh = (h==null) ? new Date().getHours() : h;
+  if(hh < 9)  return '오늘 아침';
+  if(hh < 14) return '오늘 점심';
+  if(hh < 21) return '오늘 저녁';
+  return '내일 아침';
+}
+const TARGET_MEAL = targetMeal();
+const MEAL_WORDS = ['아침','점심','저녁'];
+function fitsTarget(p){
+  const word = MEAL_WORDS.find(w=>p.title.includes(w));
+  return !word || TARGET_MEAL.includes(word);      /* 끼니가 없는 문구는 어느 끼니에나 쓴다 */
+}
+/* 대상 끼니에 맞는 문구를 고르고, 없으면 끼니가 박히지 않은 문구로 내린다 */
+function pickPhrase(arr, fallback){
+  const ok = (arr||[]).filter(fitsTarget);
+  if(ok.length) return ok[0];
+  const any = (fallback||[]).filter(fitsTarget);
+  return any[0] || (arr||[])[0];
+}
 function mealGoal(b){
   const {meal,protein,fever,fatigue,salt,veg,sweet,pace,fat} = ans;
   const pick = (arr, i) => arr[i % arr.length];
   if(!hasAiReport){
     /* 평소 상태의 축 선정 — 회복 풀 → (확진·검진 없음) → 부담 줄이기 풀 → 일반(요일 순환 축) */
     if(meal && (meal.v==='skip' || meal.v==='less'))
-      { const p = pick(MEAL_PHRASES.recovery, meal.v==='skip' ? 2 : 3); return {...b, title:p.title, why:p.why, how:`대상 끼니 · ${LAST_MEAL} 다음 끼니부터`}; }
+      { const p = pickPhrase(MEAL_PHRASES.recovery.slice(meal.v==='skip' ? 2 : 3), MEAL_PHRASES.recovery);
+        return {...b, title:p.title, why:p.why, how:`대상 끼니 · ${TARGET_MEAL}`}; }
     /* 피로 문항은 여기에 쓰인다 — 피곤한 날에는 축·단계를 따지지 않고 부담이 적은 문구를 낸다
        (수면 5시간 미만도 같은 조건이지만 평소 세트에는 수면 문항이 없어 피로 답만 본다) */
     if(fatigue && fatigue.v==='high')
-      { const p = pick(MEAL_PHRASES.burden, 0); return {...b, title:p.title, why:p.why, how:'부담 줄이기 · 피곤한 날'}; }
+      { const p = pickPhrase(MEAL_PHRASES.burden); return {...b, title:p.title, why:p.why, how:`부담 줄이기 · ${TARGET_MEAL}`}; }
     /* 오늘 물은 회전 축의 답으로 단계를 정하고, 그 축의 문구세트에서 고른다 */
     const axis = salt ? {k:'salt', nm:'짠맛 · 국물', a:salt} : {k:'veg', nm:'채소', a:veg};
     const step = !axis.a ? '입문' : axis.a.v==='bad' ? '입문' : axis.a.v==='mid' ? '기본' : '도전';
-    const p = pick(MEAL_PHRASES[axis.k][step], 0);
-    return {...b, title:p.title, why:p.why, how:`${axis.nm} · ${step} 단계`};
+    const set = MEAL_PHRASES[axis.k];
+    const p = pickPhrase(set[step], [...set.입문, ...set.기본, ...set.도전]);
+    return {...b, title:p.title, why:p.why, how:`${axis.nm} · ${step} 단계 · ${TARGET_MEAL}`};
   }
   if(meal && (meal.v==='skip' || meal.v==='less')){          /* ① 회복 풀 — 1순위 */
     const idx = meal.v==='skip' ? 2 : 3;                      /* 거의 못 먹음 → 반 그릇 · 조금 적게 → 나눠 먹기 */
@@ -2536,8 +2562,9 @@ function mealGoal(b){
   }
   /* ② 확진 질환(폐렴) → 단백질 축. 회전 문항 답으로 단계를 고른다 */
   const step = !protein ? '입문' : protein.v==='bad' ? '입문' : protein.v==='mid' ? '기본' : '도전';
-  const p = pick(MEAL_PHRASES.protein[step], 0);
-  return {...b, title:p.title, why:p.why, how:`단백질 · ${step} 단계`};
+  const pr = MEAL_PHRASES.protein;
+  const p = pickPhrase(pr[step], [...pr.입문, ...pr.기본, ...pr.도전]);
+  return {...b, title:p.title, why:p.why, how:`단백질 · ${step} 단계 · ${TARGET_MEAL}`};
 }
 function adjust(b){
   const {breath} = ans;
