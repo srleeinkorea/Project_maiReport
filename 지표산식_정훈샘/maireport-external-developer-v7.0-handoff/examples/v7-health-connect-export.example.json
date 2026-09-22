@@ -1,0 +1,58 @@
+{
+  "provider": "health_connect",
+  "user_timezone": "Asia/Seoul",
+  "source_identity": "health-connect-records",
+  "records": {
+    "steps": [
+      {"startTime":"2026-09-01T08:00:00+09:00","endTime":"2026-09-01T08:30:00+09:00","count":1800,"metadata":{"id":"hc-step-0901-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-01T18:00:00+09:00","endTime":"2026-09-01T18:30:00+09:00","count":2200,"metadata":{"id":"hc-step-0901-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-02T08:00:00+09:00","endTime":"2026-09-02T08:30:00+09:00","count":1900,"metadata":{"id":"hc-step-0902-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-02T18:00:00+09:00","endTime":"2026-09-02T18:30:00+09:00","count":2300,"metadata":{"id":"hc-step-0902-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-03T08:00:00+09:00","endTime":"2026-09-03T08:30:00+09:00","count":2000,"metadata":{"id":"hc-step-0903-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-03T18:00:00+09:00","endTime":"2026-09-03T18:30:00+09:00","count":2400,"metadata":{"id":"hc-step-0903-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-04T08:00:00+09:00","endTime":"2026-09-04T08:30:00+09:00","count":2100,"metadata":{"id":"hc-step-0904-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-04T18:00:00+09:00","endTime":"2026-09-04T18:30:00+09:00","count":2500,"metadata":{"id":"hc-step-0904-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-05T08:00:00+09:00","endTime":"2026-09-05T08:30:00+09:00","count":2200,"metadata":{"id":"hc-step-0905-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-05T18:00:00+09:00","endTime":"2026-09-05T18:30:00+09:00","count":2600,"metadata":{"id":"hc-step-0905-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-06T08:00:00+09:00","endTime":"2026-09-06T08:30:00+09:00","count":2300,"metadata":{"id":"hc-step-0906-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-06T18:00:00+09:00","endTime":"2026-09-06T18:30:00+09:00","count":2700,"metadata":{"id":"hc-step-0906-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-07T08:00:00+09:00","endTime":"2026-09-07T08:30:00+09:00","count":2400,"metadata":{"id":"hc-step-0907-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-07T18:00:00+09:00","endTime":"2026-09-07T18:30:00+09:00","count":2800,"metadata":{"id":"hc-step-0907-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-08T08:00:00+09:00","endTime":"2026-09-08T08:30:00+09:00","count":2500,"metadata":{"id":"hc-step-0908-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-08T18:00:00+09:00","endTime":"2026-09-08T18:30:00+09:00","count":2900,"metadata":{"id":"hc-step-0908-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-09T08:00:00+09:00","endTime":"2026-09-09T08:30:00+09:00","count":2600,"metadata":{"id":"hc-step-0909-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-09T18:00:00+09:00","endTime":"2026-09-09T18:30:00+09:00","count":3000,"metadata":{"id":"hc-step-0909-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-10T08:00:00+09:00","endTime":"2026-09-10T08:30:00+09:00","count":2700,"metadata":{"id":"hc-step-0910-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-10T18:00:00+09:00","endTime":"2026-09-10T18:30:00+09:00","count":3100,"metadata":{"id":"hc-step-0910-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-11T08:00:00+09:00","endTime":"2026-09-11T08:30:00+09:00","count":2800,"metadata":{"id":"hc-step-0911-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-11T18:00:00+09:00","endTime":"2026-09-11T18:30:00+09:00","count":3200,"metadata":{"id":"hc-step-0911-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-12T08:00:00+09:00","endTime":"2026-09-12T08:30:00+09:00","count":2900,"metadata":{"id":"hc-step-0912-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-12T18:00:00+09:00","endTime":"2026-09-12T18:30:00+09:00","count":3300,"metadata":{"id":"hc-step-0912-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-13T08:00:00+09:00","endTime":"2026-09-13T08:30:00+09:00","count":3000,"metadata":{"id":"hc-step-0913-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-13T18:00:00+09:00","endTime":"2026-09-13T18:30:00+09:00","count":3400,"metadata":{"id":"hc-step-0913-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-14T08:00:00+09:00","endTime":"2026-09-14T08:30:00+09:00","count":3100,"metadata":{"id":"hc-step-0914-a","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}},
+      {"startTime":"2026-09-14T18:00:00+09:00","endTime":"2026-09-14T18:30:00+09:00","count":3500,"metadata":{"id":"hc-step-0914-b","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"},"recordingMethod":0}}
+    ],
+    "sleep_sessions": [
+      {"startTime":"2026-08-31T23:00:00+09:00","endTime":"2026-09-01T07:00:00+09:00","stages":[{"startTime":"2026-08-31T23:00:00+09:00","endTime":"2026-09-01T07:00:00+09:00","stage":2}],"metadata":{"id":"hc-sleep-0901","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"}}},
+      {"startTime":"2026-09-01T23:00:00+09:00","endTime":"2026-09-02T07:00:00+09:00","stages":[{"startTime":"2026-09-01T23:00:00+09:00","endTime":"2026-09-02T07:00:00+09:00","stage":2}],"metadata":{"id":"hc-sleep-0902","dataOrigin":{"packageName":"com.google.android.apps.healthdata"},"device":{"manufacturer":"Google","model":"Pixel"}}},
+      {"startTime":"2026-09-02T23:00:00+09:00","endTime":"2026-09-03T07:00:00+09:00","metadata":{"id":"hc-sleep-0903","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-03T23:00:00+09:00","endTime":"2026-09-04T07:00:00+09:00","metadata":{"id":"hc-sleep-0904","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-04T23:00:00+09:00","endTime":"2026-09-05T07:00:00+09:00","metadata":{"id":"hc-sleep-0905","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-05T23:00:00+09:00","endTime":"2026-09-06T07:00:00+09:00","metadata":{"id":"hc-sleep-0906","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-06T23:00:00+09:00","endTime":"2026-09-07T07:00:00+09:00","metadata":{"id":"hc-sleep-0907","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-07T23:00:00+09:00","endTime":"2026-09-08T07:00:00+09:00","metadata":{"id":"hc-sleep-0908","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-08T23:00:00+09:00","endTime":"2026-09-09T07:00:00+09:00","metadata":{"id":"hc-sleep-0909","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-09T23:00:00+09:00","endTime":"2026-09-10T07:00:00+09:00","metadata":{"id":"hc-sleep-0910","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-10T23:00:00+09:00","endTime":"2026-09-11T07:00:00+09:00","metadata":{"id":"hc-sleep-0911","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-11T23:00:00+09:00","endTime":"2026-09-12T07:00:00+09:00","metadata":{"id":"hc-sleep-0912","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-12T23:00:00+09:00","endTime":"2026-09-13T07:00:00+09:00","metadata":{"id":"hc-sleep-0913","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-13T23:00:00+09:00","endTime":"2026-09-14T07:00:00+09:00","metadata":{"id":"hc-sleep-0914","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}}
+    ],
+    "exercise_sessions": [
+      {"startTime":"2026-09-03T07:00:00+09:00","endTime":"2026-09-03T07:30:00+09:00","exerciseType":"WALKING","metadata":{"id":"hc-ex-0903","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-07T07:00:00+09:00","endTime":"2026-09-07T07:40:00+09:00","exerciseType":"WALKING","metadata":{"id":"hc-ex-0907","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}},
+      {"startTime":"2026-09-11T07:00:00+09:00","endTime":"2026-09-11T08:00:00+09:00","exerciseType":"RUNNING","metadata":{"id":"hc-ex-0911","dataOrigin":{"packageName":"com.google.android.apps.healthdata"}}}
+    ]
+  }
+}

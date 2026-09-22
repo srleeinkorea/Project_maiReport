@@ -1,0 +1,24 @@
+{
+  "provider": "health_connect",
+  "user_timezone": "Asia/Seoul",
+  "source_identity": "samsung_health_via_health_connect",
+  "allowed_data_origin_packages": ["com.sec.android.app.shealth"],
+  "records": {
+    "steps": [
+      {"startTime":"2026-09-01T08:00:00+09:00","endTime":"2026-09-01T09:00:00+09:00","count":4200,"metadata":{"id":"sh-hc-0901","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-02T08:00:00+09:00","endTime":"2026-09-02T09:00:00+09:00","count":4400,"metadata":{"id":"sh-hc-0902","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-03T08:00:00+09:00","endTime":"2026-09-03T09:00:00+09:00","count":4600,"metadata":{"id":"sh-hc-0903","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-04T08:00:00+09:00","endTime":"2026-09-04T09:00:00+09:00","count":4800,"metadata":{"id":"sh-hc-0904","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-05T08:00:00+09:00","endTime":"2026-09-05T09:00:00+09:00","count":5000,"metadata":{"id":"sh-hc-0905","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-06T08:00:00+09:00","endTime":"2026-09-06T09:00:00+09:00","count":5200,"metadata":{"id":"sh-hc-0906","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-07T08:00:00+09:00","endTime":"2026-09-07T09:00:00+09:00","count":5400,"metadata":{"id":"sh-hc-0907","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-08T08:00:00+09:00","endTime":"2026-09-08T09:00:00+09:00","count":5600,"metadata":{"id":"sh-hc-0908","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-09T08:00:00+09:00","endTime":"2026-09-09T09:00:00+09:00","count":5800,"metadata":{"id":"sh-hc-0909","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-10T08:00:00+09:00","endTime":"2026-09-10T09:00:00+09:00","count":6000,"metadata":{"id":"sh-hc-0910","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-11T08:00:00+09:00","endTime":"2026-09-11T09:00:00+09:00","count":6200,"metadata":{"id":"sh-hc-0911","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-12T08:00:00+09:00","endTime":"2026-09-12T09:00:00+09:00","count":6400,"metadata":{"id":"sh-hc-0912","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-13T08:00:00+09:00","endTime":"2026-09-13T09:00:00+09:00","count":6600,"metadata":{"id":"sh-hc-0913","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}},
+      {"startTime":"2026-09-14T08:00:00+09:00","endTime":"2026-09-14T09:00:00+09:00","count":6800,"metadata":{"id":"sh-hc-0914","dataOrigin":{"packageName":"com.sec.android.app.shealth"},"device":{"manufacturer":"samsung","model":"Galaxy Watch"}}}
+    ]
+  }
+}

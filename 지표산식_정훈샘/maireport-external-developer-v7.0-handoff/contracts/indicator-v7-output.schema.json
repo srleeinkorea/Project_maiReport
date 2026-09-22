@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "maiReport v7 indicator output",
+  "type": "object",
+  "required": ["formula_version", "results"],
+  "additionalProperties": false,
+  "properties": {
+    "formula_version": {"const": "v7.0"},
+    "results": {
+      "type": "object",
+      "required": ["I1", "I2", "I3"],
+      "additionalProperties": false,
+      "properties": {
+        "I1": {"$ref": "#/$defs/result"},
+        "I2": {"$ref": "#/$defs/result"},
+        "I3": {"$ref": "#/$defs/result"}
+      }
+    }
+  },
+  "$defs": {
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "raw_score", "display_score_0_100", "category"],
+      "properties": {
+        "status": {"enum": ["available", "context_only", "insufficient", "unknown"]},
+        "raw_score": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "display_score_0_100": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+        "category": {"enum": ["low", "middle", "high", null]},
+        "coverage": {"$ref": "#/$defs/coverage"},
+        "provenance": {"type": "array", "items": {"type": "string"}},
+        "components": {"type": "object", "additionalProperties": {"type": "number"}},
+        "calculated_for_day": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"}
+      }
+    },
+    "coverage": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "mode": {"type": "string"},
+        "available_components": {"type": "array", "items": {"type": "string"}},
+        "evidence_level": {"type": "string"},
+        "recent_days": {"type": "integer", "minimum": 0},
+        "baseline_days": {"type": "integer", "minimum": 0},
+        "components": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

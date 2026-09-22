@@ -1,0 +1,192 @@
+{
+  "sleep_routine_only_14_days": {
+    "status": "insufficient",
+    "raw_score": null,
+    "display_score_0_100": null,
+    "category": null,
+    "coverage": {
+      "recent_days": 7,
+      "baseline_days": 7,
+      "components": 0
+    },
+    "provenance": [],
+    "calculated_for_day": "2026-09-14"
+  },
+  "midnight_clock_standard_deviation": 335.88192369740096,
+  "partition_boundary": {
+    "mode": "rich",
+    "movement_minutes": 20.0,
+    "active_partition_count": 1,
+    "partition_count": 8,
+    "activity_concentration": 1.0,
+    "sleep_shortfall_minutes": null
+  },
+  "cross_midnight_steps": {
+    "mode": "rich",
+    "movement_minutes": 20.0,
+    "active_partition_count": 1,
+    "partition_count": 8,
+    "activity_concentration": 1.0,
+    "sleep_shortfall_minutes": null
+  },
+  "overlap_volume": {
+    "volume": 300.0,
+    "active_minutes": null,
+    "movement_bouts": 2,
+    "exercise_sessions": 0,
+    "exercise_minutes": 0.0,
+    "action_opportunities": null,
+    "action_completed": null,
+    "action_unresolved": null,
+    "bedtime_minute_local": null,
+    "wake_time_minute_local": null
+  },
+  "8h_session_6h_asleep": {
+    "day": "2026-09-02",
+    "source": {
+      "provider": "health_connect",
+      "metric": "steps",
+      "unit": "count",
+      "source_identity": "health_connect",
+      "provenance_status": "health_connect_record_metadata",
+      "data_origin_packages": [],
+      "record_ids": [],
+      "observation_status": "missing"
+    },
+    "sleep": {
+      "sessions": [
+        {
+          "start": "2026-09-01T23:00:00+09:00",
+          "end": "2026-09-02T07:00:00+09:00",
+          "stages": [
+            {
+              "startTime": "2026-09-01T23:00:00+09:00",
+              "endTime": "2026-09-02T01:00:00+09:00",
+              "stage": 1
+            },
+            {
+              "startTime": "2026-09-02T01:00:00+09:00",
+              "endTime": "2026-09-02T07:00:00+09:00",
+              "stage": 2
+            }
+          ],
+          "provenance": {
+            "metadata_id": "sleep",
+            "client_record_id": null,
+            "data_origin_package": "test.origin",
+            "device": {},
+            "recording_method": null
+          }
+        }
+      ]
+    },
+    "i1": {
+      "mode": "context_only",
+      "movement_minutes": 0,
+      "active_partition_count": 0,
+      "partition_count": 8,
+      "activity_concentration": null,
+      "sleep_shortfall_minutes": 0.0
+    },
+    "i2": {
+      "daily_steps": null,
+      "post_anchor_action_credit": null,
+      "inactivity_break_credit": null,
+      "movement_distribution_credit": null
+    },
+    "i3": {
+      "volume": null,
+      "active_minutes": 0,
+      "movement_bouts": 0,
+      "exercise_sessions": 0,
+      "exercise_minutes": 0.0,
+      "action_opportunities": null,
+      "action_completed": null,
+      "action_unresolved": null,
+      "bedtime_minute_local": null,
+      "wake_time_minute_local": null
+    }
+  },
+  "missing_exercise": 0.0,
+  "i2_cap": {
+    "status": "available",
+    "raw_score": 85.0,
+    "display_score_0_100": 85.0,
+    "category": "high",
+    "coverage": {
+      "available_components": [
+        "daily_step_volume",
+        "movement_distribution"
+      ],
+      "evidence_level": "partial_context"
+    },
+    "provenance": [
+      "normalized_v7_input"
+    ],
+    "components": {
+      "daily_step_volume": 1.0,
+      "movement_distribution": 1
+    }
+  },
+  "duplicate_calendar_days": {
+    "status": "available",
+    "raw_score": 65.0,
+    "display_score_0_100": 87.5,
+    "category": "high",
+    "coverage": {
+      "recent_days": 3,
+      "baseline_days": 3,
+      "components": [
+        "volume",
+        "persistence"
+      ]
+    },
+    "provenance": [
+      "normalized_v7_input",
+      "7_day_vs_7_day"
+    ],
+    "components": {
+      "volume": 1.0,
+      "persistence": 0.0
+    },
+    "calculated_for_day": "2026-09-08"
+  },
+  "i1_sleep_only": {
+    "status": "available",
+    "raw_score": 90.0,
+    "display_score_0_100": 100.0,
+    "category": "high",
+    "coverage": {
+      "available_components": [
+        "sleep"
+      ]
+    },
+    "provenance": [
+      "normalized_v7_input"
+    ],
+    "components": {
+      "sleep": 1.0
+    }
+  },
+  "duration_granularity": {
+    "1": 1.0,
+    "60": 60.0
+  },
+  "i1_240_vs_480": [
+    85.0,
+    72.5
+  ],
+  "output_contract_type_mismatch": {
+    "schema_available_components_type": "array",
+    "actual_i1_insufficient_coverage": {
+      "available_components": 0
+    },
+    "schema_components_type": "array",
+    "actual_i3_no_components_coverage": {
+      "recent_days": 7,
+      "baseline_days": 7,
+      "components": 0
+    }
+  },
+  "output_schema_errors": "jsonschema unavailable"
+}

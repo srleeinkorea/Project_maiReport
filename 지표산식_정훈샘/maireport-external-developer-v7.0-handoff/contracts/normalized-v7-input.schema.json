@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "maiReport v7 normalized input",
+  "type": "object",
+  "required": ["formula_version", "user_timezone", "days"],
+  "additionalProperties": false,
+  "properties": {
+    "formula_version": {"const": "v7.0"},
+    "adapter_diagnostics": {"$ref": "#/$defs/adapter_diagnostics"},
+    "user_timezone": {"type": "string", "minLength": 1},
+    "days": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/day"}}
+  },
+  "$defs": {
+    "number_or_null": {"type": ["number", "null"], "minimum": 0},
+    "source": {
+      "type": "object",
+      "required": ["provider", "metric", "unit", "source_identity", "provenance_status", "observation_status"],
+      "additionalProperties": false,
+      "properties": {
+        "provider": {"type": "string", "minLength": 1},
+        "metric": {"type": "string", "minLength": 1},
+        "unit": {"type": "string", "minLength": 1},
+        "source_identity": {"type": ["string", "null"]},
+        "provenance_status": {"type": "string", "minLength": 1},
+        "observation_status": {"enum": ["observed", "missing", "nonwear", "unknown"]},
+        "data_origin_packages": {"type": "array", "items": {"type": "string"}},
+        "record_ids": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "day": {
+      "type": "object",
+      "required": ["day", "source", "i1", "i2", "i3"],
+      "additionalProperties": false,
+      "properties": {
+        "day": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+        "source": {"$ref": "#/$defs/source"},
+        "sleep": {"$ref": "#/$defs/sleep"},
+        "i1": {"$ref": "#/$defs/i1"},
+        "i2": {"$ref": "#/$defs/i2"},
+        "i3": {"$ref": "#/$defs/i3"}
+      }
+    },
+    "nonnegative_or_null": {"type": ["number", "null"], "minimum": 0},
+    "credit_or_null": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "i1": {
+      "type": "object", "additionalProperties": false,
+      "required": ["mode", "movement_minutes", "active_partition_count", "partition_count", "activity_concentration", "sleep_shortfall_minutes"],
+      "properties": {
+        "mode": {"enum": ["rich", "context_only"]},
+        "movement_minutes": {"$ref": "#/$defs/nonnegative_or_null"},
+        "active_partition_count": {"type": ["integer", "null"], "minimum": 0},
+        "partition_count": {"type": ["integer", "null"], "minimum": 1},
+        "activity_concentration": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "sleep_shortfall_minutes": {"$ref": "#/$defs/nonnegative_or_null"}
+      }
+    },
+    "i2": {
+      "type": "object", "additionalProperties": false,
+      "required": ["daily_steps", "post_anchor_action_credit", "inactivity_break_credit", "movement_distribution_credit"],
+      "properties": {
+        "daily_steps": {"$ref": "#/$defs/nonnegative_or_null"},
+        "post_anchor_action_credit": {"$ref": "#/$defs/credit_or_null"},
+        "inactivity_break_credit": {"$ref": "#/$defs/credit_or_null"},
+        "movement_distribution_credit": {"$ref": "#/$defs/credit_or_null"}
+      }
+    },
+    "i3": {
+      "type": "object", "additionalProperties": false,
+      "required": ["volume", "active_minutes", "movement_bouts", "exercise_sessions", "exercise_minutes", "action_opportunities", "action_completed", "action_unresolved", "bedtime_minute_local", "wake_time_minute_local"],
+      "properties": {
+        "volume": {"$ref": "#/$defs/nonnegative_or_null"},
+        "active_minutes": {"$ref": "#/$defs/nonnegative_or_null"},
+        "movement_bouts": {"type": ["integer", "null"], "minimum": 0},
+        "exercise_sessions": {"type": ["integer", "null"], "minimum": 0},
+        "exercise_minutes": {"$ref": "#/$defs/nonnegative_or_null"},
+        "action_opportunities": {"$ref": "#/$defs/nonnegative_or_null"},
+        "action_completed": {"$ref": "#/$defs/nonnegative_or_null"},
+        "action_unresolved": {"$ref": "#/$defs/nonnegative_or_null"},
+        "bedtime_minute_local": {"type": ["integer", "null"], "minimum": 0, "maximum": 1439},
+        "wake_time_minute_local": {"type": ["integer", "null"], "minimum": 0, "maximum": 1439}
+      }
+    },
+    "sleep": {
+      "type": "object", "additionalProperties": false, "required": ["sessions"],
+      "properties": {
+        "sessions": {"type": "array", "items": {"$ref": "#/$defs/sleep_session"}}
+      }
+    },
+    "sleep_session": {
+      "type": "object", "additionalProperties": false,
+      "required": ["start", "end", "stages", "provenance"],
+      "properties": {
+        "start": {"type": "string", "minLength": 1},
+        "end": {"type": "string", "minLength": 1},
+        "stages": {"type": "array", "items": {"$ref": "#/$defs/sleep_stage"}},
+        "provenance": {"type": "object"}
+      }
+    },
+    "sleep_stage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["startTime", "endTime", "stage"],
+      "properties": {
+        "startTime": {"type": "string", "minLength": 1},
+        "endTime": {"type": "string", "minLength": 1},
+        "stage": {"type": "integer", "minimum": 0}
+      }
+    },
+    "adapter_diagnostics": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "provider": {"type": "string"},
+        "allowed_data_origin_packages": {"type": "array", "items": {"type": "string"}},
+        "rejected_rows": {"type": "array", "items": {"type": "object"}},
+        "dedupe_key": {"type": "string"},
+        "sleep_day_attribution": {"type": "string"}
+      }
+    }
+  }
+}

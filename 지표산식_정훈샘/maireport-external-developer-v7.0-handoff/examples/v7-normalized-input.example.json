@@ -1,0 +1,43 @@
+{
+  "formula_version": "v7.0",
+  "user_timezone": "Asia/Seoul",
+  "days": [
+    {
+      "day": "2026-01-01",
+      "source": {
+        "provider": "apple_health",
+        "metric": "steps",
+        "unit": "count_per_local_day",
+        "source_identity": "phone-only-sample",
+        "provenance_status": "native_export",
+        "observation_status": "observed"
+      },
+      "i1": {
+        "mode": "rich",
+        "movement_minutes": 120,
+        "active_partition_count": 4,
+        "partition_count": 8,
+        "activity_concentration": 0.35,
+        "sleep_shortfall_minutes": 30
+      },
+      "i2": {
+        "daily_steps": 8000,
+        "post_anchor_action_credit": 0.5,
+        "inactivity_break_credit": 0.7,
+        "movement_distribution_credit": 0.6
+      },
+      "i3": {
+        "volume": 8000,
+        "active_minutes": 120,
+        "movement_bouts": 5,
+        "exercise_sessions": 1,
+        "exercise_minutes": 30,
+        "action_opportunities": null,
+        "action_completed": null,
+        "action_unresolved": null,
+        "bedtime_minute_local": 1380,
+        "wake_time_minute_local": 420
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "timezone_rule": "Use the timezone supplied by the user's service profile. Never infer it from provider timestamps.",
+  "apple_health": {
+    "steps": {"value": "HKQuantityTypeIdentifierStepCount.value", "start": "HKQuantityTypeIdentifierStepCount.startDate", "end": "HKQuantityTypeIdentifierStepCount.endDate"},
+    "sleep_stage": {"value": "HKCategoryTypeIdentifierSleepAnalysis.value", "start": "HKCategoryTypeIdentifierSleepAnalysis.startDate", "end": "HKCategoryTypeIdentifierSleepAnalysis.endDate"},
+    "workout": {"type": "Workout.workoutActivityType", "start": "Workout.startDate", "end": "Workout.endDate", "duration": "Workout.duration", "duration_unit": "Workout.durationUnit"},
+    "heart_rate": {"value": "HKQuantityTypeIdentifierHeartRate.value", "start": "HKQuantityTypeIdentifierHeartRate.startDate", "end": "HKQuantityTypeIdentifierHeartRate.endDate"},
+    "resting_heart_rate": {"value": "HKQuantityTypeIdentifierRestingHeartRate.value", "start": "HKQuantityTypeIdentifierRestingHeartRate.startDate", "end": "HKQuantityTypeIdentifierRestingHeartRate.endDate"},
+    "hrv_sdnn": {"value": "HKQuantityTypeIdentifierHeartRateVariabilitySDNN.value", "start": "HKQuantityTypeIdentifierHeartRateVariabilitySDNN.startDate", "end": "HKQuantityTypeIdentifierHeartRateVariabilitySDNN.endDate"},
+    "heart_rate_recovery": {"value": "HKQuantityTypeIdentifierHeartRateRecoveryOneMinute.value", "start": "HKQuantityTypeIdentifierHeartRateRecoveryOneMinute.startDate"}
+  },
+  "samsung_health": {
+    "daily_steps": {"value": "com.samsung.shealth.tracker.pedometer_day_summary.step_count", "day": "com.samsung.shealth.tracker.pedometer_day_summary.day_time"},
+    "native_total_steps": {"record": "step_daily_trend", "value": "count", "day": "day_time", "source_type": -2},
+    "step_interval": {"start": "com.samsung.health.step_count.start_time", "end": "com.samsung.health.step_count.end_time", "value": "com.samsung.health.step_count.count"},
+    "sleep_stage": {"stage": "com.samsung.health.sleep_stage.stage", "start": "com.samsung.health.sleep_stage.start_time", "end": "com.samsung.health.sleep_stage.end_time"},
+    "sleep_session": {"start": "com.samsung.health.sleep.start_time", "end": "com.samsung.health.sleep.end_time", "duration": "com.samsung.health.sleep.sleep_duration"},
+    "workout": {"start": "com.samsung.health.exercise.start_time", "end": "com.samsung.health.exercise.end_time", "duration": "com.samsung.health.exercise.duration", "mean_hr": "com.samsung.health.exercise.mean_heart_rate", "max_hr": "com.samsung.health.exercise.max_heart_rate", "id": "com.samsung.health.exercise.datauuid"},
+    "hrv": {"rmssd": "com.samsung.health.hrv.rmssd", "sdnn": "com.samsung.health.hrv.sdnn", "start": "com.samsung.health.hrv.start_time", "end": "com.samsung.health.hrv.end_time"}
+  },
+  "health_connect": {
+    "known_data_origins": {"samsung_health": "com.sec.android.app.shealth", "health_connect_on_device": "android_or_device_specific_spn"},
+    "steps_record": {"start": "StepsRecord.startTime", "end": "StepsRecord.endTime", "value": "StepsRecord.count", "metadata_id": "Metadata.id", "data_origin": "Metadata.dataOrigin.packageName", "device": "Metadata.device"},
+    "sleep_session_record": {"start": "SleepSessionRecord.startTime", "end": "SleepSessionRecord.endTime", "stages": "SleepSessionRecord.stages[]", "metadata_id": "Metadata.id", "data_origin": "Metadata.dataOrigin.packageName", "device": "Metadata.device"},
+    "exercise_session_record": {"start": "ExerciseSessionRecord.startTime", "end": "ExerciseSessionRecord.endTime", "type": "ExerciseSessionRecord.exerciseType", "metadata_id": "Metadata.id", "data_origin": "Metadata.dataOrigin.packageName", "device": "Metadata.device"},
+    "aggregate_daily_steps": {"value": "StepsRecord.COUNT_TOTAL", "purpose": "daily_total_context_only", "not_for": ["timestamped_distribution", "gap_reactivation"]},
+    "sleep_stage_values": {"UNKNOWN": 0, "AWAKE": 1, "SLEEPING": 2, "OUT_OF_BED": 3, "LIGHT": 4, "DEEP": 5, "REM": 6, "AWAKE_IN_BED": 7},
+    "read_permissions": ["READ_STEPS", "READ_SLEEP", "READ_EXERCISE"]
+  },
+  "sleep_value_mapping": {"samsung_40001": "awake", "samsung_40002": "light", "samsung_40003": "deep", "samsung_40004": "rem"}
+}
