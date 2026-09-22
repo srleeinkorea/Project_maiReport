@@ -27,4 +27,4 @@ else if(good){state='보통';why='비율은 '+need+'을 채웠지만 유효 응�
 else{state='보통';why='긍정 '+r2(posR)+' · 부정 '+r2(negR)+'로 개선 필요에도 양호에도 닿지 않습니다.'}}
 const b=document.createElement('b');b.textContent=state;const p=document.createElement('p');p.textContent=why;const m=document.createElement('p');m.className='muted';m.textContent='유효 응답 '+valid+'건'+((three||unk===0)?'':' · 기억이 안 나요 '+unk+'건은 분모에서 뺐습니다');verdict.replaceChildren(b,p,m)}
 axisSel.addEventListener('change',renderCounts);renderCounts();
-</script><footer>기획·데이터 수정 완료본. AI의 공식 근거 대조이며 실제 전문의 최종 승인 문서가 아닙니다. 실서비스 활성화는 승인자·승인일·대상 범위 확인 후 결정합니다.</footer></main></body></html>
+</script><footer>기획·데이터 수정 완료본. AI의 공식 근거 대조이며 실제 전문의 최종 승인 문서가 아닙니다. 실서비스 활성화는 승인일·대상 범위 확인 후 결정합니다.</footer></main></body></html>
