@@ -3767,14 +3767,25 @@ function importCard(kind){
       ${importing?'disabled':''}>${importing===kind?'가져오는 중…':'데이터 연동하기'}</button>
   </div>`;
 }
-function importBanner(kind, why){
-  const v = SOURCES[kind];
-  return `<section class="card imp-banner">
-    <div class="tx"><b>${v.t}도 가져올까요?</b><small>${why}</small></div>
-    <button class="src-btn" onclick="startImport('${kind}')"
-      ${importing?'disabled':''}>${importing===kind?'가져오는 중…':'데이터 연동하기'}</button>
+/* 방문이력 상단 연동 안내 — 아직 연동하지 않은 정보를 한 카드에 모아 보여준다.
+   소스마다 배너를 따로 띄우면 같은 말이 두 번 반복돼 잔소리처럼 읽힌다.
+   기관이 달라 각각 인증해야 하므로 버튼은 줄마다 둔다. */
+function importBanner(){
+  const missing = [];
+  if(!imp.checkup) missing.push({k:'checkup', ic:'🩺', d:'건강검진 결과가 이 목록에 함께 표시돼요'});
+  if(!imp.clinic)  missing.push({k:'clinic',  ic:'📋', d:'병원 방문 · 처방 기록이 함께 표시돼요'});
+  if(!missing.length) return '';
+  return `<section class="card" style="margin-bottom:12px">
+    <div class="card-t">연동하면 더 볼 수 있어요</div>
+    <div class="card-s" style="margin-bottom:6px">검진정보와 진료정보는 제공 기관이 달라 각각 인증해야 해요.</div>
+    ${missing.map(m=>`<div class="fd-row" style="cursor:default">
+      <span class="fd-ic" style="background:#EEF3FF">${m.ic}</span>
+      <div class="fd-b"><b>${SOURCES[m.k].t}</b><small>${SOURCES[m.k].org} · ${m.d}</small></div>
+      <button class="src-btn" onclick="startImport('${m.k}')" ${importing?'disabled':''}>${importing===m.k?'가져오는 중…':'연동하기'}</button>
+    </div>`).join('')}
   </section>`;
 }
+
 
 /* 병원 탭 — 검진요약 · 진료요약 · 방문이력 · 읽을거리 4개 서브탭. 검진과 진료 요약은 별도 탭으로 분리한다. */
 function renderSum(){ renderCheckupSum(); renderClinicSum(); renderRead(); }
@@ -4188,8 +4199,7 @@ function renderVisit(){
     return;
   }
   let html = '';
-  if(!imp.checkup) html += importBanner('checkup','검진 결과도 이 목록에 함께 표시돼요.');
-  if(!imp.clinic)  html += importBanner('clinic','병원 방문 기록도 이 목록에 함께 표시돼요.');
+  html += importBanner();
   html += `<div class="vf-chips" aria-label="방문이력 필터">
     <button class="vf ${visitFilter==='all'?'on':''}" data-f="all">전체</button>
     <button class="vf ${visitFilter==='checkup'?'on':''}" data-f="checkup">검진</button>
