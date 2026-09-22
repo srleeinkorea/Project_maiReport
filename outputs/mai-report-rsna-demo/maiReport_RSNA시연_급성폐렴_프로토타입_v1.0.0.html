@@ -1005,6 +1005,33 @@ html.embed .check-sub{width:100%;max-width:430px;left:0;right:0;margin-left:auto
 .cam-foot .side{width:46px;height:46px;border:none;border-radius:12px;background:rgba(255,255,255,.12);color:#fff;font-size:19px;cursor:pointer}
 .shutter{width:70px;height:70px;border-radius:50%;border:4px solid rgba(255,255,255,.35);background:#fff;cursor:pointer;transition:transform .1s}
 .shutter:active{transform:scale(.93)}
+/* 낮은 화면에서도 촬영 화면이 잘리지 않게 한다 — 맥 크롬처럼 창 높이가 낮은 환경에서는
+   프레임이 줄지 못해 셔터와 안내 문구가 화면 밖으로 밀려나 있었다.
+   ① 가운데 영역이 줄어들 수 있게 min-height를 풀고 ② 높이 구간별로 여백·셔터를 줄인다. */
+.cam-view{flex:1 1 auto;min-height:0}
+.cam-card{max-height:100%;overflow-y:auto}
+@media (max-height:800px){
+  .cam-h{padding:10px 16px}
+  .cam-view{padding:0 26px 58px}
+  .cam-foot{padding:20px 30px 24px}
+}
+@media (max-height:680px){
+  .cam-view{padding:0 22px 52px}
+  .cam-foot{padding:14px 26px 18px}
+  .cam-foot .side{width:40px;height:40px;font-size:17px}
+  .shutter{width:58px;height:58px}
+  .cam-hint{bottom:-42px;font-size:var(--t-cap)}
+  .shots{bottom:-46px}
+}
+@media (max-height:580px){
+  .cam-h{padding:8px 14px}
+  .cam-h h2{font-size:var(--t-body)}
+  .cam-view{padding:0 20px 44px}
+  .cam-foot{padding:10px 22px 14px}
+  .shutter{width:50px;height:50px;border-width:3px}
+  .cam-hint{bottom:-34px;line-height:1.45}
+  .shots{bottom:-38px}
+}
 .cf-b{flex:1;overflow-y:auto;padding:14px 18px 24px}
 .cf-shot{display:flex;align-items:center;gap:13px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:14px;margin-bottom:12px}
 .cf-shot .th{width:52px;height:66px;border-radius:8px;background:#E6EAF2;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px}
