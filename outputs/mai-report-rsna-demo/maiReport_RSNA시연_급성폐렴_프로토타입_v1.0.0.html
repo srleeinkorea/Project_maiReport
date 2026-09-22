@@ -2442,6 +2442,23 @@ const MEAL_PHRASES = {
     {title:'조금씩 자주 나눠 먹기',        why:'한 번에 못 먹으면 횟수를 늘려요'},
     {title:'빈 끼는 우유나 두유 한 잔',    why:'준비 없이 바로 먹을 수 있는 회복 끼니예요'}
   ],
+  /* 부담 줄이기 풀 — 피로가 크거나 수면이 5시간 미만인 날 쓰는 묶음. 축·단계가 없다. */
+  burden:[
+    {title:'저녁은 차리기 쉬운 것으로', why:'차리는 수고를 줄이는 것도 방법이에요'},
+    {title:'저녁은 익힌 채소로 가볍게', why:'익힌 채소는 속에 부담이 적어요'},
+    {title:'커피 대신 따뜻한 차 한 잔', why:'피곤한 날 카페인은 잠을 더 밀어내요'},
+    {title:'저녁은 익숙한 음식으로',   why:'피곤한 날엔 새로운 음식이 부담돼요'},
+    {title:'늦은 저녁엔 국물 적게',    why:'늦게 먹은 국물은 속쓰림과 부기로 남아요'}
+  ],
+  /* 짠맛 · 국물 축 — 요일 순환에서 목요일에 걸리는 축 */
+  salt:{
+    입문:[{title:'국은 반 그릇만 담기',        why:'담는 양을 줄이는 게 남기는 것보다 쉬워요'},
+          {title:'찌개는 앞접시에 건더기만',   why:'앞접시로 옮기면 국물을 자연히 덜 먹게 돼요'}],
+    기본:[{title:'짠 반찬은 한 끼에 한 가지만', why:'김치 · 장아찌 · 젓갈이 겹치면 한 끼에 하루치가 돼요'},
+          {title:'김치는 평소의 절반',         why:'한국인 나트륨의 첫째 급원이 김치예요'}],
+    도전:[{title:'오늘 세 끼 국물 없이',       why:'국물을 하루 끊으면 나트륨이 절반 가까이 줄어요'},
+          {title:'배달 음식엔 소스 반만',      why:'배달 음식 나트륨의 절반은 함께 오는 소스에 있어요'}]
+  },
   protein:{
     입문:[{title:'아침에 달걀 하나',         why:'달걀 하나로 아침 단백질이 채워져요'},
           {title:'두유나 우유 한 잔 챙기기',  why:'마시는 단백질은 반찬이 없어도 챙길 수 있어요'},
@@ -2483,8 +2500,21 @@ let goals = BASE_GOALS.map(g=>({...g, state:'pending'}));
    단계는 실제로는 최근 7일 완료 횟수로 오르내리지만(7일 3회↑ · 연속 2회↓),
    시연에서는 하루만 보므로 회전 문항 답으로 대신 고른다. */
 function mealGoal(b){
-  const {meal,protein,fever} = ans;
+  const {meal,protein,fever,fatigue,salt,veg,sweet,pace,fat} = ans;
   const pick = (arr, i) => arr[i % arr.length];
+  if(!hasAiReport){
+    /* 평소 상태의 축 선정 — 회복 풀 → (확진·검진 없음) → 부담 줄이기 풀 → 일반(요일 순환 축) */
+    if(meal && (meal.v==='skip' || meal.v==='less'))
+      { const p = pick(MEAL_PHRASES.recovery, meal.v==='skip' ? 2 : 3); return {...b, title:p.title, why:p.why, how:`대상 끼니 · ${LAST_MEAL} 다음 끼니부터`}; }
+    /* 피로 문항은 여기에 쓰인다 — 피곤한 날에는 축·단계를 따지지 않고 부담이 적은 문구를 낸다
+       (수면 5시간 미만도 같은 조건이지만 평소 세트에는 수면 문항이 없어 피로 답만 본다) */
+    if(fatigue && fatigue.v==='high')
+      { const p = pick(MEAL_PHRASES.burden, 0); return {...b, title:p.title, why:p.why, how:'부담 줄이기 · 피곤한 날'}; }
+    const rot = salt || veg || sweet || pace || fat;
+    const step = !rot ? '입문' : rot.v==='bad' ? '입문' : rot.v==='mid' ? '기본' : '도전';
+    const p = pick(MEAL_PHRASES.salt[step], 0);
+    return {...b, title:p.title, why:p.why, how:`짠맛 · 국물 · ${step} 단계`};
+  }
   if(meal && (meal.v==='skip' || meal.v==='less')){          /* ① 회복 풀 — 1순위 */
     const idx = meal.v==='skip' ? 2 : 3;                      /* 거의 못 먹음 → 반 그릇 · 조금 적게 → 나눠 먹기 */
     const p = pick(MEAL_PHRASES.recovery, fever && fever.v!=='none' ? 1 : idx);
@@ -2497,9 +2527,9 @@ function mealGoal(b){
 }
 function adjust(b){
   const {breath} = ans;
-  /* 폐렴 케이스가 아닐 때는 평소 목표를 그대로 둔다 — 급성기 문구는 리포트가 있어야 나온다 */
-  if(!hasAiReport) return {...b};
   if(b.key==='meal') return mealGoal(b);
+  /* 식이 외의 목표는 폐렴 케이스에서만 답변으로 바뀐다 — 평소에는 기기 데이터로 만든 목표를 둔다 */
+  if(!hasAiReport) return {...b};
   if(b.key==='move'){
     if(breath && breath.v==='bad') return {...b, title:'오늘은 움직이지 말고 쉬기', why:'가만히 있어도 숨참 · 진료 먼저', how:'연락이 닿을 때까지 앉거나 누워서 쉬어요'};
     if(breath && breath.v==='mild') return {...b, title:'오늘은 집 안에서만 움직이기', why:'움직이면 숨참 · 절반으로', how:'숨이 차지 않는 선까지만, 계단과 외출은 쉬어요'};
