@@ -5884,8 +5884,24 @@ navs[0].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===0)); sho
 navs[1].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===1)); show('life'); };
 navs[2].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===2)); show('hosp'); };
 navs[3].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===3)); show('more'); };
-/* 로고를 누르면 처음 화면(앱을 막 연 상태)으로 되돌린다 — 시연을 다시 시작할 때 쓴다 */
-document.getElementById('logoHome').onclick = ()=>location.reload();
+/* 로고를 누르면 처음 화면(앱을 막 연 상태)으로 되돌린다.
+   페이지를 새로고침하지 않고 상태만 되돌린다 — iframe(구글 사이트 등)에 넣어도 같게 동작한다. */
+function restartDemo(){
+  document.querySelectorAll('.sub.open, .ai-report.open, .check-sub.open, .update-dim.open, .pay.open, .act.open, .cam.open, .ios.open, .tk-overlay.open')
+    .forEach(el=>el.classList.remove('open'));
+  Object.keys(ans).forEach(k=>delete ans[k]);
+  qi = 0; lock = false; coachReady = false; clearTimeout(coachTimer);
+  generatedKeys = new Set();
+  goals = BASE_GOALS.map(g=>({...g, state:'pending'}));
+  heroTone = 'neutral';
+  imp.checkup = false; imp.clinic = false; importing = null;
+  deviceLinked = true; hasAiReport = false;
+  AI_REPORTS = []; visitFilter = 'all'; selDay = TODAY; weekOffset = 0;
+  navs.forEach((b,i)=>b.classList.toggle('on', i===0)); show('home');
+  refreshHome(); renderDateStrip(); renderHosp(); renderMore();
+  window.scrollTo(0,0);
+}
+document.getElementById('logoHome').onclick = restartDemo;
 document.getElementById('gLink').onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===1)); show('life'); const t=document.querySelector('.l-tab[data-t=goal]'); if(t) t.click(); };
 
 renderQ(); renderCoach(); renderGoals(); renderMetrics(); renderDateStrip();

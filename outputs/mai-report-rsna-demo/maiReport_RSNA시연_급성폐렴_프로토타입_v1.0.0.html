@@ -6411,8 +6411,26 @@ navs[0].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===0)); sho
 navs[1].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===1)); show('life'); };
 navs[2].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===2)); show('hosp'); };
 navs[3].onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===3)); show('more'); };
-/* 로고를 누르면 처음 화면(앱을 막 연 상태)으로 되돌린다 — 시연을 다시 시작할 때 쓴다 */
-document.getElementById('logoHome').onclick = ()=>location.reload();
+/* 로고를 누르면 처음 화면(앱을 막 연 상태)으로 되돌린다 — 시연을 다시 시작할 때 쓴다.
+   페이지를 새로고침하지 않고 상태만 되돌린다. 구글 사이트처럼 iframe 안에 넣었을 때
+   새로고침이 막히거나 빈 화면이 되는 경우가 있어, 어디에 올려도 같게 동작하도록 했다. */
+function restartDemo(){
+  /* 열려 있는 화면 · 시트 · 오버레이를 모두 닫는다 */
+  document.querySelectorAll('.sub.open, .ai-report.open, .check-sub.open, .update-dim.open, .pay.open, .act.open, .cam.open, .ios.open, .tk-overlay.open')
+    .forEach(el=>el.classList.remove('open'));
+  /* 연동·등록 상태를 처음 값으로 */
+  imp.checkup = false; imp.clinic = false; importing = null;
+  deviceLinked = true; hasAiReport = DEMO_AI_REPORT_REGISTERED;
+  AI_REPORTS = []; visitFilter = 'all'; selDay = TODAY; weekOffset = 0;
+  NOTICES.forEach(n=>{ n.read = (n.id === 'n1'); });   /* 지난 안내 한 건만 읽음 */
+  applyCaseData(hasAiReport ? 'sick' : 'well');
+  resetToday();
+  /* 홈 탭으로 돌아가 다시 그린다 */
+  navs.forEach((b,i)=>b.classList.toggle('on', i===0)); show('home');
+  refreshHome(); renderDateStrip(); renderHosp(); renderMore(); setBell();
+  window.scrollTo(0,0);
+}
+document.getElementById('logoHome').onclick = restartDemo;
 document.getElementById('gLink').onclick = ()=>{ navs.forEach((b,i)=>b.classList.toggle('on',i===1)); show('life'); const t=document.querySelector('.l-tab[data-t=goal]'); if(t) t.click(); };
 
 setBell();   /* 안 읽은 알림이 있으면 점이 보인다 */
