@@ -1,6 +1,6 @@
 # RSNA 시연 사이트 배포
 
-1. 기존 버전은 `outputs/mai-report-rsna-demo/maiReport_RSNA시연_급성폐렴_프로토타입_v1.0.0.html`, GPT 버전은 같은 폴더의 `gpt_maiReport_RSNA_home_information_v1.1.html`을 수정합니다.
+1. 기존 버전은 `outputs/mai-report-rsna-demo/maiReport_RSNA시연_급성폐렴_프로토타입_v1.0.0.html`, GPT 버전은 같은 폴더의 `gpt_maiReport_RSNA_home_information_v1.0.html`을 수정합니다.
 2. 이 대화에서 **배포!**라고 요청하면 에이전트가 배포합니다. 직접 실행하려면 프로젝트 폴더의 `RSNA-DEPLOY.cmd`를 더블클릭합니다.
 3. `DONE: The updated site is live.`가 표시되면 완료입니다. 사이트가 자동으로 열립니다.
 

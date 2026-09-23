@@ -274,7 +274,7 @@ const script = `
 })();
 </script>`;
 html=html.replace('</body>',script+'</body>');
-const target=path.join(__dirname,'gpt_maiReport_RSNA_home_information_v1.1.html');
+const target=path.join(__dirname,'gpt_maiReport_RSNA_home_information_v1.0.html');
 fs.writeFileSync(target,html,'utf8');
 for(const match of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g))new (require('vm').Script)(match[1]);
 console.log(target+'\nInline JavaScript syntax: OK');
