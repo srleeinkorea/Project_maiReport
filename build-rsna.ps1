@@ -1,8 +1,8 @@
 $ErrorActionPreference = 'Stop'
 $sourceDir = Join-Path $PSScriptRoot 'outputs/mai-report-rsna-demo'
-$originals = @(Get-ChildItem -LiteralPath $sourceDir -Filter '*v1.0.0.html' -File)
+$originals = @(Get-ChildItem -LiteralPath $sourceDir -Filter '*v1.0.0.html' -File | Where-Object { $_.Name -notlike 'gpt_*' })
 if ($originals.Count -ne 1) { throw 'Expected exactly one original RSNA HTML.' }
-$gpt = Join-Path $sourceDir 'gpt_maiReport_RSNA_home_information_v1.0.html'
+$gpt = Join-Path $sourceDir 'gpt_maiReport_RSNA_home_information_v1.0.0.html'
 $template = Join-Path $sourceDir 'version-tabs.html'
 $encoding = New-Object System.Text.UTF8Encoding($false)
 $result = [IO.File]::ReadAllText($template)

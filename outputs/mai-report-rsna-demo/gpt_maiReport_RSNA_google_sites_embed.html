@@ -5847,7 +5847,7 @@ function generateAiInsight(){
   const el = document.getElementById('pAi');
   if(!el) return;
   el.innerHTML = `<section class="card loading"><div class="spin"></div><b>AI가 건강 데이터를 분석하고 있어요</b><small>생활 데이터${imp.checkup ? ' · 검진정보' : ''}를 종합하는 중이에요</small></section>`;
-  setTimeout(()=>{ const report = aiCreateReport(); AI_REPORTS.push(report); renderAiInsightEntry(); openAiGenDone(report.id); }, 1800);
+  setTimeout(()=>{ const report = aiCreateReport(); AI_REPORTS.push(report); renderAiInsightEntry(); openAiInsight(report.id, 'detail'); }, 1800);
 }
 /* ── 다시 분석하기 ──
    같은 주의 리포트를 오늘까지의 기록으로 새로 만들어 교체한다.
@@ -6917,7 +6917,7 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  insight.innerHTML='<button class="home-insight-card" id="gptHomeInsight"><span class="home-insight-top"><span class="home-insight-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V12M12 19V8M19 19V4M4 5l4-2 4 2 7-3"/></svg></span><span class="home-insight-label">AI 인사이트</span><span class="home-insight-badge" id="gptInsightBadge"></span></span><strong class="home-insight-title" id="gptInsightTitle"></strong><span class="home-insight-desc" id="gptInsightDesc"></span><span class="home-insight-footer"><span id="gptInsightPeriod"></span><span class="home-insight-action" id="gptInsightAction"></span></span></button>';
  const scoreResult=document.createElement('span');scoreResult.className='home-score-result';scoreResult.hidden=true;scoreResult.innerHTML='<strong class="home-score-headline"></strong><span class="home-score-label">종합 점수</span><span class="home-score-line"><span class="home-score-value"></span><span class="home-score-change"></span></span><span class="home-score-track" role="progressbar" aria-label="AI 인사이트 종합 점수" aria-valuemin="0" aria-valuemax="100"><i></i></span><span class="home-score-meta"></span>';document.getElementById('gptHomeInsight').append(scoreResult);
  const scoreHeading=document.createElement('div');scoreHeading.className='home-insight-section-title';scoreHeading.innerHTML='<span>AI 건강 인사이트</span><button type="button" style="border:0;background:none;font:inherit;font-size:var(--t-mini);font-weight:400;color:var(--ink-2);cursor:pointer;padding:5px 0">자세히 ›</button>';scoreHeading.hidden=true;insight.prepend(scoreHeading);scoreHeading.querySelector('button').onclick=()=>document.getElementById('gptHomeInsight').click();
- if(deviceLinked&&!aiThisWeekReport()){AI_REPORTS.push(aiCreateReport());}
+ if(new URLSearchParams(location.search).get('preview')==='insight'&&deviceLinked&&!aiThisWeekReport()){AI_REPORTS.push(aiCreateReport());}
  scoreResult.insertAdjacentHTML('afterbegin','<span class="home-score-name"><span class="home-score-symbol" aria-hidden="true">✨</span>AI 건강 인사이트</span><span class="home-score-period"></span>');
  function renderHomeInsight(){
   const report=aiThisWeekReport();const effective=report?aiEffectiveReport(report):null;
