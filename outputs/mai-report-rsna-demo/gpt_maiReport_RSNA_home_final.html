@@ -4323,7 +4323,7 @@ function renderMetricPane(){
 const USER = {name:'김마이', realAge:40, healthAge:45, checkedAt:'2025년 6월 19일'};
 /* 가입 정보 — 내정보 화면은 조회 전용이라 앱에서 바꾸지 않는다(더보기 화면정의서 §6.3) */
 const PROFILE = {name:'김마이', birth:'1984-01-01', phone:'010-1234-5678', email:'maireport@maihub.ai'};
-let imp = {checkup:true, clinic:false};
+let imp = {checkup:false, clinic:false};
 let importing = null;
 const SOURCES = {
   checkup:{t:'검진정보', d:'최근 검진정보 요약', ic:'🩺', org:'국민건강보험공단'},
@@ -5878,7 +5878,7 @@ function generateAiInsight(){
   const el = document.getElementById('pAi');
   if(!el) return;
   el.innerHTML = `<section class="card loading"><div class="spin"></div><b>AI가 건강 데이터를 분석하고 있어요</b><small>생활 데이터${imp.checkup ? ' · 검진정보' : ''}를 종합하는 중이에요</small></section>`;
-  setTimeout(()=>{ const report = aiCreateReport(); AI_REPORTS.push(report); renderAiInsightEntry(); openAiInsight(report.id, 'detail'); }, 1800);
+  setTimeout(()=>{ const report = aiCreateReport(); AI_REPORTS.push(report); renderAiInsightEntry(); openAiGenDone(report.id); }, 1800);
 }
 /* ── 다시 분석하기 ──
    같은 주의 리포트를 오늘까지의 기록으로 새로 만들어 교체한다.
@@ -6740,7 +6740,7 @@ document.getElementById('rdMore').onclick=()=>document.getElementById('reportDon
    이어지는 흐름을 첫 화면부터 보여준다.
    false로 두면 QR 스캔으로 리포트를 등록하는 장면부터 시연할 수 있다.
    (헤더의 'QR 스캔' → 촬영 → 인식 확인 → 저장 → 질문 세트가 폐렴 문항으로 바뀜) */
-const DEMO_AI_REPORT_REGISTERED = true;
+const DEMO_AI_REPORT_REGISTERED = false;
 let hasAiReport = DEMO_AI_REPORT_REGISTERED;
 function refreshHome(){
   QUESTIONS = pickQuestions();
@@ -6846,7 +6846,7 @@ function restartDemo(){
   document.querySelectorAll('.sub.open, .ai-report.open, .check-sub.open, .update-dim.open, .pay.open, .act.open, .cam.open, .ios.open, .tk-overlay.open')
     .forEach(el=>el.classList.remove('open'));
   /* 연동·등록 상태를 처음 값으로 */
-  imp.checkup = true; imp.clinic = false; importing = null;
+  imp.checkup = false; imp.clinic = false; importing = null;
   deviceLinked = true; hasAiReport = DEMO_AI_REPORT_REGISTERED;
   AI_REPORTS = []; visitFilter = 'all'; selDay = TODAY; weekOffset = 0;
   NOTICES.forEach(n=>{ n.read = (n.id === 'n1'); });   /* 지난 안내 한 건만 읽음 */
@@ -6997,24 +6997,25 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  document.getElementById('homeAgeValue').setAttribute('aria-label','건강나이');
  insight.querySelector('.home-insight-label').textContent='AI 건강 인사이트';
  const note=document.createElement('div');note.className='home-preview-note';note.textContent='RSNA 시연용 예시 데이터 · 정보 중심 홈 구성안';home.appendChild(note);
+ const showHealthNumbers = true;
  function refreshOverview(){
   renderHomeInsight();
   insight.hidden=false;
   overview.hidden=false;
   insight.style.gridColumn='1';
   ageSummary.style.gridColumn='2';
-  connectNotice.hidden=imp.checkup;
+  connectNotice.hidden=showHealthNumbers;
   connectNotice.textContent='검진정보를 연동하고 건강나이·또래 비교를 확인해 보세요. ›';
-  peer.hidden=!imp.checkup;
-  document.getElementById('homeAgeValue').innerHTML=imp.checkup?USER.healthAge+'<span>세</span>':'—';
+  peer.hidden=!showHealthNumbers;
+  document.getElementById('homeAgeValue').innerHTML=showHealthNumbers?USER.healthAge+'<span>세</span>':'—';
   const difference=USER.healthAge-USER.realAge;
-  document.getElementById('homeAgeDiff').innerHTML=imp.checkup?'실제 '+USER.realAge+'세'+(difference===0?'와 같아요':'보다 '+(difference>0?'+':'−')+Math.abs(difference)+'세'):'검진정보 연결 필요';
-  document.getElementById('homeAgeMeta').textContent=imp.checkup?'실제 나이 '+USER.realAge+'세':'검진정보 미연동';
-  document.getElementById('homeAgeOpen').setAttribute('aria-label',imp.checkup?'건강나이 분석 자세히 보기':'검진정보 연결');
-  document.getElementById('homeAgeOpen').textContent=imp.checkup?'›':'연동하기 ›';
-  ageSummary.classList.toggle('has-hospital-age',imp.checkup);
-  hospitalAge.hidden=!imp.checkup;
-  if(imp.checkup){
+  document.getElementById('homeAgeDiff').innerHTML=showHealthNumbers?'실제 '+USER.realAge+'세'+(difference===0?'와 같아요':'보다 '+(difference>0?'+':'−')+Math.abs(difference)+'세'):'검진정보 연결 필요';
+  document.getElementById('homeAgeMeta').textContent=showHealthNumbers?'실제 나이 '+USER.realAge+'세':'검진정보 미연동';
+  document.getElementById('homeAgeOpen').setAttribute('aria-label',showHealthNumbers?'건강나이 분석 자세히 보기':'검진정보 연결');
+  document.getElementById('homeAgeOpen').textContent=showHealthNumbers?'›':'연동하기 ›';
+  ageSummary.classList.toggle('has-hospital-age',showHealthNumbers);
+  hospitalAge.hidden=!showHealthNumbers;
+  if(showHealthNumbers){
    const sourceCard=document.querySelector('#pCk .age-card');
    hospitalAge.innerHTML=sourceCard?sourceCard.innerHTML:'<div class="ttl"><b>'+USER.name+'</b>님의 건강 나이는</div><div class="age-num">'+USER.healthAge+'세</div><div class="dt2">검진일자: '+USER.checkedAt+'</div><div class="age-gauge"><div class="age-track"><i style="left:50%;width:28%"></i></div><span class="age-badge" style="left:78%">+'+difference+'</span><span class="age-mark" style="left:50%">실제 '+USER.realAge+'세</span></div>';
   }

@@ -5878,7 +5878,7 @@ function generateAiInsight(){
   const el = document.getElementById('pAi');
   if(!el) return;
   el.innerHTML = `<section class="card loading"><div class="spin"></div><b>AI가 건강 데이터를 분석하고 있어요</b><small>생활 데이터${imp.checkup ? ' · 검진정보' : ''}를 종합하는 중이에요</small></section>`;
-  setTimeout(()=>{ const report = aiCreateReport(); AI_REPORTS.push(report); renderAiInsightEntry(); openAiInsight(report.id, 'detail'); }, 1800);
+  setTimeout(()=>{ const report = aiCreateReport(); AI_REPORTS.push(report); renderAiInsightEntry(); openAiGenDone(report.id); }, 1800);
 }
 /* ── 다시 분석하기 ──
    같은 주의 리포트를 오늘까지의 기록으로 새로 만들어 교체한다.
