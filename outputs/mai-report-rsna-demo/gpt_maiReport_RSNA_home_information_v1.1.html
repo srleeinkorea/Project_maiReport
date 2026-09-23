@@ -6068,11 +6068,13 @@ function renderAiInsightTabData(rIn, tab, bodyId){
     body.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:12px">
         <p style="margin:0 2px;font-size:var(--t-cap);color:var(--ink-3)">${meta}</p>
-        <section class="ai-sec"><h3>요약</h3>
-          <div class="hl">${r.headline || '종합 인사이트를 확인하세요.'}</div>
+        <section class="ai-sec">
           <div class="ai-sc-lab">종합 점수</div>
           <div class="ai-sc-row"><div class="n">${r.score}<span>/ 100</span></div>${deltaHtml}</div>
           <div class="bar"><i style="width:${r.score}%"></i></div>
+        </section>
+        <section class="ai-sec"><h3>요약</h3>
+          <div class="hl">${r.headline || '종합 인사이트를 확인하세요.'}</div>
         </section>
         <section class="ai-sec"><h3>종합 소견</h3><p class="body">${r.summary}</p></section>
         <section class="ai-sec"><h3>핵심 인사이트</h3>
