@@ -1,8 +1,424 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>식이 질문·목표 상세기획 · v1.0.0</title><style>body{font:15px/1.7 "Malgun Gothic",sans-serif;color:#233047;background:#f5f7fb;margin:0}main{max-width:1180px;margin:auto;padding:30px 24px 80px}header{border-bottom:3px solid #315ed0;padding:0 0 22px}h1{font-size:28px;color:#182c54}h2{font-size:21px;color:#182c54;margin:32px 0 12px}h3{font-size:17px}a{color:#2456ba}nav{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}section{background:white;padding:22px 26px;border-radius:12px;margin:18px 0}table{border-collapse:collapse;width:100%;font-size:14px}th,td{text-align:left;padding:12px;border-bottom:1px solid #dce2eb;vertical-align:top;min-width:85px}th{background:#eaf0fb;color:#203d74}td{overflow-wrap:anywhere}.scroll{overflow-x:auto}.notice{padding:16px;background:#fff4d9;border-left:4px solid #a97518}.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.step{padding:18px;background:#edf2fc;border-left:3px solid #315ed0}.step b{display:block;margin-bottom:8px}.muted{color:#59677b}button,select{font:inherit;padding:8px 12px;margin:5px;border:1px solid #aebbd2;border-radius:6px;background:white}button{cursor:pointer}code{overflow-wrap:anywhere}details{margin:12px 0}footer{margin-top:32px;color:#59677b}@media(max-width:700px){main{padding:18px 12px}.flow{grid-template-columns:1fr}section{padding:16px}h1{font-size:23px}}</style></head><body><main><header><p>maiReport · 식이 데이터 · 2026-09-22 · v1.0.0</p><h1>식이 질문·목표 상세기획</h1><p>고정 1문항 + 회전 최대 1문항 · 3지선다 · 회전은 식습관 관찰 · 달성은 완료 토글</p></header><nav><a href="../식이_최종반영_20260922/index.html">최종 파일</a><a href="../식이_최종반영_20260922/식이_상세기획_v1.0.0.html">상세기획</a><a href="../식이_최종반영_20260922/식이_데이터흐름도_v1.0.0.html">데이터 흐름</a><a href="../식이_최종반영_20260922/식이_근거대조결과_v1.0.0.html">의학 근거 대조</a><a href="../식이_최종반영_20260922/식이_시나리오_v1.0.0.html">시나리오</a></nav><p class="notice">최신 내용을 최초 정본 v1.0.0으로 확정했습니다. 이전 작업 내용은 별도 보관합니다.</p><section><div class="notice" style="margin:0 0 18px"><b>이 파일이 작업 정본입니다.</b> 규칙을 고칠 때는 여기를 고칩니다. <code>outputs/식이_최종반영_20260922/</code>의 같은 문서는 2026-09-22에 넘긴 <b>전달 스냅샷</b>이며 그 폴더는 고치지 않습니다. 결정 이력은 <a href="mai-report-식이_최종결정사항_v1.0.0.html">식이 최종 결정사항</a> ⓪장에 있습니다.</div>
-<h2>확정된 구성</h2><ul><li>매 세션 고정 1개와 회전 최대 1개. 각 질문은 선택지 3개를 유지한다. <b>하루 전체 문항은 5문항 미만이고 그중 식이는 최대 2문항이다.</b> 남는 슬롯은 다른 영역이 쓴다. 식이 고정 문항은 매일 자리를 차지한다 — 기기에서 얻을 수 있는 식이 데이터가 없어 답이 없으면 목표를 만들 수 없기 때문이다.</li><li>고정 답이 거의 못 먹음·결식이거나 아직 저녁 전이면 회전 문항을 조건상 생략한다. 21시 이후 기존 ‘아직 저녁 전’ 링크는 질문을 늘리지 않는 처리 상태다.</li><li>어제 목표와 대상 끼니가 같다는 이유로 회전 축을 정하지 않는다. 어제 결식에 따른 단백질 질문 강제도 제거한다.</li><li>회전 답은 식습관 관찰 자료다. 목표 완료·쉬기는 사용자 토글만 사용한다.</li><li>과일 섭취 추가·대체 문구는 서비스 정책으로 제외한다. 통과일을 지방간의 원인으로 일괄 판정하는 문구를 쓰지 않는다.</li><li>모든 풀과 대체 단계에서 동일한 승인·금지·질환별 금지·시간 필터를 적용한다.</li></ul></section><section id="questions"><h2>질문 8종과 선택지</h2><div class="scroll"><table><thead><tr><th>축</th><th>질문</th><th>선택지 1 / 2 / 3</th><th>관찰하는 것</th></tr></thead><tbody><tr><td>끼니 규칙</td><td>{지난 끼니}는 평소만큼 드셨나요?</td><td>평소대로 / 조금 적게 / 거의 못 먹었거나 걸렀어요</td><td>지난 끼니의 상대적 섭취량. 결식 빈도·영양 충족도 아님</td></tr><tr><td>채소</td><td>{지난 끼니}에 채소 반찬이 있었나요?</td><td>두 가지 이상 / 한 가지 / 없었어요</td><td>채소 반찬 종류 수. 중량·먹는 순서 아님</td></tr><tr><td>단 음료 · 단 간식</td><td>{지난 끼니} 전후 단 음료·간식을 드셨나요?</td><td>안 먹었어요 / 먹었어요 / 기억이 안 나요</td><td>가당 음료·단 간식 섭취 여부. 총당량 아님</td></tr><tr><td>짠맛 · 국물</td><td>{지난 끼니} 국물은 어느 정도 드셨나요?</td><td>안 먹었어요 / 일부 먹었어요 / 거의 다 먹었어요</td><td>국물 섭취 정도. 전체 나트륨 아님</td></tr><tr><td>식사 시각</td><td>어제 저녁 식사 뒤에 더 드셨나요?</td><td>안 먹었어요 / 먹었어요 / 기억이 안 나요</td><td>저녁 이후 추가 섭취 여부. 야식 위해성·수면 판정 아님</td></tr><tr><td>식사 속도 · 양</td><td>{지난 끼니} 후 배부른 정도는 어땠나요?</td><td>적당했어요 / 너무 배불렀어요 / 기억이 안 나요</td><td>식후 주관적 포만감. 속도·열량 아님</td></tr><tr><td>단백질</td><td>{지난 끼니}에 고기·생선·달걀·두부가 있었나요?</td><td>있었어요 / 없었어요 / 기억이 안 나요</td><td>단백질 식품 포함 여부. 필요량 충족 아님</td></tr><tr><td>기름진 음식</td><td>{지난 끼니}에 튀긴 음식이 있었나요?</td><td>없었어요 / 있었어요 / 기억이 안 나요</td><td>튀김 포함 여부. 총지방·포화지방량 아님</td></tr></tbody></table></div></section><section id="selection"><h2>질문 선정과 응답 처리</h2><ol><li>세션 날짜는 사용자 시간대 04시 경계, 끼니 날짜는 실제 달력일로 기록한다. 지난 끼니는 진입 시각으로 판정하며 경계는 <b>12 · 15 · 21시</b>다. <b>18시 이후 첫 진입은 고정 답으로 저녁 전·후를 가른다</b> — 저녁 문구를 18시부터 우선해 내면서 끼니 판정만 21시까지 점심으로 두면 둘이 어긋나기 때문이다.</li><li>이미 처리한 문항은 다시 내지 않는다. 미응답 문항만 재진입 시 지난 끼니를 갱신한다.</li><li>회전 후보는 실제로 물을 수 있고 질환별 금지와 충돌하지 않는 축이다. 식사 시각 문항은 지난 끼니가 어제 저녁일 때만 가능하다.</li><li>연속 3일 같은 축 제외 후 후보가 비면 이 반복 제외만 해제한다.</li><li>최근 28일 유효 답이 적은 축 → 사용자 확인 질환·검진 연결 축 → 마지막으로 물은 날이 오래된 축 → 표 순서로 선택한다. 질환 연결은 동률 우선이며 타 축을 영구 제외하지 않는다.</li><li>기억 안 남은 질문 처리 완료로 저장하고 집계에서 제외한다. 회전 후보 자체가 없으면 조건상 생략으로 기록한다.</li><li>기존 홈 정책을 유지하여 그날 필수 질문을 모두 처리한 시점에 잠긴 목표를 생성한다. 조건상 생략도 처리 완료에 포함한다.</li></ol><p class="notice">문항은 한 끼의 제한된 사실을 묻는다. ‘평소대로’는 적정 영양량이 아니며, 국물 섭취로 하루 나트륨을, 반찬 수로 총중량을, 식후 포만감으로 식사 속도를 계산하지 않는다. 식사 시각 응답은 사실 빈도만 저장하고 좋음·나쁨 등급을 만들지 않는다.</p></section><section id="observation"><h2>관찰 상태와 단계</h2><p><b>개선 필요와 보통</b>은 28일 창의 유효 응답 <b>3건</b>부터 낸다. <b>양호</b>는 기간이 아니라 건수로 본다 — <b>최근 유효 응답 7건</b>을 모아 비율을 내고, 그 7건이 84일 안에 모였을 때만 쓴다. 회전 문항은 세션마다 최대 1개고 유효 답이 적은 축부터 고르므로 7개 회전 축이 번갈아 나온다. 28일이면 축마다 4건 안팎에 그쳐, 양호까지 28일 창에 묶으면 고정 문항 축인 끼니 규칙 외에는 양호가 나올 수 없다. 두 상태의 문턱을 다르게 둔 것은 틀렸을 때 잃는 것이 다르기 때문이다. 잘못 붙은 개선 필요는 쉬운 목표 하나가 더 나가는 것으로 끝나지만, 잘못 붙은 양호는 도움이 필요한 사람에게 그 축의 코칭을 끊는다. 3건으로 낸 비율은 폭이 너무 넓어 — 세 번 다 긍정이어도 참값이 30%대일 수 있다 — 양호를 선언할 근거가 되지 못한다. 84일 안에 7건이 모이지 않으면 양호를 내지 않고 보통으로 둔다. 세 값 모두 수집량을 고려한 운영 초기값이며 임상적으로 검증된 척도가 아니다. 같은 실제 끼니·질문 버전의 응답은 1건으로 집계한다. 응답 수정은 추가 적립이 아니라 같은 관찰의 새 버전이다.</p><p>식사 시각을 제외한 상태 경계는 선택지 구성에 따라 나눈다. <b>3단계 축</b>(끼니 규칙 · 채소 · 짠맛·국물)은 기존 운영 호환값을 유지한다 — 응답 3건 미만은 관찰 중, 부정 방향 비율 0.5 이상은 개선 필요, 긍정 방향 0.6 이상이고 부정 0.2 미만이면 양호. <b>2단계 축</b>(단 음료 · 식사 속도·양 · 단백질 · 기름진 음식)은 「기억이 안 나요」를 분모에서 빼면 긍정과 부정의 합이 1이라 같은 값을 쓸 수 없다. 부정 0.5 이상은 개선 필요, <b>긍정 0.8 이상이면 양호</b>, 그 사이는 보통으로 둔다. 0.8은 3단계 축의 「긍정 0.6이고 부정 0.2 미만」과 체감 난이도를 맞춘 값이다. <b>두 축 모두 양호는 최근 유효 응답 7건으로 판정한다.</b> 7건이 모이기 전에는 비율이 양호 조건을 넘어도 보통으로 둔다 — 자료가 모자란 것이지 잘하고 있다고 판정한 것이 아니다. 개선 필요와 보통은 28일 창 3건부터 그대로 낸다. 양호와 개선 필요가 보는 자료가 다르므로, 같은 세션에 둘 다 성립할 때는 개선 필요를 따른다. 상태는 질문에서 관찰한 범위만 설명하며 영양결핍·질환·식습관 전체의 판정으로 노출하지 않는다. 구버전과 뜻이 달라진 응답은 섞지 않는다.</p><p>오늘 선정용 상태는 첫 선정 직전에 전일까지의 응답으로 고정한다. 오늘 답을 저장한 뒤 갱신한 상태에는 다음 세션부터 적용한다는 날짜를 붙인다. 오늘 고정 답의 섭취 부족 여부는 회복 분기에 직접 사용한다.</p><p>축별 입문·기본·도전은 실천 부담이다. 모두 입문에서 시작하며 양호 상태만으로 기본·도전을 강제하지 않는다. 최근 7일 중 마지막 단계 변경 이후 같은 축 완료 3건이면 1단계 상승한다. 같은 구간에서 명시적 미완료가 연속 2건이면 1단계 하락한다. 하락 신호를 우선하고 하루 1회만 조정한다. 쉬기는 제외, 미조작 pending은 미완료로 치환하지 않는다. 단계 변경일과 마지막 평가 세션을 저장한다.</p></section><section id="goal"><h2>목표 생성</h2><ol><li>전문의 출시 승인과 질환별 금지를 먼저 확인한다. 금지는 질환규칙 시트 한 곳에서만 보고 문구마다 제한을 따로 달지 않는다 — 앱이 개인 처방식이나 식품 알레르기를 받는 경로가 없어 지킬 수 없는 조건이었다. 고위험 질환은 질환규칙의 금지 Y 줄이 처리하며, 해당하면 개별 식사 계획 확인 안내로 종료한다.</li><li>현재 고정 답이 적게 먹음 또는 거의 못 먹음이면 회복 후보, 그 외 사용자 확인 질환 → 검진 참고 신호 → 피로/수면 부담 → 일반 후보 순서로 고른다. 이 순서보다 안전 필터가 우선한다.</li><li>회복 목표는 물·단백질 한 가지로 충분한 회복을 보장하지 않는다. 반복 섭취 부족·치료 중·연하 문제는 일반 회복 목표로 덮지 않는다.</li><li>운영 목록의 171개 문구 중 과일 추천 문구를 제외하고, 질환별 금지와 실행 가능한 시간·상황을 검사한다. 식사 전체·매 끼니 목표는 이미 일부 끼니가 지난 뒤 소급 완료를 요구하지 않는다.</li><li>후보가 없으면 아래 단계나 다른 허용 축을 찾되 동일한 필터를 다시 적용한다. 그래도 없으면 ‘오늘은 개인 식사 계획을 먼저 확인해 주세요’ 안내 상태로 저장한다. 완료율 분모에서 제외한다.</li><li>문구 ID·버전·행동·이유를 생성 시점의 값으로 저장한다. 저녁 식사를 마친 뒤 또는 00~04시에는 자동으로 공복·야식 제한 목표를 만들지 않는다.</li>
-<li><b>대상 끼니</b>를 목표와 함께 저장한다. 문구에 시간대 표시가 있으면 그 끼니, 없으면 진입 뒤 첫 끼니다. 이미 지난 끼니를 대상으로 삼지 않는다 — 소급 완료를 요구하게 되기 때문이다.</li>
-<li><b>18시부터 세션이 끝나는 04시까지의 첫 진입</b>은 고정 답으로 갈린다. 자정을 넘긴 진입도 세션 날짜가 같으므로 같은 규칙을 쓴다. 다만 문구의 「내일」은 세션 기준이라 자정 뒤에는 실제 날짜와 어긋나므로, 00~04시 진입에는 날짜 말이 없는 문구를 먼저 고른다. 「아직 저녁 전」이면 오늘 저녁을 대상으로 평소대로 만든다. 저녁을 이미 먹었으면 오늘 끼니가 끝났으므로 대상 끼니를 <b>오늘 밤</b>으로 두고, <b>남은 밤에 실행할 수 있는 준비·정리 행동</b>만 후보로 삼는다. 먹는 것을 제한하는 행동이 아니라 공복·야식 제한 금지와 충돌하지 않는다. 다음 날 아침을 대상으로 미루지 않는다 — 다음 세션에서 만들 목표와 겹친다.</li>
-<li>남은 밤 후보는 운영 목록에서 시간대 표시가 「저녁」이면서 식사 자체를 요구하지 않는 문구다. 기존 목록에서 쓸 수 있는 2개(전날 밤에 아침거리 꺼내 두기 · 저녁 먹고 부엌 정리하기)에 <b>준비 행동 8개</b>를 더해 10개로 두었다. 「저녁은 준비하기 편한 식사로」는 저녁을 이미 먹은 분기에서는 실행할 수 없어 뺐다 — 내일 아침 먹을 자리 치워 두기 · 내일 아침 시각 정해 두기 · 내일 먹을 채소 씻어 두기 · 장바구니에 채소 적어 두기 · 내일 먹을 달걀 삶아 두기 · 내일 쓸 두부 냉장고에 두기 · 내일 마실 무카페인 차 꺼내 두기 · 내일 아침은 간단한 것으로 정해 두기. 밤에 준비해 아침에 먹는 행동이라 두 가지 제약을 이유 문장에 담았다 — 꺼내 두는 차는 카페인 없는 것으로 한정하고, 씻어 둔 채소와 삶은 달걀은 식혀서 밀폐해 냉장하도록 적었다. 질환별 금지는 다른 후보와 똑같이 적용한다. 10개도 나머지 161개와 같은 조건이다 — 추가분만 따로 막혀 있지 않다. 후보가 비면 목표를 만들지 않고 안내 상태로 저장하며 완료율 분모에서 제외한다.</li><li>고정 답 수정 시 pending 목표만 재선정한다. 완료·쉬기 기록은 그대로 보존한다. 새 위험 정보는 당일에도 안전성 재검사를 수행하고 현재 행동을 중지할 수 있지만 과거 기록을 덮어쓰지 않는다.</li></ol><p>식사 시각 문항으로 임상적 야식 위험을 판정하지 않으며, 곡류·식이섬유 19문구를 포함한 불필요한 보류 문구 62개는 운영 목록에서 삭제했다. 운영 문구는 171개이며 삭제 이력은 별도 근거대조 파일에만 보존한다.</p></section><section id="pseudo"><h2>판정 순서</h2><p>규칙을 읽는 순서를 한 장으로 적은 것이다. 실제 언어가 아니라 순서를 못 박기 위한 것이며, 값은 참조 데이터의 설정값 시트를 따른다.</p><pre style="background:#f5f7fb;border:1px solid #dce2eb;border-radius:8px;padding:18px;overflow-x:auto;font:13px/1.65 Consolas,monospace;white-space:pre">세션 날짜 = 사용자 시간대 04시 경계
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 v2 · 식이 질문·목표 상세 기획</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#2f66f5 0%,#5170ff 55%,#7c5cfc 100%);border-radius:28px;padding:38px 40px;color:#fff;position:relative;overflow:hidden;margin-bottom:22px}
+  .hero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:780px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#fff}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--brand);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand-soft);color:var(--brand);font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  .scroll{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px;white-space:nowrap}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2)}
+  td.k{font-weight:700;color:var(--ink-1)}
+  .callout{border-left:3px solid var(--brand);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:#1d3a8a;margin:12px 0}
+  .callout.warn{border-left-color:#d98a12;background:#fff6e8;color:#6b4c0f}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .mini{background:#fafbfd;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mini b{display:block;color:var(--brand);font-size:12.5px;margin-bottom:6px}
+  .mini p{font-size:12.5px;margin:0}
+  ul,ol{padding-left:18px;margin-bottom:8px}
+  li{margin-bottom:5px;font-size:13px}
+  .chip{display:inline-block;border-radius:6px;padding:1px 7px;font-size:11.5px;font-weight:700;white-space:nowrap;margin-right:4px}
+  .ok{background:#e8f6ee;color:#1e6b3a}.v2{background:#eef3ff;color:#2f66f5}.rem{background:#fff6e8;color:#8a5a0a}.new{background:#fdf0f7;color:#b1348a}
+  .flow{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:14px 0}
+  .flow .st{background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:12px}
+  .flow .st b{display:block;color:var(--brand);font-size:11.5px;margin-bottom:6px}
+  .flow .st p{font-size:11.5px;margin:0;line-height:1.55}
+  pre{background:#fafbfd;border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font:12.5px/1.65 Consolas,monospace;white-space:pre;color:var(--ink-1)}
+  .note{font-size:12px;color:var(--ink-3)}
+  footer{font-size:12px;color:var(--ink-3);text-align:center;padding:20px}
+  @media(max-width:860px){.flow{grid-template-columns:1fr 1fr}}
+  @media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="tag">마이리포트 v2 · 기획 문서</span>
+  <h1>식이 질문·목표 상세 기획</h1>
+  <p>오늘의 질문에서 식이를 어떻게 묻고, 그 답으로 오늘의 식이 목표를 어떻게 고르는지 정한 문서. 사용자가 보는 화면, 화면 뒤에서 도는 규칙, 저장·계산해야 할 데이터, 문구의 근거를 한 곳에 모았다. 식이 규칙은 지식DB 계약이 아니라 서비스 자체 규칙이다.</p>
+  <div class="meta"><span>버전 <b>1.0.0</b></span><span>참조 데이터 <b>식이 참조·설정 데이터 v1.0.0</b></span><span>연관 <b>홈화면 화면정의서 · 목표분석 화면정의서 · 식이 시나리오 · 식이 데이터 흐름도 · 식이 최종 결정 사항</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#c1">1 한눈에 보기</a><a href="#c2">2 전체 순서도</a><a href="#c3">3 용어</a><a href="#c4">4 사용자 흐름과 화면</a><a href="#c5">5 질문</a><a href="#c6">6 목표 고르기</a><a href="#c7">7 문구 세트</a><a href="#c8">8 데이터와 계산</a><a href="#c9">9 근거</a><a href="#c10">10 다른 문서와의 관계</a>
+</div>
+
+<div class="callout"><b>이 파일이 작업 정본이다.</b> 규칙을 고칠 때는 여기를 고친다. 결정의 이력과 이유는 「식이 기획 최종 결정 사항」 ⓪장에 있고, 문구·질환 규칙·설정값의 실제 데이터는 「식이 참조·설정 데이터 v1.0.0」에 있다. 값이 다르면 참조 데이터를 따르고 이 문서를 고친다.</div>
+<section class="card" id="c1">
+  <h2><span class="n">1</span>한눈에 보기</h2>
+  <div class="sub">일곱 문장으로 요약한 전체 구조</div>
+  <ul>
+    <li>식이 문항은 <b>하루 최대 두 개</b>다. 하루 전체 문항 수는 5개 미만이고 그중 식이가 최대 2개를 쓴다. 진입 시각을 기준으로 「가장 최근에 지나간 끼니」 하나만 묻고, 어제 하루 전체를 합산해 답하게 하지 않는다.</li>
+    <li>답하지 않은 문항은 끼니 구간이 바뀌면 그 구간의 끼니로 갱신한다. 아침에 열어 두고 답하지 않은 채 저녁에 들어오면 「어제 저녁」이 아니라 「오늘 점심」을 묻는다. 이미 답한 문항은 다시 나오지 않으므로 하루 문항 수는 그대로 두 개다.</li>
+    <li>고정 문항은 그 끼니의 양(「평소만큼 드셨나요?」), 회전 문항은 그 끼니의 행동 하나(채소가 있었나, 국물을 다 먹었나)를 묻는다. 회전 문항은 여덟 행동 축을 돌아가며 낸다.</li>
+    <li>회전 답은 끼니 하나에 대한 기록으로 쌓인다. 축마다 <b>관찰 중 · 개선 필요 · 보통 · 양호</b> 중 하나로 판정하는데, 개선 필요와 보통은 28일 창의 유효 응답 3건부터 내고 <b>양호는 최근 유효 응답 7건</b>으로 따로 낸다.</li>
+    <li>오늘의 식이 목표는 ①지난 끼니를 적게 먹었으면 회복 풀 → ②확진 질환이 있으면 그 질환의 연결 축 → ③검진 경계가 있으면 연결된 축 중 상태가 가장 나쁜 축 → ④피로·수면 부족이면 부담 줄이기 풀 → ⑤그 외엔 전체 축 중 가장 나쁜 축 순서로 고른다. 질환별 금지는 이 순서보다 먼저 걸리고 완화되지 않는다.</li>
+    <li>축마다 입문 · 기본 · 도전 3단계가 있다. 최근 7일 중 마지막 단계 변경 이후 완료 3건이면 올라가고, 명시적 미완료가 연속 2건이면 내려간다.</li>
+    <li>목표에는 <b>대상 끼니</b>가 붙는다. 18시 이후 첫 진입은 고정 답으로 저녁 전·후를 가르고, 저녁을 이미 먹었으면 대상 끼니를 「오늘 밤」으로 두어 남은 밤에 할 수 있는 준비·정리 행동만 낸다.</li>
+  </ul>
+
+  <h3>하루 흐름</h3>
+  <div class="flow">
+    <div class="st"><b>1 진입</b><p>시각으로 지난 끼니 결정<br>~12시 어제 저녁<br>12~15 오늘 아침<br>15~21 오늘 점심<br>21~ 오늘 저녁</p></div>
+    <div class="st"><b>2 고정 문항</b><p>「{지난 끼니}는 평소만큼 드셨나요?」<br>거의 못 먹었으면 회전 생략<br>건너뛰기 없음</p></div>
+    <div class="st"><b>3 회전 문항</b><p>축 하나의 행동을 묻는다<br>건너뛰기 없음<br>유효 답이 적은 축부터</p></div>
+    <div class="st"><b>4 축 적립</b><p>답을 축에 끼니 단위로 쌓는다<br>내일 목표의 재료<br>오늘 목표에는 반영 안 함</p></div>
+    <div class="st"><b>5 목표 생성</b><p>두 문항을 모두 마치면 타일 잠금 해제<br>축·단계·문구·대상 끼니 결정<br>홈 타일에는 문구만</p></div>
+    <div class="st"><b>6 다음 진입</b><p>같은 끼니 구간이면 그대로<br>구간이 넘어가면 미답 문항만 갱신</p></div>
+  </div>
+  <p class="note">회전 답은 생활지표에 들어가지 않는다. 식이 관찰과 지표 산출은 서로 닿지 않는다.</p>
+
+  <h3>축별 질문 8종과 선택지</h3>
+  <p class="note">선택지 문구는 디자인 검수에서 바뀔 수 있다. 선택지 코드와 집계값은 「식이 참조·설정 데이터」 축정의 시트에 있다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:110px">축</th><th>질문</th><th style="width:30%">선택지 1 / 2 / 3</th><th style="width:24%">관찰하는 것</th></tr></thead>
+    <tbody>
+    <tr><td class="k">끼니 규칙</td><td>{지난 끼니}는 평소만큼 드셨나요?</td><td>평소대로 / 조금 적게 / 거의 못 먹었거나 걸렀어요</td><td>지난 끼니의 상대적 섭취량. 결식 빈도·영양 충족도 아님</td></tr>
+    <tr><td class="k">채소</td><td>{지난 끼니}에 채소 반찬이 있었나요?</td><td>두 가지 이상 / 한 가지 / 없었어요</td><td>채소 반찬 종류 수. 중량·먹는 순서 아님</td></tr>
+    <tr><td class="k">단 음료 · 단 간식</td><td>{지난 끼니} 전후 단 음료·간식을 드셨나요?</td><td>안 먹었어요 / 먹었어요 / 기억이 안 나요</td><td>가당 음료·단 간식 섭취 여부. 총당량 아님</td></tr>
+    <tr><td class="k">짠맛 · 국물</td><td>{지난 끼니} 국물은 어느 정도 드셨나요?</td><td>안 먹었어요 / 일부 먹었어요 / 거의 다 먹었어요</td><td>국물 섭취 정도. 전체 나트륨 아님</td></tr>
+    <tr><td class="k">식사 시각</td><td>어제 저녁 식사 뒤에 더 드셨나요?</td><td>안 먹었어요 / 먹었어요 / 기억이 안 나요</td><td>저녁 이후 추가 섭취 여부. 야식 위해성·수면 판정 아님</td></tr>
+    <tr><td class="k">식사 속도 · 양</td><td>{지난 끼니} 후 배부른 정도는 어땠나요?</td><td>적당했어요 / 너무 배불렀어요 / 기억이 안 나요</td><td>식후 주관적 포만감. 속도·열량 아님</td></tr>
+    <tr><td class="k">단백질</td><td>{지난 끼니}에 고기·생선·달걀·두부가 있었나요?</td><td>있었어요 / 없었어요 / 기억이 안 나요</td><td>단백질 식품 포함 여부. 필요량 충족 아님</td></tr>
+    <tr><td class="k">기름진 음식</td><td>{지난 끼니}에 튀긴 음식이 있었나요?</td><td>없었어요 / 있었어요 / 기억이 안 나요</td><td>튀김 포함 여부. 총지방·포화지방량 아님</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b>선택지 구성이 축마다 다르다.</b> 끼니 규칙 · 채소 · 짠맛·국물 셋은 좋음·보통·나쁨 <b>3단계</b>다. 나머지 다섯은 좋음·나쁨 둘에 「기억이 안 나요」가 붙은 <b>2단계</b>이고, 기억 안 남은 집계에서 빠지므로 좋음과 나쁨의 합이 1이 된다. 이 때문에 상태 경계가 갈린다(⑤).</div>
+</section>
+<section class="card" id="c2">
+  <h2><span class="n">2</span>전체 순서도</h2>
+  <div class="sub">하루 전체의 아홉 단계와 단계별 분기. 세부 규칙은 괄호의 장에 있다</div>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:150px">단계</th><th style="width:34%">분기</th><th>결과</th></tr></thead>
+    <tbody>
+    <tr><td class="k">0 사전 계산 (⑧)</td><td>확진 질환</td><td>진료정보 상병코드 → 진단 후보 → 사용자 확인 → 확진. <b>금지는 후보 단계부터, 연결은 확진부터</b></td></tr>
+    <tr><td></td><td>검진 경계</td><td>검진값 기본 · 기기 연동값이 더 최신이고 유효하면 교체 · 둘 다 없으면 판정 없음. 경계·주의 항목 중 혈당 → 혈압 → 콜레스테롤·체중 순 하나</td></tr>
+    <tr><td></td><td>저체중</td><td>체질량지수 18.5 미만</td></tr>
+    <tr><td></td><td>축 상태</td><td>28일 끼니 답 → 관찰 중 · 개선 필요 · 보통, 최근 7건 → 양호</td></tr>
+    <tr><td class="k">1 진입 (⑤)</td><td>고정 · 회전 모두 답함</td><td>종료 · 화면 그대로</td></tr>
+    <tr><td></td><td>답하지 않은 문항이 있음</td><td>진입 시각으로 지난 끼니를 다시 판정해 그 문항만 갱신</td></tr>
+    <tr><td></td><td>~12시 / 12~15시 / 15~21시 / 21시~</td><td>지난 끼니 = 어제 저녁 / 오늘 아침 / 오늘 점심 / 오늘 저녁</td></tr>
+    <tr><td class="k">2 고정 문항 (⑤)</td><td>질문</td><td>「{지난 끼니}는 평소만큼 드셨나요?」 · 답 3개 · 건너뛰기 없음</td></tr>
+    <tr><td></td><td>거의 못 먹었거나 걸렀어요</td><td>끼니 규칙 축에 개선 필요 1건 적립 · 회전 문항 생략</td></tr>
+    <tr><td></td><td><b>18시 이후</b> 「아직 저녁 전이에요」 링크</td><td>답변 완료로 처리 · 집계에 쓰지 않음 · 회전 문항 생략 · 대상 끼니는 오늘 저녁</td></tr>
+    <tr><td class="k">3 회전 문항 (⑤)</td><td>고정 답 거의 못 먹음 · 아직 저녁 전</td><td>회전 문항 없음</td></tr>
+    <tr><td></td><td>그 외</td><td>물을 수 있는 축 − 연속 3일 축 → <b>28일 유효 답 최소 축</b> → 확진 질환 연결 축 → 마지막으로 물은 날 오래된 순 → 표 순서</td></tr>
+    <tr><td></td><td>답함</td><td>그 축에 적립 · 재계산(내일 반영)</td></tr>
+    <tr><td class="k">4 축 · 풀 선정 (⑥ 1단계)</td><td>오늘 고정 답 적게 · 거의 못 먹음</td><td>회복 풀 → 6단계로</td></tr>
+    <tr><td></td><td>확진 질환 있음</td><td>그 질환의 연결 축</td></tr>
+    <tr><td></td><td>검진 경계 있음</td><td>연결 축 중 상태가 가장 나쁜 축</td></tr>
+    <tr><td></td><td>피로 많음 또는 수면 5시간 미만</td><td>부담 줄이기 풀 → 6단계로</td></tr>
+    <tr><td></td><td>그 외</td><td>전체 축 중 가장 나쁜 축. 후보가 모두 양호면 가장 오래 안 나온 축</td></tr>
+    <tr><td class="k">5 단계 (⑥ 2단계)</td><td>저장된 단계</td><td>초기값 입문. 양호 상태만으로 기본·도전을 강제하지 않는다</td></tr>
+    <tr><td class="k">6 문구 (⑥ 3단계 · ⑦)</td><td>제외</td><td>질환별 금지 성격(진단 후보부터) · 과일 추천 · 상황 태그 미확인 · 시간대 불가 · 이미 지난 대상 끼니</td></tr>
+    <tr><td></td><td>후보 비면</td><td>아래 단계 → 다른 허용 축 → 그래도 없으면 안내 상태 · 완료율 분모 제외</td></tr>
+    <tr><td class="k">7 저장 · 타일 (⑥ 4단계 · ⑧)</td><td>대상 끼니</td><td>시간대 표시가 있으면 그 끼니 · 없으면 진입 뒤 첫 끼니 · 이미 지난 끼니는 대상으로 삼지 않는다</td></tr>
+    <tr><td></td><td>타일</td><td>두 문항을 모두 처리한 시점에 잠금 해제. 타일에는 행동 문구만</td></tr>
+    <tr><td class="k">8 당일 변경 (⑧)</td><td>고정 답 수정</td><td>pending 목표만 재선정. 완료·쉬기 기록은 보존</td></tr>
+    <tr><td></td><td>새 위험 정보 도착</td><td>당일에도 안전성 재검사 · 현재 행동 중지 가능 · 과거 기록은 덮어쓰지 않음</td></tr>
+    <tr><td class="k">9 다음 날 (⑥ · ⑧)</td><td>단계 재계산</td><td>하락 먼저 · 하루 1회만 조정</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b>이 순서도가 규칙의 정본이다.</b> ⑤ · ⑥ · ⑧의 표와 의사코드는 각 단계의 세부이며, 어긋나면 순서도를 따른다. 실행 순서를 코드에 가깝게 적은 의사코드는 ⑧에 있다.</div>
+</section>
+<section class="card" id="c3">
+  <h2><span class="n">3</span>용어</h2>
+  <div class="sub">문서 · 화면 · 코드에서 같은 말을 쓰기 위한 정의. 화면에 노출되는 말은 「화면 표기」 열</div>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:120px">용어</th><th>뜻</th><th style="width:26%">화면 표기</th></tr></thead>
+    <tbody>
+    <tr><td class="k">세션 날짜</td><td>질문 세트 · 목표 · 코칭이 하나로 묶이는 하루. 새벽 4시에 새 세션이 시작된다. 자정부터 새벽 4시 사이는 아직 전날 세션이다. 이 문서에서 「오늘」 「어제」가 규칙·집계를 가리킬 때는 모두 세션 날짜다</td><td>노출하지 않음</td></tr>
+    <tr><td class="k">실제 날짜</td><td>달력이 가리키는 그대로의 날짜. 끼니 이름을 붙일 때와 기기 데이터의 날짜 귀속에 쓴다. 세션 날짜와 다를 수 있는 구간은 자정~새벽 4시뿐이다</td><td>끼니 이름으로만 간접 노출</td></tr>
+    <tr><td class="k">지난 끼니</td><td>진입 시각 기준으로 끼니 시간대가 끝난 가장 최근 끼니. 어제 저녁 · 오늘 아침 · 오늘 점심 · 오늘 저녁 중 하나. 끼니 이름은 실제 날짜로 붙인다 — 세션 날짜로 붙이면 자정 이후 진입에서 실제로 먹은 끼니와 하루 어긋난다</td><td>질문 문장 안에 「어제 저녁」처럼</td></tr>
+    <tr><td class="k">고정 문항</td><td>매일 나오는 식이 문항. 지난 끼니의 양을 묻는다. 식이 타일은 회전 문항까지 처리해야 열린다</td><td>오늘의 질문 카드</td></tr>
+    <tr><td class="k">회전 문항</td><td>축을 바꿔 가며 하루 하나 나오는 식이 문항. 지난 끼니의 행동을 묻는다. 건너뛰기가 없다</td><td>오늘의 질문 카드</td></tr>
+    <tr><td class="k">행동 축</td><td>식이 행동을 여덟 갈래로 나눈 것. 끼니 규칙 · 채소 · 단 음료·단 간식 · 짠맛·국물 · 식사 시각 · 식사 속도·양 · 단백질 · 기름진 음식</td><td>노출하지 않음</td></tr>
+    <tr><td class="k">축 상태</td><td>「이 사람이 요즘 이 습관을 지키고 있나」에 대한 판정. 관찰 중 · 개선 필요 · 보통 · 양호 넷이다. 보는 자료가 상태마다 다르다(⑤)</td><td>노출하지 않음</td></tr>
+    <tr><td class="k">단계</td><td>축마다 문구의 실천 부담. 입문 · 기본 · 도전</td><td>노출하지 않음</td></tr>
+    <tr><td class="k">성격</td><td>문구가 무엇을 요구하는지 한 값으로 적은 것. 감량 · 공복 · 증량 · 수분 · 질감 또는 빈칸. 질환별 금지가 이 값을 보고 문구를 뺀다</td><td>노출하지 않음</td></tr>
+    <tr><td class="k">대상 끼니</td><td>목표 문구가 겨냥하는 끼니. 아침 · 점심 · 저녁 · <b>오늘 밤</b> 중 하나이며 목표와 함께 저장한다</td><td>노출하지 않음</td></tr>
+    <tr><td class="k">이유 한 줄</td><td>목표 문구마다 붙는 한 문장 설명. 목표 기록에 귀속되어 문구와 함께 저장된다</td><td>목표분석 탭에 상시 표시 · 홈 타일 탭 시 짧게</td></tr>
+    <tr><td class="k">확진 질환</td><td>진단 후보 중 사용자가 「관리 중」이라고 확인한 것. 검진 경계보다 우선해 후보 축을 정한다</td><td>확인 질문 화면에서 질환명만</td></tr>
+    <tr><td class="k">진단 후보</td><td>상병코드 조건을 만족했지만 아직 사용자 확인을 받지 않은 질환. <b>금지는 이 단계부터 건다</b></td><td>노출하지 않음</td></tr>
+    <tr><td class="k">질환별 금지</td><td>특정 질환에 해로울 수 있어 후보에서 빼는 규칙. 어떤 성격의 문구를 뺄지로 적는다. 문구마다 따로 달지 않는다</td><td>노출하지 않음</td></tr>
+    <tr><td class="k">확인 질문</td><td>진단 후보가 생겼을 때 「이 질환을 관리하고 계신가요」를 묻는 1회 질문. 민감한 상태는 묻지 않고 막기만 한다</td><td>오늘의 질문 카드</td></tr>
+    <tr><td class="k">풀</td><td>목표 문구 묶음. <b>축 × 단계 풀</b>은 여덟 축 × 세 단계 칸에서 고르고, <b>상황 풀</b>(회복 풀 · 부담 줄이기 풀)은 축·단계 판정을 건너뛰고 바로 꺼낸다</td><td>노출하지 않음</td></tr>
+    <tr><td class="k">회복 풀</td><td>지난 끼니를 적게 먹었거나 걸렀을 때 쓰는 문구 묶음. 축·단계 없음. 7개</td><td>일반 타일과 동일</td></tr>
+    <tr><td class="k">부담 줄이기 풀</td><td>피로가 크거나 수면이 5시간 미만일 때 쓰는 문구 묶음. 축·단계 없음. 9개</td><td>일반 타일과 동일</td></tr>
+    <tr><td class="k">검진 경계</td><td>공복혈당 · 혈압 · 총콜레스테롤 · 체질량지수 중 경계 또는 주의 판정이 있는 것. 검진값이 기본이고 기기 연동값이 더 최신이면 그 값을 쓴다</td><td>노출하지 않음</td></tr>
+    <tr><td class="k">출시 승인 스위치</td><td>실서비스 노출을 여는 유일한 값. 설정값 시트에 한 줄로 있다. 개발·시연은 이 값과 무관하게 후보를 만든다</td><td>노출하지 않음</td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="card" id="c4">
+  <h2><span class="n">4</span>사용자 흐름과 화면</h2>
+  <div class="sub">사용자가 실제로 보는 것만. 화면 요소, 상태, 문안 규칙, 가장 긴 문구</div>
+
+  <h3>화면 순서</h3>
+  <div class="grid3">
+    <div class="mini"><b>A. 오늘의 질문 — 식이 1 (고정)</b><p>「{지난 끼니}는 평소만큼 드셨나요?」<br>평소대로 · 조금 적게 · 거의 못 먹었거나 걸렀어요<br><br>답 3개 중 하나. 건너뛰기 없음. <b>18시 이후</b> 진입에서만 답 아래에 「아직 저녁 전이에요」 링크가 붙는다. 링크를 누르면 답변 완료로 처리하되 집계에 쓰지 않는다.</p></div>
+    <div class="mini"><b>B. 오늘의 질문 — 식이 2 (회전)</b><p>「{지난 끼니}에 채소 반찬이 있었나요?」<br>두 가지 이상 · 한 가지 · 없었어요<br><br>답은 항상 3개. 건너뛰기 없음. A에서 「거의 못 먹었거나 걸렀어요」 또는 「아직 저녁 전이에요」를 고르면 이 카드는 나오지 않는다.</p></div>
+    <div class="mini"><b>C. 오늘의 목표 — 식이 타일</b><p>🔒 식사 질문에 답하면 열려요 → 「저녁은 채소부터 먼저」<br><br>A와 B에 모두 답해야 잠금이 풀린다. B가 없으면 A만으로 열린다. 타일에는 행동 문구만. 이유·근거·축·단계는 타일에 쓰지 않는다. 탭하면 이유 한 줄이 짧게 뜨고 목표분석 탭으로 이어진다.</p></div>
+  </div>
+
+  <h3>상태와 분기</h3>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:30%">상황</th><th>보이는 것</th></tr></thead>
+    <tbody>
+    <tr><td class="k">첫 진입, 답 전</td><td>질문 카드 A(항상) + B(조건 충족 시). 식이 타일 잠김</td></tr>
+    <tr><td class="k">A에만 답함</td><td>식이 타일은 아직 잠긴 채다. 잠긴 목표는 그날 질문을 모두 처리한 시점에 한 번에 생성되므로 B가 남아 있으면 B에 답한 뒤 열린다</td></tr>
+    <tr><td class="k">A · B 모두 마침</td><td>식이 타일 열림. 목표는 이 시점에 한 번 만들어지고 그날 고정된다</td></tr>
+    <tr><td class="k">A에서 거의 못 먹음 · 아직 저녁 전</td><td>B 카드 없음. 식이 문항은 A 하나로 끝. 타일은 열린다</td></tr>
+    <tr><td class="k">B에 답하지 않고 나감</td><td>타일은 잠긴 채 남는다. 다음 진입에서 끼니 구간이 넘어갔으면 그 구간의 끼니로 갱신하고 축도 다시 고른다. 답하기 어려운 질문이면 기다렸다가 다른 축을 받으면 된다 — 이것이 건너뛰기를 대신한다</td></tr>
+    <tr><td class="k">같은 날 재진입 · 모두 답함</td><td>식이 문항 다시 나오지 않음. 타일은 그대로</td></tr>
+    <tr><td class="k">같은 날 재진입 · 답 안 한 문항이 있음</td><td>같은 끼니 구간이면 그대로. 구간이 넘어갔으면 그 문항의 끼니 이름을 새 구간으로 바꿔 다시 보여준다. 문항 개수는 늘지 않는다</td></tr>
+    <tr><td class="k">답 수정</td><td>A 답을 바꾸면 아직 손대지 않은 목표만 다시 고른다. 완료·쉬기 기록은 보존한다. B 답 수정은 축 관찰만 바뀐다</td></tr>
+    <tr><td class="k">후보가 하나도 없음</td><td>목표를 만들지 않고 「오늘은 개인 식사 계획을 먼저 확인해 주세요」 안내 상태로 저장한다. 잠김·미완료와 별개 상태이며 완료율 분모에서 뺀다</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>문안 규칙</h3>
+  <div class="grid2">
+    <div class="mini"><b>질문 문장</b><p>끼니 이름이 문장 첫머리에 들어간다. 조사는 끼니 이름 뒤에 붙는 형태를 축별 문장에 미리 써 둔다. 한 번 읽고 답할 수 있는 길이.</p></div>
+    <div class="mini"><b>답 문장</b><p>좋음 · 보통 · 나쁨 순서로 배치. 판단 어투 없이 사실만(「없었어요」, 「다 먹었어요」). 등급 라벨은 화면에 쓰지 않는다.</p></div>
+    <div class="mini"><b>타일 문구</b><p>명사형 또는 「~하기」로 끝나는 행동 하나. 두 줄 이내. 「~하세요」, 「줄이세요」, 수치 목표, 질환명은 쓰지 않는다.</p></div>
+    <div class="mini"><b>이유 한 줄</b><p>목표분석 탭의 목표 상세에 상시 표시. 홈 타일을 탭하면 짧게 노출. 오늘의 코칭에는 싣지 않는다. 출처 이름은 사용자에게 보이지 않는다.</p></div>
+  </div>
+
+  <h3>폭 검증용 가장 긴 문장</h3>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:110px">위치</th><th>문장</th><th style="width:80px">글자 수</th></tr></thead>
+    <tbody>
+    <tr><td class="k">질문 카드</td><td>어제 저녁에 고기·생선·달걀·두부 반찬이 있었나요?</td><td>27</td></tr>
+    <tr><td class="k">답 버튼</td><td>거의 못 먹었거나 걸렀어요</td><td>13</td></tr>
+    <tr><td class="k">타일</td><td>내일 아침은 간단한 것으로 정해 두기</td><td>20</td></tr>
+    <tr><td class="k">이유 한 줄</td><td>미리 꺼내 두면 다음에 손이 먼저 가요. 밤에는 카페인 없는 것으로 골라요.</td><td>42</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b>폭 한도</b> — 타일 22자(2줄 × 11자) · 질문 카드 32자(2줄 × 16자) · 답 버튼 14자. 새 문구는 이 한도를 넘지 않는다. 질문 카드는 끼니 이름을 <b>치환한 뒤</b>의 길이로 검증한다. <b>이유 한 줄에는 아직 한도가 없다</b> — 목표분석 탭의 표시 폭이 정해져야 값을 넣을 수 있다.</div>
+</section>
+<section class="card" id="c5">
+  <h2><span class="n">5</span>질문</h2>
+  <div class="sub">지난 끼니를 정하는 법, 문항을 고르는 법, 답을 관찰로 쌓는 법</div>
+
+  <h3>지난 끼니 정하기</h3>
+  <p>세션 날짜는 사용자 시간대 04시 경계, 끼니 날짜는 실제 달력일로 기록한다. 지난 끼니는 진입 시각으로 판정하며 경계는 <b>12 · 15 · 21시</b>다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:140px">진입 시각</th><th style="width:140px">지난 끼니</th><th>비고</th></tr></thead>
+    <tbody>
+    <tr><td class="k">04 ~ 12시</td><td>어제 저녁</td><td>오전 11시 알림 진입이 이 구간에 들어온다. 식사 시각 축은 이 구간에서만 물을 수 있다</td></tr>
+    <tr><td class="k">12 ~ 15시</td><td>오늘 아침</td><td>—</td></tr>
+    <tr><td class="k">15 ~ 21시</td><td>오늘 점심</td><td>18시 이후에는 고정 답으로 저녁 전·후를 갈라 「오늘 저녁」으로 넘어갈 수 있다</td></tr>
+    <tr><td class="k">21 ~ 04시</td><td>오늘 저녁</td><td>자정을 넘겨도 세션 날짜는 같다. 끼니 이름만 실제 날짜로 붙인다</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b>18시 이후 첫 진입은 고정 답으로 갈린다.</b> 저녁 문구는 18시부터 우선해 내면서 끼니 판정만 21시까지 점심으로 두면 둘이 어긋난다 — 19시에 저녁을 먹고 20시에 들어온 사람이 점심을 답하면서 저녁 목표를 받게 된다. 그래서 18시부터 「아직 저녁 전이에요」 링크를 붙이고, 저녁을 이미 먹었으면 지난 끼니를 오늘 저녁으로 둔다.</div>
+
+  <h3>문항 고르기</h3>
+  <ul>
+    <li>매 세션 고정 1개와 회전 최대 1개. 각 질문은 선택지 3개를 유지한다. <b>하루 전체 문항은 5문항 미만이고 그중 식이는 최대 2문항이다.</b> 남는 슬롯은 다른 영역이 쓴다. 식이 고정 문항은 매일 자리를 차지한다 — 기기에서 얻을 수 있는 식이 데이터가 없어 답이 없으면 목표를 만들 수 없기 때문이다.</li>
+    <li>고정 답이 거의 못 먹음·결식이거나 아직 저녁 전이면 회전 문항을 조건상 생략한다.</li>
+    <li>이미 처리한 문항은 다시 내지 않는다. 미응답 문항만 재진입 시 지난 끼니를 갱신한다.</li>
+    <li>회전 후보는 실제로 물을 수 있고 질환별 금지와 충돌하지 않는 축이다. 식사 시각 문항은 지난 끼니가 어제 저녁일 때만 가능하다.</li>
+    <li>연속 3일 같은 축 제외 후 후보가 비면 이 반복 제외만 해제한다.</li>
+    <li>정렬 키는 <b>최근 28일 유효 답이 적은 축 → 사용자 확인 질환·검진 연결 축 → 마지막으로 물은 날이 오래된 축 → 표 순서</b>다. 질환 연결은 동률 우선이며 다른 축을 영구 제외하지 않는다.</li>
+    <li>어제 목표와 대상 끼니가 같다는 이유로 회전 축을 정하지 않는다. 어제 결식에 따른 단백질 질문 강제도 없다.</li>
+    <li>「기억이 안 나요」는 질문 처리 완료로 저장하고 집계에서 제외한다. 회전 후보 자체가 없으면 조건상 생략으로 기록한다.</li>
+  </ul>
+  <p class="note">문항은 한 끼의 제한된 사실을 묻는다. 「평소대로」는 적정 영양량이 아니며, 국물 섭취로 하루 나트륨을, 반찬 수로 총중량을, 식후 포만감으로 식사 속도를 계산하지 않는다. 식사 시각 응답은 사실 빈도만 저장하고 좋음·나쁨 등급을 만들지 않는다.</p>
+
+  <h3>축 상태 판정</h3>
+  <p><b>개선 필요와 보통</b>은 28일 창의 유효 응답 3건부터 낸다. <b>양호</b>는 기간이 아니라 건수로 본다 — 최근 유효 응답 7건을 모아 비율을 내고, 그 7건이 84일 안에 모였을 때만 쓴다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:120px">상태</th><th style="width:36%">3단계 축<br><span class="note">끼니 규칙 · 채소 · 짠맛·국물</span></th><th>2단계 축<br><span class="note">단 음료 · 식사 속도·양 · 단백질 · 기름진 음식</span></th></tr></thead>
+    <tbody>
+    <tr><td class="k">관찰 중</td><td colspan="2">28일 창의 유효 응답이 3건 미만</td></tr>
+    <tr><td class="k">개선 필요</td><td colspan="2">부정 비율 0.5 이상</td></tr>
+    <tr><td class="k">양호</td><td>긍정 0.6 이상이고 부정 0.2 미만 <b>+ 최근 7건</b></td><td>긍정 0.8 이상 <b>+ 최근 7건</b></td></tr>
+    <tr><td class="k">보통</td><td colspan="2">위 어디에도 닿지 않음. 7건이 모이기 전에는 비율이 넘어도 여기에 머문다</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b>양호만 문턱이 높은 이유는 틀렸을 때 잃는 것이 다르기 때문이다.</b> 잘못 붙은 개선 필요는 쉬운 목표 하나가 더 나가는 것으로 끝나지만, 잘못 붙은 양호는 도움이 필요한 사람에게 그 축의 코칭을 끊는다. 3건으로 낸 비율은 세 번 다 긍정이어도 참값이 30%대일 수 있다. 양호와 개선 필요가 같은 세션에 함께 성립하면 <b>개선 필요를 따른다</b>.<br><br><b>양호만 건수로 보는 이유</b>는 회전 문항이 세션마다 최대 1개고 유효 답이 적은 축부터 고르기 때문이다. 7개 회전 축이 번갈아 나오면 28일에 축마다 4건 안팎에 그쳐, 양호까지 28일 창에 묶으면 고정 문항 축인 끼니 규칙 외에는 양호가 나올 수 없다. 회전 축은 7주쯤, 끼니 규칙은 7일쯤이면 7건에 닿는다.</div>
+  <p class="note">같은 실제 끼니·질문 버전의 응답은 1건으로 집계한다. 응답 수정은 추가 적립이 아니라 같은 관찰의 새 버전이다. 세 값 모두 수집량을 고려한 운영 초기값이며 임상적으로 검증된 척도가 아니다. 오늘 선정에 쓰는 상태는 첫 선정 직전에 전일까지의 응답으로 고정하고, 오늘 답을 저장한 뒤 갱신한 상태는 다음 세션부터 적용한다. 오늘 고정 답의 섭취 부족 여부만 회복 분기에 직접 쓴다.</p>
+</section>
+<section class="card" id="c6">
+  <h2><span class="n">6</span>목표 고르기</h2>
+  <div class="sub">네 단계로 좁힌다. 축(또는 풀) → 단계 → 문구 → 대상 끼니</div>
+
+  <h3>1단계 · 어느 축(또는 풀)인가</h3>
+  <p>전문의 출시 승인 스위치와 질환별 금지를 먼저 확인한다. 금지는 「식이 참조·설정 데이터」의 질환규칙 시트 한 곳에서만 보고 문구마다 제한을 따로 달지 않는다 — 앱이 개인 처방식이나 식품 알레르기를 받는 경로가 없어 지킬 수 없는 조건이었다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:52px">순서</th><th style="width:30%">조건</th><th>고르는 것</th></tr></thead>
+    <tbody>
+    <tr><td class="k">①</td><td>오늘 고정 답이 조금 적게 · 거의 못 먹었거나 걸렀어요</td><td><b>회복 풀</b>. 물·단백질 한 가지로 충분한 회복을 보장하지 않는다. 반복 섭취 부족·치료 중·연하 문제는 일반 회복 목표로 덮지 않는다</td></tr>
+    <tr><td class="k">②</td><td>확진 질환 있음</td><td>그 질환의 <b>연결 축</b>. 확진은 진단 후보를 사용자가 「관리 중」으로 확인한 것이다</td></tr>
+    <tr><td class="k">③</td><td>검진 경계 있음</td><td>연결된 축 중 <b>상태가 가장 나쁜 축</b>. 경계가 둘 이상이면 혈당 → 혈압 → 콜레스테롤·체중 순으로 하나</td></tr>
+    <tr><td class="k">④</td><td>피로가 크거나 수면 5시간 미만</td><td><b>부담 줄이기 풀</b></td></tr>
+    <tr><td class="k">⑤</td><td>그 외</td><td>전체 축 중 상태가 가장 나쁜 축. 후보가 모두 양호면 가장 오래 안 나온 축</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b>안전 필터가 이 순서보다 먼저다.</b> 정보 부족으로 부적합을 배제할 수 없으면 개별 식사 계획 확인 안내로 종료한다. 고위험 질환은 질환규칙의 금지 Y 줄이 처리한다.</div>
+
+  <h3>2단계 · 어느 단계인가</h3>
+  <ul>
+    <li>모두 <b>입문</b>에서 시작한다. 양호 상태만으로 기본·도전을 강제하지 않는다.</li>
+    <li>최근 7일 중 <b>마지막 단계 변경 이후</b> 같은 축 완료 3건이면 1단계 상승한다. 같은 완료 실적을 두 번 세지 않기 위해 마지막 변경일을 기준으로 삼는다.</li>
+    <li>같은 구간에서 <b>명시적 미완료가 연속 2건</b>이면 1단계 하락한다.</li>
+    <li>하락 신호를 우선하고 하루 1회만 조정한다. 쉬기는 세지 않고, 손대지 않은 pending은 미완료로 치환하지 않는다.</li>
+    <li>단계 변경일과 마지막 평가 세션을 저장한다.</li>
+  </ul>
+
+  <h3>3단계 · 어느 문구인가</h3>
+  <p>운영 문구 171개에서 아래를 차례로 뺀다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:30%">빼는 것</th><th>규칙</th></tr></thead>
+    <tbody>
+    <tr><td class="k">질환별 금지</td><td>진단 후보에 걸린 질환의 <b>금지 성격</b>과 문구의 <b>성격</b>이 같으면 뺀다. <b>완화할 수 없다</b> — 아래 단계나 다른 축으로 내려가도 계속 따라간다</td></tr>
+    <tr><td class="k">과일 추천</td><td>추가형·대체형 모두 제외. 서비스 정책이며 통과일을 지방간 원인으로 판정하지 않는다</td></tr>
+    <tr><td class="k">상황 태그 미확인</td><td>시간대 표시가 편의점·회식·명절처럼 상황을 가리키는데 그 상황을 알 수 없으면 뺀다</td></tr>
+    <tr><td class="k">시간 불가</td><td>지금 시각 이후에 실행할 수 없는 행동. 식사 전체·매 끼니 목표는 이미 일부 끼니가 지난 뒤 소급 완료를 요구하지 않는다</td></tr>
+    <tr><td class="k">단계 불일치</td><td>그 축의 현재 단계가 아닌 문구</td></tr>
+    </tbody>
+  </table></div>
+  <p>후보가 없으면 아래 단계나 다른 허용 축을 찾되 <b>동일한 필터를 다시 적용한다</b>. 그래도 없으면 안내 상태로 저장하고 완료율 분모에서 제외한다. 문구 ID·버전·행동·이유를 생성 시점의 값으로 저장해, 문구 세트가 바뀌어도 그날 기록이 유지되게 한다.</p>
+
+  <h3>금지 성격이 하는 일</h3>
+  <p>질환마다 「이 성격의 문구를 내지 말라」를 한 줄로 적어 두고, 문구는 자기가 무슨 성격인지만 안다. 같은 판단을 171곳에 복사하지 않기 위해서다.</p>
+  <div class="grid3">
+    <div class="mini"><b>감량 · 26개</b><p>양을 줄이라는 것. 「한 숟갈 양을 절반으로」</p></div>
+    <div class="mini"><b>공복 · 17개</b><p>건너뛰거나 끼니 사이를 벌리라는 것. 「저녁 후 단 디저트 건너뛰기」</p></div>
+    <div class="mini"><b>증량 · 50개</b><p>더 먹으라는 것. 「소량이라도 단백질 한 가지」</p></div>
+    <div class="mini"><b>수분 · 9개</b><p>물·차를 권하는 것. 「목마르면 물 한 잔 먼저」</p></div>
+    <div class="mini"><b>질감 · 8개</b><p>단단하거나 퍽퍽한 음식을 권하는 것. 「간식은 견과류 한 줌으로」</p></div>
+    <div class="mini"><b>빈칸 · 61개</b><p>어느 금지에도 걸리지 않는 것. 시각·속도·조리법·준비 행동</p></div>
+  </div>
+  <p class="note">질환규칙 14개 중 금지가 걸린 것은 11개다. 예를 들어 섭식장애는 감량·공복·증량을 막아 93개가 빠지고 78개가 남는다. 규칙과 상병코드 조건은 참조 데이터의 질환규칙·상병코드조건 시트에 있다.</p>
+
+  <h3>4단계 · 대상 끼니 붙이기</h3>
+  <p>문구에 시간대 표시가 있으면 그 끼니, 없으면 진입 뒤 첫 끼니다. <b>이미 지난 끼니를 대상으로 삼지 않는다</b> — 소급 완료를 요구하게 되기 때문이다.</p>
+  <div class="callout"><b>18시부터 세션이 끝나는 04시까지의 첫 진입은 고정 답으로 갈린다.</b> 자정을 넘긴 진입도 세션 날짜가 같으므로 같은 규칙을 쓴다. 다만 문구의 「내일」은 세션 기준이라 자정 뒤에는 실제 날짜와 어긋나므로, 00~04시 진입에는 날짜 말이 없는 문구를 먼저 고른다.
+  <ul style="margin:8px 0 0">
+    <li><b>아직 저녁 전</b> → 오늘 저녁을 대상으로 평소대로 만든다.</li>
+    <li><b>저녁을 이미 먹었음</b> → 오늘 끼니가 끝났으므로 대상 끼니를 <b>오늘 밤</b>으로 두고, 남은 밤에 실행할 수 있는 준비·정리 행동만 후보로 삼는다. 다음 날 아침을 대상으로 미루지 않는다 — 다음 세션에서 만들 목표와 겹친다.</li>
+  </ul></div>
+  <p><b>남은 밤 후보는 10개</b>다. 시간대 표시가 「저녁」이면서 식사 자체를 요구하지 않는 문구로, 기존 2개(전날 밤에 아침거리 꺼내 두기 · 저녁 먹고 부엌 정리하기)에 준비 행동 8개를 더했다. 「저녁은 준비하기 편한 식사로」는 저녁을 이미 먹은 분기에서 실행할 수 없어 뺐다. 먹는 것을 제한하는 행동이 아니라 다음 끼니를 쉽게 만드는 행동이므로 자동 공복·야식 제한 금지와 부딪히지 않는다.</p>
+  <p class="note">밤에 준비해 아침에 먹는 행동이라 두 가지 제약을 이유 문장에 담았다 — 꺼내 두는 차는 카페인 없는 것으로 한정하고, 씻어 둔 채소와 삶은 달걀은 식혀서 밀폐해 냉장하도록 적었다. 저녁 식사를 마친 뒤 또는 00~04시에는 자동으로 공복·야식 제한 목표를 만들지 않는다.</p>
+</section>
+<section class="card" id="c7">
+  <h2><span class="n">7</span>문구 세트</h2>
+  <div class="sub">운영 문구 171개. 실제 목록은 「식이 참조·설정 데이터 v1.0.0」 문구세트 시트에 있다</div>
+  <p>문구 원문을 이 문서에 옮겨 적지 않는다. 같은 목록이 두 곳에 있으면 언젠가 어긋나기 때문이다. 여기에는 구성과 규칙만 적는다.</p>
+
+  <h3>구성</h3>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:150px">축</th><th style="width:70px">입문</th><th style="width:70px">기본</th><th style="width:70px">도전</th><th>비고</th></tr></thead>
+    <tbody>
+    <tr><td class="k">끼니 규칙</td><td>6</td><td>8</td><td>7</td><td>고정 문항 축. 관찰이 가장 많이 쌓인다</td></tr>
+    <tr><td class="k">채소</td><td>10</td><td>9</td><td>6</td><td>—</td></tr>
+    <tr><td class="k">단 음료 · 단 간식</td><td>11</td><td>6</td><td>5</td><td>—</td></tr>
+    <tr><td class="k">짠맛 · 국물</td><td>8</td><td>10</td><td>7</td><td>—</td></tr>
+    <tr><td class="k">식사 시각</td><td>2</td><td>3</td><td>2</td><td>상태를 만들지 않는 축이라 목표 선정 근거가 따로 필요하다(⑩ 남은 결정)</td></tr>
+    <tr><td class="k">식사 속도 · 양</td><td>6</td><td>5</td><td>2</td><td>—</td></tr>
+    <tr><td class="k">단백질</td><td>10</td><td>8</td><td>6</td><td>—</td></tr>
+    <tr><td class="k">기름진 음식</td><td>8</td><td>6</td><td>4</td><td>—</td></tr>
+    <tr><td class="k">회복 풀</td><td colspan="3">7 (단계 없음)</td><td>지난 끼니를 적게 먹었거나 걸렀을 때</td></tr>
+    <tr><td class="k">부담 줄이기 풀</td><td colspan="3">9 (단계 없음)</td><td>피로가 크거나 수면 5시간 미만일 때</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">축 × 단계 155개 + 회복 풀 7개 + 부담 줄이기 풀 9개 = 171개. 빈 칸은 없다.</p>
+
+  <h3>문구 하나가 갖는 것</h3>
+  <div class="grid2">
+    <div class="mini"><b>타일 문구</b><p>화면에 그대로 나가는 말. 22자 이하</p></div>
+    <div class="mini"><b>이유 한 줄</b><p>목표분석 탭 설명. 길이 한도 미정</p></div>
+    <div class="mini"><b>축 · 단계</b><p>어느 칸에서 뽑히는지</p></div>
+    <div class="mini"><b>시간대 표시</b><p>저녁 · 오전 진입 · 오후 진입 또는 상황 태그</p></div>
+    <div class="mini"><b>성격</b><p>감량 · 공복 · 증량 · 수분 · 질감 또는 빈칸. 질환별 금지가 이 값을 본다</p></div>
+    <div class="mini"><b>근거 · 근거 강도</b><p>출처와 그 출처가 일반 원칙인지 행동 구현인지</p></div>
+  </div>
+
+  <h3>시간대 표시의 실제 분포</h3>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:180px">종류</th><th style="width:80px">개수</th><th>지금 쓸 수 있나</th></tr></thead>
+    <tbody>
+    <tr><td class="k">없음(— 또는 빈칸)</td><td>95</td><td>언제든</td></tr>
+    <tr><td class="k">시간 조건<span class="note"> 저녁 24 · 오전 진입 8 · 오후 진입 2</span></td><td>34</td><td>진입 시각으로 판정 가능</td></tr>
+    <tr><td class="k">달력으로 알 수 있는 상황<span class="note"> 명절 · 토·일 · 평일 · 연휴</span></td><td>7</td><td>달력에서 판정 가능</td></tr>
+    <tr><td class="k">알 수 없는 상황<span class="note"> 편의점 · 급식 · 사무실 · 마트 · 회식 · 배달 · 야근 · 카페 · 뷔페 · 여행</span></td><td>35</td><td><b>아니오.</b> 입력 경로가 없어 1차에서는 후보에서 빠진다</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b>1차에 실제로 쓸 수 있는 문구는 약 136개다.</b> 상황을 알 수 없는 35개는 안내 시트의 「해당 상황 미확인 시 상황 전용 문구 보류」 규칙에 따라 후보에서 빠진다. 상황 입력을 받을지는 2차 결정이다. 「없음」이 `—`과 빈칸 두 표기로 갈려 있는 것도 한 가지로 통일해야 한다.</div>
+
+  <h3>쓰지 않는 문구</h3>
+  <ul>
+    <li><b>잴 수 없는 수치 목표</b> — 「하루 나트륨 2,000mg 미만」처럼 앱이 확인할 수 없는 값</li>
+    <li><b>금지 · 압박 어투</b> — 「~하세요」, 「~ 줄이세요」, 질환명을 직접 부르는 문장</li>
+    <li><b>출처 없는 문구</b> — 근거 칸을 채울 수 없는 문구는 목록에 넣지 않는다</li>
+    <li><b>과일 추천</b> — 추가형·대체형 모두. 서비스 정책</li>
+  </ul>
+  <p class="note">곡류·식이섬유 19문구를 포함한 보류 문구 62개는 운영 목록에서 삭제했다. 삭제 이력은 「식이 근거 대조 결과」에만 보존한다.</p>
+</section>
+<section class="card" id="c8">
+  <h2><span class="n">8</span>데이터와 계산</h2>
+  <div class="sub">저장할 것, 참조할 것, 판정 순서. 이름은 설명용이며 실제 필드명은 데이터 모델 문서에서 정한다</div>
+
+  <h3>저장 데이터 계약</h3>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:130px">저장 단위</th><th style="width:44%">필수 정보</th><th>무결성 규칙</th></tr></thead>
+    <tbody>
+    <tr><td class="k">식이 응답</td><td>응답 ID, 사용자, 세션 날짜, 실제 끼니 날짜·종류, 질문 ID·버전, 선택지 코드, 응답 시각, 수정 버전, 유효 여부</td><td>실제 끼니·질문 ID·버전의 마지막 유효 응답만 집계. 자정~04시 응답은 두 날짜가 하루 어긋나므로 반드시 따로 저장한다</td></tr>
+    <tr><td class="k">문항 상태</td><td>사용자·세션, 고정/회전, 미응답/응답/조건상생략, 마지막 노출 끼니, 생략 사유</td><td>미상 답도 처리 완료. 질환 확인 질문은 별도 흐름</td></tr>
+    <tr><td class="k">축 관찰 스냅샷</td><td>사용자·축·질문버전, 관찰 기간, 유효 수, 응답 분포, 상태, 계산시각, 적용 세션, <b>최근 7건의 응답 ID·시각·선택지</b></td><td>오늘 사용값과 응답 후 새 계산값을 분리. 양호는 최근 7건으로 판정하므로 개별 응답을 되짚을 수 있어야 한다</td></tr>
+    <tr><td class="k">축 단계</td><td>사용자·축, 단계, 변경일, 근거 목표 ID들, 마지막 평가 세션</td><td>같은 완료 실적 중복 사용 방지</td></tr>
+    <tr><td class="k">목표 기록</td><td>사용자·세션, 목표 ID·리비전, 문구 ID·버전, 행동·이유 스냅샷, 축/풀, 단계, 대상 끼니·기간, 선정 사유·규칙버전</td><td>유효 목표는 1개. 수정 이력과 기존 완료 유지</td></tr>
+    <tr><td class="k">목표 토글</td><td>목표 ID·리비전, pending/done/missed/rest, 변경 시각</td><td>달성 정본. 질문 답으로 덮어쓰기 금지</td></tr>
+    <tr><td class="k">질환 참고 상태</td><td>후보/사용자확인/부정/모름, 출처 코드·진료일, 확인일, 유효기간, 코드체계·버전</td><td>상병코드·자가 확인은 임상 확진 아님</td></tr>
+    <tr><td class="k">검진·기기 관찰</td><td>원본 값·단위, 측정시각·환경·기기, 유효성, 출처 ID, 검사실 참고범위</td><td>자가혈당·CGM·가정혈압으로 검사실/진료실 기준 일괄 대체 금지</td></tr>
+    <tr><td class="k">참조·설정</td><td>문구·질문·선택지 ID와 버전, 출처, 사용 상태</td><td>문구별 승인 칸은 두지 않는다. 실서비스 노출은 설정값의 출시 승인 스위치 하나로만 연다</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>참조 데이터</h3>
+  <p>규칙이 읽는 표는 「식이 참조·설정 데이터 v1.0.0」 한 파일에 있다. 구현은 <b>열정의 시트를 먼저 본다</b> — 열마다 타입·허용값·필수 여부가 적혀 있다.</p>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:130px">시트</th><th style="width:70px">크기</th><th>내용</th></tr></thead>
+    <tbody>
+    <tr><td class="k">문구세트</td><td>171 × 19</td><td>목표 문구. 성격 열이 질환별 금지와 맞물린다</td></tr>
+    <tr><td class="k">축정의</td><td>8 × 18</td><td>질문 8종. 선택지 코드와 집계값까지</td></tr>
+    <tr><td class="k">질환규칙</td><td>14 × 13</td><td>질환마다 연결할지 금지할지. 연결 축은 질문 ID로 참조한다</td></tr>
+    <tr><td class="k">상병코드조건</td><td>61 × 10</td><td>규칙마다 어떤 상병코드를 몇 개월 안에 몇 회 보면 후보로 올리는지. 코드 이름 포함</td></tr>
+    <tr><td class="k">설정값</td><td>56 × 5</td><td>경계 · 창 · 시각 · 폭 · 스위치 · 임의값. 하드코딩하지 않는다</td></tr>
+    <tr><td class="k">열정의</td><td>43 × 6</td><td>모든 시트의 열 정의</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b>상병코드는 전부 미검증이다.</b> 코드 이름은 ICD-10 기준 표기이며 실제 KCD 마스터의 공식 명칭과 5단위 세분류에 대조해야 한다. 진료정보 연동 규격이 확정될 때 한 번 맞춘다.</div>
+
+  <h3>판정 순서</h3>
+  <p>규칙을 읽는 순서를 한 장으로 적은 것이다. 실제 언어가 아니라 순서를 못 박기 위한 것이며, 값은 참조 데이터의 설정값 시트를 따른다.</p>
+  <pre>세션 날짜 = 사용자 시간대 04시 경계
 실제 날짜 = 자정 경계
 지난 끼니 = 진입 시각으로 판정 (경계 12 · 15 · 21시)
             18시 이후 첫 진입은 고정 답으로 저녁 전·후를 가른다
@@ -85,5 +501,108 @@ if 후보 비었음:
 if 같은 축 명시적 미완료가 연속 2건 (마지막 단계 변경 이후):  1단계 하락
 elif 최근 7일 중 마지막 단계 변경 이후 같은 축 완료 3건:      1단계 상승
 # 손대지 않은 pending 은 미완료가 아니다. 쉬기는 세지 않는다.
-# 양호 상태만으로 기본·도전을 강제하지 않는다.</pre><p class="muted">금지와 연결은 방향이 다르다. 연결은 우선순위를 올리는 것이라 틀려도 덜 맞는 목표가 나갈 뿐이고 확진에만 건다. 금지는 후보에서 빼는 것이라 틀리면 위험한 목표가 나가므로 진단 후보 단계부터 걸고, 후보가 없어 아래 단계나 다른 축으로 내려가도 계속 따라간다.</p></section>
-<section id="model"><h2>저장 데이터 계약</h2><div class="scroll"><table><thead><tr><th>저장 단위</th><th>필수 정보</th><th>무결성 규칙</th></tr></thead><tbody><tr><td>식이 응답</td><td>응답 ID, 사용자, 세션 날짜, 실제 끼니 날짜·종류, 질문 ID·버전, 선택지 코드, 응답 시각, 수정 버전, 유효 여부</td><td>실제 끼니·질문 ID·버전의 마지막 유효 응답만 집계</td></tr><tr><td>문항 상태</td><td>사용자·세션, 고정/회전, 미응답/응답/조건상생략/정책상미출제, 마지막 노출 끼니, 생략 사유</td><td>미상 답도 처리 완료. 질환 확인 질문은 별도 흐름</td></tr><tr><td>축 관찰 스냅샷</td><td>사용자·축·질문버전, 관찰 기간, 유효 수, 응답 분포, 상태, 계산시각, 적용 세션</td><td>오늘 사용값과 응답 후 새 계산값을 분리</td></tr><tr><td>축 단계</td><td>사용자·축, 단계, 변경일, 근거 목표 ID들, 마지막 평가 세션</td><td>같은 완료 실적 중복 사용 방지</td></tr><tr><td>목표 기록</td><td>사용자·세션, 목표 ID·리비전, 문구 ID·버전, 행동·이유 스냅샷, 축/풀, 단계, 대상 끼니·기간, 선정 사유·규칙버전</td><td>유효 목표는 1개. 수정 이력과 기존 완료 유지</td></tr><tr><td>목표 토글</td><td>목표 ID·리비전, pending/done/missed/rest, 변경 시각</td><td>달성 정본. 질문 답으로 덮어쓰기 금지</td></tr><tr><td>질환 참고 상태</td><td>후보/사용자확인/부정/모름, 출처 코드·진료일, 확인일, 유효기간, 코드체계·버전</td><td>상병코드·자가 확인은 임상 확진 아님</td></tr><tr><td>검진·기기 관찰</td><td>원본 값·단위, 측정시각·환경·기기, 유효성, 출처 ID, 검사실 참고범위</td><td>자가혈당·CGM·가정혈압으로 검사실/진료실 기준 일괄 대체 금지</td></tr><tr><td>참조·설정</td><td>문구·질문·선택지 ID와 버전, 출처, 사용 상태</td><td>문구별 승인 칸은 두지 않는다. 실서비스 노출은 설정값의 출시 승인 스위치 하나로만 연다</td></tr></tbody></table></div></section><section id="clinical"><h2>임상 검토 반영</h2><ul><li>WHO의 채소·과일 합계와 유리당 정의를 바로잡았다. 숫자·접시 수·음식 한 가지로 권고량 충족을 단정하지 않는다.</li><li>과일 추천 제외는 사용자 정책으로 유지한다. 지방간 근거에서 가당 음료와 통과일을 혼동하지 않는다.</li><li>신장질환의 칼륨·인·단백질·수분과 심부전 수분은 개인화 대상이다. 정보 부족으로 자동 권고를 보류하는 것과 해당 식품이 전원 금기라는 진술을 구분한다.</li><li>당뇨병은 약물·저혈당 상황이 중요하다. 처치용 당 섭취를 ‘나쁜 행동’으로 기록하거나 공복·탄수화물 감량을 자동 지시하지 않는다.</li><li>임신·섭식장애·영양결핍·암 치료·투석·수술후·연하장애에는 일반 목표가 개인 영양 계획을 대체하지 않는다.</li><li>진료 코드 반복과 ‘관리 중’ 답은 임상 확진을 만들지 않는다. 기존 코드 범위는 미검증으로 남기고 실제 연동 코드체계·예외·재질문 규칙을 승인해야 한다.</li></ul><p class="notice">의학적으로 틀린 부분이 전혀 없다고 보증하거나 실제 전문의 검수 완료라고 표기하지 않는다. 코드 판정, 개별 제한, 문구 노출 적합성, 질문의 타당성은 실제 의료 책임자의 승인이 남아 있다. 문구마다 승인 칸을 두지 않고, 실서비스 노출은 설정값의 출시 승인 스위치 하나로만 연다.</p></section><footer>기획·데이터 수정 완료본. AI의 공식 근거 대조이며 실제 전문의 최종 승인 문서가 아닙니다. 실서비스 활성화는 대상 범위 확인 후 출시 승인 스위치로 결정합니다.</footer></main></body></html>
+# 양호 상태만으로 기본·도전을 강제하지 않는다.</pre>
+
+  <h3>경계 사례</h3>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:30%">상황</th><th>처리</th></tr></thead>
+    <tbody>
+    <tr><td class="k">자정~04시 진입</td><td>세션 날짜는 전날, 끼니 이름은 실제 날짜로 붙인다. 두 날짜를 모두 저장해 같은 끼니를 이중 집계하지 않는다</td></tr>
+    <tr><td class="k">고정 답 수정</td><td>아직 손대지 않은 목표만 다시 고른다. 완료·쉬기 기록은 보존한다</td></tr>
+    <tr><td class="k">새 위험 정보 도착</td><td>당일에도 안전성 재검사를 수행하고 현재 행동을 중지할 수 있지만 과거 기록을 덮어쓰지 않는다</td></tr>
+    <tr><td class="k">검진·기기 값 변화로 경계 판정이 바뀜</td><td>다음 날 선정부터 반영한다. 오늘 이미 생성된 목표는 바꾸지 않는다</td></tr>
+    <tr><td class="k">문구 버전이 올라감</td><td>목표 기록에 생성 시점 문안을 저장해 두었으므로 지난 기록은 그대로 보인다. 구버전과 뜻이 달라진 응답은 새 의미로 섞지 않는다</td></tr>
+    <tr><td class="k">사용자 시간대 변경</td><td><b>미정.</b> 세션 경계 04시는 사용자 시간대 기준인데 시간대가 바뀌면 세션이 겹치거나 건너뛴다. 저장 계약에 시간대 필드가 없다(⑩ 남은 결정)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+<section class="card" id="c9">
+  <h2><span class="n">9</span>근거</h2>
+  <div class="sub">축별 출처와 근거 대조 상태. 상세는 「식이 근거 검수 결과」와 「식이 근거 대조 결과」</div>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:130px">축</th><th style="width:44%">근거 출처(표기용)</th><th>대조 상태</th></tr></thead>
+    <tbody>
+    <tr><td class="k">끼니 규칙</td><td>「한국인을 위한 식생활지침」(2021) 수칙 5 · 수칙 1 · 4(결식 회피)</td><td>시각 일정 문구만 「약함」</td></tr>
+    <tr><td class="k">채소</td><td>식생활지침 수칙 1 · WHO 건강식(채소·과일 400g 이상)</td><td>식사 순서는 원 논문 출처로 교체. WHO의 채소·과일 합계를 채소만으로 읽지 않는다</td></tr>
+    <tr><td class="k">단 음료 · 단 간식</td><td>WHO 당류 지침(2015) 유리당 10% 미만 · 5% 미만 · 식생활지침 수칙 2</td><td>확인. 유리당 정의를 통과일로 확장하지 않는다</td></tr>
+    <tr><td class="k">짠맛 · 국물</td><td>WHO 나트륨 2,000mg 미만 · 대한고혈압학회 진료지침(2022) 소금 5g 이하 · 식약처 외식 나트륨 실측</td><td>「하루 나트륨의 절반」 → 「하루치 거의 다」로 수정</td></tr>
+    <tr><td class="k">식사 시각</td><td>비만학회 식사요법 · ACG 위식도역류 지침(취침 2~3시간 내 식사 회피)</td><td>물 한 잔 문구만 「약함」. 이 축으로 임상적 야식 위험을 판정하지 않는다</td></tr>
+    <tr><td class="k">식사 속도 · 양</td><td>식생활지침 수칙 4 · 식사 속도 메타분석(2014, 22건)</td><td>「80%」 삭제. 저녁 양·밥 양 문구는 검진 경계 전용</td></tr>
+    <tr><td class="k">단백질</td><td>「2020 한국인 영양소 섭취기준」 0.91g/kg/일 · 식생활지침 수칙 1</td><td>끼니 분산 문구는 수칙 1 실천형으로 유지, 소규모 실험 부분만 「약함」</td></tr>
+    <tr><td class="k">기름진 음식</td><td>한국지질동맥경화학회 이상지질혈증 진료지침 5판(2022) · WHO 건강식(포화지방 10% 미만)</td><td>확인. 견과류는 WHO 출처로 교체</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>임상 검토에서 바로잡은 것</h3>
+  <ul>
+    <li>WHO의 채소·과일 합계와 유리당 정의를 바로잡았다. 숫자·접시 수·음식 한 가지로 권고량 충족을 단정하지 않는다.</li>
+    <li>과일 추천 제외는 사용자 정책으로 유지한다. 지방간 근거에서 가당 음료와 통과일을 혼동하지 않는다.</li>
+    <li>신장질환의 칼륨·인·단백질·수분과 심부전 수분은 개인화 대상이다. 정보 부족으로 자동 권고를 보류하는 것과 해당 식품이 전원 금기라는 진술을 구분한다.</li>
+    <li>당뇨병은 약물·저혈당 상황이 중요하다. 처치용 당 섭취를 「나쁜 행동」으로 기록하거나 공복·탄수화물 감량을 자동 지시하지 않는다.</li>
+    <li>임신·섭식장애·영양결핍·암 치료·투석·수술후·연하장애에는 일반 목표가 개인 영양 계획을 대체하지 않는다.</li>
+    <li>밤에 준비해 아침에 먹는 행동에는 두 가지를 이유 문장에 못박았다 — 꺼내 두는 차는 카페인 없는 것으로 한정하고, 씻어 둔 채소와 삶은 달걀은 식혀서 밀폐해 냉장한다.</li>
+    <li>삼킴이 어려우면 단단하거나 퍽퍽한 음식뿐 아니라 묽은 액체도 기도로 넘어가기 쉽다. 연하장애에는 질감과 수분을 함께 막는다.</li>
+    <li>진료 코드 반복과 「관리 중」 답은 임상 확진을 만들지 않는다. 코드 범위는 미검증으로 남기고 실제 연동 코드체계·예외·재질문 규칙을 승인해야 한다.</li>
+  </ul>
+  <div class="callout warn">의학적으로 틀린 부분이 전혀 없다고 보증하거나 실제 전문의 검수 완료라고 표기하지 않는다. 코드 판정, 개별 금지, 문구 노출 적합성, 질문의 타당성은 실제 의료 책임자의 승인이 남아 있다. 문구마다 승인 칸을 두지 않고, 실서비스 노출은 설정값의 출시 승인 스위치 하나로만 연다.</div>
+</section>
+<section class="card" id="c10">
+  <h2><span class="n">10</span>다른 문서와의 관계</h2>
+  <div class="sub">09-16판에서 바뀐 것, 영향받는 문서, 아직 열려 있는 결정</div>
+
+  <h3>09-16 버전 1.0에서 바뀐 것</h3>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:150px">항목</th><th style="width:34%">09-16판</th><th>지금</th></tr></thead>
+    <tbody>
+    <tr><td class="k">관찰 창</td><td>14일 · 최소 유효 답 3건(모든 상태 공통)</td><td><b>28일</b> · 개선 필요와 보통은 3건, <b>양호는 최근 7건</b>(84일 상한)</td></tr>
+    <tr><td class="k">상태 경계</td><td>모든 축이 3단계(좋음 0.6 · 나쁨 0.2 미만)</td><td>8축 중 <b>5축이 2단계</b>. 2단계 축은 부정 0.5 개선 필요 · <b>긍정 0.8 양호</b></td></tr>
+    <tr><td class="k">회전 축 선정</td><td>어제 목표의 대상 끼니가 오늘 지난 끼니와 같으면 그 축(확인 질문). 어제 결식이면 단백질 축 고정</td><td><b>둘 다 제거.</b> 답 하나로 축이 갈리면 답변을 의식하게 된다</td></tr>
+    <tr><td class="k">하루 문항 수</td><td>식이 2개만 명시</td><td>전체 <b>5문항 미만</b>, 그중 식이 최대 2문항</td></tr>
+    <tr><td class="k">운영 문구 수</td><td>확정 39 + 확장 186</td><td>근거 대조 225 → 운영 163 → <b>171</b>(남은 밤 준비 행동 8개 추가)</td></tr>
+    <tr><td class="k">과일 문구</td><td>대체형 유지 · 추가형 삭제</td><td><b>추가·대체 모두 제외</b></td></tr>
+    <tr><td class="k">저녁 여부 판정</td><td>21시 이후에만 「아직 저녁 전이에요」</td><td><b>18시부터.</b> 저녁 문구 우선 시각과 맞췄다</td></tr>
+    <tr><td class="k">저녁 이후 목표</td><td>지나간 오늘 저녁이 대상 끼니가 되는 문제만 지적</td><td>대상 끼니를 <b>오늘 밤</b>으로 두고 <b>준비·정리 행동 10개</b>만 후보로</td></tr>
+    <tr><td class="k">단계 상승</td><td>최근 7일 완료 3회</td><td>최근 7일 중 <b>마지막 단계 변경 이후</b> 완료 3건</td></tr>
+    <tr><td class="k">개인 제한</td><td>문구 171개마다 제한 문장</td><td><b>제한 칸 삭제.</b> 금지는 질환규칙 한 곳에서 질환 단위로만 본다</td></tr>
+    <tr><td class="k">문구 승인</td><td>문구마다 전문의 승인 상태·승인자·승인일</td><td><b>세 칸 모두 삭제.</b> 설정값의 출시 승인 스위치 하나</td></tr>
+    <tr><td class="k">참조 데이터 구조</td><td>상병코드매핑 한 시트에 조건·연결·금지가 문장으로</td><td><b>질환규칙 · 상병코드조건 · 열정의</b> 세 시트. 문구세트에 <b>성격</b> 열</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">결정마다의 이유와 이력은 「식이 기획 최종 결정 사항」 ⓪장에 있다.</p>
+
+  <h3>영향받는 문서</h3>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:170px">대상</th><th>바뀌는 것</th></tr></thead>
+    <tbody>
+    <tr><td class="k">홈화면 화면정의서 §5</td><td>「아직 저녁 전이에요」 링크가 21시 → <b>18시</b>부터. 하루 문항 수와 식이 몫 명시. 「오늘의 질문 생성 규칙」 문서 참조를 실제 위치로 교체</td></tr>
+    <tr><td class="k">목표분석 화면정의서 §3</td><td>이유 한 줄의 <b>표시 폭</b>을 정해야 한다. 현재 최장 42자인데 한도가 없다</td></tr>
+    <tr><td class="k">질문·코칭·목표·지표 산출 흐름</td><td>프로토타입의 「하루 최대 3문항 · 질환 맞춤 1 + 결측 보완 2」는 현황이고, 확정값은 5문항 미만·식이 최대 2다</td></tr>
+    <tr><td class="k">식이 시나리오 프로토타입</td><td>축 상태 계산기와 「양호까지 쌓이는 과정」 사례가 이 문서의 ⑤와 같은 규칙으로 돈다</td></tr>
+    <tr><td class="k">식이 데이터 흐름도 · 아키텍처 흐름도</td><td>공통 필터가 「개인 제한」 → 「질환별 금지」로. 관찰 저장 칸에 양호는 최근 7건 표기</td></tr>
+    <tr><td class="k">데이터 모델</td><td>축 관찰 스냅샷에 <b>최근 7건</b>을 담거나 응답 테이블 직접 조회로 바꿔야 한다. 목표 ID·리비전 형식 미정</td></tr>
+    <tr><td class="k">진료정보 연동 규격</td><td>상병코드 형식·주/부상병 구분·갱신 주기 확인. 처방 정보는 포함되지 않는다. KCD 마스터와 코드 이름 대조</td></tr>
+    <tr><td class="k">지식DB 계약</td><td>식이 규칙은 서비스 자체 규칙으로 변경 없음. 확진 판정(후보 → 사용자 확인)은 식이·활동이 같은 값을 쓴다</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>아직 열려 있는 결정</h3>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:170px">항목</th><th style="width:44%">지금 상태</th><th>정해야 할 것</th></tr></thead>
+    <tbody>
+    <tr><td class="k">이유 한 줄 길이</td><td>한도 없음. 실제 최장 42자, 평균 24자</td><td>목표분석 탭 표시 폭 확정 후 한도를 설정값에 넣는다</td></tr>
+    <tr><td class="k">식사 시각 축의 목표</td><td>상태를 만들지 않는데 문구가 7개 있고 회전 슬롯도 쓴다</td><td>상태 없이 이 축 목표를 무슨 근거로 고를지, 또는 회전에서 뺄지</td></tr>
+    <tr><td class="k">상황 태그</td><td>편의점·회식·명절 등 35개 문구가 후보에서 빠진다</td><td>상황 입력을 받을지, 아니면 그 문구들을 정리할지</td></tr>
+    <tr><td class="k">완료율 분모</td><td>안내 상태만 제외로 정해져 있다</td><td>쉬기와 손대지 않은 pending이 분모에 들어가는지</td></tr>
+    <tr><td class="k">성격이 하나뿐인 구조</td><td>문구당 성격 한 값. 지금은 금지가 대부분 겹쳐 문제가 없다</td><td>질감만 막고 증량은 허용하는 질환이 생기면 구멍이 난다. 여러 값을 달지 정한다</td></tr>
+    <tr><td class="k">연하장애 코드 조건</td><td>R13 · 12개월 1회 · 주상병 아니어도 됨</td><td>실제 KCD 마스터 대조 후 확정</td></tr>
+    <tr><td class="k">사용자 시간대 변경</td><td>세션 경계 04시가 사용자 시간대 기준인데 저장 계약에 시간대 필드가 없다</td><td>시간대를 저장할지, 변경 시 세션을 어떻게 이을지</td></tr>
+    <tr><td class="k">문구 노출 승인</td><td>출시 승인 스위치는 꺼짐. 개발·시연은 이 값과 무관하게 동작</td><td>실서비스 활성화 시점과 대상 범위</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>식이 질문·목표 상세 기획 · 버전 1.0.0 · 마이리포트 v2<br>연관 문서 — 식이 기획 최종 결정 사항 · 식이 참조·설정 데이터 · 식이 시나리오 · 식이 데이터 흐름도 · 식이 근거 검수 결과 · 홈화면 화면정의서 · 목표분석 화면정의서<br>실서비스 활성화는 대상 범위 확인 후 출시 승인 스위치로 결정합니다.</footer>
+
+</div>
+</body>
+</html>
