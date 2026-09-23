@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>마이리포트</title>
+<title>마이리포트 · 정보 중심 홈 구성안</title>
 <style>
 /* ============================================================
    디자인 토큰
@@ -1878,6 +1878,11 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .home-health-group .home-age-summary.has-hospital-age>.home-age-chevron{display:block!important;grid-column:3;grid-row:1/3;position:static;transform:none;font-size:20px;padding:0;color:var(--ink-3)}
 .home-health-group .home-hospital-age{display:none!important}
 </style><style>
+html.embed{height:100%;--vis-top:0px;--vis-h:100vh}
+html.embed body{height:100vh;overflow:hidden}
+html.embed .app{height:100vh;min-height:0;margin-top:0;flex-shrink:0}
+html.embed .content{min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+</style><style>
 /* Matched home summary rows */
 .home-health-group .home-insight-card.has-result{padding:16px 18px;min-height:88px}
 .home-score-result{grid-template-columns:minmax(0,1fr) 102px 12px;row-gap:4px}
@@ -2412,43 +2417,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 
 <script>
 /* iframe(구글 사이트 등)에 올렸는지 확인해 레이아웃을 맞춘다 */
-if(window.self !== window.top){
-  document.documentElement.classList.add("embed");
-  /* 보이는 구간 재기 — 브라우저가 알려주는 교차 영역은 이 문서 좌표로 오므로
-     그대로 --vis-top · --vis-h에 넣으면 앱이 화면에 보이는 만큼만 차지한다.
-     잘리는 일이 없으면 값이 0 · 전체 높이라 평소와 똑같이 보인다. */
-  (function fitToVisibleBand(){
-    var root = document.documentElement;
-    /* 기준점은 화면에 고정된 자리를 잡는 빈 칸이다 — 앱 자체를 재면 앱이 움직일 때마다
-       다시 재게 되어 값이 어긋난다. 이 칸은 어떤 값에도 움직이지 않는다. */
-    var probe = document.createElement('div');
-    probe.setAttribute('aria-hidden','true');
-    probe.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:100%;opacity:0;pointer-events:none';
-    function apply(top, h){
-      var vh = window.innerHeight || root.clientHeight;
-      if(!h || h < 1) return;                        /* 완전히 벗어난 동안에는 직전 값을 지킨다 */
-      if(h > vh - 2){ top = 0; h = vh; }             /* 다 보이면 평소 상태로 되돌린다 */
-      if(h < 380){ h = Math.min(380, vh); top = Math.max(0, Math.min(top, vh - h)); }
-      root.style.setProperty('--vis-top', Math.max(0, Math.round(top)) + 'px');
-      root.style.setProperty('--vis-h', Math.round(h) + 'px');
-    }
-    function start(){
-      document.body.appendChild(probe);
-      if(!('IntersectionObserver' in window)) return;
-      var steps = []; for(var i = 0; i <= 100; i++) steps.push(i / 100);
-      var io = new IntersectionObserver(function(es){
-        var e = es[es.length - 1];
-        apply(e.intersectionRect.top, e.intersectionRect.height);
-      }, {threshold: steps});
-      io.observe(probe);
-      /* 스크롤 도중 단계를 건너뛰어도 따라가도록 주기적으로 한 번 더 확인한다 */
-      setInterval(function(){ io.unobserve(probe); io.observe(probe); }, 400);
-      window.addEventListener('resize', function(){ io.unobserve(probe); io.observe(probe); });
-    }
-    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
-    else start();
-  })();
-}
+document.documentElement.classList.add("embed");
 /* ════════════════════════════════════════════════════════════
    1. 오늘의 질문
    ════════════════════════════════════════════════════════════ */
@@ -6997,8 +6966,6 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  document.getElementById('homeAgeValue').setAttribute('aria-label','건강나이');
  insight.querySelector('.home-insight-label').textContent='AI 건강 인사이트';
  const note=document.createElement('div');note.className='home-preview-note';note.textContent='RSNA 시연용 예시 데이터 · 정보 중심 홈 구성안';home.appendChild(note);
- /* 이 위젯은 홈 화면에 더해진 시연용 요약이라 실제 검진정보 연동 여부(imp.checkup)와 무관하게
-    항상 예시 건강나이·또래 비교를 보여준다 — 연동 여부는 병원 탭의 실제 흐름(오늘의 질문 등)에만 반영된다. */
  const showHealthNumbers = true;
  function refreshOverview(){
   renderHomeInsight();
@@ -7042,3 +7009,4 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
 })();
 </script></body>
 </html>
+

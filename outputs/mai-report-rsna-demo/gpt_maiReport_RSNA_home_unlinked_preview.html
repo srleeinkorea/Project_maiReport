@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>마이리포트</title>
+<title>마이리포트 · 미연동 화면 예시</title>
 <style>
 /* ============================================================
    디자인 토큰
@@ -3085,7 +3085,7 @@ const DATA = {
 };
 const DEF_ROWS = ['steps','sleep','hr'];
 let sel = null;
-let deviceLinked = true;
+let deviceLinked = false;
 const DEVICE_IN_SIGNUP = true;
 function renderMetrics(){
   /* 홈: 세 지표 게이지 + 요약 한 줄만. 이유·근거 데이터는 생활 탭 > 지표별 분석에서 본다.
@@ -6847,7 +6847,7 @@ function restartDemo(){
     .forEach(el=>el.classList.remove('open'));
   /* 연동·등록 상태를 처음 값으로 */
   imp.checkup = false; imp.clinic = false; importing = null;
-  deviceLinked = true; hasAiReport = DEMO_AI_REPORT_REGISTERED;
+  deviceLinked = false; hasAiReport = DEMO_AI_REPORT_REGISTERED;
   AI_REPORTS = []; visitFilter = 'all'; selDay = TODAY; weekOffset = 0;
   NOTICES.forEach(n=>{ n.read = (n.id === 'n1'); });   /* 지난 안내 한 건만 읽음 */
   Object.keys(NEEDLE_LAST).forEach(k=>delete NEEDLE_LAST[k]);   /* 게이지도 처음 재는 것처럼 다시 움직인다 */
@@ -6997,27 +6997,24 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  document.getElementById('homeAgeValue').setAttribute('aria-label','건강나이');
  insight.querySelector('.home-insight-label').textContent='AI 건강 인사이트';
  const note=document.createElement('div');note.className='home-preview-note';note.textContent='RSNA 시연용 예시 데이터 · 정보 중심 홈 구성안';home.appendChild(note);
- /* 이 위젯은 홈 화면에 더해진 시연용 요약이라 실제 검진정보 연동 여부(imp.checkup)와 무관하게
-    항상 예시 건강나이·또래 비교를 보여준다 — 연동 여부는 병원 탭의 실제 흐름(오늘의 질문 등)에만 반영된다. */
- const showHealthNumbers = true;
  function refreshOverview(){
   renderHomeInsight();
   insight.hidden=false;
   overview.hidden=false;
   insight.style.gridColumn='1';
   ageSummary.style.gridColumn='2';
-  connectNotice.hidden=showHealthNumbers;
+  connectNotice.hidden=imp.checkup;
   connectNotice.textContent='검진정보를 연동하고 건강나이·또래 비교를 확인해 보세요. ›';
-  peer.hidden=!showHealthNumbers;
-  document.getElementById('homeAgeValue').innerHTML=showHealthNumbers?USER.healthAge+'<span>세</span>':'—';
+  peer.hidden=!imp.checkup;
+  document.getElementById('homeAgeValue').innerHTML=imp.checkup?USER.healthAge+'<span>세</span>':'—';
   const difference=USER.healthAge-USER.realAge;
-  document.getElementById('homeAgeDiff').innerHTML=showHealthNumbers?'실제 '+USER.realAge+'세'+(difference===0?'와 같아요':'보다 '+(difference>0?'+':'−')+Math.abs(difference)+'세'):'검진정보 연결 필요';
-  document.getElementById('homeAgeMeta').textContent=showHealthNumbers?'실제 나이 '+USER.realAge+'세':'검진정보 미연동';
-  document.getElementById('homeAgeOpen').setAttribute('aria-label',showHealthNumbers?'건강나이 분석 자세히 보기':'검진정보 연결');
-  document.getElementById('homeAgeOpen').textContent=showHealthNumbers?'›':'연동하기 ›';
-  ageSummary.classList.toggle('has-hospital-age',showHealthNumbers);
-  hospitalAge.hidden=!showHealthNumbers;
-  if(showHealthNumbers){
+  document.getElementById('homeAgeDiff').innerHTML=imp.checkup?'실제 '+USER.realAge+'세'+(difference===0?'와 같아요':'보다 '+(difference>0?'+':'−')+Math.abs(difference)+'세'):'검진정보 연결 필요';
+  document.getElementById('homeAgeMeta').textContent=imp.checkup?'실제 나이 '+USER.realAge+'세':'검진정보 미연동';
+  document.getElementById('homeAgeOpen').setAttribute('aria-label',imp.checkup?'건강나이 분석 자세히 보기':'검진정보 연결');
+  document.getElementById('homeAgeOpen').textContent=imp.checkup?'›':'연동하기 ›';
+  ageSummary.classList.toggle('has-hospital-age',imp.checkup);
+  hospitalAge.hidden=!imp.checkup;
+  if(imp.checkup){
    const sourceCard=document.querySelector('#pCk .age-card');
    hospitalAge.innerHTML=sourceCard?sourceCard.innerHTML:'<div class="ttl"><b>'+USER.name+'</b>님의 건강 나이는</div><div class="age-num">'+USER.healthAge+'세</div><div class="dt2">검진일자: '+USER.checkedAt+'</div><div class="age-gauge"><div class="age-track"><i style="left:50%;width:28%"></i></div><span class="age-badge" style="left:78%">+'+difference+'</span><span class="age-mark" style="left:50%">실제 '+USER.realAge+'세</span></div>';
   }
@@ -7042,3 +7039,4 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
 })();
 </script></body>
 </html>
+

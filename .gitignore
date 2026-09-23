@@ -9,11 +9,13 @@ outputs/_archive/_backup/
 
 # ── 작업 중 생기는 것 ─────────────────────────────────────
 .tmp_artifact/
+.build_diet_v12/
 새 폴더/
 
 # ── 프로그램이 만드는 임시 파일 ───────────────────────────
 ~$*
 *.tmp
+*.inspect.ndjson
 Thumbs.db
 desktop.ini
 .DS_Store
