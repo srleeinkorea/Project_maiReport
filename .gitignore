@@ -15,6 +15,7 @@ outputs/_archive/_backup/
 # ── 프로그램이 만드는 임시 파일 ───────────────────────────
 ~$*
 *.tmp
+*.inspect.ndjson
 Thumbs.db
 desktop.ini
 .DS_Store
