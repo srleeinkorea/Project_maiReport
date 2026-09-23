@@ -5059,7 +5059,7 @@ const AI_REPORT_TEMPLATE = {
     ]
   }
 };
-let AI_REPORTS = [];
+let AI_REPORTS = []; /* 아래에서 가입 2주차 상태(지난 2주 리포트)를 미리 채워 넣는다 */
 let aiReportSeq = 0;
 const AI_CAL_TODAY = new Date('2026-08-20T00:00:00');
 const AI_WEEK_SCORES = { '2026-08-09': 58, '2026-08-16': 66, '2026-08-20': 61, '2026-08-23': 61 };
@@ -5122,6 +5122,19 @@ function aiFmtDate(d){
   const w=['일','월','화','수','목','금','토'];
   return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} (${w[d.getDay()]})`;
 }
+['2026-08-09', '2026-08-16'].forEach(dateStr=>{
+  const { week, range } = aiWeekReportRange(dateStr, dateStr);
+  const score = aiScoreFor(dateStr);
+  AI_REPORTS.push({
+    id: 'seed-'+dateStr,
+    week, range, generatedAt: dateStr,
+    score,
+    headline: AI_REPORT_TEMPLATE.headline,
+    summary: AI_REPORT_TEMPLATE.summary,
+    findings: AI_REPORT_TEMPLATE.findings,
+    noCheckup: { ...AI_REPORT_TEMPLATE.noCheckup, score: score + 7 }
+  });
+});
 function aiWeekOptionForOffset(offset){
   const monday = new Date(WEEK_MONDAY); monday.setDate(monday.getDate() + offset*7);
   const pad = n => String(n).padStart(2,'0');
@@ -5210,24 +5223,19 @@ function renderAiInsightEntry(){
     if(can) document.getElementById('aiRedo').onclick = ()=>openAiRedoConfirm(thisWeek);
     document.getElementById('aiViewRange').onclick = openAiRangePicker;
   } else {
-    const needsTodayQ = !!last && !allDone();
     el.innerHTML = `
       <div class="ai-entry">
         <span class="spark">✨</span>
         <b>AI 건강 인사이트</b>
         <p>${imp.checkup ? '생활 데이터와 검진정보를 분석해서<br>맞춤 인사이트를 제공해드려요.' : '생활 데이터를 분석해서<br>맞춤 인사이트를 제공해드려요.'}</p>
-        ${needsTodayQ ? `
-          <div class="ai-todayq-gate"><span class="ic">📋</span><div><b>오늘의 질문에 답하면 분석할 수 있어요</b><p>오늘 컨디션을 반영해 더 정확한 리포트를 만들어드려요. (${answered()}/${QUESTIONS.length})</p></div></div>
-          <button class="solid full" id="aiEntryAnswer">오늘의 질문 답하기</button>
-        ` : `<button class="solid full" id="aiEntryGo">분석하기</button>`}
+        <button class="solid full" id="aiEntryGo">분석하기</button>
       </div>
       ${last ? `<div class="ai-cd-note">최근 분석: ${aiEffectiveReport(last).week} · ${aiEffectiveReport(last).score}점</div>` : ``}
       ${checkupNote}
       ${last ? `<div class="ai-menu-list">
           <button class="ai-menu-item" id="aiEntryRange"><span class="ic">🗓️</span><span class="tt">주간 리포트 보기</span><span class="ch">›</span></button>
         </div>` : ''}`;
-    if(needsTodayQ){ document.getElementById('aiEntryAnswer').onclick = openAns; }
-    else { document.getElementById('aiEntryGo').onclick = ()=>generateAiInsight(); }
+    document.getElementById('aiEntryGo').onclick = ()=>generateAiInsight();
     const rangeBtn = document.getElementById('aiEntryRange'); if(rangeBtn) rangeBtn.onclick = openAiRangePicker;
   }
   const inlineCheckupBtn = document.getElementById('aiLinkCheckupInline');
