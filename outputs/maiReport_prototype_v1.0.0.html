@@ -4513,7 +4513,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
 }
 function dfText(m, scores, i, valFn, judgeFn){
   const t = dayFlow(m.k, scores, i, valFn, judgeFn);
-  return m.notToday ? t.replace('어제보다','전날보다').replace('어제에 이어','전날에 이어').replace('오늘은','그날은') : t;
+  return m.notToday ? t.replace('어제보다','전날보다').replace('어제에 이어','전날에 이어').replace('오늘은 ','') : t;
 }
 function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
   const meta = METRICS.find(x=>x.k===m.k);
