@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오늘의 흐름 문장 규칙</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+:root{--font:'Pretendard Variable','Pretendard',-apple-system,system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--ink-1:#16233F;--ink-2:#5A6880;--line:#E9EDF5;--fill:#F5F7FB;--brand:#2F6BFF;--brand-soft:#EFF4FF;--warn:#E5893A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);font-size:14px;line-height:1.65;color:var(--ink-1);background:#E8EBF2;word-break:keep-all}
+.page{max-width:1100px;margin:0 auto;padding:26px 20px 60px}
+.hero{background:var(--brand);color:#fff;border-radius:18px;padding:26px 28px;margin-bottom:16px}
+.hero h1{font-size:22px;font-weight:800}.hero p{margin-top:8px;opacity:.95}.hero .meta{margin-top:10px;font-size:12.5px;opacity:.85}
+section.card{background:#fff;border-radius:18px;padding:24px 26px;margin-bottom:14px}
+h2{font-size:18px;font-weight:800;display:flex;align-items:center;gap:10px}
+h2 .n{display:inline-flex;width:28px;height:28px;border-radius:9px;background:var(--brand-soft);color:var(--brand);font-size:13px;align-items:center;justify-content:center}
+.sub{color:var(--ink-2);font-size:13.5px;margin:6px 0 14px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+th{background:var(--fill);color:var(--ink-2);font-weight:700;text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.k{font-weight:700;white-space:nowrap}
+code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(--fill);padding:1px 5px;border-radius:4px;color:#1E3A8A}
+.callout{border-left:4px solid var(--warn);background:#FFF6EC;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="hero">
+  <h1>지표별 분석 · 오늘의 흐름 문장 규칙</h1>
+  <p>지표 카드의 ‘오늘의 흐름’ 한 문장을 만드는 규칙. 선택한 날의 구간을 전날과 비교해, 바뀌었으면 이유와 함께 변화를, 같으면 며칠째 이어지는지를 말함.</p>
+  <div class="meta">대상 지표: 생활여유 · 자기돌봄 · 일상안정 · 구간은 지표 엔진 결과를 그대로 사용</div>
+</div>
+
+<section class="card">
+  <h2><span class="n">1</span>판정 순서</h2>
+  <table>
+    <tr><th style="width:6%">순서</th><th style="width:22%">상황</th><th>형식</th></tr>
+    <tr><td>1</td><td class="k">전날 기록 없음</td><td><code>오늘은 {상태}.</code></td></tr>
+    <tr><td>2</td><td class="k">전날보다 좋아짐</td><td><code>{이유} 어제보다 {늘었다는 말}.</code></td></tr>
+    <tr><td>3</td><td class="k">전날보다 나빠짐</td><td><code>{이유} 어제보다 {줄었다는 말}.</code></td></tr>
+    <tr><td>4</td><td class="k">전날과 같음 · 2일째</td><td><code>어제처럼 {상태}.</code></td></tr>
+    <tr><td>5</td><td class="k">전날과 같음 · 3~6일째</td><td><code>{N}일째 {상태}.</code> (주의면 앞에 이어진 이유)</td></tr>
+    <tr><td>6</td><td class="k">전날과 같음 · 7일 이상</td><td><code>일주일 넘게 {상태}.</code> (주의면 앞에 이어진 이유)</td></tr>
+  </table>
+  <p style="color:var(--ink-2);font-size:13px">좋아짐 · 나빠짐은 구간(주의 &lt; 보통 &lt; 좋음) 기준. N은 선택한 날부터 거꾸로 같은 구간이 이어진 날 수(지난 주까지 셈). 오늘이 아닌 날을 고르면 ‘어제’ → ‘전날’, ‘오늘은’ → ‘그날은’.</p>
+</section>
+
+<section class="card">
+  <h2><span class="n">2</span>상태 · 변화 문구</h2>
+  <table>
+    <tr><th style="width:14%">지표</th><th>좋음</th><th>보통</th><th>주의</th><th>늘었다는 말</th><th>줄었다는 말</th></tr>
+    <tr><td class="k">생활여유</td><td>여유가 충분해요</td><td>여유가 평소와 비슷해요</td><td>여유가 부족해요</td><td>여유가 늘었어요</td><td>여유가 줄었어요</td></tr>
+    <tr><td class="k">자기돌봄</td><td>나를 잘 챙기고 있어요</td><td>나를 챙기는 정도가 비슷해요</td><td>나를 챙긴 순간이 부족해요</td><td>나를 챙긴 순간이 늘었어요</td><td>나를 챙긴 순간이 줄었어요</td></tr>
+    <tr><td class="k">일상안정</td><td>리듬이 안정적이에요</td><td>리듬이 평소와 비슷해요</td><td>리듬이 불안정해요</td><td>리듬이 안정됐어요</td><td>리듬이 흔들렸어요</td></tr>
+  </table>
+</section>
+
+<section class="card">
+  <h2><span class="n">3</span>이유 고르기</h2>
+  <table>
+    <tr><th style="width:22%">항목</th><th>규칙</th></tr>
+    <tr><td class="k">후보</td><td>지표의 핵심 데이터. 생활여유: 활동 시간 · 수면 / 자기돌봄: 활동 시간 · 식후 활동 / 일상안정: 걸음 수 · 활동 시간 · 운동 기록 · 수면</td></tr>
+    <tr><td class="k">바뀐 날</td><td>전날 대비 변화율 (선택한 날 − 전날) ÷ 전날 이 같은 방향(좋아졌으면 늘어남, 나빠졌으면 줄어듦)으로 가장 큰 항목 1개. 10% 미만이면 이유 생략. 운동 기록 · 식후 활동(횟수)은 변화율을 최대 30%로 잘라 계산</td></tr>
+    <tr><td class="k">주의가 이어진 날</td><td>주의가 3일 이상 이어질 때만, 그 기간 매일 평소보다 낮았던 항목 1개(없으면 생략)</td></tr>
+  </table>
+  <table>
+    <tr><th style="width:22%">항목</th><th>늘었을 때</th><th>줄었을 때</th><th>낮은 날이 이어질 때</th></tr>
+    <tr><td class="k">수면</td><td>수면이 채워지면서</td><td>수면이 짧아지면서</td><td>수면이 짧은 날이 이어지면서</td></tr>
+    <tr><td class="k">활동 시간</td><td>활동이 늘면서</td><td>활동이 줄면서</td><td>활동이 적은 날이 이어지면서</td></tr>
+    <tr><td class="k">식후 활동 (자기돌봄)</td><td>식사 뒤 걷기가 늘면서</td><td>식사 뒤 움직임이 줄면서</td><td>식사 뒤 움직임이 적은 날이 이어지면서</td></tr>
+    <tr><td class="k">걸음 수</td><td>걸음이 늘면서</td><td>걸음이 줄면서</td><td>걸음이 적은 날이 이어지면서</td></tr>
+    <tr><td class="k">운동 기록 (일상안정)</td><td>운동이 늘면서</td><td>운동이 줄면서</td><td>운동이 없는 날이 이어지면서</td></tr>
+  </table>
+</section>
+
+<section class="card">
+  <h2><span class="n">4</span>지표별 표현</h2>
+  <table>
+    <tr><th style="width:14%">지표</th><th style="width:22%">상황</th><th>문장</th></tr>
+    <tr><td class="k">생활여유</td><td>좋아짐</td><td>수면이 채워지면서 어제보다 여유가 늘었어요.</td></tr>
+    <tr><td class="k">생활여유</td><td>나빠짐</td><td>활동이 줄면서 어제보다 여유가 줄었어요.</td></tr>
+    <tr><td class="k">생활여유</td><td>같음 · 2일째</td><td>어제처럼 여유가 충분해요.</td></tr>
+    <tr><td class="k">생활여유</td><td>같음 · 3일째 이상</td><td>3일째 여유가 평소와 비슷해요. / 수면이 짧은 날이 이어지면서 3일째 여유가 부족해요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>좋아짐</td><td>식사 뒤 걷기가 늘면서 어제보다 나를 챙긴 순간이 늘었어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>나빠짐</td><td>활동이 줄면서 어제보다 나를 챙긴 순간이 줄었어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>같음 · 2일째</td><td>어제처럼 나를 챙기는 정도가 비슷해요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>같음 · 3일째 이상</td><td>3일째 나를 잘 챙기고 있어요. / 식사 뒤 움직임이 적은 날이 이어지면서 3일째 나를 챙긴 순간이 부족해요.</td></tr>
+    <tr><td class="k">일상안정</td><td>좋아짐</td><td>걸음이 늘면서 어제보다 리듬이 안정됐어요.</td></tr>
+    <tr><td class="k">일상안정</td><td>나빠짐</td><td>걸음이 줄면서 어제보다 리듬이 흔들렸어요.</td></tr>
+    <tr><td class="k">일상안정</td><td>같음 · 2일째</td><td>어제처럼 리듬이 안정적이에요.</td></tr>
+    <tr><td class="k">일상안정</td><td>같음 · 3일째 이상</td><td>3일째 리듬이 평소와 비슷해요. / 걸음이 적은 날이 이어지면서 3일째 리듬이 불안정해요.</td></tr>
+    <tr><td class="k">공통</td><td>전날 기록 없음</td><td>오늘은 여유가 충분해요. (지표별 상태 문구)</td></tr>
+  </table>
+</section>
+
+<section class="card">
+  <h2><span class="n">5</span>표시 · 갱신</h2>
+  <table>
+    <tr><th style="width:22%">항목</th><th>규칙</th></tr>
+    <tr><td class="k">제목</td><td>오늘을 보면 ‘오늘의 흐름’, 다른 날을 고르면 ‘8월 18일의 흐름’</td></tr>
+    <tr><td class="k">기준일</td><td>날짜 띠에서 고른 날(배지 · 그래프 점선 · 핵심 데이터와 같은 날). 지난 주 화면은 그 주 일요일</td></tr>
+    <tr><td class="k">갱신</td><td>저장하지 않고 동기화로 구간 · 핵심 데이터가 바뀌면 다시 만듦</td></tr>
+    <tr><td class="k">숨김</td><td>선택한 날이 관찰 중 · 건강 데이터 미연동 · 계산 실패</td></tr>
+  </table>
+  <div class="callout">쓰지 않는 표현: 점수 · 수치, 진단 · 몸 상태 단정, 행동 지시(‘~하세요’).</div>
+</section>
+</div>
+</body>
+</html>
