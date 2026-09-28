@@ -610,7 +610,7 @@ more(){
     <div class="mo-lab">연동</div>
     <div class="mo-card">${row("건강데이터","삼성헬스")}${row("검진 · 진료정보", clinicLinked()?"검진 · 진료":"검진")}</div>
     <div class="mo-lab">서비스</div>
-    <div class="mo-card">${row("동의 관리","","consents")}${row("알림 관리","","notice")}${row("이용권 관리","1장","ticket")}${row("언어","한국어")}</div>
+    <div class="mo-card">${row("동의 관리","","consents")}${row("알림 관리","","notice")}${row("이용권 관리","무상 제공 중","ticket")}${row("언어","한국어")}</div>
     <div class="mo-lab">법적 정보 및 기타</div>
     <div class="mo-card">${row("서비스 이용 약관")}${row("개인정보 처리방침")}${row("개인정보 수집 및 이용동의")}</div>
     <div class="mo-foot"><button>로그아웃 ›</button></div><div class="mo-ver">앱 버전 1.0.0</div>
@@ -674,7 +674,7 @@ ticket(){
   const hist = S.scen==="ticket" ? `<div class="tk-row"><div class="tk-row-top"><b>Selvy Checkup</b><span class="tk-pill ok">사용 가능</span></div><div class="tk-row-sub">구매 2026.09.28</div><button class="tk-refund">환불 신청</button></div>` : "";
   return subShell("이용권 관리","go('more')",`
     <div class="acc-sec">
-      <div class="tk-card"><span class="tk-ic">🔬</span><div class="tk-b"><b>Selvy Checkup</b><div class="tk-n">${n}<small>장</small></div></div>${pr?"":`<button class="tk-buy" onclick="S.dlg=true;render()">구매하기</button>`}</div>
+      <div class="tk-card"><span class="tk-ic">🔬</span><div class="tk-b"><b>Selvy Checkup</b><div class="tk-n">무상 제공 중</div></div>${pr?"":`<button class="tk-buy" onclick="S.dlg=true;render()">구매하기</button>`}</div>
     </div>
     <div class="acc-sec"><div class="acc-lab">이용권 내역</div><div class="acc-card tk-hist">${promoRow}${hist}</div></div>
     ${S.dlg?`<div class="tk-overlay open" style="position:absolute"><div class="tk-dialog"><div>${pr?`<h3>Selvy Checkup 이용권</h3><p>이용권 1장 · <s style="color:var(--ink-3)">25,000원</s> <b>무료</b></p>`:`<h3>Selvy Checkup 이용권 구매</h3><p>이용권 1장 · <b>25,000원</b></p>`}</div>
@@ -723,7 +723,7 @@ const SIDE = {
     info:[["공지사항","필수 알림","항상 켜짐 · 스위치 비활성"],["오늘의 목표 알림","선택 알림","스위치 · ‘매일 저녁’"]]},
   ticket:{step:"",id:"MORE-060",title:"이용권 관리",
     desc:"보유 이용권 수와 이용권 내역을 확인하는 화면. 무료 이용권 1장이 자동으로 지급되어 있음.",
-    info:[["보유 이용권","이용권 내역","N장"],["이용권 내역","구매 · 사용 · 취소 기록","상태와 날짜 (시각 제외)"],["정가","상품 정보","25,000원"]]},
+    info:[["이용권 상태","이용권 내역","‘무상 제공 중’ (보유 장수 대신 표시)"],["이용권 내역","구매 · 사용 · 취소 기록","상태와 날짜 (시각 제외)"],["정가","상품 정보","25,000원"]]},
   withdraw:{step:"",id:"MORE-020",title:"회원탈퇴",
     desc:"탈퇴 여부를 한 번 확인하는 화면. 진입 즉시 ‘정말 탈퇴하시겠어요?’와 삭제 · 복구 불가 안내를 보여주고, 탈퇴하기 선택 시 바로 탈퇴 처리함.",
     info:[]},
@@ -736,7 +736,7 @@ const SPEC = {
     ["프로필 카드","이름만 표시. 연락처 · 이메일은 내정보 화면에서만 표시"],
     ["메뉴 구성","연동 / 서비스 / 법적 정보 및 기타 3개 묶음"],
     ["연동","건강데이터 · 검진 · 진료정보. 연동된 대상 이름 표시, 미연동 시 ‘미연동’"],
-    ["서비스","동의 관리 · 알림 관리 · 이용권 관리(보유 장수) · 언어(한국어)"],
+    ["서비스","동의 관리 · 알림 관리 · 이용권 관리(‘무상 제공 중’) · 언어(한국어)"],
     ["법적 정보 및 기타","서비스 이용 약관 · 개인정보 처리방침 · 개인정보 수집 및 이용동의 (각각 별도 화면)"],
     ["제외 메뉴","공지사항 · 문의하기는 두지 않음"]],
   profile:[["제공 기능","가입 정보 조회, 관리 중인 질환 입력 화면 이동, 회원탈퇴 화면 이동"],

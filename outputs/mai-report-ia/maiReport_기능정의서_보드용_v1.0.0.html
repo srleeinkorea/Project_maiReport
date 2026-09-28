@@ -774,7 +774,7 @@
     <tr><td class="k">ACC-001</td><td class="k">사용자 기본정보 조회</td><td>카카오 계정에서 연동한 이름 · 생년월일 · 연락처 · 이메일을 읽기 전용으로 제공한다.</td><td><span class="pill p-b">시스템 연계 필요</span></td></tr>
     <tr><td class="k">ACC-002</td><td class="k">관리 중인 질환 입력</td><td>현재 치료 · 관리 중인 질환을 4개(고혈압 · 당뇨병 · 이상지질혈증 · 만성 신장질환) 중에서 선택한다.</td><td><span class="pill p-g">화면 반영</span></td></tr>
     <tr><td class="k">ACC-003</td><td class="k">알림 수신 설정</td><td>공지사항(필수, 끌 수 없음)과 오늘의 목표 알림(선택)을 관리한다.</td><td><span class="pill p-b">시스템 연계 필요</span></td></tr>
-    <tr><td class="k">ACC-004</td><td class="k">분석 이용권 현황 조회</td><td>Selvy 이용권 보유 수량과 내역을 조회한다. 프로모션 기간 동안 1장을 무상 제공한다.</td><td><span class="pill p-b">시스템 연계 필요</span></td></tr>
+    <tr><td class="k">ACC-004</td><td class="k">분석 이용권 현황 조회</td><td>Selvy 이용권 상태와 내역을 조회한다. 프로모션 기간에는 ‘무상 제공 중’으로 표시한다.</td><td><span class="pill p-b">시스템 연계 필요</span></td></tr>
     <tr><td class="k">ACC-005</td><td class="k">동의 관리</td><td>필수 동의의 동의일을 보여주고 선택 동의를 켜고 끈다.</td><td><span class="pill p-l">정책 검토 필요</span></td></tr>
     <tr><td class="k">ACC-006</td><td class="k">정책 문서 조회</td><td>서비스 이용 약관 · 개인정보 처리방침 · 개인정보 수집 및 이용동의를 각각 별도 화면으로 제공한다.</td><td><span class="pill p-l">정책 검토 필요</span></td></tr>
     <tr><td class="k">ACC-007</td><td class="k">로그아웃 및 회원 탈퇴</td><td>로그아웃은 재확인 후 세션을 끊고, 회원탈퇴는 삭제 · 복구 불가를 확인받고 바로 처리한다.</td><td><span class="pill p-l">정책 검토 필요</span></td></tr>
@@ -817,8 +817,8 @@
     <tr><th style="width:110px">항목</th><th>내용</th></tr>
     <tr><td class="k">트리거</td><td>더보기 &gt; 이용권 관리 진입</td></tr>
     <tr><td class="k">입력값</td><td>사용자 ID, 이용권 컬렉션</td></tr>
-    <tr><td class="k">처리 로직</td><td>보유 수량 · 내역 조회. 프로모션 무상 제공 이용권을 자동 지급하고 내역에 ‘프로모션 무상 제공’으로 표시</td></tr>
-    <tr><td class="k">출력값</td><td>보유 이용권 및 내역</td></tr>
+    <tr><td class="k">처리 로직</td><td>이용권 상태 · 내역 조회. 더보기 목록 · 이용권 카드에 개수 대신 ‘무상 제공 중’ 표시. 프로모션 무상 제공 이용권을 자동 지급하고 내역에 ‘프로모션 무상 제공’으로 표시</td></tr>
+    <tr><td class="k">출력값</td><td>이용권 상태 및 내역</td></tr>
     <tr><td class="k">선행조건</td><td>로그인 세션 유효</td></tr>
     <tr><td class="k">예외 처리</td><td>내역이 없으면 빈 상태 표시</td></tr>
     <tr><td class="k">연관 화면</td><td>ACC-004 · 이용권 관리</td></tr>
