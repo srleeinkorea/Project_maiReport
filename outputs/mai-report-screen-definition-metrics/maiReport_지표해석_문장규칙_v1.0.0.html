@@ -129,6 +129,38 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
     <tr><td class="k">자기돌봄</td><td>걸음 수 55% · 식후 활동 20%</td><td>걸음 표(3천 0.35 · 6천 0.65 · 1만 0.95 · 1만2천 1) · 식후 활동은 완료 수 ÷ 확정 기회 수</td></tr>
     <tr><td class="k">일상안정</td><td>걸음 수 30% · 활동 시간 15% · 운동 시간 15% · 행동 완료 15% · 걸음 발생일 10% · 수면 규칙성 15%</td><td>최근 7일 vs 직전 7일 변화가 바뀐 만큼 · 수면 규칙성은 취침 시각의 흔들림이 줄면 좋아짐</td></tr>
   </table>
+
+  <h3>영향 점수 계산 방법</h3>
+  <ul class="rules">
+    <li><code>재료별 영향(점) = 비중 × (오늘 재료 점수 − 어제 재료 점수) × 100</code></li>
+    <li>재료 점수 = 산식이 각 재료를 0~1로 바꾼 값 (흐름도 산식 그대로)</li>
+    <li>내려간 날은 가장 크게 마이너스, 올라간 날은 가장 크게 플러스인 재료 1개</li>
+    <li>개발: 엔진이 계산 중 가진 재료 점수를 어제 값과 빼기만 하면 됨</li>
+  </ul>
+  <table style="margin-top:8px">
+    <tr><th>지표</th><th>재료</th><th>0~1 재료 점수</th></tr>
+    <tr><td class="k">생활여유</td><td>활동 시간</td><td>활동 분 ÷ 240 (최대 1)</td></tr>
+    <tr><td class="k"></td><td>활동 분산</td><td>(움직인 칸 ÷ 8) × (1 − 몰림) ÷ 0.75</td></tr>
+    <tr><td class="k"></td><td>활동 부담</td><td>240분 넘는 만큼 감점 (480분이면 0)</td></tr>
+    <tr><td class="k"></td><td>수면</td><td>1 − 부족분 ÷ 120분 (기준 수면은 연령별)</td></tr>
+    <tr><td class="k">자기돌봄</td><td>걸음 수</td><td>걸음 점수표 (3천 0.35 · 6천 0.65 · 1만 0.95 · 1만2천 1)</td></tr>
+    <tr><td class="k"></td><td>식후 활동</td><td>완료 수 ÷ 확정 기회 수</td></tr>
+    <tr><td class="k">일상안정</td><td>걸음 수 · 활동 시간 · 운동 시간 · 걸음 발생일</td><td>(최근 7일 평균 − 직전 7일 평균) ÷ (직전 평균의 절반)</td></tr>
+    <tr><td class="k"></td><td>행동 완료</td><td>(최근 완료율 − 직전 완료율) ÷ 0.5</td></tr>
+    <tr><td class="k"></td><td>수면 규칙성</td><td>취침 시각 흔들림이 줄어든 정도</td></tr>
+  </table>
+
+  <h3>계산 예시 · 생활여유 좋음 → 보통</h3>
+  <table>
+    <tr><th>재료</th><th>비중</th><th>어제 → 오늘</th><th>재료 점수</th><th>영향</th></tr>
+    <tr><td class="k">수면</td><td>25%</td><td>부족 0분 → 60분</td><td>1.0 → 0.5</td><td><b>−12.5점</b></td></tr>
+    <tr><td class="k">활동 시간</td><td>20%</td><td>120분 → 96분</td><td>0.5 → 0.4</td><td>−2점</td></tr>
+    <tr><td class="k">활동 분산</td><td>30%</td><td>5칸 → 5칸</td><td>그대로</td><td>0점</td></tr>
+    <tr><td class="k">활동 부담</td><td>25%</td><td>240분 이하 유지</td><td>1.0 → 1.0</td><td>0점</td></tr>
+  </table>
+  <ul class="rules" style="margin-top:6px">
+    <li>수면(−12.5점)이 가장 큼 → ‘수면 시간이 줄어들면서 몸의 여유가 어제보다 감소했어요.’</li>
+  </ul>
 </section>
 
 <section class="card" id="s6">
