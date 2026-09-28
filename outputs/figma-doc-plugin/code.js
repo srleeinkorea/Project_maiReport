@@ -71,6 +71,16 @@ function addText(parent, str, size, color, weight, opts){ const t = text(str,siz
 // ---------- 블록 ----------
 function blockH3(parent, b){ const t = addText(parent, b.text, 17, C.ink1, 700, {lh:1.4}); t.name='h3'; }
 function blockP(parent, b){ addText(parent, b.text, b.muted ? 13 : 14.5, b.muted ? C.ink3 : C.ink2, 400); }
+function blockImage(parent, b){
+  if(!b.bytes){ blockP(parent,{text:'[이미지: '+(b.name||'')+' — PNG/JPG data URL만 지원]', muted:true}); return; }
+  const img = figma.createImage(b.bytes);
+  const r = figma.createRectangle(); r.name = b.name || 'image';
+  r.resize(b.w || 360, b.h || Math.round((b.w||360)*2.1));
+  r.cornerRadius = 24;
+  r.fills = [{ type:'IMAGE', imageHash: img.hash, scaleMode:'FILL' }];
+  r.strokes = solid(C.line); r.strokeWeight = 1;
+  parent.appendChild(r);
+}
 function blockBullets(parent, b){
   const list = frame('bullets','VERTICAL',{gap:6}); parent.appendChild(list); fill(list);
   for(const it of b.items){
@@ -355,6 +365,7 @@ function buildSection(sec, contentWidth){
   if(sec.sub) addText(card, sec.sub, 14, C.ink3, 400);
   for(const b of sec.blocks || []){
     switch(b.type){
+      case 'image': blockImage(card,b); break;
       case 'h3': blockH3(card,b); break;
       case 'p': blockP(card,b); break;
       case 'bullets': blockBullets(card,b); break;

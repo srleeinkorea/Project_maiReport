@@ -637,7 +637,7 @@ chronic(){
   const d = S.draft;
   const changed = (d.picked.length || S.picked.length) && (d.picked.length!==S.picked.length || d.picked.some(k=>!S.picked.includes(k)));
   return subShell("관리 중인 질환","S.draft=null;go('profile')",`
-    <div class="ch-hd"><b>현재 의료진에게 진단받아 치료받거나 정기적으로 확인 중인 질환을 모두 선택해 주세요</b><p>여러 개 선택할 수 있어요.</p></div>
+    <div class="ch-hd"><b>현재 치료·관리 중인 질환을 모두 선택해 주세요.</b><p>여러 개 선택할 수 있어요.</p></div>
     ${clinicLinked() ? `<div class="ch-info" data-f="진료정보 연동됨">진료 기록과 다르면 한 번 더 여쭤볼게요.</div>` : ""}
     <div class="ch-grid" data-f="관리 중인 질환">${CHRONIC_LIST.map(c=>`<button type="button" class="ch-chip ${d.picked.includes(c.k)?"on":""}" onclick="pick('${c.k}')" aria-pressed="${d.picked.includes(c.k)}"><span aria-hidden="true">${c.ic}</span>${c.n}</button>`).join("")}</div>
     ${S.savedAt ? `<p class="ch-meta" data-f="마지막 저장일">마지막 저장 ${S.savedAt}</p>` : ""}
@@ -747,7 +747,7 @@ const SPEC = {
     ["회원탈퇴","다른 메뉴와 분리 배치하여 오선택 방지"],
     ["이메일 미등록","카카오 가입 시 이메일 제공 미동의 → ‘등록 안 됨’ 표시"],
     ["조회 실패","‘정보를 불러오지 못했어요’ 문구 및 재시도 버튼 표시"]],
-  chronic:[["화면 제목","‘현재 의료진에게 진단받아 치료받거나 정기적으로 확인 중인 질환을 모두 선택해 주세요’ (‘만성질환’ 용어 미사용, 완치된 과거 질환 제외)"],
+  chronic:[["화면 제목","‘현재 치료·관리 중인 질환을 모두 선택해 주세요.’ (‘만성질환’ 용어 미사용, 완치된 과거 질환 제외)"],
     ["선택 항목","고혈압 · 당뇨병 · 이상지질혈증 · 만성 신장질환 4개로 고정, 복수 선택 가능. ‘해당하는 질환이 없어요’ 버튼 없음"],
     ["저장","선택이 없으면 비활성, 1개 이상 선택 시 활성화. 저장 후에는 변경 시에만 활성화. 모두 해제 후 저장 가능(‘없음’). 완료 시 ‘저장했어요’ 안내"],
     ["이전 화면","저장하지 않은 선택은 폐기 후 내정보로 이동"],
