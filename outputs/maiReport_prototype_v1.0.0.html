@@ -4550,7 +4550,9 @@ function dayFlow(k, scores, i, valFn, judgeFn){
     const hit=DF_CAND[k].find(nm=>{ for(let j=i-n+1;j<=i;j++){ if(!LOW.test(judgeFn(dfSrc(nm),j)||'')) return false; } return true; });
     if(hit) why = DF_WHY[dfKey(k,hit)][2]+' ';
   }
-  return `${why}${lead} ${DF_STATE[k][cur]}.`;
+  /* 이유가 있으면 'N일 연속'을 이유 안에 넣음: '수면이 짧은 날이 N일 연속 이어지면서 ~' */
+  if(why) return `${why.replace('이어지면서', lead+' 이어지면서')}${DF_STATE[k][cur]}.`;
+  return `${lead} ${DF_STATE[k][cur]}.`;
 }
 function dfText(m, scores, i, valFn, judgeFn){
   const t = dayFlow(m.k, scores, i, valFn, judgeFn);
