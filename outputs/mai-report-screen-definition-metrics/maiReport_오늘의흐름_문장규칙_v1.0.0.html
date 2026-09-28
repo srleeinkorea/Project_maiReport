@@ -37,13 +37,13 @@ code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(-
   <table>
     <tr><th style="width:6%">순서</th><th style="width:22%">상황</th><th>형식</th></tr>
     <tr><td>1</td><td class="k">전날 기록 없음</td><td><code>오늘은 {상태}.</code></td></tr>
-    <tr><td>2</td><td class="k">전날보다 좋아짐</td><td><code>{이유} {좋아졌을 때}.</code></td></tr>
-    <tr><td>3</td><td class="k">전날보다 나빠짐</td><td><code>{이유} {나빠졌을 때}.</code></td></tr>
+    <tr><td>2</td><td class="k">구간이 전날보다 올라감</td><td><code>{이유} {좋아졌을 때}.</code></td></tr>
+    <tr><td>3</td><td class="k">구간이 전날보다 내려감</td><td><code>{이유} {나빠졌을 때}.</code></td></tr>
     <tr><td>4</td><td class="k">전날과 같음 · 2일째</td><td><code>어제에 이어 {상태}.</code></td></tr>
     <tr><td>5</td><td class="k">전날과 같음 · 3~6일째</td><td><code>{N}일 연속 {상태}.</code> (주의면 앞에 이어진 이유)</td></tr>
     <tr><td>6</td><td class="k">전날과 같음 · 7일 이상</td><td><code>일주일 이상 {상태}.</code> (주의면 앞에 이어진 이유)</td></tr>
   </table>
-  <p style="color:var(--ink-2);font-size:13px">좋아짐 · 나빠짐은 구간(주의 &lt; 보통 &lt; 좋음) 기준. N은 선택한 날부터 거꾸로 같은 구간이 이어진 날 수(지난 주까지 셈). 오늘이 아닌 날을 고르면 ‘어제’ → ‘전날’(‘어제에 이어’ → ‘전날에 이어’), ‘오늘은’ → ‘그날은’.</p>
+  <p style="color:var(--ink-2);font-size:13px"><b>바뀐 날 = 구간이 전날과 달라진 날.</b> 점수가 조금 오르내려도 구간이 같으면 ‘같음’으로 봄. 좋아짐 · 나빠짐은 구간 순서(주의 &lt; 보통 &lt; 좋음) 기준. N은 선택한 날부터 거꾸로 같은 구간이 이어진 날 수(지난 주까지 셈). 오늘이 아닌 날을 고르면 ‘어제’ → ‘전날’(‘어제에 이어’ → ‘전날에 이어’), ‘오늘은’ → ‘그날은’.</p>
 </section>
 
 <section class="card">
