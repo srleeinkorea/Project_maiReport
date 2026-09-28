@@ -4543,7 +4543,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
     return `${best?DF_WHY[best][up?0:1]+' ':''}${k==='steady'?(cur==='mid'?DF_STEADY_TO.mid[up?'up':'down']:DF_STEADY_TO[cur]):DF_MOVE[k][up?'up':'down']}.`;
   }
   let n=1; while(st(i-n)===cur) n++;
-  const lead = n===2 ? '어제에 이어' : `${n}일 연속`;
+  const lead = `${n}일 연속`;
   let why='';
   if(cur==='low' && n>=3 && judgeFn){
     const LOW=/부족|적음|낮음|없음/;
@@ -4554,7 +4554,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
 }
 function dfText(m, scores, i, valFn, judgeFn){
   const t = dayFlow(m.k, scores, i, valFn, judgeFn);
-  return m.notToday ? t.replace('어제보다','전날보다').replace('어제에 이어','전날에 이어') : t;
+  return m.notToday ? t.replace('어제보다','전날보다') : t;
 }
 function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
   const meta = METRICS.find(x=>x.k===m.k);
