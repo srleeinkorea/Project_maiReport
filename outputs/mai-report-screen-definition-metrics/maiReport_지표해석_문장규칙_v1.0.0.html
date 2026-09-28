@@ -48,7 +48,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 <div class="hero">
   <h1>지표 해석 · 문장 규칙</h1>
   <p>지표 카드의 ‘지표 해석’ 한 문장을 만드는 규칙</p>
-  <nav class="toc"><a href="#s1">1 한눈에 보기</a><a href="#s10">2 전체 문장</a><a href="#s2">3 문장 형식</a><a href="#s3">4 상태 문구</a><a href="#s4">5 변화 문구</a><a href="#s5">6 이유 문구</a><a href="#s6">7 예시</a><a href="#s8">8 샘플 적용</a><a href="#s7">9 표시 · 말투</a><a href="#s9">10 개발 명세</a></nav>
+  <nav class="toc"><a href="#s1">1 한눈에 보기</a><a href="#s2">2 문장 형식</a><a href="#s10">3 전체 문장</a><a href="#s3">4 상태 문구</a><a href="#s4">5 변화 문구</a><a href="#s5">6 이유 문구</a><a href="#s6">7 예시</a><a href="#s8">8 샘플 적용</a><a href="#s7">9 표시 · 말투</a><a href="#s9">10 개발 명세</a></nav>
 </div>
 
 <section class="card" id="s1">
@@ -60,8 +60,28 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
   </div>
 </section>
 
+
+
+<section class="card" id="s2">
+  <h2><span class="n">2</span>문장 형식</h2>
+  <table>
+    <tr><th>상황</th><th>형식</th></tr>
+    <tr><td class="k">전날 기록 없음</td><td><code>{상태}.</code></td></tr>
+    <tr><td class="k">구간이 올라감 · 내려감</td><td><code>{이유} {변화}.</code></td></tr>
+    <tr><td class="k">같은 구간 2일 이상</td><td><code>{N}일 연속 {상태}.</code></td></tr>
+    <tr><td class="k">주의 3일 이상</td><td><code>{이어진 이유 · N일 연속 이어지면서} {상태}.</code></td></tr>
+  </table>
+  <h3>함께 지키는 규칙</h3>
+  <ul class="rules">
+    <li>바뀐 날 = <b>구간</b>이 전날과 달라진 날 (점수만 바뀌면 같은 날)</li>
+    <li>N = 같은 구간이 이어진 날 수 (지난 주까지 거슬러 셈)</li>
+    <li>오늘이 아닌 날: ‘어제’ → ‘전날’</li>
+    <li>일상안정 ‘균형’ = 지난주보다 걸음 · 활동 · 운동이 유지·증가(안정) 또는 감소(불안정)한 정도 (매일 일정한지를 뜻하지 않음)</li>
+  </ul>
+</section>
+
 <section class="card" id="s10">
-  <h2><span class="n">2</span>전체 문장 세트 · 57개</h2>
+  <h2><span class="n">3</span>전체 문장 세트 · 57개</h2>
   <ul class="rules"><li>숫자를 누르면 아래에 해당 문장이 모두 나옴 · N = 연속 일수(2 이상, 주의 지속은 3 이상)</li>
   <li>오늘이 아닌 날은 ‘어제보다’ → ‘전날보다’</li></ul>
   <table style="margin-top:8px"><tr><th>문장 종류</th><th>생활여유</th><th>자기돌봄</th><th>일상안정</th></tr><tr><td class="k">상태만 (전날 기록 없음)</td><td><button class="cnt" data-m="생활여유" data-k="state">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="state">3</button></td><td><button class="cnt" data-m="일상안정" data-k="state">3</button></td></tr><tr><td class="k">N일 연속 + 상태</td><td><button class="cnt" data-m="생활여유" data-k="streak">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="streak">3</button></td><td><button class="cnt" data-m="일상안정" data-k="streak">3</button></td></tr><tr><td class="k">주의 지속 + 이유</td><td><button class="cnt" data-m="생활여유" data-k="lowr">2</button></td><td><button class="cnt" data-m="자기돌봄" data-k="lowr">2</button></td><td><button class="cnt" data-m="일상안정" data-k="lowr">6</button></td></tr><tr><td class="k">올라감</td><td><button class="cnt" data-m="생활여유" data-k="up">4</button></td><td><button class="cnt" data-m="자기돌봄" data-k="up">3</button></td><td><button class="cnt" data-m="일상안정" data-k="up">7</button></td></tr><tr><td class="k">내려감</td><td><button class="cnt" data-m="생활여유" data-k="down">5</button></td><td><button class="cnt" data-m="자기돌봄" data-k="down">3</button></td><td><button class="cnt" data-m="일상안정" data-k="down">7</button></td></tr><tr><td class="k">합계</td><td><button class="cnt" data-m="생활여유" data-k="all"><b>17</b></button></td><td><button class="cnt" data-m="자기돌봄" data-k="all"><b>14</b></button></td><td><button class="cnt" data-m="일상안정" data-k="all"><b>26</b></button></td></tr></table>
@@ -86,24 +106,6 @@ document.querySelectorAll('button.cnt').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('button.cnt').forEach(x=>x.classList.remove('on'));b.classList.add('on');show(b.dataset.m,b.dataset.k);});
 })();
 </script>
-
-<section class="card" id="s2">
-  <h2><span class="n">3</span>문장 형식</h2>
-  <table>
-    <tr><th>상황</th><th>형식</th></tr>
-    <tr><td class="k">전날 기록 없음</td><td><code>{상태}.</code></td></tr>
-    <tr><td class="k">구간이 올라감 · 내려감</td><td><code>{이유} {변화}.</code></td></tr>
-    <tr><td class="k">같은 구간 2일 이상</td><td><code>{N}일 연속 {상태}.</code></td></tr>
-    <tr><td class="k">주의 3일 이상</td><td><code>{이어진 이유 · N일 연속 이어지면서} {상태}.</code></td></tr>
-  </table>
-  <h3>함께 지키는 규칙</h3>
-  <ul class="rules">
-    <li>바뀐 날 = <b>구간</b>이 전날과 달라진 날 (점수만 바뀌면 같은 날)</li>
-    <li>N = 같은 구간이 이어진 날 수 (지난 주까지 거슬러 셈)</li>
-    <li>오늘이 아닌 날: ‘어제’ → ‘전날’</li>
-    <li>일상안정 ‘균형’ = 지난주보다 걸음 · 활동 · 운동이 유지·증가(안정) 또는 감소(불안정)한 정도 (매일 일정한지를 뜻하지 않음)</li>
-  </ul>
-</section>
 
 <section class="card" id="s3">
   <h2><span class="n">4</span>상태 문구</h2>
