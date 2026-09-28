@@ -107,13 +107,14 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
     <tr><th>항목</th><th>지표</th><th class="good">늘었을 때</th><th class="low">줄었을 때</th><th class="mid">주의가 이어질 때</th></tr>
     <tr><td class="k">수면</td><td>생활여유</td><td>수면 시간이 늘어나면서</td><td>수면 시간이 줄어들면서</td><td>수면이 짧은 날이 이어지면서</td></tr>
     <tr><td class="k">활동 시간</td><td>생활여유 · 일상안정</td><td>활동량이 늘어나면서</td><td>활동량이 줄어들면서</td><td>활동량이 낮은 날이 이어지면서</td></tr>
-    <tr><td class="k">활동 분산</td><td>생활여유</td><td>움직임이 하루에 고르게 나뉘면서</td><td>활동이 한때에 몰리면서</td><td>활동이 한때에 몰리는 날이 이어지면서</td></tr>
+    <tr><td class="k">활동 분산</td><td>생활여유 · 자기돌봄</td><td>움직임이 하루에 고르게 나뉘면서</td><td>활동이 한때에 몰리면서</td><td>활동이 한때에 몰리는 날이 이어지면서</td></tr>
     <tr><td class="k">활동 부담</td><td>생활여유</td><td>—</td><td>활동이 많아 부담이 커지면서</td><td>활동이 많은 날이 이어지면서</td></tr>
     <tr><td class="k">걸음 수</td><td>자기돌봄 · 일상안정</td><td>걸음 수가 늘어나면서</td><td>걸음 수가 줄어들면서</td><td>걸음 수가 적은 날이 이어지면서</td></tr>
     <tr><td class="k">식후 활동</td><td>자기돌봄</td><td>식후 활동이 이어지면서</td><td>식후 활동이 줄어들면서</td><td>식후 활동이 적은 날이 이어지면서</td></tr>
     <tr><td class="k">행동 완료 (7일 식후 활동 완료율)</td><td>일상안정</td><td>이번 주 식후 활동을 챙긴 날이 늘면서</td><td>이번 주 식후 활동을 챙긴 날이 줄면서</td><td>식후 활동을 놓친 날이 이어지면서</td></tr>
     <tr><td class="k">걸음 발생일</td><td>일상안정</td><td>움직인 날이 늘면서</td><td>움직이지 않은 날이 생기면서</td><td>움직이지 않은 날이 이어지면서</td></tr>
     <tr><td class="k">수면 규칙성</td><td>일상안정</td><td>잠드는 시간이 일정해지면서</td><td>잠드는 시간이 불규칙해지면서</td><td>잠드는 시간이 불규칙한 날이 이어지면서</td></tr>
+    <tr><td class="k">공백 후 움직임</td><td>자기돌봄</td><td>오래 쉬다가 다시 움직이면서</td><td>오래 쉰 뒤 움직임이 줄어들면서</td><td>오래 쉰 뒤 움직이지 않은 날이 이어지면서</td></tr>
     <tr><td class="k">운동 시간</td><td>일상안정</td><td>운동 시간이 늘어나면서</td><td>운동 시간이 줄어들면서</td><td>운동 공백이 이어지면서</td></tr>
   </table>
 
@@ -128,7 +129,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
   <table>
     <tr><th>지표</th><th>후보와 비중</th><th>계산</th></tr>
     <tr><td class="k">생활여유</td><td>활동 시간 20% · 활동 분산 30% · 활동 부담 25% · 수면 25%</td><td>활동은 240분까지 · 수면은 연령별 기준 수면 대비 부족분 · 활동 부담은 240분 초과 감점이 가장 클 때만 (한 시간대 몰림 감점은 활동 분산으로 봄)</td></tr>
-    <tr><td class="k">자기돌봄</td><td>걸음 수 55% · 식후 활동 20%</td><td>걸음 표(3천 0.35 · 6천 0.65 · 1만 0.95 · 1만2천 1) · 식후 활동은 완료 수 ÷ 확정 기회 수</td></tr>
+    <tr><td class="k">자기돌봄</td><td>걸음 수 55% · 식후 활동 20% · 공백 후 움직임 15% · 활동 분산 10%</td><td>걸음 표(3천 0.35 · 6천 0.65 · 1만 0.95 · 1만2천 1) · 식후 활동은 완료 수 ÷ 확정 기회 수</td></tr>
     <tr><td class="k">일상안정</td><td>걸음 수 30% · 활동 시간 15% · 운동 시간 15% · 행동 완료 15% · 걸음 발생일 10% · 수면 규칙성 15%</td><td>최근 7일 vs 직전 7일 변화가 바뀐 만큼 · 수면 규칙성은 취침 시각의 흔들림이 줄면 좋아짐</td></tr>
   </table>
 
@@ -147,6 +148,8 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
     <tr><td class="k"></td><td>수면</td><td>1 − 부족분 ÷ 120분 (기준 수면은 연령별)</td></tr>
     <tr><td class="k">자기돌봄</td><td>걸음 수</td><td>걸음 점수표 (3천 0.35 · 6천 0.65 · 1만 0.95 · 1만2천 1)</td></tr>
     <tr><td class="k"></td><td>식후 활동</td><td>완료 수 ÷ 확정 기회 수</td></tr>
+    <tr><td class="k"></td><td>공백 후 움직임</td><td>0.70 × 재시작 + 0.30 × 공백 품질</td></tr>
+    <tr><td class="k"></td><td>활동 분산</td><td>(움직인 칸 ÷ 8) × (1 − 몰림) ÷ 0.75</td></tr>
     <tr><td class="k">일상안정</td><td>걸음 수 · 활동 시간 · 운동 시간 · 걸음 발생일</td><td>(최근 7일 평균 − 직전 7일 평균) ÷ (직전 평균의 절반)</td></tr>
     <tr><td class="k"></td><td>행동 완료</td><td>(최근 완료율 − 직전 완료율) ÷ 0.5</td></tr>
     <tr><td class="k"></td><td>수면 규칙성</td><td>취침 시각 흔들림이 줄어든 정도</td></tr>
@@ -253,7 +256,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
   <table style="margin-top:8px">
     <tr><th>지표</th><th>재료키 (비중)</th></tr>
     <tr><td class="k">margin</td><td>active 0.20 · spread 0.30 · load 0.25 · sleep 0.25</td></tr>
-    <tr><td class="k">selfcare</td><td>steps 0.55 · meal 0.20 (공백 후 움직임 · 활동 분산은 이유 후보 아님)</td></tr>
+    <tr><td class="k">selfcare</td><td>steps 0.55 · meal 0.20 · restart 0.15 · spread 0.10</td></tr>
     <tr><td class="k">steady</td><td>steps 0.30 · active 0.15 · exercise 0.15 · action 0.15 · walkdays 0.10 · sleepreg 0.15</td></tr>
   </table>
 
@@ -306,10 +309,10 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 
 
 <section class="card" id="s10">
-  <h2><span class="n">10</span>전체 문장 세트 · 59개</h2>
+  <h2><span class="n">10</span>전체 문장 세트 · 65개</h2>
   <ul class="rules"><li>숫자를 누르면 아래에 해당 문장이 모두 나옴 · N = 연속 일수(2 이상, 주의 지속은 3 이상)</li>
   </ul>
-  <table style="margin-top:8px"><tr><th>문장 종류</th><th>생활여유</th><th>자기돌봄</th><th>일상안정</th></tr><tr><td class="k">상태만 (전날 기록 없음)</td><td><button class="cnt" data-m="생활여유" data-k="state">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="state">3</button></td><td><button class="cnt" data-m="일상안정" data-k="state">3</button></td></tr><tr><td class="k">N일 연속 + 상태</td><td><button class="cnt" data-m="생활여유" data-k="streak">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="streak">3</button></td><td><button class="cnt" data-m="일상안정" data-k="streak">3</button></td></tr><tr><td class="k">주의 지속 + 이유</td><td><button class="cnt" data-m="생활여유" data-k="lowr">4</button></td><td><button class="cnt" data-m="자기돌봄" data-k="lowr">2</button></td><td><button class="cnt" data-m="일상안정" data-k="lowr">6</button></td></tr><tr><td class="k">올라감</td><td><button class="cnt" data-m="생활여유" data-k="up">4</button></td><td><button class="cnt" data-m="자기돌봄" data-k="up">3</button></td><td><button class="cnt" data-m="일상안정" data-k="up">7</button></td></tr><tr><td class="k">내려감</td><td><button class="cnt" data-m="생활여유" data-k="down">5</button></td><td><button class="cnt" data-m="자기돌봄" data-k="down">3</button></td><td><button class="cnt" data-m="일상안정" data-k="down">7</button></td></tr><tr><td class="k">합계</td><td><button class="cnt" data-m="생활여유" data-k="all"><b>19</b></button></td><td><button class="cnt" data-m="자기돌봄" data-k="all"><b>14</b></button></td><td><button class="cnt" data-m="일상안정" data-k="all"><b>26</b></button></td></tr></table>
+  <table style="margin-top:8px"><tr><th>문장 종류</th><th>생활여유</th><th>자기돌봄</th><th>일상안정</th></tr><tr><td class="k">상태만 (전날 기록 없음)</td><td><button class="cnt" data-m="생활여유" data-k="state">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="state">3</button></td><td><button class="cnt" data-m="일상안정" data-k="state">3</button></td></tr><tr><td class="k">N일 연속 + 상태</td><td><button class="cnt" data-m="생활여유" data-k="streak">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="streak">3</button></td><td><button class="cnt" data-m="일상안정" data-k="streak">3</button></td></tr><tr><td class="k">주의 지속 + 이유</td><td><button class="cnt" data-m="생활여유" data-k="lowr">4</button></td><td><button class="cnt" data-m="자기돌봄" data-k="lowr">4</button></td><td><button class="cnt" data-m="일상안정" data-k="lowr">6</button></td></tr><tr><td class="k">올라감</td><td><button class="cnt" data-m="생활여유" data-k="up">4</button></td><td><button class="cnt" data-m="자기돌봄" data-k="up">5</button></td><td><button class="cnt" data-m="일상안정" data-k="up">7</button></td></tr><tr><td class="k">내려감</td><td><button class="cnt" data-m="생활여유" data-k="down">5</button></td><td><button class="cnt" data-m="자기돌봄" data-k="down">5</button></td><td><button class="cnt" data-m="일상안정" data-k="down">7</button></td></tr><tr><td class="k">합계</td><td><button class="cnt" data-m="생활여유" data-k="all"><b>19</b></button></td><td><button class="cnt" data-m="자기돌봄" data-k="all"><b>20</b></button></td><td><button class="cnt" data-m="일상안정" data-k="all"><b>26</b></button></td></tr></table>
   <div id="setOut" style="margin-top:12px"></div>
 </section>
 <style>
@@ -320,7 +323,7 @@ button.cnt.on{background:var(--brand);color:#fff;border-color:var(--brand)}
 </style>
 <script>
 (function(){
-const D={"생활여유": {"state": ["남아 있는 몸의 여유가 충분한 편이에요.", "남아 있는 몸의 여유가 보통이에요.", "남아 있는 몸의 여유가 부족한 편이에요."], "streak": ["N일 연속 남아 있는 몸의 여유가 충분한 편이에요.", "N일 연속 남아 있는 몸의 여유가 보통이에요.", "N일 연속 남아 있는 몸의 여유가 부족한 편이에요."], "lowr": ["수면이 짧은 날이 N일 연속 이어지면서 남아 있는 몸의 여유가 부족한 편이에요.", "활동량이 낮은 날이 N일 연속 이어지면서 남아 있는 몸의 여유가 부족한 편이에요.", "활동이 한때에 몰리는 날이 N일 연속 이어지면서 남아 있는 몸의 여유가 부족한 편이에요.", "활동이 많은 날이 N일 연속 이어지면서 남아 있는 몸의 여유가 부족한 편이에요."], "up": ["수면 시간이 늘어나면서 몸의 여유가 나아지고 있어요.", "활동량이 늘어나면서 몸의 여유가 나아지고 있어요.", "움직임이 하루에 고르게 나뉘면서 몸의 여유가 나아지고 있어요.", "몸의 여유가 나아지고 있어요. (이유 생략)"], "down": ["수면 시간이 줄어들면서 몸의 여유가 감소하고 있어요.", "활동량이 줄어들면서 몸의 여유가 감소하고 있어요.", "활동이 한때에 몰리면서 몸의 여유가 감소하고 있어요.", "활동이 많아 부담이 커지면서 몸의 여유가 감소하고 있어요.", "몸의 여유가 감소하고 있어요. (이유 생략)"]}, "자기돌봄": {"state": ["나를 챙기는 정도가 좋은 편이에요.", "나를 챙기는 정도가 보통이에요.", "나를 챙기는 정도가 부족한 편이에요."], "streak": ["N일 연속 나를 챙기는 정도가 좋은 편이에요.", "N일 연속 나를 챙기는 정도가 보통이에요.", "N일 연속 나를 챙기는 정도가 부족한 편이에요."], "lowr": ["걸음 수가 적은 날이 N일 연속 이어지면서 나를 챙기는 정도가 부족한 편이에요.", "식후 활동이 적은 날이 N일 연속 이어지면서 나를 챙기는 정도가 부족한 편이에요."], "up": ["걸음 수가 늘어나면서 나를 챙기는 정도가 나아지고 있어요.", "식후 활동이 이어지면서 나를 챙기는 정도가 나아지고 있어요.", "나를 챙기는 정도가 나아지고 있어요. (이유 생략)"], "down": ["걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.", "식후 활동이 줄어들면서 나를 챙기는 정도가 감소하고 있어요.", "나를 챙기는 정도가 감소하고 있어요. (이유 생략)"]}, "일상안정": {"state": ["일상의 균형이 안정적인 편이에요.", "일상의 균형이 보통이에요.", "일상의 균형이 불안정한 편이에요."], "streak": ["N일 연속 일상의 균형이 안정적인 편이에요.", "N일 연속 일상의 균형이 보통이에요.", "N일 연속 일상의 균형이 불안정한 편이에요."], "lowr": ["걸음 수가 적은 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "활동량이 낮은 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "운동 공백이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "식후 활동을 놓친 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "움직이지 않은 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "잠드는 시간이 불규칙한 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요."], "up": ["걸음 수가 늘어나면서 일상의 균형이 나아지고 있어요.", "활동량이 늘어나면서 일상의 균형이 나아지고 있어요.", "운동 시간이 늘어나면서 일상의 균형이 나아지고 있어요.", "이번 주 식후 활동을 챙긴 날이 늘면서 일상의 균형이 나아지고 있어요.", "움직인 날이 늘면서 일상의 균형이 나아지고 있어요.", "잠드는 시간이 일정해지면서 일상의 균형이 나아지고 있어요.", "일상의 균형이 나아지고 있어요. (이유 생략)"], "down": ["걸음 수가 줄어들면서 일상의 균형이 흔들리고 있어요.", "활동량이 줄어들면서 일상의 균형이 흔들리고 있어요.", "운동 시간이 줄어들면서 일상의 균형이 흔들리고 있어요.", "이번 주 식후 활동을 챙긴 날이 줄면서 일상의 균형이 흔들리고 있어요.", "움직이지 않은 날이 생기면서 일상의 균형이 흔들리고 있어요.", "잠드는 시간이 불규칙해지면서 일상의 균형이 흔들리고 있어요.", "일상의 균형이 흔들리고 있어요. (이유 생략)"]}};
+const D={"생활여유": {"state": ["남아 있는 몸의 여유가 충분한 편이에요.", "남아 있는 몸의 여유가 보통이에요.", "남아 있는 몸의 여유가 부족한 편이에요."], "streak": ["N일 연속 남아 있는 몸의 여유가 충분한 편이에요.", "N일 연속 남아 있는 몸의 여유가 보통이에요.", "N일 연속 남아 있는 몸의 여유가 부족한 편이에요."], "lowr": ["수면이 짧은 날이 N일 연속 이어지면서 남아 있는 몸의 여유가 부족한 편이에요.", "활동량이 낮은 날이 N일 연속 이어지면서 남아 있는 몸의 여유가 부족한 편이에요.", "활동이 한때에 몰리는 날이 N일 연속 이어지면서 남아 있는 몸의 여유가 부족한 편이에요.", "활동이 많은 날이 N일 연속 이어지면서 남아 있는 몸의 여유가 부족한 편이에요."], "up": ["수면 시간이 늘어나면서 몸의 여유가 나아지고 있어요.", "활동량이 늘어나면서 몸의 여유가 나아지고 있어요.", "움직임이 하루에 고르게 나뉘면서 몸의 여유가 나아지고 있어요.", "몸의 여유가 나아지고 있어요. (이유 생략)"], "down": ["수면 시간이 줄어들면서 몸의 여유가 감소하고 있어요.", "활동량이 줄어들면서 몸의 여유가 감소하고 있어요.", "활동이 한때에 몰리면서 몸의 여유가 감소하고 있어요.", "활동이 많아 부담이 커지면서 몸의 여유가 감소하고 있어요.", "몸의 여유가 감소하고 있어요. (이유 생략)"]}, "자기돌봄": {"state": ["나를 챙기는 정도가 좋은 편이에요.", "나를 챙기는 정도가 보통이에요.", "나를 챙기는 정도가 부족한 편이에요."], "streak": ["N일 연속 나를 챙기는 정도가 좋은 편이에요.", "N일 연속 나를 챙기는 정도가 보통이에요.", "N일 연속 나를 챙기는 정도가 부족한 편이에요."], "lowr": ["걸음 수가 적은 날이 N일 연속 이어지면서 나를 챙기는 정도가 부족한 편이에요.", "식후 활동이 적은 날이 N일 연속 이어지면서 나를 챙기는 정도가 부족한 편이에요.", "오래 쉰 뒤 움직이지 않은 날이 N일 연속 이어지면서 나를 챙기는 정도가 부족한 편이에요.", "활동이 한때에 몰리는 날이 N일 연속 이어지면서 나를 챙기는 정도가 부족한 편이에요."], "up": ["걸음 수가 늘어나면서 나를 챙기는 정도가 나아지고 있어요.", "식후 활동이 이어지면서 나를 챙기는 정도가 나아지고 있어요.", "오래 쉬다가 다시 움직이면서 나를 챙기는 정도가 나아지고 있어요.", "움직임이 하루에 고르게 나뉘면서 나를 챙기는 정도가 나아지고 있어요.", "나를 챙기는 정도가 나아지고 있어요. (이유 생략)"], "down": ["걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.", "식후 활동이 줄어들면서 나를 챙기는 정도가 감소하고 있어요.", "오래 쉰 뒤 움직임이 줄어들면서 나를 챙기는 정도가 감소하고 있어요.", "활동이 한때에 몰리면서 나를 챙기는 정도가 감소하고 있어요.", "나를 챙기는 정도가 감소하고 있어요. (이유 생략)"]}, "일상안정": {"state": ["일상의 균형이 안정적인 편이에요.", "일상의 균형이 보통이에요.", "일상의 균형이 불안정한 편이에요."], "streak": ["N일 연속 일상의 균형이 안정적인 편이에요.", "N일 연속 일상의 균형이 보통이에요.", "N일 연속 일상의 균형이 불안정한 편이에요."], "lowr": ["걸음 수가 적은 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "활동량이 낮은 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "운동 공백이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "식후 활동을 놓친 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "움직이지 않은 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요.", "잠드는 시간이 불규칙한 날이 N일 연속 이어지면서 일상의 균형이 불안정한 편이에요."], "up": ["걸음 수가 늘어나면서 일상의 균형이 나아지고 있어요.", "활동량이 늘어나면서 일상의 균형이 나아지고 있어요.", "운동 시간이 늘어나면서 일상의 균형이 나아지고 있어요.", "이번 주 식후 활동을 챙긴 날이 늘면서 일상의 균형이 나아지고 있어요.", "움직인 날이 늘면서 일상의 균형이 나아지고 있어요.", "잠드는 시간이 일정해지면서 일상의 균형이 나아지고 있어요.", "일상의 균형이 나아지고 있어요. (이유 생략)"], "down": ["걸음 수가 줄어들면서 일상의 균형이 흔들리고 있어요.", "활동량이 줄어들면서 일상의 균형이 흔들리고 있어요.", "운동 시간이 줄어들면서 일상의 균형이 흔들리고 있어요.", "이번 주 식후 활동을 챙긴 날이 줄면서 일상의 균형이 흔들리고 있어요.", "움직이지 않은 날이 생기면서 일상의 균형이 흔들리고 있어요.", "잠드는 시간이 불규칙해지면서 일상의 균형이 흔들리고 있어요.", "일상의 균형이 흔들리고 있어요. (이유 생략)"]}};
 const L={"state": "상태만 (전날 기록 없음)", "streak": "N일 연속 + 상태", "lowr": "주의 지속 + 이유", "up": "올라감", "down": "내려감"};
 const out=document.getElementById('setOut');
 function show(m,k){
