@@ -670,7 +670,7 @@ notice(){
 /* MORE-060 이용권 관리 */
 ticket(){
   const pr = true, n = (S.scen==="ticket" ? 1 : 0) + (pr ? 1 : 0);
-  const promoRow = pr ? `<div class="tk-row"><div class="tk-row-top"><b>Selvy Checkup</b><span class="tk-pill ok">사용 가능</span></div><div class="tk-row-sub">무료 지급 2026.08.01</div></div>` : "";
+  const promoRow = pr ? `<div class="tk-row"><div class="tk-row-top"><b>Selvy Checkup</b><span class="tk-pill ok">사용 가능</span></div><div class="tk-row-sub">프로모션 무상 제공 2026.08.01</div></div>` : "";
   const hist = S.scen==="ticket" ? `<div class="tk-row"><div class="tk-row-top"><b>Selvy Checkup</b><span class="tk-pill ok">사용 가능</span></div><div class="tk-row-sub">구매 2026.09.28</div><button class="tk-refund">환불 신청</button></div>` : "";
   return subShell("이용권 관리","go('more')",`
     <div class="acc-sec">
@@ -759,7 +759,7 @@ const SPEC = {
     ["오늘의 목표 알림 (선택)","스위치로 즉시 변경, ‘매일 저녁’"],
     ["광고성 알림","이 화면에 두지 않음. 동의 관리의 ‘마케팅 정보 수신’에서만 변경"],
     ["알림 목록","공지 알림을 눌러도 공지사항 화면으로 이동하지 않고 목록에서 내용만 표시"]],
-  ticket:[["무료 이용권","1장 자동 지급, 내역에 ‘무료 지급’으로 표시. 구매 버튼 · 별도 안내 문구 없음"],
+  ticket:[["무료 이용권","1장 자동 지급, 내역에 ‘프로모션 무상 제공’으로 표시. 구매 버튼 · 별도 안내 문구 없음"],
     ["환불 신청","사용 가능한 유료 이용권에만 표시, 스토어 환불 화면으로 이동"],
     ["내역 날짜","날짜만 표시 (시각 제외)"]],
   withdraw:[["확인 문구","‘정말 탈퇴하시겠어요?’ / ‘회원탈퇴 시 모든 개인정보가 삭제되며 복구할 수 없어요.’ (확인 체크 · 사유 설문 없음)"],
