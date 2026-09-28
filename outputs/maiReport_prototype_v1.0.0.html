@@ -4461,6 +4461,8 @@ const DF_WHY = {   /* 항목: [늘었을 때, 줄었을 때, 낮은 날이 이�
   '식후 활동':['식후 활동이 이어지면서','식후 활동이 줄어들면서','식후 활동이 적은 날이 이어지면서'],
   '걸음 수':['걸음 수가 늘어나면서','걸음 수가 줄어들면서','걸음 수가 적은 날이 이어지면서'],
   '운동':['운동 시간이 늘어나면서','운동 시간이 줄어들면서','운동 공백이 이어지면서'],
+  '행동 완료':['식후 활동을 챙긴 날이 늘면서','식후 활동을 챙긴 날이 줄면서','식후 활동을 놓친 날이 이어지면서'],
+  '걸음 발생일':['움직인 날이 늘면서','움직이지 않은 날이 생기면서','움직이지 않은 날이 이어지면서'],
   '수면 규칙성':['잠드는 시간이 일정해지면서','잠드는 시간이 불규칙해지면서','잠드는 시간이 불규칙한 날이 이어지면서'],
   '분산':['움직임이 하루에 고르게 나뉘면서','활동이 한때에 몰리면서','활동이 한때에 몰리는 날이 이어지면서']
 };
@@ -4529,6 +4531,12 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       const sd=e=>{ const v=[]; for(let j=Math.max(0,e-6);j<=e;j++){ const t=bt(j); if(t!=null) v.push(t); } if(v.length<2) return null; const mu=v.reduce((a,b)=>a+b,0)/v.length; return Math.sqrt(v.reduce((a,b)=>a+(b-mu)*(b-mu),0)/v.length); };
       const sa2=sd(i-1), sb2=sd(i);
       if(sa2!=null && sb2!=null) c['수면 규칙성']=0.5*0.15*(sa2-sb2)/Math.max(0.5*sa2,15);
+      /* 행동 완료 15%: 기간 완료율(식후 활동 완료 ÷ 기회) 변화 ÷ 0.5 */
+      const rate=e=>{ let d=0,c2=0; for(let j=Math.max(0,e-6);j<=e;j++){ d+=Math.min(3,dfNum(valFn('운동 기록',j))); c2+=3; } return c2?d/c2:0; };
+      c['행동 완료']=0.5*0.15*(rate(i)-rate(i-1))/0.5;
+      /* 걸음 발생일 10%: 걸음이 있었던 날의 비율 변화 */
+      const walk=e=>{ let d=0,c2=0; for(let j=Math.max(0,e-6);j<=e;j++){ d+=dfNum(valFn('걸음 수',j))>0?1:0; c2++; } return c2?d/c2:0; };
+      c['걸음 발생일']=0.5*0.10*(walk(i)-walk(i-1));
       best=null; let bv2=0.02;
       Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
     }
