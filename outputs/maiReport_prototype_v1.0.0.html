@@ -4505,6 +4505,25 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
       if(best==='과한') return `${DF_OVERLOAD} ${DF_MOVE[k].down}.`;
     }
+    if(k==='selfcare'){
+      /* 자기돌봄: 걸음 55% (걸음 표: 0→0 · 3천→0.35 · 6천→0.65 · 1만→0.95 · 1만2천→1) · 식후 활동 20% (하루 3회 기준 완료율) */
+      const cv=[[0,0],[3000,.35],[6000,.65],[10000,.95],[12000,1]];
+      const stp=x=>{ for(let q=1;q<cv.length;q++){ const [l,a]=cv[q-1],[r,b]=cv[q]; if(x<=r) return a+(x-l)/(r-l)*(b-a); } return 1; };
+      const meal=x=>Math.min(1,x/3);
+      const c={'걸음 수':0.55*(stp(dfNum(valFn('걸음 수',i)))-stp(dfNum(valFn('걸음 수',i-1)))),
+               '식후 활동':0.2*(meal(dfNum(valFn('운동 기록',i)))-meal(dfNum(valFn('운동 기록',i-1))))};
+      best=null; let bv2=0.02;
+      Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
+    }
+    if(k==='steady'){
+      /* 일상안정: 표시점수 = 50 + 50 × Σ(가중치 × 변화). 걸음 30% · 활동 15% · 운동 15%
+         하루 사이 7일 평균이 바뀐 만큼 점수에 준 영향으로 비교 */
+      const W={'걸음 수':0.3,'활동 시간':0.15,'운동 기록':0.15}, KEY={'걸음 수':'걸음 수','활동 시간':'활동 시간','운동 기록':'운동'};
+      const c={};
+      Object.keys(W).forEach(n=>{ const x=avg(n,i-1), y=avg(n,i); c[KEY[n]]=0.5*W[n]*(y-x)/Math.max(0.5*x,1); });
+      best=null; let bv2=0.02;
+      Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
+    }
     return `${best?DF_WHY[best][up?0:1]+' ':''}${k==='steady'?(cur==='mid'?DF_STEADY_TO.mid[up?'up':'down']:DF_STEADY_TO[cur]):DF_MOVE[k][up?'up':'down']}.`;
   }
   let n=1; while(st(i-n)===cur) n++;
