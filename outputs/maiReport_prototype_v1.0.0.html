@@ -4567,10 +4567,7 @@ function renderMetricPaneHistory(offset){
   const judgeOfH = (name,idx) => (h.dayjudge[name] && h.dayjudge[name][idx]) || DATA_MAP.find(d=>d.n===name).judge;
   cards.forEach(c=>{ c.flowTitle='지표 해석'; c.notToday=true; });
   const html = cards.map(m=>metricCard(m, m.s, i, dayLabels, m.k==='steady' ? `${wl} 일요일 기준 · 최근 7일 흐름` : `${wl} 일요일 기준`, valOfH, judgeOfH)).join('');
-  const readonlyNote = `<section class="ai-cd-note" style="justify-content:center;text-align:center">
-    ✓ ${wl}(${days[0].month}.${days[0].day}~${days[6].month}.${days[6].day})는 이미 끝난 주라 읽기 전용이에요.
-  </section>`;
-  document.getElementById('pMetric').innerHTML = readonlyNote + html;
+  document.getElementById('pMetric').innerHTML = html;
   bindMetricInfo(document.getElementById('pMetric'));
 }
 
