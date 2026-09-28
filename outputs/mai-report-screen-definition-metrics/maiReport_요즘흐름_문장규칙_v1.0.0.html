@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>요즘 흐름 문장 규칙</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+:root{--font:'Pretendard Variable','Pretendard',-apple-system,system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--ink-1:#16233F;--ink-2:#5A6880;--ink-3:#98A4B8;--line:#E9EDF5;--fill:#F5F7FB;--brand:#2F6BFF;--brand-soft:#EFF4FF;--ok:#12A150;--warn:#E5893A;--alert:#E5484D}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);font-size:14px;line-height:1.65;color:var(--ink-1);background:#E8EBF2;word-break:keep-all}
+.page{max-width:1100px;margin:0 auto;padding:26px 20px 60px}
+.hero{background:var(--brand);color:#fff;border-radius:18px;padding:26px 28px;margin-bottom:16px}
+.hero h1{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.hero p{margin-top:8px;font-size:14px;opacity:.95}
+.hero .meta{margin-top:10px;font-size:12.5px;opacity:.85}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.toc a{background:#fff;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--ink-2);text-decoration:none}
+section.card{background:#fff;border-radius:18px;padding:24px 26px;margin-bottom:14px}
+h2{font-size:18px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+h2 .n{display:inline-flex;width:28px;height:28px;border-radius:9px;background:var(--brand-soft);color:var(--brand);font-size:13px;align-items:center;justify-content:center}
+.sub{color:var(--ink-2);font-size:13.5px;margin:6px 0 14px}
+h3{font-size:15px;font-weight:700;margin:18px 0 8px}
+p{margin:6px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+th{background:var(--fill);color:var(--ink-2);font-weight:700;text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.k{font-weight:700;white-space:nowrap}
+code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(--fill);padding:1px 5px;border-radius:4px;color:#1E3A8A}
+.callout{border-left:4px solid var(--brand);background:var(--brand-soft);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13.5px}
+.callout.warn{border-color:var(--warn);background:#FFF6EC}
+ul{margin:6px 0 6px 18px}
+li{margin:3px 0}
+.ex{color:var(--ink-1);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="hero">
+  <h1>지표별 분석 · 요즘 흐름 문장 규칙</h1>
+  <p>지표 카드의 ‘요즘 흐름’ 한 문장을 만드는 규칙. 오늘 구간을 직전 3일과 비교해, 정해진 문장 16개 중 하나를 고름.</p>
+  <div class="meta">대상 지표: 생활여유 · 자기돌봄 · 일상안정 · 구간은 지표 엔진 결과를 그대로 사용</div>
+</div>
+<div class="toc"><a href="#s1">1 한눈에 보기</a><a href="#s2">2 판정 규칙</a><a href="#s3">3 문장 목록</a><a href="#s4">4 표시 · 갱신</a><a href="#s5">5 예시</a></div>
+
+<section class="card" id="s1">
+  <h2><span class="n">1</span>한눈에 보기</h2>
+  <div class="sub">오늘이 최근 며칠보다 좋아졌는지, 나빠졌는지, 비슷한지만 봄</div>
+  <table>
+    <tr><th style="width:22%">순서</th><th>내용</th></tr>
+    <tr><td class="k">① 오늘 구간 확인</td><td>지표 엔진이 준 오늘 구간(좋음 · 보통 · 주의)</td></tr>
+    <tr><td class="k">② 직전 3일 확인</td><td>어제 · 그제 · 그끄제 구간(지난 주에 걸쳐도 됨 → 월요일에도 문장이 나옴)</td></tr>
+    <tr><td class="k">③ 비교</td><td>좋아지는 중 / 나빠지는 중 / 그대로(좋음 · 보통 · 주의)</td></tr>
+    <tr><td class="k">④ 문장 선택</td><td>3장 표에서 지표 × 결과에 맞는 문장 하나를 그대로 표시</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s2">
+  <h2><span class="n">2</span>판정 규칙</h2>
+  <div class="sub">구간 값: 주의 0 · 보통 1 · 좋음 2</div>
+  <table>
+    <tr><th style="width:22%">용어</th><th>정의</th></tr>
+    <tr><td class="k">오늘 값</td><td>오늘 구간 값. 오늘이 관찰 중이면 카드가 관찰 중으로 바뀌고 문장을 만들지 않음</td></tr>
+    <tr><td class="k">직전 평균</td><td>어제 · 그제 · 그끄제 중 구간이 있는 날의 구간 값 평균</td></tr>
+    <tr><td class="k">차이</td><td>오늘 값 − 직전 평균</td></tr>
+  </table>
+  <table>
+    <tr><th style="width:6%">순서</th><th style="width:22%">결과</th><th>조건</th></tr>
+    <tr><td>1</td><td class="k">기록 부족</td><td>직전 3일 중 구간이 있는 날이 1일 이하</td></tr>
+    <tr><td>2</td><td class="k">좋아지는 중</td><td>차이 ≥ +0.5</td></tr>
+    <tr><td>3</td><td class="k">나빠지는 중</td><td>차이 ≤ −0.5</td></tr>
+    <tr><td>4</td><td class="k">그대로 · 좋음</td><td>그 외, 오늘 좋음</td></tr>
+    <tr><td>5</td><td class="k">그대로 · 보통</td><td>그 외, 오늘 보통</td></tr>
+    <tr><td>6</td><td class="k">그대로 · 주의</td><td>그 외, 오늘 주의</td></tr>
+  </table>
+  <div class="callout">구간 경계(참고): 생활여유 70 / 40, 자기돌봄 · 일상안정 66 / 33. 앱은 구간을 다시 계산하지 않음.</div>
+</section>
+
+<section class="card" id="s3">
+  <h2><span class="n">3</span>문장 목록 (전체 16개)</h2>
+  <div class="sub">이 표의 문장만 사용. 지난 주는 오른쪽 과거형 문장 사용</div>
+  <table>
+    <tr><th style="width:12%">지표</th><th style="width:16%">결과</th><th>이번 주</th><th>지난 주</th></tr>
+    <tr><td class="k">생활여유</td><td>좋아지는 중</td><td>여유가 다시 늘고 있어요.</td><td>여유가 다시 늘었어요.</td></tr>
+    <tr><td class="k">생활여유</td><td>나빠지는 중</td><td>여유가 줄고 있어요.</td><td>여유가 줄었어요.</td></tr>
+    <tr><td class="k">생활여유</td><td>그대로 · 좋음</td><td>여유가 넉넉한 날이 이어지고 있어요.</td><td>여유가 넉넉한 날이 이어졌어요.</td></tr>
+    <tr><td class="k">생활여유</td><td>그대로 · 보통</td><td>여유가 평소와 비슷해요.</td><td>여유가 평소와 비슷했어요.</td></tr>
+    <tr><td class="k">생활여유</td><td>그대로 · 주의</td><td>여유가 부족한 날이 이어지고 있어요.</td><td>여유가 부족한 날이 이어졌어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>좋아지는 중</td><td>나를 챙긴 순간이 늘고 있어요.</td><td>나를 챙긴 순간이 늘었어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>나빠지는 중</td><td>나를 챙긴 순간이 줄고 있어요.</td><td>나를 챙긴 순간이 줄었어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>그대로 · 좋음</td><td>나를 잘 챙기는 날이 이어지고 있어요.</td><td>나를 잘 챙기는 날이 이어졌어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>그대로 · 보통</td><td>나를 챙기는 정도가 평소와 비슷해요.</td><td>나를 챙기는 정도가 평소와 비슷했어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>그대로 · 주의</td><td>나를 챙긴 순간이 드문 날이 이어지고 있어요.</td><td>나를 챙긴 순간이 드문 날이 이어졌어요.</td></tr>
+    <tr><td class="k">일상안정</td><td>좋아지는 중</td><td>생활 리듬이 다시 안정되고 있어요.</td><td>생활 리듬이 다시 안정됐어요.</td></tr>
+    <tr><td class="k">일상안정</td><td>나빠지는 중</td><td>생활 리듬이 흔들리고 있어요.</td><td>생활 리듬이 흔들렸어요.</td></tr>
+    <tr><td class="k">일상안정</td><td>그대로 · 좋음</td><td>안정적인 리듬이 이어지고 있어요.</td><td>안정적인 리듬이 이어졌어요.</td></tr>
+    <tr><td class="k">일상안정</td><td>그대로 · 보통</td><td>생활 리듬이 평소와 비슷해요.</td><td>생활 리듬이 평소와 비슷했어요.</td></tr>
+    <tr><td class="k">일상안정</td><td>그대로 · 주의</td><td>리듬이 흔들린 날이 이어지고 있어요.</td><td>리듬이 흔들린 날이 이어졌어요.</td></tr>
+    <tr><td class="k">공통</td><td>기록 부족</td><td colspan="2">아직 흐름을 말하기엔 기록이 적어요.</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s4">
+  <h2><span class="n">4</span>표시 · 갱신</h2>
+  <table>
+    <tr><th style="width:22%">항목</th><th>규칙</th></tr>
+    <tr><td class="k">제목</td><td>‘요즘 흐름’</td></tr>
+    <tr><td class="k">위치</td><td>주간 그래프 아래, 핵심 데이터 위. 한 문장, 문장 전체를 본문 강조 톤으로 표시</td></tr>
+    <tr><td class="k">기준일</td><td>이번 주: 오늘 / 지난 주: 그 주 일요일(직전 3일 = 목 · 금 · 토)</td></tr>
+    <tr><td class="k">날짜 선택</td><td>날짜 띠에서 다른 날을 골라도 문장은 오늘 기준 그대로</td></tr>
+    <tr><td class="k">갱신</td><td>문장은 저장하지 않고, 동기화로 구간이 바뀌면 다시 고름(앱을 켤 때 · 생활 탭 진입 시). 보고 있는 중에 바뀌면 배지 · 그래프와 함께 한 번에 바꿈</td></tr>
+    <tr><td class="k">숨김</td><td>오늘 관찰 중 · 건강 데이터 미연동 · 계산 실패 시 영역 숨김</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s5">
+  <h2><span class="n">5</span>예시</h2>
+  <table>
+    <tr><th style="width:12%">지표</th><th style="width:26%">직전 3일 → 오늘</th><th style="width:14%">차이</th><th style="width:16%">결과</th><th>문장</th></tr>
+    <tr><td class="k">생활여유</td><td>보통 · 주의 · 보통 → 좋음</td><td>2 − 0.67 = +1.33</td><td>좋아지는 중</td><td>여유가 다시 늘고 있어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>보통 · 주의 · 보통 → 보통</td><td>1 − 0.67 = +0.33</td><td>그대로 · 보통</td><td>나를 챙기는 정도가 평소와 비슷해요.</td></tr>
+    <tr><td class="k">일상안정</td><td>보통 · 보통 · 좋음 → 좋음</td><td>2 − 1.33 = +0.67</td><td>좋아지는 중</td><td>생활 리듬이 다시 안정되고 있어요.</td></tr>
+    <tr><td class="k">생활여유</td><td>좋음 · 보통 · 주의 → 주의</td><td>0 − 1 = −1</td><td>나빠지는 중</td><td>여유가 줄고 있어요.</td></tr>
+    <tr><td class="k">생활여유 (월요일)</td><td>지난 주 금 · 토 · 일: 좋음 · 좋음 · 보통 → 보통</td><td>1 − 1.67 = −0.67</td><td>나빠지는 중</td><td>여유가 줄고 있어요.</td></tr>
+  </table>
+</section>
+</div>
+</body>
+</html>
