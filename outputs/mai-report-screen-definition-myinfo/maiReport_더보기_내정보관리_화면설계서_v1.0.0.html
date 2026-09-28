@@ -553,7 +553,7 @@ pre.json .k{color:#8AB4FF}pre.json .s{color:#FFD58A}pre.json .n{color:#9EF0C4}
 <div class="page">
   <div class="top">
     <h1>더보기 · 내정보 관리 화면 설계서</h1>
-    <p>더보기 탭 맨 위 프로필 카드에서 들어가는 <b>내정보 관리</b> 화면 설계서. 가입 정보 조회, 관리 중인 질환 입력, 동의 · 알림 · 이용권 관리, 회원탈퇴 흐름을 정의함. 최종 프로토타입 기준.
+    <p>더보기 탭 맨 위 프로필 카드에서 들어가는 <b>내정보 관리</b> 화면 설계서. 가입 정보 조회, 관리 중인 질환 입력, 동의 · 알림 · 이용권 관리, 회원탈퇴 흐름을 정의함.
       왼쪽 화면은 직접 조작 가능하며, 오른쪽에 화면별 설계서(화면 동작 · 표시 정보)를 기재함. 화면 내 데이터는 모두 가상임.</p>
   </div>
   <div class="controls">
@@ -779,8 +779,7 @@ function renderSide(){
   sTabs.innerHTML = ""; sTabs.style.display = "none";
   sBody.innerHTML =
     `<div class="spec-h">화면 동작</div><dl class="spec">${spec.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>` +
-    (s.info.length ? `<div class="spec-h" style="margin-top:22px;padding-top:16px;border-top:2px solid var(--line)">표시 정보</div><table class="fm plain"><tr><th>항목</th><th>출처</th><th>표시 기준</th></tr>${s.info.map(f=>`<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`).join("")}</table>` : "") +
-    `<div class="src">근거: 더보기 화면정의서, 최종 프로토타입.</div>`;
+    (s.info.length ? `<div class="spec-h" style="margin-top:22px;padding-top:16px;border-top:2px solid var(--line)">표시 정보</div><table class="fm plain"><tr><th>항목</th><th>출처</th><th>표시 기준</th></tr>${s.info.map(f=>`<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`).join("")}</table>` : "");
 }
 if (S.sideTab==="json") S.sideTab="spec";
 
