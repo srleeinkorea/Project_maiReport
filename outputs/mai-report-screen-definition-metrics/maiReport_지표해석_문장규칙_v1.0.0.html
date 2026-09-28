@@ -48,7 +48,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 <div class="hero">
   <h1>지표 해석 · 문장 규칙</h1>
   <p>지표 카드의 ‘지표 해석’ 한 문장을 만드는 규칙</p>
-  <nav class="toc"><a href="#s1">1 한눈에 보기</a><a href="#s2">2 문장 형식</a><a href="#s3">3 상태 문구</a><a href="#s4">4 변화 문구</a><a href="#s5">5 이유 문구</a><a href="#s6">6 예시</a><a href="#s7">7 표시 · 말투</a><a href="#s8">8 샘플 적용</a><a href="#s9">9 개발 명세</a><a href="#s10">10 전체 문장</a></nav>
+  <nav class="toc"><a href="#s1">1 한눈에 보기</a><a href="#s10">2 전체 문장</a><a href="#s2">3 문장 형식</a><a href="#s3">4 상태 문구</a><a href="#s4">5 변화 문구</a><a href="#s5">6 이유 문구</a><a href="#s6">7 예시</a><a href="#s8">8 샘플 적용</a><a href="#s7">9 표시 · 말투</a><a href="#s9">10 개발 명세</a></nav>
 </div>
 
 <section class="card" id="s1">
@@ -60,8 +60,35 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
   </div>
 </section>
 
+<section class="card" id="s10">
+  <h2><span class="n">2</span>전체 문장 세트 · 57개</h2>
+  <ul class="rules"><li>숫자를 누르면 아래에 해당 문장이 모두 나옴 · N = 연속 일수(2 이상, 주의 지속은 3 이상)</li>
+  <li>오늘이 아닌 날은 ‘어제보다’ → ‘전날보다’</li></ul>
+  <table style="margin-top:8px"><tr><th>문장 종류</th><th>생활여유</th><th>자기돌봄</th><th>일상안정</th></tr><tr><td class="k">상태만 (전날 기록 없음)</td><td><button class="cnt" data-m="생활여유" data-k="state">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="state">3</button></td><td><button class="cnt" data-m="일상안정" data-k="state">3</button></td></tr><tr><td class="k">N일 연속 + 상태</td><td><button class="cnt" data-m="생활여유" data-k="streak">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="streak">3</button></td><td><button class="cnt" data-m="일상안정" data-k="streak">3</button></td></tr><tr><td class="k">주의 지속 + 이유</td><td><button class="cnt" data-m="생활여유" data-k="lowr">2</button></td><td><button class="cnt" data-m="자기돌봄" data-k="lowr">2</button></td><td><button class="cnt" data-m="일상안정" data-k="lowr">6</button></td></tr><tr><td class="k">올라감</td><td><button class="cnt" data-m="생활여유" data-k="up">4</button></td><td><button class="cnt" data-m="자기돌봄" data-k="up">3</button></td><td><button class="cnt" data-m="일상안정" data-k="up">7</button></td></tr><tr><td class="k">내려감</td><td><button class="cnt" data-m="생활여유" data-k="down">5</button></td><td><button class="cnt" data-m="자기돌봄" data-k="down">3</button></td><td><button class="cnt" data-m="일상안정" data-k="down">7</button></td></tr><tr><td class="k">합계</td><td><button class="cnt" data-m="생활여유" data-k="all"><b>17</b></button></td><td><button class="cnt" data-m="자기돌봄" data-k="all"><b>14</b></button></td><td><button class="cnt" data-m="일상안정" data-k="all"><b>26</b></button></td></tr></table>
+  <div id="setOut" style="margin-top:12px"></div>
+</section>
+<style>
+button.cnt{font:inherit;font-weight:800;min-width:44px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--brand);cursor:pointer}
+button.cnt.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+#setOut h4{font-size:14px;font-weight:800;margin:10px 0 6px}
+#setOut ol{margin:0 0 0 20px;display:grid;gap:4px}
+</style>
+<script>
+(function(){
+const D={"생활여유": {"state": ["남아 있는 몸의 여유가 충분한 편이에요.", "남아 있는 몸의 여유가 보통이에요.", "남아 있는 몸의 여유가 부족한 편이에요."], "streak": ["N일 연속 남아 있는 몸의 여유가 충분한 편이에요.", "N일 연속 남아 있는 몸의 여유가 보통이에요.", "N일 연속 남아 있는 몸의 여유가 부족한 편이에요."], "lowr": ["수면이 짧은 날이 이어지면서 N일 연속 남아 있는 몸의 여유가 부족한 편이에요.", "활동량이 낮은 날이 이어지면서 N일 연속 남아 있는 몸의 여유가 부족한 편이에요."], "up": ["수면 시간이 늘어나면서 몸의 여유가 어제보다 나아졌어요.", "활동량이 늘어나면서 몸의 여유가 어제보다 나아졌어요.", "움직임이 하루에 고르게 나뉘면서 몸의 여유가 어제보다 나아졌어요.", "몸의 여유가 어제보다 나아졌어요. (이유 생략)"], "down": ["수면 시간이 줄어들면서 몸의 여유가 어제보다 감소했어요.", "활동량이 줄어들면서 몸의 여유가 어제보다 감소했어요.", "활동이 한때에 몰리면서 몸의 여유가 어제보다 감소했어요.", "활동이 많아 부담이 커지면서 몸의 여유가 어제보다 감소했어요.", "몸의 여유가 어제보다 감소했어요. (이유 생략)"]}, "자기돌봄": {"state": ["나를 챙기는 정도가 좋은 편이에요.", "나를 챙기는 정도가 보통이에요.", "나를 챙기는 정도가 부족한 편이에요."], "streak": ["N일 연속 나를 챙기는 정도가 좋은 편이에요.", "N일 연속 나를 챙기는 정도가 보통이에요.", "N일 연속 나를 챙기는 정도가 부족한 편이에요."], "lowr": ["걸음 수가 적은 날이 이어지면서 N일 연속 나를 챙기는 정도가 부족한 편이에요.", "식후 활동이 적은 날이 이어지면서 N일 연속 나를 챙기는 정도가 부족한 편이에요."], "up": ["걸음 수가 늘어나면서 나를 챙기는 정도가 어제보다 나아졌어요.", "식후 활동이 이어지면서 나를 챙기는 정도가 어제보다 나아졌어요.", "나를 챙기는 정도가 어제보다 나아졌어요. (이유 생략)"], "down": ["걸음 수가 줄어들면서 나를 챙기는 정도가 어제보다 감소했어요.", "식후 활동이 줄어들면서 나를 챙기는 정도가 어제보다 감소했어요.", "나를 챙기는 정도가 어제보다 감소했어요. (이유 생략)"]}, "일상안정": {"state": ["일상의 균형이 안정적인 편이에요.", "일상의 균형이 보통이에요.", "일상의 균형이 불안정한 편이에요."], "streak": ["N일 연속 일상의 균형이 안정적인 편이에요.", "N일 연속 일상의 균형이 보통이에요.", "N일 연속 일상의 균형이 불안정한 편이에요."], "lowr": ["걸음 수가 적은 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "활동량이 낮은 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "운동 공백이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "식후 활동을 놓친 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "움직이지 않은 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "잠드는 시간이 불규칙한 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요."], "up": ["걸음 수가 늘어나면서 일상의 균형이 나아졌어요.", "활동량이 늘어나면서 일상의 균형이 나아졌어요.", "운동 시간이 늘어나면서 일상의 균형이 나아졌어요.", "이번 주 식후 활동을 챙긴 날이 늘면서 일상의 균형이 나아졌어요.", "움직인 날이 늘면서 일상의 균형이 나아졌어요.", "잠드는 시간이 일정해지면서 일상의 균형이 나아졌어요.", "일상의 균형이 나아졌어요. (이유 생략)"], "down": ["걸음 수가 줄어들면서 일상의 균형이 흐트러졌어요.", "활동량이 줄어들면서 일상의 균형이 흐트러졌어요.", "운동 시간이 줄어들면서 일상의 균형이 흐트러졌어요.", "이번 주 식후 활동을 챙긴 날이 줄면서 일상의 균형이 흐트러졌어요.", "움직이지 않은 날이 생기면서 일상의 균형이 흐트러졌어요.", "잠드는 시간이 불규칙해지면서 일상의 균형이 흐트러졌어요.", "일상의 균형이 흐트러졌어요. (이유 생략)"]}};
+const L={"state": "상태만 (전날 기록 없음)", "streak": "N일 연속 + 상태", "lowr": "주의 지속 + 이유", "up": "올라감", "down": "내려감"};
+const out=document.getElementById('setOut');
+function show(m,k){
+  const ks=k==='all'?Object.keys(L):[k];
+  out.innerHTML=ks.map(x=>`<h4>${m} · ${L[x]} (${D[m][x].length})</h4><ol>${D[m][x].map(t=>`<li>${t}</li>`).join('')}</ol>`).join('');
+}
+document.querySelectorAll('button.cnt').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('button.cnt').forEach(x=>x.classList.remove('on'));b.classList.add('on');show(b.dataset.m,b.dataset.k);});
+})();
+</script>
+
 <section class="card" id="s2">
-  <h2><span class="n">2</span>문장 형식</h2>
+  <h2><span class="n">3</span>문장 형식</h2>
   <table>
     <tr><th>상황</th><th>형식</th></tr>
     <tr><td class="k">전날 기록 없음</td><td><code>{상태}.</code></td></tr>
@@ -79,7 +106,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 </section>
 
 <section class="card" id="s3">
-  <h2><span class="n">3</span>상태 문구</h2>
+  <h2><span class="n">4</span>상태 문구</h2>
   <table>
     <tr><th>지표</th><th class="good">좋음</th><th class="mid">보통</th><th class="low">주의</th></tr>
     <tr><td class="k">생활여유</td><td>남아 있는 몸의 여유가 충분한 편이에요</td><td>남아 있는 몸의 여유가 보통이에요</td><td>남아 있는 몸의 여유가 부족한 편이에요</td></tr>
@@ -89,7 +116,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 </section>
 
 <section class="card" id="s4">
-  <h2><span class="n">4</span>변화 문구</h2>
+  <h2><span class="n">5</span>변화 문구</h2>
   <table>
     <tr><th>지표</th><th class="good">구간이 올라감</th><th class="low">구간이 내려감</th></tr>
     <tr><td class="k">생활여유</td><td>몸의 여유가 어제보다 나아졌어요</td><td>몸의 여유가 어제보다 감소했어요</td></tr>
@@ -99,7 +126,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 </section>
 
 <section class="card" id="s5">
-  <h2><span class="n">5</span>이유 문구</h2>
+  <h2><span class="n">6</span>이유 문구</h2>
   <table>
     <tr><th>항목</th><th>지표</th><th class="good">늘었을 때</th><th class="low">줄었을 때</th><th class="mid">주의가 이어질 때</th></tr>
     <tr><td class="k">수면</td><td>생활여유</td><td>수면 시간이 늘어나면서</td><td>수면 시간이 줄어들면서</td><td>수면이 짧은 날이 이어지면서</td></tr>
@@ -163,7 +190,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 </section>
 
 <section class="card" id="s6">
-  <h2><span class="n">6</span>지표별 예시</h2>
+  <h2><span class="n">7</span>지표별 예시</h2>
   <div class="ex">
     <div><h4>생활여유</h4>
       <p><span class="tag t-up">올라감</span>수면 시간이 늘어나면서 몸의 여유가 어제보다 나아졌어요.</p>
@@ -208,7 +235,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 </section>
 
 <section class="card" id="s7">
-  <h2><span class="n">7</span>표시 · 말투</h2>
+  <h2><span class="n">9</span>표시 · 말투</h2>
   <table>
     <tr><th>항목</th><th>규칙</th></tr>
     <tr><td class="k">제목</td><td>‘지표 해석’ 고정 (지난 주 화면도 같음)</td></tr>
@@ -229,7 +256,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
   </ul>
 </section>
 <section class="card" id="s9">
-  <h2><span class="n">9</span>개발 구현 명세</h2>
+  <h2><span class="n">10</span>개발 구현 명세</h2>
 
   <h3>9-1 생성 위치</h3>
   <ul class="rules">
@@ -299,32 +326,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
   </ul>
 </section>
 
-<section class="card" id="s10">
-  <h2><span class="n">10</span>전체 문장 세트 · 57개</h2>
-  <ul class="rules"><li>숫자를 누르면 아래에 해당 문장이 모두 나옴 · N = 연속 일수(2 이상, 주의 지속은 3 이상)</li>
-  <li>오늘이 아닌 날은 ‘어제보다’ → ‘전날보다’</li></ul>
-  <table style="margin-top:8px"><tr><th>문장 종류</th><th>생활여유</th><th>자기돌봄</th><th>일상안정</th></tr><tr><td class="k">상태만 (전날 기록 없음)</td><td><button class="cnt" data-m="생활여유" data-k="state">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="state">3</button></td><td><button class="cnt" data-m="일상안정" data-k="state">3</button></td></tr><tr><td class="k">N일 연속 + 상태</td><td><button class="cnt" data-m="생활여유" data-k="streak">3</button></td><td><button class="cnt" data-m="자기돌봄" data-k="streak">3</button></td><td><button class="cnt" data-m="일상안정" data-k="streak">3</button></td></tr><tr><td class="k">주의 지속 + 이유</td><td><button class="cnt" data-m="생활여유" data-k="lowr">2</button></td><td><button class="cnt" data-m="자기돌봄" data-k="lowr">2</button></td><td><button class="cnt" data-m="일상안정" data-k="lowr">6</button></td></tr><tr><td class="k">올라감</td><td><button class="cnt" data-m="생활여유" data-k="up">4</button></td><td><button class="cnt" data-m="자기돌봄" data-k="up">3</button></td><td><button class="cnt" data-m="일상안정" data-k="up">7</button></td></tr><tr><td class="k">내려감</td><td><button class="cnt" data-m="생활여유" data-k="down">5</button></td><td><button class="cnt" data-m="자기돌봄" data-k="down">3</button></td><td><button class="cnt" data-m="일상안정" data-k="down">7</button></td></tr><tr><td class="k">합계</td><td><button class="cnt" data-m="생활여유" data-k="all"><b>17</b></button></td><td><button class="cnt" data-m="자기돌봄" data-k="all"><b>14</b></button></td><td><button class="cnt" data-m="일상안정" data-k="all"><b>26</b></button></td></tr></table>
-  <div id="setOut" style="margin-top:12px"></div>
-</section>
-<style>
-button.cnt{font:inherit;font-weight:800;min-width:44px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--brand);cursor:pointer}
-button.cnt.on{background:var(--brand);color:#fff;border-color:var(--brand)}
-#setOut h4{font-size:14px;font-weight:800;margin:10px 0 6px}
-#setOut ol{margin:0 0 0 20px;display:grid;gap:4px}
-</style>
-<script>
-(function(){
-const D={"생활여유": {"state": ["남아 있는 몸의 여유가 충분한 편이에요.", "남아 있는 몸의 여유가 보통이에요.", "남아 있는 몸의 여유가 부족한 편이에요."], "streak": ["N일 연속 남아 있는 몸의 여유가 충분한 편이에요.", "N일 연속 남아 있는 몸의 여유가 보통이에요.", "N일 연속 남아 있는 몸의 여유가 부족한 편이에요."], "lowr": ["수면이 짧은 날이 이어지면서 N일 연속 남아 있는 몸의 여유가 부족한 편이에요.", "활동량이 낮은 날이 이어지면서 N일 연속 남아 있는 몸의 여유가 부족한 편이에요."], "up": ["수면 시간이 늘어나면서 몸의 여유가 어제보다 나아졌어요.", "활동량이 늘어나면서 몸의 여유가 어제보다 나아졌어요.", "움직임이 하루에 고르게 나뉘면서 몸의 여유가 어제보다 나아졌어요.", "몸의 여유가 어제보다 나아졌어요. (이유 생략)"], "down": ["수면 시간이 줄어들면서 몸의 여유가 어제보다 감소했어요.", "활동량이 줄어들면서 몸의 여유가 어제보다 감소했어요.", "활동이 한때에 몰리면서 몸의 여유가 어제보다 감소했어요.", "활동이 많아 부담이 커지면서 몸의 여유가 어제보다 감소했어요.", "몸의 여유가 어제보다 감소했어요. (이유 생략)"]}, "자기돌봄": {"state": ["나를 챙기는 정도가 좋은 편이에요.", "나를 챙기는 정도가 보통이에요.", "나를 챙기는 정도가 부족한 편이에요."], "streak": ["N일 연속 나를 챙기는 정도가 좋은 편이에요.", "N일 연속 나를 챙기는 정도가 보통이에요.", "N일 연속 나를 챙기는 정도가 부족한 편이에요."], "lowr": ["걸음 수가 적은 날이 이어지면서 N일 연속 나를 챙기는 정도가 부족한 편이에요.", "식후 활동이 적은 날이 이어지면서 N일 연속 나를 챙기는 정도가 부족한 편이에요."], "up": ["걸음 수가 늘어나면서 나를 챙기는 정도가 어제보다 나아졌어요.", "식후 활동이 이어지면서 나를 챙기는 정도가 어제보다 나아졌어요.", "나를 챙기는 정도가 어제보다 나아졌어요. (이유 생략)"], "down": ["걸음 수가 줄어들면서 나를 챙기는 정도가 어제보다 감소했어요.", "식후 활동이 줄어들면서 나를 챙기는 정도가 어제보다 감소했어요.", "나를 챙기는 정도가 어제보다 감소했어요. (이유 생략)"]}, "일상안정": {"state": ["일상의 균형이 안정적인 편이에요.", "일상의 균형이 보통이에요.", "일상의 균형이 불안정한 편이에요."], "streak": ["N일 연속 일상의 균형이 안정적인 편이에요.", "N일 연속 일상의 균형이 보통이에요.", "N일 연속 일상의 균형이 불안정한 편이에요."], "lowr": ["걸음 수가 적은 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "활동량이 낮은 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "운동 공백이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "식후 활동을 놓친 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "움직이지 않은 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요.", "잠드는 시간이 불규칙한 날이 이어지면서 N일 연속 일상의 균형이 불안정한 편이에요."], "up": ["걸음 수가 늘어나면서 일상의 균형이 나아졌어요.", "활동량이 늘어나면서 일상의 균형이 나아졌어요.", "운동 시간이 늘어나면서 일상의 균형이 나아졌어요.", "이번 주 식후 활동을 챙긴 날이 늘면서 일상의 균형이 나아졌어요.", "움직인 날이 늘면서 일상의 균형이 나아졌어요.", "잠드는 시간이 일정해지면서 일상의 균형이 나아졌어요.", "일상의 균형이 나아졌어요. (이유 생략)"], "down": ["걸음 수가 줄어들면서 일상의 균형이 흐트러졌어요.", "활동량이 줄어들면서 일상의 균형이 흐트러졌어요.", "운동 시간이 줄어들면서 일상의 균형이 흐트러졌어요.", "이번 주 식후 활동을 챙긴 날이 줄면서 일상의 균형이 흐트러졌어요.", "움직이지 않은 날이 생기면서 일상의 균형이 흐트러졌어요.", "잠드는 시간이 불규칙해지면서 일상의 균형이 흐트러졌어요.", "일상의 균형이 흐트러졌어요. (이유 생략)"]}};
-const L={"state": "상태만 (전날 기록 없음)", "streak": "N일 연속 + 상태", "lowr": "주의 지속 + 이유", "up": "올라감", "down": "내려감"};
-const out=document.getElementById('setOut');
-function show(m,k){
-  const ks=k==='all'?Object.keys(L):[k];
-  out.innerHTML=ks.map(x=>`<h4>${m} · ${L[x]} (${D[m][x].length})</h4><ol>${D[m][x].map(t=>`<li>${t}</li>`).join('')}</ol>`).join('');
-}
-document.querySelectorAll('button.cnt').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('button.cnt').forEach(x=>x.classList.remove('on'));b.classList.add('on');show(b.dataset.m,b.dataset.k);});
-})();
-</script>
+
 
 </div>
 </body>
