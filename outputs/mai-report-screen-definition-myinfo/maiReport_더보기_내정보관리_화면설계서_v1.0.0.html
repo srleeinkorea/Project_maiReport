@@ -554,7 +554,7 @@ pre.json .k{color:#8AB4FF}pre.json .s{color:#FFD58A}pre.json .n{color:#9EF0C4}
   <div class="top">
     <h1>더보기 · 내정보 관리 화면 설계서</h1>
     <p>더보기 탭 맨 위 프로필 카드에서 들어가는 <b>내정보 관리</b> 화면 설계서. 가입 정보 조회, 관리 중인 질환 입력, 동의 · 알림 · 이용권 관리, 회원탈퇴 흐름을 정의함. 최종 프로토타입 기준.
-      왼쪽 화면은 직접 조작 가능하며, 오른쪽에 화면 동작 · 표시 정보 · 검토 사항을 기재함. 화면 내 데이터는 모두 가상임.</p>
+      왼쪽 화면은 직접 조작 가능하며, 오른쪽에 화면 동작 · 예외 상황 · 표시 정보 · 검토 사항을 한 번에 기재함. 화면 내 데이터는 모두 가상임.</p>
   </div>
   <div class="controls">
     <div class="ctl" id="jump"></div>
@@ -755,14 +755,18 @@ const EDGE = {
   withdraw:[["탈퇴 처리 실패","안내 후 현재 화면 유지"]]
 };
 function renderSide(){
+  /* 화면 동작 · 표시 정보 · 검토 사항을 한 화면에 모두 보여준다 */
   const s = SIDE[S.screen];
   sStep.innerHTML = `${(JUMP.find(j=>j[0]===S.screen)||["",""])[1]}<span class="id">${s.id}</span>`; sTitle.textContent = s.title;
-  sDesc.innerHTML = s.desc + (s.info.length ? `<div class="gets-box"><b>표시 정보</b><span>${s.info.map(f=>f[0]).join(" · ")}</span></div>` : "");
-  sTabs.innerHTML = [["spec","화면 동작"],["map","표시 정보"],["notes",`검토 사항 ${s.notes.length}`]].map(([k,t])=>`<button class="${S.sideTab===k?"on":""}" onclick="S.sideTab='${k}';renderSide()">${t}</button>`).join("");
-  if (S.sideTab==="spec") sBody.innerHTML = `<div class="spec-h">화면 동작</div><dl class="spec">${(SPEC[S.screen]||[]).map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>
-    ${(EDGE[S.screen]||[]).length ? `<div class="spec-h edge">예외 상황</div><dl class="spec edge">${EDGE[S.screen].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>` : ""}`;
-  else if (S.sideTab==="map") sBody.innerHTML = s.info.length ? `<table class="fm plain"><tr><th>항목</th><th>출처</th><th>표시 기준</th></tr>${s.info.map(f=>`<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`).join("")}</table>` : `<div class="vf-empty">해당 없음</div>`;
-  else sBody.innerHTML = `<ul class="notes">${s.notes.map(([t,h])=>`<li><span class="tag ${t}">${{risk:"주의",ux:"사용성",new:"신규"}[t]}</span><span>${h}</span></li>`).join("")}</ul><div class="src">근거: 더보기 화면정의서, 최종 프로토타입.</div>`;
+  sDesc.innerHTML = s.desc;
+  sTabs.innerHTML = ""; sTabs.style.display = "none";
+  const spec = SPEC[S.screen]||[], edge = EDGE[S.screen]||[];
+  sBody.innerHTML =
+    (spec.length ? `<div class="spec-h">화면 동작</div><dl class="spec">${spec.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>` : "") +
+    (edge.length ? `<div class="spec-h edge">예외 상황</div><dl class="spec edge">${edge.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("")}</dl>` : "") +
+    (s.info.length ? `<div class="spec-h" style="margin-top:22px;padding-top:16px;border-top:2px solid var(--line)">표시 정보</div><table class="fm plain"><tr><th>항목</th><th>출처</th><th>표시 기준</th></tr>${s.info.map(f=>`<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`).join("")}</table>` : "") +
+    (s.notes.length ? `<div class="spec-h" style="margin-top:22px;padding-top:16px;border-top:2px solid var(--line)">검토 사항</div><ul class="notes">${s.notes.map(([t,h])=>`<li><span class="tag ${t}">${{risk:"주의",ux:"사용성",new:"신규"}[t]}</span><span>${h}</span></li>`).join("")}</ul>` : "") +
+    `<div class="src">근거: 더보기 화면정의서, 최종 프로토타입.</div>`;
 }
 if (S.sideTab==="json") S.sideTab="spec";
 
