@@ -37,8 +37,8 @@ code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(-
   <table>
     <tr><th style="width:6%">순서</th><th style="width:22%">상황</th><th>형식</th></tr>
     <tr><td>1</td><td class="k">전날 기록 없음</td><td><code>오늘은 {상태}.</code></td></tr>
-    <tr><td>2</td><td class="k">전날보다 좋아짐</td><td><code>{이유} 어제보다 {늘었다는 말}.</code></td></tr>
-    <tr><td>3</td><td class="k">전날보다 나빠짐</td><td><code>{이유} 어제보다 {줄었다는 말}.</code></td></tr>
+    <tr><td>2</td><td class="k">전날보다 좋아짐</td><td><code>{이유} {좋아졌을 때}.</code></td></tr>
+    <tr><td>3</td><td class="k">전날보다 나빠짐</td><td><code>{이유} {나빠졌을 때}.</code></td></tr>
     <tr><td>4</td><td class="k">전날과 같음 · 2일째</td><td><code>어제처럼 {상태}.</code></td></tr>
     <tr><td>5</td><td class="k">전날과 같음 · 3~6일째</td><td><code>{N}일째 {상태}.</code> (주의면 앞에 이어진 이유)</td></tr>
     <tr><td>6</td><td class="k">전날과 같음 · 7일 이상</td><td><code>일주일 넘게 {상태}.</code> (주의면 앞에 이어진 이유)</td></tr>
@@ -49,10 +49,10 @@ code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(-
 <section class="card">
   <h2><span class="n">2</span>상태 · 변화 문구</h2>
   <table>
-    <tr><th style="width:14%">지표</th><th>좋음</th><th>보통</th><th>주의</th><th>늘었다는 말</th><th>줄었다는 말</th></tr>
-    <tr><td class="k">생활여유</td><td>여유가 충분해요</td><td>여유가 평소와 비슷해요</td><td>여유가 부족해요</td><td>여유가 늘었어요</td><td>여유가 줄었어요</td></tr>
-    <tr><td class="k">자기돌봄</td><td>나를 잘 챙기고 있어요</td><td>나를 챙기는 정도가 비슷해요</td><td>나를 챙긴 순간이 부족해요</td><td>나를 챙긴 순간이 늘었어요</td><td>나를 챙긴 순간이 줄었어요</td></tr>
-    <tr><td class="k">일상안정</td><td>리듬이 안정적이에요</td><td>리듬이 평소와 비슷해요</td><td>리듬이 불안정해요</td><td>리듬이 안정됐어요</td><td>리듬이 흔들렸어요</td></tr>
+    <tr><th style="width:14%">지표</th><th>좋음</th><th>보통</th><th>주의</th><th>좋아졌을 때</th><th>나빠졌을 때</th></tr>
+    <tr><td class="k">생활여유</td><td>여유 있는 하루예요</td><td>여유가 무난한 하루예요</td><td>여유가 조금 부족한 하루예요</td><td>어제보다 여유가 생겼어요</td><td>어제보다 여유가 줄었어요</td></tr>
+    <tr><td class="k">자기돌봄</td><td>몸을 잘 챙긴 하루예요</td><td>몸을 적당히 챙긴 하루예요</td><td>몸을 챙길 틈이 적은 하루예요</td><td>어제보다 몸을 잘 챙겼어요</td><td>어제보다 몸을 챙길 틈이 적었어요</td></tr>
+    <tr><td class="k">일상안정</td><td>규칙적인 하루예요</td><td>생활 패턴이 무난한 하루예요</td><td>평소와 다른 생활 패턴이에요</td><td>생활 패턴이 평소대로 돌아왔어요</td><td>생활 패턴이 평소와 달라졌어요</td></tr>
   </table>
 </section>
 
@@ -66,11 +66,11 @@ code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(-
   </table>
   <table>
     <tr><th style="width:22%">항목</th><th>늘었을 때</th><th>줄었을 때</th><th>낮은 날이 이어질 때</th></tr>
-    <tr><td class="k">수면</td><td>수면이 채워지면서</td><td>수면이 짧아지면서</td><td>수면이 짧은 날이 이어지면서</td></tr>
-    <tr><td class="k">활동 시간</td><td>활동이 늘면서</td><td>활동이 줄면서</td><td>활동이 적은 날이 이어지면서</td></tr>
-    <tr><td class="k">식후 활동 (자기돌봄)</td><td>식사 뒤 걷기가 늘면서</td><td>식사 뒤 움직임이 줄면서</td><td>식사 뒤 움직임이 적은 날이 이어지면서</td></tr>
-    <tr><td class="k">걸음 수</td><td>걸음이 늘면서</td><td>걸음이 줄면서</td><td>걸음이 적은 날이 이어지면서</td></tr>
-    <tr><td class="k">운동 기록 (일상안정)</td><td>운동이 늘면서</td><td>운동이 줄면서</td><td>운동이 없는 날이 이어지면서</td></tr>
+    <tr><td class="k">수면</td><td>잠을 더 자서</td><td>잠을 덜 자서</td><td>잠이 짧은 날이 이어져서</td></tr>
+    <tr><td class="k">활동 시간</td><td>더 많이 움직여서</td><td>덜 움직여서</td><td>적게 움직인 날이 이어져서</td></tr>
+    <tr><td class="k">식후 활동 (자기돌봄)</td><td>식사 후에 걸어서</td><td>식사 후에 쉬어서</td><td>식사 후 쉬는 날이 이어져서</td></tr>
+    <tr><td class="k">걸음 수</td><td>더 많이 걸어서</td><td>덜 걸어서</td><td>적게 걸은 날이 이어져서</td></tr>
+    <tr><td class="k">운동 기록 (일상안정)</td><td>운동을 해서</td><td>운동을 쉬어서</td><td>운동을 쉰 날이 이어져서</td></tr>
   </table>
 </section>
 
@@ -78,19 +78,19 @@ code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(-
   <h2><span class="n">4</span>지표별 표현</h2>
   <table>
     <tr><th style="width:14%">지표</th><th style="width:22%">상황</th><th>문장</th></tr>
-    <tr><td class="k">생활여유</td><td>좋아짐</td><td>수면이 채워지면서 어제보다 여유가 늘었어요.</td></tr>
-    <tr><td class="k">생활여유</td><td>나빠짐</td><td>활동이 줄면서 어제보다 여유가 줄었어요.</td></tr>
-    <tr><td class="k">생활여유</td><td>같음 · 2일째</td><td>어제처럼 여유가 충분해요.</td></tr>
-    <tr><td class="k">생활여유</td><td>같음 · 3일째 이상</td><td>3일째 여유가 평소와 비슷해요. / 수면이 짧은 날이 이어지면서 3일째 여유가 부족해요.</td></tr>
-    <tr><td class="k">자기돌봄</td><td>좋아짐</td><td>식사 뒤 걷기가 늘면서 어제보다 나를 챙긴 순간이 늘었어요.</td></tr>
-    <tr><td class="k">자기돌봄</td><td>나빠짐</td><td>활동이 줄면서 어제보다 나를 챙긴 순간이 줄었어요.</td></tr>
-    <tr><td class="k">자기돌봄</td><td>같음 · 2일째</td><td>어제처럼 나를 챙기는 정도가 비슷해요.</td></tr>
-    <tr><td class="k">자기돌봄</td><td>같음 · 3일째 이상</td><td>3일째 나를 잘 챙기고 있어요. / 식사 뒤 움직임이 적은 날이 이어지면서 3일째 나를 챙긴 순간이 부족해요.</td></tr>
-    <tr><td class="k">일상안정</td><td>좋아짐</td><td>걸음이 늘면서 어제보다 리듬이 안정됐어요.</td></tr>
-    <tr><td class="k">일상안정</td><td>나빠짐</td><td>걸음이 줄면서 어제보다 리듬이 흔들렸어요.</td></tr>
-    <tr><td class="k">일상안정</td><td>같음 · 2일째</td><td>어제처럼 리듬이 안정적이에요.</td></tr>
-    <tr><td class="k">일상안정</td><td>같음 · 3일째 이상</td><td>3일째 리듬이 평소와 비슷해요. / 걸음이 적은 날이 이어지면서 3일째 리듬이 불안정해요.</td></tr>
-    <tr><td class="k">공통</td><td>전날 기록 없음</td><td>오늘은 여유가 충분해요. (지표별 상태 문구)</td></tr>
+    <tr><td class="k">생활여유</td><td>좋아짐</td><td>잠을 더 자서 어제보다 여유가 생겼어요.</td></tr>
+    <tr><td class="k">생활여유</td><td>나빠짐</td><td>덜 움직여서 어제보다 여유가 줄었어요.</td></tr>
+    <tr><td class="k">생활여유</td><td>같음 · 2일째</td><td>어제처럼 여유 있는 하루예요.</td></tr>
+    <tr><td class="k">생활여유</td><td>같음 · 3일째 이상</td><td>3일째 여유가 무난한 하루예요. / 잠이 짧은 날이 이어져서 3일째 여유가 조금 부족한 하루예요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>좋아짐</td><td>식사 후에 걸어서 어제보다 몸을 잘 챙겼어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>나빠짐</td><td>덜 움직여서 어제보다 몸을 챙길 틈이 적었어요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>같음 · 2일째</td><td>어제처럼 몸을 적당히 챙긴 하루예요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>같음 · 3일째 이상</td><td>3일째 몸을 잘 챙긴 하루예요. / 식사 후 쉬는 날이 이어져서 3일째 몸을 챙길 틈이 적은 하루예요.</td></tr>
+    <tr><td class="k">일상안정</td><td>좋아짐</td><td>더 많이 걸어서 생활 패턴이 평소대로 돌아왔어요.</td></tr>
+    <tr><td class="k">일상안정</td><td>나빠짐</td><td>덜 걸어서 생활 패턴이 평소와 달라졌어요.</td></tr>
+    <tr><td class="k">일상안정</td><td>같음 · 2일째</td><td>어제처럼 규칙적인 하루예요.</td></tr>
+    <tr><td class="k">일상안정</td><td>같음 · 3일째 이상</td><td>3일째 생활 패턴이 무난한 하루예요. / 적게 걸은 날이 이어져서 3일째 평소와 다른 생활 패턴이에요.</td></tr>
+    <tr><td class="k">공통</td><td>전날 기록 없음</td><td>오늘은 여유 있는 하루예요. (지표별 상태 문구)</td></tr>
   </table>
 </section>
 
@@ -103,7 +103,7 @@ code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(-
     <tr><td class="k">갱신</td><td>저장하지 않고 동기화로 구간 · 핵심 데이터가 바뀌면 다시 만듦</td></tr>
     <tr><td class="k">숨김</td><td>선택한 날이 관찰 중 · 건강 데이터 미연동 · 계산 실패</td></tr>
   </table>
-  <div class="callout">쓰지 않는 표현: 점수 · 수치, 진단 · 몸 상태 단정, 행동 지시(‘~하세요’).</div>
+  <div class="callout">말투 원칙: 일상어로 짧게(‘잠을 더 자서’, ‘더 많이 걸어서’), 이유는 ‘~서’로 자연스럽게 잇기, 한 문장 안에 비교 표현(어제 · 평소)은 하나만. 쓰지 않는 표현: 점수 · 수치, 전문 용어, 진단 · 몸 상태 단정, 행동 지시(‘~하세요’).</div>
 </section>
 </div>
 </body>
