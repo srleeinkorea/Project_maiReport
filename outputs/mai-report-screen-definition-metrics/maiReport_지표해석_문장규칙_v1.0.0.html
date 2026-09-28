@@ -48,7 +48,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 <div class="hero">
   <h1>지표 해석 · 문장 규칙</h1>
   <p>지표 카드의 ‘지표 해석’ 한 문장을 만드는 규칙</p>
-  <nav class="toc"><a href="#s1">1 한눈에 보기</a><a href="#s2">2 문장 형식</a><a href="#s3">3 상태 문구</a><a href="#s4">4 변화 문구</a><a href="#s5">5 이유 문구</a><a href="#s6">6 예시</a><a href="#s7">7 표시 · 말투</a><a href="#s8">8 샘플 적용</a></nav>
+  <nav class="toc"><a href="#s1">1 한눈에 보기</a><a href="#s2">2 문장 형식</a><a href="#s3">3 상태 문구</a><a href="#s4">4 변화 문구</a><a href="#s5">5 이유 문구</a><a href="#s6">6 예시</a><a href="#s7">7 표시 · 말투</a><a href="#s8">8 샘플 적용</a><a href="#s9">9 개발 명세</a></nav>
 </div>
 
 <section class="card" id="s1">
@@ -229,6 +229,78 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
     <li>‘~하세요’ 같은 행동 지시</li>
   </ul>
 </section>
+<section class="card" id="s9">
+  <h2><span class="n">9</span>개발 구현 명세</h2>
+
+  <h3>9-1 생성 위치</h3>
+  <ul class="rules">
+    <li>문장은 <b>서버(지표 엔진 계층)</b>에서 만들고 앱은 받은 문자열을 그대로 표시 (권장)</li>
+    <li>앱에서 만들 경우에도 아래 입력 · 처리 순서를 그대로 따름</li>
+    <li>저장하지 않음 · 구간이나 재료 점수가 바뀌면 다시 생성</li>
+  </ul>
+
+  <h3>9-2 입력 데이터 (지표 · 날짜별)</h3>
+  <table>
+    <tr><th>필드</th><th>형식</th><th>설명</th></tr>
+    <tr><td class="k">metric</td><td>margin / selfcare / steady</td><td>생활여유 / 자기돌봄 / 일상안정</td></tr>
+    <tr><td class="k">date</td><td>YYYY-MM-DD</td><td>하루 경계는 04:00 (사용자 현지 시간)</td></tr>
+    <tr><td class="k">band</td><td>good / mid / low / none</td><td>엔진 판정 구간 · none = 관찰 중 · 미연동 · 계산 실패</td></tr>
+    <tr><td class="k">parts</td><td>{재료키: 숫자}</td><td>생활여유 · 자기돌봄: 0~1 재료 점수<br>일상안정: 재료별 변화값 −1~1 (최근 7일 vs 직전 7일)</td></tr>
+    <tr><td class="k">excluded</td><td>[재료키]</td><td>관측 부족 · 기회 0 등으로 계산에서 빠진 재료</td></tr>
+  </table>
+  <table style="margin-top:8px">
+    <tr><th>지표</th><th>재료키 (비중)</th></tr>
+    <tr><td class="k">margin</td><td>active 0.20 · spread 0.30 · load 0.25 · sleep 0.25</td></tr>
+    <tr><td class="k">selfcare</td><td>steps 0.55 · meal 0.20 (공백 후 움직임 · 활동 분산은 이유 후보 아님)</td></tr>
+    <tr><td class="k">steady</td><td>steps 0.30 · active 0.15 · exercise 0.15 · action 0.15 · walkdays 0.10 · sleepreg 0.15</td></tr>
+  </table>
+
+  <h3>9-3 처리 순서</h3>
+  <pre style="background:var(--fill);border-radius:12px;padding:14px 16px;font-size:12.5px;line-height:1.7;overflow-x:auto;white-space:pre-wrap">1. cur = 선택일 band
+   cur == none → 문장 없음(숨김)
+2. prev = 선택일 −1일 band
+   prev 없음 또는 none → "{상태}."
+3. cur != prev (구간 바뀜)
+   up = 순서(low &lt; mid &lt; good)로 cur 이 더 높음
+   재료별 영향 = 비중 × (오늘 parts − 전날 parts) × 100
+     · steady 는 × 50 (표시점수 = 50 + 50 × Z)
+   후보 = excluded 제외 재료 중
+     up 이면 영향 &gt; 0, 아니면 영향 &lt; 0
+     margin 의 load 는 내려간 날만 후보
+   best = |영향| 최대 (동점이면 비중 큰 순 → 표의 순서)
+   |best 영향| &lt; 2 → 이유 없음
+   → "{이유 문구} {변화 문구}."
+4. cur == prev (구간 같음)
+   N = 선택일부터 거꾸로 같은 band 가 이어진 날 수
+       (none · 기록 없는 날에서 끊음, 지난 주까지 셈)
+   N == 2 → "어제에 이어 {상태}."
+   N ≥ 3 → "{N}일 연속 {상태}."
+   cur == low 이고 N ≥ 3 →
+     그 N일 동안 매일 '낮음'인 재료가 있으면 앞에 "{이어진 이유} " 추가
+5. 선택일 ≠ 오늘 → 문장의 "어제" 를 "전날" 로 치환</pre>
+
+  <h3>9-4 기본값 · 예외</h3>
+  <table>
+    <tr><th>상황</th><th>처리</th></tr>
+    <tr><td class="k">‘낮음’ 기준 (주의 지속 이유)</td><td>생활여유 · 자기돌봄: 재료 점수 &lt; 0.4 · 일상안정: 변화값 &lt; −0.2</td></tr>
+    <tr><td class="k">영향 동점</td><td>비중 큰 재료 → 같으면 이유 문구 표 순서</td></tr>
+    <tr><td class="k">전날이 none · 기록 없음</td><td>‘전날 기록 없음’ 형식 (상태만)</td></tr>
+    <tr><td class="k">연속 일수 중간에 빈 날</td><td>빈 날에서 끊고 그 뒤부터 셈</td></tr>
+    <tr><td class="k">구간이 두 단계 바뀜 (주의 ↔ 좋음)</td><td>한 단계와 같은 문구</td></tr>
+    <tr><td class="k">행동 완료 기회 0</td><td>excluded 로 보내 후보에서 제외</td></tr>
+    <tr><td class="k">재료가 excluded</td><td>이유 후보 · 주의 지속 판정에서 모두 제외</td></tr>
+    <tr><td class="k">갱신</td><td>동기화로 band 나 parts 가 바뀌면 그 날과 이후 날짜 문장 다시 생성</td></tr>
+  </table>
+
+  <h3>9-5 산식팀 확인 필요</h3>
+  <ul class="rules">
+    <li>생활여유 구간 경계 40 / 70 을 v7 명세에 반영할지 (v7 원본은 33 / 66)</li>
+    <li>수면 규칙성 식 확정 (자정 넘는 취침 시각 처리 포함)</li>
+    <li>식후 활동 인정 기준 · 기회 수 정의</li>
+    <li>‘낮음’ 기준값 0.4 / −0.2 는 제안값 · 조정 가능</li>
+  </ul>
+</section>
+
 </div>
 </body>
 </html>
