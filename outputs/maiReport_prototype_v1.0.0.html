@@ -4493,11 +4493,17 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       if((up?r:-r)>bv){ bv=up?r:-r; best=dfKey(k,n); }
     });
     if(k==='margin'){
-      /* 생활여유: 과한 활동(240분 초과)과 분산(30%)도 원인으로 본다 */
+      /* 생활여유: 산식 몫의 점수 변화로 원인을 고른다 (활동 시간 20% · 활동 분산 30% · 과한 활동 12.5% · 수면 25%)
+         과한 활동도 감점이 실제로 가장 큰 원인일 때만 쓴다 */
+      const cl=v=>Math.max(0,Math.min(1,v)), ov=m=>1-cl((m-240)/240), sl=m=>cl(1-Math.max(0,420-m)/120);
       const ma=dfNum(valFn('활동 시간',i-1)), mb=dfNum(valFn('활동 시간',i));
-      if(!up && mb>240 && mb>ma) return `${DF_OVERLOAD} ${DF_MOVE[k].down}.`;
+      const qa=dfNum(valFn('수면',i-1)), qb=dfNum(valFn('수면',i));
       const sa=dfSpread(dfSafe(valFn,'활동 분산',i-1)), sb=dfSpread(dfSafe(valFn,'활동 분산',i));
-      if(sa!=null && sb!=null){ const r=(sb-sa)/Math.max(sa,0.1); if((up?r:-r)>bv){ bv=up?r:-r; best='분산'; } }
+      const c={'활동 시간':0.2*(cl(mb/240)-cl(ma/240)), '수면':0.25*(sl(qb)-sl(qa)), '과한':0.125*(ov(mb)-ov(ma))};
+      if(sa!=null && sb!=null) c['분산']=0.3*(sb-sa);
+      best=null; let bv2=0.02;   /* 2점 미만 변화는 이유로 쓰지 않음 */
+      Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
+      if(best==='과한') return `${DF_OVERLOAD} ${DF_MOVE[k].down}.`;
     }
     return `${best?DF_WHY[best][up?0:1]+' ':''}${k==='steady'?(cur==='mid'?DF_STEADY_TO.mid[up?'up':'down']:DF_STEADY_TO[cur]):DF_MOVE[k][up?'up':'down']}.`;
   }
