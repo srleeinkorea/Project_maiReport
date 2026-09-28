@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이번 주 흐름 문장 규칙</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+:root{--font:'Pretendard Variable','Pretendard',-apple-system,system-ui,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;--ink-1:#16233F;--ink-2:#5A6880;--ink-3:#98A4B8;--line:#E9EDF5;--fill:#F5F7FB;--brand:#2F6BFF;--brand-soft:#EFF4FF;--ok:#12A150;--warn:#E5893A;--alert:#E5484D}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);font-size:14px;line-height:1.65;color:var(--ink-1);background:#E8EBF2;word-break:keep-all}
+.page{max-width:1100px;margin:0 auto;padding:26px 20px 60px}
+.hero{background:var(--brand);color:#fff;border-radius:18px;padding:26px 28px;margin-bottom:16px}
+.hero h1{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.hero p{margin-top:8px;font-size:14px;opacity:.95}
+.hero .meta{margin-top:10px;font-size:12.5px;opacity:.85}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
+.toc a{background:#fff;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--ink-2);text-decoration:none}
+section.card{background:#fff;border-radius:18px;padding:24px 26px;margin-bottom:14px}
+h2{font-size:18px;font-weight:800;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+h2 .n{display:inline-flex;width:28px;height:28px;border-radius:9px;background:var(--brand-soft);color:var(--brand);font-size:13px;align-items:center;justify-content:center}
+.sub{color:var(--ink-2);font-size:13.5px;margin:6px 0 14px}
+h3{font-size:15px;font-weight:700;margin:18px 0 8px}
+p{margin:6px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+th{background:var(--fill);color:var(--ink-2);font-weight:700;text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.k{font-weight:700;white-space:nowrap}
+code{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:var(--fill);padding:1px 5px;border-radius:4px;color:#1E3A8A}
+.callout{border-left:4px solid var(--brand);background:var(--brand-soft);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:13.5px}
+.callout.warn{border-color:var(--warn);background:#FFF6EC}
+ul{margin:6px 0 6px 18px}
+li{margin:3px 0}
+.ex{color:var(--ink-1);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="hero">
+  <h1>지표별 분석 · 이번 주 흐름 문장 규칙</h1>
+  <p>지표 카드의 ‘이번 주 흐름’ 문장을 만드는 규칙. 이번 주 요일별 구간을 순서대로 읽고, 구간이 바뀐 지점마다 이유(핵심 데이터 변화) 하나를 붙임.</p>
+  <div class="meta">대상 지표: 생활여유 · 자기돌봄 · 일상안정 · 구간은 지표 엔진 결과를 그대로 사용</div>
+</div>
+<div class="toc"><a href="#s1">1 한눈에 보기</a><a href="#s2">2 요일 묶기</a><a href="#s3">3 구간 말</a><a href="#s4">4 이유 고르기</a><a href="#s5">5 문장 만들기</a><a href="#s6">6 표시 · 갱신</a><a href="#s7">7 예시</a></div>
+
+<section class="card" id="s1">
+  <h2><span class="n">1</span>한눈에 보기</h2>
+  <div class="sub">예: 월요일은 보통이었다가, 활동이 줄면서 화요일은 부족했다가, 수면이 채워지면서 수요일은 보통이었다가, 활동이 늘면서 오늘은 충분해요.</div>
+  <table>
+    <tr><th style="width:22%">순서</th><th>내용</th></tr>
+    <tr><td class="k">① 요일 묶기</td><td>월요일 ~ 오늘의 구간을 읽고 같은 구간이 이어진 날을 묶음</td></tr>
+    <tr><td class="k">② 구간 말 고르기</td><td>묶음마다 구간 말(충분했 · 부족해요 등)을 붙임</td></tr>
+    <tr><td class="k">③ 이유 고르기</td><td>구간이 바뀐 지점마다 가장 많이 달라진 핵심 데이터 하나를 이유로 붙임</td></tr>
+    <tr><td class="k">④ 이어 붙이기</td><td>‘{요일}은 {과거}다가, {이유} {다음 요일}은 …’ 순서로 잇고 오늘로 끝냄</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s2">
+  <h2><span class="n">2</span>요일 묶기</h2>
+  <table>
+    <tr><th style="width:22%">항목</th><th>규칙</th></tr>
+    <tr><td class="k">대상</td><td>이번 주 월요일 ~ 오늘 중 구간이 있는 날(관찰 중인 날은 건너뜀)</td></tr>
+    <tr><td class="k">묶음</td><td>같은 구간이 연속된 날은 하나로 묶음. 요일 표기: 하루면 ‘화요일’, 여러 날이면 ‘월~수요일’</td></tr>
+    <tr><td class="k">많이 바뀐 주</td><td>묶음이 4개를 넘으면 앞부분을 ‘이번 주는 날마다 달랐다가,’로 줄이고 마지막 묶음만 말함</td></tr>
+    <tr><td class="k">기록 없음</td><td>이번 주에 구간이 있는 날이 없으면 ‘아직 흐름을 말하기엔 기록이 적어요.’</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s3">
+  <h2><span class="n">3</span>구간 말</h2>
+  <table>
+    <tr><th style="width:14%">지표</th><th>좋음 (과거 · 현재)</th><th>보통 (과거 · 현재)</th><th>주의 (과거 · 현재)</th></tr>
+    <tr><td class="k">생활여유</td><td>충분했다가 · 충분해요</td><td>보통이었다가 · 보통이에요</td><td>부족했다가 · 부족해요</td></tr>
+    <tr><td class="k">자기돌봄</td><td>잘 챙겼다가 · 잘 챙기고 있어요</td><td>보통이었다가 · 보통이에요</td><td>부족했다가 · 부족해요</td></tr>
+    <tr><td class="k">일상안정</td><td>안정적이었다가 · 안정적이에요</td><td>평소와 비슷했다가 · 평소와 비슷해요</td><td>불안정했다가 · 불안정해요</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s4">
+  <h2><span class="n">4</span>이유 고르기</h2>
+  <div class="sub">구간이 바뀐 지점마다: ‘바뀌기 전 묶음의 마지막 날’과 ‘바뀐 날’의 핵심 데이터를 비교</div>
+  <table>
+    <tr><th style="width:22%">항목</th><th>규칙</th></tr>
+    <tr><td class="k">후보</td><td>지표의 핵심 데이터 항목. 생활여유: 활동 시간 · 수면 / 자기돌봄: 활동 시간 · 식후 활동 / 일상안정: 걸음 수 · 활동 시간 · 운동 기록 · 수면</td></tr>
+    <tr><td class="k">방향</td><td>구간이 좋아졌으면 늘어난 항목, 나빠졌으면 줄어든 항목만 후보</td></tr>
+    <tr><td class="k">선택</td><td>변화율 (바뀐 날 − 전날) ÷ 전날 이 가장 큰 항목 1개. 10% 미만이면 이유 생략</td></tr>
+    <tr><td class="k">횟수 항목</td><td>운동 기록 · 식후 활동(횟수)은 변화율을 최대 30%로 잘라 다른 항목보다 앞서지 않게 함</td></tr>
+    <tr><td class="k">반복 방지</td><td>바로 앞 변화에서 쓴 이유 항목은 다음 변화에서 쓰지 않음</td></tr>
+  </table>
+  <table>
+    <tr><th style="width:22%">항목</th><th>늘었을 때</th><th>줄었을 때</th></tr>
+    <tr><td class="k">수면</td><td>수면이 채워지면서</td><td>수면이 짧아지면서</td></tr>
+    <tr><td class="k">활동 시간</td><td>활동이 늘면서</td><td>활동이 줄면서</td></tr>
+    <tr><td class="k">식후 활동 (자기돌봄)</td><td>식사 뒤 걷기가 늘면서</td><td>식사 뒤 움직임이 줄면서</td></tr>
+    <tr><td class="k">걸음 수</td><td>걸음이 늘면서</td><td>걸음이 줄면서</td></tr>
+    <tr><td class="k">운동 기록 (일상안정)</td><td>운동이 늘면서</td><td>운동이 줄면서</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s5">
+  <h2><span class="n">5</span>문장 만들기</h2>
+  <table>
+    <tr><th style="width:26%">상황</th><th>형식</th><th style="width:34%">예</th></tr>
+    <tr><td class="k">묶음 1개 · 오늘만</td><td><code>오늘은 {현재}.</code></td><td>오늘은 충분해요.</td></tr>
+    <tr><td class="k">묶음 1개 · 여러 날</td><td><code>{첫 요일}부터 계속 {현재}.</code></td><td>월요일부터 계속 충분해요.</td></tr>
+    <tr><td class="k">묶음 2개 이상</td><td><code>{요일}은 {과거}다가, {이유} {요일}은 {과거}다가, … {이유} 오늘은 {현재}.</code><br>마지막 묶음이 여러 날이면 <code>{첫 요일}부터 {현재}.</code></td><td>월~화요일은 평소와 비슷했다가, 걸음이 늘면서 수요일부터 안정적이에요.</td></tr>
+    <tr><td class="k">이유 없음</td><td>그 자리의 이유만 빼고 이어 붙임</td><td>…보통이었다가, 수요일부터 부족해요.</td></tr>
+    <tr><td class="k">지난 주</td><td>같은 방식, 마지막을 과거형 <code>{요일}은 {과거}어요.</code> · 묶음 1개면 <code>이 주는 계속 {과거}어요.</code></td><td>…목~일요일은 충분했어요.</td></tr>
+  </table>
+  <div class="callout warn">쓰지 않는 표현: 점수 · 수치, 진단 · 몸 상태 단정, 행동 지시(‘~하세요’).</div>
+</section>
+
+<section class="card" id="s6">
+  <h2><span class="n">6</span>표시 · 갱신</h2>
+  <table>
+    <tr><th style="width:22%">항목</th><th>규칙</th></tr>
+    <tr><td class="k">제목</td><td>‘이번 주 흐름’</td></tr>
+    <tr><td class="k">위치</td><td>주간 그래프 아래, 핵심 데이터 위. 문장 전체를 본문 강조 톤으로 표시</td></tr>
+    <tr><td class="k">날짜 선택</td><td>날짜 띠에서 다른 날을 골라도 문장은 오늘까지 기준 그대로</td></tr>
+    <tr><td class="k">갱신</td><td>문장은 저장하지 않고, 동기화로 구간 · 핵심 데이터가 바뀌면 다시 만듦(앱을 켤 때 · 생활 탭 진입 시). 보고 있는 중에 바뀌면 배지 · 그래프와 함께 한 번에 바꿈</td></tr>
+    <tr><td class="k">숨김</td><td>오늘 관찰 중 · 건강 데이터 미연동 · 계산 실패 시 영역 숨김</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s7">
+  <h2><span class="n">7</span>예시 (현재 프로토타입)</h2>
+  <table>
+    <tr><th style="width:12%">지표</th><th style="width:26%">월 · 화 · 수 · 목(오늘)</th><th>문장</th></tr>
+    <tr><td class="k">생활여유</td><td>보통 · 부족 · 보통 · 충분</td><td>월요일은 보통이었다가, 활동이 줄면서 화요일은 부족했다가, 수면이 채워지면서 수요일은 보통이었다가, 활동이 늘면서 오늘은 충분해요.</td></tr>
+    <tr><td class="k">자기돌봄</td><td>보통 · 부족 · 보통 · 보통</td><td>월요일은 보통이었다가, 활동이 줄면서 화요일은 부족했다가, 식사 뒤 걷기가 늘면서 수요일부터 보통이에요.</td></tr>
+    <tr><td class="k">일상안정</td><td>비슷 · 비슷 · 안정 · 안정</td><td>월~화요일은 평소와 비슷했다가, 걸음이 늘면서 수요일부터 안정적이에요.</td></tr>
+    <tr><td class="k">생활여유</td><td>충분 · 보통 · 부족 · 부족</td><td>월요일은 충분했다가, 활동이 줄면서 화요일은 보통이었다가, 수면이 짧아지면서 수요일부터 부족해요.</td></tr>
+    <tr><td class="k">생활여유 (월요일)</td><td>충분</td><td>오늘은 충분해요.</td></tr>
+  </table>
+</section>
+</div>
+</body>
+</html>
