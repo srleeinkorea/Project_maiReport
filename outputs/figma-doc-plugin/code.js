@@ -73,7 +73,9 @@ function blockH3(parent, b){ const t = addText(parent, b.text, 17, C.ink1, 700, 
 function blockP(parent, b){ addText(parent, b.text, b.muted ? 13 : 14.5, b.muted ? C.ink3 : C.ink2, 400); }
 function blockImage(parent, b){
   if(!b.bytes){ blockP(parent,{text:'[이미지: '+(b.name||'')+' — PNG/JPG data URL만 지원]', muted:true}); return; }
-  const img = figma.createImage(b.bytes);
+  let img;
+  try{ img = figma.createImage(b.bytes); }
+  catch(e){ blockP(parent,{text:'[이미지를 넣지 못했어요: '+(b.name||'')+' · '+e.message+']', muted:true}); return; }
   const r = figma.createRectangle(); r.name = b.name || 'image';
   r.resize(b.w || 360, b.h || Math.round((b.w||360)*2.1));
   r.cornerRadius = 24;
