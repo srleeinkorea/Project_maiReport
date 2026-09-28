@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>마이리포트</title>
+<title>마이리포트 · 정보 중심 홈 구성안</title>
 <style>
 /* ============================================================
    디자인 토큰
@@ -107,7 +107,6 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .q-av{width:56px;height:56px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px}
 .q-av.eye{background:#E4EAFE}.q-av.energy{background:#EDE9FE}.q-av.moon{background:#E6ECFE}
 .q-opts{display:flex;gap:8px;margin-bottom:12px}
-.q-meal-note{margin:0 0 14px;padding:10px 12px;border-radius:12px;background:#eef4ff;color:#274269;font-size:13px;line-height:1.5;font-weight:600}
 .q-opt{flex:1;padding:13px 4px 12px;border:1px solid var(--line);border-radius:var(--r-in);background:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:9px;font-size:var(--t-cap);font-weight:600;line-height:1.3;color:var(--ink-2);transition:border-color .15s,background .15s,opacity .2s}
 .q-opt .f{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--t-body);font-weight:700;color:#fff;line-height:1}
 .q-opt.good .f{background:#7ED09A}.q-opt.okay .f{background:#F2C24B}.q-opt.bad .f{background:#F195AB}
@@ -1901,6 +1900,194 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .home-health-group .home-age-summary.has-hospital-age>.home-age-number{grid-column:2;grid-row:1/3;align-self:center}
 .home-health-group .home-age-summary.has-hospital-age>.home-age-diff{grid-column:1;grid-row:2;text-align:left;padding-left:27px;font-size:12px;color:var(--ink-2)}
 .home-health-group .home-age-summary.has-hospital-age>.home-age-meta{display:none!important}
+</style><style>
+/* 지표별 분석 · 핵심 데이터 표 */
+.mc .mc-rows{border:1px solid #E5E8EE;border-radius:12px;overflow:hidden;padding:0;gap:0}
+.mc .mc-row{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-top:1px solid #EEF0F4;margin:0;background:#fff}
+.mc .mc-row:first-child{border-top:0}
+.mc .mc-row b{font-weight:500;color:#6B7280;font-size:14px}
+.mc .mc-row .v{font-weight:700;color:#111827;font-size:14px;margin-left:auto}
+/* 병원 · 빈 화면 */
+.h-empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:36px 20px 24px}
+.h-empty .h-emo{font-size:64px;line-height:1;margin-bottom:22px}
+.h-empty>b{font-size:20px;font-weight:800;color:#111827;letter-spacing:-.02em}
+.h-empty>p{margin:10px 0 18px;font-size:14px;line-height:1.6;color:#6B7280}
+.h-feat{list-style:none;margin:0 0 14px;padding:16px 18px;width:100%;background:#fff;border-radius:16px;text-align:left;display:flex;flex-direction:column;gap:12px}
+.h-feat li{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#374151}
+.h-feat li::before{content:"✓";width:18px;height:18px;border-radius:50%;background:#D1D5DB;color:#fff;font-size:11px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.h-cta{width:100%;border:0;border-radius:12px;background:#3B82F6;color:#fff;font:inherit;font-size:16px;font-weight:700;padding:16px;cursor:pointer}
+.h-cta:disabled{opacity:.6}
+/* 병원 · 불러오는 중 */
+.card.h-load{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.card.h-load .spin{flex:none;margin:6px 0 0}
+.card.h-load b{display:block;font-size:16px;font-weight:800;color:#111827}
+.card.h-load small{display:block;margin-top:6px;font-size:13px;line-height:1.6;color:#6B7280}
+.h-skel .sk-r{display:flex;align-items:center;gap:14px;padding:12px 0}
+.h-skel .sk-r i{width:50px;height:50px;border-radius:50%;background:#F1F3F6;flex:none}
+.h-skel .sk-r div{flex:1;display:flex;flex-direction:column;gap:10px}
+.h-skel .sk-r span{display:block;height:18px;border-radius:6px;background:#F1F3F6;animation:skp 1.2s ease-in-out infinite}
+.h-skel .sk-r span:first-child{width:55%}
+@keyframes skp{50%{opacity:.5}}
+/* 셀비 소개 · 질환 목록 */
+.sv-dz{margin:14px auto 0;max-width:320px;padding:14px 16px;border-radius:12px;background:#EEF1F6;font-size:14px;font-weight:700;line-height:1.7;color:#1F2937;text-align:center}
+/* 결제 · 이용료 · 운동 설정 */
+.pay-fee{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:18px;padding:22px 20px;margin:22px 0 8px;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.pay-fee>span{font-size:15px;font-weight:600;color:#6B7280}
+.pay-fee .pf-r{text-align:right}
+.pay-fee del{display:block;font-size:13px;color:#9CA3AF}
+.pay-fee b{font-size:22px;font-weight:800;color:#111827}
+.pay-promo{font-size:12px;color:#2563EB;margin:0 4px 14px;font-weight:600}
+.ex-set{background:#fff;border-radius:18px;padding:8px 22px 14px;margin:14px 0 18px}
+.ex-r{padding:16px 0 8px}
+.ex-t{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.ex-t b{display:block;font-size:17px;font-weight:800;color:#111827}
+.ex-t small{display:block;margin-top:4px;font-size:13px;color:#374151}
+.ex-v{flex:none;min-width:58px;text-align:center;padding:10px 12px;border-radius:12px;background:#F2F3F5;font-size:17px;font-weight:800;color:#111827}
+.ex-rg{-webkit-appearance:none;appearance:none;width:100%;height:8px;margin:20px 0 6px;border-radius:999px;background:linear-gradient(90deg,#3B82F6 var(--p),#E5E7EB var(--p));outline:none}
+.ex-rg::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#60A5FA;border:0;box-shadow:0 2px 6px rgba(59,130,246,.4);cursor:pointer}
+.ex-rg::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#60A5FA;border:0;cursor:pointer}
+</style><style>
+/* 셀비 체크업 결과 */
+.sr-hero{margin:-4px -4px 14px;padding:22px 20px 18px;border-radius:0 0 22px 22px;background:linear-gradient(160deg,#2563EB,#1D4ED8);color:#fff}
+.sr-hero h1{font-size:20px;font-weight:800;line-height:1.35;letter-spacing:-.02em}
+.sr-info{margin-top:16px;background:#fff;border-radius:12px;padding:6px 14px;color:#111827}
+.sr-info div{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid #EEF0F4;font-size:13px}
+.sr-info div:first-child{border-top:0}
+.sr-info span{color:#6B7280}.sr-info b{font-weight:700}
+.sr-card{margin-bottom:12px}
+.sr-card h2{font-size:17px;font-weight:800;color:#111827;margin-bottom:6px}
+.sr-card>p{font-size:12.5px;line-height:1.65;color:#4B5563;margin-bottom:12px}
+.sr-card .sr-fine{font-size:11px;color:#9CA3AF;margin:12px 0 0}
+.sr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px}
+.sr-gi{display:flex;flex-direction:column;align-items:center;gap:2px}
+.sr-mg{width:52px;height:30px}
+.sr-gi b{font-size:13px;font-weight:800;color:#111827}
+.sr-lv{font-size:10px;font-weight:700;color:#fff;background:#12A150;border-radius:999px;padding:1px 8px}
+.sr-gi small{font-size:11.5px;color:#374151;margin-top:2px}
+.sr-grade{text-align:center;background:#F3F6FB;border-radius:12px;padding:14px;margin-bottom:12px}
+.sr-grade small{display:block;font-size:12px;color:#6B7280}
+.sr-grade b{display:block;font-size:26px;font-weight:800;color:#2563EB;margin-top:4px}
+.sr-cap{font-size:11px;color:#6B7280;margin-bottom:8px}
+.sr-bars{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;height:170px}
+.sr-col{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.sr-stk{flex:1;width:100%;display:flex;flex-direction:column;border-radius:4px;overflow:hidden}
+.sr-stk i{display:flex;align-items:center;justify-content:center;min-height:0}
+.sr-stk em{font-style:normal;font-size:8.5px;font-weight:700;color:#fff}
+.sr-col small{font-size:10.5px;color:#6B7280}
+.sr-col.me small{color:#2563EB;font-weight:800}
+.sr-col.me .sr-stk{box-shadow:0 0 0 2px #2563EB}
+.g1{background:#F59E0B}.g2{background:#FACC15}.g3{background:#3B82F6}
+#rsBody .cmp .now{background:#22C55E}#rsBody .cmp .avg{background:#D1D5DB;color:#6B7280}
+.sr-leg{display:flex;justify-content:center;gap:12px;margin-top:10px;font-size:11px;color:#4B5563}
+.sr-leg span{display:flex;align-items:center;gap:4px}.sr-leg i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.sr-cta{display:block;width:100%;border:0;border-radius:12px;background:#3B82F6;color:#fff;font:inherit;font-size:15px;font-weight:700;padding:15px;margin:6px 0 12px;cursor:pointer}
+.sr-notes{margin:0 4px 24px;padding-left:16px;font-size:11px;line-height:1.6;color:#6B7280}
+</style><style>
+/* 폰 폭에서 탭·라벨 줄바꿈 방지 */
+.l-tabs,.h-tabs{overflow-x:auto;scrollbar-width:none;gap:16px}
+.l-tabs::-webkit-scrollbar,.h-tabs::-webkit-scrollbar{display:none}
+.l-tab,.h-tab{white-space:nowrap;flex-shrink:0}
+.mc-state,.st,.gtag,.pick-tag,.ai-status,.ck-status,.lesson-badge,.src-btn,.h-import{white-space:nowrap}
+</style>
+<style>
+/* 읽을거리 */
+.rd-title{font-size:21px;font-weight:800;line-height:1.45;color:#111827;letter-spacing:-.02em;margin:6px 6px 16px}
+.rd-card{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:124px;border:0;border-radius:18px;padding:18px 18px 18px 20px;margin-bottom:14px;text-align:left;cursor:pointer;font:inherit}
+.rd-card .rd-tx{min-width:0}
+.rd-card small{display:block;font-size:12.5px;margin-bottom:8px;opacity:.85}
+.rd-card b{display:block;font-size:17px;font-weight:800;line-height:1.5;letter-spacing:-.02em}
+.rd-emo{font-size:58px;line-height:1;flex:none}
+.rd-card.gray{background:#F1F3F7;color:#111827}
+.rd-card.sky{background:#E4ECF9;color:#111827}
+.rd-card.navy{background:#274B80;color:#fff}
+.rd-card.violet{background:#A9B1F7;color:#111827}
+.rdd-hero{position:relative;margin:-4px -4px 18px;height:250px;background:linear-gradient(180deg,#46B7EC,#2F8FD8);display:flex;flex-direction:column;justify-content:flex-end;padding:18px 20px;overflow:hidden}
+.rdd-hero span{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-size:130px;opacity:.9}
+.rdd-hero h1{position:relative;color:#fff;font-size:21px;font-weight:800;letter-spacing:-.02em;text-shadow:0 1px 6px rgba(0,0,0,.2)}
+.rdd-lead{font-size:15px;line-height:1.75;color:#1F2937;margin:0 6px 18px}
+.rdd-card{background:#fff;border-radius:18px;padding:18px;margin-bottom:14px}
+.rdd-card h3{font-size:16px;font-weight:800;color:#111827;margin-bottom:10px}
+.rdd-card h4{font-size:14px;font-weight:700;color:#374151;margin:10px 0 4px}
+.rdd-card p{font-size:13.5px;line-height:1.7;color:#4B5563}
+.rdd-card ul{margin:4px 0 0;padding-left:18px;font-size:13.5px;line-height:1.7;color:#4B5563}
+.rdd-src{text-align:center;font-size:12.5px;color:#6B7280;margin:10px 0 28px}
+</style><style>
+/* ChatGPT 요약 · 디자이너 시안 */
+.ai-plan-hero{position:relative}
+.ai-hero-emo{position:absolute;right:16px;top:14px;font-size:40px;line-height:1}
+.bm2{background:#fff;border-radius:18px;padding:16px 16px 12px;margin-bottom:10px;box-shadow:var(--sh)}
+.bm2-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.bm2-name{font-size:14px;font-weight:700;color:var(--bm)}
+.bm2-val{font-size:26px;font-weight:800;color:#111827;letter-spacing:-.02em;margin-top:2px}
+.bm2-val small{font-size:13px;font-weight:600;color:#6B7280;margin-left:3px}
+.bm2-rank{text-align:right}
+.bm2-rank small{display:block;font-size:11px;color:#9CA3AF}
+.bm2-rank b{display:block;font-size:17px;font-weight:800;color:#111827}
+.bm2-rank em{display:block;font-style:normal;font-size:12px;font-weight:700;color:var(--bm)}
+.bm2-rank em.warn{color:#D9485F}
+.bm2-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:14px}
+.bm2-bar i{height:10px;background:#EEF0F4}
+.bm2-bar i:first-child{border-radius:5px 0 0 5px}.bm2-bar i:last-child{border-radius:0 5px 5px 0}
+.bm2-bar i.on{background:var(--bm)}
+.bm2-lb{display:grid;grid-template-columns:repeat(5,1fr);margin-top:6px}
+.bm2-lb span{text-align:center;font-size:10.5px;color:#9CA3AF;white-space:nowrap}
+.bm2-lb span.on{color:var(--bm);font-weight:800}
+.bm2-note{font-size:11px;color:#9CA3AF;line-height:1.6;margin:4px 4px 18px}
+.it-res-top{margin:2px 0 10px}
+</style><style>
+/* 진료상세 · 디자인 */
+.vd-card{background:#fff;border-radius:18px;padding:20px;margin-bottom:12px}
+.vd-hd{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.vd-hd b{display:block;font-size:20px;font-weight:800;color:#111827;letter-spacing:-.02em}
+.vd-hd small{display:block;margin-top:4px;font-size:14px;color:#6B7280}
+.vd-form{flex:none;background:#EEF0F3;color:#4B5563;font-size:14px;font-weight:700;border-radius:999px;padding:9px 16px;white-space:nowrap}
+.vd-dx{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:14px;border-bottom:1px solid #EEF0F4}
+.vd-dx small{display:block;font-size:13px;color:#6B7280;margin-bottom:4px}
+.vd-dx b{font-size:18px;font-weight:800;color:#111827}
+.vd-code{flex:none;background:#EEF4FF;border-radius:12px;padding:8px 12px;text-align:center}
+.vd-code b{color:#2563EB;font-size:17px}
+.vd-fine{margin-top:12px;font-size:12px;line-height:1.6;color:#9CA3AF}
+.vd-card h3{font-size:18px;font-weight:800;color:#111827}
+.vd-sub{font-size:13px;color:#6B7280;margin:4px 0 14px}
+.vd-med{display:flex;align-items:center;gap:14px;padding:9px 0}
+.vd-pill{width:42px;height:42px;border-radius:50%;background:#E6FAF4;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.vd-med b{display:block;font-size:15px;font-weight:700;color:#111827}
+.vd-med small{display:block;font-size:13px;color:#6B7280;margin-top:2px}
+.vd-memo{background:#F7F8FA;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.6;color:#374151;margin-bottom:10px;white-space:pre-wrap}
+.vd-memo-btn{display:block;width:100%;border:0;border-radius:12px;background:#F2F3F5;color:#4B5563;font:inherit;font-size:14px;font-weight:700;padding:14px;cursor:pointer}
+.vd-note{font-size:13px;line-height:1.7;color:#6B7280;margin:6px 4px 28px}
+.vd-note b{color:#4B5563}
+</style><style>
+.vd-nth{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:#2563EB;background:#EEF4FF;border-radius:999px;padding:4px 10px}
+.vd-total{font-size:24px;font-weight:800;color:#111827;margin:6px 0 10px;letter-spacing:-.02em}
+.vd-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:#2563EB}
+.vd-bar i{display:block;background:#93C5FD}
+.vd-bar b{flex:1}
+.vd-split{display:flex;justify-content:space-between;gap:8px;margin-top:8px;font-size:12.5px}
+.vd-split span{color:#6B7280}.vd-split em{font-style:normal;font-weight:700;color:#2563EB}
+</style><style>
+/* 더보기 · 만성질환 선택 */
+.ch-hd{padding:4px 4px 12px}
+.ch-hd b{display:block;font-size:21px;font-weight:800;line-height:1.4;letter-spacing:-.02em;color:#111827}
+.ch-hd p{margin-top:8px;font-size:13px;line-height:1.6;color:#6B7280}
+.ch-info{background:#EEF4FF;color:#1E40AF;border-radius:12px;padding:11px 13px;font-size:12.5px;line-height:1.6;margin-bottom:14px}
+.ch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ch-chip{display:flex;align-items:center;gap:8px;border:1.5px solid #E5E7EB;background:#fff;border-radius:14px;padding:13px 12px;font:inherit;font-size:14px;font-weight:600;color:#374151;text-align:left;cursor:pointer;white-space:nowrap}
+.ch-chip span{font-size:17px}
+.ch-chip.on{border-color:#3B82F6;background:#EFF6FF;color:#1D4ED8;font-weight:800}
+.ch-none{display:block;width:100%;margin-top:8px;border:1.5px dashed #D1D5DB;background:#fff;border-radius:14px;padding:12px;font:inherit;font-size:13.5px;font-weight:600;color:#6B7280;cursor:pointer}
+.ch-none.on{border-style:solid;border-color:#6B7280;background:#F3F4F6;color:#111827}
+.ch-meta{margin:12px 4px 0;font-size:12px;color:#2563EB;font-weight:700}
+.ch-save{display:block;width:100%;margin-top:16px;border:0;border-radius:12px;background:#3B82F6;color:#fff;font:inherit;font-size:15px;font-weight:700;padding:15px;cursor:pointer}
+.ch-save:disabled{background:#CBD5E1;cursor:default}
+</style><style>
+/* 셀비 · 게이지 점수 가운데 정렬 */
+#svBody .sv-box,#rsBody .sv-box{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}
+#svBody .sv-box .cap,#rsBody .sv-box .cap{align-self:stretch;text-align:left}
+#svBody .sv-box svg,#rsBody .sv-box svg{width:100%;max-width:150px;height:auto;margin-top:6px}
+#svBody .gscore,#rsBody .gscore{margin-top:-34px;font-size:22px;font-weight:800;line-height:1.1;color:#111827}
+#svBody .gtag,#rsBody .gtag{margin-top:6px;display:inline-block}
+#rsBody .sr-gi{min-width:0}
 </style></head>
 <body>
 <div class="app">
@@ -2407,7 +2594,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
   <div class="update-sheet" role="dialog" aria-modal="true" aria-labelledby="aiConfirmTitle" id="aiConfirmSheet"></div>
 </div>
 <div class="ai-report" id="aiReport">
-  <div class="ai-report-h"><button id="aiBack">‹</button><h2>건강검진 결과 AI 요약</h2></div>
+  <div class="ai-report-h"><button id="aiBack">‹</button><h2>건강검진 ChatGPT 요약</h2></div>
   <div class="ai-report-b" id="aiReportBody"></div>
 </div>
 
@@ -2489,16 +2676,15 @@ const Q_WALK = { id:'walk', cat:'활동', av:'🚶', tint:'energy',
         {v:'rest',   f:'⌢',label:'오늘은 쉬고 싶어요',        tone:'bad'},
         {v:'unsure', f:'?', label:'잘 모르겠어요',   tone:'neutral'}] };
 /* ── 식이 문항 — 식이 질문·목표 아키텍처(v1.0)를 그대로 따른다 ──
-   ① 지난 끼니는 첫 진입 시각으로 정한다(10 · 12 · 17시 경계).
+   ① 지난 끼니는 첫 진입 시각으로 정한다(12 · 15 · 21시 경계).
    ② 고정 문항은 매일 같다 — "{지난 끼니}은 평소만큼 드셨나요?". 케이스에 따라 바꾸지 않는다.
    ③ 회전 문항은 8축 중 하나다. 이 케이스는 진료정보에 폐렴(상병코드)이 있어
       확진 질환 경로로 축이 좁혀지고, 회복 풀 전용인 단백질 축이 열린다. */
 function lastMealLabel(h){
   const hh = (h==null) ? new Date().getHours() : h;
-  if(hh < 4) return '어제 저녁'; // 실제 달력 날짜의 전날 저녁, 전날 04시 세션
-  if(hh < 10) return '어제 저녁';
-  if(hh < 12) return '오늘 아침';
-  if(hh < 17) return '오늘 점심';
+  if(hh < 12) return '어제 저녁';
+  if(hh < 15) return '오늘 아침';
+  if(hh < 21) return '오늘 점심';
   return '오늘 저녁';
 }
 const LAST_MEAL = lastMealLabel();
@@ -2507,12 +2693,12 @@ const Q_ACUTE = [
     text:`${LAST_MEAL}은 평소만큼 드셨나요?`,
     opts:[{v:'normal',f:'⌣',label:'평소대로',   tone:'good'},
           {v:'less',  f:'—',label:'조금 적게', tone:'okay'},
-          {v:'skip',  f:'⌢',label:'거의 못 먹었거나 걸렀어요', tone:'bad'}] },
+          {v:'skip',  f:'⌢',label:'거의 못 먹었어요', tone:'bad'}] },
   { id:'protein', cat:'식이', av:'🥚', tint:'moon',
-    text:`${LAST_MEAL}에 고기·생선·달걀·두부 같은 음식을 드셨나요?`,
-    opts:[{v:'good',f:'⌣',label:'먹었어요',       tone:'good'},
-          {v:'mid', f:'—',label:'맛만 봤어요',   tone:'okay'},
-          {v:'bad', f:'⌢',label:'안 먹었어요',       tone:'bad'}] },
+    text:`${LAST_MEAL}에 고기 · 생선 · 달걀 · 두부 반찬이 있었나요?`,
+    opts:[{v:'good',f:'⌣',label:'있었어요',       tone:'good'},
+          {v:'mid', f:'—',label:'조금 있었어요',   tone:'okay'},
+          {v:'bad', f:'⌢',label:'없었어요',       tone:'bad'}] },
   { id:'sleep', cat:'수면', av:'🌙', tint:'moon',
     text:'어젯밤 기침 때문에 잠에서 깼나요?',
     opts:[{v:'gte7',f:'⌣',label:'깨지 않았어요', tone:'good'},
@@ -2522,26 +2708,26 @@ const Q_ACUTE = [
 /* 일반 사용자의 회전 문항 — 여덟 축을 요일로 돌린다.
    (월 끼니 규칙은 별도 문항이 없어 고정 문항의 결식 답으로 쌓이므로 회전에서 빠진다) */
 const Q_ROTATION = {
-  2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬을 몇 가지 드셨나요?`,
-      opts:[{v:'good',f:'⌣',label:'두 가지 이상',   tone:'good'},
-            {v:'mid', f:'—',label:'한 가지',tone:'okay'},
-            {v:'bad', f:'⌢',label:'먹지 않았어요',   tone:'bad'}] },
-  3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후에 단 음료나 단 간식을 몇 번 드셨나요?`,
-      opts:[{v:'good',f:'⌣',label:'없었어요',     tone:'good'},
-            {v:'mid', f:'—',label:'한 번',   tone:'okay'},
-            {v:'bad', f:'⌢',label:'두 번 이상', tone:'bad'}] },
-  4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL}에 국물은 얼마나 드셨나요?`,
+  2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬이 있었나요?`,
+      opts:[{v:'good',f:'⌣',label:'있었어요',   tone:'good'},
+            {v:'mid', f:'—',label:'조금 있었어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'없었어요',   tone:'bad'}] },
+  3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후로 단 음료나 단 간식을 드셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'안 먹었어요',     tone:'good'},
+            {v:'mid', f:'—',label:'한 번 먹었어요',   tone:'okay'},
+            {v:'bad', f:'⌢',label:'여러 번 먹었어요', tone:'bad'}] },
+  4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL}에 국이나 찌개를 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'안 먹었어요',        tone:'good'},
-            {v:'mid', f:'—',label:'절반 이하 먹었어요',  tone:'okay'},
-            {v:'bad', f:'⌢',label:'절반보다 많이 먹었어요',  tone:'bad'}] },
-  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}를 먹고 배부른 정도가 어땠나요?`,
-      opts:[{v:'good',f:'⌣',label:'편안했어요',  tone:'good'},
-            {v:'mid', f:'—',label:'조금 부담스러웠어요',   tone:'okay'},
-            {v:'bad', f:'⌢',label:'많이 부담스러웠어요',tone:'bad'}] },
-  6:{ id:'fat',   cat:'식이', av:'🍖', tint:'moon', text:`${LAST_MEAL}에 튀긴 음식을 드셨나요?`,
-      opts:[{v:'good',f:'⌣',label:'안 먹었어요',   tone:'good'},
-            {v:'mid', f:'—',label:'맛만 봤어요',tone:'okay'},
-            {v:'bad', f:'⌢',label:'먹었어요',   tone:'bad'}] }
+            {v:'mid', f:'—',label:'건더기만 먹었어요',  tone:'okay'},
+            {v:'bad', f:'⌢',label:'국물까지 먹었어요',  tone:'bad'}] },
+  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}은 어떻게 마치셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'천천히 적당히',  tone:'good'},
+            {v:'mid', f:'—',label:'보통이었어요',   tone:'okay'},
+            {v:'bad', f:'⌢',label:'빠르게 배부르게',tone:'bad'}] },
+  6:{ id:'fat',   cat:'식이', av:'🍖', tint:'moon', text:`${LAST_MEAL}에 튀김이나 기름진 반찬이 있었나요?`,
+      opts:[{v:'good',f:'⌣',label:'없었어요',   tone:'good'},
+            {v:'mid', f:'—',label:'조금 있었어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'있었어요',   tone:'bad'}] }
 };
 function rotationQuestion(){
   /* 요일 순환 — 시연 날짜(목요일)를 기준으로 고정한다.
@@ -2554,7 +2740,8 @@ function rotationQuestion(){
   return q;
 }
 /* 질문 세트
-   · 식이는 늘 두 문항(고정 + 회전)이다. 일반 사용자든 케이스가 있든 줄이지 않는다.
+   · 식이는 최대 두 문항이다. 질환 확인이 없으면 고정 + 회전, 질환 확인이 있으면 확인 + 응답에 따른 질환 회전 또는 공통 고정이다.
+   · 질환 확인에서 현재 관리 중이면 공통 고정을 생략하고 질환 회전을 둘째로 낸다. 아니요·잘 모르겠어요이면 공통 고정을 둘째로 내며 세 번째 질문은 만들지 않는다.
    · 급성기에는 증상 문항이 앞자리를 차지하고, 회전 축은 회복 풀과 이어지는 단백질로 고정된다
      (어제 고정 답이 '거의 못 먹음'이면 단백질 축, 확진 질환이 있으면 연결 축).
    · 고정 답이 '거의 못 먹었어요'면 회전 문항은 묻지 않는다(pick에서 뺀다). */
@@ -2623,7 +2810,6 @@ function renderQ(){
       <div class="q-tx"><div class="q-step">오늘의 질문 · ${qi+1}/${QUESTIONS.length}</div><h1>${q.text}</h1></div>
       <div class="q-av ${q.tint}">${q.av}</div>
     </div>
-    ${q.id==='meal' && LAST_MEAL==='오늘 저녁' ? '<p class="q-meal-note">오늘 저녁을 드신 뒤 답해주세요</p>' : ''}
     <div class="q-opts">${q.opts.map((o,i)=>
       `<button class="q-opt ${o.tone}" data-i="${i}"><span class="f${o.tone==='neutral' && o.f==='?' ? ' face' : ''}">${o.tone==='neutral' ? (o.f==='?' ? FACE.unsure : o.f) : FACE[o.tone]}</span>${o.label}</button>`).join('')}</div>
   </section>`;
@@ -2776,6 +2962,11 @@ const MEAL_PHRASES = {
     도전:[{title:'매 끼니 채소 두 가지',       why:'끼니마다 두 가지면 하루 다섯 접시에 가까워져요'},
           {title:'저녁 반찬 절반은 채소로',    why:'저녁 접시의 절반을 채소로 채우는 것이 권고 형태예요'}]
   },
+  sweet:{
+    입문:[{title:'단 음료 마신 날 표시하기',why:'마신 날을 알면 다음 선택을 준비할 수 있어요.',nature:null}],
+    기본:[{title:'음료의 당류 표시 살펴보기',why:'같은 종류의 음료도 당류 함량이 달라요.',nature:null}],
+    도전:[{title:'단 음료 고를 때 당류 비교하기',why:'당류 표시를 비교해 선택할 수 있어요.',nature:null}]
+  },
   /* 짠맛 · 국물 축 — 요일 순환에서 목요일에 걸리는 축 */
   salt:{
     입문:[{title:'국은 반 그릇만 담기',        why:'담는 양을 줄이는 게 남기는 것보다 쉬워요'},
@@ -2783,7 +2974,7 @@ const MEAL_PHRASES = {
     기본:[{title:'짠 반찬은 한 끼에 한 가지만', why:'김치 · 장아찌 · 젓갈이 겹치면 한 끼에 하루치가 돼요'},
           {title:'김치는 평소의 절반',         why:'한국인 나트륨의 첫째 급원이 김치예요'}],
     도전:[{title:'오늘 세 끼 국물 없이',       why:'국물을 하루 끊으면 나트륨이 절반 가까이 줄어요'},
-          {title:'배달 음식엔 소스 반만',      why:'배달 음식 나트륨의 절반은 함께 오는 소스에 있어요'}]
+          {title:'국물은 건더기 위주로',       why:'국물보다 건더기를 중심으로 먹는 행동이에요'}]
   },
   protein:{
     입문:[{title:'아침에 달걀 하나',         why:'달걀 하나로 아침 단백질이 채워져요'},
@@ -2793,8 +2984,21 @@ const MEAL_PHRASES = {
           {title:'두부 반 모 반찬으로',      why:'두부 반 모가 고기 한 접시 단백질과 비슷해요'}],
     도전:[{title:'끼니마다 다른 단백질 반찬', why:'고기 · 생선 · 달걀 · 콩을 돌리면 영양이 고르게 돼요'},
           {title:'저녁 단백질은 생선 · 두부로', why:'저녁엔 소화가 가벼운 단백질이 좋아요'}]
+  },
+  fat:{
+    입문:[{title:'튀김 · 기름진 반찬은 한 가지만',why:'튀긴 반찬의 종류와 먹는 양을 살펴봐요.',nature:'REDUCE'},
+          {title:'튀김 대신 구이 · 찜 한 끼',why:'튀김 대신 구이·찜을 선택해 보는 행동이에요.',nature:'TEXTURE'}],
+    기본:[{title:'고기 구울 땐 기름 두르지 않기',why:'조리 중 추가하는 기름 양을 살펴봐요.',nature:null}],
+    도전:[{title:'오늘 조리는 굽거나 찌기로',why:'조리 방법을 바꿔 보는 행동이에요.',nature:'TEXTURE'}]
   }
 };
+MEAL_PHRASES.recovery.forEach((p,i)=>p.nature=i===0?'FLUID':'INCREASE');
+MEAL_PHRASES.burden.forEach((p,i)=>p.nature=i===2?'FLUID':i===4?'REDUCE':null);
+for(const step of ['입문','기본','도전']){
+  MEAL_PHRASES.veg[step].forEach(p=>p.nature='INCREASE');
+  MEAL_PHRASES.salt[step].forEach(p=>p.nature='REDUCE');
+  MEAL_PHRASES.protein[step].forEach(p=>p.nature='INCREASE');
+}
 /* 폐렴 급성기 기본 목표 — 식이는 답변 뒤에 생성되므로 잠금 상태의 자리만 잡아둔다 */
 /* 기본 목표는 케이스에 따라 다르다.
    AI REPORT를 등록하기 전(평소 상태)에는 평소 목표를 깔고,
@@ -2838,9 +3042,7 @@ function targetMeal(h){
   return '현재 세션의 밤';
 }
 const TARGET_MEAL = targetMeal();
-/* 시연 화면은 식후 후보 10개 중 질환·상황 조건이 없는 준비 행동 한 건을 표시한다.
-   운영 구현에서는 노출조건.after_dinner_eligible와 모든 후보 필터를 조회한다. */
-const AFTER_DINNER_GOAL = {title:'아침거리 미리 꺼내 두기', why:'아침에 고민할 일이 없으면 덜 거르게 돼요.'};
+const AFTER_DINNER_GOAL = {title:'아침거리 미리 꺼내 두기',why:'아침에 고민할 일이 없으면 덜 거르게 돼요.',nature:null};
 const MEAL_WORDS = ['아침','점심','저녁'];
 function fitsTarget(p){
   const word = MEAL_WORDS.find(w=>p.title.includes(w));
@@ -2848,44 +3050,61 @@ function fitsTarget(p){
 }
 /* 대상 끼니에 맞는 문구를 고르고, 없으면 끼니가 박히지 않은 문구로 내린다 */
 function pickPhrase(arr, fallback){
-  const ok = (arr||[]).filter(fitsTarget);
+  const banned=chronicDietState().banned;
+  const eligible=p=>fitsTarget(p)&&!banned.has(p.nature);
+  const ok = (arr||[]).filter(eligible);
   if(ok.length) return ok[0];
-  const any = (fallback||[]).filter(fitsTarget);
-  return any[0] || (arr||[])[0];
+  const any = (fallback||[]).filter(eligible);
+  return any[0] || null;
+}
+function phraseGoal(b,p,how){
+  if(!p)return {...b,goal_state:'GUIDANCE_ONLY',title:'개인 식사 계획을 확인해 주세요',why:'지금 조건에 맞는 식이 목표 후보가 없어요.',how:'안내 상태는 완료 목표로 표시하지 않아요.'};
+  return {...b,goal_state:'CREATED',title:p.title,why:p.why,how};
 }
 function mealGoal(b){
   const {meal,protein,fever,fatigue,salt,veg,sweet,pace,fat} = ans;
-  const pick = (arr, i) => arr[i % arr.length];
-  if(TARGET_MEAL === '현재 세션의 밤'){
-    return {...b, title:AFTER_DINNER_GOAL.title, why:AFTER_DINNER_GOAL.why,
-      how:'저녁 식사 후 현재 세션의 밤에 할 수 있는 준비 행동'};
-  }
+  if(TARGET_MEAL === '현재 세션의 밤') return phraseGoal(b,AFTER_DINNER_GOAL,'현재 세션의 밤에 할 수 있는 준비 행동');
   if(!hasAiReport){
     /* 평소 상태의 축 선정 — 회복 풀 → (확진·검진 없음) → 부담 줄이기 풀 → 일반(요일 순환 축) */
     if(meal && (meal.v==='skip' || meal.v==='less'))
       { const p = pickPhrase(MEAL_PHRASES.recovery.slice(meal.v==='skip' ? 2 : 3), MEAL_PHRASES.recovery);
-        return {...b, title:p.title, why:p.why, how:`대상 끼니 · ${TARGET_MEAL}`}; }
+        return phraseGoal(b,p,`대상 끼니 · ${TARGET_MEAL}`); }
+    const conditionAxis=chronicDietState().axis;
+    if(conditionAxis){
+      const set=MEAL_PHRASES[conditionAxis];
+      const stage='입문';
+      const p=pickPhrase(set[stage],[...set.입문,...set.기본,...set.도전]);
+      return phraseGoal(b,p,`내정보 질환 연결 축 · ${TARGET_MEAL}`);
+    }
     /* 피로 문항은 여기에 쓰인다 — 피곤한 날에는 축·단계를 따지지 않고 부담이 적은 문구를 낸다
        (수면 5시간 미만도 같은 조건이지만 평소 세트에는 수면 문항이 없어 피로 답만 본다) */
     if(fatigue && fatigue.v==='high')
-      { const p = pickPhrase(MEAL_PHRASES.burden); return {...b, title:p.title, why:p.why, how:`부담 줄이기 · ${TARGET_MEAL}`}; }
+      { const p = pickPhrase(MEAL_PHRASES.burden); return phraseGoal(b,p,`부담 줄이기 · ${TARGET_MEAL}`); }
     /* 오늘 물은 회전 축의 답으로 단계를 정하고, 그 축의 문구세트에서 고른다 */
     const axis = salt ? {k:'salt', nm:'짠맛 · 국물', a:salt} : {k:'veg', nm:'채소', a:veg};
     const step = !axis.a ? '입문' : axis.a.v==='bad' ? '입문' : axis.a.v==='mid' ? '기본' : '도전';
     const set = MEAL_PHRASES[axis.k];
     const p = pickPhrase(set[step], [...set.입문, ...set.기본, ...set.도전]);
-    return {...b, title:p.title, why:p.why, how:`${axis.nm} · ${step} 단계 · ${TARGET_MEAL}`};
+    return phraseGoal(b,p,`${axis.nm} · ${step} 단계 · ${TARGET_MEAL}`);
   }
   if(meal && (meal.v==='skip' || meal.v==='less')){          /* ① 회복 풀 — 1순위 */
     const idx = meal.v==='skip' ? 2 : 3;                      /* 거의 못 먹음 → 반 그릇 · 조금 적게 → 나눠 먹기 */
-    const p = pick(MEAL_PHRASES.recovery, fever && fever.v!=='none' ? 1 : idx);
-    return {...b, title:p.title, why:p.why, how:`대상 끼니 · ${LAST_MEAL} 다음 끼니부터`};
+    const preferred=MEAL_PHRASES.recovery[fever && fever.v!=='none' ? 1 : idx];
+    const p=pickPhrase([preferred],MEAL_PHRASES.recovery);
+    return phraseGoal(b,p,`대상 끼니 · ${LAST_MEAL} 다음 끼니부터`);
+  }
+  /* 직접 선택한 매핑 질환도 회복 풀 다음의 질환 연결 축에 참여한다. */
+  const conditionAxis=chronicDietState().axis;
+  if(conditionAxis){
+    const set=MEAL_PHRASES[conditionAxis];
+    const p=pickPhrase(set.입문,[...set.입문,...set.기본,...set.도전]);
+    return phraseGoal(b,p,`내정보 질환 연결 축 · ${TARGET_MEAL}`);
   }
   /* ② 확진 질환(폐렴) → 단백질 축. 회전 문항 답으로 단계를 고른다 */
   const step = !protein ? '입문' : protein.v==='bad' ? '입문' : protein.v==='mid' ? '기본' : '도전';
   const pr = MEAL_PHRASES.protein;
   const p = pickPhrase(pr[step], [...pr.입문, ...pr.기본, ...pr.도전]);
-  return {...b, title:p.title, why:p.why, how:`단백질 · ${step} 단계 · ${TARGET_MEAL}`};
+  return phraseGoal(b,p,`단백질 · ${step} 단계 · ${TARGET_MEAL}`);
 }
 function adjust(b){
   const {care,walk,fatigue} = ans;
@@ -2957,6 +3176,9 @@ function goalTilesHtml(dayN){
         <b>오늘의 질문에 답하면 목표가 생성돼요.</b>
         <span class="g-lockic"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="17" width="24" height="19" rx="4" fill="none" stroke="#D3D8E2" stroke-width="3"/><path d="M13 17v-4a7 7 0 0 1 14 0v4" fill="none" stroke="#D3D8E2" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="26" r="2.4" fill="#D3D8E2"/></svg></span>
       </button>`;
+    }
+    if(g.key==='meal' && g.goal_state==='GUIDANCE_ONLY'){
+      return `<div class="g-tile meal" role="status" aria-label="식이 목표 안내: ${g.title}"><small>식이 안내</small><b>${g.title}</b></div>`;
     }
     const st = (typeof stateOf==='function') ? stateOf(g.key, dayN) : g.state;
     const done = st==='done';
@@ -3261,16 +3483,17 @@ function bandGraph(scores, selIdx, color, bands, labels){
   let s = `<div class="bgph"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="주간 상태 흐름">`;
   s += `<rect x="0" y="${Y(100)}" width="${gw}" height="${Y(BAND_HI)-Y(100)}" fill="#E7F7ED"/>`;
   s += `<rect x="0" y="${Y(BAND_HI)}" width="${gw}" height="${Y(BAND_LO)-Y(BAND_HI)}" fill="#F1F3F7"/>`;
-  s += `<rect x="0" y="${Y(BAND_LO)}" width="${gw}" height="${Y(0)-Y(BAND_LO)}" fill="#FDF0E3"/>`;
+  s += `<rect x="0" y="${Y(BAND_LO)}" width="${gw}" height="${Y(0)-Y(BAND_LO)}" fill="#FDECEC"/>`;
   s += `<text x="${gw+8}" y="${Y(83)+3.5}" font-size="9.5" font-weight="700" fill="#12A150">${bands[0]}</text>`;
   s += `<text x="${gw+8}" y="${Y(50)+3.5}" font-size="9.5" font-weight="700" fill="#8A93A5">${bands[1]}</text>`;
-  s += `<text x="${gw+8}" y="${Y(16)+3.5}" font-size="9.5" font-weight="700" fill="#E5893A">${bands[2]}</text>`;
+  s += `<text x="${gw+8}" y="${Y(16)+3.5}" font-size="9.5" font-weight="700" fill="#E5484D">${bands[2]}</text>`;
+  if(scores[selIdx]!=null) s += `<line x1="${X(selIdx).toFixed(1)}" y1="${Y(scores[selIdx]).toFixed(1)}" x2="${X(selIdx).toFixed(1)}" y2="${H}" stroke="${color}" stroke-width="1.6" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>`;
   let seg=[]; const flush=()=>{ if(seg.length>1) s+=`<polyline points="${seg.join(' ')}" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`; seg=[]; };
   scores.forEach((v,i)=>{ if(v==null) flush(); else seg.push(`${X(i).toFixed(1)},${Y(v).toFixed(1)}`); }); flush();
   scores.forEach((v,i)=>{
     if(v==null) return;
     if(i===selIdx) s+=`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="5" fill="#fff" stroke="${color}" stroke-width="2.5" vector-effect="non-scaling-stroke"/>`;
-    else s+=`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3" fill="${color}"/>`;
+    else s+=`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3" fill="${v<BAND_LO?'#E5484D':'#98A2B3'}"/>`;
   });
   s += `</svg><div class="bx" style="padding:0 2px;margin-top:4px">${labels.map((d,j)=>`<div class="${j===selIdx?'on':''}">${d}</div>`).join('')}</div></div>`;
   return s;
@@ -4238,13 +4461,14 @@ function renderLife(){ renderGoalPane(); renderMetricPane(); renderDaily(); rend
    헤더(지표명 + 전일 대비 방향 · 설명 한 줄 · 구간 배지) → 3구간 띠 위 주간 그래프 → 현재 흐름 → 핵심 데이터.
    보조 데이터 영역은 두지 않는다. 숫자 점수는 어디에도 쓰지 않는다. */
 const BAND_WORDS = { margin:['충분','보통','부족'], selfcare:['잘함','보통','부족'], steady:['안정','비슷','불안정'] };
+const CORE_ROWS = { margin:['활동 시간','수면'], selfcare:['활동 시간','식후 활동'], steady:['걸음 수','활동 시간','운동 기록','수면'] };
 function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
   const meta = METRICS.find(x=>x.k===m.k);
   const color = METRIC_COLOR[m.k];
   const states = scores.map(v=>scoreToState(v));
   const cur = states[i];
   const prev = i>0 ? states[i-1] : null;
-  const core = DATA_MAP.filter(d=>d[m.k]==='core');
+  const core = (CORE_ROWS[m.k]||[]).map(n=>({n}));
   if(cur==='none'){
     return `<section class="card mc mc-none" data-k="${m.k}">
       <div class="mc-hd"><div><h3>${m.nm}</h3></div></div>
@@ -4262,11 +4486,10 @@ function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
     </div>
     <div class="mc-def" hidden><span class="dq">${meta.desc}</span><p>${meta.expl}</p></div>
     ${bandGraph(scores, i, color, BAND_WORDS[m.k], dayLabels)}
-    <div class="src-lab">현재 흐름</div><p class="mc-in" style="margin-top:0">${m.ins}</p>
+    <div class="src-lab">이번 주 해석</div><p class="mc-in" style="margin-top:0">${m.ins}</p>
     <div class="src-lab">핵심 데이터</div>
     <div class="mc-rows">${core.map(d=>
-      `<div class="mc-row"><span class="dot core" style="background:${color}"></span>
-        <b>${d.n}</b><span class="v">${valFn(d.n,i)}</span></div>`).join('')}</div>
+      `<div class="mc-row"><b>${d.n}</b><span class="v">${valFn(d.n==='식후 활동'?'운동 기록':d.n,i)}</span></div>`).join('')}</div>
   </section>`;
 }
 function bindMetricInfo(root){
@@ -4447,9 +4670,13 @@ function emptyView(emo, title, desc, withDetail, kind){
     </div>` : ''}
   </section>`;
 }
-const loadingView = kind => `<section class="card loading">
-  <div class="spin"></div><b>${SOURCES[kind].t}를 불러오는 중이에요</b>
-  <small>${SOURCES[kind].org}에서 ${SOURCES[kind].d}을 가져오고 있어요</small></section>`;
+const loadingView = kind => `<section class="card h-load"><div class="spin"></div><div><b>${kind==='clinic'?'진료':'검진'} 데이터를 가져오는 중</b>
+  <small>${SOURCES[kind].org}에서 데이터를 불러오는 중입니다. 최대 1분 정도 소요될 수 있습니다.</small></div></section>
+  <section class="card h-skel">${'<div class="sk-r"><i></i><div><span></span><span></span></div></div>'.repeat(5)}</section>`;
+const emptyImport = (kind, emo, title, desc, feats, cta) => `<section class="h-empty">
+  <div class="h-emo">${emo}</div><b>${title}</b><p>${desc}</p>
+  <ul class="h-feat">${feats.map(f=>`<li>${f}</li>`).join('')}</ul>
+  <button class="h-cta" onclick="startImport('${kind}')" ${importing?'disabled':''}>${cta}</button></section>`;
 
 /* 마지막 업데이트 일시 · 가져온 기간 — 더보기 > 검진 · 진료정보 연동의 카드에 표시한다(§4) */
 const MED_UPDATED = { checkup:'2026.08.20', clinic:'2026.08.25' };
@@ -4502,55 +4729,58 @@ function renderClinicSum(){
   const el = document.getElementById('pCl');
   if(importing==='clinic' && !imp.clinic){ el.innerHTML = loadingView('clinic'); return; }
   if(!imp.clinic){
-    el.innerHTML = `<section class="card empty" style="padding-bottom:22px">
-      <span class="emo">📋</span>
-      <b>진료정보를 불러와 주세요</b>
-      <p>건강보험심사평가원에서 진료 · 처방 기록을 가져와<br>다녀온 병원과 진료과, 진료비 흐름을 정리해 드려요.</p>
-      <div class="imp-list">${importCard('clinic')}</div>
-    </section>`;
+    el.innerHTML = emptyImport('clinic','🩺','진료 정보를 가져와 주세요','건강보험심사평가원의 진료 정보를<br>확인할 수 있어요.',['병원 방문 내역 조회','처방 이력 조회','진료비 지출 통계'],'진료 데이터 가져오기');
     return;
   }
-  el.innerHTML = clinicAiSummary() + manageLink('clinic');
+  el.innerHTML = clinicAiSummary();
   renderClinicCostPage(0);
 }
+const READS = [
+  {id:'cxr', cat:'폐 질환', t:'흉부 엑스레이에서<br>가장 흔하게 발견되는<br>10가지 비정상 소견', emo:'🩻', tone:'gray'},
+  {id:'tb',  cat:'폐 질환', t:'폐결핵의 원인과<br>증상 치료 방법', emo:'🫁', tone:'sky'},
+  {id:'eye', cat:'안저 질환', t:'주의해야 하는<br>주요 망막 질환 및<br>예방수칙', emo:'👁️', tone:'navy'},
+  {id:'br',  cat:'안저 질환', t:'유방암 검진 및<br>유방 치밀도', emo:'🎀', tone:'violet'}
+];
+const READ_DETAIL = {
+  tb:{title:'폐결핵의 원인과 증상 치료 방법', emo:'🫁',
+    lead:'폐결핵은 세균, 바이러스, 곰팡이 등 다양한 미생물에 의해 발생하는 염증성 폐질환입니다. 특히 면역력이 약한 노인과 어린아이들에게서 발생할 가능성이 높습니다. 65세 이상 고령자가 폐렴에 걸릴 경우, 사망률이 최대 70배 이상 증가한다는 보고도 있습니다. 우리나라의 결핵 발생률은 점차 감소하고 있으나, 여전히 OECD 국가 중 가장 높은 수준을 유지하고 있습니다.',
+    secs:[
+      ['폐결핵 원인과 증상','<p>폐결핵은 결핵균에 의해 발생하는 질환으로, 감염 경로는 주로 결핵 환자가 기침할 때 배출되는 가래 속 결핵균이 공기 중에 떠다니며 건강한 사람의 폐로 들어가는 방식입니다. 이렇게 결핵균이 폐에 들어와 바로 병을 일으키는 경우를 일차성 결핵이라고 합니다. 그러나 결핵균이 신체에 침투한 후, 즉시 질병을 유발하지 않고 잠복 상태로 여러 해 동안 숨어 있다가 특정 조건에서 활성화되어 결핵을 일으키는 경우도 있습니다. 이러한 유형을 이차성 결핵이라고 부릅니다.</p>'],
+      ['폐결핵 진단','<p>폐결핵 진단은 가장 먼저 흉부 X-선 검사를 통해 이루어집니다. 만약 촬영된 흉부 X-ray 영상에서 결핵 의심소견이 발견될 경우 객담(가래)검사를 통해 최종 감염 여부를 확인하여 결핵을 진단합니다.</p>'],
+      ['폐결핵 치료 방법','<h4>치료방법</h4><p>항결핵제를 사용하여 결핵균을 억제 및 제거.</p><h4>특징</h4><ul><li>여러 항결핵제를 동시에 복용하는 병합 화학 요법 시행</li><li>최소 6개월 이상 꾸준히 복용 필요</li><li>약물 복용 조기 중단 시 다제내성결핵 발생 가능</li></ul>'],
+      ['폐결핵 예방','<ul><li>2주 이상 기침이 지속되거나 결핵환자와 접촉한 경우 증상과 상관없이 결핵검진 받기</li><li>기침이나 재채기를 할 때는 마스크를 사용하거나 소매로 입 가리기</li><li>외출 한 후에는 비누로 흐르는 물에 30초 이상 손 씻기</li><li>꾸준한 운동과 균형잡힌 영양 섭취로 체력 키우기</li></ul>']
+    ], src:'[출처 및 참고문헌] 아산병원 의료정보'}
+};
 function renderRead(){
   const el = document.getElementById('pRead'); if(!el) return;
-  el.innerHTML = `<section class="card" style="margin-bottom:14px;position:relative;overflow:hidden">
-    <small style="color:var(--ink-2)">호흡기 건강 · 폐렴 알아보기</small>
-    <h2 style="font-size:20px;line-height:1.5;margin:8px 0;max-width:78%">폐렴, 어떤 증상을 살피고<br>어떻게 회복할까요?</h2>
-    <p style="color:var(--ink-2);line-height:1.7;margin:0;max-width:78%">폐렴의 주요 증상부터 회복 중 생활관리까지,<br>알아두면 좋은 정보를 모았어요.</p>
-    <span class="emo" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:40px;opacity:.95">🫁</span>
-  </section>
-  <section class="card" style="font-size:var(--t-body);line-height:1.8">
-    <details open style="padding-bottom:16px;border-bottom:1px solid #edf0f4">
-      <summary class="read-sum" style="cursor:pointer"><div class="la-hd" style="margin-bottom:0;flex:1"><span class="ic" style="background:#E6F0FF">🫁</span><b>01 · 폐렴은 어떤 질환인가요?</b></div><span class="chev">⌄</span></summary>
-      <p style="margin-top:12px">폐렴은 주로 세균이나 바이러스 감염으로 폐에 염증이 생기는 질환이에요. 기침, 발열, 가래, 숨참, 가슴 통증, 피로감 등이 나타날 수 있어요.</p>
-      <p style="margin-bottom:0">증상만으로 원인을 단정하기 어려워요. 숨이 차거나 숨 쉴 때 가슴이 아프면 의료진에게 진료를 받으세요.</p>
-    </details>
-    <details style="padding:16px 0;border-bottom:1px solid #edf0f4">
-      <summary class="read-sum" style="cursor:pointer"><div class="la-hd" style="margin-bottom:0;flex:1"><span class="ic" style="background:#E8F5EE">🛌</span><b>02 · 회복 중에는 이렇게 챙겨요</b></div><span class="chev">⌄</span></summary>
-      <p style="margin-top:12px">충분히 쉬고 수분을 섭취하며, 흡연을 피하세요. 기침할 때는 입과 코를 가리고 손을 자주 씻어 주세요.</p>
-      <p>항생제를 처방받았다면 좋아져도 임의로 중단하지 말고 처방대로 복용하세요. 복용 후 2~3일이 지나도 나아지지 않으면 의료진에게 연락하세요.</p>
-      <p style="margin-bottom:0">회복 속도는 사람마다 달라요. 증상이 악화되면 기다리지 말고 다시 진료를 받으세요.</p>
-    </details>
-    <details style="padding-top:16px">
-      <summary class="read-sum" style="cursor:pointer"><div class="la-hd" style="margin-bottom:0;flex:1"><span class="ic" style="background:#FDE7EE">🚨</span><b>03 · 바로 도움을 받아야 하는 신호</b></div><span class="chev">⌄</span></summary>
-      <p style="margin-top:12px;margin-bottom:0">숨이 너무 차서 말을 하기 어렵거나, 입술이 파래지거나, 갑자기 의식이 혼란스러워지면 즉시 119에 연락하거나 응급실에서 도움을 받으세요.</p>
-    </details>
-  </section>
-  <p style="font-size:var(--t-sm);color:var(--ink-2);line-height:1.7;padding:0 4px">일반적인 건강정보이며 개인의 진단이나 처방을 대신하지 않아요.<br>출처: <a href="https://www.nhs.uk/conditions/pneumonia/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">NHS · Pneumonia (영문)</a></p>
-  <style>.read-sum{list-style:none;display:flex;align-items:center;gap:8px}.read-sum::-webkit-details-marker{display:none}.read-sum .chev{color:var(--ink-3);transition:transform .15s;flex-shrink:0}details[open]>.read-sum .chev{transform:rotate(180deg)}</style>`;
+  el.innerHTML = `<h2 class="rd-title">내 질환 · 소견에 맞춘<br>건강 콘텐츠</h2>
+    ${READS.map(r=>`<button type="button" class="rd-card ${r.tone}" data-id="${r.id}">
+      <div class="rd-tx"><small>${r.cat}</small><b>${r.t}</b></div><span class="rd-emo" aria-hidden="true">${r.emo}</span>
+    </button>`).join('')}`;
+  el.querySelectorAll('.rd-card').forEach(c=>c.onclick=()=>openReadDetail(c.dataset.id));
 }
-function renderCheckupSum(){
+function openReadDetail(id){
+  let det = document.getElementById('readDet');
+  if(!det){
+    det = document.createElement('div'); det.className='sub'; det.id='readDet';
+    det.innerHTML = '<div class="rs-h"><button id="readDetBack" aria-label="뒤로">‹</button><h2>읽을거리</h2></div><div class="rs-b" id="readDetBody"></div>';
+    document.getElementById('svResult').after(det);
+    document.getElementById('readDetBack').onclick = ()=>det.classList.remove('open');
+  }
+  const r = READS.find(x=>x.id===id), d = READ_DETAIL[id];
+  document.getElementById('readDetBody').innerHTML = d ? `
+    <div class="rdd-hero"><span aria-hidden="true">${d.emo}</span><h1>${d.title}</h1></div>
+    <p class="rdd-lead">${d.lead}</p>
+    ${d.secs.map(([h,body])=>`<section class="rdd-card"><h3>${h}</h3>${body}</section>`).join('')}
+    <p class="rdd-src">${d.src}</p>`
+  : `<div class="rdd-hero"><span aria-hidden="true">${r.emo}</span><h1>${r.t.replace(/<br>/g,' ')}</h1></div>
+    <section class="rdd-card"><h3>콘텐츠 준비 중</h3><p>이 콘텐츠는 곧 제공될 예정이에요.</p></section>`;
+  det.scrollTop = 0; det.classList.add('open');
+}function renderCheckupSum(){
   const el = document.getElementById('pCk');
   if(importing==='checkup' && !imp.checkup){ el.innerHTML = loadingView('checkup'); return; }
   if(!imp.checkup){
-    el.innerHTML = `<section class="card empty" style="padding-bottom:22px">
-      <span class="emo">🩺</span>
-      <b>검진정보를 불러와 주세요</b>
-      <p>국민건강보험공단에서 검진 결과를 가져와<br>건강 나이, 주요 검진 소견, 검진 대상 안내를 보여드려요.</p>
-      <div class="imp-list">${importCard('checkup')}</div>
-    </section>`;
+    el.innerHTML = emptyImport('checkup','📋','건강검진 정보를 가져와 주세요','건강보험공단의 검진 정보를<br>확인할 수 있어요.',['최근 건강검진 결과 조회','주요 질환 위험도 예측','건강나이 측정','건강검진 결과 AI 요약 분석'],'건강검진 데이터 가져오기');
     return;
   }
   let html = ``;
@@ -4589,7 +4819,7 @@ function renderCheckupSum(){
       <button class="fd-all" id="examEligibilityBtn" style="margin-top:0">검진 안내 확인하기</button>
     </section>`;
   }
-  el.innerHTML = html + manageLink('checkup');
+  el.innerHTML = html;
   const eb = document.getElementById('examEligibilityBtn'); if(eb) eb.onclick = ()=>document.getElementById('examEligibility').classList.add('open');
 }
 
@@ -4663,7 +4893,7 @@ function clinicAiSummary(){
   const navBtn = (id,dir,label,ch)=>`<button type="button" id="${id}" onclick="moveClinicCostPage(${dir})" aria-label="${label}" style="width:40px;height:40px;border:1px solid #E6EAF2;border-radius:12px;background:#fff;color:var(--ink-1);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center">${ch}</button>`;
   return `
   <div style="padding:6px 2px 14px">
-    <div style="display:flex;align-items:center;gap:6px;font-size:var(--t-sm);color:var(--ink-3);font-weight:500"><span style="font-size:var(--t-mini);font-weight:700;color:var(--brand);background:var(--brand-soft);padding:3px 8px;border-radius:999px">건강보험심사평가원</span>2026년 진료 정보</div>
+    <div style="display:flex;align-items:center;gap:6px;font-size:var(--t-sm);color:var(--ink-3);font-weight:500">2026년 진료 정보</div>
     <div style="font-size:var(--t-h1);font-weight:800;color:var(--ink-1);letter-spacing:-.02em;margin-top:2px">올해 병원 이용을 정리했어요</div>
   </div>
   <section class="card" style="margin-bottom:14px">
@@ -5154,7 +5384,7 @@ function renderAiReport(mode){
   const switcher = `<div class="ai-case-switch"><button onclick="renderAiReport('normal')" class="${mode==='normal'?'on normal':''}">정상 예시</button><button onclick="renderAiReport('attention')" class="${mode==='attention'?'on attention':''}">확인 필요 예시</button></div>`;
   const commonHead = `<section class="ai-plan-meta"><div><span>검진일</span><b>${f.d}</b></div><div><span>검진기관</span><b>${f.place}</b></div></section>${switcher}`;
   const summary = normal ? `
-    <section class="ai-plan-hero normal">
+    <section class="ai-plan-hero normal"><span class="ai-hero-emo" aria-hidden="true">🙂</span>
       <div class="eyebrow">AI 건강검진 요약</div><h2>주요 검사 결과가<br>대체로 안정적이에요</h2>
       <p>이번 검진의 주요 결과와 이전 기록을 함께 확인했어요. 우선 확인이 필요한 항목은 없으니 정기 검진을 이어가며 지금의 생활습관을 유지해 주세요.</p>
       __COUNTS__
@@ -5163,7 +5393,7 @@ function renderAiReport(mode){
       <div class="ai-key-grid"><div><span>혈압</span><b>118/76</b><em class="ok">정상</em></div><div><span>공복혈당</span><b>92</b><em class="ok">정상</em></div><div><span>총콜레스테롤</span><b>188</b><em class="ok">정상</em></div><div><span>BMI</span><b>21.4</b><em class="ok">정상</em></div></div>
     </section>`
   : `
-    <section class="ai-plan-hero attention">
+    <section class="ai-plan-hero attention"><span class="ai-hero-emo" aria-hidden="true">😟</span>
       <div class="eyebrow">AI 건강검진 요약</div><h2>이번 검진에서<br>확인이 필요한 변화가 있어요</h2>
       <p>흉부 X선에 재검 소견이 있고, 혈압과 공복혈당이 이전보다 높아졌어요. 이번 결과만으로 진단할 수는 없지만, 가까운 시일 내 재검·재측정하고 필요하면 의료진과 상담해 주세요.</p>
       __COUNTS__
@@ -5276,12 +5506,13 @@ function renderAiReport(mode){
   };
   const modeKey = normal ? 'normal' : 'attention';
   const STATUS_LB = {ok:['ok','정상'], caution:['caution','관리 필요'], high:['warn','확인 필요']};
-  const itemView = `<div class="ai-section-title"><small>검사 항목별 이해</small><h2>항목별 해석</h2><p>내 수치가 기준 범위 어디에 있는지 막대로 보여드려요. 화살표를 누르면 최근 5회 변화를 볼 수 있어요.</p></div><div class="it-legend"><span><i class="ok"></i>정상</span><span><i class="caution"></i>관리 필요</span><span><i class="high"></i>확인 필요</span></div>` + IT_GROUPS.map(g=>{
+  const itemView = `<div class="ai-section-title"><h2>검사 항목별 해석</h2><p>내 수치가 기준 범위 어디에 있는지 막대로 보여드려요. 화살표를 누르면 최근 5회 변화를 볼 수 있어요.</p></div><div class="it-legend"><span><i class="ok"></i>정상</span><span><i class="caution"></i>관리 필요</span><span><i class="high"></i>확인 필요</span></div>` + IT_GROUPS.map(g=>{
     const rows = g.rows.map(r=>({...r, val:r.v[modeKey], cls:zoneOf(r, r.v[modeKey])}));
     const worst = rows.reduce((a,r)=>ORDER[r.cls]>ORDER[a]?r.cls:a,'ok');
     const st = STATUS_LB[worst];
     return `<section class="it-card ${worst}">
-      <div class="it-hd"><span class="it-ic">${g.ic}</span><b>${g.name}</b><span class="ai-status ${st[0]}">${st[1]}</span></div>
+      <div class="it-hd"><span class="it-ic">${g.ic}</span><b>${g.name}</b><span class="ai-status ${st[0]}">${worst==='ok'?'안정적':st[1]}</span></div>
+      <p class="it-res it-res-top">${IT_RESULT[modeKey][g.k]}</p>
       <div class="it-rows">${rows.map(r=>{ const hist=IT_HIST[r.n]; return `<div class="it-r ${r.cls}">
         <div class="it-rmain">
           <div class="it-rl"><span class="it-rn">${r.n}</span><b class="it-rv">${r.val}<small>${r.unit}</small></b></div>
@@ -5290,7 +5521,6 @@ function renderAiReport(mode){
         </div>
         ${hist?`<div class="it-hist">${histChart(hist[modeKey], r)}</div>`:''}
       </div>`}).join('')}</div>
-      <p class="it-res">${IT_RESULT[modeKey][g.k]}</p>
       <p class="it-meaning">${g.meaning}</p>
     </section>`}).join('');
   const jgRows = JG_ITEMS.map(j=>({n:j.n, ...j[modeKey]})).sort((a,b)=>ORDER[b.st]-ORDER[a.st]);
@@ -5309,12 +5539,13 @@ function renderAiReport(mode){
     {t:'혈압을 다시 재 보세요', p:'가까운 시일 내 병원이나 약국에서 다시 측정하고, 검진기관이 권고한 정기 측정을 이어가 주세요.', src:'검진기관 권고', org:true},
     {t:'공복혈당은 진료로 확인하세요', p:'공복혈당이 검진기관의 확인 필요 기준을 넘었어요. 의료진과 상담해 추가 검사 여부를 정해 주세요.', src:'검진기관 권고', org:true}
   ];
-  const actionView = `<div class="ai-section-title"><small>다음에 챙길 일</small><h2>내가 해야 할 행동</h2><p>${normal?'앞으로도 이렇게 챙겨 주세요.':'검진기관 권고부터 순서대로 챙겨 보세요.'}</p></div>
+  const actionView = `<div class="ai-section-title"><h2>내가 해야 할 행동</h2><p>${normal?'앞으로도 이렇게 챙겨 주세요.':'검진기관 권고부터 순서대로 챙겨 보세요.'}</p></div>
     <section class="act-card">${actions.map((a,i)=>`<div class="act-r"><span class="n">${i+1}</span><div><b>${a.t}</b><p>${a.p}</p></div></div>`).join('')}</section>`;
   const body=document.getElementById('aiReportBody');
-  body.innerHTML = commonHead +
-    `<div class="ai-section-title first"><small>이번 검진 한눈에 보기</small><h2>종합 요약</h2></div>` + summaryFinal + peer + itemView + judgeView + actionView +
+  body.innerHTML =
+    summaryFinal + peer + itemView + judgeView + actionView +
     `<p class="ai-disclaimer-v2">AI 요약은 검진 결과를 이해하기 쉽게 정리한 참고 정보이며, 의학적 진단을 대신하지 않아요. 걱정되는 항목은 의료진과 상담해 주세요.</p>`;
+  const firstTr = body.querySelector('.it-tr'); if(firstTr && typeof toggleHist==='function') toggleHist(firstTr);
   body.scrollTop=0;
 }
 function toggleHist(btn){
@@ -5387,82 +5618,65 @@ function bodyMetricCard(m, no){
   const me = Math.max(1,Math.min(5,Math.ceil(m.pct/20)));
   const label = meta.labels[me-1];
   const warn = m.health && m.health!=='정상 범위';
-  const pillClass = warn ? 'warn' : (me>=2 && me<=4 ? 'ok' : 'neu');
-  const people = meta.labels.map((lb,i)=>{
-    const active = i+1===me;
-    return `<div class="bm-p${active?' me':''}">
-      ${active?`<span class="bm-me" style="background:${meta.color}">나</span>`:''}
-      ${bmPerson(m.key, i, active?meta.color:meta.faint, active)}
-      <span class="bm-lb">${BM_RANGES[i]}</span>
-    </div>`;
-  }).join('');
-  return `<section class="bm-card" style="--bm:${meta.color};--bm-soft:${meta.soft}">
-    <div class="bm-top">
-      <div class="bm-left">
-        <div class="bm-name"><span class="bm-no">${no}</span><b>${m.name}</b></div>
-        <div class="bm-val">${m.value}<small>${m.unit}</small></div>
-        <div class="bm-rank"><small>내 또래 100명 중</small><b>${m.pct}<em>등</em></b></div>
-        <span class="bm-pill ${pillClass}">${label}이에요</span>
-      </div>
-      <div class="bm-people">${people}</div>
+  return `<section class="bm2" style="--bm:${meta.color};--bm-soft:${meta.soft}">
+    <div class="bm2-top">
+      <div><b class="bm2-name">${m.name}</b><div class="bm2-val">${m.value}<small>${m.unit}</small></div></div>
+      <div class="bm2-rank"><small>내 또래 100명 중</small><b>${m.pct}번째</b><em class="${warn?'warn':''}">${label}이에요</em></div>
     </div>
+    <div class="bm2-bar">${[1,2,3,4,5].map(i=>`<i class="${i===me?'on':''}"></i>`).join('')}</div>
+    <div class="bm2-lb">${['1~20','21~40','41~60','61~80','81~100'].map((t,i)=>`<span class="${i+1===me?'on':''}">${t}</span>`).join('')}</div>
   </section>`;
 }
-
 /* 진료 상세 */
 function openVisit(id){
   const it = allVisits().find(x=>x.id===id);
-  document.querySelector('#visitDet .rs-h h2').textContent = '진료 상세';
+  document.querySelector('#visitDet .rs-h h2').textContent = '진료상세';
+  const DX = {'내과':['위식도역류병','K21.9'], '이비인후과':['급성 부비동염','J01.9']};
+  const dx = [it.name || (DX[it.dept]||[])[0] || '진단명 정보 없음', it.code || (DX[it.dept]||[])[1] || '-'];
+  const r10 = v => Math.round(v/10)*10;
+  const total = it.total || (it.form==='입원' ? 320000*it.visitDays + 4000 : 12000 + it.meds.length*3200);
+  const mine = it.mine || r10(total * (it.form==='입원' ? 0.2 : 0.3));
+  const won = v => v.toLocaleString('ko-KR') + '원';
+  const samePlace = allVisits().filter(v=>v.place===it.place).sort((a,b)=>dateKey(a.date).localeCompare(dateKey(b.date)));
+  const nth = samePlace.findIndex(v=>v.id===it.id) + 1;
   document.getElementById('vdBody').innerHTML = `
-    <div class="det-hd">
-      <small>${it.date}</small>
-      <b>${it.place}</b>
-      <div class="det-tags">
-        <span class="opt">${it.form}</span>
-        ${it.form==='입원'?`<span class="req">${it.visitDays}일 입원</span>`:''}
-      </div>
-    </div>
-    <section class="card" style="padding:18px">
-      <div class="card-t" style="margin-bottom:14px">진단 정보</div>
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
-        <div><div style="font-size:12px;color:var(--ink-3);margin-bottom:5px">진단명</div><b style="font-size:15px;color:var(--ink)">${it.name || '진단명 정보 없음'}</b></div>
-        <div style="text-align:right;flex:0 0 auto"><div style="font-size:12px;color:var(--ink-3);margin-bottom:5px">진단코드</div><b style="font-size:15px;color:#1261E8">${it.code || '-'}</b></div>
-      </div>
-      <p style="margin:12px 0 0;font-size:11px;line-height:1.55;color:var(--ink-3)">진단명과 진단코드는 연동된 진료정보에 기록된 내용을 기준으로 표시해요.</p>
+    <section class="vd-card vd-hd"><div><b>${it.place}</b><small>${it.date}</small>${nth>0?`<span class="vd-nth">이 병원 ${nth}번째 방문</span>`:''}</div><span class="vd-form">${it.form}${it.form==='입원'?` · ${it.visitDays}일`:''}</span></section>
+    <section class="vd-card">
+      <div class="vd-dx"><div><small>진단명</small><b>${dx[0]}</b></div><div class="vd-code"><small>진단코드</small><b>${dx[1]}</b></div></div>
+      <p class="vd-fine">진단명과 진단코드는 연동된 진료정보에 기록된 내용을 기준으로 표시해요.</p>
     </section>
-    ${it.meds.length ? `<section class="card">
-      <div class="card-t" style="margin-bottom:6px">처방받은 약</div>
-      <div class="card-s" style="margin-bottom:14px">처방 ${it.rxCount}건 · 총 ${it.meds.length}종</div>
-      ${it.meds.map(m=>`<div class="med-r">
-        <span class="med-ic">💊</span>
-        <div class="med-b"><b>${m.n}</b><small>${m.days}일분 · 1일 ${m.per}회</small></div>
-      </div>`).join('')}
+    <section class="vd-card">
+      <h3>이번 진료비</h3>
+      <div class="vd-total">${won(r10(total))}</div>
+      <div class="vd-bar"><i style="width:${((total-mine)/total*100).toFixed(1)}%"></i><b></b></div>
+      <div class="vd-split"><span>공단 부담 ${won(r10(total-mine))}</span><em>내가 낸 돈 ${won(mine)}</em></div>
+    </section>
+    ${it.meds.length ? `<section class="vd-card">
+      <h3>처방받은 약</h3><p class="vd-sub">처방 ${it.rxCount}건 · 총 ${it.meds.length}종</p>
+      ${it.meds.map(m=>`<div class="vd-med"><span class="vd-pill" aria-hidden="true">💊</span><div><b>${m.n}</b><small>${m.days}일분 · 1일 ${m.per}회</small></div></div>`).join('')}
     </section>` : ''}
-    <section class="card">
-      <div class="memo-head">
-        <div><div class="card-t">내 메모</div><div class="card-s">이 방문에 대해 기억해둘 내용을 남길 수 있어요.</div></div>
-        <button class="memo-edit" id="memoEditBtn">${it.memo ? '수정' : '메모 추가'}</button>
-      </div>
-      <div id="memoView" class="memo-view ${it.memo ? '' : 'empty'}">${it.memo || '작성한 메모가 없어요.'}</div>
+    <section class="vd-card">
+      <h3>내 메모</h3><p class="vd-sub">이 방문에 대해 기억해둘 내용을 남길 수 있어요</p>
+      <div id="memoView" class="vd-memo" ${it.memo ? '' : 'hidden'}>${it.memo || ''}</div>
+      <button class="vd-memo-btn" id="memoEditBtn">${it.memo ? '메모 수정' : '메모 추가'}</button>
       <div id="memoEditBox" hidden>
         <textarea class="memo-in" id="vdMemo" placeholder="증상이나 진료 중 기억해둘 내용을 적어주세요.">${it.memo}</textarea>
         <div class="memo-actions"><button class="memo-cancel" id="memoCancel">취소</button><button class="memo-save" id="memoSave">저장</button></div>
       </div>
     </section>
-    <div class="note"><span>ⓘ</span><span>처방 정보는 심사평가원 자료를 기준으로 하며,
-    <b>최근 한 달 이내 진료는 아직 반영되지 않을 수 있어요.</b></span></div>`;
+    <p class="vd-note">처방 정보는 심사평가원 자료를 기준으로 하며, <b>최근 한 달 이내 진료는 아직 반영되지 않을 수 있어요.</b></p>`;
   const memoEditBtn=document.getElementById('memoEditBtn');
   const memoView=document.getElementById('memoView');
   const memoEditBox=document.getElementById('memoEditBox');
   const memoInput=document.getElementById('vdMemo');
-  memoEditBtn.onclick=()=>{ memoView.hidden=true; memoEditBox.hidden=false; memoInput.focus(); };
-  document.getElementById('memoCancel').onclick=()=>{ memoInput.value=it.memo; memoEditBox.hidden=true; memoView.hidden=false; };
+  memoEditBtn.onclick=()=>{ memoView.hidden=true; memoEditBtn.hidden=true; memoEditBox.hidden=false; memoInput.focus(); };
+  document.getElementById('memoCancel').onclick=()=>{ memoInput.value=it.memo; memoEditBox.hidden=true; memoView.hidden=!it.memo; memoEditBtn.hidden=false; };
   document.getElementById('memoSave').onclick=()=>{
     const value=memoInput.value.trim();
     CLINICS.forEach(y=>y.days.forEach(d=>d.items.forEach(x=>{ if(x.id===id) x.memo=value; })));
-    it.memo=value; memoView.textContent=value||'작성한 메모가 없어요.';
-    memoView.classList.toggle('empty',!value); memoEditBtn.textContent=value?'수정':'메모 추가';
-    memoEditBox.hidden=true; memoView.hidden=false;
+    it.memo=value; memoView.textContent=value;
+    memoEditBtn.textContent=value?'메모 수정':'메모 추가';
+    memoEditBox.hidden=true; memoView.hidden=!value; memoEditBtn.hidden=false;
   };
   document.getElementById('visitDet').classList.add('open');
 }
@@ -5536,7 +5750,8 @@ function renderSelvy(){
       <div class="sv-logo">🔷 Selvy <em>Checkup</em></div>
       <h1>인공지능으로<br>10대 질환 위험도 예측</h1>
       <div class="organs">${SV_ROWS.map(r=>`<div class="orow">${r.map(d=>`<span>${d}</span>`).join('')}</div>`).join('')}</div>
-      <p>검진정보를 AI로 분석해 위 <b>10대 질환</b>의<br>발병 위험도를 쉽게 알려드립니다.</p>
+      <p>건강검진 결과를 AI로 분석해 다음 질환의<br>발병 위험도를 쉽게 알려드립니다.</p>
+      <div class="sv-dz">당뇨, 심장질환, 뇌졸중, 치매, 간암, 위암,<br>대장암, 유방암, 전립선암, 폐암</div>
     </div>
     <div class="sv-sec">
       <h2>셀비 체크업으로<br>알 수 있는 것</h2>
@@ -5548,7 +5763,7 @@ function renderSelvy(){
       <div class="sv-card"><div class="sv-no">2</div><h3>주요 위험 요인 분석</h3><p>어떤 건강 지표와 생활 습관이 위험도에<br>영향을 주는지 살펴볼 수 있습니다.</p>
         ${radar(['공복 혈당','수축기 혈압','감마지티피','체질량 지수','총콜레스테롤'],[.62,.6,.58,.6,.6],[.86,.72,.5,.66,.8])}
         <div class="rd-lg"><span><i style="background:#5A6880"></i>정상그룹</span><span><i style="background:#2F6BFF"></i>김마이님</span></div></div>
-      <div class="sv-card"><div class="sv-no">3</div><h3>건강나이 측정</h3><p>검진 결과를 종합해 실제 나이와 비교한<br>건강 나이를 알려드립니다.</p>
+      <div class="sv-card"><div class="sv-no">3</div><h3>건강나이 측정</h3><p>어떤 건강 지표와 생활 습관이 위험도에<br>영향을 주는지 살펴볼 수 있습니다.</p>
         <div class="age-flow"><div class="ab"><small>검진나이</small><b>38세</b></div><div class="arw">+1</div><div class="ab hi"><small>건강나이</small><b>39세</b></div></div></div>
       <div class="sv-card"><div class="sv-no">4</div><h3>이해하기 쉬운 리포트</h3><p>현재 건강 상태를 쉽게 이해하고 건강관리<br>방향을 세울 수 있도록 리포트를 제공합니다.</p><div class="rp"><div>📄</div><div>📊</div></div></div>
     </div>`;
@@ -5560,30 +5775,41 @@ const EXAMS = [
 ];
 let examPick = null;
 const PROMO = true;
+const EX_ITEMS = [
+  {k:'hard', t:'격렬한 운동', d:'1주일 중 20분 이상 격렬한 운동'},
+  {k:'mid',  t:'중간 정도의 운동', d:'1주일 중 30분 이상 중간 정도의 운동'},
+  {k:'walk', t:'걷기 운동', d:'1주일 중 총 30분 이상 걷기'}
+];
+const exDays = {hard:7, mid:7, walk:7};
 function renderPay(){
   const n = ticketCount();
   const fee = PROMO
-    ? `<div class="fee promo"><span class="promo-tag">출시 이벤트</span><div class="fee-b"><small>셀비 체크업 1회 이용료</small><b><del>25,000원</del><span class="free">무료</span></b></div></div>
-       <p class="promo-note">출시를 기념해 2026년 9월 30일까지 무료로 제공해요.<br>이벤트 종료 후에는 1회 25,000원이 부과됩니다.</p>`
+    ? `<div class="pay-fee"><span>셀비 체크업 1회 이용료</span><div class="pf-r"><del>25,000원</del><b>0원</b></div></div>
+       <p class="pay-promo">현재 무료 프로모션 중이라 0원으로 결제돼요.</p>`
     : `<div class="fee"><small>보유 이용권</small><b>${n}<span style="font-size:14px;font-weight:500;margin-left:4px">장</span></b></div>`;
   document.getElementById('payBody').innerHTML = `
-    <h1>분석에 사용할<br>검진정보 데이터를 선택해 주세요.</h1>
+    <h1>셀비 체크업 서비스 이용을 위해<br>결제를 진행해 주세요.</h1>
     ${fee}
     <div class="pick">
-      <small>검진정보 데이터 선택</small>
+      <small>건강검진 데이터 선택</small>
       ${EXAMS.map((e,i)=>`<div class="pick-r ${examPick===i?'on':''}" data-i="${i}">
         <span class="rd"></span>
         <div class="pick-b"><b>${e.d}</b><small>${e.p}</small></div>
         ${e.recent?`<span class="pick-tag">최근 검진</span>`:''}
       </div>`).join('')}
     </div>
-    <div class="pay-note"><b>이용 안내</b><p>본 서비스 이용을 위해서는 검진정보가 필요합니다. 검진정보 데이터가 나오지 않는 경우, 병원 탭에서 검진 데이터를 등록해 주세요.</p></div>
+    <div class="ex-set">${EX_ITEMS.map(x=>`<div class="ex-r">
+      <div class="ex-t"><div><b>${x.t}</b><small>${x.d}</small></div><span class="ex-v" id="exv-${x.k}">${exDays[x.k]}일</span></div>
+      <input type="range" class="ex-rg" min="0" max="7" step="1" value="${exDays[x.k]}" data-k="${x.k}" aria-label="${x.t} 일수" style="--p:${exDays[x.k]/7*100}%">
+    </div>`).join('')}</div>
+    <div class="pay-note"><b>이용 안내</b><p>본 서비스 이용을 위해서는 건강검진 결과가 필요합니다. 건강검진 데이터가 나오지 않는 경우, 병원 탭에서 검진 데이터를 등록해 주세요.</p></div>
     ${(!PROMO && n===0) ? `<div class="pay-note" style="margin-top:12px"><b>이용권이 없어요</b><p>Selvy Checkup 분석을 위해서는 이용권이 1장 필요합니다. 더보기 › 이용권 관리에서 구매해 주세요.</p></div>` : ``}`;
   document.querySelectorAll('.pick-r').forEach(r=>{ r.onclick = ()=>{ examPick = +r.dataset.i; renderPay(); }; });
+  document.querySelectorAll('.ex-rg').forEach(r=>{ r.oninput = ()=>{ exDays[r.dataset.k] = +r.value; r.style.setProperty('--p', (r.value/7*100)+'%'); document.getElementById('exv-'+r.dataset.k).textContent = r.value+'일'; }; });
   const noTicket = !PROMO && n===0;
   document.getElementById('payGo').disabled = examPick === null || noTicket;
-  document.getElementById('payGo').textContent = PROMO ? '무료로 분석 시작하기' : (noTicket ? '이용권이 필요해요' : `이용권 사용하기 (${n}장 보유)`);
-  document.querySelector('.pay-h h2').textContent = '분석 신청';
+  document.getElementById('payGo').textContent = PROMO ? '0원 결제하기' : (noTicket ? '이용권이 필요해요' : `이용권 사용하기 (${n}장 보유)`);
+  document.querySelector('.pay-h h2').textContent = '결제';
 }
 function openSelvy(){ renderSelvy(); document.getElementById('selvy').classList.add('open'); }
 document.getElementById('svBack').onclick = ()=>document.getElementById('selvy').classList.remove('open');
@@ -5651,7 +5877,7 @@ const ACC_META = {
   consents:'동의 관리', announce:'공지사항', policies:'약관 및 정책',
   privacy:'개인정보 처리방침', terms:'서비스 이용 약관',
   support:'문의하기', logout:'로그아웃', withdraw:'회원탈퇴',
-  ticket:'이용권 관리', language:'언어', consent:'개인정보 수집 및 이용동의'
+  ticket:'이용권 관리', language:'언어', consent:'개인정보 수집 및 이용동의', chronic:'만성질환'
 };
 
 /* ══════════════ AI 건강 인사이트 ══════════════ */
@@ -6171,10 +6397,71 @@ function openAccount(type){
   renderAccountSub(type);
   sub.classList.add('open');
 }
-document.getElementById('accBack').onclick=()=>document.getElementById('accountSub').classList.remove('open');
+document.getElementById('accBack').onclick=()=>{const sub=document.getElementById('accountSub');if(sub.dataset.type==='chronic'){CHRONIC.draft=null;openAccount('profile');return;}sub.classList.remove('open');};
 function toggleNotice(k){ NOTICE_PREF[k]=!NOTICE_PREF[k]; renderAccountSub('notice'); setBell(); }
+const CHRONIC_LIST = [
+  {k:'htn', code:'HYPERTENSION', n:'고혈압', ic:'💗'}, {k:'dm', code:'DIABETES', n:'당뇨병', ic:'🩸'}, {k:'dyslip', code:'DYSLIPIDEMIA', n:'이상지질혈증', ic:'🫀'},
+  {k:'ckd', code:'CHRONIC_KIDNEY_DISEASE', n:'만성 신장질환', ic:'🫘'}
+];
+/* 내정보 자가 입력과 진료정보는 별도 출처다. 직접 선택 축을 먼저 쓰고
+   진료정보 축은 두 번째로 보완한다. 안전 제외 조건은 두 출처를 합친다. */
+const CHRONIC_DIET = {
+  htn:{rule:'DX-02',axis:'salt',ban:[]},
+  dm:{rule:'DX-01',axis:'sweet',ban:['FAST','REDUCE']},
+  dyslip:{rule:'DX-03',axis:'fat',ban:[]},
+  ckd:{rule:'DX-05',axis:null,ban:['INCREASE','REDUCE','FLUID']}
+};
+const CHRONIC = { picked:[], draft:null, savedAt:null, none:false, payload:null };
+function chronicPayload(){
+  return {response_state:CHRONIC.none?'NONE':CHRONIC.picked.length?'SELECTED':'UNANSWERED',
+    input_source:'SELF_REPORTED',
+    condition_codes:CHRONIC.picked.map(k=>CHRONIC_LIST.find(c=>c.k===k).code)};
+}
+function chronicDietState(){
+  const banned=new Set();
+  const order=['dm','htn','dyslip'];
+  for(const code of CHRONIC.picked) for(const nature of (CHRONIC_DIET[code]?.ban||[])) banned.add(nature);
+  const first=order.find(code=>CHRONIC.picked.includes(code));
+  return {banned,axis:first?CHRONIC_DIET[first].axis:null};
+}
+function toggleChronic(k){
+  const d = CHRONIC.draft;
+  if(k==='none'){ d.none = !d.none; if(d.none) d.picked = []; }
+  else { d.none = false; d.picked = d.picked.includes(k) ? d.picked.filter(x=>x!==k) : [...d.picked, k]; }
+  renderAccountSub('chronic');
+}
+function saveChronic(){
+  CHRONIC.picked = [...CHRONIC.draft.picked]; CHRONIC.none = CHRONIC.draft.none;
+  CHRONIC.payload = chronicPayload();
+  CHRONIC.savedAt = new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  const meal=goals.find(g=>g.key==='meal');
+  if(meal && meal.state!=='done' && generatedKeys.has('meal')){
+    const base=BASE_GOALS.find(g=>g.key==='meal');
+    goals=goals.map(g=>g.key==='meal'?{...mealGoal(base),state:'pending'}:g);
+    sync();
+  }
+  CHRONIC.draft = null; renderMore(); renderAccountSub('chronic');
+  if(typeof toast==='function') toast('만성질환 정보를 저장했어요');
+}
 function renderAccountSub(type){
   const el=document.getElementById('accBody');
+  if(type==='chronic'){
+    if(!CHRONIC.draft) CHRONIC.draft = {picked:[...CHRONIC.picked], none:CHRONIC.none};
+    const d = CHRONIC.draft;
+    const changed = d.none!==CHRONIC.none || d.picked.length!==CHRONIC.picked.length || d.picked.some(k=>!CHRONIC.picked.includes(k));
+    const linked = imp.clinic;
+    el.innerHTML = `
+      <div class="ch-hd"><b>진단받은 만성질환을<br>선택해 주세요</b><p>해당하는 질환을 모두 골라 주세요. 만성 신장질환은 맞지 않을 수 있는 식이 목표를 제외하는 데 사용해요.</p></div>
+      ${linked ? `<div class="ch-info">🔗 진료정보가 연동돼 있어요. 직접 선택을 먼저 반영하고 진료 기록은 다음 순서로 보완해요.</div>`
+               : `<div class="ch-info">진료정보를 연동하지 않아도 여기서 직접 선택할 수 있어요. 이 시연의 선택값은 현재 화면에서만 유지돼요.</div>`}
+      <div class="ch-grid">${CHRONIC_LIST.map(c=>`<button type="button" class="ch-chip ${d.picked.includes(c.k)?'on':''}" onclick="toggleChronic('${c.k}')" aria-pressed="${d.picked.includes(c.k)}"><span aria-hidden="true">${c.ic}</span>${c.n}</button>`).join('')}</div>
+      <button type="button" class="ch-none ${d.none?'on':''}" onclick="toggleChronic('none')" aria-pressed="${d.none}">위 질환은 없어요</button>
+      <p class="acc-note">고혈압·당뇨병·이상지질혈증은 해당 식이 목표를 고르는 데 반영해요. 만성 신장질환은 섭취량을 늘리거나 줄이거나 수분 섭취를 권하는 목표를 제외하는 데 반영해요.</p>
+      ${CHRONIC.savedAt ? `<p class="ch-meta">본인 입력 · 마지막 저장 ${CHRONIC.savedAt}</p>` : ''}
+      <p class="acc-note">직접 선택은 의학적 진단 확인으로 간주하지 않아요. 미완료 식이 목표만 다시 고르며 완료 기록은 유지해요.</p>
+      <button type="button" class="ch-save" onclick="saveChronic()" ${changed?'':'disabled'}>저장하기</button>`;
+    return;
+  }
   if(type==='profile'){
     /* 내정보 — 조회 전용. 생년월일 → 연락처 → 이메일 고정 순서, 값이 없으면 "등록 안 됨"(§5 · §6) */
     const v = x => x || '등록 안 됨';
@@ -6186,6 +6473,9 @@ function renderAccountSub(type){
         <div class="acc-row"><div class="tx"><b>이메일 주소</b></div><span class="val" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px">${v(PROFILE.email)}</span></div>
       </div></div>
       <p class="acc-note">가입할 때 확인한 정보라 앱에서 바로 바꿀 수 없어요. 바꿔야 한다면 더보기 &gt; 문의하기로 알려 주세요.</p>
+      <div class="acc-sec" style="margin-top:18px"><div class="acc-lab">건강 정보</div><div class="acc-card">
+        <button class="acc-row" style="width:100%;border:0;background:none;font:inherit;text-align:left;cursor:pointer" onclick="openAccount('chronic')"><div class="tx"><b>만성질환</b><small>선택한 질환을 식이 목표와 안전 조건에 반영해요</small></div><span class="val">${CHRONIC.picked.length ? CHRONIC.picked.map(k=>CHRONIC_LIST.find(c=>c.k===k).n).slice(0,2).join(`, `)+(CHRONIC.picked.length>2?` 외 ${CHRONIC.picked.length-2}`:``) : (CHRONIC.none?`위 질환 없음`:`입력하기`)} ›</span></button>
+      </div></div>
       <div class="mo-foot" style="padding-top:22px"><button onclick="openAccount('withdraw')">회원탈퇴 ›</button></div>`;
     return;
   }
@@ -6404,39 +6694,61 @@ const lvl = sc => sc>=20 ? ['높음','high'] : sc>=12 ? ['보통','mid'] : ['낮
 RISKS.sort((a,b)=>b.sc-a.sc);
 let riskPick = 0;
 const FACTORS = [['공복 혈당','94 mg/dL','경계'],['총콜레스테롤','201 mg/dL','경계'],['수축기 혈압','128 mmHg','경계'],['체질량 지수','23.4','정상'],['감마지티피','32 IU/L','정상']];
+const SR_RISKS = [
+  {n:'간암',sc:9,avg:15},{n:'대장암',sc:5,avg:8},{n:'폐암',sc:5,avg:8},{n:'심장질환',sc:4,avg:9},{n:'전립선암',sc:3,avg:6},
+  {n:'위암',sc:3,avg:6},{n:'뇌졸중',sc:3,avg:6},{n:'치매',sc:3,avg:6},{n:'당뇨',sc:3,avg:6}
+];
+const SR_GRADE = [['20대',[0.7,24.2,75.1]],['30대',[3.2,34.9,61.9]],['40대',[11.9,38.1,50.0]],['50대',[27.4,33.3,39.3]],['60대',[46.6,23.4,29.9]],['70대',[62.7,23.3,13.9]]];
+function srMini(sc){
+  const ang = Math.min(180, 180*sc/30), r=20, cx=26, cy=26;
+  const x = cx + r*Math.cos(Math.PI - ang*Math.PI/180), y = cy - r*Math.sin(Math.PI - ang*Math.PI/180);
+  return `<svg viewBox="0 0 52 30" class="sr-mg"><path d="M6,26 A20,20 0 0 1 46,26" fill="none" stroke="#E5E7EB" stroke-width="5"/><path d="M6,26 A20,20 0 0 1 ${x.toFixed(1)},${y.toFixed(1)}" fill="none" stroke="#12A150" stroke-width="5"/></svg>`;
+}
 function renderResult(){
-  const r = RISKS[riskPick], [lt,lc] = lvl(r.sc);
-  const diff = r.sc - r.avg;
-  const mx = Math.max(r.sc, r.avg) * 1.15;
+  const top = SR_RISKS[0];
+  document.querySelector('#svResult .rs-h h2').textContent = 'Selvy Checkup 검진 결과';
   document.getElementById('rsBody').innerHTML = `
-    <p class="rs-meta">분석일 2026.08.20 · 2024년 6월 19일 검진 결과 기준</p>
-    <section class="rs-sum">
-      <div class="lb">김마이님의 건강나이</div><div class="big"><em>39세</em></div>
-      <div class="age-flow"><div class="ab"><small>검진나이</small><b>38세</b></div><div class="arw">+1</div><div class="ab hi"><small>건강나이</small><b>39세</b></div></div>
-      <p>전반적인 위험도는 낮은 편이지만, <b>공복 혈당과 총콜레스테롤이 경계 구간</b>에 있어 당뇨 위험도가 또래 평균보다 높게 나왔어요.</p>
-    </section>
-    <section class="card">
-      <div class="card-t" style="margin-bottom:6px">10대 질환 발병 위험도</div>
-      <div class="card-s" style="margin-bottom:14px">항목을 누르면 자세히 볼 수 있어요</div>
-      ${RISKS.map((d,i)=>{const [t,c]=lvl(d.sc);
-        return `<div class="dz-r ${i===riskPick?'on':''}" data-i="${i}"><b>${d.n}</b><div class="dz-bar"><i class="bg-${c}" style="width:${d.sc*2.6}%"></i></div><span class="dz-sc">${d.sc}</span><span class="dz-lv lv-${c}">${t}</span></div>`}).join('')}
-    </section>
-    <section class="card">
-      <div class="card-t" style="margin-bottom:14px">${r.n} 상세</div>
-      <div class="sv-demo">
-        <div class="sv-box"><div class="cap">AI 발병 통계 지수</div>${gauge(r.sc)}<div class="gscore">${r.sc}점</div><span class="gtag" style="background:${lc==='low'?'#12A150':lc==='mid'?'#E5893A':'#E8365D'}">${lt}</span></div>
-        <div class="sv-box"><div class="cap">30대 연령<br>평균 측정치 대비<br><em>${diff>=0?diff+'점 높음':Math.abs(diff)+'점 낮음'}</em></div><div class="cmp"><div><i class="avg" style="height:${r.avg/mx*100}%">${r.avg}</i><small>평균</small></div><div><i class="now" style="height:${r.sc/mx*100}%">${r.sc}</i><small>현재</small></div></div></div>
+    <section class="sr-hero">
+      <h1>Selvy Checkup<br>인공지능 건강분석 리포트</h1>
+      <div class="sr-info">
+        <div><span>이름</span><b>${USER.name}</b></div>
+        <div><span>검진일</span><b>2024년 6월 19일</b></div>
+        <div><span>검진 당시 나이</span><b>38세</b></div>
       </div>
     </section>
-    <section class="card">
-      <div class="card-t" style="margin-bottom:6px">주요 위험 요인</div>
-      <div class="card-s" style="margin-bottom:10px">검진 수치가 위험도에 미친 영향이에요</div>
-      ${radar(['공복 혈당','수축기 혈압','감마지티피','체질량 지수','총콜레스테롤'],[.6,.6,.6,.6,.6],[.86,.74,.52,.64,.82])}
-      <div class="rd-lg" style="margin-bottom:14px"><span><i style="background:#5A6880"></i>정상그룹</span><span><i style="background:#2F6BFF"></i>김마이님</span></div>
-      ${FACTORS.map(f=>`<div class="rf-r"><b>${f[0]}</b><span>${f[1]}</span><span class="st ${f[2]==='정상'?'normal':'caution'}">${f[2]}</span></div>`).join('')}
+    <section class="card sr-card">
+      <h2>건강나이</h2>
+      <p>검진 당시의 건강나이가 실제 나이와 같지만, 건강 나이가 높아질 경우 다양한 질병의 발병 확률과 사망률이 높아질 수 있습니다.</p>
+      <div class="age-flow"><div class="ab"><small>검진나이</small><b>38세</b></div><div class="arw">+1</div><div class="ab hi"><small>건강나이</small><b>39세</b></div></div>
+      <p class="sr-fine">건강나이란 생년월일에 따른 나이가 아닌 신체의 나이를 의미하는 것으로 고객님의 실제 나이와 비교하여 신체 건강 수준을 알 수 있습니다.</p>
     </section>
-    <section class="card"><button class="next-cta pri">리포트 저장하기</button></section>`;
-  document.querySelectorAll('.dz-r').forEach(el=>{ el.onclick = ()=>{ riskPick = +el.dataset.i; renderResult(); }; });
+    <section class="card sr-card">
+      <h2>발병통계지수</h2>
+      <p>발병통계지수가 가장 높은 질환은 &lsquo;${top.n}(${top.sc}점)&rsquo;입니다. 현재 낮음 단계에 속하여 해당 질병에 대한 관리와 대비가 필요합니다.</p>
+      <div class="sr-grid">${SR_RISKS.map(d=>`<div class="sr-gi">${srMini(d.sc)}<b>${d.sc}점</b><span class="sr-lv">낮음</span><small>${d.n}</small></div>`).join('')}</div>
+    </section>
+    <section class="card sr-card">
+      <h2>건강검진 판정등급</h2>
+      <div class="sr-grade"><small>최근 검진기준 건강위치(종합)</small><b>정B</b></div>
+      <div class="sr-cap">▶︎ 건강검진 판정등급 연령별 비율 추이</div>
+      <div class="sr-bars">${SR_GRADE.map(([ag,v])=>`<div class="sr-col ${ag==='30대'?'me':''}">
+        <div class="sr-stk"><i class="g1" style="height:${v[0]}%"><em>${v[0]}%</em></i><i class="g2" style="height:${v[1]}%"><em>${v[1]}%</em></i><i class="g3" style="height:${v[2]}%"><em>${v[2]}%</em></i></div>
+        <small>${ag}</small></div>`).join('')}</div>
+      <div class="sr-leg"><span><i class="g1"></i>유질환자</span><span><i class="g2"></i>질환의심</span><span><i class="g3"></i>정상(A,B)</span></div>
+    </section>
+    ${SR_RISKS.map(d=>{ const diff=d.sc-d.avg, mx=Math.max(d.sc,d.avg)*1.2;
+      return `<section class="card sr-card">
+      <h2>${d.n}</h2>
+      <p>발병통계지수는 ${d.sc}점으로, 동일 연령대 평균에 비해 ${Math.abs(diff)}점 ${diff>0?'높습니다':'낮아 양호한 상태입니다'}.</p>
+      <div class="sv-demo">
+        <div class="sv-box"><div class="cap">AI 발병 통계 지수</div>${gauge(d.sc)}<div class="gscore">${d.sc}점</div><span class="gtag">낮음</span></div>
+        <div class="sv-box"><div class="cap">30대 연령<br>평균 측정치 대비<br><em>${Math.abs(diff)}점 ${diff>=0?'높음':'낮음'}</em></div><div class="cmp"><div><i class="avg" style="height:${d.avg/mx*100}%">${d.avg}</i><small>평균</small></div><div><i class="now" style="height:${d.sc/mx*100}%">${d.sc}</i><small>현재</small></div></div></div>
+      </div></section>`;}).join('')}
+    <button class="sr-cta" type="button">상세 리포트 보기</button>
+    <ul class="sr-notes">
+      <li>본 리포트의 위험도와 분석 결과는 참고용입니다. 자세한 사항은 반드시 의사선생님과 상담해 주세요.</li>
+      <li>본 리포트는 고객님이 최근에 받은 건강검진 결과를 기준으로 분석한 결과이므로 현재의 건강상태와는 다를 수 있습니다.</li>
+    </ul>`;
 }
 document.getElementById('rsBack').onclick = ()=>document.getElementById('svResult').classList.remove('open');
 
@@ -7004,7 +7316,6 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  peer.querySelectorAll('.home-peer-item').forEach((item,index)=>{item.querySelector('svg').remove();item.insertAdjacentHTML('afterbegin','<span class="home-peer-emoji" aria-hidden="true">'+friendlyIcons[index]+'</span>');});
  insight.querySelector('.home-insight-icon').textContent='✨';
  overview.querySelector('.home-age-symbol').textContent='💗';
- peer.insertAdjacentHTML('beforeend','<details class="home-peer-help"><summary>비교 기준</summary><p>같은 성별·연령대의 항목별 분포 위치를 보여주는 시연값이에요. 숫자는 항목별 분포에서의 위치를 뜻해요.</p></details>');
  document.getElementById('homeAgeValue').setAttribute('aria-label','건강나이');
  insight.querySelector('.home-insight-label').textContent='AI 건강 인사이트';
  const note=document.createElement('div');note.className='home-preview-note';note.textContent='RSNA 시연용 예시 데이터 · 정보 중심 홈 구성안';home.appendChild(note);

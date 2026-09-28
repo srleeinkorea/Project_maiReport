@@ -2840,7 +2840,7 @@ function targetMeal(h){
 const TARGET_MEAL = targetMeal();
 /* 시연 화면은 식후 후보 10개 중 질환·상황 조건이 없는 준비 행동 한 건을 표시한다.
    운영 구현에서는 노출조건.after_dinner_eligible와 모든 후보 필터를 조회한다. */
-const AFTER_DINNER_GOAL = {title:'아침 먹을 자리 치워 두기', why:'자리가 준비돼 있으면 아침을 시작하기 수월해요.'};
+const AFTER_DINNER_GOAL = {title:'아침거리 미리 꺼내 두기', why:'아침에 고민할 일이 없으면 덜 거르게 돼요.'};
 const MEAL_WORDS = ['아침','점심','저녁'];
 function fitsTarget(p){
   const word = MEAL_WORDS.find(w=>p.title.includes(w));
