@@ -563,7 +563,7 @@ pre.json .k{color:#8AB4FF}pre.json .s{color:#FFD58A}pre.json .n{color:#9EF0C4}
 <div class="page">
   <div class="top">
     <h1>더보기 · 내정보 관리 화면 설계서</h1>
-    <p>더보기 탭 맨 위 프로필 카드에서 들어가는 <b>내정보 관리</b> 화면 설계서. 가입 정보 조회, 관리 중인 질환 입력, 검진 · 진료정보 연동, 동의 · 알림 · 이용권 관리, 회원탈퇴 흐름을 정의함.
+    <p>더보기 탭 맨 위 프로필 카드에서 들어가는 <b>내정보 관리</b> 화면 설계서. 가입 정보 조회, 관리 중인 질환 입력, 건강데이터 · 건강검진 · 진료정보 연동, 동의 · 알림 · 이용권 관리, 회원탈퇴 흐름을 정의함.
       왼쪽 화면은 직접 조작 가능하며, 오른쪽에 화면별 설계서(화면 동작 · 표시 정보)를 기재함. 화면 내 데이터는 모두 가상임.</p>
   </div>
   <div class="controls">
@@ -618,7 +618,7 @@ more(){
       <span style="flex:1;min-width:0"><b style="display:block;font-size:19px;font-weight:800;line-height:1.35">${me().name}</b><small style="display:block;margin-top:2px;font-size:var(--t-cap);color:var(--ink-3)">내정보 관리</small></span>
       <span class="cv">›</span></button></div>
     <div class="mo-lab">연동</div>
-    <div class="mo-card">${row("건강데이터","삼성헬스")}${row("검진 · 진료정보", S.scen==="medoff"?"미연동":"검진 · 진료","medlink")}</div>
+    <div class="mo-card">${row("건강데이터", S.scen==="devoff"?"미연동":"연동","device")}${row("건강검진 · 진료정보", S.scen==="medoff"?"미연동":"연동","medlink")}</div>
     <div class="mo-lab">서비스</div>
     <div class="mo-card">${row("동의 관리","","consents")}${row("알림 관리","","notice")}${row("이용권 관리","무상 제공 중","ticket")}${row("언어","한국어")}</div>
     <div class="mo-lab">법적 정보 및 기타</div>
@@ -652,12 +652,20 @@ chronic(){
     ${S.savedAt ? `<p class="ch-meta" data-f="마지막 저장일">마지막 저장 ${S.savedAt}</p>` : ""}
     <button type="button" class="ch-save" onclick="save()" ${changed?"":"disabled"}>저장하기</button>`);
 },
+/* MORE-031 건강데이터 */
+device(){
+  const off = S.scen==="devoff";
+  const card = off
+    ? `<div class="ml-card"><b class="ml-t">건강 데이터를 연동해 주세요</b><small class="ml-d">연동하면 오늘의 컨디션, 생활 분석, AI 건강 인사이트에 데이터가 반영돼요.</small><div class="ml-act"><button class="ml-btn" style="color:var(--brand)" onclick="toast('연동할 앱 선택 (예시)')">연동하기</button></div></div>`
+    : `<div class="ml-card"><b class="ml-t" data-f="연동 앱">삼성헬스</b><small class="ml-d" data-f="마지막 동기화">동기화 완료 · 2시간 전</small><div class="ml-act"><button class="ml-btn" style="color:#E5395C" onclick="toast('해제 확인 (예시)')">연동해제</button></div></div>`;
+  return subShell("건강데이터","go('more')", `<div class="acc-sec"><div class="acc-lab">건강 데이터 연동</div>${card}</div><p class="acc-note">걸음 수 · 수면 · 심박수 등 생활 데이터와 AI 건강 인사이트 분석에 사용돼요. 연동을 해제하면 새 데이터를 더 이상 가져오지 않고, 이미 분석된 리포트는 그대로 남아요.<br>다른 앱(삼성헬스 또는 헬스 커넥트)으로 변경하려면 해제 후 다시 연동해 주세요.</p>`);
+},
 /* MORE-030 검진 · 진료정보 */
 medlink(){
   const off = S.scen==="medoff";
   const btn = (l,c) => `<button class="ml-btn" style="color:${c}" onclick="toast('${l} (예시)')">${l}</button>`;
   const card = (name,desc) => `<div class="ml-card"><b class="ml-t">${name}</b><small class="ml-d">${desc}</small>${off ? "" : `<div class="ml-row" data-f="마지막 업데이트"><span>마지막 업데이트</span><b>2026.09.18</b></div><div class="ml-row" data-f="가져온 기간"><span>가져온 기간</span><b>2016 ~ 2025</b></div>`}<div class="ml-act">${off ? btn("연동하기","var(--brand)") : btn("업데이트","var(--ink-1)")+btn("연동해제","#E5395C")}</div></div>`;
-  return subShell("검진 · 진료정보","go('more')", card("검진정보","국민건강보험공단 · 건강검진 결과") + card("진료정보","건강보험심사평가원 · 병원 방문 · 처방 기록"));
+  return subShell("건강검진 · 진료정보","go('more')", card("검진정보","국민건강보험공단 · 건강검진 결과") + card("진료정보","건강보험심사평가원 · 병원 방문 · 처방 기록"));
 },
 /* MORE-040 동의 관리 */
 consents(){
@@ -732,7 +740,10 @@ const SIDE = {
   chronic:{step:"③ 입력",id:"MORE-011",title:"관리 중인 질환 입력",
     desc:"현재 치료 중이거나 정기적으로 확인 중인 질환을 사용자가 직접 선택하는 화면. 고정된 4개 항목(고혈압 · 당뇨병 · 이상지질혈증 · 만성 신장질환) 중 복수 선택 가능하며, 1개 이상 선택 시 저장 가능함.",
     info:[["선택 질환","사용자 직접 선택","복수 선택 가능"],["최종 저장일","저장 시점 기록","1회 이상 저장한 경우에만 표시"]]},
-  medlink:{step:"",id:"MORE-030",title:"검진 · 진료정보",
+  device:{step:"",id:"MORE-031",title:"건강데이터",
+    desc:"걸음 수 · 수면 · 심박수 등 생활 데이터를 가져올 앱을 연동하거나 해제하는 화면. 한 번에 한 앱만 연동함.",
+    info:[["연동 앱","연동 설정","연동 시 카드 제목 (삼성헬스 / 헬스 커넥트 / 건강 앱)"],["마지막 동기화","동기화 기록","‘동기화 완료 · N분(시간) 전’, 동기화 중에는 ‘동기화 중…’"]]},
+  medlink:{step:"",id:"MORE-030",title:"건강검진 · 진료정보",
     desc:"검진정보와 진료정보의 연동 상태를 기관별 카드로 보여주고, 카드마다 연동 · 업데이트 · 연동해제를 하는 화면.",
     info:[["검진정보","국민건강보험공단 · 건강검진 결과","카드 제목 · 설명"],["진료정보","건강보험심사평가원 · 병원 방문 · 처방 기록","카드 제목 · 설명"],["마지막 업데이트","연동 기록","연동 시에만 표시 (YYYY.MM.DD)"],["가져온 기간","연동 기록","연동 시에만 표시 (YYYY ~ YYYY)"]]},
   consents:{step:"",id:"MORE-040",title:"동의 관리",
@@ -755,7 +766,7 @@ const SPEC = {
   more:[["진입 경로","하단 더보기 탭 → 최상단 프로필 카드 → 내정보 화면으로 이동"],
     ["프로필 카드","이름만 표시. 연락처 · 이메일은 내정보 화면에서만 표시"],
     ["메뉴 구성","연동 / 서비스 / 법적 정보 및 기타 3개 묶음"],
-    ["연동","건강데이터 · 검진 · 진료정보. 연동된 대상 이름 표시, 미연동 시 ‘미연동’"],
+    ["연동","건강데이터 · 건강검진 · 진료정보. 오른쪽에 ‘연동’ / ‘미연동’만 표시 (건강검진 · 진료정보는 하나라도 연동되면 ‘연동’)"],
     ["서비스","동의 관리 · 알림 관리 · 이용권 관리(‘무상 제공 중’) · 언어(한국어)"],
     ["법적 정보 및 기타","서비스 이용 약관 · 개인정보 처리방침 · 개인정보 수집 및 이용동의 (각각 별도 화면)"],
     ["제외 메뉴","공지사항 · 문의하기는 두지 않음"]],
@@ -771,12 +782,17 @@ const SPEC = {
     ["이전 화면","저장하지 않은 선택은 폐기 후 내정보로 이동"],
     ["활용 범위","사용자 입력값이며 의료진 진단이 아님. 목표 추천 · 주의 문구에만 활용"],
     ["저장 실패","‘저장하지 못했어요. 잠시 후 다시 시도해 주세요’ 안내, 선택 내용 유지"]],
+  device:[["미연동","‘건강 데이터를 연동해 주세요’ 카드 + ‘연동하기’ 버튼"],
+    ["연동하기 (Android)","‘어떤 앱의 건강 데이터를 연동할까요?’ 시트에서 삼성헬스 · 헬스 커넥트 중 하나 선택 → 다음 → 권한 허용"],
+    ["연동하기 (iOS)","건강 앱 접근 시스템 시트(OS 제공)에서 항목별 허용"],
+    ["연동됨","연동 앱 이름 · ‘동기화 완료 · N시간 전’ + ‘연동해제’ 버튼. 수동 동기화 버튼 · 연동 기록은 두지 않음 (앱 · 생활 탭 진입 시 자동 동기화)"],
+    ["연동해제","‘{앱} 연동을 해제할까요?’ 시트 → ‘연동 해제하기’ / ‘취소’. 해제 후 새 데이터 수집 중단, 기존 리포트는 유지"],
+    ["앱 변경","해제 후 다시 연동 (안내 문구로 표시)"]],
   medlink:[["카드 구성","검진정보 · 진료정보 카드 2개. 제공 기관이 달라 카드별로 따로 연동"],
     ["미연동","카드 제목 · 설명 + ‘연동하기’ 버튼"],
     ["연동됨","마지막 업데이트 · 가져온 기간 표시 + ‘업데이트’ · ‘연동해제’ 버튼"],
     ["연동하기 · 업데이트","간편인증 후 데이터를 가져옴. 가져오는 동안 버튼은 ‘가져오는 중…’, 다른 카드 버튼 비활성"],
-    ["연동해제","확인 후 해당 기관 데이터와 이를 바탕으로 만든 화면 삭제"],
-    ["더보기 표시","연동된 대상 이름(검진 · 진료 / 검진 / 진료), 없으면 ‘미연동’"]],
+    ["연동해제","확인 후 해당 기관 데이터와 이를 바탕으로 만든 화면 삭제"],],
   consents:[["필수 동의","서비스 이용약관 · 개인정보 수집 · 이용 · 민감정보 처리. 동의일만 표시, 변경 불가. 철회는 회원탈퇴로만 가능"],
     ["선택 동의","마케팅 정보 수신 · 서비스 품질 향상을 위한 데이터 활용. 스위치로 즉시 변경, 켜짐 시에만 동의일 표시"],
     ["확인 필요","민감정보 처리 항목의 수집 항목 설명을 화면에서 제외함 → 법무 검토 시 재확인"]],
@@ -807,9 +823,9 @@ function renderSide(){
 if (S.sideTab==="json") S.sideTab="spec";
 
 /* ════════ 라우팅 ════════ */
-const JUMP = [["more","① 더보기"],["profile","② 내정보"],["chronic","③ 관리 중인 질환"],["medlink","④ 검진 · 진료정보"],["consents","⑤ 동의 관리"],["notice","⑥ 알림 관리"],["ticket","⑦ 이용권 관리"],["withdraw","⑧ 회원탈퇴"],["bye","⑨ 탈퇴 완료"]];
-const SCEN_FOR = {medoff:["medlink","more"], many:["profile","chronic"], ticket:["ticket","more"]};
-const LABEL = {normal:"기본", medoff:"미연동", many:"관리 중인 질환 3개", ticket:"미사용 이용권"};
+const JUMP = [["more","① 더보기"],["profile","② 내정보"],["chronic","③ 관리 중인 질환"],["device","④ 건강데이터"],["medlink","⑤ 건강검진 · 진료정보"],["consents","⑥ 동의 관리"],["notice","⑦ 알림 관리"],["ticket","⑧ 이용권 관리"],["withdraw","⑨ 회원탈퇴"],["bye","⑩ 탈퇴 완료"]];
+const SCEN_FOR = {medoff:["medlink","more"], devoff:["device","more"], many:["profile","chronic"], ticket:["ticket","more"]};
+const LABEL = {normal:"기본", medoff:"건강검진 · 진료정보 미연동", devoff:"건강데이터 미연동", many:"관리 중인 질환 3개", ticket:"미사용 이용권"};
 function toast(msg){ const t=document.getElementById("toast"); t.innerHTML=`<div class="toast">${msg}</div>`; clearTimeout(S.tt); S.tt=setTimeout(()=>t.innerHTML="",2600); }
 function go(k){ S.dlg=false; if (k!=="chronic") S.draft=null; if (k!=="withdraw"&&k!=="bye") S.agree=false; S.screen=k; render(); const sc=document.getElementById("sc"); if(sc) sc.scrollTop=0; }
 function setScen(k){
