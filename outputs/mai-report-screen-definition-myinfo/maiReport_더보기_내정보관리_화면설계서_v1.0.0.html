@@ -584,7 +584,7 @@ const CHRONIC_LIST = [
 const S = {mk:true, dq:false, goal:true, screen:"more", scen:"normal", picked:[], none:false, savedAt:null, draft:null, agree:false, sideTab:"spec"};
 
 /* ════════ 가공 ════════ */
-const me = () => S.scen==="noemail" ? {...ME, email:null} : ME;
+const me = () => ME;
 const clinicLinked = () => S.scen==="clinic" || S.scen==="clinic2";
 const v = x => x || "등록 안 됨";
 const nameOf = k => CHRONIC_LIST.find(c=>c.k===k).n;
@@ -711,7 +711,7 @@ const SIDE = {
     info:[["이름","가입 정보","항상 표시"]]},
   profile:{step:"② 조회",id:"MORE-010",title:"내정보",
     desc:"카카오 계정에서 연동한 사용자 정보를 조회하는 화면. 조회 전용이며 수정 기능은 제공하지 않음. 하단에 관리 중인 질환 입력 및 회원탈퇴 진입 경로를 둠.",
-    info:[["이름","카카오 계정 정보","항상 표시"],["생년월일","카카오 계정 정보","값이 없으면 ‘등록 안 됨’"],["연락처","카카오 계정 정보","값이 없으면 ‘등록 안 됨’"],["이메일 주소","카카오 계정 정보 (제공 동의 시)","값이 없으면 ‘등록 안 됨’"],["관리 중인 질환","사용자 직접 입력","미입력 시 ‘없음’"]]},
+    info:[["이름","카카오 계정 정보","항상 표시"],["생년월일","카카오 계정 정보","항상 표시"],["연락처","카카오 계정 정보","항상 표시"],["이메일 주소","카카오 계정 정보","항상 표시"],["관리 중인 질환","사용자 직접 입력","미입력 시 ‘없음’"]]},
   chronic:{step:"③ 입력",id:"MORE-011",title:"관리 중인 질환 입력",
     desc:"현재 치료 중이거나 정기적으로 확인 중인 질환을 사용자가 직접 선택하는 화면. 고정된 4개 항목(고혈압 · 당뇨병 · 이상지질혈증 · 만성 신장질환) 중 복수 선택 가능하며, 1개 이상 선택 시 저장 가능함.",
     info:[["선택 질환","사용자 직접 선택","복수 선택 가능"],["최종 저장일","저장 시점 기록","1회 이상 저장한 경우에만 표시"]]},
@@ -744,7 +744,6 @@ const SPEC = {
     ["항목 순서","생년월일 → 연락처 → 이메일 주소 (고정)"],
     ["관리 중인 질환","‘건강 정보’ 영역에 표시. 미입력 또는 모두 해제 시 ‘없음’, 3개 이상은 ‘고혈압, 당뇨병 외 1’ 형식"],
     ["회원탈퇴","다른 메뉴와 분리 배치하여 오선택 방지"],
-    ["이메일 미등록","카카오 가입 시 이메일 제공 미동의 → ‘등록 안 됨’ 표시"],
     ["조회 실패","‘정보를 불러오지 못했어요’ 문구 및 재시도 버튼 표시"]],
   chronic:[["화면 제목","‘현재 치료·관리 중인 질환을 모두 선택해 주세요.’ (‘만성질환’ 용어 미사용, 완치된 과거 질환 제외)"],
     ["선택 항목","고혈압 · 당뇨병 · 이상지질혈증 · 만성 신장질환 4개로 고정, 복수 선택 가능. ‘해당하는 질환이 없어요’ 버튼 없음"],
@@ -783,8 +782,8 @@ if (S.sideTab==="json") S.sideTab="spec";
 
 /* ════════ 라우팅 ════════ */
 const JUMP = [["more","① 더보기"],["profile","② 내정보"],["chronic","③ 관리 중인 질환"],["consents","④ 동의 관리"],["notice","⑤ 알림 관리"],["ticket","⑥ 이용권 관리"],["withdraw","⑦ 회원탈퇴"],["bye","⑧ 탈퇴 완료"]];
-const SCEN_FOR = {noemail:["more","profile"], clinic:["more"], many:["profile","chronic"], ticket:["ticket","more"]};
-const LABEL = {normal:"기본", noemail:"이메일 미등록", clinic:"진료정보 연동됨", many:"관리 중인 질환 3개", ticket:"미사용 이용권"};
+const SCEN_FOR = {clinic:["more"], many:["profile","chronic"], ticket:["ticket","more"]};
+const LABEL = {normal:"기본", clinic:"진료정보 연동됨", many:"관리 중인 질환 3개", ticket:"미사용 이용권"};
 function toast(msg){ const t=document.getElementById("toast"); t.innerHTML=`<div class="toast">${msg}</div>`; clearTimeout(S.tt); S.tt=setTimeout(()=>t.innerHTML="",2600); }
 function go(k){ S.dlg=false; if (k!=="chronic") S.draft=null; if (k!=="withdraw"&&k!=="bye") S.agree=false; S.screen=k; render(); const sc=document.getElementById("sc"); if(sc) sc.scrollTop=0; }
 function setScen(k){
