@@ -4437,7 +4437,7 @@ function renderLife(){ renderGoalPane(); renderMetricPane(); renderDaily(); rend
 const BAND_WORDS = { margin:['좋음','보통','주의'], selfcare:['좋음','보통','주의'], steady:['좋음','보통','주의'] };
 const CORE_ROWS = { margin:['활동 시간','수면'], selfcare:['걸음 수','식후 활동'], steady:['걸음 수','활동 시간','운동 기록','수면'] };
 /* ── 지표 해석 — 선택한 날을 전날과 비교한 한 문장 ──
-   · 구간이 바뀌면: {이유} 어제보다 {늘었/줄었}. 이유 = 전날 대비 가장 많이 달라진 핵심 데이터 1개(같은 방향, 10% 이상)
+   · 구간이 바뀌면: {이유} {나아졌어요/감소했어요}. 이유 = 전날 대비 가장 많이 달라진 핵심 데이터 1개(같은 방향, 10% 이상)
    · 같으면 이어진 날 수로: 2일 "어제처럼 ~", 3~6일 "N일째 ~", 7일 이상 "일주일 넘게 ~"
      주의가 3일 이상 이어지면 그 기간 계속 낮았던 항목 1개를 이유로 붙인다
    · 전날 기록이 없으면 "오늘은 ~" */
@@ -4447,8 +4447,8 @@ const DF_STATE = {
   steady:  {good:'일상의 균형이 안정적인 편이에요', mid:'일상의 균형이 보통이에요', low:'일상의 균형이 불안정한 편이에요'}
 };
 const DF_MOVE = {
-  margin:  {up:'몸의 여유가 어제보다 나아졌어요', down:'몸의 여유가 어제보다 감소했어요'},
-  selfcare:{up:'나를 챙기는 정도가 어제보다 나아졌어요', down:'나를 챙기는 정도가 어제보다 감소했어요'},
+  margin:  {up:'몸의 여유가 나아졌어요', down:'몸의 여유가 감소했어요'},
+  selfcare:{up:'나를 챙기는 정도가 나아졌어요', down:'나를 챙기는 정도가 감소했어요'},
   steady:  {up:'', down:''}
 };
 /* 일상안정은 7일 비교 점수라, 바뀐 뒤 구간으로 말한다 */
@@ -4556,7 +4556,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
 }
 function dfText(m, scores, i, valFn, judgeFn){
   const t = dayFlow(m.k, scores, i, valFn, judgeFn);
-  return m.notToday ? t.replace('어제보다','전날보다') : t;
+  return t;
 }
 function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
   const meta = METRICS.find(x=>x.k===m.k);
