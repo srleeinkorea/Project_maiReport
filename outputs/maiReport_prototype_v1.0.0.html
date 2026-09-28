@@ -4464,7 +4464,8 @@ const DF_WHY = {   /* 항목: [늘었을 때, 줄었을 때, 낮은 날이 이�
   '행동 완료':['이번 주 식후 활동을 챙긴 날이 늘면서','이번 주 식후 활동을 챙긴 날이 줄면서','식후 활동을 놓친 날이 이어지면서'],
   '걸음 발생일':['움직인 날이 늘면서','움직이지 않은 날이 생기면서','움직이지 않은 날이 이어지면서'],
   '수면 규칙성':['잠드는 시간이 일정해지면서','잠드는 시간이 불규칙해지면서','잠드는 시간이 불규칙한 날이 이어지면서'],
-  '분산':['움직임이 하루에 고르게 나뉘면서','활동이 한때에 몰리면서','활동이 한때에 몰리는 날이 이어지면서']
+  '분산':['움직임이 하루에 고르게 나뉘면서','활동이 한때에 몰리면서','활동이 한때에 몰리는 날이 이어지면서'],
+  '부담':['','활동이 많아 부담이 커지면서','활동이 많은 날이 이어지면서']
 };
 const DF_OVERLOAD = '활동이 많아 부담이 커지면서';
 /* 활동 분산 — "움직인 칸 수 · 가장 바쁜 칸 비중" (예: '5칸 · 30%') → 산식의 분산 몫 0~1 */
@@ -4549,6 +4550,14 @@ function dayFlow(k, scores, i, valFn, judgeFn){
     const LOW=/부족|적음|낮음|없음/;
     const hit=DF_CAND[k].find(nm=>{ for(let j=i-n+1;j<=i;j++){ if(!LOW.test(judgeFn(dfSrc(nm),j)||'')) return false; } return true; });
     if(hit) why = DF_WHY[dfKey(k,hit)][2]+' ';
+    /* 생활여유: 활동 분산(몰림) · 활동 부담(240분 초과)이 매일 이어졌는지도 봄 */
+    if(!hit && k==='margin'){
+      const every=f=>{ for(let j=i-n+1;j<=i;j++){ if(!f(j)) return false; } return true; };
+      const sp=j=>{ const v=dfSpread(dfSafe(valFn,'활동 분산',j)); return v!=null && v<0.4; };
+      const ov=j=>dfNum(valFn('활동 시간',j))>240;
+      if(every(sp)) why = DF_WHY['분산'][2]+' ';
+      else if(every(ov)) why = DF_WHY['부담'][2]+' ';
+    }
   }
   /* 이유가 있으면 'N일 연속'을 이유 안에 넣음: '수면이 짧은 날이 N일 연속 이어지면서 ~' */
   if(why) return `${why.replace('이어지면서', lead+' 이어지면서')}${DF_STATE[k][cur]}.`;
