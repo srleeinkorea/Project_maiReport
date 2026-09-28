@@ -151,7 +151,11 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 
   <h3>영향 점수 계산 방법</h3>
   <ul class="rules">
-    <li><code>재료별 영향(점) = 비중 × (선택일 재료 점수 − 전날 재료 점수) × 100</code></li>
+    <li><code>재료별 영향(점) = 선택일 기여 점수 − 전날 기여 점수</code></li>
+    <li><code>기여 점수 = 근거 상한(E) × 적용 가중치 × 재료 점수 × 100</code></li>
+    <li>적용 가중치 = 그날 실제로 산출에 쓰인 재료끼리 비중을 다시 나눈 값 (예: 식후 기록이 없으면 걸음 · 공백 후 · 분산 비중만으로 재조정)</li>
+    <li>근거 상한(E) = 자기돌봄 등 자료 수에 따라 점수 상한이 걸리는 경우 그 값 (없으면 1)</li>
+    <li><b>선택일 산출에 쓰이지 않은 재료는 이유 후보에서 제외</b></li>
     <li>재료 점수 = 산식이 각 재료를 0~1로 바꾼 값 (흐름도 산식 그대로)</li>
     <li>내려간 날은 가장 크게 마이너스, 올라간 날은 가장 크게 플러스인 재료 1개</li>
     <li>개발: 엔진이 계산 중 가진 재료 점수를 전날 값과 빼기만 하면 됨</li>
@@ -283,8 +287,10 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
    prev 없음 또는 none → "{상태}."
 3. cur != prev (구간 바뀜)
    up = 순서(low &lt; mid &lt; good)로 cur 이 더 높음
-   재료별 영향 = 비중 × (오늘 parts − 전날 parts) × 100
+   재료별 기여 = E × (그날 적용 가중치) × parts × 100
+     · 적용 가중치 = 그날 쓰인 재료끼리 재조정한 비중, E = 근거 상한
      · steady 는 × 50 (표시점수 = 50 + 50 × Z)
+   재료별 영향 = 선택일 기여 − 전날 기여
    후보 = excluded 제외 재료 중
      up 이면 영향 &gt; 0, 아니면 영향 &lt; 0
      margin 의 load 는 내려간 날만 후보
@@ -309,7 +315,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
     <tr><td class="k">연속 일수 중간에 빈 날</td><td>빈 날에서 끊고 그 뒤부터 셈</td></tr>
     <tr><td class="k">구간이 두 단계 바뀜 (주의 ↔ 좋음)</td><td>한 단계와 같은 문구</td></tr>
     <tr><td class="k">행동 완료 기회 0</td><td>excluded 로 보내 후보에서 제외</td></tr>
-    <tr><td class="k">재료가 excluded</td><td>이유 후보 · 주의 지속 판정에서 모두 제외</td></tr>
+    <tr><td class="k">재료가 excluded</td><td>이유 후보 · 주의 지속 판정에서 모두 제외 · 남은 재료로 가중치 재조정 후 영향 계산</td></tr>
     <tr><td class="k">갱신</td><td>동기화로 band 나 parts 가 바뀌면 그 날과 이후 날짜 문장 다시 생성</td></tr>
   </table>
 
