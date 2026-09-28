@@ -4440,7 +4440,7 @@ const BAND_WORDS = { margin:['좋음','보통','주의'], selfcare:['좋음','�
 const CORE_ROWS = { margin:['활동 시간','수면'], selfcare:['걸음 수','식후 활동'], steady:['걸음 수','활동 시간','운동 기록','수면'] };
 /* ── 지표 해석 — 선택한 날을 전날과 비교한 한 문장 ──
    · 구간이 바뀌면: {이유} {나아지고 있어요/감소하고 있어요}. 이유 = 전날 대비 가장 많이 달라진 핵심 데이터 1개(같은 방향, 10% 이상)
-   · 같으면 이어진 날 수로: "N일 연속 ~" (2일 이상)
+   · 같으면 이어진 날 수로: "N일째 ~" (2일 이상)
      주의가 3일 이상 이어지면 그 기간 계속 낮았던 항목 1개를 이유로 붙인다
    · 전날 기록이 없으면 "오늘은 ~" */
 const DF_STATE = {
@@ -4448,7 +4448,7 @@ const DF_STATE = {
   selfcare:{good:'나를 챙기는 정도가 좋은 편이에요', mid:'나를 챙기는 정도가 보통이에요', low:'나를 챙기는 정도가 부족한 편이에요'},
   steady:  {good:'일상의 균형이 안정적인 편이에요', mid:'일상의 균형이 보통이에요', low:'일상의 균형이 불안정한 편이에요'}
 };
-/* 같은 구간이 이어질 때: 'N일 연속'을 서술어 앞에 둠 */
+/* 같은 구간이 이어질 때: 'N일째'을 서술어 앞에 둠 */
 const DF_STREAK = {
   margin:  {good:'남아 있는 몸의 여유가 {N} 충분해요', mid:'남아 있는 몸의 여유가 {N} 보통 수준이에요', low:'남아 있는 몸의 여유가 {N} 부족해요'},
   selfcare:{good:'나를 챙기는 정도가 {N} 좋은 수준이에요', mid:'나를 챙기는 정도가 {N} 보통 수준이에요', low:'나를 챙기는 정도가 {N} 부족한 수준이에요'},
@@ -4561,7 +4561,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
     return `${best?DF_WHY[best][up?0:1]+' ':''}${k==='steady'?(cur==='mid'?DF_STEADY_TO.mid[up?'up':'down']:DF_STEADY_TO[cur]):DF_MOVE[k][up?'up':'down']}.`;
   }
   let n=1; while(st(i-n)===cur) n++;
-  const lead = `${n}일 연속`;
+  const lead = `${n}일째`;
   let why='';
   if(cur==='low' && n>=3 && judgeFn){
     const LOW=/부족|적음|낮음|없음/;
@@ -4583,7 +4583,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       else if(every(sp)) why = DF_WHY['분산'][2]+' ';
     }
   }
-  /* 이유가 있으면 'N일 연속'을 이유 안에 넣음: '수면이 짧은 날이 N일 연속 이어지면서 ~' */
+  /* 이유가 있으면 'N일째'을 이유 안에 넣음: '수면이 짧은 날이 N일째 이어지면서 ~' */
   if(why) return `${why.replace('이어지면서', lead+' 이어지면서')}${DF_STATE[k][cur]}.`;
   return `${DF_STREAK[k][cur].replace('{N}', lead)}.`;
 }
