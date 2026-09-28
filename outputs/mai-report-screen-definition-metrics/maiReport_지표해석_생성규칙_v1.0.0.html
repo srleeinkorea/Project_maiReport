@@ -41,7 +41,7 @@ li{margin:3px 0}
   <p>생활 탭 지표별 분석 카드의 ‘이번 주 해석’ 문장을 개발에서 동일하게 만들 수 있도록 입력값, 흐름 유형 판정, 이유 선택, 문장 조합, 예외 처리 조건을 정의함.</p>
   <div class="meta">대상 지표: 생활여유 · 자기돌봄 · 일상안정 · 구간 판정은 지표 엔진 결과를 그대로 사용</div>
 </div>
-<div class="toc"><a href="#s1">1 표시 조건</a><a href="#s2">2 입력값</a><a href="#s3">3 흐름 유형 판정</a><a href="#s4">4 이유 선택</a><a href="#s5">5 이유 문구 사전</a><a href="#s6">6 결과 문구 사전</a><a href="#s7">7 문장 조합</a><a href="#s8">8 작성 규칙 · 금지 표현</a><a href="#s9">9 예외 처리</a><a href="#s10">10 적용 예시</a><a href="#s11">11 문장 세트</a></div>
+<div class="toc"><a href="#s1">1 표시 조건</a><a href="#s2">2 입력값</a><a href="#s3">3 흐름 유형 판정</a><a href="#s4">4 이유 선택</a><a href="#s5">5 이유 문구 사전</a><a href="#s6">6 결과 문구 사전</a><a href="#s7">7 문장 조합</a><a href="#s8">8 작성 규칙 · 금지 표현</a><a href="#s9">9 예외 처리</a><a href="#s10">10 적용 예시</a><a href="#s11">11 문장 세트</a><a href="#s12">12 이유 항목 상태</a></div>
 
 <section class="card" id="s1">
   <h2><span class="n">1</span>표시 조건</h2>
@@ -73,18 +73,30 @@ li{margin:3px 0}
 
 <section class="card" id="s3">
   <h2><span class="n">3</span>흐름 유형 판정</h2>
-  <div class="sub">위에서부터 차례로 확인해 처음 맞는 유형 하나를 선택함. 구간 순서: 주의(low) &lt; 보통(mid) &lt; 좋음(good)</div>
+  <div class="sub">위에서부터 차례로 확인해 처음 맞는 유형 하나를 선택함. 구간 값: 주의(low)=0, 보통(mid)=1, 좋음(good)=2</div>
   <table>
-    <tr><th style="width:6%">순서</th><th style="width:16%">유형</th><th>조건</th><th style="width:24%">설명</th></tr>
-    <tr><td>1</td><td class="k">기록 부족</td><td>유효 일수 2일 이하</td><td>흐름을 말하지 않음(9장)</td></tr>
-    <tr><td>2</td><td class="k">회복</td><td>오늘(마지막 유효일) 구간이 이번 주 가장 낮았던 구간보다 높고, 첫 유효일 구간보다 같거나 높음</td><td>낮아졌다가 다시 올라옴</td></tr>
-    <tr><td>3</td><td class="k">하락</td><td>오늘 구간이 이번 주 첫 유효일보다 낮고, 오늘이 주의(low) 또는 보통(mid)</td><td>주 초반보다 내려감</td></tr>
-    <tr><td>4</td><td class="k">주의 지속</td><td>유효일의 절반 이상이 주의(low)이고 오늘도 주의</td><td>낮은 상태가 이어짐</td></tr>
-    <tr><td>5</td><td class="k">들쭉날쭉</td><td>구간이 오르내린 횟수(바로 전날과 다른 방향으로 바뀐 횟수)가 2회 이상</td><td>방향이 자주 바뀜</td></tr>
-    <tr><td>6</td><td class="k">좋음 유지</td><td>유효일이 모두 좋음(good)</td><td>좋은 상태가 이어짐</td></tr>
-    <tr><td>7</td><td class="k">보통 유지</td><td>위 어느 것에도 해당하지 않음</td><td>대체로 비슷함</td></tr>
+    <tr><th style="width:22%">용어</th><th>정의</th></tr>
+    <tr><td class="k">유효일</td><td>이번 주 월요일 ~ 오늘 중 구간이 none이 아닌 날. 개수 n</td></tr>
+    <tr><td class="k">첫 값 · 오늘 값</td><td>첫 유효일의 구간 값 F, 오늘의 구간 값 L (오늘이 none이면 카드가 관찰 중이 되어 해석을 만들지 않음)</td></tr>
+    <tr><td class="k">최저 값</td><td>유효일 구간 값 중 가장 낮은 값 Min</td></tr>
+    <tr><td class="k">방향 전환 수</td><td>연속한 유효일 사이의 변화(+1 또는 −1, 변화 없음은 제외)를 순서대로 나열했을 때 부호가 바뀐 횟수 T</td></tr>
+    <tr><td class="k">주의 일수</td><td>유효일 중 구간이 주의(low)인 날 수 Lc</td></tr>
   </table>
-  <p style="color:var(--ink-2);font-size:13px">변화 시작 요일: ‘회복’은 이번 주 가장 낮은 구간 다음으로 구간이 올라간 날, ‘하락’은 처음 구간이 내려간 날. 문장에 ‘{요일}부터’로 사용.</p>
+  <table>
+    <tr><th style="width:6%">순서</th><th style="width:14%">유형</th><th>조건</th></tr>
+    <tr><td>1</td><td class="k">기록 부족</td><td>n ≤ 2</td></tr>
+    <tr><td>2</td><td class="k">들쭉날쭉</td><td>T ≥ 2</td></tr>
+    <tr><td>3</td><td class="k">회복</td><td>L &gt; Min 그리고 L ≥ F</td></tr>
+    <tr><td>4</td><td class="k">하락</td><td>L &lt; F</td></tr>
+    <tr><td>5</td><td class="k">주의 지속</td><td>L = 0 그리고 Lc ≥ n ÷ 2</td></tr>
+    <tr><td>6</td><td class="k">좋음 유지</td><td>유효일이 모두 2(좋음)</td></tr>
+    <tr><td>7</td><td class="k">보통 유지</td><td>위 어느 것에도 해당하지 않음</td></tr>
+  </table>
+  <table>
+    <tr><th style="width:22%">치환값</th><th>정의</th></tr>
+    <tr><td class="k">{요일}</td><td>하락: 구간이 처음 F보다 낮아진 날 / 주의 지속: 이번 주 첫 주의(low) 날. ‘월요일’~‘일요일’로 표기. 월요일이면 ‘{요일}부터’를 빼고 조합 B로 표시</td></tr>
+    <tr><td class="k">{N}</td><td>{요일} 날부터 오늘까지 일수(당일 포함). N ≥ 3이면 ‘{N}일째 줄고 있어요’, N ≤ 2면 ‘줄고 있어요’</td></tr>
+  </table>
 </section>
 
 <section class="card" id="s4">
@@ -174,7 +186,7 @@ li{margin:3px 0}
     <tr><td class="k">기록 부족(유효 2일 이하)</td><td>‘아직 흐름을 말하기엔 기록이 적어요.’ 한 문장</td></tr>
     <tr><td class="k">오늘 구간이 관찰 중(none)</td><td>카드 전체가 관찰 중 상태로 바뀌며 해석 영역을 표시하지 않음</td></tr>
     <tr><td class="k">건강 데이터 미연동</td><td>지표 카드 대신 연동 안내 카드만 표시(해석 없음)</td></tr>
-    <tr><td class="k">지난 주</td><td>저장된 문장을 과거형 · ‘이 주는’ 주어로 변환해 표시. 예: ‘…흔들림이 줄었어요.’ → ‘이 주는 …흔들림이 줄었어요.’ 상세 기록이 없는 주는 해석 대신 기록 없음 안내</td></tr>
+    <tr><td class="k">지난 주</td><td>저장된 문장 앞에 ‘이 주는 ’을 붙이고 끝을 과거형으로 바꿈: ‘이어지고 있어요’→‘이어졌어요’, ‘줄고 있어요’→‘줄었어요’, ‘흔들리고 있어요’→‘흔들렸어요’, ‘움직이고 있어요’→‘움직였어요’, ‘리듬이에요’→‘리듬이었어요’(나머지는 그대로). 예: ‘…흔들림이 줄었어요.’ → ‘이 주는 …흔들림이 줄었어요.’ 상세 기록이 없는 주는 해석 대신 기록 없음 안내</td></tr>
     <tr><td class="k">생성 실패</td><td>해석 영역 제목과 문장을 숨기고 나머지 카드는 그대로 표시</td></tr>
   </table>
 </section>
@@ -291,6 +303,27 @@ li{margin:3px 0}
     <tr><td class="k">일상안정</td><td>보통 유지</td><td>없음</td><td>C</td><td>평소와 비슷한 리듬이에요.</td></tr>
     <tr><td class="k">공통</td><td>기록 부족</td><td>—</td><td>—</td><td>아직 흐름을 말하기엔 기록이 적어요.</td></tr>
   </table>
+</section>
+
+<section class="card" id="s12">
+  <h2><span class="n">12</span>이유 항목 상태 판정</h2>
+  <div class="sub">4장 이유 선택에 쓰는 항목별 상태. 평소 범위는 지표 엔진이 내려주는 값을 사용하며, 아래 수치는 엔진 담당과 확정 전 가안임</div>
+  <table>
+    <tr><th style="width:16%">상태</th><th>조건 (이번 주 유효일 기준)</th></tr>
+    <tr><td class="k">좋아짐</td><td>{요일}(변화 시작일) 이전에는 평소 범위 밖(나쁜 쪽)이었고, 오늘 값이 평소 범위 안</td></tr>
+    <tr><td class="k">나빠짐</td><td>최근 3일 중 2일 이상이 평소 범위 밖(나쁜 쪽)</td></tr>
+    <tr><td class="k">흔들림</td><td>이번 주 값의 변동 폭(최댓값 − 최솟값)이 평소 범위 폭의 1.5배 이상</td></tr>
+    <tr><td class="k">유지</td><td>이번 주 유효일 값이 모두 평소 범위 안</td></tr>
+  </table>
+  <table>
+    <tr><th style="width:18%">항목</th><th style="width:30%">나쁜 쪽</th><th>비고</th></tr>
+    <tr><td class="k">수면</td><td>평소보다 짧음</td><td>—</td></tr>
+    <tr><td class="k">활동 시간</td><td>평소보다 적음</td><td>좋아짐은 저녁 6시 이후 활동 비중이 평소보다 줄어든 경우에만 ‘늦은 시간에 몰려 있던 활동이 하루 중간으로 나뉘면서’를 사용하고, 그 외 좋아짐은 이유 후보에서 제외</td></tr>
+    <tr><td class="k">식후 활동</td><td>식후 걷기 횟수가 평소보다 적음</td><td>—</td></tr>
+    <tr><td class="k">걸음 수</td><td>평소보다 적음</td><td>—</td></tr>
+    <tr><td class="k">기상 · 취침 시각</td><td>평소보다 60분 이상 늦음</td><td>일상안정에서만 사용</td></tr>
+  </table>
+  <p style="color:var(--ink-2);font-size:13px">우선순위: 같은 상태 항목이 여러 개면 |오늘 값 − 평소 중앙값| ÷ 평소 범위 폭이 큰 순. 들쭉날쭉은 변동 폭 ÷ 평소 범위 폭이 큰 순.</p>
 </section>
 </div>
 </body>
