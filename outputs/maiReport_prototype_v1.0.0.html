@@ -4448,6 +4448,12 @@ const DF_STATE = {
   selfcare:{good:'나를 챙기는 정도가 좋은 편이에요', mid:'나를 챙기는 정도가 보통이에요', low:'나를 챙기는 정도가 부족한 편이에요'},
   steady:  {good:'일상의 균형이 안정적인 편이에요', mid:'일상의 균형이 보통이에요', low:'일상의 균형이 불안정한 편이에요'}
 };
+/* 같은 구간이 이어질 때: 'N일 연속'을 서술어 앞에 둠 */
+const DF_STREAK = {
+  margin:  {good:'남아 있는 몸의 여유가 {N} 충분해요', mid:'남아 있는 몸의 여유가 {N} 보통 수준이에요', low:'남아 있는 몸의 여유가 {N} 부족해요'},
+  selfcare:{good:'나를 챙기는 정도가 {N} 좋은 수준이에요', mid:'나를 챙기는 정도가 {N} 보통 수준이에요', low:'나를 챙기는 정도가 {N} 부족한 수준이에요'},
+  steady:  {good:'일상의 균형이 {N} 안정적이에요', mid:'일상의 균형이 {N} 보통 수준이에요', low:'일상의 균형이 {N} 불안정해요'}
+};
 const DF_MOVE = {
   margin:  {up:'몸의 여유가 나아지고 있어요', down:'몸의 여유가 감소하고 있어요'},
   selfcare:{up:'나를 챙기는 정도가 나아지고 있어요', down:'나를 챙기는 정도가 감소하고 있어요'},
@@ -4579,7 +4585,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
   }
   /* 이유가 있으면 'N일 연속'을 이유 안에 넣음: '수면이 짧은 날이 N일 연속 이어지면서 ~' */
   if(why) return `${why.replace('이어지면서', lead+' 이어지면서')}${DF_STATE[k][cur]}.`;
-  return `${lead} ${DF_STATE[k][cur]}.`;
+  return `${DF_STREAK[k][cur].replace('{N}', lead)}.`;
 }
 function dfText(m, scores, i, valFn, judgeFn){
   const t = dayFlow(m.k, scores, i, valFn, judgeFn);
