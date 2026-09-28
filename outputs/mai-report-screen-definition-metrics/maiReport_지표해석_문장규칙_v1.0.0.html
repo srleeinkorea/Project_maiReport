@@ -134,10 +134,10 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 
   <h3>영향 점수 계산 방법</h3>
   <ul class="rules">
-    <li><code>재료별 영향(점) = 비중 × (오늘 재료 점수 − 어제 재료 점수) × 100</code></li>
+    <li><code>재료별 영향(점) = 비중 × (선택일 재료 점수 − 전날 재료 점수) × 100</code></li>
     <li>재료 점수 = 산식이 각 재료를 0~1로 바꾼 값 (흐름도 산식 그대로)</li>
     <li>내려간 날은 가장 크게 마이너스, 올라간 날은 가장 크게 플러스인 재료 1개</li>
-    <li>개발: 엔진이 계산 중 가진 재료 점수를 어제 값과 빼기만 하면 됨</li>
+    <li>개발: 엔진이 계산 중 가진 재료 점수를 전날 값과 빼기만 하면 됨</li>
   </ul>
   <table style="margin-top:8px">
     <tr><th>지표</th><th>재료</th><th>0~1 재료 점수</th></tr>
@@ -154,7 +154,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 
   <h3>계산 예시 · 생활여유 좋음 → 보통</h3>
   <table>
-    <tr><th>재료</th><th>비중</th><th>어제 → 오늘</th><th>재료 점수</th><th>영향</th></tr>
+    <tr><th>재료</th><th>비중</th><th>전날 → 선택일</th><th>재료 점수</th><th>영향</th></tr>
     <tr><td class="k">수면</td><td>25%</td><td>부족 0분 → 60분</td><td>1.0 → 0.5</td><td><b>−12.5점</b></td></tr>
     <tr><td class="k">활동 시간</td><td>20%</td><td>120분 → 96분</td><td>0.5 → 0.4</td><td>−2점</td></tr>
     <tr><td class="k">활동 분산</td><td>30%</td><td>5칸 → 5칸</td><td>그대로</td><td>0점</td></tr>
@@ -223,7 +223,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
   <ul class="rules">
     <li>부드러운 존댓말 + 데이터 용어(수면 시간 · 활동량 · 걸음 수)로 근거 표시</li>
     <li>이유는 ‘~하면서’로 연결</li>
-    <li>한 문장에 비교 표현(어제 · 지난주)은 하나만</li>
+    <li>문장에 ‘어제보다’ 같은 비교 표현은 쓰지 않음</li>
   </ul>
   <ul class="rules no" style="margin-top:6px">
     <li>점수 · 수치 표기</li>
@@ -279,7 +279,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
    cur == low 이고 N ≥ 3 →
      그 N일 동안 매일 '낮음'인 재료가 있으면
      "{재료} … N일 연속 이어지면서 {상태}." (앞의 'N일 연속'은 생략)
-5. 선택일이 오늘이 아니어도 같은 문장 (어제 · 전날 표현 없음)</pre>
+5. 선택일이 오늘이 아니어도 같은 문장 (어제 · 전날 같은 표현 없음)</pre>
 
   <h3>9-4 기본값 · 예외</h3>
   <table>
