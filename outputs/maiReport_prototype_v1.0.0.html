@@ -4478,7 +4478,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
   if(!cur) return '';
   const st = j => (j>=0 && scores[j]!=null) ? scoreToState(scores[j],k) : null;
   const prev = st(i-1);
-  if(!prev) return `오늘은 ${DF_STATE[k][cur]}.`;
+  if(!prev) return `${DF_STATE[k][cur]}.`;
   const V={low:0,mid:1,good:2};
   if(cur!==prev){
     const up = V[cur]>V[prev]; let best=null, bv=0.1;
@@ -4513,7 +4513,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
 }
 function dfText(m, scores, i, valFn, judgeFn){
   const t = dayFlow(m.k, scores, i, valFn, judgeFn);
-  return m.notToday ? t.replace('어제보다','전날보다').replace('어제에 이어','전날에 이어').replace('오늘은 ','') : t;
+  return m.notToday ? t.replace('어제보다','전날보다').replace('어제에 이어','전날에 이어') : t;
 }
 function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
   const meta = METRICS.find(x=>x.k===m.k);
