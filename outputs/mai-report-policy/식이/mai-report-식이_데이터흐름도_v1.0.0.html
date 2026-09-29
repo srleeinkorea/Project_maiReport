@@ -235,11 +235,11 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
     <div class="logo"><b>mai</b><span>REPORT</span></div>
     <div>
       <h1>식이 데이터 흐름도 · 원천 → 파생 → 규칙 산출 → 노출 → 저장</h1>
-      <div class="sub">원천 데이터 11종 → 파생값 6종 → 규칙 산출물 4종 → 화면 4종 → 저장 4종 → 내일 파생값으로</div>
+      <div class="sub">원천 데이터 11종 → 파생값 6종 → 규칙 산출물 4종 → 화면 4종 → 저장 7종 → 내일 파생값으로</div>
     </div>
   </div>
   <div class="badges">
-    <span class="badge"><i class="pip"></i>v1.0 확정안</span>
+    <span class="badge"><i class="pip"></i>v1.0.0 확정안</span>
     <span class="badge">저장 단위 · 끼니</span>
     <span class="badge">관찰 창 28일</span>
     <span class="badge">판정 반영 · 다음 날</span>
@@ -250,7 +250,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 <section class="timeline">
   <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bd)"><div class="bar"></div><b>전날 밤 · 배치</b><p>3개월 이내 검진 경계 · 적용 질환<br>축 상태 재계산</p><span class="tag">파생값 갱신</span></div>
   <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bd)"><div class="bar"></div><b>첫 진입 시각</b><p>지난 끼니 1건 생성<br>04 · 10 · 12 · 17시</p><span class="tag">하루 1회</span></div>
-  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b>고정 문항 답</b><p>답 이력 1행 · 4값 저장<br>거의 못 먹음 → 끼니 규칙 적립</p><span class="tag">끼니 단위</span></div>
+  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b>고정 문항 답</b><p>답 이력 1행 · 3값 저장<br>거의 못 먹음 → 끼니 규칙 적립</p><span class="tag">끼니 단위</span></div>
   <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b>회전 문항 답</b><p>답 이력 1행 · 축 지표 재계산<br>미답은 다음 구간에 갱신</p><span class="tag">그 축만</span></div>
   <div class="tl" style="--tl:var(--indigo);--tl-bg:var(--indigo-bd)"><div class="bar"></div><b>목표 생성</b><p>목표 기록 1행<br>문구 · 이유 · 대상 끼니</p><span class="tag">그날 고정</span></div>
   <div class="tl" style="--tl:var(--green);--tl-bg:var(--green-bd)"><div class="bar"></div><b>토글</b><p>목표 기록 갱신<br>완료 · 미완료 · 쉬기</p><span class="tag">당일 수정 가능</span></div>
@@ -299,7 +299,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
     <span class="zlabel">📥 원천 데이터</span>
     <div class="stack">
       <div class="grp">사용자가 답한 것</div>
-      <div class="card c-blue"><div class="card-head"><span class="ci">🍚</span><span class="cn">고정 문항 답</span></div><div class="cb">3지선다 + 저녁 전 링크<br>저장값 4</div><span class="ctag">끼니 · 매일</span></div>
+      <div class="card c-blue"><div class="card-head"><span class="ci">🍚</span><span class="cn">고정 문항 답</span></div><div class="cb">3지선다 · 별도 링크 없음<br>17~24시 안내는 저장하지 않음</div><span class="ctag">끼니 · 매일</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">🥗</span><span class="cn">회전 문항 답</span></div><div class="cb">축 · 좋음/중간/나쁨<br>건너뛰기 없음</div><span class="ctag">끼니 · 매일 1축</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">😴</span><span class="cn">피로 답</span></div><div class="cb">3단계</div><span class="ctag">일 · 매일</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">🧬</span><span class="cn">만성질환 직접 선택</span></div><div class="cb">고혈압 · 당뇨병 · 이상지질혈증<br>만성 신장질환 · 복수 선택</div><span class="ctag">내정보 · 즉시 적용</span></div>
@@ -309,7 +309,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
       <div class="card c-blue"><div class="card-head"><span class="ci">🕘</span><span class="cn">첫 진입 시각</span></div><div class="cb">시:분</div><span class="ctag">일 · 1회</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">🏥</span><span class="cn">건강검진 결과</span></div><div class="cb">혈당 · 혈압 · 지질<br>신장 · 체중 · 허리 + 검진일</div><span class="ctag">3개월 이내 1건</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">⌚</span><span class="cn">기기 연동값</span></div><div class="cb">혈압 · 공복혈당 · 체중<br>+ 측정일 · 횟수</div><span class="ctag warn">스마트워치 혈압 제외</span></div>
-      <div class="card c-blue"><div class="card-head"><span class="ci">📋</span><span class="cn">상병코드</span></div><div class="cb">코드 · 주/부 · 진료일<br>처방 정보 없음</div><span class="ctag warn">규격 확인 필요</span></div>
+      <div class="card c-blue"><div class="card-head"><span class="ci">📋</span><span class="cn">상병코드</span></div><div class="cb">코드 · 주/부 · 진료일<br>기간 · 횟수 조건 적용</div><span class="ctag">조건 61개</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">📅</span><span class="cn">어제 기록</span></div><div class="cb">어제 목표 · 어제 답<br>(저장에서 되돌아옴)</div><span class="ctag">점선 루프</span></div>
     </div>
   </div>
@@ -358,7 +358,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 
     <div class="subsec"><span class="ss-label">참조 데이터 · 설정</span>
       <div class="g3">
-        <div class="card c-indigo"><div class="card-head"><span class="ci">📚</span><span class="cn">문구 세트</span></div><div class="cb">8축 × 3단계<br>+ 회복 · 부담</div><span class="ctag">ID · 사용 상태 포함</span></div>
+        <div class="card c-indigo"><div class="card-head"><span class="ci">📚</span><span class="cn">문구 세트</span></div><div class="cb">운영 문구 143개<br>8축 × 3단계 + 회복 · 부담</div><span class="ctag">상황 전용 문구 0개</span></div>
         <div class="card c-indigo"><div class="card-head"><span class="ci">🗺️</span><span class="cn">질환 매핑</span></div><div class="cb">직접 선택 4종 · 상병코드<br>연결 축 · 안전 제외</div><span class="ctag">출처별 우선순위 포함</span></div>
         <div class="card c-indigo"><div class="card-head"><span class="ci">📅</span><span class="cn">시간 · 달력 설정</span></div><div class="cb">앱 진입 시각 · 현지 평일/주말<br>대한민국 명절·연휴 날짜 목록</div><span class="ctag">목록이 없으면 명절 문구 제외</span></div>
       </div>
@@ -373,7 +373,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
   <div class="zone z-green">
     <span class="zlabel">📱 화면 노출</span>
     <div class="stack">
-      <div class="card c-green"><div class="card-head"><span class="ci">❓</span><span class="cn">질문 문장 · 식이 1</span></div><div class="cb">지난 끼니 이름 치환<br>답 3 + 링크</div></div>
+      <div class="card c-green"><div class="card-head"><span class="ci">❓</span><span class="cn">질문 문장 · 식이 1</span></div><div class="cb">지난 끼니 이름 치환 · 답 3개<br>17~24시 비인터랙티브 안내</div><span class="ctag">답 전에는 PENDING</span></div>
       <div class="card c-green"><div class="card-head"><span class="ci">❔</span><span class="cn">둘째 질문 · 식이 2</span></div><div class="cb">질환 확인 답에 따라 질환 회전 또는 공통 고정<br>확인 질문이 없으면 일반 회전 · 답 3개</div><span class="ctag">세 번째 질문 없음</span></div>
       <div class="card c-green"><div class="card-head"><span class="ci">🏠</span><span class="cn">행동 문구</span></div><div class="cb">홈 타일 · 문구만</div></div>
       <div class="card c-green"><div class="card-head"><span class="ci">🙋</span><span class="cn">진료 질환 확인 질문</span></div><div class="cb">연동 기록의 현재 관리 여부 확인<br>당일 식이 질문 1/2로 계산</div><span class="ctag">하루 최대 1질환 확인</span></div>
@@ -413,7 +413,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
   <div class="dz"><span class="dz-label">🏥 외부 원천</span>
     <div class="stack">
       <div class="card"><div class="card-head"><span class="ci">🧾</span><span class="cn">검진 연동</span></div><div class="cb">3개월 이내 최근 검진 1건</div></div>
-      <div class="card"><div class="card-head"><span class="ci">📋</span><span class="cn">진료정보 연동</span></div><div class="cb">12개월 상병코드</div><span class="ctag warn">규격 확인 필요</span></div>
+      <div class="card"><div class="card-head"><span class="ci">📋</span><span class="cn">진료정보 연동</span></div><div class="cb">상병코드 · 진료일<br>규칙별 기간 · 횟수 충족</div><span class="ctag">확인 후보 생성</span></div>
     </div>
   </div>
   <div></div>
@@ -457,7 +457,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
   </div>
   <div class="panel">
     <h3>축 상태 4종 <span class="mono">축마다 최근 28일 답을 세어 하나로 판정</span></h3>
-    <div class="sub">답은 좋음 · 중간 · 나쁨 3단계. 「아직 저녁 전」은 세지 않는다</div>
+    <div class="sub">답은 좋음 · 중간 · 나쁨 3단계. 미응답(PENDING)은 유효 답에 포함하지 않는다</div>
     <div class="states">
       <div class="stt st-gray"><b>관찰 중</b><p>판단할 만큼 답이 없다</p><span class="cond">유효 답 &lt; 3</span></div>
       <div class="stt st-red"><b>개선 필요</b><p>요즘 자주 못 지킨다</p><span class="cond">나쁨 ≥ 50%</span></div>
@@ -495,11 +495,11 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
       <tr><td class="n">2</td><td class="u"><span class="pick">평소대로</span> 선택<br>"어제 저녁은 평소만큼 드셨나요?"</td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">결식 아님 → 끼니 규칙 적립 없음 · 회복 풀 조건 아님</td><td class="o"><span class="src src-teal">답 이력</span>1행(어제 저녁 · 평소대로)</td></tr>
       <tr><td class="n">3</td><td class="u none">(시스템이 축을 고름)</td><td class="r"><span class="src src-teal">어제 목표</span>없음 · <span class="src src-teal">어제 고정 답</span>없음 · <span class="src src-teal">축별 28일 답 수</span>전부 0</td><td class="j">확인 질문 없음 → 연결 축 없음 → 물을 수 있는 7축 중 답 최소 · 동률 → 표 순서 첫 축 <b>채소</b></td><td class="o">회전 문항 = 채소</td></tr>
       <tr><td class="n">4</td><td class="u"><span class="pick">한 가지</span> 선택<br>"어제 저녁에 채소 반찬이 있었나요?"</td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">채소 축에 「보통」 1개 적립 → 유효 답 1개, 여전히 관찰 중 (내일 반영)</td><td class="o"><span class="src src-teal">답 이력</span>회전 축 · 답 기록 · <span class="src src-teal">축 지표</span>채소 재계산</td></tr>
-      <tr><td class="n">5</td><td class="u none">(목표 생성)</td><td class="r"><span class="src src-indigo">선정 순서</span>회복 → 직접 선택 → 진료정보 확인 → 검진 → 부담 → 일반 · <span class="src src-indigo">요일 순환표</span>화 = 채소 · <span class="src src-teal">축 단계</span>채소 = 입문</td><td class="j">회복 아님 · 확인 질환 없음 · 검진 없음 · 피로 없음 → 일반 → 8축 모두 관찰 중 → <b>요일 순환 → 채소 · 입문</b></td><td class="o">축 = 채소 · 단계 = 입문</td></tr>
-      <tr><td class="n">6</td><td class="u none">(문구 선택)</td><td class="r"><span class="src src-amber">문구 세트</span>채소 · 입문 1개 · <span class="src src-red">제외</span>금지 없음 · 검진 전용 없음 · 미완료 없음</td><td class="j">후보 1개 · 08:20 &lt; 17시 → 저녁 이후 문구 제한 없음 · 대상 끼니 = 9시 전 → <b>오늘 아침</b></td><td class="o"><span class="src src-green">홈 타일</span>「오늘 한 끼는 채소 반찬 한 가지」<br><span class="src src-green">목표분석</span>행동 문구만 표시</td></tr>
-      <tr><td class="n">7</td><td class="u none">—</td><td class="r"></td><td class="j"></td><td class="o"><span class="src src-teal">목표 기록</span>1행(문구 · 이유 · 채소 · 입문 · 오늘 아침) · <span class="src src-teal">문항 상태</span>고정 · 회전 모두 답함</td></tr>
+      <tr><td class="n">5</td><td class="u none">(목표 생성)</td><td class="r"><span class="src src-indigo">선정 순서</span>회복 → 직접 선택 → 진료정보 확인 → 검진 → 부담 → 일반 · <span class="src src-teal">축 상태</span>채소 1답 · 나머지 축 0답 · <span class="src src-teal">축 단계</span>단 음료 = 입문</td><td class="j">회복 아님 · 확인 질환 없음 · 검진 없음 · 피로 없음 → 일반 축을 상태 → 유효 답 수 → 마지막 출제일 → 표 순서로 비교 → <b>미관찰 단 음료 · 입문</b></td><td class="o">축 = 단 음료 · 단계 = 입문</td></tr>
+      <tr><td class="n">6</td><td class="u none">(문구 선택)</td><td class="r"><span class="src src-amber">문구 세트</span>단 음료 · 입문 후보 · <span class="src src-teal">최근 30일 목표</span>없음 · <span class="src src-red">제외</span>금지 없음</td><td class="j">최근 30일 미노출 후보 우선 · 08:20 &lt; 17시 → 저녁 이후 문구 제한 없음 · 대상 끼니 = 9시 전 → <b>오늘 아침</b></td><td class="o"><span class="src src-green">홈 타일</span>「단 음료 한 번은 물로 바꾸기」<br><span class="src src-green">목표분석</span>행동 문구만 표시</td></tr>
+      <tr><td class="n">7</td><td class="u none">—</td><td class="r"></td><td class="j"></td><td class="o"><span class="src src-teal">목표 기록</span>1행(문구 · 이유 · 단 음료 · 입문 · 오늘 아침) · <span class="src src-teal">문항 상태</span>고정 · 회전 모두 답함</td></tr>
     </table>
-    <div class="next"><i>내일</i>04~10시 진입이면 지난 끼니 = 어제 저녁 ≠ 대상 끼니(오늘 아침) → 확인 질문 없음 · 일반 회전(답 0개 축 중 단 음료)</div>
+    <div class="next"><i>내일</i>04~10시 진입이면 지난 끼니 = 어제 저녁 ≠ 대상 끼니(오늘 아침) → 목표 확인 질문 없음 · 남은 미관찰 축을 우선해 일반 회전</div>
   </div>
 
   <!-- 2 -->
@@ -513,7 +513,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
       <tr><td class="n">3</td><td class="u none">(축 고름)</td><td class="r"><span class="src src-teal">어제 목표</span>「저녁은 채소부터 먼저」 · 대상 끼니 어제 저녁 · 토글 완료 · <span class="src src-indigo">혈당 연결 축</span>채소 · 단 음료 · 식사 속도 · <span class="src src-teal">28일 답 수</span>채소 5 · 단 음료 4 · 식사 속도 4</td><td class="j">어제 대상 끼니(어제 저녁) ≠ 지난 끼니(오늘 점심) → <b>확인 불가</b> → 혈당 연결 축 중 답 최소 4 동률 → 표 순서 <b>단 음료</b></td><td class="o">회전 문항 = 단 음료</td></tr>
       <tr><td class="n">4</td><td class="u"><span class="pick">두 가지 이상</span><br>"오늘 점심 전후로 단 음료나 단 간식을 드셨나요?"</td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">단 음료 축 「개선 필요」 +1 (내일 반영) · 오늘 문구 선택에는 "같은 축 개선 필요" 신호로 사용</td><td class="o"><span class="src src-teal">답 이력</span>· <span class="src src-teal">축 지표</span>단 음료 재계산</td></tr>
       <tr><td class="n">5</td><td class="u none">(목표 생성)</td><td class="r"><span class="src src-indigo">선정 순서</span>· <span class="src src-teal">축 상태</span>채소 보통 · 단 음료 개선 필요 · 식사 속도 보통 · <span class="src src-teal">축 단계</span>단 음료 = 입문</td><td class="j">회복 아님 · 확인 질환 없음 · <b>검진 경계 있음</b> → 혈당 연결 축 중 상태 최악 = <b>단 음료 · 입문</b></td><td class="o">축 = 단 음료</td></tr>
-      <tr><td class="n">6</td><td class="u none">(문구 선택)</td><td class="r"><span class="src src-amber">문구 세트</span>단 음료 · 입문 「단 음료 한 번은 물로 바꾸기」 · <span class="src src-red">제외</span>없음</td><td class="j">회전 답 개선 필요 + 같은 축 → 지난 끼니(점심)와 다른 끼니 문구 우선 → 표시 없는 문구 → 16:40 → 대상 끼니 = <b>오늘 저녁</b></td><td class="o"><span class="src src-green">홈 타일</span>「단 음료 한 번은 물로 바꾸기」 · <span class="src src-green">목표분석</span>행동 문구만 표시</td></tr>
+      <tr><td class="n">6</td><td class="u none">(문구 선택)</td><td class="r"><span class="src src-amber">문구 세트</span>단 음료 · 입문 후보 · <span class="src src-teal">최근 30일 목표</span>최신순 · <span class="src src-red">제외</span>질환 안전·시간·달력 미충족</td><td class="j">최근 30일 미노출 후보 우선 → 모두 노출됐으면 마지막 노출이 가장 오래된 문구 · 시간 표시가 없으면 진입 뒤 첫 끼니 → 16:40의 대상 끼니 = <b>오늘 저녁</b></td><td class="o"><span class="src src-green">홈 타일</span>「단 음료 한 번은 물로 바꾸기」 · <span class="src src-green">목표분석</span>행동 문구만 표시</td></tr>
       <tr><td class="n">7</td><td class="u none">—</td><td class="r"></td><td class="j"></td><td class="o"><span class="src src-teal">목표 기록</span>1행(대상 오늘 저녁)</td></tr>
     </table>
     <div class="next"><i>내일</i>04~10시 진입 → 지난 끼니 = 어제 저녁 = 대상 끼니 → 확인 질문 "어제 저녁 전후로 단 음료나 단 간식을 드셨나요?"</div>
@@ -522,15 +522,17 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 
   <!-- 3 -->
   <div class="case" style="--cs:var(--indigo)">
-    <div class="case-h"><span class="case-n">3</span><div><b>저녁 시간대 진입 · 아직 식사 전</b><div class="who">혈압 경계 · 짠맛 보통(6답) · 채소 양호(5답)</div></div><span class="when">21:30 첫 진입</span></div>
+    <div class="case-h"><span class="case-n">3</span><div><b>저녁 시간대 진입 · 저녁 식사 여부 미확인</b><div class="who">혈압 경계 · 짠맛 보통(6답) · 채소 양호(5답)</div></div><span class="when">21:30 첫 진입</span></div>
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">0</td><td class="u none">—</td><td class="r"><span class="src src-cyan">검진 연동</span>혈압 128/84 · <span class="src src-indigo">판정 구간</span>120~139 또는 80~89 = 경계</td><td class="j"><b>혈압 경계</b></td><td class="o">검진 경계 = 혈압</td></tr>
-      <tr><td class="n">1</td><td class="u">앱을 연다 (21:30)</td><td class="r"></td><td class="j">17:00 ≤ 21:30 &lt; 24:00 → 지난 끼니 = <b>오늘 저녁</b> → 카드 아래 「아직 저녁 전이에요」 링크 표시</td><td class="o">고정 문항 3답 + 링크</td></tr>
-      <tr><td class="n">2</td><td class="u none">질문 아래 안내 확인</td><td class="r"><span class="src src-blue">안내</span>오늘 저녁을 드신 뒤 답해주세요</td><td class="j">응답으로 저장하지 않음 · 고정 문항은 PENDING 유지 · <b>회전 문항과 목표 생성 대기</b></td><td class="o"><span class="src src-teal">문항 상태</span>고정 미응답 · 회전 미생성</td></tr>
-      <tr><td class="n">3</td><td class="u none">(목표 생성)</td><td class="r"><span class="src src-indigo">혈압 연결 축</span>짠맛 · 채소 · <span class="src src-teal">축 상태</span>짠맛 보통 · 채소 양호 · <span class="src src-teal">축 단계</span>짠맛 = 기본</td><td class="j">회복 아님(링크는 조건 아님) · 확인 질환 없음 · 검진 경계 → 상태 최악 = <b>짠맛 · 기본</b></td><td class="o">축 = 짠맛</td></tr>
-      <tr><td class="n">4</td><td class="u none">(문구 선택)</td><td class="r"><span class="src src-amber">식후 목표 풀</span>17~24시 후보 10개 · <span class="src src-teal">최근 30일 식후 목표</span>최신순 · <span class="src src-red">제외</span>질환 안전·시간·달력 미충족</td><td class="j">21:30 ≥ 17시 → 최근 30일 미노출 후보 우선 → 모두 노출됐으면 마지막 노출이 가장 오래된 문구 → 대상 끼니 = <b>오늘 저녁</b></td><td class="o"><span class="src src-green">홈 타일</span>반복 방지 규칙으로 고른 식후 실행 문구 · <span class="src src-green">목표분석</span>행동 문구만 표시</td></tr>
-      <tr><td class="n">5</td><td class="u none">—</td><td class="r"></td><td class="j"></td><td class="o"><span class="src src-teal">목표 기록</span>1행</td></tr>
+      <tr><td class="n">1</td><td class="u">앱을 연다 (21:30)</td><td class="r"><span class="src src-teal">문항 상태</span>고정 미응답</td><td class="j">17:00 ≤ 21:30 &lt; 24:00 → 지난 끼니 = <b>오늘 저녁</b> → 카드 아래 「오늘 저녁을 드신 뒤 답해주세요」 안내 표시</td><td class="o">고정 문항 답 3개 · 별도 링크 없음</td></tr>
+      <tr><td class="n">2</td><td class="u none">답변 전</td><td class="r"><span class="src src-blue">안내</span>오늘 저녁을 드신 뒤 답해주세요</td><td class="j">안내는 응답으로 저장하지 않음 · 고정 문항은 PENDING 유지 · <b>회전 문항과 목표 생성 대기</b></td><td class="o"><span class="src src-teal">문항 상태</span>고정 미응답 · 회전 미생성</td></tr>
+      <tr><td class="n">3</td><td class="u"><span class="pick">평소대로</span> 선택<br>"오늘 저녁은 평소만큼 드셨나요?"</td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">결식 아님 → 회복 조건 아님 · 고정 답 저장 완료</td><td class="o"><span class="src src-teal">답 이력</span>1행</td></tr>
+      <tr><td class="n">4</td><td class="u none">(둘째 질문 선택)</td><td class="r"><span class="src src-indigo">혈압 연결 축</span>짠맛 · 채소 · <span class="src src-teal">축 상태</span>짠맛 보통 · 채소 양호</td><td class="j">혈압 연결 축 중 상태가 더 나쁜 <b>짠맛</b> 선택</td><td class="o">회전 문항 = 「오늘 저녁 국물은 어느 정도 드셨나요?」</td></tr>
+      <tr><td class="n">5</td><td class="u"><span class="pick">반쯤</span> 선택</td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">짠맛 축에 보통 답 1건 추가 · 식이 질문 2개 완료</td><td class="o"><span class="src src-teal">답 이력</span>· <span class="src src-teal">축 지표</span></td></tr>
+      <tr><td class="n">6</td><td class="u none">(목표 생성 · 문구 선택)</td><td class="r"><span class="src src-indigo">축 단계</span>짠맛 = 기본 · <span class="src src-amber">식후 목표 풀</span>17~24시 후보 10개 · <span class="src src-teal">최근 30일 목표</span>최신순</td><td class="j">질환 안전·시간·달력 필터 → 최근 30일 미노출 후보 우선 → 모두 노출됐으면 마지막 노출이 가장 오래된 문구 · 대상 끼니 = <b>오늘 저녁</b></td><td class="o"><span class="src src-green">홈 타일</span>반복 방지 규칙으로 고른 식후 실행 문구</td></tr>
+      <tr><td class="n">7</td><td class="u none">—</td><td class="r"></td><td class="j"></td><td class="o"><span class="src src-teal">목표 기록</span>1행 · <span class="src src-teal">문항 상태</span>고정 · 회전 모두 답함</td></tr>
     </table>
     <div class="next"><i>내일</i>04~10시 진입 → 지난 끼니 = 어제 저녁 = 대상 끼니 → 확인 질문 "어제 저녁 국물은 어느 정도 드셨나요?"</div>
   </div>
@@ -577,7 +579,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
       <tr><td class="n">3</td><td class="u none">(축 고름)</td><td class="r"><span class="src src-indigo">혈압 연결 축</span>짠맛 4답 · 채소 5답</td><td class="j">답 최소 <b>짠맛</b></td><td class="o">회전 문항 = 짠맛</td></tr>
       <tr><td class="n">4</td><td class="u"><span class="pick">반쯤</span><br>"어제 저녁 국물은 어느 정도 드셨나요?"</td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">짠맛 「보통」 +1</td><td class="o"><span class="src src-teal">답 이력</span>· <span class="src src-teal">축 지표</span></td></tr>
       <tr><td class="n">5</td><td class="u none">(목표 생성)</td><td class="r"><span class="src src-teal">축 상태</span>짠맛 보통 · 채소 양호 · <span class="src src-teal">축 단계</span>짠맛 = 입문</td><td class="j">회복 아님 · 확인 질환 없음 · <b>검진 경계(혈압)</b> → 최악 = 짠맛 · 입문</td><td class="o">축 = 짠맛</td></tr>
-      <tr><td class="n">6</td><td class="u none">(문구 선택)</td><td class="r"><span class="src src-amber">문구 세트</span>짠맛 · 입문 「한 끼는 국물 반만」</td><td class="j">후보 1개 · 대상 끼니 = 9시 전 → <b>오늘 아침</b></td><td class="o"><span class="src src-green">홈 타일</span>「한 끼는 국물 반만」 · <span class="src src-green">목표분석</span>행동 문구만 표시</td></tr>
+      <tr><td class="n">6</td><td class="u none">(문구 선택)</td><td class="r"><span class="src src-amber">문구 세트</span>짠맛 · 입문 후보 · <span class="src src-teal">최근 30일 목표</span>최신순</td><td class="j">질환 안전·시간·달력 필터 → 최근 30일 미노출 후보 우선 → 대상 끼니 = 9시 전 → <b>오늘 아침</b></td><td class="o"><span class="src src-green">홈 타일</span>「한 끼는 국물 반만」 · <span class="src src-green">목표분석</span>행동 문구만 표시</td></tr>
       <tr><td class="n">7</td><td class="u none">—</td><td class="r"></td><td class="j"></td><td class="o"><span class="src src-teal">목표 기록</span>1행</td></tr>
     </table>
     <div class="next"><i>내일</i>혈압계 값이 더 들어와 7일 중앙값이 바뀌면 0-a에서 재판정 · 스마트워치 혈압이었다면 1차 제외 → 검진값 118/76 유지 → 경계 없음 → 일반 규칙</div>
