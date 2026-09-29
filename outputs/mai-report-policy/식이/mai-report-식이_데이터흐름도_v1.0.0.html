@@ -329,7 +329,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
       <div class="card c-cyan"><div class="card-head"><span class="ci">🩺</span><span class="cn">검진 경계 · 저체중</span></div><div class="cb">항목값 + 출처 + 측정일<br>→ 없음 · 혈당 · 혈압 · 지질체중</div><span class="ctag">← 검진 · 기기 연동</span></div>
       <div class="card c-cyan"><div class="card-head"><span class="ci">🧬</span><span class="cn">적용 질환</span></div><div class="cb">직접 선택 · 진료 확인 · 제외 · 모름<br>중복 제거 + 안전 제외 목록</div><span class="ctag">← 직접 선택 · 진료 확인</span></div>
       <div class="card c-cyan"><div class="card-head"><span class="ci">↩️</span><span class="cn">어제 목표 · 어제 답</span></div><div class="cb">축 · 대상 끼니 · 토글<br>거의 못 먹음 여부</div><span class="ctag">← 어제 기록</span></div>
-      <div class="card c-cyan"><div class="card-head"><span class="ci">📈</span><span class="cn">축 단계 × 8</span></div><div class="cb">현재 단계(입문 · 기본 · 도전)<br>7일 완료 횟수 · 연속 미완료</div><span class="ctag">← 목표 기록 7일</span></div>
+      <div class="card c-cyan"><div class="card-head"><span class="ci">📈</span><span class="cn">축 단계 × 8</span></div><div class="cb">현재 단계(입문 · 기본 · 도전)<br>7일 완료 횟수 · 연속 미완료</div><span class="ctag">CREATED 목표만 계산</span></div>
     </div>
   </div>
 
@@ -393,7 +393,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
       <div class="card c-teal"><div class="card-head"><span class="ci">🗂️</span><span class="cn">식이 답 이력</span></div><div class="cb">날짜 · 끼니 · 고정 답<br>회전 축 · 회전 답 · 시각</div><span class="ctag">끼니 1행</span></div>
       <div class="card c-teal"><div class="card-head"><span class="ci">📊</span><span class="cn">축 지표 스냅샷</span></div><div class="cb">유효 답 · 비율 · 상태</div><span class="ctag">사용자 × 축 × 날</span></div>
       <div class="card c-teal"><div class="card-head"><span class="ci">🎯</span><span class="cn">식이 목표 기록</span></div><div class="cb">문구 · 이유 · 축/풀 · 단계<br>대상 끼니 · 토글</div><span class="ctag">날 1행</span></div>
-      <div class="card c-teal"><div class="card-head"><span class="ci">📈</span><span class="cn">축 단계</span></div><div class="cb">현재 단계 · 7일 완료<br>연속 미완료 · 마지막 노출</div><span class="ctag">사용자 × 축</span></div>
+      <div class="card c-teal"><div class="card-head"><span class="ci">📈</span><span class="cn">축 단계</span></div><div class="cb">현재 단계 · 7일 완료<br>연속 미완료 · 마지막 노출</div><span class="ctag">안내 상태는 계산 제외</span></div>
       <div class="card c-teal"><div class="card-head"><span class="ci">🧬</span><span class="cn">질환 적용 상태</span></div><div class="cb">출처 · 질환 · 선택/확인 상태<br>확인일 · 재질문일</div><span class="ctag">사용자 × 질환 × 출처</span></div>
       <div class="card c-teal"><div class="card-head"><span class="ci">🩺</span><span class="cn">검진 경계 판정</span></div><div class="cb">항목값 · 출처 · 측정일</div><span class="ctag">되짚기용</span></div>
       <div class="card c-teal"><div class="card-head"><span class="ci">🔖</span><span class="cn">그날 식이 문항 상태</span></div><div class="cb">고정 · 회전 각각 미답/답함<br>마지막 낸 끼니 구간</div><span class="ctag">사용자 × 세션 날짜</span></div>

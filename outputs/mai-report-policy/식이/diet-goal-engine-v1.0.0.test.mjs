@@ -123,3 +123,13 @@ test('단계는 미완료 2건을 먼저 하락시키고 7일 완료 3건이면 
   ] });
   assert.deepEqual(up, { stage: 'BASE', changed: true, reason: 'THREE_COMPLETIONS_IN_7_DAYS' });
 });
+
+test('안내 상태는 완료율과 연속 미완료 및 단계 계산에서 제외한다', () => {
+  const unchanged = recalculateAxisStage({ currentStage: 'BASE', lastChangedDate: '2026-09-20', asOfDate: '2026-09-28', goals: [
+    { session_date: '2026-09-26', goal_state: 'GUIDANCE_ONLY', completed: false },
+    { session_date: '2026-09-27', goal_state: 'GUIDANCE_ONLY', completed: false },
+    { session_date: '2026-09-23', goal_state: 'CREATED', completed: true },
+    { session_date: '2026-09-24', goal_state: 'CREATED', completed: true },
+  ] });
+  assert.deepEqual(unchanged, { stage: 'BASE', changed: false, reason: null });
+});

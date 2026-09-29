@@ -736,7 +736,6 @@ const SCREENS = {
 intro(){
   return `<div class="sv-shell">${back("intro")}
     <div class="scroll sv-b" id="sc"><div class="sv-in">
-      <div class="sv-logo">🔷 Selvy <em>Checkup</em></div>
       <h1>인공지능으로<br>10대 질환 위험도 예측</h1>
       <p>건강검진 결과를 AI로 분석해<br>주요 질환의 발병 위험도를 알려드려요.</p>
     </div></div>
@@ -790,15 +789,15 @@ hist(){
   return `<div class="rs-shell"><div class="sub-h"><button onclick="go('intro')" aria-label="뒤로">‹</button><h2>지난 분석 결과</h2></div>
     <div class="scroll" id="sc"><div class="sub-b">
     ${rows.map(h=>{ const top=[...risks(h.exam)].sort((a,b)=>b.sc-a.sc)[0];
-      return `<button class="hs-row" onclick="openSaved(${h.exam},'${h.at}')"><div class="hs-b"><b data-f="검진 연도">${EXAMS[h.exam].d.slice(0,5)} 검진${h.exam===0?" · 최근":""}</b>
-        <small><span data-f="검진일 · 분석일">${EXAMS[h.exam].d} 검진 · ${h.at} 분석</span><br><span data-f="가장 높은 질환">가장 높은 질환 ${top.n} ${top.sc}점</span></small></div><span class="cv">›</span></button>`; }).join("")}
+      return `<button class="hs-row" onclick="openSaved(${h.exam},'${h.at}')"><div class="hs-b"><b data-f="검진일">${EXAMS[h.exam].d} 검진</b>
+        <small data-f="분석일">${h.at} 분석</small></div><span class="cv">›</span></button>`; }).join("")}
     </div></div></div>`;
 }
 };
 function choose(i){ if (done(i)) return; S.pick=i; render(); }
 function analyze(){
   const r = {exam:S.pick, at:"2026.09.29"};
-  S.hist.push(r); S.run=r; S.saved=false; toast("분석이 끝났어요"); go("result");
+  S.hist.push(r); S.run=r; S.saved=false; go("result");
 }
 function openSaved(exam, at){ S.run={exam, at}; S.saved=true; go("result"); }
 
@@ -815,7 +814,7 @@ const SIDE = {
     info:[["검진일","선택한 검진","최근 검진이면 ‘(최근)’ 덧붙임"],["분석일","분석 기록","YYYY.MM.DD"],["저장된 결과 안내","분석 기록","지난 분석 결과에서 열었을 때만 표시"]]},
   hist:{title:"지난 분석 결과",
     desc:"지금까지 분석한 결과를 모아 보여주는 화면. 소개 화면의 링크 또는 결과 화면 맨 아래 버튼으로 들어옴. 검진 하나당 한 줄만 있음.",
-    info:[["검진 연도","분석 기록","제목 줄 ‘YYYY년 검진’, 최근 검진이면 ‘· 최근’"],["검진일 · 분석일","분석 기록","‘YYYY년 M월 D일 검진 · YYYY.MM.DD 분석’"],["가장 높은 질환","분석 결과","발병통계지수가 가장 높은 질환과 점수"]]}
+    info:[["검진일","분석 기록","제목 줄 ‘YYYY년 M월 D일 검진’"],["분석일","분석 기록","아래 작은 글씨 ‘YYYY.MM.DD 분석’"]]}
 };
 const SPEC = {
   intro:[["진입 경로","병원 탭 → 검진정보 → ‘주요질환 위험도 분석하기’ 카드"],
@@ -832,7 +831,7 @@ const SPEC = {
     ["저장된 결과","지난 분석 결과에서 열면 다시 계산하지 않고 그때 결과를 그대로 보여줌. 맨 위에 ‘저장된 결과예요’ 안내"],
     ["뒤로 가기","방금 분석한 결과면 소개 화면으로, 저장된 결과면 지난 분석 결과 목록으로 이동"]],
   hist:[["정렬","검진이 최근인 것부터 (언제 분석했는지가 아니라 몇 년도 검진인지 기준)"],
-    ["한 줄 구성","제목은 검진 연도 (예: 2023년 검진). 아래에 검진일 · 분석일, 가장 높은 질환과 점수"],
+    ["한 줄 구성","제목은 검진일 (예: 2023년 6월 19일 검진), 아래 작은 글씨로 분석일 (예: 2026.03.02 분석). 질환 · 점수는 표시하지 않음"],
     ["항목 누르기","저장된 결과 화면으로 이동 (다시 계산하지 않음)"],
     ["줄 수","검진 하나당 한 줄. 같은 검진은 다시 분석할 수 없으므로 줄이 겹치지 않음"],
     ["삭제","기록을 지우는 기능은 두지 않음"]]

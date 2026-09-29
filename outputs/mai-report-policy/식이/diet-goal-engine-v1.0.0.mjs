@@ -49,10 +49,13 @@ export function recalculateAxisStage({ currentStage = 'INTRO', lastChangedDate, 
   const today = isoDate(asOfDate);
   const windowStart = shiftDate(today, -6);
   const afterChange = goal => !lastChangedDate || goal.session_date > lastChangedDate;
-  const eligible = goals.filter(goal => goal.session_date <= today && goal.session_date >= windowStart && afterChange(goal));
-  const ended = goals.filter(goal => goal.session_date < today && afterChange(goal)).sort((a, b) => b.session_date.localeCompare(a.session_date));
+  // 실제 행동 목표가 생성된 기록만 단계 계산에 사용한다.
+  // GUIDANCE_ONLY는 사용자가 수행할 목표가 없으므로 미완료나 완료율 분모로 세지 않는다.
+  const countsForStage = goal => goal.goal_state !== 'GUIDANCE_ONLY' && goal.completion_counts_for_stage !== false;
+  const eligible = goals.filter(goal => countsForStage(goal) && goal.session_date <= today && goal.session_date >= windowStart && afterChange(goal));
+  const ended = goals.filter(goal => countsForStage(goal) && goal.session_date < today && afterChange(goal)).sort((a, b) => b.session_date.localeCompare(a.session_date));
   const consecutiveMisses = ended.slice(0, 2).length === 2 && ended.slice(0, 2).every(goal => goal.completed !== true);
-  const completed = eligible.filter(goal => goal.completed === true && goal.completion_counts_for_stage !== false).length;
+  const completed = eligible.filter(goal => goal.completed === true).length;
   const index = STAGES.indexOf(currentStage);
   if (consecutiveMisses && index > 0) return { stage: STAGES[index - 1], changed: true, reason: 'TWO_CONSECUTIVE_MISSES' };
   if (completed >= 3 && index < STAGES.length - 1) return { stage: STAGES[index + 1], changed: true, reason: 'THREE_COMPLETIONS_IN_7_DAYS' };
