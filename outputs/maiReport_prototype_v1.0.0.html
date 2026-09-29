@@ -311,6 +311,24 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .ai-badge.etc{background:var(--fill);color:var(--ink-3)}
 /* AI 인사이트 — 디자인 반영(2026-09-16): 주차 제목 · 요약/종합 소견/핵심 인사이트 카드 · 카테고리 색 상세 카드 · 점수 변화/분석 이력 */
 .ai-wk-title{font-size:var(--t-h1);font-weight:800;color:var(--ink-1);letter-spacing:-.02em;margin:6px 2px 12px}
+.ai-week-context{display:flex;align-items:center;gap:11px;padding:15px 16px;margin:4px 0 12px;background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}
+.ai-week-context-icon{width:34px;height:34px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:11px;background:var(--brand-soft);color:var(--brand);font-size:17px;font-weight:800}
+.ai-week-context>div{flex:1;min-width:0}.ai-week-context>div b{display:block;font-size:var(--t-sm);font-weight:800;color:var(--ink-1)}.ai-week-context>div small{display:block;margin-top:3px;font-size:var(--t-cap);color:var(--ink-3)}
+.ai-week-context-tag{padding:5px 9px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-size:var(--t-mini);font-weight:750;flex-shrink:0}.ai-week-context-tag.empty{background:var(--fill);color:var(--ink-3)}
+.ai-week-empty{padding:27px 20px 20px;text-align:center;background:#fff;border-radius:var(--r);box-shadow:var(--sh)}.ai-week-empty .spark{display:flex;align-items:center;justify-content:center;width:46px;height:46px;margin:0 auto 13px;border-radius:15px;background:var(--brand-soft);color:var(--brand);font-size:23px}.ai-week-empty>b{display:block;font-size:var(--t-h2);font-weight:800;color:var(--ink-1)}.ai-week-empty>p{margin:8px 0 18px;font-size:var(--t-sm);line-height:1.65;color:var(--ink-3)}
+.ai-first-card{padding:28px 20px 20px;border-radius:24px;background:#fff;box-shadow:var(--sh);text-align:center}
+.ai-first-card h2{margin:0 0 10px;font-size:23px;line-height:1.3;font-weight:800;color:var(--ink-1);letter-spacing:-.025em}
+.ai-first-card .lead{margin:0;font-size:var(--t-sm);line-height:1.65;color:var(--ink-2)}
+.ai-first-visual{height:126px;margin:10px 0 13px;display:flex;align-items:center;justify-content:center}
+.ai-first-visual svg{width:166px;height:126px;overflow:visible}
+.ai-first-card .ai-checkup-card{margin:0 0 20px;background:#F2F3F5;border-radius:9px;text-align:left}
+.ai-first-card .ai-checkup-card .go{background:#fff;border:1px solid #D8DCE4;color:var(--ink-1);border-radius:8px;padding:9px 13px}
+.ai-first-card .ai-first-cta{width:100%;padding:15px 12px;border:0;border-radius:9px;background:var(--brand);color:#fff;font-size:var(--t-sm);font-weight:750;cursor:pointer}
+.ai-first-card .ai-first-cta:disabled{background:#B8C2D3;cursor:default}
+.ai-usage-count{margin:9px 0 0;text-align:center;color:var(--ink-3);font-size:var(--t-cap);line-height:1.4}
+.ai-first-card .ai-usage-count{margin-top:10px}
+.ai-week-context-note{padding:12px 4px;text-align:center;font-size:var(--t-cap);line-height:1.55;color:var(--ink-3)}
+.ai-report-heading{margin:6px 2px 12px}.ai-report-heading h2{margin:0;color:var(--ink-1);font-size:var(--t-h1);font-weight:800;letter-spacing:-.02em}.ai-report-heading p{margin:4px 0 0;color:var(--ink-3);font-size:var(--t-cap)}
 .ai-sec{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:20px}
 .ai-sec h3{font-size:var(--t-h2);font-weight:800;color:var(--ink-1);margin-bottom:12px}
 .ai-sec .hl{font-size:var(--t-h2);font-weight:700;color:var(--ink-1);line-height:1.55;letter-spacing:-.02em;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:16px}
@@ -3764,10 +3782,7 @@ function weekDatesFor(offset){
 function weekLabelFor(offset){
   const monday = new Date(WEEK_MONDAY);
   monday.setDate(monday.getDate() + offset*7);
-  const first = new Date(monday.getFullYear(), monday.getMonth(), 1);
-  const mondayBasedDow = d => ((d.getDay()+6)%7)+1;
-  const wk = Math.ceil((monday.getDate() + mondayBasedDow(first) - 1) / 7);
-  return `${monday.getMonth()+1}월 ${wk}주`;
+  return aiWeekLabelOf(monday);
 }
 
 function renderDateStrip(){
@@ -3807,19 +3822,12 @@ document.getElementById('wkPrev').onclick = ()=>{ if(weekOffset <= WEEK_NAV_MIN)
 document.getElementById('wkNext').onclick = ()=>{ if(weekOffset >= WEEK_NAV_MAX) return; weekOffset += 1; onWeekChanged(); };
 
 function renderGoalPaneHistory(offset){
-  /* 지난 주: 그 주 일요일을 기준일로 연속일수를 보여준다(읽기 전용). 주 경계와 무관하게 이어서 센다. */
-  const days = weekDatesFor(offset);
+  /* 지난 주: 그 주 일요일을 기준일로 연속일수를 보여준다. 주 경계와 무관하게 이어서 센다. */
   const monday = addDays(WEEK_MONDAY, offset*7), sunday = addDays(monday, 6);
-  const readonlyNote = `<section class="ai-cd-note" style="justify-content:center;text-align:center">
-    ✓ ${weekLabelFor(offset)}(${days[0].month}.${days[0].day}~${days[6].month}.${days[6].day})는 이미 끝난 주라 읽기 전용이에요. ${kdate(sunday)} 기준으로 보여드려요.
-  </section>`;
-  document.getElementById('pGoal').innerHTML = readonlyNote + `<div class="h-sec"><div class="h-t">목표 이어가기</div></div>` + streakCard(sunday, monday, GOAL_MISSING_DAYS.has(isoOf(sunday)));
+  document.getElementById('pGoal').innerHTML = `<div class="h-sec"><div class="h-t">목표 이어가기</div></div>` + streakCard(sunday, monday, GOAL_MISSING_DAYS.has(isoOf(sunday)));
 }
 function renderNoHistoryNote(elId, offset){
-  const days = weekDatesFor(offset);
-  document.getElementById(elId).innerHTML = `<section class="ai-cd-note" style="justify-content:center;text-align:center">
-    ${weekLabelFor(offset)}(${days[0].month}.${days[0].day}~${days[6].month}.${days[6].day})는 아직 상세 기록이 준비되지 않았어요. "이번 주"로 돌아가 기록을 확인해보세요.
-  </section>`;
+  document.getElementById(elId).innerHTML = '';
 }
 const GOAL_MISSING_DAYS = new Set([]);   /* 질문에 답하지 않아 목표가 만들어지지 않은 날. 예: new Set(['2026-08-18']) — 오늘이면 '질문에 답하기', 과거면 '이 날은 목표가 없었어요' 상태로 렌더 */
 function renderGoalPane(){
@@ -3944,10 +3952,7 @@ function renderDailyHistory(offset){
     </section>`;
   };
   const dl = ['월','화','수','목','금','토','일'];
-  const readonlyNote = `<section class="ai-cd-note" style="justify-content:center;text-align:center">
-    ✓ ${wl}(${days[0].month}.${days[0].day}~${days[6].month}.${days[6].day})는 이미 끝난 주라 읽기 전용이에요.
-  </section>`;
-  document.getElementById('pDaily').innerHTML = readonlyNote +
+  document.getElementById('pDaily').innerHTML =
     card('👟','#E3F6E8','걸음수', `${wl} 걸음 수의 흐름이에요. 하루 수치보다 <b>며칠간의 변화</b>를 함께 보는 게 좋아요.`, 'step','걸음', dl) +
     card('🔥','#FFEADF','활동 칼로리', '움직임으로 소모한 활동 칼로리예요. 걸음 수와 함께 보면 <b>활동량의 변화를</b> 이해하기 쉬워요.', 'kcal','kcal', dl) +
     card('❤️','#FDE7EE','심박수', '안정시 심박수의 주간 흐름이에요. 평소 범위와 비교해 <b>몸의 부담 변화를</b> 살펴볼 수 있어요.', 'hr','bpm', dl) +
@@ -6027,6 +6032,17 @@ const AI_REDO = {};                                   /* 'YYYY-MM-DD'(주 시작
 function aiRedoState(mStr){ return AI_REDO[mStr] || { on:null, count:0 }; }
 function aiCanRedo(mStr){ return aiRedoState(mStr).on !== aiTodayStr(); }
 function aiMarkRedone(mStr){ const s = aiRedoState(mStr); AI_REDO[mStr] = { on: aiTodayStr(), count: s.count + 1 }; }
+const AI_WEEKLY_ANALYSIS_LIMIT = 3;
+const AI_WEEKLY_ANALYSIS_USAGE = {};
+function aiAnalysisWeekKey(opt){ return aiMondayStrOf(opt.generatedAt); }
+function aiWeeklyAnalysisCount(opt){
+  const key = aiAnalysisWeekKey(opt);
+  if(AI_WEEKLY_ANALYSIS_USAGE[key] != null) return AI_WEEKLY_ANALYSIS_USAGE[key];
+  return aiReportForWeekLabel(opt.label) ? 1 : 0;
+}
+function aiWeeklyAnalysisLabel(opt){ return `${aiWeeklyAnalysisCount(opt)}/${AI_WEEKLY_ANALYSIS_LIMIT}회 사용`; }
+function aiCanAnalyzeWeek(opt){ return aiWeeklyAnalysisCount(opt) < AI_WEEKLY_ANALYSIS_LIMIT; }
+function aiRecordWeeklyAnalysis(opt, previousCount){ AI_WEEKLY_ANALYSIS_USAGE[aiAnalysisWeekKey(opt)] = previousCount + 1; }
 function aiTodayStr(){ const p=n=>String(n).padStart(2,'0'); return `${AI_CAL_TODAY.getFullYear()}-${p(AI_CAL_TODAY.getMonth()+1)}-${p(AI_CAL_TODAY.getDate())}`; }
 function aiMondayStrOf(dateStr){ const m = aiWeekMondayOf(dateStr); const p=n=>String(n).padStart(2,'0'); return `${m.getFullYear()}-${p(m.getMonth()+1)}-${p(m.getDate())}`; }
 function aiIsThisWeek(r){ return r && r.generatedAt && aiMondayStrOf(r.generatedAt) === aiMondayStrOf(aiTodayStr()); }
@@ -6074,10 +6090,10 @@ const AI_REPORT_TEMPLATE = {
     ]
   }
 };
-let AI_REPORTS = []; /* 가입 2주차 상태를 기본값으로 보여주기 위해, 아래에서 지난 2주 리포트를 미리 채워 넣는다 */
+let AI_REPORTS = []; /* 최초 진입은 분석 전 상태로 시작한다. */
 let aiReportSeq = 0;
 const AI_CAL_TODAY = new Date('2026-08-20T00:00:00');
-const AI_WEEK_SCORES = { '2026-08-09': 58, '2026-08-16': 66, '2026-08-20': 61, '2026-08-23': 61 };
+const AI_WEEK_SCORES = { '2026-08-09': 58, '2026-08-16': 66, '2026-08-19': 61, '2026-08-23': 61 };
 function aiScoreFor(generatedAt){
   if(generatedAt && AI_WEEK_SCORES[generatedAt] != null) return AI_WEEK_SCORES[generatedAt];
   return AI_REPORT_TEMPLATE.score;
@@ -6095,23 +6111,26 @@ function aiWeekLabelOf(monday){
   return `${monday.getMonth()+1}월 ${wk}주`;
 }
 function aiWeekReportRange(dateStr, todayStr){
-  const monday = aiWeekMondayOf(dateStr);
-  const sunday = new Date(monday); sunday.setDate(sunday.getDate()+6);
-  const today = new Date(todayStr+'T00:00:00');
+  /* 분석 기준일은 어제. 월요일 분석은 직전 일요일을 끝으로 한 7일이므로
+     주차 라벨도 그 일요일이 속한 주(예: 8월 3주)로 계산한다. */
+  const end = new Date(todayStr+'T00:00:00'); end.setDate(end.getDate()-1);
+  const start = new Date(end); start.setDate(start.getDate()-6);
+  const endStr = `${end.getFullYear()}-${String(end.getMonth()+1).padStart(2,'0')}-${String(end.getDate()).padStart(2,'0')}`;
+  const monday = aiWeekMondayOf(endStr);
+  const first = new Date(monday.getFullYear(), monday.getMonth(), 1);
+  const mondayBasedDow = d => ((d.getDay()+6)%7)+1;
+  const week = `${monday.getMonth()+1}월 ${Math.ceil((monday.getDate()+mondayBasedDow(first)-1)/7)}주`;
   const fmt = d => `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
-  const week = aiWeekLabelOf(monday);
-  if(sunday < today){ return { week, range:`${fmt(monday)} ~ ${fmt(sunday)}`, start: monday, end: sunday, complete:true }; }
-  const end = today;
-  const start = new Date(today); start.setDate(start.getDate()-6);
-  return { week, range:`${fmt(start)} ~ ${fmt(end)}`, start, end, complete:false };
+  return { week, range:`${fmt(start)} ~ ${fmt(end)}`, start, end, complete:true };
 }
 /* 리포트 생성 — revision이 2 이상이면 같은 주를 다시 분석한 결과다.
    재분석은 '오늘까지의 기록'을 다시 반영하는 것이므로 분석 기간의 끝과 점수가 함께 움직여야
    사용자가 갱신됐다는 사실을 확인할 수 있다. */
 function aiCreateReport(generatedAtIn, revision){
   aiReportSeq += 1;
-  const generatedAt = generatedAtIn || aiTodayStr();
-  const { week, range } = aiWeekReportRange(generatedAt, aiTodayStr());
+  const referenceDate = generatedAtIn || aiTodayStr();
+  const { week, range, end } = aiWeekReportRange(referenceDate, referenceDate);
+  const generatedAt = `${end.getFullYear()}-${String(end.getMonth()+1).padStart(2,'0')}-${String(end.getDate()).padStart(2,'0')}`;
   const rev = revision || 1;
   const base = aiScoreFor(generatedAt);
   const score = Math.max(0, Math.min(100, base + (rev-1)*3));
@@ -6132,31 +6151,12 @@ function aiLatestReport(){ return AI_REPORTS[AI_REPORTS.length-1] || null; }
 /* 이번 주 리포트가 있으면 진입 화면은 '요약 + 다시 분석', 없으면 '분석하기'를 보여준다.
    (기존의 7일 대기 규칙은 없앴다 — 다른 기간으로 분석하기로 우회할 수 있어 규칙이 성립하지 않았고,
    사용자에게도 "왜 지금은 못 하는지"를 설명하기 어려웠다.) */
-function aiThisWeekReport(){ return aiReportForWeekOf(aiTodayStr()); }
+function aiThisWeekReport(){ return aiReportForWeekLabel(aiWeekReportRange(aiTodayStr(), aiTodayStr()).week); }
 function aiFmtDate(d){
   const w=['일','월','화','수','목','금','토'];
   return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} (${w[d.getDay()]})`;
 }
-/* 가입 2주차 사용자를 기본 상태로 두기 위해, 지난 2주(8월 2주·3주)의 리포트를 미리 생성해 둔다.
-   빈 배열로 시작하면 항상 "아직 한 번도 생성하지 않은" 최초 진입 화면부터 보게 되므로,
-   이 두 건을 채워 진입 시 바로 결과 화면(종합 인사이트 + 트렌드 그래프)을 확인할 수 있게 한다. */
-/* 두 번째 날짜(오늘)는 "이번 주 리포트까지 이미 생성된" 상태로 만들어, 쿨다운 게이트 없이
-   진입하자마자 결과 화면을 바로 보여준다 — 첫 번째 날짜는 트렌드 그래프용 지난주 이력이다. */
-['2026-08-09', '2026-08-20'].forEach(dateStr=>{
-  const { week, range } = aiWeekReportRange(dateStr, dateStr);
-  const score = aiScoreFor(dateStr);
-  AI_REPORTS.push({
-    id: 'seed-'+dateStr,
-    week, range, generatedAt: dateStr,
-    score,
-    headline: AI_REPORT_TEMPLATE.headline,
-    summary: AI_REPORT_TEMPLATE.summary,
-    findings: AI_REPORT_TEMPLATE.findings,
-    noCheckup: { ...AI_REPORT_TEMPLATE.noCheckup, score: score + 7 }
-  });
-});
-
-/* 생활 탭 4번째 서브탭 진입 화면 — 연동 전 / 연동 중 / 쿨다운 / 분석 유도 4가지 상태를 순서대로 확인한다.
+/* 생활 탭 4번째 서브탭 진입 화면 — 생활 상단의 주차 선택과 연결된 주간 인사이트.
    AI 인사이트의 필수 데이터는 생활 분석 탭 데이터(deviceLinked, 삼성헬스) 1가지뿐이다.
    검진정보(imp.checkup)를 포함한 나머지는 전부 옵션 데이터 — 있으면 해당 소견(예: 간 효소·소변 단백처럼
    검진 기반 소견)에 반영하고, 없으면 그 소견만 생략한 채 생활 데이터만으로 분석을 진행한다. */
@@ -6164,13 +6164,34 @@ function aiFmtDate(d){
    "오늘" 기준 쿨다운 화면 대신 그 주를 바로 분석/조회할 수 있는 화면을 보여준다.
    "다른 기간으로 분석하기"의 생성 메커니즘(generateAiInsightForRange)을 그대로 재사용한다. */
 function aiWeekOptionForOffset(offset){
+  if(offset===0){
+    const { week, range, start, end } = aiWeekReportRange(aiTodayStr(), aiTodayStr());
+    const pad = n => String(n).padStart(2,'0');
+    return { label:week, range:`${start.getMonth()+1}.${start.getDate()} ~ ${end.getMonth()+1}.${end.getDate()}`, start, end,
+      generatedAt:`${end.getFullYear()}-${pad(end.getMonth()+1)}-${pad(end.getDate())}` };
+  }
   const monday = new Date(WEEK_MONDAY); monday.setDate(monday.getDate() + offset*7);
   const pad = n => String(n).padStart(2,'0');
-  const mondayStr = `${monday.getFullYear()}-${pad(monday.getMonth()+1)}-${pad(monday.getDate())}`;
-  const todayStr = `${AI_CAL_TODAY.getFullYear()}-${pad(AI_CAL_TODAY.getMonth()+1)}-${pad(AI_CAL_TODAY.getDate())}`;
-  const { week, range, start, end } = aiWeekReportRange(mondayStr, todayStr);
-  return { label: week, range: `${start.getMonth()+1}.${start.getDate()} ~ ${end.getMonth()+1}.${end.getDate()}`, start, end,
-    generatedAt: offset===0 ? todayStr : `${end.getFullYear()}-${pad(end.getMonth()+1)}-${pad(end.getDate())}` };
+  const weekEnd = new Date(monday); weekEnd.setDate(weekEnd.getDate()+6);
+  const start = new Date(weekEnd); start.setDate(start.getDate()-6);
+  const label = weekLabelFor(offset);
+  const end = weekEnd;
+  return { label, range: `${start.getMonth()+1}.${start.getDate()} ~ ${end.getMonth()+1}.${end.getDate()}`, start, end,
+    generatedAt: `${end.getFullYear()}-${pad(end.getMonth()+1)}-${pad(end.getDate())}` };
+}
+function aiInsightIllustrationHtml(){
+  return `<div class="ai-first-visual" aria-hidden="true">
+    <svg viewBox="0 0 180 136" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="36" y="18" width="104" height="72" rx="13" fill="#EAF1FF" stroke="#C9D8FF" stroke-width="3" transform="rotate(3 36 18)"/>
+      <rect x="46" y="28" width="37" height="27" rx="7" fill="#8CB4FF"/><path d="M52 41h7l4-8 5 15 4-7h6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="89" y="30" width="43" height="25" rx="6" fill="#D7E5FF"/><path d="m94 48 8-9 7 5 8-9 10 3" stroke="#4181F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="52" y="67" width="8" height="13" rx="2" fill="#A9C6FF"/><rect x="65" y="60" width="8" height="20" rx="2" fill="#568FF6"/><rect x="78" y="64" width="8" height="16" rx="2" fill="#77A7FF"/>
+      <circle cx="111" cy="70" r="13" fill="#B9D0FF"/><path d="M111 57a13 13 0 0 1 12 8l-12 5V57Z" fill="#4181F5"/><path d="M111 70h13a13 13 0 0 1-19 11l6-11Z" fill="#81B4FF"/>
+      <path d="M143 41c0-8 6-14 13-14s13 6 13 14c0 5-3 8-6 11-2 2-2 4-2 6h-10c0-3-1-5-3-7-3-3-5-6-5-10Z" fill="#FFD34F"/><path d="M152 61h9m-8 5h7" stroke="#DDAA19" stroke-width="3" stroke-linecap="round"/><path d="M158 18v-6m13 13 5-4m-34 4-5-4" stroke="#FFC928" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="31" cy="83" r="13" fill="#DCEBFF" stroke="#5891F4" stroke-width="4"/><path d="m40 93 12 13" stroke="#415A80" stroke-width="6" stroke-linecap="round"/><circle cx="31" cy="81" r="5" fill="#75A9FA"/>
+      <path d="M45 103h90" stroke="#C7D6F4" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+  </div>`;
 }
 function renderAiInsightEntryForWeek(offset){
   const el = document.getElementById('pAi');
@@ -6178,33 +6199,34 @@ function renderAiInsightEntryForWeek(offset){
   const opt = aiWeekOptionForOffset(offset);
   const last = aiLatestReport();
   const weekReport = aiReportForWeekLabel(opt.label);
+  const usedCount = aiWeeklyAnalysisCount(opt);
+  const canAnalyze = aiCanAnalyzeWeek(opt);
   if(!deviceLinked){ renderAiInsightEntry(); return; }
+  const weekRange = opt.range;
   if(weekReport){
     el.innerHTML = `
-      <div class="ai-wk-title">${opt.label} 인사이트</div>
+      <div class="ai-report-heading"><h2>${weekReport.week} 인사이트</h2><p>분석 기간 · ${weekReport.range}</p></div>
       <div id="aiEntrySum"></div>
-      <button id="aiViewWeekReport" style="width:100%;margin-top:2px;padding:14px 0;border-radius:12px;border:none;background:var(--brand);color:#fff;font-weight:700;font-size:var(--t-sm);cursor:pointer">자세히 보기</button>
-      ${last ? `<div class="ai-menu-list"><button class="ai-menu-item" id="aiWeekBackToLatest"><span class="ic">✨</span><span class="tt">최신 리포트 보기</span><span class="ch">›</span></button></div>` : ''}
-      <div class="ai-cd-note">ℹ️ ${opt.range} 기간 분석이에요. "이번 주"로 돌아가면 최신 리포트를 볼 수 있어요.</div>`;
+      <button id="aiViewWeekReport" style="width:100%;margin-top:10px;padding:14px 0;border-radius:12px;border:none;background:var(--brand);color:#fff;font-weight:700;font-size:var(--t-sm);cursor:pointer">주간 리포트 자세히 보기</button>
+      <p class="ai-usage-count">${aiWeeklyAnalysisLabel(opt)}</p>
+      <div class="ai-week-context-note">상단 화살표로 다른 주의 인사이트도 확인할 수 있어요.</div>`;
     aiOpenReport = weekReport;
     renderAiInsightTabData(weekReport, 'sum', 'aiEntrySum');
     document.getElementById('aiViewWeekReport').onclick = ()=>openAiInsight(weekReport.id, 'detail');
-    const backBtn = document.getElementById('aiWeekBackToLatest');
-    if(backBtn) backBtn.onclick = ()=>openAiInsight(last.id, 'detail');
     return;
   }
   el.innerHTML = `
-    <div class="ai-entry">
-      <span class="spark">🗓️</span>
-      <b>${opt.label} 리포트</b>
-      <p>${opt.range} 기간의 생활 데이터를 분석해서<br>맞춤 인사이트를 제공해드려요.</p>
-      <button class="solid full" id="aiWeekGo">${opt.label} 분석하기</button>
-    </div>
-    ${last ? `<div class="ai-menu-list"><button class="ai-menu-item" id="aiWeekBackToLatest"><span class="ic">✨</span><span class="tt">최신 리포트 보기</span><span class="ch">›</span></button></div>` : ''}
-    <div class="ai-cd-note">ℹ️ 현재 보고 있는 날짜(${opt.range}) 기준으로 분석해요. "이번 주"로 돌아가면 평소처럼 최신 리포트를 볼 수 있어요.</div>`;
+    <section class="ai-first-card">
+      <h2>AI 건강 인사이트</h2>
+      <p class="lead">${opt.range}의 생활 기록을 분석해<br>맞춤 인사이트를 정리해드려요.</p>
+      ${aiInsightIllustrationHtml()}
+      ${!imp.checkup ? `<div class="ai-checkup-card"><span class="ic">🩺</span><div class="tx"><b>검진정보를 더하면 더 정확해져요</b><p>혈압·혈당 등 검진 결과까지 반영한<br>분석을 받아볼 수 있어요</p></div><button class="go" id="aiLinkCheckupInline">연동하기</button></div>` : ''}
+      <button class="ai-first-cta" id="aiWeekGo" ${canAnalyze?'':'disabled'}>${opt.label} 분석하기</button>
+      <p class="ai-usage-count">${usedCount}/${AI_WEEKLY_ANALYSIS_LIMIT}회 사용</p>
+    </section>`;
   document.getElementById('aiWeekGo').onclick = ()=>generateAiInsightForRange(opt, 'pAi');
-  const backBtn = document.getElementById('aiWeekBackToLatest');
-  if(backBtn) backBtn.onclick = ()=>openAiInsight(last.id, 'detail');
+  const checkupBtn = document.getElementById('aiLinkCheckupInline');
+  if(checkupBtn) checkupBtn.onclick = ()=>startImport('checkup');
 }
 function renderAiInsightEntry(){
   const el = document.getElementById('pAi');
@@ -6213,6 +6235,7 @@ function renderAiInsightEntry(){
   if(!deviceLinked){
     el.innerHTML = `
       <section class="card empty" style="padding-bottom:22px">
+        <div class="ai-week-context" style="margin:0 0 18px"><span class="ai-week-context-icon">✦</span><div><b>AI 인사이트</b><small>분석 날짜 · ${aiWeekOptionForOffset(weekOffset).range}</small></div><span class="ai-week-context-tag empty">분석 전</span></div>
         <span class="emo">⌚</span>
         <b>생활 분석 데이터를 연동해 주세요</b>
         <p>AI 건강 인사이트는 생활 데이터(생활 분석)를 기반으로 만들어요. 검진정보를 함께 연동하면 더 자세한 분석을 받아볼 수 있어요.</p>
@@ -6222,7 +6245,6 @@ function renderAiInsightEntry(){
     return;
   }
   const thisWeek = aiThisWeekReport();
-  const last = aiLatestReport();
   const checkupNote = importing === 'checkup'
     ? `<div class="ai-cd-note">⏳ 검진정보를 불러오는 중이에요…</div>`
     : !imp.checkup
@@ -6232,42 +6254,53 @@ function renderAiInsightEntry(){
     /* 이번 주 리포트가 있는 상태: 주차 제목 → 요약(헤드라인·종합 점수·지난주 대비) → 종합 소견 → 핵심 인사이트
        → 자세히 보기 → 다시 분석하기. 분석 이력은 상세의 '변화 추이' 탭에서 본다. */
     const mStr = aiMondayStrOf(thisWeek.generatedAt);
-    const can = aiCanRedo(mStr);
+    const currentOpt = aiWeekOptionForOffset(0);
+    const canToday = aiCanRedo(mStr);
+    const canWeek = aiCanAnalyzeWeek(currentOpt);
+    const can = canToday && canWeek;
     const newlyCheckup = imp.checkup && thisWeek.hadCheckup === false;
     el.innerHTML = `
-      <div class="ai-wk-title">${aiEffectiveReport(thisWeek).week} 인사이트</div>
+      <div class="ai-report-heading"><h2>${aiEffectiveReport(thisWeek).week} 인사이트</h2><p>분석 기간 · ${aiEffectiveReport(thisWeek).range}</p></div>
       <div id="aiEntrySum"></div>
-      <button id="aiViewLatest" style="width:100%;margin-top:2px;padding:14px 0;border-radius:12px;border:none;background:var(--brand);color:#fff;font-weight:700;font-size:var(--t-sm);cursor:pointer">자세히 보기</button>
+      <button id="aiViewLatest" style="width:100%;margin-top:10px;padding:14px 0;border-radius:12px;border:none;background:var(--brand);color:#fff;font-weight:700;font-size:var(--t-sm);cursor:pointer">주간 리포트 자세히 보기</button>
       <button id="aiRedo" ${can?'':'disabled'} style="width:100%;padding:14px 0;border-radius:12px;border:1px solid var(--line);background:${can?'#fff':'var(--fill)'};color:${can?'var(--ink-1)':'var(--ink-3)'};font-weight:700;font-size:var(--t-sm);cursor:${can?'pointer':'default'}">다시 분석하기</button>
-      ${can
-        ? (newlyCheckup ? `<div class="ai-cd-note">🩺 검진정보가 연동됐어요. 다시 분석하면 이번 리포트에 반영돼요.</div>` : '')
-        : `<div class="ai-cd-note">오늘 다시 분석했어요. ${newlyCheckup ? '연동한 검진정보는 내일 다시 분석할 때 반영돼요.' : '내일 다시 분석할 수 있어요.'}</div>`}
-      <div class="ai-menu-list">
-        <button class="ai-menu-item" id="aiViewRange"><span class="ic">🗓️</span><span class="tt">주간 리포트 보기</span><span class="ch">›</span></button>
-      </div>`;
+      <p class="ai-usage-count">${aiWeeklyAnalysisLabel(currentOpt)}</p>
+      ${!canWeek
+        ? `<div class="ai-cd-note">이번 주 분석 횟수 3회를 모두 사용했어요.</div>`
+        : !canToday
+        ? `<div class="ai-cd-note">오늘 다시 분석했어요. ${newlyCheckup ? '연동한 검진정보는 내일 다시 분석할 때 반영돼요.' : '내일 다시 분석할 수 있어요.'}</div>`
+        : (newlyCheckup ? `<div class="ai-cd-note">🩺 검진정보가 연동됐어요. 다시 분석하면 이번 리포트에 반영돼요.</div>` : '')}
+      <div class="ai-week-context-note">상단 화살표로 지난 주 인사이트를 확인할 수 있어요.</div>`;
     aiOpenReport = thisWeek;
     renderAiInsightTabData(thisWeek, 'sum', 'aiEntrySum');
     document.getElementById('aiViewLatest').onclick = ()=>openAiInsight(thisWeek.id, 'detail');
     if(can) document.getElementById('aiRedo').onclick = ()=>openAiRedoConfirm(thisWeek);
-    document.getElementById('aiViewRange').onclick = openAiRangePicker;
   } else {
+    const currentOpt = aiWeekOptionForOffset(0);
+    const initialRange = currentOpt.range;
+    const canAnalyze = aiCanAnalyzeWeek(currentOpt);
+    const initialRangeLine = `${initialRange}의 생활 기록을 분석해`;
     el.innerHTML = `
-      <div class="ai-entry">
-        <span class="spark">✨</span>
-        <b>AI 건강 인사이트</b>
-        <p>${imp.checkup ? '생활 데이터와 검진정보를 분석해서<br>맞춤 인사이트를 제공해드려요.' : '생활 데이터를 분석해서<br>맞춤 인사이트를 제공해드려요.'}</p>
-        <button class="solid full" id="aiEntryGo">분석하기</button>
-      </div>
-      ${last ? `<div class="ai-cd-note">최근 분석: ${aiEffectiveReport(last).week} · ${aiEffectiveReport(last).score}점</div>` : ``}
-      ${checkupNote}
-      ${last ? `<div class="ai-menu-list">
-          <button class="ai-menu-item" id="aiEntryRange"><span class="ic">🗓️</span><span class="tt">주간 리포트 보기</span><span class="ch">›</span></button>
-        </div>` : ''}`;
+      <section class="ai-first-card">
+        <h2>AI 건강 인사이트</h2>
+        <p class="lead">${initialRangeLine}<br>맞춤 인사이트를 정리해드려요.</p>
+        <div class="ai-first-visual" aria-hidden="true">
+          <svg viewBox="0 0 180 136" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="36" y="18" width="104" height="72" rx="13" fill="#EAF1FF" stroke="#C9D8FF" stroke-width="3" transform="rotate(3 36 18)"/>
+            <rect x="46" y="28" width="37" height="27" rx="7" fill="#8CB4FF"/><path d="M52 41h7l4-8 5 15 4-7h6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="89" y="30" width="43" height="25" rx="6" fill="#D7E5FF"/><path d="m94 48 8-9 7 5 8-9 10 3" stroke="#4181F5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="52" y="67" width="8" height="13" rx="2" fill="#A9C6FF"/><rect x="65" y="60" width="8" height="20" rx="2" fill="#568FF6"/><rect x="78" y="64" width="8" height="16" rx="2" fill="#77A7FF"/>
+            <circle cx="111" cy="70" r="13" fill="#B9D0FF"/><path d="M111 57a13 13 0 0 1 12 8l-12 5V57Z" fill="#4181F5"/><path d="M111 70h13a13 13 0 0 1-19 11l6-11Z" fill="#81B4FF"/>
+            <path d="M143 41c0-8 6-14 13-14s13 6 13 14c0 5-3 8-6 11-2 2-2 4-2 6h-10c0-3-1-5-3-7-3-3-5-6-5-10Z" fill="#FFD34F"/><path d="M152 61h9m-8 5h7" stroke="#DDAA19" stroke-width="3" stroke-linecap="round"/><path d="M158 18v-6m13 13 5-4m-34 4-5-4" stroke="#FFC928" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="31" cy="83" r="13" fill="#DCEBFF" stroke="#5891F4" stroke-width="4"/><path d="m40 93 12 13" stroke="#415A80" stroke-width="6" stroke-linecap="round"/><circle cx="31" cy="81" r="5" fill="#75A9FA"/>
+            <path d="M45 103h90" stroke="#C7D6F4" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        ${!imp.checkup ? `<div class="ai-checkup-card"><span class="ic">🩺</span><div class="tx"><b>검진정보를 더하면 더 정확해져요</b><p>혈압·혈당 등 검진 결과까지 반영한<br>분석을 받아볼 수 있어요</p></div><button class="go" id="aiLinkCheckupInline">연동하기</button></div>` : ''}
+        <button class="ai-first-cta" id="aiEntryGo" ${canAnalyze?'':'disabled'}>AI 인사이트 분석하기</button>
+        <p class="ai-usage-count">${aiWeeklyAnalysisLabel(currentOpt)}</p>
+      </section>`;
     document.getElementById('aiEntryGo').onclick = ()=>generateAiInsight();
-    const listBtn = document.getElementById('aiEntryList');
-    if(listBtn) listBtn.onclick = ()=>openAiReportList();
-    const rangeBtn = document.getElementById('aiEntryRange');
-    if(rangeBtn) rangeBtn.onclick = openAiRangePicker;
   }
   const inlineCheckupBtn = document.getElementById('aiLinkCheckupInline');
   if(inlineCheckupBtn) inlineCheckupBtn.onclick = ()=>startImport('checkup');
@@ -6275,8 +6308,16 @@ function renderAiInsightEntry(){
 function generateAiInsight(){
   const el = document.getElementById('pAi');
   if(!el) return;
+  const opt = aiWeekOptionForOffset(weekOffset);
+  if(!aiCanAnalyzeWeek(opt)) return;
+  const previousCount = aiWeeklyAnalysisCount(opt);
+  if(aiReportForWeekLabel(opt.label)){ renderAiInsightEntry(); return; }
   el.innerHTML = `<section class="card loading"><div class="spin"></div><b>AI가 건강 데이터를 분석하고 있어요</b><small>생활 데이터${imp.checkup ? ' · 검진정보' : ''}를 종합하는 중이에요</small></section>`;
-  setTimeout(()=>{ const report = aiCreateReport(); AI_REPORTS.push(report); renderAiInsightEntry(); openAiInsight(report.id, 'detail'); }, 1800);
+  setTimeout(()=>{
+    const report = aiBuildRangeReport(opt);
+    aiRecordWeeklyAnalysis(opt, previousCount);
+    renderAiInsightEntry();
+  }, 1800);
 }
 /* ── 다시 분석하기 ──
    같은 주의 리포트를 오늘까지의 기록으로 새로 만들어 교체한다.
@@ -6296,7 +6337,9 @@ function runAiRedo(){
   const target = aiRedoTarget; aiRedoTarget = null;
   if(!target) return;
   const mStr = aiMondayStrOf(target.generatedAt);
-  if(!aiCanRedo(mStr)) return;
+  const analysisOpt = { label:target.week, generatedAt:target.generatedAt };
+  if(!aiCanRedo(mStr) || !aiCanAnalyzeWeek(analysisOpt)) return;
+  const previousCount = aiWeeklyAnalysisCount(analysisOpt);
   const el = document.getElementById('pAi');
   const detOpen = document.getElementById('aiInsightDet').classList.contains('open');
   if(el){
@@ -6306,10 +6349,13 @@ function runAiRedo(){
   }
   setTimeout(()=>{
     const created = aiCreateReport(aiTodayStr(), (target.revision || 1) + 1);   /* 먼저 만들고 */
+    created.week = target.week;
+    created.range = target.range;
     AI_REPORTS = AI_REPORTS.filter(x => x.id !== target.id);                    /* 성공한 뒤에 교체 */
     const at = AI_REPORTS.findIndex(x => x.generatedAt && x.generatedAt > created.generatedAt);
     if(at === -1) AI_REPORTS.push(created); else AI_REPORTS.splice(at, 0, created);
     aiMarkRedone(mStr);
+    aiRecordWeeklyAnalysis(analysisOpt, previousCount);
     renderAiInsightEntry();
     if(detOpen) openAiInsight(created.id, aiCurTab==='trend' ? 'trend' : 'detail');
   }, 1800);
@@ -6377,8 +6423,11 @@ function updateAiCalSelInfo(){
   const pad0 = n => String(n).padStart(2,'0');
   const selStr = `${aiCalSelectedDate.getFullYear()}-${pad0(aiCalSelectedDate.getMonth()+1)}-${pad0(aiCalSelectedDate.getDate())}`;
   const todayStr0 = `${AI_CAL_TODAY.getFullYear()}-${pad0(AI_CAL_TODAY.getMonth()+1)}-${pad0(AI_CAL_TODAY.getDate())}`;
-  const { week, start, end } = aiWeekReportRange(selStr, todayStr0);
-  info.innerHTML = `<b style="color:var(--ink-1)">${week}</b> · ${aiFmtDate(start).split(' ')[0]} ~ ${aiFmtDate(end).split(' ')[0]}`;
+  const monday = aiWeekMondayOf(selStr);
+  const sunday = new Date(monday); sunday.setDate(sunday.getDate()+6);
+  const start = new Date(sunday); start.setDate(start.getDate()-6);
+  const week = aiWeekLabelOf(monday);
+  info.innerHTML = `<b style="color:var(--ink-1)">${week}</b> · ${aiFmtDate(start).split(' ')[0]} ~ ${aiFmtDate(sunday).split(' ')[0]}`;
   confirmBtn.disabled = false;
 }
 document.getElementById('aiCalPrev').onclick = ()=>{ aiCalViewMonth -= 1; if(aiCalViewMonth < 0){ aiCalViewMonth = 11; aiCalViewYear -= 1; } renderAiCal(); };
@@ -6388,12 +6437,17 @@ document.getElementById('aiCalConfirm').onclick = ()=>{
   const pad = n => String(n).padStart(2,'0');
   const selStr = `${aiCalSelectedDate.getFullYear()}-${pad(aiCalSelectedDate.getMonth()+1)}-${pad(aiCalSelectedDate.getDate())}`;
   const todayStr = `${AI_CAL_TODAY.getFullYear()}-${pad(AI_CAL_TODAY.getMonth()+1)}-${pad(AI_CAL_TODAY.getDate())}`;
-  const { week, range, start, end, complete } = aiWeekReportRange(selStr, todayStr);
-  const opt = { label: week, range, start, end, generatedAt: complete ? `${end.getFullYear()}-${pad(end.getMonth()+1)}-${pad(end.getDate())}` : todayStr };
+  const monday = aiWeekMondayOf(selStr);
+  const end = new Date(monday); end.setDate(end.getDate()+6);
+  const start = new Date(end); start.setDate(start.getDate()-6);
+  const week = aiWeekLabelOf(monday);
+  const fmt = d => `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+  const range = `${fmt(start)} ~ ${fmt(end)}`;
+  const opt = { label: week, range, start, end, generatedAt: `${end.getFullYear()}-${pad(end.getMonth()+1)}-${pad(end.getDate())}` };
   document.getElementById('aiRangePicker').classList.remove('open');
   /* 이미 리포트가 있는 주는 다시 분석하지 않고 그대로 열어 준다.
      끝난 주는 데이터가 확정돼 있어 다시 분석해도 같은 결과가 나온다(읽기 전용). */
-  const exist = aiReportForWeekOf(opt.generatedAt);
+  const exist = aiReportForWeekLabel(opt.label);
   if(exist){ openAiInsight(exist.id, 'detail'); return; }
   generateAiInsightForRange(opt, 'aiInsightDet');
 };
@@ -6403,15 +6457,22 @@ aiRangePickerEl.addEventListener('click',(e)=>{ if(e.target===aiRangePickerEl) a
 function aiBuildRangeReport(opt){
   /* 한 주에 리포트는 하나 — 같은 주가 이미 있으면 새로 만들지 않는다.
      (이전에는 같은 주를 다시 고르면 목록에 중복 리포트가 계속 쌓였다.) */
-  const dup = aiReportForWeekOf(opt.generatedAt);
+  const dup = aiReportForWeekLabel(opt.label);
   if(dup) return dup;
   const report = aiCreateReport(opt.generatedAt, 1);
+  report.generatedAt = opt.generatedAt;
   report.week = opt.label; report.range = opt.range;
   const insertAt = AI_REPORTS.findIndex(x=>x.generatedAt && x.generatedAt > opt.generatedAt);
   if(insertAt === -1) AI_REPORTS.push(report); else AI_REPORTS.splice(insertAt, 0, report);
   return report;
 }
 function aiOpenRangeReport(report, opt){
+  /* AI 인사이트 탭에서 시작한 주간 분석은 완료 후 해당 탭의 요약 결과를 보여준다.
+     달력에서 상세 화면을 직접 요청한 경우에만 기존 상세 진입을 유지한다. */
+  if(document.getElementById('pAi') && !document.getElementById('pAi').hidden){
+    renderAiInsightEntry();
+    return;
+  }
   aiOpenReport = report; aiCurTab = 'sum';
   document.querySelectorAll('.ai-in-tab').forEach(t=>t.classList.toggle('on', t.dataset.t==='sum'));
   renderAiInsightTabData(report, 'sum');
@@ -6420,10 +6481,22 @@ function aiOpenRangeReport(report, opt){
 }
 function generateAiInsightForRange(opt, hostId){
   const host = document.getElementById(hostId || 'pAi');
+  const existing = aiReportForWeekLabel(opt.label);
+  if(existing){
+    if(hostId === 'aiInsightDet') openAiInsight(existing.id, 'detail');
+    else renderAiInsightEntry();
+    return;
+  }
+  if(!aiCanAnalyzeWeek(opt)) return;
+  const previousCount = aiWeeklyAnalysisCount(opt);
   const loading = `<section class="card loading"><div class="spin"></div><b>AI가 건강 데이터를 분석하고 있어요</b><small>${opt.range} 기간의 생활 데이터${imp.checkup ? ' · 검진정보' : ''}를 종합하는 중이에요</small></section>`;
   if(hostId === 'aiInsightDet'){ document.getElementById('aiInsightBody').innerHTML = loading; document.getElementById('aiInsightDet').classList.add('open'); }
   else if(host){ host.innerHTML = loading; }
-  setTimeout(()=>{ const report = aiBuildRangeReport(opt); aiOpenRangeReport(report, opt); }, 1400);
+  setTimeout(()=>{
+    const report = aiBuildRangeReport(opt);
+    aiRecordWeeklyAnalysis(opt, previousCount);
+    aiOpenRangeReport(report, opt);
+  }, 1400);
 }
 function aiReportForWeekLabel(label){ return AI_REPORTS.find(x=>x.week===label) || null; }
 let aiCurTab = 'sum';
@@ -6459,13 +6532,11 @@ function renderAiInsightTabData(rIn, tab, bodyId){
     const deltaHtml = delta===null ? `<span class="d">지난주 대비 <b>–</b></span>`
       : delta===0 ? `<span class="d">지난주 대비 <b>변화 없음</b></span>`
       : `<span class="d">지난주 대비 <b class="${delta>0?'up':'dn'}">${delta>0?'▲':'▼'} ${Math.abs(delta)}</b></span>`;
-    /* 언제 기록까지 반영한 결과인지 먼저 밝힌다 — 다시 분석했을 때 갱신 여부를 확인할 수 있는 유일한 단서 */
-    const meta = (r.revision > 1)
-      ? `분석 기준 ${r.range} · 오늘 ${r.analyzedAt} 다시 분석 (${r.revision}회차)`
-      : `분석 기준 ${r.range}`;
+    /* 분석 기간과 횟수는 결과 상단에 표시하므로 요약 카드 안의 메타 문구는 생략한다. */
+    const meta = '';
     body.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:12px">
-        <p style="margin:0 2px;font-size:var(--t-cap);color:var(--ink-3)">${meta}</p>
+        ${meta ? `<p style="margin:0 2px;font-size:var(--t-cap);color:var(--ink-3)">${meta}</p>` : ''}
         <section class="ai-sec"><h3>요약</h3>
           <div class="hl">${r.headline || '종합 인사이트를 확인하세요.'}</div>
           <div class="ai-sc-lab">종합 점수</div>
@@ -7283,6 +7354,8 @@ function restartDemo(){
   imp.checkup = false; imp.clinic = false; importing = null;
   deviceLinked = true; hasAiReport = DEMO_AI_REPORT_REGISTERED;
   AI_REPORTS = []; visitFilter = 'all'; selDay = TODAY; weekOffset = 0;
+  Object.keys(AI_WEEKLY_ANALYSIS_USAGE).forEach(k=>delete AI_WEEKLY_ANALYSIS_USAGE[k]);
+  Object.keys(AI_REDO).forEach(k=>delete AI_REDO[k]);
   NOTICES.forEach(n=>{ n.read = (n.id === 'n1'); });   /* 지난 안내 한 건만 읽음 */
   Object.keys(NEEDLE_LAST).forEach(k=>delete NEEDLE_LAST[k]);   /* 게이지도 처음 재는 것처럼 다시 움직인다 */
   applyCaseData(hasAiReport ? 'sick' : 'well');

@@ -92,7 +92,7 @@ function renderSide(){
   const info=`<div class="spec-h sep">${S.screen==='overview'?'핵심 기준':'표시 정보'}</div><table class="fm"><tr><th>항목</th><th>출처</th><th>표시 기준</th></tr>${s.info.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join('')}</table>`;
   let extra='';
   if(S.screen==='overview')extra=`
-    <div class="spec-h sep">처음 보는 사람을 위한 용어</div>
+    <div class="spec-h sep">용어 정의</div>
     <div class="term-grid">
       <div class="term"><b>하루 기준</b><span>하루의 질문과 목표를 묶는 기준입니다. 00~04시는 전날 식이 기록과 같은 하루로 봅니다.</span></div>
       <div class="term"><b>질문할 끼니</b><span>사용자가 실제로 떠올려 답할 아침·점심·저녁입니다.</span></div>
