@@ -618,7 +618,7 @@ more(){
       <span style="flex:1;min-width:0"><b style="display:block;font-size:19px;font-weight:800;line-height:1.35">${me().name}</b><small style="display:block;margin-top:2px;font-size:var(--t-cap);color:var(--ink-3)">내정보 관리</small></span>
       <span class="cv">›</span></button></div>
     <div class="mo-lab">연동</div>
-    <div class="mo-card">${row("건강데이터", S.scen==="devoff"?"미연동":"연동","device")}${row("건강검진 · 진료정보", S.scen==="medoff"?"미연동":"연동","medlink")}</div>
+    <div class="mo-card">${row("건강데이터","","device")}${row("건강검진 · 진료정보","","medlink")}</div>
     <div class="mo-lab">서비스</div>
     <div class="mo-card">${row("동의 관리","","consents")}${row("알림 관리","","notice")}${row("이용권 관리","","ticket")}${row("언어","한국어")}</div>
     <div class="mo-lab">법적 정보 및 기타</div>
@@ -676,7 +676,6 @@ consents(){
       <div class="acc-row"><div class="tx"><b>개인정보 수집 · 이용</b><small>동의일 2026.08.01</small></div></div>
       <div class="acc-row"><div class="tx"><b>민감정보(건강정보) 처리</b><small>동의일 2026.08.01</small></div></div>
     </div></div>
-    <p class="acc-note">필수 동의 철회는 회원탈퇴로만 할 수 있어요.</p>
     <div class="acc-sec" style="margin-top:18px"><div class="acc-lab">선택 동의</div><div class="acc-card">
       <div class="acc-row"><div class="tx"><b>마케팅 정보 수신</b>${S.mk?"<small>동의일 2026.08.01</small>":""}</div>${sw("mk",S.mk)}</div>
       <div class="acc-row"><div class="tx"><b>서비스 품질 향상을 위한 데이터 활용</b>${S.dq?"<small>동의일 2026.09.28</small>":""}</div>${sw("dq",S.dq)}</div>
@@ -699,9 +698,9 @@ ticket(){
   const hist = S.scen==="ticket" ? `<div class="tk-row"><div class="tk-row-top"><b>Selvy Checkup</b><span class="tk-pill ok">사용 가능</span></div><div class="tk-row-sub">구매 2026.09.28</div><button class="tk-refund">환불 신청</button></div>` : "";
   return subShell("이용권 관리","go('more')",`
     <div class="acc-sec">
-      <div class="tk-card"><span class="tk-ic">🔬</span><div class="tk-b"><b>Selvy Checkup</b><div class="tk-n">무상 제공 중</div></div>${pr?"":`<button class="tk-buy" onclick="S.dlg=true;render()">구매하기</button>`}</div>
+      <div class="tk-card"><span class="tk-ic">🔬</span><div class="tk-b"><b>Selvy Checkup</b>${pr?`<div style="font-size:var(--t-sm);color:var(--ink-3)">프로모션 기간</div>`:""}</div>${pr?`<span class="tk-pill ok">무상 제공 중</span>`:""}${pr?"":`<button class="tk-buy" onclick="S.dlg=true;render()">구매하기</button>`}</div>
     </div>
-    <div class="acc-sec"><div class="acc-lab">이용권 내역</div><div class="acc-card tk-hist">${promoRow}${hist}</div></div>
+    ${pr?"":`<div class="acc-sec"><div class="acc-lab">이용권 내역</div><div class="acc-card tk-hist">${promoRow}${hist}</div></div>`}
     ${S.dlg?`<div class="tk-overlay open" style="position:absolute"><div class="tk-dialog"><div>${pr?`<h3>Selvy Checkup 이용권</h3><p>이용권 1장 · <s style="color:var(--ink-3)">25,000원</s> <b>무료</b></p>`:`<h3>Selvy Checkup 이용권 구매</h3><p>이용권 1장 · <b>25,000원</b></p>`}</div>
       <div class="tk-dialog-cta"><button id="tkConfirmCancel" onclick="S.dlg=false;render()">취소</button><button id="tkConfirmPay" onclick="S.dlg=false;render();toast('이용권을 받았어요')">${pr?"무료로 받기":"결제하기"}</button></div></div></div>`:""}`);
 },
@@ -747,14 +746,14 @@ const SIDE = {
     desc:"검진정보와 진료정보의 연동 상태를 기관별 카드로 보여주고, 카드마다 연동 · 업데이트 · 연동해제를 하는 화면.",
     info:[["검진정보","국민건강보험공단 · 건강검진 결과","카드 제목 · 설명"],["진료정보","건강보험심사평가원 · 병원 방문 · 처방 기록","카드 제목 · 설명"],["마지막 업데이트","연동 기록","연동 시에만 표시 (YYYY.MM.DD)"],["가져온 기간","연동 기록","연동 시에만 표시 (YYYY ~ YYYY)"]]},
   consents:{step:"",id:"MORE-040",title:"동의 관리",
-    desc:"필수 동의 3종의 동의일을 확인하고, 선택 동의 2종을 켜고 끄는 화면.",
+    desc:"필수 동의 3종의 동의일을 확인하고, 선택 동의 2종을 켜고 끄는 화면. <b>※ 법무 검토 후 확정 예정</b>",
     info:[["필수 동의 3종","가입 시 동의","동의일만 표시"],["마케팅 정보 수신","선택 동의","켜짐 시 동의일 표시"],["데이터 활용","선택 동의","켜짐 시 동의일 표시"]]},
   notice:{step:"",id:"MORE-050",title:"알림 관리",
     desc:"알림을 필수와 선택으로 나눠 보여주는 화면. 필수 알림(공지사항)은 항상 켜져 있어 끌 수 없고, 선택 알림(오늘의 목표 알림)만 켜고 끌 수 있음.",
     info:[["공지사항","필수 알림","항상 켜짐 · 스위치 비활성"],["오늘의 목표 알림","선택 알림","스위치 · ‘매일 저녁’"]]},
   ticket:{step:"",id:"MORE-060",title:"이용권 관리",
-    desc:"보유 이용권 수와 이용권 내역을 확인하는 화면. 무료 이용권 1장이 자동으로 지급되어 있음.",
-    info:[["이용권 상태","이용권 내역","‘무상 제공 중’ (보유 장수 대신 표시)"],["이용권 내역","구매 · 사용 · 취소 기록","상태와 날짜 (시각 제외)"],["정가","상품 정보","25,000원"]]},
+    desc:"이용권 상태를 확인하는 화면. 현재 버전은 프로모션 기간이라 ‘프로모션 기간’ 옆에 둥근 태그 ‘무상 제공 중’만 보여주고, 이용권 내역은 보여주지 않음.",
+    info:[["이용권 상태","프로모션 여부","‘프로모션 기간’ + 둥근 태그 ‘무상 제공 중’ (보유 장수 대신 표시)"],["이용권 내역","구매 · 사용 · 취소 기록","현재 버전은 숨김. 유료 전환 시 상태와 날짜(시각 제외)로 표시"],["정가","상품 정보","25,000원"]]},
   withdraw:{step:"",id:"MORE-020",title:"회원탈퇴",
     desc:"탈퇴 여부를 한 번 확인하는 화면. 진입 즉시 ‘정말 탈퇴하시겠어요?’와 삭제 · 복구 불가 안내를 보여주고, 탈퇴하기 선택 시 바로 탈퇴 처리함.",
     info:[]},
@@ -766,9 +765,10 @@ const SPEC = {
   more:[["진입 경로","하단 더보기 탭 → 최상단 프로필 카드 → 내정보 화면으로 이동"],
     ["프로필 카드","이름만 표시. 연락처 · 이메일은 내정보 화면에서만 표시"],
     ["메뉴 구성","연동 / 서비스 / 법적 정보 및 기타 3개 묶음"],
-    ["연동","건강데이터 · 건강검진 · 진료정보. 오른쪽에 ‘연동’ / ‘미연동’만 표시 (건강검진 · 진료정보는 하나라도 연동되면 ‘연동’)"],
+    ["연동","건강데이터 · 건강검진 · 진료정보. 오른쪽에 연동 상태를 표시하지 않음 (연동 여부는 각 연동 화면에서 확인)"],
     ["서비스","동의 관리 · 알림 관리 · 이용권 관리 · 언어(한국어)"],
     ["법적 정보 및 기타","서비스 이용 약관 · 개인정보 처리방침 · 개인정보 수집 및 이용동의 (각각 별도 화면)"],
+    ["법무 검토","동의 관리 · 법적 정보 및 기타(문서 구성 · 문구)는 법무 검토 후 확정 예정"],
     ["제외 기능","자녀 관리 기능은 두지 않음"]],
   profile:[["제공 기능","가입 정보 조회, 관리 중인 질환 입력 화면 이동, 회원탈퇴 화면 이동"],
     ["수정 불가","이름 · 생년월일 · 연락처 · 이메일 주소는 카카오 계정 정보에서 연동해 오는 값이므로 수정 불가. 별도 안내 문구 없음"],
@@ -795,12 +795,12 @@ const SPEC = {
     ["연동해제","확인 후 해당 기관 데이터와 이를 바탕으로 만든 화면 삭제"],],
   consents:[["필수 동의","서비스 이용약관 · 개인정보 수집 · 이용 · 민감정보 처리. 동의일만 표시, 변경 불가. 철회는 회원탈퇴로만 가능"],
     ["선택 동의","마케팅 정보 수신 · 서비스 품질 향상을 위한 데이터 활용. 스위치로 즉시 변경, 켜짐 시에만 동의일 표시"],
-    ["확인 필요","민감정보 처리 항목의 수집 항목 설명을 화면에서 제외함 → 법무 검토 시 재확인"]],
+    ["법무 검토","동의 항목 구성 · 철회 가능 여부 · 동의일 표기 · 문구는 법무 검토 후 확정 예정 (민감정보 처리 항목의 수집 항목 설명 제외 여부 포함)"]],
   notice:[["공지사항 (필수)","항상 켜짐, 스위치 비활성으로 끌 수 없음을 표시"],
     ["오늘의 목표 알림 (선택)","스위치로 즉시 변경, ‘매일 저녁’"],
     ["광고성 알림","이 화면에 두지 않음. 동의 관리의 ‘마케팅 정보 수신’에서만 변경"],
     ["알림 목록","공지 알림을 눌러도 공지사항 화면으로 이동하지 않고 목록에서 내용만 표시"]],
-  ticket:[["무료 이용권","1장 자동 지급, 내역에 ‘프로모션 무상 제공’으로 표시. 구매 버튼 · 별도 안내 문구 없음"],
+  ticket:[["무상 제공","현재 버전은 ‘프로모션 기간’ 옆 둥근 태그 ‘무상 제공 중’만 표시. 이용권 내역 · 구매 버튼 · 별도 안내 문구 없음"],
     ["환불 신청","사용 가능한 유료 이용권에만 표시, 스토어 환불 화면으로 이동"],
     ["내역 날짜","날짜만 표시 (시각 제외)"]],
   withdraw:[["확인 문구","‘정말 탈퇴하시겠어요?’ / ‘회원탈퇴 시 모든 개인정보가 삭제되며 복구할 수 없어요.’ (확인 체크 · 사유 설문 없음)"],
@@ -824,7 +824,7 @@ if (S.sideTab==="json") S.sideTab="spec";
 
 /* ════════ 라우팅 ════════ */
 const JUMP = [["more","① 더보기"],["profile","② 내정보"],["chronic","③ 관리 중인 질환"],["device","④ 건강데이터"],["medlink","⑤ 건강검진 · 진료정보"],["consents","⑥ 동의 관리"],["notice","⑦ 알림 관리"],["ticket","⑧ 이용권 관리"],["withdraw","⑨ 회원탈퇴"],["bye","⑩ 탈퇴 완료"]];
-const SCEN_FOR = {medoff:["medlink","more"], devoff:["device","more"], many:["profile","chronic"], ticket:["ticket","more"]};
+const SCEN_FOR = {many:["profile","chronic"]};
 const LABEL = {normal:"기본", medoff:"건강검진 · 진료정보 미연동", devoff:"건강데이터 미연동", many:"관리 중인 질환 3개", ticket:"미사용 이용권"};
 function toast(msg){ const t=document.getElementById("toast"); t.innerHTML=`<div class="toast">${msg}</div>`; clearTimeout(S.tt); S.tt=setTimeout(()=>t.innerHTML="",2600); }
 function go(k){ S.dlg=false; if (k!=="chronic") S.draft=null; if (k!=="withdraw"&&k!=="bye") S.agree=false; S.screen=k; render(); const sc=document.getElementById("sc"); if(sc) sc.scrollTop=0; }
