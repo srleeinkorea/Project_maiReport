@@ -2641,11 +2641,6 @@ if(window.self !== window.top){
    1. 오늘의 질문
    ════════════════════════════════════════════════════════════ */
 const Q_BASE = [
-  { id:'fatigue', cat:'피로', av:'⚡', tint:'energy',
-    text:'오늘 몸의 피로감은 어느 정도인가요?',
-    opts:[{v:'none',f:'⌣',label:'괜찮아요',    tone:'good'},
-          {v:'mild',f:'—',label:'조금 피곤해요',tone:'okay'},
-          {v:'high',f:'⌢',label:'많이 피곤해요',tone:'bad'}] },
   { id:'sleep', cat:'수면', av:'🌙', tint:'moon',
     text:'어젯밤 얼마나 주무셨나요?',
     opts:[{v:'lt5', f:'◔',label:'5시간 미만',tone:'neutral'},
@@ -2655,7 +2650,7 @@ const Q_BASE = [
     text:'오늘 식사는 평소만큼 하셨나요?',
     opts:[{v:'normal',f:'⌣',label:'평소대로',  tone:'good'},
           {v:'less',  f:'—',label:'조금 적게',  tone:'okay'},
-          {v:'skip',  f:'⌢',label:'거의 못 먹었어요',tone:'bad'}] }
+          {v:'skip',  f:'⌢',label:'거의 못 먹었거나 걸렀어요',tone:'bad'}] }
 ];
 /* 질환 맞춤 질문 — 이 시연본은 흉부 X선 AI 분석에서 '오른쪽 폐 경화 · 폐렴 의심'이
    검출된 급성기 사용자를 전제로 한다. 물어볼 근거가 AI REPORT 소견이라,
@@ -2862,9 +2857,9 @@ const C_BASE = {act:'오늘은 충분히 쉬고 물을 자주 드세요.',
 /* 이 시연본은 위험을 알리는 경고 문구를 쓰지 않는다 — 놀라게 하지 않고
    오늘 할 수 있는 행동만 남기는 것이 이 화면의 역할이다.
    답이 모두 나쁜 쪽인 날에도 먹기 · 쉬기 같은 실행 코칭으로 이어간다. */
-/* 리포트가 없는 평소 상태의 코칭 — 식이 두 문항과 피로 답으로 만든다 */
+/* 리포트가 없는 평소 상태의 코칭 — 식이 두 문항으로 만든다 */
 function coachingGeneral(){
-  const {meal,fatigue,veg,sweet,salt,pace,fat} = ans;
+  const {meal,veg,sweet,salt,pace,fat} = ans;
   if(meal && meal.v==='skip') return {act:'다음 끼니는 거르지 말고 가볍게 챙겨 드세요.',
     why:'한 끼를 거의 거르면 다음 끼니에 몰아 먹게 되기 쉬워요. 양보다 거르지 않는 것이 먼저예요.'};
   if(salt && salt.v==='bad') return {act:'다음 끼니 국물은 절반만 드셔보세요.',
@@ -2877,8 +2872,6 @@ function coachingGeneral(){
     why:'배부름 신호는 먹기 시작하고 20분쯤 뒤에 와요.'};
   if(fat && fat.v==='bad') return {act:'다음 끼니 기름진 반찬은 생선이나 두부로 바꿔보세요.',
     why:'같은 단백질이라도 조리법에 따라 지방 양이 크게 달라져요.'};
-  if(fatigue && fatigue.v==='high') return {act:'오늘은 활동을 조금 줄이고 충분히 쉬어보세요.',
-    why:'피로도가 높은 날은 규칙적인 식사·수면과 가벼운 활동 위주로 보내는 것이 좋아요.'};
   return {act:'오늘은 지금의 생활 리듬을 그대로 유지해보세요.',
     why:'답변과 최근 데이터 모두 평소와 비슷해요. 식후 가벼운 걷기만 더해도 충분해요.'};
 }
@@ -2968,7 +2961,7 @@ const MEAL_PHRASES = {
     {title:'조금씩 자주 나눠 먹기',        why:'한 번에 못 먹으면 횟수를 늘려요'},
     {title:'빈 끼는 우유나 두유 한 잔',    why:'준비 없이 바로 먹을 수 있는 회복 끼니예요'}
   ],
-  /* 부담 줄이기 풀 — 피로가 크거나 수면이 5시간 미만인 날 쓰는 묶음. 축·단계가 없다. */
+  /* 부담 줄이기 풀 — 연동된 수면이 5시간 미만인 날 쓰는 묶음. 축·단계가 없다. */
   burden:[
     {title:'저녁은 차리기 쉬운 것으로', why:'차리는 수고를 줄이는 것도 방법이에요'},
     {title:'저녁은 익힌 채소로 가볍게', why:'익힌 채소는 속에 부담이 적어요'},
@@ -3119,14 +3112,14 @@ function phraseGoal(b,p,how){
   return {...b,goal_state:'CREATED',title:p.title,why:p.why,how};
 }
 function mealGoal(b){
-  const {meal,protein,fever,fatigue,salt,veg,sweet,pace,fat} = ans;
+  const {meal,protein,fever,salt,veg,sweet,pace,fat} = ans;
   if(TARGET_MEAL === '현재 세션의 밤'){
     const hour=new Date().getHours();
     const candidates=AFTER_DINNER_GOALS.filter(p=>p.time_code==='EVENING'||hour>=17);
     return phraseGoal(b,pickPhrase(candidates,[]),'현재 세션의 밤에 할 수 있는 준비 행동');
   }
   if(!hasAiReport){
-    /* 평소 상태의 축 선정 — 회복 풀 → (확인 질환·검진 없음) → 부담 줄이기 풀 → 일반 관찰 축 */
+    /* 평소 상태의 축 선정 — 회복 풀 → 확인 질환 → 검진 경계 → 연동 수면 → 일반 관찰 축 */
     if(meal && (meal.v==='skip' || meal.v==='less'))
       { const p = pickPhrase(MEAL_PHRASES.recovery.slice(meal.v==='skip' ? 2 : 3), MEAL_PHRASES.recovery);
         return phraseGoal(b,p,`대상 끼니 · ${TARGET_MEAL}`); }
@@ -3137,10 +3130,11 @@ function mealGoal(b){
       const p=pickPhrase(set[stage],[...set.입문,...set.기본,...set.도전]);
       return phraseGoal(b,p,`내정보 질환 연결 축 · ${TARGET_MEAL}`);
     }
-    /* 피로 문항은 여기에 쓰인다 — 피곤한 날에는 축·단계를 따지지 않고 부담이 적은 문구를 낸다
-       (수면 5시간 미만도 같은 조건이지만 평소 세트에는 수면 문항이 없어 피로 답만 본다) */
-    if(fatigue && fatigue.v==='high')
-      { const p = pickPhrase(MEAL_PHRASES.burden); return phraseGoal(b,p,`부담 줄이기 · ${TARGET_MEAL}`); }
+    const linkedSleepHours=typeof HD_TODAY_NUM==='undefined' ? NaN : Number(HD_TODAY_NUM.sleep);
+    if(Number.isFinite(linkedSleepHours) && linkedSleepHours<5){
+      const p=pickPhrase(MEAL_PHRASES.burden);
+      return phraseGoal(b,p,`연동 수면 5시간 미만 · ${TARGET_MEAL}`);
+    }
     /* 오늘 물은 회전 축의 답으로 단계를 정하고, 그 축의 문구세트에서 고른다 */
     const axis = salt ? {k:'salt', nm:'짠맛 · 국물', a:salt} : {k:'veg', nm:'채소', a:veg};
     const step = !axis.a ? '입문' : axis.a.v==='bad' ? '입문' : axis.a.v==='mid' ? '기본' : '도전';
@@ -3168,20 +3162,9 @@ function mealGoal(b){
   return phraseGoal(b,p,`단백질 · ${step} 단계 · ${TARGET_MEAL}`);
 }
 function adjust(b){
-  const {care,walk,fatigue} = ans;
+  const {care,walk} = ans;
   if(b.key==='meal') return mealGoal(b);
-  if(!hasAiReport){
-    /* 평소 상태의 활동 목표 — 피로 답으로 오늘 낼 수 있는 만큼을 정한다.
-       기기 데이터(걸음·활동 시간)는 어제까지의 기록이라 오늘 컨디션을 대신하지 못한다. */
-    if(b.key==='move'){
-      if(fatigue && fatigue.v==='high') return {...b, title:'저녁 먹고 5분만 걷기',
-        why:'피곤한 날은 짧게가 오래 가요', how:'집 근처를 5분만 천천히 걸어요'};
-      if(fatigue && fatigue.v==='mild') return {...b, title:'점심 먹고 10분 걷기',
-        why:'점심 뒤 10분이면 부담이 적어요', how:'점심 뒤 자리에서 일어나 10분만 걸어요'};
-      if(fatigue && fatigue.v==='none') return {...b, why:'지금 속도를 그대로 이어가면 돼요'};
-    }
-    return {...b};
-  }
+  if(!hasAiReport) return {...b};
   if(b.key==='move'){
     /* 오늘의 활동은 걷기 답이 정한다. 아직 회복 중이 아니면 같은 '걸을 수 있다'도 한 단계 낮춰 잡는다 */
     if(walk && walk.v==='rest') return {...b, title:'오늘은 앉거나 누워서 쉬기',
@@ -3208,19 +3191,18 @@ function recalc(){
 /* 목표 타일 — 홈과 생활 탭이 같은 컴포넌트를 쓴다.
    카테고리 · 목표 문구 · 터치 영역(색 띠). 누르면 완료, 다시 누르면 취소. 쉬기 없음. */
 const GOAL_TINT = {meal:{c:'#C56A00',bg:'#FDEBD3'}, move:{c:'#D6336C',bg:'#FBD9E0'}, sleep:{c:'#4B45C6',bg:'#E3E1FA'}};
-/* 초기 잠금: 오늘의 목표는 관련 질문에 답해야 열린다(식이 ← 식사/시야 질문, 활동 ← 피로 질문, 수면 ← 수면 질문).
+/* 초기 잠금: 오늘의 목표는 관련 질문에 답해야 열린다(식이 ← 식사 질문, 활동 ← 회복기 걷기 질문).
    잠긴 타일을 누르면 해당 질문으로 이동한다. 과거 날짜에는 적용하지 않는다. */
 const GOAL_LOCK_BY_QUESTION = true;
-const GOAL_UNLOCK_Q = { meal:['meal'], move:['walk','fatigue'], sleep:['sleep'] };
+const GOAL_UNLOCK_Q = { meal:['meal'], move:['walk'], sleep:['sleep'] };
 /* 잠그는 카테고리만 지정한다 — 나머지는 처음부터 열린 상태로 보여준다 */
 /* 이 시연본은 식이와 활동을 잠가 두고 답변 완료 시 생성한다.
    원본은 식이만 잠그지만, 폐렴 케이스에서는 '오늘 걸을 수 있는지'가 활동 목표를 가르는
    결정적 조건이고 그 값은 워치 데이터로 알 수 없어 질문 답변이 있어야 한다.
    수면은 기본 목표(상체 높여 눕기)를 그대로 깔아 두고 답변으로 바꾸지 않는다. */
 let GOAL_LOCK_KEYS = ['meal','move'];
-/* 활동 목표는 두 케이스 모두 답변으로 연다 — 평소에는 피로 답이, 폐렴 케이스에서는 걷기 답이
-   오늘 얼마나 움직일 수 있는지를 가른다. 기기 데이터만으로는 알 수 없는 값이다. */
-const GOAL_LOCK_BY_CASE = { well:['meal','move'], sick:['meal','move'] };
+/* 평소 활동 목표는 처음부터 열고, 폐렴 회복기 활동 목표만 걷기 답변 후 생성한다. */
+const GOAL_LOCK_BY_CASE = { well:['meal'], sick:['meal','move'] };
 function goalLocked(key, dayN){
   if(!GOAL_LOCK_BY_QUESTION) return false;
   const today = typeof TODAY!=='undefined' ? TODAY : 20;
