@@ -39,7 +39,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
 .ex p{font-size:13px;padding:6px 0;border-top:1px dashed var(--line)}
 .ex p:first-of-type{border-top:0}
 .tag{display:inline-block;font-size:11px;font-weight:800;padding:1px 7px;border-radius:999px;margin-right:6px;vertical-align:1px}
-.t-up{background:var(--good-bg);color:var(--good)}.t-down{background:var(--low-bg);color:var(--low)}.t-same{background:var(--mid-bg);color:var(--mid)}
+.t-chg{background:#EEF1F6;color:#5A6880}.t-up{background:var(--good-bg);color:var(--good)}.t-down{background:var(--low-bg);color:var(--low)}.t-same{background:var(--mid-bg);color:var(--mid)}
 @media (max-width:760px){.flow,.ex{grid-template-columns:1fr}table{font-size:12.5px}td,th{padding:8px}}
 </style>
 </head>
@@ -85,13 +85,14 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
     <tr><td class="k">지표 해석 문장</td><td><b>전날 대비 구간 변화</b> 또는 <b>같은 구간이 이어진 일수</b></td></tr>
   </table>
   <table style="margin-top:8px">
-    <tr><th>예 · 생활여유</th><th>전날 → 선택일</th><th>배지</th><th>해석</th></tr>
+    <tr><th>예 · 생활여유</th><th>전날 → 선택일</th><th>배지 (오늘 상태)</th><th>해석 (변화 · 연속)</th></tr>
     <tr><td class="k">점수만 오름</td><td>58점(보통) → 62점(보통)</td><td>보통</td><td>남아 있는 몸의 여유가 2일째 적정한 편이에요.</td></tr>
     <tr><td class="k">구간이 바뀜</td><td>38점(주의) → 42점(보통)</td><td>보통</td><td>활동량이 늘어나면서 몸의 여유가 나아지고 있어요.</td></tr>
+    <tr><td class="k">구간이 올라감</td><td>68점(보통) → 72점(좋음)</td><td>충분해요</td><td>수면 시간이 늘어나면서 몸의 여유가 나아지고 있어요.</td></tr>
   </table>
   <ul class="rules" style="margin-top:6px">
     <li>점수가 올라도 구간이 같으면 ‘나아지고 있어요’를 쓰지 않고 연속 문장을 씀</li>
-    <li>이 문서의 예시 표에 붙은 좋음 · 보통 · 주의 태그는 모두 <b>그날의 배지(상태)</b>를 뜻함</li>
+    <li>샘플 표의 <b>배지 칸</b>은 화면 배지 문구 그대로(오늘 상태) · 예시의 회색 <b>‘변화 · …’</b> 태그는 변화 방향이며 배지가 아님</li>
   </ul>
 
   <h3>확정 기준값</h3>
@@ -171,7 +172,7 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
     <li><code>재료별 영향(점) = 선택일 기여 점수 − 전날 기여 점수</code></li>
     <li><code>기여 점수 = 근거 상한(E) × 적용 가중치 × 재료 점수 × 100</code></li>
     <li>적용 가중치 = 그날 실제로 산출에 쓰인 재료끼리 비중을 다시 나눈 값 (예: 식후 기록이 없으면 걸음 · 공백 후 · 분산 비중만으로 재조정)</li>
-    <li>근거 상한(E) = 자기돌봄 등 자료 수에 따라 점수 상한이 걸리는 경우 그 값 (없으면 1)</li>
+    <li>근거 상한(E) = 자료가 빠져 점수 상한이 걸린 날의 상한 비율 (자기돌봄: 재료 수에 따른 E · 생활여유: 수면 없는 날 원점수 82 → 0.855 · 그 외 1)</li>
     <li><b>선택일 산출에 쓰이지 않은 재료는 이유 후보에서 제외</b></li>
     <li>재료 점수 = <b>지표 엔진이 이미 산출한 항목값을 그대로 사용</b> (문장 규칙에서 다시 계산하지 않음)</li>
     <li>내려간 날은 가장 크게 마이너스, 올라간 날은 가장 크게 플러스인 재료 1개</li>
@@ -192,6 +193,21 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
     <tr><td class="k"></td><td>수면 규칙성</td><td>취침 시각 흔들림이 줄어든 정도</td></tr>
   </table>
 
+  <h3>재료 계산 단위 → 이유 항목 대응</h3>
+  <table>
+    <tr><th>지표</th><th>산식 계산 단위 (v7)</th><th>이유 항목</th></tr>
+    <tr><td class="k">생활여유</td><td>A 활동량</td><td>활동 시간</td></tr>
+    <tr><td class="k"></td><td>D 분산 + B(낮은 부담) 중 <b>몰림</b> 절반</td><td>활동 분산</td></tr>
+    <tr><td class="k"></td><td>B(낮은 부담) 중 <b>240분 초과</b> 절반</td><td>활동 부담</td></tr>
+    <tr><td class="k"></td><td>S 수면</td><td>수면</td></tr>
+    <tr><td class="k">자기돌봄</td><td>걸음 · 기준 사건 후 행동 · 재활성화 · 분산</td><td>걸음 수 · 식후 활동 · 공백 후 움직임 · 활동 분산</td></tr>
+    <tr><td class="k">일상안정</td><td>걸음량 · 활동시간 · 운동시간 · 행동 완료 · 걸음 발생일 · 수면 규칙성</td><td>같은 이름 그대로</td></tr>
+  </table>
+  <ul class="rules" style="margin-top:6px">
+    <li>한 계산 단위의 변화는 반드시 하나의 이유 항목으로만 들어감 (누락 · 중복 없음)</li>
+    <li>여러 단위가 한 이유로 모이면 기여 점수를 더해서 비교 (예: 활동 분산 = D + B의 몰림 절반)</li>
+  </ul>
+
   <h3>계산 예시 · 생활여유 좋음 → 보통</h3>
   <table>
     <tr><th>재료</th><th>비중</th><th>전날 → 선택일</th><th>재료 점수</th><th>영향</th></tr>
@@ -209,24 +225,24 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
   <h2><span class="n">6</span>지표별 예시</h2>
   <div class="ex">
     <div><h4>생활여유</h4>
-      <p><span class="tag t-up">올라감</span>수면 시간이 늘어나면서 몸의 여유가 나아지고 있어요.</p>
-      <p><span class="tag t-up">올라감</span>움직임이 하루에 고르게 나뉘면서 몸의 여유가 나아지고 있어요.</p>
-      <p><span class="tag t-down">내려감</span>활동이 한때에 몰리면서 몸의 여유가 감소하고 있어요.</p>
-      <p><span class="tag t-down">내려감</span>활동이 많아 부담이 커지면서 몸의 여유가 감소하고 있어요.</p>
-      <p><span class="tag t-same">같음</span>남아 있는 몸의 여유가 2일째 적정한 편이에요.</p>
-      <p><span class="tag t-same">주의 지속</span>수면이 짧은 날이 3일째 이어지면서 남아 있는 몸의 여유가 부족한 편이에요.</p>
+      <p><span class="tag t-chg">변화 · 올라감</span>수면 시간이 늘어나면서 몸의 여유가 나아지고 있어요.</p>
+      <p><span class="tag t-chg">변화 · 올라감</span>움직임이 하루에 고르게 나뉘면서 몸의 여유가 나아지고 있어요.</p>
+      <p><span class="tag t-chg">변화 · 내려감</span>활동이 한때에 몰리면서 몸의 여유가 감소하고 있어요.</p>
+      <p><span class="tag t-chg">변화 · 내려감</span>활동이 많아 부담이 커지면서 몸의 여유가 감소하고 있어요.</p>
+      <p><span class="tag t-chg">변화 · 같음</span>남아 있는 몸의 여유가 2일째 적정한 편이에요.</p>
+      <p><span class="tag t-chg">변화 · 주의 지속</span>수면이 짧은 날이 3일째 이어지면서 남아 있는 몸의 여유가 부족한 편이에요.</p>
     </div>
     <div><h4>자기돌봄</h4>
-      <p><span class="tag t-up">올라감</span>식후 활동이 이어지면서 나를 챙기는 정도가 나아지고 있어요.</p>
-      <p><span class="tag t-up">올라감</span>걸음 수가 늘어나면서 나를 챙기는 정도가 나아지고 있어요.</p>
-      <p><span class="tag t-down">내려감</span>걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.</p>
-      <p><span class="tag t-same">같음</span>나를 챙기는 정도가 2일째 좋은 편이에요.</p>
-      <p><span class="tag t-same">주의 지속</span>식후 활동이 적은 날이 3일째 이어지면서 나를 챙기는 정도가 부족한 편이에요.</p>
+      <p><span class="tag t-chg">변화 · 올라감</span>식후 활동이 이어지면서 나를 챙기는 정도가 나아지고 있어요.</p>
+      <p><span class="tag t-chg">변화 · 올라감</span>걸음 수가 늘어나면서 나를 챙기는 정도가 나아지고 있어요.</p>
+      <p><span class="tag t-chg">변화 · 내려감</span>걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.</p>
+      <p><span class="tag t-chg">변화 · 같음</span>나를 챙기는 정도가 2일째 좋은 편이에요.</p>
+      <p><span class="tag t-chg">변화 · 주의 지속</span>식후 활동이 적은 날이 3일째 이어지면서 나를 챙기는 정도가 부족한 편이에요.</p>
     </div>
     <div><h4>일상안정</h4>
-      <p><span class="tag t-up">올라감</span>걸음 수가 늘어나면서 일상의 균형이 나아지고 있어요.</p>
-            <p><span class="tag t-down">내려감</span>걸음 수가 줄어들면서 일상의 균형이 흔들리고 있어요.</p>
-      <p><span class="tag t-same">같음</span>일상의 균형이 2일째 적정한 편이에요.</p>
+      <p><span class="tag t-chg">변화 · 올라감</span>걸음 수가 늘어나면서 일상의 균형이 나아지고 있어요.</p>
+            <p><span class="tag t-chg">변화 · 내려감</span>걸음 수가 줄어들면서 일상의 균형이 흔들리고 있어요.</p>
+      <p><span class="tag t-chg">변화 · 같음</span>일상의 균형이 2일째 적정한 편이에요.</p>
     </div>
   </div>
 </section>
@@ -235,12 +251,12 @@ ul.rules.no li::before{content:'✕';color:var(--low)}
   <h2><span class="n">7</span>샘플 시나리오 적용 결과</h2>
   <h3>① 회복 중인 주 · 데이터</h3>
   <table><tr><th>요일</th><th>수면</th><th>활동 시간</th><th>활동 분산</th><th>걸음 수</th><th>식후 활동</th><th>취침 시각</th></tr><tr><td class="k">월</td><td>6시간 50분</td><td>30분</td><td>4칸 · 40%</td><td>6,900</td><td>걷기 1회</td><td>23:40</td></tr><tr><td class="k">화</td><td>5시간 40분</td><td>18분</td><td>2칸 · 70%</td><td>4,100</td><td>걷기 1회</td><td>00:50</td></tr><tr><td class="k">수</td><td>6시간 30분</td><td>34분</td><td>5칸 · 30%</td><td>7,800</td><td>조깅 1회</td><td>23:20</td></tr><tr><td class="k">목</td><td>7시간 23분</td><td>42분</td><td>6칸 · 25%</td><td>7,340</td><td>걷기 1회</td><td>23:10</td></tr></table>
-  <h3>① 회복 중인 주 · 지표 해석</h3>
-  <table><tr><th>요일</th><th>생활여유</th><th>자기돌봄</th><th>일상안정</th></tr><tr><td class="k">월</td><td><span class="tag t-same">보통</span>남아 있는 몸의 여유가 적정한 편이에요.</td><td><span class="tag t-same">보통</span>나를 챙기는 정도가 적정한 편이에요.</td><td><span class="tag t-same">보통</span>일상의 균형이 적정한 편이에요.</td></tr><tr><td class="k">화</td><td><span class="tag t-down">주의</span>수면 시간이 줄어들면서 몸의 여유가 감소하고 있어요.</td><td><span class="tag t-down">주의</span>걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.</td><td><span class="tag t-same">보통</span>일상의 균형이 2일째 적정한 편이에요.</td></tr><tr><td class="k">수</td><td><span class="tag t-same">보통</span>움직임이 하루에 고르게 나뉘면서 몸의 여유가 나아지고 있어요.</td><td><span class="tag t-same">보통</span>걸음 수가 늘어나면서 나를 챙기는 정도가 나아지고 있어요.</td><td><span class="tag t-up">좋음</span>걸음 수가 늘어나면서 일상의 균형이 나아지고 있어요.</td></tr><tr><td class="k">목</td><td><span class="tag t-up">좋음</span>수면 시간이 늘어나면서 몸의 여유가 나아지고 있어요.</td><td><span class="tag t-same">보통</span>나를 챙기는 정도가 2일째 적정한 편이에요.</td><td><span class="tag t-up">좋음</span>일상의 균형이 2일째 안정적인 편이에요.</td></tr></table>
+  <h3>① 회복 중인 주 · 배지와 지표 해석</h3>
+  <table><tr><th rowspan="2">요일</th><th colspan="2">생활여유</th><th colspan="2">자기돌봄</th><th colspan="2">일상안정</th></tr><tr><th>배지</th><th>해석</th><th>배지</th><th>해석</th><th>배지</th><th>해석</th></tr><tr><td class="k">월</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>남아 있는 몸의 여유가 적정한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>나를 챙기는 정도가 적정한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-same">비슷해요</span></td><td>일상의 균형이 적정한 편이에요.</td></tr><tr><td class="k">화</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>수면 시간이 줄어들면서 몸의 여유가 감소하고 있어요.</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">비슷해요</span></td><td>일상의 균형이 2일째 적정한 편이에요.</td></tr><tr><td class="k">수</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>움직임이 하루에 고르게 나뉘면서 몸의 여유가 나아지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>걸음 수가 늘어나면서 나를 챙기는 정도가 나아지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-up">안정적이에요</span></td><td>걸음 수가 늘어나면서 일상의 균형이 나아지고 있어요.</td></tr><tr><td class="k">목</td><td style="white-space:nowrap"><span class="tag t-up">충분해요</span></td><td>수면 시간이 늘어나면서 몸의 여유가 나아지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>나를 챙기는 정도가 2일째 적정한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-up">안정적이에요</span></td><td>일상의 균형이 2일째 안정적인 편이에요.</td></tr></table>
   <h3>② 컨디션이 떨어진 주 · 데이터</h3>
   <table><tr><th>요일</th><th>수면</th><th>활동 시간</th><th>활동 분산</th><th>걸음 수</th><th>식후 활동</th><th>취침 시각</th></tr><tr><td class="k">월</td><td>7시간 12분</td><td>52분</td><td>5칸 · 30%</td><td>8,120</td><td>걷기 1회</td><td>23:10</td></tr><tr><td class="k">화</td><td>5시간 54분</td><td>26분</td><td>4칸 · 40%</td><td>4,260</td><td>없음</td><td>23:30</td></tr><tr><td class="k">수</td><td>5시간 18분</td><td>15분</td><td>2칸 · 70%</td><td>2,150</td><td>없음</td><td>00:40</td></tr><tr><td class="k">목</td><td>5시간 10분</td><td>12분</td><td>1칸 · 100%</td><td>1,840</td><td>없음</td><td>01:30</td></tr></table>
-  <h3>② 컨디션이 떨어진 주 · 지표 해석</h3>
-  <table><tr><th>요일</th><th>생활여유</th><th>자기돌봄</th><th>일상안정</th></tr><tr><td class="k">월</td><td><span class="tag t-up">좋음</span>남아 있는 몸의 여유가 충분한 편이에요.</td><td><span class="tag t-up">좋음</span>나를 챙기는 정도가 좋은 편이에요.</td><td><span class="tag t-up">좋음</span>일상의 균형이 안정적인 편이에요.</td></tr><tr><td class="k">화</td><td><span class="tag t-same">보통</span>수면 시간이 줄어들면서 몸의 여유가 감소하고 있어요.</td><td><span class="tag t-same">보통</span>걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.</td><td><span class="tag t-same">보통</span>걸음 수가 줄어들면서 일상의 균형이 흔들리고 있어요.</td></tr><tr><td class="k">수</td><td><span class="tag t-down">주의</span>활동이 한때에 몰리면서 몸의 여유가 감소하고 있어요.</td><td><span class="tag t-down">주의</span>걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.</td><td><span class="tag t-down">주의</span>잠드는 시간이 불규칙해지면서 일상의 균형이 흔들리고 있어요.</td></tr><tr><td class="k">목</td><td><span class="tag t-down">주의</span>남아 있는 몸의 여유가 2일째 부족한 편이에요.</td><td><span class="tag t-down">주의</span>나를 챙기는 정도가 2일째 부족한 편이에요.</td><td><span class="tag t-down">주의</span>일상의 균형이 2일째 불안정한 편이에요.</td></tr></table>
+  <h3>② 컨디션이 떨어진 주 · 배지와 지표 해석</h3>
+  <table><tr><th rowspan="2">요일</th><th colspan="2">생활여유</th><th colspan="2">자기돌봄</th><th colspan="2">일상안정</th></tr><tr><th>배지</th><th>해석</th><th>배지</th><th>해석</th><th>배지</th><th>해석</th></tr><tr><td class="k">월</td><td style="white-space:nowrap"><span class="tag t-up">충분해요</span></td><td>남아 있는 몸의 여유가 충분한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-up">잘하고 있어요</span></td><td>나를 챙기는 정도가 좋은 편이에요.</td><td style="white-space:nowrap"><span class="tag t-up">안정적이에요</span></td><td>일상의 균형이 안정적인 편이에요.</td></tr><tr><td class="k">화</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>수면 시간이 줄어들면서 몸의 여유가 감소하고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">비슷해요</span></td><td>걸음 수가 줄어들면서 일상의 균형이 흔들리고 있어요.</td></tr><tr><td class="k">수</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>활동이 한때에 몰리면서 몸의 여유가 감소하고 있어요.</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>걸음 수가 줄어들면서 나를 챙기는 정도가 감소하고 있어요.</td><td style="white-space:nowrap"><span class="tag t-down">불안정해요</span></td><td>잠드는 시간이 불규칙해지면서 일상의 균형이 흔들리고 있어요.</td></tr><tr><td class="k">목</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>남아 있는 몸의 여유가 2일째 부족한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>나를 챙기는 정도가 2일째 부족한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-down">불안정해요</span></td><td>일상의 균형이 2일째 불안정한 편이에요.</td></tr></table>
   <h3>읽는 법</h3>
   <ul class="rules">
     <li>회복 주 수요일: 활동 분산 2칸 → 5칸 → ‘움직임이 하루에 고르게 나뉘면서’</li>
