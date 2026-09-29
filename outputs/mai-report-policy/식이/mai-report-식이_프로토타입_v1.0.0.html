@@ -2963,7 +2963,7 @@ const MEAL_PHRASES = {
   ],
   /* 부담 줄이기 풀 — 연동된 수면이 5시간 미만인 날 쓰는 묶음. 축·단계가 없다. */
   burden:[
-    {title:'저녁은 차리기 쉬운 것으로', why:'차리는 수고를 줄이는 것도 방법이에요'},
+    {title:'저녁은 쉬운 것으로', why:'차리는 수고를 줄이는 것도 방법이에요'},
     {title:'저녁은 익힌 채소로 가볍게', why:'익힌 채소는 속에 부담이 적어요'},
     {title:'커피 대신 따뜻한 차 한 잔', why:'피곤한 날 카페인은 잠을 더 밀어내요'},
     {title:'저녁은 익숙한 음식으로',   why:'피곤한 날엔 새로운 음식이 부담돼요'},
@@ -2972,11 +2972,11 @@ const MEAL_PHRASES = {
   /* 채소 축 — 어느 끼니에나 물을 수 있어 아침 진입의 대체 축으로도 쓴다 */
   veg:{
     입문:[{title:'아침에도 채소 한 가지',      why:'아침은 채소가 가장 자주 빠지는 끼니예요'},
-          {title:'고기 먹을 땐 쌈 채소 함께',  why:'쌈 채소는 가장 쉽게 채소를 더하는 방법이에요'}],
-    기본:[{title:'외식 때 채소 반찬 하나 추가', why:'외식은 채소가 가장 빠지기 쉬운 끼니예요'},
+          {title:'고기엔 쌈 채소 함께',  why:'쌈 채소는 가장 쉽게 채소를 더하는 방법이에요'}],
+    기본:[{title:'외식에도 채소 하나 더', why:'외식은 채소가 가장 빠지기 쉬운 끼니예요'},
           {title:'김밥 · 덮밥엔 채소 더 넣기',  why:'한 그릇 음식은 채소를 따로 챙겨야 해요'}],
-    도전:[{title:'매 끼니 채소 두 가지',       why:'끼니마다 두 가지면 하루 다섯 접시에 가까워져요'},
-          {title:'저녁 반찬 절반은 채소로',    why:'저녁 접시의 절반을 채소로 채우는 것이 권고 형태예요'}]
+    도전:[{title:'끼니마다 채소 두 가지',       why:'끼니마다 두 가지면 하루 다섯 접시에 가까워져요'},
+          {title:'저녁 반찬 절반 채소',    why:'저녁 접시의 절반을 채소로 채우는 것이 권고 형태예요'}]
   },
   sweet:{
     입문:[{title:'단 음료 마신 날 표시하기',why:'마신 날을 알면 다음 선택을 준비할 수 있어요.',nature:null}],
@@ -2986,26 +2986,26 @@ const MEAL_PHRASES = {
   /* 짠맛 · 국물 축 */
   salt:{
     입문:[{title:'국은 반 그릇만 담기',        why:'담는 양을 줄이는 게 남기는 것보다 쉬워요'},
-          {title:'찌개는 앞접시에 건더기만',   why:'앞접시로 옮기면 국물을 자연히 덜 먹게 돼요'}],
-    기본:[{title:'짠 반찬은 한 끼에 한 가지만', why:'김치 · 장아찌 · 젓갈이 겹치면 한 끼에 하루치가 돼요'},
+          {title:'찌개는 건더기만',   why:'앞접시로 옮기면 국물을 자연히 덜 먹게 돼요'}],
+    기본:[{title:'짠 반찬은 한 가지만', why:'김치 · 장아찌 · 젓갈이 겹치면 한 끼에 하루치가 돼요'},
           {title:'김치는 평소의 절반',         why:'한국인 나트륨의 첫째 급원이 김치예요'}],
-    도전:[{title:'오늘 세 끼 국물 없이',       why:'국물을 하루 끊으면 나트륨이 절반 가까이 줄어요'},
+    도전:[{title:'오늘 국물 없이',       why:'국물을 하루 끊으면 나트륨이 절반 가까이 줄어요'},
           {title:'국물은 건더기 위주로',       why:'국물보다 건더기를 중심으로 먹는 행동이에요'}]
   },
   protein:{
     입문:[{title:'아침에 달걀 하나',         why:'달걀 하나로 아침 단백질이 채워져요'},
-          {title:'두유나 우유 한 잔 챙기기',  why:'마시는 단백질은 반찬이 없어도 챙길 수 있어요'},
+          {title:'우유 · 두유 한 잔',  why:'마시는 단백질은 반찬이 없어도 챙길 수 있어요'},
           {title:'저녁에 두부 한 가지',      why:'데우기만 하면 되는 단백질 반찬이에요'}],
     기본:[{title:'생선 반찬 한 끼',          why:'생선은 단백질과 좋은 지방을 함께 줘요'},
           {title:'두부 반 모 반찬으로',      why:'두부 반 모가 고기 한 접시 단백질과 비슷해요'}],
-    도전:[{title:'끼니마다 다른 단백질 반찬', why:'고기 · 생선 · 달걀 · 콩을 돌리면 영양이 고르게 돼요'},
-          {title:'저녁 단백질은 생선 · 두부로', why:'저녁엔 소화가 가벼운 단백질이 좋아요'}]
+    도전:[{title:'끼니마다 다른 단백질', why:'고기 · 생선 · 달걀 · 콩을 돌리면 영양이 고르게 돼요'},
+          {title:'저녁은 생선 · 두부', why:'저녁엔 소화가 가벼운 단백질이 좋아요'}]
   },
   fat:{
-    입문:[{title:'튀김 · 기름진 반찬은 한 가지만',why:'튀긴 반찬의 종류와 먹는 양을 살펴봐요.',nature:'REDUCE'},
-          {title:'튀김 대신 구이 · 찜 한 끼',why:'튀김 대신 구이·찜을 선택해 보는 행동이에요.',nature:'TEXTURE'}],
-    기본:[{title:'고기 구울 땐 기름 두르지 않기',why:'조리 중 추가하는 기름 양을 살펴봐요.',nature:null}],
-    도전:[{title:'오늘 조리는 굽거나 찌기로',why:'조리 방법을 바꿔 보는 행동이에요.',nature:'TEXTURE'}]
+    입문:[{title:'튀긴 반찬은 하나만',why:'튀긴 반찬의 종류와 먹는 양을 살펴봐요.',nature:'REDUCE'},
+          {title:'튀김 대신 구이 · 찜',why:'튀김 대신 구이·찜을 선택해 보는 행동이에요.',nature:'TEXTURE'}],
+    기본:[{title:'기름 없이 굽기',why:'조리 중 추가하는 기름 양을 살펴봐요.',nature:null}],
+    도전:[{title:'오늘은 굽거나 찌기',why:'조리 방법을 바꿔 보는 행동이에요.',nature:'TEXTURE'}]
   }
 };
 MEAL_PHRASES.recovery.forEach((p,i)=>p.nature=i===0?'FLUID':'INCREASE');
@@ -3059,16 +3059,16 @@ function targetMeal(h){
 }
 const TARGET_MEAL = targetMeal();
 const AFTER_DINNER_GOALS = [
-  {phrase_id:'DIET-P-0131',title:'아침거리 미리 꺼내 두기',why:'아침에 고민할 일이 없으면 덜 거르게 돼요.',time_code:'EVENING',nature:null},
-  {phrase_id:'DIET-P-0156',title:'저녁 먹고 부엌 정리하기',why:'정리해 두면 다시 꺼내 먹기 번거로워져요.',time_code:'EVENING',nature:null},
-  {phrase_id:'DIET-P-0226',title:'내일 아침 먹을 자리 치워 두기',why:'자리를 미리 치워 두면 내일 아침을 준비하기 수월해요.',time_code:'PRE_MIDNIGHT',nature:null},
-  {phrase_id:'DIET-P-0227',title:'내일 아침 시각 정해 두기',why:'시각을 정해 두면 내일 아침 끼니를 챙기기 쉬워요.',time_code:'PRE_MIDNIGHT',nature:null},
-  {phrase_id:'DIET-P-0228',title:'내일 먹을 채소 씻어 두기',why:'채소를 씻어 두면 내일 바로 꺼낼 수 있어요.',time_code:'PRE_MIDNIGHT',nature:null},
-  {phrase_id:'DIET-P-0229',title:'장바구니에 채소 적어 두기',why:'적어 두면 장 볼 때 빠뜨리지 않아요.',time_code:'PRE_MIDNIGHT',nature:null},
-  {phrase_id:'DIET-P-0230',title:'내일 먹을 달걀 삶아 두기',why:'미리 삶아 두면 내일 바로 꺼낼 수 있어요.',time_code:'PRE_MIDNIGHT',nature:null},
-  {phrase_id:'DIET-P-0231',title:'내일 쓸 두부 냉장고에 두기',why:'내일 준비할 재료를 미리 확인할 수 있어요.',time_code:'PRE_MIDNIGHT',nature:null},
-  {phrase_id:'DIET-P-0232',title:'내일 마실 무카페인 차 꺼내 두기',why:'내일 마실 음료를 고르기 쉬워요.',time_code:'PRE_MIDNIGHT',nature:null},
-  {phrase_id:'DIET-P-0233',title:'내일 아침은 간단한 것으로 정해 두기',why:'피곤한 아침에 고민이 줄어요.',time_code:'PRE_MIDNIGHT',nature:null}
+  {phrase_id:'DIET-P-0131',title:'아침거리 꺼내 두기',why:'아침에 고민할 일이 없으면 덜 거르게 돼요.',time_code:'EVENING',nature:null},
+  {phrase_id:'DIET-P-0156',title:'저녁 후 부엌 정리',why:'정리해 두면 다시 꺼내 먹기 번거로워져요.',time_code:'EVENING',nature:null},
+  {phrase_id:'DIET-P-0226',title:'아침 먹을 자리 치우기',why:'자리를 미리 치워 두면 내일 아침을 준비하기 수월해요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0227',title:'내일 아침 시각 정하기',why:'시각을 정해 두면 내일 아침 끼니를 챙기기 쉬워요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0228',title:'채소 미리 씻어 두기',why:'채소를 씻어 두면 내일 바로 꺼낼 수 있어요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0229',title:'장볼 때 채소 적기',why:'적어 두면 장 볼 때 빠뜨리지 않아요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0230',title:'달걀 미리 삶아 두기',why:'미리 삶아 두면 내일 바로 꺼낼 수 있어요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0231',title:'내일 쓸 두부 준비하기',why:'내일 준비할 재료를 미리 확인할 수 있어요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0232',title:'무카페인 차 꺼내 두기',why:'내일 마실 음료를 고르기 쉬워요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0233',title:'내일 아침 간단하게',why:'피곤한 아침에 고민이 줄어요.',time_code:'PRE_MIDNIGHT',nature:null}
 ];
 const MEAL_WORDS = ['아침','점심','저녁'];
 function fitsTarget(p){
@@ -7409,5 +7409,158 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  const originalShow=show;show=function(name){originalShow(name);if(name==='home')refreshOverview();};
  refreshOverview();
 })();
-</script></body>
+</script><style>.chg{color:#d0021b;font-weight:700}</style>
+<script>
+/* 이번 개정에서 바뀐 문구를 빨갛게 보여 주는 검토용 표시. 원본 데이터는 건드리지 않는다 */
+(function(){
+  var TERMS=[
+    "가족 반찬에 채소 하나",
+    "간식으로 빈 끼 채우기",
+    "간식은 견과류로",
+    "간식은 삶은 달걀",
+    "고기 대신 생선으로",
+    "고기엔 쌈 채소 함께",
+    "국 대신 나물 반찬",
+    "국물 기름 걷어내기",
+    "국에 채소 한 줌",
+    "기름 없이 굽기",
+    "김치는 먹을 만큼만",
+    "김치는 작은 접시에",
+    "끼니 시각 어제처럼",
+    "끼니마다 다른 단백질",
+    "끼니마다 단백질 하나",
+    "끼니마다 채소 두 가지",
+    "끼니마다 채소부터 먼저",
+    "나트륨 표시 보기",
+    "내 속도로 먹기",
+    "내일 쓸 두부 준비하기",
+    "내일 아침 간단하게",
+    "내일 아침 시각 정하기",
+    "늦은 카페인 줄이기",
+    "다음 끼니는 챙기기",
+    "단 음료는 무가당",
+    "단백질 반찬 하나",
+    "단백질 한 입이라도",
+    "달걀 미리 삶아 두기",
+    "달달한 커피 쉬기",
+    "닭가슴살 · 살코기",
+    "두부 반찬 준비하기",
+    "드레싱은 반만",
+    "라면 · 즉석식품 없이",
+    "라면 대신 국수 · 밥",
+    "마신 음료 적어 보기",
+    "마실 것 미리 정하기",
+    "먹으면서 배부름 살피기",
+    "먹을 수 있는 것부터",
+    "명절 상에도 나물 먼저",
+    "명절 음료는 무가당으로",
+    "명절 음식 먹을 만큼만",
+    "모든 끼니에 채소",
+    "목마르면 물 먼저",
+    "무카페인 차 꺼내 두기",
+    "배부르면 잠깐 멈추기",
+    "볶음 대신 데친 반찬",
+    "볶음밥 대신 흰밥",
+    "삼겹살 대신 목살",
+    "세 끼 모두 천천히",
+    "세 끼 시각 평소대로",
+    "소스는 따로 달라고",
+    "소스에 찍지 않기",
+    "시럽 · 크림 빼기",
+    "식사 중 수저 내려놓기",
+    "식사에 우유 한 잔",
+    "식탁에 소금 안 두기",
+    "아침 먹을 자리 치우기",
+    "아침거리 꺼내 두기",
+    "아침에 뭐라도 한 입",
+    "아침에 우유나 두유",
+    "약속 날에도 저녁 제때",
+    "연휴에도 제시간에",
+    "오늘 국물 없이",
+    "오늘 단 간식 없이",
+    "오늘 단 음료 없이",
+    "오늘 세 끼 챙기기",
+    "오늘은 굽거나 찌기",
+    "외식에도 채소 하나 더",
+    "우유 · 두유 한 잔",
+    "음료는 당류 표시 보기",
+    "장볼 때 채소 적기",
+    "저녁 30분 당기기",
+    "저녁 디저트 건너뛰기",
+    "저녁 반찬 절반 채소",
+    "저녁 후 부엌 정리",
+    "저녁에 익힌 채소 하나",
+    "저녁은 가볍게라도",
+    "저녁은 간단하게",
+    "저녁은 생선 · 두부",
+    "저녁은 쉬운 것으로",
+    "전 · 튀김은 한 접시",
+    "점심 · 저녁 챙기기",
+    "점심 늦지 않게",
+    "점심은 평소 양으로",
+    "젓갈 · 장아찌 빼기",
+    "조금이라도 단백질",
+    "주말에도 아침 챙기기",
+    "주말에도 저녁 제때",
+    "중간에 한 번 멈추기",
+    "짠 반찬은 한 가지만",
+    "찌개는 건더기만",
+    "채소 미리 씻어 두기",
+    "채소 반찬 하나 더",
+    "출근길에 아침 챙기기",
+    "커피 대신 무카페인 차",
+    "콩 반찬 하나 챙기기",
+    "튀긴 반찬은 하나만",
+    "튀김 대신 구이 · 찜",
+    "편한 음식으로 한 끼",
+    "한 끼는 간 싱겁게",
+    "한 끼는 천천히 먹기",
+    "한 끼에 채소 하나",
+    "한 입마다 수저 놓기",
+    "한 잔은 물로 바꾸기",
+    "혼밥도 그릇에 덜어",
+    "혼밥에도 단백질 하나",
+    "혼자여도 상 차려 먹기",
+    "후식 · 디저트 없이",
+    "휴대폰 끄고 식사",
+    "{질환명}을 진단받고 관리 중이신가요?",
+    "고지혈증(이상지질혈증)을 진단받고 관리 중이신가요?",
+    "띄어쓰기 포함 12자 이내",
+  ];
+  TERMS.sort(function(a,b){return b.length-a.length;});
+  var E={'&':'&amp;','<':'&lt;','>':'&gt;'};
+  function esc(s){ return s.replace(/[&<>]/g,function(c){return E[c];}); }
+  var TERMS_E=TERMS.map(esc);
+  var busy=false;
+  function paint(){
+    if(busy) return; busy=true;
+    var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null), n, todo=[];
+    while((n=w.nextNode())){
+      var p=n.parentNode; if(!p) continue;
+      if(p.classList && p.classList.contains('chg')) continue;
+      if(p.nodeName==='SCRIPT'||p.nodeName==='STYLE'||p.nodeName==='TEXTAREA') continue;
+      var t=n.nodeValue; if(!t||!t.trim()) continue;
+      for(var i=0;i<TERMS.length;i++){ if(t.indexOf(TERMS[i])>-1){ todo.push(n); break; } }
+    }
+    todo.forEach(function(node){
+      var html=esc(node.nodeValue), did=false;
+      for(var i=0;i<TERMS_E.length;i++){
+        if(html.indexOf(TERMS_E[i])>-1){ html=html.split(TERMS_E[i]).join('<span class="chg">'+TERMS_E[i]+'</span>'); did=true; }
+      }
+      if(!did) return;
+      var span=document.createElement('span'); span.innerHTML=html;
+      node.parentNode.replaceChild(span,node);
+    });
+    busy=false;
+  }
+  function boot(){
+    paint();
+    new MutationObserver(function(){ if(!busy) setTimeout(paint,60); })
+      .observe(document.body,{childList:true,subtree:true,characterData:true});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+})();
+</script>
+
+</body>
 </html>

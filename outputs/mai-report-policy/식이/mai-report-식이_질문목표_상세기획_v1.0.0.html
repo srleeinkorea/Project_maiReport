@@ -53,6 +53,7 @@
   @media(max-width:860px){.flow{grid-template-columns:1fr 1fr}}
   @media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
 </style>
+<style>.chg{color:#d0021b;font-weight:700}</style>
 </head>
 <body>
 <div class="wrap">
@@ -225,7 +226,7 @@
     <tbody>
     <tr><td class="k">질문 카드</td><td>어제 저녁에 고기·생선·달걀·두부 반찬이 있었나요?</td><td>27</td></tr>
     <tr><td class="k">답 버튼</td><td>거의 못 먹었거나 걸렀어요</td><td>13</td></tr>
-    <tr><td class="k">타일</td><td>내일 아침은 간단한 것으로 정해 두기</td><td>20</td></tr>
+    <tr><td class="k">타일</td><td><span class="chg">내일 아침 간단하게</span></td><td>20</td></tr>
     </tbody>
   </table></div>
   <div class="callout warn"><b>폭 한도</b> — 타일 22자(2줄 × 11자) · 질문 카드 32자(2줄 × 16자) · 답 버튼 14자. 새 문구는 이 한도를 넘지 않는다. 질문 카드는 끼니 이름을 <b>치환한 뒤</b>의 길이로 검증한다.</div>
@@ -321,10 +322,10 @@
   <p>질환마다 「이 성격의 문구를 내지 말라」를 한 줄로 적어 두고, 문구는 자기가 무슨 성격인지만 안다. 같은 판단을 143곳에 복사하지 않기 위해서다.</p>
   <div class="grid3">
     <div class="mini"><b>감량 · 20개</b><p>양을 줄이라는 것. 「한 숟갈 양을 절반으로」</p></div>
-    <div class="mini"><b>공복 · 13개</b><p>건너뛰거나 끼니 사이를 벌리라는 것. 「저녁 후 단 디저트 건너뛰기」</p></div>
-    <div class="mini"><b>증량 · 40개</b><p>더 먹으라는 것. 「소량이라도 단백질 한 가지」</p></div>
-    <div class="mini"><b>수분 · 7개</b><p>물·차를 권하는 것. 「목마르면 물 한 잔 먼저」</p></div>
-    <div class="mini"><b>질감 · 6개</b><p>단단하거나 퍽퍽한 음식을 권하는 것. 「간식은 견과류 한 줌으로」</p></div>
+    <div class="mini"><b>공복 · 13개</b><p>건너뛰거나 끼니 사이를 벌리라는 것. 「<span class="chg">저녁 디저트 건너뛰기</span>」</p></div>
+    <div class="mini"><b>증량 · 40개</b><p>더 먹으라는 것. 「<span class="chg">조금이라도 단백질</span>」</p></div>
+    <div class="mini"><b>수분 · 7개</b><p>물·차를 권하는 것. 「<span class="chg">목마르면 물 먼저</span>」</p></div>
+    <div class="mini"><b>질감 · 6개</b><p>단단하거나 퍽퍽한 음식을 권하는 것. 「<span class="chg">간식은 견과류로</span>」</p></div>
     <div class="mini"><b>빈칸 · 57개</b><p>어느 금지에도 걸리지 않는 것. 시각·속도·조리법·준비 행동</p></div>
   </div>
   <p class="note">저녁 질문 화면 예시: <a href="식이_저녁전_질문화면_예시.svg">프로토타입 스타일 SVG 보기</a></p>
@@ -339,11 +340,11 @@
   <p><b>식후 후보는 총 10개</b>다. 노출조건 시트의 <code>after_dinner_eligible=true</code>인 문구만 쓰고, <code>parse_status=READY</code> 및 질환 안전·시간·달력 필터를 다시 적용한다. 17~24시에는 아래 10개를 후보로 사용한다. 「내일」이 들어간 8개는 <code>time_code=PRE_MIDNIGHT</code>로 두어 자정 이후에는 노출하지 않는다. 00~04시에는 날짜 표현이 어긋나지 않는 기존 2개만 후보로 사용한다. 남은 문구가 없으면 안내 상태로 저장한다.</p>
   <div class="callout"><b>일반 목표와 식후 목표 모두 같은 문구를 매일 반복하지 않는다.</b> 사용자별 최근 30일 목표를 최신순으로 조회한다. 현재 축·단계·풀의 후보 가운데 최근 30일에 나오지 않은 문구를 먼저 고르고, 여러 개면 문구 ID 순서로 고른다. 모든 후보가 이미 나왔다면 마지막 노출이 가장 오래된 문구를 고른다. 계약에 없는 <code>display_order</code>를 가정하거나 ID가 가장 작은 문구를 매일 고정 선택하지 않는다.</div>
   <div class="scroll"><table><thead><tr><th>17~24시 식후 목표 후보</th><th>00~04시 사용</th></tr></thead><tbody>
-    <tr><td>아침거리 미리 꺼내 두기</td><td>사용</td></tr><tr><td>저녁 먹고 부엌 정리하기</td><td>사용</td></tr>
-    <tr><td>내일 아침 먹을 자리 치워 두기</td><td>미사용</td></tr><tr><td>내일 아침 시각 정해 두기</td><td>미사용</td></tr>
-    <tr><td>내일 먹을 채소 씻어 두기</td><td>미사용</td></tr><tr><td>장바구니에 채소 적어 두기</td><td>미사용</td></tr>
-    <tr><td>내일 먹을 달걀 삶아 두기</td><td>미사용</td></tr><tr><td>내일 쓸 두부 냉장고에 두기</td><td>미사용</td></tr>
-    <tr><td>내일 마실 무카페인 차 꺼내 두기</td><td>미사용</td></tr><tr><td>내일 아침은 간단한 것으로 정해 두기</td><td>미사용</td></tr>
+    <tr><td><span class="chg">아침거리 꺼내 두기</span></td><td>사용</td></tr><tr><td><span class="chg">저녁 후 부엌 정리</span></td><td>사용</td></tr>
+    <tr><td><span class="chg">아침 먹을 자리 치우기</span></td><td>미사용</td></tr><tr><td><span class="chg">내일 아침 시각 정하기</span></td><td>미사용</td></tr>
+    <tr><td><span class="chg">채소 미리 씻어 두기</span></td><td>미사용</td></tr><tr><td><span class="chg">장볼 때 채소 적기</span></td><td>미사용</td></tr>
+    <tr><td><span class="chg">달걀 미리 삶아 두기</span></td><td>미사용</td></tr><tr><td><span class="chg">내일 쓸 두부 준비하기</span></td><td>미사용</td></tr>
+    <tr><td><span class="chg">무카페인 차 꺼내 두기</span></td><td>미사용</td></tr><tr><td><span class="chg">내일 아침 간단하게</span></td><td>미사용</td></tr>
   </tbody></table></div>
   <p class="note">17~24시와 00~04시에는 자동으로 공복·야식 제한 목표를 만들지 않는다.</p>
 </section>
