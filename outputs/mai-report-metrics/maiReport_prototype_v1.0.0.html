@@ -4516,7 +4516,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       const sa=dfSpread(dfSafe(valFn,'활동 분산',i-1)), sb=dfSpread(dfSafe(valFn,'활동 분산',i));
       const c={'활동 시간':0.2*(cl(mb/240)-cl(ma/240)), '수면':0.25*(sl(qb)-sl(qa)), '과한':0.125*(ov(mb)-ov(ma))};
       if(sa!=null && sb!=null) c['분산']=0.3*(sb-sa);
-      best=null; let bv2=0.02;   /* 2점 미만 변화는 이유로 쓰지 않음 */
+      best=null; let bv2=0.02-1e-9;   /* 2점 미만 생략 · 2.0점부터 이유 */
       Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
       if(best==='과한') return `${DF_OVERLOAD} ${DF_MOVE[k].down}.`;
     }
@@ -4535,7 +4535,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
         const o={}; used.forEach(n=>{ o[n]=E*W0[n]*v[n]/W; }); return o; };
       const ca=contrib(i-1), cb=contrib(i), c={};
       Object.keys(cb).forEach(n=>{ c[n]=cb[n]-(ca[n]||0); });   /* 선택일에 쓰이지 않은 재료는 후보에서 제외 */
-      best=null; let bv2=0.02;
+      best=null; let bv2=0.02-1e-9;
       Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
     }
     if(k==='steady'){
@@ -4555,7 +4555,7 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       /* 걸음 발생일 10%: 걸음이 있었던 날의 비율 변화 */
       const walk=e=>{ let d=0,c2=0; for(let j=Math.max(0,e-6);j<=e;j++){ d+=dfNum(valFn('걸음 수',j))>0?1:0; c2++; } return c2?d/c2:0; };
       c['걸음 발생일']=0.5*0.10*(walk(i)-walk(i-1));
-      best=null; let bv2=0.02;
+      best=null; let bv2=0.02-1e-9;
       Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
     }
     return `${best?DF_WHY[best][up?0:1]+' ':''}${k==='steady'?(cur==='mid'?DF_STEADY_TO.mid[up?'up':'down']:DF_STEADY_TO[cur]):DF_MOVE[k][up?'up':'down']}.`;
