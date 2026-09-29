@@ -19,7 +19,7 @@
 <div class="page">
   <div class="top">
     <h1>식이 질문·목표 화면 설계서</h1>
-    <p>홈의 오늘 질문에서 시작해 식이 목표가 생성되는 화면 흐름을 정의함. 왼쪽 화면은 직접 조작 가능하며, 오른쪽에 선택한 화면의 동작·표시 정보·개발 조건을 기재함. 질문 개수는 답변에 따라 달라지므로 화면에 <code>1/2</code> 또는 <code>2/2</code>를 표시하지 않음. 화면 내 데이터는 모두 가상임. <b>v1.0.0</b></p>
+    <p>홈의 오늘 질문에서 시작해 식이 목표가 생성되는 화면 흐름을 정의함. 왼쪽 화면은 직접 조작 가능하며, 오른쪽에 선택한 화면의 동작과 표시 정보를 기재함. 화면 내 데이터는 모두 가상임. <b>v1.0.0</b></p>
   </div>
   <div class="controls">
     <div class="ctl" id="jump"></div>
@@ -44,25 +44,25 @@ const NAV=`<nav class="nav"><div class="on"><span>⌂</span><small>홈</small></
 const LABEL={normal:'일반',skip:'결식',clinic:'지방간 진료정보',multi:'당뇨+이상지질',night:'저녁 식후',none:'후보 없음'};
 const SCEN_FOR={overview:['normal'],fixed:['normal','skip','night'],clinic:['clinic'],rotation:['normal','multi'],goal:['normal','skip','multi'],after:['night'],guidance:['none']};
 function shell(inner){return `<div class="app-h"><b>오늘의 질문</b></div><div class="scroll" id="sc"><div class="app-b">${inner}</div></div>${NAV}`}
-function question({kind='식이',lead='식사 기록을 알려주세요',title,opts,button='다음',hint=''}){
-  return shell(`<div class="hero"><small>${lead}</small><h2>지난 식사를<br>간단히 돌아볼게요</h2></div><section class="qcard"><div class="qkind">${kind}</div><h3 data-f="질문 문구">${title}</h3>${hint?`<div class="hint" data-f="질문 출처">${hint}</div>`:''}<div class="opts" data-f="답변 선택지">${opts.map((o,i)=>`<button class="opt ${S.selected===i?'on':''}" onclick="pick(${i})">${o}</button>`).join('')}</div><button class="cta" ${S.selected===null?'disabled':''} onclick="next()">${button}</button></section>`)}
+function question({kind='식이',title,opts,button='다음',hint=''}){
+  return shell(`<section class="qcard" style="margin-top:4px"><div class="qkind">${kind}</div><h3 data-f="질문 문구">${title}</h3>${hint?`<div class="hint" data-f="질문 출처">${hint}</div>`:''}<div class="opts" data-f="답변 선택지">${opts.map((o,i)=>`<button class="opt ${S.selected===i?'on':''}" onclick="pick(${i})">${o}</button>`).join('')}</div><button class="cta" ${S.selected===null?'disabled':''} onclick="next()">${button}</button></section>`)}
 const SCREENS={
-  overview(){return `<div class="app-h"><b>식이 질문 · 목표</b></div><div class="scroll" id="sc"><div class="app-b"><div class="ov-title">오늘의 답변이<br>목표가 되기까지</div><div class="ov-flow"><div class="ov-step"><span>1</span><div><b>앱 진입</b><small>시각으로 질문할 끼니 결정</small></div></div><div class="ov-arrow">↓</div><div class="ov-step"><span>2</span><div><b>질문 최대 2개</b><small>공통·질환 확인·회전 질문</small></div></div><div class="ov-arrow">↓</div><div class="ov-step"><span>3</span><div><b>답변 저장</b><small>지난 끼니와 질문별 현재 답 기록</small></div></div><div class="ov-arrow">↓</div><div class="ov-step"><span>4</span><div><b>목표 후보 계산</b><small>질환 안전·시간·달력 조건 적용</small></div></div><div class="ov-arrow">↓</div><div class="ov-step"><span>5</span><div><b>식이 목표 최대 1개</b><small>최근에 보지 않은 문구 우선</small></div></div></div><div class="ov-rule"><b>화면 원칙</b><br>질문 개수는 미리 표시하지 않고, 내부 판정 이유도 사용자 화면에 보여주지 않습니다.</div></div></div>${NAV}`},
+  overview(){return `<div class="app-h"><b>식이 질문 · 목표</b></div><div class="scroll" id="sc"><div class="app-b"><div class="ov-title">오늘의 답변이<br>목표가 되기까지</div><div class="ov-flow"><div class="ov-step"><span>1</span><div><b>앱 진입</b><small>시각으로 질문할 끼니 결정</small></div></div><div class="ov-arrow">↓</div><div class="ov-step"><span>2</span><div><b>질문 최대 2개</b><small>공통·질환 확인·회전 질문</small></div></div><div class="ov-arrow">↓</div><div class="ov-step"><span>3</span><div><b>답변 저장</b><small>지난 끼니와 질문별 현재 답 기록</small></div></div><div class="ov-arrow">↓</div><div class="ov-step"><span>4</span><div><b>목표 후보 계산</b><small>질환 안전·시간·달력 조건 적용</small></div></div><div class="ov-arrow">↓</div><div class="ov-step"><span>5</span><div><b>식이 목표 최대 1개</b><small>최근에 보지 않은 문구 우선</small></div></div></div></div></div>${NAV}`},
   fixed(){const meal=S.scen==='night'?'오늘 저녁':S.scen==='skip'?'오늘 점심':'어제 저녁';return question({title:`${meal}은<br>평소만큼 드셨나요?`,opts:['평소대로','조금 적게','거의 못 먹었거나 걸렀어요']})},
-  clinic(){return question({kind:'진료정보 확인',lead:'진료정보를 확인했어요',title:'지방간을 현재<br>관리하고 계신가요?',hint:'연동된 진료정보에 기록이 있어 확인합니다.',opts:['현재 관리 중이에요','아니요','잘 모르겠어요']})},
-  rotation(){const multi=S.scen==='multi';return question({lead:'한 가지만 더 알려주세요',title:multi?'어제 저녁에 튀김이나<br>기름진 반찬이 있었나요?':'어제 저녁에 채소<br>반찬이 있었나요?',opts:multi?['안 먹었어요','맛만 봤어요','먹었어요']:['두 가지 이상','한 가지','먹지 않았어요'],button:'답변 완료'})},
+  clinic(){return question({kind:'진료정보 확인',title:'지방간을 현재<br>관리하고 계신가요?',hint:'연동된 진료정보에 기록이 있어 확인합니다.',opts:['현재 관리 중이에요','아니요','잘 모르겠어요']})},
+  rotation(){const multi=S.scen==='multi';return question({title:multi?'어제 저녁에 튀김이나<br>기름진 반찬이 있었나요?':'어제 저녁에 채소<br>반찬이 있었나요?',opts:multi?['안 먹었어요','맛만 봤어요','먹었어요']:['두 가지 이상','한 가지','먹지 않았어요'],button:'답변 완료'})},
   goal(){let title='한 끼는 채소 반찬 한 가지',meta='🍚 식이 · 오늘 아침';if(S.scen==='skip'){title='부담 없는 한 끼부터 챙기기';meta='🍚 식이 · 다음 끼니'}if(S.scen==='multi'){title='튀김 대신 굽거나 찐 반찬 고르기';meta='🍚 식이 · 오늘 저녁'}return `<div class="app-h"><b>오늘의 목표</b></div><div class="scroll" id="sc"><div class="app-b"><div class="hero"><small>답변을 반영했어요</small><h2>오늘 실천할 목표를<br>정했어요</h2></div><section class="goal" data-f="식이 목표"><div class="meta" data-f="대상 끼니">${meta}</div><h3 data-f="목표 문구">${title}</h3><button class="done ${S.completed?'on':''}" onclick="completeGoal()">${S.completed?'완료했어요 ✓':'완료했어요'}</button></section>${S.completed?`<div class="done-banner">✓ 오늘 목표를 완료했어요</div>`:''}</div></div>${NAV}`},
   after(){return `<div class="app-h"><b>오늘의 목표</b></div><div class="scroll" id="sc"><div class="app-b"><div class="hero"><small>저녁 답변을 반영했어요</small><h2>오늘 밤에 할 수 있는<br>작은 준비예요</h2></div><section class="goal" data-f="식후 목표"><div class="meta">🍚 식이 · 오늘 밤</div><h3 data-f="목표 문구">내일 아침 먹을 자리<br>치워 두기</h3><button class="done ${S.completed?'on':''}" onclick="completeGoal()">${S.completed?'완료했어요 ✓':'완료했어요'}</button></section><div class="note">자정이 지나면 날짜 표현이 맞는 목표만 사용합니다.</div></div></div>${NAV}`},
   guidance(){return `<div class="app-h"><b>오늘의 목표</b></div><div class="scroll" id="sc"><div class="empty" data-f="안내 상태"><i>📋</i><h2>개인 식사 계획을<br>확인해 주세요</h2><p>현재 조건에 맞는 공통 식이 목표가 없어<br>오늘은 안내만 확인해 주세요.</p></div></div>${NAV}`}
 };
 const SIDE={
- overview:{step:'⓪ 구조 안내',id:'DIET-000',title:'전체 프로세스 개요',desc:'개별 화면을 보기 전에 식이 질문이 만들어지고 답변이 목표로 이어지는 전체 구조를 설명하는 시작 페이지.',spec:[['1. 진입 시각 판정','현지 시각으로 질문할 지난 끼니와 세션 날짜를 결정'],['2. 질문 구성','질환 확인이 없으면 공통+회전, 있으면 확인 답에 따라 질환 회전 또는 공통 질문. 하루 최대 2개'],['3. 답변 저장','같은 끼니·질문 버전의 현재 답은 한 건만 유지'],['4. 목표 계산','안전 조건을 먼저 적용하고 우선순위에 따라 목표 축과 문구를 선택'],['5. 화면 노출','행동 목표가 있으면 CREATED, 후보가 없으면 GUIDANCE_ONLY 안내 상태']],info:[['식습관 판단 기간','질문 답변','최근 28일'],['같은 목표 반복 방지','목표 기록','최근 30일'],['건강검진 유효기간','검진일 기준','달력 3개월 이내'],['질문 수','세션 규칙','0~2개'],['식이 목표 수','세션 규칙','0~1개']]},
- fixed:{step:'① 첫 질문',id:'DIET-001',title:'공통 식사량 질문',desc:'진료 질환 확인이 필요하지 않은 날 첫 번째로 보여주는 식이 질문. 진입 시각으로 지난 끼니를 정하고, 답변에 따라 다음 화면을 결정함.',spec:[['질문 수','전체 질문 수를 미리 알 수 없으므로 진행 막대와 1/2 표시는 두지 않음'],['평소대로 · 조금 적게','답을 저장한 뒤 물을 수 있는 회전 질문으로 이동'],['거의 못 먹었거나 걸렀어요','회전 질문을 생략하고 회복 목표 후보를 계산'],['버튼','선택 전 비활성. 저장 성공 후에만 다음 화면으로 이동']],info:[['지난 끼니','앱 진입 시각','04~10 어제 저녁 · 10~12 오늘 아침 · 12~17 오늘 점심 · 17~24 오늘 저녁 · 00~04 어제 저녁'],['답변','사용자 선택','평소대로 / 조금 적게 / 거의 못 먹었거나 걸렀어요'],['식습관 판단 기간','최근 답변','최근 28일']]},
- clinic:{step:'① 질환 확인',id:'DIET-002',title:'진료정보 질환 확인',desc:'내정보 직접 선택이 없고, 연동 진료정보에 식이 규칙과 연결된 질환 후보가 있을 때 첫 질문으로 보여주는 화면.',spec:[['현재 관리 중이에요','USER_CONFIRMED 저장 후 해당 질환의 회전 질문으로 이동'],['아니요','DENIED 저장 후 공통 식사량 질문으로 이동'],['잘 모르겠어요','UNKNOWN 저장 후 공통 식사량 질문으로 이동'],['질문 수','답에 따라 둘째 질문이 달라지므로 1/2 표시는 두지 않음']],info:[['질환명','진료정보 매핑','화면용 명칭이 있는 후보만 표시'],['출처 안내','진료정보','짧은 안내 한 줄'],['답변','사용자 확인','현재 관리 중이에요 / 아니요 / 잘 모르겠어요']]},
- rotation:{step:'② 둘째 질문',id:'DIET-003',title:'회전 질문',desc:'일반 식이 축 또는 확인된 질환의 연결 축에서 하루 한 축을 골라 묻는 화면. 화면에는 내부 축 상태나 평가 등급을 표시하지 않음.',spec:[['일반 사용자','최근 28일 유효 답이 적은 축 → 마지막 질문일이 오래된 축 → 표 순서'],['질환 사용자','직접 선택 질환과 확인된 진료 질환의 연결 축을 합쳐 같은 기준으로 회전'],['질문 수','2/2와 진행 막대를 표시하지 않음. 버튼의 답변 완료 문구로 종료를 안내'],['식사 시각 축','04~10시 진입에서만 후보']],info:[['질문·답변','질문 설정','아래 8축 문구표 사용'],['내부 답 등급','답변 설정','저장만 하고 화면에는 좋음·보통·나쁨 미표시'],['판단 기간','유효 답 이력','최근 28일']]},
- goal:{step:'③ 목표',id:'DIET-004',title:'식이 목표 생성',desc:'답변 저장 뒤 안전·시간·달력 조건을 통과한 실행 문구가 있을 때 보여주는 목표 카드. 식이 목표는 하루 최대 한 개임.',spec:[['표시 문구','tile_text만 표시. 선정 이유, 내부 축, 질환명, 검토용 코멘트는 노출하지 않음'],['대상 끼니','목표가 겨냥하는 실제 끼니를 자연어로 표시'],['완료','사용자가 실제로 수행했을 때 직접 선택. 답변만으로 자동 완료하지 않음'],['같은 목표 반복 방지','최근 30일에 나오지 않은 문구 우선. 모두 나왔다면 마지막 노출이 가장 오래된 문구']],info:[['목표 문구','목표문구 설정','CREATED 상태에서만 표시'],['대상 끼니','목표 기록','오늘 아침 / 오늘 점심 / 오늘 저녁 / 다음 끼니'],['완료 상태','사용자 선택','completed_at 저장']]},
- after:{step:'③ 식후 목표',id:'DIET-005',title:'17시 이후 식후 목표',desc:'저녁 식사 답변을 마친 뒤 현재 밤에 실행할 수 있는 준비 행동을 제안하는 화면.',spec:[['17~24시','식후 후보 10개 사용. 내일 준비 문구 8개 포함'],['00~04시','PRE_MIDNIGHT 문구를 제외하고 날짜 표현이 맞는 기존 후보만 사용'],['확인 가능한 조건','앱 진입 시각, 평일·주말, 명절·연휴 날짜만 사용'],['사용하지 않는 조건','배달·편의점·회식처럼 시스템이 확실히 알 수 없는 조건']],info:[['목표 문구','식후 목표 후보','after_dinner_eligible=true'],['시간 조건','서버 현지 시각','EVENING / PRE_MIDNIGHT'],['반복 방지','최근 목표 기록','최근 30일']]},
- guidance:{step:'③ 안내',id:'DIET-006',title:'목표 후보 없음',desc:'질환 안전·시간·달력 조건을 적용한 뒤 남은 목표 문구가 없을 때 보여주는 안내 상태.',spec:[['완료 버튼','표시하지 않음'],['자동 대체','안전 조건을 완화하거나 임의 문구를 대신 노출하지 않음'],['완료율','분자·분모 모두 제외'],['단계 계산','상승·하락과 연속 미완료 계산에서 제외']],info:[['goal_state','목표 생성 결과','GUIDANCE_ONLY'],['phrase_id','목표 생성 결과','null'],['안내 문구','화면 고정값','개인 식사 계획을 확인해 주세요']]}
+ overview:{step:'⓪ 구조 안내',id:'DIET-000',title:'전체 프로세스 개요',desc:'개별 화면을 보기 전에 식이 질문이 만들어지고 답변이 목표로 이어지는 전체 구조를 설명하는 시작 페이지.',spec:[['1. 앱에 들어온 시각 확인','시각에 따라 어제 저녁·오늘 아침·오늘 점심·오늘 저녁 중 어떤 끼니를 물을지 정함'],['2. 질문 구성','질환 확인이 없으면 공통 질문과 회전 질문, 있으면 확인 답에 따라 질환 질문 또는 공통 질문을 보여줌. 하루 최대 2개'],['3. 답변 저장','이미 답한 질문은 같은 날 다시 묻지 않음'],['4. 목표 선택','건강 상태와 식사 답변을 보고 지금 실천할 수 있는 목표 후보를 고름'],['5. 화면 노출','적합한 행동이 있으면 목표를 보여주고, 없으면 안내만 보여줌']],info:[['식습관 판단 기간','질문 답변','최근 28일'],['같은 목표 반복 방지','목표 기록','최근 30일'],['건강검진 반영 기간','검진일 기준','3개월 이내'],['질문 수','하루 기준','최대 2개'],['식이 목표 수','하루 기준','최대 1개']]},
+ fixed:{step:'① 첫 질문',id:'DIET-001',title:'공통 식사량 질문',desc:'진료 질환 확인이 필요하지 않은 날 첫 번째로 보여주는 식이 질문. 진입 시각으로 지난 끼니를 정하고, 답변에 따라 다음 화면을 결정함.',spec:[['평소대로 · 조금 적게','답을 저장한 뒤 물을 수 있는 회전 질문으로 이동'],['거의 못 먹었거나 걸렀어요','회전 질문을 생략하고 회복 목표 후보를 계산'],['버튼','선택 전 비활성. 저장 성공 후에만 다음 화면으로 이동']],info:[['지난 끼니','앱 진입 시각','04~10 어제 저녁 · 10~12 오늘 아침 · 12~17 오늘 점심 · 17~24 오늘 저녁 · 00~04 어제 저녁'],['답변','사용자 선택','평소대로 / 조금 적게 / 거의 못 먹었거나 걸렀어요'],['식습관 판단 기간','최근 답변','최근 28일']]},
+ clinic:{step:'① 질환 확인',id:'DIET-002',title:'진료정보 질환 확인',desc:'내정보 직접 선택이 없고, 연동 진료정보에 식이와 관련된 질환 기록이 있을 때 첫 질문으로 보여주는 화면.',spec:[['현재 관리 중이에요','바로 해당 질환과 관련된 식이 질문으로 이동'],['아니요','질환 관련 질문 대신 공통 식사량 질문으로 이동'],['잘 모르겠어요','질환 관련 질문 대신 공통 식사량 질문으로 이동']],info:[['질환명','연동된 진료정보','사용자가 이해할 수 있는 질환명으로 표시'],['출처 안내','진료정보','왜 이 질문을 하는지 짧게 안내'],['답변','사용자 확인','현재 관리 중이에요 / 아니요 / 잘 모르겠어요']]},
+ rotation:{step:'② 둘째 질문',id:'DIET-003',title:'회전 질문',desc:'일반 식이 축 또는 확인된 질환의 연결 축에서 하루 한 축을 골라 묻는 화면. 화면에는 내부 축 상태나 평가 등급을 표시하지 않음.',spec:[['일반 사용자','최근 28일 유효 답이 적은 축 → 마지막 질문일이 오래된 축 → 표 순서'],['질환 사용자','직접 선택 질환과 확인된 진료 질환의 연결 축을 합쳐 같은 기준으로 회전'],['식사 시각 축','04~10시 진입에서만 후보']],info:[['질문·답변','질문 설정','아래 8축 문구표 사용'],['내부 답 등급','답변 설정','저장만 하고 화면에는 좋음·보통·나쁨 미표시'],['판단 기간','유효 답 이력','최근 28일']]},
+ goal:{step:'③ 목표',id:'DIET-004',title:'식이 목표 생성',desc:'답변을 마친 뒤 건강 상태와 현재 시각에 맞는 행동이 있을 때 보여주는 목표 카드. 식이 목표는 하루 최대 한 개임.',spec:[['표시 문구','사용자가 실행할 행동만 표시. 선정 이유, 내부 분류, 질환명, 검토용 설명은 보여주지 않음'],['대상 끼니','목표가 겨냥하는 실제 끼니를 자연어로 표시'],['완료','사용자가 실제로 수행했을 때 직접 선택. 질문에 답했다고 자동으로 완료되지 않음'],['같은 목표 반복 방지','최근 30일에 나오지 않은 문구를 먼저 보여주고, 모두 봤다면 가장 오래전에 본 문구를 사용']],info:[['목표 문구','식이 목표 후보','실행 가능한 목표가 있을 때 표시'],['대상 끼니','오늘의 목표','오늘 아침 / 오늘 점심 / 오늘 저녁 / 다음 끼니'],['완료 상태','사용자 선택','직접 완료했을 때 표시']]},
+ after:{step:'③ 식후 목표',id:'DIET-005',title:'17시 이후 식후 목표',desc:'저녁 식사 답변을 마친 뒤 현재 밤에 실행할 수 있는 준비 행동을 제안하는 화면.',spec:[['17~24시','오늘 밤에 할 수 있는 목표 10개 중에서 선택. 내일 아침 준비 행동도 포함'],['00~04시','「내일」이라는 표현이 어색한 문구는 제외하고 날짜가 맞는 목표만 사용'],['확인 가능한 조건','앱에 들어온 시각, 평일·주말, 명절·연휴 날짜만 사용'],['사용하지 않는 조건','배달·편의점·회식처럼 앱이 확실히 알 수 없는 조건']],info:[['목표 문구','식후 목표 후보','현재 밤에 실제로 할 수 있는 행동'],['시간 조건','앱 진입 시각','17~24시와 00~04시를 구분'],['반복 방지','최근 목표 기록','최근 30일']]},
+ guidance:{step:'③ 안내',id:'DIET-006',title:'목표 후보 없음',desc:'건강 상태와 시간 조건을 모두 적용한 뒤 지금 보여줄 수 있는 목표가 없을 때 사용하는 안내 화면.',spec:[['완료 버튼','실천할 목표가 아니므로 표시하지 않음'],['다른 목표로 대체','조건에 맞지 않는 문구를 억지로 보여주지 않음'],['완료 기록','목표를 한 날이나 못 한 날로 계산하지 않음'],['다음 이용','다음에 조건에 맞는 목표가 생기면 다시 행동 목표를 보여줌']],info:[['표시 형태','안내 화면','목표 카드 대신 안내문 표시'],['목표 문구','목표 선택 결과','표시하지 않음'],['안내 문구','화면 문구','개인 식사 계획을 확인해 주세요']]}
 };
 const DEV={
  overview:[['클라이언트가 보냄','user_id, 진입 시각, time_zone'],['서버가 먼저 읽음','오늘 문항 상태, 직접 선택 질환, 진료정보 확인 상태, 3개월 이내 검진 신호, 최근 28일 답, 축 단계, 최근 30일 목표'],['서버가 돌려줌','question_plan과 첫 화면 데이터. 답변 완료 뒤에는 다음 질문 또는 goal_state'],['계산 책임','끼니 판정·질환 합치기·목표 후보 선정은 서버가 수행하고, 앱은 받은 화면 상태를 렌더링'],['날짜 기준','Asia/Seoul 현지 시각. 00:00~03:59는 전날 session_date를 유지']],
@@ -78,9 +78,9 @@ const EDGE={
  fixed:['답을 누른 뒤 저장에 실패하면 선택 상태를 유지하고 재시도합니다. 다음 화면으로 먼저 이동하지 않습니다.','미응답 상태에서 시간 구간이 바뀌면 끼니 라벨을 새 시각에 맞춰 갱신합니다. 이미 저장한 답의 끼니는 바꾸지 않습니다.','17시 이후에는 오늘 저녁을 먹은 뒤 답해 달라는 안내를 사용할 수 있지만 식사 전이라고 단정하지 않습니다.'],
  clinic:['질환 확인 답을 받기 전에는 둘째 질문을 미리 생성하지 않습니다.','같은 질환이 직접 선택에도 있으면 직접 선택 출처를 우선하고 진료정보 연결은 중복 제거합니다.','사용자가 아니요 또는 잘 모르겠어요를 고르면 해당 진료 질환을 목표 축으로 쓰지 않습니다.'],
  rotation:['같은 축이 연속 3일 선택됐다면 다른 후보를 먼저 고려하고, 가능한 다른 축이 없을 때만 제한을 풉니다.','식사 시각 질문은 어제 저녁을 회상할 수 있는 04~10시에만 노출합니다.','화면에는 내부 GOOD/MID/BAD 값이나 관찰 중·개선 필요·보통·양호 상태를 표시하지 않습니다.'],
- goal:['목표 카드에는 reason_text와 목표 선정 근거를 표시하지 않습니다.','후보가 없을 때 임의 문구로 대체하지 않고 GUIDANCE_ONLY로 이동합니다.','질문 답변을 목표 완료로 간주하지 않습니다. 완료는 별도 사용자 행동입니다.'],
+ goal:['목표 카드에는 목표를 고른 내부 이유를 표시하지 않습니다.','조건에 맞는 후보가 없으면 임의 문구로 대체하지 않고 안내 상태로 이동합니다.','질문 답변을 목표 완료로 간주하지 않습니다. 완료는 별도 사용자 행동입니다.'],
  after:['「내일」이 들어간 문구는 00시 이후 노출하지 않습니다.','명절·연휴 날짜 데이터가 없으면 해당 달력 전용 문구는 후보에서 제외합니다.','식후 후보에도 일반 목표와 같은 최근 30일 반복 방지 규칙을 적용합니다.'],
- guidance:['GUIDANCE_ONLY는 완료 또는 미완료 어느 쪽으로도 집계하지 않습니다.','안전 조건을 통과하는 새 후보가 생긴 경우에만 이후 세션에서 CREATED가 될 수 있습니다.']
+ guidance:['안내 상태는 완료 또는 미완료 어느 쪽으로도 집계하지 않습니다.','안전 조건을 통과하는 새 후보가 생긴 경우에만 이후 이용 시 행동 목표를 만들 수 있습니다.']
 };
 const AXES=[
  ['끼니 규칙','{끼니}은 평소만큼 드셨나요?','평소대로 / 조금 적게 / 거의 못 먹었거나 걸렀어요'],['채소','{끼니}에 채소 반찬이 있었나요?','두 가지 이상 / 한 가지 / 먹지 않았어요'],['단 음료·단 간식','{끼니} 전후로 단 음료나 단 간식을 드셨나요?','없었어요 / 한 번 / 두 번 이상'],['짠맛·국물','{끼니} 국물은 어느 정도 드셨나요?','안 먹었어요 / 절반 이하 먹었어요 / 절반보다 많이 먹었어요'],['식사 시각','어제 저녁 식사 뒤에 더 드신 게 있었나요?','안 먹었어요 / 한 번 먹었어요 / 두 번 이상'],['식사 속도·양','{끼니}은 어떻게 마치셨나요?','편안했어요 / 조금 부담스러웠어요 / 많이 부담스러웠어요'],['단백질','{끼니}에 고기·생선·달걀·두부 반찬이 있었나요?','먹었어요 / 맛만 봤어요 / 안 먹었어요'],['기름진 음식','{끼니}에 튀김이나 기름진 반찬이 있었나요?','안 먹었어요 / 맛만 봤어요 / 먹었어요']
@@ -92,35 +92,26 @@ function renderSide(){
   const info=`<div class="spec-h sep">${S.screen==='overview'?'핵심 기준':'표시 정보'}</div><table class="fm"><tr><th>항목</th><th>출처</th><th>표시 기준</th></tr>${s.info.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join('')}</table>`;
   let extra='';
   if(S.screen==='overview')extra=`
-    <div class="spec-h sep">처음 보는 개발자를 위한 용어</div>
+    <div class="spec-h sep">처음 보는 사람을 위한 용어</div>
     <div class="term-grid">
-      <div class="term"><b>session_date</b><span>하루 질문·목표를 묶는 날짜. 00~04시는 전날로 저장합니다.</span></div>
-      <div class="term"><b>meal_date / meal_type</b><span>사용자가 회상해 답한 실제 끼니의 날짜와 아침·점심·저녁 구분입니다.</span></div>
+      <div class="term"><b>하루 기준</b><span>하루의 질문과 목표를 묶는 기준입니다. 00~04시는 전날 식이 기록과 같은 하루로 봅니다.</span></div>
+      <div class="term"><b>질문할 끼니</b><span>사용자가 실제로 떠올려 답할 아침·점심·저녁입니다.</span></div>
       <div class="term"><b>고정 질문</b><span>지난 끼니를 평소만큼 먹었는지 묻는 공통 첫 질문입니다.</span></div>
       <div class="term"><b>회전 질문</b><span>7개 행동 축 중 하루 하나를 골라 두 번째로 묻는 질문입니다.</span></div>
-      <div class="term"><b>축 상태</b><span>최근 답으로 계산한 관찰 중·개선 필요·보통·양호입니다. 사용자 화면에는 표시하지 않습니다.</span></div>
-      <div class="term"><b>stage_code</b><span>목표 실천 난이도인 INTRO·BASE·CHALLENGE입니다.</span></div>
-      <div class="term"><b>CREATED</b><span>실제 행동 목표 문구가 생성된 상태입니다.</span></div>
-      <div class="term"><b>GUIDANCE_ONLY</b><span>안전 조건을 통과한 후보가 없어 안내만 보여주는 상태입니다.</span></div>
+      <div class="term"><b>식습관 상태</b><span>최근 답으로 계산한 관찰 중·개선 필요·보통·양호입니다. 사용자 화면에는 표시하지 않습니다.</span></div>
+      <div class="term"><b>목표 난이도</b><span>사용자가 실천하기 쉬운 정도에 따라 입문·기본·도전으로 나눕니다.</span></div>
+      <div class="term"><b>행동 목표</b><span>사용자가 실제로 보고 실천할 식이 목표가 정해진 상태입니다.</span></div>
+      <div class="term"><b>안내 상태</b><span>현재 조건에 맞는 안전한 목표가 없어 안내만 보여주는 상태입니다.</span></div>
     </div>
     <div class="spec-h sep">목표 선정 우선순위</div><div class="rule">회복 → 내정보 직접 선택 질환 → 사용자 확인을 마친 진료 질환 → 3개월 이내 건강검진 신호 → 연동 수면 5시간 미만 → 일반 식이 축</div>
     <div class="spec-h sep">한 번의 실제 처리 예시</div>
     <div class="example"><b>9월 29일 오전 8시 20분 · 일반 사용자</b><br>① <b>어제 저녁</b>을 질문할 끼니로 결정합니다.<br>② 공통 질문에 「평소대로」를 저장합니다.<br>③ 질환·검진 연결이 없으므로 최근 28일 답이 가장 적은 <b>채소 축</b>을 회전 질문으로 고릅니다.<br>④ 「한 가지」 답을 저장합니다.<br>⑤ 안전·시간·달력 조건을 통과한 목표 가운데 최근 30일에 나오지 않은 문구를 골라 <b>「한 끼는 채소 반찬 한 가지」</b>를 오늘 아침 목표로 저장합니다.</div>
-    <div class="spec-h sep">서버 처리 요약</div><div class="code">entry(now, user)
- → mealAt(now, Asia/Seoul)
- → resolveDiseaseContext(user)
- → questionPlan(currentState)
- → saveCurrentAnswer(answer)
- → selectGoalSource(priority)
- → filterSafetyTimeCalendar()
- → selectLeastRecentlyShown(30days)
- → CREATED | GUIDANCE_ONLY</div>`;
+    `;
   if(S.screen==='rotation')extra=`<div class="spec-h sep">8개 식이 축 · 질문과 3개 답변</div><div class="axis-wrap"><table class="fm"><tr><th>축</th><th>질문</th><th>답변 3개</th></tr>${AXES.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join('')}</table></div>`;
   if(S.screen==='goal')extra=`<div class="spec-h sep">목표 선정 우선순위</div><div class="rule">회복 → 내정보 직접 선택 질환 → 사용자 확인을 마친 진료 질환 → 3개월 이내 건강검진 신호 → 연동 수면 5시간 미만 → 일반 식이 축</div>`;
   if(S.screen==='fixed')extra=`<div class="spec-h sep">끼니 시간 경계</div><div class="rule">04~10시 어제 저녁 · 10~12시 오늘 아침 · 12~17시 오늘 점심 · 17~24시 오늘 저녁 · 00~04시 어제 저녁</div>`;
-  const dev=`<div class="spec-h sep">개발 처리</div><div class="dev-list">${DEV[S.screen].map(([a,b])=>`<div class="dev-row"><b>${a}</b><span>${b}</span></div>`).join('')}</div>`;
   const edge=`<div class="spec-h sep">예외·주의</div><ul class="edge-list">${EDGE[S.screen].map(x=>`<li>${x}</li>`).join('')}</ul>`;
-  sBody.innerHTML=spec+info+extra+dev+edge;
+  sBody.innerHTML=spec+info+extra+edge;
 }
 const JUMP=[['overview','⓪ 구조 안내'],['fixed','① 공통 질문'],['clinic','① 질환 확인'],['rotation','② 회전 질문'],['goal','③ 목표'],['after','③ 식후 목표'],['guidance','③ 안내 상태']];
 function setScreen(k){S.screen=k;S.selected=null;S.completed=false;const allowed=SCEN_FOR[k];if(!allowed.includes(S.scen))S.scen=allowed[0];render()}
