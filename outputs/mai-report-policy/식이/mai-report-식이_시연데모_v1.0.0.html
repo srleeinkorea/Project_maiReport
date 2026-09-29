@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>maiReport 식이 시연 데모 v1.0.0</title>
+<style>
+:root{--ink:#172033;--sub:#667085;--line:#e6eaf0;--soft:#f5f7fb;--blue:#4169e1;--navy:#253a70;--mint:#dff5ec;--green:#217a5b;--amber:#fff1ce;--orange:#a66100;--rose:#ffe7e8;--red:#b64249;--white:#fff;--shadow:0 18px 45px rgba(32,45,78,.10)}
+*{box-sizing:border-box}body{margin:0;background:#eef2f8;color:var(--ink);font-family:Pretendard,"Noto Sans KR",Arial,sans-serif;letter-spacing:-.015em}button{font:inherit;color:inherit}.shell{max-width:1440px;margin:auto;padding:28px}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:20px}.eyebrow{font-size:12px;font-weight:800;color:var(--blue);letter-spacing:.08em}.hero h1{margin:7px 0 8px;font-size:30px;letter-spacing:-.04em}.hero p{margin:0;color:var(--sub);line-height:1.6}.version{padding:8px 12px;border:1px solid #cdd6ea;border-radius:999px;background:#fff;color:#516078;font-size:12px;font-weight:700;white-space:nowrap}.panel{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.scenario-bar{padding:18px 20px;margin-bottom:16px}.bar-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.bar-title b{font-size:14px}.bar-title span{font-size:12px;color:var(--sub)}.scenario-list{display:flex;gap:8px;overflow:auto;padding-bottom:2px}.scenario{border:1px solid #d9dfeb;background:#fff;border-radius:13px;padding:10px 13px;text-align:left;min-width:150px;cursor:pointer}.scenario strong{display:block;font-size:13px}.scenario small{display:block;margin-top:4px;color:var(--sub);font-size:11px}.scenario.on{border-color:var(--blue);background:#eef2ff;box-shadow:inset 0 0 0 1px var(--blue)}.grid{display:grid;grid-template-columns:minmax(250px,.78fr) minmax(360px,1.15fr) minmax(330px,1fr);gap:16px}.side,.history{padding:20px}.phone-wrap{padding:14px;display:flex;justify-content:center;align-items:flex-start}.phone{width:min(100%,410px);min-height:716px;border:8px solid #182238;border-radius:36px;background:#f7f8fc;overflow:hidden;box-shadow:0 15px 35px rgba(20,31,57,.18)}.phone-top{height:27px;background:#fff;display:flex;justify-content:center}.notch{width:104px;height:19px;background:#182238;border-radius:0 0 14px 14px}.app-head{background:#fff;padding:12px 18px 16px;border-bottom:1px solid var(--line)}.app-head .topline{display:flex;justify-content:space-between;align-items:center}.app-head b{font-size:17px}.app-head span{font-size:11px;color:var(--sub)}.app-body{padding:16px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:2px 0 10px}.section-title b{font-size:13px}.section-title span{font-size:11px;color:var(--sub)}.q-card,.goal-card,.notice-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:11px}.q-meta{font-size:10px;color:var(--blue);font-weight:800}.q-text{margin:7px 0 12px;font-size:15px;font-weight:800;line-height:1.45}.answers{display:grid;gap:7px}.answer{border:1px solid #e3e7ef;border-radius:11px;padding:9px 10px;font-size:12px;background:#fff}.answer.on{border-color:var(--blue);background:#edf1ff;color:#294db1;font-weight:800}.goal-card{background:linear-gradient(145deg,#253a70,#4169e1);color:#fff;border:0}.goal-source{font-size:10px;color:#dbe3ff;font-weight:800}.goal-title{font-size:20px;font-weight:900;line-height:1.35;margin:8px 0}.goal-reason{font-size:12px;line-height:1.55;color:#eaf0ff}.goal-foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px;font-size:10px;color:#dbe3ff}.goal-foot button{border:0;border-radius:9px;background:#fff;color:#3152bd;padding:7px 10px;font-weight:800}.notice-card{background:#fff9eb;border-color:#f2dfab;font-size:11px;line-height:1.55;color:#765412}.side h2,.history h2{font-size:16px;margin:0 0 15px}.label{font-size:11px;color:var(--sub);margin:16px 0 7px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{font-size:11px;padding:6px 8px;border-radius:999px;background:#f0f3f8;color:#526078}.chip.manual{background:#e8edff;color:#3153bd}.chip.clinic{background:#e5f5ef;color:#217257}.chip.safe{background:#fff0dd;color:#9a5e05}.empty{font-size:12px;color:#98a2b3}.priority{margin-top:14px}.priority-row{display:grid;grid-template-columns:26px 1fr;gap:9px;align-items:start;padding:9px 0;border-bottom:1px solid #edf0f5}.priority-row:last-child{border:0}.rank{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:#eef2ff;color:#3153bd;font-size:11px;font-weight:900}.priority-row b{display:block;font-size:12px}.priority-row small{color:var(--sub);font-size:10px;line-height:1.45}.rule-box{margin-top:14px;padding:12px;border-radius:14px;background:#f6f8fc;font-size:11px;color:#536078;line-height:1.55}.range{display:flex;gap:6px}.range button{border:1px solid #dfe4ed;background:#fff;border-radius:9px;padding:7px 9px;font-size:11px;cursor:pointer}.range button.on{background:#253a70;color:#fff;border-color:#253a70}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 16px}.metric{background:#f6f8fc;border-radius:13px;padding:11px}.metric span{font-size:10px;color:var(--sub)}.metric b{display:block;margin-top:4px;font-size:18px}.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.day{border:1px solid #e2e7ef;background:#fff;border-radius:11px;padding:8px 3px;text-align:center;cursor:pointer;min-width:0}.day b{display:block;font-size:11px}.day i{display:block;width:7px;height:7px;border-radius:50%;margin:6px auto 0;background:#bcc5d5}.day.done i{background:#27a878}.day.wait i{background:#f0ad3d}.day.on{border-color:var(--blue);background:#eef2ff}.trend{margin-top:16px}.trend-title{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-bottom:8px}.bars{height:82px;display:flex;align-items:end;gap:5px;border-bottom:1px solid #dfe4ec;padding:0 3px}.bar{flex:1;min-width:4px;border-radius:5px 5px 0 0;background:#b8c6ef;position:relative}.bar.current{background:#4169e1}.bar:hover:after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:#182238;color:#fff;font-size:9px;padding:4px 6px;border-radius:6px;white-space:nowrap;z-index:4}.decision{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}.decision-row{display:flex;justify-content:space-between;gap:12px;margin:8px 0;font-size:11px}.decision-row span{color:var(--sub)}.decision-row b{text-align:right}.blocked{margin-top:12px;padding:11px;border-radius:12px;background:var(--rose);color:#8c3940;font-size:11px;line-height:1.5}.legend{margin-top:16px;font-size:10px;line-height:1.6;color:#7a8699}.footer{display:flex;justify-content:space-between;gap:14px;margin-top:16px;color:#778397;font-size:11px}.footer a{color:#4169e1;text-decoration:none;font-weight:700}@media(max-width:1080px){.grid{grid-template-columns:1fr 1.2fr}.history{grid-column:1/-1}.phone{min-height:auto}}@media(max-width:720px){.shell{padding:15px}.hero{align-items:flex-start}.hero h1{font-size:24px}.grid{grid-template-columns:1fr}.history{grid-column:auto}.side{order:2}.phone-wrap{order:1}.history{order:3}.days{grid-template-columns:repeat(7,minmax(38px,1fr));overflow:auto}.footer{display:block}.footer div+div{margin-top:6px}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="hero">
+    <div><div class="eyebrow">MAIREPORT · DIET SIMULATION</div><h1>식이 시연 데모</h1><p>정상군과 질환 정보가 있는 여러 케이스가 30일간 사용했을 때 질문과 목표가 어떻게 달라지는지 확인합니다.</p></div>
+    <div class="version">v1.0.0 · 시연 데이터</div>
+  </header>
+  <section class="panel scenario-bar">
+    <div class="bar-title"><b>시연 케이스</b><span>케이스를 바꾸면 같은 기간의 질문·목표가 다시 계산됩니다.</span></div>
+    <div class="scenario-list" id="scenarioList"></div>
+  </section>
+  <div class="grid">
+    <aside class="panel side">
+      <h2 id="caseTitle">케이스 정보</h2>
+      <div class="label">내정보 직접 선택</div><div class="chips" id="manualChips"></div>
+      <div class="label">연동된 진료정보</div><div class="chips" id="clinicChips"></div>
+      <div class="label">3개월 이내 검진 신호</div><div class="chips" id="screeningChips"></div>
+      <div class="label">목표 축 출처 우선순위</div>
+      <div class="priority" id="priorityList"></div>
+      <div class="rule-box" id="caseNote"></div>
+    </aside>
+    <section class="panel phone-wrap">
+      <div class="phone">
+        <div class="phone-top"><div class="notch"></div></div>
+        <div class="app-head"><div class="topline"><b>오늘의 질문</b><span id="appDay"></span></div></div>
+        <div class="app-body">
+          <div class="section-title"><b>지난 끼니 확인</b><span id="mealLabel"></span></div>
+          <div class="q-card" id="fixedQuestion"></div>
+          <div class="q-card" id="rotatingQuestion"></div>
+          <div class="section-title"><b>오늘의 식이 목표</b><span id="axisState"></span></div>
+          <div class="goal-card" id="goalCard"></div>
+          <div class="notice-card" id="safetyNotice"></div>
+        </div>
+      </div>
+    </section>
+    <section class="panel history">
+      <div class="bar-title"><b>기간별 진행 모습</b><div class="range" id="rangeButtons"></div></div>
+      <div class="metrics" id="metrics"></div>
+      <div class="days" id="days"></div>
+      <div class="trend"><div class="trend-title"><span>회전 문항 응답 추이</span><span>높을수록 양호한 응답</span></div><div class="bars" id="bars"></div></div>
+      <div class="decision" id="decision"></div>
+      <div class="blocked" id="blocked"></div>
+      <div class="legend">이 데모는 현재 v1.0.0 질문·삼지선다·질환 연결축·금지 성격·검진 3개월 기준을 화면으로 확인하기 위한 시연입니다. 목표 노출 조건은 앱 진입 시각, 현지 평일·주말, 백엔드 명절·연휴 날짜만 사용합니다. 날짜가 지났다는 이유만으로 목표 단계를 자동 승급하지 않으며, 의료적 진단이나 개인 처방을 만들지 않습니다.</div>
+    </section>
+  </div>
+  <footer class="footer"><div>데이터 기준: 식이 개발전달 데이터계약 v1.0.0</div><div><a href="mai-report-식이_프로토타입_v1.0.0.html#prototype">전체 프로토타입 보기</a></div></footer>
+</main>
+<!-- DIET_REFERENCE_START -->
+<script id="diet-reference-data" type="application/json">{"version":"1.0.0","screeningValidityMonths":3,"goalRecentWindowDays":30,"exposureConditions":{"timeCodes":["ANY","MORNING_ENTRY","AFTERNOON_ENTRY","EVENING","PRE_MIDNIGHT"],"calendarCodes":["ANY","WEEKDAY","WEEKEND","HOLIDAY","HOLIDAY_OR_EXTENDED"],"contextCodes":["ANY"]},"sourcePriority":[{"order":1,"code":"SELF_REPORTED","label":"직접 선택"},{"order":2,"code":"CLINIC_CONFIRMED","label":"진료정보 확인"},{"order":3,"code":"SCREENING","label":"건강검진 신호"},{"order":4,"code":"QUESTION","label":"일반 식이 질문"}],"screeningPriority":["FPG","BP","TC","BMI"],"screeningAxis":{"FPG":"DIET-Q-01","BP":"DIET-Q-03","TC":"DIET-Q-07","BMI":"DIET-Q-05"},"stages":["INTRO","BASE","CHALLENGE"],"stageLabels":{"INTRO":"입문","BASE":"기본","CHALLENGE":"도전"}}</script>
+<!-- DIET_REFERENCE_END -->
+<script>
+const REFERENCE=JSON.parse(document.getElementById('diet-reference-data').textContent);
+const AXES={
+ veg:{name:'채소',qid:'DIET-Q-01',q:'{meal}에 채소 반찬을 몇 가지 드셨나요?',opts:['두 가지 이상','한 가지','먹지 않았어요'],goals:[['오늘 한 끼는 채소 반찬 한 가지','한 끼에 채소 반찬을 포함하는 행동이에요.','INCREASE'],['국 대신 나물 한 접시','국 대신 채소 반찬을 고르는 행동이에요.',null],['저녁은 채소부터 먼저','채소 반찬부터 먹어 보는 행동이에요.',null]]},
+ sweet:{name:'단 음료 · 단 간식',qid:'DIET-Q-02',q:'{meal} 전후에 단 음료나 단 간식을 몇 번 드셨나요?',opts:['없었어요','한 번','두 번 이상'],goals:[['단 음료 한 번은 물로 바꾸기','단 음료 한 번을 물로 바꾸는 행동이에요.','FLUID'],['커피는 시럽 · 크림 빼고','커피에 추가하는 시럽과 크림을 살펴봐요.',null],['음료는 당류 표시 보고 고르기','같은 종류라도 제품마다 당이 크게 달라요.',null]]},
+ salt:{name:'짠맛 · 국물',qid:'DIET-Q-03',q:'{meal}에 국물은 얼마나 드셨나요?',opts:['안 먹었어요','절반 이하 먹었어요','절반보다 많이 먹었어요'],goals:[['한 끼는 국물 반만','국물을 덜 먹으면 그 국물에 든 나트륨 섭취도 줄어요.','REDUCE'],['국물은 건더기 위주로','국물 섭취량을 줄이는 행동이에요.',null],['가공식품은 나트륨 표시 비교하기','제품의 나트륨 표시를 비교해 고르는 행동이에요.',null]]},
+ portion:{name:'식사 속도 · 양',qid:'DIET-Q-05',q:'{meal} 식사 후 배부른 정도는 어땠나요?',opts:['편안했어요','조금 부담스러웠어요','많이 부담스러웠어요'],goals:[['한 끼는 수저 한 번 내려놓기','식사 중 잠깐 멈춰 먹는 속도를 살펴봐요.',null],['한 끼는 서두르지 않고 먹기','식사를 서두르지 않고 먹어 보는 행동이에요.',null],['식사 중 배부른 정도 살펴보기','식사 중 배부른 정도를 살펴보는 행동이에요.','REDUCE']]},
+ fat:{name:'기름진 음식',qid:'DIET-Q-07',q:'{meal}에 튀긴 음식을 드셨나요?',opts:['안 먹었어요','맛만 봤어요','먹었어요'],goals:[['튀김 · 기름진 반찬은 한 가지만','튀긴 반찬의 종류와 먹는 양을 살펴봐요.','REDUCE'],['튀김 대신 구이 · 찜 한 끼','튀김 대신 구이·찜을 선택해 보는 행동이에요.','TEXTURE'],['고기 구울 땐 기름 두르지 않기','조리 중 추가하는 기름 양을 살펴봐요.',null]]}
+};
+const GENERAL=['veg','sweet','salt','portion','fat'];
+const TIMES=[['08:30','어제 저녁'],['11:10','오늘 아침'],['13:20','오늘 점심'],['18:10','오늘 저녁'],['09:20','어제 저녁'],['12:40','오늘 점심'],['19:10','오늘 저녁']];
+const PRIORITY=REFERENCE.sourcePriority.map(x=>[x.label,x.code]);
+const CASES=[
+ {id:'normal',title:'정상군',sub:'질환·검진 신호 없음',manual:[],clinic:[],screening:[],manualAxes:[],clinicAxes:[],screenAxes:[],bans:[],pattern:[0,0,1,0,0,1,0],note:'질환 출처가 없어서 일반 식이 질문을 순환합니다. 3건 미만은 관찰 중으로 보입니다.'},
+ {id:'htn',title:'고혈압 직접 선택',sub:'진료정보 지방간 포함',manual:['고혈압'],clinic:['고혈압(중복)','지방간'],screening:[],manualAxes:['salt','veg'],clinicAxes:['sweet','fat'],screenAxes:[],bans:[],pattern:[2,2,1,2,1,1,0],clinicConfirmDay:3,note:'고혈압은 직접 선택 출처로 먼저 반영합니다. 중복 고혈압은 한 번만 쓰고, 지방간은 사용자 확인 뒤 2순위 축으로 함께 순환합니다.'},
+ {id:'diabetes',title:'당뇨병 직접 선택',sub:'진료정보 이상지질혈증',manual:['당뇨병'],clinic:['이상지질혈증'],screening:[],manualAxes:['sweet','veg','portion'],clinicAxes:['fat'],screenAxes:[],bans:['FAST','REDUCE'],pattern:[2,1,2,1,1,0,1],clinicConfirmDay:3,note:'직접 선택한 당뇨병 축을 먼저 사용합니다. 진료정보의 이상지질혈증은 사용자 확인 뒤 2순위 축으로 함께 순환합니다.'},
+ {id:'ckd',title:'신장질환 안전 적용',sub:'진료정보 이상지질혈증',manual:['만성 신장질환'],clinic:['이상지질혈증'],screening:[],manualAxes:[],clinicAxes:['fat','portion'],screenAxes:[],bans:['INCREASE','REDUCE','FLUID'],pattern:[2,2,1,1,1,0,1],note:'신장질환 직접 선택은 새 축을 만들지 않습니다. 진료정보 축을 사용하되 증량·감량·수분 목표를 제외합니다.'},
+ {id:'clinic',title:'진료정보만 연동',sub:'직접 선택 없음 · 지방간 기록',manual:[],clinic:['지방간 · 확인 전'],screening:[],manualAxes:[],clinicAxes:['sweet','fat','portion'],screenAxes:[],bans:[],pattern:[2,1,2,2,1,1,0],confirmClinicFirst:true,note:'첫 질문에서 지방간 관리 여부를 확인합니다. 현재 관리 중이라고 답하면 둘째 질문으로 지방간 연결 축 한 개를 바로 묻고 공통 고정 질문은 생략합니다.'},
+ {id:'screen',title:'검진 경계군',sub:'혈압 신호 · 3개월 유효기간',manual:[],clinic:[],screening:['혈압 경계 · 2026-06-15'],screeningDate:'2026-06-15',manualAxes:[],clinicAxes:[],screenAxes:['salt'],bans:[],pattern:[2,1,2,1,1,0,1],note:'직접 선택과 진료정보가 없어 유효기간 안에는 검진 신호를 사용합니다. 2026-09-15이 지나면 일반 질문으로 자동 이동합니다.'}
+];
+let selectedCase='normal',selectedDay=0,range=30;
+function dateAt(day){const d=new Date(Date.UTC(2026,8,1+day));return d.toISOString().slice(0,10)}
+function addMonths(iso,months){const [y,m,d]=iso.split('-').map(Number),first=new Date(Date.UTC(y,m-1+months,1)),last=new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth()+1,0)).getUTCDate();return `${first.getUTCFullYear()}-${String(first.getUTCMonth()+1).padStart(2,'0')}-${String(Math.min(d,last)).padStart(2,'0')}`}
+function screeningActive(c,date){return !c.screeningDate||(c.screeningDate<=date&&date<=addMonths(c.screeningDate,REFERENCE.screeningValidityMonths))}
+function hasGoal(c,axisKey){return AXES[axisKey].goals.some(g=>!g[2]||!c.bans.includes(g[2]))}
+function sourceFor(c,day,date){
+ const groups=[
+  {code:'SELF_REPORTED',label:'직접 선택 · 1순위',axes:c.manualAxes},
+  {code:'CLINIC_CONFIRMED',label:'진료정보 · 2순위',axes:(c.confirmClinicFirst||Number.isInteger(c.clinicConfirmDay))&&day<=(c.clinicConfirmDay??0)?[]:c.clinicAxes},
+  {code:'SCREENING',label:'건강검진 · 3순위',axes:screeningActive(c,date)?c.screenAxes:[]},
+  {code:'QUESTION',label:'일반 질문 · 4순위',axes:GENERAL},
+ ];
+ const candidates=[],seen=new Set();
+ for(const group of groups){for(const axis of group.axes.filter(axis=>hasGoal(c,axis))){if(seen.has(axis))continue;seen.add(axis);candidates.push({...group,axis})}}
+ if(candidates.length)return candidates[day%candidates.length];
+ return {code:'GUIDANCE_ONLY',label:'안내만 표시',axis:GENERAL[0]};
+}
+function simulate(c,count){
+ const rows=[],stageByAxis={},historyByAxis={};
+ for(let i=0;i<count;i++){
+   const date=dateAt(i),isClinicConfirmation=Boolean((c.confirmClinicFirst&&i===0)||(Number.isInteger(c.clinicConfirmDay)&&i===c.clinicConfirmDay));
+  const tm=TIMES[i%TIMES.length], fixed=(c.id==='normal'&&i===5)?1:0;
+  let src=sourceFor(c,i,date);
+  if(isClinicConfirmation&&c.clinicAxes.length)src={code:'CLINIC_CONFIRMED',label:'진료정보 확인 직후',axis:c.clinicAxes[0]};
+  let axis=AXES[src.axis],answer=c.pattern[i%c.pattern.length];
+  const history=historyByAxis[axis.qid]||[],current=stageByAxis[axis.qid]||'INTRO',ended=history.filter(x=>x.day<i),recent=ended.filter(x=>x.day>=i-7),lastTwo=ended.slice(-2);
+  let stage=current,stageReason=null;
+  if(lastTwo.length===2&&lastTwo.every(x=>!x.done)&&current!=='INTRO'){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)-1];stageReason='미완료 2건 연속';historyByAxis[axis.qid]=[]}
+  else if(recent.filter(x=>x.done).length>=3&&current!=='CHALLENGE'){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)+1];stageReason='최근 7일 완료 3건';historyByAxis[axis.qid]=[]}
+  stageByAxis[axis.qid]=stage;
+  let pool=axis.goals,blocked=pool.filter(g=>g[2]&&c.bans.includes(g[2]));
+  let allowed=pool.filter(g=>!g[2]||!c.bans.includes(g[2]));
+  let goal=allowed[Math.min(REFERENCE.stages.indexOf(stage),allowed.length-1)],goalSource=src.label;
+  if(fixed===1){goal=['다음 끼니는 먹기 쉬운 것부터','지난 끼니를 적게 먹은 날은 회복 풀을 먼저 사용해요.',null];goalSource='회복 분기 · 우선';}
+  const done=(i%4!==2),score=2-answer;
+  (historyByAxis[axis.qid]||(historyByAxis[axis.qid]=[])).push({day:i,done});
+   rows.push({day:i+1,date,time:tm[0],meal:tm[1],fixed,src,axis,answer,goal,goalSource,blocked,done,score,stage,stageReason,isClinicConfirmation});
+ }
+ return rows;
+}
+function axisStatus(rows,idx){const same=rows.slice(0,idx+1).filter(r=>r.axis.qid===rows[idx].axis.qid);if(same.length<3)return '관찰 중';const bad=same.filter(r=>r.answer===2).length/same.length;if(bad>=.5)return '개선 필요';if(same.length>=7&&same.filter(r=>r.answer===0).length/7>=.6&&bad<.2)return '양호';return '보통';}
+function chipHtml(items,cls){return items.length?items.map(x=>`<span class="chip ${cls}">${x}</span>`).join(''):'<span class="empty">없음</span>'}
+function renderScenarios(){document.getElementById('scenarioList').innerHTML=CASES.map(c=>`<button class="scenario ${c.id===selectedCase?'on':''}" data-case="${c.id}"><strong>${c.title}</strong><small>${c.sub}</small></button>`).join('');document.querySelectorAll('.scenario').forEach(b=>b.onclick=()=>{selectedCase=b.dataset.case;selectedDay=0;render()})}
+function render(){
+ const c=CASES.find(x=>x.id===selectedCase),rows=simulate(c,range);selectedDay=Math.min(selectedDay,rows.length-1);const d=rows[selectedDay];
+ const clinicConfirmed=!c.clinic.length||(!c.confirmClinicFirst&&!Number.isInteger(c.clinicConfirmDay))||selectedDay>=(c.clinicConfirmDay??0);const clinicItems=c.clinic.map(x=>`${x}${x.includes('중복')?'':clinicConfirmed?' · 확인됨':' · 확인 전'}`);
+ renderScenarios();document.getElementById('caseTitle').textContent=c.title;document.getElementById('manualChips').innerHTML=chipHtml(c.manual,'manual');document.getElementById('clinicChips').innerHTML=chipHtml(clinicItems,'clinic');document.getElementById('screeningChips').innerHTML=chipHtml(c.screening,'safe');document.getElementById('caseNote').textContent=c.note;
+ document.getElementById('priorityList').innerHTML=PRIORITY.map((p,i)=>{const active=!d.isClinicConfirmation&&d.src.code===p[1];const confirming=d.isClinicConfirmation&&p[1]==='CLINIC_CONFIRMED';return `<div class="priority-row"><span class="rank">${i+1}</span><div><b>${p[0]}${active?' · 선택한 날짜에 사용':confirming?' · 사용자 확인 중':''}</b><small>${p[1]}</small></div></div>`}).join('');
+ document.getElementById('appDay').textContent=`${d.day}일차 · ${d.date} · ${d.time}`;
+ const dinnerTip=d.meal==='오늘 저녁'?'<div style="margin:-5px 0 10px;font-size:10px;color:#765412">오늘 저녁을 드신 뒤 답해주세요.</div>':'';
+ if(d.isClinicConfirmation){
+  document.querySelector('#fixedQuestion').previousElementSibling.innerHTML='<b>질환 정보 확인</b><span id="mealLabel">진료정보 기준</span>';
+  const clinicDisease=c.id==='diabetes'?'이상지질혈증':'지방간';
+  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">${c.confirmClinicFirst?'가장 먼저 확인':'진료정보 확인'}</div><div class="q-text">진료정보에서 ${clinicDisease} 기록이 확인돼요. 현재도 관리 중이신가요?</div><div class="answers">${['네, 현재 관리 중이에요','잘 모르겠어요','아니요, 현재는 해당하지 않아요'].map((x,i)=>`<div class="answer ${i===0?'on':''}">${x}</div>`).join('')}</div>`;
+  document.getElementById('rotatingQuestion').innerHTML=`<div class="q-meta">오늘의 질문 2/2 · ${clinicDisease} 관련</div><div class="q-text">${d.axis.q.replace('{meal}',d.meal)}</div><div class="answers">${d.axis.opts.map((x,i)=>`<div class="answer ${i===d.answer?'on':''}">${x}</div>`).join('')}</div><div class="notice-card" style="margin:8px 0 0">오늘은 공통 고정 질문을 생략하고 여기서 질문을 마칩니다.</div>`;
+ }else{
+  document.querySelector('#fixedQuestion').previousElementSibling.innerHTML=`<b>지난 끼니 확인</b><span id="mealLabel">${d.meal}</span>`;
+  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">매일 고정</div><div class="q-text">${d.meal}은 평소만큼 드셨나요?</div>${dinnerTip}<div class="answers">${['평소대로','조금 적게','거의 못 먹었거나 걸렀어요'].map((x,i)=>`<div class="answer ${i===d.fixed?'on':''}">${x}</div>`).join('')}</div>`;
+  document.getElementById('rotatingQuestion').innerHTML=`<div class="q-meta">${d.src.label} · ${d.axis.name}</div><div class="q-text">${d.axis.q.replace('{meal}',d.meal)}</div><div class="answers">${d.axis.opts.map((x,i)=>`<div class="answer ${i===d.answer?'on':''}">${x}</div>`).join('')}</div>`;
+ }
+ document.getElementById('axisState').textContent=axisStatus(rows,selectedDay);
+ document.getElementById('goalCard').innerHTML=`<div class="goal-source">${d.goalSource}</div><div class="goal-title">${d.goal[0]}</div><div class="goal-foot"><span>${d.axis.name} · ${REFERENCE.stageLabels[d.stage]} 단계${d.stageReason?' · '+d.stageReason:''}</span><button>${d.done?'완료함':'실천하기'}</button></div>`;
+ const safe=c.bans.length?`안전 필터 적용: ${c.bans.join(' · ')} 성격의 목표를 제외했습니다.`:'적용된 질환별 안전 제외 조건이 없습니다.';document.getElementById('safetyNotice').textContent=safe;
+ document.getElementById('rangeButtons').innerHTML=[7,14,30].map(n=>`<button class="${range===n?'on':''}" data-range="${n}">${n}일</button>`).join('');document.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>{range=Number(b.dataset.range);selectedDay=Math.min(selectedDay,range-1);render()});
+ const dietRows=rows,done=dietRows.filter(x=>x.done).length,blocked=dietRows.reduce((n,x)=>n+x.blocked.length,0),good=dietRows.filter(x=>x.answer===0).length;
+ document.getElementById('metrics').innerHTML=`<div class="metric"><span>식이 질문 기록</span><b>${dietRows.length}일</b></div><div class="metric"><span>목표 완료</span><b>${done}/${dietRows.length}</b></div><div class="metric"><span>안전 제외</span><b>${blocked}건</b></div>`;
+ document.getElementById('days').innerHTML=rows.map((x,i)=>`<button class="day ${x.done?'done':'wait'} ${i===selectedDay?'on':''}" data-day="${i}"><b>${x.day}일</b><i></i></button>`).join('');document.querySelectorAll('[data-day]').forEach(b=>b.onclick=()=>{selectedDay=Number(b.dataset.day);render()});
+ document.getElementById('bars').innerHTML=rows.map((x,i)=>`<div class="bar ${i===selectedDay?'current':''}" style="height:${25+x.score*25}px" data-tip="${x.day}일차 · ${x.axis.opts[x.answer]}"></div>`).join('');
+ const duplicate=c.clinic.some(x=>x.includes('중복'))?'직접 선택 출처로 1회 적용':'중복 질환 없음',todaySource=d.isClinicConfirmation?'진료정보 확인 질문':d.goalSource;document.getElementById('decision').innerHTML=`<div class="decision-row"><span>오늘 처리</span><b>${todaySource}</b></div><div class="decision-row"><span>같은 질환 중복</span><b>${duplicate}</b></div><div class="decision-row"><span>현재 축 상태</span><b>${axisStatus(rows,selectedDay)}</b></div><div class="decision-row"><span>양호 응답</span><b>${good}/${dietRows.length}건</b></div>`;
+ document.getElementById('blocked').style.display=c.bans.length?'block':'none';document.getElementById('blocked').textContent=c.bans.length?`제외된 목표 예: ${rows.flatMap(x=>x.blocked.map(g=>g[0])).filter((x,i,a)=>a.indexOf(x)===i).slice(0,3).join(' · ')||'해당 기간 없음'} — 안전 조건은 직접 선택·진료정보의 순위와 관계없이 항상 적용합니다.`:'';
+}
+render();
+</script>
+</body>
+</html>

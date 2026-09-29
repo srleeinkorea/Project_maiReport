@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="430" height="940" viewBox="0 0 430 940" role="img" aria-labelledby="title desc">
+  <title id="title">저녁 식사 전 고정 식이 질문 화면 예시</title>
+  <desc id="desc">마이리포트 홈 화면 프로토타입 스타일을 참고한 모바일 화면. 오늘 저녁 질문, 식사 후 답변 안내, 세 개의 비활성 응답 버튼, 질문 응답 전 코칭과 목표 잠금 상태를 보여준다.</desc>
+  <defs>
+    <linearGradient id="hero" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#DCE6FF"/><stop offset="0.52" stop-color="#EEF1FF"/><stop offset="1" stop-color="#F4F6FA"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="5" stdDeviation="9" flood-color="#1E325A" flood-opacity=".08"/></filter>
+    <linearGradient id="disabled" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#F9FAFC"/></linearGradient>
+  </defs>
+  <rect width="430" height="940" fill="#F4F6FA"/>
+  <!-- OS status bar -->
+  <rect width="430" height="28" fill="#DCE6FF"/>
+  <text x="22" y="19" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#16233F">17:12</text>
+  <g fill="none" stroke="#16233F" stroke-width="1.5" stroke-linecap="round"><path d="M359 15h3m2-3h2v6h-2m6-7h2v7h-2m5-5h2v5h-2"/><path d="M394 9h17v10h-17z"/><path d="M412 12v4"/></g>
+  <!-- App hero -->
+  <path d="M0 28H430V520H0Z" fill="url(#hero)"/>
+  <text x="20" y="72" font-family="Arial,sans-serif" font-size="25" font-style="italic" font-weight="800" fill="#2F6BFF">M</text>
+  <rect x="260" y="48" width="124" height="34" rx="17" fill="#FFFFFF" stroke="#E9EDF5"/>
+  <text x="277" y="69" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#5A6880">▦  AI REPORT 스캔</text>
+  <path d="M405 57c0-5 3-8 7-8s7 3 7 8v7l3 4h-20l3-4z" fill="none" stroke="#71809A" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M410 71c1 3 4 3 5 0" fill="none" stroke="#71809A" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Question card -->
+  <rect x="16" y="105" width="398" height="356" rx="22" fill="#FFFFFF" filter="url(#shadow)"/>
+  <text x="36" y="139" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#2F6BFF">오늘의 질문 · 식이 1</text>
+  <text x="36" y="178" font-family="Arial,sans-serif" font-size="20" font-weight="750" fill="#16233F">오늘 저녁은 평소만큼</text>
+  <text x="36" y="207" font-family="Arial,sans-serif" font-size="20" font-weight="750" fill="#16233F">드셨나요?</text>
+  <!-- meal-time helper, informative and non-interactive -->
+  <rect x="34" y="227" width="362" height="48" rx="12" fill="#F5F7FB"/>
+  <circle cx="54" cy="251" r="9" fill="#E8EDF8"/>
+  <text x="54" y="255" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#71809A">i</text>
+  <text x="72" y="247" font-family="Arial,sans-serif" font-size="12" font-weight="600" fill="#5A6880">오늘 저녁을 드신 뒤 답해주세요.</text>
+  <text x="72" y="264" font-family="Arial,sans-serif" font-size="12" fill="#5A6880">드신 양에 맞는 답을 골라주세요.</text>
+  <!-- Three existing answer buttons; helper text recommends answering after dinner without asserting meal status -->
+  <g>
+    <rect x="34" y="292" width="112" height="128" rx="16" fill="url(#disabled)" stroke="#E9EDF5" stroke-width="1.5"/>
+    <circle cx="90" cy="328" r="20" fill="#E9F6ED"/>
+    <circle cx="83" cy="324" r="1.8" fill="#55A873"/><circle cx="97" cy="324" r="1.8" fill="#55A873"/><path d="M82 333q8 9 16 0" fill="none" stroke="#55A873" stroke-width="2" stroke-linecap="round"/>
+    <text x="90" y="376" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#16233F">평소대로</text>
+
+    <rect x="159" y="292" width="112" height="128" rx="16" fill="url(#disabled)" stroke="#E9EDF5" stroke-width="1.5"/>
+    <circle cx="215" cy="328" r="20" fill="#FFF5D8"/>
+    <circle cx="208" cy="324" r="1.8" fill="#B18A1B"/><circle cx="222" cy="324" r="1.8" fill="#B18A1B"/><path d="M208 335q7-5 14 0" fill="none" stroke="#B18A1B" stroke-width="2" stroke-linecap="round"/>
+    <text x="215" y="376" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#16233F">조금 적게</text>
+
+    <rect x="284" y="292" width="112" height="128" rx="16" fill="url(#disabled)" stroke="#E9EDF5" stroke-width="1.5"/>
+    <circle cx="340" cy="328" r="20" fill="#FCE9ED"/>
+    <circle cx="333" cy="324" r="1.8" fill="#C15F76"/><circle cx="347" cy="324" r="1.8" fill="#C15F76"/><path d="M332 337q8-9 16 0" fill="none" stroke="#C15F76" stroke-width="2" stroke-linecap="round"/>
+    <text x="340" y="369" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#16233F">거의 못 먹었거나</text>
+    <text x="340" y="385" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#16233F">걸렀어요</text>
+  </g>
+  <!-- coaching locked state -->
+  <rect x="16" y="482" width="398" height="115" rx="20" fill="#EFF4FF" stroke="#DCE7FF"/>
+  <text x="36" y="512" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#2F6BFF">✦ 오늘의 코칭</text>
+  <text x="36" y="547" font-family="Arial,sans-serif" font-size="15" font-weight="650" fill="#5A6880">질문에 답하면 오늘의 코칭을</text>
+  <text x="36" y="570" font-family="Arial,sans-serif" font-size="15" font-weight="650" fill="#5A6880">확인할 수 있어요.</text>
+  <!-- goals locked -->
+  <text x="20" y="638" font-family="Arial,sans-serif" font-size="17" font-weight="750" fill="#16233F">오늘의 목표</text>
+  <text x="361" y="638" font-family="Arial,sans-serif" font-size="12" fill="#2F6BFF">0/3 완료 ›</text>
+  <rect x="16" y="657" width="398" height="172" rx="20" fill="#FFFFFF" filter="url(#shadow)"/>
+  <g font-family="Arial,sans-serif">
+    <circle cx="53" cy="697" r="17" fill="#FFF1DC"/><text x="53" y="703" text-anchor="middle" font-size="17">🍚</text>
+    <text x="82" y="693" font-size="10" fill="#98A4B8">식이</text><text x="82" y="711" font-size="12" font-weight="650" fill="#98A4B8">질문에 답하면 목표가 생성돼요</text>
+    <path d="M35 729H395" stroke="#E9EDF5"/>
+    <circle cx="53" cy="764" r="17" fill="#E3F6E8"/><text x="53" y="770" text-anchor="middle" font-size="17">🚶</text>
+    <text x="82" y="760" font-size="10" fill="#98A4B8">활동</text><text x="82" y="778" font-size="12" font-weight="650" fill="#98A4B8">질문에 답하면 목표가 생성돼요</text>
+    <path d="M35 795H395" stroke="#E9EDF5"/>
+    <circle cx="53" cy="812" r="15" fill="#E8EAFB"/><text x="53" y="818" text-anchor="middle" font-size="16">🌙</text>
+  </g>
+  <!-- bottom navigation -->
+  <rect x="0" y="857" width="430" height="83" fill="#FFFFFF" stroke="#E9EDF5"/>
+  <g font-family="Arial,sans-serif" font-size="10" text-anchor="middle">
+    <text x="43" y="886" font-size="17" fill="#2F6BFF">⌂</text><text x="43" y="907" fill="#2F6BFF" font-weight="700">홈</text>
+    <text x="129" y="886" font-size="17" fill="#98A4B8">▤</text><text x="129" y="907" fill="#98A4B8">기록</text>
+    <text x="215" y="886" font-size="17" fill="#98A4B8">◉</text><text x="215" y="907" fill="#98A4B8">건강</text>
+    <text x="301" y="886" font-size="17" fill="#98A4B8">▣</text><text x="301" y="907" fill="#98A4B8">생활</text>
+    <text x="387" y="886" font-size="17" fill="#98A4B8">☻</text><text x="387" y="907" fill="#98A4B8">마이</text>
+  </g>
+  <rect x="145" y="927" width="140" height="4" rx="2" fill="#16233F" opacity=".75"/>
+</svg>

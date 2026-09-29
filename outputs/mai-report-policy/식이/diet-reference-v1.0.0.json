@@ -1,0 +1,68 @@
+{
+  "version": "1.0.0",
+  "screeningValidityMonths": 3,
+  "goalRecentWindowDays": 30,
+  "exposureConditions": {
+    "timeCodes": [
+      "ANY",
+      "MORNING_ENTRY",
+      "AFTERNOON_ENTRY",
+      "EVENING",
+      "PRE_MIDNIGHT"
+    ],
+    "calendarCodes": [
+      "ANY",
+      "WEEKDAY",
+      "WEEKEND",
+      "HOLIDAY",
+      "HOLIDAY_OR_EXTENDED"
+    ],
+    "contextCodes": [
+      "ANY"
+    ]
+  },
+  "sourcePriority": [
+    {
+      "order": 1,
+      "code": "SELF_REPORTED",
+      "label": "직접 선택"
+    },
+    {
+      "order": 2,
+      "code": "CLINIC_CONFIRMED",
+      "label": "진료정보 확인"
+    },
+    {
+      "order": 3,
+      "code": "SCREENING",
+      "label": "건강검진 신호"
+    },
+    {
+      "order": 4,
+      "code": "QUESTION",
+      "label": "일반 식이 질문"
+    }
+  ],
+  "screeningPriority": [
+    "FPG",
+    "BP",
+    "TC",
+    "BMI"
+  ],
+  "screeningAxis": {
+    "FPG": "DIET-Q-01",
+    "BP": "DIET-Q-03",
+    "TC": "DIET-Q-07",
+    "BMI": "DIET-Q-05"
+  },
+  "stages": [
+    "INTRO",
+    "BASE",
+    "CHALLENGE"
+  ],
+  "stageLabels": {
+    "INTRO": "입문",
+    "BASE": "기본",
+    "CHALLENGE": "도전"
+  }
+}
