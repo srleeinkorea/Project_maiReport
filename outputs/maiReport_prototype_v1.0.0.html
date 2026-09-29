@@ -107,7 +107,10 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .q-av{width:56px;height:56px;flex-shrink:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px}
 .q-av.eye{background:#E4EAFE}.q-av.energy{background:#EDE9FE}.q-av.moon{background:#E6ECFE}
 .q-opts{display:flex;gap:8px;margin-bottom:12px}
+<<<<<<< HEAD
 .q-meal-note{margin:0 0 14px;padding:10px 12px;border-radius:12px;background:#eef4ff;color:#274269;font-size:13px;line-height:1.5;font-weight:600}
+=======
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 .q-opt{flex:1;padding:13px 4px 12px;border:1px solid var(--line);border-radius:var(--r-in);background:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:9px;font-size:var(--t-cap);font-weight:600;line-height:1.3;color:var(--ink-2);transition:border-color .15s,background .15s,opacity .2s}
 .q-opt .f{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:var(--t-body);font-weight:700;color:#fff;line-height:1}
 .q-opt.good .f{background:#7ED09A}.q-opt.okay .f{background:#F2C24B}.q-opt.bad .f{background:#F195AB}
@@ -436,7 +439,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .tr{font-size:var(--t-mini);font-weight:700}
 .mc-hd small{display:block;font-size:var(--t-mini);color:var(--ink-3);font-weight:500;margin-top:3px;line-height:1.45}
 .mc-sc{margin-left:auto;font-size:var(--n-lg);font-weight:700;line-height:1;letter-spacing:-.03em}
-.mc-in{font-size:var(--t-sm);font-weight:400;color:var(--ink-2);line-height:1.7;margin:14px 0}
+.mc-in{font-size:var(--t-sm);font-weight:600;color:var(--ink-1);line-height:1.7;margin:14px 0}
 .mc-in b{color:var(--ink-1);font-weight:700}
 .mc-rows{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r-in);overflow:hidden}
 .mc-row{display:flex;align-items:center;gap:9px;padding:12px 13px;border-top:1px solid var(--line)}
@@ -1217,6 +1220,18 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .done-actions{position:absolute;left:0;right:0;bottom:0;padding:12px 18px 20px;background:#fff}
 
 /* 계정 하위 화면 */
+<<<<<<< HEAD
+=======
+.ml-card{background:#fff;border-radius:var(--r);box-shadow:var(--sh);padding:18px 18px 16px;margin-bottom:14px}
+.ml-t{display:block;font-size:var(--t-body);font-weight:700;color:var(--ink-1)}
+.ml-d{display:block;font-size:var(--t-cap);color:var(--ink-3);margin-top:2px}
+.ml-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid var(--line);font-size:var(--t-cap)}
+.ml-row:first-of-type{margin-top:14px}
+.ml-row span{color:var(--ink-3)}.ml-row b{font-weight:700;color:var(--ink-1)}
+.ml-act{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.ml-btn{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit;font-size:var(--t-sm);font-weight:600;cursor:pointer}
+.ml-btn:disabled{opacity:.5;cursor:default}
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 .acc-b{flex:1;overflow-y:auto;padding:14px 18px 28px;background:var(--page)}
 .acc-sec{margin-bottom:18px}
 .acc-lab{font-size:var(--t-cap);font-weight:700;color:var(--ink-3);padding:0 4px;margin:0 0 9px}
@@ -1901,6 +1916,197 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .home-health-group .home-age-summary.has-hospital-age>.home-age-number{grid-column:2;grid-row:1/3;align-self:center}
 .home-health-group .home-age-summary.has-hospital-age>.home-age-diff{grid-column:1;grid-row:2;text-align:left;padding-left:27px;font-size:12px;color:var(--ink-2)}
 .home-health-group .home-age-summary.has-hospital-age>.home-age-meta{display:none!important}
+<<<<<<< HEAD
+=======
+</style><style>
+/* 지표별 분석 · 핵심 데이터 표 */
+.mc .mc-rows{border:1px solid #E5E8EE;border-radius:12px;overflow:hidden;padding:0;gap:0}
+.mc .mc-row{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;border-top:1px solid #EEF0F4;margin:0;background:#fff}
+.mc .mc-row:first-child{border-top:0}
+.mc .mc-row b{font-weight:500;color:#6B7280;font-size:14px}
+.mc .mc-row .v{font-weight:700;color:#111827;font-size:14px;margin-left:auto}
+/* 병원 · 빈 화면 */
+.h-empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:36px 20px 24px}
+.h-empty .h-emo{font-size:64px;line-height:1;margin-bottom:22px}
+.h-empty>b{font-size:20px;font-weight:800;color:#111827;letter-spacing:-.02em}
+.h-empty>p{margin:10px 0 18px;font-size:14px;line-height:1.6;color:#6B7280}
+.h-feat{list-style:none;margin:0 0 14px;padding:16px 18px;width:100%;background:#fff;border-radius:16px;text-align:left;display:flex;flex-direction:column;gap:12px}
+.h-feat li{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#374151}
+.h-feat li::before{content:"✓";width:18px;height:18px;border-radius:50%;background:#D1D5DB;color:#fff;font-size:11px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.h-cta{width:100%;border:0;border-radius:12px;background:#3B82F6;color:#fff;font:inherit;font-size:16px;font-weight:700;padding:16px;cursor:pointer}
+.h-cta:disabled{opacity:.6}
+/* 병원 · 불러오는 중 */
+.card.h-load{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.card.h-load .spin{flex:none;margin:6px 0 0}
+.card.h-load b{display:block;font-size:16px;font-weight:800;color:#111827}
+.card.h-load small{display:block;margin-top:6px;font-size:13px;line-height:1.6;color:#6B7280}
+.h-skel .sk-r{display:flex;align-items:center;gap:14px;padding:12px 0}
+.h-skel .sk-r i{width:50px;height:50px;border-radius:50%;background:#F1F3F6;flex:none}
+.h-skel .sk-r div{flex:1;display:flex;flex-direction:column;gap:10px}
+.h-skel .sk-r span{display:block;height:18px;border-radius:6px;background:#F1F3F6;animation:skp 1.2s ease-in-out infinite}
+.h-skel .sk-r span:first-child{width:55%}
+@keyframes skp{50%{opacity:.5}}
+/* 셀비 소개 · 질환 목록 */
+.sv-dz{margin:14px auto 0;max-width:320px;padding:14px 16px;border-radius:12px;background:#EEF1F6;font-size:14px;font-weight:700;line-height:1.7;color:#1F2937;text-align:center}
+/* 결제 · 이용료 · 운동 설정 */
+.pay-fee{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:18px;padding:22px 20px;margin:22px 0 8px;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.pay-fee>span{font-size:15px;font-weight:600;color:#6B7280}
+.pay-fee .pf-r{text-align:right}
+.pay-fee del{display:block;font-size:13px;color:#9CA3AF}
+.pay-fee b{font-size:22px;font-weight:800;color:#111827}
+.pay-promo{font-size:12px;color:#2563EB;margin:0 4px 14px;font-weight:600}
+.ex-set{background:#fff;border-radius:18px;padding:8px 22px 14px;margin:14px 0 18px}
+.ex-r{padding:16px 0 8px}
+.ex-t{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.ex-t b{display:block;font-size:17px;font-weight:800;color:#111827}
+.ex-t small{display:block;margin-top:4px;font-size:13px;color:#374151}
+.ex-v{flex:none;min-width:58px;text-align:center;padding:10px 12px;border-radius:12px;background:#F2F3F5;font-size:17px;font-weight:800;color:#111827}
+.ex-rg{-webkit-appearance:none;appearance:none;width:100%;height:8px;margin:20px 0 6px;border-radius:999px;background:linear-gradient(90deg,#3B82F6 var(--p),#E5E7EB var(--p));outline:none}
+.ex-rg::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#60A5FA;border:0;box-shadow:0 2px 6px rgba(59,130,246,.4);cursor:pointer}
+.ex-rg::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:#60A5FA;border:0;cursor:pointer}
+</style><style>
+/* 셀비 체크업 결과 */
+.sr-hero{margin:-4px -4px 14px;padding:22px 20px 18px;border-radius:0 0 22px 22px;background:linear-gradient(160deg,#2563EB,#1D4ED8);color:#fff}
+.sr-hero h1{font-size:20px;font-weight:800;line-height:1.35;letter-spacing:-.02em}
+.sr-info{margin-top:16px;background:#fff;border-radius:12px;padding:6px 14px;color:#111827}
+.sr-info div{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid #EEF0F4;font-size:13px}
+.sr-info div:first-child{border-top:0}
+.sr-info span{color:#6B7280}.sr-info b{font-weight:700}
+.sr-card{margin-bottom:12px}
+.sr-card h2{font-size:17px;font-weight:800;color:#111827;margin-bottom:6px}
+.sr-card>p{font-size:12.5px;line-height:1.65;color:#4B5563;margin-bottom:12px}
+.sr-card .sr-fine{font-size:11px;color:#9CA3AF;margin:12px 0 0}
+.sr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 8px}
+.sr-gi{display:flex;flex-direction:column;align-items:center;gap:2px}
+.sr-mg{width:52px;height:30px}
+.sr-gi b{font-size:13px;font-weight:800;color:#111827}
+.sr-lv{font-size:10px;font-weight:700;color:#fff;background:#12A150;border-radius:999px;padding:1px 8px}
+.sr-gi small{font-size:11.5px;color:#374151;margin-top:2px}
+.sr-grade{text-align:center;background:#F3F6FB;border-radius:12px;padding:14px;margin-bottom:12px}
+.sr-grade small{display:block;font-size:12px;color:#6B7280}
+.sr-grade b{display:block;font-size:26px;font-weight:800;color:#2563EB;margin-top:4px}
+.sr-cap{font-size:11px;color:#6B7280;margin-bottom:8px}
+.sr-bars{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;height:170px}
+.sr-col{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.sr-stk{flex:1;width:100%;display:flex;flex-direction:column;border-radius:4px;overflow:hidden}
+.sr-stk i{display:flex;align-items:center;justify-content:center;min-height:0}
+.sr-stk em{font-style:normal;font-size:8.5px;font-weight:700;color:#fff}
+.sr-col small{font-size:10.5px;color:#6B7280}
+.sr-col.me small{color:#2563EB;font-weight:800}
+.sr-col.me .sr-stk{box-shadow:0 0 0 2px #2563EB}
+.g1{background:#F59E0B}.g2{background:#FACC15}.g3{background:#3B82F6}
+#rsBody .cmp .now{background:#22C55E}#rsBody .cmp .avg{background:#D1D5DB;color:#6B7280}
+.sr-leg{display:flex;justify-content:center;gap:12px;margin-top:10px;font-size:11px;color:#4B5563}
+.sr-leg span{display:flex;align-items:center;gap:4px}.sr-leg i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.sr-cta{display:block;width:100%;border:0;border-radius:12px;background:#3B82F6;color:#fff;font:inherit;font-size:15px;font-weight:700;padding:15px;margin:6px 0 12px;cursor:pointer}
+.sr-notes{margin:0 4px 24px;padding-left:16px;font-size:11px;line-height:1.6;color:#6B7280}
+</style><style>
+/* 폰 폭에서 탭·라벨 줄바꿈 방지 */
+.l-tabs,.h-tabs{overflow-x:auto;scrollbar-width:none;gap:16px}
+.l-tabs::-webkit-scrollbar,.h-tabs::-webkit-scrollbar{display:none}
+.l-tab,.h-tab{white-space:nowrap;flex-shrink:0}
+.mc-state,.st,.gtag,.pick-tag,.ai-status,.ck-status,.lesson-badge,.src-btn,.h-import{white-space:nowrap}
+</style>
+<style>
+/* 읽을거리 */
+.rd-title{font-size:21px;font-weight:800;line-height:1.45;color:#111827;letter-spacing:-.02em;margin:6px 6px 16px}
+.rd-card{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:124px;border:0;border-radius:18px;padding:18px 18px 18px 20px;margin-bottom:14px;text-align:left;cursor:pointer;font:inherit}
+.rd-card .rd-tx{min-width:0}
+.rd-card small{display:block;font-size:12.5px;margin-bottom:8px;opacity:.85}
+.rd-card b{display:block;font-size:17px;font-weight:800;line-height:1.5;letter-spacing:-.02em}
+.rd-emo{font-size:58px;line-height:1;flex:none}
+.rd-card.gray{background:#F1F3F7;color:#111827}
+.rd-card.sky{background:#E4ECF9;color:#111827}
+.rd-card.navy{background:#274B80;color:#fff}
+.rd-card.violet{background:#A9B1F7;color:#111827}
+.rdd-hero{position:relative;margin:-4px -4px 18px;height:250px;background:linear-gradient(180deg,#46B7EC,#2F8FD8);display:flex;flex-direction:column;justify-content:flex-end;padding:18px 20px;overflow:hidden}
+.rdd-hero span{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-size:130px;opacity:.9}
+.rdd-hero h1{position:relative;color:#fff;font-size:21px;font-weight:800;letter-spacing:-.02em;text-shadow:0 1px 6px rgba(0,0,0,.2)}
+.rdd-lead{font-size:15px;line-height:1.75;color:#1F2937;margin:0 6px 18px}
+.rdd-card{background:#fff;border-radius:18px;padding:18px;margin-bottom:14px}
+.rdd-card h3{font-size:16px;font-weight:800;color:#111827;margin-bottom:10px}
+.rdd-card h4{font-size:14px;font-weight:700;color:#374151;margin:10px 0 4px}
+.rdd-card p{font-size:13.5px;line-height:1.7;color:#4B5563}
+.rdd-card ul{margin:4px 0 0;padding-left:18px;font-size:13.5px;line-height:1.7;color:#4B5563}
+.rdd-src{text-align:center;font-size:12.5px;color:#6B7280;margin:10px 0 28px}
+</style><style>
+/* ChatGPT 요약 · 디자이너 시안 */
+.ai-plan-hero{position:relative}
+.ai-hero-emo{position:absolute;right:16px;top:14px;font-size:40px;line-height:1}
+.bm2{background:#fff;border-radius:18px;padding:16px 16px 12px;margin-bottom:10px;box-shadow:var(--sh)}
+.bm2-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.bm2-name{font-size:14px;font-weight:700;color:var(--bm)}
+.bm2-val{font-size:26px;font-weight:800;color:#111827;letter-spacing:-.02em;margin-top:2px}
+.bm2-val small{font-size:13px;font-weight:600;color:#6B7280;margin-left:3px}
+.bm2-rank{text-align:right}
+.bm2-rank small{display:block;font-size:11px;color:#9CA3AF}
+.bm2-rank b{display:block;font-size:17px;font-weight:800;color:#111827}
+.bm2-rank em{display:block;font-style:normal;font-size:12px;font-weight:700;color:var(--bm)}
+.bm2-rank em.warn{color:#D9485F}
+.bm2-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;margin-top:14px}
+.bm2-bar i{height:10px;background:#EEF0F4}
+.bm2-bar i:first-child{border-radius:5px 0 0 5px}.bm2-bar i:last-child{border-radius:0 5px 5px 0}
+.bm2-bar i.on{background:var(--bm)}
+.bm2-lb{display:grid;grid-template-columns:repeat(5,1fr);margin-top:6px}
+.bm2-lb span{text-align:center;font-size:10.5px;color:#9CA3AF;white-space:nowrap}
+.bm2-lb span.on{color:var(--bm);font-weight:800}
+.bm2-note{font-size:11px;color:#9CA3AF;line-height:1.6;margin:4px 4px 18px}
+.it-res-top{margin:2px 0 10px}
+</style><style>
+/* 진료상세 · 디자인 */
+.vd-card{background:#fff;border-radius:18px;padding:20px;margin-bottom:12px}
+.vd-hd{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.vd-hd b{display:block;font-size:20px;font-weight:800;color:#111827;letter-spacing:-.02em}
+.vd-hd small{display:block;margin-top:4px;font-size:14px;color:#6B7280}
+.vd-form{flex:none;background:#EEF0F3;color:#4B5563;font-size:14px;font-weight:700;border-radius:999px;padding:9px 16px;white-space:nowrap}
+.vd-dx{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:14px;border-bottom:1px solid #EEF0F4}
+.vd-dx small{display:block;font-size:13px;color:#6B7280;margin-bottom:4px}
+.vd-dx b{font-size:18px;font-weight:800;color:#111827}
+.vd-code{flex:none;background:#EEF4FF;border-radius:12px;padding:8px 12px;text-align:center}
+.vd-code b{color:#2563EB;font-size:17px}
+.vd-fine{margin-top:12px;font-size:12px;line-height:1.6;color:#9CA3AF}
+.vd-card h3{font-size:18px;font-weight:800;color:#111827}
+.vd-sub{font-size:13px;color:#6B7280;margin:4px 0 14px}
+.vd-med{display:flex;align-items:center;gap:14px;padding:9px 0}
+.vd-pill{width:42px;height:42px;border-radius:50%;background:#E6FAF4;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.vd-med b{display:block;font-size:15px;font-weight:700;color:#111827}
+.vd-med small{display:block;font-size:13px;color:#6B7280;margin-top:2px}
+.vd-memo{background:#F7F8FA;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.6;color:#374151;margin-bottom:10px;white-space:pre-wrap}
+.vd-memo-btn{display:block;width:100%;border:0;border-radius:12px;background:#F2F3F5;color:#4B5563;font:inherit;font-size:14px;font-weight:700;padding:14px;cursor:pointer}
+.vd-note{font-size:13px;line-height:1.7;color:#6B7280;margin:6px 4px 28px}
+.vd-note b{color:#4B5563}
+</style><style>
+.vd-nth{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:#2563EB;background:#EEF4FF;border-radius:999px;padding:4px 10px}
+.vd-total{font-size:24px;font-weight:800;color:#111827;margin:6px 0 10px;letter-spacing:-.02em}
+.vd-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:#2563EB}
+.vd-bar i{display:block;background:#93C5FD}
+.vd-bar b{flex:1}
+.vd-split{display:flex;justify-content:space-between;gap:8px;margin-top:8px;font-size:12.5px}
+.vd-split span{color:#6B7280}.vd-split em{font-style:normal;font-weight:700;color:#2563EB}
+</style><style>
+/* 더보기 · 관리 중인 질환 선택 */
+.ch-hd{padding:4px 4px 12px}
+.ch-hd b{display:block;font-size:21px;font-weight:800;line-height:1.4;letter-spacing:-.02em;color:#111827}
+.ch-hd p{margin-top:8px;font-size:13px;line-height:1.6;color:#6B7280}
+.ch-info{background:#EEF4FF;color:#1E40AF;border-radius:12px;padding:11px 13px;font-size:12.5px;line-height:1.6;margin-bottom:14px}
+.ch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ch-chip{display:flex;align-items:center;gap:8px;border:1.5px solid #E5E7EB;background:#fff;border-radius:14px;padding:13px 12px;font:inherit;font-size:14px;font-weight:600;color:#374151;text-align:left;cursor:pointer;white-space:nowrap}
+.ch-chip span{font-size:17px}
+.ch-chip.on{border-color:#3B82F6;background:#EFF6FF;color:#1D4ED8;font-weight:800}
+.ch-none{display:block;width:100%;margin-top:8px;border:1.5px dashed #D1D5DB;background:#fff;border-radius:14px;padding:12px;font:inherit;font-size:13.5px;font-weight:600;color:#6B7280;cursor:pointer}
+.ch-none.on{border-style:solid;border-color:#6B7280;background:#F3F4F6;color:#111827}
+.ch-meta{margin:12px 4px 0;font-size:12px;color:#2563EB;font-weight:700}
+.ch-save{display:block;width:100%;margin-top:16px;border:0;border-radius:12px;background:#3B82F6;color:#fff;font:inherit;font-size:15px;font-weight:700;padding:15px;cursor:pointer}
+.ch-save:disabled{background:#CBD5E1;cursor:default}
+</style><style>
+/* 셀비 · 게이지 점수 가운데 정렬 */
+#svBody .sv-box,#rsBody .sv-box{display:flex;flex-direction:column;align-items:center;text-align:center;min-width:0}
+#svBody .sv-box .cap,#rsBody .sv-box .cap{align-self:stretch;text-align:left}
+#svBody .sv-box svg,#rsBody .sv-box svg{width:100%;max-width:150px;height:auto;margin-top:6px}
+#svBody .gscore,#rsBody .gscore{margin-top:-34px;font-size:22px;font-weight:800;line-height:1.1;color:#111827}
+#svBody .gtag,#rsBody .gtag{margin-top:6px;display:inline-block}
+#rsBody .sr-gi{min-width:0}
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 </style></head>
 <body>
 <div class="app">
@@ -2164,7 +2370,11 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
   <div class="update-sheet" role="dialog" aria-modal="true" aria-labelledby="deviceUnlinkTitle">
     <div class="update-grab"></div>
     <div class="update-title" id="deviceUnlinkTitle">건강 데이터 연동을 해제할까요?</div>
+<<<<<<< HEAD
     <div class="update-desc">해제하면 걸음 수·수면·심박수 등 새 데이터를 더 이상 가져오지 않아요. 오늘의 컨디션과 AI 건강 인사이트도 연동 전 상태로 돌아가요. 이미 만들어진 리포트는 그대로 남아요.<span id="unlinkSwitchNote"><br><br>다른 앱(삼성헬스 ↔ 헬스 커넥트)으로 바꾸려면 해제 후 다시 연동해 주세요.</span></div>
+=======
+    <div class="update-desc">해제하면 걸음 수 · 수면 · 심박수 등 새 데이터를 더 이상 가져오지 않아요. 오늘의 컨디션과 AI 건강 인사이트도 연동 전 상태로 돌아가요. 이미 만들어진 리포트는 그대로 남아요.<span id="unlinkSwitchNote"></span></div>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     <button id="deviceUnlinkConfirmBtn" style="width:100%;padding:14px 0;border-radius:999px;border:none;background:var(--alert);color:#fff;font-weight:700;font-size:var(--t-sm);cursor:pointer">연동 해제하기</button>
     <button id="deviceUnlinkCancelBtn" style="width:100%;margin-top:9px;padding:14px 0;border-radius:999px;border:none;background:var(--fill);color:var(--ink-1);font-weight:700;font-size:var(--t-sm);cursor:pointer">취소</button>
   </div>
@@ -2351,7 +2561,11 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
   <div class="update-sheet" role="dialog" aria-modal="true" aria-labelledby="srcTitle">
     <div class="update-grab"></div>
     <div class="update-title" id="srcTitle">어떤 앱의 건강 데이터를 연동할까요?</div>
+<<<<<<< HEAD
     <div class="update-desc">한 번에 하나의 소스만 연동돼요. 나중에 바꾸려면 연동을 해제한 뒤 다시 선택하면 돼요.</div>
+=======
+    <div class="update-desc">한 번에 하나의 소스만 연동돼요. 나중에 언제든지 연동 설정을 바꿀 수 있어요.</div>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     <div class="src-list" id="srcList"></div>
     <button id="srcNext" style="width:100%;padding:14px 0;border-radius:999px;border:none;background:var(--brand);color:#fff;font-weight:700;font-size:var(--t-sm);cursor:pointer">다음</button>
     <button id="srcCancel" style="width:100%;margin-top:9px;padding:14px 0;border-radius:999px;border:none;background:var(--fill);color:var(--ink-1);font-weight:700;font-size:var(--t-sm);cursor:pointer">취소</button>
@@ -2407,7 +2621,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
   <div class="update-sheet" role="dialog" aria-modal="true" aria-labelledby="aiConfirmTitle" id="aiConfirmSheet"></div>
 </div>
 <div class="ai-report" id="aiReport">
-  <div class="ai-report-h"><button id="aiBack">‹</button><h2>건강검진 결과 AI 요약</h2></div>
+  <div class="ai-report-h"><button id="aiBack">‹</button><h2>건강검진 ChatGPT 요약</h2></div>
   <div class="ai-report-b" id="aiReportBody"></div>
 </div>
 
@@ -2489,16 +2703,26 @@ const Q_WALK = { id:'walk', cat:'활동', av:'🚶', tint:'energy',
         {v:'rest',   f:'⌢',label:'오늘은 쉬고 싶어요',        tone:'bad'},
         {v:'unsure', f:'?', label:'잘 모르겠어요',   tone:'neutral'}] };
 /* ── 식이 문항 — 식이 질문·목표 아키텍처(v1.0)를 그대로 따른다 ──
+<<<<<<< HEAD
    ① 지난 끼니는 첫 진입 시각으로 정한다(10 · 12 · 17시 경계).
+=======
+   ① 지난 끼니는 첫 진입 시각으로 정한다(12 · 15 · 21시 경계).
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
    ② 고정 문항은 매일 같다 — "{지난 끼니}은 평소만큼 드셨나요?". 케이스에 따라 바꾸지 않는다.
    ③ 회전 문항은 8축 중 하나다. 이 케이스는 진료정보에 폐렴(상병코드)이 있어
       확진 질환 경로로 축이 좁혀지고, 회복 풀 전용인 단백질 축이 열린다. */
 function lastMealLabel(h){
   const hh = (h==null) ? new Date().getHours() : h;
+<<<<<<< HEAD
   if(hh < 4) return '어제 저녁'; // 실제 달력 날짜의 전날 저녁, 전날 04시 세션
   if(hh < 10) return '어제 저녁';
   if(hh < 12) return '오늘 아침';
   if(hh < 17) return '오늘 점심';
+=======
+  if(hh < 12) return '어제 저녁';
+  if(hh < 15) return '오늘 아침';
+  if(hh < 21) return '오늘 점심';
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   return '오늘 저녁';
 }
 const LAST_MEAL = lastMealLabel();
@@ -2507,12 +2731,21 @@ const Q_ACUTE = [
     text:`${LAST_MEAL}은 평소만큼 드셨나요?`,
     opts:[{v:'normal',f:'⌣',label:'평소대로',   tone:'good'},
           {v:'less',  f:'—',label:'조금 적게', tone:'okay'},
+<<<<<<< HEAD
           {v:'skip',  f:'⌢',label:'거의 못 먹었거나 걸렀어요', tone:'bad'}] },
   { id:'protein', cat:'식이', av:'🥚', tint:'moon',
     text:`${LAST_MEAL}에 고기·생선·달걀·두부 같은 음식을 드셨나요?`,
     opts:[{v:'good',f:'⌣',label:'먹었어요',       tone:'good'},
           {v:'mid', f:'—',label:'맛만 봤어요',   tone:'okay'},
           {v:'bad', f:'⌢',label:'안 먹었어요',       tone:'bad'}] },
+=======
+          {v:'skip',  f:'⌢',label:'거의 못 먹었어요', tone:'bad'}] },
+  { id:'protein', cat:'식이', av:'🥚', tint:'moon',
+    text:`${LAST_MEAL}에 고기 · 생선 · 달걀 · 두부 반찬이 있었나요?`,
+    opts:[{v:'good',f:'⌣',label:'있었어요',       tone:'good'},
+          {v:'mid', f:'—',label:'조금 있었어요',   tone:'okay'},
+          {v:'bad', f:'⌢',label:'없었어요',       tone:'bad'}] },
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   { id:'sleep', cat:'수면', av:'🌙', tint:'moon',
     text:'어젯밤 기침 때문에 잠에서 깼나요?',
     opts:[{v:'gte7',f:'⌣',label:'깨지 않았어요', tone:'good'},
@@ -2522,6 +2755,7 @@ const Q_ACUTE = [
 /* 일반 사용자의 회전 문항 — 여덟 축을 요일로 돌린다.
    (월 끼니 규칙은 별도 문항이 없어 고정 문항의 결식 답으로 쌓이므로 회전에서 빠진다) */
 const Q_ROTATION = {
+<<<<<<< HEAD
   2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬을 몇 가지 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'두 가지 이상',   tone:'good'},
             {v:'mid', f:'—',label:'한 가지',tone:'okay'},
@@ -2542,6 +2776,28 @@ const Q_ROTATION = {
       opts:[{v:'good',f:'⌣',label:'안 먹었어요',   tone:'good'},
             {v:'mid', f:'—',label:'맛만 봤어요',tone:'okay'},
             {v:'bad', f:'⌢',label:'먹었어요',   tone:'bad'}] }
+=======
+  2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬이 있었나요?`,
+      opts:[{v:'good',f:'⌣',label:'있었어요',   tone:'good'},
+            {v:'mid', f:'—',label:'조금 있었어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'없었어요',   tone:'bad'}] },
+  3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후로 단 음료나 단 간식을 드셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'안 먹었어요',     tone:'good'},
+            {v:'mid', f:'—',label:'한 번 먹었어요',   tone:'okay'},
+            {v:'bad', f:'⌢',label:'여러 번 먹었어요', tone:'bad'}] },
+  4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL}에 국이나 찌개를 드셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'안 먹었어요',        tone:'good'},
+            {v:'mid', f:'—',label:'건더기만 먹었어요',  tone:'okay'},
+            {v:'bad', f:'⌢',label:'국물까지 먹었어요',  tone:'bad'}] },
+  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}은 어떻게 마치셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'천천히 적당히',  tone:'good'},
+            {v:'mid', f:'—',label:'보통이었어요',   tone:'okay'},
+            {v:'bad', f:'⌢',label:'빠르게 배부르게',tone:'bad'}] },
+  6:{ id:'fat',   cat:'식이', av:'🍖', tint:'moon', text:`${LAST_MEAL}에 튀김이나 기름진 반찬이 있었나요?`,
+      opts:[{v:'good',f:'⌣',label:'없었어요',   tone:'good'},
+            {v:'mid', f:'—',label:'조금 있었어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'있었어요',   tone:'bad'}] }
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 };
 function rotationQuestion(){
   /* 요일 순환 — 시연 날짜(목요일)를 기준으로 고정한다.
@@ -2826,11 +3082,16 @@ let goals = BASE_GOALS.map(g=>({...g, state:'pending'}));
    단계는 실제로는 최근 7일 완료 횟수로 오르내리지만(7일 3회↑ · 연속 2회↓),
    시연에서는 하루만 보므로 회전 문항 답으로 대신 고른다. */
 /* ── 대상 끼니 ──
+<<<<<<< HEAD
    목표는 앞으로 실행할 수 있는 끼니 또는 현재 세션의 밤에 붙는다.
+=======
+   목표는 앞으로 올 끼니에 붙는다. 지금 시각에서 다음에 오는 끼니를 대상으로 삼고,
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
    끼니가 박힌 문구(「아침에도 채소 한 가지」)는 대상 끼니와 같을 때만 쓴다.
    지난 끼니를 가리키는 문구는 오늘 실행할 수 없기 때문이다. */
 function targetMeal(h){
   const hh = (h==null) ? new Date().getHours() : h;
+<<<<<<< HEAD
   if(hh < 4)  return '현재 세션의 밤';
   if(hh < 10) return '오늘 아침';
   if(hh < 12) return '오늘 점심';
@@ -2841,6 +3102,14 @@ const TARGET_MEAL = targetMeal();
 /* 시연 화면은 식후 후보 10개 중 질환·상황 조건이 없는 준비 행동 한 건을 표시한다.
    운영 구현에서는 노출조건.after_dinner_eligible와 모든 후보 필터를 조회한다. */
 const AFTER_DINNER_GOAL = {title:'아침거리 미리 꺼내 두기', why:'아침에 고민할 일이 없으면 덜 거르게 돼요.'};
+=======
+  if(hh < 9)  return '오늘 아침';
+  if(hh < 14) return '오늘 점심';
+  if(hh < 21) return '오늘 저녁';
+  return '내일 아침';
+}
+const TARGET_MEAL = targetMeal();
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 const MEAL_WORDS = ['아침','점심','저녁'];
 function fitsTarget(p){
   const word = MEAL_WORDS.find(w=>p.title.includes(w));
@@ -2856,10 +3125,13 @@ function pickPhrase(arr, fallback){
 function mealGoal(b){
   const {meal,protein,fever,fatigue,salt,veg,sweet,pace,fat} = ans;
   const pick = (arr, i) => arr[i % arr.length];
+<<<<<<< HEAD
   if(TARGET_MEAL === '현재 세션의 밤'){
     return {...b, title:AFTER_DINNER_GOAL.title, why:AFTER_DINNER_GOAL.why,
       how:'저녁 식사 후 현재 세션의 밤에 할 수 있는 준비 행동'};
   }
+=======
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   if(!hasAiReport){
     /* 평소 상태의 축 선정 — 회복 풀 → (확진·검진 없음) → 부담 줄이기 풀 → 일반(요일 순환 축) */
     if(meal && (meal.v==='skip' || meal.v==='less'))
@@ -3015,7 +3287,11 @@ const STATE_TONE = {
 const METRIC_COLOR = { margin:'#12A150', selfcare:'#D98A12', steady:'#7C5CFC' };
 const METRICS = [
   {k:'margin', nm:'생활여유', en:'Life Margin',
+<<<<<<< HEAD
    desc:'오늘 남아 있는 몸의 여유', expl:'잠은 충분했는지, 움직임이 하루에 고르게 퍼져 있었는지를 함께 보고 오늘을 편안하게 보낼 힘이 얼마나 남았는지 알려드려요.',
+=======
+   desc:'오늘 남아 있는 몸의 여유', expl:'수면 시간, 활동 시간, 움직임이 하루에 고르게 나뉘었는지를 함께 보고 오늘 남아 있는 몸의 여유를 알려드려요. 너무 많이 움직인 날에는 여유가 줄어들 수 있어요.',
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
    states:{good:'충분해요', mid:'보통이에요', low:'부족해요'},
    state:'low', prev:'low',
    line:'오늘은 하루를 이어갈 여유가 많이 부족해요.',
@@ -3023,7 +3299,11 @@ const METRICS = [
    note:'화요일부터 수면이 짧고 자주 끊겼고 낮 활동도 거의 없어, 회복에 쓸 여유가 계속 줄어든 사흘이었어요.',
    rows:['sleep','active','exercise']},
   {k:'selfcare', nm:'자기돌봄', en:'Self-Care Moments',
+<<<<<<< HEAD
    desc:'오늘 나를 챙긴 정도', expl:'식사 뒤, 오래 앉아 있던 뒤처럼 몸을 챙기기 좋은 순간에 실제로 가볍게 움직였는지 살펴봐요. 많이 움직였는지가 아니라 알맞은 때에 움직였는지가 기준이에요.',
+=======
+   desc:'오늘 나를 챙긴 정도', expl:'하루 걸음 수와 식사 뒤 가볍게 움직였는지를 함께 보고 오늘 나를 얼마나 챙겼는지 알려드려요.',
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
    states:{good:'잘하고 있어요', mid:'보통이에요', low:'부족해요'},
    state:'low', prev:'low',
    line:'움직일 수 있는 순간에도 거의 쉬고 있어요.',
@@ -3031,7 +3311,11 @@ const METRICS = [
    note:'화요일 이후 식사 뒤나 오래 누워 있던 뒤에 이어지는 움직임이 거의 없었어요. 아픈 동안에는 자연스러운 흐름이에요.',
    rows:['active','exercise','record']},
   {k:'steady', nm:'일상안정', en:'Life Steadying',
+<<<<<<< HEAD
    desc:'최근 생활 리듬의 일정함', expl:'하루하루의 리듬이 평소처럼 일정하게 흐르고 있는지 봐요. 어제와 오늘이 크게 다르지 않을수록 안정적이에요.',
+=======
+   desc:'지난주와 비교한 일상의 균형', expl:'최근 7일의 걸음 수 · 활동 시간 · 운동 기록과 수면 규칙성을 그 전 7일과 비교해, 일상의 균형이 잘 잡혀 있는지 알려드려요.',
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
    states:{good:'안정적이에요', mid:'비슷해요', low:'불안정해요'},
    state:'low', prev:'low',
    line:'화요일부터 생활 신호가 평소 범위를 크게 벗어나 있어요.',
@@ -3231,8 +3515,17 @@ applyMetricScenario();
 
 /* ── 점수 → 구간 어댑터 ──
    구간 경계는 잠정치(66 / 33). 실제 구현에서는 지표 엔진이 구간을 바로 내려준다. */
+<<<<<<< HEAD
 const BAND_HI = 66, BAND_LO = 33;
 function scoreToState(v){
+=======
+/* 구간 경계(0~100 내부 점수) — v7 지표 탐색기 확정값. 실제 서비스에서는 지표 엔진이 구간을 내려주고 앱은 그대로 표시한다 */
+const BAND_HI = 66, BAND_LO = 33;
+const BANDS = { margin:[40,70], selfcare:[33,66], steady:[33,66] };
+const bandOf = k => BANDS[k] || [BAND_LO, BAND_HI];
+function scoreToState(v, k){
+  const [BAND_LO, BAND_HI] = bandOf(k);
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   if(v==null) return 'none';
   return v>=BAND_HI ? 'good' : v>=BAND_LO ? 'mid' : 'low';
 }
@@ -3253,7 +3546,12 @@ function stateTrend(prev, cur){
    · 배경 띠: 주의(<33) · 보통(33~65) · 좋음(≥66), 띠 오른쪽 끝에 구간 라벨
    · 실제 값이 있는 날만 점·선. y축 눈금·숫자·점 위 값 표기는 하지 않는다
    · 선택일은 속 빈 큰 원. 결측·미래 요일은 점을 찍지 않고 선을 끊는다 */
+<<<<<<< HEAD
 function bandGraph(scores, selIdx, color, bands, labels){
+=======
+function bandGraph(scores, selIdx, color, bands, labels, k){
+  const [BAND_LO, BAND_HI] = bandOf(k);
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   const W=320, H=78, R=44, L=4, top=2, bot=2;
   const gw = W-R;
   const Y = v => top + (1 - v/100) * (H-top-bot);
@@ -3261,6 +3559,7 @@ function bandGraph(scores, selIdx, color, bands, labels){
   let s = `<div class="bgph"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-label="주간 상태 흐름">`;
   s += `<rect x="0" y="${Y(100)}" width="${gw}" height="${Y(BAND_HI)-Y(100)}" fill="#E7F7ED"/>`;
   s += `<rect x="0" y="${Y(BAND_HI)}" width="${gw}" height="${Y(BAND_LO)-Y(BAND_HI)}" fill="#F1F3F7"/>`;
+<<<<<<< HEAD
   s += `<rect x="0" y="${Y(BAND_LO)}" width="${gw}" height="${Y(0)-Y(BAND_LO)}" fill="#FDF0E3"/>`;
   s += `<text x="${gw+8}" y="${Y(83)+3.5}" font-size="9.5" font-weight="700" fill="#12A150">${bands[0]}</text>`;
   s += `<text x="${gw+8}" y="${Y(50)+3.5}" font-size="9.5" font-weight="700" fill="#8A93A5">${bands[1]}</text>`;
@@ -3271,6 +3570,20 @@ function bandGraph(scores, selIdx, color, bands, labels){
     if(v==null) return;
     if(i===selIdx) s+=`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="5" fill="#fff" stroke="${color}" stroke-width="2.5" vector-effect="non-scaling-stroke"/>`;
     else s+=`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3" fill="${color}"/>`;
+=======
+  s += `<rect x="0" y="${Y(BAND_LO)}" width="${gw}" height="${Y(0)-Y(BAND_LO)}" fill="#FDECEC"/>`;
+  s += `<text x="${gw+8}" y="${Y((100+BAND_HI)/2)+3.5}" font-size="9.5" font-weight="700" fill="#12A150">${bands[0]}</text>`;
+  s += `<text x="${gw+8}" y="${Y((BAND_HI+BAND_LO)/2)+3.5}" font-size="9.5" font-weight="700" fill="#8A93A5">${bands[1]}</text>`;
+  s += `<text x="${gw+8}" y="${Y(BAND_LO/2)+3.5}" font-size="9.5" font-weight="700" fill="#E5484D">${bands[2]}</text>`;
+  const stC = v => v>=BAND_HI ? '#12A150' : v>=BAND_LO ? '#B5BCC8' : '#E5484D';   /* 점 색 = 그날 구간 색 */
+  if(scores[selIdx]!=null) s += `<line x1="${X(selIdx).toFixed(1)}" y1="${Y(scores[selIdx]).toFixed(1)}" x2="${X(selIdx).toFixed(1)}" y2="${H}" stroke="${stC(scores[selIdx])}" stroke-width="1.6" stroke-dasharray="3 3" vector-effect="non-scaling-stroke"/>`;
+  let seg=[]; const flush=()=>{ if(seg.length>1) s+=`<polyline points="${seg.join(' ')}" fill="none" stroke="#C9CED8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>`; seg=[]; };
+  scores.forEach((v,i)=>{ if(v==null) flush(); else seg.push(`${X(i).toFixed(1)},${Y(v).toFixed(1)}`); }); flush();
+  scores.forEach((v,i)=>{
+    if(v==null) return;
+    if(i===selIdx) s+=`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="4.5" fill="${stC(v)}"/>`;
+    else s+=`<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="3.6" fill="#fff" stroke="${stC(v)}" stroke-width="1.8" vector-effect="non-scaling-stroke"/>`;
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   });
   s += `</svg><div class="bx" style="padding:0 2px;margin-top:4px">${labels.map((d,j)=>`<div class="${j===selIdx?'on':''}">${d}</div>`).join('')}</div></div>`;
   return s;
@@ -3857,7 +4170,11 @@ const judgeTone = j => ['부족','다소 높음','높음','없음','낮춤','낮
    안드로이드는 연동 소스가 두 가지(삼성헬스 / 헬스 커넥트)라 어떤 소스가 연결됐는지와
    동기화 상태를 상단에 보여주고, 연동된 상태에서도 해제할 수 있어야 소스를 바꿀 수 있다. (iOS는 건강 앱 하나) */
 const LINK_SOURCES = {
+<<<<<<< HEAD
   samsung:{ name:'삼성헬스',   icon:'S', bg:'#E8F4FF', c:'#1A6DFF', desc:'갤럭시 워치·삼성헬스 앱 데이터' },
+=======
+  samsung:{ name:'삼성헬스',   icon:'S', bg:'#E8F4FF', c:'#1A6DFF', desc:'갤럭시 워치, 삼성헬스 앱 데이터' },
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   hc:     { name:'헬스 커넥트', icon:'H', bg:'#E9F7EE', c:'#1E9E58', desc:'헬스 커넥트에 연결된 여러 앱 데이터' },
   apple:  { name:'건강 앱',    icon:'♥', bg:'#FFEBEE', c:'#E5395C', desc:'iPhone · Apple Watch 데이터' }
 };
@@ -4003,12 +4320,21 @@ const HD_TODAY_NUM = {steps:1840, kcal:110, active:12, hr:82, sleep:5.17, weight
    ════════════════════════════════════════════════════════════ */
 const CASE_DATA = {
   well:{
+<<<<<<< HEAD
     metricState:{ margin:'good', selfcare:'good', steady:'good' },
     metricWeek:{ margin:[74,76,78,80,null,null,null], selfcare:[68,70,72,74,null,null,null], steady:[72,76,74,78,null,null,null] },
     metricIns:{
       margin:'수면이 일정하게 채워지고 활동이 하루 중 고르게 나뉘어, <b>여유가 넉넉한 흐름</b>이 이어지고 있어요.',
       selfcare:'식사 뒤와 오래 앉아 있던 뒤에 <b>짧은 걷기가 대부분 이어졌어요.</b>',
       steady:'수면·걸음·심박이 <b>평소 범위 안에서 크게 흔들리지 않았어요.</b>' },
+=======
+    metricState:{ margin:'good', selfcare:'mid', steady:'good' },
+    metricWeek:{ margin:[56,24,40,82,null,null,null], selfcare:[56,24,40,56,null,null,null], steady:[54,50,76,74,null,null,null] },
+    metricIns:{
+      margin:'늦은 시간에 몰려 있던 활동이 하루 중간으로 나뉘고 수면이 채워지면서, 여유가 다시 앞선 하루가 됐어요.',
+      selfcare:'식사 뒤와 오래 앉아 있던 뒤에 짧은 걷기가 이어진 날이 늘었어요. 아직 절반쯤이에요.',
+      steady:'자고 움직이는 시각이 다시 일정해지면서, 평소 범위 안에서 흔들림이 줄었어요.' },
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     series:{
       sleep:{v:[7.2,7.1,7.4,7.3,null,null,null], t:['7시간 12분','7시간 6분','7시간 24분','7시간 18분','–','–','–'], avg:'7시간 15분'},
       bed:  {v:[23.17,23.25,23.1,23.2,null,null,null], t:['23시 10분','23시 15분','23시 6분','23시 12분','–','–','–'], avg:'23시 11분'},
@@ -4017,11 +4343,22 @@ const CASE_DATA = {
       hr:   {v:[64,63,65,63,null,null,null], t:['64','63','65','63','–','–','–'], avg:'63.8'},
       bp:   {sys:[118,117,119,118,null,null,null], dia:[76,75,77,76,null,null,null], t:['118 / 76','117 / 75','119 / 77','118 / 76','–','–','–'], avg:'118 / 76'} },
     dayvals:{
+<<<<<<< HEAD
       '심박수':['64 bpm','63 bpm','65 bpm','63 bpm','–','–','–'],
       '수면':['7시간 12분','7시간 6분','7시간 24분','7시간 18분','–','–','–'],
       '걸음 수':['8,120 걸음','7,860 걸음','8,340 걸음','8,210 걸음','–','–','–'],
       '활동 칼로리':['395 kcal','372 kcal','410 kcal','388 kcal','–','–','–'],
       '활동 시간':['52분','48분','55분','50분','–','–','–'],
+=======
+      '활동 분산':['4칸 · 40%','2칸 · 70%','5칸 · 30%','6칸 · 25%','–','–','–'],
+      '공백 후 움직임':['60%','30%','70%','80%','–','–','–'],
+      '취침 시각':['23시 40분','0시 50분','23시 20분','23시 10분','–','–','–'],
+      '심박수':['64 bpm','63 bpm','65 bpm','63 bpm','–','–','–'],
+      '수면':['6시간 50분','5시간 40분','6시간 30분','7시간 23분','–','–','–'],
+      '걸음 수':['6,900 걸음','4,100 걸음','7,800 걸음','7,340 걸음','–','–','–'],
+      '활동 칼로리':['395 kcal','372 kcal','410 kcal','388 kcal','–','–','–'],
+      '활동 시간':['30분','18분','34분','42분','–','–','–'],
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
       '운동 시간':['25분','20분','30분','25분','–','–','–'],
       '운동 기록':['걷기 1회','걷기 1회','조깅 1회','걷기 1회','–','–','–'],
       '체중':['68.4 kg','68.4 kg','68.3 kg','68.4 kg','–','–','–'] },
@@ -4050,9 +4387,15 @@ const CASE_DATA = {
     metricState:{ margin:'low', selfcare:'low', steady:'low' },
     metricWeek:{ margin:[74,42,26,22,null,null,null], selfcare:[68,40,30,26,null,null,null], steady:[72,46,28,22,null,null,null] },
     metricIns:{
+<<<<<<< HEAD
       margin:'월요일까지는 평소와 같았는데, <b>화요일부터 수면이 짧아지고 낮 활동이 거의 멈추면서</b> 여유가 사흘째 줄고 있어요.',
       selfcare:'식사 뒤나 오래 누워 있던 뒤에 <b>이어지는 움직임이 화요일부터 거의 없어요.</b> 아픈 동안에는 무리해서 채우지 않아도 돼요.',
       steady:'화요일을 기점으로 걸음·수면·심박이 모두 평소 범위를 벗어났어요. <b>안정 시 심박이 높은 상태가 사흘째</b> 이어지고 있어요.' },
+=======
+      margin:'화요일부터 수면이 짧아지고 활동 시간이 줄면서, 여유가 사흘째 줄고 있어요.',
+      selfcare:'화요일부터 식사 뒤나 오래 누워 있던 뒤에 이어지는 움직임이 거의 없었어요.',
+      steady:'화요일부터 걸음 수와 수면이 평소 범위를 벗어나면서, 생활 리듬이 흔들리고 있어요.' },
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     series:{
       sleep:{v:[7.2,5.9,5.3,5.17,null,null,null], t:['7시간 12분','5시간 54분','5시간 18분','5시간 10분','–','–','–'], avg:'5시간 54분'},
       bed:  {v:[23.17,23.83,24.67,23.5,null,null,null], t:['23시 10분','23시 50분','00시 40분','23시 30분','–','–','–'], avg:'23시 47분'},
@@ -4061,6 +4404,12 @@ const CASE_DATA = {
       hr:   {v:[64,74,81,82,null,null,null], t:['64','74','81','82','–','–','–'], avg:'75.3'},
       bp:   {sys:[118,124,126,122,null,null,null], dia:[76,80,82,79,null,null,null], t:['118 / 76','124 / 80','126 / 82','122 / 79','–','–','–'], avg:'123 / 79'} },
     dayvals:{
+<<<<<<< HEAD
+=======
+      '활동 분산':['5칸 · 30%','4칸 · 40%','2칸 · 70%','1칸 · 100%','–','–','–'],
+      '공백 후 움직임':['80%','50%','20%','10%','–','–','–'],
+      '취침 시각':['23시 10분','23시 30분','0시 40분','1시 30분','–','–','–'],
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
       '심박수':['64 bpm','74 bpm','81 bpm','82 bpm','–','–','–'],
       '수면':['7시간 12분','5시간 54분','5시간 18분','5시간 10분','–','–','–'],
       '걸음 수':['8,120 걸음','4,260 걸음','2,150 걸음','1,840 걸음','–','–','–'],
@@ -4237,6 +4586,7 @@ function renderLife(){ renderGoalPane(); renderMetricPane(); renderDaily(); rend
 /* ── 지표별 분석 카드 공통 렌더러 ──
    헤더(지표명 + 전일 대비 방향 · 설명 한 줄 · 구간 배지) → 3구간 띠 위 주간 그래프 → 현재 흐름 → 핵심 데이터.
    보조 데이터 영역은 두지 않는다. 숫자 점수는 어디에도 쓰지 않는다. */
+<<<<<<< HEAD
 const BAND_WORDS = { margin:['충분','보통','부족'], selfcare:['잘함','보통','부족'], steady:['안정','비슷','불안정'] };
 function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
   const meta = METRICS.find(x=>x.k===m.k);
@@ -4245,6 +4595,161 @@ function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
   const cur = states[i];
   const prev = i>0 ? states[i-1] : null;
   const core = DATA_MAP.filter(d=>d[m.k]==='core');
+=======
+const BAND_WORDS = { margin:['좋음','보통','주의'], selfcare:['좋음','보통','주의'], steady:['좋음','보통','주의'] };
+const CORE_ROWS = { margin:['활동 시간','수면'], selfcare:['걸음 수','식후 활동'], steady:['걸음 수','활동 시간','운동 기록','수면'] };
+/* ── 지표 해석 — 선택한 날을 전날과 비교한 한 문장 ──
+   · 구간이 바뀌면: {이유} {나아지고 있어요/감소하고 있어요}. 이유 = 전날 대비 가장 많이 달라진 핵심 데이터 1개(같은 방향, 10% 이상)
+   · 같으면 이어진 날 수로: "N일 연속 ~" (2일 이상)
+     주의가 3일 이상 이어지면 그 기간 계속 낮았던 항목 1개를 이유로 붙인다
+   · 전날 기록이 없으면 "오늘은 ~" */
+const DF_STATE = {
+  margin:  {good:'남아 있는 몸의 여유가 충분한 편이에요', mid:'남아 있는 몸의 여유가 보통이에요', low:'남아 있는 몸의 여유가 부족한 편이에요'},
+  selfcare:{good:'나를 챙기는 정도가 좋은 편이에요', mid:'나를 챙기는 정도가 보통이에요', low:'나를 챙기는 정도가 부족한 편이에요'},
+  steady:  {good:'일상의 균형이 안정적인 편이에요', mid:'일상의 균형이 보통이에요', low:'일상의 균형이 불안정한 편이에요'}
+};
+const DF_MOVE = {
+  margin:  {up:'몸의 여유가 나아지고 있어요', down:'몸의 여유가 감소하고 있어요'},
+  selfcare:{up:'나를 챙기는 정도가 나아지고 있어요', down:'나를 챙기는 정도가 감소하고 있어요'},
+  steady:  {up:'', down:''}
+};
+/* 일상안정은 7일 비교 점수라, 바뀐 뒤 구간으로 말한다 */
+const DF_STEADY_TO = {good:'일상의 균형이 나아지고 있어요', mid:{up:'일상의 균형이 나아지고 있어요', down:'일상의 균형이 흔들리고 있어요'}, low:'일상의 균형이 흔들리고 있어요'};
+/* 이유 후보 — 지표 산식의 재료만 쓴다(자기돌봄은 걸음 55% · 식후 행동 20%, 일상안정 수면은 규칙성이라 제외) */
+const DF_CAND = { margin:['활동 시간','수면'], selfcare:['걸음 수','식후 활동'], steady:['걸음 수','활동 시간','운동 기록'] };
+const DF_WHY = {   /* 항목: [늘었을 때, 줄었을 때, 낮은 날이 이어질 때] */
+  '수면':['수면 시간이 늘어나면서','수면 시간이 줄어들면서','수면이 짧은 날이 이어지면서'],
+  '활동 시간':['활동량이 늘어나면서','활동량이 줄어들면서','활동량이 낮은 날이 이어지면서'],
+  '식후 활동':['식후 활동이 이어지면서','식후 활동이 줄어들면서','식후 활동이 적은 날이 이어지면서'],
+  '걸음 수':['걸음 수가 늘어나면서','걸음 수가 줄어들면서','걸음 수가 적은 날이 이어지면서'],
+  '운동':['운동 시간이 늘어나면서','운동 시간이 줄어들면서','운동 공백이 이어지면서'],
+  '행동 완료':['이번 주 식후 활동을 챙긴 날이 늘면서','이번 주 식후 활동을 챙긴 날이 줄면서','식후 활동을 놓친 날이 이어지면서'],
+  '걸음 발생일':['움직인 날이 늘면서','움직이지 않은 날이 생기면서','움직이지 않은 날이 이어지면서'],
+  '수면 규칙성':['잠드는 시간이 일정해지면서','잠드는 시간이 불규칙해지면서','잠드는 시간이 불규칙한 날이 이어지면서'],
+  '분산':['움직임이 하루에 고르게 나뉘면서','활동이 한때에 몰리면서','활동이 한때에 몰리는 날이 이어지면서'],
+  '부담':['','활동이 많아 부담이 커지면서','활동이 많은 날이 이어지면서'],
+  '공백 후':['오래 쉬다가 다시 움직이면서','오래 쉰 뒤 움직임이 줄어들면서','오래 쉰 뒤 움직이지 않은 날이 이어지면서']
+};
+const DF_OVERLOAD = '활동이 많아 부담이 커지면서';
+/* 활동 분산 — "움직인 칸 수 · 가장 바쁜 칸 비중" (예: '5칸 · 30%') → 산식의 분산 몫 0~1 */
+function dfSpread(t){ const m=(t||'').match(/(\d+)칸\s*·\s*(\d+)%/); if(!m) return null; return Math.min(1,+m[1]/8)*Math.max(0,Math.min(1,(1-m[2]/100)/0.75)); }
+const dfSafe = (fn,n,j) => { try{ return fn(n,j); }catch(e){ return null; } };
+function dfNum(t){
+  if(!t || t==='–' || t==='없음') return 0;
+  const h=t.match(/(\d+)시간/), m=t.match(/(\d+)분/);
+  if(h||m) return (h?+h[1]*60:0)+(m?+m[1]:0);
+  const n=t.replace(/,/g,'').match(/\d+(\.\d+)?/); return n?+n[0]:0;
+}
+const dfKey = (k,n) => n==='식후 활동' ? '식후 활동' : (n==='운동 기록' ? (k==='selfcare'?'식후 활동':'운동') : n);
+const dfSrc = n => n==='식후 활동' ? '운동 기록' : n;
+function dayFlow(k, scores, i, valFn, judgeFn){
+  const cur = scores[i]==null ? null : scoreToState(scores[i],k);
+  if(!cur) return '';
+  const st = j => (j>=0 && scores[j]!=null) ? scoreToState(scores[j],k) : null;
+  const prev = st(i-1);
+  if(!prev) return `${DF_STATE[k][cur]}.`;
+  const V={low:0,mid:1,good:2};
+  if(cur!==prev){
+    const up = V[cur]>V[prev]; let best=null, bv=0.1;
+    const avg=(src,e)=>{ let t=0,c=0; for(let j=Math.max(0,e-6);j<=e;j++){ t+=dfNum(valFn(src,j)); c++; } return c?t/c:0; };
+    DF_CAND[k].forEach(n=>{
+      const src=dfSrc(n);
+      /* 일상안정은 7일 평균끼리 비교 */
+      const x = k==='steady' ? avg(src,i-1) : dfNum(valFn(src,i-1)), y = k==='steady' ? avg(src,i) : dfNum(valFn(src,i));
+      /* 생활여유는 활동 240분을 넘으면 부담으로 보므로, 늘어난 활동을 좋아진 이유로 쓰지 않는다 */
+      if(k==='margin' && src==='활동 시간' && up && y>240) return;
+      let r=(y-x)/Math.max(x,1); if(src==='운동 기록') r=Math.max(-0.3,Math.min(0.3,r));
+      if((up?r:-r)>bv){ bv=up?r:-r; best=dfKey(k,n); }
+    });
+    if(k==='margin'){
+      /* 생활여유: 산식 몫의 점수 변화로 원인을 고른다 (활동 시간 20% · 활동 분산 30% · 활동 부담 중 240분 초과분 12.5% · 수면 25%)
+         활동 부담도 감점이 실제로 가장 큰 원인일 때만 쓴다 */
+      const cl=v=>Math.max(0,Math.min(1,v)), ov=m=>1-cl((m-240)/240), sl=m=>cl(1-Math.max(0,420-m)/120);
+      const ma=dfNum(valFn('활동 시간',i-1)), mb=dfNum(valFn('활동 시간',i));
+      const qa=dfNum(valFn('수면',i-1)), qb=dfNum(valFn('수면',i));
+      const sa=dfSpread(dfSafe(valFn,'활동 분산',i-1)), sb=dfSpread(dfSafe(valFn,'활동 분산',i));
+      const c={'활동 시간':0.2*(cl(mb/240)-cl(ma/240)), '수면':0.25*(sl(qb)-sl(qa)), '과한':0.125*(ov(mb)-ov(ma))};
+      if(sa!=null && sb!=null) c['분산']=0.3*(sb-sa);
+      best=null; let bv2=0.02;   /* 2점 미만 변화는 이유로 쓰지 않음 */
+      Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
+      if(best==='과한') return `${DF_OVERLOAD} ${DF_MOVE[k].down}.`;
+    }
+    if(k==='selfcare'){
+      /* 자기돌봄: 걸음 55% (걸음 표: 0→0 · 3천→0.35 · 6천→0.65 · 1만→0.95 · 1만2천→1) · 식후 활동 20% (하루 3회 기준 완료율) */
+      const cv=[[0,0],[3000,.35],[6000,.65],[10000,.95],[12000,1]];
+      const stp=x=>{ for(let q=1;q<cv.length;q++){ const [l,a]=cv[q-1],[r,b]=cv[q]; if(x<=r) return a+(x-l)/(r-l)*(b-a); } return 1; };
+      const meal=x=>Math.min(1,x/3);
+      const c={'걸음 수':0.55*(stp(dfNum(valFn('걸음 수',i)))-stp(dfNum(valFn('걸음 수',i-1)))),
+               '식후 활동':0.2*(meal(dfNum(valFn('운동 기록',i)))-meal(dfNum(valFn('운동 기록',i-1))))};
+      /* 공백 후 움직임 15% · 활동 분산 10% */
+      const rs=j=>{ const v=dfSafe(valFn,'공백 후 움직임',j); return v&&/%/.test(v)?dfNum(v)/100:null; };
+      if(rs(i)!=null && rs(i-1)!=null) c['공백 후']=0.15*(rs(i)-rs(i-1));
+      const s1=dfSpread(dfSafe(valFn,'활동 분산',i-1)), s2=dfSpread(dfSafe(valFn,'활동 분산',i));
+      if(s1!=null && s2!=null) c['분산']=0.10*(s2-s1);
+      best=null; let bv2=0.02;
+      Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
+    }
+    if(k==='steady'){
+      /* 일상안정: 표시점수 = 50 + 50 × Σ(가중치 × 변화). 걸음 30% · 활동 15% · 운동 15%
+         하루 사이 7일 평균이 바뀐 만큼 점수에 준 영향으로 비교 */
+      const W={'걸음 수':0.3,'활동 시간':0.15,'운동 기록':0.15}, KEY={'걸음 수':'걸음 수','활동 시간':'활동 시간','운동 기록':'운동'};
+      const c={};
+      Object.keys(W).forEach(n=>{ const x=avg(n,i-1), y=avg(n,i); c[KEY[n]]=0.5*W[n]*(y-x)/Math.max(0.5*x,1); });
+      /* 수면 규칙성 15%: 취침 시각의 흔들림(표준편차, 분)이 줄면 좋아짐 */
+      const bt=j=>{ const m=(dfSafe(valFn,'취침 시각',j)||'').match(/(\d+)시\s*(\d+)?/); if(!m) return null; let h=+m[1]; if(h<12) h+=24; return h*60+(+m[2]||0); };
+      const sd=e=>{ const v=[]; for(let j=Math.max(0,e-6);j<=e;j++){ const t=bt(j); if(t!=null) v.push(t); } if(v.length<2) return null; const mu=v.reduce((a,b)=>a+b,0)/v.length; return Math.sqrt(v.reduce((a,b)=>a+(b-mu)*(b-mu),0)/v.length); };
+      const sa2=sd(i-1), sb2=sd(i);
+      if(sa2!=null && sb2!=null) c['수면 규칙성']=0.5*0.15*(sa2-sb2)/Math.max(0.5*sa2,15);
+      /* 행동 완료 15%: 기간 완료율(식후 활동 완료 ÷ 기회) 변화 ÷ 0.5 */
+      const rate=e=>{ let d=0,c2=0; for(let j=Math.max(0,e-6);j<=e;j++){ d+=Math.min(3,dfNum(valFn('운동 기록',j))); c2+=3; } return c2?d/c2:0; };
+      c['행동 완료']=0.5*0.15*(rate(i)-rate(i-1))/0.5;
+      /* 걸음 발생일 10%: 걸음이 있었던 날의 비율 변화 */
+      const walk=e=>{ let d=0,c2=0; for(let j=Math.max(0,e-6);j<=e;j++){ d+=dfNum(valFn('걸음 수',j))>0?1:0; c2++; } return c2?d/c2:0; };
+      c['걸음 발생일']=0.5*0.10*(walk(i)-walk(i-1));
+      best=null; let bv2=0.02;
+      Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
+    }
+    return `${best?DF_WHY[best][up?0:1]+' ':''}${k==='steady'?(cur==='mid'?DF_STEADY_TO.mid[up?'up':'down']:DF_STEADY_TO[cur]):DF_MOVE[k][up?'up':'down']}.`;
+  }
+  let n=1; while(st(i-n)===cur) n++;
+  const lead = `${n}일 연속`;
+  let why='';
+  if(cur==='low' && n>=3 && judgeFn){
+    const LOW=/부족|적음|낮음|없음/;
+    const hit=DF_CAND[k].find(nm=>{ for(let j=i-n+1;j<=i;j++){ if(!LOW.test(judgeFn(dfSrc(nm),j)||'')) return false; } return true; });
+    if(hit) why = DF_WHY[dfKey(k,hit)][2]+' ';
+    /* 생활여유: 활동 분산(몰림) · 활동 부담(240분 초과)이 매일 이어졌는지도 봄 */
+    if(!hit && k==='margin'){
+      const every=f=>{ for(let j=i-n+1;j<=i;j++){ if(!f(j)) return false; } return true; };
+      const sp=j=>{ const v=dfSpread(dfSafe(valFn,'활동 분산',j)); return v!=null && v<0.4; };
+      const ov=j=>dfNum(valFn('활동 시간',j))>240;
+      if(every(sp)) why = DF_WHY['분산'][2]+' ';
+      else if(every(ov)) why = DF_WHY['부담'][2]+' ';
+    }
+    if(!hit && k==='selfcare'){
+      const every=f=>{ for(let j=i-n+1;j<=i;j++){ if(!f(j)) return false; } return true; };
+      const rs=j=>{ const v=dfSafe(valFn,'공백 후 움직임',j); return v&&/%/.test(v)&&dfNum(v)<40; };
+      const sp=j=>{ const v=dfSpread(dfSafe(valFn,'활동 분산',j)); return v!=null && v<0.4; };
+      if(every(rs)) why = DF_WHY['공백 후'][2]+' ';
+      else if(every(sp)) why = DF_WHY['분산'][2]+' ';
+    }
+  }
+  /* 이유가 있으면 'N일 연속'을 이유 안에 넣음: '수면이 짧은 날이 N일 연속 이어지면서 ~' */
+  if(why) return `${why.replace('이어지면서', lead+' 이어지면서')}${DF_STATE[k][cur]}.`;
+  return `${lead} ${DF_STATE[k][cur]}.`;
+}
+function dfText(m, scores, i, valFn, judgeFn){
+  const t = dayFlow(m.k, scores, i, valFn, judgeFn);
+  return t;
+}
+function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
+  const meta = METRICS.find(x=>x.k===m.k);
+  const color = METRIC_COLOR[m.k];
+  const states = scores.map(v=>scoreToState(v, m.k));
+  const cur = states[i];
+  const prev = i>0 ? states[i-1] : null;
+  const core = (CORE_ROWS[m.k]||[]).map(n=>({n}));
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   if(cur==='none'){
     return `<section class="card mc mc-none" data-k="${m.k}">
       <div class="mc-hd"><div><h3>${m.nm}</h3></div></div>
@@ -4261,12 +4766,20 @@ function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
       <div class="mc-state" style="color:${t.c};background:${t.bg}">${stateLabel(m.k,cur)}</div>
     </div>
     <div class="mc-def" hidden><span class="dq">${meta.desc}</span><p>${meta.expl}</p></div>
+<<<<<<< HEAD
     ${bandGraph(scores, i, color, BAND_WORDS[m.k], dayLabels)}
     <div class="src-lab">현재 흐름</div><p class="mc-in" style="margin-top:0">${m.ins}</p>
     <div class="src-lab">핵심 데이터</div>
     <div class="mc-rows">${core.map(d=>
       `<div class="mc-row"><span class="dot core" style="background:${color}"></span>
         <b>${d.n}</b><span class="v">${valFn(d.n,i)}</span></div>`).join('')}</div>
+=======
+    ${bandGraph(scores, i, color, BAND_WORDS[m.k], dayLabels, m.k)}
+    <div class="src-lab">${m.flowTitle || '지표 해석'}</div><p class="mc-in" style="margin-top:0">${dfText(m, scores, i, valFn, judgeFn)}</p>
+    <div class="src-lab">핵심 데이터</div>
+    <div class="mc-rows">${core.map(d=>
+      `<div class="mc-row"><b>${d.n}</b><span class="v">${valFn(d.n==='식후 활동'?'운동 기록':d.n,i)}</span></div>`).join('')}</div>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   </section>`;
 }
 function bindMetricInfo(root){
@@ -4282,18 +4795,30 @@ function renderMetricPaneHistory(offset){
   const i = 6;
   const wl = weekLabelFor(offset);
   const cards = [
+<<<<<<< HEAD
     {nm:'생활여유', k:'margin',   s:h.metricScores.recovery, ins:'부담과 여유의 균형을 보면, 이 주는 <b>대체로 여유가 유지</b>된 편이었어요.'},
     {nm:'자기돌봄', k:'selfcare', s:h.metricScores.load.map(v=>100-v), ins:'조절할 수 있던 순간과 실제 움직임을 보면, 이 주는 <b>절반 정도 이어졌어요</b>.'},
     {nm:'일상안정', k:'steady',   s:h.metricScores.rhythm, ins:'수면·걸음·심박의 흔들림을 보면, 이 주는 <b>평소 범위 안에서 이어졌어요</b>.'}
+=======
+    {nm:'생활여유', k:'margin',   s:h.metricScores.recovery, ins:'수면과 활동 시간이 평소 수준을 지키면서, 이 주는 여유가 대체로 유지됐어요.'},
+    {nm:'자기돌봄', k:'selfcare', s:h.metricScores.load.map(v=>100-v), ins:'식후 활동이 며칠 이어지면서, 이 주는 챙길 순간의 절반쯤을 움직였어요.'},
+    {nm:'일상안정', k:'steady',   s:h.metricScores.rhythm, ins:'걸음 수와 수면이 평소 범위 안에 있으면서, 이 주는 생활 리듬이 평소처럼 이어졌어요.'}
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   ];
   const dayLabels = ['월','화','수','목','금','토','일'];
   const valOfH = (name,idx) => (h.dayvals[name] && h.dayvals[name][idx]) || DATA_MAP.find(d=>d.n===name).today;
   const judgeOfH = (name,idx) => (h.dayjudge[name] && h.dayjudge[name][idx]) || DATA_MAP.find(d=>d.n===name).judge;
+<<<<<<< HEAD
   const html = cards.map(m=>metricCard(m, m.s, i, dayLabels, m.k==='steady' ? `${wl} 일요일 기준 · 최근 7일 흐름` : `${wl} 일요일 기준`, valOfH, judgeOfH)).join('');
   const readonlyNote = `<section class="ai-cd-note" style="justify-content:center;text-align:center">
     ✓ ${wl}(${days[0].month}.${days[0].day}~${days[6].month}.${days[6].day})는 이미 끝난 주라 읽기 전용이에요.
   </section>`;
   document.getElementById('pMetric').innerHTML = readonlyNote + html;
+=======
+  cards.forEach(c=>{ c.flowTitle='지표 해석'; c.notToday=true; });
+  const html = cards.map(m=>metricCard(m, m.s, i, dayLabels, m.k==='steady' ? `${wl} 일요일 기준 · 최근 7일 흐름` : `${wl} 일요일 기준`, valOfH, judgeOfH)).join('');
+  document.getElementById('pMetric').innerHTML = html;
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   bindMetricInfo(document.getElementById('pMetric'));
 }
 
@@ -4322,6 +4847,10 @@ function renderMetricPane(){
     {nm:'일상안정', k:'steady',   s:METRIC_WEEK.steady,   ins:METRIC_INS.steady,
      emptyTitle:(METRIC_EMPTY.steady||{}).title,   emptyBody:(METRIC_EMPTY.steady||{}).body}
   ];
+<<<<<<< HEAD
+=======
+  cards.forEach(c=>{ c.flowTitle = '지표 해석'; c.notToday = D!=='오늘'; });
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   const html = cards.map(m=>metricCard(m, m.s, i, WEEK.map(w=>w.d),
     m.k==='steady' ? `${D} 기준 · 최근 7일을 평소 21일과 비교` : `${D} 기준 · 내 평소 범위와 비교`, valOf, judgeOf)).join('');
   document.getElementById('pMetric').innerHTML = html;
@@ -4447,6 +4976,7 @@ function emptyView(emo, title, desc, withDetail, kind){
     </div>` : ''}
   </section>`;
 }
+<<<<<<< HEAD
 const loadingView = kind => `<section class="card loading">
   <div class="spin"></div><b>${SOURCES[kind].t}를 불러오는 중이에요</b>
   <small>${SOURCES[kind].org}에서 ${SOURCES[kind].d}을 가져오고 있어요</small></section>`;
@@ -4454,6 +4984,19 @@ const loadingView = kind => `<section class="card loading">
 /* 마지막 업데이트 일시 · 가져온 기간 — 더보기 > 검진 · 진료정보 연동의 카드에 표시한다(§4) */
 const MED_UPDATED = { checkup:'2026.08.20', clinic:'2026.08.25' };
 const MED_RANGE   = { checkup:'2016 ~ 2025', clinic:'2021 ~ 2026' };
+=======
+const loadingView = kind => `<section class="card h-load"><div class="spin"></div><div><b>${kind==='clinic'?'진료':'검진'} 데이터를 가져오는 중</b>
+  <small>${SOURCES[kind].org}에서 데이터를 불러오는 중입니다. 최대 1분 정도 소요될 수 있습니다.</small></div></section>
+  <section class="card h-skel">${'<div class="sk-r"><i></i><div><span></span><span></span></div></div>'.repeat(5)}</section>`;
+const emptyImport = (kind, emo, title, desc, feats, cta) => `<section class="h-empty">
+  <div class="h-emo">${emo}</div><b>${title}</b><p>${desc}</p>
+  <ul class="h-feat">${feats.map(f=>`<li>${f}</li>`).join('')}</ul>
+  <button class="h-cta" onclick="startImport('${kind}')" ${importing?'disabled':''}>${cta}</button></section>`;
+
+/* 마지막 업데이트 일시 · 가져온 기간 — 더보기 > 검진 · 진료정보 연동의 카드에 표시한다(§4) */
+const MED_UPDATED = { checkup:'2026.09.18', clinic:'2026.09.18' };
+const MED_RANGE   = { checkup:'2016 ~ 2025', clinic:'2016 ~ 2025' };
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 function refreshMedlinkSub(){
   const sub = document.getElementById('accountSub');
   if(sub.classList.contains('open') && sub.dataset.type==='medlink') renderAccountSub('medlink');
@@ -4502,6 +5045,7 @@ function renderClinicSum(){
   const el = document.getElementById('pCl');
   if(importing==='clinic' && !imp.clinic){ el.innerHTML = loadingView('clinic'); return; }
   if(!imp.clinic){
+<<<<<<< HEAD
     el.innerHTML = `<section class="card empty" style="padding-bottom:22px">
       <span class="emo">📋</span>
       <b>진료정보를 불러와 주세요</b>
@@ -4551,6 +5095,60 @@ function renderCheckupSum(){
       <p>국민건강보험공단에서 검진 결과를 가져와<br>건강 나이, 주요 검진 소견, 검진 대상 안내를 보여드려요.</p>
       <div class="imp-list">${importCard('checkup')}</div>
     </section>`;
+=======
+    el.innerHTML = emptyImport('clinic','🩺','진료 정보를 가져와 주세요','건강보험심사평가원의 진료 정보를<br>확인할 수 있어요.',['병원 방문 내역 조회','처방 이력 조회','진료비 지출 통계'],'진료 데이터 가져오기');
+    return;
+  }
+  el.innerHTML = clinicAiSummary();
+  renderClinicCostPage(0);
+}
+const READS = [
+  {id:'cxr', cat:'폐 질환', t:'흉부 엑스레이에서<br>가장 흔하게 발견되는<br>10가지 비정상 소견', emo:'🩻', tone:'gray'},
+  {id:'tb',  cat:'폐 질환', t:'폐결핵의 원인과<br>증상 치료 방법', emo:'🫁', tone:'sky'},
+  {id:'eye', cat:'안저 질환', t:'주의해야 하는<br>주요 망막 질환 및<br>예방수칙', emo:'👁️', tone:'navy'},
+  {id:'br',  cat:'안저 질환', t:'유방암 검진 및<br>유방 치밀도', emo:'🎀', tone:'violet'}
+];
+const READ_DETAIL = {
+  tb:{title:'폐결핵의 원인과 증상 치료 방법', emo:'🫁',
+    lead:'폐결핵은 세균, 바이러스, 곰팡이 등 다양한 미생물에 의해 발생하는 염증성 폐질환입니다. 특히 면역력이 약한 노인과 어린아이들에게서 발생할 가능성이 높습니다. 65세 이상 고령자가 폐렴에 걸릴 경우, 사망률이 최대 70배 이상 증가한다는 보고도 있습니다. 우리나라의 결핵 발생률은 점차 감소하고 있으나, 여전히 OECD 국가 중 가장 높은 수준을 유지하고 있습니다.',
+    secs:[
+      ['폐결핵 원인과 증상','<p>폐결핵은 결핵균에 의해 발생하는 질환으로, 감염 경로는 주로 결핵 환자가 기침할 때 배출되는 가래 속 결핵균이 공기 중에 떠다니며 건강한 사람의 폐로 들어가는 방식입니다. 이렇게 결핵균이 폐에 들어와 바로 병을 일으키는 경우를 일차성 결핵이라고 합니다. 그러나 결핵균이 신체에 침투한 후, 즉시 질병을 유발하지 않고 잠복 상태로 여러 해 동안 숨어 있다가 특정 조건에서 활성화되어 결핵을 일으키는 경우도 있습니다. 이러한 유형을 이차성 결핵이라고 부릅니다.</p>'],
+      ['폐결핵 진단','<p>폐결핵 진단은 가장 먼저 흉부 X-선 검사를 통해 이루어집니다. 만약 촬영된 흉부 X-ray 영상에서 결핵 의심소견이 발견될 경우 객담(가래)검사를 통해 최종 감염 여부를 확인하여 결핵을 진단합니다.</p>'],
+      ['폐결핵 치료 방법','<h4>치료방법</h4><p>항결핵제를 사용하여 결핵균을 억제 및 제거.</p><h4>특징</h4><ul><li>여러 항결핵제를 동시에 복용하는 병합 화학 요법 시행</li><li>최소 6개월 이상 꾸준히 복용 필요</li><li>약물 복용 조기 중단 시 다제내성결핵 발생 가능</li></ul>'],
+      ['폐결핵 예방','<ul><li>2주 이상 기침이 지속되거나 결핵환자와 접촉한 경우 증상과 상관없이 결핵검진 받기</li><li>기침이나 재채기를 할 때는 마스크를 사용하거나 소매로 입 가리기</li><li>외출 한 후에는 비누로 흐르는 물에 30초 이상 손 씻기</li><li>꾸준한 운동과 균형잡힌 영양 섭취로 체력 키우기</li></ul>']
+    ], src:'[출처 및 참고문헌] 아산병원 의료정보'}
+};
+function renderRead(){
+  const el = document.getElementById('pRead'); if(!el) return;
+  el.innerHTML = `<h2 class="rd-title">내 질환 · 소견에 맞춘<br>건강 콘텐츠</h2>
+    ${READS.map(r=>`<button type="button" class="rd-card ${r.tone}" data-id="${r.id}">
+      <div class="rd-tx"><small>${r.cat}</small><b>${r.t}</b></div><span class="rd-emo" aria-hidden="true">${r.emo}</span>
+    </button>`).join('')}`;
+  el.querySelectorAll('.rd-card').forEach(c=>c.onclick=()=>openReadDetail(c.dataset.id));
+}
+function openReadDetail(id){
+  let det = document.getElementById('readDet');
+  if(!det){
+    det = document.createElement('div'); det.className='sub'; det.id='readDet';
+    det.innerHTML = '<div class="rs-h"><button id="readDetBack" aria-label="뒤로">‹</button><h2>읽을거리</h2></div><div class="rs-b" id="readDetBody"></div>';
+    document.getElementById('svResult').after(det);
+    document.getElementById('readDetBack').onclick = ()=>det.classList.remove('open');
+  }
+  const r = READS.find(x=>x.id===id), d = READ_DETAIL[id];
+  document.getElementById('readDetBody').innerHTML = d ? `
+    <div class="rdd-hero"><span aria-hidden="true">${d.emo}</span><h1>${d.title}</h1></div>
+    <p class="rdd-lead">${d.lead}</p>
+    ${d.secs.map(([h,body])=>`<section class="rdd-card"><h3>${h}</h3>${body}</section>`).join('')}
+    <p class="rdd-src">${d.src}</p>`
+  : `<div class="rdd-hero"><span aria-hidden="true">${r.emo}</span><h1>${r.t.replace(/<br>/g,' ')}</h1></div>
+    <section class="rdd-card"><h3>콘텐츠 준비 중</h3><p>이 콘텐츠는 곧 제공될 예정이에요.</p></section>`;
+  det.scrollTop = 0; det.classList.add('open');
+}function renderCheckupSum(){
+  const el = document.getElementById('pCk');
+  if(importing==='checkup' && !imp.checkup){ el.innerHTML = loadingView('checkup'); return; }
+  if(!imp.checkup){
+    el.innerHTML = emptyImport('checkup','📋','건강검진 정보를 가져와 주세요','건강보험공단의 검진 정보를<br>확인할 수 있어요.',['최근 건강검진 결과 조회','주요 질환 위험도 예측','건강나이 측정','건강검진 결과 AI 요약 분석'],'건강검진 데이터 가져오기');
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     return;
   }
   let html = ``;
@@ -4589,7 +5187,11 @@ function renderCheckupSum(){
       <button class="fd-all" id="examEligibilityBtn" style="margin-top:0">검진 안내 확인하기</button>
     </section>`;
   }
+<<<<<<< HEAD
   el.innerHTML = html + manageLink('checkup');
+=======
+  el.innerHTML = html;
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   const eb = document.getElementById('examEligibilityBtn'); if(eb) eb.onclick = ()=>document.getElementById('examEligibility').classList.add('open');
 }
 
@@ -4663,7 +5265,11 @@ function clinicAiSummary(){
   const navBtn = (id,dir,label,ch)=>`<button type="button" id="${id}" onclick="moveClinicCostPage(${dir})" aria-label="${label}" style="width:40px;height:40px;border:1px solid #E6EAF2;border-radius:12px;background:#fff;color:var(--ink-1);font-size:20px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center">${ch}</button>`;
   return `
   <div style="padding:6px 2px 14px">
+<<<<<<< HEAD
     <div style="display:flex;align-items:center;gap:6px;font-size:var(--t-sm);color:var(--ink-3);font-weight:500"><span style="font-size:var(--t-mini);font-weight:700;color:var(--brand);background:var(--brand-soft);padding:3px 8px;border-radius:999px">건강보험심사평가원</span>2026년 진료 정보</div>
+=======
+    <div style="display:flex;align-items:center;gap:6px;font-size:var(--t-sm);color:var(--ink-3);font-weight:500">2026년 진료 정보</div>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     <div style="font-size:var(--t-h1);font-weight:800;color:var(--ink-1);letter-spacing:-.02em;margin-top:2px">올해 병원 이용을 정리했어요</div>
   </div>
   <section class="card" style="margin-bottom:14px">
@@ -5154,7 +5760,7 @@ function renderAiReport(mode){
   const switcher = `<div class="ai-case-switch"><button onclick="renderAiReport('normal')" class="${mode==='normal'?'on normal':''}">정상 예시</button><button onclick="renderAiReport('attention')" class="${mode==='attention'?'on attention':''}">확인 필요 예시</button></div>`;
   const commonHead = `<section class="ai-plan-meta"><div><span>검진일</span><b>${f.d}</b></div><div><span>검진기관</span><b>${f.place}</b></div></section>${switcher}`;
   const summary = normal ? `
-    <section class="ai-plan-hero normal">
+    <section class="ai-plan-hero normal"><span class="ai-hero-emo" aria-hidden="true">🙂</span>
       <div class="eyebrow">AI 건강검진 요약</div><h2>주요 검사 결과가<br>대체로 안정적이에요</h2>
       <p>이번 검진의 주요 결과와 이전 기록을 함께 확인했어요. 우선 확인이 필요한 항목은 없으니 정기 검진을 이어가며 지금의 생활습관을 유지해 주세요.</p>
       __COUNTS__
@@ -5163,7 +5769,7 @@ function renderAiReport(mode){
       <div class="ai-key-grid"><div><span>혈압</span><b>118/76</b><em class="ok">정상</em></div><div><span>공복혈당</span><b>92</b><em class="ok">정상</em></div><div><span>총콜레스테롤</span><b>188</b><em class="ok">정상</em></div><div><span>BMI</span><b>21.4</b><em class="ok">정상</em></div></div>
     </section>`
   : `
-    <section class="ai-plan-hero attention">
+    <section class="ai-plan-hero attention"><span class="ai-hero-emo" aria-hidden="true">😟</span>
       <div class="eyebrow">AI 건강검진 요약</div><h2>이번 검진에서<br>확인이 필요한 변화가 있어요</h2>
       <p>흉부 X선에 재검 소견이 있고, 혈압과 공복혈당이 이전보다 높아졌어요. 이번 결과만으로 진단할 수는 없지만, 가까운 시일 내 재검·재측정하고 필요하면 의료진과 상담해 주세요.</p>
       __COUNTS__
@@ -5276,12 +5882,17 @@ function renderAiReport(mode){
   };
   const modeKey = normal ? 'normal' : 'attention';
   const STATUS_LB = {ok:['ok','정상'], caution:['caution','관리 필요'], high:['warn','확인 필요']};
+<<<<<<< HEAD
   const itemView = `<div class="ai-section-title"><small>검사 항목별 이해</small><h2>항목별 해석</h2><p>내 수치가 기준 범위 어디에 있는지 막대로 보여드려요. 화살표를 누르면 최근 5회 변화를 볼 수 있어요.</p></div><div class="it-legend"><span><i class="ok"></i>정상</span><span><i class="caution"></i>관리 필요</span><span><i class="high"></i>확인 필요</span></div>` + IT_GROUPS.map(g=>{
+=======
+  const itemView = `<div class="ai-section-title"><h2>검사 항목별 해석</h2><p>내 수치가 기준 범위 어디에 있는지 막대로 보여드려요. 화살표를 누르면 최근 5회 변화를 볼 수 있어요.</p></div><div class="it-legend"><span><i class="ok"></i>정상</span><span><i class="caution"></i>관리 필요</span><span><i class="high"></i>확인 필요</span></div>` + IT_GROUPS.map(g=>{
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     const rows = g.rows.map(r=>({...r, val:r.v[modeKey], cls:zoneOf(r, r.v[modeKey])}));
     const worst = rows.reduce((a,r)=>ORDER[r.cls]>ORDER[a]?r.cls:a,'ok');
     const st = STATUS_LB[worst];
     return `<section class="it-card ${worst}">
-      <div class="it-hd"><span class="it-ic">${g.ic}</span><b>${g.name}</b><span class="ai-status ${st[0]}">${st[1]}</span></div>
+      <div class="it-hd"><span class="it-ic">${g.ic}</span><b>${g.name}</b><span class="ai-status ${st[0]}">${worst==='ok'?'안정적':st[1]}</span></div>
+      <p class="it-res it-res-top">${IT_RESULT[modeKey][g.k]}</p>
       <div class="it-rows">${rows.map(r=>{ const hist=IT_HIST[r.n]; return `<div class="it-r ${r.cls}">
         <div class="it-rmain">
           <div class="it-rl"><span class="it-rn">${r.n}</span><b class="it-rv">${r.val}<small>${r.unit}</small></b></div>
@@ -5290,7 +5901,6 @@ function renderAiReport(mode){
         </div>
         ${hist?`<div class="it-hist">${histChart(hist[modeKey], r)}</div>`:''}
       </div>`}).join('')}</div>
-      <p class="it-res">${IT_RESULT[modeKey][g.k]}</p>
       <p class="it-meaning">${g.meaning}</p>
     </section>`}).join('');
   const jgRows = JG_ITEMS.map(j=>({n:j.n, ...j[modeKey]})).sort((a,b)=>ORDER[b.st]-ORDER[a.st]);
@@ -5309,12 +5919,17 @@ function renderAiReport(mode){
     {t:'혈압을 다시 재 보세요', p:'가까운 시일 내 병원이나 약국에서 다시 측정하고, 검진기관이 권고한 정기 측정을 이어가 주세요.', src:'검진기관 권고', org:true},
     {t:'공복혈당은 진료로 확인하세요', p:'공복혈당이 검진기관의 확인 필요 기준을 넘었어요. 의료진과 상담해 추가 검사 여부를 정해 주세요.', src:'검진기관 권고', org:true}
   ];
+<<<<<<< HEAD
   const actionView = `<div class="ai-section-title"><small>다음에 챙길 일</small><h2>내가 해야 할 행동</h2><p>${normal?'앞으로도 이렇게 챙겨 주세요.':'검진기관 권고부터 순서대로 챙겨 보세요.'}</p></div>
+=======
+  const actionView = `<div class="ai-section-title"><h2>내가 해야 할 행동</h2><p>${normal?'앞으로도 이렇게 챙겨 주세요.':'검진기관 권고부터 순서대로 챙겨 보세요.'}</p></div>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     <section class="act-card">${actions.map((a,i)=>`<div class="act-r"><span class="n">${i+1}</span><div><b>${a.t}</b><p>${a.p}</p></div></div>`).join('')}</section>`;
   const body=document.getElementById('aiReportBody');
-  body.innerHTML = commonHead +
-    `<div class="ai-section-title first"><small>이번 검진 한눈에 보기</small><h2>종합 요약</h2></div>` + summaryFinal + peer + itemView + judgeView + actionView +
+  body.innerHTML =
+    summaryFinal + peer + itemView + judgeView + actionView +
     `<p class="ai-disclaimer-v2">AI 요약은 검진 결과를 이해하기 쉽게 정리한 참고 정보이며, 의학적 진단을 대신하지 않아요. 걱정되는 항목은 의료진과 상담해 주세요.</p>`;
+  const firstTr = body.querySelector('.it-tr'); if(firstTr && typeof toggleHist==='function') toggleHist(firstTr);
   body.scrollTop=0;
 }
 function toggleHist(btn){
@@ -5387,6 +6002,7 @@ function bodyMetricCard(m, no){
   const me = Math.max(1,Math.min(5,Math.ceil(m.pct/20)));
   const label = meta.labels[me-1];
   const warn = m.health && m.health!=='정상 범위';
+<<<<<<< HEAD
   const pillClass = warn ? 'warn' : (me>=2 && me<=4 ? 'ok' : 'neu');
   const people = meta.labels.map((lb,i)=>{
     const active = i+1===me;
@@ -5405,15 +6021,35 @@ function bodyMetricCard(m, no){
         <span class="bm-pill ${pillClass}">${label}이에요</span>
       </div>
       <div class="bm-people">${people}</div>
+=======
+  return `<section class="bm2" style="--bm:${meta.color};--bm-soft:${meta.soft}">
+    <div class="bm2-top">
+      <div><b class="bm2-name">${m.name}</b><div class="bm2-val">${m.value}<small>${m.unit}</small></div></div>
+      <div class="bm2-rank"><small>내 또래 100명 중</small><b>${m.pct}번째</b><em class="${warn?'warn':''}">${label}이에요</em></div>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     </div>
+    <div class="bm2-bar">${[1,2,3,4,5].map(i=>`<i class="${i===me?'on':''}"></i>`).join('')}</div>
+    <div class="bm2-lb">${['1~20','21~40','41~60','61~80','81~100'].map((t,i)=>`<span class="${i+1===me?'on':''}">${t}</span>`).join('')}</div>
   </section>`;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 /* 진료 상세 */
 function openVisit(id){
   const it = allVisits().find(x=>x.id===id);
-  document.querySelector('#visitDet .rs-h h2').textContent = '진료 상세';
+  document.querySelector('#visitDet .rs-h h2').textContent = '진료상세';
+  const DX = {'내과':['위식도역류병','K21.9'], '이비인후과':['급성 부비동염','J01.9']};
+  const dx = [it.name || (DX[it.dept]||[])[0] || '진단명 정보 없음', it.code || (DX[it.dept]||[])[1] || '-'];
+  const r10 = v => Math.round(v/10)*10;
+  const total = it.total || (it.form==='입원' ? 320000*it.visitDays + 4000 : 12000 + it.meds.length*3200);
+  const mine = it.mine || r10(total * (it.form==='입원' ? 0.2 : 0.3));
+  const won = v => v.toLocaleString('ko-KR') + '원';
+  const samePlace = allVisits().filter(v=>v.place===it.place).sort((a,b)=>dateKey(a.date).localeCompare(dateKey(b.date)));
+  const nth = samePlace.findIndex(v=>v.id===it.id) + 1;
   document.getElementById('vdBody').innerHTML = `
+<<<<<<< HEAD
     <div class="det-hd">
       <small>${it.date}</small>
       <b>${it.place}</b>
@@ -5444,25 +6080,50 @@ function openVisit(id){
         <button class="memo-edit" id="memoEditBtn">${it.memo ? '수정' : '메모 추가'}</button>
       </div>
       <div id="memoView" class="memo-view ${it.memo ? '' : 'empty'}">${it.memo || '작성한 메모가 없어요.'}</div>
+=======
+    <section class="vd-card vd-hd"><div><b>${it.place}</b><small>${it.date}</small>${nth>0?`<span class="vd-nth">이 병원 ${nth}번째 방문</span>`:''}</div><span class="vd-form">${it.form}${it.form==='입원'?` · ${it.visitDays}일`:''}</span></section>
+    <section class="vd-card">
+      <div class="vd-dx"><div><small>진단명</small><b>${dx[0]}</b></div><div class="vd-code"><small>진단코드</small><b>${dx[1]}</b></div></div>
+      <p class="vd-fine">진단명과 진단코드는 연동된 진료정보에 기록된 내용을 기준으로 표시해요.</p>
+    </section>
+    <section class="vd-card">
+      <h3>이번 진료비</h3>
+      <div class="vd-total">${won(r10(total))}</div>
+      <div class="vd-bar"><i style="width:${((total-mine)/total*100).toFixed(1)}%"></i><b></b></div>
+      <div class="vd-split"><span>공단 부담 ${won(r10(total-mine))}</span><em>내가 낸 돈 ${won(mine)}</em></div>
+    </section>
+    ${it.meds.length ? `<section class="vd-card">
+      <h3>처방받은 약</h3><p class="vd-sub">처방 ${it.rxCount}건 · 총 ${it.meds.length}종</p>
+      ${it.meds.map(m=>`<div class="vd-med"><span class="vd-pill" aria-hidden="true">💊</span><div><b>${m.n}</b><small>${m.days}일분 · 1일 ${m.per}회</small></div></div>`).join('')}
+    </section>` : ''}
+    <section class="vd-card">
+      <h3>내 메모</h3><p class="vd-sub">이 방문에 대해 기억해둘 내용을 남길 수 있어요</p>
+      <div id="memoView" class="vd-memo" ${it.memo ? '' : 'hidden'}>${it.memo || ''}</div>
+      <button class="vd-memo-btn" id="memoEditBtn">${it.memo ? '메모 수정' : '메모 추가'}</button>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
       <div id="memoEditBox" hidden>
         <textarea class="memo-in" id="vdMemo" placeholder="증상이나 진료 중 기억해둘 내용을 적어주세요.">${it.memo}</textarea>
         <div class="memo-actions"><button class="memo-cancel" id="memoCancel">취소</button><button class="memo-save" id="memoSave">저장</button></div>
       </div>
     </section>
+<<<<<<< HEAD
     <div class="note"><span>ⓘ</span><span>처방 정보는 심사평가원 자료를 기준으로 하며,
     <b>최근 한 달 이내 진료는 아직 반영되지 않을 수 있어요.</b></span></div>`;
+=======
+    <p class="vd-note">처방 정보는 심사평가원 자료를 기준으로 하며, <b>최근 한 달 이내 진료는 아직 반영되지 않을 수 있어요.</b></p>`;
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   const memoEditBtn=document.getElementById('memoEditBtn');
   const memoView=document.getElementById('memoView');
   const memoEditBox=document.getElementById('memoEditBox');
   const memoInput=document.getElementById('vdMemo');
-  memoEditBtn.onclick=()=>{ memoView.hidden=true; memoEditBox.hidden=false; memoInput.focus(); };
-  document.getElementById('memoCancel').onclick=()=>{ memoInput.value=it.memo; memoEditBox.hidden=true; memoView.hidden=false; };
+  memoEditBtn.onclick=()=>{ memoView.hidden=true; memoEditBtn.hidden=true; memoEditBox.hidden=false; memoInput.focus(); };
+  document.getElementById('memoCancel').onclick=()=>{ memoInput.value=it.memo; memoEditBox.hidden=true; memoView.hidden=!it.memo; memoEditBtn.hidden=false; };
   document.getElementById('memoSave').onclick=()=>{
     const value=memoInput.value.trim();
     CLINICS.forEach(y=>y.days.forEach(d=>d.items.forEach(x=>{ if(x.id===id) x.memo=value; })));
-    it.memo=value; memoView.textContent=value||'작성한 메모가 없어요.';
-    memoView.classList.toggle('empty',!value); memoEditBtn.textContent=value?'수정':'메모 추가';
-    memoEditBox.hidden=true; memoView.hidden=false;
+    it.memo=value; memoView.textContent=value;
+    memoEditBtn.textContent=value?'메모 수정':'메모 추가';
+    memoEditBox.hidden=true; memoView.hidden=!value; memoEditBtn.hidden=false;
   };
   document.getElementById('visitDet').classList.add('open');
 }
@@ -5536,7 +6197,12 @@ function renderSelvy(){
       <div class="sv-logo">🔷 Selvy <em>Checkup</em></div>
       <h1>인공지능으로<br>10대 질환 위험도 예측</h1>
       <div class="organs">${SV_ROWS.map(r=>`<div class="orow">${r.map(d=>`<span>${d}</span>`).join('')}</div>`).join('')}</div>
+<<<<<<< HEAD
       <p>검진정보를 AI로 분석해 위 <b>10대 질환</b>의<br>발병 위험도를 쉽게 알려드립니다.</p>
+=======
+      <p>건강검진 결과를 AI로 분석해 다음 질환의<br>발병 위험도를 쉽게 알려드립니다.</p>
+      <div class="sv-dz">당뇨, 심장질환, 뇌졸중, 치매, 간암, 위암,<br>대장암, 유방암, 전립선암, 폐암</div>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     </div>
     <div class="sv-sec">
       <h2>셀비 체크업으로<br>알 수 있는 것</h2>
@@ -5548,7 +6214,11 @@ function renderSelvy(){
       <div class="sv-card"><div class="sv-no">2</div><h3>주요 위험 요인 분석</h3><p>어떤 건강 지표와 생활 습관이 위험도에<br>영향을 주는지 살펴볼 수 있습니다.</p>
         ${radar(['공복 혈당','수축기 혈압','감마지티피','체질량 지수','총콜레스테롤'],[.62,.6,.58,.6,.6],[.86,.72,.5,.66,.8])}
         <div class="rd-lg"><span><i style="background:#5A6880"></i>정상그룹</span><span><i style="background:#2F6BFF"></i>김마이님</span></div></div>
+<<<<<<< HEAD
       <div class="sv-card"><div class="sv-no">3</div><h3>건강나이 측정</h3><p>검진 결과를 종합해 실제 나이와 비교한<br>건강 나이를 알려드립니다.</p>
+=======
+      <div class="sv-card"><div class="sv-no">3</div><h3>건강나이 측정</h3><p>어떤 건강 지표와 생활 습관이 위험도에<br>영향을 주는지 살펴볼 수 있습니다.</p>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
         <div class="age-flow"><div class="ab"><small>검진나이</small><b>38세</b></div><div class="arw">+1</div><div class="ab hi"><small>건강나이</small><b>39세</b></div></div></div>
       <div class="sv-card"><div class="sv-no">4</div><h3>이해하기 쉬운 리포트</h3><p>현재 건강 상태를 쉽게 이해하고 건강관리<br>방향을 세울 수 있도록 리포트를 제공합니다.</p><div class="rp"><div>📄</div><div>📊</div></div></div>
     </div>`;
@@ -5559,6 +6229,7 @@ const EXAMS = [
   {d:'2022년 6월 19일', p:'분당재생병원'}
 ];
 let examPick = null;
+<<<<<<< HEAD
 const PROMO = true;
 function renderPay(){
   const n = ticketCount();
@@ -5568,22 +6239,47 @@ function renderPay(){
     : `<div class="fee"><small>보유 이용권</small><b>${n}<span style="font-size:14px;font-weight:500;margin-left:4px">장</span></b></div>`;
   document.getElementById('payBody').innerHTML = `
     <h1>분석에 사용할<br>검진정보 데이터를 선택해 주세요.</h1>
+=======
+const EX_ITEMS = [
+  {k:'hard', t:'격렬한 운동', d:'1주일 중 20분 이상 격렬한 운동'},
+  {k:'mid',  t:'중간 정도의 운동', d:'1주일 중 30분 이상 중간 정도의 운동'},
+  {k:'walk', t:'걷기 운동', d:'1주일 중 총 30분 이상 걷기'}
+];
+const exDays = {hard:7, mid:7, walk:7};
+function renderPay(){
+  const n = ticketCount();
+  const fee = `<div class="pay-fee"><span>셀비 체크업 1회 이용료</span><div class="pf-r"><del>25,000원</del><b>무료</b></div></div>`;
+  document.getElementById('payBody').innerHTML = `
+    <h1>셀비 체크업 서비스를<br>무료로 이용해 보세요.</h1>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     ${fee}
     <div class="pick">
-      <small>검진정보 데이터 선택</small>
+      <small>건강검진 데이터 선택</small>
       ${EXAMS.map((e,i)=>`<div class="pick-r ${examPick===i?'on':''}" data-i="${i}">
         <span class="rd"></span>
         <div class="pick-b"><b>${e.d}</b><small>${e.p}</small></div>
         ${e.recent?`<span class="pick-tag">최근 검진</span>`:''}
       </div>`).join('')}
     </div>
+<<<<<<< HEAD
     <div class="pay-note"><b>이용 안내</b><p>본 서비스 이용을 위해서는 검진정보가 필요합니다. 검진정보 데이터가 나오지 않는 경우, 병원 탭에서 검진 데이터를 등록해 주세요.</p></div>
     ${(!PROMO && n===0) ? `<div class="pay-note" style="margin-top:12px"><b>이용권이 없어요</b><p>Selvy Checkup 분석을 위해서는 이용권이 1장 필요합니다. 더보기 › 이용권 관리에서 구매해 주세요.</p></div>` : ``}`;
   document.querySelectorAll('.pick-r').forEach(r=>{ r.onclick = ()=>{ examPick = +r.dataset.i; renderPay(); }; });
   const noTicket = !PROMO && n===0;
+=======
+    <div class="ex-set">${EX_ITEMS.map(x=>`<div class="ex-r">
+      <div class="ex-t"><div><b>${x.t}</b><small>${x.d}</small></div><span class="ex-v" id="exv-${x.k}">${exDays[x.k]}일</span></div>
+      <input type="range" class="ex-rg" min="0" max="7" step="1" value="${exDays[x.k]}" data-k="${x.k}" aria-label="${x.t} 일수" style="--p:${exDays[x.k]/7*100}%">
+    </div>`).join('')}</div>
+    <div class="pay-note"><b>이용 안내</b><p>본 서비스 이용을 위해서는 건강검진 결과가 필요합니다. 건강검진 데이터가 나오지 않는 경우, 병원 탭에서 검진 데이터를 등록해 주세요.</p></div>
+    `;
+  document.querySelectorAll('.pick-r').forEach(r=>{ r.onclick = ()=>{ examPick = +r.dataset.i; renderPay(); }; });
+  document.querySelectorAll('.ex-rg').forEach(r=>{ r.oninput = ()=>{ exDays[r.dataset.k] = +r.value; r.style.setProperty('--p', (r.value/7*100)+'%'); document.getElementById('exv-'+r.dataset.k).textContent = r.value+'일'; }; });
+  const noTicket = false;
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   document.getElementById('payGo').disabled = examPick === null || noTicket;
-  document.getElementById('payGo').textContent = PROMO ? '무료로 분석 시작하기' : (noTicket ? '이용권이 필요해요' : `이용권 사용하기 (${n}장 보유)`);
-  document.querySelector('.pay-h h2').textContent = '분석 신청';
+  document.getElementById('payGo').textContent = '분석 시작하기';
+  document.querySelector('.pay-h h2').textContent = '셀비 체크업';
 }
 function openSelvy(){ renderSelvy(); document.getElementById('selvy').classList.add('open'); }
 document.getElementById('svBack').onclick = ()=>document.getElementById('selvy').classList.remove('open');
@@ -5592,7 +6288,7 @@ document.getElementById('payClose').onclick = ()=>document.getElementById('pay')
 document.getElementById('payGo').onclick = ()=>{
   const btn = document.getElementById('payGo');
   let usingTicket = null;
-  if(!PROMO){
+  {   /* 무료 제공 중에는 자동 지급된 무료 이용권을 쓴다 */
     usingTicket = TICKETS.find(t=>t.status==='AVAILABLE');
     if(usingTicket) usingTicket.reservedAt = '2026-08-26 (방금)';
   }
@@ -5614,6 +6310,7 @@ const CONSENT_PREF = { marketing:true, dataQuality:false };
 let policyDoc = 'terms';   /* 약관 및 정책 화면에서 보고 있는 문서 */
 function toggleConsent(k){ CONSENT_PREF[k] = !CONSENT_PREF[k]; renderAccountSub('consents'); }
 function renderMore(){
+<<<<<<< HEAD
   /* 더보기 화면정의서 §1.2 · §2.2 — 카드 4개(프로필 / 데이터 / 서비스 / 안내) + 목록 밖 로그아웃 · 앱 버전.
      묶음 제목은 두지 않고, 항목명 오른쪽 값은 읽기용이다(탭 영역은 줄 전체). */
   const medState = importing ? '가져오는 중…'
@@ -5622,10 +6319,20 @@ function renderMore(){
   const deviceState = deviceLinked ? `${SOURCE.name} 연동됨` : '연동 안 함';   /* §4.1 해제·미연동을 같은 문구로 */
   const tickets = ticketCount();
   const row = (acc,label,val='') => `<button class="mo-row" data-acc="${acc}"><b>${label}</b>${val?`<span class="val">${val}</span>`:''}<span class="cv">›</span></button>`;
+=======
+  /* 더보기 — 프로필 카드 + 연동 / 서비스 / 법적 정보 및 기타 묶음 + 로그아웃 · 앱 버전 */
+  const medState = importing ? '가져오는 중…'
+    : (imp.checkup && imp.clinic) ? '검진 · 진료'
+    : imp.checkup ? '검진' : imp.clinic ? '진료' : '미연동';
+  const deviceState = deviceLinked ? '연동' : '미연동';
+  const tickets = ticketCount();
+  const row = (acc,label,val='') => `<button class="mo-row" data-acc="${acc}"><b>${label}</b>${val?`<span class="val" style="color:var(--ink-3);font-weight:500">${val}</span>`:''}<span class="cv">›</span></button>`;
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   document.getElementById('pMore').innerHTML = `
     <div class="mo-card"><button class="mo-row" data-acc="profile" style="padding:18px 20px">
       <span style="flex:1;min-width:0"><b style="display:block;font-size:19px;font-weight:800;line-height:1.35">${PROFILE.name}</b><small style="display:block;margin-top:2px;font-size:var(--t-cap);color:var(--ink-3)">내정보 관리</small></span>
       <span class="cv">›</span></button></div>
+<<<<<<< HEAD
     <div class="mo-card">
       ${row('device','건강데이터 연동',deviceState)}
       ${row('medlink','검진 · 진료정보 연동',medState)}
@@ -5652,6 +6359,41 @@ const ACC_META = {
   privacy:'개인정보 처리방침', terms:'서비스 이용 약관',
   support:'문의하기', logout:'로그아웃', withdraw:'회원탈퇴',
   ticket:'이용권 관리', language:'언어', consent:'개인정보 수집 및 이용동의'
+=======
+    <div class="mo-lab">연동</div>
+    <div class="mo-card">
+      ${row('device','건강데이터',deviceState)}
+      ${row('medlink','건강검진 · 진료정보',(imp.checkup||imp.clinic)?'연동':'미연동')}
+    </div>
+    <div class="mo-lab">서비스</div>
+    <div class="mo-card">
+      ${row('consents','동의 관리')}
+      ${row('notice','알림 관리')}
+      ${row('ticket','이용권 관리')}
+      ${row('language','언어','한국어')}
+    </div>
+    <div class="mo-lab">법적 정보 및 기타</div>
+    <div class="mo-card">
+      ${row('doc:terms','서비스 이용 약관')}
+      ${row('doc:privacy','개인정보 처리방침')}
+      ${row('doc:consent','개인정보 수집 및 이용동의')}
+    </div>
+    <div class="mo-foot"><button data-acc="logout">로그아웃 ›</button></div>
+    <div class="mo-ver">앱 버전 1.0.0</div>`;
+  document.querySelectorAll('#pMore [data-acc]').forEach(b=>b.onclick=()=>{
+    const a=b.dataset.acc;
+    if(a.startsWith('doc:')){ policyDoc=a.slice(4); openAccount('policies'); document.getElementById('accTitle').textContent=ACC_META[policyDoc]; return; }
+    openAccount(a);
+  });
+}
+const NOTICE_PREF = { goal:true };   /* 앱에서 끌 수 있는 알림은 오늘의 목표 하나뿐이다(알림정책 §4) */
+const ACC_META = {
+  profile:'내정보', datalink:'데이터 연동 관리', notice:'알림 관리', device:'건강데이터', medlink:'건강검진 · 진료정보',
+  consents:'동의 관리', announce:'공지사항', policies:'약관 및 정책',
+  privacy:'개인정보 처리방침', terms:'서비스 이용 약관',
+  support:'문의하기', logout:'로그아웃', withdraw:'회원탈퇴',
+  ticket:'이용권 관리', language:'언어', consent:'개인정보 수집 및 이용동의', chronic:'관리 중인 질환'
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 };
 
 /* ══════════════ AI 건강 인사이트 ══════════════ */
@@ -6160,7 +6902,7 @@ const deviceUnlinkConfirmEl = document.getElementById('deviceUnlinkConfirm');
 deviceUnlinkConfirmEl.addEventListener('click',(e)=>{ if(e.target===deviceUnlinkConfirmEl) deviceUnlinkConfirmEl.classList.remove('open'); });
 
 let TICKETS = [
-  { id:6, type:'SELVY_CHECKUP', status:'CANCELED', issuedAt:'2026-08-05 17:25:31', canceledAt:'2026-08-05 17:38:06', memo:'스토어 환불로 자동 취소' },
+  { id:7, type:'SELVY_CHECKUP', status:'AVAILABLE', issuedAt:'2026-08-01 00:00:00', promo:true },
 ];
 const TICKET_STATUS_META = { AVAILABLE:{ label:'사용 가능', cls:'ok' }, USED:{ label:'사용 완료', cls:'used' }, CANCELED:{ label:'취소됨', cls:'bad' } };
 function ticketCount(){ return TICKETS.filter(t=>t.status==='AVAILABLE').length; }
@@ -6171,12 +6913,56 @@ function openAccount(type){
   renderAccountSub(type);
   sub.classList.add('open');
 }
+<<<<<<< HEAD
 document.getElementById('accBack').onclick=()=>document.getElementById('accountSub').classList.remove('open');
 function toggleNotice(k){ NOTICE_PREF[k]=!NOTICE_PREF[k]; renderAccountSub('notice'); setBell(); }
+=======
+document.getElementById('accBack').onclick=()=>{const sub=document.getElementById('accountSub');if(sub.dataset.type==='chronic'){CHRONIC.draft=null;openAccount('profile');return;}sub.classList.remove('open');};
+function toggleNotice(k){ NOTICE_PREF[k]=!NOTICE_PREF[k]; renderAccountSub('notice'); setBell(); }
+const CHRONIC_LIST = [
+  {k:'htn', n:'고혈압', ic:'💗'}, {k:'dm', n:'당뇨병', ic:'🩸'}, {k:'dyslip', n:'이상지질혈증', ic:'🫀'}, {k:'ckd', n:'만성 신장질환', ic:'🫘'}
+];
+const CHRONIC = { picked:[], draft:null, savedAt:null, none:false };
+function toggleChronic(k){
+  const d = CHRONIC.draft;
+  if(k==='none'){ d.none = !d.none; if(d.none) d.picked = []; }
+  else { d.none = false; d.picked = d.picked.includes(k) ? d.picked.filter(x=>x!==k) : [...d.picked, k]; }
+  renderAccountSub('chronic');
+}
+function saveChronic(){
+  CHRONIC.picked = [...CHRONIC.draft.picked]; CHRONIC.none = CHRONIC.draft.none; CHRONIC.savedAt = '2026.09.23';
+  CHRONIC.draft = null; renderMore(); renderAccountSub('chronic');
+  if(typeof toast==='function') toast('저장했어요');
+}
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 function renderAccountSub(type){
   const el=document.getElementById('accBody');
+  if(type==='chronic'){
+    if(!CHRONIC.draft) CHRONIC.draft = {picked:[...CHRONIC.picked], none:CHRONIC.none};
+    const d = CHRONIC.draft;
+    const changed = (d.picked.length || CHRONIC.picked.length) && (d.picked.length!==CHRONIC.picked.length || d.picked.some(k=>!CHRONIC.picked.includes(k)));
+    const linked = imp.clinic;
+    el.innerHTML = `
+      <div class="ch-hd"><b>현재 치료·관리 중인 질환을 모두 선택해 주세요.</b><p>여러 개 선택할 수 있어요.</p></div>
+      <div class="ch-grid">${CHRONIC_LIST.map(c=>`<button type="button" class="ch-chip ${d.picked.includes(c.k)?'on':''}" onclick="toggleChronic('${c.k}')" aria-pressed="${d.picked.includes(c.k)}"><span aria-hidden="true">${c.ic}</span>${c.n}</button>`).join('')}</div>
+      ${CHRONIC.savedAt ? `<p class="ch-meta">마지막 저장 ${CHRONIC.savedAt}</p>` : ''}
+      <button type="button" class="ch-save" onclick="saveChronic()" ${changed?'':'disabled'}>저장하기</button>`;
+    return;
+  }
+  if(type==='datalink'){
+    const medState = importing ? '가져오는 중…'
+      : (imp.checkup && imp.clinic) ? '검진 · 진료' : imp.checkup ? '검진' : imp.clinic ? '진료' : '';
+    const deviceState = deviceLinked ? SOURCE.name : '';
+    const r = (acc,label,val) => `<button class="mo-row" onclick="openAccount('${acc}')"><b>${label}</b>${val?`<span class="val">${val}</span>`:''}<span class="cv">›</span></button>`;
+    el.innerHTML = `<div class="mo-card">${r('device','건강데이터 연동',deviceState)}${r('medlink','검진 · 진료정보 연동',medState)}</div>`;
+    return;
+  }
   if(type==='profile'){
+<<<<<<< HEAD
     /* 내정보 — 조회 전용. 생년월일 → 연락처 → 이메일 고정 순서, 값이 없으면 "등록 안 됨"(§5 · §6) */
+=======
+    /* 내정보 — 조회 전용. 생년월일 → 연락처 → 이메일 고정 순서 (모두 카카오 계정 연동값) */
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     const v = x => x || '등록 안 됨';
     el.innerHTML=`
       <div style="padding:2px 4px 14px"><b style="font-size:24px;font-weight:800;letter-spacing:-.03em">${PROFILE.name}</b><span style="font-size:15px;color:var(--ink-2)">님</span></div>
@@ -6185,6 +6971,7 @@ function renderAccountSub(type){
         <div class="acc-row"><div class="tx"><b>연락처</b></div><span class="val">${v(PROFILE.phone)}</span></div>
         <div class="acc-row"><div class="tx"><b>이메일 주소</b></div><span class="val" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:190px">${v(PROFILE.email)}</span></div>
       </div></div>
+<<<<<<< HEAD
       <p class="acc-note">가입할 때 확인한 정보라 앱에서 바로 바꿀 수 없어요. 바꿔야 한다면 더보기 &gt; 문의하기로 알려 주세요.</p>
       <div class="mo-foot" style="padding-top:22px"><button onclick="openAccount('withdraw')">회원탈퇴 ›</button></div>`;
     return;
@@ -6206,6 +6993,30 @@ function renderAccountSub(type){
       <p class="acc-note">선택 동의는 언제든 철회할 수 있고, 철회해도 서비스 이용에는 제한이 없어요. 처리 결과는 알림으로 따로 알려드려요.</p>`;
     return;
   }
+=======
+      <div class="acc-sec" style="margin-top:18px"><div class="acc-lab">건강 정보</div><div class="acc-card">
+        <button class="acc-row" style="width:100%;border:0;background:none;font:inherit;text-align:left;cursor:pointer" onclick="openAccount('chronic')"><div class="tx"><b>관리 중인 질환</b></div><span class="val">${CHRONIC.picked.length ? CHRONIC.picked.map(k=>CHRONIC_LIST.find(c=>c.k===k).n).slice(0,2).join(`, `)+(CHRONIC.picked.length>2?` 외 ${CHRONIC.picked.length-2}`:``) : `없음`} ›</span></button>
+      </div></div>
+      <div class="mo-foot" style="padding-top:22px"><button onclick="openAccount('withdraw')">회원탈퇴 ›</button></div>`;
+    return;
+  }
+  if(type==='consents'){
+    /* 동의 관리 — 필수는 상태만 보여주고, 선택 동의만 끄고 켠다(§3 · 알림정책 §5) */
+    const sw = (k,on) => `<button class="sw ${on?'on':''}" onclick="toggleConsent('${k}')" aria-label="${k}"></button>`;
+    el.innerHTML=`
+      <div class="acc-sec"><div class="acc-lab">필수 동의</div><div class="acc-card">
+        <div class="acc-row"><div class="tx"><b>서비스 이용약관</b><small>동의일 2026.08.01</small></div></div>
+        <div class="acc-row"><div class="tx"><b>개인정보 수집 · 이용</b><small>동의일 2026.08.01</small></div></div>
+        <div class="acc-row"><div class="tx"><b>민감정보(건강정보) 처리</b><small>동의일 2026.08.01</small></div></div>
+      </div></div>
+      <p class="acc-note">필수 동의 철회는 회원탈퇴로만 할 수 있어요.</p>
+      <div class="acc-sec"><div class="acc-lab">선택 동의</div><div class="acc-card">
+        <div class="acc-row"><div class="tx"><b>마케팅 정보 수신</b>${CONSENT_PREF.marketing?'<small>동의일 2026.08.01</small>':''}</div>${sw('marketing',CONSENT_PREF.marketing)}</div>
+        <div class="acc-row"><div class="tx"><b>서비스 품질 향상을 위한 데이터 활용</b>${CONSENT_PREF.dataQuality?'<small>동의일 2026.09.28</small>':''}</div>${sw('dataQuality',CONSENT_PREF.dataQuality)}</div>
+      </div></div>`;
+    return;
+  }
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   if(type==='announce'){
     el.innerHTML=`<div class="acc-sec"><div class="acc-card">
       ${[['9월 정기 점검 안내 (9/23 02:00~04:00)','2026.09.18'],['건강데이터 연동 소스 선택 기능 추가','2026.09.10'],['개인정보 처리방침 개정 안내 (10/1 시행)','2026.09.01']]
@@ -6222,9 +7033,14 @@ function renderAccountSub(type){
     };
     const cur = policyDoc;
     el.innerHTML=`
+<<<<<<< HEAD
       <div class="hd-tabs" style="margin-bottom:14px">${Object.keys(docs).map(k=>`<button class="${k===cur?'on':''}" onclick="policyDoc='${k}';renderAccountSub('policies')">${k==='terms'?'이용약관':k==='privacy'?'처리방침':'수집 · 이용'}</button>`).join('')}</div>
       <div class="acc-text"><h3>${docs[cur][0]}</h3><p>${docs[cur][1]}</p><p>${docs[cur][2]}</p></div>
       <p class="acc-note" style="margin-top:12px">시행일 2026.08.01 · 개정 이력은 공지사항에서 확인할 수 있어요.</p>`;
+=======
+      <div class="acc-text"><h3>${docs[cur][0]}</h3><p>${docs[cur][1]}</p><p>${docs[cur][2]}</p></div>
+      <p class="acc-note" style="margin-top:12px">시행일 2026.08.01</p>`;
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     return;
   }
   if(type==='language'){
@@ -6245,6 +7061,7 @@ function renderAccountSub(type){
     return;
   }
   if(type==='medlink'){
+<<<<<<< HEAD
     /* 소스 카드 2개 · 상태 · 마지막 업데이트 · 가져온 기간 · 업데이트 · 카드별 해제(§4) */
     const card = (k,name,org,desc)=>{
       const on=imp[k], ing=importing===k, busy=!!importing;
@@ -6295,6 +7112,45 @@ function renderAccountSub(type){
       <p class="acc-note">광고성 알림 수신 여부는 동의 관리에서 바꿔요.</p>`;
     return;
   }
+=======
+    /* 검진 · 진료정보 — 카드 2개. 미연동: 연동하기 / 연동: 마지막 업데이트 · 가져온 기간 + 업데이트 · 연동해제 */
+    const btn = (label,on,color) => `<button class="ml-btn" style="color:${color}" ${importing?'disabled':''} onclick="${on}">${label}</button>`;
+    const card = (k,name,desc)=>{
+      const on=imp[k], ing=importing===k;
+      const meta = on ? `<div class="ml-row"><span>마지막 업데이트</span><b>${MED_UPDATED[k]}</b></div>
+        <div class="ml-row"><span>가져온 기간</span><b>${MED_RANGE[k]}</b></div>` : '';
+      const act = on
+        ? btn(ing?'가져오는 중…':'업데이트',`startImport('${k}')`,'var(--ink-1)') + btn('연동해제',`openMedUnlink('${k}')`,'#E5395C')
+        : btn(ing?'가져오는 중…':'연동하기',`startImport('${k}')`,'var(--brand)');
+      return `<div class="ml-card"><b class="ml-t">${name}</b><small class="ml-d">${desc}</small>${meta}<div class="ml-act">${act}</div></div>`;
+    };
+    el.innerHTML = `
+      ${card('checkup','검진정보','국민건강보험공단 · 건강검진 결과')}
+      ${card('clinic','진료정보','건강보험심사평가원 · 병원 방문 · 처방 기록')}`;
+    return;
+  }
+  if(type==='device'){
+    /* 건강데이터 — 미연동: 안내 + 연동하기 / 연동: 소스 · 동기화 시각 + 연동해제. 연동 기록은 두지 않는다 */
+    const note = `<p class="acc-note">걸음 수 · 수면 · 심박수 등 생활 데이터와 AI 건강 인사이트 분석에 사용돼요. 연동을 해제하면 새 데이터를 더 이상 가져오지 않고, 이미 분석된 리포트는 그대로 남아요.${PLATFORM==='ios'?'':'<br>다른 앱(삼성헬스 또는 헬스 커넥트)으로 변경하려면 해제 후 다시 연동해 주세요.'}</p>`;
+    const S = LINK_SOURCES[linkSource], busy = syncState==='syncing';
+    el.innerHTML = `<div class="acc-sec"><div class="acc-lab">건강 데이터 연동</div>` + (deviceLinked
+      ? `<div class="ml-card"><b class="ml-t">${S.name}</b><small class="ml-d">${busy?'동기화 중…':`동기화 완료 · ${fmtAgo(lastSyncAt)}`}</small><div class="ml-act"><button class="ml-btn" style="color:#E5395C" id="syncUnlink">연동해제</button></div></div>`
+      : `<div class="ml-card"><b class="ml-t">건강 데이터를 연동해 주세요</b><small class="ml-d">연동하면 오늘의 컨디션, 생활 분석, AI 건강 인사이트에 데이터가 반영돼요.</small><div class="ml-act"><button class="ml-btn" style="color:var(--brand)" onclick="startLink()">연동하기</button></div></div>`)
+      + `</div>` + note;
+    bindSyncBar();
+    return;
+  }
+  if(type==='notice'){
+    /* 알림 관리 — 필수(공지사항)는 끌 수 없고, 선택(오늘의 목표 알림)만 켜고 끈다 */
+    el.innerHTML=`<div class="acc-sec"><div class="acc-lab">필수 알림</div><div class="acc-card">
+        <div class="acc-row"><div class="tx"><b>공지사항</b><small>점검 · 약관 변경 등</small></div><button class="sw on" disabled aria-disabled="true" aria-label="공지사항 알림" style="opacity:.45;cursor:not-allowed"></button></div>
+      </div></div>
+      <div class="acc-sec"><div class="acc-lab">선택 알림</div><div class="acc-card">
+        <div class="acc-row"><div class="tx"><b>오늘의 목표 알림</b><small>매일 저녁</small></div><button class="sw ${NOTICE_PREF.goal!==false?'on':''}" onclick="toggleNotice('goal')" aria-label="오늘의 목표 알림"></button></div>
+      </div></div>`;
+    return;
+  }
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   if(type==='privacy'){
     el.innerHTML=`<div class="acc-text"><h3>개인정보 처리방침</h3><p>서비스에서 수집·이용하는 개인정보의 항목, 목적, 보유기간, 제3자 제공 및 처리위탁, 이용자 권리와 행사 방법을 안내하는 화면입니다.</p><h3>건강정보</h3><p>건강정보는 일반 개인정보와 구분하여 필요한 범위에서 처리하고, 이용자가 동의 내역을 확인할 수 있도록 제공합니다.</p><h3>적용 전 확인</h3><p>현재 화면은 프로토타입용 구성입니다. 출시 전 실제 개인정보 처리방침 전문과 시행일을 법무 검토 후 연결해야 합니다.</p></div>`;
     return;
@@ -6323,6 +7179,7 @@ function renderAccountSub(type){
     return;
   }
   if(type==='withdraw'){
+<<<<<<< HEAD
     /* 사라지는 것 · 멈추는 것 · 남는 것을 나눠서 보여준다(§7.2) */
     el.innerHTML=`<div class="wd">
       <h3 class="wd-t" style="margin:4px 2px 12px;font-size:18px;font-weight:800">탈퇴하기 전에 확인해 주세요</h3>
@@ -6338,6 +7195,14 @@ function renderAccountSub(type){
     const ck=document.getElementById('wdAgree'), bt=document.getElementById('wdBtn');
     ck.onchange=()=>{ bt.disabled=!ck.checked; bt.style.opacity=ck.checked?'1':'.4'; };
     bt.style.opacity='.4';
+=======
+    /* 회원탈퇴 — 확인 한 번으로 바로 탈퇴한다 */
+    el.innerHTML=`<section class="card empty" style="margin-top:24px"><span class="emo">⚠️</span><b>정말 탈퇴하시겠어요?</b>
+      <p>회원탈퇴 시 모든 개인정보가 삭제되며<br>복구할 수 없어요.</p>
+      <button class="cta" id="wdBtn" style="background:#E5395C">탈퇴하기</button>
+      <button class="acc-cta ghost" onclick="document.getElementById('accountSub').classList.remove('open')">취소</button></section>`;
+    const bt=document.getElementById('wdBtn');
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     bt.onclick=()=>{ bt.textContent='탈퇴가 완료됐어요'; bt.disabled=true; };
     return;
   }
@@ -6346,17 +7211,26 @@ function renderTicketManage(el){
   const n = ticketCount();
   el.innerHTML = `
     <div class="acc-sec">
+<<<<<<< HEAD
       <div class="tk-card"><span class="tk-ic">🔬</span><div class="tk-b"><b>Selvy Checkup</b><div class="tk-n">${n}<small>장</small></div></div><button class="tk-buy" id="tkBuyBtn">구매하기</button></div>
       <button class="tk-debug" id="tkDebugBtn">가상 결제 (디버그 전용)</button>
     </div>
     <div class="acc-sec"><div class="acc-lab">이용권 내역</div><div id="tkHistWrap"></div></div>`;
   document.getElementById('tkBuyBtn').onclick = ()=>openTicketPurchase(false);
   document.getElementById('tkDebugBtn').onclick = ()=>openTicketPurchase(true);
+=======
+      <div class="tk-card"><span class="tk-ic">🔬</span><div class="tk-b"><b>Selvy Checkup</b><div class="tk-n">${n ? '무상 제공 중' : '0장'}</div></div></div>
+      
+    </div>
+    <div class="acc-sec"><div class="acc-lab">이용권 내역</div><div id="tkHistWrap"></div></div>`;
+  const bb=document.getElementById('tkBuyBtn'); if(bb) bb.onclick = ()=>openTicketPurchase(false);
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   renderTicketHistory();
 }
 function renderTicketHistory(){
   const wrap = document.getElementById('tkHistWrap');
   if(!wrap) return;
+<<<<<<< HEAD
   if(!TICKETS.length){ wrap.innerHTML = `<div class="acc-card" style="padding:26px 18px;text-align:center;color:var(--ink-3);font-size:var(--t-sm)">이용권 내역이 없습니다.</div>`; return; }
   const sorted = [...TICKETS].sort((a,b)=>b.id-a.id);
   wrap.innerHTML = `<div class="acc-card tk-hist">${sorted.map(t=>{
@@ -6364,6 +7238,16 @@ function renderTicketHistory(){
     const timeLine = t.status==='USED' ? `사용 ${t.usedAt}` : t.status==='CANCELED' ? `취소 ${t.canceledAt}` : t.reservedAt ? `예약 ${t.reservedAt}` : `발급 ${t.issuedAt}`;
     const refundLink = t.status==='AVAILABLE' ? `<button class="tk-refund" onclick="requestStoreRefund(${t.id})">스토어에서 환불 신청</button>` : ``;
     return `<div class="tk-row"><div class="tk-row-top"><b>${t.type==='SELVY_CHECKUP'?'Selvy Checkup 분석 이용권':t.type}</b><span class="tk-pill ${meta.cls}">${meta.label}</span></div><div class="tk-row-sub">${timeLine}${t.memo?` · ${t.memo}`:''}</div>${refundLink}</div>`;
+=======
+  if(!TICKETS.length){ wrap.innerHTML = `<div class="acc-card" style="padding:26px 18px;text-align:center;color:var(--ink-3);font-size:var(--t-sm)">이용권 내역이 없어요.</div>`; return; }
+  const sorted = [...TICKETS].sort((a,b)=>b.id-a.id);
+  wrap.innerHTML = `<div class="acc-card tk-hist">${sorted.map(t=>{
+    const meta = TICKET_STATUS_META[t.status];
+    const d = x => String(x).split(' ')[0].replace(/-/g,'.');
+    const timeLine = t.status==='USED' ? `사용 ${d(t.usedAt)}` : t.status==='CANCELED' ? `취소 ${d(t.canceledAt)}` : t.reservedAt ? `예약 ${d(t.reservedAt)}` : t.promo ? `프로모션 무상 제공 ${d(t.issuedAt)}` : `구매 ${d(t.issuedAt)}`;
+    const refundLink = t.status==='AVAILABLE' && !t.promo ? `<button class="tk-refund" onclick="requestStoreRefund(${t.id})">환불 신청</button>` : ``;
+    return `<div class="tk-row"><div class="tk-row-top"><b>${t.type==='SELVY_CHECKUP'?'Selvy Checkup':t.type}</b><span class="tk-pill ${meta.cls}">${meta.label}</span></div><div class="tk-row-sub">${timeLine}</div>${refundLink}</div>`;
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   }).join('')}</div>`;
 }
 function requestStoreRefund(id){
@@ -6382,8 +7266,13 @@ function requestStoreRefund(id){
 function openTicketPurchase(isDebug){
   const body = document.getElementById('tkConfirmBody');
   body.innerHTML = isDebug ? `<h3>Selvy Checkup 이용권 구매</h3><p>디버그 전용 가상 결제로 이용권 1장을 즉시 발급합니다.<br>실제 스토어 결제는 진행되지 않아요.</p>`
+<<<<<<< HEAD
     : `<h3>Selvy Checkup 이용권 구매</h3><p>Selvy Checkup 분석 이용권 1회<br><b>₩100</b> 결제를 진행하시겠습니까?</p><small>구매 후 서버 검증이 끝나면 이용권 1장이 발급됩니다.</small>`;
   document.getElementById('tkConfirmPay').textContent = '결제하기';
+=======
+    : `<h3>Selvy Checkup 이용권</h3><p>이용권 1장 · <s style="color:var(--ink-3)">25,000원</s> <b>무료</b></p>`;
+  document.getElementById('tkConfirmPay').textContent = '무료로 받기';
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
   document.getElementById('tkConfirmPay').onclick = ()=>confirmTicketPurchase(isDebug);
   document.getElementById('tkConfirm').classList.add('open');
 }
@@ -6404,6 +7293,7 @@ const lvl = sc => sc>=20 ? ['높음','high'] : sc>=12 ? ['보통','mid'] : ['낮
 RISKS.sort((a,b)=>b.sc-a.sc);
 let riskPick = 0;
 const FACTORS = [['공복 혈당','94 mg/dL','경계'],['총콜레스테롤','201 mg/dL','경계'],['수축기 혈압','128 mmHg','경계'],['체질량 지수','23.4','정상'],['감마지티피','32 IU/L','정상']];
+<<<<<<< HEAD
 function renderResult(){
   const r = RISKS[riskPick], [lt,lc] = lvl(r.sc);
   const diff = r.sc - r.avg;
@@ -6437,6 +7327,63 @@ function renderResult(){
     </section>
     <section class="card"><button class="next-cta pri">리포트 저장하기</button></section>`;
   document.querySelectorAll('.dz-r').forEach(el=>{ el.onclick = ()=>{ riskPick = +el.dataset.i; renderResult(); }; });
+=======
+const SR_RISKS = [
+  {n:'간암',sc:9,avg:15},{n:'대장암',sc:5,avg:8},{n:'폐암',sc:5,avg:8},{n:'심장질환',sc:4,avg:9},{n:'전립선암',sc:3,avg:6},
+  {n:'위암',sc:3,avg:6},{n:'뇌졸중',sc:3,avg:6},{n:'치매',sc:3,avg:6},{n:'당뇨',sc:3,avg:6}
+];
+const SR_GRADE = [['20대',[0.7,24.2,75.1]],['30대',[3.2,34.9,61.9]],['40대',[11.9,38.1,50.0]],['50대',[27.4,33.3,39.3]],['60대',[46.6,23.4,29.9]],['70대',[62.7,23.3,13.9]]];
+function srMini(sc){
+  const ang = Math.min(180, 180*sc/30), r=20, cx=26, cy=26;
+  const x = cx + r*Math.cos(Math.PI - ang*Math.PI/180), y = cy - r*Math.sin(Math.PI - ang*Math.PI/180);
+  return `<svg viewBox="0 0 52 30" class="sr-mg"><path d="M6,26 A20,20 0 0 1 46,26" fill="none" stroke="#E5E7EB" stroke-width="5"/><path d="M6,26 A20,20 0 0 1 ${x.toFixed(1)},${y.toFixed(1)}" fill="none" stroke="#12A150" stroke-width="5"/></svg>`;
+}
+function renderResult(){
+  const top = SR_RISKS[0];
+  document.querySelector('#svResult .rs-h h2').textContent = 'Selvy Checkup 검진 결과';
+  document.getElementById('rsBody').innerHTML = `
+    <section class="sr-hero">
+      <h1>Selvy Checkup<br>인공지능 건강분석 리포트</h1>
+      <div class="sr-info">
+        <div><span>이름</span><b>${USER.name}</b></div>
+        <div><span>검진일</span><b>2024년 6월 19일</b></div>
+        <div><span>검진 당시 나이</span><b>38세</b></div>
+      </div>
+    </section>
+    <section class="card sr-card">
+      <h2>건강나이</h2>
+      <p>검진 당시의 건강나이가 실제 나이와 같지만, 건강 나이가 높아질 경우 다양한 질병의 발병 확률과 사망률이 높아질 수 있습니다.</p>
+      <div class="age-flow"><div class="ab"><small>검진나이</small><b>38세</b></div><div class="arw">+1</div><div class="ab hi"><small>건강나이</small><b>39세</b></div></div>
+      <p class="sr-fine">건강나이란 생년월일에 따른 나이가 아닌 신체의 나이를 의미하는 것으로 고객님의 실제 나이와 비교하여 신체 건강 수준을 알 수 있습니다.</p>
+    </section>
+    <section class="card sr-card">
+      <h2>발병통계지수</h2>
+      <p>발병통계지수가 가장 높은 질환은 &lsquo;${top.n}(${top.sc}점)&rsquo;입니다. 현재 낮음 단계에 속하여 해당 질병에 대한 관리와 대비가 필요합니다.</p>
+      <div class="sr-grid">${SR_RISKS.map(d=>`<div class="sr-gi">${srMini(d.sc)}<b>${d.sc}점</b><span class="sr-lv">낮음</span><small>${d.n}</small></div>`).join('')}</div>
+    </section>
+    <section class="card sr-card">
+      <h2>건강검진 판정등급</h2>
+      <div class="sr-grade"><small>최근 검진기준 건강위치(종합)</small><b>정B</b></div>
+      <div class="sr-cap">▶︎ 건강검진 판정등급 연령별 비율 추이</div>
+      <div class="sr-bars">${SR_GRADE.map(([ag,v])=>`<div class="sr-col ${ag==='30대'?'me':''}">
+        <div class="sr-stk"><i class="g1" style="height:${v[0]}%"><em>${v[0]}%</em></i><i class="g2" style="height:${v[1]}%"><em>${v[1]}%</em></i><i class="g3" style="height:${v[2]}%"><em>${v[2]}%</em></i></div>
+        <small>${ag}</small></div>`).join('')}</div>
+      <div class="sr-leg"><span><i class="g1"></i>유질환자</span><span><i class="g2"></i>질환의심</span><span><i class="g3"></i>정상(A,B)</span></div>
+    </section>
+    ${SR_RISKS.map(d=>{ const diff=d.sc-d.avg, mx=Math.max(d.sc,d.avg)*1.2;
+      return `<section class="card sr-card">
+      <h2>${d.n}</h2>
+      <p>발병통계지수는 ${d.sc}점으로, 동일 연령대 평균에 비해 ${Math.abs(diff)}점 ${diff>0?'높습니다':'낮아 양호한 상태입니다'}.</p>
+      <div class="sv-demo">
+        <div class="sv-box"><div class="cap">AI 발병 통계 지수</div>${gauge(d.sc)}<div class="gscore">${d.sc}점</div><span class="gtag">낮음</span></div>
+        <div class="sv-box"><div class="cap">30대 연령<br>평균 측정치 대비<br><em>${Math.abs(diff)}점 ${diff>=0?'높음':'낮음'}</em></div><div class="cmp"><div><i class="avg" style="height:${d.avg/mx*100}%">${d.avg}</i><small>평균</small></div><div><i class="now" style="height:${d.sc/mx*100}%">${d.sc}</i><small>현재</small></div></div></div>
+      </div></section>`;}).join('')}
+    <button class="sr-cta" type="button">상세 리포트 보기</button>
+    <ul class="sr-notes">
+      <li>본 리포트의 위험도와 분석 결과는 참고용입니다. 자세한 사항은 반드시 의사선생님과 상담해 주세요.</li>
+      <li>본 리포트는 고객님이 최근에 받은 건강검진 결과를 기준으로 분석한 결과이므로 현재의 건강상태와는 다를 수 있습니다.</li>
+    </ul>`;
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
 }
 document.getElementById('rsBack').onclick = ()=>document.getElementById('svResult').classList.remove('open');
 
@@ -6465,9 +7412,15 @@ document.querySelector('.hd .qr').onclick = ()=>{ camMode = 'ai'; openCam(); };
 const NOTI_HOUR = 19;      /* 오늘의 목표 알림 발송 시각 */
 const NOTICES = [
   {id:'n3', kind:'goal',    cls:'서비스',    at:'today19', read:false, go:'goals'},
+<<<<<<< HEAD
   {id:'n2', kind:'service', cls:'서비스',    at:'yesterday', read:false, go:'notice',
    body:'9월 20일 02:00~04:00 점검이 있어요. 이 시간에는 앱을 쓸 수 없어요.'},
   {id:'n1', kind:'legal',   cls:'필수 안내', at:'3d', read:true, go:'notice',
+=======
+  {id:'n2', kind:'service', cls:'서비스',    at:'yesterday', read:false, go:null,
+   body:'9월 20일 02:00~04:00 점검이 있어요. 이 시간에는 앱을 쓸 수 없어요.'},
+  {id:'n1', kind:'legal',   cls:'필수 안내', at:'3d', read:true, go:null,
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
    body:'10월 1일부터 개인정보 처리방침이 바뀌어요.'}
 ];
 const NOTI_TIME = {today19:`${NOTI_HOUR}:00`, yesterday:'어제', '3d':'3일 전'};
@@ -6494,19 +7447,31 @@ function renderNotices(){
   const body = document.getElementById('noticeBody');
   if(!rows.length){ body.innerHTML = `<p class="noti-empty">받은 알림이 없어요</p>`; return; }
   body.innerHTML = rows.map(n=>`
+<<<<<<< HEAD
     <button class="noti-row ${n.read?'':'unread'}" data-id="${n.id}">
+=======
+    <button class="noti-row ${n.read?'':'unread'}" data-id="${n.id}" ${n.go==='goals'?'':'style="cursor:default"'}>
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
       <div class="noti-top"><span class="noti-cls ${n.cls==='필수 안내'?'must':''}">${n.cls}</span><span class="noti-at">${NOTI_TIME[n.at]}</span></div>
       <p>${n.kind==='goal' ? goalNotiBody() : n.body}</p>
     </button>`).join('');
   body.querySelectorAll('.noti-row').forEach(r=>{
     r.onclick = ()=>{
       const n = NOTICES.find(x=>x.id===r.dataset.id);
+<<<<<<< HEAD
+=======
+      if(n.go !== 'goals') return;                /* 공지 알림은 내용만 보여주고 이동하지 않는다 */
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
       document.getElementById('noticeSub').classList.remove('open');
       if(n.go === 'goals'){                       /* 홈 · 오늘의 목표로 이동 */
         navs.forEach((b,i)=>b.classList.toggle('on', i===0)); show('home');
         const g = document.getElementById('gList');
         if(g) setTimeout(()=>g.scrollIntoView({behavior:'smooth', block:'center'}), 60);
+<<<<<<< HEAD
       } else openAccount('announce');             /* 공지사항 상세 */
+=======
+      }
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
     };
   });
 }
@@ -7004,10 +7969,16 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  peer.querySelectorAll('.home-peer-item').forEach((item,index)=>{item.querySelector('svg').remove();item.insertAdjacentHTML('afterbegin','<span class="home-peer-emoji" aria-hidden="true">'+friendlyIcons[index]+'</span>');});
  insight.querySelector('.home-insight-icon').textContent='✨';
  overview.querySelector('.home-age-symbol').textContent='💗';
+<<<<<<< HEAD
  peer.insertAdjacentHTML('beforeend','<details class="home-peer-help"><summary>비교 기준</summary><p>같은 성별·연령대의 항목별 분포 위치를 보여주는 시연값이에요. 숫자는 항목별 분포에서의 위치를 뜻해요.</p></details>');
  document.getElementById('homeAgeValue').setAttribute('aria-label','건강나이');
  insight.querySelector('.home-insight-label').textContent='AI 건강 인사이트';
  const note=document.createElement('div');note.className='home-preview-note';note.textContent='RSNA 시연용 예시 데이터 · 정보 중심 홈 구성안';home.appendChild(note);
+=======
+ document.getElementById('homeAgeValue').setAttribute('aria-label','건강나이');
+ insight.querySelector('.home-insight-label').textContent='AI 건강 인사이트';
+
+>>>>>>> 5a3c4005037f30e4cd12376216af8366d25040cb
  /* 이 위젯은 홈 화면에 더해진 시연용 요약이라 실제 검진정보 연동 여부(imp.checkup)와 무관하게
     항상 예시 건강나이·또래 비교를 보여준다 — 연동 여부는 병원 탭의 실제 흐름(오늘의 질문 등)에만 반영된다. */
  const showHealthNumbers = true;

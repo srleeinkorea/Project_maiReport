@@ -1,9 +1,15 @@
 {
   "name": "maiReport 문서 보드 생성기",
-  "id": "maireport-doc-board",
+  "id": "maireport-doc-board-v11",
   "api": "1.0.0",
   "main": "code.js",
   "ui": "ui_v1.0.0.html",
-  "editorType": ["figma"],
-  "networkAccess": { "allowedDomains": ["none"] }
+  "editorType": [
+    "figma"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  }
 }

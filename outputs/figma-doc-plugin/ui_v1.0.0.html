@@ -22,7 +22,7 @@
 </style>
 </head>
 <body>
-  <h1>문서 보드 생성</h1>
+  <h1>문서 보드 생성 <small style="font-size:11px;font-weight:600;color:#2F6BFF">v1.0.0 · 화면 캡처 지원</small></h1>
   <p>화면정의서·기획서 <b>HTML</b>(또는 JSON)을 고르면 오토 레이아웃 프레임으로 만들어요. 생성 후에는 Figma에서 바로 편집할 수 있어요.</p>
   <div class="drop" id="drop"><b>HTML · JSON 파일 선택 또는 끌어다 놓기</b>mai-report-*.html 그대로 넣으면 돼요</div>
   <input type="file" id="file" accept=".html,.htm,.json,text/html,application/json">
@@ -139,6 +139,7 @@ function walk(container, blocks){
     const cl = el.classList;
     const isFlowchart = (cl.contains('flow') && el.querySelector('.node')) || cl.contains('node') || cl.contains('split') || cl.contains('loop') || cl.contains('chain') || cl.contains('rules') || cl.contains('arrow');
     if(isFlowchart){ blocks.push(...flowBlocks({children:[el]})); continue; }
+    if(el.tagName==='IMG'){ blocks.push({type:'image', src:el.getAttribute('src'), w:+el.getAttribute('width')||360, h:+el.getAttribute('height')||0, name:el.getAttribute('alt')||'image'}); continue; }
     if(el.tagName==='H3'){ blocks.push({type:'h3', text:txt(el)}); }
     else if(el.tagName==='P'){ const t=txt(el); if(t) blocks.push({type:'p', text:t, muted:isMuted(el)}); }
     else if(el.tagName==='UL' || el.tagName==='OL'){ blocks.push({type:'bullets', items:[...el.querySelectorAll(':scope > li')].map(txt)}); }
@@ -230,7 +231,12 @@ go.onclick = () => {
   building = true; go.disabled = true; setStatus('생성 중… 표가 많으면 수십 초 걸릴 수 있어요.');
   clearTimeout(watchdog);
   watchdog = setTimeout(() => { if(building){ setStatus('응답이 없어요. 플러그인을 닫았다가 다시 실행해 주세요.', true); endBuild(); } }, 120000);
-  parent.postMessage({ pluginMessage: { type:'build', doc: JSON.parse(JSON.stringify(doc)), width:+document.getElementById('width').value || 1200, replace:document.getElementById('replace').checked } }, '*');
+  const out = JSON.parse(JSON.stringify(doc));
+  /* 이미지(data URL)는 바이트로 바꿔 넘긴다 */
+  for(const sec of out.sections||[]) for(const b of sec.blocks||[]) if(b.type==='image' && /^data:image\/(png|jpe?g|gif);base64,/.test(b.src||'')){
+    const bin = atob(b.src.split(',')[1]); const u = new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); b.bytes = u; delete b.src;
+  }
+  parent.postMessage({ pluginMessage: { type:'build', doc: out, width:+document.getElementById('width').value || 1200, replace:document.getElementById('replace').checked } }, '*');
 };
 window.onmessage = e => {
   const m = e.data && e.data.pluginMessage; if(!m) return;
