@@ -825,6 +825,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .pick-r + .pick-r{border-top:1px solid var(--line)}
 .rd{width:22px;height:22px;flex-shrink:0;border:2px solid #D7DEEA;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .pick-r.on .rd{border-color:var(--brand);border-width:7px}
+.pick-r.off{cursor:default;opacity:.45}
 .pick-b{flex:1;min-width:0}
 .pick-b b{display:block;font-size:var(--t-h2);font-weight:700;line-height:1.4}
 .pick-b small{font-size:var(--t-sm);font-weight:400;color:var(--ink-3)}
@@ -1990,6 +1991,13 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .sr-leg{display:flex;justify-content:center;gap:12px;margin-top:10px;font-size:11px;color:#4B5563}
 .sr-leg span{display:flex;align-items:center;gap:4px}.sr-leg i{width:9px;height:9px;border-radius:2px;display:inline-block}
 .sr-cta{display:block;width:100%;border:0;border-radius:12px;background:#3B82F6;color:#fff;font:inherit;font-size:15px;font-weight:700;padding:15px;margin:6px 0 12px;cursor:pointer}
+.sr-cta.ghost{background:#EEF1F6;color:var(--ink-1)}
+.sv-cta .sv-hist-link{width:auto;padding:6px 8px;border-radius:0;line-height:1.4;display:block;margin:10px auto 0;border:0;background:none;font:inherit;font-size:13px;font-weight:500;color:var(--ink-3);text-decoration:underline;cursor:pointer}
+.pick-warn{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:#FFF7E6;font-size:12.5px;line-height:1.5;color:#8A5A00}
+.hs-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;background:#fff;border-radius:14px;padding:16px;margin-bottom:10px;font:inherit;cursor:pointer}
+.hs-row .hs-b{flex:1;min-width:0}.hs-row b{display:block;font-size:15px}.hs-row small{display:block;margin-top:3px;font-size:12.5px;color:var(--ink-3);line-height:1.45}
+.hs-empty{padding:60px 0;text-align:center;color:var(--ink-3);font-size:14px}
+.sr-saved{margin:0 0 12px;padding:10px 12px;border-radius:10px;background:#EEF1F6;font-size:12.5px;color:var(--ink-2)}
 .sr-notes{margin:0 4px 24px;padding-left:16px;font-size:11px;line-height:1.6;color:#6B7280}
 </style><style>
 /* 폰 폭에서 탭·라벨 줄바꿈 방지 */
@@ -2274,6 +2282,12 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 <div class="sub" id="svResult">
   <div class="rs-h"><button id="rsBack">‹</button><h2>셀비 체크업 결과</h2></div>
   <div class="rs-b" id="rsBody"></div>
+</div>
+
+<!-- 셀비 체크업 지난 분석 결과 -->
+<div class="sub" id="svHist">
+  <div class="rs-h"><button id="hsBack">‹</button><h2>지난 분석 결과</h2></div>
+  <div class="rs-b" id="hsBody"></div>
 </div>
 
 <!-- 진료 상세 -->
@@ -4440,19 +4454,13 @@ const BAND_WORDS = { margin:['좋음','보통','주의'], selfcare:['좋음','�
 const CORE_ROWS = { margin:['활동 시간','수면'], selfcare:['걸음 수','식후 활동'], steady:['걸음 수','활동 시간','운동 기록','수면'] };
 /* ── 지표 해석 — 선택한 날을 전날과 비교한 한 문장 ──
    · 구간이 바뀌면: {이유} {나아지고 있어요/감소하고 있어요}. 이유 = 전날 대비 가장 많이 달라진 핵심 데이터 1개(같은 방향, 10% 이상)
-   · 같으면 이어진 날 수로: "N일째 ~" (2일 이상)
+   · 같으면 이어진 날 수로: "N일 연속 ~" (2일 이상)
      주의가 3일 이상 이어지면 그 기간 계속 낮았던 항목 1개를 이유로 붙인다
    · 전날 기록이 없으면 "오늘은 ~" */
 const DF_STATE = {
-  margin:  {good:'남아 있는 몸의 여유가 충분한 편이에요', mid:'남아 있는 몸의 여유가 적정한 편이에요', low:'남아 있는 몸의 여유가 부족한 편이에요'},
-  selfcare:{good:'나를 챙기는 정도가 좋은 편이에요', mid:'나를 챙기는 정도가 적정한 편이에요', low:'나를 챙기는 정도가 부족한 편이에요'},
-  steady:  {good:'일상의 균형이 안정적인 편이에요', mid:'일상의 균형이 적정한 편이에요', low:'일상의 균형이 불안정한 편이에요'}
-};
-/* 같은 구간이 이어질 때: 'N일째'을 서술어 앞에 둠 */
-const DF_STREAK = {
-  margin:  {good:'남아 있는 몸의 여유가 {N} 충분한 편이에요', mid:'남아 있는 몸의 여유가 {N} 적정한 편이에요', low:'남아 있는 몸의 여유가 {N} 부족한 편이에요'},
-  selfcare:{good:'나를 챙기는 정도가 {N} 좋은 편이에요', mid:'나를 챙기는 정도가 {N} 적정한 편이에요', low:'나를 챙기는 정도가 {N} 부족한 편이에요'},
-  steady:  {good:'일상의 균형이 {N} 안정적인 편이에요', mid:'일상의 균형이 {N} 적정한 편이에요', low:'일상의 균형이 {N} 불안정한 편이에요'}
+  margin:  {good:'남아 있는 몸의 여유가 충분한 편이에요', mid:'남아 있는 몸의 여유가 보통이에요', low:'남아 있는 몸의 여유가 부족한 편이에요'},
+  selfcare:{good:'나를 챙기는 정도가 좋은 편이에요', mid:'나를 챙기는 정도가 보통이에요', low:'나를 챙기는 정도가 부족한 편이에요'},
+  steady:  {good:'일상의 균형이 안정적인 편이에요', mid:'일상의 균형이 보통이에요', low:'일상의 균형이 불안정한 편이에요'}
 };
 const DF_MOVE = {
   margin:  {up:'몸의 여유가 나아지고 있어요', down:'몸의 여유가 감소하고 있어요'},
@@ -4508,22 +4516,15 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       if((up?r:-r)>bv){ bv=up?r:-r; best=dfKey(k,n); }
     });
     if(k==='margin'){
-      /* 생활여유: v7 산식 몫을 그대로 계산해 날짜별 실제 기여 점수로 비교
-         재료 → 이유 대응: A(활동량)→활동 시간 · D(분산)+B의 몰림 절반→활동 분산 · B의 240분 초과 절반→활동 부담 · S→수면
-         수면이 없는 날은 남은 몫으로 가중치 재조정 + 상한(원점수 82 → 표시 0.855) 적용 */
+      /* 생활여유: 산식 몫의 점수 변화로 원인을 고른다 (활동 시간 20% · 활동 분산 30% · 활동 부담 중 240분 초과분 12.5% · 수면 25%)
+         활동 부담도 감점이 실제로 가장 큰 원인일 때만 쓴다 */
       const cl=v=>Math.max(0,Math.min(1,v)), ov=m=>1-cl((m-240)/240), sl=m=>cl(1-Math.max(0,420-m)/120);
-      const conc=j=>{ const m=(dfSafe(valFn,'활동 분산',j)||'').match(/(\d+)칸\s*·\s*(\d+)%/); return m?+m[2]/100:null; };
-      const parts=j=>{ const M=dfNum(valFn('활동 시간',j)), sv=dfSafe(valFn,'수면',j), C=conc(j), D=dfSpread(dfSafe(valFn,'활동 분산',j));
-        const o={A:[0.20,cl(M/240)], Bover:[0.125,ov(M)]};
-        if(D!=null){ o.D=[0.30,D]; o.Bconc=[0.125,1-cl((C-0.5)/0.5)]; }
-        const hasS = sv && sv!=='–'; if(hasS) o.S=[0.25,sl(dfNum(sv))];
-        const W=Object.values(o).reduce((t,x)=>t+x[0],0), E=hasS?1:(82-35)/55;
-        const r={}; Object.keys(o).forEach(q=>{ r[q]=E*o[q][0]*o[q][1]/W; }); return r; };
-      const pa=parts(i-1), pb=parts(i), g=(o,q)=>o[q]||0;
-      const c={'활동 시간':g(pb,'A')-g(pa,'A'), '과한':g(pb,'Bover')-g(pa,'Bover')};
-      if('D' in pb) c['분산']=(g(pb,'D')+g(pb,'Bconc'))-(g(pa,'D')+g(pa,'Bconc'));
-      if('S' in pb) c['수면']=g(pb,'S')-g(pa,'S');   /* 선택일에 쓰이지 않은 재료는 후보 제외 */
-      best=null; let bv2=0.02-1e-9;   /* 2점 미만 생략 · 2.0점부터 이유 */
+      const ma=dfNum(valFn('활동 시간',i-1)), mb=dfNum(valFn('활동 시간',i));
+      const qa=dfNum(valFn('수면',i-1)), qb=dfNum(valFn('수면',i));
+      const sa=dfSpread(dfSafe(valFn,'활동 분산',i-1)), sb=dfSpread(dfSafe(valFn,'활동 분산',i));
+      const c={'활동 시간':0.2*(cl(mb/240)-cl(ma/240)), '수면':0.25*(sl(qb)-sl(qa)), '과한':0.125*(ov(mb)-ov(ma))};
+      if(sa!=null && sb!=null) c['분산']=0.3*(sb-sa);
+      best=null; let bv2=0.02;   /* 2점 미만 변화는 이유로 쓰지 않음 */
       Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
       if(best==='과한') return `${DF_OVERLOAD} ${DF_MOVE[k].down}.`;
     }
@@ -4532,17 +4533,14 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       const cv=[[0,0],[3000,.35],[6000,.65],[10000,.95],[12000,1]];
       const stp=x=>{ for(let q=1;q<cv.length;q++){ const [l,a]=cv[q-1],[r,b]=cv[q]; if(x<=r) return a+(x-l)/(r-l)*(b-a); } return 1; };
       const meal=x=>Math.min(1,x/3);
-      /* 실제 적용 가중치(없는 재료 빼고 재조정) × 근거 상한 E 로 날짜별 기여 점수를 구해 전날과 비교 */
-      const W0={'걸음 수':0.55,'식후 활동':0.20,'공백 후':0.15,'분산':0.10};
+      const c={'걸음 수':0.55*(stp(dfNum(valFn('걸음 수',i)))-stp(dfNum(valFn('걸음 수',i-1)))),
+               '식후 활동':0.2*(meal(dfNum(valFn('운동 기록',i)))-meal(dfNum(valFn('운동 기록',i-1))))};
+      /* 공백 후 움직임 15% · 활동 분산 10% */
       const rs=j=>{ const v=dfSafe(valFn,'공백 후 움직임',j); return v&&/%/.test(v)?dfNum(v)/100:null; };
-      const ml=j=>{ const v=dfSafe(valFn,'운동 기록',j); return (!v||v==='–')?null:meal(dfNum(v)); };
-      const vals=j=>({'걸음 수':stp(dfNum(valFn('걸음 수',j))),'식후 활동':ml(j),'공백 후':rs(j),'분산':dfSpread(dfSafe(valFn,'활동 분산',j))});
-      const contrib=j=>{ const v=vals(j), used=Object.keys(W0).filter(n=>v[n]!=null), W=used.reduce((t,n)=>t+W0[n],0);
-        const E=used.length===4?1:Math.max(0.55+0.45*W, used.length>=3?0.95:0);
-        const o={}; used.forEach(n=>{ o[n]=E*W0[n]*v[n]/W; }); return o; };
-      const ca=contrib(i-1), cb=contrib(i), c={};
-      Object.keys(cb).forEach(n=>{ c[n]=cb[n]-(ca[n]||0); });   /* 선택일에 쓰이지 않은 재료는 후보에서 제외 */
-      best=null; let bv2=0.02-1e-9;
+      if(rs(i)!=null && rs(i-1)!=null) c['공백 후']=0.15*(rs(i)-rs(i-1));
+      const s1=dfSpread(dfSafe(valFn,'활동 분산',i-1)), s2=dfSpread(dfSafe(valFn,'활동 분산',i));
+      if(s1!=null && s2!=null) c['분산']=0.10*(s2-s1);
+      best=null; let bv2=0.02;
       Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
     }
     if(k==='steady'){
@@ -4562,13 +4560,13 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       /* 걸음 발생일 10%: 걸음이 있었던 날의 비율 변화 */
       const walk=e=>{ let d=0,c2=0; for(let j=Math.max(0,e-6);j<=e;j++){ d+=dfNum(valFn('걸음 수',j))>0?1:0; c2++; } return c2?d/c2:0; };
       c['걸음 발생일']=0.5*0.10*(walk(i)-walk(i-1));
-      best=null; let bv2=0.02-1e-9;
+      best=null; let bv2=0.02;
       Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
     }
     return `${best?DF_WHY[best][up?0:1]+' ':''}${k==='steady'?(cur==='mid'?DF_STEADY_TO.mid[up?'up':'down']:DF_STEADY_TO[cur]):DF_MOVE[k][up?'up':'down']}.`;
   }
   let n=1; while(st(i-n)===cur) n++;
-  const lead = `${n}일째`;
+  const lead = `${n}일 연속`;
   let why='';
   if(cur==='low' && n>=3 && judgeFn){
     const LOW=/부족|적음|낮음|없음/;
@@ -4590,9 +4588,9 @@ function dayFlow(k, scores, i, valFn, judgeFn){
       else if(every(sp)) why = DF_WHY['분산'][2]+' ';
     }
   }
-  /* 이유가 있으면 'N일째'을 이유 안에 넣음: '수면이 짧은 날이 N일째 이어지면서 ~' */
+  /* 이유가 있으면 'N일 연속'을 이유 안에 넣음: '수면이 짧은 날이 N일 연속 이어지면서 ~' */
   if(why) return `${why.replace('이어지면서', lead+' 이어지면서')}${DF_STATE[k][cur]}.`;
-  return `${DF_STREAK[k][cur].replace('{N}', lead)}.`;
+  return `${lead} ${DF_STATE[k][cur]}.`;
 }
 function dfText(m, scores, i, valFn, judgeFn){
   const t = dayFlow(m.k, scores, i, valFn, judgeFn);
@@ -5882,7 +5880,6 @@ function gauge(score){
 function renderSelvy(){
   document.getElementById('svBody').innerHTML = `
     <div class="sv-hero">
-      <div class="sv-logo">🔷 Selvy <em>Checkup</em></div>
       <h1>인공지능으로<br>10대 질환 위험도 예측</h1>
       <div class="organs">${SV_ROWS.map(r=>`<div class="orow">${r.map(d=>`<span>${d}</span>`).join('')}</div>`).join('')}</div>
       <p>건강검진 결과를 AI로 분석해 다음 질환의<br>발병 위험도를 쉽게 알려드립니다.</p>
@@ -5923,10 +5920,10 @@ function renderPay(){
     ${fee}
     <div class="pick">
       <small>건강검진 데이터 선택</small>
-      ${EXAMS.map((e,i)=>`<div class="pick-r ${examPick===i?'on':''}" data-i="${i}">
+      ${EXAMS.map((e,i)=>`<div class="pick-r ${examPick===i?'on':''} ${svDone(i)?'off':''}" data-i="${i}">
         <span class="rd"></span>
         <div class="pick-b"><b>${e.d}</b><small>${e.p}</small></div>
-        ${e.recent?`<span class="pick-tag">최근 검진</span>`:''}
+        ${e.recent?`<span class="pick-tag">최근 검진</span>`:''}${svDone(i)?`<span class="pick-tag">분석 완료</span>`:''}
       </div>`).join('')}
     </div>
     <div class="ex-set">${EX_ITEMS.map(x=>`<div class="ex-r">
@@ -5935,16 +5932,45 @@ function renderPay(){
     </div>`).join('')}</div>
     <div class="pay-note"><b>이용 안내</b><p>본 서비스 이용을 위해서는 건강검진 결과가 필요합니다. 건강검진 데이터가 나오지 않는 경우, 병원 탭에서 검진 데이터를 등록해 주세요.</p></div>
     `;
-  document.querySelectorAll('.pick-r').forEach(r=>{ r.onclick = ()=>{ examPick = +r.dataset.i; renderPay(); }; });
+  /* 최근 검진이 아닌 걸 고르면 안내를 붙인다 */
+  if(examPick>0) document.querySelector('.pick').insertAdjacentHTML('beforeend', `<div class="pick-warn">⚠ 최근 검진보다 이전 검진이에요. 지금 건강 상태와 다를 수 있어요.</div>`);
+  if(EXAMS.every((_,i)=>svDone(i))) document.querySelector('.pick').insertAdjacentHTML('beforeend', `<div class="pick-warn" style="background:#EEF1F6;color:var(--ink-2)">모든 검진을 분석했어요. 새 검진 결과가 들어오면 분석할 수 있어요. 지난 결과는 &lsquo;지난 분석 결과&rsquo;에서 볼 수 있어요.</div>`);
+  document.querySelectorAll('.pick-r').forEach(r=>{ r.onclick = ()=>{ if(r.classList.contains('off')) return; examPick = +r.dataset.i; renderPay(); }; });
   document.querySelectorAll('.ex-rg').forEach(r=>{ r.oninput = ()=>{ exDays[r.dataset.k] = +r.value; r.style.setProperty('--p', (r.value/7*100)+'%'); document.getElementById('exv-'+r.dataset.k).textContent = r.value+'일'; }; });
   const noTicket = false;
   document.getElementById('payGo').disabled = examPick === null || noTicket;
   document.getElementById('payGo').textContent = '분석 시작하기';
   document.querySelector('.pay-h h2').textContent = '셀비 체크업';
 }
-function openSelvy(){ renderSelvy(); document.getElementById('selvy').classList.add('open'); }
+function openSelvy(){ renderSelvy(); document.getElementById('selvy').classList.add('open');
+  /* 소개 화면 버튼 아래에 지난 분석 결과로 가는 길을 둔다 — 지난 분석이 있을 때만 */
+  const cta = document.querySelector('#selvy .sv-cta');
+  cta.querySelector('.sv-hist-link')?.remove();
+  if(SV_HIST.length) cta.insertAdjacentHTML('beforeend', `<button class="sv-hist-link" onclick="openSvHist()">지난 분석 결과 보기</button>`);
+}
+/* 지난 분석 결과 — 이 시연에서는 2023년 검진으로 한 번 분석한 기록이 있다 */
+const SV_HIST = [{exam:1, at:'2026.03.02'}];
+let svZ = 60;  /* 결과와 이력이 서로 위로 열리도록 나중에 연 화면을 위에 둔다 */
+/* 한 번 분석한 검진은 다시 분석할 수 없다 */
+function svDone(i){ return SV_HIST.some(h=>h.exam===i); }
+function svFirstOpen(){ const i = EXAMS.findIndex((_,k)=>!svDone(k)); return i<0 ? null : i; }
+function svFront(id){ const el=document.getElementById(id); el.style.zIndex=++svZ; el.classList.add('open'); }
+function openSvHist(){
+  const rows = [...SV_HIST].sort((a,b)=>a.exam-b.exam);  /* 최근 검진부터 */
+  document.getElementById('hsBody').innerHTML = rows.length ? rows.map(h=>{
+    const r = svRisks(h.exam), top = [...r].sort((a,b)=>b.sc-a.sc)[0];
+    return `<button class="hs-row" data-at="${h.at}" data-ex="${h.exam}"><div class="hs-b"><b>${EXAMS[h.exam].d} 검진</b>
+      <small>${h.at} 분석</small></div><span class="cv">›</span></button>`;
+  }).join('') : `<div class="hs-empty">아직 분석한 결과가 없어요.</div>`;
+  document.querySelectorAll('#hsBody .hs-row').forEach(b=>b.onclick=()=>{
+    renderResult({exam:+b.dataset.ex, at:b.dataset.at}, true);
+    svFront('svResult');
+  });
+  svFront('svHist');
+}
+document.getElementById('hsBack').onclick = ()=>document.getElementById('svHist').classList.remove('open');
 document.getElementById('svBack').onclick = ()=>document.getElementById('selvy').classList.remove('open');
-document.getElementById('svGo').onclick = ()=>{ examPick=null; renderPay(); document.getElementById('pay').classList.add('open'); };
+document.getElementById('svGo').onclick = ()=>{ examPick = svFirstOpen(); renderPay(); svFront('pay'); };
 document.getElementById('payClose').onclick = ()=>document.getElementById('pay').classList.remove('open');
 document.getElementById('payGo').onclick = ()=>{
   const btn = document.getElementById('payGo');
@@ -5960,9 +5986,11 @@ document.getElementById('payGo').onclick = ()=>{
   setTimeout(()=>{
     if(usingTicket){ usingTicket.status = 'USED'; usingTicket.usedAt = '2026-08-26 (방금)'; }
     document.getElementById('pay').classList.remove('open');
-    renderResult();
-    document.getElementById('svResult').classList.add('open');
-    renderPay();
+    const done = {exam:examPick, at:'2026.09.29'};
+    SV_HIST.push(done);
+    renderResult(done, false);
+    svFront('svResult');
+    examPick = svFirstOpen(); renderPay();
   }, 2200);
 };
 
@@ -6074,7 +6102,7 @@ const AI_REPORT_TEMPLATE = {
     ]
   }
 };
-let AI_REPORTS = []; /* 가입 2주차 상태를 기본값으로 보여주기 위해, 아래에서 지난 2주 리포트를 미리 채워 넣는다 */
+let AI_REPORTS = [];
 let aiReportSeq = 0;
 const AI_CAL_TODAY = new Date('2026-08-20T00:00:00');
 const AI_WEEK_SCORES = { '2026-08-09': 58, '2026-08-16': 66, '2026-08-20': 61, '2026-08-23': 61 };
@@ -6137,32 +6165,6 @@ function aiFmtDate(d){
   const w=['일','월','화','수','목','금','토'];
   return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} (${w[d.getDay()]})`;
 }
-/* 가입 2주차 사용자를 기본 상태로 두기 위해, 지난 2주(8월 2주·3주)의 리포트를 미리 생성해 둔다.
-   빈 배열로 시작하면 항상 "아직 한 번도 생성하지 않은" 최초 진입 화면부터 보게 되므로,
-   이 두 건을 채워 진입 시 바로 결과 화면(종합 인사이트 + 트렌드 그래프)을 확인할 수 있게 한다. */
-/* 두 번째 날짜(오늘)는 "이번 주 리포트까지 이미 생성된" 상태로 만들어, 쿨다운 게이트 없이
-   진입하자마자 결과 화면을 바로 보여준다 — 첫 번째 날짜는 트렌드 그래프용 지난주 이력이다. */
-['2026-08-09', '2026-08-20'].forEach(dateStr=>{
-  const { week, range } = aiWeekReportRange(dateStr, dateStr);
-  const score = aiScoreFor(dateStr);
-  AI_REPORTS.push({
-    id: 'seed-'+dateStr,
-    week, range, generatedAt: dateStr,
-    score,
-    headline: AI_REPORT_TEMPLATE.headline,
-    summary: AI_REPORT_TEMPLATE.summary,
-    findings: AI_REPORT_TEMPLATE.findings,
-    noCheckup: { ...AI_REPORT_TEMPLATE.noCheckup, score: score + 7 }
-  });
-});
-
-/* 생활 탭 4번째 서브탭 진입 화면 — 연동 전 / 연동 중 / 쿨다운 / 분석 유도 4가지 상태를 순서대로 확인한다.
-   AI 인사이트의 필수 데이터는 생활 분석 탭 데이터(deviceLinked, 삼성헬스) 1가지뿐이다.
-   검진정보(imp.checkup)를 포함한 나머지는 전부 옵션 데이터 — 있으면 해당 소견(예: 간 효소·소변 단백처럼
-   검진 기반 소견)에 반영하고, 없으면 그 소견만 생략한 채 생활 데이터만으로 분석을 진행한다. */
-/* 날짜 스트립을 다른 주로 이동한 상태(weekOffset!==0)에서 AI 인사이트 탭을 열면,
-   "오늘" 기준 쿨다운 화면 대신 그 주를 바로 분석/조회할 수 있는 화면을 보여준다.
-   "다른 기간으로 분석하기"의 생성 메커니즘(generateAiInsightForRange)을 그대로 재사용한다. */
 function aiWeekOptionForOffset(offset){
   const monday = new Date(WEEK_MONDAY); monday.setDate(monday.getDate() + offset*7);
   const pad = n => String(n).padStart(2,'0');
@@ -6251,23 +6253,25 @@ function renderAiInsightEntry(){
     if(can) document.getElementById('aiRedo').onclick = ()=>openAiRedoConfirm(thisWeek);
     document.getElementById('aiViewRange').onclick = openAiRangePicker;
   } else {
+    const needsTodayQ = !!last && !allDone();
     el.innerHTML = `
       <div class="ai-entry">
         <span class="spark">✨</span>
         <b>AI 건강 인사이트</b>
         <p>${imp.checkup ? '생활 데이터와 검진정보를 분석해서<br>맞춤 인사이트를 제공해드려요.' : '생활 데이터를 분석해서<br>맞춤 인사이트를 제공해드려요.'}</p>
-        <button class="solid full" id="aiEntryGo">분석하기</button>
+        ${needsTodayQ ? `
+          <div class="ai-todayq-gate"><span class="ic">📋</span><div><b>오늘의 질문에 답하면 분석할 수 있어요</b><p>오늘 컨디션을 반영해 더 정확한 리포트를 만들어드려요. (${answered()}/${QUESTIONS.length})</p></div></div>
+          <button class="solid full" id="aiEntryAnswer">오늘의 질문 답하기</button>
+        ` : `<button class="solid full" id="aiEntryGo">분석하기</button>`}
       </div>
       ${last ? `<div class="ai-cd-note">최근 분석: ${aiEffectiveReport(last).week} · ${aiEffectiveReport(last).score}점</div>` : ``}
       ${checkupNote}
       ${last ? `<div class="ai-menu-list">
           <button class="ai-menu-item" id="aiEntryRange"><span class="ic">🗓️</span><span class="tt">주간 리포트 보기</span><span class="ch">›</span></button>
         </div>` : ''}`;
-    document.getElementById('aiEntryGo').onclick = ()=>generateAiInsight();
-    const listBtn = document.getElementById('aiEntryList');
-    if(listBtn) listBtn.onclick = ()=>openAiReportList();
-    const rangeBtn = document.getElementById('aiEntryRange');
-    if(rangeBtn) rangeBtn.onclick = openAiRangePicker;
+    if(needsTodayQ){ document.getElementById('aiEntryAnswer').onclick = openAns; }
+    else { document.getElementById('aiEntryGo').onclick = ()=>generateAiInsight(); }
+    const rangeBtn = document.getElementById('aiEntryRange'); if(rangeBtn) rangeBtn.onclick = openAiRangePicker;
   }
   const inlineCheckupBtn = document.getElementById('aiLinkCheckupInline');
   if(inlineCheckupBtn) inlineCheckupBtn.onclick = ()=>startImport('checkup');
@@ -6814,16 +6818,20 @@ function srMini(sc){
   const x = cx + r*Math.cos(Math.PI - ang*Math.PI/180), y = cy - r*Math.sin(Math.PI - ang*Math.PI/180);
   return `<svg viewBox="0 0 52 30" class="sr-mg"><path d="M6,26 A20,20 0 0 1 46,26" fill="none" stroke="#E5E7EB" stroke-width="5"/><path d="M6,26 A20,20 0 0 1 ${x.toFixed(1)},${y.toFixed(1)}" fill="none" stroke="#12A150" stroke-width="5"/></svg>`;
 }
-function renderResult(){
-  const top = SR_RISKS[0];
+/* 이전 검진일수록 점수가 조금씩 높았던 것으로 보여준다 */
+function svRisks(ex){ return SR_RISKS.map(d=>({...d, sc:d.sc+ex*2})); }
+function renderResult(run={exam:0, at:'2026.09.29'}, saved=false){
+  const SR = svRisks(run.exam), top = [...SR].sort((a,b)=>b.sc-a.sc)[0];
   document.querySelector('#svResult .rs-h h2').textContent = 'Selvy Checkup 검진 결과';
   document.getElementById('rsBody').innerHTML = `
+    ${saved?`<div class="sr-saved">${run.at}에 분석해 저장된 결과예요. 다시 계산하지 않았어요.</div>`:''}
     <section class="sr-hero">
       <h1>Selvy Checkup<br>인공지능 건강분석 리포트</h1>
       <div class="sr-info">
         <div><span>이름</span><b>${USER.name}</b></div>
-        <div><span>검진일</span><b>2024년 6월 19일</b></div>
-        <div><span>검진 당시 나이</span><b>38세</b></div>
+        <div><span>검진일</span><b>${EXAMS[run.exam].d}${run.exam===0?' (최근)':''}</b></div>
+        <div><span>분석일</span><b>${run.at}</b></div>
+        <div><span>검진 당시 나이</span><b>${38-run.exam}세</b></div>
       </div>
     </section>
     <section class="card sr-card">
@@ -6835,7 +6843,7 @@ function renderResult(){
     <section class="card sr-card">
       <h2>발병통계지수</h2>
       <p>발병통계지수가 가장 높은 질환은 &lsquo;${top.n}(${top.sc}점)&rsquo;입니다. 현재 낮음 단계에 속하여 해당 질병에 대한 관리와 대비가 필요합니다.</p>
-      <div class="sr-grid">${SR_RISKS.map(d=>`<div class="sr-gi">${srMini(d.sc)}<b>${d.sc}점</b><span class="sr-lv">낮음</span><small>${d.n}</small></div>`).join('')}</div>
+      <div class="sr-grid">${SR.map(d=>`<div class="sr-gi">${srMini(d.sc)}<b>${d.sc}점</b><span class="sr-lv">낮음</span><small>${d.n}</small></div>`).join('')}</div>
     </section>
     <section class="card sr-card">
       <h2>건강검진 판정등급</h2>
@@ -6846,7 +6854,7 @@ function renderResult(){
         <small>${ag}</small></div>`).join('')}</div>
       <div class="sr-leg"><span><i class="g1"></i>유질환자</span><span><i class="g2"></i>질환의심</span><span><i class="g3"></i>정상(A,B)</span></div>
     </section>
-    ${SR_RISKS.map(d=>{ const diff=d.sc-d.avg, mx=Math.max(d.sc,d.avg)*1.2;
+    ${SR.map(d=>{ const diff=d.sc-d.avg, mx=Math.max(d.sc,d.avg)*1.2;
       return `<section class="card sr-card">
       <h2>${d.n}</h2>
       <p>발병통계지수는 ${d.sc}점으로, 동일 연령대 평균에 비해 ${Math.abs(diff)}점 ${diff>0?'높습니다':'낮아 양호한 상태입니다'}.</p>
@@ -6855,9 +6863,10 @@ function renderResult(){
         <div class="sv-box"><div class="cap">30대 연령<br>평균 측정치 대비<br><em>${Math.abs(diff)}점 ${diff>=0?'높음':'낮음'}</em></div><div class="cmp"><div><i class="avg" style="height:${d.avg/mx*100}%">${d.avg}</i><small>평균</small></div><div><i class="now" style="height:${d.sc/mx*100}%">${d.sc}</i><small>현재</small></div></div></div>
       </div></section>`;}).join('')}
     <button class="sr-cta" type="button">상세 리포트 보기</button>
+    <button class="sr-cta ghost" type="button" onclick="openSvHist()">지난 분석 결과</button>
     <ul class="sr-notes">
       <li>본 리포트의 위험도와 분석 결과는 참고용입니다. 자세한 사항은 반드시 의사선생님과 상담해 주세요.</li>
-      <li>본 리포트는 고객님이 최근에 받은 건강검진 결과를 기준으로 분석한 결과이므로 현재의 건강상태와는 다를 수 있습니다.</li>
+      <li>본 리포트는 고객님이 선택한 건강검진 결과(${EXAMS[run.exam].d})를 기준으로 분석한 결과이므로 현재의 건강상태와는 다를 수 있습니다.</li>
     </ul>`;
 }
 document.getElementById('rsBack').onclick = ()=>document.getElementById('svResult').classList.remove('open');
