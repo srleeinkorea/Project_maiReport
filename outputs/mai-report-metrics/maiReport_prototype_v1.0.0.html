@@ -2136,7 +2136,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
   <div class="sec">
     <div class="h-sec">
       <div class="h-t">오늘의 컨디션</div>
-      <button class="h-more" id="condMore">자세히 ›</button>
+      <button class="h-more" id="condMore" aria-label="자세히" style="font-size:22px;font-weight:400">›</button>
     </div>
     <section class="card cond" id="cond">
       <div class="m-grid" id="mGrid"></div>
@@ -3331,16 +3331,17 @@ function gaugeSvg(state, color, idx){
   const band = {low:1, mid:2, good:3}[state] || 0;
   const P=(deg)=>[cx+r*Math.cos(deg*Math.PI/180), cy+r*Math.sin(deg*Math.PI/180)];
   const seg=(180-2*gap)/3;
-  let g='';
+  const [t0x,t0y]=P(180),[t1x,t1y]=P(360);
+  let g=`<path d="M${t0x.toFixed(1)},${t0y.toFixed(1)} A${r},${r} 0 0 1 ${t1x.toFixed(1)},${t1y.toFixed(1)}" fill="none" stroke="#E5E7EB" stroke-width="11"/>`;
   for(let i=0;i<3;i++){
     const sa=180+i*(seg+gap), ea=sa+seg;
     const [x0,y0]=P(sa), [x1,y1]=P(ea);
     const on=(i+1)===band;
     /* 내 구간은 바늘이 도착한 뒤에 켜진다 */
-    g+=`<path class="${on?'m-band on':'m-band'}" style="--d:${((idx||0)*0.14+0.5).toFixed(2)}s" d="M${x0.toFixed(1)},${y0.toFixed(1)} A${r},${r} 0 0 1 ${x1.toFixed(1)},${y1.toFixed(1)}" fill="none" stroke="${on?color:'#E3E7EF'}" stroke-width="${on?9:7}" stroke-linecap="butt"/>`;
+    g+=`<path class="${on?'m-band on':'m-band'}" style="--d:${((idx||0)*0.14+0.5).toFixed(2)}s" d="M${x0.toFixed(1)},${y0.toFixed(1)} A${r},${r} 0 0 1 ${x1.toFixed(1)},${y1.toFixed(1)}" fill="none" stroke="${on?color:'none'}" stroke-width="11" stroke-linecap="butt"/>`;
   }
   /* 눈금: 구간 경계 2곳 + 양끝 */
-  [180,180+seg+gap/2,180+2*(seg+gap)-gap/2,360].forEach(deg=>{
+  [].forEach(deg=>{
     const [ax,ay]=[cx+(r-9)*Math.cos(deg*Math.PI/180), cy+(r-9)*Math.sin(deg*Math.PI/180)];
     const [bx,by]=[cx+(r-13)*Math.cos(deg*Math.PI/180), cy+(r-13)*Math.sin(deg*Math.PI/180)];
     g+=`<line x1="${ax.toFixed(1)}" y1="${ay.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="#C5CCD8" stroke-width="1.5" stroke-linecap="round"/>`;
@@ -3387,12 +3388,12 @@ function renderMetrics(){
   const observing = METRICS.filter(x=>x.state==='none').length;
   document.getElementById('mGrid').innerHTML = METRICS.map((m,i)=>{
     const s = metricState(m);
-    const col = METRIC_COLOR[m.k];
+    const col = {good:'#22C55E',mid:'#3B82F6',low:'#F59E0B'}[m.state] || '#C5CCD8';   /* 시안: 좋음 초록 · 보통 파랑 · 주의 주황 */
     /* 홈에서는 전일 대비(▲▼·변화 없음)를 표시하지 않는다 — 구간 변화는 생활 탭 > 지표별 분석에서 본다 */
     /* 라벨 색은 구간 톤을 따른다 — 좋음=지표 고유색 · 보통=회색 · 주의=amber (기획서 §5.2). 게이지·지표명은 지표 고유색 */
-    const labelColor = s.isNone ? '#98A4B8' : (m.state==='good' ? col : s.tone.c);
+    const labelColor = s.isNone ? '#C5CCD8' : ({good:'#16A34A',mid:'#2563EB',low:'#D97706'}[m.state]);
     return `<div class="m ${s.isNone?'none':''}" data-k="${m.k}" style="--c:${s.isNone?'#98A4B8':col};--tint:${s.tone.bg};--d:${(i*0.14).toFixed(2)}s" title="${m.desc}">
-      <span class="m-nm">${m.nm}</span>
+      <span class="m-nm">${m.nm}<i class="m-q" aria-hidden="true">?</i></span>
       ${gaugeSvg(m.state, col, i)}
       <span class="m-state" style="color:${labelColor}">${s.label}</span>
     </div>`;
@@ -7555,12 +7556,23 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  refreshOverview();
 })();
 </script>
+<style id="condV2">
+#cond .m .m-nm{display:inline-flex;align-items:center;gap:5px;font-size:15px;font-weight:500;color:var(--ink-2)}
+#cond .m-q{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border:1.5px solid #D1D5DB;border-radius:50%;font-style:normal;font-size:11px;font-weight:600;color:#9CA3AF}
+#cond .m .m-state{font-size:16px!important;font-weight:800}
+#cond .m.none .m-state{color:#C5CCD8!important}
+#cond .m.none{background:none!important}
+#cond .m-observing{padding:16px;border-radius:12px;background:#F3F4F6;font-size:14px;color:var(--ink-2);line-height:1.6}
+#cond .m-observing .ico{display:none}
+#cond .m-observing b{color:var(--ink-1);font-weight:800}
+</style>
 <style id="homeNumbersV2">
 /* 홈 · 나의 건강, 숫자로 한눈에 (게이지형 AI 점수 · 건강나이 · 또래 등수) */
 .home-health-group .home-health-caption{display:none}
 .home-health-group .home-insight-card.has-result{padding:22px 20px 18px!important}
 .home-health-group .home-score-result{display:grid!important;grid-template-columns:1fr auto!important;row-gap:0!important;column-gap:8px}
 .home-health-group .home-score-result::after{content:none!important}
+.home-health-group .home-score-result[hidden]{display:none!important}
 .home-health-group .home-score-name{grid-column:1;grid-row:1;font-size:17px;font-weight:700;color:var(--ink-1)}
 .home-health-group .home-score-symbol{display:none!important}
 .home-health-group .home-score-period{grid-column:2;grid-row:1;padding:0!important;align-self:center;font-size:13px;color:var(--ink-3);white-space:nowrap}
