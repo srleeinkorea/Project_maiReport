@@ -2600,7 +2600,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 
 <!-- ChatGPT 요약 · 전송 동의 바텀시트 -->
 <div class="update-dim" id="aiConfirm">
-  <div class="update-sheet" role="dialog" aria-modal="true" aria-labelledby="aiConfirmTitle" id="aiConfirmSheet"></div>
+  <div class="update-sheet" role="dialog" aria-modal="true" aria-labelledby="aiConfirmTitle" id="aiConfirmSheet" style="padding:28px 16px 16px"></div>
 </div>
 <div class="ai-report" id="aiReport">
   <div class="ai-report-h"><button id="aiBack">‹</button><h2>건강검진 ChatGPT 요약</h2></div>
@@ -7402,25 +7402,11 @@ aiConfirmEl.addEventListener('click',(e)=>{ if(e.target===aiConfirmEl) aiConfirm
 function openAiConsent(){
   const sheet = document.getElementById('aiConfirmSheet');
   const p = window._pendingAiCheckup || {};
-  if(!aiConsented){
-    sheet.innerHTML = `<div class="update-grab"></div>
-      <div class="update-title" id="aiConfirmTitle">검진 결과를 ChatGPT로 요약할까요?</div>
-      <div class="update-desc">먼저 확인할 항목과 검사의 의미, 다음 행동을 정리해 드려요.</div>
-      <div class="gs-pts">
-        <div class="gs-pt"><i>↑</i><span>검사 수치·판정·기관 소견만 보내요</span></div>
-        <div class="gs-pt"><i>✕</i><span>이름·생년월일·연락처는 보내지 않아요</span></div>
-        <div class="gs-pt"><i>✓</i><span>요약 결과만 저장하고 보낸 데이터는 남기지 않아요</span></div>
-      </div>
-      <button class="gs-more" id="aiMoreBtn">자세히 보기 ›</button>
-      <div class="gs-detail" id="aiMoreTxt">외부 AI 서비스(OpenAI)에서 요약을 생성해요. 전송한 데이터는 처리 후 보관되지 않으며, 동의는 계정 › 개인정보 처리방침에서 철회할 수 있어요. 요약은 의학적 진단을 대신하지 않아요.</div>
-      <div class="gs-btns"><button class="no" id="aiCancel">취소</button><button class="go" id="aiGo">동의하고 요약하기</button></div>`;
-    document.getElementById('aiMoreBtn').onclick = ()=>document.getElementById('aiMoreTxt').classList.toggle('on');
-  } else {
-    sheet.innerHTML = `<div class="update-grab"></div>
-      <div class="update-title" id="aiConfirmTitle">${p.d || ''} 검진 결과를 요약할까요?</div>
-      <div class="update-desc">저장된 검사 결과로 요약을 만들어요. 10초쯤 걸려요.</div>
-      <div class="gs-btns"><button class="no" id="aiCancel">취소</button><button class="go" id="aiGo">요약하기</button></div>`;
-  }
+  /* 요약 확인 팝업 (디자인 시안) */
+  sheet.innerHTML = `<div style="text-align:center;padding:12px 4px 0">
+      <div id="aiConfirmTitle" style="font-size:20px;font-weight:800;line-height:1.45;letter-spacing:-.03em;color:#111">ChatGPT로 결과 요약을<br>진행하시겠습니까?</div>
+      <p style="margin-top:12px;font-size:15px;color:#222">요약 리포트를 만드는데 약 30초가 소요됩니다.</p></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:28px"><button id="aiCancel" style="padding:16px;border:0;border-radius:12px;background:#F2F3F5;color:#444;font:inherit;font-size:16px;font-weight:700">취소</button><button id="aiGo" style="padding:16px;border:0;border-radius:12px;background:#3B82F6;color:#fff;font:inherit;font-size:16px;font-weight:700">확인</button></div>`;
   document.getElementById('aiCancel').onclick = ()=>aiConfirmEl.classList.remove('open');
   document.getElementById('aiGo').onclick = ()=>{ aiConsented = true; aiConfirmEl.classList.remove('open'); startAiSummaryGen(); };
   aiConfirmEl.classList.add('open');
