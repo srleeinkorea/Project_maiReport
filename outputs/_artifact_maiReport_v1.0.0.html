@@ -4255,7 +4255,7 @@ function renderAiInsightEntryForWeek(offset){
         <div class="ai-menu-list">
           <button class="ai-menu-item" id="aiWeekBackToLatest"><span class="ic">✨</span><span class="tt">최신 리포트 보기</span><span class="ch">›</span></button>
         </div>` : ''}
-      <div class="ai-cd-note">ℹ️ ${opt.range} 기간 분석이에요. "이번 주"로 돌아가면 최신 리포트를 볼 수 있어요.</div>`;
+      `;
     aiOpenReport = weekReport;
     renderAiInsightTabData(weekReport, 'sum', 'aiEntrySum');
     document.getElementById('aiViewWeekReport').onclick = ()=>openAiInsight(weekReport.id, 'detail');
@@ -4275,7 +4275,7 @@ function renderAiInsightEntryForWeek(offset){
       <div class="ai-menu-list">
         <button class="ai-menu-item" id="aiWeekBackToLatest"><span class="ic">✨</span><span class="tt">최신 리포트 보기</span><span class="ch">›</span></button>
       </div>` : ''}
-    <div class="ai-cd-note">ℹ️ 현재 보고 있는 날짜(${opt.range}) 기준으로 분석해요. "이번 주"로 돌아가면 평소처럼 최신 리포트를 볼 수 있어요.</div>`;
+    `;
   document.getElementById('aiWeekGo').onclick = ()=>generateAiInsightForRange(opt, 'pAi');
   const backBtn = document.getElementById('aiWeekBackToLatest');
   if(backBtn) backBtn.onclick = ()=>openAiInsight(last.id, 'sum');

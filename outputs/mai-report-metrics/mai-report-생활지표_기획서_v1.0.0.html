@@ -99,8 +99,8 @@
     <h1>생활 지표(I1·I2·I3) 기획서</h1>
     <p>디바이스 기반 생활 데이터를 「오늘의 상태 → 오늘의 행동 → 최근의 흐름」 세 지표로 해석하고, 내부 규칙값을 사용자에게 상태 구간과 주간 흐름으로 전달하기 위한 기획서. 디바이스에서 가져오는 데이터, 구성 요소의 산출 절차, 지표 산식, 노출 정책, 개발 전 확정 항목을 한 문서에 정리한다.</p>
     <div class="meta">
-      <span>작성일 <b>2026-09-16</b></span>
-      <span>버전 <b>1.1 · 최종</b></span>
+      <span>작성일 <b>2026-09-16</b> · 수정 <b>2026-09-29</b></span>
+      <span>버전 <b>1.2 · 최종</b></span>
       <span>연관 문서 <b>홈화면_화면정의서 · 지표별분석_화면정의서 · 프로토타입</b></span>
     </div>
     <div class="toc">
@@ -284,7 +284,7 @@ I1_low = 50 + clip( 8·R , −15, 15 )
     <ul>
       <li>타임라인이 불완전하면 ① 대신 ② 희소 경로로 전환한다. 0점으로 채우지 않는다.</li>
       <li>걸음 기록도 없으면 관찰 중. 사유: "오늘 활동 기록이 아직 없어요".</li>
-      <li>수면 기록이 없으면 D = 0이 아니라 D를 제외하고 계산하되 결과에 coverage 플래그를 남긴다(해석 문장에서 "수면은 기록이 없어 빼고 봤어요").</li>
+      <li>수면 기록이 없으면 D = 0이 아니라 D를 제외하고 계산하되 결과에 coverage 플래그를 남긴다.</li>
     </ul>
   </div>
 
@@ -377,7 +377,7 @@ I2 = ( 연결된 행동 수 ÷ 유효 기회 수 ) × 100
         <tr><td class="k">② 구간 나누기</td><td>day</td><td>기준일 포함 최근 7일 = recent, 그 직전 21일 = base</td><td>base 관측일 ≥ 15 · recent 관측일 ≥ 5인 신호만 계속 진행</td></tr>
         <tr><td class="k">③ 비교 가능성</td><td>comparable</td><td>base와 recent의 수집 경로가 같은 신호만 사용</td><td>중간에 워치→폰으로 바뀐 신호는 제외</td></tr>
         <tr><td class="k">④ 기준 범위</td><td>base</td><td>신호별 median_base · IQR_base. IQR이 최소 산포보다 작으면 최소 산포로 대체</td><td>최소 산포: 수면 20분 · 활동 시간 10분 · 걸음 800보 · 심박 3bpm</td></tr>
-        <tr><td class="k">⑤ 벗어남 dev</td><td>recent · ④</td><td>|median_recent − median_base| ÷ IQR_base, 0~2로 자른다</td><td>방향(높아짐/낮아짐)은 점수에 넣지 않고 해석 문장에만 쓴다</td></tr>
+        <tr><td class="k">⑤ 벗어남 dev</td><td>recent · ④</td><td>|median_recent − median_base| ÷ IQR_base, 0~2로 자른다</td><td>방향(높아짐/낮아짐)은 점수에 넣지 않는다. 코칭 문구 선택에만 쓴다</td></tr>
         <tr><td class="k">⑥ 흔들림 vol</td><td>recent · ④</td><td>IQR_recent ÷ IQR_base − 1, 0~2로 자른다(평소보다 더 흔들린 만큼만)</td><td>평소보다 덜 흔들린 것은 0으로 본다</td></tr>
         <tr><td class="k">⑦ 신호별 안정도 · 합산</td><td>⑤·⑥</td><td>s = 1 − 0.5·dev − 0.5·vol → 가중 평균 × 100</td><td>가중치: 수면 .35 · 활동 시간 .30 · 걸음 .20 · 심박 .15. 제외된 신호는 분모에서 뺀다</td></tr>
       </tbody>
@@ -400,7 +400,7 @@ I3 = 100 × Σ( w_k · s_k ) ÷ Σ( w_k )   , k ∈ coverage 충족 신호
     <ul>
       <li><b>일 단위 산정.</b> 기준일마다 「그날까지의 최근 7일 vs 직전 21일」로 값을 내므로 주간 그래프에 요일별 점을 찍을 수 있다. 당일 기록이 없어도 이력이 있으면 계산된다.</li>
       <li><b>비교 가능성.</b> 기준 구간과 최근 구간의 수집 경로(플랫폼·기기)가 다르면 해당 신호는 comparable=false로 두고 제외한다(P7).</li>
-      <li><b>균일하게 나쁜 경우.</b> 매일 5시간씩 자는 사람은 흔들림이 없어 「안정적이에요」가 나올 수 있다. 그 상태가 나쁘다는 사실은 이 지표가 말하지 않으며 절대 임계를 보는 코칭 규칙이 맡는다. 해석 문장에서 "평소 범위 안에서"를 반드시 붙인다.</li>
+      <li><b>균일하게 나쁜 경우.</b> 매일 5시간씩 자는 사람은 흔들림이 없어 「안정적이에요」가 나올 수 있다. 그 상태가 나쁘다는 사실은 이 지표가 말하지 않으며 절대 임계를 보는 코칭 규칙이 맡는다. 코칭 문구에서 "평소 범위 안에서"를 반드시 붙인다.</li>
     </ul>
 
     <h3>이 지표가 말하지 않는 것</h3>
@@ -441,7 +441,7 @@ I3 = 100 × Σ( w_k · s_k ) ÷ Σ( w_k )   , k ∈ coverage 충족 신호
     <table>
       <thead><tr><th>판정</th><th>조건</th><th>노출</th></tr></thead>
       <tbody>
-        <tr><td class="k">▲ 좋아졌어요</td><td>주의→보통 · 보통→좋음 · 주의→좋음</td><td rowspan="3">배지·헤더·게이지에는 두지 않는다. 지표별 분석의 「현재 흐름」 문장 생성 입력으로만 사용한다. 증감 폭 숫자는 어떤 경우에도 쓰지 않는다</td></tr>
+        <tr><td class="k">▲ 좋아졌어요</td><td>주의→보통 · 보통→좋음 · 주의→좋음</td><td rowspan="3">화면에 노출하지 않는다(배지·헤더·게이지·지표별 분석 모두). 지표별 분석의 지표 해석 탭과 설명 문장은 최종 협의로 삭제되어, 이 판정은 내부 기록·코칭 문구 선택에만 쓴다. 증감 폭 숫자는 어떤 경우에도 쓰지 않는다</td></tr>
         <tr><td class="k">▼ 낮아졌어요</td><td>좋음→보통 · 보통→주의 · 좋음→주의</td></tr>
         <tr><td class="k">표시 없음</td><td>같은 구간 · 전일 값 없음 · 어느 한쪽이 관찰 중</td></tr>
       </tbody>
@@ -525,7 +525,7 @@ I3 = 100 × Σ( w_k · s_k ) ÷ Σ( w_k )   , k ∈ coverage 충족 신호
       <div class="step"><div class="n">02</div><b>정규화</b><span>시간대·단위·중복 정리 · observed / missing / nonwear 판정 · movement_minutes 산출 · coverage / comparable 플래그</span></div>
       <div class="step"><div class="n">03</div><b>지표 산출</b><span>I1 · I2 · I3 내부 규칙값(0~100) 또는 null · 개인 기준선(21일)</span></div>
       <div class="step"><div class="n">04</div><b>상태 변환</b><span>좋음 · 보통 · 주의 · 관찰 중 · 전일 대비 구간 변화 판정 · 정확한 숫자 비노출</span></div>
-      <div class="step"><div class="n">05</div><b>화면 노출</b><span>홈 3구간 게이지 · 지표별 분석 카드(배지 · 주간 띠 그래프 · 현재 흐름 · 핵심 데이터)</span></div>
+      <div class="step"><div class="n">05</div><b>화면 노출</b><span>홈 3구간 게이지 · 지표별 분석 카드(배지 · 주간 띠 그래프 · 핵심 데이터)</span></div>
     </div>
     <div class="callout risk">공통 안전장치 — missing/nonwear → null · 0으로 치환 금지 · 관측 경로가 다르면 비교 차단(comparable=false) · 세 지표 합산 금지 · 내부 값·증감 폭 API 응답에 노출 금지(state_key만 전달)</div>
     <h3>산출 주기 · 저장</h3>
@@ -554,7 +554,7 @@ I3 = 100 × Σ( w_k · s_k ) ÷ Σ( w_k )   , k ∈ coverage 충족 신호
         <tr><td><span class="status-tag p1">P1</span></td><td class="k">P1-3</td><td>라벨 최종 문구</td><td>자기돌봄·일상안정 주의 구간 표현. 현행 「부족해요 · 불안정해요」 vs 대안 「돌봄이 필요해요 · 평소와 다른 흐름이에요」를 사용자 테스트 후 확정. 가장 긴 라벨 「잘하고 있어요」 기준 칩 폭 검증</td><td>기획 · 디자인</td></tr>
         <tr><td><span class="status-tag p1">P1</span></td><td class="k">P1-4</td><td>신규 사용자 기준 형성 기간</td><td>가입 직후 관찰 중으로만 표시되는 기간. I3는 최소 15일 이력이 필요하므로 「며칠 더」 문구의 실제 일수</td><td>기획</td></tr>
         <tr><td><span class="status-tag p1">P1</span></td><td class="k">P1-5</td><td>관찰 중 사유 문구 세트</td><td>지표별 산출 불가 원인(활동 기록 없음 · 기준점 미관측 · 기준선 미형성 · 연동 해제)에 대응하는 문구</td><td>기획</td></tr>
-        <tr><td><span class="status-tag p1">P1</span></td><td class="k">P1-6</td><td>현재 흐름 문장 생성 규칙</td><td>구간 · 전일 대비 판정 · 기여 구성 요소 조합별 템플릿과 금지 어휘. 별도 문서(지표 해석 문구 규칙)</td><td>기획</td></tr>
+        <tr><td><span class="status-tag p1">P1</span></td><td class="k">P1-6</td><td><s>현재 흐름 문장 생성 규칙</s></td><td>삭제 — 지표별 분석의 지표 해석 탭·설명 문장을 없애기로 최종 협의(2026-09-29). 확정 불필요</td><td>기획</td></tr>
         <tr><td><span class="status-tag p1">P1</span></td><td class="k">P1-7</td><td>지표 흐름 탐색기 제작</td><td>본 문서 산식으로 합성 42일 데이터 탐색기를 제작. 시나리오: 타임라인 결측 · 식후 10분 움직임 · 늦은 시간 몰림 · 기록만 있고 행동 없음 · 기준선 미형성</td><td>개발</td></tr>
       </tbody>
     </table>

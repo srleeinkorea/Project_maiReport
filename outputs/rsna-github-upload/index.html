@@ -2454,11 +2454,6 @@ if(window.self !== window.top){
    1. 오늘의 질문
    ════════════════════════════════════════════════════════════ */
 const Q_BASE = [
-  { id:'fatigue', cat:'피로', av:'⚡', tint:'energy',
-    text:'오늘 몸의 피로감은 어느 정도인가요?',
-    opts:[{v:'none',f:'⌣',label:'괜찮아요',    tone:'good'},
-          {v:'mild',f:'—',label:'조금 피곤해요',tone:'okay'},
-          {v:'high',f:'⌢',label:'많이 피곤해요',tone:'bad'}] },
   { id:'sleep', cat:'수면', av:'🌙', tint:'moon',
     text:'어젯밤 얼마나 주무셨나요?',
     opts:[{v:'lt5', f:'◔',label:'5시간 미만',tone:'neutral'},
@@ -2653,9 +2648,9 @@ const C_BASE = {act:'오늘은 충분히 쉬고 물을 자주 드세요.',
 /* 이 시연본은 위험을 알리는 경고 문구를 쓰지 않는다 — 놀라게 하지 않고
    오늘 할 수 있는 행동만 남기는 것이 이 화면의 역할이다.
    답이 모두 나쁜 쪽인 날에도 먹기 · 쉬기 같은 실행 코칭으로 이어간다. */
-/* 리포트가 없는 평소 상태의 코칭 — 식이 두 문항과 피로 답으로 만든다 */
+/* 리포트가 없는 평소 상태의 코칭 — 식이 문항 답으로 만든다 */
 function coachingGeneral(){
-  const {meal,fatigue,veg,sweet,salt,pace,fat} = ans;
+  const {meal,veg,sweet,salt,pace,fat} = ans;
   if(meal && meal.v==='skip') return {act:'다음 끼니는 거르지 말고 가볍게 챙겨 드세요.',
     why:'한 끼를 거의 거르면 다음 끼니에 몰아 먹게 되기 쉬워요. 양보다 거르지 않는 것이 먼저예요.'};
   if(salt && salt.v==='bad') return {act:'다음 끼니 국물은 절반만 드셔보세요.',
@@ -2668,8 +2663,6 @@ function coachingGeneral(){
     why:'배부름 신호는 먹기 시작하고 20분쯤 뒤에 와요.'};
   if(fat && fat.v==='bad') return {act:'다음 끼니 기름진 반찬은 생선이나 두부로 바꿔보세요.',
     why:'같은 단백질이라도 조리법에 따라 지방 양이 크게 달라져요.'};
-  if(fatigue && fatigue.v==='high') return {act:'오늘은 활동을 조금 줄이고 충분히 쉬어보세요.',
-    why:'피로도가 높은 날은 규칙적인 식사·수면과 가벼운 활동 위주로 보내는 것이 좋아요.'};
   return {act:'오늘은 지금의 생활 리듬을 그대로 유지해보세요.',
     why:'답변과 최근 데이터 모두 평소와 비슷해요. 식후 가벼운 걷기만 더해도 충분해요.'};
 }
@@ -2759,9 +2752,9 @@ const MEAL_PHRASES = {
     {title:'조금씩 자주 나눠 먹기',        why:'한 번에 못 먹으면 횟수를 늘려요'},
     {title:'빈 끼는 우유나 두유 한 잔',    why:'준비 없이 바로 먹을 수 있는 회복 끼니예요'}
   ],
-  /* 부담 줄이기 풀 — 피로가 크거나 수면이 5시간 미만인 날 쓰는 묶음. 축·단계가 없다. */
+  /* 부담 줄이기 풀 — 연동된 수면이 5시간 미만인 날 쓰는 묶음. 축·단계가 없다. */
   burden:[
-    {title:'저녁은 차리기 쉬운 것으로', why:'차리는 수고를 줄이는 것도 방법이에요'},
+    {title:'저녁은 쉬운 것으로', why:'차리는 수고를 줄이는 것도 방법이에요'},
     {title:'저녁은 익힌 채소로 가볍게', why:'익힌 채소는 속에 부담이 적어요'},
     {title:'커피 대신 따뜻한 차 한 잔', why:'피곤한 날 카페인은 잠을 더 밀어내요'},
     {title:'저녁은 익숙한 음식으로',   why:'피곤한 날엔 새로운 음식이 부담돼요'},
@@ -2770,29 +2763,29 @@ const MEAL_PHRASES = {
   /* 채소 축 — 어느 끼니에나 물을 수 있어 아침 진입의 대체 축으로도 쓴다 */
   veg:{
     입문:[{title:'아침에도 채소 한 가지',      why:'아침은 채소가 가장 자주 빠지는 끼니예요'},
-          {title:'고기 먹을 땐 쌈 채소 함께',  why:'쌈 채소는 가장 쉽게 채소를 더하는 방법이에요'}],
-    기본:[{title:'외식 때 채소 반찬 하나 추가', why:'외식은 채소가 가장 빠지기 쉬운 끼니예요'},
+          {title:'고기엔 쌈 채소 함께',  why:'쌈 채소는 가장 쉽게 채소를 더하는 방법이에요'}],
+    기본:[{title:'외식에도 채소 하나 더', why:'외식은 채소가 가장 빠지기 쉬운 끼니예요'},
           {title:'김밥 · 덮밥엔 채소 더 넣기',  why:'한 그릇 음식은 채소를 따로 챙겨야 해요'}],
-    도전:[{title:'매 끼니 채소 두 가지',       why:'끼니마다 두 가지면 하루 다섯 접시에 가까워져요'},
-          {title:'저녁 반찬 절반은 채소로',    why:'저녁 접시의 절반을 채소로 채우는 것이 권고 형태예요'}]
+    도전:[{title:'끼니마다 채소 두 가지',       why:'끼니마다 두 가지면 하루 다섯 접시에 가까워져요'},
+          {title:'저녁 반찬 절반 채소',    why:'저녁 접시의 절반을 채소로 채우는 것이 권고 형태예요'}]
   },
   /* 짠맛 · 국물 축 — 요일 순환에서 목요일에 걸리는 축 */
   salt:{
     입문:[{title:'국은 반 그릇만 담기',        why:'담는 양을 줄이는 게 남기는 것보다 쉬워요'},
-          {title:'찌개는 앞접시에 건더기만',   why:'앞접시로 옮기면 국물을 자연히 덜 먹게 돼요'}],
-    기본:[{title:'짠 반찬은 한 끼에 한 가지만', why:'김치 · 장아찌 · 젓갈이 겹치면 한 끼에 하루치가 돼요'},
+          {title:'찌개는 건더기만',   why:'앞접시로 옮기면 국물을 자연히 덜 먹게 돼요'}],
+    기본:[{title:'짠 반찬은 한 가지만', why:'김치 · 장아찌 · 젓갈이 겹치면 한 끼에 하루치가 돼요'},
           {title:'김치는 평소의 절반',         why:'한국인 나트륨의 첫째 급원이 김치예요'}],
-    도전:[{title:'오늘 세 끼 국물 없이',       why:'국물을 하루 끊으면 나트륨이 절반 가까이 줄어요'},
+    도전:[{title:'오늘 국물 없이',       why:'국물을 하루 끊으면 나트륨이 절반 가까이 줄어요'},
           {title:'배달 음식엔 소스 반만',      why:'배달 음식 나트륨의 절반은 함께 오는 소스에 있어요'}]
   },
   protein:{
     입문:[{title:'아침에 달걀 하나',         why:'달걀 하나로 아침 단백질이 채워져요'},
-          {title:'두유나 우유 한 잔 챙기기',  why:'마시는 단백질은 반찬이 없어도 챙길 수 있어요'},
+          {title:'우유 · 두유 한 잔',  why:'마시는 단백질은 반찬이 없어도 챙길 수 있어요'},
           {title:'저녁에 두부 한 가지',      why:'데우기만 하면 되는 단백질 반찬이에요'}],
     기본:[{title:'생선 반찬 한 끼',          why:'생선은 단백질과 좋은 지방을 함께 줘요'},
           {title:'두부 반 모 반찬으로',      why:'두부 반 모가 고기 한 접시 단백질과 비슷해요'}],
-    도전:[{title:'끼니마다 다른 단백질 반찬', why:'고기 · 생선 · 달걀 · 콩을 돌리면 영양이 고르게 돼요'},
-          {title:'저녁 단백질은 생선 · 두부로', why:'저녁엔 소화가 가벼운 단백질이 좋아요'}]
+    도전:[{title:'끼니마다 다른 단백질', why:'고기 · 생선 · 달걀 · 콩을 돌리면 영양이 고르게 돼요'},
+          {title:'저녁은 생선 · 두부', why:'저녁엔 소화가 가벼운 단백질이 좋아요'}]
   }
 };
 /* 폐렴 급성기 기본 목표 — 식이는 답변 뒤에 생성되므로 잠금 상태의 자리만 잡아둔다 */
@@ -2850,17 +2843,13 @@ function pickPhrase(arr, fallback){
   return any[0] || (arr||[])[0];
 }
 function mealGoal(b){
-  const {meal,protein,fever,fatigue,salt,veg,sweet,pace,fat} = ans;
+  const {meal,protein,fever,salt,veg,sweet,pace,fat} = ans;
   const pick = (arr, i) => arr[i % arr.length];
   if(!hasAiReport){
     /* 평소 상태의 축 선정 — 회복 풀 → (확진·검진 없음) → 부담 줄이기 풀 → 일반(요일 순환 축) */
     if(meal && (meal.v==='skip' || meal.v==='less'))
       { const p = pickPhrase(MEAL_PHRASES.recovery.slice(meal.v==='skip' ? 2 : 3), MEAL_PHRASES.recovery);
         return {...b, title:p.title, why:p.why, how:`대상 끼니 · ${TARGET_MEAL}`}; }
-    /* 피로 문항은 여기에 쓰인다 — 피곤한 날에는 축·단계를 따지지 않고 부담이 적은 문구를 낸다
-       (수면 5시간 미만도 같은 조건이지만 평소 세트에는 수면 문항이 없어 피로 답만 본다) */
-    if(fatigue && fatigue.v==='high')
-      { const p = pickPhrase(MEAL_PHRASES.burden); return {...b, title:p.title, why:p.why, how:`부담 줄이기 · ${TARGET_MEAL}`}; }
     /* 오늘 물은 회전 축의 답으로 단계를 정하고, 그 축의 문구세트에서 고른다 */
     const axis = salt ? {k:'salt', nm:'짠맛 · 국물', a:salt} : {k:'veg', nm:'채소', a:veg};
     const step = !axis.a ? '입문' : axis.a.v==='bad' ? '입문' : axis.a.v==='mid' ? '기본' : '도전';
@@ -2880,20 +2869,9 @@ function mealGoal(b){
   return {...b, title:p.title, why:p.why, how:`단백질 · ${step} 단계 · ${TARGET_MEAL}`};
 }
 function adjust(b){
-  const {care,walk,fatigue} = ans;
+  const {care,walk} = ans;
   if(b.key==='meal') return mealGoal(b);
-  if(!hasAiReport){
-    /* 평소 상태의 활동 목표 — 피로 답으로 오늘 낼 수 있는 만큼을 정한다.
-       기기 데이터(걸음·활동 시간)는 어제까지의 기록이라 오늘 컨디션을 대신하지 못한다. */
-    if(b.key==='move'){
-      if(fatigue && fatigue.v==='high') return {...b, title:'저녁 먹고 5분만 걷기',
-        why:'피곤한 날은 짧게가 오래 가요', how:'집 근처를 5분만 천천히 걸어요'};
-      if(fatigue && fatigue.v==='mild') return {...b, title:'점심 먹고 10분 걷기',
-        why:'점심 뒤 10분이면 부담이 적어요', how:'점심 뒤 자리에서 일어나 10분만 걸어요'};
-      if(fatigue && fatigue.v==='none') return {...b, why:'지금 속도를 그대로 이어가면 돼요'};
-    }
-    return {...b};
-  }
+  if(!hasAiReport) return {...b};
   if(b.key==='move'){
     /* 오늘의 활동은 걷기 답이 정한다. 아직 회복 중이 아니면 같은 '걸을 수 있다'도 한 단계 낮춰 잡는다 */
     if(walk && walk.v==='rest') return {...b, title:'오늘은 앉거나 누워서 쉬기',
@@ -2923,16 +2901,15 @@ const GOAL_TINT = {meal:{c:'#C56A00',bg:'#FDEBD3'}, move:{c:'#D6336C',bg:'#FBD9E
 /* 초기 잠금: 오늘의 목표는 관련 질문에 답해야 열린다(식이 ← 식사/시야 질문, 활동 ← 피로 질문, 수면 ← 수면 질문).
    잠긴 타일을 누르면 해당 질문으로 이동한다. 과거 날짜에는 적용하지 않는다. */
 const GOAL_LOCK_BY_QUESTION = true;
-const GOAL_UNLOCK_Q = { meal:['meal'], move:['walk','fatigue'], sleep:['sleep'] };
+const GOAL_UNLOCK_Q = { meal:['meal'], move:['walk'], sleep:['sleep'] };
 /* 잠그는 카테고리만 지정한다 — 나머지는 처음부터 열린 상태로 보여준다 */
 /* 이 시연본은 식이와 활동을 잠가 두고 답변 완료 시 생성한다.
    원본은 식이만 잠그지만, 폐렴 케이스에서는 '오늘 걸을 수 있는지'가 활동 목표를 가르는
    결정적 조건이고 그 값은 워치 데이터로 알 수 없어 질문 답변이 있어야 한다.
    수면은 기본 목표(상체 높여 눕기)를 그대로 깔아 두고 답변으로 바꾸지 않는다. */
 let GOAL_LOCK_KEYS = ['meal','move'];
-/* 활동 목표는 두 케이스 모두 답변으로 연다 — 평소에는 피로 답이, 폐렴 케이스에서는 걷기 답이
-   오늘 얼마나 움직일 수 있는지를 가른다. 기기 데이터만으로는 알 수 없는 값이다. */
-const GOAL_LOCK_BY_CASE = { well:['meal','move'], sick:['meal','move'] };
+/* 평소 활동 목표는 처음부터 열고, 폐렴 회복기 활동 목표만 걷기 답변 후 생성한다. */
+const GOAL_LOCK_BY_CASE = { well:['meal'], sick:['meal','move'] };
 function goalLocked(key, dayN){
   if(!GOAL_LOCK_BY_QUESTION) return false;
   const today = typeof TODAY!=='undefined' ? TODAY : 20;

@@ -20,3 +20,4 @@ outputs/_archive/_backup/
 Thumbs.db
 desktop.ini
 .DS_Store
+.claude/
