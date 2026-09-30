@@ -167,7 +167,7 @@
   <div class="sub">일일 건강 문진, 개인화 코칭, 목표 관리 및 건강지표 표시 · 기능 8개</div>
   <table>
     <tr><th style="width:110px">기능 ID</th><th style="width:210px">기능명</th><th>기능 설명</th><th style="width:110px">상태</th></tr>
-    <tr><td class="k">HOME-001</td><td class="k">적응형 일일 문진 세트 선정</td><td>의료정보 보유 여부와 생리·생활 데이터의 결측 상태에 따라 오늘의 문진을 5개 미만으로 선정한다. 지표 산출·코칭에 필요한 상태가 늘어나면 문항 종류가 추가될 수 있다.</td><td><span class="pill p-l">정책 검토 필요</span></td></tr>
+    <tr><td class="k">HOME-001</td><td class="k">적응형 일일 문진 세트 선정</td><td>의료정보 보유 여부와 생리·생활 데이터의 결측 상태에 따라 오늘의 문진을 최대 5문항으로 선정한다. 지표 산출·코칭에 필요한 상태가 늘어나면 문항 종류가 추가될 수 있다.</td><td><span class="pill p-l">정책 검토 필요</span></td></tr>
     <tr><td class="k">HOME-002</td><td class="k">문진 문항 표시</td><td>현재 문항과 3개 응답 선택지를 한 번에 하나씩 표시한다.</td><td><span class="pill p-g">프로토타입 구현</span></td></tr>
     <tr><td class="k">HOME-003</td><td class="k">문진 응답 저장 및 자동 진행</td><td>선택 응답을 임시 저장하고 0.5초 후 다음 문항으로 이동한다.</td><td><span class="pill p-g">프로토타입 구현</span></td></tr>
     <tr><td class="k">HOME-004</td><td class="k">문진 응답 조회 및 수정</td><td>완료된 문진의 응답을 조회하고 다른 응답으로 변경한다.</td><td><span class="pill p-g">프로토타입 구현</span></td></tr>
@@ -175,6 +175,7 @@
     <tr><td class="k">HOME-006</td><td class="k">잠긴 목표 생성</td><td>문진 완료 시 잠겨 있던 목표만 응답을 반영해 1회 생성한다.</td><td><span class="pill p-g">프로토타입 구현</span></td></tr>
     <tr><td class="k">HOME-007</td><td class="k">목표 완료/쉬기 상태 변경</td><td>일일 목표를 완료 또는 쉬기 상태로 전환하고 완료 수를 집계한다.</td><td><span class="pill p-g">프로토타입 구현</span></td></tr>
     <tr><td class="k">HOME-008</td><td class="k">오늘의 컨디션 및 건강지표 상세 표시</td><td>홈에서 최근 개인 기준선과 비교한 오늘의 컨디션 3개 지표와 근거 데이터를 제공한다.</td><td><span class="pill p-l">정책 검토 필요</span></td></tr>
+    <tr><td class="k">HOME-009</td><td class="k">홈 AI 건강 인사이트 카드</td><td>결과가 있으면 가장 최근 결과의 점수와 분석 기간만 표시하고, 없으면 [분석하기]를 표시한다. 누르면 생활 &gt; AI 인사이트로 이동한다.</td><td><span class="pill p-g">프로토타입 구현</span></td></tr>
   </table>
   <h3>HOME-001 · 적응형 일일 문진 세트 선정</h3>
   <table>
@@ -182,7 +183,7 @@
     <tr><td class="k">트리거</td><td>홈 초기화, 데이터 동기화 또는 연계 상태 변경</td></tr>
     <tr><td class="k">입력값</td><td>검진·진료·AI REPORT 보유 여부, 데이터 가용성·최신성·결측 항목, 오늘 응답 이력</td></tr>
     <tr><td class="k">처리 로직</td><td>결측 보완형 질문을 우선 구성하고 의료정보가 있으면 조건형 질문을 앞순위에 배치한다. 걸음 수만 있는 경우에도 기본 피로·수면·식사 질문으로 세트를 구성한다.</td></tr>
-    <tr><td class="k">출력값</td><td>사용자별 오늘의 문진 세트(5개 미만)와 선정 근거</td></tr>
+    <tr><td class="k">출력값</td><td>사용자별 오늘의 문진 세트(최대 5문항)와 선정 근거</td></tr>
     <tr><td class="k">선행조건</td><td>홈 접근 가능, 질문 콘텐츠 유효 버전 존재</td></tr>
     <tr><td class="k">예외 처리</td><td>가용 데이터 판정 실패 시 기본 문항 세트로 대체하고 동일 질문의 당일 중복 노출을 방지</td></tr>
     <tr><td class="k">연관 화면</td><td>HOME-001 · 홈 대시보드</td></tr>
@@ -216,18 +217,18 @@
     <tr><td class="k">입력값</td><td>완료 응답 세트, 변경 응답</td></tr>
     <tr><td class="k">처리 로직</td><td>질문별 전체 선택지와 선택값 표시, 변경 시 코칭만 재생성(이미 생성된 목표는 불변)</td></tr>
     <tr><td class="k">출력값</td><td>수정된 응답과 갱신된 코칭</td></tr>
-    <tr><td class="k">선행조건</td><td>3개 문항 완료</td></tr>
+    <tr><td class="k">선행조건</td><td>그날 문항 모두 완료</td></tr>
     <tr><td class="k">예외 처리</td><td>기존 응답 재선택은 처리하지 않음</td></tr>
     <tr><td class="k">연관 화면</td><td>HOME-002 · 오늘의 질문 답변 조회</td></tr>
   </table>
   <h3>HOME-005 · 가용 데이터 기반 개인화 코칭 생성</h3>
   <table>
     <tr><th style="width:110px">항목</th><th>내용</th></tr>
-    <tr><td class="k">트리거</td><td>응답 변경, 데이터 동기화 또는 홈 갱신</td></tr>
+    <tr><td class="k">트리거</td><td>오늘의 질문 모두 답변 완료, 응답 변경, 데이터 동기화</td></tr>
     <tr><td class="k">입력값</td><td>가용 데이터 프로파일, 개인 기준선, 문진 응답, AI REPORT·검진·진료 맥락</td></tr>
     <tr><td class="k">처리 로직</td><td>데이터 충분도 확인 → 안전 우선순위 규칙 적용 → 상태 요약 → 근거 데이터 매핑 → 식이·활동·수면 행동 제안 순으로 처리한다. 데이터가 적으면 일반적이고 보수적인 코칭을 제공한다.</td></tr>
-    <tr><td class="k">출력값</td><td>현재 상태 요약, 핵심 행동 1줄, 제안 사유 및 근거 데이터</td></tr>
-    <tr><td class="k">선행조건</td><td>기본 문항 또는 1개 이상의 유효 건강 데이터 존재</td></tr>
+    <tr><td class="k">출력값</td><td>현재 상태 요약, 핵심 행동 1줄, 제안 사유 및 근거 데이터. 카드 상태: 답변 전 안내 → 생성 중 → 행동 한 줄 + 이유</td></tr>
+    <tr><td class="k">선행조건</td><td>오늘의 질문 모두 답변 완료(일부 답변으로는 만들지 않음)</td></tr>
     <tr><td class="k">예외 처리</td><td>근거 부족 시 일반 코칭으로 대체하고 질병 진단·치료 표현 또는 긴급 징후는 차단·상담 안내 처리</td></tr>
     <tr><td class="k">연관 화면</td><td>HOME-001 · 홈 대시보드</td></tr>
   </table>
@@ -691,7 +692,7 @@
   <table>
     <tr><th style="width:110px">항목</th><th>내용</th></tr>
     <tr><td class="k">트리거</td><td>AI 건강 인사이트 또는 기간 선택 화면의 [분석하기] 선택</td></tr>
-    <tr><td class="k">입력값</td><td>선택 주차의 생활 데이터, 선택 검진정보, 문진 응답, 리포트 생성 이력</td></tr>
+    <tr><td class="k">입력값</td><td>선택 주차의 생활 데이터, 선택 검진정보, 리포트 생성 이력 (오늘의 질문 답변은 선행 조건이 아님)</td></tr>
     <tr><td class="k">처리 로직</td><td>생활 데이터 검증 → 선택 정보 병합 → 분석 요청 → 점수·요약·상세 데이터 저장 → 생성 완료 화면 표시</td></tr>
     <tr><td class="k">출력값</td><td>생성 완료 요약과 저장된 주차별 리포트</td></tr>
     <tr><td class="k">선행조건</td><td>선택 주차의 유효한 생활 데이터 존재</td></tr>
@@ -1025,7 +1026,7 @@
     <tr><th style="width:110px">항목</th><th>내용</th></tr>
     <tr><td class="k">트리거</td><td>일일 문진 세트 생성 요청</td></tr>
     <tr><td class="k">입력값</td><td>결측 항목, 마지막 질문·응답 시각, 의료 맥락, 질문 피로도, 질문 콘텐츠 버전</td></tr>
-    <tr><td class="k">처리 로직</td><td>결측 중요도·코칭 활용도·최근 노출 이력 평가 → 질환 맞춤형·결측 보완형 후보 병합 → 중복 제거 → 5문항 미만 선정</td></tr>
+    <tr><td class="k">처리 로직</td><td>결측 중요도·코칭 활용도·최근 노출 이력 평가 → 질환 맞춤형·결측 보완형 후보 병합 → 중복 제거 → 최대 5문항 선정</td></tr>
     <tr><td class="k">출력값</td><td>질문 ID와 선정 사유·응답 변환 규칙</td></tr>
     <tr><td class="k">선행조건</td><td>가용 데이터·결측 판정 완료</td></tr>
     <tr><td class="k">예외 처리</td><td>질문으로 수집하기 부적절한 의료정보와 반복 거부 항목은 제외하고 기본 질문으로 대체</td></tr>
@@ -1126,7 +1127,7 @@
     <tr><th style="width:110px">항목</th><th>내용</th></tr>
     <tr><td class="k">트리거</td><td>당일 첫 홈 진입</td></tr>
     <tr><td class="k">입력값</td><td>진입 시각, 수집된 기기 데이터, 의료 이력, 개인 기준선(직전 21일)</td></tr>
-    <tr><td class="k">처리 로직</td><td>첫 진입 여부 확인 → 결측·부족 항목 판정 → 질문 세트 확정(5문항 미만) → 목표별 데이터 충분 여부 판정 → 충분한 목표는 생성, 부족한 목표는 잠금</td></tr>
+    <tr><td class="k">처리 로직</td><td>첫 진입 여부 확인 → 결측·부족 항목 판정 → 질문 세트 확정(최대 5문항) → 목표별 데이터 충분 여부 판정 → 충분한 목표는 생성, 부족한 목표는 잠금</td></tr>
     <tr><td class="k">출력값</td><td>당일 고정 질문 세트와 목표 3종의 초기 상태</td></tr>
     <tr><td class="k">선행조건</td><td>하루 경계 처리 완료, 기기 데이터 정리 단계 완료</td></tr>
     <tr><td class="k">예외 처리</td><td>생성 중 오류 시 재시도하되 이미 확정된 세트는 재생성하지 않는다 · 중복 요청은 최초 1회만 반영</td></tr>
