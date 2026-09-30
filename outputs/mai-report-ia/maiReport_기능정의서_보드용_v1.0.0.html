@@ -386,8 +386,8 @@
   <table>
     <tr><th style="width:110px">항목</th><th>내용</th></tr>
     <tr><td class="k">트리거</td><td>AI 건강 인사이트 메인 탭 진입 또는 주차 변경</td></tr>
-    <tr><td class="k">입력값</td><td>생활 데이터 연계 여부, 검진·진료·AI REPORT 가용성, 선택 주차, 해당 주 리포트, 최근 생성일, 오늘의 질문 완료 여부</td></tr>
-    <tr><td class="k">처리 로직</td><td>생활 데이터 미연계 시 연계 CTA 표시 → 선택 주 리포트 존재 시 요약·상세 CTA 표시 → 미생성 주차는 분석 CTA 표시 → 검진·진료·AI REPORT는 선택 근거로 적용 → 재분석 시점에만 오늘의 질문 완료 여부 확인</td></tr>
+    <tr><td class="k">입력값</td><td>생활 데이터 연계 여부, 검진·진료·AI REPORT 가용성, 선택 주차, 해당 주 리포트, 최근 생성일</td></tr>
+    <tr><td class="k">처리 로직</td><td>생활 데이터 미연계 시 연계 CTA 표시 → 선택 주 리포트 존재 시 요약·상세 CTA 표시 → 미생성 주차는 분석 CTA 표시 → 검진·진료·AI REPORT는 선택 근거로 적용 (오늘의 질문 답변과 무관)</td></tr>
     <tr><td class="k">출력값</td><td>연계 안내, 분석에 활용 가능한 출처, 주차별 분석 CTA, 최신 리포트 요약, 분석 목록·다른 기간 분석 진입점</td></tr>
     <tr><td class="k">선행조건</td><td>로그인 세션 유효</td></tr>
     <tr><td class="k">예외 처리</td><td>검진·진료·AI REPORT 미연계는 인사이트 생성을 차단하지 않고 가용 생활 데이터 범위에서 분석하며, 생성 주기 내 재요청은 다음 가능일 안내</td></tr>
@@ -978,7 +978,8 @@
   <h2><span class="n">09</span>리포트-화면 연계</h2>
   <div class="sub">리포트 대상자 본인 확인 및 홈 컨텍스트 전환 · 기능 2개</div>
   <table>
-    <tr><th style="width:110px">기능 ID</th><th style="width:210px">기능명</th><th>기능 설명</th><th style="width:110px">상태</th></tr>
+    <tr><th style="width:110px">기능 ID</th><th style="width:210px">기능명</th><th>기능 설명</th><th style="width:110px">상태</th></tr>
+
     <tr><td class="k">PROF-003</td><td class="k">리포트 대상자 본인 확인</td><td>AI REPORT 또는 업로드 검진정보의 대상자가 로그인한 본인과 일치하는지 확인한다.</td><td><span class="pill p-l">정책 검토 필요</span></td></tr>
     <tr><td class="k">TRACE-001</td><td class="k">리포트 결과 기반 홈 컨텍스트 전환</td><td>AI REPORT 확인 또는 검진정보 등록 완료 후 해당 결과가 반영된 상태 요약과 코칭으로 자연스럽게 이동한다.</td><td><span class="pill p-l">정책 검토 필요</span></td></tr>
   </table>

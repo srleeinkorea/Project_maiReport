@@ -6313,7 +6313,7 @@ function renderAiInsightEntry(){
     if(can) document.getElementById('aiRedo').onclick = ()=>openAiRedoConfirm(thisWeek);
     document.getElementById('aiViewRange').onclick = openAiRangePicker;
   } else {
-    const needsTodayQ = !!last && !allDone();
+    const needsTodayQ = false;   /* AI 인사이트 분석은 오늘의 질문 답변과 무관 */
     el.innerHTML = `
       <div class="ai-entry">
         <span class="spark">✨</span>
