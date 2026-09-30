@@ -7,6 +7,18 @@
 <style>
 :root{--ink:#172033;--sub:#667085;--line:#e6eaf0;--soft:#f5f7fb;--blue:#4169e1;--navy:#253a70;--mint:#dff5ec;--green:#217a5b;--amber:#fff1ce;--orange:#a66100;--rose:#ffe7e8;--red:#b64249;--white:#fff;--shadow:0 18px 45px rgba(32,45,78,.10)}
 *{box-sizing:border-box}body{margin:0;background:#eef2f8;color:var(--ink);font-family:Pretendard,"Noto Sans KR",Arial,sans-serif;letter-spacing:-.015em}button{font:inherit;color:inherit}.shell{max-width:1440px;margin:auto;padding:28px}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:20px}.eyebrow{font-size:12px;font-weight:800;color:var(--blue);letter-spacing:.08em}.hero h1{margin:7px 0 8px;font-size:30px;letter-spacing:-.04em}.hero p{margin:0;color:var(--sub);line-height:1.6}.version{padding:8px 12px;border:1px solid #cdd6ea;border-radius:999px;background:#fff;color:#516078;font-size:12px;font-weight:700;white-space:nowrap}.panel{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.scenario-bar{padding:18px 20px;margin-bottom:16px}.bar-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.bar-title b{font-size:14px}.bar-title span{font-size:12px;color:var(--sub)}.scenario-list{display:flex;gap:8px;overflow:auto;padding-bottom:2px}.scenario{border:1px solid #d9dfeb;background:#fff;border-radius:13px;padding:10px 13px;text-align:left;min-width:150px;cursor:pointer}.scenario strong{display:block;font-size:13px}.scenario small{display:block;margin-top:4px;color:var(--sub);font-size:11px}.scenario.on{border-color:var(--blue);background:#eef2ff;box-shadow:inset 0 0 0 1px var(--blue)}.grid{display:grid;grid-template-columns:minmax(250px,.78fr) minmax(360px,1.15fr) minmax(330px,1fr);gap:16px}.side,.history{padding:20px}.phone-wrap{padding:14px;display:flex;justify-content:center;align-items:flex-start}.phone{width:min(100%,410px);min-height:716px;border:8px solid #182238;border-radius:36px;background:#f7f8fc;overflow:hidden;box-shadow:0 15px 35px rgba(20,31,57,.18)}.phone-top{height:27px;background:#fff;display:flex;justify-content:center}.notch{width:104px;height:19px;background:#182238;border-radius:0 0 14px 14px}.app-head{background:#fff;padding:12px 18px 16px;border-bottom:1px solid var(--line)}.app-head .topline{display:flex;justify-content:space-between;align-items:center}.app-head b{font-size:17px}.app-head span{font-size:11px;color:var(--sub)}.app-body{padding:16px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:2px 0 10px}.section-title b{font-size:13px}.section-title span{font-size:11px;color:var(--sub)}.q-card,.goal-card,.notice-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:11px}.q-meta{font-size:10px;color:var(--blue);font-weight:800}.q-text{margin:7px 0 12px;font-size:15px;font-weight:800;line-height:1.45}.answers{display:grid;gap:7px}.answer{border:1px solid #e3e7ef;border-radius:11px;padding:9px 10px;font-size:12px;background:#fff}.answer.on{border-color:var(--blue);background:#edf1ff;color:#294db1;font-weight:800}.goal-card{background:linear-gradient(145deg,#253a70,#4169e1);color:#fff;border:0}.goal-source{font-size:10px;color:#dbe3ff;font-weight:800}.goal-title{font-size:20px;font-weight:900;line-height:1.35;margin:8px 0}.goal-reason{font-size:12px;line-height:1.55;color:#eaf0ff}.goal-foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px;font-size:10px;color:#dbe3ff}.goal-foot button{border:0;border-radius:9px;background:#fff;color:#3152bd;padding:7px 10px;font-weight:800}.notice-card{background:#fff9eb;border-color:#f2dfab;font-size:11px;line-height:1.55;color:#765412}.side h2,.history h2{font-size:16px;margin:0 0 15px}.label{font-size:11px;color:var(--sub);margin:16px 0 7px}.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{font-size:11px;padding:6px 8px;border-radius:999px;background:#f0f3f8;color:#526078}.chip.manual{background:#e8edff;color:#3153bd}.chip.clinic{background:#e5f5ef;color:#217257}.chip.safe{background:#fff0dd;color:#9a5e05}.empty{font-size:12px;color:#98a2b3}.priority{margin-top:14px}.priority-row{display:grid;grid-template-columns:26px 1fr;gap:9px;align-items:start;padding:9px 0;border-bottom:1px solid #edf0f5}.priority-row:last-child{border:0}.rank{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:#eef2ff;color:#3153bd;font-size:11px;font-weight:900}.priority-row b{display:block;font-size:12px}.priority-row small{color:var(--sub);font-size:10px;line-height:1.45}.rule-box{margin-top:14px;padding:12px;border-radius:14px;background:#f6f8fc;font-size:11px;color:#536078;line-height:1.55}.range{display:flex;gap:6px}.range button{border:1px solid #dfe4ed;background:#fff;border-radius:9px;padding:7px 9px;font-size:11px;cursor:pointer}.range button.on{background:#253a70;color:#fff;border-color:#253a70}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 16px}.metric{background:#f6f8fc;border-radius:13px;padding:11px}.metric span{font-size:10px;color:var(--sub)}.metric b{display:block;margin-top:4px;font-size:18px}.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.day{border:1px solid #e2e7ef;background:#fff;border-radius:11px;padding:8px 3px;text-align:center;cursor:pointer;min-width:0}.day b{display:block;font-size:11px}.day i{display:block;width:7px;height:7px;border-radius:50%;margin:6px auto 0;background:#bcc5d5}.day.done i{background:#27a878}.day.wait i{background:#f0ad3d}.day.on{border-color:var(--blue);background:#eef2ff}.trend{margin-top:16px}.trend-title{display:flex;justify-content:space-between;font-size:11px;color:var(--sub);margin-bottom:8px}.bars{height:82px;display:flex;align-items:end;gap:5px;border-bottom:1px solid #dfe4ec;padding:0 3px}.bar{flex:1;min-width:4px;border-radius:5px 5px 0 0;background:#b8c6ef;position:relative}.bar.current{background:#4169e1}.bar:hover:after{content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:#182238;color:#fff;font-size:9px;padding:4px 6px;border-radius:6px;white-space:nowrap;z-index:4}.decision{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}.decision-row{display:flex;justify-content:space-between;gap:12px;margin:8px 0;font-size:11px}.decision-row span{color:var(--sub)}.decision-row b{text-align:right}.blocked{margin-top:12px;padding:11px;border-radius:12px;background:var(--rose);color:#8c3940;font-size:11px;line-height:1.5}.legend{margin-top:16px;font-size:10px;line-height:1.6;color:#7a8699}.footer{display:flex;justify-content:space-between;gap:14px;margin-top:16px;color:#778397;font-size:11px}.footer a{color:#4169e1;text-decoration:none;font-weight:700}@media(max-width:1080px){.grid{grid-template-columns:1fr 1.2fr}.history{grid-column:1/-1}.phone{min-height:auto}}@media(max-width:720px){.shell{padding:15px}.hero{align-items:flex-start}.hero h1{font-size:24px}.grid{grid-template-columns:1fr}.history{grid-column:auto}.side{order:2}.phone-wrap{order:1}.history{order:3}.days{grid-template-columns:repeat(7,minmax(38px,1fr));overflow:auto}.footer{display:block}.footer div+div{margin-top:6px}}
+.axis-board{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;margin:4px 0 16px}
+.ax{display:flex;align-items:center;gap:8px;background:#f6f8fc;border-radius:11px;padding:9px 11px}
+.ax.off{background:#fafbfd}
+.ax-name{flex:1;min-width:0;font-size:11px;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ax.off .ax-name{color:#9aa4b5;font-weight:500}
+.ax-n{font-size:10px;color:var(--sub);flex-shrink:0}
+.ax-tag{font-size:10px;font-weight:700;padding:3px 7px;border-radius:999px;flex-shrink:0;white-space:nowrap}
+.t-watch{background:#eef1f6;color:#667085}
+.t-need{background:var(--rose);color:var(--red)}
+.t-mid{background:#e9edf5;color:#435068}
+.t-good{background:var(--mint);color:var(--green)}
+.t-none{background:#f2f4f8;color:#98a2b3}
 </style>
 </head>
 <body>
@@ -46,6 +58,8 @@
     <section class="panel history">
       <div class="bar-title"><b>기간별 진행 모습</b><div class="range" id="rangeButtons"></div></div>
       <div class="metrics" id="metrics"></div>
+      <div class="bar-title" style="margin-top:2px"><b>오늘까지 쌓인 축 상태</b><span style="font-size:10px;color:var(--sub)">답 3건부터 판정 · 양호는 최근 7건 · 회색은 이 데모가 회전시키지 않는 축</span></div>
+      <div class="axis-board" id="axisBoard"></div>
       <div class="days" id="days"></div>
       <div class="trend"><div class="trend-title"><span>회전 문항 응답 추이</span><span>높을수록 양호한 응답</span></div><div class="bars" id="bars"></div></div>
       <div class="decision" id="decision"></div>
@@ -76,6 +90,7 @@ const CASES=[
  {id:'diabetes',title:'당뇨병 직접 선택',sub:'진료정보 이상지질혈증',manual:['당뇨병'],clinic:['이상지질혈증'],screening:[],manualAxes:['sweet','veg','portion'],clinicAxes:['fat'],screenAxes:[],bans:['FAST','REDUCE'],pattern:[2,1,2,1,1,0,1],clinicConfirmDay:3,note:'직접 선택한 당뇨병 축을 먼저 사용합니다. 진료정보의 이상지질혈증은 사용자 확인 뒤 2순위 축으로 함께 순환합니다.'},
  {id:'ckd',title:'신장질환 안전 적용',sub:'진료정보 이상지질혈증',manual:['만성 신장질환'],clinic:['이상지질혈증'],screening:[],manualAxes:[],clinicAxes:['fat','portion'],screenAxes:[],bans:['INCREASE','REDUCE','FLUID'],pattern:[2,2,1,1,1,0,1],note:'신장질환 직접 선택은 새 축을 만들지 않습니다. 진료정보 축을 사용하되 증량·감량·수분 목표를 제외합니다.'},
  {id:'clinic',title:'진료정보만 연동',sub:'직접 선택 없음 · 지방간 기록',manual:[],clinic:['지방간 · 확인 전'],screening:[],manualAxes:[],clinicAxes:['sweet','fat','portion'],screenAxes:[],bans:[],pattern:[2,1,2,2,1,1,0],confirmClinicFirst:true,note:'첫 질문에서 지방간 관리 여부를 확인합니다. 현재 관리 중이라고 답하면 둘째 질문으로 지방간 연결 축 한 개를 바로 묻고 공통 고정 질문은 생략합니다.'},
+ {id:'multiclinic',title:'진료정보 2건 연동',sub:'고혈압 · 이상지질혈증',manual:[],clinic:['고혈압','이상지질혈증'],screening:[],manualAxes:[],clinicAxes:['fat','salt','portion'],screenAxes:[],bans:[],pattern:[2,1,2,1,1,0,1],confirmQueue:[{day:0,label:'고지혈증(이상지질혈증)',visit:'2026-08-14'},{day:1,label:'고혈압',visit:'2026-07-20'}],note:'확인할 질환이 둘이라 하루에 하나씩 이틀에 걸쳐 묻습니다. 진료일이 더 최근인 이상지질혈증을 먼저 묻고, 다음 날 고혈압을 묻습니다. 이상지질혈증은 규칙이 DX-03·DX-04 둘이지만 화면 표기가 같아 한 묶음으로 한 번만 묻습니다.'},
  {id:'screen',title:'검진 경계군',sub:'혈압 신호 · 3개월 유효기간',manual:[],clinic:[],screening:['혈압 경계 · 2026-06-15'],screeningDate:'2026-06-15',manualAxes:[],clinicAxes:[],screenAxes:['salt'],bans:[],pattern:[2,1,2,1,1,0,1],note:'직접 선택과 진료정보가 없어 유효기간 안에는 검진 신호를 사용합니다. 2026-09-15이 지나면 일반 질문으로 자동 이동합니다.'}
 ];
 let selectedCase='normal',selectedDay=0,range=30;
@@ -98,7 +113,7 @@ function sourceFor(c,day,date){
 function simulate(c,count){
  const rows=[],stageByAxis={},historyByAxis={};
  for(let i=0;i<count;i++){
-   const date=dateAt(i),isClinicConfirmation=Boolean((c.confirmClinicFirst&&i===0)||(Number.isInteger(c.clinicConfirmDay)&&i===c.clinicConfirmDay));
+   const date=dateAt(i),qHit=(c.confirmQueue||[]).find(q=>q.day===i),isClinicConfirmation=Boolean(qHit||(c.confirmClinicFirst&&i===0)||(Number.isInteger(c.clinicConfirmDay)&&i===c.clinicConfirmDay)),confirmLabel=qHit?qHit.label:null,confirmVisit=qHit?qHit.visit:null;
   const tm=TIMES[i%TIMES.length], fixed=(c.id==='normal'&&i===5)?1:0;
   let src=sourceFor(c,i,date);
   if(isClinicConfirmation&&c.clinicAxes.length)src={code:'CLINIC_CONFIRMED',label:'진료정보 확인 직후',axis:c.clinicAxes[0]};
@@ -114,24 +129,40 @@ function simulate(c,count){
   if(fixed===1){goal=['다음 끼니는 먹기 쉬운 것부터','지난 끼니를 적게 먹은 날은 회복 풀을 먼저 사용해요.',null];goalSource='회복 분기 · 우선';}
   const done=(i%4!==2),score=2-answer;
   (historyByAxis[axis.qid]||(historyByAxis[axis.qid]=[])).push({day:i,done});
-   rows.push({day:i+1,date,time:tm[0],meal:tm[1],fixed,src,axis,answer,goal,goalSource,blocked,done,score,stage,stageReason,isClinicConfirmation});
+   rows.push({day:i+1,date,time:tm[0],meal:tm[1],fixed,src,axis,answer,goal,goalSource,blocked,done,score,stage,stageReason,isClinicConfirmation,confirmLabel,confirmVisit});
  }
  return rows;
+}
+const OTHER_AXES=[['끼니 규칙','고정 문항'],['식사 시각 · 야식','점수 없음'],['단백질','데모 미포함']];
+function stateOf(rows,idx,qid){
+ const same=rows.slice(0,idx+1).filter(r=>r.axis.qid===qid),n=same.length;
+ if(n<3)return{label:'관찰 중',cls:'t-watch',n};
+ const badN=same.filter(r=>r.answer===2).length;
+ if(badN/n>=.5)return{label:'개선 필요',cls:'t-need',n};
+ if(n>=7){const last7=same.slice(-7),g=last7.filter(r=>r.answer===0).length,b=last7.filter(r=>r.answer===2).length;
+  if(g/7>=.6&&b/7<.2)return{label:'양호',cls:'t-good',n};}
+ return{label:'보통',cls:'t-mid',n};
+}
+function renderAxisBoard(rows,idx){
+ const live=Object.values(AXES).map(a=>{const s=stateOf(rows,idx,a.qid);
+  return `<div class="ax"><span class="ax-name">${a.name}</span><span class="ax-n">${s.n}건</span><span class="ax-tag ${s.cls}">${s.label}</span></div>`}).join('');
+ const rest=OTHER_AXES.map(o=>`<div class="ax off"><span class="ax-name">${o[0]}</span><span class="ax-tag t-none">${o[1]}</span></div>`).join('');
+ document.getElementById('axisBoard').innerHTML=live+rest;
 }
 function axisStatus(rows,idx){const same=rows.slice(0,idx+1).filter(r=>r.axis.qid===rows[idx].axis.qid);if(same.length<3)return '관찰 중';const bad=same.filter(r=>r.answer===2).length/same.length;if(bad>=.5)return '개선 필요';if(same.length>=7&&same.filter(r=>r.answer===0).length/7>=.6&&bad<.2)return '양호';return '보통';}
 function chipHtml(items,cls){return items.length?items.map(x=>`<span class="chip ${cls}">${x}</span>`).join(''):'<span class="empty">없음</span>'}
 function renderScenarios(){document.getElementById('scenarioList').innerHTML=CASES.map(c=>`<button class="scenario ${c.id===selectedCase?'on':''}" data-case="${c.id}"><strong>${c.title}</strong><small>${c.sub}</small></button>`).join('');document.querySelectorAll('.scenario').forEach(b=>b.onclick=()=>{selectedCase=b.dataset.case;selectedDay=0;render()})}
 function render(){
  const c=CASES.find(x=>x.id===selectedCase),rows=simulate(c,range);selectedDay=Math.min(selectedDay,rows.length-1);const d=rows[selectedDay];
- const clinicConfirmed=!c.clinic.length||(!c.confirmClinicFirst&&!Number.isInteger(c.clinicConfirmDay))||selectedDay>=(c.clinicConfirmDay??0);const clinicItems=c.clinic.map(x=>`${x}${x.includes('중복')?'':clinicConfirmed?' · 확인됨':' · 확인 전'}`);
+ const clinicConfirmed=!c.clinic.length||(!c.confirmClinicFirst&&!Number.isInteger(c.clinicConfirmDay))||selectedDay>=(c.clinicConfirmDay??0);const clinicItems=c.confirmQueue?c.confirmQueue.map(q=>`${q.label} · ${q.day<=selectedDay?'확인됨':`${q.day+1}일차 확인 예정`}`):c.clinic.map(x=>`${x}${x.includes('중복')?'':clinicConfirmed?' · 확인됨':' · 확인 전'}`);
  renderScenarios();document.getElementById('caseTitle').textContent=c.title;document.getElementById('manualChips').innerHTML=chipHtml(c.manual,'manual');document.getElementById('clinicChips').innerHTML=chipHtml(clinicItems,'clinic');document.getElementById('screeningChips').innerHTML=chipHtml(c.screening,'safe');document.getElementById('caseNote').textContent=c.note;
  document.getElementById('priorityList').innerHTML=PRIORITY.map((p,i)=>{const active=!d.isClinicConfirmation&&d.src.code===p[1];const confirming=d.isClinicConfirmation&&p[1]==='CLINIC_CONFIRMED';return `<div class="priority-row"><span class="rank">${i+1}</span><div><b>${p[0]}${active?' · 선택한 날짜에 사용':confirming?' · 사용자 확인 중':''}</b><small>${p[1]}</small></div></div>`}).join('');
  document.getElementById('appDay').textContent=`${d.day}일차 · ${d.date} · ${d.time}`;
  const dinnerTip=d.meal==='오늘 저녁'?'<div style="margin:-5px 0 10px;font-size:10px;color:#765412">오늘 저녁을 드신 뒤 답해주세요.</div>':'';
  if(d.isClinicConfirmation){
   document.querySelector('#fixedQuestion').previousElementSibling.innerHTML='<b>질환 정보 확인</b><span id="mealLabel">진료정보 기준</span>';
-  const clinicDisease=c.id==='diabetes'?'이상지질혈증':'지방간';
-  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">${c.confirmClinicFirst?'가장 먼저 확인':'진료정보 확인'}</div><div class="q-text">${clinicDisease}을 진단받고 관리 중이신가요?</div><div class="answers">${['네, 현재 관리 중이에요','잘 모르겠어요','아니요, 현재는 해당하지 않아요'].map((x,i)=>`<div class="answer ${i===0?'on':''}">${x}</div>`).join('')}</div>`;
+  const clinicDisease=d.confirmLabel||(c.id==='diabetes'?'이상지질혈증':'지방간');
+  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">${d.confirmVisit?`진료정보 확인 ${(c.confirmQueue||[]).findIndex(q=>q.label===d.confirmLabel)+1}/${(c.confirmQueue||[]).length} · 진료일 ${d.confirmVisit}`:(c.confirmClinicFirst?'가장 먼저 확인':'진료정보 확인')}</div><div class="q-text">${clinicDisease}을 진단받고 관리 중이신가요?</div><div class="answers">${['예, 관리 중이에요','아니요','잘 모르겠어요'].map((x,i)=>`<div class="answer ${i===0?'on':''}">${x}</div>`).join('')}</div>`;
   document.getElementById('rotatingQuestion').innerHTML=`<div class="q-meta">오늘의 질문 2/2 · ${clinicDisease} 관련</div><div class="q-text">${d.axis.q.replace('{meal}',d.meal)}</div><div class="answers">${d.axis.opts.map((x,i)=>`<div class="answer ${i===d.answer?'on':''}">${x}</div>`).join('')}</div><div class="notice-card" style="margin:8px 0 0">오늘은 공통 고정 질문을 생략하고 여기서 질문을 마칩니다.</div>`;
  }else{
   document.querySelector('#fixedQuestion').previousElementSibling.innerHTML=`<b>지난 끼니 확인</b><span id="mealLabel">${d.meal}</span>`;
@@ -139,6 +170,7 @@ function render(){
   document.getElementById('rotatingQuestion').innerHTML=`<div class="q-meta">${d.src.label} · ${d.axis.name}</div><div class="q-text">${d.axis.q.replace('{meal}',d.meal)}</div><div class="answers">${d.axis.opts.map((x,i)=>`<div class="answer ${i===d.answer?'on':''}">${x}</div>`).join('')}</div>`;
  }
  document.getElementById('axisState').textContent=axisStatus(rows,selectedDay);
+ renderAxisBoard(rows,selectedDay);
  document.getElementById('goalCard').innerHTML=`<div class="goal-source">${d.goalSource}</div><div class="goal-title">${d.goal[0]}</div><div class="goal-foot"><span>${d.axis.name} · ${REFERENCE.stageLabels[d.stage]} 단계${d.stageReason?' · '+d.stageReason:''}</span><button>${d.done?'완료함':'실천하기'}</button></div>`;
  const safe=c.bans.length?`안전 필터 적용: ${c.bans.join(' · ')} 성격의 목표를 제외했습니다.`:'적용된 질환별 안전 제외 조건이 없습니다.';document.getElementById('safetyNotice').textContent=safe;
  document.getElementById('rangeButtons').innerHTML=[7,14,30].map(n=>`<button class="${range===n?'on':''}" data-range="${n}">${n}일</button>`).join('');document.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>{range=Number(b.dataset.range);selectedDay=Math.min(selectedDay,range-1);render()});
