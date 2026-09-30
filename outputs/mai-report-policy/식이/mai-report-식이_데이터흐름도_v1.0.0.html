@@ -577,7 +577,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">0-a</td><td class="u"><span class="pick">당뇨병</span> 직접 선택</td><td class="r"><span class="src src-blue">내정보</span>당뇨병 선택 · <span class="src src-indigo">질환 매핑</span>채소 · 단 음료 · 식사 속도/양</td><td class="j">본인 입력은 별도 확인 없이 즉시 활성화</td><td class="o"><span class="src src-teal">질환 적용 상태</span>당뇨병 = 직접 선택</td></tr>
       <tr><td class="n">0-b</td><td class="u none">—</td><td class="r"><span class="src src-cyan">진료정보</span>이상지질혈증 코드 · <span class="src src-indigo">질환 매핑</span>식사 속도/양 · 기름진 음식</td><td class="j">직접 선택과 출처를 분리해 <b>확인 대기</b>로 저장 · 안전 제외는 즉시 합산</td><td class="o"><span class="src src-teal">질환 적용 상태</span>이상지질혈증 = 확인 대기</td></tr>
-      <tr><td class="n">1</td><td class="u"><span class="pick">네, 현재 관리 중이에요</span><br>"<span class="chg">고지혈증(이상지질혈증)을 진단받고 관리 중이신가요?</span>"</td><td class="r"><span class="src src-blue">사용자 확인</span></td><td class="j">확인 대기 → <b>진료 확인</b> · 당뇨병과 함께 적용</td><td class="o"><span class="src src-teal">오늘 질문 1/2</span> · 질환 적용 상태 2개 활성</td></tr>
+      <tr><td class="n">1</td><td class="u"><span class="pick">예, 관리 중이에요</span><br>"<span class="chg">고지혈증(이상지질혈증)을 진단받고 관리 중이신가요?</span>"</td><td class="r"><span class="src src-blue">사용자 확인</span></td><td class="j">확인 대기 → <b>진료 확인</b> · 당뇨병과 함께 적용</td><td class="o"><span class="src src-teal">오늘 질문 1/2</span> · 질환 적용 상태 2개 활성</td></tr>
       <tr><td class="n">2</td><td class="u none">(확인된 질환 축에서 둘째 질문 선택)</td><td class="r"><span class="src src-indigo">이상지질혈증 축</span>식사 속도/양 · 기름진 음식 · <span class="src src-teal">28일 답 수</span>5 · 2</td><td class="j">답이 적은 <b>기름진 음식</b> 선택 · 질환 확인 당일에는 공통 고정 질문을 생략</td><td class="o">이상지질혈증 회전 질문 1개</td></tr>
       <tr><td class="n">3</td><td class="u"><span class="pick">먹었어요</span><br>"어제 저녁에 튀긴 음식을 드셨나요?"</td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">기름진 음식 축 응답 +1 · 세션 질문 수 2개 도달</td><td class="o"><span class="src src-teal">오늘 질문 2/2</span> · 세 번째 질문 없음</td></tr>
       <tr><td class="n">4</td><td class="u none">(다음 날 후보 축 합치기)</td><td class="r"><span class="src src-indigo">당뇨병 축</span>채소 · 단 음료 · 식사 속도/양<br><span class="src src-indigo">이상지질혈증 축</span>식사 속도/양 · 기름진 음식</td><td class="j">두 목록을 합치고 중복 축 제거 → 채소 · 단 음료 · 식사 속도/양 · 기름진 음식</td><td class="o">활성 후보 축 4개</td></tr>
@@ -606,6 +606,23 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
   </div>
 
 </section>
+
+
+  <!-- 7 -->
+  <div class="case" style="--cs:var(--purple)">
+    <div class="case-h"><span class="case-n">7</span><div><b>진료정보 질환이 둘 이상 · 확인이 이틀에 걸침</b><div class="who">고혈압(2026-07-20) · 이상지질혈증(2026-08-14) · 직접 선택 없음</div></div><span class="when">1~3일차</span></div>
+    <table class="proc">
+      <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
+      <tr><td class="n">0-a</td><td class="u none">—</td><td class="r"><span class="src src-cyan">진료정보</span>I10 (2026-07-20) · E78.0 · E78.2 (2026-08-14)</td><td class="j">12개월 안에 2회 이상인 코드만 후보로 올린다</td><td class="o"><span class="src src-teal">확인 대기</span>규칙 3건 — 고혈압 · 이상지질혈증 · 고중성지방</td></tr>
+      <tr><td class="n">0-b</td><td class="u none">(묶기)</td><td class="r"><span class="src src-indigo">질환 규칙</span>E78.0 → 고지혈증(이상지질혈증) · E78.2 → 고지혈증(이상지질혈증)</td><td class="j">화면 표기가 같으므로 <b>한 묶음</b>으로 본다 · 규칙 3건이 묶음 2개가 된다</td><td class="o">묶음 = 고지혈증(이상지질혈증) · 고혈압</td></tr>
+      <tr><td class="n">0-c</td><td class="u none">(순서 정하기)</td><td class="r"><span class="src src-cyan">근거 진료일</span>이상지질혈증 2026-08-14 · 고혈압 2026-07-20</td><td class="j">진료일 내림차순 · 같거나 없으면 규칙 ID 순 · 하루에 한 묶음만</td><td class="o">1일차 이상지질혈증 → 2일차 고혈압</td></tr>
+      <tr><td class="n">1</td><td class="u"><span class="pick">예, 관리 중이에요</span><br>"고지혈증(이상지질혈증)을 진단받고 관리 중이신가요?"</td><td class="r"><span class="src src-blue">사용자 확인</span></td><td class="j">답 하나를 <b>그 묶음의 두 규칙 모두</b>에 같은 상태로 기록한다 · 확인 답은 점수를 매기지 않는다</td><td class="o"><span class="src src-teal">오늘 질문 1/2</span> · 이상지질혈증 · 고중성지방 = 진료 확인</td></tr>
+      <tr><td class="n">2</td><td class="u"><span class="pick">먹었어요</span><br>"어제 저녁에 튀긴 음식을 드셨나요?"</td><td class="r"><span class="src src-indigo">이상지질혈증 축</span>기름진 음식 · 식사 속도/양</td><td class="j">확인 당일 둘째 질문은 그 질환 연결 축 1개 · 공통 고정은 생략</td><td class="o"><span class="src src-teal">오늘 질문 2/2</span> · 세 번째 질문 없음</td></tr>
+      <tr><td class="n">3</td><td class="u"><span class="pick">아니요</span><br>"고혈압을 진단받고 관리 중이신가요?" <i>(2일차)</i></td><td class="r"><span class="src src-blue">사용자 확인</span> · <span class="src src-teal">남은 확인 대기</span>고혈압 1묶음</td><td class="j">「아니요」이므로 둘째 질문은 공통 고정 · <b>금지 문구는 후보 단계부터 걸려 있어 답과 무관하게 유지</b> · 12개월 동안 다시 묻지 않는다</td><td class="o">고혈압 = 부정 · 짠맛 축 연결은 만들지 않음</td></tr>
+      <tr><td class="n">4</td><td class="u none">(3일차)</td><td class="r"><span class="src src-teal">확인 대기</span>비어 있음</td><td class="j">확인할 묶음이 없으므로 평소 구성으로 돌아온다</td><td class="o">공통 고정 1개 + 회전 1개</td></tr>
+    </table>
+    <div class="next"><i>핵심</i>확인 질문은 하루에 한 묶음만 낸다. 화면 표기가 같은 규칙은 한 묶음으로 보고 한 번만 물으며, 답 하나를 그 묶음의 모든 규칙에 함께 기록한다. 순서는 근거 진료일이 최근인 묶음부터이고, 진료일이 같거나 없으면 규칙 ID 순으로 가른다</div>
+  </div>
 
 <!-- ⑧ 푸터 -->
 <footer class="footer">© maiReport · 식이 데이터 흐름도 · 저장 단위는 끼니, 판정은 다음 날 반영, 파생값은 화면에 나가지 않는다</footer>
