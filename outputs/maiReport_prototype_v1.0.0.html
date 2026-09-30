@@ -2650,11 +2650,6 @@ if(window.self !== window.top){
    1. 오늘의 질문
    ════════════════════════════════════════════════════════════ */
 const Q_BASE = [
-  { id:'fatigue', cat:'피로', av:'⚡', tint:'energy',
-    text:'오늘 몸의 피로감은 어느 정도인가요?',
-    opts:[{v:'none',f:'⌣',label:'괜찮아요',    tone:'good'},
-          {v:'mild',f:'—',label:'조금 피곤해요',tone:'okay'},
-          {v:'high',f:'⌢',label:'많이 피곤해요',tone:'bad'}] },
   { id:'sleep', cat:'수면', av:'🌙', tint:'moon',
     text:'어젯밤 얼마나 주무셨나요?',
     opts:[{v:'lt5', f:'◔',label:'5시간 미만',tone:'neutral'},
@@ -2664,7 +2659,7 @@ const Q_BASE = [
     text:'오늘 식사는 평소만큼 하셨나요?',
     opts:[{v:'normal',f:'⌣',label:'평소대로',  tone:'good'},
           {v:'less',  f:'—',label:'조금 적게',  tone:'okay'},
-          {v:'skip',  f:'⌢',label:'거의 못 먹었어요',tone:'bad'}] }
+          {v:'skip',  f:'⌢',label:'거의 못 먹었거나 걸렀어요',tone:'bad'}] }
 ];
 /* 질환 맞춤 질문 — 이 시연본은 흉부 X선 AI 분석에서 '오른쪽 폐 경화 · 폐렴 의심'이
    검출된 급성기 사용자를 전제로 한다. 물어볼 근거가 AI REPORT 소견이라,
@@ -2691,9 +2686,9 @@ const Q_WALK = { id:'walk', cat:'활동', av:'🚶', tint:'energy',
       확진 질환 경로로 축이 좁혀지고, 회복 풀 전용인 단백질 축이 열린다. */
 function lastMealLabel(h){
   const hh = (h==null) ? new Date().getHours() : h;
-  if(hh < 12) return '어제 저녁';
-  if(hh < 15) return '오늘 아침';
-  if(hh < 21) return '오늘 점심';
+  if(hh < 10) return '어제 저녁';
+  if(hh < 12) return '오늘 아침';
+  if(hh < 17) return '오늘 점심';
   return '오늘 저녁';
 }
 const LAST_MEAL = lastMealLabel();
@@ -2702,64 +2697,79 @@ const Q_ACUTE = [
     text:`${LAST_MEAL}은 평소만큼 드셨나요?`,
     opts:[{v:'normal',f:'⌣',label:'평소대로',   tone:'good'},
           {v:'less',  f:'—',label:'조금 적게', tone:'okay'},
-          {v:'skip',  f:'⌢',label:'거의 못 먹었어요', tone:'bad'}] },
+          {v:'skip',  f:'⌢',label:'거의 못 먹었거나 걸렀어요', tone:'bad'}] },
   { id:'protein', cat:'식이', av:'🥚', tint:'moon',
     text:`${LAST_MEAL}에 고기 · 생선 · 달걀 · 두부 반찬이 있었나요?`,
-    opts:[{v:'good',f:'⌣',label:'있었어요',       tone:'good'},
-          {v:'mid', f:'—',label:'조금 있었어요',   tone:'okay'},
-          {v:'bad', f:'⌢',label:'없었어요',       tone:'bad'}] },
+    opts:[{v:'good',f:'⌣',label:'먹었어요',       tone:'good'},
+          {v:'mid', f:'—',label:'맛만 봤어요',     tone:'okay'},
+          {v:'bad', f:'⌢',label:'안 먹었어요',     tone:'bad'}] },
   { id:'sleep', cat:'수면', av:'🌙', tint:'moon',
     text:'어젯밤 기침 때문에 잠에서 깼나요?',
     opts:[{v:'gte7',f:'⌣',label:'깨지 않았어요', tone:'good'},
           {v:'5to7',f:'—',label:'한두 번 깼어요', tone:'okay'},
           {v:'lt5', f:'⌢',label:'여러 번 깼어요', tone:'bad'}] }
 ];
-/* 일반 사용자의 회전 문항 — 여덟 축을 요일로 돌린다.
-   (월 끼니 규칙은 별도 문항이 없어 고정 문항의 결식 답으로 쌓이므로 회전에서 빠진다) */
+/* 일반 사용자의 회전 문항 — 최근 28일 유효 답이 적고 마지막 질문이 오래된 축부터 고른다.
+   끼니 규칙은 별도 문항이 없어 고정 문항의 결식 답으로 쌓이므로 회전에서 빠진다. */
 const Q_ROTATION = {
   2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬이 있었나요?`,
-      opts:[{v:'good',f:'⌣',label:'있었어요',   tone:'good'},
-            {v:'mid', f:'—',label:'조금 있었어요',tone:'okay'},
-            {v:'bad', f:'⌢',label:'없었어요',   tone:'bad'}] },
+      opts:[{v:'good',f:'⌣',label:'두 가지 이상',tone:'good'},
+            {v:'mid', f:'—',label:'한 가지',tone:'okay'},
+            {v:'bad', f:'⌢',label:'먹지 않았어요',tone:'bad'}] },
   3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후로 단 음료나 단 간식을 드셨나요?`,
-      opts:[{v:'good',f:'⌣',label:'안 먹었어요',     tone:'good'},
-            {v:'mid', f:'—',label:'한 번 먹었어요',   tone:'okay'},
-            {v:'bad', f:'⌢',label:'여러 번 먹었어요', tone:'bad'}] },
-  4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL}에 국이나 찌개를 드셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'없었어요',tone:'good'},
+            {v:'mid', f:'—',label:'한 번',tone:'okay'},
+            {v:'bad', f:'⌢',label:'두 번 이상',tone:'bad'}] },
+  4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL} 국물은 어느 정도 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'안 먹었어요',        tone:'good'},
-            {v:'mid', f:'—',label:'건더기만 먹었어요',  tone:'okay'},
-            {v:'bad', f:'⌢',label:'국물까지 먹었어요',  tone:'bad'}] },
+            {v:'mid', f:'—',label:'절반 이하 먹었어요',  tone:'okay'},
+            {v:'bad', f:'⌢',label:'절반보다 많이 먹었어요',tone:'bad'}] },
   5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}은 어떻게 마치셨나요?`,
-      opts:[{v:'good',f:'⌣',label:'천천히 적당히',  tone:'good'},
-            {v:'mid', f:'—',label:'보통이었어요',   tone:'okay'},
-            {v:'bad', f:'⌢',label:'빠르게 배부르게',tone:'bad'}] },
-  6:{ id:'fat',   cat:'식이', av:'🍖', tint:'moon', text:`${LAST_MEAL}에 튀김이나 기름진 반찬이 있었나요?`,
-      opts:[{v:'good',f:'⌣',label:'없었어요',   tone:'good'},
-            {v:'mid', f:'—',label:'조금 있었어요',tone:'okay'},
-            {v:'bad', f:'⌢',label:'있었어요',   tone:'bad'}] }
+      opts:[{v:'good',f:'⌣',label:'편안했어요',tone:'good'},
+            {v:'mid', f:'—',label:'조금 부담스러웠어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'많이 부담스러웠어요',tone:'bad'}] },
+  6:{ id:'protein',cat:'식이', av:'🥚', tint:'moon', text:`${LAST_MEAL}에 고기 · 생선 · 달걀 · 두부 반찬이 있었나요?`,
+      opts:[{v:'good',f:'⌣',label:'먹었어요',tone:'good'},
+            {v:'mid', f:'—',label:'맛만 봤어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'안 먹었어요',tone:'bad'}] },
+  7:{ id:'fat',   cat:'식이', av:'🍖', tint:'moon', text:`${LAST_MEAL}에 튀김이나 기름진 반찬이 있었나요?`,
+      opts:[{v:'good',f:'⌣',label:'안 먹었어요',tone:'good'},
+            {v:'mid', f:'—',label:'맛만 봤어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'먹었어요',tone:'bad'}] },
+  8:{ id:'mealTime',cat:'식이', av:'🌙', tint:'moon', text:'어제 저녁 식사 뒤에 더 드신 게 있었나요?',
+      opts:[{v:'good',f:'⌣',label:'안 먹었어요',tone:'good'},
+            {v:'mid', f:'—',label:'한 번 먹었어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'두 번 이상 먹었어요',tone:'bad'}] }
 };
 function rotationQuestion(){
-  /* 요일 순환 — 시연 날짜(목요일)를 기준으로 고정한다.
-     앱의 나머지 화면이 같은 주 목요일을 오늘로 쓰고 있어, 실제 요일을 따르면 서로 어긋난다. */
-  const dow = 4;
-  const q = Q_ROTATION[dow] || Q_ROTATION[2];
-  /* 끼니에 맞지 않는 축은 그날 묻지 않는다 — 아침에 국물·기름진 반찬을 묻는 것은 어색하다.
-     이럴 때는 어느 끼니에나 물을 수 있는 채소 축으로 넘긴다. */
-  if(LAST_MEAL === '오늘 아침' && (q.id === 'salt' || q.id === 'fat')) return Q_ROTATION[2];
-  return q;
+  const history = JSON.parse(localStorage.getItem('mai-diet-question-history-v1.0.0') || '[]');
+  const cutoff = Date.now() - 28*24*60*60*1000;
+  const hour = new Date().getHours();
+  const candidates = Object.values(Q_ROTATION)
+    .filter(q=>q.id!=='mealTime' || (hour>=4 && hour<10))
+    .map((q,order)=>{
+    const asked = history.filter(x=>x.question_id===q.id && Date.parse(x.answered_at)>=cutoff);
+    const last = asked.reduce((v,x)=>Math.max(v,Date.parse(x.answered_at)||0),0);
+    return {q,order,count:asked.length,last};
+  });
+  return candidates.sort((a,b)=>a.count-b.count || a.last-b.last || a.order-b.order)[0].q;
+}
+function questionForAxis(axis){
+  return Object.values(Q_ROTATION).find(q=>q.id===axis) || rotationQuestion();
 }
 /* 질문 세트
-   · 식이는 늘 두 문항(고정 + 회전)이다. 일반 사용자든 케이스가 있든 줄이지 않는다.
+   · 식이는 최대 두 문항이다. 질환 확인이 없으면 고정 + 회전, 질환 확인이 있으면 확인 + 응답에 따른 질환 회전 또는 공통 고정이다.
+   · 질환 확인에서 현재 관리 중이면 공통 고정을 생략하고 질환 회전을 둘째로 낸다. 아니요·잘 모르겠어요이면 공통 고정을 둘째로 내며 세 번째 질문은 만들지 않는다.
    · 급성기에는 증상 문항이 앞자리를 차지하고, 회전 축은 회복 풀과 이어지는 단백질로 고정된다
      (어제 고정 답이 '거의 못 먹음'이면 단백질 축, 확진 질환이 있으면 연결 축).
-   · 고정 답이 '거의 못 먹었어요'면 회전 문항은 묻지 않는다(pick에서 뺀다). */
+   · 고정 답이 '거의 못 먹었거나 걸렀어요'면 회전 문항은 묻지 않는다(pick에서 뺀다). */
 function pickQuestions(){
-  const hasMedical = imp.checkup || imp.clinic || hasAiReport;
-  return hasMedical
-    ? [Q_CARE, Q_WALK, Q_ACUTE[0], Q_ACUTE[1]]
-    : [Q_ACUTE[0], rotationQuestion(), Q_BASE[0]];
+  const selfAxis = typeof chronicDietState==='function' ? chronicDietState().axis : null;
+  if(selfAxis) return [Q_ACUTE[0], questionForAxis(selfAxis)];
+  if(hasAiReport) return [Q_CARE, Q_ACUTE[0]];
+  return [Q_ACUTE[0], rotationQuestion()];
 }
-let QUESTIONS = Q_BASE.slice(0,3);
+let QUESTIONS = [Q_ACUTE[0], rotationQuestion()];
 
 const ans = {};
 let qi = 0, lock = false;
@@ -2826,9 +2836,18 @@ function renderQ(){
 function pick(q,o,btn){
   if(lock) return; lock = true;
   ans[q.id] = o;
+  /* 진료정보 질환 확인은 식이 질문 1개로 계산한다. 관리 중이면 둘째 질문을
+     질환 연결 축으로, 아니요·잘 모르겠어요이면 공통 고정 질문으로 확정한다. */
+  if(q.id==='care') QUESTIONS=[Q_CARE, o.v==='yes' ? Q_ACUTE[1] : Q_ACUTE[0]];
+  if(['veg','sweet','salt','pace','protein','fat','mealTime'].includes(q.id)){
+    const key='mai-diet-question-history-v1.0.0';
+    const history=JSON.parse(localStorage.getItem(key)||'[]');
+    history.push({question_id:q.id,answered_at:new Date().toISOString()});
+    localStorage.setItem(key,JSON.stringify(history.slice(-200)));
+  }
   /* 거의 못 먹은 끼니에는 그 끼니의 행동을 물을 것이 없다 → 회전 문항을 빼고 넘어간다 */
   if(q.id === 'meal' && o.v === 'skip'){
-    const rot = ['protein','veg','sweet','salt','pace','fat'];
+    const rot = ['protein','veg','sweet','salt','pace','fat','mealTime'];
     QUESTIONS = QUESTIONS.filter(x=>!rot.includes(x.id));
     rot.forEach(k=>{ delete ans[k]; });
   }
@@ -2847,9 +2866,9 @@ const C_BASE = {act:'오늘은 충분히 쉬고 물을 자주 드세요.',
 /* 이 시연본은 위험을 알리는 경고 문구를 쓰지 않는다 — 놀라게 하지 않고
    오늘 할 수 있는 행동만 남기는 것이 이 화면의 역할이다.
    답이 모두 나쁜 쪽인 날에도 먹기 · 쉬기 같은 실행 코칭으로 이어간다. */
-/* 리포트가 없는 평소 상태의 코칭 — 식이 두 문항과 피로 답으로 만든다 */
+/* 리포트가 없는 평소 상태의 코칭 — 식이 두 문항으로 만든다 */
 function coachingGeneral(){
-  const {meal,fatigue,veg,sweet,salt,pace,fat} = ans;
+  const {meal,veg,sweet,salt,pace,fat} = ans;
   if(meal && meal.v==='skip') return {act:'다음 끼니는 거르지 말고 가볍게 챙겨 드세요.',
     why:'한 끼를 거의 거르면 다음 끼니에 몰아 먹게 되기 쉬워요. 양보다 거르지 않는 것이 먼저예요.'};
   if(salt && salt.v==='bad') return {act:'다음 끼니 국물은 절반만 드셔보세요.',
@@ -2862,8 +2881,6 @@ function coachingGeneral(){
     why:'배부름 신호는 먹기 시작하고 20분쯤 뒤에 와요.'};
   if(fat && fat.v==='bad') return {act:'다음 끼니 기름진 반찬은 생선이나 두부로 바꿔보세요.',
     why:'같은 단백질이라도 조리법에 따라 지방 양이 크게 달라져요.'};
-  if(fatigue && fatigue.v==='high') return {act:'오늘은 활동을 조금 줄이고 충분히 쉬어보세요.',
-    why:'피로도가 높은 날은 규칙적인 식사·수면과 가벼운 활동 위주로 보내는 것이 좋아요.'};
   return {act:'오늘은 지금의 생활 리듬을 그대로 유지해보세요.',
     why:'답변과 최근 데이터 모두 평소와 비슷해요. 식후 가벼운 걷기만 더해도 충분해요.'};
 }
@@ -2953,7 +2970,7 @@ const MEAL_PHRASES = {
     {title:'조금씩 자주 나눠 먹기',        why:'한 번에 못 먹으면 횟수를 늘려요'},
     {title:'빈 끼는 우유나 두유 한 잔',    why:'준비 없이 바로 먹을 수 있는 회복 끼니예요'}
   ],
-  /* 부담 줄이기 풀 — 피로가 크거나 수면이 5시간 미만인 날 쓰는 묶음. 축·단계가 없다. */
+  /* 부담 줄이기 풀 — 연동된 수면이 5시간 미만인 날 쓰는 묶음. 축·단계가 없다. */
   burden:[
     {title:'저녁은 차리기 쉬운 것으로', why:'차리는 수고를 줄이는 것도 방법이에요'},
     {title:'저녁은 익힌 채소로 가볍게', why:'익힌 채소는 속에 부담이 적어요'},
@@ -2970,14 +2987,19 @@ const MEAL_PHRASES = {
     도전:[{title:'매 끼니 채소 두 가지',       why:'끼니마다 두 가지면 하루 다섯 접시에 가까워져요'},
           {title:'저녁 반찬 절반은 채소로',    why:'저녁 접시의 절반을 채소로 채우는 것이 권고 형태예요'}]
   },
-  /* 짠맛 · 국물 축 — 요일 순환에서 목요일에 걸리는 축 */
+  sweet:{
+    입문:[{title:'단 음료 마신 날 표시하기',why:'마신 날을 알면 다음 선택을 준비할 수 있어요.',nature:null}],
+    기본:[{title:'음료의 당류 표시 살펴보기',why:'같은 종류의 음료도 당류 함량이 달라요.',nature:null}],
+    도전:[{title:'단 음료 고를 때 당류 비교하기',why:'당류 표시를 비교해 선택할 수 있어요.',nature:null}]
+  },
+  /* 짠맛 · 국물 축 */
   salt:{
     입문:[{title:'국은 반 그릇만 담기',        why:'담는 양을 줄이는 게 남기는 것보다 쉬워요'},
           {title:'찌개는 앞접시에 건더기만',   why:'앞접시로 옮기면 국물을 자연히 덜 먹게 돼요'}],
     기본:[{title:'짠 반찬은 한 끼에 한 가지만', why:'김치 · 장아찌 · 젓갈이 겹치면 한 끼에 하루치가 돼요'},
           {title:'김치는 평소의 절반',         why:'한국인 나트륨의 첫째 급원이 김치예요'}],
     도전:[{title:'오늘 세 끼 국물 없이',       why:'국물을 하루 끊으면 나트륨이 절반 가까이 줄어요'},
-          {title:'배달 음식엔 소스 반만',      why:'배달 음식 나트륨의 절반은 함께 오는 소스에 있어요'}]
+          {title:'국물은 건더기 위주로',       why:'국물보다 건더기를 중심으로 먹는 행동이에요'}]
   },
   protein:{
     입문:[{title:'아침에 달걀 하나',         why:'달걀 하나로 아침 단백질이 채워져요'},
@@ -2987,8 +3009,21 @@ const MEAL_PHRASES = {
           {title:'두부 반 모 반찬으로',      why:'두부 반 모가 고기 한 접시 단백질과 비슷해요'}],
     도전:[{title:'끼니마다 다른 단백질 반찬', why:'고기 · 생선 · 달걀 · 콩을 돌리면 영양이 고르게 돼요'},
           {title:'저녁 단백질은 생선 · 두부로', why:'저녁엔 소화가 가벼운 단백질이 좋아요'}]
+  },
+  fat:{
+    입문:[{title:'튀김 · 기름진 반찬은 한 가지만',why:'튀긴 반찬의 종류와 먹는 양을 살펴봐요.',nature:'REDUCE'},
+          {title:'튀김 대신 구이 · 찜 한 끼',why:'튀김 대신 구이·찜을 선택해 보는 행동이에요.',nature:'TEXTURE'}],
+    기본:[{title:'고기 구울 땐 기름 두르지 않기',why:'조리 중 추가하는 기름 양을 살펴봐요.',nature:null}],
+    도전:[{title:'오늘 조리는 굽거나 찌기로',why:'조리 방법을 바꿔 보는 행동이에요.',nature:'TEXTURE'}]
   }
 };
+MEAL_PHRASES.recovery.forEach((p,i)=>p.nature=i===0?'FLUID':'INCREASE');
+MEAL_PHRASES.burden.forEach((p,i)=>p.nature=i===2?'FLUID':i===4?'REDUCE':null);
+for(const step of ['입문','기본','도전']){
+  MEAL_PHRASES.veg[step].forEach(p=>p.nature='INCREASE');
+  MEAL_PHRASES.salt[step].forEach(p=>p.nature='REDUCE');
+  MEAL_PHRASES.protein[step].forEach(p=>p.nature='INCREASE');
+}
 /* 폐렴 급성기 기본 목표 — 식이는 답변 뒤에 생성되므로 잠금 상태의 자리만 잡아둔다 */
 /* 기본 목표는 케이스에 따라 다르다.
    AI REPORT를 등록하기 전(평소 상태)에는 평소 목표를 깔고,
@@ -3015,79 +3050,130 @@ let BASE_GOALS = GOALS_BY_CASE.sick;
 let goals = BASE_GOALS.map(g=>({...g, state:'pending'}));
 
 /* ── 식이 목표 선정 ──
-   축 선정 순서는 아키텍처와 같다: 회복 풀 → 확진 질환 → 검진 경계 → 부담 줄이기 → 일반(요일 순환).
+   축 선정 순서는 아키텍처와 같다: 회복 풀 → 확인 질환 → 검진 경계 → 부담 줄이기 → 일반 관찰 축.
    이 케이스는 진료정보에 폐렴이 있어 확진 질환 경로에서 단백질 축이 열린다.
    단계는 실제로는 최근 7일 완료 횟수로 오르내리지만(7일 3회↑ · 연속 2회↓),
    시연에서는 하루만 보므로 회전 문항 답으로 대신 고른다. */
 /* ── 대상 끼니 ──
-   목표는 앞으로 올 끼니에 붙는다. 지금 시각에서 다음에 오는 끼니를 대상으로 삼고,
+   목표는 앞으로 실행할 수 있는 끼니 또는 현재 세션의 밤에 붙는다.
    끼니가 박힌 문구(「아침에도 채소 한 가지」)는 대상 끼니와 같을 때만 쓴다.
    지난 끼니를 가리키는 문구는 오늘 실행할 수 없기 때문이다. */
 function targetMeal(h){
   const hh = (h==null) ? new Date().getHours() : h;
-  if(hh < 9)  return '오늘 아침';
-  if(hh < 14) return '오늘 점심';
-  if(hh < 21) return '오늘 저녁';
-  return '내일 아침';
+  if(hh < 4)  return '현재 세션의 밤';
+  if(hh < 10) return '오늘 아침';
+  if(hh < 12) return '오늘 점심';
+  if(hh < 17) return '오늘 저녁';
+  return '현재 세션의 밤';
 }
 const TARGET_MEAL = targetMeal();
+const AFTER_DINNER_GOALS = [
+  {phrase_id:'DIET-P-0131',title:'아침거리 미리 꺼내 두기',why:'아침에 고민할 일이 없으면 덜 거르게 돼요.',time_code:'EVENING',nature:null},
+  {phrase_id:'DIET-P-0156',title:'저녁 먹고 부엌 정리하기',why:'정리해 두면 다시 꺼내 먹기 번거로워져요.',time_code:'EVENING',nature:null},
+  {phrase_id:'DIET-P-0226',title:'내일 아침 먹을 자리 치워 두기',why:'자리를 미리 치워 두면 내일 아침을 준비하기 수월해요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0227',title:'내일 아침 시각 정해 두기',why:'시각을 정해 두면 내일 아침 끼니를 챙기기 쉬워요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0228',title:'내일 먹을 채소 씻어 두기',why:'채소를 씻어 두면 내일 바로 꺼낼 수 있어요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0229',title:'장바구니에 채소 적어 두기',why:'적어 두면 장 볼 때 빠뜨리지 않아요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0230',title:'내일 먹을 달걀 삶아 두기',why:'미리 삶아 두면 내일 바로 꺼낼 수 있어요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0231',title:'내일 쓸 두부 냉장고에 두기',why:'내일 준비할 재료를 미리 확인할 수 있어요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0232',title:'내일 마실 무카페인 차 꺼내 두기',why:'내일 마실 음료를 고르기 쉬워요.',time_code:'PRE_MIDNIGHT',nature:null},
+  {phrase_id:'DIET-P-0233',title:'내일 아침은 간단한 것으로 정해 두기',why:'피곤한 아침에 고민이 줄어요.',time_code:'PRE_MIDNIGHT',nature:null}
+];
 const MEAL_WORDS = ['아침','점심','저녁'];
 function fitsTarget(p){
   const word = MEAL_WORDS.find(w=>p.title.includes(w));
   return !word || TARGET_MEAL.includes(word);      /* 끼니가 없는 문구는 어느 끼니에나 쓴다 */
 }
 /* 대상 끼니에 맞는 문구를 고르고, 없으면 끼니가 박히지 않은 문구로 내린다 */
+let activeDietPhraseId = null;
 function pickPhrase(arr, fallback){
-  const ok = (arr||[]).filter(fitsTarget);
-  if(ok.length) return ok[0];
-  const any = (fallback||[]).filter(fitsTarget);
-  return any[0] || (arr||[])[0];
+  const banned=chronicDietState().banned;
+  const eligible=p=>fitsTarget(p)&&!banned.has(p.nature);
+  const ok = (arr||[]).filter(eligible);
+  const any = (fallback||[]).filter(eligible);
+  const candidates=ok.length ? ok : any;
+  if(!candidates.length) return null;
+  const active=candidates.find(p=>(p.phrase_id||p.title)===activeDietPhraseId);
+  if(active) return active;
+  const cutoff=Date.now()-30*24*60*60*1000;
+  const history=JSON.parse(localStorage.getItem('mai-diet-goal-history-v1.0.0')||'[]')
+    .filter(x=>Date.parse(x.shown_at)>=cutoff);
+  const recent=new Map();
+  history.forEach((x,i)=>{ if(!recent.has(x.phrase_id)) recent.set(x.phrase_id,i); });
+  const selected=[...candidates].sort((a,b)=>{
+    const ak=a.phrase_id||a.title, bk=b.phrase_id||b.title;
+    const ai=recent.has(ak)?recent.get(ak):Number.POSITIVE_INFINITY;
+    const bi=recent.has(bk)?recent.get(bk):Number.POSITIVE_INFINITY;
+    return bi-ai || String(ak).localeCompare(String(bk));
+  })[0];
+  activeDietPhraseId=selected.phrase_id||selected.title;
+  return selected;
+}
+function phraseGoal(b,p,how){
+  if(!p)return {...b,goal_state:'GUIDANCE_ONLY',title:'개인 식사 계획을 확인해 주세요',why:'지금 조건에 맞는 식이 목표 후보가 없어요.',how:'안내 상태는 완료 목표로 표시하지 않아요.'};
+  const key='mai-diet-goal-history-v1.0.0', phraseId=p.phrase_id||p.title;
+  const history=JSON.parse(localStorage.getItem(key)||'[]');
+  const today=new Date().toISOString().slice(0,10);
+  if(!history.some(x=>x.session_date===today && x.phrase_id===phraseId)){
+    history.unshift({phrase_id:phraseId,session_date:today,shown_at:new Date().toISOString()});
+    localStorage.setItem(key,JSON.stringify(history.slice(0,300)));
+  }
+  return {...b,goal_state:'CREATED',title:p.title,why:p.why,how};
 }
 function mealGoal(b){
-  const {meal,protein,fever,fatigue,salt,veg,sweet,pace,fat} = ans;
-  const pick = (arr, i) => arr[i % arr.length];
+  const {meal,protein,fever,salt,veg,sweet,pace,fat} = ans;
+  if(TARGET_MEAL === '현재 세션의 밤'){
+    const hour=new Date().getHours();
+    const candidates=AFTER_DINNER_GOALS.filter(p=>p.time_code==='EVENING'||hour>=17);
+    return phraseGoal(b,pickPhrase(candidates,[]),'현재 세션의 밤에 할 수 있는 준비 행동');
+  }
   if(!hasAiReport){
-    /* 평소 상태의 축 선정 — 회복 풀 → (확진·검진 없음) → 부담 줄이기 풀 → 일반(요일 순환 축) */
+    /* 평소 상태의 축 선정 — 회복 풀 → 확인 질환 → 검진 경계 → 연동 수면 → 일반 관찰 축 */
     if(meal && (meal.v==='skip' || meal.v==='less'))
       { const p = pickPhrase(MEAL_PHRASES.recovery.slice(meal.v==='skip' ? 2 : 3), MEAL_PHRASES.recovery);
-        return {...b, title:p.title, why:p.why, how:`대상 끼니 · ${TARGET_MEAL}`}; }
-    /* 피로 문항은 여기에 쓰인다 — 피곤한 날에는 축·단계를 따지지 않고 부담이 적은 문구를 낸다
-       (수면 5시간 미만도 같은 조건이지만 평소 세트에는 수면 문항이 없어 피로 답만 본다) */
-    if(fatigue && fatigue.v==='high')
-      { const p = pickPhrase(MEAL_PHRASES.burden); return {...b, title:p.title, why:p.why, how:`부담 줄이기 · ${TARGET_MEAL}`}; }
+        return phraseGoal(b,p,`대상 끼니 · ${TARGET_MEAL}`); }
+    const conditionAxis=chronicDietState().axis;
+    if(conditionAxis){
+      const set=MEAL_PHRASES[conditionAxis];
+      const stage='입문';
+      const p=pickPhrase(set[stage],[...set.입문,...set.기본,...set.도전]);
+      return phraseGoal(b,p,`내정보 질환 연결 축 · ${TARGET_MEAL}`);
+    }
+    const linkedSleepHours=typeof HD_TODAY_NUM==='undefined' ? NaN : Number(HD_TODAY_NUM.sleep);
+    if(Number.isFinite(linkedSleepHours) && linkedSleepHours<5){
+      const p=pickPhrase(MEAL_PHRASES.burden);
+      return phraseGoal(b,p,`연동 수면 5시간 미만 · ${TARGET_MEAL}`);
+    }
     /* 오늘 물은 회전 축의 답으로 단계를 정하고, 그 축의 문구세트에서 고른다 */
     const axis = salt ? {k:'salt', nm:'짠맛 · 국물', a:salt} : {k:'veg', nm:'채소', a:veg};
     const step = !axis.a ? '입문' : axis.a.v==='bad' ? '입문' : axis.a.v==='mid' ? '기본' : '도전';
     const set = MEAL_PHRASES[axis.k];
     const p = pickPhrase(set[step], [...set.입문, ...set.기본, ...set.도전]);
-    return {...b, title:p.title, why:p.why, how:`${axis.nm} · ${step} 단계 · ${TARGET_MEAL}`};
+    return phraseGoal(b,p,`${axis.nm} · ${step} 단계 · ${TARGET_MEAL}`);
   }
   if(meal && (meal.v==='skip' || meal.v==='less')){          /* ① 회복 풀 — 1순위 */
     const idx = meal.v==='skip' ? 2 : 3;                      /* 거의 못 먹음 → 반 그릇 · 조금 적게 → 나눠 먹기 */
-    const p = pick(MEAL_PHRASES.recovery, fever && fever.v!=='none' ? 1 : idx);
-    return {...b, title:p.title, why:p.why, how:`대상 끼니 · ${LAST_MEAL} 다음 끼니부터`};
+    const preferred=MEAL_PHRASES.recovery[fever && fever.v!=='none' ? 1 : idx];
+    const p=pickPhrase([preferred],MEAL_PHRASES.recovery);
+    return phraseGoal(b,p,`대상 끼니 · ${LAST_MEAL} 다음 끼니부터`);
+  }
+  /* 직접 선택한 매핑 질환도 회복 풀 다음의 질환 연결 축에 참여한다. */
+  const conditionAxis=chronicDietState().axis;
+  if(conditionAxis){
+    const set=MEAL_PHRASES[conditionAxis];
+    const p=pickPhrase(set.입문,[...set.입문,...set.기본,...set.도전]);
+    return phraseGoal(b,p,`내정보 질환 연결 축 · ${TARGET_MEAL}`);
   }
   /* ② 확진 질환(폐렴) → 단백질 축. 회전 문항 답으로 단계를 고른다 */
   const step = !protein ? '입문' : protein.v==='bad' ? '입문' : protein.v==='mid' ? '기본' : '도전';
   const pr = MEAL_PHRASES.protein;
   const p = pickPhrase(pr[step], [...pr.입문, ...pr.기본, ...pr.도전]);
-  return {...b, title:p.title, why:p.why, how:`단백질 · ${step} 단계 · ${TARGET_MEAL}`};
+  return phraseGoal(b,p,`단백질 · ${step} 단계 · ${TARGET_MEAL}`);
 }
 function adjust(b){
-  const {care,walk,fatigue} = ans;
+  const {care,walk} = ans;
   if(b.key==='meal') return mealGoal(b);
-  if(!hasAiReport){
-    /* 평소 상태의 활동 목표 — 피로 답으로 오늘 낼 수 있는 만큼을 정한다.
-       기기 데이터(걸음·활동 시간)는 어제까지의 기록이라 오늘 컨디션을 대신하지 못한다. */
-    if(b.key==='move'){
-      if(fatigue && fatigue.v==='high') return {...b, title:'저녁 먹고 5분만 걷기',
-        why:'피곤한 날은 짧게가 오래 가요', how:'집 근처를 5분만 천천히 걸어요'};
-      if(fatigue && fatigue.v==='mild') return {...b, title:'점심 먹고 10분 걷기',
-        why:'점심 뒤 10분이면 부담이 적어요', how:'점심 뒤 자리에서 일어나 10분만 걸어요'};
-      if(fatigue && fatigue.v==='none') return {...b, why:'지금 속도를 그대로 이어가면 돼요'};
-    }
-    return {...b};
-  }
+  if(!hasAiReport) return {...b};
   if(b.key==='move'){
     /* 오늘의 활동은 걷기 답이 정한다. 아직 회복 중이 아니면 같은 '걸을 수 있다'도 한 단계 낮춰 잡는다 */
     if(walk && walk.v==='rest') return {...b, title:'오늘은 앉거나 누워서 쉬기',
@@ -3114,19 +3200,18 @@ function recalc(){
 /* 목표 타일 — 홈과 생활 탭이 같은 컴포넌트를 쓴다.
    카테고리 · 목표 문구 · 터치 영역(색 띠). 누르면 완료, 다시 누르면 취소. 쉬기 없음. */
 const GOAL_TINT = {meal:{c:'#C56A00',bg:'#FDEBD3'}, move:{c:'#D6336C',bg:'#FBD9E0'}, sleep:{c:'#4B45C6',bg:'#E3E1FA'}};
-/* 초기 잠금: 오늘의 목표는 관련 질문에 답해야 열린다(식이 ← 식사/시야 질문, 활동 ← 피로 질문, 수면 ← 수면 질문).
+/* 초기 잠금: 오늘의 목표는 관련 질문에 답해야 열린다(식이 ← 식사 질문, 활동 ← 회복기 걷기 질문).
    잠긴 타일을 누르면 해당 질문으로 이동한다. 과거 날짜에는 적용하지 않는다. */
 const GOAL_LOCK_BY_QUESTION = true;
-const GOAL_UNLOCK_Q = { meal:['meal'], move:['walk','fatigue'], sleep:['sleep'] };
+const GOAL_UNLOCK_Q = { meal:['meal'], move:['walk'], sleep:['sleep'] };
 /* 잠그는 카테고리만 지정한다 — 나머지는 처음부터 열린 상태로 보여준다 */
 /* 이 시연본은 식이와 활동을 잠가 두고 답변 완료 시 생성한다.
    원본은 식이만 잠그지만, 폐렴 케이스에서는 '오늘 걸을 수 있는지'가 활동 목표를 가르는
    결정적 조건이고 그 값은 워치 데이터로 알 수 없어 질문 답변이 있어야 한다.
    수면은 기본 목표(상체 높여 눕기)를 그대로 깔아 두고 답변으로 바꾸지 않는다. */
 let GOAL_LOCK_KEYS = ['meal','move'];
-/* 활동 목표는 두 케이스 모두 답변으로 연다 — 평소에는 피로 답이, 폐렴 케이스에서는 걷기 답이
-   오늘 얼마나 움직일 수 있는지를 가른다. 기기 데이터만으로는 알 수 없는 값이다. */
-const GOAL_LOCK_BY_CASE = { well:['meal','move'], sick:['meal','move'] };
+/* 평소 활동 목표는 처음부터 열고, 폐렴 회복기 활동 목표만 걷기 답변 후 생성한다. */
+const GOAL_LOCK_BY_CASE = { well:['meal'], sick:['meal','move'] };
 function goalLocked(key, dayN){
   if(!GOAL_LOCK_BY_QUESTION) return false;
   const today = typeof TODAY!=='undefined' ? TODAY : 20;
@@ -3143,6 +3228,9 @@ function goalTilesHtml(dayN){
         <b>오늘의 질문에 답하면 목표가 생성돼요.</b>
         <span class="g-lockic"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="8" y="17" width="24" height="19" rx="4" fill="none" stroke="#D3D8E2" stroke-width="3"/><path d="M13 17v-4a7 7 0 0 1 14 0v4" fill="none" stroke="#D3D8E2" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="26" r="2.4" fill="#D3D8E2"/></svg></span>
       </button>`;
+    }
+    if(g.key==='meal' && g.goal_state==='GUIDANCE_ONLY'){
+      return `<div class="g-tile meal" role="status" aria-label="식이 목표 안내: ${g.title}"><small>식이 안내</small><b>${g.title}</b></div>`;
     }
     const st = (typeof stateOf==='function') ? stateOf(g.key, dayN) : g.state;
     const done = st==='done';
@@ -5984,8 +6072,8 @@ function renderMore(){
       <span class="cv">›</span></button></div>
     <div class="mo-lab">연동</div>
     <div class="mo-card">
-      ${row('device','건강데이터',deviceState)}
-      ${row('medlink','건강검진 · 진료정보',(imp.checkup||imp.clinic)?'연동':'미연동')}
+      ${row('device','건강데이터')}
+      ${row('medlink','건강검진 · 진료정보')}
     </div>
     <div class="mo-lab">서비스</div>
     <div class="mo-card">
@@ -6074,7 +6162,7 @@ const AI_REPORT_TEMPLATE = {
     ]
   }
 };
-let AI_REPORTS = []; /* 가입 2주차 상태를 기본값으로 보여주기 위해, 아래에서 지난 2주 리포트를 미리 채워 넣는다 */
+let AI_REPORTS = [];
 let aiReportSeq = 0;
 const AI_CAL_TODAY = new Date('2026-08-20T00:00:00');
 const AI_WEEK_SCORES = { '2026-08-09': 58, '2026-08-16': 66, '2026-08-20': 61, '2026-08-23': 61 };
@@ -6137,32 +6225,6 @@ function aiFmtDate(d){
   const w=['일','월','화','수','목','금','토'];
   return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} (${w[d.getDay()]})`;
 }
-/* 가입 2주차 사용자를 기본 상태로 두기 위해, 지난 2주(8월 2주·3주)의 리포트를 미리 생성해 둔다.
-   빈 배열로 시작하면 항상 "아직 한 번도 생성하지 않은" 최초 진입 화면부터 보게 되므로,
-   이 두 건을 채워 진입 시 바로 결과 화면(종합 인사이트 + 트렌드 그래프)을 확인할 수 있게 한다. */
-/* 두 번째 날짜(오늘)는 "이번 주 리포트까지 이미 생성된" 상태로 만들어, 쿨다운 게이트 없이
-   진입하자마자 결과 화면을 바로 보여준다 — 첫 번째 날짜는 트렌드 그래프용 지난주 이력이다. */
-['2026-08-09', '2026-08-20'].forEach(dateStr=>{
-  const { week, range } = aiWeekReportRange(dateStr, dateStr);
-  const score = aiScoreFor(dateStr);
-  AI_REPORTS.push({
-    id: 'seed-'+dateStr,
-    week, range, generatedAt: dateStr,
-    score,
-    headline: AI_REPORT_TEMPLATE.headline,
-    summary: AI_REPORT_TEMPLATE.summary,
-    findings: AI_REPORT_TEMPLATE.findings,
-    noCheckup: { ...AI_REPORT_TEMPLATE.noCheckup, score: score + 7 }
-  });
-});
-
-/* 생활 탭 4번째 서브탭 진입 화면 — 연동 전 / 연동 중 / 쿨다운 / 분석 유도 4가지 상태를 순서대로 확인한다.
-   AI 인사이트의 필수 데이터는 생활 분석 탭 데이터(deviceLinked, 삼성헬스) 1가지뿐이다.
-   검진정보(imp.checkup)를 포함한 나머지는 전부 옵션 데이터 — 있으면 해당 소견(예: 간 효소·소변 단백처럼
-   검진 기반 소견)에 반영하고, 없으면 그 소견만 생략한 채 생활 데이터만으로 분석을 진행한다. */
-/* 날짜 스트립을 다른 주로 이동한 상태(weekOffset!==0)에서 AI 인사이트 탭을 열면,
-   "오늘" 기준 쿨다운 화면 대신 그 주를 바로 분석/조회할 수 있는 화면을 보여준다.
-   "다른 기간으로 분석하기"의 생성 메커니즘(generateAiInsightForRange)을 그대로 재사용한다. */
 function aiWeekOptionForOffset(offset){
   const monday = new Date(WEEK_MONDAY); monday.setDate(monday.getDate() + offset*7);
   const pad = n => String(n).padStart(2,'0');
@@ -6251,23 +6313,25 @@ function renderAiInsightEntry(){
     if(can) document.getElementById('aiRedo').onclick = ()=>openAiRedoConfirm(thisWeek);
     document.getElementById('aiViewRange').onclick = openAiRangePicker;
   } else {
+    const needsTodayQ = !!last && !allDone();
     el.innerHTML = `
       <div class="ai-entry">
         <span class="spark">✨</span>
         <b>AI 건강 인사이트</b>
         <p>${imp.checkup ? '생활 데이터와 검진정보를 분석해서<br>맞춤 인사이트를 제공해드려요.' : '생활 데이터를 분석해서<br>맞춤 인사이트를 제공해드려요.'}</p>
-        <button class="solid full" id="aiEntryGo">분석하기</button>
+        ${needsTodayQ ? `
+          <div class="ai-todayq-gate"><span class="ic">📋</span><div><b>오늘의 질문에 답하면 분석할 수 있어요</b><p>오늘 컨디션을 반영해 더 정확한 리포트를 만들어드려요. (${answered()}/${QUESTIONS.length})</p></div></div>
+          <button class="solid full" id="aiEntryAnswer">오늘의 질문 답하기</button>
+        ` : `<button class="solid full" id="aiEntryGo">분석하기</button>`}
       </div>
       ${last ? `<div class="ai-cd-note">최근 분석: ${aiEffectiveReport(last).week} · ${aiEffectiveReport(last).score}점</div>` : ``}
       ${checkupNote}
       ${last ? `<div class="ai-menu-list">
           <button class="ai-menu-item" id="aiEntryRange"><span class="ic">🗓️</span><span class="tt">주간 리포트 보기</span><span class="ch">›</span></button>
         </div>` : ''}`;
-    document.getElementById('aiEntryGo').onclick = ()=>generateAiInsight();
-    const listBtn = document.getElementById('aiEntryList');
-    if(listBtn) listBtn.onclick = ()=>openAiReportList();
-    const rangeBtn = document.getElementById('aiEntryRange');
-    if(rangeBtn) rangeBtn.onclick = openAiRangePicker;
+    if(needsTodayQ){ document.getElementById('aiEntryAnswer').onclick = openAns; }
+    else { document.getElementById('aiEntryGo').onclick = ()=>generateAiInsight(); }
+    const rangeBtn = document.getElementById('aiEntryRange'); if(rangeBtn) rangeBtn.onclick = openAiRangePicker;
   }
   const inlineCheckupBtn = document.getElementById('aiLinkCheckupInline');
   if(inlineCheckupBtn) inlineCheckupBtn.onclick = ()=>startImport('checkup');
@@ -6561,9 +6625,30 @@ function openAccount(type){
 document.getElementById('accBack').onclick=()=>{const sub=document.getElementById('accountSub');if(sub.dataset.type==='chronic'){CHRONIC.draft=null;openAccount('profile');return;}sub.classList.remove('open');};
 function toggleNotice(k){ NOTICE_PREF[k]=!NOTICE_PREF[k]; renderAccountSub('notice'); setBell(); }
 const CHRONIC_LIST = [
-  {k:'htn', n:'고혈압', ic:'💗'}, {k:'dm', n:'당뇨병', ic:'🩸'}, {k:'dyslip', n:'이상지질혈증', ic:'🫀'}, {k:'ckd', n:'만성 신장질환', ic:'🫘'}
+  {k:'htn', code:'HYPERTENSION', n:'고혈압', ic:'💗'}, {k:'dm', code:'DIABETES', n:'당뇨병', ic:'🩸'}, {k:'dyslip', code:'DYSLIPIDEMIA', n:'이상지질혈증', ic:'🫀'},
+  {k:'ckd', code:'CHRONIC_KIDNEY_DISEASE', n:'만성 신장질환', ic:'🫘'}
 ];
-const CHRONIC = { picked:[], draft:null, savedAt:null, none:false };
+/* 내정보 자가 입력과 진료정보는 별도 출처다. 직접 선택 축을 먼저 쓰고
+   진료정보 축은 두 번째로 보완한다. 안전 제외 조건은 두 출처를 합친다. */
+const CHRONIC_DIET = {
+  htn:{rule:'DX-02',axis:'salt',ban:[]},
+  dm:{rule:'DX-01',axis:'sweet',ban:['FAST','REDUCE']},
+  dyslip:{rule:'DX-03',axis:'fat',ban:[]},
+  ckd:{rule:'DX-05',axis:null,ban:['INCREASE','REDUCE','FLUID']}
+};
+const CHRONIC = { picked:[], draft:null, savedAt:null, none:false, payload:null };
+function chronicPayload(){
+  return {response_state:CHRONIC.none?'NONE':CHRONIC.picked.length?'SELECTED':'UNANSWERED',
+    input_source:'SELF_REPORTED',
+    condition_codes:CHRONIC.picked.map(k=>CHRONIC_LIST.find(c=>c.k===k).code)};
+}
+function chronicDietState(){
+  const banned=new Set();
+  const order=['dm','htn','dyslip'];
+  for(const code of CHRONIC.picked) for(const nature of (CHRONIC_DIET[code]?.ban||[])) banned.add(nature);
+  const first=order.find(code=>CHRONIC.picked.includes(code));
+  return {banned,axis:first?CHRONIC_DIET[first].axis:null};
+}
 function toggleChronic(k){
   const d = CHRONIC.draft;
   if(k==='none'){ d.none = !d.none; if(d.none) d.picked = []; }
@@ -6571,9 +6656,21 @@ function toggleChronic(k){
   renderAccountSub('chronic');
 }
 function saveChronic(){
-  CHRONIC.picked = [...CHRONIC.draft.picked]; CHRONIC.none = CHRONIC.draft.none; CHRONIC.savedAt = '2026.09.23';
+  CHRONIC.picked = [...CHRONIC.draft.picked]; CHRONIC.none = CHRONIC.draft.none;
+  CHRONIC.payload = chronicPayload();
+  CHRONIC.savedAt = new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  const meal=goals.find(g=>g.key==='meal');
+  if(meal && meal.state!=='done' && generatedKeys.has('meal')){
+    const base=BASE_GOALS.find(g=>g.key==='meal');
+    goals=goals.map(g=>g.key==='meal'?{...mealGoal(base),state:'pending'}:g);
+    sync();
+  }
+  Object.keys(ans).forEach(k=>delete ans[k]);
+  qi=0; coachReady=false; activeDietPhraseId=null;
+  QUESTIONS=pickQuestions();
+  refreshHome();
   CHRONIC.draft = null; renderMore(); renderAccountSub('chronic');
-  if(typeof toast==='function') toast('저장했어요');
+  if(typeof toast==='function') toast('만성질환 정보를 저장했어요');
 }
 function renderAccountSub(type){
   const el=document.getElementById('accBody');
@@ -6622,7 +6719,6 @@ function renderAccountSub(type){
         <div class="acc-row"><div class="tx"><b>개인정보 수집 · 이용</b><small>동의일 2026.08.01</small></div></div>
         <div class="acc-row"><div class="tx"><b>민감정보(건강정보) 처리</b><small>동의일 2026.08.01</small></div></div>
       </div></div>
-      <p class="acc-note">필수 동의 철회는 회원탈퇴로만 할 수 있어요.</p>
       <div class="acc-sec"><div class="acc-lab">선택 동의</div><div class="acc-card">
         <div class="acc-row"><div class="tx"><b>마케팅 정보 수신</b>${CONSENT_PREF.marketing?'<small>동의일 2026.08.01</small>':''}</div>${sw('marketing',CONSENT_PREF.marketing)}</div>
         <div class="acc-row"><div class="tx"><b>서비스 품질 향상을 위한 데이터 활용</b>${CONSENT_PREF.dataQuality?'<small>동의일 2026.09.28</small>':''}</div>${sw('dataQuality',CONSENT_PREF.dataQuality)}</div>
@@ -6746,10 +6842,10 @@ function renderTicketManage(el){
   const n = ticketCount();
   el.innerHTML = `
     <div class="acc-sec">
-      <div class="tk-card"><span class="tk-ic">🔬</span><div class="tk-b"><b>Selvy Checkup</b><div class="tk-n">${n ? '무상 제공 중' : '0장'}</div></div></div>
+      <div class="tk-card"><span class="tk-ic">🔬</span><div class="tk-b"><b>Selvy Checkup</b><div style="font-size:var(--t-sm);color:var(--ink-3)">프로모션 기간</div></div><span class="tk-pill ok">무상 제공 중</span></div>
       
     </div>
-    <div class="acc-sec"><div class="acc-lab">이용권 내역</div><div id="tkHistWrap"></div></div>`;
+    `; /* 현재 버전은 프로모션 기간이라 이용권 내역을 보여주지 않는다 */
   const bb=document.getElementById('tkBuyBtn'); if(bb) bb.onclick = ()=>openTicketPurchase(false);
   renderTicketHistory();
 }
