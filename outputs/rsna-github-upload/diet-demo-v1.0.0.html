@@ -135,7 +135,7 @@ function render(){
   document.getElementById('rotatingQuestion').innerHTML=`<div class="q-meta">오늘의 질문 2/2 · ${clinicDisease} 관련</div><div class="q-text">${d.axis.q.replace('{meal}',d.meal)}</div><div class="answers">${d.axis.opts.map((x,i)=>`<div class="answer ${i===d.answer?'on':''}">${x}</div>`).join('')}</div><div class="notice-card" style="margin:8px 0 0">오늘은 공통 고정 질문을 생략하고 여기서 질문을 마칩니다.</div>`;
  }else{
   document.querySelector('#fixedQuestion').previousElementSibling.innerHTML=`<b>지난 끼니 확인</b><span id="mealLabel">${d.meal}</span>`;
-  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">매일 고정</div><div class="q-text">${d.meal}은 평소만큼 드셨나요?</div>${dinnerTip}<div class="answers">${['평소대로','조금 적게','거의 못 먹었어요'].map((x,i)=>`<div class="answer ${i===d.fixed?'on':''}">${x}</div>`).join('')}</div>`;
+  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">매일 고정</div><div class="q-text">${d.meal}은 평소만큼 드셨나요?</div>${dinnerTip}<div class="answers">${['평소대로','조금 적게','거의 못 먹거나 거름'].map((x,i)=>`<div class="answer ${i===d.fixed?'on':''}">${x}</div>`).join('')}</div>`;
   document.getElementById('rotatingQuestion').innerHTML=`<div class="q-meta">${d.src.label} · ${d.axis.name}</div><div class="q-text">${d.axis.q.replace('{meal}',d.meal)}</div><div class="answers">${d.axis.opts.map((x,i)=>`<div class="answer ${i===d.answer?'on':''}">${x}</div>`).join('')}</div>`;
  }
  document.getElementById('axisState').textContent=axisStatus(rows,selectedDay);

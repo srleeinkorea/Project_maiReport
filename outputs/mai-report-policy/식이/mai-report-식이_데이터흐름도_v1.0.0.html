@@ -462,10 +462,10 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 <section class="axis-wrap">
   <div class="panel">
     <h3>축 8종 <span class="mono">식이 목표를 나눈 습관 갈래 · 축마다 회전 문항 1 · 상태 1 · 단계 3</span></h3>
-    <div class="sub">「끼니 규칙」만 별도 문항이 없고 고정 문항의 「거의 못 먹었어요」 답으로 쌓인다</div>
+    <div class="sub">「끼니 규칙」만 별도 문항이 없고 고정 문항의 「거의 못 먹거나 거름」 답으로 쌓인다</div>
     <table class="ax">
       <tr><th></th><th>축</th><th>무엇을 보나</th><th>사용자 질문</th><th>화면 답변 3개</th><th>연결 검진 · 질환</th></tr>
-      <tr><td class="n">1</td><td class="k">끼니 규칙</td><td>아침 · <span class="chg">점심 · 저녁 챙기기</span></td><td><b>고정</b> · {지난 끼니}은 평소만큼 드셨나요?</td><td class="answer">평소대로<br>조금 적게<br>거의 못 먹었어요</td><td>체질량지수</td></tr>
+      <tr><td class="n">1</td><td class="k">끼니 규칙</td><td>아침 · <span class="chg">점심 · 저녁 챙기기</span></td><td><b>고정</b> · {지난 끼니}은 평소만큼 드셨나요?</td><td class="answer">평소대로<br>조금 적게<br>거의 못 먹거나 거름</td><td>체질량지수</td></tr>
       <tr><td class="n">2</td><td class="k">채소</td><td>채소 반찬 유무 · 채소 먼저</td><td>{지난 끼니}에 채소 반찬이 있었나요?</td><td class="answer">두 가지 이상<br>한 가지<br>먹지 않았어요</td><td>혈당 · 체중 · 당뇨 · 고혈압</td></tr>
       <tr><td class="n">3</td><td class="k">단 음료 · 단 간식</td><td>가당 음료 · 단 디저트</td><td>{지난 끼니} 전후로 단 음료나 단 간식을 드셨나요?</td><td class="answer">없었어요<br>한 번<br>두 번 이상</td><td>혈당 · 체중 · 당뇨</td></tr>
       <tr><td class="n">4</td><td class="k">짠맛 · 국물</td><td>국물 · 소금 · 가공식품</td><td>{지난 끼니} 국물은 어느 정도 드셨나요?</td><td class="answer">안 먹었어요<br>절반 이하<br>절반 넘게</td><td>혈압 · 고혈압 · 신장</td></tr>
@@ -563,7 +563,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">1</td><td class="u">앱을 연다 (13:10)</td><td class="r"></td><td class="j">12:00 ≤ 13:10 &lt; 17:00 → 지난 끼니 = <b>오늘 점심</b></td><td class="o">문장에 "오늘 점심"</td></tr>
-      <tr><td class="n">2</td><td class="u"><span class="pick">거의 못 먹었어요</span></td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">끼니 규칙 축에 「개선 필요」 +1 · <b>회복 풀 조건</b> · <b>회전 문항 생략</b></td><td class="o"><span class="src src-teal">답 이력</span>1행(결식값) · <span class="src src-teal">축 지표</span>끼니 규칙 재계산</td></tr>
+      <tr><td class="n">2</td><td class="u"><span class="pick">거의 못 먹거나 거름</span></td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">끼니 규칙 축에 「개선 필요」 +1 · <b>회복 풀 조건</b> · <b>회전 문항 생략</b></td><td class="o"><span class="src src-teal">답 이력</span>1행(결식값) · <span class="src src-teal">축 지표</span>끼니 규칙 재계산</td></tr>
       <tr><td class="n">3</td><td class="u none">(목표 생성)</td><td class="r"><span class="src src-indigo">선정 순서</span>1단계 · <span class="src src-amber">회복 풀</span>3개(저녁 가볍게 · 소량 단백질 · 오후 간식)</td><td class="j">1단계 해당 → <b>회복 풀</b>, 축 · 단계 · 검진 판정 모두 건너뜀 · 13:10은 오후 진입 → 오후 사용 가능 문구만 남김</td><td class="o">문구 = 「<span class="chg">간식으로 빈 끼 채우기</span>」</td></tr>
       <tr><td class="n">4</td><td class="u none">—</td><td class="r"><span class="src src-amber">문구 세트</span>회복 · 오후 사용 가능</td><td class="j">대상 끼니 = <b>오늘 저녁</b></td><td class="o"><span class="src src-green">홈 타일</span>문구 · <span class="src src-green">목표분석</span>행동 문구만 표시 · <span class="src src-teal">목표 기록</span>풀 = 회복</td></tr>
     </table>
