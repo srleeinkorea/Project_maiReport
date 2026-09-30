@@ -3289,7 +3289,7 @@ const STATE_TONE = {
 const METRIC_COLOR = { margin:'#12A150', selfcare:'#D98A12', steady:'#7C5CFC' };
 const METRICS = [
   {k:'margin', nm:'생활여유', en:'Life Margin',
-   desc:'오늘 남아 있는 몸의 여유', expl:'수면 시간, 활동 시간, 움직임이 하루에 고르게 나뉘었는지를 함께 보고 오늘 남아 있는 몸의 여유를 알려드려요. 너무 많이 움직인 날에는 여유가 줄어들 수 있어요.',
+   desc:'오늘 남아 있는 몸의 여유', expl:'잠은 충분했는지, 움직임이 하루에 고르게 퍼져 있었는지를 함께 보고 오늘을 편안하게 보낼 힘이 얼마나 남았는지 알려드려요.',
    states:{good:'충분해요', mid:'보통이에요', low:'부족해요'},
    state:'low', prev:'low',
    line:'오늘은 하루를 이어갈 여유가 많이 부족해요.',
@@ -7556,7 +7556,27 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  refreshOverview();
 })();
 </script>
+<div id="mqModal" style="position:fixed;inset:0;z-index:300;display:none;background:rgba(15,23,42,.45);align-items:flex-end;justify-content:center" onclick="if(event.target===this)this.style.display='none'">
+  <div role="dialog" aria-modal="true" aria-labelledby="mqTitle" style="width:100%;max-width:430px;background:#fff;border-radius:24px 24px 0 0;padding:18px 20px 40px">
+    <div style="position:relative;text-align:center;height:32px;line-height:32px"><button aria-label="닫기" onclick="document.getElementById('mqModal').style.display='none'" style="position:absolute;left:0;top:0;border:0;background:none;font-size:26px;line-height:32px;color:#111;cursor:pointer;padding:0 4px">✕</button><span id="mqTitle" style="font-size:16px;font-weight:600;color:var(--ink-1)"></span></div>
+    <b id="mqHead" style="display:block;margin-top:36px;font-size:19px;font-weight:800;color:var(--ink-1)"></b>
+    <p id="mqBody" style="margin-top:14px;font-size:16px;line-height:1.7;color:var(--ink-2)"></p>
+  </div>
+</div>
+<script>
+/* 홈 · 오늘의 컨디션 — 지표명 옆 ? 를 누르면 지표 설명 모달 */
+document.addEventListener('click',e=>{
+  const q=e.target.closest('#mGrid .m-q'); if(!q) return;
+  e.stopPropagation(); e.preventDefault();
+  const m=METRICS.find(x=>x.k===q.closest('.m').dataset.k); if(!m) return;
+  document.getElementById('mqTitle').textContent=m.nm+'란?';
+  document.getElementById('mqHead').textContent=m.desc;
+  document.getElementById('mqBody').textContent=m.expl;
+  document.getElementById('mqModal').style.display='flex';
+},true);
+</script>
 <style id="condV2">
+#cond .m-q{cursor:pointer}
 #cond .m .m-nm{display:inline-flex;align-items:center;gap:5px;font-size:15px;font-weight:500;color:var(--ink-2)}
 #cond .m-q{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border:1.5px solid #D1D5DB;border-radius:50%;font-style:normal;font-size:11px;font-weight:600;color:#9CA3AF}
 #cond .m .m-state{font-size:16px!important;font-weight:800}
