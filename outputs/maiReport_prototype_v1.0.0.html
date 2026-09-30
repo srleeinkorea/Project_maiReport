@@ -7481,20 +7481,19 @@ const zreset=document.getElementById('zoomReset'); if(zreset)zreset.onclick=()=>
  if(new URLSearchParams(location.search).get('preview')==='insight'&&deviceLinked&&!aiThisWeekReport()){AI_REPORTS.push(aiCreateReport());}
  scoreResult.insertAdjacentHTML('afterbegin','<span class="home-score-name"><span class="home-score-symbol" aria-hidden="true">✨</span>AI 건강 인사이트</span><span class="home-score-period"></span>');
  function renderHomeInsight(){
-  const report=aiThisWeekReport();const effective=report?aiEffectiveReport(report):null;
+  /* 홈: 결과가 있으면 가장 최근 분석 기간의 결과 1건 — 점수와 분석 기간만 표시 (변화량 표시 없음) */
+  const report=[...AI_REPORTS].filter(r=>r.generatedAt).sort((a,b)=>b.generatedAt.localeCompare(a.generatedAt)||b.id-a.id)[0]||null;const effective=report?aiEffectiveReport(report):null;
   document.getElementById('gptHomeInsight').classList.toggle('has-result',!!effective);scoreResult.hidden=!effective;scoreHeading.hidden=!effective;
   if(effective){
    scoreResult.querySelector('.home-score-headline').textContent=effective.headline;
    scoreResult.querySelector('.home-score-period').textContent=effective.range;
    scoreResult.querySelector('.home-score-value').innerHTML=effective.score+'<small>/ 100</small>';
-   const priorDate=new Date(report.generatedAt+'T00:00:00');priorDate.setDate(priorDate.getDate()-7);const prior=aiReportForWeekOf(isoOf(priorDate));const previous=prior?aiEffectiveReport(prior):null;
-   const delta=previous?effective.score-previous.score:null;
-   scoreResult.querySelector('.home-score-change').textContent=delta===null?'':delta===0?'지난주와 같아요':'지난주보다 '+Math.abs(delta)+'점 '+(delta>0?'↑':'↓');
+   scoreResult.querySelector('.home-score-change').textContent='';
    const track=scoreResult.querySelector('.home-score-track');track.setAttribute('aria-valuenow',effective.score);track.querySelector('i').style.width=Math.max(0,Math.min(100,effective.score))+'%';scoreResult.querySelector('.home-score-meta').textContent=effective.range+' · 시연 데이터';
   }
   document.getElementById('gptInsightBadge').textContent=effective?'분석 완료':deviceLinked?'이번 주':'연동 필요';
   document.getElementById('gptHomeInsight').classList.toggle('is-empty',!effective);
-  document.getElementById('gptInsightTitle').innerHTML=effective?effective.score+'<small>/ 100점</small>':deviceLinked?'이번 주는 분석 결과가 없어요':'생활 기록을 연결하면 분석할 수 있어요';
+  document.getElementById('gptInsightTitle').innerHTML=effective?effective.score+'<small>/ 100점</small>':deviceLinked?'아직 분석 결과가 없어요':'생활 기록을 연결하면 분석할 수 있어요';
   document.getElementById('gptInsightDesc').textContent=effective?'생활 기록과 검진정보를 함께 살펴본 분석이에요.':deviceLinked?'수면·활동·심박의 변화를 모아 정리해 드려요.':'연결한 생활 기록을 바탕으로 변화를 정리해 드려요.';
   if(effective&&!imp.checkup)document.getElementById('gptInsightDesc').textContent='생활 기록을 함께 살펴본 분석이에요.';
   if(!effective)document.getElementById('gptInsightDesc').textContent=deviceLinked?'쌓인 기록을 함께 살펴봐요.':'건강 기록을 연결해 주세요.';
