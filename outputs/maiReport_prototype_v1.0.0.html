@@ -4710,7 +4710,6 @@ function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
     </div>
     <div class="mc-def" hidden><span class="dq">${meta.desc}</span><p>${meta.expl}</p></div>
     ${bandGraph(scores, i, color, BAND_WORDS[m.k], dayLabels, m.k)}
-    <div class="src-lab">${m.flowTitle || '지표 해석'}</div><p class="mc-in" style="margin-top:0">${dfText(m, scores, i, valFn, judgeFn)}</p>
     <div class="src-lab">핵심 데이터</div>
     <div class="mc-rows">${core.map(d=>
       `<div class="mc-row"><b>${d.n}</b><span class="v">${valFn(d.n==='식후 활동'?'운동 기록':d.n,i)}</span></div>`).join('')}</div>
