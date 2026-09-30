@@ -43,7 +43,12 @@ if (-not $Destination -and (Test-Path $conf)) {
 if (-not $Destination) {
   $libs = Get-SyncedLibraries
   $hit  = $libs | Where-Object { $_.Url -like "*$SITE*" } | Select-Object -First 1
-  if ($hit) { $Destination = $hit.Path }
+  if ($hit) {
+    $Destination = $hit.Path
+    # 파일이 라이브러리 최상위가 아니라 하위 폴더에 있으면 그쪽을 쓴다
+    $found = Get-ChildItem $Destination -Recurse -Filter $files[0] -File -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($found) { $Destination = $found.DirectoryName }
+  }
   else {
     Write-Host "팀 사이트가 아직 동기화되지 않았습니다." -ForegroundColor Yellow
     Write-Host ""
@@ -65,28 +70,45 @@ Write-Host "보낼 곳: $Destination"
 Write-Host ""
 
 function Get-Sha([string]$p){ (Get-FileHash -Path $p -Algorithm SHA256).Hash }
+
+# SharePoint는 올라간 xlsx에 자체 메타데이터를 붙여 바이트가 달라진다.
+# 그래서 사이트 파일과 비교하지 않고, 마지막으로 보낸 "내 파일"의 해시를 기억해 둔다.
+$stateFile = Join-Path $PSScriptRoot '.sync-state.json'
+$state = @{}
+if (Test-Path $stateFile) {
+  try { (Get-Content $stateFile -Raw -Encoding UTF8 | ConvertFrom-Json).PSObject.Properties |
+          ForEach-Object { $state[$_.Name] = [string]$_.Value } } catch { $state = @{} }
+}
+
 $sent = 0; $same = 0; $held = 0
 foreach ($name in $files) {
   $from = Join-Path $src $name
   if (-not (Test-Path $from)) { Write-Host "  없음(건너뜀)  $name" -ForegroundColor Yellow; continue }
 
-  $to  = Join-Path $Destination $name
-  $new = -not (Test-Path $to)
+  $to   = Join-Path $Destination $name
+  $new  = -not (Test-Path $to)
+  $hash = Get-Sha $from
 
-  if (-not $new) {
-    if ((Get-Sha $from) -eq (Get-Sha $to)) { Write-Host "  그대로  $name"; $same++; continue }
-    if (((Get-Item $to).LastWriteTime -gt (Get-Item $from).LastWriteTime) -and -not $Force) {
-      Write-Host "  보류    $name" -ForegroundColor Red
-      Write-Host ("          사이트 {0} 가 내 파일 {1} 보다 최근입니다" -f (Get-Item $to).LastWriteTime, (Get-Item $from).LastWriteTime)
-      Write-Host  "          사이트에서 누가 고쳤을 수 있습니다. 확인 뒤 -Force 로 다시 실행하세요."
-      $held++; continue
-    }
+  if (-not $new -and $state[$name] -eq $hash -and -not $Force) {
+    Write-Host "  그대로  $name"; $same++; continue
+  }
+  if (-not $new -and ((Get-Item $to).LastWriteTime -gt (Get-Item $from).LastWriteTime) -and -not $Force) {
+    Write-Host "  보류    $name" -ForegroundColor Red
+    Write-Host ("          사이트 {0} 가 내 파일 {1} 보다 최근입니다" -f (Get-Item $to).LastWriteTime, (Get-Item $from).LastWriteTime)
+    Write-Host  "          사이트에서 누가 고쳤을 수 있습니다. 확인 뒤 -Force 로 다시 실행하세요."
+    $held++; continue
   }
   if ($PSCmdlet.ShouldProcess($name, '올리기')) {
     Copy-Item $from $to -Force
+    $state[$name] = $hash
     Write-Host ("  {0}  {1}" -f $(if($new){'새로 올림'}else{'덮어씀  '}), $name) -ForegroundColor Green
     $sent++
   }
+}
+if ($sent -and -not $WhatIfPreference) {
+  ($state.GetEnumerator() | ForEach-Object { [pscustomobject]@{k=$_.Key;v=$_.Value} } |
+    ForEach-Object -Begin { $o=[ordered]@{} } -Process { $o[$_.k]=$_.v } -End { [pscustomobject]$o }) |
+    ConvertTo-Json | Set-Content $stateFile -Encoding UTF8
 }
 Write-Host ""
 Write-Host "올림 $sent · 그대로 $same · 보류 $held"
