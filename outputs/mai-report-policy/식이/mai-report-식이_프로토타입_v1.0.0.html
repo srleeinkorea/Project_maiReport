@@ -2650,7 +2650,7 @@ const Q_BASE = [
     text:'오늘 식사는 평소만큼 하셨나요?',
     opts:[{v:'normal',f:'⌣',label:'평소대로',  tone:'good'},
           {v:'less',  f:'—',label:'조금 적게',  tone:'okay'},
-          {v:'skip',  f:'⌢',label:'거의 못 먹었거나 걸렀어요',tone:'bad'}] }
+          {v:'skip',  f:'⌢',label:'거의 못 먹었어요',tone:'bad'}] }
 ];
 /* 질환 맞춤 질문 — 이 시연본은 흉부 X선 AI 분석에서 '오른쪽 폐 경화 · 폐렴 의심'이
    검출된 급성기 사용자를 전제로 한다. 물어볼 근거가 AI REPORT 소견이라,
@@ -2688,7 +2688,7 @@ const Q_ACUTE = [
     text:`${LAST_MEAL}은 평소만큼 드셨나요?`,
     opts:[{v:'normal',f:'⌣',label:'평소대로',   tone:'good'},
           {v:'less',  f:'—',label:'조금 적게', tone:'okay'},
-          {v:'skip',  f:'⌢',label:'거의 못 먹었거나 걸렀어요', tone:'bad'}] },
+          {v:'skip',  f:'⌢',label:'거의 못 먹었어요', tone:'bad'}] },
   { id:'protein', cat:'식이', av:'🥚', tint:'moon',
     text:`${LAST_MEAL}에 고기 · 생선 · 달걀 · 두부 반찬이 있었나요?`,
     opts:[{v:'good',f:'⌣',label:'먹었어요',       tone:'good'},
@@ -2713,12 +2713,12 @@ const Q_ROTATION = {
             {v:'bad', f:'⌢',label:'두 번 이상',tone:'bad'}] },
   4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL} 국물은 어느 정도 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'안 먹었어요',        tone:'good'},
-            {v:'mid', f:'—',label:'절반 이하 먹었어요',  tone:'okay'},
-            {v:'bad', f:'⌢',label:'절반보다 많이 먹었어요',tone:'bad'}] },
+            {v:'mid', f:'—',label:'절반 이하',  tone:'okay'},
+            {v:'bad', f:'⌢',label:'절반 넘게',tone:'bad'}] },
   5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}은 어떻게 마치셨나요?`,
       opts:[{v:'good',f:'⌣',label:'편안했어요',tone:'good'},
-            {v:'mid', f:'—',label:'조금 부담스러웠어요',tone:'okay'},
-            {v:'bad', f:'⌢',label:'많이 부담스러웠어요',tone:'bad'}] },
+            {v:'mid', f:'—',label:'조금 배불렀어요',tone:'okay'},
+            {v:'bad', f:'⌢',label:'많이 배불렀어요',tone:'bad'}] },
   6:{ id:'protein',cat:'식이', av:'🥚', tint:'moon', text:`${LAST_MEAL}에 고기 · 생선 · 달걀 · 두부 반찬이 있었나요?`,
       opts:[{v:'good',f:'⌣',label:'먹었어요',tone:'good'},
             {v:'mid', f:'—',label:'맛만 봤어요',tone:'okay'},
@@ -2729,8 +2729,8 @@ const Q_ROTATION = {
             {v:'bad', f:'⌢',label:'먹었어요',tone:'bad'}] },
   8:{ id:'mealTime',cat:'식이', av:'🌙', tint:'moon', text:'어제 저녁 식사 뒤에 더 드신 게 있었나요?',
       opts:[{v:'good',f:'⌣',label:'안 먹었어요',tone:'good'},
-            {v:'mid', f:'—',label:'한 번 먹었어요',tone:'okay'},
-            {v:'bad', f:'⌢',label:'두 번 이상 먹었어요',tone:'bad'}] }
+            {v:'mid', f:'—',label:'한 번',tone:'okay'},
+            {v:'bad', f:'⌢',label:'두 번 이상',tone:'bad'}] }
 };
 function rotationQuestion(){
   const history = JSON.parse(localStorage.getItem('mai-diet-question-history-v1.0.0') || '[]');
@@ -2753,7 +2753,7 @@ function questionForAxis(axis){
    · 질환 확인에서 현재 관리 중이면 공통 고정을 생략하고 질환 회전을 둘째로 낸다. 아니요·잘 모르겠어요이면 공통 고정을 둘째로 내며 세 번째 질문은 만들지 않는다.
    · 급성기에는 증상 문항이 앞자리를 차지하고, 회전 축은 회복 풀과 이어지는 단백질로 고정된다
      (어제 고정 답이 '거의 못 먹음'이면 단백질 축, 확진 질환이 있으면 연결 축).
-   · 고정 답이 '거의 못 먹었거나 걸렀어요'면 회전 문항은 묻지 않는다(pick에서 뺀다). */
+   · 고정 답이 '거의 못 먹었어요'면 회전 문항은 묻지 않는다(pick에서 뺀다). */
 function pickQuestions(){
   const selfAxis = typeof chronicDietState==='function' ? chronicDietState().axis : null;
   if(selfAxis) return [Q_ACUTE[0], questionForAxis(selfAxis)];
