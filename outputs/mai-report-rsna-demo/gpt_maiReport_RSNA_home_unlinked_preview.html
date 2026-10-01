@@ -2509,7 +2509,7 @@ const Q_ACUTE = [
           {v:'less',  f:'—',label:'조금 적게', tone:'okay'},
           {v:'skip',  f:'⌢',label:'거의 못 먹거나 거름', tone:'bad'}] },
   { id:'protein', cat:'식이', av:'🥚', tint:'moon',
-    text:`${LAST_MEAL}에 고기·생선·달걀·두부 같은 음식을 드셨나요?`,
+    text:`${LAST_MEAL}에 고기·생선·달걀·두부를 드셨나요?`,
     opts:[{v:'good',f:'⌣',label:'먹었어요',       tone:'good'},
           {v:'mid', f:'—',label:'맛만 봤어요',   tone:'okay'},
           {v:'bad', f:'⌢',label:'안 먹었어요',       tone:'bad'}] },
@@ -2522,11 +2522,11 @@ const Q_ACUTE = [
 /* 일반 사용자의 회전 문항 — 여덟 축을 요일로 돌린다.
    (월 끼니 규칙은 별도 문항이 없어 고정 문항의 결식 답으로 쌓이므로 회전에서 빠진다) */
 const Q_ROTATION = {
-  2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬을 몇 가지 드셨나요?`,
+  2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬 몇 가지 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'두 가지 이상',   tone:'good'},
             {v:'mid', f:'—',label:'한 가지',tone:'okay'},
             {v:'bad', f:'⌢',label:'먹지 않았어요',   tone:'bad'}] },
-  3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후에 단 음료나 단 간식을 몇 번 드셨나요?`,
+  3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후에 단 음료·간식 몇 번 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'없었어요',     tone:'good'},
             {v:'mid', f:'—',label:'한 번',   tone:'okay'},
             {v:'bad', f:'⌢',label:'두 번 이상', tone:'bad'}] },
@@ -2534,7 +2534,7 @@ const Q_ROTATION = {
       opts:[{v:'good',f:'⌣',label:'안 먹었어요',        tone:'good'},
             {v:'mid', f:'—',label:'절반 이하',  tone:'okay'},
             {v:'bad', f:'⌢',label:'절반 넘게',  tone:'bad'}] },
-  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}를 먹고 배부른 정도가 어땠나요?`,
+  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL} 먹고 얼마나 배불렀나요?`,
       opts:[{v:'good',f:'⌣',label:'편안했어요',  tone:'good'},
             {v:'mid', f:'—',label:'조금 배불렀어요',   tone:'okay'},
             {v:'bad', f:'⌢',label:'많이 배불렀어요',tone:'bad'}] },
