@@ -2700,45 +2700,47 @@ const Q_ACUTE = [
           {v:'5to7',f:'—',label:'한두 번 깼어요', tone:'okay'},
           {v:'lt5', f:'⌢',label:'여러 번 깼어요', tone:'bad'}] }
 ];
-/* 일반 사용자의 회전 문항 — 최근 28일 유효 답이 적고 마지막 질문이 오래된 축부터 고른다.
+/* 일반 사용자의 회전 문항 — 최근 28일 유효 답이 적고 마지막 질문이 오래된 축부터 고르고,
+   그래도 같으면 질문 번호(데이터계약 「질문」 시트) 순으로 고른다.
    끼니 규칙은 별도 문항이 없어 고정 문항의 결식 답으로 쌓이므로 회전에서 빠진다. */
 const Q_ROTATION = {
-  2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬이 있었나요?`,
+  1:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬 몇 가지 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'두 가지 이상',tone:'good'},
             {v:'mid', f:'—',label:'한 가지',tone:'okay'},
             {v:'bad', f:'⌢',label:'먹지 않았어요',tone:'bad'}] },
-  3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후에 단 음료·간식 몇 번 드셨나요?`,
+  2:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후에 단 음료·간식 몇 번 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'없었어요',tone:'good'},
             {v:'mid', f:'—',label:'한 번',tone:'okay'},
             {v:'bad', f:'⌢',label:'두 번 이상',tone:'bad'}] },
-  4:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL} 국물은 어느 정도 드셨나요?`,
-      opts:[{v:'good',f:'⌣',label:'안 먹었어요',        tone:'good'},
-            {v:'mid', f:'—',label:'절반 이하',  tone:'okay'},
+  3:{ id:'salt',  cat:'식이', av:'🍲', tint:'moon', text:`${LAST_MEAL}에 국물은 얼마나 드셨나요?`,
+      opts:[{v:'good',f:'⌣',label:'안 먹었어요',tone:'good'},
+            {v:'mid', f:'—',label:'절반 이하',tone:'okay'},
             {v:'bad', f:'⌢',label:'절반 넘게',tone:'bad'}] },
-  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}은 어떻게 마치셨나요?`,
+  4:{ id:'mealTime',cat:'식이', av:'🌙', tint:'moon', text:'어젯밤 야식을 몇 번 드셨나요?',
+      opts:[{v:'good',f:'⌣',label:'안 먹었어요',tone:'good'},
+            {v:'mid', f:'—',label:'한 번',tone:'okay'},
+            {v:'bad', f:'⌢',label:'두 번 이상',tone:'bad'}] },
+  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL} 먹고 얼마나 배불렀나요?`,
       opts:[{v:'good',f:'⌣',label:'편안했어요',tone:'good'},
             {v:'mid', f:'—',label:'조금 배불렀어요',tone:'okay'},
             {v:'bad', f:'⌢',label:'많이 배불렀어요',tone:'bad'}] },
-  6:{ id:'protein',cat:'식이', av:'🥚', tint:'moon', text:`${LAST_MEAL}에 고기 · 생선 · 달걀 · 두부 반찬이 있었나요?`,
+  6:{ id:'protein',cat:'식이', av:'🥚', tint:'moon', text:`${LAST_MEAL}에 고기·생선·달걀·두부를 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'먹었어요',tone:'good'},
             {v:'mid', f:'—',label:'맛만 봤어요',tone:'okay'},
             {v:'bad', f:'⌢',label:'안 먹었어요',tone:'bad'}] },
-  7:{ id:'fat',   cat:'식이', av:'🍖', tint:'moon', text:`${LAST_MEAL}에 튀김이나 기름진 반찬이 있었나요?`,
+  7:{ id:'fat',   cat:'식이', av:'🍖', tint:'moon', text:`${LAST_MEAL}에 튀긴 음식을 드셨나요?`,
       opts:[{v:'good',f:'⌣',label:'안 먹었어요',tone:'good'},
             {v:'mid', f:'—',label:'맛만 봤어요',tone:'okay'},
-            {v:'bad', f:'⌢',label:'먹었어요',tone:'bad'}] },
-  8:{ id:'mealTime',cat:'식이', av:'🌙', tint:'moon', text:'어제 저녁 식사 뒤에 더 드신 게 있었나요?',
-      opts:[{v:'good',f:'⌣',label:'안 먹었어요',tone:'good'},
-            {v:'mid', f:'—',label:'한 번',tone:'okay'},
-            {v:'bad', f:'⌢',label:'두 번 이상',tone:'bad'}] }
+            {v:'bad', f:'⌢',label:'먹었어요',tone:'bad'}] }
 };
-function rotationQuestion(){
+/* axes가 있으면(내정보 질환 연결 축) 그 축 안에서만 고른다 */
+function rotationQuestion(axes){
   const history = JSON.parse(localStorage.getItem('mai-diet-question-history-v1.0.0') || '[]');
   const cutoff = Date.now() - 28*24*60*60*1000;
   const hour = new Date().getHours();
-  const candidates = Object.values(Q_ROTATION)
-    .filter(q=>q.id!=='mealTime' || (hour>=4 && hour<10))
-    .map((q,order)=>{
+  const all = Object.values(Q_ROTATION).filter(q=>q.id!=='mealTime' || (hour>=4 && hour<10));
+  const pool = axes && axes.length ? all.filter(q=>axes.includes(q.id)) : all;
+  const candidates = (pool.length ? pool : all).map((q,order)=>{
     const asked = history.filter(x=>x.question_id===q.id && Date.parse(x.answered_at)>=cutoff);
     const last = asked.reduce((v,x)=>Math.max(v,Date.parse(x.answered_at)||0),0);
     return {q,order,count:asked.length,last};
@@ -2746,7 +2748,7 @@ function rotationQuestion(){
   return candidates.sort((a,b)=>a.count-b.count || a.last-b.last || a.order-b.order)[0].q;
 }
 function questionForAxis(axis){
-  return Object.values(Q_ROTATION).find(q=>q.id===axis) || rotationQuestion();
+  return rotationQuestion(Array.isArray(axis) ? axis : [axis]);
 }
 /* 질문 세트
    · 식이는 최대 두 문항이다. 질환 확인이 없으면 고정 + 회전, 질환 확인이 있으면 확인 + 응답에 따른 질환 회전 또는 공통 고정이다.
@@ -2755,8 +2757,8 @@ function questionForAxis(axis){
      (어제 고정 답이 '거의 못 먹음'이면 단백질 축, 확진 질환이 있으면 연결 축).
    · 고정 답이 '거의 못 먹거나 거름'면 회전 문항은 묻지 않는다(pick에서 뺀다). */
 function pickQuestions(){
-  const selfAxis = typeof chronicDietState==='function' ? chronicDietState().axis : null;
-  if(selfAxis) return [Q_ACUTE[0], questionForAxis(selfAxis)];
+  const selfAxes = typeof chronicDietState==='function' ? chronicDietState().axes : [];
+  if(selfAxes.length) return [Q_ACUTE[0], questionForAxis(selfAxes)];
   if(hasAiReport) return [Q_CARE, Q_ACUTE[0]];
   return [Q_ACUTE[0], rotationQuestion()];
 }
@@ -6449,10 +6451,10 @@ const CHRONIC_LIST = [
 /* 내정보 자가 입력과 진료정보는 별도 출처다. 직접 선택 축을 먼저 쓰고
    진료정보 축은 두 번째로 보완한다. 안전 제외 조건은 두 출처를 합친다. */
 const CHRONIC_DIET = {
-  htn:{rule:'DX-02',axis:'salt',ban:[]},
-  dm:{rule:'DX-01',axis:'sweet',ban:['FAST','REDUCE']},
-  dyslip:{rule:'DX-03',axis:'fat',ban:[]},
-  ckd:{rule:'DX-05',axis:null,ban:['INCREASE','REDUCE','FLUID']}
+  htn:{rule:'DX-02',axes:['veg','salt'],ban:[]},
+  dm:{rule:'DX-01',axes:['veg','sweet','pace'],ban:['FAST','REDUCE']},
+  dyslip:{rule:'DX-03',axes:['pace','fat'],ban:[]},
+  ckd:{rule:'DX-05',axes:[],ban:['INCREASE','REDUCE','FLUID']}
 };
 const CHRONIC = { picked:[], draft:null, savedAt:null, none:false, payload:null };
 function chronicPayload(){
@@ -6462,10 +6464,16 @@ function chronicPayload(){
 }
 function chronicDietState(){
   const banned=new Set();
-  const order=['dm','htn','dyslip'];
   for(const code of CHRONIC.picked) for(const nature of (CHRONIC_DIET[code]?.ban||[])) banned.add(nature);
-  const first=order.find(code=>CHRONIC.picked.includes(code));
-  return {banned,axis:first?CHRONIC_DIET[first].axis:null};
+  /* 선택한 질환들의 연결 축을 합치고 중복을 뺀다. 순서는 질문 번호 순 */
+  const qOrder=Object.values(Q_ROTATION).map(q=>q.id);
+  const axes=[...new Set(CHRONIC.picked.flatMap(code=>CHRONIC_DIET[code]?.axes||[]))]
+    .sort((a,b)=>qOrder.indexOf(a)-qOrder.indexOf(b));
+  /* 목표 축: 오늘 물은 회전 질문의 축을 쓰고, 그 축에 문구세트가 없으면 문구가 있는 첫 축 */
+  const asked=typeof QUESTIONS!=='undefined' ? QUESTIONS.find(q=>axes.includes(q.id))?.id : null;
+  const withPhrases=axes.filter(k=>MEAL_PHRASES[k]);
+  const axis=(asked && MEAL_PHRASES[asked]) ? asked : (withPhrases[0]||null);
+  return {banned,axes,axis};
 }
 function toggleChronic(k){
   const d = CHRONIC.draft;

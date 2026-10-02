@@ -1,0 +1,153 @@
+<title>식이 질문 QA 체크리스트</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* 레이아웃: 상단 요약 → 영역별 케이스 표(예상·근거·실제·판정). 넓은 표는 자체 가로 스크롤 */
+:root{
+  --bg:#f6f7f5; --panel:#ffffff; --fg:#1d2420; --muted:#5f6b64; --line:#dde2dd;
+  --accent:#2f6b4f; --accent-soft:#e5efe9; --warn:#9a5b00; --warn-soft:#fbf0dc;
+  --bad:#a3302a; --bad-soft:#f8e3e1; --good:#2f6b4f;
+  --sans:"IBM Plex Sans KR",system-ui,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141916; --panel:#1c2320; --fg:#e4ebe6; --muted:#9aa8a0; --line:#2e3833;
+  --accent:#7fc4a0; --accent-soft:#1f3329; --warn:#e2b25c; --warn-soft:#3a2f1a;
+  --bad:#f08a82; --bad-soft:#3d2220; --good:#7fc4a0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141916; --panel:#1c2320; --fg:#e4ebe6; --muted:#9aa8a0; --line:#2e3833;
+  --accent:#7fc4a0; --accent-soft:#1f3329; --warn:#e2b25c; --warn-soft:#3a2f1a;
+  --bad:#f08a82; --bad-soft:#3d2220; --good:#7fc4a0; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 60px}
+h1{font-size:24px;margin:0 0 6px;text-wrap:balance}
+h2{font-size:17px;margin:36px 0 4px;text-wrap:balance}
+.lead{color:var(--muted);max-width:68ch;margin:0}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+.how div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.how b{display:block;font-size:13px;margin-bottom:2px}
+.how span{color:var(--muted);font-size:13px}
+.tally{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tally span{font-size:13px;padding:4px 10px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.sec-note{color:var(--muted);font-size:13px;margin:0 0 10px;max-width:80ch}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:980px}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.02em;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td.no{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+td.cond{width:20%}
+td.exp{width:28%}
+td.src{width:22%;font-size:12.5px;color:var(--muted)}
+td.act{width:18%}
+td.jd{width:9%}
+q{quotes:"「" "」"}
+.q{display:block;background:var(--accent-soft);border-radius:6px;padding:4px 8px;margin:4px 0;font-size:13px}
+.chk{display:inline-block;font-size:11.5px;font-weight:700;color:var(--warn);background:var(--warn-soft);padding:1px 7px;border-radius:4px;margin-top:4px}
+textarea{width:100%;min-height:58px;font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px;resize:vertical;box-sizing:border-box}
+select{font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:4px}
+textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+tr[data-r="pass"] td.no{color:var(--good);font-weight:700}
+tr[data-r="fail"]{background:var(--bad-soft)}
+tr[data-r="fail"] td.no{color:var(--bad);font-weight:700}
+.foot{margin-top:36px;font-size:13px;color:var(--muted);max-width:80ch}
+.foot li{margin-bottom:4px}
+</style>
+
+<div class="wrap">
+  <h1>식이 질문 QA 체크리스트</h1>
+  <p class="lead">오늘의 질문 중 식이 질문이 기획대로 나오는지 확인하는 표예요. 케이스마다 <b>조건</b>대로 접속해 보고, <b>예상 결과</b>와 다르면 <b>실제 결과</b>를 적은 뒤 <b>근거</b> 칸을 그대로 개발에 전달하면 돼요.</p>
+
+  <div class="how">
+    <div><b>기준 문서</b><span>식이 질문·목표 상세기획 v1.0.0, 식이 최종결정사항 v1.0.0, 식이 프로토타입 v1.0.0</span></div>
+    <div><b>끼니 기준 시각</b><span>10시 · 12시 · 17시. 10시 전은 어제 저녁, 10~12시 오늘 아침, 12~17시 오늘 점심, 17시 이후 오늘 저녁</span></div>
+    <div><b>질문 수</b><span>식이는 하루 최대 2개. 보통은 ① 고정 질문(끼니 양) + ② 회전 질문(행동 하나)</span></div>
+    <div><b>질환별 회전 질문</b><span>고혈압 → 채소·국물, 당뇨병 → 채소·단 음료·간식·포만감, 이상지질혈증 → 포만감·기름진 음식, 만성 신장질환 → 없음. 같은 조건이면 질문 번호 순(채소 → 단 음료·간식 → 국물 → 야식 → 포만감 → 단백질 → 기름진 음식)</span></div>
+  </div>
+  <div class="tally" id="tally"></div>
+
+  <div id="sections"></div>
+
+  <div class="foot">
+    <b>노란 표시(확인 필요)가 붙은 케이스</b>
+    <ul>
+      <li>기획 문서끼리 또는 문서와 프로토타입이 서로 다르거나, 규칙이 정해지지 않은 부분이에요. 결과가 예상과 달라도 바로 버그로 넘기지 말고 기획에서 먼저 정해야 해요.</li>
+      <li>질문 문장과 답 버튼은 상세기획의 「축별 질문 8종과 선택지」 표를 정답으로 봐요. 식이 프로토타입은 채소·국물·기름진 음식·야식 문장이 이 표와 달라요(예: 프로토타입 「국물은 어느 정도」, 상세기획 「국물은 얼마나」). 프로토타입 문장이 실제 화면에 나오면 실패로 적어 주세요.</li>
+    </ul>
+    입력한 실제 결과와 판정은 이 브라우저에만 저장돼요. 다른 사람과 공유되지 않아요.
+  </div>
+</div>
+
+<script>
+const D='식이 질문·목표 상세기획 v1.0.0';
+const F='식이 최종결정사항 v1.0.0';
+const SECTIONS=[
+ {t:'1. 접속 시각에 따른 끼니',n:'질환은 아무거나(예: 고혈압만)로 두고 시각만 바꿔 보세요. 기기 시각을 바꿔도 돼요.',rows:[
+  ['A1','09:59에 오늘 처음 접속','고정 질문이 <q>어제 저녁</q>을 물어요.<span class="q">어제 저녁은 평소만큼 드셨나요?</span>야식 질문(<q>어젯밤 야식을 몇 번 드셨나요?</q>)이 회전 후보에 들어갈 수 있어요.',D+' › 지난 끼니 정하기, 문항 고르기(야식 질문은 오전 4~10시에만)<br>'+F+' › 끼니 시간대 경계 10·12·17시'],
+  ['A2','10:00에 오늘 처음 접속','고정 질문이 <q>오늘 아침</q>을 물어요.<span class="q">오늘 아침은 평소만큼 드셨나요?</span>야식 질문은 나오지 않아요.',D+' › 지난 끼니 정하기, 문항 고르기'],
+  ['A3','11:59 접속 / 12:00 접속','11:59는 <q>오늘 아침</q>, 12:00은 <q>오늘 점심</q>을 물어요.',D+' › 지난 끼니 정하기'],
+  ['A4','17:00~23:59 접속','<q>오늘 저녁</q>을 묻고, 질문 아래 <q>오늘 저녁을 드신 뒤 답해주세요</q> 안내가 보여요. 답 버튼은 3개뿐이에요. <q>아직 저녁 전이에요</q> 같은 문구는 없어요. 고정 질문에 답하기 전에는 회전 질문과 목표가 나오지 않아요.',D+' › 상태와 분기(17~24시 오늘 저녁 질문)<br>'+F+' › 저녁 시간대 질문 처리'],
+  ['A5','00:30 접속','<q>어제 저녁</q>을 묻고, 식후 안내 문구는 보이지 않아요.',D+' › 상태와 분기(00~04시 어제 저녁 질문에는 안내 미표시)'],
+  ['A6','00:30에 어제 저녁 고정 질문에 답하고, 05:00에 다시 접속','같은 어제 저녁을 다시 묻지 않아요. 이미 답한 것으로 처리돼요.',D+' › 문항 고르기(이미 처리한 문항은 다시 내지 않는다, 같은 끼니의 마지막 유효 답을 먼저 찾는다)'],
+ ]},
+ {t:'2. 고정 질문 답에 따른 분기',n:'10시에 고혈압만 선택한 사람으로 확인하세요.',rows:[
+  ['B1','고정 질문에 <q>평소대로</q>','회전 질문 1개가 이어서 나와요.<span class="q">오늘 아침에 채소 반찬 몇 가지 드셨나요?</span>답: 두 가지 이상 / 한 가지 / 먹지 않았어요<br>고혈압 축은 채소·국물 둘이고, 첫날은 둘 다 답한 횟수가 0이라 질문 번호가 앞선 채소가 나와요.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
+  ['B2','고정 질문에 <q>조금 적게</q>','회전 질문은 B1과 <b>같은 채소 질문</b>이에요. 고정 답이 회전 질문을 바꾸지 않아요. 목표는 회복 목표가 먼저 나와요(예: <q>다음 끼니는 먹기 쉬운 것부터</q>).',D+' › 문항 고르기(회전을 빼는 답은 「거의 못 먹거나 거름」뿐)<br>'+D+' › 1단계 ①(조금 적게·거의 못 먹거나 거름 → 회복 풀)'],
+  ['B3','고정 질문에 <q>거의 못 먹거나 거름</q>','회전 질문이 나오지 않아요. 그날 식이 질문은 1개로 끝나요. 목표는 회복 목표예요.',D+' › 상태와 분기(거의 못 먹거나 거름 → 회전 문항 생략)'],
+  ['B4','고정 질문에 답하지 않고 나감','질문은 답하지 않은 상태로 남고 목표는 잠겨 있어요. 다시 들어오면 같은 질문이 나와요.',D+' › 문항 고르기(답변이 없으면 문항은 미응답으로 남고 목표는 잠긴다)'],
+ ]},
+ {t:'3. 내정보에서 고른 질환별 회전 질문',n:'모두 10시 첫 접속, 고정 질문은 「평소대로」로 답한다고 보고 확인하세요. 내정보에서 직접 고른 질환에는 질환 확인 질문이 나오지 않아요.',rows:[
+  ['C1','질환 미입력 또는 <q>해당 없음</q>','일반 식이 질문이 나와요. 첫날은 질문 번호가 가장 앞선 채소 질문이에요.<span class="q">오늘 아침에 채소 반찬 몇 가지 드셨나요?</span>답: 두 가지 이상 / 한 가지 / 먹지 않았어요<br>',D+' › 1단계 ⑥ 일반 식이 질문<br>'+D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
+  ['C2','고혈압만 (축: 채소·국물)','1일째 채소, 2일째 국물, 3일째 채소… 둘이 번갈아 나와요.<span class="q">오늘 아침에 채소 반찬 몇 가지 드셨나요?</span>답: 두 가지 이상 / 한 가지 / 먹지 않았어요<br>',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
+  ['C3','당뇨병만 (축: 채소·단 음료·간식·포만감)','1일째 채소 → 2일째 단 음료·간식 → 3일째 포만감 순서로 돌아요. 목표에서 굶기·덜 먹기 성격 목표는 나오지 않아요.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'+'<br>'+D+' › 자동 생성 제한(공복·탄수화물 감량을 자동 지시하지 않는다)'],
+  ['C4','이상지질혈증만 (축: 포만감·기름진 음식)','1일째 포만감, 2일째 기름진 음식.<span class="q">오늘 아침 먹고 얼마나 배불렀나요?</span>답: 편안했어요 / 조금 배불렀어요 / 많이 배불렀어요',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
+  ['C5','만성 신장질환만','내정보에서 고른 신장질환은 질문 축이 없어요. 회전 질문은 일반 식이 질문(C1과 같음)이에요. 목표에서 더 먹기·덜 먹기·물 마시기 목표가 빠져요.',D+' › 용어(신장질환은 안전 제외 조건으로만 쓴다)<br>데이터계약 엑셀 › 내정보질환매핑 시트 5행'],
+  ['C6','고혈압·당뇨병·이상지질혈증·신장질환 모두','후보는 채소·단 음료·간식·국물·포만감·기름진 음식 5개예요(겹치는 축은 한 번만). 첫날은 채소가 나와요.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
+  ['C7','C6 사람이 매일 접속','1일째 채소 → 2일째 단 음료·간식 → 3일째 국물 → 4일째 포만감 → 5일째 기름진 음식 → 6일째 다시 채소.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
+  ['C8','C6 사람이 고정 질문에 <q>조금 적게</q>','회전 질문은 C6과 같아요. 회복 목표가 먼저인데, 신장질환 때문에 더 먹기·물 마시기 회복 목표는 빠져야 해요.',D+' › 1단계(질환별 안전 제외는 우선순위보다 먼저 걸리고 완화되지 않는다)','확인 필요: 남는 회복 목표가 없을 때 무엇이 나오는지'],
+  ['C9','09:59에 고혈압만 고른 사람이 첫 접속','야식 질문은 고혈압 축이 아니라 후보가 아니에요. 고정 질문은 어제 저녁, 회전 질문은 <q>어제 저녁에 채소 반찬 몇 가지 드셨나요?</q>예요.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
+  ['C10','내정보에서 질환을 바꿈(예: 고혈압 → 당뇨병)','아직 완료하지 않은 오늘 목표만 다시 골라요. 이미 완료한 목표 기록은 남아 있어요. 다음 회전 질문부터 단 음료·간식 질문이 나와요.',D+' › 저장 데이터 계약(내정보 질환 선택: 수정 시 미완료 목표만 다시 고르고 완료 기록은 보존)'],
+ ]},
+ {t:'4. 병원 진료정보로 들어온 질환',n:'내정보에서는 질환을 고르지 않고, 진료정보에만 질환 기록이 있는 사람으로 확인하세요.',rows:[
+  ['D1','진료정보에 고혈압 기록, 아직 확인 안 함','첫 질문이 질환 확인 질문이에요(<q>현재 관리 중</q> / <q>아니요</q> / <q>잘 모르겠어요</q>). 공통 고정 질문은 아직 나오지 않아요.',D+' › 하루 흐름(질환 확인 질문도 하루 2개에 포함)'],
+  ['D2','D1에서 <q>현재 관리 중</q>','두 번째로 고혈압 축(채소·국물) 중 질문 번호가 앞선 채소 질문이 나와요. 공통 고정 질문(평소만큼 드셨나요)은 그날 나오지 않아요. 식이 질문은 총 2개예요.',D+' › 상태와 분기(질환 확인 = 현재 관리 중 → 해당 질환 회전 1개, 공통 고정 생략)'],
+  ['D3','D1에서 <q>아니요</q> 또는 <q>잘 모르겠어요</q>','두 번째로 공통 고정 질문이 나오고, 회전 질문은 나오지 않아요. 세 번째 질문은 없어요.',D+' › 상태와 분기(아니요·잘 모르겠어요 → 공통 고정 1개, 회전 없음)'],
+  ['D4','진료정보에 질환 2개(예: 당뇨병은 최근 진료, 고혈압은 오래전 진료)','하루에 한 질환만 물어요. 최근에 진료받은 당뇨병을 먼저 묻고, 고혈압은 다음 날 물어요.',F+' › 확인 질문 순서(근거 진료일이 최근인 것부터, 같으면 규칙 순)'],
+  ['D5','진료정보에 콜레스테롤·중성지방 기록이 함께 있음','<q>고지혈증(이상지질혈증)</q> 확인 질문이 한 번만 나와요. 다음 날 같은 질문이 또 나오면 안 돼요.',F+' › 확인 질문 묶음 규칙(화면 표기가 같으면 한 번만 묻는다)'],
+  ['D6','내정보에서 <q>해당 없음</q>, 진료정보에 고혈압 기록','진료정보 확인 질문은 그대로 나와요. 해당 없음이 진료정보 후보를 지우지 않아요.',D+' › 용어(해당 없음은 미입력과 다르고 진료정보 후보를 삭제하지 않는다)'],
+  ['D7','내정보에서 당뇨병 선택 + 진료정보에서 이상지질혈증 <q>현재 관리 중</q> 확인','다음 날부터 두 질환의 축(채소·단 음료·간식·포만감·기름진 음식)이 질문 번호 순으로 돌아가며 나와요.',D+' › 문항 고르기(직접 선택 + 확인된 진료정보 질환의 연결 축을 합친다, 예시 그대로)'],
+ ]},
+ {t:'5. 모든 케이스 공통',n:'위 케이스를 진행하면서 매번 함께 봐 주세요.',rows:[
+  ['E1','모든 식이 질문 화면','답 버튼이 3개예요. <q>건너뛰기</q> 버튼이나 링크가 없어요.',D+' › 화면 순서 A·B(별도의 건너뛰기 선택지 없음)'],
+  ['E2','하루 동안 여러 번 접속','식이 질문은 하루 2개를 넘지 않아요.',D+' › 문항 고르기(식이는 세션당 최대 2문항)'],
+  ['E3','질문 문장의 끼니 이름','<q>{지난 끼니}</q> 자리에 접속 시각에 맞는 끼니(어제 저녁 / 오늘 아침 / 오늘 점심 / 오늘 저녁)가 들어가요. 조사(은/는, 이/가)가 자연스러워요.',D+' › 문안 규칙'],
+ ]},
+];
+const KEY='mai-diet-qa-v1.0.0';
+let state={};try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}tally()}
+function tally(){
+  const all=SECTIONS.flatMap(s=>s.rows.map(r=>r[0]));
+  const c={pass:0,fail:0,hold:0};all.forEach(id=>{const r=state[id]?.r;if(r)c[r]++});
+  document.getElementById('tally').innerHTML=`<span>전체 ${all.length}건</span><span>통과 ${c.pass}</span><span>실패 ${c.fail}</span><span>보류 ${c.hold}</span><span>미확인 ${all.length-c.pass-c.fail-c.hold}</span>`;
+}
+const host=document.getElementById('sections');
+SECTIONS.forEach(s=>{
+  const sec=document.createElement('section');
+  sec.innerHTML=`<h2>${s.t}</h2><p class="sec-note">${s.n}</p><div class="tbl"><table><thead><tr><th>번호</th><th>조건</th><th>예상 결과</th><th>근거 (개발 전달용)</th><th>실제 결과</th><th>판정</th></tr></thead><tbody></tbody></table></div>`;
+  const tb=sec.querySelector('tbody');
+  s.rows.forEach(([id,cond,exp,src,chk])=>{
+    const st=state[id]||{};
+    const tr=document.createElement('tr');tr.dataset.r=st.r||'';
+    tr.innerHTML=`<td class="no">${id}</td><td class="cond">${cond}</td><td class="exp">${exp}${chk?`<br><span class="chk">${chk}</span>`:''}</td><td class="src">${src}</td>
+    <td class="act"><textarea id="a-${id}" aria-label="${id} 실제 결과" placeholder="다르면 화면에 나온 그대로 적기"></textarea></td>
+    <td class="jd"><select id="j-${id}" aria-label="${id} 판정"><option value="">미확인</option><option value="pass">통과</option><option value="fail">실패</option><option value="hold">보류</option></select></td>`;
+    const ta=tr.querySelector('textarea'),se=tr.querySelector('select');
+    ta.value=st.a||'';se.value=st.r||'';
+    ta.addEventListener('input',()=>{state[id]={...state[id],a:ta.value};save()});
+    se.addEventListener('change',()=>{state[id]={...state[id],r:se.value};tr.dataset.r=se.value;save()});
+    tb.appendChild(tr);
+  });
+  host.appendChild(sec);
+});
+tally();
+</script>
