@@ -1,176 +1,256 @@
 <title>식이 질문 QA 체크리스트</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* 레이아웃: 상단 요약 → 영역별 케이스 표(예상·근거·실제·판정). 넓은 표는 자체 가로 스크롤 */
+/* 레이아웃: 상단 기준·집계 → 영역별 케이스 카드(조건 / 실제 결과 고르기 / 판정·틀린 이유) → 실패 모음(개발 전달용) */
 :root{
-  --bg:#f6f7f5; --panel:#ffffff; --fg:#1d2420; --muted:#5f6b64; --line:#dde2dd;
-  --accent:#2f6b4f; --accent-soft:#e5efe9; --warn:#9a5b00; --warn-soft:#fbf0dc;
-  --bad:#a3302a; --bad-soft:#f8e3e1; --good:#2f6b4f;
+  --bg:#f5f6f3; --panel:#ffffff; --fg:#1d2420; --muted:#5d6962; --line:#dde2dc;
+  --accent:#2f6b4f; --accent-soft:#e4eee8; --warn:#8a5600; --warn-soft:#fbf0dc;
+  --bad:#a3302a; --bad-soft:#f9e4e2; --good:#2f6b4f; --good-soft:#e2f0e7;
   --sans:"IBM Plex Sans KR",system-ui,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#141916; --panel:#1c2320; --fg:#e4ebe6; --muted:#9aa8a0; --line:#2e3833;
-  --accent:#7fc4a0; --accent-soft:#1f3329; --warn:#e2b25c; --warn-soft:#3a2f1a;
-  --bad:#f08a82; --bad-soft:#3d2220; --good:#7fc4a0; color-scheme:dark}}
+  --bg:#131815; --panel:#1b221e; --fg:#e3eae5; --muted:#99a79f; --line:#2c3631;
+  --accent:#7fc4a0; --accent-soft:#1e3128; --warn:#e2b25c; --warn-soft:#3a2f1a;
+  --bad:#f08a82; --bad-soft:#3b2220; --good:#7fc4a0; --good-soft:#1e3128; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#141916; --panel:#1c2320; --fg:#e4ebe6; --muted:#9aa8a0; --line:#2e3833;
-  --accent:#7fc4a0; --accent-soft:#1f3329; --warn:#e2b25c; --warn-soft:#3a2f1a;
-  --bad:#f08a82; --bad-soft:#3d2220; --good:#7fc4a0; color-scheme:dark}
+  --bg:#131815; --panel:#1b221e; --fg:#e3eae5; --muted:#99a79f; --line:#2c3631;
+  --accent:#7fc4a0; --accent-soft:#1e3128; --warn:#e2b25c; --warn-soft:#3a2f1a;
+  --bad:#f08a82; --bad-soft:#3b2220; --good:#7fc4a0; --good-soft:#1e3128; color-scheme:dark}
 body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:14px;line-height:1.6}
-.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:28px 60px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:28px 64px}
 h1{font-size:24px;margin:0 0 6px;text-wrap:balance}
 h2{font-size:17px;margin:36px 0 4px;text-wrap:balance}
-.lead{color:var(--muted);max-width:68ch;margin:0}
-.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
-.how div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
-.how b{display:block;font-size:13px;margin-bottom:2px}
-.how span{color:var(--muted);font-size:13px}
+.lead{color:var(--muted);max-width:70ch;margin:0}
+.ref{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:18px}
+.ref div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.ref b{display:block;font-size:13px;margin-bottom:2px}
+.ref span{color:var(--muted);font-size:13px}
 .tally{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .tally span{font-size:13px;padding:4px 10px;border-radius:999px;background:var(--panel);border:1px solid var(--line);font-variant-numeric:tabular-nums}
-.sec-note{color:var(--muted);font-size:13px;margin:0 0 10px;max-width:80ch}
-.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
-table{border-collapse:collapse;width:100%;min-width:980px}
-th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
-th{font-size:12px;color:var(--muted);font-weight:500;letter-spacing:.02em;background:var(--bg)}
-tr:last-child td{border-bottom:0}
-td.no{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
-td.cond{width:20%}
-td.exp{width:28%}
-td.src{width:22%;font-size:12.5px;color:var(--muted)}
-td.act{width:18%}
-td.jd{width:9%}
-q{quotes:"「" "」"}
-.q{display:block;background:var(--accent-soft);border-radius:6px;padding:4px 8px;margin:4px 0;font-size:13px}
-.chk{display:inline-block;font-size:11.5px;font-weight:700;color:var(--warn);background:var(--warn-soft);padding:1px 7px;border-radius:4px;margin-top:4px}
-textarea{width:100%;min-height:58px;font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px;resize:vertical;box-sizing:border-box}
-select{font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:4px}
-textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-tr[data-r="pass"] td.no{color:var(--good);font-weight:700}
-tr[data-r="fail"]{background:var(--bad-soft)}
-tr[data-r="fail"] td.no{color:var(--bad);font-weight:700}
-.foot{margin-top:36px;font-size:13px;color:var(--muted);max-width:80ch}
+.tally .f{color:var(--bad);border-color:var(--bad)}
+.sec-note{color:var(--muted);font-size:13px;margin:0 0 12px;max-width:82ch}
+.cases{display:grid;gap:10px}
+.case{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 12px}
+.case[data-r="pass"]{border-color:var(--good)}
+.case[data-r="fail"]{border-color:var(--bad)}
+.no{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:2px}
+.case[data-r="pass"] .no{color:var(--good);font-weight:700}
+.case[data-r="fail"] .no{color:var(--bad);font-weight:700}
+.cond{font-weight:500}
+.exp{color:var(--muted);font-size:13px;margin-top:2px}
+.q{display:inline-block;background:var(--accent-soft);border-radius:6px;padding:1px 7px;font-size:13px;color:var(--fg)}
+.chk{display:inline-block;font-size:11.5px;font-weight:700;color:var(--warn);background:var(--warn-soft);padding:1px 7px;border-radius:4px;margin-left:6px}
+.pick{grid-column:2;display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pick button{font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer;text-align:left}
+.pick button:hover{border-color:var(--accent)}
+.pick button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);font-weight:500}
+.pick button:focus-visible,.copy:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.other{grid-column:2;margin-top:6px}
+textarea{width:100%;min-height:40px;font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;resize:vertical;box-sizing:border-box}
+.verdict{grid-column:2;margin-top:8px;border-radius:8px;padding:10px 12px;font-size:13px}
+.verdict.ok{background:var(--good-soft)}
+.verdict.ng{background:var(--bad-soft)}
+.verdict b{display:block;margin-bottom:2px}
+.verdict .why{margin-top:4px}
+.verdict .src{margin-top:4px;color:var(--muted)}
+.fails{margin-top:40px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.fails h2{margin-top:0}
+.fails pre{white-space:pre-wrap;word-break:keep-all;font-family:var(--sans);font-size:13px;background:var(--bg);border-radius:8px;padding:12px;margin:10px 0 0;max-height:420px;overflow:auto}
+.copy{font:inherit;font-size:13px;color:var(--bg);background:var(--accent);border:0;border-radius:6px;padding:6px 14px;cursor:pointer}
+.foot{margin-top:28px;font-size:13px;color:var(--muted);max-width:82ch}
 .foot li{margin-bottom:4px}
+@media (max-width:520px){.case{grid-template-columns:1fr}.pick,.other,.verdict{grid-column:1}}
 </style>
 
 <div class="wrap">
   <h1>식이 질문 QA 체크리스트</h1>
-  <p class="lead">오늘의 질문 중 식이 질문이 기획대로 나오는지 확인하는 표예요. 케이스마다 <b>조건</b>대로 접속해 보고, <b>예상 결과</b>와 다르면 <b>실제 결과</b>를 적은 뒤 <b>근거</b> 칸을 그대로 개발에 전달하면 돼요.</p>
+  <p class="lead">앱 화면에서 각 케이스를 실행한 뒤, <b>실제로 나온 결과</b>를 고르세요. 예상과 다르면 <b>어떤 규칙에 어긋났는지</b>와 근거 위치가 바로 표시되고, 맨 아래 <b>개발 전달 모음</b>에 쌓여요. 기준은 2026-10-02 최신 커밋의 기획 파일이에요.</p>
 
-  <div class="how">
-    <div><b>기준 문서</b><span>식이 질문·목표 상세기획 v1.0.0, 식이 최종결정사항 v1.0.0, 식이 프로토타입 v1.0.0</span></div>
-    <div><b>끼니 기준 시각</b><span>10시 · 12시 · 17시. 10시 전은 어제 저녁, 10~12시 오늘 아침, 12~17시 오늘 점심, 17시 이후 오늘 저녁</span></div>
-    <div><b>질문 수</b><span>식이는 하루 최대 2개. 보통은 ① 고정 질문(끼니 양) + ② 회전 질문(행동 하나)</span></div>
-    <div><b>질환별 회전 질문</b><span>고혈압 → 채소·국물, 당뇨병 → 채소·단 음료·간식·식사 속도·양, 이상지질혈증 → 식사 속도·양·기름진 음식, 만성 신장질환 → 없음. 같은 조건이면 질문 번호 순(채소 → 단 음료·간식 → 국물 → 야식 → 식사 속도·양 → 단백질 → 기름진 음식). 질환 축을 한 바퀴 돌면 다음 날은 일반 축 하나</span></div>
+  <div class="ref">
+    <div><b>기준 파일</b><span>식이 개발전달 데이터계약(v1.0.1) · 식이 질문·목표 상세기획 · 식이 최종결정사항</span></div>
+    <div><b>끼니 기준 시각</b><span>10시 전 어제 저녁 · 10~12시 오늘 아침 · 12~17시 오늘 점심 · 17시부터 오늘 저녁. 경계 시각은 뒤 구간</span></div>
+    <div><b>회전 질문</b><span>질환·검진 연결 축 안에서 돌고, 연결 축을 한 바퀴 다 물은 다음 날은 일반 축 하나. 같으면 28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순</span></div>
+    <div><b>목표</b><span>회복 → 내정보 질환(고른 순서 → 질환연결축 행 순서) → 확인된 진료정보 → 3개월 검진 → 수면 5시간 미만 부담 줄이기 → 일반. 질문 축과 따로 계산하고, 금지 문구는 어느 단계에서든 빠짐</span></div>
   </div>
   <div class="tally" id="tally"></div>
 
   <div id="sections"></div>
 
+  <section class="fails" aria-labelledby="fh">
+    <h2 id="fh">개발 전달 모음</h2>
+    <p class="sec-note">실패·보류로 판정된 케이스가 모여요. 그대로 복사해 개발에 전달하세요.</p>
+    <button class="copy" id="copyBtn" type="button">복사</button>
+    <pre id="failText">아직 실패한 케이스가 없어요.</pre>
+  </section>
+
   <div class="foot">
-    <b>노란 표시(확인 필요)가 붙은 케이스</b>
     <ul>
-      <li>기획 문서끼리 또는 문서와 프로토타입이 서로 다르거나, 규칙이 정해지지 않은 부분이에요. 결과가 예상과 달라도 바로 버그로 넘기지 말고 기획에서 먼저 정해야 해요.</li>
-      <li>목표 문구와 금지 성격은 데이터계약 엑셀의 목표문구·질환금지성격 시트가 기준이에요. 식이 프로토타입의 목표 문구는 아직 이 시트와 다르니(회복 문구, 금지 성격 표시 등) 목표 QA는 실제 앱으로 해 주세요.</li><li>질문 문장과 답 버튼은 상세기획의 「축별 질문 8종과 선택지」 표를 정답으로 봐요. 식이 프로토타입은 채소·국물·기름진 음식·야식 문장이 이 표와 달라요(예: 프로토타입 「국물은 어느 정도」, 상세기획 「국물은 얼마나」). 프로토타입 문장이 실제 화면에 나오면 실패로 적어 주세요.</li>
+      <li><b>질환별 연결 축</b> (질환연결축 시트): 고혈압 = 국물 → 채소 · 당뇨병 = 채소 → 단 음료·간식 → 식사 속도·양 · 이상지질혈증 = 기름진 음식 → 식사 속도·양 · 만성 신장질환 = 없음(금지만). 목표는 이 행 순서, 질문은 질문 번호 순서로 봐요.</li>
+      <li><b>질문 번호 순서</b> (질문 시트): 채소 → 단 음료·간식 → 국물 → 야식 → 식사 속도·양 → 단백질 → 기름진 음식. 야식은 오전 4~10시에만 물어요.</li>
+      <li><b>금지 성격</b> (질환금지성격 시트): 당뇨병 = 공복·감량 · 만성 신장질환 = 증량·감량·수분. 회복 문구 7개는 모두 증량 성격이에요.</li>
+      <li>노란 <b>확인 필요</b>는 기획 결정이 남은 항목이에요. 예상과 달라도 보류로 표시돼요.</li>
+      <li>고른 결과는 이 브라우저에만 저장돼요. 다른 사람과 공유되지 않아요.</li>
     </ul>
-    입력한 실제 결과와 판정은 이 브라우저에만 저장돼요. 다른 사람과 공유되지 않아요.
   </div>
 </div>
 
 <script>
-const D='식이 질문·목표 상세기획 v1.0.0';
-const F='식이 최종결정사항 v1.0.0';
+const DOC='상세기획', DB='데이터계약 엑셀', FD='최종결정사항';
+const R={
+  meal:[DB+' › 구현기준 시트 「끼니 시각」 행 / 설정 시트 「저녁 여부 확인 시각」 행','00~10시 어제 저녁, 10~12시 오늘 아침, 12~17시 오늘 점심, 17~24시 오늘 저녁. 경계 시각은 뒤 구간'],
+  dinner:[DOC+' › 상태와 분기 「17~24시 오늘 저녁 질문」','17~24시는 「오늘 저녁을 드신 뒤 답해주세요」 안내. 「아직 저녁 전」 단정 금지. 고정 답 전엔 회전·목표 대기. 00~04시는 안내 없음'],
+  reuse:[DOC+' › 문항 고르기','같은 끼니의 마지막 유효 답이 있으면 다시 묻지 않고 답한 것으로 처리'],
+  skip:[DOC+' › 상태와 분기','고정 답이 「거의 못 먹거나 거름」일 때만 회전 질문 생략'],
+  pending:[DOC+' › 문항 고르기','답이 없으면 미응답으로 남고 목표는 잠김'],
+  rot:[DB+' › 설정 시트 「회전 우선순위」 행 · 구현기준 시트 「질문 축 선정」 행','연결 축 안에서 28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순. 연결 축을 한 바퀴 다 물은 다음 날은 일반 축 하나. 연결 축이 없으면 전체 축'],
+  link:[DB+' › 질환연결축 시트 / 내정보질환매핑 시트','고혈압 = 국물·채소, 당뇨병 = 채소·단 음료·식사 속도·양, 이상지질혈증 = 기름진 음식·식사 속도·양, 신장질환 = 연결 축 없음'],
+  split:[DB+' › 검증규칙 시트 「질문 축과 목표 축 분리」 행','질문 축과 목표 축은 따로 계산. 한쪽을 다른 쪽에 대입하면 안 됨'],
+  goalOrder:[DB+' › 검증규칙 시트 「질환 목표 축 출처 우선순위」 행 · 설정 시트 「직접 선택 내 순서」 행','직접 선택(고른 순서) → 확인된 진료정보 → 3개월 검진 → 일반. 한 질환 안에서는 질환연결축 행 순서'],
+  ban:[DB+' › 질환금지성격 시트 · 검증규칙 시트 「질환규칙」 행','금지 성격 문구는 모든 대체 단계·다른 축에서도 제외. 여러 질환의 금지는 합산'],
+  recov:[DOC+' › 1단계 ① / '+DB+' › 목표문구 시트 회복 풀 행','고정 답이 조금 적게·거의 못 먹거나 거름이면 회복 목표가 먼저. 회복 문구는 모두 증량 성격'],
+  fallback:[DOC+' › 3단계 「후보가 없으면」 / '+DB+' › 질환금지성격 시트','금지로 후보가 없으면 다음 순서로 내려가 같은 필터를 다시 적용. 그래도 없으면 안내 상태'],
+  burden:[DOC+' › 1단계 ⑤','연동 수면 5시간 미만이면 부담 줄이기. 질환 축(②)이 이보다 먼저'],
+  scr:[DOC+' › 1단계 ④ / '+DB+' › 검증규칙 시트 「검진 신호 유효기간」 행','3개월 이내 경계·의심만. 둘 이상이면 혈당 → 혈압 → 콜레스테롤·체중. 혈당=채소, 혈압=국물'],
+  stage0:[DOC+' › 2단계 / '+DB+' › 설정 시트 「양호 시 도전 강제」 행','모두 입문에서 시작. 좋은 답만으로 기본·도전 금지'],
+  stageUp:[DB+' › 검증규칙 시트 「목표 단계 변경」 행 · 설정 시트 「단계 상승 전제」·「개선 필요 축의 단계 상한」 행','최근 7일 완료 3건이면 1단계 상승. 단, 축이 관찰 중이면 안 오르고, 개선 필요면 기본까지만'],
+  stageDown:[DB+' › 검증규칙 시트 「목표 단계 변경」 행','미완료 2건 연속이면 1단계 하락. 하락 우선, 하루 1회, 지난 날짜 완료 제외'],
+  target:[DOC+' › 4단계 · 대상 끼니 붙이기','이미 지난 끼니를 대상으로 삼지 않음'],
+  late:[FD+' › 심야 목표','저녁 식사 후에는 오늘 밤 준비·정리 행동만'],
+  confirm:[DB+' › 검증규칙 시트 「질환 확인 당일 질문 수」 행','확인 질문 먼저. 현재 관리 중 → 그 질환 회전 1개(고정 생략). 아니요·모름 → 공통 고정 1개(회전 없음). 하루 최대 2개'],
+  cOrder:[DB+' › 검증규칙 시트 「확인 질문 순서」 행','근거 진료일 최근 순, 하루 한 묶음'],
+  cGroup:[DB+' › 검증규칙 시트 「확인 질문 묶음」 행','화면 표기가 같으면 한 번만 묻고 답을 모두에 기록'],
+  none:[DOC+' › 용어 「직접 입력 질환」','해당 없음은 진료정보 후보를 지우지 않음'],
+  edit:[DOC+' › 저장 데이터 계약 「내정보 질환 선택」','수정 시 미완료 목표만 다시 고르고 완료 기록 보존'],
+  ui:[DB+' › 검증규칙 시트 「선택지 길이」 행 / '+DOC+' › 화면 순서','답 버튼 3개, 건너뛰기 없음, 선택지 11자 이내'],
+  max2:[DB+' › 설정 시트 「고정·회전 노출 수」 행','식이 질문은 하루 최대 2개'],
+  fruit:[DOC+' › 3단계','과일 추천 문구 제외. 후보가 없으면 안내 상태'],
+  copyQ:[DB+' › 질문 시트','질문 문장과 답 버튼은 질문 시트 그대로'],
+};
+const Q={veg:'채소 반찬 몇 가지',salt:'국물은 얼마나',pace:'먹고 얼마나 배불렀나요',fat:'튀긴 음식을 드셨나요'};
 const SECTIONS=[
- {t:'1. 접속 시각에 따른 끼니',n:'질환은 아무거나(예: 고혈압만)로 두고 시각만 바꿔 보세요. 기기 시각을 바꿔도 돼요.',rows:[
-  ['A1','09:59에 오늘 처음 접속','고정 질문이 <q>어제 저녁</q>을 물어요.<span class="q">어제 저녁은 평소만큼 드셨나요?</span>야식 질문(<q>어젯밤 야식을 몇 번 드셨나요?</q>)이 회전 후보에 들어갈 수 있어요.',D+' › 지난 끼니 정하기, 문항 고르기(야식 질문은 오전 4~10시에만)<br>'+F+' › 끼니 시간대 경계 10·12·17시'],
-  ['A2','10:00에 오늘 처음 접속','고정 질문이 <q>오늘 아침</q>을 물어요.<span class="q">오늘 아침은 평소만큼 드셨나요?</span>야식 질문은 나오지 않아요.',D+' › 지난 끼니 정하기, 문항 고르기'],
-  ['A3','11:59 접속 / 12:00 접속','11:59는 <q>오늘 아침</q>, 12:00은 <q>오늘 점심</q>을 물어요.',D+' › 지난 끼니 정하기'],
-  ['A4','17:00~23:59 접속','<q>오늘 저녁</q>을 묻고, 질문 아래 <q>오늘 저녁을 드신 뒤 답해주세요</q> 안내가 보여요. 답 버튼은 3개뿐이에요. <q>아직 저녁 전이에요</q> 같은 문구는 없어요. 고정 질문에 답하기 전에는 회전 질문과 목표가 나오지 않아요.',D+' › 상태와 분기(17~24시 오늘 저녁 질문)<br>'+F+' › 저녁 시간대 질문 처리'],
-  ['A5','00:30 접속','<q>어제 저녁</q>을 묻고, 식후 안내 문구는 보이지 않아요.',D+' › 상태와 분기(00~04시 어제 저녁 질문에는 안내 미표시)'],
-  ['A6','00:30에 어제 저녁 고정 질문에 답하고, 05:00에 다시 접속','같은 어제 저녁을 다시 묻지 않아요. 이미 답한 것으로 처리돼요.',D+' › 문항 고르기(이미 처리한 문항은 다시 내지 않는다, 같은 끼니의 마지막 유효 답을 먼저 찾는다)'],
+ {t:'1. 접속 시각에 따른 끼니',n:'질환은 고혈압만 선택해 두고 기기 시각만 바꿔서 보세요.',rows:[
+  {id:'A1',c:'09:59에 오늘 처음 접속',e:'고정 질문이 <span class="q">어제 저녁은 평소만큼 드셨나요?</span>',k:'meal',o:[['어제 저녁',1],['오늘 아침',0],['오늘 점심',0]]},
+  {id:'A2',c:'10:00에 오늘 처음 접속',e:'고정 질문이 <span class="q">오늘 아침은 평소만큼 드셨나요?</span>',k:'meal',o:[['오늘 아침',1],['어제 저녁',0],['오늘 점심',0]]},
+  {id:'A3',c:'12:00에 오늘 처음 접속',e:'「오늘 점심」을 물어요.',k:'meal',o:[['오늘 점심',1],['오늘 아침',0]]},
+  {id:'A4',c:'17:00에 오늘 처음 접속',e:'「오늘 저녁」을 묻고 아래에 「오늘 저녁을 드신 뒤 답해주세요」 안내. 답 버튼 3개뿐. 고정 질문에 답하기 전엔 회전 질문·목표가 안 나와요.',k:'dinner',o:[['예상대로',1],['안내 문구 없음',0],['「아직 저녁 전」 같은 버튼·문구 있음',0],['답 전에 회전 질문이나 목표가 보임',0]]},
+  {id:'A5',c:'00:30에 오늘 처음 접속',e:'「어제 저녁」을 묻고 식후 안내는 없어요.',k:'dinner',o:[['예상대로',1],['식후 안내가 보임',0],['오늘 저녁을 물음',0]]},
+  {id:'A6',c:'00:30에 고정 질문에 답하고 05:00에 다시 접속',e:'같은 어제 저녁을 다시 묻지 않아요.',k:'reuse',o:[['다시 묻지 않음',1],['같은 질문을 또 물음',0]]},
  ]},
- {t:'2. 고정 질문 답에 따른 분기',n:'10시에 고혈압만 선택한 사람으로 확인하세요.',rows:[
-  ['B1','고정 질문에 <q>평소대로</q>','회전 질문 1개가 이어서 나와요.<span class="q">오늘 아침에 채소 반찬 몇 가지 드셨나요?</span>답: 두 가지 이상 / 한 가지 / 먹지 않았어요<br>고혈압 축은 채소·국물 둘이고, 첫날은 둘 다 답한 횟수가 0이라 질문 번호가 앞선 채소가 나와요.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
-  ['B2','고정 질문에 <q>조금 적게</q>','회전 질문은 B1과 <b>같은 채소 질문</b>이에요. 고정 답이 회전 질문을 바꾸지 않아요. 목표는 회복 목표가 먼저 나와요(예: <q>다음 끼니는 먹기 쉬운 것부터</q>).',D+' › 문항 고르기(회전을 빼는 답은 「거의 못 먹거나 거름」뿐)<br>'+D+' › 1단계 ①(조금 적게·거의 못 먹거나 거름 → 회복 풀)'],
-  ['B3','고정 질문에 <q>거의 못 먹거나 거름</q>','회전 질문이 나오지 않아요. 그날 식이 질문은 1개로 끝나요. 목표는 회복 목표예요.',D+' › 상태와 분기(거의 못 먹거나 거름 → 회전 문항 생략)'],
-  ['B4','고정 질문에 답하지 않고 나감','질문은 답하지 않은 상태로 남고 목표는 잠겨 있어요. 다시 들어오면 같은 질문이 나와요.',D+' › 문항 고르기(답변이 없으면 문항은 미응답으로 남고 목표는 잠긴다)'],
+ {t:'2. 고정 질문 답에 따른 분기',n:'10:00 첫 접속, 고혈압만 선택한 사람이에요.',rows:[
+  {id:'B1',c:'고정 질문에 「평소대로」',e:'회전 질문 <span class="q">오늘 아침에 '+Q.veg+' 드셨나요?</span> (두 가지 이상 / 한 가지 / 먹지 않았어요)',k:'rot',o:[['채소 질문',1],['국물 질문',0],['다른 질문',0],['회전 질문 없음',0]]},
+  {id:'B2',c:'고정 질문에 「조금 적게」',e:'회전 질문은 B1과 같은 채소 질문. 고정 답은 회전 질문을 바꾸지 않아요.',k:'rot',o:[['채소 질문',1],['다른 질문',0],['회전 질문 없음',0]]},
+  {id:'B3',c:'고정 질문에 「거의 못 먹거나 거름」',e:'회전 질문이 없고 식이 질문은 1개로 끝나요.',k:'skip',o:[['회전 질문 없음',1],['회전 질문이 나옴',0]]},
+  {id:'B4',c:'고정 질문에 답하지 않고 나감',e:'목표가 잠겨 있고, 다시 들어오면 같은 질문이 나와요.',k:'pending',o:[['예상대로',1],['목표가 이미 나옴',0],['질문이 사라짐',0]]},
  ]},
- {t:'3. 내정보에서 고른 질환별 회전 질문',n:'모두 10시 첫 접속, 고정 질문은 「평소대로」로 답한다고 보고 확인하세요. 내정보에서 직접 고른 질환에는 질환 확인 질문이 나오지 않아요.',rows:[
-  ['C1','질환 미입력 또는 <q>해당 없음</q>','일반 식이 질문이 나와요. 첫날은 질문 번호가 가장 앞선 채소 질문이에요.<span class="q">오늘 아침에 채소 반찬 몇 가지 드셨나요?</span>답: 두 가지 이상 / 한 가지 / 먹지 않았어요<br>',D+' › 1단계 ⑥ 일반 식이 질문<br>'+D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
-  ['C2','고혈압만 (축: 채소·국물)','1일째 채소 → 2일째 국물 → 3일째 일반 축(단 음료·간식) → 4일째 채소 → 5일째 국물 → 6일째 일반 축(식사 속도·양). 질환 축을 한 바퀴 돌 때마다 일반 축이 하나 들어가요.<span class="q">오늘 아침에 채소 반찬 몇 가지 드셨나요?</span>답: 두 가지 이상 / 한 가지 / 먹지 않았어요<br>',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
-  ['C3','당뇨병만 (축: 채소·단 음료·간식·식사 속도·양)','1일째 채소 → 2일째 단 음료·간식 → 3일째 식사 속도·양 → 4일째 일반 축(국물) → 5일째 다시 채소. 목표에서 굶기·덜 먹기 성격 목표는 나오지 않아요.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'+'<br>'+D+' › 자동 생성 제한(공복·탄수화물 감량을 자동 지시하지 않는다)'],
-  ['C4','이상지질혈증만 (축: 식사 속도·양·기름진 음식)','1일째 식사 속도·양 → 2일째 기름진 음식 → 3일째 일반 축(채소) → 4일째 식사 속도·양 → 5일째 기름진 음식 → 6일째 일반 축(단 음료·간식). 1일째 목표는 식사 속도·양 목표예요(예: <q>식사 중 수저 내려놓기</q>).<span class="q">오늘 아침 먹고 얼마나 배불렀나요?</span>답: 편안했어요 / 조금 배불렀어요 / 많이 배불렀어요',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
-  ['C5','만성 신장질환만','내정보에서 고른 신장질환은 질문 축이 없어요. 회전 질문은 일반 식이 질문(C1과 같음)이에요. 목표에서 더 먹기·덜 먹기·물 마시기 목표가 빠져요.',D+' › 용어(신장질환은 안전 제외 조건으로만 쓴다)<br>데이터계약 엑셀 › 내정보질환매핑 시트 5행'],
-  ['C6','고혈압·당뇨병·이상지질혈증·신장질환 모두','후보는 채소·단 음료·간식·국물·식사 속도·양·기름진 음식 5개예요(겹치는 축은 한 번만). 첫날은 채소가 나와요.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
-  ['C7','C6 사람이 매일 접속','1일째 채소 → 2일째 단 음료·간식 → 3일째 국물 → 4일째 식사 속도·양 → 5일째 기름진 음식 → 6일째 일반 축(단백질) → 7일째 다시 채소.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
-  ['C8','C6 사람이 고정 질문에 <q>조금 적게</q>','회전 질문은 C6과 같아요. 회복 목표가 먼저인데, 회복 문구는 모두 증량 성격이라 신장질환 때문에 전부 빠지고, 다음 순서의 목표로 내려가요(G9 참고).',D+' › 1단계(질환별 안전 제외는 우선순위보다 먼저 걸리고 완화되지 않는다)'],
-  ['C9','09:59에 고혈압만 고른 사람이 첫 접속','야식 질문은 고혈압 축이 아니라 후보가 아니에요. 고정 질문은 어제 저녁, 회전 질문은 <q>어제 저녁에 채소 반찬 몇 가지 드셨나요?</q>예요.',D+' › 문항 고르기(28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순)<br>데이터계약 엑셀 › 질환연결축 시트, 질문 시트'],
-  ['C10','내정보에서 질환을 바꿈(예: 고혈압 → 당뇨병)','아직 완료하지 않은 오늘 목표만 다시 골라요. 이미 완료한 목표 기록은 남아 있어요. 다음 회전 질문부터 단 음료·간식 질문이 나와요.',D+' › 저장 데이터 계약(내정보 질환 선택: 수정 시 미완료 목표만 다시 고르고 완료 기록은 보존)'],
-  ['C11','고혈압만 고른 사람의 3일째 (1일째 채소, 2일째 국물에 답함)','회전 질문이 질환 축이 아닌 일반 축으로 나와요. 고혈압 축(채소·국물)에 없는 질문 중 질문 번호가 가장 앞선 단 음료·간식이에요.<span class="q">오늘 아침 전후에 단 음료·간식 몇 번 드셨나요?</span>목표는 그대로 국물 축 목표예요.',D+' › 문항 고르기(질환 축을 모두 한 번씩 물은 다음 날 일반 축 하나)<br>'+F+' › 질환이 있는 사람의 일반 축'],
+ {t:'3. 회전 질문 순서',n:'10:00 접속, 고정 질문은 「평소대로」. 매일 회전 질문에 답한다고 보고 날짜별로 확인하세요. 내정보에서 고른 질환은 확인 질문이 없어요.',rows:[
+  {id:'C1',c:'질환 없음 · 1일째',e:'연결 축이 없어 전체 축에서 골라요. 질문 번호가 가장 앞선 채소 질문.',k:'rot',o:[['채소',1],['다른 질문',0]]},
+  {id:'C2',c:'고혈압만 · 1~6일째',e:'채소 → 국물 → <b>일반 축(단 음료·간식)</b> → 채소 → 국물 → <b>일반 축(식사 속도·양)</b>',k:'rot',o:[['예상 순서대로',1],['채소·국물만 반복',0],['일반 축이 매일 섞임',0],['국물이 먼저 나옴',0]]},
+  {id:'C3',c:'당뇨병만 · 1~5일째',e:'채소 → 단 음료·간식 → 식사 속도·양 → <b>일반 축(국물)</b> → 채소',k:'rot',o:[['예상 순서대로',1],['일반 축이 안 나옴',0],['순서가 다름',0]]},
+  {id:'C4',c:'이상지질혈증만 · 1~6일째',e:'식사 속도·양 <span class="q">'+Q.pace+'?</span> → 기름진 음식 → <b>일반 축(채소)</b> → 식사 속도·양 → 기름진 음식 → <b>일반 축(단 음료·간식)</b>',k:'rot',o:[['예상 순서대로',1],['기름진 음식이 먼저',0],['일반 축이 안 나옴',0]]},
+  {id:'C5',c:'만성 신장질환만 · 1일째',e:'연결 축이 없어 C1과 같은 채소 질문.',k:'link',o:[['채소',1],['국물',0],['다른 질문',0]]},
+  {id:'C6',c:'넷 다 선택 · 1~7일째',e:'채소 → 단 음료·간식 → 국물 → 식사 속도·양 → 기름진 음식 → <b>일반 축(단백질)</b> → 채소',k:'rot',o:[['예상 순서대로',1],['단백질이 안 나옴',0],['순서가 다름',0]]},
+  {id:'C7',c:'고혈압만 · 09:59 첫 접속',e:'야식 질문은 고혈압 연결 축이 아니라 안 나와요. 회전 질문은 <span class="q">어제 저녁에 '+Q.veg+' 드셨나요?</span>',k:'rot',o:[['어제 저녁 채소 질문',1],['야식 질문',0],['다른 질문',0]]},
+  {id:'C8',c:'질환 없음 + 3개월 이내 검진에서 혈압 경계 · 1~3일째',e:'검진 연결 축(국물)이 연결 축이 돼요. 국물 → <b>일반 축(채소)</b> → 국물',k:'rot',o:[['예상 순서대로',1],['채소부터 나옴',0],['국물만 반복',0]]},
+  {id:'C9',c:'내정보 질환을 고혈압 → 당뇨병으로 바꿈',e:'완료하지 않은 오늘 목표만 다시 골라지고 완료 기록은 남아요. 다음 회전 질문부터 당뇨병 연결 축(채소·단 음료·식사 속도·양)에서 나와요.',k:'edit',o:[['예상대로',1],['완료한 목표 기록이 사라짐',0],['여전히 국물 질문',0]]},
+  {id:'C10',c:'모든 회전 질문 문장',e:'질문 시트 문장 그대로. 예: <span class="q">'+Q.salt+' 드셨나요?</span> <span class="q">'+Q.fat+'?</span>',k:'copyQ',o:[['시트와 같음',1],['「국물은 어느 정도」 등 옛 문장',0],['「튀김이나 기름진 반찬」 등 옛 문장',0]]},
  ]},
- {t:'4. 병원 진료정보로 들어온 질환',n:'내정보에서는 질환을 고르지 않고, 진료정보에만 질환 기록이 있는 사람으로 확인하세요.',rows:[
-  ['D1','진료정보에 고혈압 기록, 아직 확인 안 함','첫 질문이 질환 확인 질문이에요(<q>현재 관리 중</q> / <q>아니요</q> / <q>잘 모르겠어요</q>). 공통 고정 질문은 아직 나오지 않아요.',D+' › 하루 흐름(질환 확인 질문도 하루 2개에 포함)'],
-  ['D2','D1에서 <q>현재 관리 중</q>','두 번째로 고혈압 축(채소·국물) 중 질문 번호가 앞선 채소 질문이 나와요. 공통 고정 질문(평소만큼 드셨나요)은 그날 나오지 않아요. 식이 질문은 총 2개예요.',D+' › 상태와 분기(질환 확인 = 현재 관리 중 → 해당 질환 회전 1개, 공통 고정 생략)'],
-  ['D3','D1에서 <q>아니요</q> 또는 <q>잘 모르겠어요</q>','두 번째로 공통 고정 질문이 나오고, 회전 질문은 나오지 않아요. 세 번째 질문은 없어요.',D+' › 상태와 분기(아니요·잘 모르겠어요 → 공통 고정 1개, 회전 없음)'],
-  ['D4','진료정보에 질환 2개(예: 당뇨병은 최근 진료, 고혈압은 오래전 진료)','하루에 한 질환만 물어요. 최근에 진료받은 당뇨병을 먼저 묻고, 고혈압은 다음 날 물어요.',F+' › 확인 질문 순서(근거 진료일이 최근인 것부터, 같으면 규칙 순)'],
-  ['D5','진료정보에 콜레스테롤·중성지방 기록이 함께 있음','<q>고지혈증(이상지질혈증)</q> 확인 질문이 한 번만 나와요. 다음 날 같은 질문이 또 나오면 안 돼요.',F+' › 확인 질문 묶음 규칙(화면 표기가 같으면 한 번만 묻는다)'],
-  ['D6','내정보에서 <q>해당 없음</q>, 진료정보에 고혈압 기록','진료정보 확인 질문은 그대로 나와요. 해당 없음이 진료정보 후보를 지우지 않아요.',D+' › 용어(해당 없음은 미입력과 다르고 진료정보 후보를 삭제하지 않는다)'],
-  ['D7','내정보에서 당뇨병 선택 + 진료정보에서 이상지질혈증 <q>현재 관리 중</q> 확인','다음 날부터 두 질환의 축(채소·단 음료·간식·식사 속도·양·기름진 음식)이 질문 번호 순으로 돌아가며 나오고, 네 축을 한 바퀴 돈 다음 날 일반 축(국물)이 하나 들어가요.',D+' › 문항 고르기(직접 선택 + 확인된 진료정보 질환의 연결 축을 합친다, 예시 그대로)'],
+ {t:'4. 병원 진료정보로 들어온 질환',n:'내정보에서는 질환을 고르지 않은 사람이에요.',rows:[
+  {id:'D1',c:'진료정보에 고혈압 기록, 아직 확인 안 함',e:'첫 질문이 <span class="q">고혈압을 진단받고 관리 중이신가요?</span> (예, 관리 중이에요 / 아니요 / 잘 모르겠어요). 고정 질문은 아직 안 나와요.',k:'confirm',o:[['예상대로',1],['고정 질문이 먼저 나옴',0],['확인 질문이 안 나옴',0]]},
+  {id:'D2',c:'D1에서 「예, 관리 중이에요」',e:'둘째로 고혈압 연결 축 회전 질문(채소). 공통 고정 질문은 그날 안 나와요. 총 2개.',k:'confirm',o:[['예상대로',1],['고정 질문도 나옴(3개)',0],['국물 질문',0]]},
+  {id:'D3',c:'D1에서 「아니요」 또는 「잘 모르겠어요」',e:'둘째로 공통 고정 질문, 회전 질문 없음.',k:'confirm',o:[['예상대로',1],['회전 질문도 나옴',0]]},
+  {id:'D4',c:'진료정보에 당뇨병(최근 진료)·고혈압(오래전 진료)',e:'첫날 당뇨병만 묻고 고혈압은 다음 날.',k:'cOrder',o:[['예상대로',1],['고혈압부터',0],['하루에 둘 다 물음',0]]},
+  {id:'D5',c:'진료정보에 콜레스테롤·중성지방 기록이 함께',e:'「고지혈증(이상지질혈증)」 확인 질문이 한 번만 나와요.',k:'cGroup',o:[['한 번만',1],['이틀에 걸쳐 두 번',0]]},
+  {id:'D6',c:'내정보 「해당 없음」 + 진료정보 고혈압 기록',e:'진료정보 확인 질문은 그대로 나와요.',k:'none',o:[['확인 질문 나옴',1],['안 나옴',0]]},
  ]},
- {t:'5. 오늘의 식이 목표',n:'목표는 회전 질문과 따로 정해져요. 기준 순서: ① 고정 답이 조금 적게·거의 못 먹거나 거름이면 회복 목표 → ② 내정보 질환 → ③ 확인된 진료정보 질환 → ④ 3개월 이내 검진 경계 → ⑤ 연동 수면 5시간 미만이면 부담 줄이기 → ⑥ 일반. 질환별 금지 문구는 이 순서보다 먼저 빠져요. 문구는 최근 노출을 피해 후보 중 하나가 나오므로, 「후보」 안에 있으면 통과예요. 모두 10시 첫 접속, 대상 끼니는 오늘 점심이에요.',rows:[
-  ['G1','고혈압만, 고정 질문 <q>평소대로</q>','국물 축 입문 목표. 회전 질문이 채소여도 목표는 국물이에요.<br>후보: 한 끼는 국물 반만 · 라면 국물은 남기기 · 소스 없이 먹어보기 · 찌개는 건더기만 · 국은 반 그릇만 담기 · 식탁에 소금 안 두기 · 국은 마지막에 간하기 · 냉면 국물은 반만',D+' › 1단계 ②(직접 선택 질환의 연결 축), 2단계(모두 입문에서 시작)<br>데이터계약 엑셀 › 질환연결축 시트 5행(고혈압의 첫 축 = 국물), 목표문구 시트 국물·입문 행'],
-  ['G2','당뇨병만','채소 축 입문 목표. 공복·감량 성격 문구는 빠져요.<br>후보: 한 끼에 채소 하나 · 국 대신 나물 반찬 · 고기와 쌈 채소 먹기 · 혼밥에도 채소 한 가지 · 도시락에 채소 한 칸 · 채소 미리 씻어 두기',D+' › 1단계 ②<br>데이터계약 엑셀 › 질환연결축 시트 2행(당뇨병의 첫 축 = 채소), 질환금지성격 시트 2~3행(공복·감량 금지)'],
-  ['G3','이상지질혈증만','기름진 음식 축 입문 목표.<br>후보: 튀긴 반찬은 하나만 · 튀김 대신 구이·찜 · 기름 적은 부위로 먹기 · 볶음 대신 데친 반찬 · 국물 기름 걷어내기',D+' › 1단계 ②<br>데이터계약 엑셀 › 질환연결축 시트 7행(이상지질혈증의 첫 축 = 기름진 음식)'],
-  ['G4','만성 신장질환만','질환 축이 없어 일반 축 목표가 나와요. 증량·감량 성격 문구는 빠져요. 예: 채소 축이면 <q>국 대신 나물 반찬</q> 또는 <q>채소 미리 씻어 두기</q>만 가능.',D+' › 1단계 ⑥, 3단계(질환별 금지는 완화할 수 없다)<br>데이터계약 엑셀 › 질환금지성격 시트 4~5행(신장질환 = 증량·감량 금지)','확인 필요: 첫날 일반 축을 무엇으로 고르는지'],
-  ['G5','넷 다, 내정보에서 고혈압을 가장 먼저 선택','국물 축 입문 중 감량이 아닌 문구만.<br>후보: 소스 없이 먹어보기 · 식탁에 소금 안 두기 · 국은 마지막에 간하기',D+' › 1단계 ②(여러 개면 저장된 선택 순서대로), ③(서로 다른 질환의 금지는 모두 합산)<br>데이터계약 엑셀 › 질환금지성격 시트(당뇨 감량·공복, 신장 증량·감량)'],
-  ['G6','넷 다, 당뇨병을 가장 먼저 선택','채소 축 입문 중 증량이 아닌 문구만.<br>후보: 국 대신 나물 반찬 · 채소 미리 씻어 두기',D+' › 1단계 ②(저장된 선택 순서)<br>데이터계약 엑셀 › 질환연결축 시트 2행, 질환금지성격 시트'],
-  ['G7','고혈압만 + 고정 질문 <q>조금 적게</q>','회복 목표가 질환 목표보다 먼저 나와요.<br>후보: 다음 끼니는 챙기기 · 단백질 한 입 먹기 · 간식이라도 챙겨 먹기 · 식사에 우유 한 잔 · 편한 음식으로 한 끼 · 먹을 수 있는 것 먹기 · 조금씩 자주 나눠 먹기',D+' › 1단계 ①<br>데이터계약 엑셀 › 목표문구 시트 회복 풀 행'],
-  ['G8','고혈압만 + <q>거의 못 먹거나 거름</q>','G7과 같은 회복 목표. 회전 질문은 없어요.',D+' › 1단계 ①, 상태와 분기'],
-  ['G9','신장질환만 + <q>조금 적게</q>','회복 문구는 모두 증량 성격이라 전부 빠져요. 다음 순서로 내려가 G4와 같은 일반 축 목표가 나와요. 증량·감량 문구는 여전히 빠져요.',D+' › 3단계(후보가 없으면 다른 허용 축을 찾되 같은 필터를 다시 적용, 그래도 없으면 안내 상태)<br>데이터계약 엑셀 › 목표문구 시트 회복 풀(전부 증량), 질환금지성격 시트 4행'],
-  ['G10','고혈압만 + 연동 수면 5시간 미만','질환 목표(국물)가 부담 줄이기보다 앞이라 G1과 같은 국물 목표예요.',D+' › 1단계(② 질환 축이 ⑤ 수면보다 먼저)'],
-  ['G11','질환 없음 + 연동 수면 5시간 미만','부담 줄이기 목표. 점심 대상이면 예: 점심은 평소 양으로 · 늦은 카페인 줄이기 · 저녁은 간단한 것으로',D+' › 1단계 ⑤<br>데이터계약 엑셀 › 목표문구 시트 부담 줄이기 행'],
-  ['G12','질환 없음 + 3개월 이내 검진에서 혈압만 경계','국물 축 입문 목표.',D+' › 1단계 ④<br>참조 데이터 › 검진 신호와 축 연결(혈압 → 국물)'],
-  ['G13','질환 없음 + 검진에서 혈당·혈압 모두 경계','혈당이 우선이라 채소 축 입문 목표.',D+' › 1단계 ④(혈당 → 혈압 → 콜레스테롤·체중 순)<br>참조 데이터 › 검진 신호와 축 연결(혈당 → 채소)'],
-  ['G14','내정보 질환 없음, 진료정보 고혈압 <q>현재 관리 중</q> 확인','국물 축 입문 목표.',D+' › 1단계 ③'],
-  ['G15','회전 질문에 가장 좋은 답(예: 채소 두 가지 이상)을 한 첫날','그래도 입문 단계 목표예요. 기본·도전 문구가 나오면 안 돼요.',D+' › 2단계(모두 입문에서 시작, 양호 상태만으로 기본·도전을 강제하지 않는다)'],
-  ['G16','같은 축 목표를 최근 7일 안에 3번 완료','다음 날 그 축 목표가 기본 단계 문구로 올라가요(예: 국물이면 기본 문구).',D+' › 2단계(마지막 단계 변경 이후 같은 축 완료 3건 → 1단계 상승)'],
-  ['G17','기본 단계에서 목표를 2번 연속 완료하지 않음','입문 단계로 내려가요. 상승과 하락이 같은 날 겹치면 하락이 우선이에요. 지난 날짜로 돌아가 누른 완료는 계산에 안 들어가요.',D+' › 2단계(연속 미완료 2건 → 1단계 하락, 하락 우선, 하루 1회)'],
-  ['G18','10시 접속 목표의 대상 끼니','오늘 점심 이후 끼니를 대상으로 해요. 이미 지난 오늘 아침을 대상으로 하지 않아요.',D+' › 4단계 · 대상 끼니 붙이기(이미 지난 끼니를 대상으로 삼지 않는다)'],
-  ['G19','17시 이후 접속, 저녁 먹었다고 답한 뒤','먹는 것을 제한하는 목표 대신 오늘 밤 준비·정리 행동(예: 내일 아침 미리 정하기)이 나와요.',F+' › 심야 목표'],
-  ['G20','모든 목표','과일을 더 먹으라는 문구는 나오지 않아요. 후보가 하나도 없는 날은 완료할 목표 대신 안내만 보여요.',D+' › 3단계(과일 추천 제외, 후보 없으면 안내 상태)'],
+ {t:'5. 오늘의 식이 목표',n:'10:00 첫 접속, 대상 끼니는 오늘 점심이에요. 문구는 최근 노출을 피해 후보 중 하나가 나오므로, 나온 문구가 후보에 있으면 통과예요.',rows:[
+  {id:'G1',c:'고혈압만 · 고정 「평소대로」',e:'국물 축 입문. 회전 질문이 채소여도 목표는 국물이에요.<br>후보: 한 끼는 국물 반만 · 라면 국물은 남기기 · 소스 없이 먹어보기 · 찌개는 건더기만 · 국은 반 그릇만 담기 · 식탁에 소금 안 두기 · 국은 마지막에 간하기 · 냉면 국물은 반만',k:'split',o:[['국물 입문 후보 중 하나',1],['채소 목표(질문을 따라감)',0],['국물 기본·도전 문구',0],['다른 축 목표',0]]},
+  {id:'G2',c:'당뇨병만',e:'채소 축 입문, 공복·감량 성격 제외.<br>후보: 한 끼에 채소 하나 · 국 대신 나물 반찬 · 고기와 쌈 채소 먹기 · 혼밥에도 채소 한 가지 · 도시락에 채소 한 칸 · 채소 미리 씻어 두기',k:'goalOrder',o:[['채소 입문 후보 중 하나',1],['단 음료 목표',0],['감량·공복 성격 문구',0]]},
+  {id:'G3',c:'이상지질혈증만',e:'기름진 음식 축 입문. 회전 질문이 식사 속도·양이어도 목표는 기름진 음식.<br>후보: 튀긴 반찬은 하나만 · 튀김 대신 구이·찜 · 기름 적은 부위로 먹기 · 볶음 대신 데친 반찬 · 국물 기름 걷어내기',k:'goalOrder',o:[['기름진 음식 입문 후보 중 하나',1],['식사 속도·양 목표',0],['다른 축',0]]},
+  {id:'G4',c:'만성 신장질환만',e:'연결 축이 없어 일반 축 목표. 증량·감량·수분 성격 문구는 빠져요(예: 채소 축이면 「국 대신 나물 반찬」 「채소 미리 씻어 두기」만).',k:'ban',chk:'확인 필요: 첫날 일반 축을 무엇으로 고르는지',o:[['금지 성격 없는 일반 목표',1],['증량·감량·수분 문구가 나옴',0],['안내만 나옴',0]]},
+  {id:'G5',c:'넷 다, 고혈압을 가장 먼저 선택 · 고정 「평소대로」',e:'국물 입문 중 감량 아닌 것만(당뇨·신장 금지 합산).<br>후보: 소스 없이 먹어보기 · 식탁에 소금 안 두기 · 국은 마지막에 간하기',k:'ban',o:[['세 후보 중 하나',1],['감량 성격 국물 문구(예: 국물 반만)',0],['다른 축',0]]},
+  {id:'G6',c:'넷 다, 당뇨병을 가장 먼저 선택',e:'채소 입문 중 증량 아닌 것만.<br>후보: 국 대신 나물 반찬 · 채소 미리 씻어 두기',k:'goalOrder',o:[['두 후보 중 하나',1],['국물 목표',0],['증량 성격 채소 문구',0]]},
+  {id:'G7',c:'고혈압만 + 고정 「조금 적게」',e:'회복 목표가 먼저.<br>후보: 다음 끼니는 챙기기 · 단백질 한 입 먹기 · 간식이라도 챙겨 먹기 · 식사에 우유 한 잔 · 편한 음식으로 한 끼 · 먹을 수 있는 것 먹기 · 조금씩 자주 나눠 먹기',k:'recov',o:[['회복 후보 중 하나',1],['국물 목표',0],['「미지근한 물부터 한 잔」 등 옛 회복 문구',0]]},
+  {id:'G8',c:'고혈압만 + 「거의 못 먹거나 거름」',e:'G7과 같은 회복 목표.',k:'recov',o:[['회복 후보 중 하나',1],['다른 목표',0]]},
+  {id:'G9',c:'넷 다, 고혈압을 가장 먼저 선택 · 고정 「조금 적게」',e:'회복이 1순위지만 회복 문구 7개가 모두 증량이라 신장질환 금지로 전부 빠져요. 다음 순서(내정보 질환)로 내려가 <b>G5와 같은 결과</b>.<br>후보: 소스 없이 먹어보기 · 식탁에 소금 안 두기 · 국은 마지막에 간하기',k:'fallback',o:[['세 후보 중 하나',1],['회복 문구가 나옴(금지 무시)',0],['안내만 나옴',0],['다른 축',0]]},
+  {id:'G10',c:'만성 신장질환만 + 고정 「조금 적게」',e:'회복 문구가 전부 빠지고, 질환 축도 없어 일반 축 목표(G4와 같은 필터).',k:'fallback',o:[['금지 없는 일반 목표',1],['회복 문구가 나옴',0],['안내만 나옴',0]]},
+  {id:'G11',c:'고혈압만 + 연동 수면 5시간 미만',e:'질환 축이 먼저라 G1과 같은 국물 목표.',k:'burden',o:[['국물 목표',1],['부담 줄이기 목표',0]]},
+  {id:'G12',c:'질환 없음 + 연동 수면 5시간 미만',e:'부담 줄이기 목표. 예: 점심은 평소 양으로 · 늦은 카페인 줄이기 · 저녁은 간단한 것으로',k:'burden',o:[['부담 줄이기 목표',1],['일반 축 목표',0]]},
+  {id:'G13',c:'질환 없음 + 검진 혈압 경계(3개월 이내)',e:'국물 축 입문.',k:'scr',o:[['국물 입문',1],['다른 축',0]]},
+  {id:'G14',c:'질환 없음 + 검진 혈당·혈압 모두 경계',e:'혈당 우선이라 채소 축 입문.',k:'scr',o:[['채소 입문',1],['국물',0]]},
+  {id:'G15',c:'질환 없음 + 검진 4개월 전 혈압 경계',e:'3개월이 지나 검진 신호를 안 쓰고 일반 목표.',k:'scr',o:[['일반 목표',1],['국물 목표',0]]},
+  {id:'G16',c:'진료정보 고혈압 「관리 중」 확인 다음 날',e:'국물 축 입문.',k:'goalOrder',o:[['국물 입문',1],['다른 축',0]]},
+  {id:'G17',c:'첫날, 회전 질문에 가장 좋은 답',e:'그래도 입문 단계.',k:'stage0',o:[['입문',1],['기본·도전',0]]},
+  {id:'G18',c:'국물 축 상태 「보통」 + 최근 7일 국물 목표 3번 완료',e:'다음 날 국물 기본 단계 문구.',k:'stageUp',o:[['기본 단계',1],['입문 유지',0],['도전으로 건너뜀',0]]},
+  {id:'G19',c:'국물 축 상태 「관찰 중」(답 2건) + 최근 7일 3번 완료',e:'단계가 오르지 않고 입문 유지.',k:'stageUp',o:[['입문 유지',1],['기본으로 오름',0]]},
+  {id:'G20',c:'국물 축 상태 「개선 필요」 + 기본 단계에서 다시 3번 완료',e:'도전으로 안 오르고 기본 유지.',k:'stageUp',o:[['기본 유지',1],['도전으로 오름',0]]},
+  {id:'G21',c:'기본 단계에서 목표를 2번 연속 미완료',e:'입문으로 내려가요. 지난 날짜로 돌아가 누른 완료는 계산 안 함.',k:'stageDown',o:[['입문으로 내려감',1],['기본 유지',0]]},
+  {id:'G22',c:'10:00 접속 목표의 대상 끼니',e:'오늘 점심 이후. 지난 오늘 아침을 대상으로 하지 않아요.',k:'target',o:[['점심 이후',1],['오늘 아침 대상',0]]},
+  {id:'G23',c:'17시 이후, 저녁 먹었다고 답한 뒤',e:'오늘 밤 준비·정리 행동(예: 내일 아침 미리 정하기). 먹는 걸 제한하는 목표는 안 나와요.',k:'late',o:[['밤 준비 행동',1],['제한형 목표(야식 금지 등)',0]]},
+  {id:'G24',c:'모든 목표',e:'과일 추천 문구 없음. 후보가 없는 날은 안내만.',k:'fruit',o:[['예상대로',1],['과일 문구가 나옴',0]]},
  ]},
- {t:'6. 모든 케이스 공통',n:'위 케이스를 진행하면서 매번 함께 봐 주세요.',rows:[
-  ['E1','모든 식이 질문 화면','답 버튼이 3개예요. <q>건너뛰기</q> 버튼이나 링크가 없어요.',D+' › 화면 순서 A·B(별도의 건너뛰기 선택지 없음)'],
-  ['E2','하루 동안 여러 번 접속','식이 질문은 하루 2개를 넘지 않아요.',D+' › 문항 고르기(식이는 세션당 최대 2문항)'],
-  ['E3','질문 문장의 끼니 이름','<q>{지난 끼니}</q> 자리에 접속 시각에 맞는 끼니(어제 저녁 / 오늘 아침 / 오늘 점심 / 오늘 저녁)가 들어가요. 조사(은/는, 이/가)가 자연스러워요.',D+' › 문안 규칙'],
+ {t:'6. 모든 케이스 공통',n:'케이스를 진행하면서 매번 함께 봐 주세요.',rows:[
+  {id:'E1',c:'모든 식이 질문 화면',e:'답 버튼 3개, 건너뛰기 없음, 버튼 글자가 한 줄로 들어감.',k:'ui',o:[['예상대로',1],['건너뛰기가 있음',0],['버튼 글자가 접힘',0]]},
+  {id:'E2',c:'하루 여러 번 접속',e:'식이 질문은 하루 2개를 넘지 않아요.',k:'max2',o:[['2개 이하',1],['3개 이상',0]]},
+  {id:'E3',c:'질문 문장의 끼니 이름과 조사',e:'「오늘 아침은」「오늘 저녁은」처럼 자연스러워요.',k:'copyQ',o:[['자연스러움',1],['「저녁는」 등 조사 오류',0]]},
  ]},
 ];
-const KEY='mai-diet-qa-v1.0.0';
+const KEY='mai-diet-qa-v2';
 let state={};try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}tally()}
-function tally(){
-  const all=SECTIONS.flatMap(s=>s.rows.map(r=>r[0]));
-  const c={pass:0,fail:0,hold:0};all.forEach(id=>{const r=state[id]?.r;if(r)c[r]++});
-  document.getElementById('tally').innerHTML=`<span>전체 ${all.length}건</span><span>통과 ${c.pass}</span><span>실패 ${c.fail}</span><span>보류 ${c.hold}</span><span>미확인 ${all.length-c.pass-c.fail-c.hold}</span>`;
+const all=SECTIONS.flatMap(s=>s.rows);
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+const strip=h=>h.replace(/<br>/g,' ').replace(/<[^>]+>/g,'');
+function judge(row){
+  const st=state[row.id]||{};
+  if(st.pick==null) return '';
+  const ok=row.o[st.pick][1];
+  if(ok) return 'pass';
+  return row.chk?'hold':'fail';
+}
+function render(){
+  const c={pass:0,fail:0,hold:0};const lines=[];
+  all.forEach(row=>{
+    const el=document.getElementById('case-'+row.id);const r=judge(row);el.dataset.r=r;
+    if(r) c[r]++;
+    const st=state[row.id]||{};
+    el.querySelectorAll('.pick button').forEach((b,i)=>b.setAttribute('aria-pressed',String(st.pick===i)));
+    const v=el.querySelector('.verdict');const [src,txt]=R[row.k];
+    if(!r){v.hidden=true;return}
+    v.hidden=false;
+    const actual=row.o[st.pick][0]+(st.other?' · '+st.other:'');
+    if(r==='pass'){v.className='verdict ok';v.innerHTML='<b>통과</b>';return}
+    v.className='verdict ng';
+    v.innerHTML='<b>'+(r==='hold'?'보류 · 기획 결정 필요':'실패')+'</b><div>실제: '+actual+'</div><div class="why">틀린 이유: '+txt+'</div><div class="src">근거: '+src+'</div>';
+    lines.push('['+row.id+'] '+strip(row.c)+'\n- 예상: '+strip(row.e)+'\n- 실제: '+actual+'\n- 지켜야 할 규칙: '+txt+'\n- 근거: '+src+(r==='hold'?'\n- 상태: 기획 결정 필요(보류)':''));
+  });
+  document.getElementById('tally').innerHTML=`<span>전체 ${all.length}건</span><span>통과 ${c.pass}</span><span class="${c.fail?'f':''}">실패 ${c.fail}</span><span>보류 ${c.hold}</span><span>미확인 ${all.length-c.pass-c.fail-c.hold}</span>`;
+  document.getElementById('failText').textContent=lines.length?lines.join('\n\n'):'아직 실패한 케이스가 없어요.';
 }
 const host=document.getElementById('sections');
 SECTIONS.forEach(s=>{
   const sec=document.createElement('section');
-  sec.innerHTML=`<h2>${s.t}</h2><p class="sec-note">${s.n}</p><div class="tbl"><table><thead><tr><th>번호</th><th>조건</th><th>예상 결과</th><th>근거 (개발 전달용)</th><th>실제 결과</th><th>판정</th></tr></thead><tbody></tbody></table></div>`;
-  const tb=sec.querySelector('tbody');
-  s.rows.forEach(([id,cond,exp,src,chk])=>{
-    const st=state[id]||{};
-    const tr=document.createElement('tr');tr.dataset.r=st.r||'';
-    tr.innerHTML=`<td class="no">${id}</td><td class="cond">${cond}</td><td class="exp">${exp}${chk?`<br><span class="chk">${chk}</span>`:''}</td><td class="src">${src}</td>
-    <td class="act"><textarea id="a-${id}" aria-label="${id} 실제 결과" placeholder="다르면 화면에 나온 그대로 적기"></textarea></td>
-    <td class="jd"><select id="j-${id}" aria-label="${id} 판정"><option value="">미확인</option><option value="pass">통과</option><option value="fail">실패</option><option value="hold">보류</option></select></td>`;
-    const ta=tr.querySelector('textarea'),se=tr.querySelector('select');
-    ta.value=st.a||'';se.value=st.r||'';
-    ta.addEventListener('input',()=>{state[id]={...state[id],a:ta.value};save()});
-    se.addEventListener('change',()=>{state[id]={...state[id],r:se.value};tr.dataset.r=se.value;save()});
-    tb.appendChild(tr);
+  sec.innerHTML=`<h2>${s.t}</h2><p class="sec-note">${s.n}</p><div class="cases"></div>`;
+  const box=sec.querySelector('.cases');
+  s.rows.forEach(row=>{
+    const d=document.createElement('div');d.className='case';d.id='case-'+row.id;
+    d.innerHTML=`<div class="no">${row.id}</div><div><div class="cond">${row.c}${row.chk?`<span class="chk">${row.chk}</span>`:''}</div><div class="exp">예상: ${row.e}</div></div>
+      <div class="pick" role="group" aria-label="${row.id} 실제 결과">${row.o.map((o,i)=>`<button type="button" data-i="${i}">${o[0]}</button>`).join('')}</div>
+      <div class="other"><textarea id="m-${row.id}" aria-label="${row.id} 메모" placeholder="화면에 나온 문구를 그대로 적어 두면 개발 전달 모음에 같이 들어가요"></textarea></div>
+      <div class="verdict" hidden></div>`;
+    d.querySelectorAll('.pick button').forEach(b=>b.addEventListener('click',()=>{
+      const i=+b.dataset.i;const st=state[row.id]||{};state[row.id]={...st,pick:st.pick===i?null:i};save();render();
+    }));
+    const ta=d.querySelector('textarea');ta.value=(state[row.id]||{}).other||'';
+    ta.addEventListener('input',()=>{state[row.id]={...state[row.id],other:ta.value};save();render();});
+    box.appendChild(d);
   });
   host.appendChild(sec);
 });
-tally();
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+  const t=document.getElementById('failText');const b=document.getElementById('copyBtn');
+  try{await navigator.clipboard.writeText(t.textContent);b.textContent='복사됨';}
+  catch(e){const r=document.createRange();r.selectNodeContents(t);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='선택됨 · Ctrl+C';}
+  setTimeout(()=>b.textContent='복사',1800);
+});
+render();
 </script>
