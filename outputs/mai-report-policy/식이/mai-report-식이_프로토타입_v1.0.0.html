@@ -2739,7 +2739,14 @@ function rotationQuestion(axes){
   const cutoff = Date.now() - 28*24*60*60*1000;
   const hour = new Date().getHours();
   const all = Object.values(Q_ROTATION).filter(q=>q.id!=='mealTime' || (hour>=4 && hour<10));
-  const pool = axes && axes.length ? all.filter(q=>axes.includes(q.id)) : all;
+  let pool = axes && axes.length ? all.filter(q=>axes.includes(q.id)) : all;
+  /* 질환 축을 모두 한 번씩 물었으면(마지막 일반 축 이후 기준) 오늘은 일반 축 하나 */
+  if(axes && axes.length){
+    const sorted=[...history].sort((a,b)=>Date.parse(a.answered_at)-Date.parse(b.answered_at));
+    let lastGeneral=-1; sorted.forEach((x,i)=>{ if(!axes.includes(x.question_id)) lastGeneral=i; });
+    const since=new Set(sorted.slice(lastGeneral+1).map(x=>x.question_id));
+    if(axes.every(a=>since.has(a))){ const general=all.filter(q=>!axes.includes(q.id)); if(general.length) pool=general; }
+  }
   const candidates = (pool.length ? pool : all).map((q,order)=>{
     const asked = history.filter(x=>x.question_id===q.id && Date.parse(x.answered_at)>=cutoff);
     const last = asked.reduce((v,x)=>Math.max(v,Date.parse(x.answered_at)||0),0);
