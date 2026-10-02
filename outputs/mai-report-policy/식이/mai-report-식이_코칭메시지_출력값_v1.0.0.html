@@ -158,6 +158,105 @@ li{margin:4px 0}
 <div class="warn"><b>반드시.</b> 사용자가 답을 고쳤으면 같은 질문에 여러 줄이 남습니다.
 <code>is_current</code>가 참인 줄 하나만 읽으세요. 안 그러면 고치기 전 답까지 세게 됩니다.</div>
 
+<h3>질문마다 어떤 답이 나올 수 있나 — 27개 전부</h3>
+<p>질문 하나에 답은 늘 세 개입니다. 각 답에 <b>좋음(1) · 보통(0) · 나쁨(-1)</b>이 붙어 있고,
+이 점수를 모아서 축 상태를 정합니다. 아래가 실제 저장되는 코드와 사용자가 보는 문구입니다.</p>
+
+<table>
+<tr><th>축</th><th>묻는 말</th><th>저장되는 코드</th><th>사용자가 보는 문구</th><th>점수</th></tr>
+
+<tr><td rowspan="3">끼니 규칙<br><span class="src">DIET-Q-00</span></td>
+<td rowspan="3">지난 끼니는 평소만큼 드셨나요?</td>
+<td><code>usual</code></td><td>평소대로</td><td>좋음 (1)</td></tr>
+<tr><td><code>less</code></td><td>조금 적게</td><td>보통 (0)</td></tr>
+<tr><td><code>very_little_or_skipped</code></td><td>거의 못 먹거나 거름</td><td>나쁨 (-1)</td></tr>
+
+<tr><td rowspan="3">채소<br><span class="src">DIET-Q-01</span></td>
+<td rowspan="3">지난 끼니에 채소 반찬 몇 가지 드셨나요?</td>
+<td><code>two_or_more</code></td><td>두 가지 이상</td><td>좋음 (1)</td></tr>
+<tr><td><code>one</code></td><td>한 가지</td><td>보통 (0)</td></tr>
+<tr><td><code>none</code></td><td>먹지 않았어요</td><td>나쁨 (-1)</td></tr>
+
+<tr><td rowspan="3">단 음료 · 단 간식<br><span class="src">DIET-Q-02</span></td>
+<td rowspan="3">지난 끼니 전후에 단 음료·간식 몇 번 드셨나요?</td>
+<td><code>none</code></td><td>없었어요</td><td>좋음 (1)</td></tr>
+<tr><td><code>once</code></td><td>한 번</td><td>보통 (0)</td></tr>
+<tr><td><code>twice_or_more</code></td><td>두 번 이상</td><td>나쁨 (-1)</td></tr>
+
+<tr><td rowspan="3">짠맛 · 국물<br><span class="src">DIET-Q-03</span></td>
+<td rowspan="3">지난 끼니에 국물은 얼마나 드셨나요?</td>
+<td><code>none</code></td><td>안 먹었어요</td><td>좋음 (1)</td></tr>
+<tr><td><code>half_or_less</code></td><td>절반 이하</td><td>보통 (0)</td></tr>
+<tr><td><code>more_than_half</code></td><td>절반 넘게</td><td>나쁨 (-1)</td></tr>
+
+<tr><td rowspan="3">식사 시각 · 야식<br><span class="src">DIET-Q-04</span></td>
+<td rowspan="3">어젯밤 야식을 몇 번 드셨나요?</td>
+<td><code>none</code></td><td>안 먹었어요</td><td rowspan="3"><b>점수 없음</b></td></tr>
+<tr><td><code>once</code></td><td>한 번</td></tr>
+<tr><td><code>twice_or_more</code></td><td>두 번 이상</td></tr>
+
+<tr><td rowspan="3">식사 속도 · 양<br><span class="src">DIET-Q-05</span></td>
+<td rowspan="3">지난 끼니 먹고 얼마나 배불렀나요?</td>
+<td><code>comfortable</code></td><td>편안했어요</td><td>좋음 (1)</td></tr>
+<tr><td><code>somewhat_full</code></td><td>조금 배불렀어요</td><td>보통 (0)</td></tr>
+<tr><td><code>too_full</code></td><td>많이 배불렀어요</td><td>나쁨 (-1)</td></tr>
+
+<tr><td rowspan="3">단백질<br><span class="src">DIET-Q-06</span></td>
+<td rowspan="3">지난 끼니에 고기·생선·달걀·두부를 드셨나요?</td>
+<td><code>ate</code></td><td>먹었어요</td><td>좋음 (1)</td></tr>
+<tr><td><code>tasted_only</code></td><td>맛만 봤어요</td><td>보통 (0)</td></tr>
+<tr><td><code>absent</code></td><td>안 먹었어요</td><td>나쁨 (-1)</td></tr>
+
+<tr><td rowspan="3">기름진 음식<br><span class="src">DIET-Q-07</span></td>
+<td rowspan="3">지난 끼니에 튀긴 음식을 드셨나요?</td>
+<td><code>absent</code></td><td>안 먹었어요</td><td>좋음 (1)</td></tr>
+<tr><td><code>tasted_only</code></td><td>맛만 봤어요</td><td>보통 (0)</td></tr>
+<tr><td><code>ate</code></td><td>먹었어요</td><td>나쁨 (-1)</td></tr>
+
+<tr><td rowspan="3">질환 확인<br><span class="src">DIET-Q-90</span></td>
+<td rowspan="3">○○을 진단받고 관리 중이신가요?</td>
+<td><code>confirmed</code></td><td>관리 중이에요</td><td rowspan="3"><b>점수 없음</b></td></tr>
+<tr><td><code>denied</code></td><td>아니요</td></tr>
+<tr><td><code>unknown</code></td><td>잘 모르겠어요</td></tr>
+</table>
+
+<p class="where"><b>어디에 있나</b> — 「선택지」 시트. 코드는 <code>option_code</code>, 문구는 <code>option_label</code>,
+점수는 <code>score_value</code> 칸입니다. 질문 문장은 「질문」 시트의 <code>question_template</code>입니다.</p>
+
+<div class="warn"><b>가장 틀리기 쉬운 곳입니다.</b>
+코드만 보면 안 됩니다. <b>반드시 질문 ID와 함께 읽으세요.</b>
+같은 코드가 질문에 따라 정반대 뜻이 됩니다.
+<ul>
+<li><code>none</code> — 채소에서는 「채소를 못 먹었다」라서 <b>나쁨</b>, 단 음료·국물에서는 「안 먹었다」라서 <b>좋음</b>입니다</li>
+<li><code>ate</code> — 단백질에서는 「먹었다」라서 <b>좋음</b>, 기름진 음식에서는 <b>나쁨</b>입니다</li>
+<li><code>absent</code> — 단백질에서는 <b>나쁨</b>, 기름진 음식에서는 <b>좋음</b>입니다</li>
+</ul>
+코드만 보고 「안 먹었다니 잘하셨네요」라고 하면, 채소를 못 먹은 사람을 칭찬하게 됩니다.</div>
+
+<h3>점수가 없는 질문이 둘 있습니다</h3>
+<p><b>야식</b>은 좋고 나쁨을 매기지 않습니다. 야식이 나쁘다고 단정하지 않기로 했기 때문입니다.
+사실만 기록하고 축 상태도 안 만듭니다. 그래서 「야식 참으세요」 같은 메시지는 쓸 수 없습니다.</p>
+<p><b>질환 확인</b>은 질문이지만 식습관이 아닙니다. 상태 계산에 들어가지 않고, 질환 적용 여부만 정합니다.</p>
+
+<h3>지난 끼니가 어느 끼니인지</h3>
+<p>질문의 「지난 끼니」는 사용자가 들어온 시각에 따라 달라집니다. 저장된 <code>meal_type</code>을 읽으면 됩니다.</p>
+<table>
+<tr><th>들어온 시각</th><th>묻는 끼니</th><th>저장되는 값</th></tr>
+<tr><td>04:00 ~ 10:00</td><td>어제 저녁</td><td><code>DINNER</code> · 날짜는 어제</td></tr>
+<tr><td>10:00 ~ 12:00</td><td>오늘 아침</td><td><code>BREAKFAST</code> · 날짜는 오늘</td></tr>
+<tr><td>12:00 ~ 17:00</td><td>오늘 점심</td><td><code>LUNCH</code> · 날짜는 오늘</td></tr>
+<tr><td>17:00 이후</td><td>오늘 저녁</td><td><code>DINNER</code> · 날짜는 오늘</td></tr>
+</table>
+<p class="where"><b>근거</b> — 「설정」 시트 <code>CFG-012</code>(10시) · <code>CFG-013</code>(12시) · <code>CFG-014</code>(17시).
+하루 경계 새벽 4시는 <code>CFG-015</code>입니다.</p>
+<div class="warn"><b>이것도 조심.</b> 새벽 6시에 답한 사람의 <code>meal_date</code>는 <b>어제</b>입니다.
+「오늘 저녁 어떠셨어요」가 아니라 「어제 저녁」 얘기입니다. 날짜를 안 보고 쓰면 하루가 밀립니다.</div>
+
+<div class="ex"><b>실제로 한 줄이 어떻게 저장되나</b>
+새벽 6시에 들어와서 「어제 저녁에 채소 반찬 몇 가지 드셨나요?」에 「한 가지」를 눌렀다면 —<br>
+세션 날짜 = 오늘 · 질문 = <code>DIET-Q-01</code> · 고른 코드 = <code>one</code> · 점수 = 0(보통) ·
+끼니 = <code>DINNER</code> · 끼니 날짜 = <b>어제</b> · 최종 유효 = 참</div>
+
 <h3>안 답한 것과 안 물어본 것은 다릅니다</h3>
 <table>
 <tr><th>값</th><th>뜻</th><th>코칭에서</th></tr>
