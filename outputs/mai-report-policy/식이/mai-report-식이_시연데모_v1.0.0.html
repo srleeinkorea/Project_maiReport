@@ -151,7 +151,9 @@ function simulate(c,count){
   let src=sourceFor(c,i,date,rows);
   let qKey=questionAxis(c,rows);
   if(isClinicConfirmation&&c.clinicAxes.length){src={code:'CLINIC_CONFIRMED',label:'진료정보 확인 직후',axis:c.clinicAxes[0]};qKey=c.clinicAxes[0];}
-  let axis=AXES[qKey],goalAxis=AXES[src.axis]||axis,answer=c.pattern[i%c.pattern.length];
+  else { const lk=[...(c.manualAxes||[]),...(c.clinicAxes||[]),...(c.screenAxes||[])];
+    src = lk.includes(qKey) ? {code:'SELF_REPORTED',label:'질환 연결 축',axis:qKey} : {code:'QUESTION',label:'일반 축',axis:qKey}; }
+  let axis=AXES[qKey],goalAxis=axis,answer=c.pattern[i%c.pattern.length];
   const history=historyByAxis[goalAxis.qid]||[],current=stageByAxis[goalAxis.qid]||'INTRO',ended=history.filter(x=>x.day<i),recent=ended.filter(x=>x.day>=i-7),lastTwo=ended.slice(-2);
   let stage=current,stageReason=null;
   if(lastTwo.length===2&&lastTwo.every(x=>!x.done)&&current!=='INTRO'){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)-1];stageReason='미완료 2건 연속';historyByAxis[goalAxis.qid]=[]}
