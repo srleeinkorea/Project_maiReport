@@ -257,6 +257,7 @@ function setSync(t){const el=document.getElementById('sync');if(el)el.textConten
     setSync('저장됨');
   }catch(e){setSync('이 브라우저에만 저장됨')}
 })();
+async function getSaver(){const dl=window.claude?await window.claude.use('downloads'):null;if(dl)return dl;return {save:async({filename,data})=>{const u=URL.createObjectURL(data instanceof Blob?data:new Blob([data]));const a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}}}
 const strip=h=>h.replace(/<br>/g,' ').replace(/<[^>]+>/g,'');
 function judge(row){
   const st=state[row.id]||{};
@@ -343,7 +344,7 @@ function judgeWith(row,st){if(st.j)return st.j;if(st.pick==null)return '';if(row
   }catch(e){}
 })();
 document.getElementById('adminXls').addEventListener('click',async()=>{
-  const b=document.getElementById('adminXls');const dl=window.claude?await window.claude.use('downloads'):null;
+  const b=document.getElementById('adminXls');const dl=await getSaver();
   if(!dl||typeof XLSX==='undefined'||!adminData.length){b.textContent='-';setTimeout(()=>b.textContent='Excel (all testers)',1500);return}
   const rows=[['테스터','번호','영역','조건','예상','실제','메모','판정','설계','근거']];
   adminData.forEach(a=>a.bad.forEach(x=>{const [src,txt]=R[x.row.k];rows.push([a.name,x.row.id,x.s.t,strip(x.row.c),strip(x.row.e),x.st.pick!=null?x.row.o[x.st.pick][0]:'',x.st.other||'',x.r,txt,src])}));
@@ -356,7 +357,7 @@ document.getElementById('adminXls').addEventListener('click',async()=>{
 });
 document.getElementById('xlsBtn').addEventListener('click',async()=>{
   const b=document.getElementById('xlsBtn');
-  const dl=window.claude ? await window.claude.use('downloads') : null;
+  const dl=await getSaver();
   if(!dl||typeof XLSX==='undefined'){b.textContent='Excel 저장 불가';setTimeout(()=>b.textContent='Excel 저장',2000);return}
   const rows=[['번호','영역','조건','예상','실제','메모','판정','설계','근거']];
   SECTIONS.forEach(s=>s.rows.forEach(row=>{
@@ -379,7 +380,7 @@ document.getElementById('xlsBtn').addEventListener('click',async()=>{
 });
 document.getElementById('pdfBtn').addEventListener('click',async()=>{
   const b=document.getElementById('pdfBtn');
-  const dl=window.claude ? await window.claude.use('downloads') : null;
+  const dl=await getSaver();
   if(!dl||typeof html2canvas==='undefined'||!window.jspdf){b.textContent='PDF 저장 불가';setTimeout(()=>b.textContent='PDF 저장',2000);return}
   b.disabled=true;b.textContent='만드는 중…';
   try{
