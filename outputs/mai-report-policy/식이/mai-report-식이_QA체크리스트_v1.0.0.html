@@ -224,7 +224,7 @@ function render(){
     if(r==='pass'){v.className='verdict ok';v.innerHTML='<b>P · 기획대로</b>';return}
     v.className='verdict ng';
     v.innerHTML='<b>'+(r==='hold'?'추후확인 · 기획 결정이 남은 항목':'F · 기획과 다름')+'</b><div>실제: '+actual+'</div><div class="why">기획 기준: '+txt+'</div><div class="src">근거: '+src+'</div>';
-    lines.push('['+row.id+'] '+(r==='hold'?'(추후확인) ':'(F) ')++strip(row.c)+'\n- 예상: '+strip(row.e)+'\n- 실제: '+actual+'\n- 기획 기준: '+txt+'\n- 근거: '+src+(r==='hold'?'\n- 판정: 추후확인':''));
+    lines.push('['+row.id+'] '+(r==='hold'?'(추후확인) ':'(F) ')+strip(row.c)+'\n- 예상: '+strip(row.e)+'\n- 실제: '+actual+'\n- 기획 기준: '+txt+'\n- 근거: '+src+(r==='hold'?'\n- 판정: 추후확인':''));
   });
   document.getElementById('tally').innerHTML=`<span>전체 ${all.length}건</span><span>P ${c.pass}</span><span class="${c.fail?'f':''}">F ${c.fail}</span><span>추후확인 ${c.hold}</span><span>미확인 ${all.length-c.pass-c.fail-c.hold}</span>`;
   document.getElementById('failText').textContent=lines.length?lines.join('\n\n'):'아직 기획과 다른 케이스가 없어요.';
