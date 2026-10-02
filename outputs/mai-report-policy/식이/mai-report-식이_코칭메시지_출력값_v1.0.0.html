@@ -31,7 +31,27 @@ tr.g td{background:var(--tint);font-size:14px}
 .fig{width:100%;min-width:900px;height:auto;display:block}
 .cat{background:var(--tint);font-weight:700;font-size:14.5px;text-align:center;vertical-align:middle}
 table td{line-height:1.55}
+
+.tb{display:flex;gap:8px;justify-content:flex-end;margin:0 0 14px}
+.tb button{font:inherit;font-size:13.5px;padding:7px 14px;border-radius:8px;cursor:pointer;
+ border:1px solid var(--bd2,#cbd5e1);background:var(--box,#fff);color:var(--fg,#0f172a)}
+.tb button:hover{background:var(--tint,#f8fafc)}
+.tb button:active{transform:translateY(1px)}
+@media print{
+ .tb{display:none}
+ body{padding:0;background:#fff}
+ main{max-width:none}
+ table,.figwrap{box-shadow:none}
+ tr,.figwrap{break-inside:avoid;page-break-inside:avoid}
+ h2{break-after:avoid;page-break-after:avoid}
+ @page{size:A4 landscape;margin:12mm}
+}
 </style></head><body><main>
+<div class="tb">
+<button type="button" data-act="xls">Excel로 저장</button>
+<button type="button" data-act="html">HTML로 저장</button>
+<button type="button" data-act="pdf">PDF로 저장</button>
+</div>
 
 <h1>식이 데이터 안내</h1>
 <p class="sub">다른 기능에서 식이의 값을 가져다 쓸 때 보는 문서입니다.
@@ -497,4 +517,65 @@ table td{line-height:1.55}
 끼니 경계와 판정 숫자는 「설정」·「설정파라미터」,
 질환·검진 연결은 「질환규칙」·「질환연결축」·「질환금지성격」·「내정보질환매핑」·「검진식이연결」 시트가 정본입니다.</p>
 
-</main></body></html>
+</main>
+
+<script>
+(function(){
+ function dl(parts,type,name){
+  var b=new Blob(parts,{type:type}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(u);a.remove();},2000);
+ }
+ function stamp(){var d=new Date();function p(n){return(n<10?'0':'')+n;}
+  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate());}
+ var BASE='maiReport_식이_데이터안내_'+stamp();
+
+ function toXls(){
+  var out='<html xmlns:o="urn:schemas-microsoft-com:office:office" '
+   +'xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">'
+   +'<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">'
+   +'<!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+   +'<x:Name>식이 데이터 안내</x:Name><x:WorksheetOptions><x:DisplayGridlines/>'
+   +'</x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->'
+   +'<style>table{border-collapse:collapse}'
+   +'td,th{border:1px solid #9aa3ab;vertical-align:top;mso-number-format:"\\@"}'
+   +'th{background:#eef2f6;font-weight:bold}</style></head><body>';
+  out+='<p><b>'+document.title+'</b></p>';
+  var nodes=document.querySelectorAll('main h2, main table');
+  for(var i=0;i<nodes.length;i++){
+   var el=nodes[i];
+   if(el.tagName==='H2'){ out+='<p></p><p><b>'+el.textContent+'</b></p>'; }
+   else{
+    var t=el.cloneNode(true),c=t.querySelectorAll('code,span,b');
+    for(var j=0;j<c.length;j++){
+     var e=c[j];
+     while(e.firstChild){ e.parentNode.insertBefore(e.firstChild,e); }
+     e.parentNode.removeChild(e);
+    }
+    var br=t.querySelectorAll('br');
+    for(var k=0;k<br.length;k++){ br[k].parentNode.replaceChild(document.createTextNode(' · '),br[k]); }
+    out+=t.outerHTML;
+   }
+  }
+  out+='</body></html>';
+  dl(['\ufeff',out],'application/vnd.ms-excel;charset=utf-8',BASE+'.xls');
+ }
+
+ function toHtml(){
+  var d=document.documentElement.cloneNode(true),
+      tb=d.querySelector('.tb'), sc=d.querySelectorAll('script');
+  if(tb) tb.remove();
+  for(var i=0;i<sc.length;i++) sc[i].remove();
+  dl(['\ufeff<!doctype html>\n',d.outerHTML],'text/html;charset=utf-8',BASE+'.html');
+ }
+
+ document.addEventListener('click',function(e){
+  var b=e.target.closest('.tb button'); if(!b) return;
+  var a=b.getAttribute('data-act');
+  if(a==='xls') toXls();
+  else if(a==='html') toHtml();
+  else if(a==='pdf') window.print();
+ });
+})();
+</script>
+</body></html>
