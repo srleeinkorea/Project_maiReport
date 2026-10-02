@@ -1,5 +1,6 @@
 <title>식이 질문 QA 체크리스트</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
 /* 레이아웃: 상단 기준·집계 → 영역별 케이스 카드(조건 / 실제 결과 고르기 / 판정·설계) → 기획과 다른 결과 모음(개발 전달용) */
@@ -304,15 +305,27 @@ render();
 document.getElementById('pdfBtn').addEventListener('click',async()=>{
   const b=document.getElementById('pdfBtn');
   const dl=window.claude ? await window.claude.use('downloads') : null;
-  if(!dl||typeof html2pdf==='undefined'){b.textContent='PDF 저장 불가';setTimeout(()=>b.textContent='PDF 저장',2000);return}
+  if(!dl||typeof html2canvas==='undefined'||!window.jspdf){b.textContent='PDF 저장 불가';setTimeout(()=>b.textContent='PDF 저장',2000);return}
   b.disabled=true;b.textContent='만드는 중…';
   try{
     document.body.classList.add('pdf');
     const d=new Date(),p=n=>String(n).padStart(2,'0');
     const name='식이_QA_'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'.pdf';
-    const blob=await html2pdf().set({margin:8,image:{type:'jpeg',quality:0.92},html2canvas:{scale:2,backgroundColor:getComputedStyle(document.body).backgroundColor},jsPDF:{unit:'mm',format:'a4'},pagebreak:{mode:['css','legacy'],avoid:'.case'}}).from(document.querySelector('.wrap')).outputPdf('blob');
-    await dl.save({filename:name,data:blob});
-  }catch(e){}
-  document.body.classList.remove('pdf');b.disabled=false;b.textContent='PDF 저장';
+    /* 블록 단위로 나눠 그려 A4에 이어 붙인다 — 페이지 전체를 한 장으로 그리면 캔버스 한계를 넘어 깨진다 */
+    const wrap=document.querySelector('.wrap');
+    const blocks=[...wrap.querySelectorAll(':scope > h1, :scope > .lead, :scope > .ref, :scope > .bar, #sections h2, #sections .sec-note, .case, .fails, .foot')];
+    const {jsPDF}=window.jspdf;const pdf=new jsPDF({unit:'mm',format:'a4'});
+    const W=210,H=297,M=10,CW=W-M*2,bg=getComputedStyle(document.body).backgroundColor;
+    let y=M;
+    for(const el of blocks){
+      const cv=await html2canvas(el,{scale:2,backgroundColor:bg,useCORS:true});
+      const h=cv.height*CW/cv.width;
+      if(y+h>H-M && y>M){pdf.addPage();y=M}
+      pdf.addImage(cv.toDataURL('image/jpeg',0.9),'JPEG',M,y,CW,Math.min(h,H-M*2));
+      y+=h+2;
+    }
+    await dl.save({filename:name,data:pdf.output('blob')});
+  }catch(e){b.textContent='PDF 저장 실패'}
+  document.body.classList.remove('pdf');b.disabled=false;setTimeout(()=>b.textContent='PDF 저장',1500);
 });
 </script>
