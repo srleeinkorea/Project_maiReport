@@ -87,6 +87,7 @@ const PRIORITY=REFERENCE.sourcePriority.map(x=>[x.label,x.code]);
 const CASES=[
  {id:'normal',title:'정상군',sub:'질환·검진 신호 없음',manual:[],clinic:[],screening:[],manualAxes:[],clinicAxes:[],screenAxes:[],bans:[],pattern:[0,0,1,0,0,1,0],note:'질환 출처가 없어서 일반 식이 질문을 순환합니다. 3건 미만은 관찰 중으로 보입니다.'},
  {id:'htn',title:'고혈압 직접 선택',sub:'진료정보 지방간 포함',manual:['고혈압'],clinic:['고혈압(중복)','지방간'],screening:[],manualAxes:['salt','veg'],clinicAxes:['sweet','fat'],screenAxes:[],bans:[],pattern:[2,2,1,2,1,1,0],clinicConfirmDay:3,note:'고혈압은 직접 선택 출처로 먼저 반영합니다. 중복 고혈압은 한 번만 쓰고, 지방간은 사용자 확인 뒤 2순위 축으로 함께 순환합니다.'},
+ {id:'htnonly',title:'고혈압만 직접 선택',sub:'진료정보·검진 없음',manual:['고혈압'],clinic:[],screening:[],manualAxes:['salt','veg'],clinicAxes:[],screenAxes:[],bans:[],pattern:[1,2,1,0,2,1,1],note:'고혈압은 직접 선택이라 확인 질문 없이 바로 적용됩니다. 연결 축인 짠맛·채소가 개선 필요일 때만 먼저 나오고, 그렇지 않으면 단 음료·식사 속도·기름진 음식 같은 일반 축과 같은 자리에서 경쟁합니다.'},
  {id:'diabetes',title:'당뇨병 직접 선택',sub:'진료정보 이상지질혈증',manual:['당뇨병'],clinic:['이상지질혈증'],screening:[],manualAxes:['sweet','veg','portion'],clinicAxes:['fat'],screenAxes:[],bans:['FAST','REDUCE'],pattern:[2,1,2,1,1,0,1],clinicConfirmDay:3,note:'직접 선택한 당뇨병 축을 먼저 사용합니다. 진료정보의 이상지질혈증은 사용자 확인 뒤 2순위 축으로 함께 순환합니다.'},
  {id:'ckd',title:'신장질환 안전 적용',sub:'진료정보 이상지질혈증',manual:['만성 신장질환'],clinic:['이상지질혈증'],screening:[],manualAxes:[],clinicAxes:['fat','portion'],screenAxes:[],bans:['INCREASE','REDUCE','FLUID'],pattern:[2,2,1,1,1,0,1],note:'신장질환 직접 선택은 새 축을 만들지 않습니다. 진료정보 축을 사용하되 증량·감량·수분 목표를 제외합니다.'},
  {id:'clinic',title:'진료정보만 연동',sub:'직접 선택 없음 · 지방간 기록',manual:[],clinic:['지방간 · 확인 전'],screening:[],manualAxes:[],clinicAxes:['sweet','fat','portion'],screenAxes:[],bans:[],pattern:[2,1,2,2,1,1,0],confirmClinicFirst:true,note:'첫 질문에서 지방간 관리 여부를 확인합니다. 현재 관리 중이라고 답하면 둘째 질문으로 지방간 연결 축 한 개를 바로 묻고 공통 고정 질문은 생략합니다.'},
@@ -98,24 +99,52 @@ function dateAt(day){const d=new Date(Date.UTC(2026,8,1+day));return d.toISOStri
 function addMonths(iso,months){const [y,m,d]=iso.split('-').map(Number),first=new Date(Date.UTC(y,m-1+months,1)),last=new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth()+1,0)).getUTCDate();return `${first.getUTCFullYear()}-${String(first.getUTCMonth()+1).padStart(2,'0')}-${String(Math.min(d,last)).padStart(2,'0')}`}
 function screeningActive(c,date){return !c.screeningDate||(c.screeningDate<=date&&date<=addMonths(c.screeningDate,REFERENCE.screeningValidityMonths))}
 function hasGoal(c,axisKey){return AXES[axisKey].goals.some(g=>!g[2]||!c.bans.includes(g[2]))}
-function sourceFor(c,day,date){
- const groups=[
-  {code:'SELF_REPORTED',label:'직접 선택 · 1순위',axes:c.manualAxes},
-  {code:'CLINIC_CONFIRMED',label:'진료정보 · 2순위',axes:(c.confirmClinicFirst||Number.isInteger(c.clinicConfirmDay))&&day<=(c.clinicConfirmDay??0)?[]:c.clinicAxes},
-  {code:'SCREENING',label:'건강검진 · 3순위',axes:screeningActive(c,date)?c.screenAxes:[]},
-  {code:'QUESTION',label:'일반 질문 · 4순위',axes:GENERAL},
+function sourceFor(c,day,date,rows){
+ // 연결 축: 질환·검진으로 이어진 축 (출처 순서)
+ const linked=[
+  {code:'SELF_REPORTED',label:'직접 선택 연결 축',axes:c.manualAxes},
+  {code:'CLINIC_CONFIRMED',label:'진료정보 연결 축',axes:(c.confirmClinicFirst||Number.isInteger(c.clinicConfirmDay))&&day<=(c.clinicConfirmDay??0)?[]:c.clinicAxes},
+  {code:'SCREENING',label:'건강검진 연결 축',axes:screeningActive(c,date)?c.screenAxes:[]},
  ];
- const candidates=[],seen=new Set();
- for(const group of groups){for(const axis of group.axes.filter(axis=>hasGoal(c,axis))){if(seen.has(axis))continue;seen.add(axis);candidates.push({...group,axis})}}
- if(candidates.length)return candidates[day%candidates.length];
- return {code:'GUIDANCE_ONLY',label:'안내만 표시',axis:GENERAL[0]};
+ const linkedSet=new Set(); linked.forEach(g=>g.axes.forEach(a=>linkedSet.add(a)));
+ const stateAt=k=>{
+  const same=(rows||[]).filter(r=>r.axis.qid===AXES[k].qid);
+  if(same.length<3) return {rank:1,label:'관찰 중'};
+  const bad=same.filter(r=>r.answer===2).length/same.length;
+  if(bad>=.5) return {rank:0,label:'개선 필요'};
+  const l7=same.slice(-7);
+  if(same.length>=7&&l7.filter(r=>r.answer===0).length/7>=.6&&l7.filter(r=>r.answer===2).length/7<.2) return {rank:3,label:'양호'};
+  return {rank:2,label:'보통'};
+ };
+ const lastShown=k=>{ for(let j=(rows||[]).length-1;j>=0;j--){ if(rows[j].axis.qid===AXES[k].qid) return j; } return -1; };
+
+ // ① 연결 축이 개선 필요이면 그 축부터 (출처 순서)
+ for(const g of linked){
+  for(const ax of g.axes.filter(a=>hasGoal(c,a))){
+   if(stateAt(ax).rank===0) return {...g,axis:ax,why:'연결 축이 개선 필요'};
+  }
+ }
+ // ② 아니면 연결 축과 일반 축을 함께 놓고 상태가 나쁜 순 · 같으면 연결 축 먼저 · 그다음 오래된 순
+ const all=[...new Set([...linkedSet,...GENERAL])].filter(a=>hasGoal(c,a));
+ if(!all.length) return {code:'GUIDANCE_ONLY',label:'안내만 표시',axis:GENERAL[0],why:'쓸 문구 없음'};
+ all.sort((a,b)=>{
+  const sa=stateAt(a),sb=stateAt(b);
+  if(sa.rank!==sb.rank) return sa.rank-sb.rank;
+  const la=linkedSet.has(a)?0:1, lb=linkedSet.has(b)?0:1;
+  if(la!==lb) return la-lb;
+  return lastShown(a)-lastShown(b);
+ });
+ const pick=all[0];
+ const g=linked.find(x=>x.axes.includes(pick));
+ return g ? {...g,axis:pick,why:'상태가 가장 나쁜 축'} : {code:'QUESTION',label:'일반 축',axis:pick,why:'상태가 가장 나쁜 축'};
 }
+
 function simulate(c,count){
  const rows=[],stageByAxis={},historyByAxis={};
  for(let i=0;i<count;i++){
    const date=dateAt(i),qHit=(c.confirmQueue||[]).find(q=>q.day===i),isClinicConfirmation=Boolean(qHit||(c.confirmClinicFirst&&i===0)||(Number.isInteger(c.clinicConfirmDay)&&i===c.clinicConfirmDay)),confirmLabel=qHit?qHit.label:null,confirmVisit=qHit?qHit.visit:null;
   const tm=TIMES[i%TIMES.length], fixed=(c.id==='normal'&&i===5)?1:0;
-  let src=sourceFor(c,i,date);
+  let src=sourceFor(c,i,date,rows);
   if(isClinicConfirmation&&c.clinicAxes.length)src={code:'CLINIC_CONFIRMED',label:'진료정보 확인 직후',axis:c.clinicAxes[0]};
   let axis=AXES[src.axis],answer=c.pattern[i%c.pattern.length];
   const history=historyByAxis[axis.qid]||[],current=stageByAxis[axis.qid]||'INTRO',ended=history.filter(x=>x.day<i),recent=ended.filter(x=>x.day>=i-7),lastTwo=ended.slice(-2);
