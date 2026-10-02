@@ -155,7 +155,7 @@ tr.d2 td{background:var(--tint);font-size:14px}
 <p class="where"><b>읽는 법</b> — 축 번호 + 답 번호 + 끼니로 지표 한 줄이 됩니다.
 <code>2.3 / 오늘 점심</code> = 「오늘 점심 채소 반찬 없음」</p>
 
-<h2>표 1 — 답 27개 · 끼니까지</h2>
+<h2>답 27개 · 끼니까지</h2>
 <p>위 지도의 각 칸을 풀어 쓴 것입니다. 축마다 묻는 말, <b>적용 끼니</b>, <b>해석 한계</b>를 함께 적었습니다.
 적용 끼니는 사용자가 고르는 것이 아니라 들어온 시각으로 정해집니다.
 해석 한계는 「이 답으로 여기까지만 말할 수 있다」는 선입니다.</p>
@@ -240,36 +240,6 @@ tr.d2 td{background:var(--tint);font-size:14px}
 끼니 경계는 「설정」 시트 <code>CFG-012</code>(10시) · <code>CFG-013</code>(12시) · <code>CFG-014</code>(17시) ·
 <code>CFG-015</code>(하루 경계 04시)입니다.
 번호는 읽기 쉽게 붙인 것으로 계약서의 식별자가 아닙니다.</p>
-
-<h2>표 2 — 한 줄을 읽을 때 지킬 것</h2>
-<table>
-<tr><th style="width:24%">상황</th><th style="width:32%">무슨 일이 생기나</th><th style="width:44%">어떻게 읽나</th></tr>
-<tr><td>사용자가 답을 고침</td><td>같은 질문에 여러 줄이 남음</td>
-<td><code>is_current</code>가 참인 줄 하나만 읽습니다</td></tr>
-<tr><td>질문이 안 나감</td><td><code>CONDITIONAL_SKIP</code>으로 남음</td>
-<td><b>안 한 것이 아니라 묻지 않은 것</b>입니다. 야식 질문은 낮에 들어온 사람에게 안 나갑니다</td></tr>
-<tr><td>답을 비워 둠</td><td><code>PENDING</code>으로 남음</td>
-<td>아직 답하지 않은 것입니다. 안 한 것으로 세면 안 됩니다</td></tr>
-<tr><td>값이 비어 있음</td><td>—</td>
-<td><b>「나쁘다」가 아니라 「모른다」</b>입니다. 0이나 거짓으로 바꾸지 않습니다</td></tr>
-<tr><td>하루치 답 하나만 있음</td><td>—</td>
-<td>그날 그 끼니 사실일 뿐입니다. 경향을 말하려면 여러 날을 모은 값을 써야 합니다</td></tr>
-</table>
-
-<h2>예시 — 번호로 읽어 보기</h2>
-<div class="ex"><b>새벽 6시에 들어와 끼니 규칙에 답한 사람</b>
-<code>1.3 / 04~10시</code> → 저장된 값 <code>DIET-Q-00</code> · <code>very_little_or_skipped</code> ·
-<code>DINNER</code> · 끼니 날짜 <b>어제</b> · 점수 -1<br>
-읽히는 지표 — <b>「어제 저녁 거의 못 먹음」</b></div>
-
-<div class="ex"><b>점심에 들어와 채소에 답한 사람</b>
-<code>2.3 / 12~17시</code> → 저장된 값 <code>DIET-Q-01</code> · <code>none</code> ·
-<code>LUNCH</code> · 오늘 · 점수 -1<br>
-읽히는 지표 — <b>「오늘 점심 채소 반찬 없음」</b></div>
-
-<div class="ex"><b>새벽에 들어와 야식에 답한 사람</b>
-<code>5.3 / 04~10시</code> → 저장된 값 <code>DIET-Q-04</code> · <code>twice_or_more</code> · 점수 없음<br>
-읽히는 지표 — <b>「어젯밤 야식 2회 이상」</b>. 점수가 없어 축 상태에는 들어가지 않습니다</div>
 
 <p class="src" style="margin-top:28px">기준 파일 — maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx (안내 시트 v1.0.1 · 2026-10-02)</p>
 
