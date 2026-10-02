@@ -99,6 +99,15 @@ function dateAt(day){const d=new Date(Date.UTC(2026,8,1+day));return d.toISOStri
 function addMonths(iso,months){const [y,m,d]=iso.split('-').map(Number),first=new Date(Date.UTC(y,m-1+months,1)),last=new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth()+1,0)).getUTCDate();return `${first.getUTCFullYear()}-${String(first.getUTCMonth()+1).padStart(2,'0')}-${String(Math.min(d,last)).padStart(2,'0')}`}
 function screeningActive(c,date){return !c.screeningDate||(c.screeningDate<=date&&date<=addMonths(c.screeningDate,REFERENCE.screeningValidityMonths))}
 function hasGoal(c,axisKey){return AXES[axisKey].goals.some(g=>!g[2]||!c.bans.includes(g[2]))}
+function axisState(rows,idx,qid){
+ const same=(rows||[]).slice(0,idx+1).filter(r=>r.axis.qid===qid),n=same.length;
+ if(n<3) return '관찰 중';
+ const bad=same.filter(r=>r.answer===2).length/n;
+ if(bad>=.5) return '개선 필요';
+ const l7=same.slice(-7);
+ if(n>=7&&l7.filter(r=>r.answer===0).length/7>=.6&&l7.filter(r=>r.answer===2).length/7<.2) return '양호';
+ return '보통';
+}
 function questionAxis(c,rows){
  const linkedSet=new Set([...(c.manualAxes||[]),...(c.clinicAxes||[]),...(c.screenAxes||[])]);
  const all=[...new Set([...linkedSet,...GENERAL])].filter(a=>hasGoal(c,a));
@@ -164,7 +173,7 @@ function simulate(c,count){
   const history=historyByAxis[goalAxis.qid]||[],current=stageByAxis[goalAxis.qid]||'INTRO',ended=history.filter(x=>x.day<i),recent=ended.filter(x=>x.day>=i-7),lastTwo=ended.slice(-2);
   let stage=current,stageReason=null;
   if(lastTwo.length===2&&lastTwo.every(x=>!x.done)&&current!=='INTRO'){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)-1];stageReason='미완료 2건 연속';historyByAxis[goalAxis.qid]=[]}
-  else if(recent.filter(x=>x.done).length>=3&&current!=='CHALLENGE'){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)+1];stageReason='최근 7일 완료 3건';historyByAxis[goalAxis.qid]=[]}
+  else if(recent.filter(x=>x.done).length>=3&&current!=='CHALLENGE'&&axisState(rows,i-1,goalAxis.qid)!=='관찰 중'&&!(axisState(rows,i-1,goalAxis.qid)==='개선 필요'&&current==='BASE')){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)+1];stageReason='최근 7일 완료 3건';historyByAxis[goalAxis.qid]=[]}
   stageByAxis[goalAxis.qid]=stage;
   let pool=goalAxis.goals,blocked=pool.filter(g=>g[2]&&c.bans.includes(g[2]));
   let allowed=pool.filter(g=>!g[2]||!c.bans.includes(g[2]));
