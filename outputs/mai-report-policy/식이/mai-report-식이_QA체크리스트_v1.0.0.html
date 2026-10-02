@@ -1,6 +1,7 @@
 <title>식이 질문 QA 체크리스트</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
 /* 레이아웃: 상단 기준·집계 → 영역별 케이스 카드(조건 / 실제 결과 고르기 / 판정·설계) → 기획과 다른 결과 모음(개발 전달용) */
@@ -86,7 +87,7 @@ body.pdf textarea,body.pdf .tools,body.pdf .copy{display:none}
     <div><b>회전 질문</b><span>질환·검진 연결 축 안에서 돌고, 연결 축을 한 바퀴 다 물은 다음 날은 일반 축 하나. 같으면 28일 답 적은 순 → 오래전에 물은 순 → 질문 번호 순</span></div>
     <div><b>목표</b><span>회복 → <b>수면 5시간 미만이면 부담 줄이기</b> → <b>그날 회전 질문과 같은 축</b> → (통과 문구 없으면) 내정보 질환 → 확인된 진료정보 → 3개월 검진 → 일반. 금지 문구는 어느 단계에서든 빠짐</span></div>
   </div>
-  <div class="bar"><div class="tally" id="tally"></div><div class="tools"><span id="sync" class="sync">불러오는 중</span><button class="copy" id="pdfBtn" type="button">PDF 저장</button></div></div>
+  <div class="bar"><div class="tally" id="tally"></div><div class="tools"><span id="sync" class="sync">불러오는 중</span><button class="copy" id="xlsBtn" type="button">Excel 저장</button><button class="copy" id="pdfBtn" type="button">PDF 저장</button></div></div>
 
   <div id="sections"></div>
 
@@ -302,6 +303,29 @@ document.getElementById('copyBtn').addEventListener('click',async()=>{
   setTimeout(()=>b.textContent='복사',1800);
 });
 render();
+document.getElementById('xlsBtn').addEventListener('click',async()=>{
+  const b=document.getElementById('xlsBtn');
+  const dl=window.claude ? await window.claude.use('downloads') : null;
+  if(!dl||typeof XLSX==='undefined'){b.textContent='Excel 저장 불가';setTimeout(()=>b.textContent='Excel 저장',2000);return}
+  const rows=[['번호','영역','조건','예상','실제','메모','판정','설계','근거']];
+  SECTIONS.forEach(s=>s.rows.forEach(row=>{
+    const r=judge(row);if(!r||r==='P')return;
+    const st=state[row.id]||{};const [src,txt]=R[row.k];
+    rows.push([row.id,s.t,strip(row.c),strip(row.e),st.pick!=null?row.o[st.pick][0]:'',st.other||'',r,txt,src]);
+  }));
+  if(rows.length===1){b.textContent='F·E·TBD 없음';setTimeout(()=>b.textContent='Excel 저장',2000);return}
+  const ws=XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols']=[{wch:6},{wch:22},{wch:34},{wch:50},{wch:26},{wch:26},{wch:6},{wch:50},{wch:50}];
+  ws['!autofilter']={ref:'A1:I'+rows.length};
+  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'F_E_TBD');
+  const all2=[['번호','영역','조건','판정']];
+  SECTIONS.forEach(s=>s.rows.forEach(row=>all2.push([row.id,s.t,strip(row.c),judge(row)||'-'])));
+  const ws2=XLSX.utils.aoa_to_sheet(all2);ws2['!cols']=[{wch:6},{wch:22},{wch:40},{wch:6}];
+  XLSX.utils.book_append_sheet(wb,ws2,'All');
+  const d=new Date(),p=n=>String(n).padStart(2,'0');
+  const buf=XLSX.write(wb,{bookType:'xlsx',type:'array'});
+  try{await dl.save({filename:'식이_QA_'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'.xlsx',data:new Blob([buf],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})})}catch(e){}
+});
 document.getElementById('pdfBtn').addEventListener('click',async()=>{
   const b=document.getElementById('pdfBtn');
   const dl=window.claude ? await window.claude.use('downloads') : null;
