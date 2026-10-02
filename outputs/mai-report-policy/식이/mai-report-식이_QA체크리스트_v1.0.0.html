@@ -72,6 +72,12 @@ textarea{width:100%;min-height:40px;font:inherit;font-size:13px;color:var(--fg);
 .fails pre{white-space:pre-wrap;word-break:keep-all;font-family:var(--sans);font-size:13px;background:var(--bg);border-radius:8px;padding:12px;margin:10px 0 0;max-height:420px;overflow:auto}
 .copy{font:inherit;font-size:13px;color:var(--bg);background:var(--accent);border:0;border-radius:6px;padding:6px 14px;cursor:pointer}
 body.pdf textarea,body.pdf .tools,body.pdf .copy{display:none}
+.admin{margin-top:40px;background:var(--panel);border:2px solid var(--accent);border-radius:10px;padding:16px}
+.admin h2{margin-top:0}
+.tbl{overflow-x:auto;margin:10px 0}
+.tbl table{border-collapse:collapse;width:100%;min-width:640px;font-size:13px;font-variant-numeric:tabular-nums}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid var(--line)}
+.tbl th{color:var(--muted);font-weight:500}
 .foot{margin-top:28px;font-size:13px;color:var(--muted);max-width:82ch}
 .foot li{margin-bottom:4px}
 @media (max-width:520px){.case{grid-template-columns:1fr}.pick,.other,.judge,.verdict{grid-column:1}}
@@ -90,6 +96,13 @@ body.pdf textarea,body.pdf .tools,body.pdf .copy{display:none}
   <div class="bar"><div class="tally" id="tally"></div><div class="tools"><span id="sync" class="sync">불러오는 중</span><button class="copy" id="xlsBtn" type="button">Excel 저장</button><button class="copy" id="pdfBtn" type="button">PDF 저장</button></div></div>
 
   <div id="sections"></div>
+
+  <section class="admin" id="admin" hidden aria-labelledby="ah">
+    <h2 id="ah">Admin · QA results</h2>
+    <p class="sec-note">관리자(Editor 이상)에게만 보여요. 각 테스터가 저장한 판정을 모아 보여 줘요.</p>
+    <div class="tbl"><table><thead><tr><th>Tester</th><th>Saved</th><th>P</th><th>F</th><th>E</th><th>TBD</th><th>-</th><th>F · E · TBD</th></tr></thead><tbody id="adminRows"><tr><td colspan="8">-</td></tr></tbody></table></div>
+    <button class="copy" id="adminXls" type="button">Excel (all testers)</button>
+  </section>
 
   <section class="fails" aria-labelledby="fh">
     <h2 id="fh">개발 전달 모음</h2>
@@ -234,7 +247,7 @@ function setSync(t){const el=document.getElementById('sync');if(el)el.textConten
     const db=await window.claude.use('db');const user=await window.claude.use('user');
     const uid=user?await user.id():null;
     if(!db||!uid){setSync('이 브라우저에만 저장됨');return}
-    qaDoc=db.doc('data/users/'+uid+'/qa/diet');
+    qaDoc=db.doc('qa_results/'+uid);
     const snap=await qaDoc.get();
     if(snap.exists){
       const saved=JSON.parse(snap.data().state||'{}');
@@ -303,6 +316,44 @@ document.getElementById('copyBtn').addEventListener('click',async()=>{
   setTimeout(()=>b.textContent='복사',1800);
 });
 render();
+/* 관리자 보기: Editor 이상만 모든 테스터의 저장 결과를 읽는다 (db 규칙 qa_results read=admin) */
+let adminData=[];
+function judgeWith(row,st){if(st.j)return st.j;if(st.pick==null)return '';if(row.o[st.pick][1])return 'P';return row.chk?'TBD':'F'}
+(async()=>{
+  try{
+    if(!window.claude) return;
+    const user=await window.claude.use('user');const db=await window.claude.use('db');
+    if(!user||!db||!(await user.canEdit())) return;
+    const snap=await db.collection('qa_results').get();
+    const docs=snap.docs.map(d=>({id:d.id,...d.data()}));
+    const names=docs.length?await user.profiles(docs.map(d=>d.id)):{};
+    adminData=docs.map(d=>{
+      let st={};try{st=JSON.parse(d.state||'{}')}catch(e){}
+      const c={P:0,F:0,E:0,TBD:0};const bad=[];
+      SECTIONS.forEach(s=>s.rows.forEach(row=>{const r=judgeWith(row,st[row.id]||{});if(r){c[r]++;if(r!=='P')bad.push({s,row,r,st:st[row.id]||{}})}}));
+      return {name:(names[d.id]&&names[d.id].name)||'Someone',savedAt:d.savedAt||'',c,bad};
+    });
+    const tb=document.getElementById('adminRows');tb.innerHTML='';
+    if(!adminData.length) tb.innerHTML='<tr><td colspan="8">-</td></tr>';
+    adminData.forEach(a=>{
+      const tr=document.createElement('tr');const cells=[a.name,a.savedAt.replace('T',' ').slice(0,16),a.c.P,a.c.F,a.c.E,a.c.TBD,all.length-a.c.P-a.c.F-a.c.E-a.c.TBD,a.bad.map(x=>x.row.id+'('+x.r+')').join(', ')||'-'];
+      cells.forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});tb.appendChild(tr);
+    });
+    document.getElementById('admin').hidden=false;
+  }catch(e){}
+})();
+document.getElementById('adminXls').addEventListener('click',async()=>{
+  const b=document.getElementById('adminXls');const dl=window.claude?await window.claude.use('downloads'):null;
+  if(!dl||typeof XLSX==='undefined'||!adminData.length){b.textContent='-';setTimeout(()=>b.textContent='Excel (all testers)',1500);return}
+  const rows=[['테스터','번호','영역','조건','예상','실제','메모','판정','설계','근거']];
+  adminData.forEach(a=>a.bad.forEach(x=>{const [src,txt]=R[x.row.k];rows.push([a.name,x.row.id,x.s.t,strip(x.row.c),strip(x.row.e),x.st.pick!=null?x.row.o[x.st.pick][0]:'',x.st.other||'',x.r,txt,src])}));
+  const sum=[['테스터','저장 시각','P','F','E','TBD','-']];adminData.forEach(a=>sum.push([a.name,a.savedAt,a.c.P,a.c.F,a.c.E,a.c.TBD,all.length-a.c.P-a.c.F-a.c.E-a.c.TBD]));
+  const wb=XLSX.utils.book_new();
+  const w1=XLSX.utils.aoa_to_sheet(sum);w1['!cols']=[{wch:14},{wch:20},{wch:5},{wch:5},{wch:5},{wch:5},{wch:5}];XLSX.utils.book_append_sheet(wb,w1,'Summary');
+  const w2=XLSX.utils.aoa_to_sheet(rows);w2['!cols']=[{wch:12},{wch:6},{wch:22},{wch:34},{wch:50},{wch:26},{wch:26},{wch:6},{wch:50},{wch:50}];w2['!autofilter']={ref:'A1:J'+rows.length};XLSX.utils.book_append_sheet(wb,w2,'F_E_TBD');
+  const d=new Date(),p=n=>String(n).padStart(2,'0');
+  try{await dl.save({filename:'식이_QA_전체_'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'.xlsx',data:new Blob([XLSX.write(wb,{bookType:'xlsx',type:'array'})])})}catch(e){}
+});
 document.getElementById('xlsBtn').addEventListener('click',async()=>{
   const b=document.getElementById('xlsBtn');
   const dl=window.claude ? await window.claude.use('downloads') : null;
