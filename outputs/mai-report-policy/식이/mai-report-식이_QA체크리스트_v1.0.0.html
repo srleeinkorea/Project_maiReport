@@ -1,7 +1,7 @@
 <title>식이 질문 QA 체크리스트</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* 레이아웃: 상단 기준·집계 → 영역별 케이스 카드(조건 / 실제 결과 고르기 / 판정·기획 기준) → 기획과 다른 결과 모음(개발 전달용) */
+/* 레이아웃: 상단 기준·집계 → 영역별 케이스 카드(조건 / 실제 결과 고르기 / 판정·설계) → 기획과 다른 결과 모음(개발 전달용) */
 :root{
   --bg:#f5f6f3; --panel:#ffffff; --fg:#1d2420; --muted:#5d6962; --line:#dde2dc;
   --accent:#2f6b4f; --accent-soft:#e4eee8; --warn:#8a5600; --warn-soft:#fbf0dc;
@@ -72,7 +72,7 @@ textarea{width:100%;min-height:40px;font:inherit;font-size:13px;color:var(--fg);
 
 <div class="wrap">
   <h1>식이 질문 QA 체크리스트</h1>
-  <p class="lead">앱 화면에서 각 케이스를 실행한 뒤 <b>실제로 나온 결과</b>를 고르면 판정이 자동으로 표시돼요. 판정은 <b>P</b>(Pass) · <b>F</b>(Fail) · <b>E</b>(Etc) · <b>TBD</b>(To Be Decided) 버튼으로 직접 바꿀 수 있어요. P가 아니면 기획 기준과 근거가 표시되고 맨 아래 개발 전달 모음에 쌓여요. 기준은 2026-10-02 최신 커밋의 기획 파일이에요.</p>
+  <p class="lead">앱 화면에서 각 케이스를 실행한 뒤 <b>실제로 나온 결과</b>를 고르면 판정이 자동으로 표시돼요. 판정은 <b>P</b>(Pass) · <b>F</b>(Fail) · <b>E</b>(Etc) · <b>TBD</b>(To Be Decided) 버튼으로 직접 바꿀 수 있어요. P가 아니면 설계와 근거가 표시되고 맨 아래 개발 전달 모음에 쌓여요. 기준은 2026-10-02 최신 커밋의 기획 파일이에요.</p>
 
   <div class="ref">
     <div><b>기준 파일</b><span>식이 개발전달 데이터계약(v1.0.1) · 식이 질문·목표 상세기획 · 식이 최종결정사항</span></div>
@@ -231,8 +231,8 @@ function render(){
     v.hidden=false;
     const actual=(st.pick!=null?row.o[st.pick][0]:'')+(st.other?(st.pick!=null?' · ':'')+st.other:'');
     v.className='verdict ng';
-    v.innerHTML='<b>'+r+'</b><div>실제: '+(actual||'-')+'</div><div class="why">기획 기준: '+txt+'</div><div class="src">근거: '+src+'</div>';
-    lines.push('['+row.id+'] ('+r+') '+strip(row.c)+'\n- 예상: '+strip(row.e)+'\n- 실제: '+(actual||'-')+'\n- 기획 기준: '+txt+'\n- 근거: '+src);
+    v.innerHTML='<b>'+r+'</b><div>실제: '+(actual||'-')+'</div><div class="why">설계: '+txt+'</div><div class="src">근거: '+src+'</div>';
+    lines.push('['+row.id+'] ('+r+') '+strip(row.c)+'\n- 예상: '+strip(row.e)+'\n- 실제: '+(actual||'-')+'\n- 설계: '+txt+'\n- 근거: '+src);
   });
   document.getElementById('tally').innerHTML=`<span>${all.length}</span><span>P ${c.P}</span><span class="${c.F?'f':''}">F ${c.F}</span><span>E ${c.E}</span><span>TBD ${c.TBD}</span><span>- ${all.length-c.P-c.F-c.E-c.TBD}</span>`;
   document.getElementById('failText').textContent=lines.length?lines.join('\n\n'):'-';
