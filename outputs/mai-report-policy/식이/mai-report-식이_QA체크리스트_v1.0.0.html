@@ -79,7 +79,7 @@ textarea{width:100%;min-height:40px;font:inherit;font-size:13px;color:var(--fg);
 
   <section class="fails" aria-labelledby="fh">
     <h2 id="fh">개발 전달 모음</h2>
-    <p class="sec-note">「기획과 다름」·「결정 대기」로 판정된 케이스가 모여요. 그대로 복사해 개발에 전달하세요.</p>
+    <p class="sec-note">F·추후확인으로 판정된 케이스가 모여요. 그대로 복사해 개발에 전달하세요.</p>
     <button class="copy" id="copyBtn" type="button">복사</button>
     <pre id="failText">아직 기획과 다른 케이스가 없어요.</pre>
   </section>
@@ -89,7 +89,7 @@ textarea{width:100%;min-height:40px;font:inherit;font-size:13px;color:var(--fg);
       <li><b>질환별 연결 축</b> (질환연결축 시트): 고혈압 = 국물 → 채소 · 당뇨병 = 채소 → 단 음료·간식 → 식사 속도·양 · 이상지질혈증 = 기름진 음식 → 식사 속도·양 · 만성 신장질환 = 없음(금지만). 질문은 질문 번호 순서로 고르고, 목표는 그날 질문 축을 따라가요. 만성 신장질환은 연결 축이 없어요.</li>
       <li><b>질문 번호 순서</b> (질문 시트): 채소 → 단 음료·간식 → 국물 → 야식 → 식사 속도·양 → 단백질 → 기름진 음식. 야식은 오전 4~10시에만 물어요.</li>
       <li><b>금지 성격</b> (질환금지성격 시트): 당뇨병 = 공복·감량 · 만성 신장질환 = 증량·감량·수분. 회복 문구 7개는 모두 증량 성격이에요.</li>
-      <li>노란 <b>확인 필요</b>는 기획 결정이 남은 항목이에요. 예상과 달라도 「결정 대기」로 표시돼요.</li>
+      <li>노란 <b>확인 필요</b>는 기획 결정이 남은 항목이에요. 예상과 달라도 F가 아니라 추후확인으로 표시돼요.</li>
       <li>고른 결과는 이 브라우저에만 저장돼요. 다른 사람과 공유되지 않아요.</li>
     </ul>
   </div>
@@ -221,12 +221,12 @@ function render(){
     if(!r){v.hidden=true;return}
     v.hidden=false;
     const actual=row.o[st.pick][0]+(st.other?' · '+st.other:'');
-    if(r==='pass'){v.className='verdict ok';v.innerHTML='<b>기획대로</b>';return}
+    if(r==='pass'){v.className='verdict ok';v.innerHTML='<b>P · 기획대로</b>';return}
     v.className='verdict ng';
-    v.innerHTML='<b>'+(r==='hold'?'결정 대기 · 기획 결정이 남은 항목':'기획과 다름')+'</b><div>실제: '+actual+'</div><div class="why">기획 기준: '+txt+'</div><div class="src">근거: '+src+'</div>';
-    lines.push('['+row.id+'] '+strip(row.c)+'\n- 예상: '+strip(row.e)+'\n- 실제: '+actual+'\n- 기획 기준: '+txt+'\n- 근거: '+src+(r==='hold'?'\n- 상태: 결정 대기':''));
+    v.innerHTML='<b>'+(r==='hold'?'추후확인 · 기획 결정이 남은 항목':'F · 기획과 다름')+'</b><div>실제: '+actual+'</div><div class="why">기획 기준: '+txt+'</div><div class="src">근거: '+src+'</div>';
+    lines.push('['+row.id+'] '+(r==='hold'?'(추후확인) ':'(F) ')++strip(row.c)+'\n- 예상: '+strip(row.e)+'\n- 실제: '+actual+'\n- 기획 기준: '+txt+'\n- 근거: '+src+(r==='hold'?'\n- 판정: 추후확인':''));
   });
-  document.getElementById('tally').innerHTML=`<span>전체 ${all.length}건</span><span>기획대로 ${c.pass}</span><span class="${c.fail?'f':''}">기획과 다름 ${c.fail}</span><span>결정 대기 ${c.hold}</span><span>미확인 ${all.length-c.pass-c.fail-c.hold}</span>`;
+  document.getElementById('tally').innerHTML=`<span>전체 ${all.length}건</span><span>P ${c.pass}</span><span class="${c.fail?'f':''}">F ${c.fail}</span><span>추후확인 ${c.hold}</span><span>미확인 ${all.length-c.pass-c.fail-c.hold}</span>`;
   document.getElementById('failText').textContent=lines.length?lines.join('\n\n'):'아직 기획과 다른 케이스가 없어요.';
 }
 const host=document.getElementById('sections');
