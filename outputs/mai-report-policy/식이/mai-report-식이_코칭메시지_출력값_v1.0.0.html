@@ -1,341 +1,276 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>식이 답 27개와 건강 메시지</title>
+<title>식이 출력값 지도</title>
 <style>
 :root{--bg:#fbfaf8;--fg:#24292e;--mut:#5a6570;--line:#e2e0da;--box:#fff;--tint:#f2f0ea}
 *{box-sizing:border-box}
-body{margin:0;padding:40px 16px 96px;background:var(--bg);color:var(--fg);
- font:16px/1.7 "Malgun Gothic","맑은 고딕",system-ui,sans-serif}
-main{max-width:1180px;margin:0 auto}
-h1{font-size:30px;margin:0 0 6px}
-.sub{color:var(--mut);margin:0 0 32px}
-h2{font-size:21px;margin:48px 0 4px;padding-top:18px;border-top:2px solid var(--fg)}
-h2 .no{font-size:14px;color:var(--mut);display:block;font-weight:400}
-h3{font-size:17px;margin:26px 0 8px}
+body{margin:0;padding:28px 16px 90px;background:var(--bg);color:var(--fg);
+ font:16px/1.65 "Malgun Gothic","맑은 고딕",system-ui,sans-serif}
+main{max-width:1280px;margin:0 auto}
+h1{font-size:27px;margin:0 0 4px}
+.sub{color:var(--mut);margin:0 0 20px;font-size:15px}
+h2{font-size:20px;margin:44px 0 6px;padding-top:16px;border-top:2px solid var(--fg)}
+h3{font-size:16px;margin:24px 0 8px}
 p{margin:8px 0}
-table{width:100%;border-collapse:collapse;margin:12px 0;background:var(--box);font-size:15px}
-th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
-th{background:var(--tint);font-weight:600}
-code{background:var(--tint);padding:1px 5px;border-radius:3px;font-size:14px;
- font-family:Consolas,monospace;white-space:nowrap}
-.box{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:18px 22px;margin:16px 0}
-.warn{background:var(--tint);border-left:5px solid var(--fg);border-radius:0 8px 8px 0;padding:16px 22px;margin:18px 0}
-.ex{background:var(--tint);border-radius:8px;padding:14px 18px;margin:12px 0;font-size:15px}
-.ex b{display:block;margin-bottom:4px}
-ul{margin:8px 0;padding-left:22px}
-li{margin:4px 0}
-.where{font-size:14px;color:var(--mut);margin:4px 0 0}
+code{background:var(--tint);padding:1px 5px;border-radius:3px;font-size:13px;
+ font-family:Consolas,monospace;word-break:break-all}
+.src{font-size:12.5px;color:var(--mut);line-height:1.45}
+.where{font-size:13.5px;color:var(--mut);margin:6px 0 0}
 .where b{color:var(--fg)}
-.src{font-size:13px;color:var(--mut)}
-.q{font-size:15px;color:var(--mut);margin:6px 0 10px}
+
+.map{border:2px solid var(--fg);border-radius:14px;padding:16px 18px 18px;background:var(--box)}
+.steps{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px;
+ padding-bottom:12px;border-bottom:1px solid var(--line)}
+.step{font-size:13.5px;background:var(--tint);border:1px solid var(--line);border-radius:999px;padding:4px 13px}
+.sep{color:var(--mut);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ax{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg)}
+.axh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.axn{font-size:15px;font-weight:700}
+.axid{font-size:11.5px;color:var(--mut);font-family:Consolas,monospace}
+.axq{font-size:12.5px;color:var(--mut);margin:3px 0 7px;line-height:1.4}
+.ans{display:flex;flex-direction:column;gap:3px}
+.an{display:flex;gap:6px;align-items:center;font-size:12.5px}
+.ac{flex:0 0 24px;height:19px;line-height:18px;text-align:center;border-radius:4px;
+ font-size:11px;font-weight:700;background:var(--tint);border:1px solid var(--line)}
+.ac.b{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ac.n{background:transparent;color:var(--mut)}
+.al{flex:1}
+.ak{font-family:Consolas,monospace;font-size:11px;color:var(--mut)}
+.note{font-size:12.5px;color:var(--mut);margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+
+table{width:100%;border-collapse:collapse;margin:12px 0;background:var(--box);font-size:14.5px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--tint);font-weight:600}
 .no1{text-align:center;white-space:nowrap}
-.lv{margin:18px 0 8px}
-.lvrow{display:flex;gap:16px;align-items:stretch}
-.lvno{flex:0 0 42px;display:flex;align-items:center;justify-content:center;
- font-size:19px;font-weight:700;background:var(--fg);color:var(--bg);border-radius:10px}
-.lvbody{flex:1;background:var(--box);border:1px solid var(--line);border-radius:10px;padding:14px 18px}
-.lvt{font-size:17px;font-weight:600}
-.lvc{font-size:14px;font-weight:400;color:var(--mut);margin-left:8px}
-.lvd{font-size:14px;color:var(--mut);margin-top:6px}
-.lvchips{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
-.lvchips span{font-size:14px;background:var(--tint);border:1px solid var(--line);
- border-radius:999px;padding:4px 12px}
-.lvchips span.on{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:600}
-.lvar{text-align:center;color:var(--mut);font-size:15px;margin:4px 0;padding-left:42px}
-@media(max-width:700px){.lvrow{gap:10px}.lvno{flex:0 0 32px;font-size:16px}.lvar{padding-left:32px}}
+tr.d2 td{background:var(--tint);font-size:14px}
+.qq{font-weight:400}
+.mealcell{font-size:13px;line-height:1.55}
+.ml{display:inline-block;min-width:64px;color:var(--mut);font-size:12px}
+.warn{background:var(--tint);border-left:5px solid var(--fg);border-radius:0 8px 8px 0;padding:14px 18px;margin:14px 0}
+.ex{background:var(--tint);border-radius:8px;padding:12px 16px;margin:10px 0;font-size:14.5px}
+.ex b{display:block;margin-bottom:3px}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
 </style></head><body><main>
 
-<h1>식이 답 27개 — 무슨 값이 나오고, 건강 메시지로 어떻게 잇나</h1>
+<h1>식이에서 나오는 값 — 한눈에</h1>
 <p class="sub">식이는 하루에 질문 한두 개를 묻습니다. 답은 질문마다 늘 세 개입니다.
-그 27개가 식이에서 나오는 가장 구체적인 값이고, 코칭 메시지가 직접 읽어 쓸 수 있는 재료입니다.
-축마다 <b>어떤 코드가 저장되는지 · 그게 무슨 지표인지 · 건강 메시지로 어떻게 이어지는지 · 무슨 말은 하면 안 되는지</b>를 적었습니다.</p>
+그 27개가 다른 곳에서 꺼내 쓸 수 있는 가장 구체적인 값입니다.
+아래 지도가 전체이고, 그 아래 표에서 값 하나하나를 풀었습니다.</p>
 
-<div class="box">
-<h3 style="margin-top:0">읽는 방법</h3>
-<p>한 줄은 <code>질문 ID</code> + <code>끼니</code> + <code>고른 코드</code> 세 개가 한 묶음입니다.
-이 셋이 모이면 「아침 섭취 여부와 정도 = 거의 못 먹음」 같은 지표 하나가 됩니다.</p>
-<p><b>점수</b>는 축 상태를 계산할 때 쓰는 값입니다. 좋음 1 · 보통 0 · 나쁨 -1.
-야식과 질환 확인만 점수가 없습니다.</p>
-<p class="where">꺼내는 곳 — <code>diet_answer</code> 테이블의 <code>question_id</code> · <code>meal_type</code> ·
-<code>meal_date</code> · <code>option_code</code>.
-코드와 문구, 점수의 정본은 데이터계약 「선택지」 시트입니다.</p>
+<div class="map">
+<div class="steps">
+<span class="step"><b>1단계</b> 식이 응답</span><span class="sep">→</span>
+<span class="step"><b>2단계</b> 축 9개</span><span class="sep">→</span>
+<span class="step"><b>3단계</b> 답 3개</span><span class="sep">→</span>
+<span class="step"><b>4단계</b> 끼니 4개</span><span class="sep">=</span>
+<span class="step">지표 한 줄</span>
+<span class="sep" style="margin-left:auto">하루 경계 새벽 4시 · 질문 칸은 둘뿐</span>
 </div>
 
-<h2>전체 그림 — 좁혀 가면서 보기</h2>
-<p>식이 하루에서 메시지 한 줄까지 다섯 번 좁혀집니다.
-단계마다 곱해지는 가짓수를 적었습니다.</p>
+<div class="grid">
 
-<div class="lv">
-<div class="lvrow"><div class="lvno">1</div><div class="lvbody">
-<div class="lvt">식이 하루 — 질문 한두 개 + 목표 한 개</div>
-<div class="lvd">하루 경계는 새벽 4시. 질문 칸이 둘뿐이라 질환 확인이 뜨면 평소 질문 하나가 밀립니다</div>
+<div class="ax"><div class="axh"><span class="axn">1 · 끼니 규칙</span><span class="axid">DIET-Q-00</span></div>
+<div class="axq">{끼니}은 평소만큼 드셨나요? <b>· 고정 질문</b></div>
+<div class="ans">
+<div class="an"><span class="ac">1</span><span class="al">평소대로</span><span class="ak">usual</span></div>
+<div class="an"><span class="ac">0</span><span class="al">조금 적게</span><span class="ak">less</span></div>
+<div class="an"><span class="ac b">-1</span><span class="al">거의 못 먹거나 거름</span><span class="ak">very_little_or_skipped</span></div>
 </div></div>
-<div class="lvar">▼</div>
 
-<div class="lvrow"><div class="lvno">2</div><div class="lvbody">
-<div class="lvt">어느 축을 물었나 <span class="lvc">9가지</span></div>
-<div class="lvchips">
-<span>끼니 규칙</span><span class="on">채소</span><span>단 음료·단 간식</span><span>짠맛·국물</span>
-<span>야식</span><span>식사 속도·양</span><span>단백질</span><span>기름진 음식</span><span>질환 확인</span></div>
-<div class="lvd">끼니 규칙은 매일 고정, 야식은 새벽에만, 질환 확인은 확인할 질환이 있는 날만</div>
+<div class="ax"><div class="axh"><span class="axn">2 · 채소</span><span class="axid">DIET-Q-01</span></div>
+<div class="axq">{끼니}에 채소 반찬 몇 가지 드셨나요?</div>
+<div class="ans">
+<div class="an"><span class="ac">1</span><span class="al">두 가지 이상</span><span class="ak">two_or_more</span></div>
+<div class="an"><span class="ac">0</span><span class="al">한 가지</span><span class="ak">one</span></div>
+<div class="an"><span class="ac b">-1</span><span class="al">먹지 않았어요</span><span class="ak">none</span></div>
 </div></div>
-<div class="lvar">▼</div>
 
-<div class="lvrow"><div class="lvno">3</div><div class="lvbody">
-<div class="lvt">어느 끼니 얘기인가 <span class="lvc">4가지</span></div>
-<div class="lvchips">
-<span>어제 저녁</span><span>오늘 아침</span><span class="on">오늘 점심</span><span>오늘 저녁</span></div>
-<div class="lvd">들어온 시각으로 정해집니다. 새벽에 들어오면 끼니 날짜가 어제입니다</div>
+<div class="ax"><div class="axh"><span class="axn">3 · 단 음료 · 단 간식</span><span class="axid">DIET-Q-02</span></div>
+<div class="axq">{끼니} 전후에 단 음료·간식 몇 번 드셨나요?</div>
+<div class="ans">
+<div class="an"><span class="ac">1</span><span class="al">없었어요</span><span class="ak">none</span></div>
+<div class="an"><span class="ac">0</span><span class="al">한 번</span><span class="ak">once</span></div>
+<div class="an"><span class="ac b">-1</span><span class="al">두 번 이상</span><span class="ak">twice_or_more</span></div>
 </div></div>
-<div class="lvar">▼</div>
 
-<div class="lvrow"><div class="lvno">4</div><div class="lvbody">
-<div class="lvt">무슨 답을 골랐나 <span class="lvc">3가지</span></div>
-<div class="lvchips">
-<span>좋음 (1)</span><span>보통 (0)</span><span class="on">나쁨 (-1)</span></div>
-<div class="lvd">저장되는 것은 점수가 아니라 코드입니다. 같은 코드가 축에 따라 정반대 뜻이 됩니다</div>
+<div class="ax"><div class="axh"><span class="axn">4 · 짠맛 · 국물</span><span class="axid">DIET-Q-03</span></div>
+<div class="axq">{끼니}에 국물은 얼마나 드셨나요?</div>
+<div class="ans">
+<div class="an"><span class="ac">1</span><span class="al">안 먹었어요</span><span class="ak">none</span></div>
+<div class="an"><span class="ac">0</span><span class="al">절반 이하</span><span class="ak">half_or_less</span></div>
+<div class="an"><span class="ac b">-1</span><span class="al">절반 넘게</span><span class="ak">more_than_half</span></div>
 </div></div>
-<div class="lvar">▼</div>
 
-<div class="lvrow"><div class="lvno">5</div><div class="lvbody">
-<div class="lvt">지표 한 개 <span class="lvc">축 × 끼니 × 답</span></div>
-<div class="lvd">「오늘 점심 채소 반찬 종류 수 = 없음」처럼 한 문장으로 읽히는 값이 됩니다</div>
+<div class="ax"><div class="axh"><span class="axn">5 · 식사 시각 · 야식</span><span class="axid">DIET-Q-04</span></div>
+<div class="axq">어젯밤 야식을 몇 번 드셨나요? <b>· 새벽 4~10시에만 · 점수 없음</b></div>
+<div class="ans">
+<div class="an"><span class="ac n">—</span><span class="al">안 먹었어요</span><span class="ak">none</span></div>
+<div class="an"><span class="ac n">—</span><span class="al">한 번</span><span class="ak">once</span></div>
+<div class="an"><span class="ac n">—</span><span class="al">두 번 이상</span><span class="ak">twice_or_more</span></div>
 </div></div>
-<div class="lvar">▼</div>
 
-<div class="lvrow"><div class="lvno">6</div><div class="lvbody">
-<div class="lvt">메시지 — 보낼 방향과 막을 말</div>
-<div class="lvd">축마다 보낼 방향과 하면 안 되는 말이 정해져 있습니다. 질환이 있으면 거기서 또 걸러집니다</div>
+<div class="ax"><div class="axh"><span class="axn">6 · 식사 속도 · 양</span><span class="axid">DIET-Q-05</span></div>
+<div class="axq">{끼니} 먹고 얼마나 배불렀나요?</div>
+<div class="ans">
+<div class="an"><span class="ac">1</span><span class="al">편안했어요</span><span class="ak">comfortable</span></div>
+<div class="an"><span class="ac">0</span><span class="al">조금 배불렀어요</span><span class="ak">somewhat_full</span></div>
+<div class="an"><span class="ac b">-1</span><span class="al">많이 배불렀어요</span><span class="ak">too_full</span></div>
 </div></div>
+
+<div class="ax"><div class="axh"><span class="axn">7 · 단백질</span><span class="axid">DIET-Q-06</span></div>
+<div class="axq">{끼니}에 고기·생선·달걀·두부를 드셨나요?</div>
+<div class="ans">
+<div class="an"><span class="ac">1</span><span class="al">먹었어요</span><span class="ak">ate</span></div>
+<div class="an"><span class="ac">0</span><span class="al">맛만 봤어요</span><span class="ak">tasted_only</span></div>
+<div class="an"><span class="ac b">-1</span><span class="al">안 먹었어요</span><span class="ak">absent</span></div>
+</div></div>
+
+<div class="ax"><div class="axh"><span class="axn">8 · 기름진 음식</span><span class="axid">DIET-Q-07</span></div>
+<div class="axq">{끼니}에 튀긴 음식을 드셨나요?</div>
+<div class="ans">
+<div class="an"><span class="ac">1</span><span class="al">안 먹었어요</span><span class="ak">absent</span></div>
+<div class="an"><span class="ac">0</span><span class="al">맛만 봤어요</span><span class="ak">tasted_only</span></div>
+<div class="an"><span class="ac b">-1</span><span class="al">먹었어요</span><span class="ak">ate</span></div>
+</div></div>
+
+<div class="ax"><div class="axh"><span class="axn">9 · 질환 확인</span><span class="axid">DIET-Q-90</span></div>
+<div class="axq">{질환명}을 진단받고 관리 중이신가요? <b>· 끼니 무관 · 점수 없음</b></div>
+<div class="ans">
+<div class="an"><span class="ac n">—</span><span class="al">관리 중이에요</span><span class="ak">confirmed</span></div>
+<div class="an"><span class="ac n">—</span><span class="al">아니요</span><span class="ak">denied</span></div>
+<div class="an"><span class="ac n">—</span><span class="al">잘 모르겠어요</span><span class="ak">unknown</span></div>
+</div></div>
+
 </div>
 
-<h3>한 사람으로 따라가 보면</h3>
-<p>위 그림에서 굵게 표시한 길입니다. 단계마다 어떻게 좁혀지는지 보세요.</p>
-<table>
-<tr><th>단계</th><th>이 사람의 값</th><th>저장되는 곳</th></tr>
-<tr><td>1 · 하루</td><td>점심 때 들어옴. 질환 확인은 없는 날</td><td><code>diet_session</code></td></tr>
-<tr><td>2 · 축</td><td>채소를 물었음</td><td><code>question_id = DIET-Q-01</code></td></tr>
-<tr><td>3 · 끼니</td><td>오늘 점심 얘기</td><td><code>meal_type = LUNCH</code> · <code>meal_date = 오늘</code></td></tr>
-<tr><td>4 · 답</td><td>「먹지 않았어요」를 눌렀음</td><td><code>option_code = none</code> · 점수 -1</td></tr>
-<tr><td>5 · 지표</td><td>오늘 점심 채소 반찬 종류 수 = 없음</td><td>위 네 값을 묶어 읽은 것</td></tr>
-<tr><td>6 · 메시지</td><td>「오늘 점심에 채소 반찬이 없었네요. 저녁에 한 가지만 곁들여 보세요」</td><td>—</td></tr>
-</table>
-<div class="warn"><b>이 사람에게 막아야 할 말.</b>
-「혈당에 도움이 됩니다」 — 반찬 종류 수만 알고 몸의 변화는 모릅니다.
-콩팥 질환이 걸려 있으면 「채소를 더 드세요」 자체를 막아야 합니다.</div>
+<div class="note"><b>4단계 · 끼니</b> — 들어온 시각으로 정해집니다.
+04~10시 <b>어제 저녁</b> · 10~12시 오늘 아침 · 12~17시 오늘 점심 · 17시 이후 오늘 저녁.
+&nbsp;│&nbsp; 왼쪽 숫자는 점수입니다. <b>1</b> 좋음 · <b>0</b> 보통 · <b>-1</b> 나쁨 · <b>—</b> 점수 없음.
+&nbsp;│&nbsp; 저장되는 것은 점수가 아니라 오른쪽의 코드입니다.</div>
+</div>
 
-<p class="where">아래부터 축 9개를 하나씩, 답 3개마다 지표·메시지 방향·막을 말까지 펼칩니다.</p>
+<p class="where"><b>읽는 법</b> — 축 번호 + 답 번호 + 끼니로 지표 한 줄이 됩니다.
+<code>2.3 / 오늘 점심</code> = 「오늘 점심 채소 반찬 없음」</p>
 
-<h2><span class="no">축 1 · DIET-Q-00 · 고정 질문</span>끼니 규칙 — 끼니별 섭취 여부와 정도</h2>
-<p class="q">묻는 말 — <b>「{끼니}은 평소만큼 드셨나요?」</b><br>
-끼니 자리에 들어가는 말 — 어제 저녁 · 오늘 아침 · 오늘 점심 · 오늘 저녁</p>
-<table>
-<tr><th>코드</th><th>보는 문구</th><th class="no1">점수</th><th>지표로 말하면</th><th>건강 메시지 방향</th><th>하면 안 되는 말</th></tr>
-<tr><td><code>usual</code></td><td>평소대로</td><td class="no1">좋음 1</td>
-<td>그 끼니를 평소만큼 먹음</td><td>지금 리듬을 이어가는 쪽</td><td>「충분히 드셨다」 — 양은 모릅니다</td></tr>
-<tr><td><code>less</code></td><td>조금 적게</td><td class="no1">보통 0</td>
-<td>그 끼니를 평소보다 적게 먹음</td><td>다음 끼니에 한 가지 더하는 쪽</td><td>「굶으셨다」 — 먹기는 먹었습니다</td></tr>
-<tr><td><code>very_little_or_skipped</code></td><td>거의 못 먹거나 거름</td><td class="no1">나쁨 -1</td>
-<td>그 끼니를 거의 못 먹음 또는 거름</td><td><b>회복 쪽만.</b> 먹을 수 있는 것부터</td>
-<td><b>줄이기·절식·체중 메시지 전면 금지.</b> 또 「거르셨네요」도 단정입니다 — 거의 못 먹은 것과 구분이 안 됩니다</td></tr>
-</table>
-<p class="where"><b>끼니별로 나뉘는 지표</b> — 같은 질문이지만 끼니가 다르면 다른 지표입니다.
-<code>BREAKFAST</code> 아침 섭취 여부와 정도 · <code>LUNCH</code> 점심 섭취 여부와 정도 ·
-<code>DINNER</code> 저녁 섭취 여부와 정도 (새벽에 답했으면 <b>어제</b> 저녁)</p>
-<p class="where"><b>해석 한계 근거</b> — 「질문」 시트에 「결식 빈도·영양 충족도 아님」,
-「미섭취와 소량 섭취를 구분할 수 없음」으로 적혀 있습니다.</p>
-<div class="ex"><b>이어지는 모양</b>
-아침에 <code>very_little_or_skipped</code> → 「아침 섭취 = 거의 못 먹음」 →
-「아침을 거의 못 드셨네요. 지금 드실 수 있는 것부터 한 가지 챙겨 보세요」<br>
-같은 사람에게 「당을 줄이세요」나 「한 끼 가볍게」를 보내면 정반대 메시지가 됩니다.</div>
-
-<h2><span class="no">축 2 · DIET-Q-01 · 회전 질문</span>채소 — 채소 반찬 종류 수</h2>
-<p class="q">묻는 말 — <b>「{끼니}에 채소 반찬 몇 가지 드셨나요?」</b> · 네 끼니 모두 나갑니다</p>
-<table>
-<tr><th>코드</th><th>보는 문구</th><th class="no1">점수</th><th>지표로 말하면</th><th>건강 메시지 방향</th><th>하면 안 되는 말</th></tr>
-<tr><td><code>two_or_more</code></td><td>두 가지 이상</td><td class="no1">좋음 1</td>
-<td>채소 반찬 두 종류 이상</td><td>유지</td>
-<td>「채소를 충분히」 · 「혈당에 도움」 — 양도 몸의 변화도 모릅니다</td></tr>
-<tr><td><code>one</code></td><td>한 가지</td><td class="no1">보통 0</td>
-<td>채소 반찬 한 종류</td><td>한 종류 더 늘리는 쪽</td><td>부족하다는 단정</td></tr>
-<tr><td><code>none</code></td><td>먹지 않았어요</td><td class="no1">나쁨 -1</td>
-<td>채소 반찬 없음</td><td>채소 한 가지 더하는 쪽</td>
-<td><b>콩팥 질환이면 「더 드세요」 금지.</b> 칼륨을 개인별로 조절합니다</td></tr>
-</table>
-<p class="where"><b>해석 한계 근거</b> — 「실제로 먹은 채소 반찬 종류 수. 중량·먹는 순서 아님」,
-「400g 달성·혈당 개선으로 해석 금지」</p>
-
-<h2><span class="no">축 3 · DIET-Q-02 · 회전 질문</span>단 음료 · 단 간식 — 섭취 횟수</h2>
-<p class="q">묻는 말 — <b>「{끼니} 전후에 단 음료·간식 몇 번 드셨나요?」</b> · 네 끼니 모두 나갑니다</p>
-<table>
-<tr><th>코드</th><th>보는 문구</th><th class="no1">점수</th><th>지표로 말하면</th><th>건강 메시지 방향</th><th>하면 안 되는 말</th></tr>
-<tr><td><code>none</code></td><td>없었어요</td><td class="no1">좋음 1</td>
-<td>그 끼니 전후 단 것 0회</td><td>유지</td><td>당을 적게 먹었다는 말 — 횟수만 압니다</td></tr>
-<tr><td><code>once</code></td><td>한 번</td><td class="no1">보통 0</td>
-<td>1회</td><td>한 잔을 물로 바꾸는 쪽</td><td></td></tr>
-<tr><td><code>twice_or_more</code></td><td>두 번 이상</td><td class="no1">나쁨 -1</td>
-<td>2회 이상</td><td>줄이는 쪽</td>
-<td><b>당뇨면 금지.</b> 저혈당 처치로 먹은 것일 수 있고, 계약서에 그건 나쁜 답으로 세지 않는다고 적혀 있습니다</td></tr>
-</table>
-<p class="where"><b>해석 한계 근거</b> — 「섭취 횟수. 양·총당량 아님」,
-「저혈당 처치용 섭취는 불리한 응답으로 평가하지 않음」</p>
-
-<h2><span class="no">축 4 · DIET-Q-03 · 회전 질문</span>짠맛 · 국물 — 국물 섭취 비율</h2>
-<p class="q">묻는 말 — <b>「{끼니}에 국물은 얼마나 드셨나요?」</b> · 네 끼니 모두 나갑니다</p>
-<table>
-<tr><th>코드</th><th>보는 문구</th><th class="no1">점수</th><th>지표로 말하면</th><th>건강 메시지 방향</th><th>하면 안 되는 말</th></tr>
-<tr><td><code>none</code></td><td>안 먹었어요</td><td class="no1">좋음 1</td>
-<td>국물 안 먹음 — <b>또는 그 끼니에 국물이 없었음</b></td>
-<td>한 번의 답으로 칭찬하지 않는 쪽. 여러 날 모은 축 상태를 쓰세요</td>
-<td>「국물을 잘 참으셨네요」 — 국물이 없던 끼니일 수 있습니다</td></tr>
-<tr><td><code>half_or_less</code></td><td>절반 이하</td><td class="no1">보통 0</td>
-<td>나온 국물의 절반 이하</td><td>유지</td><td></td></tr>
-<tr><td><code>more_than_half</code></td><td>절반 넘게</td><td class="no1">나쁨 -1</td>
-<td>나온 국물의 절반 넘게</td><td>건더기 위주로 먹는 쪽</td>
-<td>나트륨을 몇 밀리그램 먹었다는 말 — 비율만 압니다</td></tr>
-</table>
-<p class="where"><b>해석 한계 근거</b> — 「제공된 국물 중 먹은 대략 비율. 전체 나트륨 아님」,
-「국물이 없는 끼니도 첫 답. 저나트륨 식사로 단정하지 않음」</p>
-
-<h2><span class="no">축 5 · DIET-Q-04 · 새벽에만</span>식사 시각 · 야식 — 야식 횟수</h2>
-<p class="q">묻는 말 — <b>「어젯밤 야식을 몇 번 드셨나요?」</b><br>
-<b>새벽 4시~10시에 들어온 사람에게만 나갑니다.</b> 낮·저녁에 들어온 사람에게는 이 지표가 없습니다.</p>
-<table>
-<tr><th>코드</th><th>보는 문구</th><th class="no1">점수</th><th>지표로 말하면</th><th>건강 메시지 방향</th><th>하면 안 되는 말</th></tr>
-<tr><td><code>none</code></td><td>안 먹었어요</td><td class="no1" rowspan="3"><b>없음</b></td>
-<td>어젯밤 야식 0회</td>
-<td rowspan="3"><b>사실을 되짚는 정도까지.</b> 점수가 없어 축 상태도 안 만들어집니다</td>
-<td rowspan="3"><b>「야식 참으세요」 · 「야식은 나쁘다」 · 「잠에 안 좋다」 전부 금지.</b>
-식이는 야식을 자동으로 막지 않기로 했습니다. 꼭 필요한 간식이었는지, 교대근무인지 구분할 수 없습니다</td></tr>
-<tr><td><code>once</code></td><td>한 번</td><td>1회</td></tr>
-<tr><td><code>twice_or_more</code></td><td>두 번 이상</td><td>2회 이상</td></tr>
-</table>
-<p class="where"><b>세는 구간</b> — 전날 저녁 식사 후부터 당일 새벽 4시 전까지. 오늘 아침 식사는 안 들어갑니다.</p>
-<p class="where"><b>해석 한계 근거</b> — 「위해성·수면 영향 판정 아님」, 「상태 점수 산출 중지」</p>
-
-<h2><span class="no">축 6 · DIET-Q-05 · 회전 질문</span>식사 속도 · 양 — 식후 포만감</h2>
-<p class="q">묻는 말 — <b>「{끼니} 먹고 얼마나 배불렀나요?」</b> · 네 끼니 모두 나갑니다</p>
-<table>
-<tr><th>코드</th><th>보는 문구</th><th class="no1">점수</th><th>지표로 말하면</th><th>건강 메시지 방향</th><th>하면 안 되는 말</th></tr>
-<tr><td><code>comfortable</code></td><td>편안했어요</td><td class="no1">좋음 1</td>
-<td>식후 포만감이 편안함</td><td>유지</td><td>적정량을 먹었다는 말</td></tr>
-<tr><td><code>somewhat_full</code></td><td>조금 배불렀어요</td><td class="no1">보통 0</td>
-<td>조금 배부름</td><td>천천히 먹는 쪽</td><td></td></tr>
-<tr><td><code>too_full</code></td><td>많이 배불렀어요</td><td class="no1">나쁨 -1</td>
-<td>많이 배부름</td><td>먹는 중 배부름을 살피는 쪽</td>
-<td><b>「살을 빼세요」 · 「빨리 드셨네요」 · 「열량이 많았다」 전부 금지.</b>
-스스로 느낀 배부름만 물었습니다</td></tr>
-</table>
-<p class="where"><b>해석 한계 근거</b> — 「식후 주관적 포만감. 속도·열량 아님」,
-「체중감량 필요·속도 과다로 해석 금지」</p>
-
-<h2><span class="no">축 7 · DIET-Q-06 · 회전 질문</span>단백질 — 단백질 섭취 여부</h2>
-<p class="q">묻는 말 — <b>「{끼니}에 고기·생선·달걀·두부를 드셨나요?」</b> · 네 끼니 모두 나갑니다</p>
-<table>
-<tr><th>코드</th><th>보는 문구</th><th class="no1">점수</th><th>지표로 말하면</th><th>건강 메시지 방향</th><th>하면 안 되는 말</th></tr>
-<tr><td><code>ate</code></td><td>먹었어요</td><td class="no1">좋음 1</td>
-<td>단백질 식품을 먹음</td><td>유지</td><td>단백질이 충분하다는 말</td></tr>
-<tr><td><code>tasted_only</code></td><td>맛만 봤어요</td><td class="no1">보통 0</td>
-<td>맛만 봄</td><td>한 가지 더하는 쪽</td><td></td></tr>
-<tr><td><code>absent</code></td><td>안 먹었어요</td><td class="no1">나쁨 -1</td>
-<td>단백질 식품 없음</td><td>단백질 한 가지 더하는 쪽</td>
-<td><b>콩팥 질환이면 「더 드세요」 금지.</b> 개인 식사 제한이 있으면 그게 먼저입니다</td></tr>
-</table>
-<p class="where"><b>해석 한계 근거</b> — 「섭취 여부와 맛보기 구분. 필요량 충족 아님」,
-「개인 식사 제한 우선」</p>
-
-<h2><span class="no">축 8 · DIET-Q-07 · 회전 질문</span>기름진 음식 — 튀긴 음식 섭취 여부</h2>
-<p class="q">묻는 말 — <b>「{끼니}에 튀긴 음식을 드셨나요?」</b> · 네 끼니 모두 나갑니다</p>
-<table>
-<tr><th>코드</th><th>보는 문구</th><th class="no1">점수</th><th>지표로 말하면</th><th>건강 메시지 방향</th><th>하면 안 되는 말</th></tr>
-<tr><td><code>absent</code></td><td>안 먹었어요</td><td class="no1">좋음 1</td>
-<td>튀긴 음식 없음</td><td>유지</td><td>지방을 적게 먹었다는 말</td></tr>
-<tr><td><code>tasted_only</code></td><td>맛만 봤어요</td><td class="no1">보통 0</td>
-<td>맛만 봄</td><td>유지</td><td></td></tr>
-<tr><td><code>ate</code></td><td>먹었어요</td><td class="no1">나쁨 -1</td>
-<td>튀긴 음식 먹음</td><td>구이·찜으로 바꾸는 쪽</td>
-<td>포화지방이 많았다 · 지방 과다라는 판단</td></tr>
-</table>
-<p class="where"><b>해석 한계 근거</b> — 「총지방·포화지방량 아님」, 「지방 부족/과다 진단 금지」</p>
-
-<h2><span class="no">축 9 · DIET-Q-90 · 질환 확인</span>질환 확인 — 메시지를 막는 값</h2>
-<p class="q">묻는 말 — <b>「{질환명}을 진단받고 관리 중이신가요?」</b><br>
-끼니와 상관없습니다. 확인할 질환이 있는 날의 <b>첫 질문</b>으로만 나갑니다.</p>
-<table>
-<tr><th>코드</th><th>보는 문구</th><th class="no1">점수</th><th>지표로 말하면</th><th>건강 메시지 방향</th><th>하면 안 되는 말</th></tr>
-<tr><td><code>confirmed</code></td><td>관리 중이에요</td><td class="no1" rowspan="3"><b>없음</b></td>
-<td>본인이 관리 중이라고 말함</td><td>그 질환에서 막는 말을 전부 차단 + 그 질환 축 중심</td>
-<td>병원에서 확진받았다는 말 — 자기보고입니다</td></tr>
-<tr><td><code>denied</code></td><td>아니요</td>
-<td>본인이 아니라고 말함</td><td>적용하지 않음. 12개월 뒤 다시 물음</td>
-<td><b>「질환이 없다」로 쓰면 안 됩니다</b></td></tr>
-<tr><td><code>unknown</code></td><td>잘 모르겠어요</td>
-<td>모르겠다고 말함</td><td><b>금지는 그대로 유지.</b> 30일 뒤 다시 물음</td>
-<td>질환이 없는 사람처럼 다루는 것</td></tr>
-</table>
-<p class="where"><b>중요</b> — 사용자가 아직 답하지 않은 상태(<code>CANDIDATE</code>)에도
-금지는 <b>이미 걸려 있습니다.</b> 확인 전이라고 위험한 말을 내보내면 안 됩니다.</p>
-<p class="where"><b>해석 한계 근거</b> — 「자가 응답이므로 임상 확진이 아니다.
-아니요·잘 모르겠어요가 질환 없음을 뜻하지 않으며 후보 단계의 문구 금지는 그대로 유지된다」</p>
-
-<h2>코드만 보면 안 됩니다 — 가장 틀리기 쉬운 곳</h2>
-<div class="warn"><b>같은 코드가 질문에 따라 정반대 뜻입니다.</b> 반드시 질문 ID와 같이 읽으세요.
-<table style="margin-top:12px">
-<tr><th>코드</th><th>어디서는 좋음</th><th>어디서는 나쁨</th></tr>
-<tr><td><code>none</code></td><td>단 음료 · 국물 — 「안 먹었다」</td><td>채소 — 「채소를 못 먹었다」</td></tr>
-<tr><td><code>ate</code></td><td>단백질 — 「먹었다」</td><td>기름진 음식 — 「튀긴 걸 먹었다」</td></tr>
-<tr><td><code>absent</code></td><td>기름진 음식 — 「안 먹었다」</td><td>단백질 — 「안 먹었다」</td></tr>
-</table>
-코드만 보고 「안 먹었다니 잘하셨네요」라고 하면 <b>채소를 못 먹은 사람을 칭찬하게 됩니다.</b></div>
-
-<h2>끼니를 읽는 법</h2>
-<p>질문의 「{끼니}」에 무엇이 들어갔는지는 저장된 값으로 알 수 있습니다.</p>
-<table>
-<tr><th>들어온 시각</th><th>묻는 끼니</th><th><code>meal_type</code></th><th><code>meal_date</code></th></tr>
-<tr><td>04:00 ~ 10:00</td><td>어제 저녁</td><td><code>DINNER</code></td><td><b>어제</b></td></tr>
-<tr><td>10:00 ~ 12:00</td><td>오늘 아침</td><td><code>BREAKFAST</code></td><td>오늘</td></tr>
-<tr><td>12:00 ~ 17:00</td><td>오늘 점심</td><td><code>LUNCH</code></td><td>오늘</td></tr>
-<tr><td>17:00 이후</td><td>오늘 저녁</td><td><code>DINNER</code></td><td>오늘</td></tr>
-</table>
-<p class="where"><b>근거</b> — 「설정」 시트 <code>CFG-012</code>(10시) · <code>CFG-013</code>(12시) ·
-<code>CFG-014</code>(17시). 하루 경계가 새벽 4시인 것은 <code>CFG-015</code>입니다.</p>
-<div class="warn"><b>하루가 밀리는 함정.</b> 새벽 6시에 답한 사람의 끼니 날짜는 <b>어제</b>입니다.
+<h2>표 1 — 답 27개 · 끼니까지</h2>
+<p>위 지도의 각 칸을 풀어 쓴 것입니다. 축마다 묻는 말, <b>적용 끼니</b>, <b>해석 한계</b>를 함께 적었습니다.
+적용 끼니는 사용자가 고르는 것이 아니라 들어온 시각으로 정해집니다.
+해석 한계는 「이 답으로 여기까지만 말할 수 있다」는 선입니다.</p>
+<div class="warn"><b>하루가 밀리는 함정.</b> 새벽에 답한 사람의 끼니 날짜는 <b>어제</b>입니다.
 「오늘 저녁 어떠셨어요」가 아니라 「어제 저녁」 얘기입니다.
 <code>meal_type</code>만 보고 <code>meal_date</code>를 안 보면 하루를 틀리게 말합니다.</div>
 
-<h2>답 한 줄을 읽을 때 반드시 지킬 것</h2>
-<div class="box">
-<p><b>① 고친 답이 섞입니다.</b> 사용자가 답을 바꾸면 같은 질문에 여러 줄이 남습니다.
-<code>is_current</code>가 참인 줄 하나만 읽으세요.</p>
-<p><b>② 안 답한 것과 안 물어본 것은 다릅니다.</b>
-<code>diet_question_state.state_code</code>가 <code>PENDING</code>이면 비워 둔 것,
-<code>CONDITIONAL_SKIP</code>이면 <b>애초에 묻지 않은 것</b>입니다. 안 한 걸로 취급하면 안 됩니다.
-예를 들어 야식 질문은 낮에 들어온 사람에게는 묻지 않습니다.</p>
-<p><b>③ 빈 값을 0이나 거짓으로 바꾸지 마세요.</b> 빈 값은 「나쁘다」가 아니라 「모른다」입니다.
-그 분기를 쓰지 않고 다음 조건으로 넘어가야 합니다.</p>
-<p><b>④ 하루치 답 하나로 단정하지 마세요.</b> 한 번의 답은 그날 그 끼니 사실일 뿐입니다.
-「요즘 어떠시네요」처럼 경향을 말하려면 여러 날을 모은 축 상태를 쓰세요.</p>
-</div>
+<table>
+<tr><th style="width:4%">번호</th><th style="width:15%">축</th><th style="width:8%">질문 ID</th><th style="width:20%">적용 끼니</th>
+<th style="width:11%">답</th><th style="width:14%">저장 코드</th><th class="no1" style="width:7%">점수</th>
+<th style="width:21%">읽히는 지표</th></tr>
 
-<h2>한 사람의 답이 메시지로 가는 길</h2>
-<div class="ex"><b>새벽 6시에 들어와 끼니 규칙 질문에 답한 사람</b>
-저장된 값 — <code>DIET-Q-00</code> · <code>DINNER</code> · 끼니 날짜 <b>어제</b> ·
-<code>very_little_or_skipped</code> · 점수 -1<br><br>
-읽히는 지표 — 「어제 저녁 섭취 여부와 정도 = 거의 못 먹음」<br>
-나갈 수 있는 말 — 「어제 저녁을 거의 못 드셨네요. 오늘은 드실 수 있는 것부터 한 가지 챙겨 보세요」<br>
-<b>막아야 할 말</b> — 「덜 드세요」 「체중」 「절식」 「당 줄이기」.
-그리고 「어제 저녁을 거르셨네요」도 단정입니다. 거의 못 먹은 것과 구분할 수 없습니다.</div>
+<tr class="d2"><td>1</td><td colspan="2"><b>끼니 규칙</b> <span class="src">고정 질문 · 매일</span></td>
+<td colspan="5" class="qq">「{끼니}은 평소만큼 드셨나요?」<br>
+<span class="src">한계 — 결식 빈도·영양 충족도가 아님. 미섭취와 소량 섭취를 구분할 수 없음</span></td></tr>
+<tr><td>1.1</td><td></td><td>DIET-Q-00</td><td rowspan="3" class="mealcell"><span class="ml">04~10시</span> 어제 저녁 <code>DINNER</code> · 끼니 날짜 <b>어제</b><br><span class="ml">10~12시</span> 오늘 아침 <code>BREAKFAST</code> · 오늘<br><span class="ml">12~17시</span> 오늘 점심 <code>LUNCH</code> · 오늘<br><span class="ml">17시 이후</span> 오늘 저녁 <code>DINNER</code> · 오늘</td><td>평소대로</td><td><code>usual</code></td><td class="no1">좋음 1</td><td>그 끼니를 평소만큼 먹음</td></tr>
+<tr><td>1.2</td><td></td><td>DIET-Q-00</td><td>조금 적게</td><td><code>less</code></td><td class="no1">보통 0</td><td>평소보다 적게 먹음</td></tr>
+<tr><td>1.3</td><td></td><td>DIET-Q-00</td><td>거의 못 먹거나 거름</td><td><code>very_little_or_skipped</code></td><td class="no1">나쁨 -1</td><td>거의 못 먹음 또는 거름</td></tr>
 
-<div class="ex"><b>점심에 들어와 채소 질문에 답한 당뇨 사용자</b>
-저장된 값 — <code>DIET-Q-01</code> · <code>LUNCH</code> · 오늘 · <code>none</code> · 점수 -1 ·
-질환 확인 <code>confirmed</code> 당뇨<br><br>
-읽히는 지표 — 「오늘 점심 채소 반찬 종류 수 = 없음」<br>
-나갈 수 있는 말 — 「오늘 점심에 채소 반찬이 없었네요. 저녁에 한 가지만 곁들여 보세요」<br>
-<b>막아야 할 말</b> — 「혈당에 도움이 됩니다」(몸의 변화는 모릅니다) ·
-「디저트를 건너뛰세요」(저혈당 처치를 막는 말입니다)</div>
+<tr class="d2"><td>2</td><td colspan="2"><b>채소</b> <span class="src">회전 질문 · 네 끼니 모두</span></td>
+<td colspan="5" class="qq">「{끼니}에 채소 반찬 몇 가지 드셨나요?」<br>
+<span class="src">한계 — 종류 수만 관찰. 중량·먹는 순서 아님. 400g 달성·혈당 개선으로 해석 금지</span></td></tr>
+<tr><td>2.1</td><td></td><td>DIET-Q-01</td><td rowspan="3" class="mealcell"><span class="ml">04~10시</span> 어제 저녁 <code>DINNER</code> · 끼니 날짜 <b>어제</b><br><span class="ml">10~12시</span> 오늘 아침 <code>BREAKFAST</code> · 오늘<br><span class="ml">12~17시</span> 오늘 점심 <code>LUNCH</code> · 오늘<br><span class="ml">17시 이후</span> 오늘 저녁 <code>DINNER</code> · 오늘</td><td>두 가지 이상</td><td><code>two_or_more</code></td><td class="no1">좋음 1</td><td>채소 반찬 두 종류 이상</td></tr>
+<tr><td>2.2</td><td></td><td>DIET-Q-01</td><td>한 가지</td><td><code>one</code></td><td class="no1">보통 0</td><td>채소 반찬 한 종류</td></tr>
+<tr><td>2.3</td><td></td><td>DIET-Q-01</td><td>먹지 않았어요</td><td><code>none</code></td><td class="no1">나쁨 -1</td><td>채소 반찬 없음</td></tr>
 
-<p class="src">기준 파일 — maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx (안내 시트 v1.0.1 · 2026-10-02).
-코드·문구·점수는 「선택지」 시트, 질문 문장과 해석 한계는 「질문」 시트, 끼니 경계는 「설정」 시트가 정본입니다.</p>
+<tr class="d2"><td>3</td><td colspan="2"><b>단 음료 · 단 간식</b> <span class="src">회전 질문 · 네 끼니 모두</span></td>
+<td colspan="5" class="qq">「{끼니} 전후에 단 음료·간식 몇 번 드셨나요?」<br>
+<span class="src">한계 — 횟수만 관찰. 양·총당량 아님. 저혈당 처치로 먹은 것은 불리한 응답으로 세지 않음</span></td></tr>
+<tr><td>3.1</td><td></td><td>DIET-Q-02</td><td rowspan="3" class="mealcell"><span class="ml">04~10시</span> 어제 저녁 <code>DINNER</code> · 끼니 날짜 <b>어제</b><br><span class="ml">10~12시</span> 오늘 아침 <code>BREAKFAST</code> · 오늘<br><span class="ml">12~17시</span> 오늘 점심 <code>LUNCH</code> · 오늘<br><span class="ml">17시 이후</span> 오늘 저녁 <code>DINNER</code> · 오늘</td><td>없었어요</td><td><code>none</code></td><td class="no1">좋음 1</td><td>그 끼니 전후 0회</td></tr>
+<tr><td>3.2</td><td></td><td>DIET-Q-02</td><td>한 번</td><td><code>once</code></td><td class="no1">보통 0</td><td>1회</td></tr>
+<tr><td>3.3</td><td></td><td>DIET-Q-02</td><td>두 번 이상</td><td><code>twice_or_more</code></td><td class="no1">나쁨 -1</td><td>2회 이상</td></tr>
+
+<tr class="d2"><td>4</td><td colspan="2"><b>짠맛 · 국물</b> <span class="src">회전 질문 · 네 끼니 모두</span></td>
+<td colspan="5" class="qq">「{끼니}에 국물은 얼마나 드셨나요?」<br>
+<span class="src">한계 — 먹은 대략 비율. 전체 나트륨 아님. 국물이 없는 끼니도 첫 답이 눌림</span></td></tr>
+<tr><td>4.1</td><td></td><td>DIET-Q-03</td><td rowspan="3" class="mealcell"><span class="ml">04~10시</span> 어제 저녁 <code>DINNER</code> · 끼니 날짜 <b>어제</b><br><span class="ml">10~12시</span> 오늘 아침 <code>BREAKFAST</code> · 오늘<br><span class="ml">12~17시</span> 오늘 점심 <code>LUNCH</code> · 오늘<br><span class="ml">17시 이후</span> 오늘 저녁 <code>DINNER</code> · 오늘</td><td>안 먹었어요</td><td><code>none</code></td><td class="no1">좋음 1</td><td>국물 안 먹음 — <b>또는 국물이 없던 끼니</b></td></tr>
+<tr><td>4.2</td><td></td><td>DIET-Q-03</td><td>절반 이하</td><td><code>half_or_less</code></td><td class="no1">보통 0</td><td>나온 국물의 절반 이하</td></tr>
+<tr><td>4.3</td><td></td><td>DIET-Q-03</td><td>절반 넘게</td><td><code>more_than_half</code></td><td class="no1">나쁨 -1</td><td>나온 국물의 절반 넘게</td></tr>
+
+<tr class="d2"><td>5</td><td colspan="2"><b>식사 시각 · 야식</b> <span class="src">회전 질문 · <b>새벽 4~10시 진입에만</b></span></td>
+<td colspan="5" class="qq">「어젯밤 야식을 몇 번 드셨나요?」<br>
+<span class="src">세는 구간 — 전날 저녁 식사 후부터 당일 04시 전까지. 오늘 아침은 제외<br>
+한계 — 위해성·수면 영향 판정이 아님. 상태 점수를 내지 않음</span></td></tr>
+<tr><td>5.1</td><td></td><td>DIET-Q-04</td><td rowspan="3" class="mealcell"><b>새벽 4~10시 진입에만</b><br>어젯밤을 되묻는 질문이라 끼니가 아닙니다. 전날 저녁 식사 후부터 당일 04시 전까지를 셉니다</td><td>안 먹었어요</td><td><code>none</code></td><td class="no1">없음</td><td>어젯밤 야식 0회</td></tr>
+<tr><td>5.2</td><td></td><td>DIET-Q-04</td><td>한 번</td><td><code>once</code></td><td class="no1">없음</td><td>1회</td></tr>
+<tr><td>5.3</td><td></td><td>DIET-Q-04</td><td>두 번 이상</td><td><code>twice_or_more</code></td><td class="no1">없음</td><td>2회 이상</td></tr>
+
+<tr class="d2"><td>6</td><td colspan="2"><b>식사 속도 · 양</b> <span class="src">회전 질문 · 네 끼니 모두</span></td>
+<td colspan="5" class="qq">「{끼니} 먹고 얼마나 배불렀나요?」<br>
+<span class="src">한계 — 식후 주관적 포만감. 속도·열량 아님. 체중감량 필요·속도 과다로 해석 금지</span></td></tr>
+<tr><td>6.1</td><td></td><td>DIET-Q-05</td><td rowspan="3" class="mealcell"><span class="ml">04~10시</span> 어제 저녁 <code>DINNER</code> · 끼니 날짜 <b>어제</b><br><span class="ml">10~12시</span> 오늘 아침 <code>BREAKFAST</code> · 오늘<br><span class="ml">12~17시</span> 오늘 점심 <code>LUNCH</code> · 오늘<br><span class="ml">17시 이후</span> 오늘 저녁 <code>DINNER</code> · 오늘</td><td>편안했어요</td><td><code>comfortable</code></td><td class="no1">좋음 1</td><td>식후 포만감이 편안함</td></tr>
+<tr><td>6.2</td><td></td><td>DIET-Q-05</td><td>조금 배불렀어요</td><td><code>somewhat_full</code></td><td class="no1">보통 0</td><td>조금 배부름</td></tr>
+<tr><td>6.3</td><td></td><td>DIET-Q-05</td><td>많이 배불렀어요</td><td><code>too_full</code></td><td class="no1">나쁨 -1</td><td>많이 배부름</td></tr>
+
+<tr class="d2"><td>7</td><td colspan="2"><b>단백질</b> <span class="src">회전 질문 · 네 끼니 모두</span></td>
+<td colspan="5" class="qq">「{끼니}에 고기·생선·달걀·두부를 드셨나요?」<br>
+<span class="src">한계 — 섭취 여부와 맛보기 구분. 필요량 충족 아님. 개인 식사 제한이 우선</span></td></tr>
+<tr><td>7.1</td><td></td><td>DIET-Q-06</td><td rowspan="3" class="mealcell"><span class="ml">04~10시</span> 어제 저녁 <code>DINNER</code> · 끼니 날짜 <b>어제</b><br><span class="ml">10~12시</span> 오늘 아침 <code>BREAKFAST</code> · 오늘<br><span class="ml">12~17시</span> 오늘 점심 <code>LUNCH</code> · 오늘<br><span class="ml">17시 이후</span> 오늘 저녁 <code>DINNER</code> · 오늘</td><td>먹었어요</td><td><code>ate</code></td><td class="no1">좋음 1</td><td>단백질 식품을 먹음</td></tr>
+<tr><td>7.2</td><td></td><td>DIET-Q-06</td><td>맛만 봤어요</td><td><code>tasted_only</code></td><td class="no1">보통 0</td><td>맛만 봄</td></tr>
+<tr><td>7.3</td><td></td><td>DIET-Q-06</td><td>안 먹었어요</td><td><code>absent</code></td><td class="no1">나쁨 -1</td><td>단백질 식품 없음</td></tr>
+
+<tr class="d2"><td>8</td><td colspan="2"><b>기름진 음식</b> <span class="src">회전 질문 · 네 끼니 모두</span></td>
+<td colspan="5" class="qq">「{끼니}에 튀긴 음식을 드셨나요?」<br>
+<span class="src">한계 — 식품 존재 여부만 관찰. 총지방·포화지방량 아님. 지방 부족/과다 진단 금지</span></td></tr>
+<tr><td>8.1</td><td></td><td>DIET-Q-07</td><td rowspan="3" class="mealcell"><span class="ml">04~10시</span> 어제 저녁 <code>DINNER</code> · 끼니 날짜 <b>어제</b><br><span class="ml">10~12시</span> 오늘 아침 <code>BREAKFAST</code> · 오늘<br><span class="ml">12~17시</span> 오늘 점심 <code>LUNCH</code> · 오늘<br><span class="ml">17시 이후</span> 오늘 저녁 <code>DINNER</code> · 오늘</td><td>안 먹었어요</td><td><code>absent</code></td><td class="no1">좋음 1</td><td>튀긴 음식 없음</td></tr>
+<tr><td>8.2</td><td></td><td>DIET-Q-07</td><td>맛만 봤어요</td><td><code>tasted_only</code></td><td class="no1">보통 0</td><td>맛만 봄</td></tr>
+<tr><td>8.3</td><td></td><td>DIET-Q-07</td><td>먹었어요</td><td><code>ate</code></td><td class="no1">나쁨 -1</td><td>튀긴 음식 먹음</td></tr>
+
+<tr class="d2"><td>9</td><td colspan="2"><b>질환 확인</b> <span class="src">확인할 질환이 있는 날 첫 질문 · 끼니 무관</span></td>
+<td colspan="5" class="qq">「{질환명}을 진단받고 관리 중이신가요?」<br>
+<span class="src">한계 — 자가 응답이라 임상 확진이 아님. 아니요·잘 모르겠어요가 질환 없음을 뜻하지 않고,
+확인 전 단계의 문구 금지는 그대로 유지됨</span></td></tr>
+<tr><td>9.1</td><td></td><td>DIET-Q-90</td><td rowspan="3" class="mealcell"><b>끼니와 상관없음</b><br>확인할 질환이 있는 날의 첫 질문으로만 나갑니다</td><td>관리 중이에요</td><td><code>confirmed</code></td><td class="no1">없음</td><td>본인이 관리 중이라고 말함</td></tr>
+<tr><td>9.2</td><td></td><td>DIET-Q-90</td><td>아니요</td><td><code>denied</code></td><td class="no1">없음</td><td>본인이 아니라고 말함</td></tr>
+<tr><td>9.3</td><td></td><td>DIET-Q-90</td><td>잘 모르겠어요</td><td><code>unknown</code></td><td class="no1">없음</td><td>모르겠다고 말함</td></tr>
+</table>
+<p class="where"><b>근거</b> — 코드·문구·점수는 「선택지」 시트의 <code>option_code</code> ·
+<code>option_label</code> · <code>score_value</code> 칸,
+묻는 말과 해석 한계는 「질문」 시트의 <code>question_template</code> ·
+<code>observation_scope</code> · <code>interpretation_limit</code> 칸입니다.
+끼니 경계는 「설정」 시트 <code>CFG-012</code>(10시) · <code>CFG-013</code>(12시) · <code>CFG-014</code>(17시) ·
+<code>CFG-015</code>(하루 경계 04시)입니다.
+번호는 읽기 쉽게 붙인 것으로 계약서의 식별자가 아닙니다.</p>
+
+<h2>표 2 — 한 줄을 읽을 때 지킬 것</h2>
+<table>
+<tr><th style="width:24%">상황</th><th style="width:32%">무슨 일이 생기나</th><th style="width:44%">어떻게 읽나</th></tr>
+<tr><td>사용자가 답을 고침</td><td>같은 질문에 여러 줄이 남음</td>
+<td><code>is_current</code>가 참인 줄 하나만 읽습니다</td></tr>
+<tr><td>질문이 안 나감</td><td><code>CONDITIONAL_SKIP</code>으로 남음</td>
+<td><b>안 한 것이 아니라 묻지 않은 것</b>입니다. 야식 질문은 낮에 들어온 사람에게 안 나갑니다</td></tr>
+<tr><td>답을 비워 둠</td><td><code>PENDING</code>으로 남음</td>
+<td>아직 답하지 않은 것입니다. 안 한 것으로 세면 안 됩니다</td></tr>
+<tr><td>값이 비어 있음</td><td>—</td>
+<td><b>「나쁘다」가 아니라 「모른다」</b>입니다. 0이나 거짓으로 바꾸지 않습니다</td></tr>
+<tr><td>하루치 답 하나만 있음</td><td>—</td>
+<td>그날 그 끼니 사실일 뿐입니다. 경향을 말하려면 여러 날을 모은 값을 써야 합니다</td></tr>
+</table>
+
+<h2>예시 — 번호로 읽어 보기</h2>
+<div class="ex"><b>새벽 6시에 들어와 끼니 규칙에 답한 사람</b>
+<code>1.3 / 04~10시</code> → 저장된 값 <code>DIET-Q-00</code> · <code>very_little_or_skipped</code> ·
+<code>DINNER</code> · 끼니 날짜 <b>어제</b> · 점수 -1<br>
+읽히는 지표 — <b>「어제 저녁 거의 못 먹음」</b></div>
+
+<div class="ex"><b>점심에 들어와 채소에 답한 사람</b>
+<code>2.3 / 12~17시</code> → 저장된 값 <code>DIET-Q-01</code> · <code>none</code> ·
+<code>LUNCH</code> · 오늘 · 점수 -1<br>
+읽히는 지표 — <b>「오늘 점심 채소 반찬 없음」</b></div>
+
+<div class="ex"><b>새벽에 들어와 야식에 답한 사람</b>
+<code>5.3 / 04~10시</code> → 저장된 값 <code>DIET-Q-04</code> · <code>twice_or_more</code> · 점수 없음<br>
+읽히는 지표 — <b>「어젯밤 야식 2회 이상」</b>. 점수가 없어 축 상태에는 들어가지 않습니다</div>
+
+<p class="src" style="margin-top:28px">기준 파일 — maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx (안내 시트 v1.0.1 · 2026-10-02)</p>
 
 </main></body></html>
