@@ -6465,10 +6465,10 @@ const CHRONIC_LIST = [
 /* 내정보 자가 입력과 진료정보는 별도 출처다. 직접 선택 축을 먼저 쓰고
    진료정보 축은 두 번째로 보완한다. 안전 제외 조건은 두 출처를 합친다. */
 const CHRONIC_DIET = {
-  htn:{rule:'DX-02',axes:['veg','salt'],ban:[]},
-  dm:{rule:'DX-01',axes:['veg','sweet','pace'],ban:['FAST','REDUCE']},
-  dyslip:{rule:'DX-03',axes:['pace','fat'],ban:[]},
-  ckd:{rule:'DX-05',axes:[],ban:['INCREASE','REDUCE','FLUID']}
+  htn:{rule:'DX-02',axes:['veg','salt'],goalAxes:['salt','veg'],ban:[]},
+  dm:{rule:'DX-01',axes:['veg','sweet','pace'],goalAxes:['veg','sweet','pace'],ban:['FAST','REDUCE']},
+  dyslip:{rule:'DX-03',axes:['pace','fat'],goalAxes:['fat','pace'],ban:[]},
+  ckd:{rule:'DX-05',axes:[],goalAxes:[],ban:['INCREASE','REDUCE','FLUID']}
 };
 const CHRONIC = { picked:[], draft:null, savedAt:null, none:false, payload:null };
 function chronicPayload(){
@@ -6483,10 +6483,17 @@ function chronicDietState(){
   const qOrder=Object.values(Q_ROTATION).map(q=>q.id);
   const axes=[...new Set(CHRONIC.picked.flatMap(code=>CHRONIC_DIET[code]?.axes||[]))]
     .sort((a,b)=>qOrder.indexOf(a)-qOrder.indexOf(b));
-  /* 목표 축: 오늘 물은 회전 질문의 축을 쓰고, 그 축에 문구세트가 없으면 문구가 있는 첫 축 */
-  const asked=typeof QUESTIONS!=='undefined' ? QUESTIONS.find(q=>axes.includes(q.id))?.id : null;
-  const withPhrases=axes.filter(k=>MEAL_PHRASES[k]);
-  const axis=(asked && MEAL_PHRASES[asked]) ? asked : (withPhrases[0]||null);
+  /* 목표 축: 저장된 질환 선택 순서 → 그 질환의 「질환연결축」 행 순서로 보고,
+     금지 성격을 뺀 뒤 문구가 남는 첫 축. 오늘 물은 회전 질문과는 무관하다 */
+  let axis=null;
+  for(const code of CHRONIC.picked){
+    for(const k of (CHRONIC_DIET[code]?.goalAxes||[])){
+      const set=MEAL_PHRASES[k];
+      const pool=set?[...set.입문,...set.기본,...set.도전]:[];
+      if(pool.some(p=>fitsTarget(p)&&!banned.has(p.nature))){axis=k;break;}
+    }
+    if(axis) break;
+  }
   return {banned,axes,axis};
 }
 function toggleChronic(k){
