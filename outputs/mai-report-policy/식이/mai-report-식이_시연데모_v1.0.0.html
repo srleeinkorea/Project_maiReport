@@ -109,57 +109,39 @@ function axisState(rows,idx,qid){
  return '보통';
 }
 function questionAxis(c,rows){
- const linkedSet=new Set([...(c.manualAxes||[]),...(c.clinicAxes||[]),...(c.screenAxes||[])]);
- const all=[...new Set([...linkedSet,...GENERAL])].filter(a=>hasGoal(c,a));
+ const linked=[...new Set([...(c.manualAxes||[]),...(c.clinicAxes||[]),...(c.screenAxes||[])])].filter(a=>hasGoal(c,a));
+ const all=[...new Set([...linked,...GENERAL])].filter(a=>hasGoal(c,a));
+ const general=all.filter(a=>!linked.includes(a));
+ let pool=linked.length?linked:all;
+ // 질환 축을 모두 한 번씩 물었으면(마지막 일반 축 이후 기준) 오늘은 일반 축 하나
+ if(linked.length&&general.length){
+  let lastGeneral=-1;
+  (rows||[]).forEach((r,i)=>{ const k=Object.keys(AXES).find(a=>AXES[a].qid===r.axis.qid); if(k&&!linked.includes(k)) lastGeneral=i; });
+  const since=new Set((rows||[]).slice(lastGeneral+1).map(r=>Object.keys(AXES).find(a=>AXES[a].qid===r.axis.qid)));
+  if(linked.every(a=>since.has(a))) pool=general;
+ }
  const answered=k=>(rows||[]).filter(r=>r.axis.qid===AXES[k].qid).length;
  const lastAsked=k=>{ for(let j=(rows||[]).length-1;j>=0;j--){ if(rows[j].axis.qid===AXES[k].qid) return j; } return -1; };
- all.sort((a,b)=>{
-  const d=answered(a)-answered(b); if(d) return d;                 // 28일 답 최소
-  const la=linkedSet.has(a)?0:1, lb=linkedSet.has(b)?0:1;
-  if(la!==lb) return la-lb;                                        // 질환 연결은 동률 우선
-  return lastAsked(a)-lastAsked(b);                                // 오래된 순
- });
- return all[0]||GENERAL[0];
+ const order=k=>AXES[k].qid;
+ return [...pool].sort((a,b)=>(answered(a)-answered(b))||(lastAsked(a)-lastAsked(b))||order(a).localeCompare(order(b)))[0]||GENERAL[0];
 }
-function sourceFor(c,day,date,rows){
- // 연결 축: 질환·검진으로 이어진 축 (출처 순서)
- const linked=[
-  {code:'SELF_REPORTED',label:'직접 선택 연결 축',axes:c.manualAxes},
-  {code:'CLINIC_CONFIRMED',label:'진료정보 연결 축',axes:(c.confirmClinicFirst||Number.isInteger(c.clinicConfirmDay))&&day<=(c.clinicConfirmDay??0)?[]:c.clinicAxes},
-  {code:'SCREENING',label:'건강검진 연결 축',axes:screeningActive(c,date)?c.screenAxes:[]},
- ];
- const linkedSet=new Set(); linked.forEach(g=>g.axes.forEach(a=>linkedSet.add(a)));
- const stateAt=k=>{
-  const same=(rows||[]).filter(r=>r.axis.qid===AXES[k].qid);
-  if(same.length<3) return {rank:1,label:'관찰 중'};
-  const bad=same.filter(r=>r.answer===2).length/same.length;
-  if(bad>=.5) return {rank:0,label:'개선 필요'};
-  const l7=same.slice(-7);
-  if(same.length>=7&&l7.filter(r=>r.answer===0).length/7>=.6&&l7.filter(r=>r.answer===2).length/7<.2) return {rank:3,label:'양호'};
-  return {rank:2,label:'보통'};
- };
- const lastShown=k=>{ for(let j=(rows||[]).length-1;j>=0;j--){ if(rows[j].axis.qid===AXES[k].qid) return j; } return -1; };
 
- // ① 연결 축이 개선 필요이면 그 축부터 (출처 순서)
- for(const g of linked){
-  for(const ax of g.axes.filter(a=>hasGoal(c,a))){
-   if(stateAt(ax).rank===0) return {...g,axis:ax,why:'연결 축이 개선 필요'};
-  }
+function sourceFor(c,day,date,rows){
+ // 목표 축: 질환을 고른 순서 → 질환연결축 행 순서. 앞 출처에 쓸 문구가 있으면 그 안에서만 돈다
+ const groups=[
+  {code:'SELF_REPORTED',label:'직접 선택 · 1순위',axes:c.manualAxes},
+  {code:'CLINIC_CONFIRMED',label:'진료정보 · 2순위',axes:(c.confirmClinicFirst||Number.isInteger(c.clinicConfirmDay))&&day<=(c.clinicConfirmDay??0)?[]:c.clinicAxes},
+  {code:'SCREENING',label:'건강검진 · 3순위',axes:screeningActive(c,date)?c.screenAxes:[]},
+  {code:'QUESTION',label:'일반 질문 · 4순위',axes:GENERAL},
+ ];
+ for(const g of groups){
+  const ok=g.axes.filter(a=>hasGoal(c,a));
+  if(ok.length) return {...g,axis:ok[day%ok.length]};
  }
- // ② 아니면 연결 축과 일반 축을 함께 놓고 상태가 나쁜 순 · 같으면 연결 축 먼저 · 그다음 오래된 순
- const all=[...new Set([...linkedSet,...GENERAL])].filter(a=>hasGoal(c,a));
- if(!all.length) return {code:'GUIDANCE_ONLY',label:'안내만 표시',axis:GENERAL[0],why:'쓸 문구 없음'};
- all.sort((a,b)=>{
-  const sa=stateAt(a),sb=stateAt(b);
-  if(sa.rank!==sb.rank) return sa.rank-sb.rank;
-  const la=linkedSet.has(a)?0:1, lb=linkedSet.has(b)?0:1;
-  if(la!==lb) return la-lb;
-  return lastShown(a)-lastShown(b);
- });
- const pick=all[0];
- const g=linked.find(x=>x.axes.includes(pick));
- return g ? {...g,axis:pick,why:'상태가 가장 나쁜 축'} : {code:'QUESTION',label:'일반 축',axis:pick,why:'상태가 가장 나쁜 축'};
+ return {code:'GUIDANCE_ONLY',label:'안내만 표시',axis:GENERAL[0]};
 }
+
+
 
 function simulate(c,count){
  const rows=[],stageByAxis={},historyByAxis={};
