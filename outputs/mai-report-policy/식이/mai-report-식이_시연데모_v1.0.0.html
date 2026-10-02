@@ -99,6 +99,19 @@ function dateAt(day){const d=new Date(Date.UTC(2026,8,1+day));return d.toISOStri
 function addMonths(iso,months){const [y,m,d]=iso.split('-').map(Number),first=new Date(Date.UTC(y,m-1+months,1)),last=new Date(Date.UTC(first.getUTCFullYear(),first.getUTCMonth()+1,0)).getUTCDate();return `${first.getUTCFullYear()}-${String(first.getUTCMonth()+1).padStart(2,'0')}-${String(Math.min(d,last)).padStart(2,'0')}`}
 function screeningActive(c,date){return !c.screeningDate||(c.screeningDate<=date&&date<=addMonths(c.screeningDate,REFERENCE.screeningValidityMonths))}
 function hasGoal(c,axisKey){return AXES[axisKey].goals.some(g=>!g[2]||!c.bans.includes(g[2]))}
+function questionAxis(c,rows){
+ const linkedSet=new Set([...(c.manualAxes||[]),...(c.clinicAxes||[]),...(c.screenAxes||[])]);
+ const all=[...new Set([...linkedSet,...GENERAL])].filter(a=>hasGoal(c,a));
+ const answered=k=>(rows||[]).filter(r=>r.axis.qid===AXES[k].qid).length;
+ const lastAsked=k=>{ for(let j=(rows||[]).length-1;j>=0;j--){ if(rows[j].axis.qid===AXES[k].qid) return j; } return -1; };
+ all.sort((a,b)=>{
+  const d=answered(a)-answered(b); if(d) return d;                 // 28일 답 최소
+  const la=linkedSet.has(a)?0:1, lb=linkedSet.has(b)?0:1;
+  if(la!==lb) return la-lb;                                        // 질환 연결은 동률 우선
+  return lastAsked(a)-lastAsked(b);                                // 오래된 순
+ });
+ return all[0]||GENERAL[0];
+}
 function sourceFor(c,day,date,rows){
  // 연결 축: 질환·검진으로 이어진 축 (출처 순서)
  const linked=[
@@ -145,20 +158,21 @@ function simulate(c,count){
    const date=dateAt(i),qHit=(c.confirmQueue||[]).find(q=>q.day===i),isClinicConfirmation=Boolean(qHit||(c.confirmClinicFirst&&i===0)||(Number.isInteger(c.clinicConfirmDay)&&i===c.clinicConfirmDay)),confirmLabel=qHit?qHit.label:null,confirmVisit=qHit?qHit.visit:null;
   const tm=TIMES[i%TIMES.length], fixed=(c.id==='normal'&&i===5)?1:0;
   let src=sourceFor(c,i,date,rows);
-  if(isClinicConfirmation&&c.clinicAxes.length)src={code:'CLINIC_CONFIRMED',label:'진료정보 확인 직후',axis:c.clinicAxes[0]};
-  let axis=AXES[src.axis],answer=c.pattern[i%c.pattern.length];
-  const history=historyByAxis[axis.qid]||[],current=stageByAxis[axis.qid]||'INTRO',ended=history.filter(x=>x.day<i),recent=ended.filter(x=>x.day>=i-7),lastTwo=ended.slice(-2);
+  let qKey=questionAxis(c,rows);
+  if(isClinicConfirmation&&c.clinicAxes.length){src={code:'CLINIC_CONFIRMED',label:'진료정보 확인 직후',axis:c.clinicAxes[0]};qKey=c.clinicAxes[0];}
+  let axis=AXES[qKey],goalAxis=AXES[src.axis]||axis,answer=c.pattern[i%c.pattern.length];
+  const history=historyByAxis[goalAxis.qid]||[],current=stageByAxis[goalAxis.qid]||'INTRO',ended=history.filter(x=>x.day<i),recent=ended.filter(x=>x.day>=i-7),lastTwo=ended.slice(-2);
   let stage=current,stageReason=null;
-  if(lastTwo.length===2&&lastTwo.every(x=>!x.done)&&current!=='INTRO'){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)-1];stageReason='미완료 2건 연속';historyByAxis[axis.qid]=[]}
-  else if(recent.filter(x=>x.done).length>=3&&current!=='CHALLENGE'){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)+1];stageReason='최근 7일 완료 3건';historyByAxis[axis.qid]=[]}
-  stageByAxis[axis.qid]=stage;
-  let pool=axis.goals,blocked=pool.filter(g=>g[2]&&c.bans.includes(g[2]));
+  if(lastTwo.length===2&&lastTwo.every(x=>!x.done)&&current!=='INTRO'){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)-1];stageReason='미완료 2건 연속';historyByAxis[goalAxis.qid]=[]}
+  else if(recent.filter(x=>x.done).length>=3&&current!=='CHALLENGE'){stage=REFERENCE.stages[REFERENCE.stages.indexOf(current)+1];stageReason='최근 7일 완료 3건';historyByAxis[goalAxis.qid]=[]}
+  stageByAxis[goalAxis.qid]=stage;
+  let pool=goalAxis.goals,blocked=pool.filter(g=>g[2]&&c.bans.includes(g[2]));
   let allowed=pool.filter(g=>!g[2]||!c.bans.includes(g[2]));
   let goal=allowed[Math.min(REFERENCE.stages.indexOf(stage),allowed.length-1)],goalSource=src.label;
   if(fixed===1){goal=['다음 끼니는 먹기 쉬운 것부터','지난 끼니를 적게 먹은 날은 회복 풀을 먼저 사용해요.',null];goalSource='회복 분기 · 우선';}
   const done=(i%4!==2),score=2-answer;
-  (historyByAxis[axis.qid]||(historyByAxis[axis.qid]=[])).push({day:i,done});
-   rows.push({day:i+1,date,time:tm[0],meal:tm[1],fixed,src,axis,answer,goal,goalSource,blocked,done,score,stage,stageReason,isClinicConfirmation,confirmLabel,confirmVisit});
+  (historyByAxis[goalAxis.qid]||(historyByAxis[goalAxis.qid]=[])).push({day:i,done});
+   rows.push({day:i+1,date,time:tm[0],meal:tm[1],fixed,src,axis,answer,goal,goalSource,blocked,done,score,stage,stageReason,isClinicConfirmation,confirmLabel,confirmVisit,goalAxis});
  }
  return rows;
 }
@@ -200,7 +214,7 @@ function render(){
  }
  document.getElementById('axisState').textContent=axisStatus(rows,selectedDay);
  renderAxisBoard(rows,selectedDay);
- document.getElementById('goalCard').innerHTML=`<div class="goal-source">${d.goalSource}</div><div class="goal-title">${d.goal[0]}</div><div class="goal-foot"><span>${d.axis.name} · ${REFERENCE.stageLabels[d.stage]} 단계${d.stageReason?' · '+d.stageReason:''}</span><button>${d.done?'완료함':'실천하기'}</button></div>`;
+ document.getElementById('goalCard').innerHTML=`<div class="goal-source">${d.goalSource}</div><div class="goal-title">${d.goal[0]}</div><div class="goal-foot"><span>${(d.goalAxis||d.axis).name} · ${REFERENCE.stageLabels[d.stage]} 단계${d.stageReason?' · '+d.stageReason:''}</span><button>${d.done?'완료함':'실천하기'}</button></div>`;
  const safe=c.bans.length?`안전 필터 적용: ${c.bans.join(' · ')} 성격의 목표를 제외했습니다.`:'적용된 질환별 안전 제외 조건이 없습니다.';document.getElementById('safetyNotice').textContent=safe;
  document.getElementById('rangeButtons').innerHTML=[7,14,30].map(n=>`<button class="${range===n?'on':''}" data-range="${n}">${n}일</button>`).join('');document.querySelectorAll('[data-range]').forEach(b=>b.onclick=()=>{range=Number(b.dataset.range);selectedDay=Math.min(selectedDay,range-1);render()});
  const dietRows=rows,done=dietRows.filter(x=>x.done).length,blocked=dietRows.reduce((n,x)=>n+x.blocked.length,0),good=dietRows.filter(x=>x.answer===0).length;
