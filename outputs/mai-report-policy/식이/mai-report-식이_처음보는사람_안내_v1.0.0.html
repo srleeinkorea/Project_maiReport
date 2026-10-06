@@ -76,7 +76,7 @@ li{margin:6px 0}
 <div class="q">답 — 안 먹었어요 / 절반 이하 / 절반 넘게 &nbsp;→&nbsp; <b>「절반 넘게」</b>를 고릅니다</div></div></div>
 <div class="dayrow"><div class="dayt">목표</div><div class="dayb">
 <b>「한 끼는 국물 반만」</b>
-<div class="q">국물을 물어봤으니 국물 목표가 나갑니다. 아래에 「국물을 덜 먹으면 그 국물에 든 나트륨 섭취도 줄어요」라는 한 줄이 붙습니다</div></div></div>
+<div class="q">국물을 물어봤으니 국물 목표가 나갑니다. 화면에 보이는 건 이 한 줄이 전부입니다</div></div></div>
 <div class="dayrow"><div class="dayt">저녁에</div><div class="dayb">
 <b>사용자가 「했어요」를 누릅니다</b>
 <div class="q">이게 하루의 끝입니다. 내일은 다른 습관을 묻습니다</div></div></div>
@@ -89,25 +89,30 @@ li{margin:6px 0}
 <p>이 다섯 개만 알면 나머지 문서가 읽힙니다.</p>
 
 <table>
-<tr><th style="width:14%">말</th><th style="width:40%">무슨 뜻인가</th><th style="width:46%">예를 들면</th></tr>
+<tr><th style="width:11%">말</th><th style="width:31%">무슨 뜻인가</th><th style="width:36%">예를 들면</th><th style="width:22%">엑셀 어디에</th></tr>
 <tr><td><b>축</b></td>
 <td>식습관을 나눠 놓은 칸. 여덟 개가 있습니다</td>
 <td>「채소」가 한 축, 「짠맛·국물」이 또 한 축입니다.
-사람마다 채소는 잘하는데 국물은 못할 수 있으니 따로 봅니다</td></tr>
+사람마다 채소는 잘하는데 국물은 못할 수 있으니 따로 봅니다</td>
+<td>데이터계약 <b>질문</b> 시트<br><span class="src">행동 축 열 · 8줄</span></td></tr>
 <tr><td><b>질문</b></td>
 <td>축마다 하나씩 정해진 객관식 물음. 답은 늘 세 개</td>
 <td>채소 축의 질문은 「채소 반찬 몇 가지 드셨나요?」 하나뿐입니다.
-매일 다른 말로 묻지 않습니다</td></tr>
+매일 다른 말로 묻지 않습니다</td>
+<td>데이터계약 <b>질문</b> 시트<br><span class="src">질문 문장 열</span><br>답은 <b>선택지</b> 시트 27줄</td></tr>
 <tr><td><b>상태</b></td>
 <td>그 축을 <b>여러 날</b> 지켜본 결과. 네 가지로 나옵니다</td>
-<td>채소 질문에 최근 답한 것 중 「먹지 않았어요」가 절반을 넘으면 그 사람의 채소 축은 <b>개선 필요</b>입니다</td></tr>
+<td>채소 질문에 최근 답한 것 중 「먹지 않았어요」가 절반을 넘으면 그 사람의 채소 축은 <b>개선 필요</b>입니다</td>
+<td>데이터계약 <b>필드정의</b> 시트<br><span class="src">축 상태의 허용값 4종</span><br>경계 숫자는 <b>설정</b> 시트</td></tr>
 <tr><td><b>단계</b></td>
 <td>그 사람에게 얼마나 부담되는 목표를 줘도 되는지. 세 칸</td>
 <td>이제 막 시작한 사람은 <b>입문</b>이라 「한 끼에 채소 하나」,
-꾸준히 해낸 사람은 <b>도전</b>이라 「저녁은 채소부터 먹기」가 나갑니다</td></tr>
+꾸준히 해낸 사람은 <b>도전</b>이라 「저녁은 채소부터 먹기」가 나갑니다</td>
+<td>데이터계약 <b>필드정의</b> 시트<br><span class="src">단계 허용값 3종</span><br>올라가는 조건은 <b>검증규칙</b> V-42</td></tr>
 <tr><td><b>목표</b></td>
-<td>오늘 화면에 뜨는 짧은 행동 한 줄. 하루에 하나</td>
-<td>「한 끼에 채소 하나」. 12자를 넘지 않게 씁니다</td></tr>
+<td>오늘 화면에 뜨는 짧은 행동 한 줄. 하루에 하나.<br><b>사용자가 보는 유일한 문장</b>입니다</td>
+<td>「한 끼에 채소 하나」. 12자를 넘지 않게 씁니다</td>
+<td>데이터계약 <b>목표문구</b> 시트 172줄<br><span class="src">참조설정데이터 <b>문구세트</b> 시트에도 같은 목록</span></td></tr>
 </table>
 
 <div class="warn"><b>가장 헷갈리는 두 가지를 먼저 떼어 놓겠습니다.</b><br>
@@ -287,6 +292,23 @@ B 씨는 아직 「어떤 사람인지 모르는」 상태입니다.</div>
 식사 시각 축은 12개뿐이라 ③·④를 거치면 두세 개만 남습니다.
 그래서 같은 문구가 며칠 만에 다시 돌아옵니다. 문구를 계속 늘리는 이유가 이것입니다.</div>
 
+<h3>화면에 나가는 것은 문구 한 줄뿐입니다</h3>
+<p>문구마다 「이유 한 줄」이 함께 저장돼 있습니다.
+「국물을 덜 먹으면 그 국물에 든 나트륨 섭취도 줄어요」 같은 설명입니다.
+하지만 <b>이건 사용자에게 보여 주는 글이 아닙니다.</b></p>
+<table>
+<tr><th style="width:30%">값</th><th style="width:20%">화면에</th><th style="width:50%">왜</th></tr>
+<tr><td><b>목표 문구</b></td><td><b>나갑니다</b></td><td>사용자가 보는 유일한 문장입니다</td></tr>
+<tr><td>이유 한 줄</td><td rowspan="5">나가지 않습니다</td>
+<td rowspan="5">왜 이 목표가 나왔는지를 설명하면 사용자가 자기 상태를 유추하게 됩니다.
+식이는 「당신은 지금 개선 필요입니다」 같은 판정을 보여 주지 않기로 했습니다.<br>
+이 값들은 <b>개발과 기획이 보기 위한 데이터</b>이고, 다른 기능에서 가져다 쓸 때 쓰는 재료입니다</td></tr>
+<tr><td>축 상태</td></tr>
+<tr><td>단계</td></tr>
+<tr><td>어느 축에서 골랐는지</td></tr>
+<tr><td>어느 출처에서 왔는지</td></tr>
+</table>
+
 <h3>저녁을 이미 먹고 밤에 들어온 경우</h3>
 <p>오늘 끼니가 끝난 사람에게 「점심에 채소 드세요」라고 할 수는 없습니다.
 그래서 이때는 <b>먹는 목표 대신 내일을 쉽게 만드는 준비 행동</b>이 나갑니다.</p>
@@ -414,7 +436,133 @@ B 씨는 아직 「어떤 사람인지 모르는」 상태입니다.</div>
 <td>지금은 시간대와 평일·주말·명절만 봅니다. 사용자가 지금 회식 중인지 알 방법이 없습니다</td></tr>
 </table>
 
-<h2><span class="num">11</span>문서 지도 — 무엇을 어디서 보나</h2>
+<h2><span class="num">11</span>이 값이 엑셀 어디에 있나</h2>
+<p>앞에서 설명한 것들이 실제로 어느 파일, 어느 시트, 어느 열에 들어 있는지입니다.
+파일은 <b>데이터계약</b>(maiReport_식이_개발전달_데이터계약) 하나가 중심이고,
+문구를 보기 편하게 정리한 것이 <b>참조설정데이터</b>입니다.</p>
+
+<table>
+<tr><th style="width:16%">무엇</th><th style="width:34%">뜻</th>
+<th style="width:14%">파일</th><th style="width:16%">시트</th><th style="width:20%">열</th></tr>
+
+<tr class="g"><td colspan="5"><b>축과 질문</b></td></tr>
+<tr><td><b>축 8개</b></td><td>식습관을 나눠 놓은 칸</td>
+<td>데이터계약</td><td><b>질문</b></td><td>행동 축 <code>axis_name</code></td></tr>
+<tr><td>질문 문장</td><td>사용자에게 보이는 물음</td>
+<td>데이터계약</td><td><b>질문</b></td><td><code>question_template</code></td></tr>
+<tr><td>고정인가 회전인가</td><td>매일 묻는 질문인지 돌아가며 묻는 질문인지</td>
+<td>데이터계약</td><td><b>질문</b></td><td><code>question_role</code></td></tr>
+<tr><td>해석 한계</td><td>이 답으로 여기까지만 말할 수 있다</td>
+<td>데이터계약</td><td><b>질문</b></td><td><code>interpretation_limit</code></td></tr>
+<tr><td><b>답 27개</b></td><td>질문마다 세 개씩</td>
+<td>데이터계약</td><td><b>선택지</b></td><td>문구 <code>option_label</code> · 코드 <code>option_code</code></td></tr>
+<tr><td>답의 점수</td><td>좋음 1 · 보통 0 · 나쁨 -1</td>
+<td>데이터계약</td><td><b>선택지</b></td><td><code>score_value</code></td></tr>
+
+<tr class="g"><td colspan="5"><b>상태와 단계</b></td></tr>
+<tr><td><b>상태 4종</b></td><td>관찰 중 · 개선 필요 · 보통 · 양호</td>
+<td>데이터계약</td><td><b>필드정의</b></td>
+<td><code>diet_axis_snapshot</code> 의 <code>state_code</code> 허용값</td></tr>
+<tr><td>상태 경계 숫자</td><td>0.5 · 0.6 · 0.2 · 28일 · 3건 · 7건 · 84일</td>
+<td>데이터계약</td><td><b>설정</b> · <b>설정파라미터</b></td>
+<td><code>CFG-002</code> ~ <code>CFG-009</code></td></tr>
+<tr><td><b>단계 3종</b></td><td>입문 · 기본 · 도전</td>
+<td>데이터계약</td><td><b>필드정의</b></td>
+<td><code>diet_axis_stage</code> 의 <code>stage_code</code> 허용값</td></tr>
+<tr><td>단계가 올라가는 조건</td><td>최근 7일 완료 3건 + 상태 조건</td>
+<td>데이터계약</td><td><b>검증규칙</b> · <b>설정</b></td>
+<td><code>V-42</code> · <code>CFG-068</code> · <code>CFG-069</code></td></tr>
+
+<tr class="g"><td colspan="5"><b>목표 문구</b></td></tr>
+<tr><td><b>문구 172개</b></td><td>화면에 나가는 한 줄</td>
+<td>데이터계약</td><td><b>목표문구</b></td><td><code>tile_text</code></td></tr>
+<tr><td>〃 (보기 편한 쪽)</td><td>축·단계·근거를 한글로 정리한 같은 목록</td>
+<td>참조설정데이터</td><td><b>문구세트</b></td><td>타일 문구 · 글자수 · 성격</td></tr>
+<tr><td>이유 한 줄</td><td><b>화면에 안 나갑니다.</b> 개발·기획용 설명</td>
+<td>데이터계약</td><td><b>목표문구</b></td><td><code>reason_text</code></td></tr>
+<tr><td>어느 축 · 어느 단계</td><td>이 문구가 어디에 속하는지</td>
+<td>데이터계약</td><td><b>목표문구</b></td>
+<td><code>axis_question_id</code> · <code>stage_code</code></td></tr>
+<tr><td>언제 나갈 수 있나</td><td>시간대 · 평일 · 주말 · 명절</td>
+<td>데이터계약</td><td><b>노출조건</b></td>
+<td><code>time_code</code> · <code>calendar_code</code></td></tr>
+<tr><td>저녁 뒤에도 쓸 수 있나</td><td>「오늘 밤」 목표로 쓸 수 있는지</td>
+<td>데이터계약</td><td><b>노출조건</b></td><td><code>after_dinner_eligible</code></td></tr>
+
+<tr class="g"><td colspan="5"><b>질환</b></td></tr>
+<tr><td><b>질환 14개</b></td><td>진료정보로 들어올 수 있는 것 전부</td>
+<td>데이터계약</td><td><b>질환규칙</b></td><td><code>disease_name</code></td></tr>
+<tr><td>확인 질문을 하나</td><td>물어보는 질환인지 묻지 않고 막기만 하는지</td>
+<td>데이터계약</td><td><b>질환규칙</b></td>
+<td><code>confirmation_enabled</code> · <code>confirmation_label</code></td></tr>
+<tr><td>왜 막나</td><td>금지 사유 문장</td>
+<td>데이터계약</td><td><b>질환규칙</b></td><td><code>ban_reason</code></td></tr>
+<tr><td>질환 ↔ 축 연결</td><td>고혈압 → 짠맛·채소 같은 짝</td>
+<td>데이터계약</td><td><b>질환연결축</b></td><td>규칙 ID + 질문 ID</td></tr>
+<tr><td><b>금지 성격 5종</b></td><td>공복 · 감량 · 증량 · 수분 · 질감</td>
+<td>데이터계약</td><td><b>질환금지성격</b></td><td><code>nature_code</code></td></tr>
+<tr><td>문구마다의 성격</td><td>이 문구가 무엇을 요구하는 말인지</td>
+<td>데이터계약</td><td><b>목표문구</b></td><td><code>nature_code</code></td></tr>
+<tr><td>직접 선택 4개</td><td>내정보 화면에서 고를 수 있는 것</td>
+<td>데이터계약</td><td><b>내정보질환매핑</b></td><td><code>condition_code</code> · <code>diet_status</code></td></tr>
+<tr><td>어떤 상병코드로 찾나</td><td>후보를 만드는 코드·기간·횟수</td>
+<td>데이터계약</td><td><b>상병코드조건</b></td><td>조건 행 전체</td></tr>
+
+<tr class="g"><td colspan="5"><b>검진과 시각</b></td></tr>
+<tr><td>검진 → 축 연결</td><td>혈압 → 짠맛 같은 짝</td>
+<td>데이터계약</td><td><b>검진식이연결</b></td>
+<td><code>metric_id</code> · <code>axis_question_id</code></td></tr>
+<tr><td>끼니 경계 시각</td><td>10시 · 12시 · 17시 · 하루 경계 4시</td>
+<td>데이터계약</td><td><b>설정</b></td>
+<td><code>CFG-012</code> ~ <code>CFG-015</code></td></tr>
+<tr><td>검진 유효기간</td><td>3개월</td>
+<td>데이터계약</td><td><b>설정</b></td><td><code>CFG-058</code></td></tr>
+
+<tr class="g"><td colspan="5"><b>규칙</b></td></tr>
+<tr><td>오늘 무슨 축을 물을지</td><td>회전 규칙</td>
+<td>데이터계약</td><td><b>설정</b> · <b>구현기준</b></td>
+<td><code>CFG-041</code> · <code>R-09</code></td></tr>
+<tr><td>목표 축 = 질문 축</td><td>물은 축으로 목표를 낸다</td>
+<td>데이터계약</td><td><b>검증규칙</b> · <b>구현기준</b></td>
+<td><code>V-39</code> · <code>V-50</code> · <code>R-03</code></td></tr>
+<tr><td>하루 질문 개수</td><td>세션당 최대 2개</td>
+<td>데이터계약</td><td><b>구현기준</b></td><td><code>R-01</code></td></tr>
+<tr><td>화면에 뭘 숨기나</td><td>이유·상태·단계·출처는 안 보여 준다</td>
+<td>데이터계약</td><td><b>구현기준</b></td><td>구현 순서 6단계</td></tr>
+<tr><td>안 하기로 한 것</td><td>처방식·알레르기 전제 금지</td>
+<td>데이터계약</td><td><b>구현기준</b></td><td><code>R-07</code></td></tr>
+<tr><td>상황 조건을 안 쓰는 이유</td><td>배달·편의점·회식은 자동으로 못 씀</td>
+<td>데이터계약</td><td><b>구현기준</b></td><td><code>R-08</code></td></tr>
+
+<tr class="g"><td colspan="5"><b>개발이 만들 테이블</b></td></tr>
+<tr><td>무슨 테이블이 필요한가</td><td>이름 · 저장 단위 · 기본키</td>
+<td>데이터계약</td><td><b>테이블정의</b></td><td>표 전체</td></tr>
+<tr><td>테이블마다 무슨 칸</td><td>타입 · 필수 여부 · 허용값</td>
+<td>데이터계약</td><td><b>필드정의</b></td><td>표 전체</td></tr>
+<tr><td>지켜야 할 검사</td><td>어긋나면 어떻게 할지</td>
+<td>데이터계약</td><td><b>검증규칙</b></td><td>표 전체</td></tr>
+
+<tr class="g"><td colspan="5"><b>근거와 검수</b> <span class="src">다른 파일입니다</span></td></tr>
+<tr><td>문구의 근거</td><td>어느 기관 자료인지 · URL · 해석 범위</td>
+<td><b>의학근거대조</b></td><td><b>출처목록</b></td><td>표 전체</td></tr>
+<tr><td>문구별 검토 이력</td><td>원래 문구 → 수정 문구 → 사용 여부</td>
+<td><b>의학근거대조</b></td><td><b>문구별검토</b></td><td>표 전체</td></tr>
+<tr><td>의학 검수 판정</td><td>승인 · 조건부 · 수정 · 삭제 · 검수 대기</td>
+<td><b>문구세트 의학검수</b></td><td><b>검수결과</b></td><td><code>판정</code></td></tr>
+<tr><td>검수 항목 ↔ 계약서</td><td>검수한 문구가 계약서 어느 번호인지</td>
+<td><b>문구세트 의학검수</b></td><td><b>검수결과</b></td><td>계약서 문구 ID · 연결 상태</td></tr>
+</table>
+
+<div class="warn"><b>어디부터 열어야 하나.</b><br>
+<b>문구가 궁금하면</b> → 참조설정데이터의 <b>문구세트</b> 시트. 한글로 정리돼 있어 읽기 쉽습니다<br>
+<b>규칙이 궁금하면</b> → 데이터계약의 <b>구현기준</b>과 <b>검증규칙</b> 시트<br>
+<b>숫자가 궁금하면</b> → 데이터계약의 <b>설정</b>과 <b>설정파라미터</b> 시트<br>
+<b>개발이 만들 것이 궁금하면</b> → 데이터계약의 <b>테이블정의</b>와 <b>필드정의</b> 시트</div>
+
+<p class="src">두 파일에 같은 내용이 들어 있으면 <b>데이터계약이 정본</b>입니다.
+참조설정데이터는 같은 것을 사람이 읽기 좋게 옮겨 놓은 것입니다.</p>
+
+<h2><span class="num">12</span>문서 지도 — 무엇을 어디서 보나</h2>
 <p>식이 문서가 여러 개입니다. 찾는 것에 따라 볼 곳이 다릅니다.</p>
 <table>
 <tr><th style="width:30%">알고 싶은 것</th><th style="width:34%">볼 문서</th><th style="width:36%">무엇이 들어 있나</th></tr>
@@ -434,7 +582,7 @@ B 씨는 아직 「어떤 사람인지 모르는」 상태입니다.</div>
 <p class="where src">숫자가 서로 다른 이유 — 의학검수는 <b>검수한 후보 전부</b>(220개), 데이터계약은 <b>실제 쓰는 것</b>(172개),
 근거대조서는 <b>지금까지 만든 것 전수</b>(225개)를 셉니다. 모수가 다릅니다.</p>
 
-<h2><span class="num">12</span>처음 보는 사람이 자주 틀리는 것</h2>
+<h2><span class="num">13</span>처음 보는 사람이 자주 틀리는 것</h2>
 <table>
 <tr><th style="width:38%">이렇게 생각하기 쉽지만</th><th style="width:62%">실제로는</th></tr>
 <tr><td>「목표를 잘 해내면 상태가 좋아지겠지」</td>
