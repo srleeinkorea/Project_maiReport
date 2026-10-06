@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>maiReport · 식이 처음 보는 사람을 위한 안내</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f5f9;--fg:#0f172a;--mut:#475569;--line:#e2e8f0;--box:#fff;--tint:#f8fafc;--bd2:#cbd5e1}
+*{box-sizing:border-box}
+body{margin:0;padding:26px 20px 80px;background:var(--bg);color:var(--fg);
+ font:15.5px/1.75 "Noto Sans KR","Malgun Gothic",system-ui,sans-serif}
+main{max-width:980px;margin:0 auto}
+h1{font-size:28px;margin:0 0 8px;line-height:1.35}
+.sub{color:var(--mut);margin:0 0 8px;font-size:15px}
+h2{font-size:21px;margin:48px 0 10px;padding-top:18px;border-top:2px solid var(--fg)}
+h2 .num{display:inline-block;min-width:32px;color:var(--mut);font-size:15px;font-weight:400}
+h3{font-size:17px;margin:28px 0 8px}
+p{margin:10px 0}
+code{background:var(--tint);padding:1px 5px;border-radius:3px;font-size:13px;
+ font-family:"JetBrains Mono",Consolas,monospace}
+table{width:100%;border-collapse:collapse;margin:14px 0;background:var(--box);font-size:14.5px;
+ box-shadow:0 1px 3px rgba(15,23,42,.06);border-radius:10px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+th{background:var(--tint);font-weight:600}
+.n{text-align:center;white-space:nowrap}
+.src{font-size:13px;color:var(--mut)}
+.box{background:var(--box);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:16px 0}
+.warn{background:var(--tint);border-left:5px solid var(--fg);border-radius:0 10px 10px 0;
+ padding:16px 20px;margin:18px 0}
+.ex{background:var(--tint);border-radius:10px;padding:14px 18px;margin:14px 0}
+.ex b.t{display:block;margin-bottom:6px}
+ul,ol{margin:10px 0;padding-left:24px}
+li{margin:6px 0}
+.day{display:flex;flex-direction:column;gap:0;margin:16px 0}
+.dayrow{display:flex;gap:16px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+.dayrow:last-child{border-bottom:none}
+.dayt{flex:0 0 92px;font-weight:700;font-size:14.5px}
+.dayb{flex:1}
+.dayb .q{font-size:14px;color:var(--mut);margin-top:3px}
+.tb{display:flex;gap:8px;justify-content:flex-end;margin:0 0 14px}
+.tb button{font:inherit;font-size:13.5px;padding:7px 14px;border-radius:8px;cursor:pointer;
+ border:1px solid var(--bd2);background:var(--box);color:var(--fg)}
+.tb button:hover{background:var(--tint)}
+@media print{.tb{display:none}body{padding:0;background:#fff}main{max-width:none}
+ table,.box{box-shadow:none}tr,.ex,.box{break-inside:avoid}h2{break-after:avoid}@page{size:A4;margin:14mm}}
+</style></head><body><main>
+
+<div class="tb">
+<button type="button" data-act="xls">Excel로 저장</button>
+<button type="button" data-act="html">HTML로 저장</button>
+<button type="button" data-act="pdf">PDF로 저장</button>
+</div>
+
+<h1>식이 — 처음 보는 사람을 위한 안내</h1>
+<p class="sub">maiReport의 「식이」가 무엇이고 어떤 규칙으로 도는지를 아무 배경 지식 없이 읽을 수 있게 쓴 글입니다.
+용어는 실제 쓰는 그대로 두고, 뜻을 풀어서 적었습니다.</p>
+
+<div class="box">
+<h3 style="margin-top:0">한 문장으로</h3>
+<p style="font-size:17px;margin:6px 0"><b>식이는 사용자에게 하루에 한두 가지를 묻고, 그 답을 모아 오늘 할 작은 행동 하나를 골라 주는 기능입니다.</b></p>
+<p class="src" style="margin-bottom:0">먹은 것을 기록하게 하지 않습니다. 사진도 찍지 않고 칼로리도 세지 않습니다.
+객관식 질문 한두 개가 전부입니다.</p>
+</div>
+
+<h2><span class="num">1</span>어떤 하루인지부터 보기</h2>
+<p>설명보다 하루를 따라가는 쪽이 빠릅니다. 고혈압이 있는 사용자가 점심 때 앱을 연 날입니다.</p>
+
+<div class="box day">
+<div class="dayrow"><div class="dayt">오후 1시</div><div class="dayb">
+<b>앱을 엽니다</b>
+<div class="q">앱이 시계를 봅니다. 오후 1시니까 「오늘 점심」 이야기를 하기로 정해집니다.</div></div></div>
+<div class="dayrow"><div class="dayt">질문 1</div><div class="dayb">
+<b>「오늘 점심은 평소만큼 드셨나요?」</b>
+<div class="q">답 — 평소대로 / 조금 적게 / 거의 못 먹거나 거름 &nbsp;→&nbsp; <b>「평소대로」</b>를 고릅니다</div></div></div>
+<div class="dayrow"><div class="dayt">질문 2</div><div class="dayb">
+<b>「오늘 점심에 국물은 얼마나 드셨나요?」</b>
+<div class="q">답 — 안 먹었어요 / 절반 이하 / 절반 넘게 &nbsp;→&nbsp; <b>「절반 넘게」</b>를 고릅니다</div></div></div>
+<div class="dayrow"><div class="dayt">목표</div><div class="dayb">
+<b>「한 끼는 국물 반만」</b>
+<div class="q">국물을 물어봤으니 국물 목표가 나갑니다. 아래에 「국물을 덜 먹으면 그 국물에 든 나트륨 섭취도 줄어요」라는 한 줄이 붙습니다</div></div></div>
+<div class="dayrow"><div class="dayt">저녁에</div><div class="dayb">
+<b>사용자가 「했어요」를 누릅니다</b>
+<div class="q">이게 하루의 끝입니다. 내일은 다른 습관을 묻습니다</div></div></div>
+</div>
+
+<p>여기에 이 문서에서 설명할 것이 거의 다 들어 있습니다.
+<b>시각 → 질문 → 답 → 목표 → 완료.</b> 나머지는 이 다섯 단계를 어떻게 정하느냐는 규칙입니다.</p>
+
+<h2><span class="num">2</span>알아야 할 말 다섯 개</h2>
+<p>이 다섯 개만 알면 나머지 문서가 읽힙니다.</p>
+
+<table>
+<tr><th style="width:14%">말</th><th style="width:40%">무슨 뜻인가</th><th style="width:46%">예를 들면</th></tr>
+<tr><td><b>축</b></td>
+<td>식습관을 나눠 놓은 칸. 여덟 개가 있습니다</td>
+<td>「채소」가 한 축, 「짠맛·국물」이 또 한 축입니다.
+사람마다 채소는 잘하는데 국물은 못할 수 있으니 따로 봅니다</td></tr>
+<tr><td><b>질문</b></td>
+<td>축마다 하나씩 정해진 객관식 물음. 답은 늘 세 개</td>
+<td>채소 축의 질문은 「채소 반찬 몇 가지 드셨나요?」 하나뿐입니다.
+매일 다른 말로 묻지 않습니다</td></tr>
+<tr><td><b>상태</b></td>
+<td>그 축을 <b>여러 날</b> 지켜본 결과. 네 가지로 나옵니다</td>
+<td>채소 질문에 최근 답한 것 중 「먹지 않았어요」가 절반을 넘으면 그 사람의 채소 축은 <b>개선 필요</b>입니다</td></tr>
+<tr><td><b>단계</b></td>
+<td>그 사람에게 얼마나 부담되는 목표를 줘도 되는지. 세 칸</td>
+<td>이제 막 시작한 사람은 <b>입문</b>이라 「한 끼에 채소 하나」,
+꾸준히 해낸 사람은 <b>도전</b>이라 「저녁은 채소부터 먹기」가 나갑니다</td></tr>
+<tr><td><b>목표</b></td>
+<td>오늘 화면에 뜨는 짧은 행동 한 줄. 하루에 하나</td>
+<td>「한 끼에 채소 하나」. 12자를 넘지 않게 씁니다</td></tr>
+</table>
+
+<div class="warn"><b>가장 헷갈리는 두 가지를 먼저 떼어 놓겠습니다.</b><br>
+<b>상태</b>는 <b>질문에 답한 것</b>으로만 정해집니다. 목표를 해냈는지는 들어가지 않습니다.<br>
+<b>단계</b>는 반대로 <b>목표를 해낸 것</b>으로만 올라갑니다.<br>
+그래서 목표를 열 번 해내도 질문에 답을 안 하면 상태는 그대로입니다.</div>
+
+<h2><span class="num">3</span>축 여덟 개와 그 질문</h2>
+<p>식습관을 이렇게 나눠 놨습니다. 「지난 끼니」 자리에는 어제 저녁·오늘 아침·오늘 점심·오늘 저녁 중 하나가 들어갑니다.</p>
+<table>
+<tr><th style="width:17%">축</th><th style="width:40%">질문</th><th style="width:43%">답 세 개 (좋음 → 나쁨)</th></tr>
+<tr><td><b>끼니 규칙</b><br><span class="src">매일 묻는 고정 질문</span></td>
+<td>{지난 끼니}은 평소만큼 드셨나요?</td>
+<td>평소대로 · 조금 적게 · 거의 못 먹거나 거름</td></tr>
+<tr><td><b>채소</b></td><td>{지난 끼니}에 채소 반찬 몇 가지 드셨나요?</td>
+<td>두 가지 이상 · 한 가지 · 먹지 않았어요</td></tr>
+<tr><td><b>단 음료 · 단 간식</b></td><td>{지난 끼니} 전후에 단 음료·간식 몇 번 드셨나요?</td>
+<td>없었어요 · 한 번 · 두 번 이상</td></tr>
+<tr><td><b>짠맛 · 국물</b></td><td>{지난 끼니}에 국물은 얼마나 드셨나요?</td>
+<td>안 먹었어요 · 절반 이하 · 절반 넘게</td></tr>
+<tr><td><b>식사 시각 · 야식</b><br><span class="src">새벽 4~10시에만</span></td>
+<td>어젯밤 야식을 몇 번 드셨나요?</td>
+<td>안 먹었어요 · 한 번 · 두 번 이상 <span class="src">(좋고 나쁨을 매기지 않습니다)</span></td></tr>
+<tr><td><b>식사 속도 · 양</b></td><td>{지난 끼니} 먹고 얼마나 배불렀나요?</td>
+<td>편안했어요 · 조금 배불렀어요 · 많이 배불렀어요</td></tr>
+<tr><td><b>단백질</b></td><td>{지난 끼니}에 고기·생선·달걀·두부를 드셨나요?</td>
+<td>먹었어요 · 맛만 봤어요 · 안 먹었어요</td></tr>
+<tr><td><b>기름진 음식</b></td><td>{지난 끼니}에 튀긴 음식을 드셨나요?</td>
+<td>안 먹었어요 · 맛만 봤어요 · 먹었어요</td></tr>
+</table>
+
+<div class="warn"><b>「안 먹었어요」가 늘 좋은 답은 아닙니다.</b>
+국물·기름진 음식에서는 좋은 답이지만, 채소·단백질에서는 나쁜 답입니다.
+<b>답만 보지 말고 어느 축의 질문이었는지를 같이 봐야 합니다.</b></div>
+
+<h3>왜 야식만 점수가 없나</h3>
+<p>야식이 몸에 나쁘다고 단정하지 않기로 했기 때문입니다.
+밤에 일하는 사람에게는 그게 끼니이고, 꼭 필요해서 먹는 경우도 있습니다.
+그래서 <b>사실만 기록하고 좋다 나쁘다를 매기지 않습니다.</b>
+이 축은 상태도 생기지 않고, 「야식 참으세요」 같은 말도 쓰지 않습니다.</p>
+
+<h2><span class="num">4</span>하루의 시작은 새벽 4시</h2>
+<p>달력 날짜가 아니라 <b>새벽 4시</b>를 기준으로 하루를 끊습니다.
+밤 11시에 켠 것과 새벽 2시에 켠 것이 같은 하루입니다.
+밤늦게까지 깨어 있는 사람에게 자정을 넘겼다고 「새 하루」라고 하면 어색하기 때문입니다.</p>
+<p>들어온 시각으로 <b>어느 끼니를 물을지</b>가 자동으로 정해집니다. 사용자가 고르지 않습니다.</p>
+<table>
+<tr><th style="width:26%">들어온 시각</th><th style="width:26%">묻는 끼니</th><th style="width:48%">기억할 것</th></tr>
+<tr><td>새벽 0시 ~ 오전 10시</td><td><b>어제 저녁</b></td>
+<td><b>날짜가 어제입니다.</b> 여기서 하루를 틀리기 쉽습니다</td></tr>
+<tr><td>오전 10시 ~ 낮 12시</td><td>오늘 아침</td><td></td></tr>
+<tr><td>낮 12시 ~ 오후 5시</td><td>오늘 점심</td><td></td></tr>
+<tr><td>오후 5시 이후</td><td>오늘 저녁</td>
+<td>이미 저녁을 먹었으면 「오늘 밤」 목표로 바뀝니다 — 7장 참고</td></tr>
+</table>
+
+<h2><span class="num">5</span>오늘 무슨 축을 물을지 — 회전 규칙</h2>
+<p>질문 칸은 <b>하루에 둘</b>뿐입니다. 하나는 매일 묻는 끼니 규칙이고, 나머지 하나를 돌아가며 씁니다.</p>
+
+<h3>질환이 없는 사람</h3>
+<p>적게 물어본 축부터 돕니다. 오래 안 물어본 축이 먼저 나옵니다.
+한 축만 계속 묻지 않게 하려는 규칙입니다.</p>
+
+<h3>질환이 있는 사람</h3>
+<p>질환과 연결된 축을 먼저 돕니다. 다만 그 축만 돌면 채소·단백질 같은 다른 습관은 영영 못 묻게 됩니다.
+그래서 <b>연결된 축을 한 바퀴 다 물으면, 그다음 날은 일반 축 하나</b>를 묻습니다.</p>
+<div class="ex"><b class="t">고혈압이 있는 사람의 9일</b>
+고혈압과 연결된 축은 <b>짠맛·국물</b>과 <b>채소</b> 둘입니다.<br><br>
+1일 채소 → 2일 짠맛 → <b>3일 단 음료(일반)</b> → 4일 채소 → 5일 짠맛 → <b>6일 식사 속도(일반)</b> →
+7일 채소 → 8일 짠맛 → <b>9일 단백질(일반)</b><br><br>
+질환 축 2 : 일반 축 1 비율로 돕니다. 질환을 챙기면서 다른 습관도 놓치지 않습니다.</div>
+
+<h2><span class="num">6</span>답이 쌓이면 상태가 된다</h2>
+<p>하루치 답 하나로는 아무 말도 할 수 없습니다. 여러 날 모여야 그 사람의 경향이 보입니다.</p>
+<table>
+<tr><th style="width:16%">상태</th><th style="width:40%">언제 이렇게 되나</th><th style="width:44%">그래서 무엇이 달라지나</th></tr>
+<tr><td><b>관찰 중</b></td><td>최근 28일 안에 그 축 답이 <b>3개가 안 됨</b></td>
+<td>판단할 근거가 없습니다. 칭찬도 지적도 하지 않고, 단계도 올리지 않습니다</td></tr>
+<tr><td><b>개선 필요</b></td><td>28일 안 답 중 <b>나쁜 답이 절반 이상</b></td>
+<td>이 축을 먼저 묻습니다. 단계는 「기본」까지만 올립니다</td></tr>
+<tr><td><b>보통</b></td><td>위아래 어디에도 안 걸림</td><td>평소대로 돕니다</td></tr>
+<tr><td><b>양호</b></td><td>최근 <b>7개</b> 답 중 좋은 답 60% 이상이면서 나쁜 답 20% 미만</td>
+<td>잘하고 있는 축입니다. 억지로 어려운 목표로 올리지 않습니다</td></tr>
+</table>
+<div class="ex"><b class="t">숫자로 보면</b>
+채소 질문에 최근 28일 동안 7번 답했고 그중 「먹지 않았어요」가 4번이라면 —<br>
+4 ÷ 7 = 약 57%. 절반을 넘으니 <b>개선 필요</b>입니다.<br><br>
+같은 7번 중 「두 가지 이상」이 5번(71%), 「먹지 않았어요」가 1번(14%)이라면 —<br>
+좋은 답 60% 넘고 나쁜 답 20% 미만이니 <b>양호</b>입니다.</div>
+
+<h3>단계는 따로 올라갑니다</h3>
+<p>마지막으로 단계가 바뀐 뒤 <b>최근 7일 안에 같은 축 목표를 3번 해내면</b> 한 칸 올라갑니다.
+다만 그 축이 <b>관찰 중이면 올리지 않고</b>, <b>개선 필요면 「기본」까지만</b> 올립니다.
+아직 잘 못하는 습관에 어려운 목표를 주지 않기 위해서입니다.</p>
+
+<h2><span class="num">7</span>목표는 이렇게 골라집니다</h2>
+<p>문구가 지금 <b>172개</b> 있습니다. 그중 하나를 고르는 과정입니다.</p>
+<ol>
+<li><b>오늘 물은 축과 같은 축</b>의 문구만 후보로 둡니다.
+채소를 물었으면 채소 목표가 나갑니다. 묻고 다른 얘기를 하면 사용자가 어리둥절해집니다</li>
+<li><b>그 사람에게 위험한 문구를 뺍니다.</b> 질환에 따라 다릅니다 — 8장</li>
+<li><b>그 축의 단계에 맞는 것</b>만 남깁니다</li>
+<li><b>시간과 상황</b>에 맞는지 봅니다. 명절 문구는 명절에만 나갑니다</li>
+<li>남은 것 중 <b>최근에 안 나간 것</b>을 하나 고릅니다</li>
+</ol>
+<div class="warn"><b>남은 문구가 하나도 없으면 목표를 만들지 않습니다.</b>
+억지로 내보내지 않고 안내만 띄웁니다. 그런 날은 화면에 「오늘 목표」가 없습니다.</div>
+
+<h3>저녁을 이미 먹고 밤에 들어온 경우</h3>
+<p>오늘 끼니가 끝난 사람에게 「점심에 채소 드세요」라고 할 수는 없습니다.
+그래서 이때는 <b>먹는 목표 대신 내일을 쉽게 만드는 준비 행동</b>이 나갑니다.</p>
+<p class="src">「채소 미리 씻어 두기」 · 「달걀 미리 삶아 두기」 · 「아침 먹을 자리 치우기」 같은 것들입니다.
+밤에 「굶으세요」라고 하지 않습니다.</p>
+
+<h2><span class="num">8</span>질환이 끼어들면</h2>
+<p>질환 정보는 두 갈래로 들어옵니다.</p>
+<table>
+<tr><th style="width:22%">어디서</th><th style="width:30%">무엇이</th><th style="width:48%">어떻게 다루나</th></tr>
+<tr><td><b>사용자가 직접 선택</b><br><span class="src">내정보 화면</span></td>
+<td>고혈압 · 당뇨병 · 이상지질혈증 · 만성 신장질환 <b>네 개</b></td>
+<td>본인이 고른 것이니 <b>확인 질문 없이 바로</b> 적용합니다</td></tr>
+<tr><td><b>진료정보 연동</b></td>
+<td>위 네 개를 포함해 <b>열네 개</b></td>
+<td>기록만으로는 확실하지 않아, 「○○을 진단받고 관리 중이신가요?」를
+<b>한 번 물어봅니다</b></td></tr>
+</table>
+<p class="src"><b>연동하지 않으면</b> 진료정보 쪽 질환은 하나도 들어오지 않습니다. 이때는 「질환 없음」이 아니라 「알 수 없음」입니다.</p>
+
+<h3>질환이 하는 일은 두 가지입니다</h3>
+<table>
+<tr><th style="width:18%"></th><th style="width:38%">무엇</th><th style="width:44%">예</th></tr>
+<tr><td><b>축 연결</b></td><td>그 질환과 관련된 습관을 먼저 묻고 목표도 거기서 냅니다</td>
+<td>고혈압 → 짠맛·국물, 채소</td></tr>
+<tr><td><b>금지</b></td><td>그 사람에게 위험한 성격의 문구를 아예 후보에서 뺍니다</td>
+<td>당뇨병 → 굶기·줄이기 문구 금지</td></tr>
+</table>
+
+<h3>금지가 왜 중요한가</h3>
+<div class="ex"><b class="t">당뇨약을 쓰는 사람에게 「저녁 디저트 건너뛰기」</b>
+저혈당이 오면 당을 먹어야 합니다. 그 처치를 막는 말이 됩니다.</div>
+<div class="ex"><b class="t">콩팥이 나쁜 사람에게 「채소를 더 드세요」</b>
+칼륨을 사람마다 다르게 조절해야 합니다. 식사 계획을 모르는 채로 더 먹으라고 하면 안 됩니다.</div>
+<div class="ex"><b class="t">삼킴이 어려운 사람에게 「간식은 견과류로」</b>
+단단한 음식이 기도로 넘어갈 수 있습니다.</div>
+
+<p>그래서 문구마다 「이게 무엇을 요구하는 말인가」를 붙여 두고, 질환별로 그 성격을 통째로 막습니다.</p>
+<table>
+<tr><th style="width:14%">성격</th><th style="width:46%">어떤 말인가</th><th style="width:40%">누구에게 막히나</th></tr>
+<tr><td><b>공복</b></td><td>끼니를 건너뛰거나 공복을 늘리는 말</td><td>당뇨병 · 임신 · 섭식장애 등</td></tr>
+<tr><td><b>감량</b></td><td>먹는 양을 줄이는 말</td><td>당뇨병 · 콩팥병 · 저체중 등</td></tr>
+<tr><td><b>증량</b></td><td>더 먹으라는 말</td><td>콩팥병 · 투석 등</td></tr>
+<tr><td><b>수분</b></td><td>물을 더 마시라는 말</td><td>심부전 · 콩팥병 등</td></tr>
+<tr><td><b>질감</b></td><td>단단한 음식을 권하는 말</td><td>삼킴이 어려운 사람</td></tr>
+</table>
+<div class="warn"><b>사용자가 확인 질문에 답하기 전에도 금지는 이미 걸려 있습니다.</b>
+「아직 확인 안 됐으니 괜찮겠지」가 아니라, 기록에 보이는 순간부터 위험한 말을 막습니다.
+확인은 <b>축을 연결할지</b>를 정하는 것이지 금지를 켜는 스위치가 아닙니다.</div>
+
+<h2><span class="num">9</span>일부러 하지 않는 것들</h2>
+<p>「왜 이건 안 하죠?」라는 질문이 자주 나옵니다. 대부분 정해 둔 이유가 있습니다.</p>
+<table>
+<tr><th style="width:30%">하지 않는 것</th><th style="width:70%">이유</th></tr>
+<tr><td>칼로리·영양소 계산</td>
+<td>객관식 한두 개로는 알 수 없습니다. 반찬 종류 수나 국물 비율처럼 <b>답할 수 있는 것</b>만 묻습니다</td></tr>
+<tr><td>체중 목표</td>
+<td>개인 평가가 필요합니다. 「몇 kg 빼세요」를 자동으로 내보내지 않습니다</td></tr>
+<tr><td>처방식·알레르기 맞춤</td>
+<td>그 정보를 받지 않습니다. 그래서 <b>특정 음식을 반드시 먹으라고 하지 않고</b>,
+「A 대신 B」처럼 바꿔 보라는 제안만 합니다</td></tr>
+<tr><td>과일 권하기</td>
+<td>사용자 정책으로 과일을 더 먹으라거나 과일로 바꾸라는 문구를 쓰지 않습니다</td></tr>
+<tr><td>야식 막기</td>
+<td>야식이 나쁘다고 단정하지 않기로 했습니다</td></tr>
+<tr><td>배달·편의점·회식 같은 상황 맞춤</td>
+<td>지금은 시간대와 평일·주말·명절만 봅니다. 사용자가 지금 회식 중인지 알 방법이 없습니다</td></tr>
+</table>
+
+<h2><span class="num">10</span>문서 지도 — 무엇을 어디서 보나</h2>
+<p>식이 문서가 여러 개입니다. 찾는 것에 따라 볼 곳이 다릅니다.</p>
+<table>
+<tr><th style="width:30%">알고 싶은 것</th><th style="width:34%">볼 문서</th><th style="width:36%">무엇이 들어 있나</th></tr>
+<tr><td>규칙이 왜 이렇게 정해졌나</td><td><b>질문·목표 상세 기획</b></td>
+<td>사용자 흐름과 계산 순서의 정본</td></tr>
+<tr><td>개발이 무엇을 만들어야 하나</td><td><b>개발 전달 데이터계약</b></td>
+<td>테이블·칸 이름·허용값·검증 규칙</td></tr>
+<tr><td>문구 172개가 뭐가 있나</td><td><b>참조 설정 데이터</b></td>
+<td>문구·이유·축·단계·근거</td></tr>
+<tr><td>이 문구가 의학적으로 괜찮나</td><td><b>문구 세트 의학 검수</b></td>
+<td>검수 판정과 추가 제한</td></tr>
+<tr><td>이 문구의 근거가 뭔가</td><td><b>의학 근거 대조</b></td>
+<td>출처 기관·URL·해석 범위</td></tr>
+<tr><td>다른 기능에서 값을 가져다 쓰려면</td><td><b>식이 데이터 안내</b></td>
+<td>꺼내 쓸 수 있는 값과 뜻</td></tr>
+</table>
+<p class="where src">숫자가 서로 다른 이유 — 의학검수는 <b>검수한 후보 전부</b>(220개), 데이터계약은 <b>실제 쓰는 것</b>(172개),
+근거대조서는 <b>지금까지 만든 것 전수</b>(225개)를 셉니다. 모수가 다릅니다.</p>
+
+<h2><span class="num">11</span>처음 보는 사람이 자주 틀리는 것</h2>
+<table>
+<tr><th style="width:38%">이렇게 생각하기 쉽지만</th><th style="width:62%">실제로는</th></tr>
+<tr><td>「목표를 잘 해내면 상태가 좋아지겠지」</td>
+<td>아닙니다. 상태는 <b>질문에 답한 것</b>으로만 정해집니다</td></tr>
+<tr><td>「상태가 비어 있으면 나쁜 거겠지」</td>
+<td>아닙니다. <b>「모른다」</b>는 뜻입니다. 아직 안 물어봤거나 답이 모자란 것입니다</td></tr>
+<tr><td>「질문이 안 나갔으면 사용자가 안 한 거겠지」</td>
+<td>아닙니다. <b>물을 상황이 아니라서 안 물어본</b> 경우가 있습니다.
+야식 질문은 낮에 들어온 사람에게 나가지 않습니다</td></tr>
+<tr><td>「새벽에 답했으니 오늘 저녁 얘기겠지」</td>
+<td>아닙니다. <b>어제 저녁</b> 얘기입니다. 하루가 밀립니다</td></tr>
+<tr><td>「아니요라고 했으니 그 질환이 없는 거겠지」</td>
+<td>아닙니다. 본인이 아니라고 답한 것뿐이고, <b>질환이 없다는 뜻이 아닙니다</b></td></tr>
+<tr><td>「문구가 172개면 매일 새것이 나오겠네」</td>
+<td>축과 단계와 질환으로 거르고 나면 그날 쓸 수 있는 건 몇 개뿐입니다.
+축이 얇으면 같은 문구가 금방 돌아옵니다</td></tr>
+</table>
+
+<p class="src" style="margin-top:30px">기준 — maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx (안내 시트 v1.0.1) ·
+mai-report-식이_질문목표_상세기획_v1.0.0.html (v1.0.1).
+이 글은 두 문서를 쉽게 풀어 쓴 것이며, 규칙이 어긋나면 위 두 문서가 정본입니다.</p>
+
+</main>
+<script>
+(function(){
+ function dl(parts,type,name){
+  var b=new Blob(parts,{type:type}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(u);a.remove();},2000);
+ }
+ function stamp(){var d=new Date();function p(n){return(n<10?'0':'')+n;}
+  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate());}
+ var BASE='maiReport_식이_처음보는사람안내_'+stamp();
+ function toXls(){
+  var out='<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">'
+   +'<style>table{border-collapse:collapse}td,th{border:1px solid #9aa3ab;vertical-align:top;'
+   +'mso-number-format:"\\@"}th{background:#eef2f6;font-weight:bold}</style></head><body>';
+  out+='<p><b>'+document.title+'</b></p>';
+  var nodes=document.querySelectorAll('main h2, main table');
+  for(var i=0;i<nodes.length;i++){var el=nodes[i];
+   if(el.tagName==='H2'){out+='<p></p><p><b>'+el.textContent+'</b></p>';}
+   else{var t=el.cloneNode(true),c=t.querySelectorAll('code,span,b');
+    for(var j=0;j<c.length;j++){var e=c[j];while(e.firstChild){e.parentNode.insertBefore(e.firstChild,e);}e.parentNode.removeChild(e);}
+    var br=t.querySelectorAll('br');
+    for(var k=0;k<br.length;k++){br[k].parentNode.replaceChild(document.createTextNode(' · '),br[k]);}
+    out+=t.outerHTML;}}
+  out+='</body></html>';
+  dl(['\ufeff',out],'application/vnd.ms-excel;charset=utf-8',BASE+'.xls');
+ }
+ function toHtml(){
+  var d=document.documentElement.cloneNode(true),tb=d.querySelector('.tb'),sc=d.querySelectorAll('script');
+  if(tb)tb.remove(); for(var i=0;i<sc.length;i++)sc[i].remove();
+  dl(['\ufeff<!doctype html>\n',d.outerHTML],'text/html;charset=utf-8',BASE+'.html');
+ }
+ document.addEventListener('click',function(e){
+  var b=e.target.closest('.tb button'); if(!b) return;
+  var a=b.getAttribute('data-act');
+  if(a==='xls')toXls(); else if(a==='html')toHtml(); else if(a==='pdf')window.print();
+ });
+})();
+</script>
+</body></html>
