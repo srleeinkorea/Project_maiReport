@@ -568,11 +568,17 @@ B 씨는 아직 「어떤 사람인지 모르는」 상태입니다.</div>
 </table>
 
 <div class="ex"><b class="t">축 상태를 엑셀에서 찾아보기 — 두 군데를 봐야 합니다</b>
-<b>① 어떤 값이 나올 수 있나</b> → 데이터계약 <b>필드정의</b> 시트<br>
-<code>diet_axis_snapshot</code> 으로 찾으면 <code>state_code</code> 줄이 나옵니다. 그 줄의 「허용값」 칸에 이렇게 적혀 있습니다.
-<p style="margin:8px 0"><code>OBSERVING,NEEDS_WORK,AVERAGE,GOOD,NULL</code></p>
-차례로 관찰 중 · 개선 필요 · 보통 · 양호 · 값 없음입니다. <b>이 다섯 글자가 전부입니다.</b>
-설명이 한글로 적혀 있지 않아서 처음 보면 못 찾습니다.<br><br>
+<b>① 어떤 값이 나올 수 있나</b> → 데이터계약 <b>필드정의</b> 시트 <b>123행</b><br>
+<code>diet_axis_snapshot</code> 으로 찾으면 <code>state_code</code> 줄이 나옵니다.
+오른쪽으로 두 칸을 보면 됩니다.
+<table style="margin:8px 0">
+<tr><th style="width:18%">그 줄의 칸</th><th style="width:82%">들어 있는 것</th></tr>
+<tr><td>한글명</td><td>관찰 상태</td></tr>
+<tr><td><b>허용값</b></td><td><code>OBSERVING,NEEDS_WORK,AVERAGE,GOOD,NULL</code></td></tr>
+<tr><td><b>설명</b></td><td>OBSERVING <b>관찰 중</b> · NEEDS_WORK <b>개선 필요</b> · AVERAGE <b>보통</b> ·
+GOOD <b>양호</b> · NULL <b>값 없음</b>(그 축을 한 번도 묻지 않음)</td></tr>
+</table>
+<span class="src">「설명」 칸은 원래 비어 있어서 영문 코드만 보고는 뜻을 알 수 없었습니다. 2026-10-06에 한글 이름을 채워 넣었습니다.</span><br><br>
 <b>② 어떻게 그 값이 정해지나</b> → 데이터계약 <b>설정</b> 시트<br>
 <table style="margin:8px 0">
 <tr><th style="width:16%">번호</th><th style="width:44%">이름</th><th style="width:40%">값</th></tr>
