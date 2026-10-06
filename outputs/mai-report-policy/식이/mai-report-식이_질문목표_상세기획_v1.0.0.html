@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>maiReport · v1.0.0 · 식이 질문·목표 상세 기획</title>
+<title>maiReport · v1.0.1 · 식이 질문·목표 상세 기획</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root{--brand:#2f66f5;--brand-soft:#eef3ff;--page:#f5f7fb;--ink-1:#1a2233;--ink-2:#4b5468;--ink-3:#8892a6;--line:#e6eaf2}
@@ -52,21 +52,61 @@
   footer{font-size:12px;color:var(--ink-3);text-align:center;padding:20px}
   @media(max-width:860px){.flow{grid-template-columns:1fr 1fr}}
   @media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+
+  .tb{display:flex;gap:8px;justify-content:flex-end;margin:0 0 14px}
+  .tb button{font:inherit;font-size:13px;padding:7px 14px;border-radius:8px;cursor:pointer;
+   border:1px solid var(--line);background:#fff;color:var(--ink-1)}
+  .tb button:hover{background:var(--brand-soft);border-color:var(--brand)}
+  .tb button:active{transform:translateY(1px)}
+  .chg table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+  .chg th,.chg td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  .chg th{background:var(--brand-soft);color:var(--ink-1);font-weight:700;white-space:nowrap}
+  .chg td:first-child{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  @media print{
+   .tb,.toc{display:none}
+   body{background:#fff}
+   .wrap{max-width:none;padding:0}
+   .card,.chg table{box-shadow:none;break-inside:auto}
+   tr{break-inside:avoid;page-break-inside:avoid}
+   h2,h3{break-after:avoid;page-break-after:avoid}
+   @page{size:A4;margin:12mm}
+  }
 </style>
 <style>.chg{color:#d0021b;font-weight:700}</style>
 </head>
 <body>
 <div class="wrap">
-
-<div class="hero">
-  <span class="tag">maiReport · v1.0.0 · 기획 문서</span>
-  <h1>식이 질문·목표 상세 기획</h1>
-  <p>오늘의 질문에서 식이를 어떻게 묻고, 그 답으로 오늘의 식이 목표를 어떻게 고르는지 정한 문서. 사용자가 보는 화면, 화면 뒤에서 도는 규칙, 저장·계산해야 할 데이터와 문구 적용 조건을 한 곳에 모았다. 식이 규칙은 지식DB 계약이 아니라 서비스 자체 규칙이다.</p>
-  <div class="meta"><span>버전 <b>1.0.0</b></span><span>개발 데이터 참조 <b>식이 개발 전달 데이터계약 v1.0.0</b></span><span>연관 <b>홈화면 화면정의서 · 목표분석 화면정의서 · 식이 시나리오 · 식이 데이터 흐름도</b></span></div>
+<div class="tb">
+<button type="button" data-act="xls">Excel로 저장</button>
+<button type="button" data-act="html">HTML로 저장</button>
+<button type="button" data-act="pdf">PDF로 저장</button>
 </div>
 
+<div class="hero">
+  <span class="tag">maiReport · v1.0.1 · 기획 문서</span>
+  <h1>식이 질문·목표 상세 기획</h1>
+  <p>오늘의 질문에서 식이를 어떻게 묻고, 그 답으로 오늘의 식이 목표를 어떻게 고르는지 정한 문서. 사용자가 보는 화면, 화면 뒤에서 도는 규칙, 저장·계산해야 할 데이터와 문구 적용 조건을 한 곳에 모았다. 식이 규칙은 지식DB 계약이 아니라 서비스 자체 규칙이다.</p>
+  <div class="meta"><span>버전 <b>1.0.1</b> <span style="color:var(--ink-3)">· 2026-10-02</span></span><span>개발 데이터 참조 <b>식이 개발 전달 데이터계약 v1.0.0</b></span><span>연관 <b>홈화면 화면정의서 · 목표분석 화면정의서 · 식이 시나리오 · 식이 데이터 흐름도</b></span></div>
+</div>
+
+
+<section class="card chg" id="c0">
+  <h2>바뀐 내용 · 2026-10-02</h2>
+  <p style="margin:6px 0 12px">v1.0.0을 발행한 뒤 고친 것입니다. 파일 이름은 <b>v1.0.0</b> 그대로 두고 문서 안의 버전만 <b>v1.0.1</b>로 올립니다.</p>
+  <table>
+    <tr><th style="width:14%">항목</th><th style="width:28%">전</th><th style="width:32%">후</th><th style="width:26%">바뀐 자리</th></tr>
+    <tr><td>목표 축과 질문 축</td><td>목표 축을 질문과 따로 정해, 채소를 묻고 국물 목표가 나가는 날이 생겼다</td><td>목표 축은 그날 질문 축과 같다. 그 축에 통과 문구가 없을 때만 다음 축으로 내려간다</td><td>이 문서 6장 · 검증규칙 V-39 · V-50 · 구현기준 R-03</td></tr>
+    <tr><td>질환이 있는 사람의 일반 축</td><td>질환 축이 있으면 회전 질문이 그 축 안에서만 돌아, 채소·단백질 같은 일반 축은 영영 묻지 않았다</td><td>질환 축을 모두 한 번씩 물은 다음 날 일반 축 하나를 낸다. 고혈압이면 질환 축 둘과 일반 축이 2대 1로 돈다</td><td>이 문서 5장 · 설정 CFG-041</td></tr>
+    <tr><td>질문 축 규칙 구조화</td><td>설정 CFG-041이 「적격 축 → 28일 유효답 최소 → 질환 연결 → 최근 질문 오래됨 → 표순서」라는 문장뿐이어서 그대로는 구현할 수 없었다</td><td>「질환 연결 축을 모두 한 번씩 물은 다음 날 일반 축 하나. 같은 묶음 안에서는 28일 유효답 최소 → 최근 질문 오래됨 → 질문 ID 오름차순」으로 확정. 모호하던 「표순서」를 질문 ID 오름차순으로 못 박았다</td><td>설정 CFG-041 · 설정파라미터 ROTATING_AXIS_ORDER(신설) · 구현기준 R-09(신설) · 검증규칙 V-50(신설)</td></tr>
+    <tr><td>단계 상승 전제</td><td>마지막 단계 변경 이후 최근 7일 완료 3건이면 1단계 올렸다. 축 상태는 보지 않았다</td><td>같은 조건에 두 가지를 더함 — 그 축이 관찰 중이면 올리지 않고, 개선 필요이면 기본까지만 올린다. 하락 규칙은 그대로</td><td>이 문서 6장 · 검증규칙 V-42 · 설정 CFG-068 · CFG-069(신설)</td></tr>
+    <tr><td>만성 신장질환 연결 축</td><td>질환연결축에 「만성 신장질환 → 짠맛·국물」 한 줄이 있어 연결 축으로 쓰였다. 내정보질환매핑에는 「새 연결 축 없이 금지에만 사용」이라 적혀 있어 두 곳이 어긋났다</td><td>연결 축을 없앴다. 금지 성격 세 가지(증량·감량·수분)는 그대로 둔다</td><td>질환규칙 DX-05 · 질환연결축</td></tr>
+    <tr><td>축 상태 경계값 구조화</td><td>개선 필요 0.5, 양호 0.6과 0.2가 비율로만 적혀 있어 무엇 중의 비율인지 알 수 없었다</td><td>개선 필요는 28일 창·최소 3건, 양호는 최근 7건·84일 상한을 분모로 붙였다. 양호는 두 조건의 AND 결합으로 적었다</td><td>설정 CFG-002~005 · 설정파라미터</td></tr>
+    <tr><td>데이터계약 안내 머리말</td><td>실행 경계가 아직 「목표 축은 직접 선택 → 진료정보 → 검진 → 일반 순서」로 적혀 있었고, 데이터 건수도 옛 숫자였다</td><td>실행 경계를 「목표 축은 그날 질문 축과 같다」로 고치고, 건수를 실제 시트와 맞춤(질문 9, 선택지 27, 설정 66)</td><td>데이터계약 안내 시트</td></tr>
+  </table>
+</section>
+
 <div class="toc">
-  <a href="#c1">1 한눈에 보기</a><a href="#c2">2 전체 순서도</a><a href="#c3">3 용어</a><a href="#c4">4 사용자 흐름과 화면</a><a href="#c5">5 질문</a><a href="#c6">6 목표 고르기</a><a href="#c7">7 문구 세트</a><a href="#c8">8 데이터와 계산</a><a href="#c9">9 안전 원칙</a><a href="#c10">10 개발 전달 기준</a>
+  <a href="#c0">0 바뀐 내용</a><a href="#c1">1 한눈에 보기</a><a href="#c2">2 전체 순서도</a><a href="#c3">3 용어</a><a href="#c4">4 사용자 흐름과 화면</a><a href="#c5">5 질문</a><a href="#c6">6 목표 고르기</a><a href="#c7">7 문구 세트</a><a href="#c8">8 데이터와 계산</a><a href="#c9">9 안전 원칙</a><a href="#c10">10 개발 전달 기준</a>
 </div>
 
 <section class="card" id="c1">
@@ -608,9 +648,68 @@ elif 최근 7일 중 마지막 단계 변경 이후 같은 축 완료 3건:     
   </table></div>
 </section>
 
-<footer>식이 질문·목표 상세 기획 · 버전 1.0.0 · maiReport · v1.0.0<br>연관 문서 — 식이 개발 전달 데이터계약 · 식이 시나리오 · 식이 데이터 흐름도 · 홈화면 화면정의서 · 목표분석 화면정의서</footer>
+<footer>식이 질문·목표 상세 기획 · 버전 1.0.1 · maiReport · v1.0.1 · 파일 이름은 v1.0.0으로 유지<br>연관 문서 — 식이 개발 전달 데이터계약 · 식이 시나리오 · 식이 데이터 흐름도 · 홈화면 화면정의서 · 목표분석 화면정의서</footer>
 
 </div>
+<script>
+(function(){
+ function dl(parts,type,name){
+  var b=new Blob(parts,{type:type}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(u);a.remove();},2000);
+ }
+ function stamp(){var d=new Date();function p(n){return(n<10?'0':'')+n;}
+  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate());}
+ var BASE='maiReport_식이_질문목표_상세기획_'+stamp();
+
+ function toXls(){
+  var out='<html xmlns:o="urn:schemas-microsoft-com:office:office" '
+   +'xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">'
+   +'<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">'
+   +'<!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>'
+   +'<x:Name>식이 데이터 안내</x:Name><x:WorksheetOptions><x:DisplayGridlines/>'
+   +'</x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->'
+   +'<style>table{border-collapse:collapse}'
+   +'td,th{border:1px solid #9aa3ab;vertical-align:top;mso-number-format:"\\@"}'
+   +'th{background:#eef2f6;font-weight:bold}</style></head><body>';
+  out+='<p><b>'+document.title+'</b></p>';
+  var nodes=document.querySelectorAll('.wrap h2, .wrap table');
+  for(var i=0;i<nodes.length;i++){
+   var el=nodes[i];
+   if(el.tagName==='H2'){ out+='<p></p><p><b>'+el.textContent+'</b></p>'; }
+   else{
+    var t=el.cloneNode(true),c=t.querySelectorAll('code,span,b');
+    for(var j=0;j<c.length;j++){
+     var e=c[j];
+     while(e.firstChild){ e.parentNode.insertBefore(e.firstChild,e); }
+     e.parentNode.removeChild(e);
+    }
+    var br=t.querySelectorAll('br');
+    for(var k=0;k<br.length;k++){ br[k].parentNode.replaceChild(document.createTextNode(' · '),br[k]); }
+    out+=t.outerHTML;
+   }
+  }
+  out+='</body></html>';
+  dl(['\ufeff',out],'application/vnd.ms-excel;charset=utf-8',BASE+'.xls');
+ }
+
+ function toHtml(){
+  var d=document.documentElement.cloneNode(true),
+      tb=d.querySelector('.tb'), sc=d.querySelectorAll('script');
+  if(tb) tb.remove();
+  for(var i=0;i<sc.length;i++) sc[i].remove();
+  dl(['\ufeff<!doctype html>\n',d.outerHTML],'text/html;charset=utf-8',BASE+'.html');
+ }
+
+ document.addEventListener('click',function(e){
+  var b=e.target.closest('.tb button'); if(!b) return;
+  var a=b.getAttribute('data-act');
+  if(a==='xls') toXls();
+  else if(a==='html') toHtml();
+  else if(a==='pdf') window.print();
+ });
+})();
+</script>
 </body>
 </html>
 
