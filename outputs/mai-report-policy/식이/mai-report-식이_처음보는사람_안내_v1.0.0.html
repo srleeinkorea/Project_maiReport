@@ -713,6 +713,101 @@ GOOD <b>양호</b> · NULL <b>값 없음</b>(그 축을 한 번도 묻지 않음
 </table>
 6장에서 설명한 「28일 · 3건 · 7건 · 절반 · 60% · 20%」가 전부 여기서 나온 숫자입니다.</div>
 
+<h3>이 숫자들로 상태를 어떻게 계산하나</h3>
+<p>설정 여덟 줄이 결국 <b>「나쁜 답이 얼마나 많으면 문제로 볼 것인가」</b>를 정한 것입니다.
+채소 축을 예로 들어 실제로 계산해 보겠습니다.</p>
+
+<h4 style="margin:18px 0 6px;font-size:15.5px">먼저 — 답마다 점수가 붙어 있습니다</h4>
+<table>
+<tr><th style="width:34%">채소 질문의 답</th><th style="width:22%">점수</th><th style="width:44%">어디에</th></tr>
+<tr><td>두 가지 이상</td><td><b>좋음</b> (1)</td>
+<td rowspan="3">데이터계약 <b>선택지</b> 시트 5~7행의 <code>score_value</code> 칸</td></tr>
+<tr><td>한 가지</td><td><b>보통</b> (0)</td></tr>
+<tr><td>먹지 않았어요</td><td><b>나쁨</b> (-1)</td></tr>
+</table>
+<p>「나쁨 비율」은 <b>나쁜 답 ÷ 전체 답</b>입니다. 「좋음 비율」도 같은 방식입니다.</p>
+
+<h4 style="margin:18px 0 6px;font-size:15.5px">설정 여덟 줄이 각각 하는 일</h4>
+<table>
+<tr><th style="width:14%">설정</th><th style="width:26%">엑셀에 적힌 값</th><th style="width:60%">쉽게 말하면</th></tr>
+<tr><td><code>CFG-006</code></td><td>28</td>
+<td><b>최근 28일 것만 셉니다.</b> 한 달 넘은 답은 빼고 계산합니다</td></tr>
+<tr><td><code>CFG-007</code></td><td>3</td>
+<td>답이 <b>3개는 모여야</b> 판단을 시작합니다. 그 전에는 관찰 중</td></tr>
+<tr><td><code>CFG-002</code></td><td>나쁨 비율 >= 0.5</td>
+<td>나쁜 답이 <b>절반을 넘으면 「개선 필요」</b></td></tr>
+<tr><td><code>CFG-008</code></td><td>7</td>
+<td>양호를 볼 때는 <b>최근 7개만</b> 봅니다</td></tr>
+<tr><td><code>CFG-003</code></td><td>좋음 비율 >= 0.6</td>
+<td>양호가 되려면 좋은 답이 <b>7개 중 5개 이상</b></td></tr>
+<tr><td><code>CFG-004</code></td><td>나쁨 비율 &lt; 0.2</td>
+<td>동시에 나쁜 답이 <b>7개 중 1개 이하</b></td></tr>
+<tr><td><code>CFG-005</code></td><td>CFG-003 AND CFG-004</td>
+<td><b>둘 다 만족해야</b> 양호. 하나만으로는 안 됩니다</td></tr>
+<tr><td><code>CFG-009</code></td><td>84</td>
+<td>7개를 채우려고 <b>84일까지만</b> 거슬러 봅니다. 그보다 오래된 답은 안 씁니다</td></tr>
+</table>
+
+<h4 style="margin:18px 0 6px;font-size:15.5px">실제로 계산해 보기 — 채소 답 10번</h4>
+<table>
+<tr><th class="n" style="width:12%">순서</th><th style="width:40%">고른 답</th>
+<th class="n" style="width:20%">점수</th><th style="width:28%">최근 7개에 드나</th></tr>
+<tr><td class="n">1</td><td>먹지 않았어요</td><td class="n">나쁨</td><td>아니요</td></tr>
+<tr><td class="n">2</td><td>한 가지</td><td class="n">보통</td><td>아니요</td></tr>
+<tr><td class="n">3</td><td>먹지 않았어요</td><td class="n">나쁨</td><td>아니요</td></tr>
+<tr><td class="n">4</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">5</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">6</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">7</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">8</td><td>한 가지</td><td class="n">보통</td><td><b>예</b></td></tr>
+<tr><td class="n">9</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">10</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
+</table>
+
+<div class="ex"><b class="t">① 「개선 필요」인가 — CFG-002</b>
+28일 안의 답 <b>10개 전부</b>를 봅니다. 나쁨은 1번과 3번, 두 개입니다.<br>
+<b>2 ÷ 10 = 0.2</b> → 0.5에 한참 못 미칩니다 → <b>개선 필요 아님</b></div>
+
+<div class="ex"><b class="t">② 「양호」인가 — CFG-003 · CFG-004 · CFG-005</b>
+양호는 10개 전부가 아니라 <b>최근 7개(4~10번)만</b> 봅니다.<br>
+좋음 6개 → <b>6 ÷ 7 = 0.86</b> → 0.6 넘음 <b>✓</b><br>
+나쁨 0개 → <b>0 ÷ 7 = 0</b> → 0.2 미만 <b>✓</b><br>
+CFG-005가 「둘 다」를 요구하는데 둘 다 통과 → <b>양호</b></div>
+
+<div class="ex"><b class="t">③ CFG-005가 왜 필요한가 — 하나만 통과하면</b>
+최근 7개가 <b>좋음 5 · 나쁨 2</b>인 다른 사람이라면,<br>
+좋음 5 ÷ 7 = 0.71 → 0.6 넘음 <b>✓</b><br>
+나쁨 2 ÷ 7 = 0.29 → <b>0.2를 넘음 ✗</b><br>
+→ <b>양호가 아니라 보통</b>입니다.<br><br>
+좋은 답이 많아도 <b>못한 날이 섞여 있으면 양호를 주지 않습니다.</b>
+「잘하고 계세요」는 잘한 날이 많은 것만으로는 부족하고, 못한 날이 거의 없어야 할 수 있는 말이라서입니다.</div>
+
+<div class="warn"><b>두 비율의 분모가 다릅니다 — 여기가 제일 헷갈립니다.</b>
+<table style="margin-top:10px">
+<tr><th style="width:24%"></th><th style="width:28%">보는 범위</th><th style="width:48%">왜 그렇게 정했나</th></tr>
+<tr><td><b>개선 필요</b><br><span class="src">CFG-002</span></td><td><b>28일 안의 답 전부</b></td>
+<td>문제를 놓치지 않으려고 <b>넓게</b> 봅니다</td></tr>
+<tr><td><b>양호</b><br><span class="src">CFG-003 · CFG-004</span></td><td><b>최근 7개만</b></td>
+<td>칭찬은 <b>지금도 잘하고 있을 때만</b> 해야 하니 <b>좁게</b> 봅니다</td></tr>
+</table>
+위 사람도 28일 전체로는 나쁨이 2개 있지만 최근 7개에는 없어서 양호가 됩니다.
+<b>최근에 달라졌다는 것</b>을 잡아내는 구조입니다.</div>
+
+<h4 style="margin:18px 0 6px;font-size:15.5px">판정은 이 순서로 합니다</h4>
+<table>
+<tr><th class="n" style="width:8%">순서</th><th style="width:46%">물어보는 것</th><th style="width:46%">맞으면</th></tr>
+<tr><td class="n">1</td><td>28일 안 답이 <b>3개 미만</b>인가 <span class="src">CFG-007</span></td>
+<td><b>관찰 중</b> — 판단하지 않습니다</td></tr>
+<tr><td class="n">2</td><td>나쁨이 <b>절반 이상</b>인가 <span class="src">CFG-002</span></td><td><b>개선 필요</b></td></tr>
+<tr><td class="n">3</td><td>최근 <b>7개가 모였고</b> 좋음 60% 이상 + 나쁨 20% 미만인가
+<span class="src">CFG-008 · CFG-003 · CFG-004 · CFG-005</span></td><td><b>양호</b></td></tr>
+<tr><td class="n">4</td><td>위 어디에도 안 걸림</td><td><b>보통</b></td></tr>
+</table>
+<p><b>7개가 안 모이면 비율이 아무리 좋아도 양호가 못 됩니다.</b>
+답 3개로 「잘하시네요」라고 할 수는 없기 때문입니다.</p>
+
+
+
 <div class="warn"><b>어디부터 열어야 하나.</b><br>
 <b>문구가 궁금하면</b> → 참조설정데이터의 <b>문구세트</b> 시트. 한글로 정리돼 있어 읽기 쉽습니다<br>
 <b>규칙이 궁금하면</b> → 데이터계약의 <b>구현기준</b>과 <b>검증규칙</b> 시트<br>
