@@ -22,7 +22,9 @@ $conf  = Join-Path $PSScriptRoot 'sharepoint-path.txt'
 $SITE  = 'msteams_b7ec7d'
 $files = @(
   'maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx',
-  'maiReport_식이_참조설정데이터_v1.0.0.xlsx'
+  'maiReport_식이_참조설정데이터_v1.0.0.xlsx',
+  'maiReport_식이_문구세트_의학검수_v1.0.0.xlsx',
+  'maiReport_식이_의학근거대조_v1.0.0.xlsx'
 )
 
 function Get-SyncedLibraries {
