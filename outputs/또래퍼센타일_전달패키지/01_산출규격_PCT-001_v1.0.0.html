@@ -100,14 +100,14 @@ td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-
 <ul>
 <li><code>dist = normal</code>: <code>mu</code>는 산술평균, <code>sd</code>는 표준편차.</li>
 <li><code>dist = lognormal</code>: <code>mu</code>는 <b>기하평균</b>(중앙값), <code>sd</code>는 <b>기하표준편차</b>(무차원, 1보다 큼). 값이 오른쪽으로 치우친 항목(중성지방, 간효소, 공복혈당)에 씁니다.</li>
-<li><code>better</code>: <code>low</code> 낮을수록 좋음 / <code>high</code> 높을수록 좋음(HDL, 헤모글로빈) / <code>none</code> 방향 없음(키, 체중).</li>
+<li><code>better</code>: <code>low</code> 낮을수록 1등 / <code>high</code> 높을수록 1등(HDL, 헤모글로빈, 키). 키·체중은 순서는 매기되 <code>ref: true</code>로 표시해 종합과 먼저 볼 항목에서 뺀다(체형은 BMI·허리둘레가 담당).</li>
 </ul>
 
 <h3>항목 목록과 방향</h3>
 <div class="tbl"><table>
 <tr><th>code</th><th>항목</th><th>단위</th><th>dist</th><th>better</th><th>low_flag</th></tr>
-<tr><td>HEIGHT</td><td>키</td><td>cm</td><td>normal</td><td>none</td><td>–</td></tr>
-<tr><td>WEIGHT</td><td>체중</td><td>kg</td><td>normal</td><td>none</td><td>–</td></tr>
+<tr><td>HEIGHT</td><td>키</td><td>cm</td><td>normal</td><td>high (큰 쪽이 1등 · 종합 제외)</td><td>–</td></tr>
+<tr><td>WEIGHT</td><td>체중</td><td>kg</td><td>normal</td><td>low (가벼운 쪽이 1등 · 종합 제외)</td><td>–</td></tr>
 <tr><td>BMI</td><td>체질량지수</td><td>kg/m²</td><td>normal</td><td>low</td><td>18.5</td></tr>
 <tr><td>WAIST</td><td>허리둘레</td><td>cm</td><td>normal</td><td>low</td><td>–</td></tr>
 <tr><td>BP_SYS</td><td>수축기 혈압</td><td>mmHg</td><td>normal</td><td>low</td><td>90</td></tr>
@@ -142,7 +142,7 @@ z를 [−4, 4]로 클램프한 뒤 계산한다 (극단값이 0이나 100으로 
 <h3>4.4 또래 상위 % (rank_pct)</h3>
 <pre><code>better = low   :  rank_pct = P              // 값이 낮을수록 rank_pct가 작다 = 상위
 better = high  :  rank_pct = 100 − P
-better = none  :  rank_pct = null, size_pct = 100 − P   // "큰 순 상위 %"로만 표기</code></pre>
+ref = true     :  rank_pct는 계산하되 종합·우선순위에서 제외   // 키(high)·체중(low)</code></pre>
 
 <h3>4.5 반올림과 범위</h3>
 <pre><code>display_pct = clamp(round(rank_pct), 1, 99)
@@ -160,7 +160,7 @@ better = none  :  rank_pct = null, size_pct = 100 − P   // "큰 순 상위 %"�
 <p>경계값은 설정으로 둡니다. <code>better = none</code> 항목에는 bucket을 붙이지 않습니다.</p>
 
 <h3>4.7 종합 (summary)</h3>
-<pre><code>eligible = items where better != none AND flag == null
+<pre><code>eligible = items where ref != true AND flag == null
 avg_pct  = mean(rank_pct of eligible)           // 가중치 없음
 worse_n  = count(eligible where rank_pct &gt; 50)
 grade    = bucket(avg_pct)                       // 4.6과 같은 경계</code></pre>
@@ -210,7 +210,7 @@ def P_to_display(p): return int(min(99, max(1, round(p))))</code></pre>
 <div class="tbl"><table>
 <tr><th>상황</th><th>문구</th><th>예</th></tr>
 <tr><td>better = low / high</td><td>또래 상위 {rank_pct} % · 100명 중 {rank_pct}번째</td><td>또래 상위 97 % · 100명 중 97번째</td></tr>
-<tr><td>better = none</td><td>큰 순 상위 {size_pct} %</td><td>키 큰 순 상위 54 %</td></tr>
+<tr><td>ref = true (키·체중)</td><td>또래 상위 {rank_pct} % · 라벨은 큰 편/작은 편, 가벼운 편/무거운 편</td><td>키 또래 상위 58 % · 또래 수준</td></tr>
 <tr><td>flag = LOW_RANGE</td><td>낮은 쪽 확인 필요</td><td>순위·bucket 표시 안 함</td></tr>
 <tr><td>종합</td><td>{grade 문구} · 또래 평균보다 나쁜 항목 {worse_n}/{eligible_n}</td><td>또래보다 나쁨 · 6/12</td></tr>
 </table></div>

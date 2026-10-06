@@ -104,8 +104,9 @@ else:
 <div class="tbl"><table>
 <tr><th>항목</th><th>방향</th><th>rank</th><th>화면 문구</th></tr>
 <tr><td>BMI, 허리둘레, 혈압, 혈당, 총콜레스테롤, LDL, 중성지방, 간효소, 크레아티닌</td><td>낮을수록 좋음</td><td>rank = P</td><td>또래 상위 {rank} %</td></tr>
-<tr><td>HDL, 혈색소, 신사구체여과율</td><td>높을수록 좋음</td><td>rank = 100 − P</td><td>또래 상위 {rank} %</td></tr>
-<tr><td>키, 체중</td><td>방향 없음</td><td>size = 100 − P</td><td>큰 순 상위 {size} % (좋고 나쁨 표시 안 함, 종합 제외)</td></tr>
+<tr><td>HDL, 혈색소, 신사구체여과율, 키</td><td>높을수록 1등</td><td>rank = 100 − P</td><td>또래 상위 {rank} %</td></tr>
+<tr><td>체중</td><td>가벼울수록 1등</td><td>rank = P</td><td>또래 상위 {rank} %</td></tr>
+<tr><td colspan="4">키·체중은 순서는 매기지만 종합과 먼저 볼 항목에서 뺍니다. 라벨은 키 "큰 편/작은 편", 체중 "가벼운 편/무거운 편"으로 씁니다.</td></tr>
 </table></div>
 <div class="ex"><b>예시</b> BMI는 낮을수록 좋음 → rank = 40.0</div>
 </div>
@@ -154,7 +155,7 @@ label   = "또래보다 좋음"   if display &lt;= 25
 
 <h2 id="s3"><small>03</small>종합</h2>
 <ol>
-<li>대상: 방향이 있는 항목 중 계산된 것(키·체중·경고 항목 제외).</li>
+<li>대상: 계산된 항목 중 키·체중과 경고 항목을 뺀 것.</li>
 <li>항목이 3개 미만이면 종합을 만들지 않습니다.</li>
 <li><code>avg = mean(rank)</code>, 가중치 없음. 화면에는 숫자 대신 구간 라벨(STEP 8과 같은 경계)만 보여줍니다.</li>
 <li>먼저 볼 항목: rank가 큰 순서로 최대 3개. rank &gt; 85인 항목이 있으면 그것부터.</li>
@@ -183,8 +184,8 @@ for q in 1..99:
 <tr><th>성별</th><th class="n">나이</th><th>항목</th><th class="n">x</th><th>테이블</th><th class="n">k</th><th class="n">P</th><th class="n">rank</th><th class="n">display</th><th>label</th></tr>
 <tr><td>남자</td><td class="n">45</td><td>BMI</td><td class="n">24.5</td><td>경계값표</td><td class="n">40</td><td class="n">40.0</td><td class="n">40.0</td><td class="n">40</td><td>또래 수준</td></tr>
 <tr><td>남자</td><td class="n">45</td><td>허리둘레</td><td class="n">82</td><td>경계값표</td><td class="n">21</td><td class="n">21.0</td><td class="n">21.0</td><td class="n">21</td><td>또래보다 좋음</td></tr>
-<tr><td>남자</td><td class="n">45</td><td>키</td><td class="n">172</td><td>경계값표</td><td class="n">42</td><td class="n">42.5</td><td class="n">size 57.5</td><td class="n">58</td><td>– (방향 없음)</td></tr>
-<tr><td>남자</td><td class="n">45</td><td>체중</td><td class="n">72.5</td><td>경계값표</td><td class="n">36</td><td class="n">36.3</td><td class="n">size 63.8</td><td class="n">64</td><td>–</td></tr>
+<tr><td>남자</td><td class="n">45</td><td>키</td><td class="n">172</td><td>경계값표</td><td class="n">42</td><td class="n">42.5</td><td class="n">57.5</td><td class="n">58</td><td>또래 수준 (큰 순 · 종합 제외)</td></tr>
+<tr><td>남자</td><td class="n">45</td><td>체중</td><td class="n">72.5</td><td>경계값표</td><td class="n">36</td><td class="n">36.3</td><td class="n">36.3</td><td class="n">36</td><td>또래 수준 (가벼운 순 · 종합 제외)</td></tr>
 <tr><td>남자</td><td class="n">45</td><td>수축기 혈압</td><td class="n">148</td><td>구간표</td><td>–</td><td class="n">94.7</td><td class="n">94.7</td><td class="n">95</td><td>또래 하위 15%</td></tr>
 <tr><td>남자</td><td class="n">45</td><td>HDL</td><td class="n">52</td><td>구간표</td><td>–</td><td class="n">51.8</td><td class="n">48.2</td><td class="n">48</td><td>또래 수준 (방향 반전)</td></tr>
 <tr><td>여자</td><td class="n">42</td><td>BMI</td><td class="n">17.9</td><td>–</td><td>–</td><td>–</td><td>확인 필요</td><td>–</td><td>저값 경고</td></tr>
