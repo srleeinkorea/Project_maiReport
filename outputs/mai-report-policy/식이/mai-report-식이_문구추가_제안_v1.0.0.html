@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>maiReport · 식이 문구 추가 제안</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f5f9;--fg:#0f172a;--mut:#475569;--line:#e2e8f0;--box:#fff;--tint:#f8fafc;--bd2:#cbd5e1}
+*{box-sizing:border-box}
+body{margin:0;padding:26px 20px 70px;background:var(--bg);color:var(--fg);
+ font:15px/1.65 "Noto Sans KR","Malgun Gothic",system-ui,sans-serif}
+main{max-width:1280px;margin:0 auto}
+h1{font-size:27px;margin:0 0 6px}
+.sub{color:var(--mut);margin:0 0 20px;font-size:14.5px}
+h2{font-size:20px;margin:42px 0 8px;padding-top:16px;border-top:2px solid var(--fg)}
+h3{font-size:16px;margin:24px 0 8px}
+p{margin:8px 0}
+code{background:var(--tint);padding:1px 5px;border-radius:3px;font-size:12.5px;
+ font-family:"JetBrains Mono",Consolas,monospace}
+table{width:100%;border-collapse:collapse;margin:12px 0;background:var(--box);font-size:14px;
+ box-shadow:0 1px 3px rgba(15,23,42,.06);border-radius:10px;overflow:hidden}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--tint);font-weight:600}
+tr.g td{background:var(--tint);font-weight:700}
+.n{text-align:center;white-space:nowrap}
+.src{font-size:12.5px;color:var(--mut)}
+.where{font-size:13.5px;color:var(--mut);margin:8px 0 0}
+.warn{background:var(--tint);border-left:5px solid var(--fg);border-radius:0 8px 8px 0;
+ padding:14px 18px;margin:16px 0;font-size:14.5px}
+.tb{display:flex;gap:8px;justify-content:flex-end;margin:0 0 14px}
+.tb button{font:inherit;font-size:13.5px;padding:7px 14px;border-radius:8px;cursor:pointer;
+ border:1px solid var(--bd2);background:var(--box);color:var(--fg)}
+.tb button:hover{background:var(--tint)}
+@media print{.tb{display:none}body{padding:0;background:#fff}main{max-width:none}
+ table{box-shadow:none}tr{break-inside:avoid}h2{break-after:avoid}@page{size:A4 landscape;margin:12mm}}
+</style></head><body><main>
+
+<div class="tb">
+<button type="button" data-act="xls">Excel로 저장</button>
+<button type="button" data-act="html">HTML로 저장</button>
+<button type="button" data-act="pdf">PDF로 저장</button>
+</div>
+
+<h1>식이 목표 문구 추가 제안</h1>
+<p class="sub">국내외 학회 가이드라인을 근거로 <b>14개</b>를 제안합니다.
+지금 143개가 축·단계별로 고르지 않게 들어 있어, <b>비어 있는 칸부터</b> 채우는 쪽으로 골랐습니다.
+의학 검수 전 초안이며, 확정 전에는 계약서에 넣지 않습니다.</p>
+
+<h2>왜 이 칸들인가 — 현재 분포</h2>
+<p>문구 143개를 축과 단계로 나눠 세어 보면 이렇습니다. 숫자가 적은 칸은 같은 문구가 자주 반복됩니다.</p>
+<table>
+<tr><th style="width:22%">축</th><th class="n">입문</th><th class="n">기본</th><th class="n">도전</th>
+<th class="n">합계</th><th style="width:34%">상태</th></tr>
+<tr><td>끼니 규칙</td><td class="n">5</td><td class="n">5</td><td class="n">6</td><td class="n">16</td><td>적정</td></tr>
+<tr><td>채소</td><td class="n">6</td><td class="n">7</td><td class="n">6</td><td class="n">19</td><td>적정</td></tr>
+<tr><td>단 음료 · 단 간식</td><td class="n">7</td><td class="n"><b>4</b></td><td class="n">8</td><td class="n">19</td>
+<td><b>기본이 얇음</b></td></tr>
+<tr><td>짠맛 · 국물</td><td class="n">8</td><td class="n">8</td><td class="n">6</td><td class="n">22</td><td>적정</td></tr>
+<tr><td>식사 시각 · 야식</td><td class="n"><b>1</b></td><td class="n"><b>2</b></td><td class="n"><b>2</b></td>
+<td class="n"><b>5</b></td><td><b>가장 얇음</b></td></tr>
+<tr><td>식사 속도 · 양</td><td class="n">5</td><td class="n"><b>3</b></td><td class="n">4</td><td class="n">12</td>
+<td><b>기본이 얇음</b></td></tr>
+<tr><td>단백질</td><td class="n">8</td><td class="n">6</td><td class="n">6</td><td class="n">20</td><td>적정</td></tr>
+<tr><td>기름진 음식</td><td class="n">5</td><td class="n">6</td><td class="n"><b>3</b></td><td class="n">14</td>
+<td><b>도전이 얇음</b></td></tr>
+<tr class="g"><td>상황 풀</td><td colspan="3">회복 7 · 부담 낮춤 9</td><td class="n">16</td><td>적정</td></tr>
+</table>
+<p class="where"><b>식사 시각·야식 축이 5개뿐</b>입니다. 이 축만 돌면 사흘이면 같은 문구가 돌아옵니다.
+점수를 매기지 않는 축이라 문구를 늘려도 상태 판정에는 영향이 없습니다.</p>
+
+<h2>지금 쓰는 근거와 보탤 근거</h2>
+<table>
+<tr><th style="width:26%">출처</th><th style="width:12%">현재 사용</th><th style="width:62%">무엇을 뒷받침하나</th></tr>
+<tr class="g"><td colspan="3">이미 쓰고 있는 것</td></tr>
+<tr><td>WHO 식이 권고</td><td class="n">133건</td><td>채소·당류·지방 전반</td></tr>
+<tr><td>미국 당뇨병·신장질환 기관 저혈당 자료</td><td class="n">39건</td><td>당뇨 저혈당 처치 금지 근거</td></tr>
+<tr><td>미국 당뇨병·신장질환 기관 만성콩팥병 자료</td><td class="n">38건</td><td>칼륨·단백질·수분 금지 근거</td></tr>
+<tr><td>미국심장협회 심부전 자료</td><td class="n">27건</td><td>수분 목표 금지 근거</td></tr>
+<tr><td>영국 섭식장애 지침</td><td class="n">15건</td><td>감량·공복 금지 근거</td></tr>
+<tr><td>보건복지부 한국인을 위한 식생활지침</td><td class="n">5건</td><td>수칙 2 덜 짜게 · 수칙 4 과식</td></tr>
+<tr class="g"><td colspan="3">이번에 보태자는 것 — 국내 학회가 거의 없습니다</td></tr>
+<tr><td><b>대한당뇨병학회 2023 진료지침</b></td><td class="n">—</td>
+<td>통곡·콩류·채소 형태의 탄수화물, 포화·트랜스지방을 불포화로 대체</td></tr>
+<tr><td><b>대한고혈압학회 2022 진료지침</b></td><td class="n">—</td>
+<td>나트륨 하루 2,000mg 이하, DASH 식사 패턴</td></tr>
+<tr><td><b>한국지질·동맥경화학회 2022 진료지침</b></td><td class="n">—</td>
+<td>트랜스지방 최대한 적게, 포화지방 주의</td></tr>
+<tr><td><b>대한비만학회 비만 진료지침</b></td><td class="n">—</td>
+<td>오래 씹어 천천히 먹기, 식사 규칙성·야식·간식 확인</td></tr>
+<tr><td><b>WHO 2023 지방 섭취 지침</b></td><td class="n">—</td>
+<td>포화지방 10% 미만, 트랜스지방 1% 미만, 불포화 위주</td></tr>
+<tr><td><b>식품의약품안전처 나트륨·당류 저감</b></td><td class="n">—</td>
+<td>버섯·다시마·멸치가루로 맛내기, 「덜 짠」·「당 줄인」 표시 제품</td></tr>
+</table>
+
+<h2>제안 문구 14개</h2>
+<p>타일 문구는 <b>12자 이내(띄어쓰기 포함)</b>를 지켰고, 이유 한 줄은 효과를 단정하지 않고 행동만 적었습니다.
+금지 성격은 질환별 제외에 쓰는 값입니다.</p>
+
+<table>
+<tr><th class="n" style="width:4%">#</th><th style="width:14%">타일 문구</th><th class="n" style="width:5%">자</th>
+<th style="width:11%">축 · 단계</th><th style="width:24%">이유 한 줄</th>
+<th class="n" style="width:8%">금지 성격</th><th style="width:34%">근거와 고른 이유</th></tr>
+
+<tr class="g"><td colspan="7">식사 시각 · 야식 — 지금 5개뿐인 축</td></tr>
+<tr><td class="n">1</td><td><b>세 끼 시간 정해 두기</b></td><td class="n">12</td><td>식사 시각 · 입문</td>
+<td>끼니 시각을 미리 정해 두는 행동이에요.</td><td class="n">—</td>
+<td>대한비만학회 진료지침이 식사의 규칙성을 확인하도록 함. 지금 입문 단계에 문구가 하나뿐임</td></tr>
+<tr><td class="n">2</td><td><b>아침 시간 정해 두기</b></td><td class="n">11</td><td>식사 시각 · 입문</td>
+<td>아침을 먹는 시각을 정해 두는 행동이에요.</td><td class="n">—</td>
+<td>식생활지침 수칙 5 「아침식사를 꼭 하자」. 아침을 거르라고 하지 않고 시각만 정하게 함</td></tr>
+<tr><td class="n">3</td><td><b>야식도 그릇에 덜기</b></td><td class="n">10</td><td>식사 시각 · 기본</td>
+<td>봉지째 먹지 않고 그릇에 덜어 먹는 행동이에요.</td><td class="n">—</td>
+<td>대한비만학회 진료지침의 야식·간식 확인 항목. <b>야식을 참으라고 하지 않습니다</b> — 이 축은 좋고 나쁨을 매기지 않기로 했으므로 먹는 방식만 다룸</td></tr>
+<tr><td class="n">4</td><td><b>저녁 후 물 한 잔</b></td><td class="n">9</td><td>식사 시각 · 도전</td>
+<td>저녁 뒤에 물을 한 잔 마셔 보는 행동이에요.</td><td class="n"><b>수분</b></td>
+<td>식생활지침 수칙 3 「물을 충분히 마시자」. 수분 목표라 신장질환·심부전에는 자동으로 빠짐</td></tr>
+
+<tr class="g"><td colspan="7">식사 속도 · 양 — 기본 단계가 3개뿐</td></tr>
+<tr><td class="n">5</td><td><b>반찬은 먹을 만큼만</b></td><td class="n">10</td><td>식사 속도 · 기본</td>
+<td>먹을 만큼만 덜어 담는 행동이에요.</td><td class="n"><b>감량</b></td>
+<td>식생활지침 수칙 4 「과식을 피하고」 · 수칙 8 「각자 덜어 먹기」</td></tr>
+<tr><td class="n">6</td><td><b>먼저 덜고 나서 먹기</b></td><td class="n">11</td><td>식사 속도 · 기본</td>
+<td>먹기 전에 먹을 양을 먼저 덜어 두는 행동이에요.</td><td class="n"><b>감량</b></td>
+<td>식생활지침 수칙 8. 공용 그릇에서 바로 먹는 습관을 바꾸는 행동</td></tr>
+<tr><td class="n">7</td><td><b>한 입 더 씹어 보기</b></td><td class="n">11</td><td>식사 속도 · 도전</td>
+<td>평소보다 조금 더 씹어 보는 행동이에요.</td><td class="n">—</td>
+<td>대한비만학회 진료지침 「오래 씹어 천천히」. 지금 도전 단계는 멈추기·수저 놓기뿐이라 씹는 행동이 없음</td></tr>
+
+<tr class="g"><td colspan="7">기름진 음식 — 도전 단계가 3개뿐</td></tr>
+<tr><td class="n">8</td><td><b>버터 대신 식물성 기름</b></td><td class="n">12</td><td>기름진 음식 · 도전</td>
+<td>굳어 있는 기름 대신 액체 기름을 쓰는 행동이에요.</td><td class="n">—</td>
+<td>WHO 2023 지방 지침 「불포화지방산 위주로」 · 대한당뇨병학회 2023 「포화·트랜스를 불포화로 대체」</td></tr>
+<tr><td class="n">9</td><td><b>고기 기름 떼고 먹기</b></td><td class="n">11</td><td>기름진 음식 · 도전</td>
+<td>눈에 보이는 기름을 떼어 내는 행동이에요.</td><td class="n">—</td>
+<td>한국지질·동맥경화학회 2022 「포화지방은 고기의 기름에 많다」</td></tr>
+<tr><td class="n">10</td><td><b>포장 지방 표시 보기</b></td><td class="n">11</td><td>기름진 음식 · 기본</td>
+<td>제품의 포화지방·트랜스지방 표시를 보는 행동이에요.</td><td class="n">—</td>
+<td>한국지질·동맥경화학회 2022 「트랜스지방은 최대한 적게」 · WHO 2023 「트랜스지방 1% 미만」.
+단 음료 축에는 당류 표시 보기가 있는데 지방 축에는 없음</td></tr>
+
+<tr class="g"><td colspan="7">짠맛 · 국물 — 조리법 쪽이 비어 있음</td></tr>
+<tr><td class="n">11</td><td><b>버섯·다시마로 맛내기</b></td><td class="n">11</td><td>짠맛 · 기본</td>
+<td>소금 대신 재료로 맛을 내는 행동이에요.</td><td class="n">—</td>
+<td>식약처 나트륨 저감 실천법 「버섯·다시마·멸치가루를 활용」.
+지금 짠맛 축은 덜 먹는 행동뿐이고 조리법 문구가 없음</td></tr>
+<tr><td class="n">12</td><td><b>덜 짠 표시 확인하기</b></td><td class="n">11</td><td>짠맛 · 기본</td>
+<td>제품의 「덜 짠」 표시를 보고 고르는 행동이에요.</td><td class="n">—</td>
+<td>식약처 저감 표시제. 같은 제품군에서 나트륨이 10% 이상 적은 제품에 표시됨</td></tr>
+
+<tr class="g"><td colspan="7">그 밖에 비어 있던 칸</td></tr>
+<tr><td class="n">13</td><td><b>반찬 하나는 콩·두부로</b></td><td class="n">12</td><td>단백질 · 기본</td>
+<td>반찬 하나를 콩이나 두부로 하는 행동이에요.</td><td class="n">—</td>
+<td>대한당뇨병학회 2023 「통곡류·콩류·채소 형태로」 · 대한고혈압학회 2022 DASH 식사 패턴</td></tr>
+<tr><td class="n">14</td><td><b>간식도 당류 표시 보기</b></td><td class="n">12</td><td>단 음료 · 기본</td>
+<td>간식의 당류 표시를 보고 고르는 행동이에요.</td><td class="n">—</td>
+<td>식약처 당류 저감. 지금은 「음료는 당류 표시 보기」만 있고 간식 쪽이 없음. 기본 단계가 4개뿐</td></tr>
+</table>
+
+<h2>넣지 않은 것과 그 이유</h2>
+<p>가이드라인에 있지만 지금 정책과 어긋나 제외했습니다.</p>
+<table>
+<tr><th style="width:26%">가이드라인 내용</th><th style="width:20%">출처</th><th style="width:54%">제외 사유</th></tr>
+<tr><td>간식 대신 신선한 과일을 먹기</td><td>식약처 당류 저감 · 식생활지침 수칙 1</td>
+<td><b>사용자 정책으로 과일 추가·대체 문구를 쓰지 않기로</b> 되어 있습니다
+<span class="src">(참조설정데이터 안내 「과일 추천 제외」)</span></td></tr>
+<tr><td>음주를 조절하자</td><td>식생활지침 수칙 6</td>
+<td>식이 8축에 음주 축이 없습니다. 넣으려면 <b>축을 하나 새로 만들어야</b> 합니다</td></tr>
+<tr><td>건강체중을 유지하자</td><td>식생활지침 수칙 4</td>
+<td>체중 목표는 개인 평가가 필요해 자동으로 내지 않기로 했습니다
+<span class="src">(구현기준 R-07)</span></td></tr>
+<tr><td>체중 5% 이상 감량</td><td>대한당뇨병학회 2023</td>
+<td>같은 이유. 숫자가 붙은 감량 목표는 자동 생성 대상이 아닙니다</td></tr>
+<tr><td>나트륨 하루 2,000mg 이하</td><td>대한고혈압학회 2022</td>
+<td>섭취량을 숫자로 제시하면 사용자가 계산해야 합니다. 행동 문구로 바꿔 11·12번에 반영했습니다</td></tr>
+<tr><td>지중해식 · 저탄수화물 등 식사 패턴</td><td>대한당뇨병학회 2023</td>
+<td>개별화가 전제인 처방 영역입니다. 하루 한 가지 행동으로 쪼갤 수 없습니다</td></tr>
+<tr><td>식이섬유가 풍부한 통곡류</td><td>대한당뇨병학회 2023</td>
+<td>곡류·식이섬유 19개 문구가 <b>연결 규칙 확정 전 보류</b> 상태입니다
+<span class="src">(참조설정데이터 안내 「축」 항목)</span></td></tr>
+</table>
+
+<h2>확인이 필요한 것</h2>
+<div class="warn">
+<b>① 4번 「저녁 후 물 한 잔」은 금지 성격이 수분입니다.</b>
+만성 신장질환·심혈관질환·투석·연하장애에서는 자동으로 빠집니다. 그래도 넣을지 확인이 필요합니다.<br><br>
+<b>② 5·6번은 금지 성격이 감량입니다.</b>
+당뇨병·임신·섭식장애·영양결핍·투석·연하장애에서 빠집니다. 「덜어 먹기」가 감량으로 분류되는 게 맞는지 검수가 필요합니다.<br><br>
+<b>③ 1·2번은 끼니 규칙 축과 겹쳐 보일 수 있습니다.</b>
+끼니 규칙은 「얼마나 먹었나」, 식사 시각은 「언제 먹었나」로 나뉘어 있습니다. 시각만 다루도록 썼지만 검수에서 한 번 봐 주셔야 합니다.
+</div>
+
+<h2>넣게 되면 바뀌는 분포</h2>
+<table>
+<tr><th style="width:22%">축</th><th class="n">입문</th><th class="n">기본</th><th class="n">도전</th><th class="n">합계</th></tr>
+<tr><td>단 음료 · 단 간식</td><td class="n">7</td><td class="n">4 → <b>5</b></td><td class="n">8</td><td class="n">19 → 20</td></tr>
+<tr><td>짠맛 · 국물</td><td class="n">8</td><td class="n">8 → <b>10</b></td><td class="n">6</td><td class="n">22 → 24</td></tr>
+<tr><td>식사 시각 · 야식</td><td class="n">1 → <b>3</b></td><td class="n">2 → <b>3</b></td><td class="n">2 → <b>3</b></td><td class="n">5 → <b>9</b></td></tr>
+<tr><td>식사 속도 · 양</td><td class="n">5</td><td class="n">3 → <b>5</b></td><td class="n">4 → <b>5</b></td><td class="n">12 → 15</td></tr>
+<tr><td>단백질</td><td class="n">8</td><td class="n">6 → <b>7</b></td><td class="n">6</td><td class="n">20 → 21</td></tr>
+<tr><td>기름진 음식</td><td class="n">5</td><td class="n">6 → <b>7</b></td><td class="n">3 → <b>5</b></td><td class="n">14 → 17</td></tr>
+<tr class="g"><td>전체</td><td colspan="3"></td><td class="n">143 → <b>157</b></td></tr>
+</table>
+
+<h2>다음 단계</h2>
+<table>
+<tr><th class="n" style="width:6%">순서</th><th style="width:30%">할 일</th><th style="width:64%">내용</th></tr>
+<tr><td class="n">1</td><td>기획 확인</td><td>14개 중 뺄 것과 문구를 다듬을 것을 고릅니다</td></tr>
+<tr><td class="n">2</td><td>의학 검수</td><td>문구세트 의학검수 파일에 추가해 검수를 받습니다. 금지 성격도 함께 확정합니다</td></tr>
+<tr><td class="n">3</td><td>근거 등록</td><td>근거대조서 출처목록에 국내 학회 다섯 곳을 추가합니다</td></tr>
+<tr><td class="n">4</td><td>계약 반영</td><td>데이터계약 목표문구·노출조건과 참조설정데이터 문구세트에 넣고, 안내 시트 변경 이력에 남깁니다</td></tr>
+</table>
+
+<p class="src" style="margin-top:26px">
+근거 출처 — 보건복지부·농림축산식품부·식품의약품안전처 「한국인을 위한 식생활지침」 ·
+대한당뇨병학회 「2023 당뇨병 진료지침」 · 대한고혈압학회 「2022 고혈압 진료지침」 ·
+한국지질·동맥경화학회 「2022 이상지질혈증 진료지침」 · 대한비만학회 「비만 진료지침」 ·
+WHO 「Saturated fatty acid and trans-fatty acid intake for adults and children (2023)」 ·
+식품의약품안전처 나트륨·당류 저감 자료.<br>
+기준 파일 — maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx (안내 시트 v1.0.1) ·
+maiReport_식이_참조설정데이터_v1.0.0.xlsx</p>
+
+</main>
+<script>
+(function(){
+ function dl(parts,type,name){
+  var b=new Blob(parts,{type:type}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(u);a.remove();},2000);
+ }
+ function stamp(){var d=new Date();function p(n){return(n<10?'0':'')+n;}
+  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate());}
+ var BASE='maiReport_식이_문구추가제안_'+stamp();
+ function toXls(){
+  var out='<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">'
+   +'<style>table{border-collapse:collapse}td,th{border:1px solid #9aa3ab;vertical-align:top;'
+   +'mso-number-format:"\\@"}th{background:#eef2f6;font-weight:bold}</style></head><body>';
+  out+='<p><b>'+document.title+'</b></p>';
+  var nodes=document.querySelectorAll('main h2, main table');
+  for(var i=0;i<nodes.length;i++){var el=nodes[i];
+   if(el.tagName==='H2'){out+='<p></p><p><b>'+el.textContent+'</b></p>';}
+   else{var t=el.cloneNode(true),c=t.querySelectorAll('code,span,b');
+    for(var j=0;j<c.length;j++){var e=c[j];while(e.firstChild){e.parentNode.insertBefore(e.firstChild,e);}e.parentNode.removeChild(e);}
+    var br=t.querySelectorAll('br');
+    for(var k=0;k<br.length;k++){br[k].parentNode.replaceChild(document.createTextNode(' · '),br[k]);}
+    out+=t.outerHTML;}}
+  out+='</body></html>';
+  dl(['\ufeff',out],'application/vnd.ms-excel;charset=utf-8',BASE+'.xls');
+ }
+ function toHtml(){
+  var d=document.documentElement.cloneNode(true),tb=d.querySelector('.tb'),sc=d.querySelectorAll('script');
+  if(tb)tb.remove(); for(var i=0;i<sc.length;i++)sc[i].remove();
+  dl(['\ufeff<!doctype html>\n',d.outerHTML],'text/html;charset=utf-8',BASE+'.html');
+ }
+ document.addEventListener('click',function(e){
+  var b=e.target.closest('.tb button'); if(!b) return;
+  var a=b.getAttribute('data-act');
+  if(a==='xls')toXls(); else if(a==='html')toHtml(); else if(a==='pdf')window.print();
+ });
+})();
+</script>
+</body></html>
