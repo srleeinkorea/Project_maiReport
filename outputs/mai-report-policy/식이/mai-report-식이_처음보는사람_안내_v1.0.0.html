@@ -147,26 +147,30 @@ B 씨는 아직 「어떤 사람인지 모르는」 상태입니다.</div>
 <h2><span class="num">3</span>축 여덟 개와 그 질문</h2>
 <p>식습관을 이렇게 나눠 놨습니다. 「지난 끼니」 자리에는 어제 저녁·오늘 아침·오늘 점심·오늘 저녁 중 하나가 들어갑니다.</p>
 <table>
-<tr><th style="width:17%">축</th><th style="width:40%">질문</th><th style="width:43%">답 세 개 (좋음 → 나쁨)</th></tr>
+<tr><th style="width:15%">축</th><th style="width:30%">질문</th><th style="width:33%">답 세 개 (좋음 → 나쁨)</th><th style="width:22%">엑셀 어디에</th></tr>
 <tr><td><b>끼니 규칙</b><br><span class="src">매일 묻는 고정 질문</span></td>
 <td>{지난 끼니}은 평소만큼 드셨나요?</td>
-<td>평소대로 · 조금 적게 · 거의 못 먹거나 거름</td></tr>
+<td>평소대로 · 조금 적게 · 거의 못 먹거나 거름</td><td><code>DIET-Q-00</code><br>질문 <b>2행</b> · 선택지 <b>2~4행</b></td></tr>
 <tr><td><b>채소</b></td><td>{지난 끼니}에 채소 반찬 몇 가지 드셨나요?</td>
-<td>두 가지 이상 · 한 가지 · 먹지 않았어요</td></tr>
+<td>두 가지 이상 · 한 가지 · 먹지 않았어요</td><td><code>DIET-Q-01</code><br>질문 <b>3행</b> · 선택지 <b>5~7행</b></td></tr>
 <tr><td><b>단 음료 · 단 간식</b></td><td>{지난 끼니} 전후에 단 음료·간식 몇 번 드셨나요?</td>
-<td>없었어요 · 한 번 · 두 번 이상</td></tr>
+<td>없었어요 · 한 번 · 두 번 이상</td><td><code>DIET-Q-02</code><br>질문 <b>4행</b> · 선택지 <b>8~10행</b></td></tr>
 <tr><td><b>짠맛 · 국물</b></td><td>{지난 끼니}에 국물은 얼마나 드셨나요?</td>
-<td>안 먹었어요 · 절반 이하 · 절반 넘게</td></tr>
+<td>안 먹었어요 · 절반 이하 · 절반 넘게</td><td><code>DIET-Q-03</code><br>질문 <b>5행</b> · 선택지 <b>11~13행</b></td></tr>
 <tr><td><b>식사 시각 · 야식</b><br><span class="src">새벽 4~10시에만</span></td>
 <td>어젯밤 야식을 몇 번 드셨나요?</td>
-<td>안 먹었어요 · 한 번 · 두 번 이상 <span class="src">(좋고 나쁨을 매기지 않습니다)</span></td></tr>
+<td>안 먹었어요 · 한 번 · 두 번 이상 <span class="src">(좋고 나쁨을 매기지 않습니다)</span></td><td><code>DIET-Q-04</code><br>질문 <b>6행</b> · 선택지 <b>14~16행</b></td></tr>
 <tr><td><b>식사 속도 · 양</b></td><td>{지난 끼니} 먹고 얼마나 배불렀나요?</td>
-<td>편안했어요 · 조금 배불렀어요 · 많이 배불렀어요</td></tr>
+<td>편안했어요 · 조금 배불렀어요 · 많이 배불렀어요</td><td><code>DIET-Q-05</code><br>질문 <b>7행</b> · 선택지 <b>17~19행</b></td></tr>
 <tr><td><b>단백질</b></td><td>{지난 끼니}에 고기·생선·달걀·두부를 드셨나요?</td>
-<td>먹었어요 · 맛만 봤어요 · 안 먹었어요</td></tr>
+<td>먹었어요 · 맛만 봤어요 · 안 먹었어요</td><td><code>DIET-Q-06</code><br>질문 <b>8행</b> · 선택지 <b>20~22행</b></td></tr>
 <tr><td><b>기름진 음식</b></td><td>{지난 끼니}에 튀긴 음식을 드셨나요?</td>
-<td>안 먹었어요 · 맛만 봤어요 · 먹었어요</td></tr>
+<td>안 먹었어요 · 맛만 봤어요 · 먹었어요</td><td><code>DIET-Q-07</code><br>질문 <b>9행</b> · 선택지 <b>23~25행</b></td></tr>
 </table>
+
+<p class="where"><b>엑셀로 확인하기</b> — 데이터계약의 <b>질문</b> 시트는 9줄뿐입니다(2~10행).
+맨 아래 10행은 축이 아니라 질환 확인 질문(<code>DIET-Q-90</code>)입니다.
+답은 <b>선택지</b> 시트에 질문마다 세 줄씩 27줄(2~28행)이 이어집니다.</p>
 
 <div class="warn"><b>「안 먹었어요」가 늘 좋은 답은 아닙니다.</b>
 국물·기름진 음식에서는 좋은 답이지만, 채소·단백질에서는 나쁜 답입니다.
@@ -203,11 +207,69 @@ B 씨는 아직 「어떤 사람인지 모르는」 상태입니다.</div>
 <h3>질환이 있는 사람</h3>
 <p>질환과 연결된 축을 먼저 돕니다. 다만 그 축만 돌면 채소·단백질 같은 다른 습관은 영영 못 묻게 됩니다.
 그래서 <b>연결된 축을 한 바퀴 다 물으면, 그다음 날은 일반 축 하나</b>를 묻습니다.</p>
+<h3>질환별 연결 축 — 어디서 확인하나</h3>
+<p>어떤 질환이 어떤 축과 이어지는지는 데이터계약의 <b>질환연결축</b> 시트에 있습니다.
+질환 하나에 축 하나씩 <b>한 줄</b>로 들어 있어서, 축이 셋이면 세 줄입니다. 모두 15줄(2~16행)입니다.</p>
+
+<table>
+<tr><th style="width:18%">질환</th><th class="n" style="width:9%">규칙 번호</th>
+<th style="width:33%">연결되는 축</th><th class="n" style="width:14%">질환연결축<br>시트 행</th>
+<th class="n" style="width:12%">질환규칙<br>시트 행</th><th style="width:14%">금지</th></tr>
+<tr><td><b>당뇨병</b></td><td class="n">DX-01</td>
+<td>채소 · 단 음료·단 간식 · 식사 속도·양</td><td class="n">2 · 3 · 4</td><td class="n">2</td>
+<td>공복 · 감량</td></tr>
+<tr><td><b>고혈압</b></td><td class="n">DX-02</td>
+<td>짠맛·국물 · 채소</td><td class="n">5 · 6</td><td class="n">3</td><td>없음</td></tr>
+<tr><td><b>이상지질혈증</b></td><td class="n">DX-03</td>
+<td>기름진 음식 · 식사 속도·양</td><td class="n">7 · 8</td><td class="n">4</td><td>없음</td></tr>
+<tr><td><b>이상지질혈증 · 고중성지방</b></td><td class="n">DX-04</td>
+<td>기름진 음식 · 식사 속도·양 · 단 음료·단 간식</td><td class="n">9 · 10 · 11</td><td class="n">5</td>
+<td>없음</td></tr>
+<tr><td><b>만성 신장질환</b></td><td class="n">DX-05</td>
+<td><b>없음</b></td><td class="n"><b>줄이 없습니다</b></td><td class="n">6</td>
+<td>증량 · 감량 · 수분</td></tr>
+<tr><td><b>심혈관질환</b></td><td class="n">DX-06</td>
+<td>짠맛·국물 · 기름진 음식</td><td class="n">12 · 13</td><td class="n">7</td><td>수분</td></tr>
+<tr><td><b>지방간</b></td><td class="n">DX-07</td>
+<td>단 음료·단 간식 · 기름진 음식 · 식사 속도·양</td><td class="n">14 · 15 · 16</td><td class="n">8</td>
+<td>없음</td></tr>
+<tr class="g"><td colspan="6"><b>아래 일곱은 연결 축이 없습니다 — 금지만 겁니다</b>
+<span class="src">질환연결축 시트에 줄이 없고, 질환규칙 시트에만 있습니다</span></td></tr>
+<tr><td>임신 · 산후 · 수유</td><td class="n">DX-08</td><td rowspan="5">없음</td>
+<td class="n" rowspan="7">줄 없음</td><td class="n">9</td><td rowspan="5">감량 · 공복 · 증량</td></tr>
+<tr><td>섭식장애</td><td class="n">DX-09</td><td class="n">10</td></tr>
+<tr><td>영양결핍 · 저체중</td><td class="n">DX-10</td><td class="n">11</td></tr>
+<tr><td>악성신생물 치료 중</td><td class="n">DX-11</td><td class="n">12</td></tr>
+<tr><td>위 절제 · 비만수술</td><td class="n">DX-12</td><td class="n">13</td></tr>
+<tr><td>투석 · 이식</td><td class="n">DX-18</td><td>없음</td><td class="n">14</td><td>증량 · 감량</td></tr>
+<tr><td>연하장애</td><td class="n">DX-20</td><td>없음</td><td class="n">15</td>
+<td>감량 · 공복 · 증량 · 질감 · 수분</td></tr>
+</table>
+
+<div class="ex"><b class="t">엑셀에서 「고혈압은 무슨 축이지?」를 찾는 순서</b>
+① <b>질환규칙</b> 시트에서 「고혈압」을 찾습니다 → <b>3행</b>, 규칙 번호가 <code>DX-02</code>입니다<br>
+② <b>질환연결축</b> 시트에서 <code>DX-02</code>를 찾습니다 → <b>5행과 6행</b> 두 줄이 나옵니다<br>
+③ 각 줄의 질문 ID가 <code>DIET-Q-03</code>, <code>DIET-Q-01</code>입니다<br>
+④ <b>질문</b> 시트에서 그 번호를 찾으면 <b>짠맛·국물</b>(5행), <b>채소</b>(3행)입니다<br><br>
+<b>시트를 세 번 건너뛰어야 합니다.</b> 질환연결축 시트에는 한글 이름이 없고 번호만 있어서입니다.</div>
+
+<div class="warn"><b>만성 신장질환만 줄이 없습니다.</b>
+묻기는 하는데(질환규칙 6행에 확인 질문이 있음) 축을 연결하지 않기로 했습니다.
+칼륨·인·단백질·수분을 사람마다 다르게 조절해야 해서, 일반 목표를 내는 대신 <b>금지만</b> 겁니다.
+예전에는 짠맛·국물로 이어져 있었는데 2026-10-02에 그 줄을 지웠습니다.</div>
+
+<p class="where"><b>직접 선택 네 개는 다른 시트입니다</b> — 내정보 화면에서 고르는 고혈압·당뇨병·이상지질혈증·만성 신장질환은
+<b>내정보질환매핑</b> 시트(2~5행)에 있습니다. 각 줄의 「식이 연결 상태」가 <code>MAPPED</code>면 축이 생기고,
+<code>SAFETY_ONLY</code>면 금지만 겁니다. 만성 신장질환만 <code>SAFETY_ONLY</code>입니다.</p>
+
 <div class="ex"><b class="t">고혈압이 있는 사람의 9일</b>
 고혈압과 연결된 축은 <b>짠맛·국물</b>과 <b>채소</b> 둘입니다.<br><br>
 1일 채소 → 2일 짠맛 → <b>3일 단 음료(일반)</b> → 4일 채소 → 5일 짠맛 → <b>6일 식사 속도(일반)</b> →
 7일 채소 → 8일 짠맛 → <b>9일 단백질(일반)</b><br><br>
 질환 축 2 : 일반 축 1 비율로 돕니다. 질환을 챙기면서 다른 습관도 놓치지 않습니다.</div>
+
+<p class="where"><b>회전 규칙 자체는</b> 데이터계약 <b>설정</b> 시트의 <code>CFG-041</code>과
+<b>구현기준</b> 시트의 <code>R-09</code>에 적혀 있습니다. 「질환 축을 모두 한 번씩 물은 다음 날 일반 축 하나」가 그 문장입니다.</p>
 
 <h2><span class="num">6</span>답이 쌓이면 상태가 된다</h2>
 <p>하루치 답 하나로는 아무 말도 할 수 없습니다. 여러 날 모여야 그 사람의 경향이 보입니다.</p>
