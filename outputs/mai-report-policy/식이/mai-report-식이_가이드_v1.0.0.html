@@ -42,7 +42,8 @@ li{margin:6px 0}
 .tb button:hover{background:var(--tint)}
 @media print{.tb{display:none}body{padding:0;background:#fff}main{max-width:none}
  table,.box{box-shadow:none}tr,.ex,.box{break-inside:avoid}h2{break-after:avoid}@page{size:A4;margin:14mm}}
-</style></head><body><main>
+</style><style>.chg{color:#d0021b;font-weight:700}</style>
+</head><body><main>
 
 <div class="tb">
 <button type="button" data-act="xls">Excel로 저장</button>
@@ -72,7 +73,7 @@ li{margin:6px 0}
 <b>「오늘 점심은 평소만큼 드셨나요?」</b>
 <div class="q">답 — 평소대로 / 조금 적게 / 거의 못 먹거나 거름 &nbsp;→&nbsp; <b>「평소대로」</b>를 고릅니다</div></div></div>
 <div class="dayrow"><div class="dayt">질문 2</div><div class="dayb">
-<b>「오늘 점심에 국물은 얼마나 드셨나요?」</b>
+<b>「오늘 점심<span class="chg">엔 국물을 얼마나 드셨나요</span>?」</b>
 <div class="q">답 — 안 먹었어요 / 절반 이하 / 절반 넘게 &nbsp;→&nbsp; <b>「절반 넘게」</b>를 고릅니다</div></div></div>
 <div class="dayrow"><div class="dayt">목표</div><div class="dayb">
 <b>「한 끼는 국물 반만」</b>
@@ -128,7 +129,7 @@ li{margin:6px 0}
 둘 다 채소 질문에 열 번 답했고, 대부분 「먹지 않았어요」였습니다. <b>상태는 둘 다 개선 필요</b>입니다.<br><br>
 <b>A 씨</b>는 목표를 한 번도 안 눌렀습니다.<br>
 → 상태 <b>개선 필요</b> · 단계 <b>입문</b> — 해낸 게 없으니 그대로입니다<br><br>
-<b>B 씨</b>는 최근 7일 안에 채소 목표를 세 번 해냈습니다.<br>
+<b>B 씨</b>는 <span class="chg">끝난 채소 목표 최근 네 건 중 세 건</span>을 해냈습니다.<br>
 → 상태 <b>개선 필요</b> <span class="src">(답이 달라지지 않았으니 그대로)</span> ·
 단계 <b>기본</b>으로 올라감<br><br>
 <b>같은 상태인데 단계가 다릅니다.</b> 상태는 「채소를 잘 안 먹는다」를 말하고,
@@ -140,7 +141,8 @@ li{margin:6px 0}
 <table>
 <tr><th style="width:16%"></th><th style="width:40%">조건</th><th style="width:44%">단서</th></tr>
 <tr><td><b>올라감</b><br><span class="src">1단계씩</span></td>
-<td>마지막으로 단계가 바뀐 뒤 <b>최근 7일 안에</b> 같은 축 목표를 <b>3번 완료</b></td>
+<td><span class="chg">마지막으로 단계가 바뀐 뒤 그 축의 <b>끝난 목표 최근 4건 중 3건 완료</b></span><br>
+<span class="src"><span class="chg">끝난 목표가 3건 미만이면 판단하지 않습니다 · 날짜가 아니라 횟수로 셉니다 · 56일 안의 목표만 · 안내만·회복·부담 줄이기 목표는 세지 않습니다</span></span></td>
 <td>그 축이 <b>관찰 중이면 안 올립니다</b><br>
 그 축이 <b>개선 필요면 「기본」까지만</b> 올립니다</td></tr>
 <tr><td><b>내려감</b><br><span class="src">1단계씩</span></td>
@@ -170,20 +172,22 @@ li{margin:6px 0}
 그리고 지난 날짜를 뒤늦게 눌러 완료한 것(<b>소급 완료</b>)은 세지 않습니다.
 몰아서 누르면 단계가 올라가는 일을 막기 위해서입니다.</p>
 
-<div class="ex"><b class="t">채소 축 단계가 움직이는 모습</b>
+<div class="ex"><b class="t"><span class="chg">국물 축 단계가 움직이는 모습</span> <span class="src">고혈압이 있는 사람 · 국물 목표가 3일에 한 번 나옴</span></b>
 <table style="margin:8px 0">
-<tr><th class="n" style="width:10%">날</th><th style="width:26%">목표</th><th style="width:16%">결과</th>
-<th style="width:48%">단계</th></tr>
-<tr><td class="n">1</td><td>한 끼에 채소 하나</td><td>완료</td><td>입문 — 완료 1건</td></tr>
-<tr><td class="n">3</td><td>국 대신 나물 반찬</td><td>완료</td><td>입문 — 완료 2건</td></tr>
-<tr><td class="n">5</td><td>한 끼에 채소 하나</td><td><b>완료</b></td>
-<td><b>7일 안에 3건 → 기본으로 올라감</b> <span class="src">(상태가 관찰 중이 아니어야 함)</span></td></tr>
-<tr><td class="n">8</td><td>저녁에 채소 반찬 하나</td><td>안 함</td><td>기본 — 미완료 1건</td></tr>
-<tr><td class="n">10</td><td>장볼 때 채소 적기</td><td><b>안 함</b></td>
+<tr><th class="n" style="width:10%">날</th><th style="width:26%">국물 목표</th><th style="width:14%">결과</th>
+<th style="width:50%">단계</th></tr>
+<tr><td class="n">2</td><td>한 끼는 국물 반만</td><td>완료</td><td>입문 — 끝난 목표 1건 <span class="src">(3건 미만이라 판단 안 함)</span></td></tr>
+<tr><td class="n">5</td><td>라면 국물은 남기기</td><td>완료</td><td>입문 — 끝난 목표 2건 <span class="src">(판단 안 함)</span></td></tr>
+<tr><td class="n">8</td><td>소스 없이 먹어보기</td><td><b>완료</b></td>
+<td><b>끝난 3건 중 3건 완료 → 기본으로 올라감</b> <span class="src">(상태가 관찰 중이 아니어야 함)</span></td></tr>
+<tr><td class="n">11</td><td>찌개는 건더기만</td><td>안 함</td><td>기본 — 올라간 뒤 끝난 목표 1건 <span class="src">(미완료 1건)</span></td></tr>
+<tr><td class="n">14</td><td>국은 마지막에 간하기</td><td><b>안 함</b></td>
 <td><b>2번 연속 안 함 → 입문으로 내려감</b></td></tr>
 </table>
-5일째에 올라갈 때 <b>날짜를 다시 셉니다.</b> 1·3·5일의 완료는 이미 썼으므로,
-도전으로 가려면 5일째 이후로 다시 3건을 모아야 합니다.</div>
+<span class="chg">「최근 7일」로 세면 이 사람은 영영 오를 수 없습니다.</span> 국물 목표가 3일에 한 번뿐이라 7일 안에는 많아야 2건이기 때문입니다.
+그래서 <b>날짜가 아니라 횟수</b>로 셉니다. 8일째에 올라간 뒤에는 세는 것을 <b>처음부터 다시</b> 합니다.
+도전으로 가려면 그 뒤로 끝난 국물 목표가 3건 이상 모이고, 최근 4건 중 3건을 완료해야 합니다.
+4건 중 3건이라 한 번쯤 놓쳐도 오를 수 있습니다.</div>
 
 <div class="warn"><b>왜 상태를 같이 보나.</b>
 목표를 세 번 해냈다고 무조건 올리면, <b>아직 잘 못하는 습관에 어려운 목표</b>가 나갑니다.<br>
@@ -193,6 +197,7 @@ li{margin:6px 0}
 <p class="where"><b>엑셀 어디에</b> — 데이터계약 <b>검증규칙</b> 시트 <b>42행</b>(<code>V-42</code>)에 한 문장으로 들어 있습니다.
 상태를 보는 두 단서는 <b>설정</b> 시트 <b>66·67행</b>(<code>CFG-068</code> 관찰 중이 아닐 것 ·
 <code>CFG-069</code> 개선 필요는 기본까지)입니다.
+<span class="chg">올리는 기준은 <b>설정</b> 시트 <b>10행</b>(<code>CFG-010</code>)과 <b>68·69행</b>(<code>CFG-070</code> 세는 대상 · <code>CFG-071</code> 56일)에, 4건·3건·56일 같은 숫자는 <b>설정파라미터</b> 시트에 있습니다.</span>
 지금 단계 값은 <code>diet_axis_stage.stage_code</code>에, 언제 바뀌었는지는 <code>changed_at</code>에 저장됩니다.</p>
 
 <h3>「축」이 왜 여덟 개로 나뉘어 있나</h3>
@@ -216,20 +221,20 @@ li{margin:6px 0}
 <tr><td><b>끼니 규칙</b><br><span class="src">매일 묻는 고정 질문</span></td>
 <td>{지난 끼니}은 평소만큼 드셨나요?</td>
 <td>평소대로 · 조금 적게 · 거의 못 먹거나 거름</td><td><code>DIET-Q-00</code><br>질문 <b>2행</b> · 선택지 <b>2~4행</b></td></tr>
-<tr><td><b>채소</b></td><td>{지난 끼니}에 채소 반찬 몇 가지 드셨나요?</td>
+<tr><td><b>채소</b></td><td>{지난 끼니}<span class="chg">엔 채소 반찬을 몇 가지 드셨나요</span>?</td>
 <td>두 가지 이상 · 한 가지 · 먹지 않았어요</td><td><code>DIET-Q-01</code><br>질문 <b>3행</b> · 선택지 <b>5~7행</b></td></tr>
-<tr><td><b>단 음료 · 단 간식</b></td><td>{지난 끼니} 전후에 단 음료·간식 몇 번 드셨나요?</td>
+<tr><td><b>단 음료 · 단 간식</b></td><td>{지난 끼니} <span class="chg">전후로 단 음료나 간식을 몇 번 드셨나요</span>?</td>
 <td>없었어요 · 한 번 · 두 번 이상</td><td><code>DIET-Q-02</code><br>질문 <b>4행</b> · 선택지 <b>8~10행</b></td></tr>
-<tr><td><b>짠맛 · 국물</b></td><td>{지난 끼니}에 국물은 얼마나 드셨나요?</td>
+<tr><td><b>짠맛 · 국물</b></td><td>{지난 끼니}<span class="chg">엔 국물을 얼마나 드셨나요</span>?</td>
 <td>안 먹었어요 · 절반 이하 · 절반 넘게</td><td><code>DIET-Q-03</code><br>질문 <b>5행</b> · 선택지 <b>11~13행</b></td></tr>
 <tr><td><b>식사 시각 · 야식</b><br><span class="src">새벽 4~10시에만</span></td>
-<td>어젯밤 야식을 몇 번 드셨나요?</td>
-<td>안 먹었어요 · 한 번 · 두 번 이상 <span class="src">(좋고 나쁨을 매기지 않습니다)</span></td><td><code>DIET-Q-04</code><br>질문 <b>6행</b> · 선택지 <b>14~16행</b></td></tr>
-<tr><td><b>식사 속도 · 양</b></td><td>{지난 끼니} 먹고 얼마나 배불렀나요?</td>
+<td><span class="chg">어젯밤 야식은 얼마나 드셨나요</span>?</td>
+<td>안 먹었어요 · <span class="chg">간단히 먹었어요</span> · <span class="chg">한 끼만큼 먹었어요</span> <span class="src">(좋고 나쁨을 매기지 않습니다)</span></td><td><code>DIET-Q-04</code><br>질문 <b>6행</b> · 선택지 <b>14~16행</b></td></tr>
+<tr><td><b>식사 속도 · 양</b></td><td>{지난 끼니}<span class="chg">을 드신 뒤 배는 얼마나 불렀나요</span>?</td>
 <td>편안했어요 · 조금 배불렀어요 · 많이 배불렀어요</td><td><code>DIET-Q-05</code><br>질문 <b>7행</b> · 선택지 <b>17~19행</b></td></tr>
-<tr><td><b>단백질</b></td><td>{지난 끼니}에 단백질류(고기·생선·달걀 등)를 드셨나요?</td>
+<tr><td><b>단백질</b></td><td>{지난 끼니}<span class="chg">엔 단백질류(고기·생선·달걀 등)를 드셨나요</span>?</td>
 <td>먹었어요 · 맛만 봤어요 · 안 먹었어요</td><td><code>DIET-Q-06</code><br>질문 <b>8행</b> · 선택지 <b>20~22행</b></td></tr>
-<tr><td><b>기름진 음식</b></td><td>{지난 끼니}에 튀긴 음식을 드셨나요?</td>
+<tr><td><b>기름진 음식</b></td><td>{지난 끼니}<span class="chg">엔 튀긴 음식을 드셨나요</span>?</td>
 <td>안 먹었어요 · 맛만 봤어요 · 먹었어요</td><td><code>DIET-Q-07</code><br>질문 <b>9행</b> · 선택지 <b>23~25행</b></td></tr>
 </table>
 
@@ -656,9 +661,9 @@ li{margin:6px 0}
 <tr><td><b>단계 3종</b></td><td>입문 · 기본 · 도전</td>
 <td>데이터계약</td><td><b>필드정의</b></td>
 <td><code>diet_axis_stage</code> 의 <code>stage_code</code> 허용값</td></tr>
-<tr><td>단계가 올라가는 조건</td><td>최근 7일 완료 3건 + 상태 조건</td>
+<tr><td>단계가 올라가는 조건</td><td><span class="chg">끝난 축 목표 최근 4건 중 3건 완료</span> + 상태 조건</td>
 <td>데이터계약</td><td><b>검증규칙</b> · <b>설정</b></td>
-<td><code>V-42</code> · <code>CFG-068</code> · <code>CFG-069</code></td></tr>
+<td><code>V-42</code> · <span class="chg"><code>CFG-010</code></span> · <code>CFG-068</code> · <code>CFG-069</code> · <span class="chg"><code>CFG-070</code> · <code>CFG-071</code></span></td></tr>
 
 <tr class="g"><td colspan="5"><b>목표 문구</b></td></tr>
 <tr><td><b>문구 172개</b></td><td>화면에 나가는 한 줄</td>
