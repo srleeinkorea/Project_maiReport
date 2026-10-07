@@ -25,3 +25,4 @@ desktop.ini
 !.claude/skills/
 scripts/sharepoint-path.txt
 scripts/.sync-state.json
+scripts/.sp-backup/

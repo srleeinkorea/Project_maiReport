@@ -101,6 +101,12 @@ foreach ($name in $files) {
     $held++; continue
   }
   if ($PSCmdlet.ShouldProcess($name, '올리기')) {
+    # 덮어쓰기 전에 사이트 쪽 파일을 백업해 둔다. 누가 사이트에서 고친 내용을 되살릴 수 있게.
+    if (-not $new) {
+      $bk = Join-Path $PSScriptRoot ('.sp-backup\' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+      New-Item -ItemType Directory -Force $bk | Out-Null
+      Copy-Item $to (Join-Path $bk $name) -Force
+    }
     Copy-Item $from $to -Force
     $state[$name] = $hash
     Write-Host ("  {0}  {1}" -f $(if($new){'새로 올림'}else{'덮어씀  '}), $name) -ForegroundColor Green
