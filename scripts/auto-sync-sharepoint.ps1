@@ -6,6 +6,7 @@
     powershell -ExecutionPolicy Bypass -File scripts\auto-sync-sharepoint.ps1 -Once    한 번만 확인하고 올림
     powershell -ExecutionPolicy Bypass -File scripts\auto-sync-sharepoint.ps1 -Watch   계속 지켜보다가 바뀌면 올림 (Ctrl+C로 끝)
     -DryRun   무엇을 올릴지 로그로만 보여 주고 실제로는 올리지 않는다
+    -Git      올린 뒤 같은 엑셀을 깃허브(메인 저장소와 사이트 저장소)에도 올린다. 엑셀 파일만 커밋한다
 
   안전장치
     1. 파일이 깨졌거나(zip 오류), 시트 수가 줄었거나, 엑셀이 열어 둔 상태면 올리지 않는다.
@@ -15,7 +16,7 @@
     4. 모든 일은 scripts\auto-sync.log 에 남는다.
 #>
 [CmdletBinding()]
-param([switch]$Once, [switch]$Watch, [switch]$DryRun, [int]$IntervalSec = 60)
+param([switch]$Once, [switch]$Watch, [switch]$DryRun, [switch]$Git, [int]$IntervalSec = 60)
 
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.IO.Compression
@@ -60,8 +61,42 @@ if(Test-Path $state){ try{ (Get-Content $state -Raw -Encoding UTF8 | ConvertFrom
 function Save-State { ($st | ConvertTo-Json -Depth 5) | Set-Content $state -Encoding UTF8 }
 $pending=@{}   # 파일별로 지난 확인 때 본 해시 (멈췄는지 보려고)
 
+# 올린 엑셀을 깃허브에도 올린다 (엑셀 파일만 커밋. 다른 변경은 건드리지 않는다)
+$siteRepo = Join-Path $repo '.tmp_artifact\rsna-deploy'
+$siteMap  = @{ 'maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx'='files\diet-data-contract-v1.0.1.xlsx'; 'maiReport_식이_참조설정데이터_v1.0.0.xlsx'='files\diet-reference-config-v1.0.0.xlsx' }
+function Invoke-Git([string[]]$names){
+  # 메인 저장소
+  try{
+    $paths=@(); foreach($n in $names){ $paths+=("outputs/mai-report-policy/식이/"+$n) }
+    & git -C $repo add -- $paths 2>$null | Out-Null
+    & git -C $repo diff --cached --quiet -- $paths 2>$null
+    if($LASTEXITCODE -ne 0){
+      & git -C $repo commit -m ("엑셀 자동 동기화: "+($names -join ', ')) --only -- $paths 2>$null | Out-Null
+      & git -C $repo push 2>$null | Out-Null
+      if($LASTEXITCODE -eq 0){ Log("깃허브  메인 저장소에 올림: "+($names -join ', ')) } else { Log("주의  메인 저장소 푸시 실패 — 다른 변경과 겹쳤을 수 있음. 직접 확인 필요") }
+    } else { Log("깃허브  메인 저장소는 이미 같은 내용") }
+  }catch{ Log("오류  메인 저장소 처리 실패: $($_.Exception.Message)") }
+  # 사이트 저장소 (엑셀 2개)
+  try{
+    if(Test-Path $siteRepo){
+      $changed=@(); foreach($n in $names){ if($siteMap.ContainsKey($n)){ Copy-Item (Join-Path $src $n) (Join-Path $siteRepo $siteMap[$n]) -Force; $changed+=($siteMap[$n].Replace([string][char]92,'/')) } }
+      if($changed.Count){
+        & git -C $siteRepo pull --rebase --autostash 2>$null | Out-Null
+        & git -C $siteRepo add -- $changed 2>$null | Out-Null
+        & git -C $siteRepo diff --cached --quiet -- $changed 2>$null
+        if($LASTEXITCODE -ne 0){
+          & git -C $siteRepo commit -m ("엑셀 자동 동기화: "+($changed -join ', ')) --only -- $changed 2>$null | Out-Null
+          & git -C $siteRepo push 2>$null | Out-Null
+          if($LASTEXITCODE -eq 0){ Log("깃허브  사이트 저장소에 올림: "+($changed -join ', ')) } else { Log("주의  사이트 저장소 푸시 실패 — 직접 확인 필요") }
+        } else { Log("깃허브  사이트 저장소는 이미 같은 내용") }
+      }
+    }
+  }catch{ Log("오류  사이트 저장소 처리 실패: $($_.Exception.Message)") }
+}
+
 function Invoke-Pass {
   $dest=Resolve-Destination
+  $uploaded=@()
   foreach($name in $files){
     $from=Join-Path $src $name; $to=Join-Path $dest $name
     if(-not (Test-Path $from)){ continue }
@@ -89,8 +124,10 @@ function Invoke-Pass {
       $st[$name]=[pscustomobject]@{localSha=$sha;digest=$dg.Hash;sheets=$dg.Sheets;strings=$dg.Strings;at=(Get-Date -Format s)}
       Save-State; $pending.Remove($name)
       Log("올림  $name  (시트 $($dg.Sheets) · 문장 $($dg.Strings) · 요약 $($dg.Hash))")
+      $uploaded+=$name
     }
   }
+  if($Git -and -not $DryRun -and $uploaded.Count){ Invoke-Git $uploaded }
 }
 
 if(-not ($Once -or $Watch)){ Write-Host '-Once 또는 -Watch 를 지정하세요.'; exit 1 }
