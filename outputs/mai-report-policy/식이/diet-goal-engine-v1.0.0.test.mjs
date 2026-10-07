@@ -111,7 +111,7 @@ test('명절 목표는 전달된 명절 날짜에만 후보가 된다', () => {
   assert.equal(selectDietGoal({ ...common, holidayDates: ['2026-09-28'] }).phrase_id, 'HOLIDAY');
 });
 
-test('단계는 미완료 2건을 먼저 하락시키고 7일 완료 3건이면 한 단계만 상승한다', () => {
+test('단계는 미완료 2건을 먼저 하락시키고 끝난 목표 최근 4개 중 3개 완료면 한 단계만 상승한다', () => {
   const down = recalculateAxisStage({ currentStage: 'CHALLENGE', lastChangedDate: '2026-09-20', asOfDate: '2026-09-28', goals: [
     { session_date: '2026-09-26', completed: false }, { session_date: '2026-09-27', completed: false },
     { session_date: '2026-09-25', completed: true }, { session_date: '2026-09-24', completed: true }, { session_date: '2026-09-23', completed: true },
@@ -121,7 +121,7 @@ test('단계는 미완료 2건을 먼저 하락시키고 7일 완료 3건이면 
     { session_date: '2026-09-23', completed: true }, { session_date: '2026-09-24', completed: true },
     { session_date: '2026-09-25', completed: true }, { session_date: '2026-09-26', completed: false },
   ] });
-  assert.deepEqual(up, { stage: 'BASE', changed: true, reason: 'THREE_COMPLETIONS_IN_7_DAYS' });
+  assert.deepEqual(up, { stage: 'BASE', changed: true, reason: 'THREE_OF_RECENT_FOUR_COMPLETED' });
 });
 
 test('안내 상태는 완료율과 연속 미완료 및 단계 계산에서 제외한다', () => {

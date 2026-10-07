@@ -44,21 +44,30 @@ const shiftDate = (value, days) => {
 
 const statusRank = status => ({ IMPROVEMENT_NEEDED: 0, OBSERVING: 1, NORMAL: 2, GOOD: 3 }[status] ?? 9);
 
+const STAGE_UP_RECENT_GOALS = 4;
+const STAGE_UP_MIN_COMPLETED = 3;
+const STAGE_UP_MIN_ENDED = 3;
+const STAGE_DOWN_CONSECUTIVE_INCOMPLETE = 2;
+const STAGE_LOOKBACK_DAYS = 56;
+const NON_STAGE_GOAL_STATES = ['GUIDANCE_ONLY', 'RECOVERY', 'BURDEN_REDUCTION'];
+
 export function recalculateAxisStage({ currentStage = 'INTRO', lastChangedDate, goals = [], asOfDate }) {
   if (!STAGES.includes(currentStage)) throw new Error(`알 수 없는 목표 단계: ${currentStage}`);
   const today = isoDate(asOfDate);
-  const windowStart = shiftDate(today, -6);
+  const windowStart = shiftDate(today, -STAGE_LOOKBACK_DAYS);
   const afterChange = goal => !lastChangedDate || goal.session_date > lastChangedDate;
   // 실제 행동 목표가 생성된 기록만 단계 계산에 사용한다.
-  // GUIDANCE_ONLY는 사용자가 수행할 목표가 없으므로 미완료나 완료율 분모로 세지 않는다.
-  const countsForStage = goal => goal.goal_state !== 'GUIDANCE_ONLY' && goal.completion_counts_for_stage !== false;
-  const eligible = goals.filter(goal => countsForStage(goal) && goal.session_date <= today && goal.session_date >= windowStart && afterChange(goal));
-  const ended = goals.filter(goal => countsForStage(goal) && goal.session_date < today && afterChange(goal)).sort((a, b) => b.session_date.localeCompare(a.session_date));
-  const consecutiveMisses = ended.slice(0, 2).length === 2 && ended.slice(0, 2).every(goal => goal.completed !== true);
-  const completed = eligible.filter(goal => goal.completed === true).length;
+  // 안내만·회복·부담 줄이기 목표는 사용자가 수행할 행동 목표가 아니므로 미완료나 완료 수에 세지 않는다.
+  const countsForStage = goal => !NON_STAGE_GOAL_STATES.includes(goal.goal_state) && goal.completion_counts_for_stage !== false;
+  const ended = goals.filter(goal => countsForStage(goal) && goal.session_date < today && goal.session_date >= windowStart && afterChange(goal)).sort((a, b) => b.session_date.localeCompare(a.session_date));
+  const consecutiveMisses = ended.slice(0, STAGE_DOWN_CONSECUTIVE_INCOMPLETE).length === STAGE_DOWN_CONSECUTIVE_INCOMPLETE
+    && ended.slice(0, STAGE_DOWN_CONSECUTIVE_INCOMPLETE).every(goal => goal.completed !== true);
+  const recent = ended.slice(0, STAGE_UP_RECENT_GOALS);
+  const completed = recent.filter(goal => goal.completed === true).length;
+  const upReady = recent.length >= STAGE_UP_MIN_ENDED && completed >= STAGE_UP_MIN_COMPLETED;
   const index = STAGES.indexOf(currentStage);
   if (consecutiveMisses && index > 0) return { stage: STAGES[index - 1], changed: true, reason: 'TWO_CONSECUTIVE_MISSES' };
-  if (completed >= 3 && index < STAGES.length - 1) return { stage: STAGES[index + 1], changed: true, reason: 'THREE_COMPLETIONS_IN_7_DAYS' };
+  if (upReady && index < STAGES.length - 1) return { stage: STAGES[index + 1], changed: true, reason: 'THREE_OF_RECENT_FOUR_COMPLETED' };
   return { stage: currentStage, changed: false, reason: null };
 }
 
