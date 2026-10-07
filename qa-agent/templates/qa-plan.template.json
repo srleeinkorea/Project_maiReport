@@ -1,0 +1,20 @@
+{
+  "_안내": "QA 계획 파일. 필드 설명은 qa-agent/README.md의 '계획 파일 쓰는 법', 완성 예시는 qa-agent/plans/식이.qa-plan.json. 밑줄(_)로 시작하는 키는 실행기가 무시한다.",
+  "feature": "",
+  "target": "",
+  "baseline": {
+    "contract": null,
+    "documents": [],
+    "ruleSheets": []
+  },
+  "scope": {
+    "in": [],
+    "out": []
+  },
+  "existingTests": [],
+  "fixtures": {},
+  "dataChecks": [],
+  "cases": [],
+  "findings": [],
+  "openQuestions": []
+}

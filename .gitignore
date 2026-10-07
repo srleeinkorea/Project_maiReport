@@ -20,6 +20,8 @@ outputs/_archive/_backup/
 Thumbs.db
 desktop.ini
 .DS_Store
-.claude/
+.claude/*
+!.claude/agents/
+!.claude/skills/
 scripts/sharepoint-path.txt
 scripts/.sync-state.json

@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>식이 QA 보고서</title>
+<style>
+:root{--bg:#fbfbfa;--panel:#fff;--ink:#1d1d1b;--muted:#6b6b66;--line:#e4e3de;--ok:#1f7a4d;--ok-bg:#e6f4ec;--warn:#9a6200;--warn-bg:#fdf2dc;--bad:#b42318;--bad-bg:#fdeceb;--code:#f3f2ee}
+@media (prefers-color-scheme:dark){:root{--bg:#161615;--panel:#1f1f1d;--ink:#ecebe6;--muted:#a3a29b;--line:#34332f;--ok:#5cc58f;--ok-bg:#183326;--warn:#e7b356;--warn-bg:#3a2d12;--bad:#f2867c;--bad-bg:#3d1b18;--code:#2a2a27}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 system-ui,-apple-system,"Segoe UI","Malgun Gothic",sans-serif}
+main{max-width:1080px;margin:0 auto;padding:32px 16px 64px}h1{font-size:26px;margin:0 0 4px}h2{font-size:19px;margin:40px 0 12px;padding-top:8px;border-top:1px solid var(--line)}h3{font-size:16px;margin:6px 0}
+.muted{color:var(--muted)}code,pre{font-family:ui-monospace,Consolas,monospace;font-size:12.5px}code{background:var(--code);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);padding:10px;border-radius:8px;margin:4px 0 0;max-height:260px;overflow:auto;white-space:pre-wrap;word-break:break-all}
+.verdict{margin:20px 0;padding:16px 18px;border-radius:12px;border:1px solid var(--line);background:var(--panel)}.verdict b{font-size:20px}
+.verdict.ok{background:var(--ok-bg);color:var(--ok)}.verdict.warn{background:var(--warn-bg);color:var(--warn)}.verdict.bad{background:var(--bad-bg);color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}.stat .n{font-size:22px;font-weight:700}.stat .l{color:var(--muted);font-size:13px}
+.card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}.card.sev-0{border-left-color:var(--bad)}.card.sev-1{border-left-color:var(--warn)}
+.card header{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.id{font-weight:700;margin-right:4px}
+.pill{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.st-PASS{color:var(--ok);border-color:var(--ok)}.st-FAIL{color:var(--bad);border-color:var(--bad)}.st-ERROR{color:var(--warn);border-color:var(--warn)}
+.scene{background:var(--code);border-radius:8px;padding:8px 12px;margin:8px 0}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:8px}.io-label{font-size:12px;color:var(--muted)}.diffs{margin-top:8px;font-size:13.5px}
+.rules ul{margin:4px 0;padding-left:18px;font-size:13.5px}.rules summary{cursor:pointer;color:var(--muted);font-size:13px}
+table{width:100%;border-collapse:collapse;background:var(--panel);font-size:13.5px}th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600}
+tr.gap td{color:var(--muted)}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+details>summary{cursor:pointer}
+</style></head><body><main>
+<p class="muted">QA 보고서 · 2026-10-07</p>
+<h1>식이</h1>
+<p class="muted">대상 <code>outputs/mai-report-policy/식이</code> · 기준 <code>outputs/mai-report-policy/식이/maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx</code> (식이 개발 전달 데이터 계약 · v1.0.1 · 2026-10-02 (최초 발행 2026-09-23))</p>
+<div class="verdict bad"><b>보류</b> — 심각도 높음 3건 (QA-DIET-01, QA-DIET-02, QA-DIET-04)</div>
+<div class="stats">
+  <div class="stat"><div class="n">29 / 29</div><div class="l">기존 테스트 통과</div></div>
+  <div class="stat"><div class="n">14 / 17</div><div class="l">시나리오 케이스 통과 · 실패 3</div></div>
+  <div class="stat"><div class="n">14 / 18</div><div class="l">데이터·문서 점검 통과</div></div>
+  <div class="stat"><div class="n">1</div><div class="l">코드 읽기로 찾은 불일치</div></div>
+  <div class="stat"><div class="n">24 / 58</div><div class="l">규칙 중 검증 항목이 연결된 것</div></div>
+</div>
+
+<h2>고쳐야 할 것 (8)</h2>
+<article class="card sev-0">
+  <header><span class="id">QA-DIET-01</span><span class="pill sev">높음</span><span class="pill">시나리오</span><span class="pill st-FAIL">실패</span></header>
+  <h3>관찰 중인 축은 목표 단계가 오르지 않는다</h3>
+  <p class="scene">지영 씨는 채소 질문에 아직 답이 2건뿐이라 채소 축이 '관찰 중'이다. 10월 4·5·6일 사흘 연속 채소 목표를 완료하고 7일에 앱을 연다. → 아직 축 상태를 모르니 단계는 '시작'에 머물러야 한다.</p>
+  <details class="rules" open><summary>근거 규칙</summary><ul><li><b>V-42</b> <span class="muted">(검증규칙)</span> 마지막 변경 이후 최근 7일 완료 3건이면 1단계 상승. 다만 그 축의 상태가 관찰 중이면 상승하지 않고, 개선 필요이면 기본까지만 올린다. 종료된 미완료 2건 연속이면 1단계 하락. 하락 우선·하루 1회·소급 완료 제외</li></ul></details>
+  <p><b>기준</b> 설정 CFG-068: 관찰 중인 축은 단계를 올리지 않는다</p>
+  
+  <div class="grid3"><div class="io"><div class="io-label">입력</div><pre>{
+  &quot;currentStage&quot;: &quot;INTRO&quot;,
+  &quot;axisState&quot;: &quot;OBSERVING&quot;,
+  &quot;goals&quot;: [
+    {
+      &quot;session_date&quot;: &quot;2026-10-04&quot;,
+      &quot;goal_state&quot;: &quot;CREATED&quot;,
+      &quot;completed&quot;: true
+    },
+    {
+      &quot;session_date&quot;: &quot;2026-10-05&quot;,
+      &quot;goal_state&quot;: &quot;CREATED&quot;,
+      &quot;completed&quot;: true
+    },
+    {
+      &quot;session_date&quot;: &quot;2026-10-06&quot;,
+      &quot;goal_state&quot;: &quot;CREATED&quot;,
+      &quot;completed&quot;: true
+    }
+  ],
+  &quot;asOfDate&quot;: &quot;2026-10-07&quot;
+}</pre></div><div class="io"><div class="io-label">기대</div><pre>{
+  &quot;stage&quot;: &quot;INTRO&quot;,
+  &quot;changed&quot;: false
+}</pre></div><div class="io"><div class="io-label">실제</div><pre>{
+  &quot;stage&quot;: &quot;BASE&quot;,
+  &quot;changed&quot;: true,
+  &quot;reason&quot;: &quot;THREE_COMPLETIONS_IN_7_DAYS&quot;
+}</pre></div></div>
+  <div class="diffs"><div>· <code>stage</code> 기대 <code>&quot;INTRO&quot;</code> → 실제 <code>&quot;BASE&quot;</code></div><div>· <code>changed</code> 기대 <code>false</code> → 실제 <code>true</code></div></div>
+  <p><b>위치</b> <code>diet-goal-engine-v1.0.0.mjs:47 recalculateAxisStage</code></p>
+  <p><b>제안</b> 축 상태를 함수 입력으로 받고, 관찰 중이면 상승을 건너뛴다. 하락 규칙은 그대로 둔다.</p>
+  
+</article><article class="card sev-0">
+  <header><span class="id">QA-DIET-02</span><span class="pill sev">높음</span><span class="pill">시나리오</span><span class="pill st-FAIL">실패</span></header>
+  <h3>개선 필요인 축은 '기본'까지만 오른다</h3>
+  <p class="scene">민수 씨의 짠맛 축은 '개선 필요'이고 지금 단계는 '기본'이다. 사흘 연속 완료했다. → 가장 어려운 '도전' 문구를 주면 실패와 하락을 반복하므로 '기본'에 머물러야 한다.</p>
+  <details class="rules" open><summary>근거 규칙</summary><ul><li><b>V-42</b> <span class="muted">(검증규칙)</span> 마지막 변경 이후 최근 7일 완료 3건이면 1단계 상승. 다만 그 축의 상태가 관찰 중이면 상승하지 않고, 개선 필요이면 기본까지만 올린다. 종료된 미완료 2건 연속이면 1단계 하락. 하락 우선·하루 1회·소급 완료 제외</li></ul></details>
+  <p><b>기준</b> 설정 CFG-069: 개선 필요인 축은 기본까지만</p>
+  
+  <div class="grid3"><div class="io"><div class="io-label">입력</div><pre>{
+  &quot;currentStage&quot;: &quot;BASE&quot;,
+  &quot;axisState&quot;: &quot;NEEDS_WORK&quot;,
+  &quot;goals&quot;: [
+    {
+      &quot;session_date&quot;: &quot;2026-10-04&quot;,
+      &quot;goal_state&quot;: &quot;CREATED&quot;,
+      &quot;completed&quot;: true
+    },
+    {
+      &quot;session_date&quot;: &quot;2026-10-05&quot;,
+      &quot;goal_state&quot;: &quot;CREATED&quot;,
+      &quot;completed&quot;: true
+    },
+    {
+      &quot;session_date&quot;: &quot;2026-10-06&quot;,
+      &quot;goal_state&quot;: &quot;CREATED&quot;,
+      &quot;completed&quot;: true
+    }
+  ],
+  &quot;asOfDate&quot;: &quot;2026-10-07&quot;
+}</pre></div><div class="io"><div class="io-label">기대</div><pre>{
+  &quot;stage&quot;: &quot;BASE&quot;
+}</pre></div><div class="io"><div class="io-label">실제</div><pre>{
+  &quot;stage&quot;: &quot;CHALLENGE&quot;,
+  &quot;changed&quot;: true,
+  &quot;reason&quot;: &quot;THREE_COMPLETIONS_IN_7_DAYS&quot;
+}</pre></div></div>
+  <div class="diffs"><div>· <code>stage</code> 기대 <code>&quot;BASE&quot;</code> → 실제 <code>&quot;CHALLENGE&quot;</code></div></div>
+  <p><b>위치</b> <code>diet-goal-engine-v1.0.0.mjs:47 recalculateAxisStage</code></p>
+  <p><b>제안</b> 축 상태가 개선 필요이면 상승 상한을 BASE로 둔다. QA-DIET-01과 같은 수정으로 해결된다.</p>
+  
+</article><article class="card sev-0">
+  <header><span class="id">QA-DIET-04</span><span class="pill sev">높음</span><span class="pill">코드 읽기</span><span class="pill st-FAIL">실패</span></header>
+  <h3>목표 축을 그날 질문 축과 맞추지 않는다</h3>
+  <p class="scene">오늘 질문이 '물 마시기'인데 목표는 고혈압과 연결된 '짠맛' 축에서 나온다. 질문과 목표가 따로 놀아 사용자는 왜 이 목표인지 알 수 없다.</p>
+  <details class="rules" open><summary>근거 규칙</summary><ul><li><b>R-03</b> <span class="muted">(구현기준)</span> 목표 축은 CFG-041로 고른 그날의 회전 질문 축과 같다. 그 축에 통과 문구가 없을 때만 직접 선택 → 확인된 진료정보 → 3개월 이내 검진 신호 → 일반 순으로 내려간다.</li><li><b>V-39</b> <span class="muted">(검증규칙)</span> 목표 축은 그날 회전 질문으로 고른 축과 같다. 그 축에 금지·시간·상황 필터를 통과한 문구가 없을 때만 다음 축으로 내려가며, 그 순서는 직접 선택 → 사용자 확인 진료정보 → 3개월 이내 건강검진 신호 → 일반이다. 같은 질환은 직접 선택 출처로 한 번만 반영. 금지 성격은 모든 출처를 합산</li><li><b>V-50</b> <span class="muted">(검증규칙)</span> 목표 축은 그날 회전 질문 축과 같아야 한다. 그 축에 통과 문구가 없어 다음 축으로 내려간 경우만 다를 수 있고, 그때는 내려간 사유를 남긴다</li></ul></details>
+  
+  <p><b>증거</b> selectDietGoal은 그날 고른 회전 질문 ID를 입력으로 받지 않는다. 후보 축 목록을 질환 연결 축부터 독립적으로 만든다(axisCandidates). 그래서 '질문 축 먼저, 통과 문구가 없을 때만 다음 출처'라는 순서를 지킬 수 없다. 기존 테스트도 출처별 이동만 보고 이 조건은 보지 않는다.</p>
+  <div class="grid3"></div>
+  
+  <p><b>위치</b> <code>diet-goal-engine-v1.0.0.mjs:115 selectDietGoal</code></p>
+  <p><b>제안</b> 그날 질문 선정 결과를 목표 엔진 입력으로 넘기고 그 축의 통과 후보를 먼저 본다. 후보가 있을 때·없을 때를 각각 케이스로 추가한다. 함수 입력이 생기면 이 항목은 시나리오 케이스로 바꾼다.</p>
+  
+</article><article class="card sev-1">
+  <header><span class="id">DOC-04</span><span class="pill sev">보통</span><span class="pill">문서 대조</span><span class="pill st-FAIL">실패</span></header>
+  <h3>식후 목표 후보 개수(10개)가 계약 데이터와 같다</h3>
+  
+  <details class="rules" open><summary>근거 규칙</summary><ul><li><b>R-05</b> <span class="muted">(구현기준)</span> 17~24시와 00~04시 식후 목표는 READY이면서 after_dinner_eligible=true인 10개 문구를 후보로 사용한다. 17~24시는 10개, 00~04시는 날짜 표현이 맞는 2개를 사용한다.</li><li><b>V-34</b> <span class="muted">(검증규칙)</span> 17:00~04:00 식후 목표는 after_dinner_eligible=true 및 parse_status=READY인 문구만 사용하고 질환별 금지·시간·달력·상황 필터를 모두 재적용. 평일·주말은 목표 실행 날짜, 목표·완료·목표분석 스트립은 04:00 경계 session_date, 질문 응답은 실제 meal_date 기준</li></ul></details>
+  <p><b>기준</b> 계약 구현기준 R-05·필드정의 after_dinner_eligible 설명·구현점검 문서 27행이 모두 '10개'라고 적음. 개발자가 10을 상수로 박으면 3개가 빠진다</p>
+  
+  <div class="grid3"><div class="io"><div class="io-label">기대</div><pre>10</pre></div><div class="io"><div class="io-label">실제</div><pre>13</pre></div></div>
+  
+  
+  
+  
+</article><article class="card sev-1">
+  <header><span class="id">QA-DIET-03</span><span class="pill sev">보통</span><span class="pill">시나리오(입력 비교)</span><span class="pill st-FAIL">실패</span></header>
+  <h3>계약서의 필드 이름(state_code)으로 넘겨도 결과가 같아야 한다</h3>
+  <p class="scene">개발자가 계약서대로 축 상태를 state_code 필드에 '개선 필요(NEEDS_WORK)'로 넣는다. 참조 코드는 다른 이름(status_code, IMPROVEMENT_NEEDED)만 알아듣는다. → 같은 사람인데 필드 이름만 바꿨더니 다른 목표 축이 나온다.</p>
+  
+  <p><b>기준</b> 계약 필드정의 diet_axis_snapshot.state_code 허용값: OBSERVING, NEEDS_WORK, AVERAGE, GOOD, NULL</p>
+  
+  <div class="grid3"><div class="io"><div class="io-label">입력</div><pre>{
+  &quot;계약서 필드 그대로&quot;: {
+    &quot;rows&quot;: [
+      {
+        &quot;phrase_id&quot;: &quot;P0&quot;,
+        &quot;phrase_version&quot;: &quot;1.0.0&quot;,
+        &quot;question_id&quot;: &quot;DIET-Q-01&quot;,
+        &quot;stage_code&quot;: &quot;INTRO&quot;,
+        &quot;source_status&quot;: &quot;사용&quot;,
+        &quot;parse_status&quot;: &quot;READY&quot;,
+        &quot;time_code&quot;: &quot;ANY&quot;,
+        &quot;calendar_code&quot;: &quot;ANY&quot;
+      },
+      {
+        &quot;phrase_id&quot;: &quot;P1&quot;,
+        &quot;phrase_version&quot;: &quot;1.0.0&quot;,
+        &quot;question_id&quot;: &quot;DIET-Q-03&quot;,
+        &quot;stage_code&quot;: &quot;INTRO&quot;,
+        &quot;source_status&quot;: &quot;사용&quot;,
+        &quot;parse_status&quot;: &quot;READY&quot;,
+        &quot;time_code&quot;: &quot;ANY&quot;,
+        &quot;calendar_code&quot;: &quot;ANY&quot;
+      }
+    ],
+    &quot;instant&quot;: &quot;2026-10-07T13:00:00+09:00&quot;,
+    &quot;timeZone&quot;: &quot;Asia/Seoul&quot;,
+    &quot;conditionInput&quot;: {
+      &quot;manual&quot;: {
+        &quot;state&quot;: &quot;UNANSWERED&quot;,
+        &quot;codes&quot;: []
+      },
+      &quot;diseaseRules&quot;: [],
+      &quot;axisRows&quot;: [],
+      &quot;banNatureRows&quot;: []
+    },
+    &quot;axisSnapshots&quot;: [
+      {
+        &quot;question_id&quot;: &quot;DIET-Q-01&quot;,
+        &quot;state_code&quot;: &quot;GOOD&quot;,
+        &quot;valid_answer_count&quot;: 1
+      },
+      {
+        &quot;question_id&quot;: &quot;DIET-Q-03&quot;,
+        &quot;state_code&quot;: &quot;NEEDS_WORK&quot;,
+        &quot;valid_answer_count&quot;: 4
+      }
+    ]
+  },
+  &quot;참조 코드 필드로 바꿔서&quot;: {
+    &quot;rows&quot;: [
+      {
+        &quot;phrase_id&quot;: &quot;P0&quot;,
+        &quot;phrase_version&quot;: &quot;1.0.0&quot;,
+        &quot;question_id&quot;: &quot;DIET-Q-01&quot;,
+        &quot;stage_code&quot;: &quot;INTRO&quot;,
+        &quot;source_status&quot;: &quot;사용&quot;,
+        &quot;parse_status&quot;: &quot;READY&quot;,
+        &quot;time_code&quot;: &quot;ANY&quot;,
+        &quot;calendar_code&quot;: &quot;ANY&quot;
+      },
+      {
+        &quot;phrase_id&quot;: &quot;P1&quot;,
+        &quot;phrase_version&quot;: &quot;1.0.0&quot;,
+        &quot;question_id&quot;: &quot;DIET-Q-03&quot;,
+        &quot;stage_code&quot;: &quot;INTRO&quot;,
+        &quot;source_status&quot;: &quot;사용&quot;,
+        &quot;parse_status&quot;: &quot;READY&quot;,
+        &quot;time_code&quot;: &quot;ANY&quot;,
+        &quot;calendar_code&quot;: &quot;ANY&quot;
+      }
+    ],
+    &quot;instant&quot;: &quot;2026-10-07T13:00:00+09:00&quot;,
+    &quot;timeZone&quot;: &quot;Asia/Seoul&quot;,
+    &quot;conditionInput&quot;: {
+      &quot;manual&quot;: {
+        &quot;state&quot;: &quot;UNANSWERED&quot;,
+        &quot;codes&quot;: []
+      },
+      &quot;diseaseRules&quot;: [],
+      &quot;axisRows&quot;: [],
+      &quot;banNatureRows&quot;: []
+    },
+    &quot;axisSnapshots&quot;: [
+      {
+        &quot;question_id&quot;: &quot;DIET-Q-01&quot;,
+        &quot;status_code&quot;: &quot;GOOD&quot;,
+        &quot;valid_answer_count&quot;: 1
+      },
+      {
+        &quot;question_id&quot;: &quot;DIET-Q-03&quot;,
+        &quot;status_code&quot;: &quot;IMPROVEMENT_NEEDED&quot;,
+        &quot;valid_answer_count&quot;: 4
+      }
+    ]
+  }
+}</pre></div><div class="io"><div class="io-label">기대</div><pre>두 입력의 question_id가 같다</pre></div><div class="io"><div class="io-label">실제</div><pre>{
+  &quot;계약서 필드 그대로&quot;: &quot;DIET-Q-01&quot;,
+  &quot;참조 코드 필드로 바꿔서&quot;: &quot;DIET-Q-03&quot;
+}</pre></div></div>
+  
+  <p><b>위치</b> <code>diet-goal-engine-v1.0.0.mjs:45 statusRank, :100 정렬</code></p>
+  <p><b>제안</b> 계약 필드 이름·값으로 통일하거나 변환 단계를 계약에 명시한다.</p>
+  <p class="muted"><b>메모</b> 어느 축이 먼저여야 하는지(상태 우선인지)는 정책 확인이 필요하다. 이 케이스는 '입력 이름에 따라 결과가 바뀐다'는 사실만 판정한다.</p>
+</article><article class="card sev-2">
+  <header><span class="id">DOC-01</span><span class="pill sev">낮음</span><span class="pill">문서 대조</span><span class="pill st-FAIL">실패</span></header>
+  <h3>구현점검 문서의 질문 개수(8개)가 계약과 같다</h3>
+  
+  
+  <p><b>기준</b> 식이_구현점검_v1.0.0.md 36행: 질문 8개</p>
+  
+  <div class="grid3"><div class="io"><div class="io-label">기대</div><pre>8</pre></div><div class="io"><div class="io-label">실제</div><pre>9</pre></div></div>
+  
+  
+  
+  
+</article><article class="card sev-2">
+  <header><span class="id">DOC-02</span><span class="pill sev">낮음</span><span class="pill">문서 대조</span><span class="pill st-FAIL">실패</span></header>
+  <h3>구현점검 문서의 선택지 개수(24개)가 계약과 같다</h3>
+  
+  
+  <p><b>기준</b> 식이_구현점검_v1.0.0.md 36행: 선택지 24개</p>
+  
+  <div class="grid3"><div class="io"><div class="io-label">기대</div><pre>24</pre></div><div class="io"><div class="io-label">실제</div><pre>27</pre></div></div>
+  
+  
+  
+  
+</article><article class="card sev-2">
+  <header><span class="id">DOC-03</span><span class="pill sev">낮음</span><span class="pill">문서 대조</span><span class="pill st-FAIL">실패</span></header>
+  <h3>구현점검 문서의 사용 목표문구 개수(143개)가 계약과 같다</h3>
+  
+  
+  <p><b>기준</b> 식이_구현점검_v1.0.0.md 31·37행: 남은 143개</p>
+  
+  <div class="grid3"><div class="io"><div class="io-label">기대</div><pre>143</pre></div><div class="io"><div class="io-label">실제</div><pre>172</pre></div></div>
+  
+  
+  
+  
+</article>
+
+<h2>정책 확인이 필요한 것</h2><ul><li>목표 후보 축의 순서에 '축 상태(개선 필요 먼저)'를 쓸지 — 계약 CFG-041은 유효답 수 → 마지막 질문일 → ID 순서만 적고 있다 (QA-DIET-03 관련)</li><li>질문 시트의 DIET-Q-90은 운영 질문인가, 제외할 데이터인가 — 문서는 질문 8개, 계약은 9개</li><li>계약 R-09 메모 '목표 축과 따로 계산한다'가 '계산 절차만 따로'인지 '결과 축이 달라도 된다'인지 — R-03·V-39·V-50은 결과 축 일치를 요구한다</li></ul>
+
+<h2>통과한 것 (28)</h2>
+<details><summary>목록 펼치기</summary><div class="table-wrap"><table><thead><tr><th>ID</th><th>종류</th><th>확인한 것</th><th>규칙</th></tr></thead><tbody><tr><td>QA-DIET-06</td><td>시나리오</td><td>양호한 축은 사흘 완료로 한 단계 오른다</td><td>V-42</td></tr><tr><td>QA-DIET-07</td><td>시나리오</td><td>끝난 목표를 두 번 연속 못 하면 한 단계 내려간다</td><td>V-42</td></tr><tr><td>QA-DIET-08</td><td>시나리오</td><td>오를 조건과 내릴 조건이 겹치면 내리는 쪽이 먼저다</td><td>V-42</td></tr><tr><td>QA-DIET-09</td><td>시나리오</td><td>지난 날짜에 뒤늦게 체크한 완료는 단계 계산에 넣지 않는다</td><td>V-42</td></tr><tr><td>QA-DIET-10</td><td>시나리오</td><td>마지막 단계 변경 이전의 완료는 다시 세지 않는다</td><td>V-42</td></tr><tr><td>QA-DIET-11</td><td>시나리오</td><td>안내만 나간 날(수행할 목표 없음)은 '못 한 날'로 세지 않는다</td><td>V-42</td></tr><tr><td>QA-DIET-12</td><td>시나리오</td><td>없는 단계 이름이 들어오면 조용히 넘기지 않고 오류를 낸다</td><td></td></tr><tr><td>QA-DIET-13</td><td>시나리오</td><td>검진 3개월 유효기간 — 만료일 당일은 아직 유효하다</td><td>R-04, V-29, V-41</td></tr><tr><td>QA-DIET-14</td><td>시나리오</td><td>검진 3개월 유효기간 — 하루 넘기면 쓰지 않는다</td><td>R-04, V-29, V-41</td></tr><tr><td>QA-DIET-15</td><td>시나리오</td><td>미래 날짜 검진은 쓰지 않는다</td><td>V-29, V-41</td></tr><tr><td>QA-DIET-16</td><td>시나리오</td><td>달의 말일 검진은 3개월 뒤 그달 말일까지 유효하다</td><td>V-29</td></tr><tr><td>QA-DIET-17</td><td>시나리오</td><td>새벽 3시 59분은 아직 어제 세션이고 '어제 저녁'을 묻는다</td><td>R-02, V-30</td></tr><tr><td>QA-DIET-18</td><td>시나리오</td><td>오전 10시 정각부터는 '오늘 아침'을 묻는다</td><td>R-02, V-30</td></tr><tr><td>QA-DIET-19</td><td>시나리오</td><td>질환 확인에 '네'라고 하면 그날 질문은 2개로 끝난다</td><td>R-01, V-44</td></tr><tr><td>D-01</td><td>데이터</td><td>질문 ID+버전이 겹치지 않는다</td><td>V-01</td></tr><tr><td>D-02</td><td>데이터</td><td>질문마다 선택지가 정확히 3개다</td><td>V-02</td></tr><tr><td>D-03</td><td>데이터</td><td>선택지 순서는 1·2·3만 쓴다</td><td>V-02</td></tr><tr><td>D-04</td><td>데이터</td><td>목표문구 ID+버전이 겹치지 않는다</td><td>V-04</td></tr><tr><td>D-05</td><td>데이터</td><td>목표문구와 노출조건이 일대일로 짝이 맞는다</td><td>V-04</td></tr><tr><td>D-06</td><td>데이터</td><td>목표 타일 문구는 22자 이하다</td><td>V-05</td></tr><tr><td>D-07</td><td>데이터</td><td>목표 이유 문장이 비어 있지 않다</td><td>V-05</td></tr><tr><td>D-08</td><td>데이터</td><td>노출조건은 모두 READY(해석 완료)다</td><td>V-06</td></tr><tr><td>D-09</td><td>데이터</td><td>질환연결축의 질문 ID가 질문 시트에 있다</td><td>V-07</td></tr><tr><td>D-10</td><td>데이터</td><td>질환 금지 성격은 허용 5종만 쓴다</td><td>V-08</td></tr><tr><td>D-11</td><td>데이터</td><td>검증규칙 ID가 겹치지 않는다</td><td>V-33</td></tr><tr><td>D-12</td><td>데이터</td><td>내정보 질환 코드 4개가 겹치지 않는다</td><td>V-35, R-06</td></tr><tr><td>D-13</td><td>데이터</td><td>내정보 질환마다 질환규칙이 실제로 있다</td><td>V-35</td></tr><tr><td>D-14</td><td>데이터</td><td>답 버튼 글자는 11자 이내다</td><td>V-49</td></tr></tbody></table></div></details>
+
+
+<h2>규칙 추적표</h2>
+<p>기준 문서의 규칙마다 어떤 검증 항목이 연결됐는지 보여 줍니다. <b>미검증</b>은 실패가 아니라 <b>이번에 확인하지 않았다</b>는 뜻입니다. 남은 미검증 34개는 다음 회차 후보입니다.</p>
+
+<details><summary>58개 규칙 펼치기</summary><div class="table-wrap"><table><thead><tr><th>규칙</th><th>내용</th><th>연결된 검증</th></tr></thead><tbody><tr class=""><td><b>R-01</b></td><td>식이 질문은 세션당 최대 2개다. 미확인 진료 질환이 있으면 확인 질문 1개를 먼저 내고, 현재 관리 중이면 해당 질환 회전 질문 1개, 아니요·잘 모르겠어요이면 공통 고정 질문 1개를 둘째로 낸다.</td><td><span class="pill st-PASS">QA-DIET-19 통과</span></td></tr><tr class=""><td><b>R-02</b></td><td>00~04시·04~10시는 어제 저녁, 10~12시는 오늘 아침, 12~17시는 오늘 점심, 17~24시는 오늘 저녁을 묻는다.</td><td><span class="pill st-PASS">QA-DIET-17 통과</span> <span class="pill st-PASS">QA-DIET-18 통과</span></td></tr><tr class=""><td><b>R-03</b></td><td>목표 축은 CFG-041로 고른 그날의 회전 질문 축과 같다. 그 축에 통과 문구가 없을 때만 직접 선택 → 확인된 진료정보 → 3개월 이내 검진 신호 → 일반 순으로 내려간다.</td><td><span class="pill st-FAIL">QA-DIET-04 실패</span></td></tr><tr class=""><td><b>R-04</b></td><td>목표 선정일 기준 검진일로부터 3개월 이내 결과만 식이 목표 선정에 사용한다.</td><td><span class="pill st-PASS">QA-DIET-13 통과</span> <span class="pill st-PASS">QA-DIET-14 통과</span></td></tr><tr class=""><td><b>R-05</b></td><td>17~24시와 00~04시 식후 목표는 READY이면서 after_dinner_eligible=true인 10개 문구를 후보로 사용한다. 17~24시는 10개, 00~04시는 날짜 표현이 맞는 2개를 사용한다.</td><td><span class="pill st-FAIL">DOC-04 실패</span></td></tr><tr class=""><td><b>R-06</b></td><td>사용자 직접 선택지는 고혈압·당뇨병·이상지질혈증·만성 신장질환 네 개로 고정한다.</td><td><span class="pill st-PASS">D-12 통과</span></td></tr><tr class="gap"><td><b>R-07</b></td><td>개인 처방식·식품 알레르기 정보를 받지 않으므로 이를 전제로 한 개인화 목표를 생성하지 않는다.</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>R-08</b></td><td>자동 노출 조건은 시간대, 평일·주말, 명절·연휴만 사용한다. 배달·편의점·회식·카페·사무실·급식·마트·야근·여행처럼 앱이 확인하지 않는 상황 조건은 사용하지 않는다.</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>R-09</b></td><td>회전 질문의 축은 질환·검진으로 연결된 축에서 고른다. 마지막으로 일반 축을 낸 뒤 연결 축을 모두 한 번씩 물었으면 그다음 날은 일반 축에서 하나 고른다. 같은 묶음 안에서는 28일 유효답이 가장 적은 축, 같으면 마지막으로 물은 지 오래된 축, 그다음 question_id 오름차순이다. 연결 축이 없으면 전체 축을 같은 순서로 본다.</td><td><span class="muted">미검증</span></td></tr><tr class=""><td><b>V-01</b></td><td>question_id + question_version 유일</td><td><span class="pill st-PASS">D-01 통과</span></td></tr><tr class=""><td><b>V-02</b></td><td>모든 질문 ID·버전마다 선택지 정확히 3개. option_order는 1, 2, 3</td><td><span class="pill st-PASS">D-02 통과</span> <span class="pill st-PASS">D-03 통과</span></td></tr><tr class="gap"><td><b>V-03</b></td><td>unknown 선택지 코드는 사용하지 않음. 답변이 없으면 질문 상태 PENDING으로 유지하고 diet_answer 행을 만들지 않음</td><td><span class="muted">미검증</span></td></tr><tr class=""><td><b>V-04</b></td><td>phrase_id + phrase_version 유일</td><td><span class="pill st-PASS">D-04 통과</span> <span class="pill st-PASS">D-05 통과</span></td></tr><tr class=""><td><b>V-05</b></td><td>tile_text 22자 이하; reason_text 비어 있지 않음</td><td><span class="pill st-PASS">D-06 통과</span> <span class="pill st-PASS">D-07 통과</span></td></tr><tr class=""><td><b>V-06</b></td><td>parse_status는 READY만 사용한다. time_code와 calendar_code를 앱 진입 시각과 현지 실행 날짜로 판정한다.</td><td><span class="pill st-PASS">D-08 통과</span></td></tr><tr class=""><td><b>V-07</b></td><td>question_id는 질문 테이블에 존재</td><td><span class="pill st-PASS">D-09 통과</span></td></tr><tr class=""><td><b>V-08</b></td><td>nature_code는 허용 5종</td><td><span class="pill st-PASS">D-10 통과</span></td></tr><tr class="gap"><td><b>V-09</b></td><td>RANGE는 range_end 필수; EXACT/PREFIX는 range_end 없음</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-10</b></td><td>사용자+실제 끼니날짜+끼니+질문ID+버전의 최종 유효 응답 1건</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-11</b></td><td>사용자+세션당 활성 목표 최대 1건</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-12</b></td><td>완료 여부는 사용자 토글만 변경</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-14</b></td><td>금지 성격·시간·상황을 모든 대체 후보에 다시 적용</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-15</b></td><td>결과지 판정이 있으면 계산 구간보다 우선</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-16</b></td><td>동일 그룹 내 AND, 그룹 간 OR; 우선순위 1→2→3</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-17</b></td><td>성별 필수 항목에서 성별 미상 또는 구간 미매칭이면 UNCLASSIFIED</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-18</b></td><td>검진 신호의 axis_question_id는 실제 질문 축을 참조. 기존 축·단계 문구 풀에서 사용 상태·질환 금지·시간·상황 필터를 통과한 문구만 선정</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-19</b></td><td>실제 분포표 버전과 표본 수 없으면 순위 비표시</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-20</b></td><td>혈압은 SBP·DBP 각 1건; 단일 수치 항목은 VALUE 1건; 요단백은 PROTEIN_GRADE 1건</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-21</b></td><td>BMI 검진 연동은 원본 BMI 수치가 25 이상일 때만 실행. 수치가 없거나 25 미만이면 이 검진 신호로 자동 목표를 고르지 않음</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-22</b></td><td>rule_group_id 유일; 새 규칙 버전은 새 그룹 ID 사용. 조건·결과의 FK는 판정그룹 참조</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-23</b></td><td>항목별 성분규격과 키·형태 일치; 숫자와 범주 값은 정확히 한쪽만 존재</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-24</b></td><td>기관 판정 코드 매핑이 MAPPED일 때만 정규화 판정 우선 적용</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-25</b></td><td>금지 성격 제외를 대체 풀·하위 단계 탐색보다 먼저 적용하고, 대체 후보에도 다시 적용</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-26</b></td><td>자동 조건은 시간대·평일·주말·명절·연휴로 제한한다. 명절·연휴는 백엔드 날짜 목록으로 판정하고 목록이 없으면 해당 문구를 제외한다.</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-27</b></td><td>검진식이연결의 REUSE_AXIS_POOL은 정의된 axis_question_id의 기존 문구 풀 사용. HOLD_UNTIL_MAPPED는 축 연결도 없을 때만 자동 선정 금지</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-28</b></td><td>PARTIAL은 숫자 원소를 보존해도 원문 전체 실행 규칙으로 간주하지 않음</td><td><span class="muted">미검증</span></td></tr><tr class=""><td><b>V-29</b></td><td>검진일과 목표 선정일을 한국 날짜로 비교. 검진일 &lt;= 선정일 &lt;= 검진일+3개월(달력 기준, 만료일 포함)인 결과만 사용. 검진일 미상·미래일·만료 후 결과는 제외; 유효한 결과가 여럿이면 최신 검진일 우선</td><td><span class="pill st-PASS">QA-DIET-13 통과</span> <span class="pill st-PASS">QA-DIET-14 통과</span> <span class="pill st-PASS">QA-DIET-15 통과</span> <span class="pill st-PASS">QA-DIET-16 통과</span></td></tr><tr class=""><td><b>V-30</b></td><td>사용자 시간대 04:00 세션 경계와 실제 달력일을 분리한다. 진입 시각별 지난 끼니: 00:00~04:00 어제 저녁 / 04:00~10:00 어제 저녁 / 10:00~12:00 오늘 아침 / 12:00~17:00 오늘 점심 / 17:00~24:00 오늘 저녁. 모든 경계 시각은 뒤 구간에 포함한다</td><td><span class="pill st-PASS">QA-DIET-17 통과</span> <span class="pill st-PASS">QA-DIET-18 통과</span></td></tr><tr class="gap"><td><b>V-31</b></td><td>source_row는 정수이며 setting_id가 같은 참조설정데이터의 실제 행과 일치</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-32</b></td><td>설정파라미터의 시각·비율 값은 설정 본문과 일치. PARTIAL 및 NEEDS_STRUCTURING은 독립 실행 금지</td><td><span class="muted">미검증</span></td></tr><tr class=""><td><b>V-33</b></td><td>규칙 ID는 전체 시트에서 유일</td><td><span class="pill st-PASS">D-11 통과</span></td></tr><tr class=""><td><b>V-34</b></td><td>17:00~04:00 식후 목표는 after_dinner_eligible=true 및 parse_status=READY인 문구만 사용하고 질환별 금지·시간·달력·상황 필터를 모두 재적용. 평일·주말은 목표 실행 날짜, 목표·완료·목표분석 스트립은 04:00 경계 session_date, 질문 응답은 실제 meal_date 기준</td><td><span class="pill st-FAIL">DOC-04 실패</span></td></tr><tr class=""><td><b>V-35</b></td><td>화면의 질환 코드 4개가 유일하고 각 코드의 질환규칙이 존재</td><td><span class="pill st-PASS">D-12 통과</span> <span class="pill st-PASS">D-13 통과</span></td></tr><tr class="gap"><td><b>V-36</b></td><td>SELF_REPORTED는 진료정보 출처·임상 확진으로 승격하지 않음. MAPPED는 축·금지, SAFETY_ONLY는 금지만 적용</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-37</b></td><td>NONE은 수동 선택 0개로 저장하고 UNANSWERED와 구분. 진료정보 후보·확인·부정 원본은 별도 보존</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-38</b></td><td>새 입력은 당일 미완료 목표 후보를 안전 필터로 재평가. 완료 목표와 과거 스냅샷은 보존</td><td><span class="muted">미검증</span></td></tr><tr class=""><td><b>V-39</b></td><td>목표 축은 그날 회전 질문으로 고른 축과 같다. 그 축에 금지·시간·상황 필터를 통과한 문구가 없을 때만 다음 축으로 내려가며, 그 순서는 직접 선택 → 사용자 확인 진료정보 → 3개월 이내 건강검진 신호 → 일반이다. 같은 질환은 직접 선택 출처로 한 번만 반영. 금지 성격은 모든 출처를 합산</td><td><span class="pill st-FAIL">QA-DIET-04 실패</span></td></tr><tr class="gap"><td><b>V-40</b></td><td>user_condition_selection.selection_order는 같은 사용자·리비전 안에서 1 이상의 정수이며 중복되지 않는다</td><td><span class="muted">미검증</span></td></tr><tr class=""><td><b>V-41</b></td><td>검진일이 목표 선정일보다 미래가 아니고 달력 기준 3개월 만료일 이내인 NORMAL_B·SUSPECT만 사용. 만료·후보 없음이면 일반 질문으로 이동</td><td><span class="pill st-PASS">QA-DIET-13 통과</span> <span class="pill st-PASS">QA-DIET-14 통과</span> <span class="pill st-PASS">QA-DIET-15 통과</span></td></tr><tr class=""><td><b>V-42</b></td><td>마지막 변경 이후 최근 7일 완료 3건이면 1단계 상승. 다만 그 축의 상태가 관찰 중이면 상승하지 않고, 개선 필요이면 기본까지만 올린다. 종료된 미완료 2건 연속이면 1단계 하락. 하락 우선·하루 1회·소급 완료 제외</td><td><span class="pill st-FAIL">QA-DIET-01 실패</span> <span class="pill st-FAIL">QA-DIET-02 실패</span> <span class="pill st-PASS">QA-DIET-06 통과</span> <span class="pill st-PASS">QA-DIET-07 통과</span> <span class="pill st-PASS">QA-DIET-08 통과</span> <span class="pill st-PASS">QA-DIET-09 통과</span> <span class="pill st-PASS">QA-DIET-10 통과</span> <span class="pill st-PASS">QA-DIET-11 통과</span></td></tr><tr class="gap"><td><b>V-43</b></td><td>같은 rule_id의 여러 진료 기록은 effective_at이 가장 최신인 상태 1건으로 집계하며 원본 기록은 보존한다. 시각이 없으면 수신 순서의 마지막 상태 사용</td><td><span class="muted">미검증</span></td></tr><tr class=""><td><b>V-44</b></td><td>식이 질문은 세션당 최대 2개. 미확인 진료 질환이 있으면 확인 질문을 첫째로 내고 USER_CONFIRMED이면 해당 질환 회전, DENIED·UNKNOWN이면 공통 고정을 둘째로 낸다. 다른 슬롯은 조건상 생략한다.</td><td><span class="pill st-PASS">QA-DIET-19 통과</span></td></tr><tr class="gap"><td><b>V-45</b></td><td>일반·식후 목표 후보를 모두 필터링한 뒤 최근 30일에 노출되지 않은 문구를 phrase_id 순으로 먼저 선택한다. 모두 노출됐다면 마지막 노출이 가장 오래된 문구를 선택한다.</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-46</b></td><td>question_role이 CONFIRMATION인 질문의 선택지는 score_value가 모두 비어 있어야 하며, 그 답은 축 상태 집계와 최근 7건 계산에 넣지 않는다</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-47</b></td><td>확인 질문은 rule_id가 아니라 confirmation_label 기준으로 묶어 한 번만 낸다. 답 하나를 같은 표기를 가진 모든 rule_id의 confirmation_state에 똑같이 기록한다</td><td><span class="muted">미검증</span></td></tr><tr class="gap"><td><b>V-48</b></td><td>확인 대기 질환이 둘 이상이면 source_visit_date 내림차순으로 하루 한 묶음씩 낸다. 날짜가 같거나 없으면 rule_id 오름차순으로 가른다</td><td><span class="muted">미검증</span></td></tr><tr class=""><td><b>V-49</b></td><td>option_label은 띄어쓰기 포함 11자 이내여야 한다. 답 버튼 폭이 고정이라 그보다 길면 버튼 높이가 혼자 늘어난다</td><td><span class="pill st-PASS">D-14 통과</span></td></tr><tr class=""><td><b>V-50</b></td><td>목표 축은 그날 회전 질문 축과 같아야 한다. 그 축에 통과 문구가 없어 다음 축으로 내려간 경우만 다를 수 있고, 그때는 내려간 사유를 남긴다</td><td><span class="pill st-FAIL">QA-DIET-04 실패</span></td></tr></tbody></table></div></details>
+
+<h2>범위</h2>
+<h3>이번에 확인한 것</h3><ul><li>참조 코드 3개(날짜·끼니 판정, 질환 조건, 목표 선정·단계 변경)의 함수 동작을 계약 규칙과 대조</li><li>계약 엑셀의 데이터 무결성(중복·개수·허용값·참조·글자 수)</li><li>개발자가 읽는 구현점검 문서의 숫자가 계약 데이터와 같은지</li><li>기존 단위 테스트 29개 재실행</li></ul>
+<h3>이번에 확인하지 않은 것</h3><ul><li>실제 서비스 서버·DB 저장·재진입·중복 요청 (서비스 코드가 아직 없음)</li><li>HTML 데모·프로토타입의 브라우저 동작</li><li>문구의 의학적 타당성 (의학팀 검수 범위)</li><li>172개 문구 전부의 질환·시간·달력·단계 조합 전수 검증</li></ul>
+
+<h2>다시 돌리는 법</h2>
+<pre>node qa-agent/bin/qa.mjs run qa-agent/plans/식이.qa-plan.json</pre>
+<p class="muted">기존 테스트만: <code>node --test &quot;outputs/mai-report-policy/식이/diet-selection-v1.0.0.test.mjs&quot; &quot;outputs/mai-report-policy/식이/diet-profile-condition-v1.0.0.test.mjs&quot; &quot;outputs/mai-report-policy/식이/diet-goal-engine-v1.0.0.test.mjs&quot;</code></p>
+<p class="muted">Node v24.19.0 · 계약 파일 지문 886adaadc6ac (같은 지문이면 같은 계약으로 돌린 결과)</p>
+</main></body></html>

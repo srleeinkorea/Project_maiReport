@@ -1,0 +1,289 @@
+{
+  "_안내": "식이 기능 QA 계획. 2026-10-07 수작업 1차 QA(outputs/qa/diet-2026-10-07)를 이 형식으로 옮기고, 경계값·하락 규칙·데이터 점검을 더했다.",
+  "feature": "식이",
+  "target": "outputs/mai-report-policy/식이",
+  "baseline": {
+    "contract": "maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx",
+    "documents": ["식이_구현점검_v1.0.0.md"],
+    "ruleSheets": [
+      { "sheet": "구현기준", "idField": "기준 ID", "textField": "확정 규칙" },
+      { "sheet": "검증규칙", "idField": "규칙 ID", "textField": "검사" }
+    ]
+  },
+  "scope": {
+    "in": [
+      "참조 코드 3개(날짜·끼니 판정, 질환 조건, 목표 선정·단계 변경)의 함수 동작을 계약 규칙과 대조",
+      "계약 엑셀의 데이터 무결성(중복·개수·허용값·참조·글자 수)",
+      "개발자가 읽는 구현점검 문서의 숫자가 계약 데이터와 같은지",
+      "기존 단위 테스트 29개 재실행"
+    ],
+    "out": [
+      "실제 서비스 서버·DB 저장·재진입·중복 요청 (서비스 코드가 아직 없음)",
+      "HTML 데모·프로토타입의 브라우저 동작",
+      "문구의 의학적 타당성 (의학팀 검수 범위)",
+      "172개 문구 전부의 질환·시간·달력·단계 조합 전수 검증"
+    ]
+  },
+  "existingTests": [
+    "diet-selection-v1.0.0.test.mjs",
+    "diet-profile-condition-v1.0.0.test.mjs",
+    "diet-goal-engine-v1.0.0.test.mjs"
+  ],
+  "fixtures": {
+    "사흘연속완료": [
+      { "session_date": "2026-10-04", "goal_state": "CREATED", "completed": true },
+      { "session_date": "2026-10-05", "goal_state": "CREATED", "completed": true },
+      { "session_date": "2026-10-06", "goal_state": "CREATED", "completed": true }
+    ],
+    "목표선정_공통": {
+      "rows": [
+        { "phrase_id": "P0", "phrase_version": "1.0.0", "question_id": "DIET-Q-01", "stage_code": "INTRO", "source_status": "사용", "parse_status": "READY", "time_code": "ANY", "calendar_code": "ANY" },
+        { "phrase_id": "P1", "phrase_version": "1.0.0", "question_id": "DIET-Q-03", "stage_code": "INTRO", "source_status": "사용", "parse_status": "READY", "time_code": "ANY", "calendar_code": "ANY" }
+      ],
+      "instant": "2026-10-07T13:00:00+09:00",
+      "timeZone": "Asia/Seoul",
+      "conditionInput": { "manual": { "state": "UNANSWERED", "codes": [] }, "diseaseRules": [], "axisRows": [], "banNatureRows": [] }
+    }
+  },
+  "cases": [
+    {
+      "id": "QA-DIET-01",
+      "title": "관찰 중인 축은 목표 단계가 오르지 않는다",
+      "scenario": "지영 씨는 채소 질문에 아직 답이 2건뿐이라 채소 축이 '관찰 중'이다. 10월 4·5·6일 사흘 연속 채소 목표를 완료하고 7일에 앱을 연다. → 아직 축 상태를 모르니 단계는 '시작'에 머물러야 한다.",
+      "rules": ["V-42"],
+      "basis": "설정 CFG-068: 관찰 중인 축은 단계를 올리지 않는다",
+      "severity": "높음",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "recalculateAxisStage",
+      "args": { "currentStage": "INTRO", "axisState": "OBSERVING", "goals": { "$fixture": "사흘연속완료" }, "asOfDate": "2026-10-07" },
+      "expect": { "stage": "INTRO", "changed": false },
+      "where": "diet-goal-engine-v1.0.0.mjs:47 recalculateAxisStage",
+      "suggestion": "축 상태를 함수 입력으로 받고, 관찰 중이면 상승을 건너뛴다. 하락 규칙은 그대로 둔다."
+    },
+    {
+      "id": "QA-DIET-02",
+      "title": "개선 필요인 축은 '기본'까지만 오른다",
+      "scenario": "민수 씨의 짠맛 축은 '개선 필요'이고 지금 단계는 '기본'이다. 사흘 연속 완료했다. → 가장 어려운 '도전' 문구를 주면 실패와 하락을 반복하므로 '기본'에 머물러야 한다.",
+      "rules": ["V-42"],
+      "basis": "설정 CFG-069: 개선 필요인 축은 기본까지만",
+      "severity": "높음",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "recalculateAxisStage",
+      "args": { "currentStage": "BASE", "axisState": "NEEDS_WORK", "goals": { "$fixture": "사흘연속완료" }, "asOfDate": "2026-10-07" },
+      "expect": { "stage": "BASE" },
+      "where": "diet-goal-engine-v1.0.0.mjs:47 recalculateAxisStage",
+      "suggestion": "축 상태가 개선 필요이면 상승 상한을 BASE로 둔다. QA-DIET-01과 같은 수정으로 해결된다."
+    },
+    {
+      "id": "QA-DIET-03",
+      "title": "계약서의 필드 이름(state_code)으로 넘겨도 결과가 같아야 한다",
+      "scenario": "개발자가 계약서대로 축 상태를 state_code 필드에 '개선 필요(NEEDS_WORK)'로 넣는다. 참조 코드는 다른 이름(status_code, IMPROVEMENT_NEEDED)만 알아듣는다. → 같은 사람인데 필드 이름만 바꿨더니 다른 목표 축이 나온다.",
+      "rules": [],
+      "basis": "계약 필드정의 diet_axis_snapshot.state_code 허용값: OBSERVING, NEEDS_WORK, AVERAGE, GOOD, NULL",
+      "severity": "보통",
+      "type": "same",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "selectDietGoal",
+      "compare": "question_id",
+      "calls": [
+        { "label": "계약서 필드 그대로", "args": { "$fixture": "목표선정_공통", "axisSnapshots": [ { "question_id": "DIET-Q-01", "state_code": "GOOD", "valid_answer_count": 1 }, { "question_id": "DIET-Q-03", "state_code": "NEEDS_WORK", "valid_answer_count": 4 } ] } },
+        { "label": "참조 코드 필드로 바꿔서", "args": { "$fixture": "목표선정_공통", "axisSnapshots": [ { "question_id": "DIET-Q-01", "status_code": "GOOD", "valid_answer_count": 1 }, { "question_id": "DIET-Q-03", "status_code": "IMPROVEMENT_NEEDED", "valid_answer_count": 4 } ] } }
+      ],
+      "where": "diet-goal-engine-v1.0.0.mjs:45 statusRank, :100 정렬",
+      "suggestion": "계약 필드 이름·값으로 통일하거나 변환 단계를 계약에 명시한다.",
+      "note": "어느 축이 먼저여야 하는지(상태 우선인지)는 정책 확인이 필요하다. 이 케이스는 '입력 이름에 따라 결과가 바뀐다'는 사실만 판정한다."
+    },
+    {
+      "id": "QA-DIET-06",
+      "title": "양호한 축은 사흘 완료로 한 단계 오른다",
+      "scenario": "축 상태가 '양호'인 사람이 7일 안에 3번 완료하면 '시작' → '기본'으로 오른다. (정상 동작 확인)",
+      "rules": ["V-42"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "recalculateAxisStage",
+      "args": { "currentStage": "INTRO", "axisState": "GOOD", "goals": { "$fixture": "사흘연속완료" }, "asOfDate": "2026-10-07" },
+      "expect": { "stage": "BASE", "changed": true }
+    },
+    {
+      "id": "QA-DIET-07",
+      "title": "끝난 목표를 두 번 연속 못 하면 한 단계 내려간다",
+      "scenario": "'기본' 단계에서 10월 5일·6일 목표를 둘 다 못 했다. 7일에 열면 '시작'으로 내려간다.",
+      "rules": ["V-42"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "recalculateAxisStage",
+      "args": { "currentStage": "BASE", "goals": [ { "session_date": "2026-10-05", "goal_state": "CREATED", "completed": false }, { "session_date": "2026-10-06", "goal_state": "CREATED", "completed": false } ], "asOfDate": "2026-10-07" },
+      "expect": { "stage": "INTRO", "reason": "TWO_CONSECUTIVE_MISSES" }
+    },
+    {
+      "id": "QA-DIET-08",
+      "title": "오를 조건과 내릴 조건이 겹치면 내리는 쪽이 먼저다",
+      "scenario": "1~3일은 완료(7일 안 3건), 5·6일은 연속 미완료. 두 조건이 같이 맞으면 하락이 우선이다.",
+      "rules": ["V-42"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "recalculateAxisStage",
+      "args": { "currentStage": "BASE", "goals": [ { "session_date": "2026-10-01", "goal_state": "CREATED", "completed": true }, { "session_date": "2026-10-02", "goal_state": "CREATED", "completed": true }, { "session_date": "2026-10-03", "goal_state": "CREATED", "completed": true }, { "session_date": "2026-10-05", "goal_state": "CREATED", "completed": false }, { "session_date": "2026-10-06", "goal_state": "CREATED", "completed": false } ], "asOfDate": "2026-10-07" },
+      "expect": { "stage": "INTRO", "reason": "TWO_CONSECUTIVE_MISSES" }
+    },
+    {
+      "id": "QA-DIET-09",
+      "title": "지난 날짜에 뒤늦게 체크한 완료는 단계 계산에 넣지 않는다",
+      "scenario": "지영 씨가 일요일에 지난 사흘 목표를 몰아서 체크했다. 그중 하나는 소급 완료라 세지 않으므로 완료는 2건 → 단계 유지.",
+      "rules": ["V-42"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "recalculateAxisStage",
+      "args": { "currentStage": "INTRO", "goals": [ { "session_date": "2026-10-04", "goal_state": "CREATED", "completed": true, "completion_counts_for_stage": false }, { "session_date": "2026-10-05", "goal_state": "CREATED", "completed": true }, { "session_date": "2026-10-06", "goal_state": "CREATED", "completed": true } ], "asOfDate": "2026-10-07" },
+      "expect": { "stage": "INTRO", "changed": false }
+    },
+    {
+      "id": "QA-DIET-10",
+      "title": "마지막 단계 변경 이전의 완료는 다시 세지 않는다",
+      "scenario": "10월 5일에 단계가 바뀌었다. 4·5일 완료는 이미 그 변경에 쓰였으므로 6일 1건만 센다 → 단계 유지.",
+      "rules": ["V-42"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "recalculateAxisStage",
+      "args": { "currentStage": "BASE", "lastChangedDate": "2026-10-05", "goals": { "$fixture": "사흘연속완료" }, "asOfDate": "2026-10-07" },
+      "expect": { "stage": "BASE", "changed": false }
+    },
+    {
+      "id": "QA-DIET-11",
+      "title": "안내만 나간 날(수행할 목표 없음)은 '못 한 날'로 세지 않는다",
+      "scenario": "5일은 조건에 맞는 문구가 없어 안내만 나갔고, 6일은 못 했다. 안내만 나간 날을 미완료로 세면 억울하게 내려간다 → 단계 유지.",
+      "rules": ["V-42"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "recalculateAxisStage",
+      "args": { "currentStage": "BASE", "goals": [ { "session_date": "2026-10-04", "goal_state": "CREATED", "completed": true }, { "session_date": "2026-10-05", "goal_state": "GUIDANCE_ONLY", "completed": false }, { "session_date": "2026-10-06", "goal_state": "CREATED", "completed": false } ], "asOfDate": "2026-10-07" },
+      "expect": { "stage": "BASE", "changed": false }
+    },
+    {
+      "id": "QA-DIET-12",
+      "title": "없는 단계 이름이 들어오면 조용히 넘기지 않고 오류를 낸다",
+      "scenario": "저장된 단계 값이 'MASTER'처럼 계약에 없는 값이면 엉뚱한 단계로 계산하지 않고 멈춰야 한다.",
+      "rules": [],
+      "severity": "낮음",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "recalculateAxisStage",
+      "args": { "currentStage": "MASTER", "goals": [], "asOfDate": "2026-10-07" },
+      "expectError": "알 수 없는 목표 단계"
+    },
+    {
+      "id": "QA-DIET-13",
+      "title": "검진 3개월 유효기간 — 만료일 당일은 아직 유효하다",
+      "scenario": "7월 7일 검진 결과를 10월 7일에 쓴다. 딱 3개월째인 날까지는 유효하다.",
+      "rules": ["R-04", "V-29", "V-41"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "isScreeningSignalValid",
+      "args": ["2026-07-07", "2026-10-07"],
+      "expect": true
+    },
+    {
+      "id": "QA-DIET-14",
+      "title": "검진 3개월 유효기간 — 하루 넘기면 쓰지 않는다",
+      "scenario": "7월 6일 검진은 10월 7일에 3개월 하루를 넘겼으므로 목표 선정에 쓰지 않는다.",
+      "rules": ["R-04", "V-29", "V-41"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "isScreeningSignalValid",
+      "args": ["2026-07-06", "2026-10-07"],
+      "expect": false
+    },
+    {
+      "id": "QA-DIET-15",
+      "title": "미래 날짜 검진은 쓰지 않는다",
+      "scenario": "검진일이 선정일보다 하루 뒤(입력 오류 등)이면 제외한다.",
+      "rules": ["V-29", "V-41"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "isScreeningSignalValid",
+      "args": ["2026-10-08", "2026-10-07"],
+      "expect": false
+    },
+    {
+      "id": "QA-DIET-16",
+      "title": "달의 말일 검진은 3개월 뒤 그달 말일까지 유효하다",
+      "scenario": "11월 30일 검진 + 3개월 = 2월 30일은 없으므로 2월 28일이 만료일이다.",
+      "rules": ["V-29"],
+      "severity": "보통",
+      "module": "diet-goal-engine-v1.0.0.mjs",
+      "export": "addCalendarMonths",
+      "args": ["2026-11-30", 3],
+      "expect": "2027-02-28"
+    },
+    {
+      "id": "QA-DIET-17",
+      "title": "새벽 3시 59분은 아직 어제 세션이고 '어제 저녁'을 묻는다",
+      "scenario": "10월 7일 새벽 3:59에 앱을 열면 하루는 아직 6일이다(하루의 시작은 04시).",
+      "rules": ["R-02", "V-30"],
+      "severity": "보통",
+      "module": "diet-selection-v1.0.0.mjs",
+      "export": "mealAt",
+      "args": ["2026-10-07T03:59:00+09:00", "Asia/Seoul"],
+      "expect": { "sessionDate": "2026-10-06", "mealDate": "2026-10-06", "mealType": "DINNER", "label": "어제 저녁" }
+    },
+    {
+      "id": "QA-DIET-18",
+      "title": "오전 10시 정각부터는 '오늘 아침'을 묻는다",
+      "scenario": "09:59까지는 어제 저녁, 10:00부터는 오늘 아침이다.",
+      "rules": ["R-02", "V-30"],
+      "severity": "보통",
+      "module": "diet-selection-v1.0.0.mjs",
+      "export": "mealAt",
+      "args": ["2026-10-07T10:00:00+09:00", "Asia/Seoul"],
+      "expect": { "sessionDate": "2026-10-07", "mealDate": "2026-10-07", "mealType": "BREAKFAST" }
+    },
+    {
+      "id": "QA-DIET-19",
+      "title": "질환 확인에 '네'라고 하면 그날 질문은 2개로 끝난다",
+      "scenario": "진료정보로 고혈압이 들어와 확인 질문을 냈고 '현재 관리 중'이라고 답했다. 둘째는 고혈압 관련 질문이고 세 번째 질문은 없다.",
+      "rules": ["R-01", "V-44"],
+      "severity": "보통",
+      "module": "diet-selection-v1.0.0.mjs",
+      "export": "questionPlan",
+      "args": { "hasPendingClinicConfirmation": true, "confirmationAnswer": "USER_CONFIRMED" },
+      "expect": ["CLINIC_CONFIRMATION", "DISEASE_ROTATING"]
+    }
+  ],
+  "dataChecks": [
+    { "id": "D-01", "title": "질문 ID+버전이 겹치지 않는다", "rules": ["V-01"], "check": "unique", "sheet": "질문", "keys": ["question_id", "question_version"] },
+    { "id": "D-02", "title": "질문마다 선택지가 정확히 3개다", "rules": ["V-02"], "check": "groupCount", "sheet": "선택지", "by": ["question_id", "question_version"], "expected": 3 },
+    { "id": "D-03", "title": "선택지 순서는 1·2·3만 쓴다", "rules": ["V-02"], "check": "allIn", "sheet": "선택지", "field": "option_order", "values": [1, 2, 3] },
+    { "id": "D-04", "title": "목표문구 ID+버전이 겹치지 않는다", "rules": ["V-04"], "check": "unique", "sheet": "목표문구", "keys": ["phrase_id", "phrase_version"] },
+    { "id": "D-05", "title": "목표문구와 노출조건이 일대일로 짝이 맞는다", "rules": ["V-04"], "check": "sameKeys", "sheets": ["목표문구", "노출조건"], "keys": ["phrase_id", "phrase_version"] },
+    { "id": "D-06", "title": "목표 타일 문구는 22자 이하다", "rules": ["V-05"], "check": "maxLength", "sheet": "목표문구", "field": "tile_text", "max": 22 },
+    { "id": "D-07", "title": "목표 이유 문장이 비어 있지 않다", "rules": ["V-05"], "check": "notEmpty", "sheet": "목표문구", "field": "reason_text" },
+    { "id": "D-08", "title": "노출조건은 모두 READY(해석 완료)다", "rules": ["V-06"], "check": "allIn", "sheet": "노출조건", "field": "parse_status", "values": ["READY"] },
+    { "id": "D-09", "title": "질환연결축의 질문 ID가 질문 시트에 있다", "rules": ["V-07"], "check": "foreignKey", "sheet": "질환연결축", "field": "question_id", "refSheet": "질문", "refField": "question_id" },
+    { "id": "D-10", "title": "질환 금지 성격은 허용 5종만 쓴다", "rules": ["V-08"], "check": "allIn", "sheet": "질환금지성격", "field": "nature_code", "values": ["REDUCE", "FAST", "INCREASE", "FLUID", "TEXTURE"] },
+    { "id": "D-11", "title": "검증규칙 ID가 겹치지 않는다", "rules": ["V-33"], "check": "unique", "sheet": "검증규칙", "keys": ["규칙 ID"] },
+    { "id": "D-12", "title": "내정보 질환 코드 4개가 겹치지 않는다", "rules": ["V-35", "R-06"], "check": "unique", "sheet": "내정보질환매핑", "keys": ["condition_code"] },
+    { "id": "D-13", "title": "내정보 질환마다 질환규칙이 실제로 있다", "rules": ["V-35"], "check": "foreignKey", "sheet": "내정보질환매핑", "field": "rule_id", "refSheet": "질환규칙", "refField": "rule_id" },
+    { "id": "D-14", "title": "답 버튼 글자는 11자 이내다", "rules": ["V-49"], "check": "maxLength", "sheet": "선택지", "field": "option_label", "max": 11 },
+    { "id": "DOC-01", "kind": "문서 대조", "title": "구현점검 문서의 질문 개수(8개)가 계약과 같다", "severity": "낮음", "basis": "식이_구현점검_v1.0.0.md 36행: 질문 8개", "check": "count", "sheet": "질문", "expected": 8 },
+    { "id": "DOC-02", "kind": "문서 대조", "title": "구현점검 문서의 선택지 개수(24개)가 계약과 같다", "severity": "낮음", "basis": "식이_구현점검_v1.0.0.md 36행: 선택지 24개", "check": "count", "sheet": "선택지", "expected": 24 },
+    { "id": "DOC-03", "kind": "문서 대조", "title": "구현점검 문서의 사용 목표문구 개수(143개)가 계약과 같다", "severity": "낮음", "basis": "식이_구현점검_v1.0.0.md 31·37행: 남은 143개", "check": "count", "sheet": "목표문구", "where": { "source_status": "사용" }, "expected": 143 },
+    { "id": "DOC-04", "kind": "문서 대조", "title": "식후 목표 후보 개수(10개)가 계약 데이터와 같다", "rules": ["R-05", "V-34"], "severity": "보통", "basis": "계약 구현기준 R-05·필드정의 after_dinner_eligible 설명·구현점검 문서 27행이 모두 '10개'라고 적음. 개발자가 10을 상수로 박으면 3개가 빠진다", "check": "count", "sheet": "노출조건", "where": { "after_dinner_eligible": true }, "expected": 10 }
+  ],
+  "findings": [
+    {
+      "id": "QA-DIET-04",
+      "kind": "코드 읽기",
+      "title": "목표 축을 그날 질문 축과 맞추지 않는다",
+      "scenario": "오늘 질문이 '물 마시기'인데 목표는 고혈압과 연결된 '짠맛' 축에서 나온다. 질문과 목표가 따로 놀아 사용자는 왜 이 목표인지 알 수 없다.",
+      "rules": ["R-03", "V-39", "V-50"],
+      "severity": "높음",
+      "where": "diet-goal-engine-v1.0.0.mjs:115 selectDietGoal",
+      "evidence": "selectDietGoal은 그날 고른 회전 질문 ID를 입력으로 받지 않는다. 후보 축 목록을 질환 연결 축부터 독립적으로 만든다(axisCandidates). 그래서 '질문 축 먼저, 통과 문구가 없을 때만 다음 출처'라는 순서를 지킬 수 없다. 기존 테스트도 출처별 이동만 보고 이 조건은 보지 않는다.",
+      "suggestion": "그날 질문 선정 결과를 목표 엔진 입력으로 넘기고 그 축의 통과 후보를 먼저 본다. 후보가 있을 때·없을 때를 각각 케이스로 추가한다. 함수 입력이 생기면 이 항목은 시나리오 케이스로 바꾼다."
+    }
+  ],
+  "openQuestions": [
+    "목표 후보 축의 순서에 '축 상태(개선 필요 먼저)'를 쓸지 — 계약 CFG-041은 유효답 수 → 마지막 질문일 → ID 순서만 적고 있다 (QA-DIET-03 관련)",
+    "질문 시트의 DIET-Q-90은 운영 질문인가, 제외할 데이터인가 — 문서는 질문 8개, 계약은 9개",
+    "계약 R-09 메모 '목표 축과 따로 계산한다'가 '계산 절차만 따로'인지 '결과 축이 달라도 된다'인지 — R-03·V-39·V-50은 결과 축 일치를 요구한다"
+  ]
+}
