@@ -2737,9 +2737,9 @@ const Q_ROTATION = {
             {v:'mid', f:'—',label:'맛만 봤어요',tone:'okay'},
             {v:'bad', f:'⌢',label:'먹었어요',tone:'bad'}] },
   8:{ id:'mealTime',cat:'식이', av:'🌙', tint:'moon', text:'어젯밤 야식은 얼마나 드셨나요?',
-      opts:[{v:'good',f:'⌣',label:'안 먹었어요',tone:'good'},
-            {v:'mid', f:'—',label:'조금 먹었어요',tone:'okay'},
-            {v:'bad', f:'⌢',label:'배부르게 먹음',tone:'bad'}] }
+      opts:[{v:'good',f:'⌣',label:'먹지 않음',tone:'good'},
+            {v:'mid', f:'—',label:'조금 먹음',tone:'okay'},
+            {v:'bad', f:'⌢',label:'배불리 먹음',tone:'bad'}] }
 };
 function rotationQuestion(){
   const history = JSON.parse(localStorage.getItem('mai-diet-question-history-v1.0.0') || '[]');
