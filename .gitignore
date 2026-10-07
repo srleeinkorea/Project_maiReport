@@ -26,3 +26,5 @@ desktop.ini
 scripts/sharepoint-path.txt
 scripts/.sync-state.json
 scripts/.sp-backup/
+scripts/.auto-sync-state.json
+scripts/auto-sync.log
