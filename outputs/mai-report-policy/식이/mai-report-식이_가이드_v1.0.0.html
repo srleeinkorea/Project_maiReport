@@ -98,7 +98,7 @@ li{margin:6px 0}
 <td>데이터계약 <b>질문</b> 시트<br><span class="src">행동 축 열 · 8줄</span></td></tr>
 <tr><td><b>질문</b></td>
 <td>축마다 하나씩 정해진 객관식 물음. 답은 늘 세 개</td>
-<td>채소 축의 질문은 「채소 반찬 몇 가지 드셨나요?」 하나뿐입니다.
+<td>채소 축의 질문은 「채소 반찬을 얼마나 드셨나요?」 하나뿐입니다.
 매일 다른 말로 묻지 않습니다</td>
 <td>데이터계약 <b>질문</b> 시트<br><span class="src">질문 문장 열</span><br>답은 <b>선택지</b> 시트 27줄</td></tr>
 <tr><td><b>상태</b></td>
@@ -221,8 +221,8 @@ li{margin:6px 0}
 <tr><td><b>끼니 규칙</b><br><span class="src">매일 묻는 고정 질문</span></td>
 <td>{지난 끼니}은 평소만큼 드셨나요?</td>
 <td>평소대로 · 조금 적게 · 거의 못 먹음</td><td><code>DIET-Q-00</code><br>질문 <b>2행</b> · 선택지 <b>2~4행</b></td></tr>
-<tr><td><b>채소</b></td><td>{지난 끼니}<span class="chg">엔 채소 반찬은 몇 가지였나요</span>?</td>
-<td>두 가지 이상 · 한 가지 · 먹지 않았어요</td><td><code>DIET-Q-01</code><br>질문 <b>3행</b> · 선택지 <b>5~7행</b></td></tr>
+<tr><td><b>채소</b></td><td>{지난 끼니}<span class="chg">엔 채소 반찬을 얼마나 드셨나요</span>?</td>
+<td>충분히 먹음 · 조금 먹음 · 먹지 않음</td><td><code>DIET-Q-01</code><br>질문 <b>3행</b> · 선택지 <b>5~7행</b></td></tr>
 <tr><td><b>단 음료 · 단 간식</b></td><td>{지난 끼니} <span class="chg">전후 단 음료·간식은 몇 번이었나요</span>?</td>
 <td>없었어요 · 한 번 · 두 번 이상</td><td><code>DIET-Q-02</code><br>질문 <b>4행</b> · 선택지 <b>8~10행</b></td></tr>
 <tr><td><b>짠맛 · 국물</b></td><td>{지난 끼니}<span class="chg">엔 국물을 얼마나 드셨나요</span>?</td>
@@ -383,16 +383,16 @@ li{margin:6px 0}
 <th class="n" style="width:14%">좋음·보통·나쁨</th><th style="width:46%">여기까지 보면 상태가</th></tr>
 <tr><td class="n">1</td><td>먹지 않았어요</td><td class="n">나쁨</td>
 <td><b>관찰 중</b> — 답이 3개가 안 됩니다</td></tr>
-<tr><td class="n">2</td><td>한 가지</td><td class="n">보통</td><td><b>관찰 중</b></td></tr>
+<tr><td class="n">2</td><td>조금 먹음</td><td class="n">보통</td><td><b>관찰 중</b></td></tr>
 <tr><td class="n">3</td><td>먹지 않았어요</td><td class="n">나쁨</td>
 <td>3개가 찼습니다. 나쁨 2 ÷ 3 = <b>67%</b> → <b>개선 필요</b></td></tr>
 <tr><td class="n">4</td><td>먹지 않았어요</td><td class="n">나쁨</td>
 <td>나쁨 3 ÷ 4 = 75% → <b>개선 필요</b></td></tr>
-<tr><td class="n">5</td><td>두 가지 이상</td><td class="n">좋음</td>
+<tr><td class="n">5</td><td>충분히 먹음</td><td class="n">좋음</td>
 <td>나쁨 3 ÷ 5 = 60% → 아직 <b>개선 필요</b></td></tr>
-<tr><td class="n">6</td><td>두 가지 이상</td><td class="n">좋음</td>
+<tr><td class="n">6</td><td>충분히 먹음</td><td class="n">좋음</td>
 <td>나쁨 3 ÷ 6 = 50% → 절반이라 아직 <b>개선 필요</b></td></tr>
-<tr><td class="n">7</td><td>두 가지 이상</td><td class="n">좋음</td>
+<tr><td class="n">7</td><td>충분히 먹음</td><td class="n">좋음</td>
 <td>나쁨 3 ÷ 7 = 43% → 절반 아래로 내려왔으니 <b>보통</b></td></tr>
 </table>
 <p>7번째에서야 「개선 필요」를 벗어납니다. 그런데 <b>「양호」까지 가려면 조건이 더 빡빡합니다.</b></p>
@@ -792,9 +792,9 @@ GOOD <b>양호</b> · NULL <b>값 없음</b>(그 축을 한 번도 묻지 않음
 <h4 style="margin:18px 0 6px;font-size:15.5px">먼저 — 답마다 점수가 붙어 있습니다</h4>
 <table>
 <tr><th style="width:34%">채소 질문의 답</th><th style="width:22%">점수</th><th style="width:44%">어디에</th></tr>
-<tr><td>두 가지 이상</td><td><b>좋음</b> (1)</td>
+<tr><td>충분히 먹음</td><td><b>좋음</b> (1)</td>
 <td rowspan="3">데이터계약 <b>선택지</b> 시트 5~7행의 <code>score_value</code> 칸</td></tr>
-<tr><td>한 가지</td><td><b>보통</b> (0)</td></tr>
+<tr><td>조금 먹음</td><td><b>보통</b> (0)</td></tr>
 <tr><td>먹지 않았어요</td><td><b>나쁨</b> (-1)</td></tr>
 </table>
 <p>「나쁨 비율」은 <b>나쁜 답 ÷ 전체 답</b>입니다. 「좋음 비율」도 같은 방식입니다.</p>
@@ -825,15 +825,15 @@ GOOD <b>양호</b> · NULL <b>값 없음</b>(그 축을 한 번도 묻지 않음
 <tr><th class="n" style="width:12%">순서</th><th style="width:40%">고른 답</th>
 <th class="n" style="width:20%">점수</th><th style="width:28%">최근 7개에 드나</th></tr>
 <tr><td class="n">1</td><td>먹지 않았어요</td><td class="n">나쁨</td><td>아니요</td></tr>
-<tr><td class="n">2</td><td>한 가지</td><td class="n">보통</td><td>아니요</td></tr>
+<tr><td class="n">2</td><td>조금 먹음</td><td class="n">보통</td><td>아니요</td></tr>
 <tr><td class="n">3</td><td>먹지 않았어요</td><td class="n">나쁨</td><td>아니요</td></tr>
-<tr><td class="n">4</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
-<tr><td class="n">5</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
-<tr><td class="n">6</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
-<tr><td class="n">7</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
-<tr><td class="n">8</td><td>한 가지</td><td class="n">보통</td><td><b>예</b></td></tr>
-<tr><td class="n">9</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
-<tr><td class="n">10</td><td>두 가지 이상</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">4</td><td>충분히 먹음</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">5</td><td>충분히 먹음</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">6</td><td>충분히 먹음</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">7</td><td>충분히 먹음</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">8</td><td>조금 먹음</td><td class="n">보통</td><td><b>예</b></td></tr>
+<tr><td class="n">9</td><td>충분히 먹음</td><td class="n">좋음</td><td><b>예</b></td></tr>
+<tr><td class="n">10</td><td>충분히 먹음</td><td class="n">좋음</td><td><b>예</b></td></tr>
 </table>
 
 <div class="ex"><b class="t">① 「개선 필요」인가 — CFG-002</b>

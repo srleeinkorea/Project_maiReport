@@ -2704,9 +2704,9 @@ const Q_ACUTE = [
    끼니 규칙은 별도 문항이 없어 고정 문항의 결식 답으로 쌓이므로 회전에서 빠진다. */
 const Q_ROTATION = {
   2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}에 채소 반찬이 있었나요?`,
-      opts:[{v:'good',f:'⌣',label:'두 가지 이상',tone:'good'},
-            {v:'mid', f:'—',label:'한 가지',tone:'okay'},
-            {v:'bad', f:'⌢',label:'먹지 않았어요',tone:'bad'}] },
+      opts:[{v:'good',f:'⌣',label:'충분히 먹음',tone:'good'},
+            {v:'mid', f:'—',label:'조금 먹음',tone:'okay'},
+            {v:'bad', f:'⌢',label:'먹지 않음',tone:'bad'}] },
   3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후 단 음료·간식은 몇 번이었나요?`,
       opts:[{v:'good',f:'⌣',label:'없었어요',tone:'good'},
             {v:'mid', f:'—',label:'한 번',tone:'okay'},
