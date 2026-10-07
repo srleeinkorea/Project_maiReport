@@ -6,7 +6,7 @@
   "baseline": {
     "contract": {
       "file": "outputs/mai-report-policy/식이/maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx",
-      "sha256": "886adaadc6ac",
+      "sha256": "7c1b14012784",
       "status": "식이 개발 전달 데이터 계약 · v1.0.1 · 2026-10-02 (최초 발행 2026-09-23)"
     },
     "documents": [
@@ -356,7 +356,7 @@
       "actual": {
         "stage": "BASE",
         "changed": true,
-        "reason": "THREE_COMPLETIONS_IN_7_DAYS"
+        "reason": "THREE_OF_RECENT_FOUR_COMPLETED"
       },
       "diffs": [
         {
@@ -412,7 +412,7 @@
       "actual": {
         "stage": "CHALLENGE",
         "changed": true,
-        "reason": "THREE_COMPLETIONS_IN_7_DAYS"
+        "reason": "THREE_OF_RECENT_FOUR_COMPLETED"
       },
       "diffs": [
         {
@@ -575,7 +575,7 @@
       "actual": {
         "stage": "BASE",
         "changed": true,
-        "reason": "THREE_COMPLETIONS_IN_7_DAYS"
+        "reason": "THREE_OF_RECENT_FOUR_COMPLETED"
       },
       "diffs": []
     },
@@ -1436,7 +1436,7 @@
     {
       "id": "V-42",
       "sheet": "검증규칙",
-      "text": "마지막 변경 이후 최근 7일 완료 3건이면 1단계 상승. 다만 그 축의 상태가 관찰 중이면 상승하지 않고, 개선 필요이면 기본까지만 올린다. 종료된 미완료 2건 연속이면 1단계 하락. 하락 우선·하루 1회·소급 완료 제외",
+      "text": "마지막 변경 이후 56일 이내의 끝난 축 목표 최근 4건 중 3건 완료면 1단계 상승(끝난 축 목표 3건 미만이면 판단 안 함). 다만 그 축의 상태가 관찰 중이면 상승하지 않고, 개선 필요이면 기본까지만 올린다. 최근 2건 연속 미완료면 1단계 하락. 하락 우선·하루 1회·소급 완료 제외·안내만/회복/부담 줄이기 제외",
       "items": [
         {
           "id": "QA-DIET-01",
