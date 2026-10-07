@@ -65,6 +65,8 @@ $pending=@{}   # 파일별로 지난 확인 때 본 해시 (멈췄는지 보려�
 $siteRepo = Join-Path $repo '.tmp_artifact\rsna-deploy'
 $siteMap  = @{ 'maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx'='files\diet-data-contract-v1.0.1.xlsx'; 'maiReport_식이_참조설정데이터_v1.0.0.xlsx'='files\diet-reference-config-v1.0.0.xlsx' }
 function Invoke-Git([string[]]$names){
+  # git이 진행 상황을 표준 오류로 내보내도 오류로 멈추지 않게 한다(성공 여부는 종료 코드로 본다)
+  $ErrorActionPreference='Continue'
   # 메인 저장소
   try{
     $paths=@(); foreach($n in $names){ $paths+=("outputs/mai-report-policy/식이/"+$n) }
