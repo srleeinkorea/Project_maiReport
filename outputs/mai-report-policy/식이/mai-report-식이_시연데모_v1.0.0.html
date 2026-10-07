@@ -81,7 +81,7 @@ const AXES={
  portion:{name:'식사 속도 · 양',qid:'DIET-Q-05',q:'{meal} 후 배부름은 어땠나요?',opts:['편안했어요','조금 배불렀어요','많이 배불렀어요'],goals:[['식사 중 수저 내려놓기','식사 중 잠깐 멈춰 먹는 속도를 살펴봐요.',null],['한 끼는 천천히 먹기','식사를 서두르지 않고 먹어 보는 행동이에요.',null],['먹으면서 배부름 살피기','식사 중 배부른 정도를 살펴보는 행동이에요.','REDUCE']]},
  fat:{name:'기름진 음식',qid:'DIET-Q-07',q:'{meal}엔 튀긴 음식을 드셨나요?',opts:['안 먹었어요','맛만 봤어요','먹었어요'],goals:[['튀긴 반찬은 하나만','튀긴 반찬의 종류와 먹는 양을 살펴봐요.','REDUCE'],['튀김 대신 구이 · 찜','튀김 대신 구이·찜을 선택해 보는 행동이에요.','TEXTURE'],['기름 없이 굽기','조리 중 추가하는 기름 양을 살펴봐요.',null]]},
  protein:{name:'단백질',qid:'DIET-Q-06',q:'{meal}엔 단백질류(고기·생선·달걀 등)를 드셨나요?',opts:['먹었어요','맛만 봤어요','안 먹었어요'],goals:[]},
- night:{name:'식사 시각 · 야식',qid:'DIET-Q-04',q:'어젯밤 야식은 얼마나 드셨나요?',opts:['안 먹었어요','간단히 먹었어요','배부르게 먹었어요'],goals:[]}
+ night:{name:'식사 시각 · 야식',qid:'DIET-Q-04',q:'어젯밤 야식은 얼마나 드셨나요?',opts:['안 먹었어요','조금 먹었어요','많이 먹었어요'],goals:[]}
 };
 const GENERAL=['veg','sweet','salt','night','portion','protein','fat'];
 /* 목표 문구: 데이터계약 「목표문구」·「노출조건」 시트(사용 상태, 평일·주말 무관 문구) */
@@ -234,7 +234,7 @@ function render(){
   document.getElementById('rotatingQuestion').innerHTML=`<div class="q-meta">오늘의 질문 2/2 · ${clinicDisease} 관련</div><div class="q-text">${d.axis.q.replace('{meal}',d.meal)}</div><div class="answers">${d.axis.opts.map((x,i)=>`<div class="answer ${i===d.answer?'on':''}">${x}</div>`).join('')}</div><div class="notice-card" style="margin:8px 0 0">오늘은 공통 고정 질문을 생략하고 여기서 질문을 마칩니다.</div>`;
  }else{
   document.querySelector('#fixedQuestion').previousElementSibling.innerHTML=`<b>지난 끼니 확인</b><span id="mealLabel">${d.meal}</span>`;
-  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">매일 고정</div><div class="q-text">${d.meal}은 평소만큼 드셨나요?</div>${dinnerTip}<div class="answers">${['평소대로','조금 적게','거의 못 먹거나 걸렀어요'].map((x,i)=>`<div class="answer ${i===d.fixed?'on':''}">${x}</div>`).join('')}</div>`;
+  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">매일 고정</div><div class="q-text">${d.meal}은 평소만큼 드셨나요?</div>${dinnerTip}<div class="answers">${['평소대로','조금 적게','거의 못 먹음'].map((x,i)=>`<div class="answer ${i===d.fixed?'on':''}">${x}</div>`).join('')}</div>`;
   document.getElementById('rotatingQuestion').innerHTML=`<div class="q-meta">${d.src.label} · ${d.axis.name}</div><div class="q-text">${d.axis.q.replace('{meal}',d.meal)}</div><div class="answers">${d.axis.opts.map((x,i)=>`<div class="answer ${i===d.answer?'on':''}">${x}</div>`).join('')}</div>`;
  }
  document.getElementById('axisState').textContent=axisStatus(rows,selectedDay);
