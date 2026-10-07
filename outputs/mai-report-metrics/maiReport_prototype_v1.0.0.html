@@ -3081,6 +3081,8 @@ const AFTER_DINNER_GOALS = [
 ];
 const MEAL_WORDS = ['아침','점심','저녁'];
 function fitsTarget(p){
+  /* 밤 세션의 준비 행동은 내일 끼니를 미리 챙기는 문구라 끼니 단어로 거르지 않는다 */
+  if(TARGET_MEAL==='현재 세션의 밤') return true;
   const word = MEAL_WORDS.find(w=>p.title.includes(w));
   return !word || TARGET_MEAL.includes(word);      /* 끼니가 없는 문구는 어느 끼니에나 쓴다 */
 }
