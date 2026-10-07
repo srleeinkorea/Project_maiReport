@@ -230,7 +230,7 @@ function render(){
  if(d.isClinicConfirmation){
   document.querySelector('#fixedQuestion').previousElementSibling.innerHTML='<b>질환 정보 확인</b><span id="mealLabel">진료정보 기준</span>';
   const clinicDisease=d.confirmLabel||(c.id==='diabetes'?'이상지질혈증':'지방간');
-  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">${d.confirmVisit?`진료정보 확인 ${(c.confirmQueue||[]).findIndex(q=>q.label===d.confirmLabel)+1}/${(c.confirmQueue||[]).length} · 진료일 ${d.confirmVisit}`:(c.confirmClinicFirst?'가장 먼저 확인':'진료정보 확인')}</div><div class="q-text">${clinicDisease}을 진단받고 관리 중이신가요?</div><div class="answers">${['관리 중이에요','아니요','잘 모르겠어요'].map((x,i)=>`<div class="answer ${i===0?'on':''}">${x}</div>`).join('')}</div>`;
+  document.getElementById('fixedQuestion').innerHTML=`<div class="q-meta">${d.confirmVisit?`진료정보 확인 ${(c.confirmQueue||[]).findIndex(q=>q.label===d.confirmLabel)+1}/${(c.confirmQueue||[]).length} · 진료일 ${d.confirmVisit}`:(c.confirmClinicFirst?'가장 먼저 확인':'진료정보 확인')}</div><div class="q-text">${clinicDisease}을 진단받았거나 관리 중이신가요?</div><div class="answers">${['네','아니요','모르겠어요'].map((x,i)=>`<div class="answer ${i===0?'on':''}">${x}</div>`).join('')}</div>`;
   document.getElementById('rotatingQuestion').innerHTML=`<div class="q-meta">오늘의 질문 2/2 · ${clinicDisease} 관련</div><div class="q-text">${d.axis.q.replace('{meal}',d.meal)}</div><div class="answers">${d.axis.opts.map((x,i)=>`<div class="answer ${i===d.answer?'on':''}">${x}</div>`).join('')}</div><div class="notice-card" style="margin:8px 0 0">오늘은 공통 고정 질문을 생략하고 여기서 질문을 마칩니다.</div>`;
  }else{
   document.querySelector('#fixedQuestion').previousElementSibling.innerHTML=`<b>지난 끼니 확인</b><span id="mealLabel">${d.meal}</span>`;
@@ -365,8 +365,8 @@ render();
     "혼자여도 상 차려 먹기",
     "후식 없이 식사 마치기",
     "휴대폰 끄고 식사",
-    "{질환명}을 진단받고 관리 중이신가요?",
-    "고지혈증(이상지질혈증)을 진단받고 관리 중이신가요?",
+    "{질환명}을 진단받았거나 관리 중이신가요?",
+    "고지혈증(이상지질혈증)을 진단받았거나 관리 중이신가요?",
     "띄어쓰기 포함 12자 이내",
   ];
   TERMS.sort(function(a,b){return b.length-a.length;});
