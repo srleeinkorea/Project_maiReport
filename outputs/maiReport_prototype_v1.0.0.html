@@ -2712,11 +2712,11 @@ const Q_ACUTE = [
 /* 일반 사용자의 회전 문항 — 최근 28일 유효 답이 적고 마지막 질문이 오래된 축부터 고른다.
    끼니 규칙은 별도 문항이 없어 고정 문항의 결식 답으로 쌓이므로 회전에서 빠진다. */
 const Q_ROTATION = {
-  2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}엔 채소 반찬을 몇 가지 드셨나요?`,
+  2:{ id:'veg',   cat:'식이', av:'🥬', tint:'moon', text:`${LAST_MEAL}엔 채소 반찬은 몇 가지였나요?`,
       opts:[{v:'good',f:'⌣',label:'두 가지 이상',tone:'good'},
             {v:'mid', f:'—',label:'한 가지',tone:'okay'},
             {v:'bad', f:'⌢',label:'먹지 않았어요',tone:'bad'}] },
-  3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후로 단 음료나 간식을 몇 번 드셨나요?`,
+  3:{ id:'sweet', cat:'식이', av:'🥤', tint:'moon', text:`${LAST_MEAL} 전후 단 음료·간식은 몇 번이었나요?`,
       opts:[{v:'good',f:'⌣',label:'없었어요',tone:'good'},
             {v:'mid', f:'—',label:'한 번',tone:'okay'},
             {v:'bad', f:'⌢',label:'두 번 이상',tone:'bad'}] },
@@ -2724,7 +2724,7 @@ const Q_ROTATION = {
       opts:[{v:'good',f:'⌣',label:'안 먹었어요',        tone:'good'},
             {v:'mid', f:'—',label:'절반 이하',  tone:'okay'},
             {v:'bad', f:'⌢',label:'절반 넘게',tone:'bad'}] },
-  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL}을 드신 뒤 배부름은 어느 정도였나요?`,
+  5:{ id:'pace',  cat:'식이', av:'🥄', tint:'moon', text:`${LAST_MEAL} 후 배부름은 어땠나요?`,
       opts:[{v:'good',f:'⌣',label:'편안했어요',tone:'good'},
             {v:'mid', f:'—',label:'조금 배불렀어요',tone:'okay'},
             {v:'bad', f:'⌢',label:'많이 배불렀어요',tone:'bad'}] },
