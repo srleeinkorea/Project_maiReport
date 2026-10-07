@@ -371,15 +371,9 @@
   <ul style="margin:8px 0 0">
     <li>고정 문항 응답 완료 후, 저녁을 이미 먹었으므로 대상 끼니를 <b>현재 세션의 밤(TONIGHT)</b>으로 두고 남은 밤에 실행할 수 있는 준비·정리 행동을 고른다. 00~04시에도 TONIGHT의 대상 날짜는 전날인 <code>session_date</code>다. 다음 세션의 아침 목표로 미루지 않는다.</li>
   </ul></div>
-  <p><b>식후 후보는 총 10개</b>다. 노출조건 시트의 <code>after_dinner_eligible=true</code>인 문구만 쓰고, <code>parse_status=READY</code> 및 질환 안전·시간·달력 필터를 다시 적용한다. 17~24시에는 아래 10개를 후보로 사용한다. 「내일」이 들어간 8개는 <code>time_code=PRE_MIDNIGHT</code>로 두어 자정 이후에는 노출하지 않는다. 00~04시에는 날짜 표현이 어긋나지 않는 기존 2개만 후보로 사용한다. 남은 문구가 없으면 안내 상태로 저장한다.</p>
+  <p><b><span class="chg">식후 후보는 노출조건 시트에서 <code>after_dinner_eligible=true</code>인 문구 전체</span></b>다. <code>parse_status=READY</code> 및 질환 안전·시간·달력 필터를 다시 적용한다. 문구 개수는 이 문서가 아니라 시트로 센다.</p>
   <div class="callout"><b>일반 목표와 식후 목표 모두 같은 문구를 매일 반복하지 않는다.</b> 사용자별 최근 30일 목표를 최신순으로 조회한다. 현재 축·단계·풀의 후보 가운데 최근 30일에 나오지 않은 문구를 먼저 고르고, 여러 개면 문구 ID 순서로 고른다. 모든 후보가 이미 나왔다면 마지막 노출이 가장 오래된 문구를 고른다. 계약에 없는 <code>display_order</code>를 가정하거나 ID가 가장 작은 문구를 매일 고정 선택하지 않는다.</div>
-  <div class="scroll"><table><thead><tr><th>17~24시 식후 목표 후보</th><th>00~04시 사용</th></tr></thead><tbody>
-    <tr><td>아침거리 꺼내 두기</td><td>사용</td></tr><tr><td>저녁 후 부엌 정리</td><td>사용</td></tr>
-    <tr><td>아침 먹을 자리 치우기</td><td>미사용</td></tr><tr><td>내일 아침 시각 정하기</td><td>미사용</td></tr>
-    <tr><td>채소 미리 씻어 두기</td><td>미사용</td></tr><tr><td>장볼 때 채소 적기</td><td>미사용</td></tr>
-    <tr><td>달걀 미리 삶아 두기</td><td>미사용</td></tr><tr><td>내일 쓸 두부 준비하기</td><td>미사용</td></tr>
-    <tr><td>무카페인 차 꺼내 두기</td><td>미사용</td></tr><tr><td>내일 아침 미리 정하기</td><td>미사용</td></tr>
-  </tbody></table></div>
+  <div class="scroll"><table><thead><tr><th>시간대</th><th>쓰는 식후 문구</th></tr></thead><tbody><tr><td><span class="chg">17~24시</span></td><td><span class="chg">식후 가능이 true인 문구 전체</span></td></tr><tr><td><span class="chg">00~04시</span></td><td><span class="chg">그중 시간 제한이 없거나(ANY) 저녁 전체 시간대(EVENING)인 문구만. 자정 전 전용(PRE_MIDNIGHT) 문구는 쓰지 않는다</span></td></tr></tbody></table></div>
   <p class="note">17~24시와 00~04시에는 자동으로 공복·야식 제한 목표를 만들지 않는다.</p>
 </section>
 <section class="card" id="c7">
@@ -397,7 +391,7 @@
     <tr><td class="k">합계</td><td><b>143</b></td><td><b>143</b></td><td>앱이 확인할 수 없는 상황을 전제로 한 33개 문구는 운영 세트에서 제외했다</td></tr>
     </tbody>
   </table></div>
-  <p class="note">식후 후보는 자동 후보 143개 가운데 <code>after_dinner_eligible=true</code>인 10개다. 「내일」 문구 8개는 17~24시에만 사용한다.</p>
+  <p class="note"><span class="chg">식후 후보는 자동 후보 중 <code>after_dinner_eligible=true</code>인 문구다. 개수는 노출조건 시트로 센다. 자정 전 전용 문구는 17~24시에만 사용한다.</span></p>
 
   <h3>문구 하나가 갖는 것</h3>
   <div class="grid2">
@@ -612,7 +606,7 @@ elif <span class="chg">마지막 단계 변경 이후 그 축의 확정된 축 �
     <li>신장질환의 칼륨·인·단백질·수분처럼 개인 상태에 따라 달라지는 목표는 자동 생성하지 않는다.</li>
     <li>당뇨병에서는 저혈당 처치용 당 섭취를 나쁜 행동으로 기록하거나 공복·탄수화물 감량을 자동 지시하지 않는다.</li>
     <li>식사 시각 축은 야식 <span class="chg">양</span>만 저장하고 상태를 만들지 않으므로 v1.0.0의 상태 기반 목표 축 선정에서는 제외한다.</li>
-    <li>식후 후보는 <span class="chg">19개</span>다. <span class="chg">17~24시 전용 준비 목표 14개는 17~24시에만 사용하고, 00~04시에는 저녁 전체 시간대 3개와 시간 제한이 없는 2개, 모두 5개만 사용한다. 저녁에도 고정 질문 답이 「조금 적게」「거의 못 먹거나 걸렀어요」이면 식후 가능 회복 문구를 먼저 쓴다.</span></li>
+    <li>식후 후보는 <span class="chg">노출조건 시트의 식후 가능 true인 문구 전체</span>다. <span class="chg">17~24시 전용(자정 전) 문구는 17~24시에만 사용하고, 00~04시에는 시간 제한이 없거나 저녁 전체 시간대인 문구만 사용한다. 저녁에도 고정 질문 답이 「조금 적게」「거의 못 먹거나 걸렀어요」이면 식후 가능 회복 문구를 먼저 쓴다.</span></li>
     <li>진료 코드 반복과 「관리 중」 답은 임상 확진으로 저장하지 않고 서비스의 식이 적용 상태로만 저장한다.</li>
   </ul>
 </section>
