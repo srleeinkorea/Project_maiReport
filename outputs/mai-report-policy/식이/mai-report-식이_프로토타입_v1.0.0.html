@@ -2733,6 +2733,27 @@ const Q_ROTATION = {
             {v:'mid', f:'—',label:'맛만 봤어요',tone:'okay'},
             {v:'bad', f:'⌢',label:'먹었어요',tone:'bad'}] }
 };
+/* 같은 축 연속 제한(설정 CFG-018, 3일) — 「질문이 나간 날」 기준.
+   답을 하지 않아도 그날 질문이 나갔으면 센다. 하루의 시작은 04시. */
+const ASKED_KEY = 'mai-diet-asked-v1.0.0';
+const CONSECUTIVE_AXIS_DAYS = 3;
+function dietDayKey(ms){ const d=new Date(ms-4*3600*1000); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function askedLog(){ try{ return JSON.parse(localStorage.getItem(ASKED_KEY)||'[]'); }catch(e){ return []; } }
+function recordAsked(id){
+  try{
+    const log=askedLog(), today=dietDayKey(Date.now());
+    if(!log.some(x=>x.date===today && x.id===id)){ log.push({date:today,id}); localStorage.setItem(ASKED_KEY, JSON.stringify(log.slice(-120))); }
+  }catch(e){}
+}
+/* 어제까지 연달아 이 축 질문이 나간 날 수 */
+function askedStreakBeforeToday(id, log){
+  let n=0;
+  for(let i=1;i<=CONSECUTIVE_AXIS_DAYS;i++){
+    const key=dietDayKey(Date.now()-i*24*3600*1000);
+    if(log.some(x=>x.date===key && x.id===id)) n++; else break;
+  }
+  return n;
+}
 /* axes가 있으면(내정보 질환 연결 축) 그 축 안에서만 고른다 */
 function rotationQuestion(axes){
   const history = JSON.parse(localStorage.getItem('mai-diet-question-history-v1.0.0') || '[]');
@@ -2747,6 +2768,10 @@ function rotationQuestion(axes){
     const since=new Set(sorted.slice(lastGeneral+1).map(x=>x.question_id));
     if(axes.every(a=>since.has(a))){ const general=all.filter(q=>!axes.includes(q.id)); if(general.length) pool=general; }
   }
+  /* 어제까지 3일 연속 나간 축은 오늘 후보에서 뺀다(남는 축이 없으면 그대로 둔다) */
+  const askedAll = askedLog();
+  const notStreak = pool.filter(q=>askedStreakBeforeToday(q.id, askedAll) < CONSECUTIVE_AXIS_DAYS);
+  if(notStreak.length) pool = notStreak;
   const candidates = (pool.length ? pool : all).map((q,order)=>{
     const asked = history.filter(x=>x.question_id===q.id && Date.parse(x.answered_at)>=cutoff);
     const last = asked.reduce((v,x)=>Math.max(v,Date.parse(x.answered_at)||0),0);
@@ -2764,6 +2789,11 @@ function questionForAxis(axis){
      (어제 고정 답이 '거의 못 먹음'이면 단백질 축, 확진 질환이 있으면 연결 축).
    · 고정 답이 '거의 못 먹음'면 회전 문항은 묻지 않는다(pick에서 뺀다). */
 function pickQuestions(){
+  const picked = pickQuestionsRaw();
+  picked.forEach(q=>{ if(q && Q_ROTATION && Object.values(Q_ROTATION).some(r=>r.id===q.id)) recordAsked(q.id); });
+  return picked;
+}
+function pickQuestionsRaw(){
   const selfAxes = typeof chronicDietState==='function' ? chronicDietState().axes : [];
   if(selfAxes.length) return [Q_ACUTE[0], questionForAxis(selfAxes)];
   if(hasAiReport) return [Q_CARE, Q_ACUTE[0]];
