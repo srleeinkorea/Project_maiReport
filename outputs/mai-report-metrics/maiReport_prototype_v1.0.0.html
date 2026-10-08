@@ -2930,6 +2930,98 @@ function coachingFor(){
   return {act:'지금 속도를 며칠 더 이어가 주세요.',
     why:'걷기도 끼니도 무리 없이 하고 계세요. 물을 자주 드시고 약은 시간을 지켜 드시면 돼요.'};
 }
+
+/* ════════════════════════════════════════════════════════════
+   지식DB 코칭 — db/지식코칭_maiReport_전달테이블_설계 §4·§5 (2026-09-04 스냅샷)
+   런타임 조회는 coaching_rule → coaching_message 두 테이블만 쓴다.
+   판정 순서(§4.5): 질환·확진·나이 → 지표 구간[min,max) → 관찰일·충족비율(초과)
+   → 필요 입력 → 안전 게이트 → rule_group별 priority 최소 1건 → 같은 문구 1회.
+   ════════════════════════════════════════════════════════════ */
+const KDB_MESSAGE = {
+  general_regular_short_sleep_duration:{title:'최근 수면 시간이 자주 7시간 아래로 내려가요',
+    body:'성인 수면 권고는 건강을 위해 밤마다 규칙적으로 7시간 이상 자는 것을 말합니다. 최근 관찰된 밤의 과반이 7시간 미만이면, 당분간 취침 시간을 조금 앞당기거나 아침 기상 시간을 무리하게 당기지 않는 쪽으로 수면 기회를 먼저 확보해보세요.'},
+  dm_shift_walking_to_after_meals:{title:'같은 30분이라면 식후에 나눠 걸어보세요',
+    body:'하루 한 번 30분을 몰아서 걷는 것보다, 매 끼니 뒤에 10분씩 나눠 걷는 편이 식후 혈당을 더 낮춰요. 특히 저녁 식사 뒤에 차이가 컸어요.'},
+  dm_daily_short_of_target_move_after_meals:{title:'오늘은 목표만큼 못 움직였어요 — 식사 후에 움직여 볼까요?',
+    body:'운동은 식사 전보다 식사 후에 하는 편이 식후 혈당을 더 낮춰요. 시간이 없다면 아주 짧아도 됩니다 — 다만 그때는 「아주 힘들다」고 느낄 만큼 세게 1분씩, 하루 네 번이에요(스텝업이나 제자리 달리기 같은 것).'},
+  dm_plan_postmeal_activity:{title:'식사 뒤에 움직일 시간을 미리 잡아볼까요?',
+    body:'식후 활동을 하도록 안내받은 2형 당뇨 성인은 하루 한 번 30분 걷기 안내를 받았을 때보다 식후 혈당이 낮았어요. 특히 저녁처럼 탄수화물을 많이 먹기 쉬운 식사 뒤에는 짧게라도 움직일 시간을 정해두는 편이 좋습니다.'},
+  dm_walk_after_meal_instead_of_sitting:{title:'식사 뒤에는 앉아만 있기보다 걸어보세요',
+    body:'식후 운동은 가만히 앉아 있는 것보다 식후 혈당 상승을 낮췄어요. 식사 뒤에 바로 오래 앉아 있게 될 것 같다면, 걷는 시간을 먼저 잡아두는 편이 좋습니다.'},
+  dm_start_soon_after_meal:{title:'식사 후에 움직일 거라면 되도록 일찍 시작해 보세요',
+    body:'식사와 운동 사이가 길어질수록 식후 혈당을 낮추는 효과가 작아져요. 식사 전에 하는 운동은 식후 혈당에는 도움이 되지 않았고요. 다만 「몇 분 안에」라고 말할 수 있는 기준은 아직 없습니다 — 되도록 이른 편이 낫다는 방향만 말할 수 있어요.'},
+  pneumonia_recovery_lower_intensity:{title:'회복 중엔 강도를 평소보다 낮춰요',
+    body:'폐렴 회복기에는 숨이 찰 수 있어요. 너무 힘든 활동은 어지러움을 부를 수 있습니다.'},
+  pneumonia_rise_slowly_after_lying:{title:'한참 누워 있다 일어날 땐 천천히 일어나 보세요',
+    body:'오래 누워 있다가 갑자기 일어서면 다리 쪽으로 피가 몰려 혈압이 잠깐 떨어져요. 몸이 곧바로 되돌리지만 그 힘이 느리면 어지럽거나 아찔할 수 있습니다. 천천히 일어나면 그 순간을 넘기기 쉬워요.'}
+};
+/* 현재 수집하는 입력으로 판정할 수 있는 규칙만 싣는다(computable_now=true 지표 · condition_only).
+   주간 강도 지표(activity_interval 7일 합) · 세션 간격 규칙은 수집 전이라 제외 — 설계서 §5.2 */
+const KDB_RULES = [
+  {id:'r_gen_sleep_short', group:'sleep_duration', prio:10, cond:'general', confirmed:false, ageMin:18, ageMax:65,
+   metric:'sleep_hours_per_night', min:null, max:7, win:7, minObs:5, ratio:0.5, input:'sleep_session', gate:null,
+   msg:'general_regular_short_sleep_duration', ev:'CSEP Canadian 24-Hour Movement Guidelines (성인 18-64)'},
+  {id:'r_dm_daily_met', group:'dm_daily_volume', prio:10, cond:'diabetes', confirmed:true,
+   metric:'mvpa_minutes_per_day', min:30, max:null, win:1, minObs:1, ratio:null, input:'meal_event', gate:null,
+   msg:'dm_shift_walking_to_after_meals', ev:'ADA Standards of Care in Diabetes 2026 §5'},
+  {id:'r_dm_daily_low', group:'dm_daily_volume', prio:20, cond:'diabetes', confirmed:true,
+   metric:'mvpa_minutes_per_day', min:null, max:30, win:1, minObs:1, ratio:null, input:'meal_event', gate:null,
+   msg:'dm_daily_short_of_target_move_after_meals', ev:'ADA Standards of Care in Diabetes 2026 §5'},
+  {id:'r_dm_plan_postmeal', group:'dm_postmeal_habit', prio:10, cond:'diabetes', confirmed:true,
+   metric:null, input:'meal_event', gate:null, msg:'dm_plan_postmeal_activity', ev:'식후 활동 안내 RCT 근거'},
+  {id:'r_dm_walk_after_meal', group:'dm_postmeal_habit', prio:20, cond:'diabetes', confirmed:true,
+   metric:null, input:'meal_event', gate:null, msg:'dm_walk_after_meal_instead_of_sitting', ev:'식후 운동 vs 비활동 RCT 근거'},
+  {id:'r_dm_start_soon_after_meal', group:'dm_postmeal_habit', prio:30, cond:'diabetes', confirmed:true,
+   metric:null, input:'meal_event', gate:null, msg:'dm_start_soon_after_meal', ev:'식사-운동 간격 관련 근거'},
+  {id:'r_pn_lower_intensity', group:'pneumonia_recovery', prio:10, cond:'pneumonia_recovery', confirmed:true,
+   metric:null, input:null, gate:'recovery_active', msg:'pneumonia_recovery_lower_intensity', ev:'폐렴 회복기 활동 강도 근거'},
+  {id:'r_pn_rise_slowly', group:'pneumonia_recovery', prio:20, cond:'pneumonia_recovery', confirmed:true,
+   metric:null, input:null, gate:'recovery_context', msg:'pneumonia_rise_slowly_after_lying', ev:'장기 침상안정과 기립내성 근거'}
+];
+/* 시연용 최근 7밤 수면(시간) — 마지막 값이 어젯밤 */
+function kdbSleepNights(){
+  const last = Number(HD_TODAY_NUM.sleep);
+  return last < 7 ? [5.4,6.1,7.2,5.0,6.4,5.8,last] : [7.3,7.1,6.8,7.4,7.2,7.0,last];
+}
+function kdbContext(){
+  const conds = ['general'];
+  /* 확진: 내정보 '관리중인 질환' 직접 선택 = 확진 답변으로 본다. AI 소견만으로는 질환 규칙을 켜지 않는다 */
+  if(CHRONIC.picked.includes('dm')) conds.push('diabetes');
+  if(hasAiReport && ans.care && ans.care.v==='yes') conds.push('pneumonia_recovery');
+  const inputs = new Set(['sleep_session','daily_step_total']);
+  if(ans.meal) inputs.add('meal_event');      /* 오늘 끼니 답변이 있으면 식사 맥락이 있다고 본다 */
+  const walk = ans.walk && ans.walk.v;
+  const gates = new Set();
+  if(walk && walk!=='rest') gates.add('recovery_active');   /* 활동 가능 확인 */
+  if(walk) gates.add('recovery_context');
+  return {age:USER.realAge, conds, inputs, gates,
+    metrics:{sleep_hours_per_night:kdbSleepNights(), mvpa_minutes_per_day:[Number(HD_TODAY_NUM.active)]}};
+}
+function kdbCoach(ctx){
+  ctx = ctx || kdbContext();
+  const inRange = (v,r)=>(r.min==null || v>=r.min) && (r.max==null || v<r.max);
+  const hit = KDB_RULES.filter(r=>{
+    if(!ctx.conds.includes(r.cond)) return false;
+    if(r.ageMin!=null && ctx.age<r.ageMin) return false;
+    if(r.ageMax!=null && ctx.age>=r.ageMax) return false;
+    if(r.metric){
+      const vals = (ctx.metrics[r.metric]||[]).slice(-r.win);
+      if(vals.length < r.minObs) return false;
+      if(r.ratio!=null){ if(!(vals.filter(v=>inRange(v,r)).length/vals.length > r.ratio)) return false; }
+      else if(!inRange(vals[vals.length-1], r)) return false;
+    }
+    if(r.input && !ctx.inputs.has(r.input)) return false;
+    if(r.gate && !ctx.gates.has(r.gate)) return false;
+    return true;
+  });
+  const best = {};
+  hit.forEach(r=>{ if(!best[r.group] || r.prio<best[r.group].prio) best[r.group]=r; });
+  const order = ['pneumonia_recovery','dm_daily_volume','dm_postmeal_habit','sleep_duration'];
+  const seen = new Set();
+  return Object.values(best).sort((a,b)=>order.indexOf(a.group)-order.indexOf(b.group))
+    .filter(r=>!seen.has(r.msg) && seen.add(r.msg))
+    .map(r=>({rule_id:r.id, message_id:r.msg, ...KDB_MESSAGE[r.msg], evidence:r.ev}));
+}
 /* 오늘의 코칭 — 3단계: ① 답변 전 안내(모두 답하기 전까지 유지) ② 모두 답하면 생성 중(스켈레톤) ③ 결과(행동 한 줄 + 이유) */
 let coachTimer = null, coachReady = false;
 function renderCoach(){
@@ -2937,6 +3029,7 @@ function renderCoach(){
   const act = document.getElementById('cAct'), why = document.getElementById('cWhy');
   const sk = document.getElementById('cSkel');
   const n = answered(), total = QUESTIONS.length;
+  const kb0 = document.getElementById('cKdb'); if(kb0) kb0.hidden = true;
   if(n < total){   /* 모두 답하기 전에는 안내 문구만. 일부 답변으로 코칭·목표를 만들거나 바꾸지 않는다 */
     coachReady = false; e.classList.remove('gen');
     act.innerHTML = '먼저 오늘의 질문에 답하고,<br>나에게 맞는 코칭을 받아보세요.'; why.hidden = true; return;
@@ -2954,6 +3047,12 @@ function renderCoach(){
   const lab = e.querySelector('.lab');
   if(lab) lab.textContent = c.urgent ? '⚠ 지금 확인이 필요해요' : '✦ 오늘의 코칭';
   act.textContent = c.act; why.textContent = c.why; why.hidden = false;
+  /* 지식DB 코칭 — 답변 기반 행동 아래에 근거 문구 1건을 덧붙인다 */
+  let kb = document.getElementById('cKdb');
+  if(!kb){ kb = document.createElement('div'); kb.id='cKdb'; kb.className='c-kdb'; why.after(kb); }
+  const k = c.urgent ? null : kdbCoach()[0];
+  kb.hidden = !k;
+  if(k) kb.innerHTML = `<b>${k.title}</b><p>${k.body}</p><small>근거 · ${k.evidence}</small>`;
 }
 /* ════════════════════════════════════════════════════════════
    3. 오늘의 목표
@@ -3147,7 +3246,10 @@ function mealGoal(b){
       return phraseGoal(b,p,`연동 수면 5시간 미만 · ${TARGET_MEAL}`);
     }
     /* 오늘 물은 회전 축의 답으로 단계를 정하고, 그 축의 문구세트에서 고른다 */
-    const axis = salt ? {k:'salt', nm:'짠맛 · 국물', a:salt} : {k:'veg', nm:'채소', a:veg};
+    /* QA-DIET-04 · R-03 — 목표 축을 그날 질문한 회전 축과 맞춘다. 그 축에 문구세트가 없으면 채소 축으로 내린다 */
+    const AXIS_NM = {veg:'채소', sweet:'단 음료 · 간식', salt:'짠맛 · 국물', protein:'단백질', fat:'기름진 음식'};
+    const askedK = ['veg','sweet','salt','protein','fat'].find(k=>ans[k] && MEAL_PHRASES[k]);
+    const axis = askedK ? {k:askedK, nm:AXIS_NM[askedK], a:ans[askedK]} : {k:'veg', nm:'채소', a:veg};
     const step = !axis.a ? '입문' : axis.a.v==='bad' ? '입문' : axis.a.v==='mid' ? '기본' : '도전';
     const set = MEAL_PHRASES[axis.k];
     const p = pickPhrase(set[step], [...set.입문, ...set.기본, ...set.도전]);
@@ -7624,6 +7726,13 @@ document.addEventListener('click',e=>{
 .sv-dd>span{font-size:18px;color:var(--ink-3)}
 .sv-dd select{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
 .sv-warn{display:flex;gap:6px;margin-top:10px;padding:10px 12px;border-radius:10px;background:#FFF7E6;color:#B45309;font-size:12px;line-height:1.5}
+</style>
+<style id="kdbCoach">
+#coach .c-kdb{margin-top:12px;padding:12px 14px;border-radius:12px;background:#F4F7FF}
+#coach .c-kdb[hidden]{display:none}
+#coach .c-kdb b{display:block;font-size:14px;font-weight:700;color:var(--ink-1)}
+#coach .c-kdb p{margin-top:4px;font-size:13px;line-height:1.6;color:var(--ink-2)}
+#coach .c-kdb small{display:block;margin-top:6px;font-size:12px;color:var(--ink-3)}
 </style>
 </body>
 </html>
