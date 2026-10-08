@@ -2992,8 +2992,9 @@ function kdbContext(){
   if(ans.meal) inputs.add('meal_event');      /* 오늘 끼니 답변이 있으면 식사 맥락이 있다고 본다 */
   const walk = ans.walk && ans.walk.v;
   const gates = new Set();
-  if(walk && walk!=='rest') gates.add('recovery_active');   /* 활동 가능 확인 */
-  if(walk) gates.add('recovery_context');
+  /* 회복기 맥락 = 질환 확인 질문에 '네'. 활동 가능 확인 = 걷기 질문에 걸을 수 있다고 답한 경우(이 질문이 없으면 확인 안 됨) */
+  if(ans.care && ans.care.v==='yes') gates.add('recovery_context');
+  if(walk && walk!=='rest') gates.add('recovery_active');
   return {age:USER.realAge, conds, inputs, gates,
     metrics:{sleep_hours_per_night:kdbSleepNights(), mvpa_minutes_per_day:[Number(HD_TODAY_NUM.active)]}};
 }
