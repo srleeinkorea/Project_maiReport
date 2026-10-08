@@ -103,7 +103,7 @@ li{margin:6px 0}
 <td>데이터계약 <b>질문</b> 시트<br><span class="src">질문 문장 열</span><br>답은 <b>선택지</b> 시트 27줄</td></tr>
 <tr><td><b>상태</b></td>
 <td>그 축을 <b>여러 날</b> 지켜본 결과. 네 가지입니다<br><b>관찰 중</b> 아직 판단 못 함 · <b>개선 필요</b> 나쁜 답이 절반 넘음 · <b>보통</b> 그 중간 · <b>양호</b> 잘하고 있음<br><span class="src">한 번도 안 물어본 축은 네 가지 중 어느 것도 아니고 「값 없음」입니다</span></td>
-<td>채소 질문에 최근 답한 것 중 「먹지 않았어요」가 절반을 넘으면 그 사람의 채소 축은 <b>개선 필요</b>입니다</td>
+<td>채소 질문에 최근 답한 것 중 「먹지 않음」가 절반을 넘으면 그 사람의 채소 축은 <b>개선 필요</b>입니다</td>
 <td><b>목록 시트가 없습니다.</b> 계산해서 나오는 값이라서입니다.<br>데이터계약 <b>필드정의</b> 시트에서 <code>diet_axis_snapshot</code> 을 찾으면 「허용값」 칸에 네 가지가 적혀 있습니다<br><span class="src">판정 숫자는 <b>설정</b> 시트 CFG-002~009</span></td></tr>
 <tr><td><b>단계</b></td>
 <td>그 사람에게 얼마나 부담되는 목표를 줘도 되는지. 세 칸입니다<br><b>입문</b> 가장 쉬운 것 · <b>기본</b> 보통 · <b>도전</b> 가장 부담되는 것<br>모두 <b>입문</b>에서 시작하고, <b>목표를 해냈는지 안 했는지로만</b> 오르내립니다</td>
@@ -126,7 +126,7 @@ li{margin:6px 0}
 「답은 안 하고 목표만 열심히 하는 사람」은 생길 수 없습니다.</div>
 
 <div class="ex"><b class="t">「상태」와 「단계」가 왜 다른지 — 두 사람으로 보면</b>
-둘 다 채소 질문에 열 번 답했고, 대부분 「먹지 않았어요」였습니다. <b>상태는 둘 다 개선 필요</b>입니다.<br><br>
+둘 다 채소 질문에 열 번 답했고, 대부분 「먹지 않음」였습니다. <b>상태는 둘 다 개선 필요</b>입니다.<br><br>
 <b>A 씨</b>는 목표를 한 번도 안 눌렀습니다.<br>
 → 상태 <b>개선 필요</b> · 단계 <b>입문</b> — 해낸 게 없으니 그대로입니다<br><br>
 <b>B 씨</b>는 <span class="chg">끝난 채소 목표 최근 네 건 중 세 건</span>을 해냈습니다.<br>
@@ -381,12 +381,12 @@ li{margin:6px 0}
 <table>
 <tr><th class="n" style="width:10%">몇 번째</th><th style="width:30%">고른 답</th>
 <th class="n" style="width:14%">좋음·보통·나쁨</th><th style="width:46%">여기까지 보면 상태가</th></tr>
-<tr><td class="n">1</td><td>먹지 않았어요</td><td class="n">나쁨</td>
+<tr><td class="n">1</td><td>먹지 않음</td><td class="n">나쁨</td>
 <td><b>관찰 중</b> — 답이 3개가 안 됩니다</td></tr>
 <tr><td class="n">2</td><td>조금 먹음</td><td class="n">보통</td><td><b>관찰 중</b></td></tr>
-<tr><td class="n">3</td><td>먹지 않았어요</td><td class="n">나쁨</td>
+<tr><td class="n">3</td><td>먹지 않음</td><td class="n">나쁨</td>
 <td>3개가 찼습니다. 나쁨 2 ÷ 3 = <b>67%</b> → <b>개선 필요</b></td></tr>
-<tr><td class="n">4</td><td>먹지 않았어요</td><td class="n">나쁨</td>
+<tr><td class="n">4</td><td>먹지 않음</td><td class="n">나쁨</td>
 <td>나쁨 3 ÷ 4 = 75% → <b>개선 필요</b></td></tr>
 <tr><td class="n">5</td><td>충분히 먹음</td><td class="n">좋음</td>
 <td>나쁨 3 ÷ 5 = 60% → 아직 <b>개선 필요</b></td></tr>
@@ -795,7 +795,7 @@ GOOD <b>양호</b> · NULL <b>값 없음</b>(그 축을 한 번도 묻지 않음
 <tr><td>충분히 먹음</td><td><b>좋음</b> (1)</td>
 <td rowspan="3">데이터계약 <b>선택지</b> 시트 5~7행의 <code>score_value</code> 칸</td></tr>
 <tr><td>조금 먹음</td><td><b>보통</b> (0)</td></tr>
-<tr><td>먹지 않았어요</td><td><b>나쁨</b> (-1)</td></tr>
+<tr><td>먹지 않음</td><td><b>나쁨</b> (-1)</td></tr>
 </table>
 <p>「나쁨 비율」은 <b>나쁜 답 ÷ 전체 답</b>입니다. 「좋음 비율」도 같은 방식입니다.</p>
 
@@ -824,9 +824,9 @@ GOOD <b>양호</b> · NULL <b>값 없음</b>(그 축을 한 번도 묻지 않음
 <table>
 <tr><th class="n" style="width:12%">순서</th><th style="width:40%">고른 답</th>
 <th class="n" style="width:20%">점수</th><th style="width:28%">최근 7개에 드나</th></tr>
-<tr><td class="n">1</td><td>먹지 않았어요</td><td class="n">나쁨</td><td>아니요</td></tr>
+<tr><td class="n">1</td><td>먹지 않음</td><td class="n">나쁨</td><td>아니요</td></tr>
 <tr><td class="n">2</td><td>조금 먹음</td><td class="n">보통</td><td>아니요</td></tr>
-<tr><td class="n">3</td><td>먹지 않았어요</td><td class="n">나쁨</td><td>아니요</td></tr>
+<tr><td class="n">3</td><td>먹지 않음</td><td class="n">나쁨</td><td>아니요</td></tr>
 <tr><td class="n">4</td><td>충분히 먹음</td><td class="n">좋음</td><td><b>예</b></td></tr>
 <tr><td class="n">5</td><td>충분히 먹음</td><td class="n">좋음</td><td><b>예</b></td></tr>
 <tr><td class="n">6</td><td>충분히 먹음</td><td class="n">좋음</td><td><b>예</b></td></tr>
