@@ -2766,7 +2766,7 @@ function questionForAxis(axis){
 function pickQuestions(){
   const selfAxis = typeof chronicDietState==='function' ? chronicDietState().axis : null;
   if(selfAxis) return [Q_ACUTE[0], questionForAxis(selfAxis)];
-  if(hasAiReport) return [Q_CARE, Q_ACUTE[0]];
+  if(hasAiReport) return [Q_CARE, Q_ACUTE[0], Q_WALK];
   return [Q_ACUTE[0], rotationQuestion()];
 }
 let QUESTIONS = [Q_ACUTE[0], rotationQuestion()];
@@ -2838,7 +2838,7 @@ function pick(q,o,btn){
   ans[q.id] = o;
   /* 진료정보 질환 확인은 식이 질문 1개로 계산한다. 관리 중이면 둘째 질문을
      질환 연결 축으로, 아니요·모르겠어요이면 공통 고정 질문으로 확정한다. */
-  if(q.id==='care') QUESTIONS=[Q_CARE, o.v==='yes' ? Q_ACUTE[1] : Q_ACUTE[0]];
+  if(q.id==='care') QUESTIONS=[Q_CARE, o.v==='yes' ? Q_ACUTE[1] : Q_ACUTE[0], Q_WALK];   /* 셋째: 오늘 걸을 수 있는지(활동 목표·회복기 활동 코칭의 '활동 가능 확인') */
   if(['veg','sweet','salt','pace','protein','fat','mealTime'].includes(q.id)){
     const key='mai-diet-question-history-v1.0.0';
     const history=JSON.parse(localStorage.getItem(key)||'[]');
@@ -2950,6 +2950,8 @@ const KDB_MESSAGE = {
     body:'식후 운동은 가만히 앉아 있는 것보다 식후 혈당 상승을 낮췄어요. 식사 뒤에 바로 오래 앉아 있게 될 것 같다면, 걷는 시간을 먼저 잡아두는 편이 좋습니다.'},
   dm_start_soon_after_meal:{title:'식사 후에 움직일 거라면 되도록 일찍 시작해 보세요',
     body:'식사와 운동 사이가 길어질수록 식후 혈당을 낮추는 효과가 작아져요. 식사 전에 하는 운동은 식후 혈당에는 도움이 되지 않았고요. 다만 「몇 분 안에」라고 말할 수 있는 기준은 아직 없습니다 — 되도록 이른 편이 낫다는 방향만 말할 수 있어요.'},
+  general_daily_steps_below_7000_reconnect:{title:'오늘 걸음 수가 목표보다 낮아요',
+    body:'오늘 7,000보에 아직 못 닿았다면 긴 운동으로 한 번에 채우려 하지 말고, 편한 시간에 짧은 산책이나 이동을 한 번 더해보세요. 이 기준은 일일 걸음수 상태를 보는 참고점입니다.'},
   pneumonia_recovery_lower_intensity:{title:'회복 중엔 강도를 평소보다 낮춰요',
     body:'폐렴 회복기에는 숨이 찰 수 있어요. 너무 힘든 활동은 어지러움을 부를 수 있습니다.'},
   pneumonia_rise_slowly_after_lying:{title:'한참 누워 있다 일어날 땐 천천히 일어나 보세요',
@@ -2958,6 +2960,9 @@ const KDB_MESSAGE = {
 /* 현재 수집하는 입력으로 판정할 수 있는 규칙만 싣는다(computable_now=true 지표 · condition_only).
    주간 강도 지표(activity_interval 7일 합) · 세션 간격 규칙은 수집 전이라 제외 — 설계서 §5.2 */
 const KDB_RULES = [
+  {id:'r_gen_daily_steps_low', group:'daily_steps', prio:10, cond:'general', confirmed:false, ageMin:18, ageMax:65,
+   metric:'daily_steps', min:null, max:7000, win:1, minObs:1, ratio:null, input:'daily_step_total', gate:null,
+   msg:'general_daily_steps_below_7000_reconnect', ev:'Australian Government Dept. of Health 2025 (하루 7,000보)'},
   {id:'r_gen_sleep_short', group:'sleep_duration', prio:10, cond:'general', confirmed:false, ageMin:18, ageMax:65,
    metric:'sleep_hours_per_night', min:null, max:7, win:7, minObs:5, ratio:0.5, input:'sleep_session', gate:null,
    msg:'general_regular_short_sleep_duration', ev:'CSEP Canadian 24-Hour Movement Guidelines (성인 18-64)'},
@@ -2996,13 +3001,15 @@ function kdbContext(){
   if(ans.care && ans.care.v==='yes') gates.add('recovery_context');
   if(walk && walk!=='rest') gates.add('recovery_active');
   return {age:USER.realAge, conds, inputs, gates,
-    metrics:{sleep_hours_per_night:kdbSleepNights(), mvpa_minutes_per_day:[Number(HD_TODAY_NUM.active)]}};
+    metrics:{sleep_hours_per_night:kdbSleepNights(), mvpa_minutes_per_day:[Number(HD_TODAY_NUM.active)], daily_steps:[Number(HD_TODAY_NUM.steps)]}};
 }
 function kdbCoach(ctx){
   ctx = ctx || kdbContext();
   const inRange = (v,r)=>(r.min==null || v>=r.min) && (r.max==null || v<r.max);
   const hit = KDB_RULES.filter(r=>{
     if(!ctx.conds.includes(r.cond)) return false;
+    /* 회복기에는 일반 걸음 수 독려(더 걷기)를 내지 않는다 — 회복기 활동 문구가 대신한다 */
+    if(r.group==='daily_steps' && ctx.conds.includes('pneumonia_recovery')) return false;
     if(r.ageMin!=null && ctx.age<r.ageMin) return false;
     if(r.ageMax!=null && ctx.age>=r.ageMax) return false;
     if(r.metric){
@@ -3017,7 +3024,7 @@ function kdbCoach(ctx){
   });
   const best = {};
   hit.forEach(r=>{ if(!best[r.group] || r.prio<best[r.group].prio) best[r.group]=r; });
-  const order = ['pneumonia_recovery','dm_daily_volume','dm_postmeal_habit','sleep_duration'];
+  const order = ['pneumonia_recovery','dm_daily_volume','dm_postmeal_habit','daily_steps','sleep_duration'];
   const seen = new Set();
   return Object.values(best).sort((a,b)=>order.indexOf(a.group)-order.indexOf(b.group))
     .filter(r=>!seen.has(r.msg) && seen.add(r.msg))
@@ -3278,7 +3285,17 @@ function mealGoal(b){
 function adjust(b){
   const {care,walk} = ans;
   if(b.key==='meal') return mealGoal(b);
-  if(!hasAiReport) return {...b};
+  if(!hasAiReport){
+    /* 평소 상태의 활동·수면 목표 — 연동 데이터와 지식DB 판정 규칙을 그대로 따른다 */
+    const hit = new Set(kdbCoach().map(k=>k.message_id));
+    if(b.key==='move' && hit.has('general_daily_steps_below_7000_reconnect'))
+      return {...b, title:'짧은 산책 한 번 더하기', why:'오늘 걸음 수가 하루 7,000보에 못 미쳐요',
+        how:'한 번에 채우려 하지 말고 편한 시간에 짧은 산책이나 이동을 한 번 더해요 · 지식DB fact 190'};
+    if(b.key==='sleep' && hit.has('general_regular_short_sleep_duration'))
+      return {...b, title:'오늘은 평소보다 일찍 눕기', why:'최근 밤의 과반이 7시간보다 짧았어요',
+        how:'취침 시간을 조금 앞당기고, 아침 기상 시간은 무리하게 당기지 않아요 · 지식DB fact 40'};
+    return {...b};
+  }
   if(b.key==='move'){
     /* 오늘의 활동은 걷기 답이 정한다. 아직 회복 중이 아니면 같은 '걸을 수 있다'도 한 단계 낮춰 잡는다 */
     if(walk && walk.v==='rest') return {...b, title:'오늘은 앉거나 누워서 쉬기',
@@ -3367,6 +3384,11 @@ function bindGoalTiles(container, dayN){
   });
 }
 function renderGoals(){
+  /* 평소 상태의 활동·수면 목표는 질문 없이 연동 데이터로 정해지므로, 아직 손대지 않은 카드에 바로 반영한다 */
+  if(!hasAiReport) goals = goals.map(g=>{
+    if(g.state!=='pending' || GOAL_LOCK_KEYS.includes(g.key) || !['move','sleep'].includes(g.key)) return g;
+    const base = BASE_GOALS.find(b=>b.key===g.key); return base ? {...adjust(base), state:'pending'} : g;
+  });
   const el = document.getElementById('gList');
   el.innerHTML = goalTilesHtml(typeof TODAY!=='undefined' ? TODAY : 20);
   bindGoalTiles(el, typeof TODAY!=='undefined' ? TODAY : 20);
