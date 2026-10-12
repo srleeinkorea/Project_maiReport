@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<style>
+:root{--ink:#1A2233;--ink2:#5A6880;--ink3:#98A4B8;--line:#E3E8F2;--fill:#F5F7FB;--brand:#2F66F5;--alert:#E8365D}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font:12px/1.5 Inter,'Noto Sans KR','Malgun Gothic',system-ui,sans-serif;color:var(--ink);background:#fff;display:flex;flex-direction:column;overflow:hidden}
+button,input,select{font:inherit;color:inherit}
+.bar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line);background:#fff}
+.grp{display:flex;align-items:center;gap:6px}
+.grp>b{font-weight:700;color:var(--ink2);white-space:nowrap}
+.ver{font-size:11px;font-weight:700;color:var(--brand);background:#EEF3FF;border-radius:6px;padding:2px 7px}
+input[type=text],select{height:28px;border:1px solid var(--line);border-radius:7px;padding:0 8px;background:#fff;outline:none}
+input[type=text]:focus,select:focus{border-color:var(--brand)}
+#url{width:340px}#sel{width:110px}#label{width:190px}
+.btn{height:28px;padding:0 11px;border:1px solid var(--line);border-radius:7px;background:#fff;cursor:pointer;font-weight:600;white-space:nowrap}
+.btn:hover{background:var(--fill)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.pri:disabled{opacity:.45;cursor:default}
+label.ck{display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowrap;color:var(--ink2)}
+.stage{flex:1;min-height:0;position:relative;background:#E8EBF2;overflow:hidden}
+#wrap{position:absolute;left:0;top:0;transform-origin:0 0;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+#view{border:0;display:block;background:#fff}
+.drop{position:absolute;inset:16px;border:2px dashed #C3CCDD;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;color:var(--ink2);background:rgba(255,255,255,.7)}
+.drop b{font-size:15px;color:var(--ink)}
+.drop.on{border-color:var(--brand);background:#EEF3FF}
+.status{padding:6px 12px;border-top:1px solid var(--line);color:var(--ink2);min-height:28px;display:flex;align-items:center;gap:8px}
+.status.err{color:var(--alert)}
+.hint{color:var(--ink3)}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="grp"><b>HTML → Figma</b><span class="ver">v1.0.0 · 틀 유지</span></div>
+  <div class="grp">
+    <input type="text" id="url" placeholder="https://srleeinkorea.github.io/…/문서.html">
+    <button class="btn" id="go">불러오기</button>
+    <button class="btn" id="pick">파일 선택</button>
+    <input type="file" id="file" accept=".html,.htm" hidden>
+  </div>
+  <div class="grp"><b>화면 폭</b>
+    <select id="vw"><option>1280</option><option>1440</option><option>1024</option><option value="390">390 (휴대폰)</option></select>
+  </div>
+  <div class="grp"><b>범위</b>
+    <select id="scope"><option value="">전체 페이지</option><option value=".phone">폰 화면만 (.phone)</option><option value="custom">선택자 직접 입력</option></select>
+    <input type="text" id="sel" placeholder=".phone" hidden>
+  </div>
+  <label class="ck" title="브라우저에서 줄이 바뀐 자리를 Figma에서도 똑같이 바꿉니다. 끄면 Figma가 줄바꿈을 다시 계산합니다."><input type="checkbox" id="keep" checked> 줄바꿈 위치 그대로</label>
+  <label class="ck" title="폰 화면처럼 안쪽 스크롤에 가려진 내용까지 끝까지 펼쳐서 가져옵니다. 끄면 지금 보이는 만큼만 보이고 나머지는 잘린 채로 들어갑니다."><input type="checkbox" id="expand"> 스크롤 영역 펼치기</label>
+  <div class="grp"><b>이름</b><input type="text" id="label" placeholder="프레임 이름"></div>
+  <button class="btn pri" id="cap" disabled>현재 화면 Figma로 가져오기</button>
+</div>
+<div class="stage" id="stage">
+  <div id="wrap" hidden><iframe id="view" title="미리보기"></iframe></div>
+  <div class="drop" id="drop">
+    <b>HTML 파일을 여기에 끌어다 놓거나, 위에 주소를 넣고 불러오기</b>
+    <span>불러온 화면은 이 창 안에서 그대로 눌러 볼 수 있어요. 원하는 화면을 띄운 뒤 <b style="font-size:12px">현재 화면 Figma로 가져오기</b>를 누르세요.</span>
+    <span class="hint">가져올 때마다 Figma에 프레임이 하나씩 오른쪽으로 쌓여요.</span>
+  </div>
+</div>
+<div class="status" id="status"><span class="hint">대기 중</span></div>
+
+<script>
+/* ═════════════════════════════════════════════════════════════════════
+   화면 읽기 에이전트 — 불러온 문서 안에 넣어 실행한다.
+   브라우저가 그린 결과(위치 · 크기 · 색 · 테두리 · 그림자 · 글꼴)를 읽어
+   Figma 레이어 설계도(JSON)로 바꾼다. 바깥 변수를 쓰지 않는다(문자열로 주입).
+   ═════════════════════════════════════════════════════════════════════ */
+function h2fAgent(){
+  const SKIP = new Set(['script','style','link','meta','head','title','noscript','template','base']);
+  const REPLACED = new Set(['img','svg','canvas','video','iframe','input','textarea','select','br','hr','object','embed','picture','audio']);
+  const R2 = n => Math.round(n*100)/100;
+  const LSEP = String.fromCharCode(0x2028);   // Figma의 줄 안 줄바꿈(문단은 그대로)
+  let OX=0, OY=0, SX=0, SY=0, opts={}, pending=[], count=0;
+
+  /* ── 값 읽기 ── */
+  function color(str){            // 'rgb(…)' · 'rgba(…)' → {r,g,b,a} (0~1), 투명도 0도 유지
+    if(!str) return null;
+    const m = String(str).match(/rgba?\(([^)]+)\)/); if(!m) return null;
+    const p = m[1].split(/[\s,\/]+/).filter(Boolean).map(parseFloat);
+    return {r:p[0]/255, g:p[1]/255, b:p[2]/255, a:p.length>3 ? p[3] : 1};
+  }
+  const visible = c => c && c.a > 0 ? c : null;
+  function splitTop(s){ const out=[]; let d=0, cur=''; for(const ch of s){ if(ch==='(') d++; if(ch===')') d--; if(ch===',' && d===0){ out.push(cur.trim()); cur=''; } else cur+=ch; } if(cur.trim()) out.push(cur.trim()); return out; }
+  const px = v => parseFloat(v) || 0;
+
+  function shadows(s){
+    if(!s || s==='none') return [];
+    return splitTop(s).map(p => {
+      const cm = p.match(/rgba?\([^)]*\)/); const c = cm ? color(cm[0]) : {r:0,g:0,b:0,a:1};
+      if(!c || c.a===0) return null;
+      const n = p.replace(/rgba?\([^)]*\)/,'').replace('inset','').trim().split(/\s+/).map(parseFloat).filter(x=>!isNaN(x));
+      return {inset:/\binset\b/.test(p), color:c, x:n[0]||0, y:n[1]||0, blur:n[2]||0, spread:n[3]||0};
+    }).filter(Boolean);
+  }
+
+  function angleOf(tok){ const v=parseFloat(tok); if(/rad$/.test(tok)) return v*180/Math.PI; if(/turn$/.test(tok)) return v*360; if(/grad$/.test(tok)) return v*0.9; return v; }
+  /* CSS linear-gradient → Figma 선형 그라디언트(gradientTransform: 레이어 정규 좌표 → 그라디언트 좌표) */
+  function gradient(s, w, h){
+    const m = s.match(/^(?:repeating-)?linear-gradient\(([\s\S]*)\)$/); if(!m) return null;
+    const parts = splitTop(m[1]); let ang = 180;
+    if(/^-?[\d.]+(deg|rad|turn|grad)$/.test(parts[0])) ang = angleOf(parts.shift());
+    else if(/^to\s/.test(parts[0])){
+      const d = parts.shift().slice(3).trim().split(/\s+/);
+      if(d.length===1) ang = {top:0, right:90, bottom:180, left:270}[d[0]];
+      else { const ax = d.includes('right')?1:-1, ay = d.includes('top')?-1:1; ang = Math.atan2(ax*w, -ay*h)*180/Math.PI; }
+    }
+    const t = ang*Math.PI/180, sn = Math.sin(t), cs = Math.cos(t);
+    const L = Math.abs(w*sn) + Math.abs(h*cs) || 1;
+    const stops = [];
+    for(const p of parts){
+      const cm = p.match(/rgba?\([^)]*\)/); if(!cm) continue;
+      const c = color(cm[0]); const rest = p.replace(cm[0],'').trim().split(/\s+/).filter(Boolean);
+      const pos = rest.map(v => /%$/.test(v) ? parseFloat(v)/100 : parseFloat(v)/L).filter(v=>!isNaN(v));
+      if(!pos.length) stops.push({c, p:null}); else pos.forEach(v => stops.push({c, p:v}));
+    }
+    if(stops.length < 2) return stops.length ? {type:'SOLID', c:stops[0].c} : null;
+    if(stops[0].p==null) stops[0].p = 0;
+    if(stops[stops.length-1].p==null) stops[stops.length-1].p = 1;
+    for(let i=1;i<stops.length;i++){ if(stops[i].p==null){ let j=i; while(stops[j].p==null) j++; const a=stops[i-1].p, b=stops[j].p; for(let k=i;k<j;k++) stops[k].p = a + (b-a)*(k-i+1)/(j-i+1); } if(stops[i].p < stops[i-1].p) stops[i].p = stops[i-1].p; }
+    const m2 = [[w*sn/L, -h*cs/L, 0.5 - 0.5*w*sn/L + 0.5*h*cs/L],
+                [w*cs/L,  h*sn/L, 0.5 - 0.5*w*cs/L - 0.5*h*sn/L]];
+    return {type:'GRADIENT_LINEAR', m:m2, stops:stops.map(s=>({p:Math.max(0,Math.min(1,s.p)), c:s.c}))};
+  }
+
+  /* ── 이미지 → PNG(base64) ── */
+  function loadImg(src){
+    return new Promise(res => {
+      const im = new Image(); let done=false; const fin = v => { if(!done){ done=true; res(v); } };
+      if(/^https?:/.test(src)) im.crossOrigin = 'anonymous';
+      im.onload = () => fin(im); im.onerror = () => fin(null); setTimeout(()=>fin(null), 6000);
+      im.src = src;
+    });
+  }
+  function toB64(img, w, h){
+    try{
+      const W = w || img.naturalWidth || 1, H = h || img.naturalHeight || 1;
+      const s = Math.min(2, 2048/Math.max(W,H,1));
+      const c = document.createElement('canvas'); c.width = Math.max(1, Math.round(W*s)); c.height = Math.max(1, Math.round(H*s));
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      return c.toDataURL('image/png').split(',')[1];
+    }catch(e){ return null; }
+  }
+
+  /* ── 상자 모양(배경 · 테두리 · 모서리 · 그림자) ── */
+  function visual(el, cs, W, H, X, Y, extra){
+    const fills = [];
+    const bg = visible(color(cs.backgroundColor)); if(bg) fills.push({type:'SOLID', c:bg});
+    const bi = cs.backgroundImage;
+    if(bi && bi!=='none'){
+      for(const L of splitTop(bi).reverse()){
+        if(/linear-gradient/.test(L)){ const g = gradient(L, W, H); if(g) fills.push(g); }
+        else if(/gradient/.test(L)){ const cm = L.match(/rgba?\([^)]*\)/); if(cm){ const c=visible(color(cm[0])); if(c) fills.push({type:'SOLID', c}); } }
+        else {
+          const um = L.match(/url\(["']?([\s\S]*?)["']?\)$/); if(!um) continue;
+          const size = cs.backgroundSize, rep = cs.backgroundRepeat;
+          const sm = size.match(/^([\d.]+)px(?:\s+([\d.]+)px)?$/);
+          if(sm && /no-repeat/.test(rep)){                      // 크기를 정한 아이콘 배경 → 별도 이미지 레이어
+            const iw = parseFloat(sm[1]), ih = sm[2] ? parseFloat(sm[2]) : iw;
+            const [bx, by] = cs.backgroundPosition.split(' ').map((v,i) => /%$/.test(v) ? ((i?H-ih:W-iw)*parseFloat(v)/100) : px(v));
+            const node = {t:'image', name:'background', x:R2(X+bx), y:R2(Y+by), w:iw, h:ih, b64:null, scale:'FIT', z:0};
+            pending.push(loadImg(um[1]).then(im => { node.b64 = im ? toB64(im, iw*2, ih*2) : null; }));
+            extra.push(node);
+          } else {
+            const f = {type:'IMAGE', b64:null, scale: size==='contain' ? 'FIT' : 'FILL'};
+            fills.push(f);
+            pending.push(loadImg(um[1]).then(im => { f.b64 = im ? toB64(im) : null; }));
+          }
+        }
+      }
+    }
+    const S = ['Top','Right','Bottom','Left'].map(k => {
+      const st = cs['border'+k+'Style'];
+      return {w: (st==='none'||st==='hidden') ? 0 : px(cs['border'+k+'Width']), c: visible(color(cs['border'+k+'Color'])), st};
+    });
+    let stroke = null; const sd = S.find(s => s.w>0 && s.c);
+    if(sd) stroke = {c:sd.c, t:S[0].c?S[0].w:0, r:S[1].c?S[1].w:0, b:S[2].c?S[2].w:0, l:S[3].c?S[3].w:0, dash: S.some(s=>s.w&&s.st==='dashed') ? 'dash' : S.some(s=>s.w&&s.st==='dotted') ? 'dot' : null};
+    else if(cs.outlineStyle!=='none' && px(cs.outlineWidth)>0){
+      const oc = visible(color(cs.outlineColor)); const ow = px(cs.outlineWidth);
+      if(oc) stroke = {c:oc, t:ow, r:ow, b:ow, l:ow, align:'OUTSIDE', dash: cs.outlineStyle==='dashed'?'dash':cs.outlineStyle==='dotted'?'dot':null};
+    }
+    const radius = ['TopLeft','TopRight','BottomRight','BottomLeft'].map(k => {
+      const v = (cs['border'+k+'Radius']||'0').split(' ')[0];
+      const n = /%$/.test(v) ? parseFloat(v)/100*Math.min(W,H) : px(v);
+      return R2(Math.min(n, Math.min(W,H)/2));
+    });
+    const effects = shadows(cs.boxShadow);
+    return {fills, stroke, radius, effects, any: !!(fills.length || stroke || effects.length)};
+  }
+  function hasBox(cs){
+    if(visible(color(cs.backgroundColor)) || (cs.backgroundImage && cs.backgroundImage!=='none') || cs.boxShadow!=='none') return true;
+    return ['Top','Right','Bottom','Left'].some(k => cs['border'+k+'Style']!=='none' && px(cs['border'+k+'Width'])>0);
+  }
+
+  /* ── 겹침 순서: 일반 흐름 0 · 위치 지정 1(+z-index) · 음수 z-index는 아래 ── */
+  function zKey(cs, base){
+    if(cs.position==='static') return base;
+    const zi = cs.zIndex==='auto' ? 0 : parseInt(cs.zIndex,10) || 0;
+    return zi < 0 ? -1 : 1 + zi;
+  }
+  function nameOf(el){
+    const cls = (typeof el.className==='string' ? el.className : '').trim().split(/\s+/).filter(Boolean).slice(0,2).map(c=>'.'+c).join('');
+    return el.tagName.toLowerCase() + (el.id ? '#'+el.id : '') + cls;
+  }
+
+  /* ── ::before · ::after — 실제 요소로 잠깐 바꿔서 위치를 잴 수 있게 한다 ── */
+  function unesc(s){ return s.replace(/\\([0-9a-fA-F]{1,6})\s?/g,(_,h)=>String.fromCodePoint(parseInt(h,16))).replace(/\\(.)/g,'$1'); }
+  function pseudoText(el, pcs){
+    const c = pcs.content; if(!c || c==='none' || c==='normal') return null;
+    const re = /"((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)'|attr\(([^)]+)\)|url\([^)]*\)|counters?\([^)]*\)/g;
+    let out='', any=false, m;
+    while((m = re.exec(c))){ any = true; if(m[1]!=null || m[2]!=null) out += unesc(m[1]!=null ? m[1] : m[2]); else if(m[3]) out += el.getAttribute(m[3].trim()) || ''; }
+    return any ? out : null;
+  }
+  function preparePseudo(scope){
+    const made = [], marked = [];
+    const all = [scope, ...scope.querySelectorAll('*')];
+    const plan = [];
+    for(const el of all){
+      const tag = el.tagName.toLowerCase(); if(SKIP.has(tag) || REPLACED.has(tag) || tag==='h2f-pseudo') continue;
+      for(const which of ['::before','::after']){
+        const pcs = getComputedStyle(el, which); if(pcs.display==='none') continue;
+        const txt = pseudoText(el, pcs); if(txt===null) continue;
+        const style = []; for(let i=0;i<pcs.length;i++){ const p = pcs[i]; if(p==='content') continue; style.push([p, pcs.getPropertyValue(p)]); }
+        plan.push({el, which, txt, style});
+      }
+    }
+    for(const p of plan){
+      const sp = document.createElement('h2f-pseudo');
+      for(const [k,v] of p.style) sp.style.setProperty(k, v);
+      sp.textContent = p.txt;
+      if(p.which==='::before') p.el.insertBefore(sp, p.el.firstChild); else p.el.appendChild(sp);
+      p.el.setAttribute(p.which==='::before' ? 'data-h2f-b' : 'data-h2f-a', '');
+      made.push(sp); marked.push(p.el);
+    }
+    const st = document.createElement('style');
+    st.textContent = '[data-h2f-b]::before{content:none!important;display:none!important}[data-h2f-a]::after{content:none!important;display:none!important}';
+    document.head.appendChild(st);
+    return () => { made.forEach(s => s.remove()); marked.forEach(e => { e.removeAttribute('data-h2f-b'); e.removeAttribute('data-h2f-a'); }); st.remove(); };
+  }
+
+  /* ── 글자 ── */
+  function plainInline(e){
+    const cs = getComputedStyle(e); if(cs.display==='none') return true;
+    const tag = e.tagName.toLowerCase();
+    if(tag==='br') return true;
+    if(REPLACED.has(tag)) return false;
+    if(!(cs.display==='inline' || cs.display==='contents')) return false;
+    if(hasBox(cs)) return false;
+    for(const c of e.children) if(!plainInline(c)) return false;
+    return true;
+  }
+  function isTextBlock(el){
+    if(!/\S/.test(el.textContent)) return false;
+    for(const c of el.children) if(!plainInline(c)) return false;
+    return true;
+  }
+  function runsOf(block){
+    const runs = [];
+    const rec = n => { for(const c of n.childNodes){
+      if(c.nodeType===3) runs.push({node:c, el:n});
+      else if(c.nodeType===1){ const t=c.tagName.toLowerCase(); if(t==='br') runs.push({br:true, el:n}); else if(!SKIP.has(t) && getComputedStyle(c).display!=='none') rec(c); }
+    } };
+    rec(block); return runs;
+  }
+  function decoOf(el, stop){
+    const d = new Set();
+    for(let e=el; e; e=e.parentElement){ const v = getComputedStyle(e).textDecorationLine; if(v && v!=='none') v.split(' ').forEach(x=>d.add(x)); if(e===stop) break; }
+    return [...d].join(' ');
+  }
+  function styleOf(el, block){
+    const cs = getComputedStyle(el);
+    return {font:cs.fontFamily, w:parseInt(cs.fontWeight,10)||400, it:cs.fontStyle!=='normal', size:px(cs.fontSize), color:color(cs.color)||{r:0,g:0,b:0,a:1},
+      deco:decoOf(el, block), ls: cs.letterSpacing==='normal' ? 0 : px(cs.letterSpacing), lh: cs.lineHeight==='normal' ? null : px(cs.lineHeight),
+      mono: /mono|consol|courier|menlo/i.test(cs.fontFamily)};
+  }
+  function makeText(runs, block, name, cbox){
+    const bcs = getComputedStyle(block);
+    const chars=[], sty=[], pos=[], styles=[], keys=new Map();
+    const sid = el => { const s = styleOf(el, block); const k = JSON.stringify(s); if(!keys.has(k)){ keys.set(k, styles.length); styles.push(s); } return keys.get(k); };
+    let lastSpace = true;
+    for(const r of runs){
+      if(r.br){ chars.push('\n'); sty.push(sid(r.el)); pos.push(null); lastSpace = true; continue; }
+      const cs = getComputedStyle(r.el), ws = cs.whiteSpace, keep = /^pre/.test(ws) || ws==='break-spaces', keepNL = keep || ws==='pre-line';
+      const tt = cs.textTransform, s = sid(r.el), data = r.node.data;
+      let prevCh = '';
+      for(let i=0;i<data.length;i++){
+        let ch = data[i];
+        if(!keep && /[ \t\n\r\f]/.test(ch)){
+          if(keepNL && ch==='\n'){ chars.push('\n'); sty.push(s); pos.push(null); lastSpace = true; continue; }
+          if(lastSpace) continue; ch = ' '; lastSpace = true;
+        } else lastSpace = false;
+        if(tt==='uppercase') ch = ch.toUpperCase(); else if(tt==='lowercase') ch = ch.toLowerCase();
+        else if(tt==='capitalize' && (prevCh==='' || /\s/.test(prevCh))) ch = ch.toUpperCase();
+        prevCh = ch; chars.push(ch); sty.push(s); pos.push([r.node, i]);
+      }
+    }
+    while(chars.length && chars[chars.length-1]===' '){ chars.pop(); sty.pop(); pos.pop(); }
+    if(!chars.length) return null;
+    const rg = document.createRange();
+    const nowrap = /nowrap|^pre$/.test(bcs.whiteSpace);
+    /* 브라우저가 줄을 바꾼 자리 찾기 — 글자 위치(top)가 한 줄 아래로 내려간 곳 */
+    let breaks = 0;
+    if(!nowrap){
+      let prevTop = null, prevH = 0; const at = new Set();
+      for(let i=0;i<chars.length;i++){
+        const p = pos[i];
+        if(chars[i]==='\n'){ prevTop = null; continue; }
+        if(!p || chars[i]===' ') continue;
+        const len = (/[\uD800-\uDBFF]/.test(p[0].data[p[1]]) ? 2 : 1);
+        rg.setStart(p[0], p[1]); rg.setEnd(p[0], Math.min(p[1]+len, p[0].data.length));
+        const rc = rg.getClientRects()[0]; if(!rc || !rc.height) continue;
+        if(prevTop!==null && rc.top > prevTop + Math.max(2, prevH*0.5)) at.add(i);
+        prevTop = rc.top; prevH = rc.height;
+      }
+      breaks = at.size;
+      if(opts.keepBreaks && at.size){
+        const C=[], Sy=[];
+        for(let i=0;i<chars.length;i++){
+          if(at.has(i)){ if(C.length && C[C.length-1]===' '){ C[C.length-1] = LSEP; } else { C.push(LSEP); Sy.push(sty[i]); } }
+          C.push(chars[i]); Sy.push(sty[i]);
+        }
+        chars.length = 0; sty.length = 0; chars.push(...C); sty.push(...Sy);
+      }
+    }
+    const segs = []; for(let i=0;i<chars.length;i++){ if(segs.length && segs[segs.length-1][2]===sty[i]) segs[segs.length-1][1]=i+1; else segs.push([i, i+1, sty[i]]); }
+    // 실제 글자가 차지한 영역 — 글자 하나(텍스트 노드 하나)면 그 노드만, 아니면 블록 내용 전체
+    if(runs.length===1 && runs[0].node) rg.selectNodeContents(runs[0].node); else rg.selectNodeContents(block);
+    const tr = rg.getBoundingClientRect();
+    const hasNL = chars.includes('\n');
+    count++;
+    return {t:'text', name: chars.join('').split(LSEP).join(' ').replace(/\n/g,' ').slice(0,40), chars: chars.join(''), segs, styles,
+      x:R2(tr.left+SX-OX), y:R2(tr.top+SY-OY), w:R2(tr.width), h:R2(tr.height),
+      cx:cbox.x, cw:cbox.w, align:bcs.textAlign, single: nowrap || (!breaks && !hasNL),
+      ellipsis: bcs.textOverflow==='ellipsis' && bcs.overflowX!=='visible', z:0};
+  }
+  function contentBox(el, r, cs){
+    const bl=px(cs.borderLeftWidth), pl=px(cs.paddingLeft), br=px(cs.borderRightWidth), pr=px(cs.paddingRight);
+    const bt=px(cs.borderTopWidth), pt=px(cs.paddingTop), bb=px(cs.borderBottomWidth), pb=px(cs.paddingBottom);
+    return {x:R2(r.left+bl+pl+SX-OX), y:R2(r.top+bt+pt+SY-OY), w:R2(Math.max(0, r.width-bl-pl-br-pr)), h:R2(Math.max(0, r.height-bt-pt-bb-pb))};
+  }
+
+  /* ── 요소 하나씩 ── */
+  function walk(el, parent, zBase){
+    const tag = el.tagName.toLowerCase(); if(SKIP.has(tag)) return;
+    const cs = getComputedStyle(el);
+    if(cs.display==='none' || cs.visibility==='hidden' || cs.visibility==='collapse') return;
+    const op = parseFloat(cs.opacity); if(op===0) return;
+    const r = el.getBoundingClientRect();
+    const X=R2(r.left+SX-OX), Y=R2(r.top+SY-OY), W=R2(r.width), H=R2(r.height);
+    const z = zKey(cs, zBase);
+    const nm = nameOf(el);
+    if(tag==='br') return;
+
+    if(tag==='img' || tag==='canvas'){
+      if(!W || !H) return;
+      const vis = visual(el, cs, W, H, X, Y, []);
+      const node = {t:'image', name:nm, x:X, y:Y, w:W, h:H, b64:null, scale: cs.objectFit==='contain' ? 'FIT' : 'FILL', radius:vis.radius, stroke:vis.stroke, effects:vis.effects, opacity: op<1?op:undefined, z};
+      if(tag==='canvas'){ try{ node.b64 = el.toDataURL('image/png').split(',')[1]; }catch(e){} }
+      else if(el.complete && el.naturalWidth) node.b64 = toB64(el);
+      else pending.push(loadImg(el.currentSrc || el.src).then(im => { node.b64 = im ? toB64(im) : null; }));
+      parent.children.push(node); count++; return;
+    }
+    if(tag==='svg'){
+      if(!W || !H) return;
+      const clone = el.cloneNode(true); const src = [el, ...el.querySelectorAll('*')], dst = [clone, ...clone.querySelectorAll('*')];
+      const hex = v => { const c = color(v); if(!c) return null; const h = x => Math.round(x*255).toString(16).padStart(2,'0'); return {hex:'#'+h(c.r)+h(c.g)+h(c.b), a:c.a}; };
+      src.forEach((s,i) => { const d = dst[i]; if(!d || !d.setAttribute) return; const c = getComputedStyle(s);
+        for(const p of ['fill','stroke']){ const v = c.getPropertyValue(p); if(!v) continue; const hx = /rgb/.test(v) ? hex(v) : null;
+          if(hx){ d.setAttribute(p, hx.hex); if(hx.a < 1) d.setAttribute(p+'-opacity', String(hx.a)); } else d.setAttribute(p, v); }
+        for(const p of ['stroke-width','stroke-linecap','stroke-linejoin','opacity']){ const v = c.getPropertyValue(p); if(v) d.setAttribute(p, String(v).replace(/px$/,'')); } });
+      clone.setAttribute('xmlns','http://www.w3.org/2000/svg'); clone.setAttribute('width', W); clone.setAttribute('height', H);
+      clone.removeAttribute('style'); clone.removeAttribute('class');
+      parent.children.push({t:'svg', name:nm, x:X, y:Y, w:W, h:H, svg:new XMLSerializer().serializeToString(clone), opacity: op<1?op:undefined, z}); count++; return;
+    }
+    if(tag==='iframe' || tag==='video' || tag==='object' || tag==='embed'){
+      parent.children.push({t:'frame', name:nm+' (가져오지 않음)', x:X, y:Y, w:W, h:H, fills:[{type:'SOLID', c:{r:.93,g:.94,b:.96,a:1}}], radius:[0,0,0,0], children:[], z}); count++; return;
+    }
+
+    const extra = [];
+    const vis = visual(el, cs, W, H, X, Y, extra);
+    const clip = /hidden|clip|auto|scroll/.test(cs.overflowX + ' ' + cs.overflowY);
+    const isForm = tag==='input' || tag==='textarea' || tag==='select';
+    const textBlock = !isForm && isTextBlock(el);
+    const elKids = [...el.children].filter(c => !SKIP.has(c.tagName.toLowerCase()));
+    const needFrame = vis.any || clip || op<1 || !!el.id || isForm || (!textBlock && elKids.length >= 2) || el===opts._base;
+    const node = needFrame ? {t:'frame', name:nm, x:X, y:Y, w:W, h:H, fills:vis.fills, stroke:vis.stroke, radius:vis.radius, effects:vis.effects, clip, opacity: op<1?op:undefined, children:[], z} : null;
+    const target = node || parent;
+    const childZ = node ? 0 : z;
+    if(node){ parent.children.push(node); count++; }
+    extra.forEach(n => { n.z = childZ; target.children.push(n); count++; });
+
+    if(isForm){ formContent(el, cs, r, node); }
+    else {
+      if(cs.display==='list-item' && cs.listStyleType!=='none' && cs.listStyleImage==='none') marker(el, cs, r, target, childZ);
+      if(textBlock){
+        const t = makeText(runsOf(el), el, nm, contentBox(el, r, cs)); if(t){ t.z = childZ; target.children.push(t); }
+      } else {
+        for(const c of el.childNodes){
+          if(c.nodeType===1) walk(c, target, childZ);
+          else if(c.nodeType===3 && /\S/.test(c.data)){
+            const t = makeText([{node:c, el}], el, nm, contentBox(el, r, cs)); if(t){ t.z = childZ; target.children.push(t); }
+          }
+        }
+      }
+    }
+    if(node) node.children.sort((a,b) => (a.z||0) - (b.z||0));
+  }
+  function marker(el, cs, r, target, z){
+    const t = cs.listStyleType; let s = {disc:'•', circle:'◦', square:'▪'}[t];
+    if(!s){ let i=1; for(let p=el.previousElementSibling; p; p=p.previousElementSibling) if(getComputedStyle(p).display==='list-item') i++; const st = el.parentElement && el.parentElement.getAttribute('start'); if(st) i += parseInt(st,10)-1; s = i + '.'; }
+    const cb = contentBox(el, r, cs); const rg = document.createRange(); rg.selectNodeContents(el); const first = rg.getClientRects()[0];
+    const size = px(cs.fontSize), w = size * (s.length>1 ? s.length*0.6 : 0.9);
+    const st = styleOf(el, el); st.deco = '';
+    target.children.push({t:'text', name:'marker', chars:s, segs:[[0, s.length, 0]], styles:[st],
+      x:R2((cs.listStylePosition==='inside' ? cb.x : cb.x - w - size*0.3)), y:R2(first ? first.top+SY-OY : cb.y), w:R2(w), h:R2(first?first.height:size*1.4), cx:cb.x, cw:w, align:'left', single:true, z}); count++;
+  }
+  function formContent(el, cs, r, node){
+    const tag = el.tagName.toLowerCase(), type = (el.type||'').toLowerCase();
+    if(type==='checkbox' || type==='radio'){
+      const acc = color(cs.accentColor) || {r:0, g:117/255, b:1, a:1};
+      node.fills = el.checked ? [{type:'SOLID', c:acc}] : [{type:'SOLID', c:{r:1,g:1,b:1,a:1}}];
+      node.stroke = {c: el.checked ? acc : {r:.55,g:.58,b:.64,a:1}, t:1.5, r:1.5, b:1.5, l:1.5};
+      node.radius = type==='radio' ? [node.w/2,node.w/2,node.w/2,node.w/2] : [3,3,3,3];
+      if(el.checked){
+        if(type==='checkbox') node.children.push({t:'svg', name:'check', x:node.x, y:node.y, w:node.w, h:node.h, z:1,
+          svg:`<svg xmlns="http://www.w3.org/2000/svg" width="${node.w}" height="${node.h}" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-6.5" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`});
+        else node.children.push({t:'frame', name:'dot', x:node.x+node.w*0.3, y:node.y+node.h*0.3, w:node.w*0.4, h:node.h*0.4, fills:[{type:'SOLID', c:{r:1,g:1,b:1,a:1}}], radius:[99,99,99,99], children:[], z:1});
+      }
+      count++; return;
+    }
+    let val = tag==='select' ? (el.options[el.selectedIndex] ? el.options[el.selectedIndex].text : '') : el.value;
+    let st = styleOf(el, el); st.deco = '';
+    if(type==='password' && val) val = '•'.repeat(val.length);
+    if(!val){ val = el.getAttribute('placeholder') || ''; if(!val) return; const pc = color(getComputedStyle(el, '::placeholder').color); if(pc) st.color = pc; }
+    const cb = contentBox(el, r, cs);
+    const lh = st.lh || st.size*1.25;
+    const single = tag!=='textarea';
+    node.children.push({t:'text', name:'value', chars:val, segs:[[0, val.length, 0]], styles:[st],
+      x:cb.x, y:R2(single ? cb.y + (cb.h - lh)/2 : cb.y), w:cb.w, h:R2(single ? lh : cb.h), cx:cb.x, cw:cb.w, align:cs.textAlign, single, ellipsis:single, z:1});
+    count++;
+  }
+
+  /* ── 스크롤 영역 펼치기 — 안쪽 스크롤에 가려진 내용까지 보이도록 높이 제한을 잠깐 푼다 ── */
+  function expandScroll(scope){
+    const saved = new Map();
+    const set = (el, props) => { if(!saved.has(el)) saved.set(el, el.getAttribute('style')); for(const [k,v] of props) el.style.setProperty(k, v, 'important'); };
+    const scrollers = [...scope.querySelectorAll('*')].filter(el => /auto|scroll/.test(getComputedStyle(el).overflowY) && el.scrollHeight > el.clientHeight + 1);
+    for(const el of scrollers){
+      el.scrollTop = 0;
+      set(el, [['height','auto'],['max-height','none'],['overflow-y','visible'],['flex','none']]);
+      for(let p = el.parentElement; p && p !== document.documentElement; p = p.parentElement){
+        set(p, [['height','auto'],['max-height','none']]);
+        if(p === scope) break;
+      }
+    }
+    return () => { for(const [el, st] of saved){ if(st === null) el.removeAttribute('style'); else el.setAttribute('style', st); } };
+  }
+
+  /* ── 실행 ── */
+  async function capture(o){
+    opts = o || {}; pending = []; count = 0;
+    const base = opts.selector ? document.querySelector(opts.selector) : null;
+    if(opts.selector && !base) throw new Error('범위 선택자에 맞는 요소가 없어요: ' + opts.selector);
+    opts._base = base;
+    const unexpand = opts.expand ? expandScroll(base || document.body) : () => {};
+    SX = scrollX; SY = scrollY;
+    let cleanup = () => {};
+    try { cleanup = preparePseudo(base || document.body); } catch(e) { unexpand(); throw e; }
+    try{
+      let root;
+      if(base){
+        const r = base.getBoundingClientRect(); OX = r.left+SX; OY = r.top+SY;
+        root = {t:'frame', name:document.title, x:0, y:0, w:R2(r.width), h:R2(r.height), fills:[], radius:[0,0,0,0], children:[], clip:false};
+        walk(base, root, 0);
+        if(root.children.length===1 && root.children[0].t==='frame'){ const only = root.children[0]; root = only; }
+      } else {
+        OX = 0; OY = 0;
+        const de = document.documentElement;
+        const W = Math.max(de.scrollWidth, de.clientWidth), H = Math.max(de.scrollHeight, de.clientHeight, document.body.scrollHeight);
+        const bg = visible(color(getComputedStyle(document.body).backgroundColor)) || visible(color(getComputedStyle(de).backgroundColor)) || {r:1,g:1,b:1,a:1};
+        root = {t:'frame', name:document.title, x:0, y:0, w:W, h:H, fills:[{type:'SOLID', c:bg}], radius:[0,0,0,0], children:[], clip:true};
+        const bcs = getComputedStyle(document.body); const br = document.body.getBoundingClientRect();
+        for(const c of document.body.childNodes){
+          if(c.nodeType===1) walk(c, root, 0);
+          else if(c.nodeType===3 && /\S/.test(c.data)){ const t = makeText([{node:c, el:document.body}], document.body, 'body', contentBox(document.body, br, bcs)); if(t) root.children.push(t); }
+        }
+        root.children.sort((a,b) => (a.z||0) - (b.z||0));
+      }
+      await Promise.all(pending);
+      return {root, title:document.title, count, vw:innerWidth};
+    } finally { cleanup(); unexpand(); }
+  }
+
+  window.addEventListener('message', async e => {
+    if(!e.data || e.data.h2f!=='capture') return;
+    try{ const out = await capture(e.data.opts); parent.postMessage({h2f:'result', out}, '*'); }
+    catch(err){ parent.postMessage({h2f:'error', msg:String(err && err.message || err)}, '*'); }
+  });
+  const ready = () => parent.postMessage({h2f:'ready', title:document.title}, '*');
+  if(document.readyState==='complete') ready(); else addEventListener('load', ready);
+}
+
+/* ═════════════════════════════════════════════════════════════════════
+   플러그인 창
+   ═════════════════════════════════════════════════════════════════════ */
+const $ = id => document.getElementById(id);
+const view = $('view'), wrap = $('wrap'), stage = $('stage'), drop = $('drop');
+let loaded = false, docTitle = '', shots = 0, busy = false;
+
+function status(msg, err){ const s = $('status'); s.className = 'status' + (err ? ' err' : ''); s.innerHTML = msg; }
+function fit(){
+  const vw = +$('vw').value; const sw = stage.clientWidth - 24, sh = stage.clientHeight - 24;
+  const sc = Math.min(1, sw / vw);
+  view.style.width = vw + 'px'; view.style.height = Math.round(sh / sc) + 'px';
+  wrap.style.transform = `translate(12px,12px) scale(${sc})`;
+}
+addEventListener('resize', fit);
+$('vw').onchange = () => { fit(); };
+
+function inject(html, baseHref){
+  const agent = '<script>(' + h2fAgent.toString() + ')();<\/script>';
+  let out = html;
+  if(baseHref){ const tag = `<base href="${baseHref.replace(/"/g,'&quot;')}">`; out = /<head[^>]*>/i.test(out) ? out.replace(/<head[^>]*>/i, m => m + tag) : tag + out; }
+  out = /<\/body>/i.test(out) ? out.replace(/<\/body>(?![\s\S]*<\/body>)/i, agent + '</body>') : out + agent;
+  return out;
+}
+function show(html, baseHref, label){
+  loaded = false; $('cap').disabled = true; shots = 0;
+  drop.hidden = true; wrap.hidden = false; fit();
+  view.srcdoc = inject(html, baseHref);
+  status('불러오는 중… ' + (label || ''));
+}
+$('go').onclick = async () => {
+  const u = $('url').value.trim(); if(!u) return;
+  try{
+    status('불러오는 중… ' + u);
+    const res = await fetch(u); if(!res.ok) throw new Error('HTTP ' + res.status);
+    show(await res.text(), u, u);
+  }catch(e){ status('불러오지 못했어요: ' + e.message + ' — 허용된 주소(manifest.json의 allowedDomains)인지 확인하거나, 파일로 저장해서 끌어다 놓아 주세요.', true); }
+};
+$('url').onkeydown = e => { if(e.key==='Enter') $('go').click(); };
+$('pick').onclick = () => $('file').click();
+$('file').onchange = e => { const f = e.target.files[0]; if(f) readFile(f); };
+function readFile(f){ const rd = new FileReader(); rd.onload = () => show(rd.result, '', f.name); rd.readAsText(f, 'utf-8'); }
+['dragenter','dragover'].forEach(k => stage.addEventListener(k, e => { e.preventDefault(); drop.classList.add('on'); }));
+['dragleave','drop'].forEach(k => stage.addEventListener(k, e => { e.preventDefault(); drop.classList.remove('on'); }));
+stage.addEventListener('drop', e => { const f = e.dataTransfer.files[0]; if(f) readFile(f); });
+$('scope').onchange = () => { $('sel').hidden = $('scope').value !== 'custom'; };
+
+addEventListener('message', e => {
+  const d = e.data || {};
+  if(d.pluginMessage){ fromMain(d.pluginMessage); return; }
+  if(e.source !== view.contentWindow || !d.h2f) return;
+  if(d.h2f==='ready'){ loaded = true; docTitle = d.title || '문서'; $('cap').disabled = false; status(`불러왔어요 · <b>${docTitle}</b> — 창 안에서 원하는 화면을 띄운 뒤 가져오기를 누르세요.`); }
+  if(d.h2f==='result'){
+    shots++;
+    const label = $('label').value.trim() || `${docTitle} · ${shots}`;
+    status(`Figma에 그리는 중… (레이어 약 ${d.out.count}개)`);
+    parent.postMessage({pluginMessage:{type:'build', out:d.out, label}}, '*');
+  }
+  if(d.h2f==='error'){ busy = false; $('cap').disabled = false; status('화면을 읽지 못했어요: ' + d.msg, true); }
+});
+function fromMain(m){
+  if(m.type==='progress') status(`Figma에 그리는 중… ${m.made}개`);
+  if(m.type==='done'){ busy = false; $('cap').disabled = false; $('label').value = ''; status(`완료 · <b>${m.name}</b> 레이어 ${m.made}개를 만들었어요.` + (m.fontNote ? ` <span class="hint">${m.fontNote}</span>` : '')); }
+  if(m.type==='error'){ busy = false; $('cap').disabled = false; status('Figma에 그리지 못했어요: ' + m.msg, true); }
+}
+$('cap').onclick = () => {
+  if(!loaded || busy) return;
+  busy = true; $('cap').disabled = true; status('화면 읽는 중…');
+  const scope = $('scope').value; const selector = scope==='custom' ? $('sel').value.trim() : scope;
+  view.contentWindow.postMessage({h2f:'capture', opts:{selector, keepBreaks:$('keep').checked, expand:$('expand').checked}}, '*');
+};
+fit();
+</script>
+</body>
+</html>
