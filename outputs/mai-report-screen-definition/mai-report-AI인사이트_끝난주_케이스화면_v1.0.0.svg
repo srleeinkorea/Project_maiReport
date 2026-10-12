@@ -32,7 +32,9 @@
   <rect x="40" y="272" width="340" height="1" fill="#e6eaf2"/>
   <rect x="40" y="273" width="340" height="547" fill="#f5f7fb"/>
 
-  <text x="64" y="304" font-size="15" font-weight="800" fill="#1a2233">8월 3주 인사이트</text>
+  <text x="64" y="300" font-size="15" font-weight="800" fill="#1a2233">8월 3주 인사이트</text>
+  <text x="64" y="318" font-size="11" fill="#8892a6">분석 기간 8.10 ~ 8.16</text>
+  <g transform="translate(0,12)">
   <rect x="58" y="318" width="304" height="152" rx="14" fill="#ffffff" stroke="#e6eaf2"/>
   <rect x="74" y="336" width="272" height="44" rx="8" fill="#f2f6ff"/>
   <text x="86" y="354" font-size="11.5" font-weight="700" fill="#1a2233">수면과 활동량이 모두 안정적이었던</text>
@@ -50,6 +52,7 @@
   <text x="210" y="566" font-size="13" font-weight="700" fill="#aab3c2" text-anchor="middle">다시 분석하기</text>
   <text x="210" y="600" font-size="11.5" fill="#8892a6" text-anchor="middle">새로 반영할 기록이 없어요</text>
 
+  </g>
   <rect x="40" y="756" width="340" height="64" fill="#ffffff"/>
   <rect x="40" y="756" width="340" height="1" fill="#e6eaf2"/>
   <g font-size="9.5" fill="#b6c0d1" text-anchor="middle">
@@ -84,7 +87,7 @@
   <rect x="420" y="273" width="340" height="547" fill="#f5f7fb"/>
 
   <text x="444" y="300" font-size="15" font-weight="800" fill="#1a2233">8월 4주 인사이트</text>
-  <text x="444" y="318" font-size="11" fill="#8892a6">최근 7일 기준으로 분석한 결과예요</text>
+  <text x="444" y="318" font-size="11" fill="#8892a6">분석 기간 8.13 ~ 8.19</text>
   <rect x="438" y="330" width="304" height="152" rx="14" fill="#ffffff" stroke="#e6eaf2"/>
   <rect x="454" y="348" width="272" height="44" rx="8" fill="#f2f6ff"/>
   <text x="466" y="366" font-size="11.5" font-weight="700" fill="#1a2233">활동량은 우수하지만 수면 부족과</text>
@@ -112,9 +115,9 @@
 <rect x="420" y="120" width="340" height="700" rx="26" fill="none" stroke="#dbe1ea" stroke-width="1.5"/>
 <rect x="420" y="96" width="222" height="22" rx="11" fill="#2f66f5"/>
 <text x="531" y="111" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">② 주 종료 직후 · 1회 열림</text>
-<text x="420" y="844" font-size="11.5" fill="#4b5468">주중에 만든 결과라 기준 안내가 남아 있다.</text>
+<text x="420" y="844" font-size="11.5" fill="#4b5468">주중에 만든 결과라 분석 기간에 지난주 날짜가 섞여 있다.</text>
 <text x="420" y="862" font-size="11.5" fill="#4b5468">버튼 문구로 무엇이 달라지는지 알린다.</text>
-<text x="420" y="880" font-size="11.5" fill="#8892a6">다시 분석하면 기준 안내가 사라진다.</text>
+<text x="420" y="880" font-size="11.5" fill="#8892a6">다시 분석하면 분석 기간이 그 주 전체(8.17 ~ 8.23)로 바뀐다.</text>
 
 <!-- ===== ③ 검진정보 연동 ===== -->
 <g clip-path="url(#qc)">
@@ -137,7 +140,9 @@
   <rect x="800" y="272" width="340" height="1" fill="#e6eaf2"/>
   <rect x="800" y="273" width="340" height="547" fill="#f5f7fb"/>
 
-  <text x="824" y="304" font-size="15" font-weight="800" fill="#1a2233">8월 3주 인사이트</text>
+  <text x="824" y="300" font-size="15" font-weight="800" fill="#1a2233">8월 3주 인사이트</text>
+  <text x="824" y="318" font-size="11" fill="#8892a6">분석 기간 8.10 ~ 8.16</text>
+  <g transform="translate(0,12)">
   <rect x="818" y="318" width="304" height="152" rx="14" fill="#ffffff" stroke="#e6eaf2"/>
   <rect x="834" y="336" width="272" height="44" rx="8" fill="#f2f6ff"/>
   <text x="846" y="354" font-size="11.5" font-weight="700" fill="#1a2233">수면과 활동량이 모두 안정적이었던</text>
@@ -156,6 +161,7 @@
   <text x="970" y="600" font-size="11.5" fill="#8892a6" text-anchor="middle">검진정보가 연동돼</text>
   <text x="970" y="617" font-size="11.5" fill="#8892a6" text-anchor="middle">다시 분석할 수 있어요</text>
 
+  </g>
   <rect x="800" y="756" width="340" height="64" fill="#ffffff"/>
   <rect x="800" y="756" width="340" height="1" fill="#e6eaf2"/>
   <g font-size="9.5" fill="#b6c0d1" text-anchor="middle">
@@ -190,7 +196,9 @@
   <rect x="1180" y="272" width="340" height="1" fill="#e6eaf2"/>
   <rect x="1180" y="273" width="340" height="547" fill="#f5f7fb"/>
 
-  <text x="1204" y="304" font-size="15" font-weight="800" fill="#1a2233">8월 3주 인사이트</text>
+  <text x="1204" y="300" font-size="15" font-weight="800" fill="#1a2233">8월 3주 인사이트</text>
+  <text x="1204" y="318" font-size="11" fill="#8892a6">분석 기간 8.10 ~ 8.16</text>
+  <g transform="translate(0,12)">
   <rect x="1198" y="318" width="304" height="152" rx="14" fill="#ffffff" stroke="#e6eaf2"/>
   <rect x="1214" y="336" width="272" height="44" rx="8" fill="#f2f6ff"/>
   <text x="1226" y="354" font-size="11.5" font-weight="700" fill="#1a2233">기록이 사흘뿐이라 흐름을 읽기에는</text>
@@ -209,6 +217,7 @@
   <text x="1350" y="600" font-size="11.5" fill="#8892a6" text-anchor="middle">기록이 추가돼</text>
   <text x="1350" y="617" font-size="11.5" fill="#8892a6" text-anchor="middle">다시 분석할 수 있어요</text>
 
+  </g>
   <rect x="1180" y="756" width="340" height="64" fill="#ffffff"/>
   <rect x="1180" y="756" width="340" height="1" fill="#e6eaf2"/>
   <g font-size="9.5" fill="#b6c0d1" text-anchor="middle">

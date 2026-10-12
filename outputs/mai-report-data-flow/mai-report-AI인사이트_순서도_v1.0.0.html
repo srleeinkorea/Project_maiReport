@@ -62,7 +62,7 @@
     <div class="flow">
       <div class="node start">탭 진입 / 주 이동(‹ ›) / 오늘 버튼</div>
       <div class="arrow">↓</div>
-      <div class="node">보고 있는 주 확정<small>날짜를 눌러도 바뀌지 않는다 · 주 단위로만 움직인다</small></div>
+      <div class="node">보고 있는 주 확정<small>탭에 처음 들어오면 오늘이 속한 주 · 지난 주차로 자동 이동하지 않는다 · 날짜를 눌러도 바뀌지 않는다</small></div>
       <div class="arrow">↓</div>
       <div class="node q">그 주차에 분석 결과가 있는가?</div>
       <div class="arrow">↓</div>
@@ -79,7 +79,7 @@
         </div>
       </div>
     </div>
-    <div class="note">대상 기간은 주가 끝났는지에 따라 다르다. 끝난 주는 월~일 7일, 진행 중인 주는 어제를 마지막 날로 한 최근 7일. 기간 날짜는 화면에 쓰지 않되, 진행 중인 주는 "오늘 기준 최근 7일 기록을 분석해요"라고 문장으로 알린다(분석 전 · 요약 · 상세 세 곳). 본문이 지난 주 날짜를 인용해도 어긋나 보이지 않게 하기 위해서다.</div>
+    <div class="note">대상 기간은 주가 끝났는지에 따라 다르다. 끝난 주는 월~일 7일, 진행 중인 주는 어제를 마지막 날로 한 최근 7일. 진행 중인 주는 오늘을 빼고 어제까지 7일을 본다. 실제로 분석한 날짜는 "분석 기간 8.14 ~ 8.20"처럼 주차 제목 아래에 적는다(분석 전 · 요약 · 상세 · 이력). 본문이 지난 주 날짜를 인용해도 어긋나 보이지 않고, 언제 기준 결과인지 바로 보이게 하기 위해서다.</div>
   </section>
 
   <!-- ② -->
@@ -217,9 +217,9 @@
       <div class="arrow">↓</div>
       <div class="split">
         <div class="branch"><span class="tag">예</span>
-          <div class="node">다시 분석하기가 열린다<small>다시 분석하면 월~일 기준 새 결과로 대체 · 기준 안내 문구가 사라지고 이력 행의 기간이 채워진다</small></div>
+          <div class="node">다시 분석하기가 열린다<small>다시 분석하면 월~일 기준 새 결과로 대체 · 분석 기간과 이력 행의 기간이 그 주 월~일로 바뀐다</small></div>
           <div class="arrow lbl">다시 분석하지 않으면</div>
-          <div class="node muted">진행 중 기준 결과가 그대로 남는다<small>이력의 기간 자리에 "최근 7일 기준"이 적혀 기준 차이가 드러난다</small></div>
+          <div class="node muted">진행 중 기준 결과가 그대로 남는다<small>분석 기간에 지난 주 날짜가 섞여 있어 기준 차이가 드러난다</small></div>
         </div>
         <div class="branch"><span class="tag no">아니오</span>
           <div class="node out">월~일 기준 결과 유지<small>입력이 바뀌지 않으면 재분석 불가</small></div>

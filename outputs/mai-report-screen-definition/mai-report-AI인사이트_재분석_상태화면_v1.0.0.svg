@@ -9,7 +9,7 @@
 
 <rect width="1940" height="900" fill="#eef1f6"/>
 <text x="40" y="48" font-size="22" font-weight="800" fill="#1a2233" letter-spacing="-0.5">진행 중인 주 재분석 · 상태별 화면</text>
-<text x="40" y="74" font-size="13.5" fill="#8892a6">주차당 3회. 같은 날 두 번은 쓸 수 없다. 남은 횟수와 "이전 결과가 사라진다"는 점을 버튼 아래에 함께 보여준다. 기간 날짜는 쓰지 않고, 진행 중인 주는 "오늘 기준 최근 7일 기록을 분석해요"라고 문장으로 알린다. (AI인사이트_화면정의서 §3.3 · §3.4 · §3.5 · §4.1 · §9)</text>
+<text x="40" y="74" font-size="13.5" fill="#8892a6">주차당 3회. 같은 날 두 번은 쓸 수 없다. 남은 횟수와 "이전 결과가 사라진다"는 점을 버튼 아래에 함께 보여준다. 진행 중인 주는 오늘을 뺀 최근 7일을 분석하고, 분석한 날짜를 제목 아래에 적는다. (AI인사이트_화면정의서 §3.3 · §3.4 · §3.5 · §4.1 · §9)</text>
 
 <!-- ===== ① 분석 전 ===== -->
 <g clip-path="url(#ph1)">
@@ -48,7 +48,7 @@
   <text x="298" y="499" font-size="10.5" font-weight="700" fill="#2f66f5" text-anchor="middle">연동하기</text>
   <rect x="76" y="530" width="268" height="40" rx="10" fill="#2f66f5"/>
   <text x="210" y="555" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">이번 주 분석하기</text>
-  <text x="210" y="604" font-size="11.5" fill="#8892a6" text-anchor="middle">오늘 기준 최근 7일 기록을 분석해요</text>
+  <text x="210" y="604" font-size="11.5" fill="#8892a6" text-anchor="middle">분석 기간 8.12 ~ 8.18</text>
   <text x="210" y="621" font-size="11.5" fill="#8892a6" text-anchor="middle">이번 주 분석 가능 횟수는 3회예요</text>
 
   <rect x="40" y="756" width="340" height="64" fill="#ffffff"/>
@@ -88,7 +88,8 @@
   <rect x="420" y="273" width="340" height="547" fill="#f5f7fb"/>
 
   <text x="444" y="300" font-size="15" font-weight="800" fill="#1a2233">8월 4주 인사이트</text>
-  <text x="444" y="318" font-size="11" fill="#8892a6">오늘 기준 최근 7일 기록을 분석했어요</text>
+  <text x="444" y="318" font-size="11" fill="#8892a6">분석 기간 8.13 ~ 8.19</text>
+  <g transform="translate(0,12)">
   <rect x="438" y="318" width="304" height="152" rx="14" fill="#ffffff" stroke="#e6eaf2"/>
   <rect x="454" y="336" width="272" height="44" rx="8" fill="#f2f6ff"/>
   <text x="466" y="354" font-size="11.5" font-weight="700" fill="#1a2233">활동량은 우수하지만 수면 부족과</text>
@@ -107,6 +108,7 @@
   <text x="590" y="600" font-size="11.5" fill="#8892a6" text-anchor="middle">이번 주 분석 가능 횟수 3회 중 1회 남았어요</text>
   <text x="590" y="617" font-size="11.5" fill="#8892a6" text-anchor="middle">다시 분석하면 지금 결과는 사라져요</text>
 
+  </g>
   <rect x="420" y="756" width="340" height="64" fill="#ffffff"/>
   <rect x="420" y="756" width="340" height="1" fill="#e6eaf2"/>
   <g font-size="9.5" fill="#b6c0d1" text-anchor="middle">
@@ -145,7 +147,8 @@
   <rect x="800" y="273" width="340" height="547" fill="#f5f7fb"/>
 
   <text x="824" y="300" font-size="15" font-weight="800" fill="#1a2233">8월 4주 인사이트</text>
-  <text x="824" y="318" font-size="11" fill="#8892a6">오늘 기준 최근 7일 기록을 분석했어요</text>
+  <text x="824" y="318" font-size="11" fill="#8892a6">분석 기간 8.14 ~ 8.20</text>
+  <g transform="translate(0,12)">
   <rect x="818" y="318" width="304" height="152" rx="14" fill="#ffffff" stroke="#e6eaf2"/>
   <rect x="834" y="336" width="272" height="44" rx="8" fill="#f2f6ff"/>
   <text x="846" y="354" font-size="11.5" font-weight="700" fill="#1a2233">활동량은 우수하지만 수면 부족과</text>
@@ -164,6 +167,7 @@
   <text x="970" y="600" font-size="11.5" fill="#8892a6" text-anchor="middle">오늘 이미 분석했어요.</text>
   <text x="970" y="617" font-size="11.5" fill="#8892a6" text-anchor="middle">남은 2회는 내일부터 쓸 수 있어요</text>
 
+  </g>
   <rect x="800" y="756" width="340" height="64" fill="#ffffff"/>
   <rect x="800" y="756" width="340" height="1" fill="#e6eaf2"/>
   <g font-size="9.5" fill="#b6c0d1" text-anchor="middle">
@@ -201,7 +205,8 @@
   <rect x="1180" y="273" width="340" height="547" fill="#f5f7fb"/>
 
   <text x="1204" y="300" font-size="15" font-weight="800" fill="#1a2233">8월 4주 인사이트</text>
-  <text x="1204" y="318" font-size="11" fill="#8892a6">오늘 기준 최근 7일 기록을 분석했어요</text>
+  <text x="1204" y="318" font-size="11" fill="#8892a6">분석 기간 8.15 ~ 8.21</text>
+  <g transform="translate(0,12)">
   <rect x="1198" y="318" width="304" height="152" rx="14" fill="#ffffff" stroke="#e6eaf2"/>
   <rect x="1214" y="336" width="272" height="44" rx="8" fill="#f2f6ff"/>
   <text x="1226" y="354" font-size="11.5" font-weight="700" fill="#1a2233">수면이 이틀 늘었지만 평균 심박수는</text>
@@ -220,6 +225,7 @@
   <text x="1350" y="600" font-size="11.5" fill="#8892a6" text-anchor="middle">이번 주 분석 가능 횟수를 모두 썼어요.</text>
   <text x="1350" y="617" font-size="11.5" fill="#8892a6" text-anchor="middle">주가 끝나면 한 주 전체로 다시 분석할 수 있어요</text>
 
+  </g>
   <rect x="1180" y="756" width="340" height="64" fill="#ffffff"/>
   <rect x="1180" y="756" width="340" height="1" fill="#e6eaf2"/>
   <g font-size="9.5" fill="#b6c0d1" text-anchor="middle">
@@ -257,7 +263,8 @@
   <rect x="1560" y="273" width="340" height="547" fill="#f5f7fb"/>
 
   <text x="1584" y="300" font-size="15" font-weight="800" fill="#1a2233">8월 4주 인사이트</text>
-  <text x="1584" y="318" font-size="11" fill="#8892a6">오늘 기준 최근 7일 기록을 분석했어요</text>
+  <text x="1584" y="318" font-size="11" fill="#8892a6">분석 기간 8.13 ~ 8.19</text>
+  <g transform="translate(0,12)">
   <rect x="1578" y="318" width="304" height="152" rx="14" fill="#ffffff" stroke="#e6eaf2"/>
   <rect x="1594" y="336" width="272" height="44" rx="8" fill="#f2f6ff"/>
   <text x="1606" y="354" font-size="11.5" font-weight="700" fill="#1a2233">활동량은 우수하지만 수면 부족과</text>
@@ -268,6 +275,7 @@
   <rect x="1596" y="446" width="270" height="6" rx="3" fill="#e9edf5"/>
   <rect x="1596" y="446" width="216" height="6" rx="3" fill="#2f66f5"/>
 
+  </g>
   <rect x="1560" y="120" width="340" height="700" fill="#101828" opacity="0.42"/>
   <rect x="1560" y="620" width="340" height="200" rx="22" fill="#ffffff"/>
   <rect x="1710" y="636" width="40" height="4" rx="2" fill="#dde2ea"/>
