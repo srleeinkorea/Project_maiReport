@@ -196,7 +196,8 @@ async function text(n, parent, px, py){
 }
 
 function place(root, w, h){
-  const prev = figma.currentPage.children.filter(c => c !== root && c.name.startsWith('[HTML]'));
+  // 이 플러그인이 만든 프레임(이름이 아니라 숨은 표시로 구분) 오른쪽에 이어 놓는다
+  const prev = figma.currentPage.children.filter(c => c !== root && c.getPluginData && c.getPluginData('h2f') === '1');
   if (prev.length){
     root.x = Math.max(...prev.map(c => c.x + c.width)) + 160;
     root.y = Math.min(...prev.map(c => c.y));
@@ -217,7 +218,8 @@ figma.ui.onmessage = async msg => {
     const swapped = [...need.values()].map(f => f.family).filter((v, i, a) => a.indexOf(v) === i);
 
     const root = figma.createFrame();
-    root.name = '[HTML] ' + (msg.label || out.title || '문서');
+    root.name = msg.label || out.title || '문서';
+    root.setPluginData('h2f', '1');
     root.resize(size(r.w), size(r.h));
     root.fills = fills(r.fills); stroke(root, r.stroke); radius(root, r.radius); root.effects = effects(r.effects);
     root.clipsContent = true;
