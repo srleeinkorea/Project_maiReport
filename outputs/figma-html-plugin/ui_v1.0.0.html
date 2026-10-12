@@ -637,9 +637,10 @@ $('all').onclick = async () => {
     for(let i = 0; i < list.items.length && !stopReq; i++){
       const c = await ask({h2f:'click', sel:btnSel, index:i}, 'clicked');
       const name = c.text || list.items[i];
-      await captureOnce(`${docTitle} · ${name}`); n++;
-      if($('withScen').checked && !stopReq){
-        const sc = await ask({h2f:'list', sel:scenSel}, 'list');
+      const sc = $('withScen').checked ? await ask({h2f:'list', sel:scenSel}, 'list') : {items:[]};
+      // 데이터 상황이 있는 화면은 기본 화면에도 상황 이름(예: '기본')을 붙여 짝을 맞춘다
+      await captureOnce(`${docTitle} · ${name}` + (sc.items.length > 1 ? ` · ${sc.items[0]}` : '')); n++;
+      if(sc.items.length > 1 && !stopReq){
         for(let j = 1; j < sc.items.length && !stopReq; j++){
           const s = await ask({h2f:'click', sel:scenSel, index:j}, 'clicked');
           await captureOnce(`${docTitle} · ${name} · ${s.text || sc.items[j]}`); n++;
