@@ -5,6 +5,7 @@
 <style>
 :root{--ink:#1A2233;--ink2:#5A6880;--ink3:#98A4B8;--line:#E3E8F2;--fill:#F5F7FB;--brand:#2F66F5;--alert:#E8365D}
 *{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 html,body{height:100%}
 body{font:12px/1.5 Inter,'Noto Sans KR','Malgun Gothic',system-ui,sans-serif;color:var(--ink);background:#fff;display:flex;flex-direction:column;overflow:hidden}
 button,input,select{font:inherit;color:inherit}
@@ -14,7 +15,7 @@ button,input,select{font:inherit;color:inherit}
 .ver{font-size:11px;font-weight:700;color:var(--brand);background:#EEF3FF;border-radius:6px;padding:2px 7px}
 input[type=text],select{height:28px;border:1px solid var(--line);border-radius:7px;padding:0 8px;background:#fff;outline:none}
 input[type=text]:focus,select:focus{border-color:var(--brand)}
-#url{width:340px}#sel{width:110px}#label{width:190px}
+#url{width:300px}#sel{width:110px}#label{width:160px}
 .btn{height:28px;padding:0 11px;border:1px solid var(--line);border-radius:7px;background:#fff;cursor:pointer;font-weight:600;white-space:nowrap}
 .btn:hover{background:var(--fill)}
 .btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
@@ -29,6 +30,11 @@ label.ck{display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowr
 .status{padding:6px 12px;border-top:1px solid var(--line);color:var(--ink2);min-height:28px;display:flex;align-items:center;gap:8px}
 .status.err{color:var(--alert)}
 .hint{color:var(--ink3)}
+/* 창 크기 조절 손잡이(오른쪽 아래) */
+#grip{position:fixed;right:0;bottom:0;width:16px;height:16px;cursor:nwse-resize;z-index:20;
+  background:linear-gradient(135deg,transparent 0 55%,#B6C0D1 55% 62%,transparent 62% 72%,#B6C0D1 72% 79%,transparent 79%)}
+#shield{position:fixed;inset:0;z-index:19;cursor:nwse-resize}
+@media (max-width:900px){#url{width:220px}#label{width:130px}.ver{display:none}}
 </style>
 </head>
 <body>
@@ -61,6 +67,8 @@ label.ck{display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowr
   </div>
 </div>
 <div class="status" id="status"><span class="hint">대기 중</span></div>
+<div id="grip" title="끌어서 창 크기 바꾸기"></div>
+<div id="shield" hidden></div>
 
 <script>
 /* ═════════════════════════════════════════════════════════════════════
@@ -574,6 +582,24 @@ $('cap').onclick = () => {
   const scope = $('scope').value; const selector = scope==='custom' ? $('sel').value.trim() : scope;
   view.contentWindow.postMessage({h2f:'capture', opts:{selector, keepBreaks:$('keep').checked, expand:$('expand').checked}}, '*');
 };
+/* 창 크기 조절 — 끄는 동안 미리보기 위를 덮어 마우스를 놓치지 않게 하고, 놓으면 크기를 저장한다 */
+(() => {
+  const grip = $('grip'), shield = $('shield'); let sx, sy, sw, sh, raf = 0, last = null;
+  const send = save => { if(last) parent.postMessage({pluginMessage:{type:'resize', w:last.w, h:last.h, save}}, '*'); };
+  grip.addEventListener('pointerdown', e => {
+    e.preventDefault(); sx = e.screenX; sy = e.screenY; sw = innerWidth; sh = innerHeight;
+    shield.hidden = false; try{ grip.setPointerCapture(e.pointerId); }catch(err){}
+  });
+  shield.addEventListener('pointermove', e => grip.dispatchEvent(new PointerEvent('pointermove', e)));
+  shield.addEventListener('pointerup', () => end());
+  grip.addEventListener('pointermove', e => {
+    if(shield.hidden) return;
+    last = {w: sw + e.screenX - sx, h: sh + e.screenY - sy};
+    if(!raf) raf = requestAnimationFrame(() => { raf = 0; send(false); });
+  });
+  const end = () => { if(shield.hidden) return; shield.hidden = true; send(true); };
+  grip.addEventListener('pointerup', end); grip.addEventListener('lostpointercapture', end);
+})();
 fit();
 </script>
 </body>

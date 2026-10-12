@@ -7,7 +7,16 @@
    위치는 부모 프레임 기준 절대 좌표다(오토 레이아웃으로 바꾸지 않는다 = 틀이 그대로 남는다).
    ========================================================================= */
 
-figma.showUI(__html__, { width: 1240, height: 820, themeColors: false });
+/* 창 크기 — 기본은 작게, 오른쪽 아래 모서리를 끌어 바꾸면 그 크기를 기억한다 */
+const UI_MIN = { w: 560, h: 420 }, UI_MAX = { w: 1800, h: 1200 };
+figma.showUI(__html__, { width: 820, height: 600, themeColors: false });
+figma.clientStorage.getAsync('uiSize').then(s => { if (s && s.w && s.h) figma.ui.resize(s.w, s.h); }).catch(() => {});
+function resizeUI(w, h, save){
+  w = Math.round(Math.max(UI_MIN.w, Math.min(UI_MAX.w, w)));
+  h = Math.round(Math.max(UI_MIN.h, Math.min(UI_MAX.h, h)));
+  figma.ui.resize(w, h);
+  if (save) figma.clientStorage.setAsync('uiSize', { w, h }).catch(() => {});
+}
 
 const KO_FONT = /pretendard|noto sans (kr|cjk)|apple sd|malgun|nanum|spoqa|ibm plex sans kr|gothic a1|suit|wanted sans/i;
 const FALLBACK = ['Pretendard', 'Pretendard Variable', 'Noto Sans KR', 'Inter'];
@@ -197,6 +206,7 @@ function place(root, w, h){
 }
 
 figma.ui.onmessage = async msg => {
+  if (msg.type === 'resize'){ resizeUI(msg.w, msg.h, msg.save); return; }
   if (msg.type !== 'build') return;
   made = 0;
   try {
