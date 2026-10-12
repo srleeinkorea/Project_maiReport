@@ -57,6 +57,12 @@ label.ck{display:flex;align-items:center;gap:5px;cursor:pointer;white-space:nowr
   <label class="ck" title="폰 화면처럼 안쪽 스크롤에 가려진 내용까지 끝까지 펼쳐서 가져옵니다. 끄면 지금 보이는 만큼만 보이고 나머지는 잘린 채로 들어갑니다."><input type="checkbox" id="expand"> 스크롤 영역 펼치기</label>
   <div class="grp"><b>이름</b><input type="text" id="label" placeholder="프레임 이름"></div>
   <button class="btn pri" id="cap" disabled>현재 화면 Figma로 가져오기</button>
+  <div class="grp" title="문서의 화면 버튼을 차례로 눌러 화면마다 한 장씩 가져옵니다. 화면설계서는 위쪽 '화면' 버튼(#jump button)을 씁니다.">
+    <button class="btn pri" id="all" disabled>모든 화면 가져오기</button>
+    <input type="text" id="btns" value="#jump button" style="width:110px" aria-label="화면 버튼 선택자">
+    <label class="ck"><input type="checkbox" id="withScen"> 데이터 상황 포함</label>
+    <button class="btn" id="stop" hidden>멈추기</button>
+  </div>
 </div>
 <div class="stage" id="stage">
   <div id="wrap" hidden><iframe id="view" title="미리보기"></iframe></div>
@@ -473,6 +479,8 @@ function h2fAgent(){
     const base = opts.selector ? document.querySelector(opts.selector) : null;
     if(opts.selector && !base) throw new Error('범위 선택자에 맞는 요소가 없어요: ' + opts.selector);
     opts._base = base;
+    // 등장 애니메이션(투명 → 보임)이 덜 끝난 요소가 빠지지 않도록, 끝이 있는 애니메이션은 끝 상태로 맞춘다(무한 반복은 그대로)
+    try { document.getAnimations().forEach(a => { try { if (a.effect && a.effect.getComputedTiming().endTime !== Infinity) a.finish(); } catch (e) {} }); } catch (e) {}
     const unexpand = opts.expand ? expandScroll(base || document.body) : () => {};
     SX = scrollX; SY = scrollY;
     let cleanup = () => {};
@@ -501,6 +509,20 @@ function h2fAgent(){
       return {root, title:document.title, count, vw:innerWidth};
     } finally { cleanup(); unexpand(); }
   }
+
+  /* ── 화면 버튼 차례로 누르기 ── */
+  const shown = sel => [...document.querySelectorAll(sel)].filter(b => { const r = b.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(b).visibility !== 'hidden'; });
+  const label = b => (b.innerText || b.textContent || '').replace(/\s+/g,' ').trim();
+  const settle = () => new Promise(r => setTimeout(r, 500));   // 화면이 다시 그려질 시간(창이 가려져 있어도 동작하도록 타이머만 씀)
+  window.addEventListener('message', async e => {
+    const d = e.data || {};
+    if(d.h2f==='list'){ let items = []; try{ items = shown(d.sel).map(label); }catch(err){} parent.postMessage({h2f:'list', items}, '*'); }
+    if(d.h2f==='click'){
+      let text = ''; try{ const b = shown(d.sel)[d.index]; if(b){ text = label(b); b.click(); } }catch(err){}
+      await settle(); scrollTo(0, 0);
+      parent.postMessage({h2f:'clicked', text}, '*');
+    }
+  });
 
   window.addEventListener('message', async e => {
     if(!e.data || e.data.h2f!=='capture') return;
@@ -536,7 +558,7 @@ function inject(html, baseHref){
   return out;
 }
 function show(html, baseHref, label){
-  loaded = false; $('cap').disabled = true; shots = 0;
+  loaded = false; shots = 0; setBusy(false);
   drop.hidden = true; wrap.hidden = false; fit();
   view.srcdoc = inject(html, baseHref);
   status('불러오는 중… ' + (label || ''));
@@ -558,29 +580,77 @@ function readFile(f){ const rd = new FileReader(); rd.onload = () => show(rd.res
 stage.addEventListener('drop', e => { const f = e.dataTransfer.files[0]; if(f) readFile(f); });
 $('scope').onchange = () => { $('sel').hidden = $('scope').value !== 'custom'; };
 
+/* 응답 기다리기 — 문서 쪽(list · clicked)과 Figma 쪽(done) 응답을 차례대로 받는다 */
+const waiters = [];
+const waitFor = type => new Promise(res => waiters.push({type, res}));
+function emit(type, data){ const i = waiters.findIndex(w => w.type===type); if(i >= 0) waiters.splice(i, 1)[0].res(data); }
+const ask = (msg, type) => { const p = waitFor(type); view.contentWindow.postMessage(msg, '*'); return p; };
+let nextLabel = '';
+
 addEventListener('message', e => {
   const d = e.data || {};
   if(d.pluginMessage){ fromMain(d.pluginMessage); return; }
   if(e.source !== view.contentWindow || !d.h2f) return;
-  if(d.h2f==='ready'){ loaded = true; docTitle = d.title || '문서'; $('cap').disabled = false; status(`불러왔어요 · <b>${docTitle}</b> — 창 안에서 원하는 화면을 띄운 뒤 가져오기를 누르세요.`); }
+  if(d.h2f==='ready'){ loaded = true; docTitle = d.title || '문서'; setBusy(false); status(`불러왔어요 · <b>${docTitle}</b> — 원하는 화면을 띄워 <b>현재 화면</b>을 가져오거나, <b>모든 화면</b>으로 화면 버튼을 차례로 가져오세요.`); }
+  if(d.h2f==='list' || d.h2f==='clicked') emit(d.h2f, d);
   if(d.h2f==='result'){
     shots++;
-    const label = $('label').value.trim() || `${docTitle} · ${shots}`;
-    status(`Figma에 그리는 중… (레이어 약 ${d.out.count}개)`);
+    const label = nextLabel || $('label').value.trim() || `${docTitle} · ${shots}`;
+    status(`Figma에 그리는 중… ${label} (레이어 약 ${d.out.count}개)`);
     parent.postMessage({pluginMessage:{type:'build', out:d.out, label}}, '*');
   }
-  if(d.h2f==='error'){ busy = false; $('cap').disabled = false; status('화면을 읽지 못했어요: ' + d.msg, true); }
+  if(d.h2f==='error') emit('done', {error:'화면을 읽지 못했어요: ' + d.msg});
 });
 function fromMain(m){
   if(m.type==='progress') status(`Figma에 그리는 중… ${m.made}개`);
-  if(m.type==='done'){ busy = false; $('cap').disabled = false; $('label').value = ''; status(`완료 · <b>${m.name}</b> 레이어 ${m.made}개를 만들었어요.` + (m.fontNote ? ` <span class="hint">${m.fontNote}</span>` : '')); }
-  if(m.type==='error'){ busy = false; $('cap').disabled = false; status('Figma에 그리지 못했어요: ' + m.msg, true); }
+  if(m.type==='done') emit('done', m);
+  if(m.type==='error') emit('done', {error:'Figma에 그리지 못했어요: ' + m.msg});
 }
-$('cap').onclick = () => {
+function setBusy(on){ busy = on; $('cap').disabled = on || !loaded; $('all').disabled = on || !loaded; $('stop').hidden = !on; }
+function captureOpts(){ const scope = $('scope').value; return {selector: scope==='custom' ? $('sel').value.trim() : scope, keepBreaks:$('keep').checked, expand:$('expand').checked}; }
+async function captureOnce(label){
+  nextLabel = label || '';
+  status('화면 읽는 중… ' + (label || ''));
+  const p = waitFor('done');
+  view.contentWindow.postMessage({h2f:'capture', opts:captureOpts()}, '*');
+  const r = await p; nextLabel = '';
+  if(r.error) throw new Error(r.error);
+  return r;
+}
+let stopReq = false;
+$('stop').onclick = () => { stopReq = true; status('지금 화면까지만 가져오고 멈춰요…'); };
+$('cap').onclick = async () => {
   if(!loaded || busy) return;
-  busy = true; $('cap').disabled = true; status('화면 읽는 중…');
-  const scope = $('scope').value; const selector = scope==='custom' ? $('sel').value.trim() : scope;
-  view.contentWindow.postMessage({h2f:'capture', opts:{selector, keepBreaks:$('keep').checked, expand:$('expand').checked}}, '*');
+  setBusy(true);
+  try{ const m = await captureOnce(); $('label').value = ''; status(`완료 · <b>${m.name}</b> 레이어 ${m.made}개를 만들었어요.` + (m.fontNote ? ` <span class="hint">${m.fontNote}</span>` : '')); }
+  catch(e){ status(e.message, true); }
+  setBusy(false);
+};
+/* 모든 화면 — 화면 버튼(기본 #jump button)을 차례로 눌러 하나씩 가져온다. 데이터 상황 버튼(#scen button)도 고를 수 있다 */
+$('all').onclick = async () => {
+  if(!loaded || busy) return;
+  const btnSel = $('btns').value.trim() || '#jump button', scenSel = '#scen button';
+  const list = await ask({h2f:'list', sel:btnSel}, 'list');
+  if(!list.items.length){ status(`화면 버튼을 찾지 못했어요 (${btnSel}). 문서의 화면 버튼 선택자를 넣어 주세요.`, true); return; }
+  setBusy(true); stopReq = false; let n = 0;
+  try{
+    for(let i = 0; i < list.items.length && !stopReq; i++){
+      const c = await ask({h2f:'click', sel:btnSel, index:i}, 'clicked');
+      const name = c.text || list.items[i];
+      await captureOnce(`${docTitle} · ${name}`); n++;
+      if($('withScen').checked && !stopReq){
+        const sc = await ask({h2f:'list', sel:scenSel}, 'list');
+        for(let j = 1; j < sc.items.length && !stopReq; j++){
+          const s = await ask({h2f:'click', sel:scenSel, index:j}, 'clicked');
+          await captureOnce(`${docTitle} · ${name} · ${s.text || sc.items[j]}`); n++;
+        }
+        if(sc.items.length > 1) await ask({h2f:'click', sel:scenSel, index:0}, 'clicked');   // 기본 상황으로 되돌림
+      }
+      status(`${i+1} / ${list.items.length} 화면 완료…`);
+    }
+    status(`완료 · 프레임 ${n}개를 오른쪽으로 나란히 만들었어요.` + (stopReq ? ' (중간에 멈춤)' : ''));
+  }catch(e){ status(`${n}개까지 만들고 멈췄어요 — ${e.message}`, true); }
+  setBusy(false);
 };
 /* 창 크기 조절 — 끄는 동안 미리보기 위를 덮어 마우스를 놓치지 않게 하고, 놓으면 크기를 저장한다 */
 (() => {
