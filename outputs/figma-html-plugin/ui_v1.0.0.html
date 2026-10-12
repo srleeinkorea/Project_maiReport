@@ -585,7 +585,7 @@ const waiters = [];
 const waitFor = type => new Promise(res => waiters.push({type, res}));
 function emit(type, data){ const i = waiters.findIndex(w => w.type===type); if(i >= 0) waiters.splice(i, 1)[0].res(data); }
 const ask = (msg, type) => { const p = waitFor(type); view.contentWindow.postMessage(msg, '*'); return p; };
-let nextLabel = '';
+let nextLabel = '', nextGroup = '';
 
 addEventListener('message', e => {
   const d = e.data || {};
@@ -597,7 +597,7 @@ addEventListener('message', e => {
     shots++;
     const label = nextLabel || $('label').value.trim() || `${docTitle} · ${shots}`;
     status(`Figma에 그리는 중… ${label} (레이어 약 ${d.out.count}개)`);
-    parent.postMessage({pluginMessage:{type:'build', out:d.out, label}}, '*');
+    parent.postMessage({pluginMessage:{type:'build', out:d.out, label, group:nextGroup}}, '*');
   }
   if(d.h2f==='error') emit('done', {error:'화면을 읽지 못했어요: ' + d.msg});
 });
@@ -608,12 +608,12 @@ function fromMain(m){
 }
 function setBusy(on){ busy = on; $('cap').disabled = on || !loaded; $('all').disabled = on || !loaded; $('stop').hidden = !on; }
 function captureOpts(){ const scope = $('scope').value; return {selector: scope==='custom' ? $('sel').value.trim() : scope, keepBreaks:$('keep').checked, expand:$('expand').checked}; }
-async function captureOnce(label){
-  nextLabel = label || '';
+async function captureOnce(label, group){
+  nextLabel = label || ''; nextGroup = group || '';
   status('화면 읽는 중… ' + (label || ''));
   const p = waitFor('done');
   view.contentWindow.postMessage({h2f:'capture', opts:captureOpts()}, '*');
-  const r = await p; nextLabel = '';
+  const r = await p; nextLabel = ''; nextGroup = '';
   if(r.error) throw new Error(r.error);
   return r;
 }
@@ -632,24 +632,24 @@ $('all').onclick = async () => {
   const btnSel = $('btns').value.trim() || '#jump button', scenSel = '#scen button';
   const list = await ask({h2f:'list', sel:btnSel}, 'list');
   if(!list.items.length){ status(`화면 버튼을 찾지 못했어요 (${btnSel}). 문서의 화면 버튼 선택자를 넣어 주세요.`, true); return; }
-  setBusy(true); stopReq = false; let n = 0;
+  setBusy(true); stopReq = false; let n = 0; const run = 'run' + Date.now() + ':';   // 이번 실행의 화면별 묶음(같은 화면은 세로로 쌓임)
   try{
     for(let i = 0; i < list.items.length && !stopReq; i++){
       const c = await ask({h2f:'click', sel:btnSel, index:i}, 'clicked');
       const name = c.text || list.items[i];
       const sc = $('withScen').checked ? await ask({h2f:'list', sel:scenSel}, 'list') : {items:[]};
       // 데이터 상황이 있는 화면은 기본 화면에도 상황 이름(예: '기본')을 붙여 짝을 맞춘다
-      await captureOnce(`${docTitle} · ${name}` + (sc.items.length > 1 ? ` · ${sc.items[0]}` : '')); n++;
+      await captureOnce(`${docTitle} · ${name}` + (sc.items.length > 1 ? ` · ${sc.items[0]}` : ''), run + i); n++;
       if(sc.items.length > 1 && !stopReq){
         for(let j = 1; j < sc.items.length && !stopReq; j++){
           const s = await ask({h2f:'click', sel:scenSel, index:j}, 'clicked');
-          await captureOnce(`${docTitle} · ${name} · ${s.text || sc.items[j]}`); n++;
+          await captureOnce(`${docTitle} · ${name} · ${s.text || sc.items[j]}`, run + i); n++;
         }
         if(sc.items.length > 1) await ask({h2f:'click', sel:scenSel, index:0}, 'clicked');   // 기본 상황으로 되돌림
       }
       status(`${i+1} / ${list.items.length} 화면 완료…`);
     }
-    status(`완료 · 프레임 ${n}개를 오른쪽으로 나란히 만들었어요.` + (stopReq ? ' (중간에 멈춤)' : ''));
+    status(`완료 · 프레임 ${n}개를 만들었어요. 화면마다 한 열, 같은 화면의 데이터 상황은 그 아래로 쌓았어요.` + (stopReq ? ' (중간에 멈춤)' : ''));
   }catch(e){ status(`${n}개까지 만들고 멈췄어요 — ${e.message}`, true); }
   setBusy(false);
 };

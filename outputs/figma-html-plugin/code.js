@@ -195,11 +195,17 @@ async function text(n, parent, px, py){
   await tick(); return t;
 }
 
-function place(root, w, h){
-  // 이 플러그인이 만든 프레임(이름이 아니라 숨은 표시로 구분) 오른쪽에 이어 놓는다
+/* 배치 — 같은 화면(group)은 그 열 맨 아래에 세로로 쌓고, 다른 화면은 오른쪽에 새 열로 놓는다
+   (이 플러그인이 만든 프레임은 이름이 아니라 숨은 표시로 구분) */
+const GAP_X = 160, GAP_Y = 120;
+function place(root, w, h, group){
   const prev = figma.currentPage.children.filter(c => c !== root && c.getPluginData && c.getPluginData('h2f') === '1');
-  if (prev.length){
-    root.x = Math.max(...prev.map(c => c.x + c.width)) + 160;
+  const same = group ? prev.filter(c => c.getPluginData('h2fGroup') === group) : [];
+  if (same.length){
+    const last = same.reduce((a, c) => (c.y + c.height > a.y + a.height ? c : a));
+    root.x = last.x; root.y = last.y + last.height + GAP_Y;
+  } else if (prev.length){
+    root.x = Math.max(...prev.map(c => c.x + c.width)) + GAP_X;
     root.y = Math.min(...prev.map(c => c.y));
   } else {
     const c = figma.viewport.center; root.x = Math.round(c.x - w / 2); root.y = Math.round(c.y - h / 2);
@@ -220,10 +226,11 @@ figma.ui.onmessage = async msg => {
     const root = figma.createFrame();
     root.name = msg.label || out.title || '문서';
     root.setPluginData('h2f', '1');
+    if (msg.group) root.setPluginData('h2fGroup', msg.group);
     root.resize(size(r.w), size(r.h));
     root.fills = fills(r.fills); stroke(root, r.stroke); radius(root, r.radius); root.effects = effects(r.effects);
     root.clipsContent = true;
-    place(root, r.w, r.h);
+    place(root, r.w, r.h, msg.group);
     figma.currentPage.appendChild(root);
     for (const c of r.children || []) await build(c, root, r.x, r.y);
 
