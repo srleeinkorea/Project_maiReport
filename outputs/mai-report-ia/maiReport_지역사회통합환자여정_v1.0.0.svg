@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1680" height="1110" viewBox="0 0 1680 1110" font-family="'Noto Sans KR','Malgun Gothic',sans-serif">
+<defs>
+<marker id="aOr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#B5562B"/></marker>
+<marker id="aGr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#0F6B60"/></marker>
+<marker id="aMu" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#8A92A3"/></marker>
+<linearGradient id="gNavy" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#15213A"/><stop offset="1" stop-color="#243B63"/></linearGradient>
+<linearGradient id="gHub" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F4F7F6"/><stop offset="1" stop-color="#EEF2F5"/></linearGradient>
+<linearGradient id="gGr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#178072"/><stop offset="1" stop-color="#0F6B60"/></linearGradient>
+<linearGradient id="gOr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C96A3C"/><stop offset="1" stop-color="#B5562B"/></linearGradient>
+<filter id="sh" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#15213A" flood-opacity=".10"/></filter>
+</defs>
+<rect width="1680" height="1110" fill="#FBFAF7"/>
+<text x="840.0" y="62" font-size="42" fill="#15213A" font-weight="800" text-anchor="middle">AI 기반 지역사회 통합 환자 여정 시스템</text>
+<text x="840.0" y="104" font-size="22" fill="#3E4B66" font-weight="500" text-anchor="middle">AI가 일상 건강관리와 지역 진료를 하나의 흐름으로 연결합니다</text>
+<line x1="1060" y1="146" x2="1100" y2="146" stroke="#B5562B" stroke-width="4" marker-end="url(#aOr)"/>
+<text x="1110" y="151" font-size="14" fill="#15213A" font-weight="500" text-anchor="start">의뢰 (다음 단계로)</text>
+<line x1="1260" y1="146" x2="1300" y2="146" stroke="#0F6B60" stroke-width="4" marker-end="url(#aGr)"/>
+<text x="1310" y="151" font-size="14" fill="#15213A" font-weight="500" text-anchor="start">회송 (지역으로 복귀)</text>
+<line x1="1470" y1="146" x2="1510" y2="146" stroke="#8A92A3" stroke-width="2.5" stroke-dasharray="5 4"/>
+<text x="1520" y="151" font-size="14" fill="#15213A" font-weight="500" text-anchor="start">앱 기록·안내</text>
+<text x="40" y="151" font-size="14" fill="#8A92A3" font-weight="500" text-anchor="start">단계가 오를수록 더 전문적인 진료  →</text>
+<rect x="40" y="180" width="345" height="410" rx="18" fill="#fff" stroke="#E6E3DC" stroke-width="1.5" filter="url(#sh)"/>
+<path d="M40,198 a18,18 0 0 1 18,-18 h309 a18,18 0 0 1 18,18 v-11 a7,7 0 0 0 -7,-7 h-331 a7,7 0 0 0 -7,7 Z" fill="#0F6B60"/>
+<path d="M40,198 a18,18 0 0 1 18,-18 h309 a18,18 0 0 1 18,18 v62 h-345 Z" fill="#F0F6F4"/>
+<rect x="58" y="200" width="84" height="40" rx="20" fill="url(#gGr)"/>
+<text x="100" y="228" font-size="20" fill="#fff" font-weight="700" text-anchor="middle">1단계</text>
+<text x="156" y="222" font-size="24" fill="#15213A" font-weight="800" text-anchor="start">스마트 경로당</text>
+<text x="156" y="244" font-size="14" fill="#8A92A3" font-weight="500" text-anchor="start">동네 생활 공간</text>
+<rect x="58" y="276" width="309" height="32" rx="8" fill="#F0F6F4"/>
+<text x="212.5" y="298" font-size="16" fill="#0F6B60" font-weight="700" text-anchor="middle">일상 건강관리</text>
+<polygon points="72,366 102,342 132,366" fill="#B5562B"/><rect x="78" y="366" width="48" height="40" fill="#fff" stroke="#15213A" stroke-width="2"/><rect x="84" y="374" width="12" height="9" fill="#B5562B" opacity=".8"/><rect x="108" y="374" width="12" height="9" fill="#B5562B" opacity=".8"/><rect x="97" y="388" width="10" height="18" fill="#0F6B60"/><rect x="67.5" y="394" width="3" height="9.0" fill="#5B6B5F"/><ellipse cx="69" cy="390.4" rx="6.3" ry="9.0" fill="#0F6B60" opacity=".85"/><rect x="134.5" y="394" width="3" height="9.0" fill="#5B6B5F"/><ellipse cx="136" cy="390.4" rx="6.3" ry="9.0" fill="#0F6B60" opacity=".85"/><line x1="58" y1="406" x2="146" y2="406" stroke="#15213A" stroke-width="2"/>
+<circle cx="168" cy="347" r="4.5" fill="#0F6B60"/>
+<text x="182" y="352" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">일상 생활 관리</text>
+<circle cx="168" cy="377" r="4.5" fill="#0F6B60"/>
+<text x="182" y="382" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">혈압·체중 등 신체 계측</text>
+<circle cx="168" cy="407" r="4.5" fill="#0F6B60"/>
+<text x="182" y="412" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">앱으로 건강 코칭</text>
+<line x1="58" y1="432" x2="367" y2="432" stroke="#E6E3DC" stroke-width="1.5"/>
+<text x="60" y="458" font-size="14" fill="#8A92A3" font-weight="700" text-anchor="start">사용 AI</text>
+<circle cx="78" cy="488" r="16" fill="#15213A"/><g transform="translate(78,488)"><ellipse cx="0" cy="0" rx="10" ry="6.5" fill="none" stroke="#fff" stroke-width="2.2"/><circle cx="0" cy="0" r="3" fill="#fff"/></g>
+<text x="104" y="493" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">안저 AI</text>
+<text x="177" y="493" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">눈 사진으로 혈관 건강 확인</text>
+<circle cx="78" cy="522" r="16" fill="#15213A"/><g transform="translate(78,522)"><rect x="-9" y="1" width="4" height="7" fill="#fff"/><rect x="-2" y="-4" width="4" height="12" fill="#fff"/><rect x="5" y="-8" width="4" height="16" fill="#fff"/></g>
+<text x="104" y="527" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">질병 예측 AI</text>
+<text x="216" y="527" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">검진 결과로 위험 예측</text>
+<rect x="458" y="180" width="345" height="410" rx="18" fill="#fff" stroke="#E6E3DC" stroke-width="1.5" filter="url(#sh)"/>
+<path d="M458,198 a18,18 0 0 1 18,-18 h309 a18,18 0 0 1 18,18 v-11 a7,7 0 0 0 -7,-7 h-331 a7,7 0 0 0 -7,7 Z" fill="#0F6B60"/>
+<path d="M458,198 a18,18 0 0 1 18,-18 h309 a18,18 0 0 1 18,18 v62 h-345 Z" fill="#F0F6F4"/>
+<rect x="476" y="200" width="84" height="40" rx="20" fill="url(#gGr)"/>
+<text x="518" y="228" font-size="20" fill="#fff" font-weight="700" text-anchor="middle">2단계</text>
+<text x="574" y="222" font-size="24" fill="#15213A" font-weight="800" text-anchor="start">1차의료기관</text>
+<text x="574" y="244" font-size="14" fill="#8A92A3" font-weight="500" text-anchor="start">보건소 · 보건지소 포함</text>
+<rect x="476" y="276" width="309" height="32" rx="8" fill="#F0F6F4"/>
+<text x="630.5" y="298" font-size="16" fill="#0F6B60" font-weight="700" text-anchor="middle">경증·만성질환 관리</text>
+<rect x="494" y="358" width="52" height="48" fill="#fff" stroke="#15213A" stroke-width="2"/><circle cx="520" cy="348" r="13" fill="#0F6B60"/><rect x="517.6666666666666" y="341.0" width="4.666666666666667" height="14" fill="#fff"/><rect x="513.0" y="345.6666666666667" width="14" height="4.666666666666667" fill="#fff"/><rect x="500" y="366" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="509" y="366" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="518" y="366" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="527" y="366" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="536" y="366" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="500" y="375" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="509" y="375" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="518" y="375" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="527" y="375" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="536" y="375" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="513" y="388" width="14" height="18" fill="#0F6B60"/><rect x="485.5" y="396" width="3" height="8.0" fill="#5B6B5F"/><ellipse cx="487" cy="392.8" rx="5.6000000000000005" ry="8.0" fill="#0F6B60" opacity=".85"/><rect x="552.5" y="396" width="3" height="8.0" fill="#5B6B5F"/><ellipse cx="554" cy="392.8" rx="5.6000000000000005" ry="8.0" fill="#0F6B60" opacity=".85"/><line x1="476" y1="406" x2="564" y2="406" stroke="#15213A" stroke-width="2"/>
+<circle cx="586" cy="347" r="4.5" fill="#0F6B60"/>
+<text x="600" y="352" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">경증 질환·만성질환 관리</text>
+<circle cx="586" cy="377" r="4.5" fill="#0F6B60"/>
+<text x="600" y="382" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">기본 검사와 초기 판단</text>
+<circle cx="586" cy="407" r="4.5" fill="#0F6B60"/>
+<text x="600" y="412" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">앱으로 질환 관리</text>
+<line x1="476" y1="432" x2="785" y2="432" stroke="#E6E3DC" stroke-width="1.5"/>
+<text x="478" y="458" font-size="14" fill="#8A92A3" font-weight="700" text-anchor="start">사용 AI</text>
+<circle cx="496" cy="488" r="16" fill="#15213A"/><g transform="translate(496,488)"><ellipse cx="0" cy="0" rx="10" ry="6.5" fill="none" stroke="#fff" stroke-width="2.2"/><circle cx="0" cy="0" r="3" fill="#fff"/></g>
+<text x="522" y="493" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">안저 AI</text>
+<text x="595" y="493" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">망막 변화 판독</text>
+<circle cx="496" cy="522" r="16" fill="#15213A"/><g transform="translate(496,522)"><polyline points="-11,1 -5,1 -2,-7 2,7 5,1 11,1" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/></g>
+<text x="522" y="527" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">심전도 AI</text>
+<text x="608" y="527" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">부정맥 등 이상 신호 찾기</text>
+<circle cx="496" cy="556" r="16" fill="#15213A"/><g transform="translate(496,556)"><path d="M-2,-8 L-2,0 M2,-8 L2,0" stroke="#fff" stroke-width="2"/><path d="M-3,-3 C-10,-6 -11,6 -9,8 C-6,9 -3,7 -3,3 Z M3,-3 C10,-6 11,6 9,8 C6,9 3,7 3,3 Z" fill="#fff"/></g>
+<text x="522" y="561" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">X-ray AI</text>
+<text x="634" y="561" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">흉부 사진 이상 찾기</text>
+<rect x="876" y="180" width="345" height="410" rx="18" fill="#fff" stroke="#E6E3DC" stroke-width="1.5" filter="url(#sh)"/>
+<path d="M876,198 a18,18 0 0 1 18,-18 h309 a18,18 0 0 1 18,18 v-11 a7,7 0 0 0 -7,-7 h-331 a7,7 0 0 0 -7,7 Z" fill="#B5562B"/>
+<path d="M876,198 a18,18 0 0 1 18,-18 h309 a18,18 0 0 1 18,18 v62 h-345 Z" fill="#FAF3EE"/>
+<rect x="894" y="200" width="84" height="40" rx="20" fill="url(#gOr)"/>
+<text x="936" y="228" font-size="20" fill="#fff" font-weight="700" text-anchor="middle">3단계</text>
+<text x="992" y="222" font-size="24" fill="#15213A" font-weight="800" text-anchor="start">2차의료기관</text>
+<text x="992" y="244" font-size="14" fill="#8A92A3" font-weight="500" text-anchor="start">공공의료원 포함</text>
+<rect x="894" y="276" width="309" height="32" rx="8" fill="#FAF3EE"/>
+<text x="1048.5" y="298" font-size="16" fill="#B5562B" font-weight="700" text-anchor="middle">전문 진료·정밀 검사</text>
+<rect x="902" y="368" width="22" height="38" fill="#fff" stroke="#15213A" stroke-width="2"/><rect x="952" y="368" width="22" height="38" fill="#fff" stroke="#15213A" stroke-width="2"/><rect x="922" y="346" width="32" height="60" fill="#fff" stroke="#15213A" stroke-width="2"/><rect x="935.8333333333334" y="349.5" width="4.333333333333333" height="13" fill="#B5562B"/><rect x="931.5" y="353.8333333333333" width="13" height="4.333333333333333" fill="#B5562B"/><rect x="906" y="374" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="915" y="374" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="906" y="383" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="915" y="383" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="906" y="392" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="915" y="392" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="956" y="374" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="965" y="374" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="956" y="383" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="965" y="383" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="956" y="392" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="965" y="392" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="926" y="368" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="935" y="368" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="944" y="368" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="926" y="377" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="935" y="377" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="944" y="377" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="926" y="386" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="935" y="386" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="944" y="386" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="932" y="394" width="12" height="12" fill="#0F6B60"/><line x1="894" y1="406" x2="982" y2="406" stroke="#15213A" stroke-width="2"/>
+<circle cx="1004" cy="347" r="4.5" fill="#B5562B"/>
+<text x="1018" y="352" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">더 전문적인 진료</text>
+<circle cx="1004" cy="377" r="4.5" fill="#B5562B"/>
+<text x="1018" y="382" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">정밀 검사와 치료</text>
+<circle cx="1004" cy="407" r="4.5" fill="#B5562B"/>
+<text x="1018" y="412" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">앱으로 질환 관리</text>
+<line x1="894" y1="432" x2="1203" y2="432" stroke="#E6E3DC" stroke-width="1.5"/>
+<text x="896" y="458" font-size="14" fill="#8A92A3" font-weight="700" text-anchor="start">사용 AI</text>
+<circle cx="914" cy="488" r="16" fill="#15213A"/><g transform="translate(914,488)"><path d="M-8,8 C-8,-2 2,-9 8,-6 C10,-5 9,-1 6,-2 C2,-4 -3,1 -3,8" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></g>
+<text x="940" y="493" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">내시경 AI</text>
+<text x="1026" y="493" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">용종·병변 찾기</text>
+<circle cx="914" cy="522" r="16" fill="#15213A"/><g transform="translate(914,522)"><path d="M-9,-6 Q0,-11 9,-6 M-7,-1 Q0,-5 7,-1 M-5,4 Q0,1 5,4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><circle cx="0" cy="8" r="1.8" fill="#fff"/></g>
+<text x="940" y="527" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">초음파 AI</text>
+<text x="1026" y="527" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">장기·혈관 판독 보조</text>
+<circle cx="914" cy="556" r="16" fill="#15213A"/><g transform="translate(914,556)"><path d="M-2,-8 L-2,0 M2,-8 L2,0" stroke="#fff" stroke-width="2"/><path d="M-3,-3 C-10,-6 -11,6 -9,8 C-6,9 -3,7 -3,3 Z M3,-3 C10,-6 11,6 9,8 C6,9 3,7 3,3 Z" fill="#fff"/></g>
+<text x="940" y="561" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">흉부 CT AI</text>
+<text x="1052" y="561" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">폐 결절 등 판독 보조</text>
+<rect x="1294" y="180" width="345" height="410" rx="18" fill="#fff" stroke="#E6E3DC" stroke-width="1.5" filter="url(#sh)"/>
+<path d="M1294,198 a18,18 0 0 1 18,-18 h309 a18,18 0 0 1 18,18 v-11 a7,7 0 0 0 -7,-7 h-331 a7,7 0 0 0 -7,7 Z" fill="#B5562B"/>
+<path d="M1294,198 a18,18 0 0 1 18,-18 h309 a18,18 0 0 1 18,18 v62 h-345 Z" fill="#FAF3EE"/>
+<rect x="1312" y="200" width="84" height="40" rx="20" fill="url(#gOr)"/>
+<text x="1354" y="228" font-size="20" fill="#fff" font-weight="700" text-anchor="middle">4단계</text>
+<text x="1410" y="222" font-size="24" fill="#15213A" font-weight="800" text-anchor="start">3차의료기관</text>
+<text x="1410" y="244" font-size="14" fill="#8A92A3" font-weight="500" text-anchor="start">상급종합병원</text>
+<rect x="1312" y="276" width="309" height="32" rx="8" fill="#FAF3EE"/>
+<text x="1466.5" y="298" font-size="16" fill="#B5562B" font-weight="700" text-anchor="middle">중증·희귀질환 치료</text>
+<rect x="1316" y="362" width="24" height="44" fill="#fff" stroke="#15213A" stroke-width="2"/><rect x="1372" y="356" width="24" height="50" fill="#fff" stroke="#15213A" stroke-width="2"/><rect x="1338" y="336" width="36" height="70" fill="#fff" stroke="#15213A" stroke-width="2"/><rect x="1353.8333333333333" y="340.5" width="4.333333333333333" height="13" fill="#B5562B"/><rect x="1349.5" y="344.8333333333333" width="13" height="4.333333333333333" fill="#B5562B"/><rect x="1320" y="368" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1329" y="368" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1320" y="377" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1329" y="377" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1320" y="386" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1329" y="386" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1320" y="395" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1329" y="395" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1376" y="362" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1385" y="362" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1376" y="371" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1385" y="371" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1376" y="380" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1385" y="380" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1376" y="389" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1385" y="389" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1376" y="398" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1385" y="398" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1343" y="358" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1352" y="358" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1361" y="358" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1343" y="367" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1352" y="367" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1361" y="367" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1343" y="376" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1352" y="376" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1361" y="376" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1343" y="385" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1352" y="385" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1361" y="385" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1343" y="394" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1352" y="394" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1361" y="394" width="5" height="5" fill="#243B63" opacity=".45"/><rect x="1350" y="394" width="12" height="12" fill="#0F6B60"/><line x1="1312" y1="406" x2="1400" y2="406" stroke="#15213A" stroke-width="2"/>
+<circle cx="1422" cy="347" r="4.5" fill="#B5562B"/>
+<text x="1436" y="352" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">정밀한 진단과 치료</text>
+<circle cx="1422" cy="377" r="4.5" fill="#B5562B"/>
+<text x="1436" y="382" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">중증 환자 집중 치료</text>
+<circle cx="1422" cy="407" r="4.5" fill="#B5562B"/>
+<text x="1436" y="412" font-size="16" fill="#3E4B66" font-weight="500" text-anchor="start">AI를 통한 진료 효율화</text>
+<line x1="1312" y1="432" x2="1621" y2="432" stroke="#E6E3DC" stroke-width="1.5"/>
+<text x="1314" y="458" font-size="14" fill="#8A92A3" font-weight="700" text-anchor="start">사용 AI</text>
+<circle cx="1332" cy="488" r="16" fill="#15213A"/><g transform="translate(1332,488)"><circle cx="0" cy="0" r="9" fill="none" stroke="#fff" stroke-width="2.2"/><path d="M0,-9 L0,9 M-5,-4 Q-1,-2 -5,2 M5,-4 Q1,-2 5,2" fill="none" stroke="#fff" stroke-width="1.8"/></g>
+<text x="1358" y="493" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">MRI AI</text>
+<text x="1444" y="493" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">뇌·관절 영상 판독 보조</text>
+<circle cx="1332" cy="522" r="16" fill="#15213A"/><g transform="translate(1332,522)"><rect x="-10" y="-8" width="20" height="13" rx="2" fill="none" stroke="#fff" stroke-width="2"/><polyline points="-7,-1 -3,-1 -1,-5 2,3 4,-1 7,-1" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M-4,9 L4,9" stroke="#fff" stroke-width="2"/></g>
+<text x="1358" y="527" font-size="15" fill="#15213A" font-weight="700" text-anchor="start">생체신호 AI</text>
+<text x="1457" y="527" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">상태 악화 조기 경보</text>
+<line x1="391" y1="350" x2="450" y2="350" stroke="#B5562B" stroke-width="5" marker-end="url(#aOr)"/>
+<text x="421.5" y="328" font-size="13" fill="#B5562B" font-weight="700" text-anchor="middle">필요 시</text>
+<text x="421.5" y="342" font-size="13" fill="#B5562B" font-weight="700" text-anchor="middle">의뢰</text>
+<line x1="452" y1="402" x2="393" y2="402" stroke="#0F6B60" stroke-width="5" marker-end="url(#aGr)"/>
+<text x="421.5" y="426" font-size="13" fill="#0F6B60" font-weight="700" text-anchor="middle">일상 복귀</text>
+<line x1="809" y1="350" x2="868" y2="350" stroke="#B5562B" stroke-width="5" marker-end="url(#aOr)"/>
+<text x="839.5" y="328" font-size="13" fill="#B5562B" font-weight="700" text-anchor="middle">필요 시</text>
+<text x="839.5" y="342" font-size="13" fill="#B5562B" font-weight="700" text-anchor="middle">의뢰</text>
+<line x1="870" y1="402" x2="811" y2="402" stroke="#0F6B60" stroke-width="5" marker-end="url(#aGr)"/>
+<text x="839.5" y="426" font-size="13" fill="#0F6B60" font-weight="700" text-anchor="middle">회송</text>
+<line x1="1227" y1="350" x2="1286" y2="350" stroke="#B5562B" stroke-width="5" marker-end="url(#aOr)"/>
+<text x="1257.5" y="328" font-size="13" fill="#B5562B" font-weight="700" text-anchor="middle">필요 시</text>
+<text x="1257.5" y="342" font-size="13" fill="#B5562B" font-weight="700" text-anchor="middle">의뢰</text>
+<line x1="1288" y1="402" x2="1229" y2="402" stroke="#0F6B60" stroke-width="5" marker-end="url(#aGr)"/>
+<text x="1257.5" y="426" font-size="13" fill="#0F6B60" font-weight="700" text-anchor="middle">회송</text>
+<rect x="40" y="650" width="1600" height="180" rx="20" fill="url(#gHub)" stroke="#E6E3DC" stroke-width="1.5"/>
+<line x1="202.5" y1="596" x2="202.5" y2="644" stroke="#8A92A3" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#aMu)"/>
+<line x1="222.5" y1="644" x2="222.5" y2="596" stroke="#8A92A3" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#aMu)"/>
+<text x="190.5" y="625" font-size="12" fill="#8A92A3" font-weight="500" text-anchor="end">기록 저장</text>
+<text x="234.5" y="625" font-size="12" fill="#8A92A3" font-weight="500" text-anchor="start">안내 받기</text>
+<line x1="620.5" y1="596" x2="620.5" y2="644" stroke="#8A92A3" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#aMu)"/>
+<line x1="640.5" y1="644" x2="640.5" y2="596" stroke="#8A92A3" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#aMu)"/>
+<text x="608.5" y="625" font-size="12" fill="#8A92A3" font-weight="500" text-anchor="end">기록 저장</text>
+<text x="652.5" y="625" font-size="12" fill="#8A92A3" font-weight="500" text-anchor="start">안내 받기</text>
+<line x1="1038.5" y1="596" x2="1038.5" y2="644" stroke="#8A92A3" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#aMu)"/>
+<line x1="1058.5" y1="644" x2="1058.5" y2="596" stroke="#8A92A3" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#aMu)"/>
+<text x="1026.5" y="625" font-size="12" fill="#8A92A3" font-weight="500" text-anchor="end">기록 저장</text>
+<text x="1070.5" y="625" font-size="12" fill="#8A92A3" font-weight="500" text-anchor="start">안내 받기</text>
+<line x1="1456.5" y1="596" x2="1456.5" y2="644" stroke="#8A92A3" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#aMu)"/>
+<line x1="1476.5" y1="644" x2="1476.5" y2="596" stroke="#8A92A3" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#aMu)"/>
+<text x="1444.5" y="625" font-size="12" fill="#8A92A3" font-weight="500" text-anchor="end">기록 저장</text>
+<text x="1488.5" y="625" font-size="12" fill="#8A92A3" font-weight="500" text-anchor="start">안내 받기</text>
+<rect x="70" y="674" width="54" height="54" rx="12" fill="url(#gNavy)"/>
+<text x="97" y="710" font-size="24" fill="#fff" font-weight="800" text-anchor="middle">AI</text>
+<line x1="70" y1="686" x2="62" y2="686" stroke="#C8A24A" stroke-width="3"/>
+<line x1="70" y1="716" x2="62" y2="716" stroke="#C8A24A" stroke-width="3"/>
+<line x1="124" y1="686" x2="132" y2="686" stroke="#C8A24A" stroke-width="3"/>
+<line x1="124" y1="716" x2="132" y2="716" stroke="#C8A24A" stroke-width="3"/>
+<text x="150" y="700" font-size="26" fill="#15213A" font-weight="800" text-anchor="start">개인 건강관리 앱 + AI 연결 허브</text>
+<text x="150" y="726" font-size="15" fill="#3E4B66" font-weight="500" text-anchor="start">주민·보호자·의료진이 같은 기록을 보고, 어느 단계에 있든 다음 진료로 이어 갑니다</text>
+<rect x="70" y="750" width="370" height="64" rx="12" fill="#fff" stroke="#E6E3DC" stroke-width="1.2"/>
+<rect x="84" y="766" width="74" height="32" rx="16" fill="url(#gNavy)"/>
+<text x="121" y="788" font-size="15" fill="#fff" font-weight="700" text-anchor="middle">모으기</text>
+<text x="172" y="777" font-size="14" fill="#15213A" font-weight="700" text-anchor="start">단계마다 생긴 검사·진료 기록을 한곳에</text>
+<text x="172" y="799" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">경로당 계측값부터 병원 영상 판독까지</text>
+<rect x="465" y="750" width="370" height="64" rx="12" fill="#fff" stroke="#E6E3DC" stroke-width="1.2"/>
+<rect x="479" y="766" width="74" height="32" rx="16" fill="url(#gNavy)"/>
+<text x="516" y="788" font-size="15" fill="#fff" font-weight="700" text-anchor="middle">알려주기</text>
+<text x="567" y="777" font-size="14" fill="#15213A" font-weight="700" text-anchor="start">일상 코칭·복약·재검 날짜 알림</text>
+<text x="567" y="799" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">기록을 바탕으로 오늘 할 일을 안내</text>
+<rect x="860" y="750" width="370" height="64" rx="12" fill="#fff" stroke="#E6E3DC" stroke-width="1.2"/>
+<rect x="874" y="766" width="74" height="32" rx="16" fill="url(#gNavy)"/>
+<text x="911" y="788" font-size="15" fill="#fff" font-weight="700" text-anchor="middle">이어주기</text>
+<text x="962" y="777" font-size="14" fill="#15213A" font-weight="700" text-anchor="start">필요하면 다음 진료 기관으로 연결</text>
+<text x="962" y="799" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">의뢰·회송 때 기록을 함께 전달</text>
+<rect x="1255" y="750" width="370" height="64" rx="12" fill="#fff" stroke="#E6E3DC" stroke-width="1.2"/>
+<rect x="1269" y="766" width="74" height="32" rx="16" fill="url(#gNavy)"/>
+<text x="1306" y="788" font-size="15" fill="#fff" font-weight="700" text-anchor="middle">지키기</text>
+<text x="1357" y="777" font-size="14" fill="#15213A" font-weight="700" text-anchor="start">본인이 동의한 정보만 기관 간 공유</text>
+<text x="1357" y="799" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">동의는 언제든 철회할 수 있음</text>
+<text x="40" y="862" font-size="20" fill="#15213A" font-weight="800" text-anchor="start">예시로 보기 — 72세 어르신 A의 여정</text>
+<text x="410" y="862" font-size="15" fill="#8A92A3" font-weight="500" text-anchor="start">단계를 오르내려도 기록과 관리는 앱 하나로 이어집니다</text>
+<rect x="40" y="882" width="300" height="100" rx="14" fill="#fff" stroke="#E6E3DC" stroke-width="1.2"/>
+<rect x="40" y="900" width="4" height="64" rx="2" fill="#B5562B"/>
+<circle cx="64" cy="908" r="13" fill="#B5562B"/>
+<text x="64" y="913" font-size="14" fill="#fff" font-weight="800" text-anchor="middle">1</text>
+<text x="86" y="914" font-size="16" fill="#B5562B" font-weight="800" text-anchor="start">1단계 · 경로당</text>
+<text x="58" y="944" font-size="14" fill="#15213A" font-weight="600" text-anchor="start">안저 AI가 망막 혈관 변화를 의심</text>
+<text x="58" y="966" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">결과가 앱에 저장되고 보건소 방문 안내</text>
+<line x1="343" y1="932" x2="360" y2="932" stroke="#B5562B" stroke-width="4" marker-end="url(#aOr)"/>
+<rect x="365" y="882" width="300" height="100" rx="14" fill="#fff" stroke="#E6E3DC" stroke-width="1.2"/>
+<rect x="365" y="900" width="4" height="64" rx="2" fill="#B5562B"/>
+<circle cx="389" cy="908" r="13" fill="#B5562B"/>
+<text x="389" y="913" font-size="14" fill="#fff" font-weight="800" text-anchor="middle">2</text>
+<text x="411" y="914" font-size="16" fill="#B5562B" font-weight="800" text-anchor="start">2단계 · 보건소</text>
+<text x="383" y="944" font-size="14" fill="#15213A" font-weight="600" text-anchor="start">혈압·심전도 검사로 고혈압 확인</text>
+<text x="383" y="966" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">약 처방, 정밀 검사 위해 2차 병원 의뢰</text>
+<line x1="668" y1="932" x2="685" y2="932" stroke="#B5562B" stroke-width="4" marker-end="url(#aOr)"/>
+<rect x="690" y="882" width="300" height="100" rx="14" fill="#fff" stroke="#E6E3DC" stroke-width="1.2"/>
+<rect x="690" y="900" width="4" height="64" rx="2" fill="#B5562B"/>
+<circle cx="714" cy="908" r="13" fill="#B5562B"/>
+<text x="714" y="913" font-size="14" fill="#fff" font-weight="800" text-anchor="middle">3</text>
+<text x="736" y="914" font-size="16" fill="#B5562B" font-weight="800" text-anchor="start">3단계 · 2차 병원</text>
+<text x="708" y="944" font-size="14" fill="#15213A" font-weight="600" text-anchor="start">경동맥 초음파로 혈관 상태 정밀 확인</text>
+<text x="708" y="966" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">치료 방침을 정하고 보건소로 회송</text>
+<line x1="993" y1="932" x2="1010" y2="932" stroke="#0F6B60" stroke-width="4" marker-end="url(#aGr)"/>
+<rect x="1015" y="882" width="300" height="100" rx="14" fill="#fff" stroke="#E6E3DC" stroke-width="1.2"/>
+<rect x="1015" y="900" width="4" height="64" rx="2" fill="#0F6B60"/>
+<circle cx="1039" cy="908" r="13" fill="#0F6B60"/>
+<text x="1039" y="913" font-size="14" fill="#fff" font-weight="800" text-anchor="middle">4</text>
+<text x="1061" y="914" font-size="16" fill="#0F6B60" font-weight="800" text-anchor="start">다시 2단계 · 보건소</text>
+<text x="1033" y="944" font-size="14" fill="#15213A" font-weight="600" text-anchor="start">보건소에서 약과 혈압을 정기 관리</text>
+<text x="1033" y="966" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">중증이면 그때 3단계로 의뢰</text>
+<line x1="1318" y1="932" x2="1335" y2="932" stroke="#0F6B60" stroke-width="4" marker-end="url(#aGr)"/>
+<rect x="1340" y="882" width="300" height="100" rx="14" fill="#fff" stroke="#E6E3DC" stroke-width="1.2"/>
+<rect x="1340" y="900" width="4" height="64" rx="2" fill="#0F6B60"/>
+<circle cx="1364" cy="908" r="13" fill="#0F6B60"/>
+<text x="1364" y="913" font-size="14" fill="#fff" font-weight="800" text-anchor="middle">5</text>
+<text x="1386" y="914" font-size="16" fill="#0F6B60" font-weight="800" text-anchor="start">다시 1단계 · 경로당</text>
+<text x="1358" y="944" font-size="14" fill="#15213A" font-weight="600" text-anchor="start">경로당에서 혈압 재고 앱으로 기록</text>
+<text x="1358" y="966" font-size="13" fill="#8A92A3" font-weight="400" text-anchor="start">앱이 매일 코칭하고 재검 날짜 알림</text>
+<rect x="40" y="1004" width="1600" height="76" rx="38" fill="url(#gNavy)"/>
+<text x="180" y="1038" font-size="20" fill="#fff" font-weight="700" text-anchor="middle">일상 건강관리</text>
+<path d="M328.0,1024 L344.0,1032 L328.0,1040" fill="none" stroke="#C8A24A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="500" y="1038" font-size="20" fill="#fff" font-weight="700" text-anchor="middle">경증·만성질환 관리</text>
+<path d="M653.0,1024 L669.0,1032 L653.0,1040" fill="none" stroke="#C8A24A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="830" y="1038" font-size="20" fill="#fff" font-weight="700" text-anchor="middle">전문 진료·정밀 검사</text>
+<path d="M983.0,1024 L999.0,1032 L983.0,1040" fill="none" stroke="#C8A24A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1160" y="1038" font-size="20" fill="#fff" font-weight="700" text-anchor="middle">중증·희귀질환 치료</text>
+<path d="M1308.0,1024 L1324.0,1032 L1308.0,1040" fill="none" stroke="#C8A24A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="1480" y="1038" font-size="20" fill="#fff" font-weight="700" text-anchor="middle">다시 지역에서 관리</text>
+<text x="840.0" y="1066" font-size="15" fill="#C9D2E3" font-weight="500" text-anchor="middle">AI가 지역사회 안에서 진료의 흐름을 끊기지 않게 연결합니다</text>
+</svg>

@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 · AI 기반 지역사회 통합 환자 여정 시스템 기획서</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--brand:#15213A;--brand-soft:#EDF0F5;--gold:#C8A24A;--teal:#0F6B60;--copper:#B5562B;--page:#FBFAF7;--ink-1:#15213A;--ink-2:#3E4B66;--ink-3:#8A92A3;--line:#E6E3DC;--warn:#B5562B;--green:#0F6B60}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.75;letter-spacing:-.01em;word-break:keep-all}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+  .hero{background:linear-gradient(135deg,#15213A 0%,#243B63 70%,#2E4A74 100%);border-radius:28px;padding:38px 40px;color:#fff;margin-bottom:22px}
+  .hero .tag{display:inline-block;background:rgba(200,162,74,.22);color:#E9D7A6;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;margin-bottom:14px}
+  .hero h1{font-size:28px;font-weight:800;letter-spacing:-.03em;margin-bottom:10px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.9);max-width:760px}
+  .hero .meta{margin-top:18px;font-size:12px;color:rgba(255,255,255,.82);display:flex;gap:18px;flex-wrap:wrap}
+  .hero .meta b{color:#E9D7A6}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+  .toc a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:12px;color:var(--ink-1);font-weight:700;text-decoration:none}
+  section.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:30px 32px;margin-bottom:18px}
+  h2{font-size:19px;font-weight:800;color:var(--ink-1);display:flex;align-items:center;gap:10px;margin-bottom:6px;letter-spacing:-.02em}
+  h2 .n{width:26px;height:26px;border-radius:8px;background:var(--brand);color:#E9D7A6;font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;flex:none}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:18px}
+  h3{font-size:14.5px;font-weight:800;color:var(--ink-1);margin:22px 0 8px}
+  p{margin-bottom:8px}
+  ul,ol{margin:4px 0 10px 20px}li{margin-bottom:4px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 6px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);font-size:12px;background:#F6F5F1}
+  td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  .callout{border-left:3px solid var(--gold);background:var(--brand-soft);border-radius:0 12px 12px 0;padding:12px 16px;font-size:13px;color:var(--ink-1);margin:12px 0}
+  .callout.warn{border-color:var(--copper);background:#FAF3EE;color:#6E3418}
+  .callout.ok{border-color:var(--teal);background:#F0F6F4;color:#0B4A42}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .mini{background:#FBFAF7;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:13px}
+  .mini b{display:block;color:var(--copper);font-size:12.5px;margin-bottom:6px}
+  .mini .t{display:block;font-size:15px;font-weight:700;color:var(--ink-1);margin-bottom:4px}
+  .ex{background:#FBFAF7;border:1px dashed #CFC9BD;border-radius:12px;padding:12px 16px;font-size:13px;margin:8px 0 12px}
+  .ex b{color:var(--ink-1)}
+  .fig{margin:10px 0 6px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+  .fig img{display:block;width:100%;height:auto}
+  .cap{font-size:12px;color:var(--ink-3);margin:6px 0 10px}
+  .step{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
+  .step:last-child{border-bottom:0}
+  .step .no{flex:none;width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:13px;display:inline-flex;align-items:center;justify-content:center}
+  .step b{color:var(--ink-1)}
+  .screen{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;font-size:12.5px}
+  .screen .ttl{font-weight:800;color:var(--ink-1);font-size:13px;margin-bottom:6px}
+  .screen .row{background:#F3F2EE;border-radius:8px;padding:7px 9px;margin:4px 0}
+  .screen .btn{display:inline-block;background:var(--brand);color:#fff;border-radius:8px;padding:6px 12px;font-weight:700;margin-top:6px}
+  .screen .btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
+  .pill{display:inline-block;border-radius:999px;padding:1px 9px;font-size:11.5px;font-weight:700;background:var(--brand-soft);color:var(--brand);margin-right:4px}
+  .pill.o{background:#F1DED2;color:#8E3F1C}.pill.g{background:#D8EAE6;color:#0B4A42}
+  .chg{font-size:12.5px}
+  @media (max-width:760px){.grid2,.grid3,.grid4{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <div class="tag">기획서 · 국책과제 제안용</div>
+  <h1>AI 기반 지역사회 통합 환자 여정 시스템</h1>
+  <p>경로당에서 상급종합병원까지, 주민이 어디에 있든 검사·진료 기록이 끊기지 않고 따라가며 AI가 다음 할 일을 안내하는 체계입니다. 이 문서는 개념도 한 장으로 설명되던 내용을 단계 정의 · 연계 규칙 · 앱 설계 · 성과지표 · 추진 일정까지 사업 제안서에 바로 옮겨 쓸 수 있는 수준으로 풀어 적은 것입니다.</p>
+  <div class="meta"><span>발행 상태 <b>v1.0.0 · 2026-10-13</b></span><span>관련 서비스 <b>마이리포트(개인 건강관리 앱)</b></span><span>첨부 <b>개념도 1장(SVG · PNG)</b></span></div>
+</div>
+
+<div class="toc">
+  <a href="#s1">1 왜 필요한가</a><a href="#s2">2 개념도</a><a href="#s3">3 단계별 정의</a><a href="#s4">4 의뢰·회송 규칙</a><a href="#s5">5 앱·허브 설계</a><a href="#s6">6 어르신 기준 UX 원칙</a><a href="#s7">7 예시 여정</a><a href="#s8">8 정보 흐름과 동의</a><a href="#s9">9 성과지표</a><a href="#s10">10 추진 체계와 일정</a><a href="#s11">11 위험과 대응</a><a href="#s12">12 바뀐 내용</a>
+</div>
+
+<section class="card" id="s1">
+  <h2><span class="n">1</span>왜 필요한가</h2>
+  <div class="sub">지금의 문제와 이 사업이 바꾸려는 것</div>
+  <h3>지금 벌어지는 일</h3>
+  <p>지역의 어르신은 경로당·보건소·병원을 따로따로 다닙니다. 각 기관은 자기 기록만 갖고 있어서, 보건소에서 잰 혈압을 병원 의사는 모르고, 병원에서 받은 처방을 경로당 관리자는 모릅니다. 그 사이에서 "다음에 어디를 가야 하는지"를 기억하고 챙기는 사람은 결국 어르신 본인뿐입니다.</p>
+  <div class="ex"><b>예시.</b> 74세 B씨는 보건소에서 "큰 병원 가 보시라"는 말을 듣고 소견서를 받았지만, 두 달 뒤 자녀가 지갑에서 소견서를 발견할 때까지 병원에 가지 않았습니다. 병원에 가서도 보건소 검사 결과가 없어 같은 검사를 다시 받았습니다.</div>
+  <h3>이 사업이 바꾸는 것</h3>
+  <ul>
+    <li><b>기록이 사람을 따라갑니다.</b> 경로당 계측값부터 병원 영상 판독까지 개인 건강관리 앱 한곳에 모입니다.</li>
+    <li><b>다음 할 일을 앱이 알려 줍니다.</b> "보건소에 가세요", "약 드실 시간입니다", "재검 날짜가 3일 남았습니다"처럼요.</li>
+    <li><b>의뢰·회송이 기록과 함께 움직입니다.</b> 위로 보낼 때도, 지역으로 돌려보낼 때도 검사 결과가 같이 갑니다.</li>
+    <li><b>각 단계에 맞는 AI가 의료진을 돕습니다.</b> 경로당은 미리 찾기, 병원은 판독 보조·조기 경보에 집중합니다.</li>
+  </ul>
+  <div class="callout">한 줄 요약 — <b>"어르신이 기억하지 않아도, 기록과 안내가 어르신을 따라다닌다."</b> 이것이 이 시스템의 존재 이유입니다.</div>
+</section>
+
+<section class="card" id="s2">
+  <h2><span class="n">2</span>개념도</h2>
+  <div class="sub">4단계 기관 · 앱+AI 허브 · 의뢰/회송 흐름을 한 장으로</div>
+  <div class="fig"><img src="maiReport_지역사회통합환자여정.png" alt="AI 기반 지역사회 통합 환자 여정 시스템 개념도"></div>
+  <div class="cap">원본 파일: maiReport_지역사회통합환자여정_v1.0.0.svg (수정용) · maiReport_지역사회통합환자여정.png (문서 삽입용)</div>
+  <h3>그림 읽는 법</h3>
+  <ul>
+    <li>위 네 칸은 <b>기관 단계</b>입니다. 왼쪽이 일상, 오른쪽으로 갈수록 전문 진료입니다.</li>
+    <li>칸 사이 <b>위쪽 화살표는 의뢰</b>(더 전문적인 곳으로 보냄), <b>아래쪽 화살표는 회송</b>(지역으로 돌려보냄)입니다.</li>
+    <li>가운데 띠는 <b>개인 건강관리 앱 + AI 연결 허브</b>입니다. 네 단계 모두 여기에 기록을 저장하고, 여기서 안내를 받습니다.</li>
+    <li>아래 다섯 칸은 <b>실제 한 사람의 여정 예시</b>입니다. 단계를 올라갔다가 다시 내려와 지역에서 관리되는 것이 정상 흐름임을 보여 줍니다.</li>
+  </ul>
+</section>
+
+<section class="card" id="s3">
+  <h2><span class="n">3</span>단계별 정의</h2>
+  <div class="sub">각 단계가 무엇을 맡고, 누가 있고, 어떤 AI를 쓰고, 앱에 무엇이 남는지</div>
+  <table>
+    <tr><th style="width:12%">단계</th><th style="width:16%">기관</th><th style="width:20%">맡는 일</th><th style="width:16%">현장의 사람</th><th style="width:18%">쓰는 AI</th><th>앱에 남는 기록</th></tr>
+    <tr><td class="k"><span class="pill g">1단계</span></td><td>스마트 경로당<br><small>동네 생활 공간</small></td><td>일상 건강관리. 병이 되기 전에 찾기</td><td>경로당 관리자, 방문 간호사, 자원봉사자</td><td>안저 AI(눈 사진으로 혈관 건강 확인)<br>질병 예측 AI(검진 결과로 위험 예측)</td><td>혈압·체중·걸음 수 계측값, 안저 촬영 결과, 오늘의 질문 답변, 코칭 이력</td></tr>
+    <tr><td class="k"><span class="pill g">2단계</span></td><td>1차의료기관<br><small>의원 · 보건소 · 보건지소</small></td><td>경증·만성질환 관리. 기본 검사와 첫 판단</td><td>의사, 간호사, 보건소 담당자</td><td>안저 AI(망막 변화 판독)<br>심전도 AI(부정맥 등 이상 신호)<br>X-ray AI(흉부 사진 이상 찾기)</td><td>진료 기록, 처방, 검사 결과, 의뢰서</td></tr>
+    <tr><td class="k"><span class="pill o">3단계</span></td><td>2차의료기관<br><small>종합병원 · 공공의료원</small></td><td>전문 진료와 정밀 검사. 치료 방침 결정</td><td>전문의, 영상·검사 인력, 진료협력 담당자</td><td>내시경 AI(용종·병변 찾기)<br>초음파 AI(장기·혈관 판독 보조)<br>흉부 CT AI(폐 결절 등 판독 보조)</td><td>정밀 검사 결과, 치료 계획, 회송서</td></tr>
+    <tr><td class="k"><span class="pill o">4단계</span></td><td>3차의료기관<br><small>상급종합병원</small></td><td>중증·희귀질환 치료. 집중 치료</td><td>전문의, 중환자 의료진, 진료협력센터</td><td>MRI AI(뇌·관절 영상 판독 보조)<br>생체신호 AI(상태 악화 조기 경보)</td><td>수술·입원 기록, 퇴원 요약, 회송서, 추적 검사 일정</td></tr>
+  </table>
+  <h3>단계마다 AI의 역할이 다른 이유</h3>
+  <p>같은 "안저 AI"라도 1단계와 2단계에서 하는 일이 다릅니다. 경로당에서는 <b>"병원에 가 볼 필요가 있는지"</b>를 거르는 데 쓰고, 보건소에서는 <b>의사의 판독을 돕는 데</b> 씁니다. AI는 어느 단계에서도 진단을 내리지 않으며, 진단과 치료 결정은 항상 의료진이 합니다.</p>
+  <div class="callout warn">경로당 단계의 AI 결과는 <b>"의심됨 → 보건소 방문 권유"</b>까지만 앱에 표시합니다. 질병 이름이나 확률 숫자를 어르신에게 직접 보여 주지 않습니다. 불안만 키우고 행동으로 이어지지 않기 때문입니다.</div>
+</section>
+
+<section class="card" id="s4">
+  <h2><span class="n">4</span>의뢰·회송 규칙</h2>
+  <div class="sub">언제 위로 보내고, 언제 지역으로 돌려보내는지</div>
+  <div class="grid2">
+    <div class="mini"><b>의뢰 (위로 보냄)</b><span class="t">더 전문적인 판단이 필요할 때</span>
+      <ul>
+        <li>1→2: AI가 이상을 의심하거나 계측값이 기준을 벗어남(예: 혈압 160/100 이상이 3회 연속)</li>
+        <li>2→3: 1차에서 할 수 없는 정밀 검사가 필요하거나, 약을 써도 조절이 안 됨</li>
+        <li>3→4: 수술·집중 치료가 필요하거나 희귀질환이 의심됨</li>
+      </ul></div>
+    <div class="mini"><b>회송 (지역으로 돌려보냄)</b><span class="t">치료 방침이 정해져 지역에서 관리할 수 있을 때</span>
+      <ul>
+        <li>4→3 또는 4→2: 급성기 치료가 끝나고 안정됨. 추적 검사 일정과 함께 돌려보냄</li>
+        <li>3→2: 처방이 확정되어 정기 관리만 필요함</li>
+        <li>2→1: 약을 꾸준히 먹고 계측만 하면 되는 상태</li>
+      </ul></div>
+  </div>
+  <h3>의뢰·회송 때 반드시 같이 가는 것</h3>
+  <table>
+    <tr><th>항목</th><th>의뢰할 때</th><th>회송할 때</th></tr>
+    <tr><td class="k">왜 보내는지</td><td>의뢰 사유(예: "안저 AI 이상 의심, 혈압 상승")</td><td>치료 결과와 현재 상태</td></tr>
+    <tr><td class="k">검사 결과</td><td>지금까지의 계측값·검사 결과</td><td>정밀 검사 결과와 판독</td></tr>
+    <tr><td class="k">다음 할 일</td><td>어디로, 언제까지 가야 하는지</td><td>어떤 약을 언제까지, 다음 검사는 언제</td></tr>
+    <tr><td class="k">앱 안내</td><td>"○○병원 예약 안내" 알림 + 길 안내</td><td>"보건소에서 계속 관리합니다" 알림 + 복약·재검 일정 등록</td></tr>
+  </table>
+  <div class="ex"><b>예시.</b> 보건소 의사가 2차 병원으로 의뢰하면, 앱에는 다음과 같이 뜹니다 — "김○○님, 보건소 선생님이 ○○병원 심장내과 진료를 권했어요. 보건소 검사 결과는 이미 병원에 전달됐어요. [예약 도움받기]". 어르신이 소견서를 들고 다닐 필요가 없습니다.</div>
+  <div class="callout">의뢰·회송 기준 수치(혈압 기준, 연속 횟수 등)는 의료진 자문을 거쳐 확정하며, 이 문서에서는 <b>"기준은 의료진이 정하고 시스템은 그 기준을 실행한다"</b>는 원칙만 둡니다.</div>
+</section>
+
+<section class="card" id="s5">
+  <h2><span class="n">5</span>앱·허브 설계</h2>
+  <div class="sub">개인 건강관리 앱이 네 단계를 잇는 방식</div>
+  <h3>앱이 하는 일 네 가지</h3>
+  <div class="grid4">
+    <div class="mini"><b>모으기</b><span class="t">기록을 한곳에</span>경로당 계측값, 보건소 처방, 병원 영상 판독까지 시간순으로 한 화면에 쌓입니다.</div>
+    <div class="mini"><b>알려주기</b><span class="t">오늘 할 일 안내</span>복약 시간, 재검 날짜, 계측 권유를 기록을 바탕으로 알려 줍니다.</div>
+    <div class="mini"><b>이어주기</b><span class="t">다음 기관으로 연결</span>의뢰·회송이 생기면 어디로 가야 하는지 안내하고 기록을 함께 보냅니다.</div>
+    <div class="mini"><b>지키기</b><span class="t">동의한 것만 공유</span>어떤 기관이 어떤 기록을 보는지 본인이 정하고 언제든 철회합니다.</div>
+  </div>
+  <h3>보는 사람별 화면</h3>
+  <table>
+    <tr><th style="width:16%">누가</th><th style="width:34%">무엇을 보는가</th><th>무엇을 할 수 있는가</th></tr>
+    <tr><td class="k">어르신 본인</td><td>오늘 할 일, 내 기록(쉬운 말로), 다음 진료 안내</td><td>계측값 확인, 알림 확인, 가족에게 보여 주기, 동의 설정</td></tr>
+    <tr><td class="k">보호자(가족)</td><td>본인이 허용한 범위의 기록과 알림</td><td>대신 예약 돕기, 알림 같이 받기</td></tr>
+    <tr><td class="k">경로당 관리자</td><td>오늘 계측할 사람, 보건소 방문 권유 대상</td><td>계측값 입력, 방문 권유 확인</td></tr>
+    <tr><td class="k">의료진</td><td>진료 전 요약(최근 계측·AI 결과·타 기관 기록)</td><td>의뢰·회송 작성, 복약·재검 일정 등록</td></tr>
+  </table>
+  <h3>핵심 화면 3장 (어르신 화면)</h3>
+  <div class="grid3">
+    <div class="screen"><div class="ttl">① 오늘 할 일</div><div class="row">💊 아침 약 드셨나요?</div><div class="row">🩺 보건소 방문 — 10월 16일(목)</div><div class="row">📏 경로당에서 혈압 재기</div><span class="btn">다 했어요</span></div>
+    <div class="screen"><div class="ttl">② 내 기록</div><div class="row">10/13 경로당 · 혈압 142/88</div><div class="row">10/02 보건소 · 혈압약 처방</div><div class="row">09/20 ○○병원 · 초음파 검사 정상</div><span class="btn ghost">가족에게 보여 주기</span></div>
+    <div class="screen"><div class="ttl">③ 다음 진료 안내</div><div class="row">보건소 선생님이 ○○병원 진료를 권했어요</div><div class="row">검사 결과는 이미 병원에 전달됐어요</div><span class="btn">예약 도움받기</span> <span class="btn ghost">가는 길 보기</span></div>
+  </div>
+  <p class="cap">화면은 구조만 보인 것이며 실제 모양은 디자인 단계에서 정합니다.</p>
+</section>
+
+<section class="card" id="s6">
+  <h2><span class="n">6</span>어르신 기준 UX 원칙</h2>
+  <div class="sub">주 사용자가 70대 이상이라는 전제에서 양보할 수 없는 것</div>
+  <table>
+    <tr><th style="width:22%">원칙</th><th style="width:40%">이렇게 한다</th><th>이렇게 하지 않는다</th></tr>
+    <tr><td class="k">한 화면에 한 가지</td><td>오늘 할 일은 최대 3개. 가장 급한 것이 맨 위</td><td>탭 여러 개, 카드 10장 스크롤</td></tr>
+    <tr><td class="k">숫자보다 말</td><td>"혈압이 조금 높아요. 보건소에 가 보세요"</td><td>"수축기 142mmHg, 2단계 고혈압 전단계"</td></tr>
+    <tr><td class="k">행동으로 끝나는 안내</td><td>안내마다 버튼 하나(예약 도움받기, 다 했어요)</td><td>읽기만 하고 끝나는 알림</td></tr>
+    <tr><td class="k">혼자 못 해도 됨</td><td>가족·경로당 관리자가 대신 할 수 있는 경로를 항상 둠</td><td>본인 인증 없이는 아무것도 못 하는 구조</td></tr>
+    <tr><td class="k">글자·버튼 크기</td><td>본문 글자는 일반 앱보다 한 단계 크게, 버튼은 손가락 하나 폭 이상</td><td>작은 아이콘만 있는 버튼</td></tr>
+    <tr><td class="k">무서운 말 금지</td><td>"확인이 필요해요"</td><td>"질환 의심", "위험", 확률 숫자</td></tr>
+    <tr><td class="k">앱이 없어도 됨</td><td>경로당 키오스크·문자·보호자 앱으로 같은 안내를 받을 수 있음</td><td>스마트폰 앱만 유일한 창구</td></tr>
+  </table>
+  <div class="ex"><b>예시.</b> 같은 상황을 두 가지로 쓰면 — <br>❌ "안저 AI 분석 결과 당뇨망막병증 의심 소견(확률 73%)이 확인되었습니다." <br>⭕ "눈 사진에서 확인이 필요한 부분이 보였어요. 보건소에서 한 번 더 봐 주실 거예요. [보건소 방문 안내]"</div>
+</section>
+
+<section class="card" id="s7">
+  <h2><span class="n">7</span>예시 여정 — 72세 어르신 A</h2>
+  <div class="sub">단계를 올라갔다가 다시 지역으로 돌아오는 한 사람의 흐름</div>
+  <div class="step"><span class="no">1</span><div><b>경로당(1단계)</b> — 매주 경로당에서 혈압을 재고 안저 촬영을 했습니다. 안저 AI가 망막 혈관 변화를 의심했습니다. <br><small>앱: "눈 사진에서 확인이 필요한 부분이 보였어요. 보건소 방문을 안내할게요." 경로당 관리자 화면에도 방문 권유 대상으로 표시.</small></div></div>
+  <div class="step"><span class="no">2</span><div><b>보건소(2단계)</b> — 의사가 경로당 계측값과 안저 사진을 미리 보고 진료. 혈압·심전도 검사로 고혈압을 확인하고 약을 처방. 혈관 상태를 더 보기 위해 2차 병원에 의뢰. <br><small>앱: 복약 알림 등록, "○○병원 심장내과 진료를 권했어요" 안내 + 예약 도움.</small></div></div>
+  <div class="step"><span class="no">3</span><div><b>2차 병원(3단계)</b> — 경동맥 초음파(초음파 AI 보조)로 혈관 상태를 정밀 확인. 수술은 필요 없고 약물 치료로 충분하다고 판단해 보건소로 회송. <br><small>앱: "치료 방침이 정해졌어요. 앞으로는 보건소에서 관리해요." 6개월 뒤 재검 일정 등록.</small></div></div>
+  <div class="step"><span class="no">4</span><div><b>다시 보건소(2단계)</b> — 약 조절과 혈압 관리를 정기적으로. 혈압이 안정되자 경로당 계측만으로 관리하기로 함. <br><small>앱: 재검 알림, 처방 갱신 안내.</small></div></div>
+  <div class="step"><span class="no">5</span><div><b>다시 경로당(1단계)</b> — 경로당에서 혈압을 재면 앱에 자동 기록. 앱이 매일 복약을 묻고, 재검 날짜가 다가오면 알림. 혈압이 다시 오르면 보건소 방문을 권유. <br><small>앱: 일상 코칭 계속. 기준 초과 시 2단계 의뢰 흐름이 다시 시작.</small></div></div>
+  <div class="callout ok">이 여정에서 어르신이 직접 기억하거나 들고 다닌 것은 <b>없습니다.</b> 소견서·검사 결과·재검 날짜가 전부 앱을 통해 따라다녔습니다.</div>
+</section>
+
+<section class="card" id="s8">
+  <h2><span class="n">8</span>정보 흐름과 동의</h2>
+  <div class="sub">어떤 기록이 어디까지 가고, 본인이 무엇을 정하는지</div>
+  <table>
+    <tr><th style="width:24%">기록</th><th style="width:22%">만드는 곳</th><th style="width:28%">보는 곳(동의 시)</th><th>동의 단위</th></tr>
+    <tr><td class="k">계측값(혈압·체중·걸음)</td><td>경로당, 본인</td><td>보건소·병원 의료진</td><td>기본 동의(앱 가입 시)</td></tr>
+    <tr><td class="k">AI 선별 결과</td><td>경로당</td><td>보건소 의료진</td><td>기본 동의</td></tr>
+    <tr><td class="k">진료·처방·검사 결과</td><td>보건소·병원</td><td>의뢰·회송 상대 기관, 본인, 허용한 보호자</td><td>기관 간 공유 동의(별도)</td></tr>
+    <tr><td class="k">영상 원본(안저·CT 등)</td><td>촬영 기관</td><td>판독 기관만</td><td>기관 간 공유 동의(별도)</td></tr>
+  </table>
+  <ul>
+    <li>동의는 <b>"앱 이용"과 "기관 간 기록 공유"</b> 두 가지로 나눕니다. 앱만 쓰고 공유는 안 할 수도 있습니다.</li>
+    <li>본인 확인에 필요한 정보는 앱에서 기관으로 직접 보내지 않고 <b>서버를 거쳐 보호 조치</b>를 한 뒤 전달합니다.</li>
+    <li>동의 화면도 어르신 기준입니다 — "보건소 선생님이 경로당 혈압 기록을 볼 수 있게 할까요? [네] [아니요]"처럼 한 번에 하나만 묻습니다.</li>
+    <li>보호자 열람은 본인이 항목별로 켜고 끕니다. 기본값은 꺼짐입니다.</li>
+  </ul>
+  <div class="callout">동의 분리 · 재동의 범위 · 본인 확인 정보의 전송 방식은 법무 검토 회신(2026-10)에 따릅니다. 세부는 「알림정책_법적범위」 문서와 법무 회신 기록을 따릅니다.</div>
+</section>
+
+<section class="card" id="s9">
+  <h2><span class="n">9</span>성과지표</h2>
+  <div class="sub">사업이 잘 되고 있는지를 숫자로 보는 방법 · 목표치는 시범 지역 현황 조사 뒤 확정</div>
+  <table>
+    <tr><th style="width:26%">지표</th><th style="width:38%">무엇을 재는가</th><th>왜 중요한가</th></tr>
+    <tr><td class="k">의뢰 이행률</td><td>보건소 방문 권유·병원 의뢰를 받은 사람 중 실제로 간 비율</td><td>"가 보시라"가 행동으로 이어지는지. 이 사업의 첫 번째 성과</td></tr>
+    <tr><td class="k">의뢰 소요일</td><td>권유·의뢰부터 실제 방문까지 걸린 날짜</td><td>앱 안내·예약 도움이 효과 있는지</td></tr>
+    <tr><td class="k">중복 검사 감소율</td><td>타 기관 기록이 전달되어 다시 하지 않은 검사 비율</td><td>기록이 사람을 따라가는지의 직접 증거</td></tr>
+    <tr><td class="k">회송 후 지역 관리 유지율</td><td>회송 뒤 6개월간 보건소·경로당에서 계속 관리된 비율</td><td>"다시 지역으로"가 실제로 되는지</td></tr>
+    <tr><td class="k">조기 발견 건수</td><td>경로당 AI 선별 → 보건소·병원에서 확진된 건수</td><td>1단계 AI의 가치</td></tr>
+    <tr><td class="k">앱 주간 활성 비율</td><td>등록 어르신 중 주 1회 이상 앱(또는 키오스크·보호자 경로)을 쓴 비율</td><td>어르신이 실제로 쓸 수 있는 설계인지</td></tr>
+    <tr><td class="k">복약·재검 알림 이행률</td><td>알림 뒤 "다 했어요"·실제 방문으로 확인된 비율</td><td>코칭이 행동을 바꾸는지</td></tr>
+  </table>
+  <div class="ex"><b>예시.</b> 시범 지역 경로당 10곳, 어르신 500명 기준으로 1차년도에는 <b>의뢰 이행률</b>과 <b>중복 검사 감소율</b> 두 가지만 핵심 지표로 두고, 나머지는 관찰 지표로 둡니다. 지표를 많이 잡으면 아무것도 증명하지 못합니다.</div>
+</section>
+
+<section class="card" id="s10">
+  <h2><span class="n">10</span>추진 체계와 일정</h2>
+  <div class="sub">누가 무엇을 맡고, 어떤 순서로 가는지</div>
+  <h3>역할 분담</h3>
+  <table>
+    <tr><th style="width:24%">주체</th><th>맡는 일</th></tr>
+    <tr><td class="k">주관(서비스·앱)</td><td>개인 건강관리 앱, AI 연결 허브, 의뢰·회송 안내 흐름, 동의 체계</td></tr>
+    <tr><td class="k">지자체·보건소</td><td>시범 지역 선정, 경로당 운영, 보건소 진료·의뢰 프로토콜</td></tr>
+    <tr><td class="k">참여 의료기관(2·3차)</td><td>진료협력센터를 통한 의뢰·회송 접수, 기록 공유, 회송 기준 자문</td></tr>
+    <tr><td class="k">AI 공급(단계별)</td><td>각 단계 AI 제공, 성능 검증, 의료기기 인허가 상태 관리</td></tr>
+    <tr><td class="k">자문(의료·법무)</td><td>의뢰·회송 기준 수치, 동의·정보 전송 방식 검토</td></tr>
+  </table>
+  <h3>단계별 일정</h3>
+  <div class="grid4">
+    <div class="mini"><b>1차년도 · 기반</b><span class="t">경로당 ↔ 보건소</span>1·2단계만 연결. 계측·AI 선별·방문 권유·보건소 진료 전 요약. 시범 경로당 10곳.</div>
+    <div class="mini"><b>2차년도 · 확장</b><span class="t">+ 2차 병원</span>의뢰·회송 흐름 가동. 기록 동반 전달, 예약 도움. 중복 검사 감소 측정 시작.</div>
+    <div class="mini"><b>3차년도 · 완성</b><span class="t">+ 3차 병원</span>4단계 연결. 회송 후 지역 관리 유지율 측정. 지역 2곳으로 확대.</div>
+    <div class="mini"><b>이후 · 보급</b><span class="t">표준 모델</span>지자체 단위 도입 안내서, 기관 연계 표준 규격 공개.</div>
+  </div>
+  <div class="callout warn">일정의 원칙 — <b>1·2단계가 먼저 돌아가야 3·4단계를 붙입니다.</b> 네 단계를 한 번에 연결하려 하면 어느 하나도 현장에서 돌아가지 않습니다.</div>
+</section>
+
+<section class="card" id="s11">
+  <h2><span class="n">11</span>위험과 대응</h2>
+  <div class="sub">미리 보이는 걸림돌과 준비</div>
+  <table>
+    <tr><th style="width:26%">위험</th><th style="width:36%">무슨 일이 생기나</th><th>대응</th></tr>
+    <tr><td class="k">어르신이 앱을 못 씀</td><td>등록은 했는데 열지 않음. 알림이 쌓이기만 함</td><td>경로당 키오스크·문자·보호자 앱을 같은 창구로. 경로당 관리자가 대신 확인하는 경로</td></tr>
+    <tr><td class="k">병원이 기록 공유에 소극적</td><td>의뢰는 되는데 결과가 돌아오지 않음</td><td>진료협력센터 창구 일원화, 회송 시 기록 동반을 참여 조건으로 명시</td></tr>
+    <tr><td class="k">AI 선별 오류</td><td>이상 없는데 보건소로 보내거나, 있는데 놓침</td><td>경로당 AI는 "권유"까지만. 민감도 우선 설정, 보건소 의료진이 최종 판단. 성능을 분기마다 점검</td></tr>
+    <tr><td class="k">의뢰 기준이 지역마다 다름</td><td>같은 수치인데 어떤 보건소는 보내고 어떤 곳은 안 보냄</td><td>기준은 의료진 자문으로 통일, 시스템은 기준값을 설정으로 둠</td></tr>
+    <tr><td class="k">동의 철회 뒤 기록 처리</td><td>철회했는데 기관에 이미 전달된 기록이 남음</td><td>철회 시점 이후 전달 중단 + 이미 전달분의 처리 원칙을 동의 화면에 미리 안내</td></tr>
+    <tr><td class="k">AI 인허가 상태 변화</td><td>특정 AI가 의료기기 허가 범위 밖에서 쓰임</td><td>단계별 AI의 허가 범위를 표로 관리, 허가 범위 안에서만 결과를 표시</td></tr>
+  </table>
+</section>
+
+<section class="card" id="s12">
+  <h2><span class="n">12</span>바뀐 내용</h2>
+  <div class="sub">이 문서와 개념도에 생긴 변경 기록</div>
+  <table class="chg">
+    <tr><th style="width:14%">날짜</th><th style="width:22%">항목</th><th>바뀐 것</th><th style="width:20%">어디</th></tr>
+    <tr><td>2026-10-13</td><td>개념도</td><td>4단계를 왼→오 한 줄로 재배치, 의뢰(주황)·회송(초록) 구분과 범례, 앱+AI 허브 통합 띠, AI별 역할 설명, 예시 여정 5칸, 하단 흐름에 「다시 지역에서 관리」 추가</td><td>SVG · PNG</td></tr>
+    <tr><td>2026-10-13</td><td>기획서</td><td>첫 발행. 단계 정의 · 의뢰/회송 규칙 · 앱 설계 · 어르신 UX 원칙 · 동의 · 성과지표 · 일정 · 위험</td><td>이 문서</td></tr>
+  </table>
+</section>
+
+</div>
+</body>
+</html>
