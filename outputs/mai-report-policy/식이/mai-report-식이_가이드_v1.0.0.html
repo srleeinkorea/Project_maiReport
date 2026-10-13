@@ -489,6 +489,7 @@ li{margin:6px 0}
 <table>
 <tr><th style="width:30%">값</th><th style="width:20%">화면에</th><th style="width:50%">왜</th></tr>
 <tr><td><b>목표 문구</b></td><td><b>나갑니다</b></td><td>사용자가 보는 유일한 문장입니다</td></tr>
+<tr><td><span class="chg">풀어 쓴 문구</span></td><td><span class="chg">화면 위치 정하는 중</span></td><td><span class="chg">목표 문구는 12자라 짧아서 무엇을 하라는 건지 알기 어려울 때가 있습니다. 그래서 같은 목표를 한 문장으로 풀어 쓴 말을 문구마다 하나씩 붙였습니다.<br>예: 「세 끼 어제처럼 먹기」 → 「오늘도 어제와 비슷한 시간에 아침·점심·저녁 세 끼를 드세요.」</span></td></tr>
 <tr><td>이유 한 줄</td><td rowspan="5">나가지 않습니다</td>
 <td rowspan="5">왜 이 목표가 나왔는지를 설명하면 사용자가 자기 상태를 유추하게 됩니다.
 식이는 「당신은 지금 개선 필요입니다」 같은 판정을 보여 주지 않기로 했습니다.<br>
@@ -667,7 +668,9 @@ li{margin:6px 0}
 <tr><td><b>문구 <span class="chg">403개</span></b></td><td>화면에 나가는 한 줄</td>
 <td>데이터계약</td><td><b>목표문구</b></td><td><code>tile_text</code></td></tr>
 <tr><td>〃 (보기 편한 쪽)</td><td>축·단계·근거를 한글로 정리한 같은 목록</td>
-<td>참조설정데이터</td><td><b>문구세트</b></td><td>타일 문구 · 글자수 · 성격</td></tr>
+<td>참조설정데이터</td><td><b>문구세트</b></td><td>타일 문구 · 글자수 · <span class="chg">풀어 쓴 문구</span> · 성격</td></tr>
+<tr><td><span class="chg">풀어 쓴 문구</span></td><td><span class="chg">같은 목표를 한 문장으로 풀어 쓴 말(40자 이내)</span></td>
+<td>데이터계약</td><td><b>목표문구</b></td><td><code>full_text</code></td></tr>
 <tr><td>이유 한 줄</td><td><b>화면에 안 나갑니다.</b> 개발·기획용 설명</td>
 <td>데이터계약</td><td><b>목표문구</b></td><td><code>reason_text</code></td></tr>
 <tr><td>어느 축 · 어느 단계</td><td>이 문구가 어디에 속하는지</td>
