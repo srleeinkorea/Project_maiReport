@@ -6828,8 +6828,7 @@ function renderAccountSub(type){
         <div class="acc-row"><div class="tx doc" onclick="openLegal('health')"><b>건강정보 활용 동의 <i class="doc-cv">›</i></b>${CONSENT_PREF.healthUse?'<small>동의일 2026.10.13</small>':''}</div>${sw('healthUse',CONSENT_PREF.healthUse)}</div>
         <div class="acc-row"><div class="tx doc" onclick="openLegal('marketing')"><b>마이리포트 마케팅 활용 동의 <i class="doc-cv">›</i></b>${CONSENT_PREF.marketing?'<small>동의일 2026.08.01</small>':''}</div>${sw('marketing',CONSENT_PREF.marketing)}</div>
         <div class="acc-row"><div class="tx doc" onclick="openLegal('quality')"><b>서비스 품질 향상을 위한 데이터 수집 및 이용동의 <i class="doc-cv">›</i></b>${CONSENT_PREF.dataQuality?'<small>동의일 2026.09.28</small>':''}</div>${sw('dataQuality',CONSENT_PREF.dataQuality)}</div>
-      </div></div>
-      <p class="acc-note">항목명을 누르면 동의서 전문을 볼 수 있어요.</p>`;
+      </div></div>`;
     return;
   }
   if(type==='announce'){
