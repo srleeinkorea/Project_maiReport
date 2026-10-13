@@ -261,7 +261,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 <section class="timeline">
   <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bd)"><div class="bar"></div><b>매일 새벽 · 일괄 계산</b><p>3개월 이내 검진 경계 · 적용 질환<br>축 상태 재계산</p><span class="tag">새 연동 정보는 즉시 재계산</span></div>
   <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bd)"><div class="bar"></div><b>첫 진입 시각</b><p>지난 끼니 1건 생성<br>04 · 10 · 12 · 17시</p><span class="tag">하루 1회</span></div>
-  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b>고정 문항 답</b><p>답 이력 1행 · 3값 저장<br>거의 못 먹음 → 끼니 규칙 적립</p><span class="tag">끼니 단위</span></div>
+  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b>고정 문항 답</b><p>답 이력 1행 · 3값 저장<br>거의 못 먹거나 거름 → 끼니 규칙 적립</p><span class="tag">끼니 단위</span></div>
   <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b>회전 문항 답</b><p>답 이력 1행 · 축 지표 재계산<br>미답은 다음 구간에 갱신</p><span class="tag">그 축만</span></div>
   <div class="tl" style="--tl:var(--indigo);--tl-bg:var(--indigo-bd)"><div class="bar"></div><b>목표 생성</b><p>목표 기록 1행<br>문구 · 이유 · 대상 끼니</p><span class="tag">그날 고정</span></div>
   <div class="tl" style="--tl:var(--green);--tl-bg:var(--green-bd)"><div class="bar"></div><b>토글</b><p>목표 기록 갱신<br>완료 · 미완료 · 쉬기</p><span class="tag">당일 수정 가능</span></div>
@@ -348,7 +348,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
       <div class="card c-cyan"><div class="card-head"><span class="ci">📊</span><span class="cn">축 상태 × 8</span></div><div class="cb">유효 답 수 · 양호 비율<br>개선 필요 비율 → 상태</div><span class="ctag">← 답 이력 28일</span></div>
       <div class="card c-cyan"><div class="card-head"><span class="ci">🩺</span><span class="cn">검진 경계 · 저체중</span></div><div class="cb">항목값 + 출처 + 측정일<br>→ 없음 · 혈당 · 혈압 · 지질체중</div><span class="ctag">← 검진 · 기기 연동</span></div>
       <div class="card c-cyan"><div class="card-head"><span class="ci">🧬</span><span class="cn">적용 질환</span></div><div class="cb">직접 선택 · 진료 확인 · 제외 · 모름<br>중복 제거 + 안전 제외 목록</div><span class="ctag">← 직접 선택 · 진료 확인</span></div>
-      <div class="card c-cyan"><div class="card-head"><span class="ci">↩️</span><span class="cn">어제 목표 · 어제 답</span></div><div class="cb">축 · 대상 끼니 · 토글<br>거의 못 먹음 여부</div><span class="ctag">← 어제 기록</span></div>
+      <div class="card c-cyan"><div class="card-head"><span class="ci">↩️</span><span class="cn">어제 목표 · 어제 답</span></div><div class="cb">축 · 대상 끼니 · 토글<br>거의 못 먹거나 거름 여부</div><span class="ctag">← 어제 기록</span></div>
       <div class="card c-cyan"><div class="card-head"><span class="ci">📈</span><span class="cn">축 단계 × 8</span></div><div class="cb">현재 단계(입문 · 기본 · 도전)<br>7일 완료 횟수 · 연속 미완료</div><span class="ctag">CREATED 목표만 계산</span></div>
     </div>
   </div>
@@ -462,10 +462,10 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 <section class="axis-wrap">
   <div class="panel">
     <h3>축 8종 <span class="mono">식이 목표를 나눈 습관 갈래 · 축마다 회전 문항 1 · 상태 1 · 단계 3</span></h3>
-    <div class="sub">「끼니 규칙」만 별도 문항이 없고 고정 문항의 「거의 못 먹음」 답으로 쌓인다</div>
+    <div class="sub">「끼니 규칙」만 별도 문항이 없고 고정 문항의 「거의 못 먹거나 거름」 답으로 쌓인다</div>
     <table class="ax">
       <tr><th></th><th>축</th><th>무엇을 보나</th><th>사용자 질문</th><th>화면 답변 3개</th><th>연결 검진 · 질환</th></tr>
-      <tr><td class="n">1</td><td class="k">끼니 규칙</td><td>아침 · 점심 · 저녁 챙기기</td><td><b>고정</b> · {지난 끼니}은 평소만큼 드셨나요?</td><td class="answer">평소대로<br>조금 적게<br>거의 못 먹음</td><td>체질량지수</td></tr>
+      <tr><td class="n">1</td><td class="k">끼니 규칙</td><td>아침 · 점심 · 저녁 챙기기</td><td><b>고정</b> · {지난 끼니}은 평소만큼 드셨나요?</td><td class="answer">평소대로<br>조금 적게<br>거의 못 먹거나 거름</td><td>체질량지수</td></tr>
       <tr><td class="n">2</td><td class="k">채소</td><td>채소 반찬 유무 · 채소 먼저</td><td><span class="chg">{지난 끼니}엔 채소 반찬을 얼마나 드셨나요?</span></td><td class="answer">충분히 먹음<br>조금 먹음<br>먹지 않음</td><td>혈당 · 체중 · 당뇨 · 고혈압</td></tr>
       <tr><td class="n">3</td><td class="k">단 음료 · 단 간식</td><td>가당 음료 · 단 디저트</td><td>{지난 끼니} <span class="chg">전후 단 음료·간식은 몇 번이었나요</span>?</td><td class="answer">없었어요<br>한 번<br>두 번 이상</td><td>혈당 · 체중 · 당뇨</td></tr>
       <tr><td class="n">4</td><td class="k">짠맛 · 국물</td><td>국물 · 소금 · 가공식품</td><td><span class="chg">{지난 끼니}엔 국물을 얼마나 드셨나요?</span></td><td class="answer">먹지 않음<br>절반 이하<br>절반 넘게</td><td>혈압 · 고혈압 · 신장</td></tr>
@@ -563,11 +563,11 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">1</td><td class="u">앱을 연다 (13:10)</td><td class="r"></td><td class="j">12:00 ≤ 13:10 &lt; 17:00 → 지난 끼니 = <b>오늘 점심</b></td><td class="o">문장에 "오늘 점심"</td></tr>
-      <tr><td class="n">2</td><td class="u"><span class="pick">거의 못 먹음</span></td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">끼니 규칙 축에 「개선 필요」 +1 · <b>회복 풀 조건</b> · <b>회전 문항 생략</b></td><td class="o"><span class="src src-teal">답 이력</span>1행(결식값) · <span class="src src-teal">축 지표</span>끼니 규칙 재계산</td></tr>
+      <tr><td class="n">2</td><td class="u"><span class="pick">거의 못 먹거나 거름</span></td><td class="r"><span class="src src-blue">사용자 선택</span></td><td class="j">끼니 규칙 축에 「개선 필요」 +1 · <b>회복 풀 조건</b> · <b>회전 문항 생략</b></td><td class="o"><span class="src src-teal">답 이력</span>1행(결식값) · <span class="src src-teal">축 지표</span>끼니 규칙 재계산</td></tr>
       <tr><td class="n">3</td><td class="u none">(목표 생성)</td><td class="r"><span class="src src-indigo">선정 순서</span>1단계 · <span class="src src-amber">회복 풀</span>3개(저녁 가볍게 · 소량 단백질 · 오후 간식)</td><td class="j">1단계 해당 → <b>회복 풀</b>, 축 · 단계 · 검진 판정 모두 건너뜀 · 13:10은 오후 진입 → 오후 사용 가능 문구만 남김</td><td class="o">문구 = 「간식이라도 챙겨 먹기」</td></tr>
       <tr><td class="n">4</td><td class="u none">—</td><td class="r"><span class="src src-amber">문구 세트</span>회복 · 오후 사용 가능</td><td class="j">대상 끼니 = <b>오늘 저녁</b></td><td class="o"><span class="src src-green">홈 타일</span>문구 · <span class="src src-green">목표분석</span>행동 문구만 표시 · <span class="src src-teal">목표 기록</span>풀 = 회복</td></tr>
     </table>
-    <div class="next"><i>내일</i>어제 고정 답 = 거의 못 먹음 → 회전 문항 <b>「단백질」 축 고정</b> "어제 저녁에 고기·생선·달걀·두부 반찬이 있었나요?" · 회복 풀은 축이 없어 확인 질문은 없음</div>
+    <div class="next"><i>내일</i>어제 고정 답 = 거의 못 먹거나 거름 → 회전 문항 <b>「단백질」 축 고정</b> "어제 저녁에 고기·생선·달걀·두부 반찬이 있었나요?" · 회복 풀은 축이 없어 확인 질문은 없음</div>
   </div>
 
   <!-- 5 -->
