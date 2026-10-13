@@ -296,7 +296,7 @@ function onCta(){
         <div class="pt"><i>✓</i><span>요약 결과만 저장하고 보낸 데이터는 남기지 않습니다</span></div>
       </div>
       <button class="more" id="moreBtn">자세히 보기 ›</button>
-      <div class="detail" id="moreTxt">외부 AI 서비스(제공자명)에서 요약을 생성합니다. 전송 데이터는 처리 후 보관되지 않으며, 동의는 계정 › 개인정보 처리방침에서 철회할 수 있습니다. 요약은 의학적 진단을 대신하지 않습니다.</div>
+      <div class="detail" id="moreTxt">외부 AI 서비스(제공자명)에서 요약을 생성합니다. 전송 데이터는 처리 후 보관되지 않으며, 동의는 계정 › 개인정보 처리방침에서 철회할 수 있습니다. 요약은 의사의 진단·처방·치료를 대신할 수 없습니다.</div>
       <div class="btns"><button class="btn ghost" id="shNo">취소</button><button class="btn pri" id="shGo">동의하고 요약하기</button></div>`;
     $('moreBtn').onclick = ()=>$('moreTxt').classList.toggle('on');
   } else {
@@ -362,7 +362,7 @@ function openResult(){
   if(nor.length) html += `<p class="t">정상으로 확인된 항목</p>` + nor.map((i,idx)=>itemCard(i, !att.length && idx<2)).join('');
   html += `<p class="t">${esc(s.actTitle)}</p><div class="card acts">` + s.actions.map((a,i)=>`<div class="a"><span class="n">${i+1}</span><div><b>${esc(a.t)}</b><p>${esc(a.p)}</p><span class="src${a.org?' org':''}">${esc(a.src)}</span></div></div>`).join('') + `</div>
     <button class="btn ghost" id="toDetail">검사 결과 확인하기</button>
-    <p class="note">질환명은 검사의 이해를 돕기 위한 정보이며, 해당 질환을 진단받았다는 의미는 아닙니다. 이 요약은 의학적 진단을 대신하지 않습니다.</p>`;
+    <p class="note">질환명은 검사의 이해를 돕기 위한 정보이며, 해당 질환을 진단받았다는 의미는 아닙니다. 본 서비스가 제공하는 AI 건강검진 요약은 사용자의 건강관리를 돕기 위한 보조적·참고적 정보에 불과하며, 어떠한 경우에도 전문 의료인의 진단, 처방, 치료 등의 의료행위를 대신할 수 없습니다. 회원은 자신의 건강 상태에 의문이 있거나 이상 증상이 있는 경우 반드시 전문 의료기관을 방문하여 의사의 진료를 받아야 하며, 회사는 회원이 본 서비스의 정보를 맹신하여 발생한 신체적·정신적·재산적 손해에 대해 어떠한 법적 책임도 부담하지 않습니다.</p>`;
   $('resultBody').innerHTML = html;
   $('resultBody').querySelectorAll('.item .hd').forEach(h=>h.onclick=()=>{ const it=h.closest('.item'); it.classList.toggle('open'); h.setAttribute('aria-expanded', it.classList.contains('open')); });
   $('toDetail').onclick = ()=>show('vDetail');
