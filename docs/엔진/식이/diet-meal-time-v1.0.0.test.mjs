@@ -29,10 +29,10 @@ test('못 먹거나 거름 · 건강 앱 기록에는 시각을 묻지 않고, �
   assert.deepEqual(askMealTime({ mealType: 'DINNER', isYesterdayDinner: true, fixedOptionCode: 'usual' }), { ask: true, skipReason: null, question_id: 'DIET-Q-10', mealKey: 'YESTERDAY_DINNER' });
   const y = mealTimeOptions(at('08:20'), KST, 'YESTERDAY_DINNER');
   assert.equal(y.text, '어제 저녁은 몇 시쯤 드셨어요?');
-  assert.deepEqual(y.options.map(o => o.label), ['7시 이전', '7시~8시', '8시 이후']);
-  assert.deepEqual(y.options.map(o => [o.window_start, o.window_end]), [['17:00', '19:00'], ['19:00', '20:00'], ['20:00', '22:00']]);
+  assert.deepEqual(y.options.map(o => o.label), ['7시 이전', '7시~9시', '9시 이후']);
+  assert.deepEqual(y.options.map(o => [o.window_start, o.window_end]), [['17:00', '19:00'], ['19:00', '21:00'], ['21:00', '23:00']]);
   assert.equal(estimateMealTime({ mealType: 'YESTERDAY_DINNER', option: y.options[0] }).estimated_time, '18:00');
-  assert.equal(estimateMealTime({ mealType: 'YESTERDAY_DINNER', option: y.options[2] }).estimated_time, '21:00');
+  assert.equal(estimateMealTime({ mealType: 'YESTERDAY_DINNER', option: y.options[2] }).estimated_time, '22:00');
   assert.equal(askMealTime({ mealType: 'LUNCH', fixedOptionCode: 'very_little_or_skipped' }).skipReason, 'MEAL_SKIPPED');
   assert.equal(askMealTime({ mealType: 'LUNCH', fixedOptionCode: 'usual', hasHealthAppRecord: true }).skipReason, 'HEALTH_APP_RECORD');
   assert.deepEqual(askMealTime({ mealType: 'LUNCH', fixedOptionCode: 'less' }), { ask: true, skipReason: null, question_id: 'DIET-Q-08', mealKey: 'LUNCH' });
@@ -44,7 +44,7 @@ test('점심 · 답한 시각에서 1시간씩 거꾸로 세고 10분 단위로 
   assert.equal(r.text, '점심은 언제쯤 드셨어요?');
   assert.deepEqual(labels(r), ['오후 12:20 이후', '오전~오후 11:20~12:20', '오전 11:20 이전']);
   assert.deepEqual(mains(r), ['1시간 전', '2시간 전', '그보다 전']);
-  assert.deepEqual(subs(r), ['오후 12:20 이후', '오전~오후 11:20~12:20', '오전 11:20 이전']);
+  assert.deepEqual(subs(r), ['', '', '']);   // 작은 글씨 없음
   assert.deepEqual(labels(mealTimeOptions(at('13:47'), KST, 'LUNCH')), ['오후 12:40 이후', '오전~오후 11:40~12:40', '오전 11:40 이전']);
   assert.equal(r.options[0].window_end, '13:20');
 });
@@ -65,17 +65,28 @@ test('점심 · 12시대에는 12시 아래로 내려가지 않고, 오후 2시�
   }
 });
 
-test('저녁 · 오후 9시가 지나면 오후 8시 이후에서 멈추고 자정 직전도 내림으로 안전하다', () => {
+test('저녁 · 오후 9시까지는 1시간 칸(하한 4시), 9시가 지나면 고정 선택지 「7시 이전 / 7시~9시 / 9시 이후」', () => {
   assert.deepEqual(labels(mealTimeOptions(at('19:30'), KST, 'DINNER')), ['오후 6:30 이후', '오후 5:30~6:30', '오후 5:30 이전']);
+  assert.deepEqual(mains(mealTimeOptions(at('19:30'), KST, 'DINNER')), ['1시간 전', '2시간 전', '그보다 전']);
   assert.deepEqual(labels(mealTimeOptions(at('20:40'), KST, 'DINNER')), ['오후 7:40 이후', '오후 6:40~7:40', '오후 6:40 이전']);
+  // 하한 4시: 5시 40분에 답하면 「2시간 전」이 3:40~4:40이라 4시 반 식사가 들어간다(범위는 4시부터 잘라 4:00~4:40 → 4:20)
+  const five = mealTimeOptions(at('17:40'), KST, 'DINNER');
+  assert.deepEqual(labels(five), ['오후 4:40 이후', '오후 3:40~4:40', '오후 3:40 이전']);
+  assert.equal(estimateMealTime({ mealType: 'DINNER', option: five.options[1] }).estimated_time, '16:20');
   const nine = mealTimeOptions(at('21:00'), KST, 'DINNER');
   assert.deepEqual(labels(nine), ['오후 8:00 이후', '오후 7:00~8:00', '오후 7:00 이전']);
-  assert.equal(nine.stopped, false);
-  for (const t of ['23:30', '23:55']) {
-    assert.deepEqual(labels(mealTimeOptions(at(t), KST, 'DINNER')), ['오후 8:00 이후', '오후 7:00~8:00', '오후 7:00 이전'], t);
+  for (const t of ['21:10', '23:30', '23:55']) {
+    const r = mealTimeOptions(at(t), KST, 'DINNER');
+    assert.equal(r.question_id, 'DIET-Q-11', t);
+    assert.equal(r.text, '저녁은 몇 시쯤 드셨어요?', t);
+    assert.deepEqual(mains(r), ['7시 이전', '7시~9시', '9시 이후'], t);
+    assert.deepEqual(r.options.map(o => [o.window_start, o.window_end]), [['17:00', '19:00'], ['19:00', '21:00'], ['21:00', '23:00']], t);
   }
-  const five = mealTimeOptions(at('17:40'), KST, 'DINNER');
-  assert.deepEqual(labels(five), ['오후 5:00 이후', '오후 4:00~5:00', '오후 4:00 이전']);
+  assert.equal(askMealTime({ mealType: 'DINNER', fixedOptionCode: 'usual', answeredAtMinutes: 23 * 60 + 30 }).question_id, 'DIET-Q-11');
+  assert.equal(askMealTime({ mealType: 'DINNER', fixedOptionCode: 'usual', answeredAtMinutes: 20 * 60 }).question_id, 'DIET-Q-08');
+  const lateOpt = mealTimeOptions(at('23:30'), KST, 'DINNER').options;
+  assert.equal(estimateMealTime({ mealType: 'LATE_DINNER', option: lateOpt[0] }).estimated_time, '18:00');
+  assert.equal(estimateMealTime({ mealType: 'LATE_DINNER', option: lateOpt[2] }).estimated_time, '22:00');
 });
 
 test('아침 · 7시 · 8시 정각으로 고정', () => {
@@ -111,10 +122,6 @@ test('추정 · 범위가 2시간을 넘거나 비면 걸음 단서가 있을 �
   assert.equal(estimateMealTime({ mealType: 'BREAKFAST', option: bf1020 }).confidence, 'UNKNOWN');
   const early7 = mealTimeOptions(at('10:20'), KST, 'BREAKFAST').options[0];
   assert.equal(estimateMealTime({ mealType: 'BREAKFAST', option: early7 }).estimated_time, '06:30');
-  // 오후 5시대 저녁: 2 · 3번 버튼은 끼니 시작(17시)보다 일러 범위가 비어 모름
-  const five = mealTimeOptions(at('17:40'), KST, 'DINNER').options;
-  assert.equal(estimateMealTime({ mealType: 'DINNER', option: five[1] }).confidence, 'UNKNOWN');
-  assert.equal(estimateMealTime({ mealType: 'DINNER', option: five[2] }).confidence, 'UNKNOWN');
   // 「…이전」은 끼니 시작 기본값부터 센다: 점심 11:00~11:20
   const before = mealTimeOptions(at('13:20'), KST, 'LUNCH').options[2];
   assert.deepEqual(estimateMealTime({ mealType: 'LUNCH', option: before }).window, ['11:00', '11:20']);

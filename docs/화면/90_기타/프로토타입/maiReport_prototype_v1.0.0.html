@@ -2725,29 +2725,31 @@ const LAST_MEAL = lastMealLabel();
    점심·저녁 버튼은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 세고, 선택지 상한 시각(점심 14시 · 저녁 21시)을 넘으면 그 시각에 답한 것과 같은 선택지를 보여 주며
    질문 시작 시각(점심 12시 · 저녁 17시) 아래로 내려가지 않는다. 아침은 7시 · 8시, 어제 저녁은 저녁 7시 · 8시 정각 고정. 「못 먹거나 거름」에는 묻지 않는다.
    규칙 원본: docs/엔진/식이/diet-meal-time-v1.0.0.mjs · 데이터계약 R-11 · CFG-072~078 */
-const MEAL_TIME_RULE = {LUNCH:{start:12*60,stop:14*60}, DINNER:{start:17*60,stop:21*60}};
+const MEAL_TIME_RULE = {LUNCH:{start:12*60,stop:14*60}, DINNER:{start:16*60,stop:21*60}};   /* start = 선택지 하한, stop = 선택지 상한 */
 function koTime(m){ const h=Math.floor(m/60)%24, mm=m%60, ap=h<12?'오전':'오후', h12=h%12===0?12:h%12; return {ap, clock:`${h12}:${String(mm).padStart(2,'0')}`}; }
 function mealTimeQuestion(now){
   const d = now || new Date();
   const fixed = (text, av, labels)=>({ id:'mealClock', cat:'식이', av, tint:'moon', kind:'time', text,
     opts:[{v:'before_7',f:'',ap:'',clock:labels[0],sub:'',label:labels[0],tone:'neutral'},
-          {v:'seven_to_eight',f:'',ap:'',clock:labels[1],sub:'',label:labels[1],tone:'neutral'},
-          {v:'after_8',f:'',ap:'',clock:labels[2],sub:'',label:labels[2],tone:'neutral'}] });
+          {v:'mid',f:'',ap:'',clock:labels[1],sub:'',label:labels[1],tone:'neutral'},
+          {v:'late',f:'',ap:'',clock:labels[2],sub:'',label:labels[2],tone:'neutral'}] });
   /* 어제 저녁(00~10시)도 묻는다 — 일상안정이 최근 7일 식후 행동을 합산하므로 어제 값도 쓰인다. 저녁 7시 · 8시 고정 */
-  if(LAST_MEAL==='어제 저녁') return fixed('어제 저녁은 몇 시쯤 드셨어요?', '🕖', ['7시 이전','7시~8시','8시 이후']);
+  if(LAST_MEAL==='어제 저녁') return fixed('어제 저녁은 몇 시쯤 드셨어요?', '🕖', ['7시 이전','7시~9시','9시 이후']);
   if(LAST_MEAL==='오늘 아침') return fixed('아침은 몇 시쯤 드셨어요?', '🕖', ['7시 이전','7시~8시','8시 이후']);
   const R = MEAL_TIME_RULE[LAST_MEAL==='오늘 점심' ? 'LUNCH' : 'DINNER'];
   const mins = d.getHours()*60 + d.getMinutes(), floored = mins - mins%10;
+  /* 저녁을 오후 9시 뒤에 답하면 1시간 칸 3개로 5시 식사와 10시 식사를 다 덮을 수 없어 고정 선택지(어제 저녁과 같음)로 묻는다 */
+  if(LAST_MEAL==='오늘 저녁' && floored > R.stop) return fixed('저녁은 몇 시쯤 드셨어요?', '🕘', ['7시 이전','7시~9시','9시 이후']);
   let t0 = floored - 60, stopped = false;
-  if(floored > R.stop){ t0 = R.stop - 60; stopped = true; }   /* 선택지 상한 시각 */
+  if(floored > R.stop){ t0 = R.stop - 60; stopped = true; }   /* 선택지 상한 시각(점심 2시) */
   if(t0 < R.start){ t0 = R.start; stopped = true; }            /* 선택지 하한 시각 */
   const t1 = t0 - 60, a = koTime(t0), b = koTime(t1), rangeAp = a.ap===b.ap ? a.ap : `${b.ap}~${a.ap}`;
   const times = [[a.ap, `${a.clock} 이후`], [rangeAp, `${b.clock}~${a.clock}`], [b.ap, `${b.clock} 이전`]];
   const rel = ['1시간 전','2시간 전','그보다 전'];
-  /* 큰 글자는 「1시간 전 / 2시간 전 / 그보다 전」, 시각 구간은 작은 글씨. 상한·하한에 걸린 동안은 「1시간 전」가 사실과 달라 시각을 크게 쓴다 */
+  /* 선택지 글자는 「1시간 전 / 2시간 전 / 그보다 전」(작은 글씨 없음). 상한·하한에 걸린 동안은 「1시간 전」이 사실과 달라 시각을 쓴다 */
   const mk = (v,i)=> stopped
     ? {v, f:'', ap:times[i][0], clock:times[i][1], sub:'', label:`${times[i][0]} ${times[i][1]}`, tone:'neutral'}
-    : {v, f:'', ap:'', clock:rel[i], sub:`${times[i][0]} ${times[i][1]}`, label:rel[i], tone:'neutral'};
+    : {v, f:'', ap:'', clock:rel[i], sub:'', label:rel[i], tone:'neutral'};
   return { id:'mealClock', cat:'식이', av:'🕐', tint:'moon', kind:'time', text:`${LAST_MEAL.replace('오늘 ','')}은 언제쯤 드셨어요?`,
     opts:[mk('within_1h',0), mk('one_to_two_h',1), mk('earlier',2)] };
 }
