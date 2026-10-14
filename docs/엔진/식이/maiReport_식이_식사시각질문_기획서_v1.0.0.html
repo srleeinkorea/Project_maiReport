@@ -70,7 +70,7 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
   <div class="tile key"><div class="n">+1</div><div class="l">하루 질문 수 4 → 5~6. 식이 최대 3문항(식사 · 시각 · 회전)</div></div>
   <div class="tile ok"><div class="n">3</div><div class="l">선택지 수. 「1시간 이내 / 1~2시간 전 / 그보다 전」. 건너뛰기 없음</div></div>
   <div class="tile ng"><div class="n">50%</div><div class="l">지금 자기돌봄 등급이 실제와 다른 날. 식후 행동을 몰라 매일 같은 점수</div></div>
-  <div class="tile ok"><div class="n">11~18%</div><div class="l">시각 단계를 둔 뒤 등급이 다른 날(모의). 평균 오차 10.0점 → 2.3~3.7점</div></div>
+  <div class="tile ok"><div class="n">12~13%</div><div class="l">시각 단계를 둔 뒤 등급이 다른 날(모의). 평균 오차 10.0점 → 2.4~2.7점</div></div>
 </div>
 
 <section id="s01"><div class="num">01</div><div>
@@ -123,7 +123,7 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
     <path d="M232 69 L262 69" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
     <rect x="266" y="24" width="220" height="90" fill="#fff6e6" stroke="#c7861c"/><text x="276" y="46" font-weight="600" fill="#c7861c">원인</text><text x="276" y="68">식사 시각을 받는 입력이 없음</text><text x="276" y="86">걸음 기록만으로는 식사 시점을</text><text x="276" y="104">특정하기 어려움</text>
     <path d="M490 69 L520 69" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
-    <rect x="524" y="24" width="228" height="90" fill="#eef1ff" stroke="#5170FF"/><text x="534" y="46" font-weight="600" fill="#5170FF">이 기획</text><text x="534" y="68">식사 질문 직후 같은 자리에서</text><text x="534" y="86">1시간 간격 선택지 3개로 시각 입력</text><text x="534" y="104">등급이 다른 날 11~18%</text>
+    <rect x="524" y="24" width="228" height="90" fill="#eef1ff" stroke="#5170FF"/><text x="534" y="46" font-weight="600" fill="#5170FF">이 기획</text><text x="534" y="68">식사 질문 직후 같은 자리에서</text><text x="534" y="86">1시간 간격 선택지 3개로 시각 입력</text><text x="534" y="104">등급이 다른 날 12~13%</text>
   </g>
 </svg>
 <div class="cap"><b>해석:</b> 공란의 원인은 입력이 없어서임. 새 화면 없이 질문 1개를 이어 물으면 풀림. 등급 오류일은 약 3분의 1로 줄어듦(모의).</div></div>
@@ -281,29 +281,29 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
 <svg viewBox="0 0 760 210" role="img" aria-label="적중 비율">
   <line x1="150" y1="20" x2="150" y2="180" stroke="#0f1222"/><line x1="660" y1="20" x2="660" y2="180" stroke="#0f1222" stroke-dasharray="3 3"/><text x="664" y="32" font-size="10.5" fill="#0f1222">목표 85%</text>
   <g font-size="12" fill="#0f1222">
-    <text x="8" y="50">점심</text><rect x="150" y="36" width="540" height="20" fill="#1f9d5a"/><text x="696" y="51">90%</text>
-    <text x="8" y="84">저녁</text><rect x="150" y="70" width="528" height="20" fill="#1f9d5a"/><text x="684" y="85">88%</text>
-    <text x="8" y="118">아침 (답 있는 날)</text><rect x="150" y="104" width="534" height="20" fill="#1f9d5a"/><text x="690" y="119">89%</text>
-    <text x="8" y="152">가입 초기</text><rect x="150" y="138" width="504" height="20" fill="#c7861c"/><rect x="654" y="138" width="30" height="20" fill="#c7861c" opacity=".4"/><text x="690" y="153">84~89%</text>
+    <text x="8" y="50">점심</text><rect x="150" y="36" width="498" height="20" fill="#1f9d5a"/><text x="654" y="51">83%</text>
+    <text x="8" y="84">저녁</text><rect x="150" y="70" width="462" height="20" fill="#c7861c"/><text x="618" y="85">77%</text>
+    <text x="8" y="118">아침</text><rect x="150" y="104" width="426" height="20" fill="#c7861c"/><text x="582" y="119">71%</text>
+    <text x="8" y="152">가입 초기</text><rect x="150" y="138" width="402" height="20" fill="#c7861c"/><rect x="552" y="138" width="102" height="20" fill="#c7861c" opacity=".4"/><text x="660" y="153">67~84%</text>
   </g>
   <text x="150" y="198" font-size="10.5" fill="#5d6275">0%</text><text x="640" y="198" font-size="10.5" fill="#5d6275">85%</text><text x="730" y="198" font-size="10.5" fill="#5d6275">100%</text>
 </svg>
-<div class="cap"><b>해석:</b> 점심 · 저녁은 내부 목표 85%를 넘음. 평소 시각이 쌓이기 전인 가입 초기만 목표선에 걸침. 오차 중앙값 5~7분, 10번 중 9번은 30~39분 안.</div></div>
+<div class="cap"><b>해석:</b> 점심은 내부 목표 85%에 가깝고(83%), 저녁 77% · 아침 71%는 고정 선택지(2시간 칸)와 늦게 답하는 날 때문에 그 아래임. 오차 중앙값은 10~14분. 시각 오차가 커도 식후 걸음 판정(Fig 6)은 세 끼 모두 87%로 같음.</div></div>
 <div class="fig"><div class="t">Fig 6 · 식후 판정 결과의 분할 (하루 기준)</div>
 <svg viewBox="0 0 760 210" role="img" aria-label="판정 분할">
   <g font-size="12" fill="#0f1222">
     <text x="8" y="52">현재</text><rect x="150" y="36" width="570" height="22" fill="#c7861c" opacity=".8"/><text x="435" y="52" fill="#fff" text-anchor="middle">판정 불가 100% · 매일 72점</text>
-    <text x="8" y="102">시각 단계 · 점심 저녁</text><rect x="150" y="86" width="496" height="22" fill="#1f9d5a"/><rect x="646" y="86" width="57" height="22" fill="#e0453f"/><rect x="703" y="86" width="17" height="22" fill="#c7861c"/><text x="398" y="102" fill="#fff" text-anchor="middle">맞음 87%</text><text x="674" y="102" fill="#fff" text-anchor="middle" font-size="11">10%</text>
-    <text x="8" y="152">시각 단계 · 아침</text><rect x="150" y="136" width="405" height="22" fill="#1f9d5a"/><rect x="555" y="136" width="45" height="22" fill="#e0453f"/><rect x="600" y="136" width="120" height="22" fill="#c7861c"/><text x="357" y="152" fill="#fff" text-anchor="middle">맞음 71%</text><text x="660" y="152" fill="#fff" text-anchor="middle" font-size="11">모름 21%</text>
+    <text x="8" y="102">시각 단계 · 점심 저녁</text><rect x="150" y="86" width="496" height="22" fill="#1f9d5a"/><rect x="646" y="86" width="68" height="22" fill="#e0453f"/><rect x="714" y="86" width="6" height="22" fill="#c7861c"/><text x="398" y="102" fill="#fff" text-anchor="middle">맞음 87%</text><text x="680" y="102" fill="#fff" text-anchor="middle" font-size="11">12%</text>
+    <text x="8" y="152">시각 단계 · 아침</text><rect x="150" y="136" width="496" height="22" fill="#1f9d5a"/><rect x="646" y="136" width="74" height="22" fill="#e0453f"/><text x="398" y="152" fill="#fff" text-anchor="middle">맞음 87%</text><text x="683" y="152" fill="#fff" text-anchor="middle" font-size="11">13%</text>
   </g>
   <g font-size="10.5" fill="#5d6275"><rect x="150" y="180" width="10" height="10" fill="#1f9d5a"/><text x="164" y="189">판정 맞음</text><rect x="240" y="180" width="10" height="10" fill="#e0453f"/><text x="254" y="189">판정 틀림</text><rect x="330" y="180" width="10" height="10" fill="#c7861c"/><text x="344" y="189">모름 (계산 제외)</text></g>
 </svg>
-<div class="cap"><b>해석:</b> 지금은 전부 판정 불가임. 시각 단계를 두면 점심 · 저녁의 87%가 맞게 판정됨. 틀리는 날은 대부분 「안 걸었는데 걸었다」로 봄. 선택지 상한 시각 덕에 모름이 점심 12%→3%, 저녁 10%→2%로 줄어듦.</div></div>
+<div class="cap"><b>해석:</b> 지금은 전부 판정 불가임. 시각 단계를 두면 세 끼 모두 87%가 맞게 판정됨. 틀리는 날은 대부분 「안 걸었는데 걸었다」로 봄. 모름은 점심 2%, 아침 · 저녁 0%임.</div></div>
 </div>
 <h3>성공 기준</h3>
 <table><tr><th>기준</th><th>목표</th><th>성격</th></tr>
 <tr><td>시각 단계가 나온 날의 식후 행동 항목 채움률(모름 포함)</td><td>100%</td><td>내부 목표</td></tr>
-<tr><td>점심 · 저녁 「모름」 비율</td><td>5% 이하 (모의 3% · 2%)</td><td>내부 목표</td></tr>
+<tr><td>점심 · 저녁 「모름」 비율</td><td>5% 이하 (모의 2% · 0%)</td><td>내부 목표</td></tr>
 <tr><td>시각 단계에서 답하지 않고 나가는 비율이 식사 질문보다 얼마나 높은지</td><td>2주 연속 10%p 넘으면 다시 봄</td><td>운영 감시</td></tr>
 <tr><td>아침 「8시 이후」 비율 · 점심 12:00~12:30 답 비율</td><td>30% 넘으면 경계 재검토 · 10% 넘으면 식전 안내 추가</td><td>운영 감시(CFG-084 · 085)</td></tr>
 </table>
@@ -339,8 +339,8 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
 <h2>근거 및 가정</h2>
 <ol>
 <li><b>출처.</b> 설계 정리 페이지 · 데이터 계약 v1.3.0 · 참조 구현과 테스트(38개 통과) · 식이 QA 보고서.</li>
-<li><b>모의 가정(설명용).</b> 끼니마다 가상 20,000일. 식사 시각 점심 12:20±25분 · 저녁 19:00±45분 · 아침 07:40±40분. 맞는 선택지 선택 85%, 걸음 단서 관측일 35%, 평소 시각 보유 사용자 50%, 실제 식후 보행일 50%. 저녁은 식후 20분~2시간 사이에 답하되 10%는 밤 9시 반 뒤에 답한다고 두었을 때 30분 이내 적중 77% · 모름 2%(1시간 칸만 쓰는 방식과 같음). 점수 예시는 하루 8,000보 기준 걸었음 81점 · 안 걸었음 61점 · 모름 72점(계산식 전달 문서 계산기).</li>
-<li><b>수치의 오차.</b> 2만 번을 돌린 결과라 비율의 흔들림은 ±0.5%p 안(Wilson 95% 구간). 점심 30분 이내 90% → 89.6~90.4%, 저녁 88% → 87.5~88.4%, 아침 89% → 88.6~89.4%.</li>
+<li><b>모의 가정(설명용).</b> 끼니마다 가상 20,000일. 식사 시각 점심 12:20±25분 · 저녁 19:00±45분 · 아침 07:40±40분. 맞는 선택지 선택 85%, 걸음 단서 관측일 35%, 평소 시각 보유 사용자 50%, 실제 식후 보행일 50%. 답하는 시각은 아침 10~12시, 점심 · 저녁은 식후 20분~2시간 뒤(10%는 늦게). 식후와 무관한 걷기가 식후 30분~2시간 사이에 있는 날 30%. 점수 예시는 하루 8,000보 기준 걸었음 81점 · 안 걸었음 61점 · 모름 72점(계산식 전달 문서 계산기).</li>
+<li><b>수치의 오차.</b> 2만 번을 돌린 결과라 비율의 흔들림은 ±0.5%p 안(Wilson 95% 구간). 점심 30분 이내 83% → 82.5~83.5%, 저녁 77% → 76.4~77.6%, 아침 71% → 70.4~71.6%.</li>
 <li><b>내부 목표.</b> 30분 이내 적중 85%, 모름 5% 이하, 아침 「8시 이후」 30%, 점심 식전 답 10%. 법정 기준 아님.</li>
 <li><b>외부 문헌.</b> 식후 보행의 혈당 효과는 1차 자료 미확인. 수치 인용 안 함.</li>
 </ol>
