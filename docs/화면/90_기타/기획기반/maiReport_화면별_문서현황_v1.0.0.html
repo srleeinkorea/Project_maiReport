@@ -45,9 +45,9 @@ td.doc .where{color:var(--mute);font-size:11px;margin-left:4px}
 footer{color:var(--mute);font-size:12px;margin-top:30px;text-align:center}
 td.doc a.gh{color:var(--mute);font-size:11px;margin-left:6px;text-decoration:none}
 td.doc a.gh:hover{text-decoration:underline}
-.modal{position:fixed;inset:0;background:rgba(20,24,30,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+.modal{position:fixed;inset:0;background:rgba(20,24,30,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:10px}
 .modal.open{display:flex}
-.mbox{width:min(1180px,100%);height:min(92vh,100%);background:var(--card);border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+.mbox{width:100%;height:100%;background:var(--card);border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
 .mhead{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
 .mhead b{font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mhead a,.mhead button{font:inherit;font-size:12px;font-weight:600;color:var(--ink);background:var(--chip);border:0;border-radius:8px;padding:6px 10px;text-decoration:none;cursor:pointer;white-space:nowrap}
@@ -65,7 +65,7 @@ td.doc a.gh:hover{text-decoration:underline}
 <header>
   <h1>화면별 문서 현황</h1>
   <p>전체 앱 구성 흐름도(IA)의 화면 목록에 맞춰, 화면마다 기획서 · 화면정의서 · 화면설계서가 어디에 있는지 모은 표</p>
-  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.4</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
+  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.5</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
 </header>
 
 <div class="legend">
@@ -106,6 +106,9 @@ td.doc a.gh:hover{text-decoration:underline}
 (()=>{
 const GH='https://github.com/srleeinkorea/Project_maiReport/blob/main/docs/';
 const RAW='https://raw.githack.com/srleeinkorea/Project_maiReport/main/docs/';
+const RAWBIN='https://raw.githubusercontent.com/srleeinkorea/Project_maiReport/main/docs/';
+// 엑셀·워드는 오피스 온라인 뷰어로 연다(공개 저장소의 원본 주소를 넘긴다)
+const OFFICE=u=>'https://view.officeapps.live.com/op/view.aspx?src='+encodeURIComponent(u);
 const SITE='https://srleeinkorea.github.io/maireport-rsna-demo-k7x9m2q8v4n6/';
 // 짧은 이름 → 경로
 const P={
@@ -184,7 +187,7 @@ const P={
  알림정의:'화면/90_기타/알림/maiReport_알림_화면정의서_v1.0.0.html',
 };
 const S={ 진료연동:'wip-clinic-codef.html', 셀비사이트:'selvy-checkup.html', 내정보사이트:'wip-my-info.html', 프로토사이트:'prototype.html' };
-const L=(k,label)=>({href:GH+encodeURI(P[k]),view:/\.(html?|svg|png|pdf)$/i.test(P[k])?RAW+encodeURI(P[k]):'',label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:''});
+const L=(k,label)=>({href:GH+encodeURI(P[k]),view:/\.(html?|svg|png|pdf)$/i.test(P[k])?RAW+encodeURI(P[k]):/\.(xlsx?|docx?|pptx?)$/i.test(P[k])?OFFICE(RAWBIN+encodeURI(P[k])):'',label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:''});
 const W=(k,label)=>({href:SITE+S[k],view:SITE+S[k],label,where:'사이트'});
 const PROTO=L('프로토','최종 프로토타입에만 있음');
 
