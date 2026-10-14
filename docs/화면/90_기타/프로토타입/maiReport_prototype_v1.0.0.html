@@ -2809,7 +2809,7 @@ function questionForAxis(axis){
    · 고정 답이 '못 먹거나 거름'이면 회전 문항은 묻지 않는다(pick에서 뺀다). */
 function pickQuestions(){
   const selfAxis = typeof chronicDietState==='function' ? chronicDietState().axis : null;
-  /* 하루 최대 5문항 · 식이 최대 3문항(10-13: 고정 1 + 식사 시각 단계 1 + 회전 1) + 활동 1 + 수면 1. 시각 단계는 식사 답 뒤 pick()에서 끼워 넣는다 */
+  /* 하루 최대 5~6문항 · 식이 최대 3문항(10-13: 고정 1 + 식사 시각 단계 1 + 회전 1) + 활동 1 + 수면 1. 시각 단계는 식사 답 뒤 pick()에서 끼워 넣는다 */
   if(selfAxis) return [Q_ACUTE[0], questionForAxis(selfAxis), Q_FATIGUE, Q_BASE[0]];
   if(hasAiReport) return [Q_CARE, Q_ACUTE[0], Q_WALK, Q_ACUTE[2]];
   return [Q_ACUTE[0], rotationQuestion(), Q_FATIGUE, Q_BASE[0]];
