@@ -62,7 +62,7 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
     <div><span>판 · 기준일</span>1.0.0 · 2026-10-14</div>
     <div><span>화면 ID</span>HOME-003 (홈 화면설계서 ② 식사 시각)</div>
     <div><span>정본 데이터</span><a href="maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx">식이 개발 전달 데이터 계약 v1.3.0</a></div>
-    <div><span>관련 문서</span><a href="maiReport_식이_식사시각질문_v1.0.0.html">설계 정리</a> · <a href="mai-report-식이_질문목표_상세기획_v1.0.0.html">상세 기획 1.0.2</a> · <a href="../../화면/10_홈탭/maiReport_홈_질문코칭목표_기획서_v1.0.0.html">홈 기획서</a> · <a href="mai-report-식이_화면설계서_v1.0.0.html">화면설계서 ①-2</a></div>
+    <div><span>관련 문서</span><a href="maiReport_식이_식사시각질문_요약_v1.0.0.html">한 장 요약</a> · <a href="maiReport_식이_식사시각질문_v1.0.0.html">설계 정리</a> · <a href="mai-report-식이_질문목표_상세기획_v1.0.0.html">상세 기획 1.0.2</a> · <a href="../../화면/10_홈탭/maiReport_홈_질문코칭목표_기획서_v1.0.0.html">홈 기획서</a> · <a href="mai-report-식이_화면설계서_v1.0.0.html">화면설계서 ①-2</a></div>
   </div>
 </div>
 
@@ -159,6 +159,11 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
 <tr><td>오후 9시~자정</td><td>오늘 저녁</td><td>「7시 이전 / 7시~9시 / 9시 이후」 고정. 질문은 「저녁은 몇 시쯤 드셨어요?」</td><td>7시 이전 → 6:00<br>7시~9시 → 8:00<br>9시 이후 → 9:00 (9시에 먹은 것으로 봄)</td></tr>
 </table>
 <p class="ex">위 추정은 걸음 단서(범위 안에서 15분 넘게 멈춘 자리)나 지난 2주 평소 시각이 없을 때의 값임. 있으면 그 시각을 씀.</p>
+<h3>고정 선택지의 끝 칸을 몇 시로 보나</h3>
+<table><tr><th style="width:22%">칸</th><th style="width:18%">보는 값</th><th>이유</th></tr>
+<tr><td>저녁 「9시 이후」</td><td>9:00</td><td>9시 넘어 먹는 사람이 드물어, 이 칸을 고른 사람은 대부분 9시 직후에 먹은 것으로 봄</td></tr>
+<tr><td>아침 「8시 이후」</td><td>9:00 (8~10시의 가운데)</td><td>아침은 7시 40분 전후로 퍼져 있어 이 칸을 고르는 사람이 3명 중 1명이고 실제 식사는 8시 20분 전후임.<br>8시로 보면 보통 사람에게는 조금 낫지만 늦게 일어나는 사람에게는 가장 나쁨(모의: 보통 사람 26분 · 늦잠 20% 섞이면 54분 오차). 9시는 그 반대(37분 · 36분).<br>어느 쪽이든 식후 걸음 판정은 같음(관찰 창이 8시~10시 반 전체). 「8시 이후」 비율이 30%를 넘으면 실제 분포를 보고 다시 정함(CFG-084)</td></tr>
+</table>
 <p class="ex">예) 11시에 점심을 먹고 11시 30분에 열면 「오늘 아침」을 물음. 점심 시각은 그날 12시 이후에 다시 열었을 때 물음.</p>
 <h3>화면 흐름</h3>
 <p>오후 1시 20분에 점심 질문에 답하는 경우임. 세 화면 모두 같은 질문 카드임.</p>
