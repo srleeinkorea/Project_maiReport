@@ -65,7 +65,7 @@ td.doc a.gh:hover{text-decoration:underline}
 <header>
   <h1>화면별 문서 현황</h1>
   <p>전체 앱 구성 흐름도(IA)의 화면 목록에 맞춰, 화면마다 기획서 · 화면정의서 · 화면설계서가 어디에 있는지 모은 표</p>
-  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.5</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
+  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.6</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
 </header>
 
 <div class="legend">
@@ -94,12 +94,12 @@ td.doc a.gh:hover{text-decoration:underline}
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="문서 미리보기">
   <div class="mbox">
-    <div class="mhead"><b id="mtitle"></b><a id="mnew" target="_blank" rel="noopener">새 탭에서 열기</a><a id="mgh" target="_blank" rel="noopener">GitHub 파일</a><button class="x" id="mclose" aria-label="닫기">×</button></div>
+    <div class="mhead"><b id="mtitle"></b><a id="mnew" target="_blank" rel="noopener">새 탭에서 열기</a><a id="mgh" target="_blank" rel="noopener">GitHub 파일</a><a id="mfig" target="_blank" rel="noopener" title="Figma 플러그인 「HTML → Figma(틀 유지)」의 주소 칸에 넣는 문서 주소">Figma 가져오기 주소</a><button id="mcopy" type="button" title="Figma 가져오기 주소 복사">복사</button><button class="x" id="mclose" aria-label="닫기">×</button></div>
     <iframe id="mframe" title="문서 미리보기"></iframe>
     <div class="mnote">깃허브에 올라간 최신 판을 그대로 보여준다. 엑셀 · zip은 미리보기가 없어 깃허브 파일로 연다.</div>
   </div>
 </div>
-<footer>마이리포트 · 화면별 문서 현황 · 문서 이름을 누르면 화면 안에서 미리 보기가 열린다. 파일은 Project_maiReport 저장소 docs 폴더 기준. 「사이트」는 공유 사이트에만 있는 문서</footer>
+<footer>마이리포트 · 화면별 문서 현황 · 문서 이름을 누르면 화면 안에서 미리 보기가 열린다. 파일은 Project_maiReport 저장소 docs 폴더 기준. 「사이트」는 공유 사이트에만 있는 문서 · 팝업의 「Figma 가져오기 주소」는 Figma 플러그인 「HTML → Figma(틀 유지)」 주소 칸에 그대로 넣는 주소(사이트 사본이 있으면 사이트, 없으면 raw.githack)</footer>
 </main>
 
 <script>
@@ -108,6 +108,9 @@ const GH='https://github.com/srleeinkorea/Project_maiReport/blob/main/docs/';
 const RAW='https://raw.githack.com/srleeinkorea/Project_maiReport/main/docs/';
 const RAWBIN='https://raw.githubusercontent.com/srleeinkorea/Project_maiReport/main/docs/';
 // 엑셀·워드는 오피스 온라인 뷰어로 연다(공개 저장소의 원본 주소를 넘긴다)
+const SITE_FILE={"maiReport_원페이지요약_v1.0.0.html": "one-page-summary.html", "maiReport_prototype_v1.0.0.html": "prototype.html", "maiReport_IA_v1.0.0.html": "app-flow.html", "maiReport_세지표_아키텍처_흐름도_google-sites.html": "architecture.html", "mai-report-식이_데이터흐름도_v1.0.0.html": "diet.html", "maiReport_더보기_내정보관리_화면설계서_v1.0.0.html": "wip-my-info.html", "maiReport_셀비체크업_검진선택_지난분석결과_화면설계서_v1.0.0.html": "selvy-checkup.html", "mai-report-식이_가이드_v1.0.0.html": "diet-guide.html", "maiReport_화면별_문서현황_v1.0.0.html": "doc-matrix.html", "maiReport_최종프로토타입_시나리오_v1.0.0.html": "final-scenarios.html", "maiReport_홈_건강나이또래등수_기획서_v1.0.0.html": "age-plan.html", "maiReport_홈_건강나이또래등수_화면정의서_v1.0.0.html": "age-screen-def.html", "maiReport_홈_질문코칭목표_기획서_v1.0.0.html": "home-plan.html", "maiReport_홈_질문코칭목표_화면정의서_v1.0.0.html": "home-screen-def.html", "maiReport_홈_질문코칭목표_화면설계서_v1.0.0.html": "home-screen-spec.html", "maiReport_검진리포트등록_기획서_v1.0.0.html": "reg-plan.html", "maiReport_검진리포트등록_화면정의서_v1.0.0.html": "reg-screen-def.html", "maiReport_검진리포트등록_화면설계서_v1.0.0.html": "reg-screen-spec.html", "maiReport_병원탭_기록보기_기획서_v1.0.0.html": "hosp-plan.html", "maiReport_병원탭_방문이력읽을거리_화면정의서_v1.0.0.html": "hosp-screen-def.html", "maiReport_건강데이터연동_화면설계서_v1.0.0.html": "link-screen-spec.html", "maiReport_더보기_기획서_v1.0.0.html": "more-plan.html", "maiReport_생활탭_데이터보기_기획서_v1.0.0.html": "life-plan.html", "maiReport_AI인사이트_기획서_v1.0.0.html": "ai-plan.html", "maiReport_알림_화면정의서_v1.0.0.html": "noti-screen-def.html", "mai-report-식이_화면설계서_v1.0.0.html": "diet-screen-spec.html", "maiReport_식이_식사시각질문_v1.0.0.html": "wip-meal-time.html", "maiReport_생활_지표별분석_화면설계서_v1.0.0.html": "wip-metric.html", "mai-report-식이_QA체크리스트_v1.0.0.html": "wip-diet-qa.html"};
+// Figma 「HTML → Figma(틀 유지)」 플러그인에 넣는 주소: 공유 사이트 사본이 있으면 그 주소(플러그인 허용 도메인), 없으면 raw.githack 주소
+const FIGMA=k=>{const n=P[k].split('/').pop();if(!/\.html?$/i.test(n))return '';return SITE_FILE[n]?SITE+SITE_FILE[n]:RAW+encodeURI(P[k]);};
 const OFFICE=u=>'https://view.officeapps.live.com/op/view.aspx?src='+encodeURIComponent(u);
 const SITE='https://srleeinkorea.github.io/maireport-rsna-demo-k7x9m2q8v4n6/';
 // 짧은 이름 → 경로
@@ -187,7 +190,7 @@ const P={
  알림정의:'화면/90_기타/알림/maiReport_알림_화면정의서_v1.0.0.html',
 };
 const S={ 진료연동:'wip-clinic-codef.html', 셀비사이트:'selvy-checkup.html', 내정보사이트:'wip-my-info.html', 프로토사이트:'prototype.html' };
-const L=(k,label)=>({href:GH+encodeURI(P[k]),view:/\.(html?|svg|png|pdf)$/i.test(P[k])?RAW+encodeURI(P[k]):/\.(xlsx?|docx?|pptx?)$/i.test(P[k])?OFFICE(RAWBIN+encodeURI(P[k])):'',label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:''});
+const L=(k,label)=>({href:GH+encodeURI(P[k]),view:/\.(html?|svg|png|pdf)$/i.test(P[k])?RAW+encodeURI(P[k]):/\.(xlsx?|docx?|pptx?)$/i.test(P[k])?OFFICE(RAWBIN+encodeURI(P[k])):'',label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:'',figma:FIGMA(k)});
 const W=(k,label)=>({href:SITE+S[k],view:SITE+S[k],label,where:'사이트'});
 const PROTO=L('프로토','최종 프로토타입에만 있음');
 
@@ -242,7 +245,7 @@ const G=[
 ];
 const st=(arr)=>!arr.length?'no':(arr.length===1&&arr[0]===PROTO)?'part':(arr.every(x=>/\(.*섹션\)|프로토타입/.test(x.label)))?'part':'ok';
 const stText={ok:'있음',part:'일부',no:'없음'};
-const cell=(arr)=>{const s=st(arr);return `<td class="doc"><span class="chip ${s}">${stText[s]}</span>${arr.length?`<ul>${arr.map(x=>`<li>${x.view?`<a href="${x.view}" data-view="${x.view}" data-gh="${x.href}" data-title="${x.label}">${x.label}</a><a class="gh" href="${x.href}" target="_blank" rel="noopener" title="GitHub에서 파일 보기">GitHub</a>`:`<a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>`}${x.where?`<span class="where">${x.where}</span>`:''}</li>`).join('')}</ul>`:''}</td>`;};
+const cell=(arr)=>{const s=st(arr);return `<td class="doc"><span class="chip ${s}">${stText[s]}</span>${arr.length?`<ul>${arr.map(x=>`<li>${x.view?`<a href="${x.view}" data-view="${x.view}" data-gh="${x.href}" data-figma="${x.figma||''}" data-title="${x.label}">${x.label}</a><a class="gh" href="${x.href}" target="_blank" rel="noopener" title="GitHub에서 파일 보기">GitHub</a>`:`<a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>`}${x.where?`<span class="where">${x.where}</span>`:''}</li>`).join('')}</ul>`:''}</td>`;};
 let tot={rows:0,plan:{ok:0,part:0,no:0},def:{ok:0,part:0,no:0},design:{ok:0,part:0,no:0}};
 document.getElementById('groups').innerHTML=G.map(g=>`<section class="group"><div class="ghead"><span class="no">${g.no}</span><div><h2>${g.title}</h2><p>${g.desc}</p></div></div>
 <table><thead><tr><th>화면 ID</th><th>화면</th><th>기획서</th><th>화면정의서</th><th>화면설계서</th></tr></thead><tbody>
@@ -251,10 +254,11 @@ ${g.rows.map(r=>{tot.rows++;tot.plan[st(r[3])]++;tot.def[st(r[4])]++;tot.design[
 </tbody></table></section>`).join('');
 const sum=(k,t)=>`<div class="card"><span>${t}</span><b>${tot[k].ok} <small style="font-size:13px;color:var(--mute)">/ ${tot.rows}</small></b><span>일부 ${tot[k].part} · 없음 ${tot[k].no}</span></div>`;
 const modal=document.getElementById('modal'),frame=document.getElementById('mframe');
-const openDoc=(a)=>{document.getElementById('mtitle').textContent=a.dataset.title;document.getElementById('mnew').href=a.dataset.view;document.getElementById('mgh').href=a.dataset.gh;frame.src=a.dataset.view;modal.classList.add('open');document.body.style.overflow='hidden';};
+const openDoc=(a)=>{document.getElementById('mtitle').textContent=a.dataset.title;document.getElementById('mnew').href=a.dataset.view;document.getElementById('mgh').href=a.dataset.gh;const fg=a.dataset.figma||'';const mf=document.getElementById('mfig'),mc=document.getElementById('mcopy');mf.href=fg;mf.style.display=fg?'':'none';mc.style.display=fg?'':'none';mc.dataset.url=fg;mc.textContent='복사';frame.src=a.dataset.view;modal.classList.add('open');document.body.style.overflow='hidden';};
 const closeDoc=()=>{modal.classList.remove('open');frame.src='about:blank';document.body.style.overflow='';};
 document.getElementById('groups').addEventListener('click',e=>{const a=e.target.closest('a[data-view]');if(!a)return;e.preventDefault();openDoc(a);});
 document.getElementById('mclose').addEventListener('click',closeDoc);
+document.getElementById('mcopy').addEventListener('click',e=>{const u=e.currentTarget.dataset.url;if(!u)return;navigator.clipboard.writeText(u).then(()=>{e.target.textContent='복사됨';setTimeout(()=>e.target.textContent='복사',1200);});});
 modal.addEventListener('click',e=>{if(e.target===modal)closeDoc();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeDoc();});
 document.getElementById('summary').innerHTML=`<div class="card"><span>IA 화면 묶음</span><b>${tot.rows}</b><span>IA 화면 ${G.reduce((n,g)=>n+g.rows.length,0)}줄 · 6개 영역</span></div>${sum('plan','기획서 있음')}${sum('def','화면정의서 있음')}${sum('design','화면설계서 있음')}`;
