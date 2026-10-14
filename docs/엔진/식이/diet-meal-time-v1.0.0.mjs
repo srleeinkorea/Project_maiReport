@@ -9,8 +9,9 @@ export const MEAL_TIME_CONFIG = Object.freeze({
   roundDownMinutes: 10,                // CFG-073 답한 시각 내림 단위
   stopAt: { BREAKFAST: 9 * 60, LUNCH: 14 * 60, DINNER: 21 * 60 },     // CFG-074~076 선택지 상한 시각
   questionStart: { BREAKFAST: 10 * 60, LUNCH: 12 * 60, DINNER: 17 * 60 }, // 끼니 질문이 열리는 시각(CFG-012~014)
-  mealStart: { BREAKFAST: 6 * 60, LUNCH: 11 * 60, DINNER: 17 * 60 },  // CFG-077 끼니 시작 기본값
+  mealStart: { BREAKFAST: 6 * 60, LUNCH: 11 * 60, DINNER: 17 * 60, YESTERDAY_DINNER: 17 * 60 },  // CFG-077 끼니 시작 기본값
   breakfastBounds: [7 * 60, 8 * 60],   // CFG-078 아침 고정 경계
+  yesterdayDinnerBounds: [19 * 60, 20 * 60], yesterdayDinnerEnd: 22 * 60,   // CFG-089 어제 저녁 고정 경계 · 끝
   stepPauseMinutes: 15,                // CFG-079 걷다가 멈춘 것으로 보는 최소 시간
   habitWindowDays: 14,                 // CFG-080 평소 식사 시각을 보는 기간
   maxWindowMinutes: 120,               // CFG-081 범위 상한(넘으면 걸음 단서 없을 때 모름)
@@ -21,6 +22,7 @@ export const MEAL_TIME_QUESTION = Object.freeze({
   LUNCH: { question_id: 'DIET-Q-08', template: '{끼니}은 언제쯤 드셨어요?' },
   DINNER: { question_id: 'DIET-Q-08', template: '{끼니}은 언제쯤 드셨어요?' },
   BREAKFAST: { question_id: 'DIET-Q-09', template: '아침은 몇 시쯤 드셨어요?' },
+  YESTERDAY_DINNER: { question_id: 'DIET-Q-10', template: '어제 저녁은 몇 시쯤 드셨어요?' },
 });
 
 const MEAL_KO = { BREAKFAST: '아침', LUNCH: '점심', DINNER: '저녁' };
@@ -44,21 +46,22 @@ export function formatKoTime(m) {
   return { ampm: ap, clock: `${h12}:${String(mm).padStart(2, '0')}`, text: `${ap} ${h12}:${String(mm).padStart(2, '0')}` };
 }
 
-/** ① 시각 단계를 물을지. 어제 저녁 · 「못 먹거나 거름」 · 건강 앱 식사 기록이 있으면 묻지 않는다. */
+/** ① 시각 단계를 물을지. 「못 먹거나 거름」 · 건강 앱 식사 기록이 있으면 묻지 않는다.
+ *    어제 저녁(00~10시 진입)도 묻는다 — 일상안정이 최근 7일의 식후 행동을 합산하므로 어제 값도 쓰인다. 고정 선택지(DIET-Q-10). */
 export function askMealTime({ mealType, isYesterdayDinner = false, fixedOptionCode, hasHealthAppRecord = false }) {
-  if (isYesterdayDinner) return { ask: false, skipReason: 'YESTERDAY_DINNER' };
+  const key = isYesterdayDinner ? 'YESTERDAY_DINNER' : mealType;
   if (fixedOptionCode === 'very_little_or_skipped') return { ask: false, skipReason: 'MEAL_SKIPPED' };
   if (hasHealthAppRecord) return { ask: false, skipReason: 'HEALTH_APP_RECORD' };
-  if (!MEAL_TIME_QUESTION[mealType]) return { ask: false, skipReason: 'UNKNOWN_MEAL' };
-  return { ask: true, skipReason: null, question_id: MEAL_TIME_QUESTION[mealType].question_id };
+  if (!MEAL_TIME_QUESTION[key]) return { ask: false, skipReason: 'UNKNOWN_MEAL' };
+  return { ask: true, skipReason: null, question_id: MEAL_TIME_QUESTION[key].question_id, mealKey: key };
 }
 
 /**
  * ② 버튼 3개. 점심·저녁은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 센다.
  *    끼니별 선택지 상한 시각(점심 14시 · 저녁 21시)을 넘으면 그 시각 기준으로 만들고,
  *    질문이 열리는 시각(점심 12시 · 저녁 17시) 아래로는 내려가지 않는다. 상한 · 하한에 걸린 동안은 작은 글씨(sub)를 뺀다.
- *    아침은 항상 7시 · 8시 정각으로 고정이다.
- *  반환: { question_id, text, options:[{option_code, label, ampm, clock, sub, window_start, window_end}], stopped }
+ *    아침은 7시 · 8시, 어제 저녁은 저녁 7시 · 8시 정각으로 고정이다(mealType 'YESTERDAY_DINNER').
+ *  반환: { question_id, text, options:[{option_code, label(큰 글자), sub(작은 글자), time_label, ampm, clock, window_start, window_end}], stopped }
  */
 export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_CONFIG) {
   const q = MEAL_TIME_QUESTION[mealType];
@@ -66,15 +69,27 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
   const answeredAt = localMinutes(instant, timeZone);
   const text = q.template.replace('{끼니}', MEAL_KO[mealType]);
 
+  if (mealType === 'YESTERDAY_DINNER') {
+    const [b1, b2] = config.yesterdayDinnerBounds, end = config.yesterdayDinnerEnd;
+    const h = (m) => `${m / 60 - 12}시`;
+    return {
+      question_id: q.question_id, text, stopped: true, answered_at: toHHMM(answeredAt),
+      options: [
+        { option_code: 'before_7', label: `${h(b1)} 이전`, sub: '', time_label: `${h(b1)} 이전`, ampm: '', clock: `${h(b1)} 이전`, window_start: toHHMM(config.mealStart.YESTERDAY_DINNER), window_end: toHHMM(b1) },
+        { option_code: 'seven_to_eight', label: `${h(b1)}~${h(b2)}`, sub: '', time_label: `${h(b1)}~${h(b2)}`, ampm: '', clock: `${h(b1)}~${h(b2)}`, window_start: toHHMM(b1), window_end: toHHMM(b2) },
+        { option_code: 'after_8', label: `${h(b2)} 이후`, sub: '', time_label: `${h(b2)} 이후`, ampm: '', clock: `${h(b2)} 이후`, window_start: toHHMM(b2), window_end: toHHMM(end) },
+      ],
+    };
+  }
   if (mealType === 'BREAKFAST') {
     const [b1, b2] = config.breakfastBounds;
     const h = (m) => `${m / 60}시`;
     return {
       question_id: q.question_id, text, stopped: true, answered_at: toHHMM(answeredAt),
       options: [
-        { option_code: 'before_7', label: `${h(b1)} 이전`, ampm: '', clock: `${h(b1)} 이전`, sub: '', window_start: toHHMM(config.mealStart.BREAKFAST), window_end: toHHMM(b1) },
-        { option_code: 'seven_to_eight', label: `${h(b1)}~${h(b2)}`, ampm: '', clock: `${h(b1)}~${h(b2)}`, sub: '', window_start: toHHMM(b1), window_end: toHHMM(b2) },
-        { option_code: 'after_8', label: `${h(b2)} 이후`, ampm: '', clock: `${h(b2)} 이후`, sub: '', window_start: toHHMM(b2), window_end: toHHMM(answeredAt) },
+        { option_code: 'before_7', label: `${h(b1)} 이전`, sub: '', time_label: `${h(b1)} 이전`, ampm: '', clock: `${h(b1)} 이전`, window_start: toHHMM(config.mealStart.BREAKFAST), window_end: toHHMM(b1) },
+        { option_code: 'seven_to_eight', label: `${h(b1)}~${h(b2)}`, sub: '', time_label: `${h(b1)}~${h(b2)}`, ampm: '', clock: `${h(b1)}~${h(b2)}`, window_start: toHHMM(b1), window_end: toHHMM(b2) },
+        { option_code: 'after_8', label: `${h(b2)} 이후`, sub: '', time_label: `${h(b2)} 이후`, ampm: '', clock: `${h(b2)} 이후`, window_start: toHHMM(b2), window_end: toHHMM(answeredAt) },
       ],
     };
   }
@@ -89,13 +104,19 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
   const t1 = t0 - step;
   const f0 = formatKoTime(t0), f1 = formatKoTime(t1);
   const rangeAmpm = f0.ampm === f1.ampm ? f0.ampm : `${f1.ampm}~${f0.ampm}`;
-  const windowEnd1 = toHHMM(answeredAt);   // 1번 버튼의 끝은 항상 답한 시각. 상한에 걸린 뒤 2시간을 넘으면 추정에서 모름이 된다
+  const windowEnd1 = toHHMM(answeredAt);   // 1번 선택지의 끝은 항상 답한 시각. 상한에 걸린 뒤 2시간을 넘으면 추정에서 모름이 된다
+  // 선택지 글자: 평소에는 「1시간 이내 / 1~2시간 전 / 그보다 전」을 크게, 시각 구간은 작은 글씨(sub).
+  // 상한 · 하한에 걸린 동안은 「1시간 이내」가 사실과 달라지므로 시각 글자를 크게 쓰고 작은 글씨를 뺀다.
+  const REL = ['1시간 이내', '1~2시간 전', '그보다 전'];
+  const times = [`${f0.text} 이후`, `${rangeAmpm} ${f1.clock}~${f0.clock}`, `${f1.text} 이전`];
+  const lab = (i) => stopped ? times[i] : REL[i];
+  const subOf = (i) => stopped ? '' : times[i];
   return {
     question_id: q.question_id, text, stopped, answered_at: toHHMM(answeredAt),
     options: [
-      { option_code: 'within_1h', label: `${f0.text} 이후`, ampm: f0.ampm, clock: `${f0.clock} 이후`, sub: stopped ? '' : '1시간 이내', window_start: toHHMM(t0), window_end: windowEnd1 },
-      { option_code: 'one_to_two_h', label: `${rangeAmpm} ${f1.clock}~${f0.clock}`, ampm: rangeAmpm, clock: `${f1.clock}~${f0.clock}`, sub: stopped ? '' : '1~2시간 전', window_start: toHHMM(t1), window_end: toHHMM(t0) },
-      { option_code: 'earlier', label: `${f1.text} 이전`, ampm: f1.ampm, clock: `${f1.clock} 이전`, sub: stopped ? '' : '그보다 전', window_start: toHHMM(config.mealStart[mealType]), window_end: toHHMM(t1) },
+      { option_code: 'within_1h', label: lab(0), sub: subOf(0), time_label: times[0], ampm: f0.ampm, clock: `${f0.clock} 이후`, window_start: toHHMM(t0), window_end: windowEnd1 },
+      { option_code: 'one_to_two_h', label: lab(1), sub: subOf(1), time_label: times[1], ampm: rangeAmpm, clock: `${f1.clock}~${f0.clock}`, window_start: toHHMM(t1), window_end: toHHMM(t0) },
+      { option_code: 'earlier', label: lab(2), sub: subOf(2), time_label: times[2], ampm: f1.ampm, clock: `${f1.clock} 이전`, window_start: toHHMM(config.mealStart[mealType]), window_end: toHHMM(t1) },
     ],
   };
 }

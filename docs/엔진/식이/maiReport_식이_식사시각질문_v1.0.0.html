@@ -171,14 +171,14 @@ a{color:var(--accent)}
   <p class="lead">매일 나가는 식사 질문 바로 뒤에 「언제쯤 드셨어요?」 질문을 하나 더해 식사 시각을 받음. 받은 시각으로 「식후에 움직였는지」를 볼 수 있게 되어 자기돌봄과 일상안정 지표가 더 정확해짐.</p>
   <div class="facts">
     <div class="fact"><b>질문 1개 추가</b><span>식이 최대 3문항, 전체 최대 5~6문항. 시각을 묻지 않는 날은 지금처럼 4문항임.</span></div>
-    <div class="fact"><b>선택지 3개, 1시간 범위</b><span>실제 시각을 크게 보여 줘서 몇 시인지 바로 고름.</span></div>
+    <div class="fact"><b>선택지는 「1시간 이내 / 1~2시간 전 / 그보다 전」</b><span>실제 시각을 크게 보여 줘서 몇 시인지 바로 고름.</span></div>
     <div class="fact"><b>모르면 「모름」</b><span>계산에서 빠질 뿐 점수를 깎지 않음.</span></div>
   </div>
 </header>
 
 <section>
   <div class="sec-h"><h2>화면 흐름</h2><p>오후 1:20에 앱을 열어 점심 질문에 「충분히 먹음」를 누른 경우임. 시각 질문도 1개로 세어 번호가 1/5 → 2/5 → 3/5로 이어짐.</p></div>
-  <div class="flow"><div class="phone"><p class="pstep">오늘의 질문 · 1/5</p><p class="pq">오늘 점심은 평소만큼 드셨나요?</p><div class="pbtns"><span class="pbtn is-on"><i class="face f0"></i>충분히 먹음</span><span class="pbtn"><i class="face f1"></i>적게 · 몇 입만</span><span class="pbtn"><i class="face f2"></i>못 먹거나 거름</span></div></div><div class="arrow" aria-hidden="true">→</div><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">점심은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>12:20 이후</b><small>1시간 이내</small></span><span class="pbtn"><i class="clock"></i><i class="ap">오전~오후</i><b>11:20~<wbr>12:20</b><small>1~2시간 전</small></span><span class="pbtn"><i class="clock"></i><i class="ap">오전</i><b>11:20 이전</b><small>그보다 전</small></span></div></div><div class="arrow" aria-hidden="true">→</div><div class="phone"><p class="pstep">오늘의 질문 · 3/5</p><p class="pq">오늘 점심엔 채소 반찬을 얼마나 드셨나요?</p><div class="pbtns"><span class="pbtn"><i class="face f0"></i>충분히 먹음</span><span class="pbtn"><i class="face f1"></i>조금 먹음</span><span class="pbtn"><i class="face f2"></i>먹지 않음</span></div></div></div>
+  <div class="flow"><div class="phone"><p class="pstep">오늘의 질문 · 1/5</p><p class="pq">오늘 점심은 평소만큼 드셨나요?</p><div class="pbtns"><span class="pbtn is-on"><i class="face f0"></i>충분히 먹음</span><span class="pbtn"><i class="face f1"></i>적게 · 몇 입만</span><span class="pbtn"><i class="face f2"></i>못 먹거나 거름</span></div></div><div class="arrow" aria-hidden="true">→</div><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">점심은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><b>1시간 이내</b><small>오후 12:20 이후</small></span><span class="pbtn"><i class="clock"></i><b>1~2시간 전</b><small>오전~오후 11:20~<wbr>12:20</small></span><span class="pbtn"><i class="clock"></i><b>그보다 전</b><small>오전 11:20 이전</small></span></div></div><div class="arrow" aria-hidden="true">→</div><div class="phone"><p class="pstep">오늘의 질문 · 3/5</p><p class="pq">오늘 점심엔 채소 반찬을 얼마나 드셨나요?</p><div class="pbtns"><span class="pbtn"><i class="face f0"></i>충분히 먹음</span><span class="pbtn"><i class="face f1"></i>조금 먹음</span><span class="pbtn"><i class="face f2"></i>먹지 않음</span></div></div></div>
   <ul class="flow-notes">
     <li><b>새 화면은 없음.</b> 식사 질문에 답하면 같은 자리의 글과 선택지가 시각 질문으로 바뀜. 질문 수와 번호에서는 1개를 더한 것으로 세요.</li>
     <li><b>건너뛰기 버튼은 없음.</b> 다른 식이 질문처럼 셋 중 하나를 골라야 다음 질문으로 넘어감.</li>
@@ -197,14 +197,16 @@ a{color:var(--accent)}
       <tr class="grp"><td colspan="3">홈 · 오늘의 질문 (식사 질문)</td></tr>
       <tr><td>세 번째 선택지</td><td class="cp">못 먹거나 거름</td><td>걸렀다는 뜻이 글자에 드러나게 씀. 8자라 7자 규칙의 예외. 이 답이면 시각 단계를 묻지 않음.</td></tr>
       <tr class="grp"><td colspan="3">홈 · 오늘의 질문 (시각 단계)</td></tr>
-      <tr><td>진행 표시</td><td class="cp">오늘의 질문 · {n}/{전체}</td><td>시각 질문도 1개로 세요. 예) 식사 1/5 → 시각 2/5 → 다음 질문 3/5. 시각을 묻지 않는 날(어제 저녁)은 1/4부터. 「못 먹거나 거름」을 고르면 시각 질문과 회전 질문이 빠져 다음이 2/3이 됨.</td></tr>
+      <tr><td>진행 표시</td><td class="cp">오늘의 질문 · {n}/{전체}</td><td>시각 질문도 1개로 세요. 예) 식사 1/5 → 시각 2/5 → 다음 질문 3/5. 「못 먹거나 거름」을 고르면 시각 질문과 회전 질문이 빠져 다음이 2/3이 됨.</td></tr>
       <tr><td>질문 · 아침</td><td class="cp">아침은 몇 시쯤 드셨어요?</td><td>오전 10~12시. 선택지가 고정 시각이라 「몇 시쯤」</td></tr>
       <tr><td>질문 · 점심</td><td class="cp">점심은 언제쯤 드셨어요?</td><td>낮 12시~오후 5시</td></tr>
+      <tr><td>질문 · 어제 저녁</td><td class="cp">어제 저녁은 몇 시쯤 드셨어요?</td><td>자정~오전 10시. 선택지는 「7시 이전 / 7시~8시 / 8시 이후」(저녁 7시 · 8시) 고정. 어젯밤에 이미 답했으면 다시 묻지 않음</td></tr>
+      <tr><td>질문 · 어제 저녁</td><td class="cp">어제 저녁은 몇 시쯤 드셨어요?</td><td>자정~오전 10시. 선택지는 「7시 이전 / 7시~8시 / 8시 이후」(저녁 7시 · 8시) 고정. 어젯밤에 이미 답했으면 다시 묻지 않음</td></tr>
       <tr><td>질문 · 저녁</td><td class="cp">저녁은 언제쯤 드셨어요?</td><td>오후 5시~자정. 식사 질문의 「오늘 저녁을 드신 뒤 답해주세요」는 이 단계에 다시 붙이지 않음.</td></tr>
-      <tr><td>선택지 1 · 점심·저녁</td><td class="cp"><span class="cl">{오전/오후}</span> {h:mm} 이후 <span class="cl">1시간 이내</span></td><td>예) 오후 · 12:20 이후 · 1시간 이내</td></tr>
-      <tr><td>선택지 2 · 점심·저녁</td><td class="cp"><span class="cl">{오전/오후}</span> {h:mm}~{h:mm} <span class="cl">1~2시간 전</span></td><td>예) 오전~오후 · 11:20~12:20 · 1~2시간 전<br>앞뒤가 같은 쪽이면 「오후」 한 번만</td></tr>
-      <tr><td>선택지 3 · 점심·저녁</td><td class="cp"><span class="cl">{오전/오후}</span> {h:mm} 이전 <span class="cl">그보다 전</span></td><td>예) 오전 · 11:20 이전 · 그보다 전</td></tr>
-      <tr><td>상한에 걸린 뒤 · 점심·저녁</td><td class="cp">1:00 이후 / 12:00~1:00 / 12:00 이전</td><td>점심은 오후 2시, 저녁은 오후 9시가 지나면 그 시각 기준으로 만들고 아래 작은 글씨(1시간 이내 등)를 뺌. 점심 12시대에도 선택지 하한 시각(12시) 아래로 내려가지 않게 하고 작은 글씨를 뺌.</td></tr>
+      <tr><td>선택지 1 · 점심·저녁</td><td class="cp">1시간 이내 <span class="cl">{오전/오후} {h:mm} 이후</span></td><td>큰 글자는 「1시간 이내」, 아래 작은 글씨로 시각. 예) 1시간 이내 · 오후 12:20 이후</td></tr>
+      <tr><td>선택지 2 · 점심·저녁</td><td class="cp">1~2시간 전 <span class="cl">{오전/오후} {h:mm}~{h:mm}</span></td><td>예) 1~2시간 전 · 오전~오후 11:20~12:20. 앞뒤가 같은 쪽이면 「오후」 한 번만</td></tr>
+      <tr><td>선택지 3 · 점심·저녁</td><td class="cp">그보다 전 <span class="cl">{오전/오후} {h:mm} 이전</span></td><td>예) 그보다 전 · 오전 11:20 이전</td></tr>
+      <tr><td>상한 · 하한에 걸린 뒤 · 점심·저녁</td><td class="cp">1:00 이후 / 12:00~1:00 / 12:00 이전</td><td>점심은 오후 2시, 저녁은 오후 9시가 지나면 그 시각 기준으로 만들고 시각을 큰 글자로 쓰고 작은 글씨를 뺌(「1시간 이내」가 사실과 달라지기 때문). 점심 12시대에도 선택지 하한 시각(12시) 아래로 내려가지 않게 하고 작은 글씨를 뺌.</td></tr>
       <tr><td>선택지 · 아침</td><td class="cp">7시 이전 / 7시~8시 / 8시 이후</td><td>아래 작은 글씨 없음</td></tr>
       <tr><td>건너뛰기</td><td class="cp">(없음)</td><td>다른 식이 질문과 같이 건너뛰기를 두지 않음.</td></tr>
       <tr><td>화면 낭독</td><td class="cp">오전 11시 20분부터 오후 12시 20분 사이, 1~2시간 전</td><td>시각 장애인용 읽기 문장. 선택지마다 같은 방식으로 만듦.</td></tr>
@@ -274,7 +276,7 @@ a{color:var(--accent)}
   <section class="meal" id="lunch">
   <header class="meal-h"><h3>점심</h3><p class="when">낮 12시~오후 5시에 답할 때</p></header>
   <div class="meal-body">
-    <div class="meal-phones"><div class="meal-phone"><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">점심은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>12:20 이후</b><small>1시간 이내</small></span><span class="pbtn"><i class="clock"></i><i class="ap">오전~오후</i><b>11:20~<wbr>12:20</b><small>1~2시간 전</small></span><span class="pbtn"><i class="clock"></i><i class="ap">오전</i><b>11:20 이전</b><small>그보다 전</small></span></div></div><p class="pcap">오후 1:20에 답할 때</p></div><div class="meal-phone"><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">점심은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>1:00 이후</b></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>12:00~<wbr>1:00</b></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>12:00 이전</b></span></div></div><p class="pcap">오후 2시가 지나면 상한</p></div></div>
+    <div class="meal-phones"><div class="meal-phone"><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">점심은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><b>1시간 이내</b><small>오후 12:20 이후</small></span><span class="pbtn"><i class="clock"></i><b>1~2시간 전</b><small>오전~오후 11:20~<wbr>12:20</small></span><span class="pbtn"><i class="clock"></i><b>그보다 전</b><small>오전 11:20 이전</small></span></div></div><p class="pcap">오후 1:20에 답할 때</p></div><div class="meal-phone"><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">점심은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>1:00 이후</b></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>12:00~<wbr>1:00</b></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>12:00 이전</b></span></div></div><p class="pcap">오후 2시가 지나면 상한</p></div></div>
     <div class="meal-text">
       <dl>
         <dt>묻는 말</dt><dd><span class="q">점심은 언제쯤 드셨어요?</span></dd>
@@ -287,7 +289,7 @@ a{color:var(--accent)}
   <h4 class="sc-title">시나리오별 추정 결과</h4>
   <div class="sc-grid"><article class="sc">
   <h4>오후 1:00에 답함</h4><p class="ctx">실제 오후 12:20에 먹음 · 걸음 단서 없음</p>
-  <div class="btns"><span class="btn is-on"><i class="ap">오후</i><b>12:00 이후</b><small>1시간 이내</small></span><span class="btn"><i class="ap">오전~오후</i><b>11:00~<wbr>12:00</b><small>1~2시간 전</small></span><span class="btn"><i class="ap">오전</i><b>11:00 이전</b><small>그보다 전</small></span></div>
+  <div class="btns"><span class="btn is-on"><b>1시간 이내</b><small>오후 12:00 이후</small></span><span class="btn"><b>1~2시간 전</b><small>오전~오후 11:00~<wbr>12:00</small></span><span class="btn"><b>그보다 전</b><small>오전 11:00 이전</small></span></div>
   <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오후</i>12:30</span><span class="chip c-diff">10분 차이</span><span class="chip c-mid">확신 보통</span></div>
   <p class="win"><span>식후 걸음 보는 시간</span> 오후 12:00~1:30</p>
   
@@ -322,7 +324,7 @@ a{color:var(--accent)}
 </article>
 <article class="sc">
   <h4>오후 1:47에 답함</h4><p class="ctx">실제 오후 1:00에 먹음 · 걸음 단서 없음</p>
-  <div class="btns"><span class="btn is-on"><i class="ap">오후</i><b>12:40 이후</b><small>1시간 이내</small></span><span class="btn"><i class="ap">오전~오후</i><b>11:40~<wbr>12:40</b><small>1~2시간 전</small></span><span class="btn"><i class="ap">오전</i><b>11:40 이전</b><small>그보다 전</small></span></div>
+  <div class="btns"><span class="btn is-on"><b>1시간 이내</b><small>오후 12:40 이후</small></span><span class="btn"><b>1~2시간 전</b><small>오전~오후 11:40~<wbr>12:40</small></span><span class="btn"><b>그보다 전</b><small>오전 11:40 이전</small></span></div>
   <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오후</i>1:10</span><span class="chip c-diff">10분 차이</span><span class="chip c-mid">확신 보통</span></div>
   <p class="win"><span>식후 걸음 보는 시간</span> 오후 12:40~2:10</p>
   <p class="note">오후 1:47은 오후 1:40으로 내림해 선택지를 만듦.</p>
@@ -352,7 +354,7 @@ a{color:var(--accent)}
   <section class="meal" id="dinner">
   <header class="meal-h"><h3>저녁</h3><p class="when">오후 5시~자정에 답할 때</p></header>
   <div class="meal-body">
-    <div class="meal-phones"><div class="meal-phone"><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">저녁은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>7:00 이후</b><small>1시간 이내</small></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>6:00~<wbr>7:00</b><small>1~2시간 전</small></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>6:00 이전</b><small>그보다 전</small></span></div></div><p class="pcap">오후 8:00에 답할 때</p></div><div class="meal-phone"><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">저녁은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>8:00 이후</b></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>7:00~<wbr>8:00</b></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>7:00 이전</b></span></div></div><p class="pcap">오후 9시가 지나면 상한</p></div></div>
+    <div class="meal-phones"><div class="meal-phone"><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">저녁은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><b>1시간 이내</b><small>오후 7:00 이후</small></span><span class="pbtn"><i class="clock"></i><b>1~2시간 전</b><small>오후 6:00~<wbr>7:00</small></span><span class="pbtn"><i class="clock"></i><b>그보다 전</b><small>오후 6:00 이전</small></span></div></div><p class="pcap">오후 8:00에 답할 때</p></div><div class="meal-phone"><div class="phone"><p class="pstep">오늘의 질문 · 2/5</p><p class="pq">저녁은 언제쯤 드셨어요?</p><div class="pbtns"><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>8:00 이후</b></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>7:00~<wbr>8:00</b></span><span class="pbtn"><i class="clock"></i><i class="ap">오후</i><b>7:00 이전</b></span></div></div><p class="pcap">오후 9시가 지나면 상한</p></div></div>
     <div class="meal-text">
       <dl>
         <dt>묻는 말</dt><dd><span class="q">저녁은 언제쯤 드셨어요?</span></dd>
@@ -365,28 +367,28 @@ a{color:var(--accent)}
   <h4 class="sc-title">시나리오별 추정 결과</h4>
   <div class="sc-grid"><article class="sc">
   <h4>오후 7:30에 답함 · 먹고 바로</h4><p class="ctx">실제 오후 7:00에 먹음 · 걸음 단서 없음</p>
-  <div class="btns"><span class="btn is-on"><i class="ap">오후</i><b>6:30 이후</b><small>1시간 이내</small></span><span class="btn"><i class="ap">오후</i><b>5:30~<wbr>6:30</b><small>1~2시간 전</small></span><span class="btn"><i class="ap">오후</i><b>5:30 이전</b><small>그보다 전</small></span></div>
+  <div class="btns"><span class="btn is-on"><b>1시간 이내</b><small>오후 6:30 이후</small></span><span class="btn"><b>1~2시간 전</b><small>오후 5:30~<wbr>6:30</small></span><span class="btn"><b>그보다 전</b><small>오후 5:30 이전</small></span></div>
   <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오후</i>7:00</span><span class="chip c-diff">같음</span><span class="chip c-mid">확신 보통</span></div>
   <p class="win"><span>식후 걸음 보는 시간</span> 오후 6:30~8:00</p>
   
 </article>
 <article class="sc">
   <h4>오후 8:40에 답함</h4><p class="ctx">실제 오후 7:20에 먹음 · 걸음 단서 없음</p>
-  <div class="btns"><span class="btn"><i class="ap">오후</i><b>7:40 이후</b><small>1시간 이내</small></span><span class="btn is-on"><i class="ap">오후</i><b>6:40~<wbr>7:40</b><small>1~2시간 전</small></span><span class="btn"><i class="ap">오후</i><b>6:40 이전</b><small>그보다 전</small></span></div>
+  <div class="btns"><span class="btn"><b>1시간 이내</b><small>오후 7:40 이후</small></span><span class="btn is-on"><b>1~2시간 전</b><small>오후 6:40~<wbr>7:40</small></span><span class="btn"><b>그보다 전</b><small>오후 6:40 이전</small></span></div>
   <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오후</i>7:10</span><span class="chip c-diff">10분 차이</span><span class="chip c-mid">확신 보통</span></div>
   <p class="win"><span>식후 걸음 보는 시간</span> 오후 6:40~8:10</p>
   
 </article>
 <article class="sc">
   <h4>오후 9:00에 답함</h4><p class="ctx">실제 오후 7:20에 먹음 · 오후 7:20에 걷다가 멈춤</p>
-  <div class="btns"><span class="btn"><i class="ap">오후</i><b>8:00 이후</b><small>1시간 이내</small></span><span class="btn is-on"><i class="ap">오후</i><b>7:00~<wbr>8:00</b><small>1~2시간 전</small></span><span class="btn"><i class="ap">오후</i><b>7:00 이전</b><small>그보다 전</small></span></div>
+  <div class="btns"><span class="btn"><b>1시간 이내</b><small>오후 8:00 이후</small></span><span class="btn is-on"><b>1~2시간 전</b><small>오후 7:00~<wbr>8:00</small></span><span class="btn"><b>그보다 전</b><small>오후 7:00 이전</small></span></div>
   <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오후</i>7:20</span><span class="chip c-diff">같음</span><span class="chip c-hi">확신 높음</span></div>
   <p class="win"><span>식후 걸음 보는 시간</span> 오후 7:20~7:50</p>
   
 </article>
 <article class="sc">
   <h4>오후 5:40에 들어왔음 나감, 오후 8:30에 답함</h4><p class="ctx">실제 오후 8:00에 먹음 · 걸음 단서 없음</p>
-  <div class="btns"><span class="btn is-on"><i class="ap">오후</i><b>7:30 이후</b><small>1시간 이내</small></span><span class="btn"><i class="ap">오후</i><b>6:30~<wbr>7:30</b><small>1~2시간 전</small></span><span class="btn"><i class="ap">오후</i><b>6:30 이전</b><small>그보다 전</small></span></div>
+  <div class="btns"><span class="btn is-on"><b>1시간 이내</b><small>오후 7:30 이후</small></span><span class="btn"><b>1~2시간 전</b><small>오후 6:30~<wbr>7:30</small></span><span class="btn"><b>그보다 전</b><small>오후 6:30 이전</small></span></div>
   <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오후</i>8:00</span><span class="chip c-diff">같음</span><span class="chip c-mid">확신 보통</span></div>
   <p class="win"><span>식후 걸음 보는 시간</span> 오후 7:30~9:00</p>
   <p class="note">선택지는 처음 들어온 오후 5:40이 아니라 실제로 답한 오후 8:30 기준임.</p>
@@ -423,8 +425,8 @@ a{color:var(--accent)}
   <section class="meal" id="other">
     <header class="meal-h"><h3>어제 저녁 · 공통</h3><p class="when">자정~오전 10시에 답할 때는 「어제 저녁」을 물음</p></header>
     <dl>
-      <dt>묻는 말</dt><dd><b>어제 저녁과 「못 먹거나 거름」에는 시각을 묻지 않음.</b> 식사 질문만 묻고 다음 질문으로 넘어감.</dd>
-      <dt>이렇게 하는 이유</dt><dd>어제 저녁은 거의 항상 2시간 넘게 지난 뒤라 정확한 시각을 얻기 어렵고 오늘 지표에도 들어가지 않음. 「못 먹거나 거름」은 걸렀을 수도 있어 먹은 시각을 물을 수 없음.</dd>
+      <dt>묻는 말</dt><dd><b>어제 저녁은 몇 시쯤 드셨어요?</b> 선택지는 「7시 이전 / 7시~8시 / 8시 이후」(저녁 7시 · 8시)로 고정. 「못 먹거나 거름」에는 묻지 않음.</dd>
+      <dt>이렇게 하는 이유</dt><dd>일상안정은 최근 7일의 식후 행동을 합산해 그 전 7일과 비교하므로 어제 저녁 값도 쓰임. 하루 지난 끼니라 답한 시각에서 거꾸로 세는 대신 저녁 7시 · 8시 고정 선택지로 묻고, 「8시 이후」는 밤 10시까지로 봄. 「못 먹거나 거름」은 걸렀을 수도 있어 먹은 시각을 물을 수 없음.</dd>
     </dl>
     <h4 class="sc-title">시나리오별 추정 결과</h4>
     <div class="sc-grid"><article class="sc">
@@ -435,18 +437,18 @@ a{color:var(--accent)}
   <p class="note">시각 단계 없이 바로 다음 질문으로 넘어감. 먹은 시각이 없을 수 있어서임.</p>
 </article>
 <article class="sc">
-  <h4>새벽 1시나 아침 8시에 들어옴</h4><p class="ctx">어제 저녁을 묻는 시간</p>
+  <h4>새벽 1시나 아침 8시에 들어옴</h4><p class="ctx">어제 저녁 「7시~8시」를 고름 · 걸음 단서 없음</p>
   
-  <div class="res"><span class="lab">추정</span><span class="est">없음</span><span class="chip c-none">확신 모름</span></div>
-  <p class="win"><span>식후 걸음 보는 시간</span> 판정 안 함</p>
-  <p class="note">식사 질문만 묻고 바로 다음 질문으로 넘어감.</p>
+  <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오후</i>7:30</span><span class="chip c-mid">확신 보통</span></div>
+  <p class="win"><span>식후 걸음 보는 시간</span> 어제 오후 7:00~8:30</p>
+  <p class="note">어제 날짜의 식후 행동으로 저장되어 일상안정 7일 비교에 들어감.</p>
 </article>
 <article class="sc">
   <h4>어젯밤 오후 9:00에 이미 답함</h4><p class="ctx">어젯밤 「오후 7:00~8:00」을 고름</p>
   
   <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오후</i>7:30</span><span class="chip c-mid">확신 보통</span></div>
   <p class="win"><span>식후 걸음 보는 시간</span> 어제 그대로</p>
-  <p class="note">아침에 「어제 저녁」 질문이 나와도 시각은 다시 묻지 않음.</p>
+  <p class="note">아침에 「어제 저녁」 질문이 나와도 시각은 다시 묻지 않고 어젯밤 답을 씀.</p>
 </article>
 <article class="sc">
   <h4>오후 2:10 · 건강 앱에 점심 기록</h4><p class="ctx">삼성헬스·애플 건강에 오후 12:35 점심 기록</p>
@@ -562,7 +564,7 @@ a{color:var(--accent)}
     <li><b>선택지 시각은 10분 단위로 내림</b> · 반올림하면 자정을 넘기거나 아직 안 온 몇 분이 선택지에 들어감.</li>
     <li><b>건너뛰기 없음</b> · 다른 식이 질문과 같음.</li>
     <li><b>세 번째 선택지는 「못 먹거나 거름」, 이 답에는 시각을 묻지 않음</b> · 제품 전체 문구와 데이터 계약에도 반영했음.</li>
-    <li><b>시각 단계 선택지와 「못 먹거나 거름」은 5~7자 규칙의 예외</b> · 다른 선택지는 지금 규칙 그대로임.</li>
+    <li><b>「못 먹거나 거름」만 5~7자 규칙의 예외(8자). 시각 선택지 큰 글자는 모두 5~7자 안</b> · 다른 선택지는 지금 규칙 그대로임.</li>
     <li><b>점심에는 「드신 뒤 답해주세요」 안내를 붙이지 않음</b> · 먹기 전에 답할 수 있는 건 오후 12:00~12:30뿐이라 드묾. 출시 뒤 점심 답 중 이 시간 답이 10%를 넘으면 그때 붙임.</li>
     <li><b>식후 걷기 확인 알림은 보내지 않음</b></li>
   </ul>
