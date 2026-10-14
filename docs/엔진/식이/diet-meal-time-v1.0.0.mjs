@@ -7,7 +7,7 @@
 export const MEAL_TIME_CONFIG = Object.freeze({
   intervalMinutes: 60,                 // CFG-072 버튼 간격
   roundDownMinutes: 10,                // CFG-073 답한 시각 내림 단위
-  stopAt: { BREAKFAST: 9 * 60, LUNCH: 14 * 60, DINNER: 21 * 60 },     // CFG-074~076 멈춤 시각
+  stopAt: { BREAKFAST: 9 * 60, LUNCH: 14 * 60, DINNER: 21 * 60 },     // CFG-074~076 선택지 상한 시각
   questionStart: { BREAKFAST: 10 * 60, LUNCH: 12 * 60, DINNER: 17 * 60 }, // 끼니 질문이 열리는 시각(CFG-012~014)
   mealStart: { BREAKFAST: 6 * 60, LUNCH: 11 * 60, DINNER: 17 * 60 },  // CFG-077 끼니 시작 기본값
   breakfastBounds: [7 * 60, 8 * 60],   // CFG-078 아침 고정 경계
@@ -55,8 +55,8 @@ export function askMealTime({ mealType, isYesterdayDinner = false, fixedOptionCo
 
 /**
  * ② 버튼 3개. 점심·저녁은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 센다.
- *    끼니별 멈춤 시각(점심 14시 · 저녁 21시)을 넘으면 그 시각에서 멈추고,
- *    질문이 열리는 시각(점심 12시 · 저녁 17시) 아래로는 내려가지 않는다. 멈추거나 받친 동안은 작은 글씨(sub)를 뺀다.
+ *    끼니별 선택지 상한 시각(점심 14시 · 저녁 21시)을 넘으면 그 시각 기준으로 만들고,
+ *    질문이 열리는 시각(점심 12시 · 저녁 17시) 아래로는 내려가지 않는다. 상한 · 하한에 걸린 동안은 작은 글씨(sub)를 뺀다.
  *    아침은 항상 7시 · 8시 정각으로 고정이다.
  *  반환: { question_id, text, options:[{option_code, label, ampm, clock, sub, window_start, window_end}], stopped }
  */
@@ -84,12 +84,12 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
   const stop = config.stopAt[mealType], start = config.questionStart[mealType];
   let t0 = floored - step;                 // 1번 버튼 「t0 이후」
   let stopped = false;
-  if (floored > stop) { t0 = stop - step; stopped = true; }   // 멈춤 시각을 넘으면 정각에서 멈춤
+  if (floored > stop) { t0 = stop - step; stopped = true; }   // 선택지 상한 시각을 넘으면 그 시각 기준으로 만듦
   if (t0 < start) { t0 = start; stopped = true; }              // 질문 시작 시각 아래로 내려가지 않음
   const t1 = t0 - step;
   const f0 = formatKoTime(t0), f1 = formatKoTime(t1);
   const rangeAmpm = f0.ampm === f1.ampm ? f0.ampm : `${f1.ampm}~${f0.ampm}`;
-  const windowEnd1 = toHHMM(answeredAt);   // 1번 버튼의 끝은 항상 답한 시각. 멈춘 뒤 2시간을 넘으면 추정에서 모름이 된다
+  const windowEnd1 = toHHMM(answeredAt);   // 1번 버튼의 끝은 항상 답한 시각. 상한에 걸린 뒤 2시간을 넘으면 추정에서 모름이 된다
   return {
     question_id: q.question_id, text, stopped, answered_at: toHHMM(answeredAt),
     options: [
