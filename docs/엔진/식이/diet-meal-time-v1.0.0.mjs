@@ -10,7 +10,7 @@ export const MEAL_TIME_CONFIG = Object.freeze({
   stopAt: { BREAKFAST: 9 * 60, LUNCH: 14 * 60, DINNER: 21 * 60 },     // CFG-074~076 선택지 상한 시각
   questionStart: { BREAKFAST: 10 * 60, LUNCH: 12 * 60, DINNER: 16 * 60 }, // 선택지 하한 시각(점심 12시 · 저녁 4시, CFG-090)
   mealStart: { BREAKFAST: 6 * 60, LUNCH: 11 * 60, DINNER: 16 * 60, YESTERDAY_DINNER: 17 * 60, LATE_DINNER: 17 * 60 },  // CFG-077 끼니 시작 기본값(저녁 4시)
-  breakfastBounds: [7 * 60, 8 * 60],   // CFG-078 아침 고정 경계
+  breakfastBounds: [7 * 60, 8 * 60], breakfastEnd: 10 * 60,   // CFG-078 아침 고정 경계 · 「8시 이후」 범위 끝(아침 끝 기본값 10시)
   dinnerFixedBounds: [19 * 60, 21 * 60], dinnerFixedEnd: 23 * 60,   // CFG-089 저녁 고정 선택지 경계(9시 뒤 답 · 어제 저녁)
   stepPauseMinutes: 15,                // CFG-079 걷다가 멈춘 것으로 보는 최소 시간
   habitWindowDays: 14,                 // CFG-080 평소 식사 시각을 보는 기간
@@ -95,7 +95,7 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
       options: [
         { option_code: 'before_7', label: `${h(b1)} 이전`, sub: '', time_label: `${h(b1)} 이전`, ampm: '', clock: `${h(b1)} 이전`, window_start: toHHMM(config.mealStart.BREAKFAST), window_end: toHHMM(b1) },
         { option_code: 'seven_to_eight', label: `${h(b1)}~${h(b2)}`, sub: '', time_label: `${h(b1)}~${h(b2)}`, ampm: '', clock: `${h(b1)}~${h(b2)}`, window_start: toHHMM(b1), window_end: toHHMM(b2) },
-        { option_code: 'after_8', label: `${h(b2)} 이후`, sub: '', time_label: `${h(b2)} 이후`, ampm: '', clock: `${h(b2)} 이후`, window_start: toHHMM(b2), window_end: toHHMM(answeredAt) },
+        { option_code: 'after_8', label: `${h(b2)} 이후`, sub: '', time_label: `${h(b2)} 이후`, ampm: '', clock: `${h(b2)} 이후`, window_start: toHHMM(b2), window_end: toHHMM(config.breakfastEnd) },
       ],
     };
   }

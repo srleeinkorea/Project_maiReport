@@ -235,7 +235,7 @@ a{color:var(--accent)}
         <dt>선택지</dt><dd><b>7시 이전 · 7시~8시 · 8시 이후</b><br>매일 같은 고정 시각임.</dd>
         <dt>이렇게 하는 이유</dt><dd>아침 질문은 10시가 넘어야 나와서 늘 선택지 상한 시각(9시)을 지난 뒤임.<br>그래서 선택지가 항상 7시 · 8시 정각으로 고정됨.<br>「7시쯤」처럼 정각으로 떠올리기 쉽고, 가장 흔한 7시 반 아침이 「7시~8시」 한 선택지에 모임.</dd>
       </dl>
-      <div class="tscroll"><table class="est-t"><thead><tr><th>고른 선택지</th><th>추정 식사 시각</th></tr></thead><tbody><tr><td>7시 이전</td><td>오전 6:30 (오전 6:00~7:00의 가운데)</td></tr><tr><td>7시~8시</td><td>오전 7:30</td></tr><tr><td>8시 이후</td><td>오전 8:00부터 답한 시각까지가 2시간 이하일 때만 가운데. 넘으면 걸음 단서가 있을 때만, 없으면 모름</td></tr></tbody></table></div>
+      <div class="tscroll"><table class="est-t"><thead><tr><th>고른 선택지</th><th>추정 식사 시각</th></tr></thead><tbody><tr><td>7시 이전</td><td>오전 6:30 (오전 6:00~7:00의 가운데)</td></tr><tr><td>7시~8시</td><td>오전 7:30</td></tr><tr><td>8시 이후</td><td>오전 9:00 (오전 8:00~10:00의 가운데. 아침 끝 기본값 10시)</td></tr></tbody></table></div>
     </div>
   </div>
   <h4 class="sc-title">시나리오별 추정 결과</h4>
@@ -270,9 +270,9 @@ a{color:var(--accent)}
 <article class="sc">
   <h4>오전 11:40에 답함 · 늦은 아침</h4><p class="ctx">실제 오전 9:30에 먹음 · 걸음 단서 없음</p>
   <div class="btns"><span class="btn"><b>7시 이전</b></span><span class="btn"><b>7시~<wbr>8시</b></span><span class="btn is-on"><b>8시 이후</b></span></div>
-  <div class="res"><span class="lab">추정</span><span class="est">없음</span><span class="chip c-none">확신 모름</span></div>
-  <p class="win"><span>식후 걸음 보는 시간</span> 판정 안 함</p>
-  <p class="note">오전 8:00~11:40은 2시간이 넘어 걸음 단서가 없으면 쓰지 않음.</p>
+  <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오전</i>9:00</span><span class="chip c-diff">30분 차이</span><span class="chip c-mid">확신 보통</span></div>
+  <p class="win"><span>식후 걸음 보는 시간</span> 오전 8:00~10:30</p>
+  <p class="note">「8시 이후」는 8:00~10:00으로 보아 9:00으로 잡음. 늦은 아침은 걸음 단서나 평소 시각이 쌓이면 그 시각으로 보정됨.</p>
 </article></div>
 </section>
   <section class="meal" id="lunch">
@@ -468,7 +468,7 @@ a{color:var(--accent)}
 <section id="error">
   <div class="sec-h"><h2>실제와 얼마나 차이 나나</h2><p>실제 사용 데이터가 아직 없어 가상 사용자로 끼니마다 2만 일을 만들어 계산했음. 가정: 점심 오후 12:20±25분 · 저녁 오후 7:00±45분 · 아침 오전 7:40±40분에 먹고(저녁은 식후 20분~2시간 뒤에 답하되 10%는 밤 9시 반 뒤), 맞는 선택지를 고르는 비율 85%, 걸음 단서가 보이는 날 35%, 평소 식사 시각이 잡힌 사용자 50%, 실제로 식후에 걸은 날 50%. 실제 데이터가 생기면 가정만 바꿔 다시 계산함.</p></div>
   <h3 class="sub-h">식사 시각 오차</h3>
-  <div class="tscroll"><table class="cmp-t"><thead><tr><th>끼니</th><th>절반은 이 안</th><th>10번 중 9번은 이 안</th><th>30분 안에 맞은 비율</th><th>모름</th></tr></thead><tbody><tr><td>아침</td><td>5분</td><td>34분</td><td>89%</td><td>21%</td></tr><tr><td>점심</td><td>6분</td><td>30분</td><td>90%</td><td>3%</td></tr><tr><td>저녁</td><td>10분</td><td>59분</td><td>77%</td><td>2%</td></tr><tr class="muted-row"><td>가입 초기<br><small>단서·평소 시각 없음</small></td><td>15~17분</td><td>34~45분</td><td>84%~89%</td><td>아침 30%</td></tr></tbody></table></div>
+  <div class="tscroll"><table class="cmp-t"><thead><tr><th>끼니</th><th>절반은 이 안</th><th>10번 중 9번은 이 안</th><th>30분 안에 맞은 비율</th><th>모름</th></tr></thead><tbody><tr><td>아침</td><td>5분</td><td>34분</td><td>89%</td><td>0% (8시 이후 → 9시)</td></tr><tr><td>점심</td><td>6분</td><td>30분</td><td>90%</td><td>3%</td></tr><tr><td>저녁</td><td>10분</td><td>59분</td><td>77%</td><td>2%</td></tr><tr class="muted-row"><td>가입 초기<br><small>단서·평소 시각 없음</small></td><td>15~17분</td><td>34~45분</td><td>84%~89%</td><td>아침 30%</td></tr></tbody></table></div>
   <h3 class="sub-h">자기돌봄 지표값 오차 <small>하루 8,000보 예시 · 걸었음 81점, 안 걸었음 61점, 모름 72점</small></h3>
   <div class="tscroll"><table class="cmp-t"><thead><tr><th></th><th>지금 (식사 시각 없음)</th><th>시각 단계</th><th>시각 단계 · 가입 초기</th></tr></thead><tbody>
     <tr><td>식후 걸음 판정이 맞은 날</td><td>–</td><td>점심·저녁 87%, 아침 71%</td><td>점심·저녁 81%, 아침 58%</td></tr>

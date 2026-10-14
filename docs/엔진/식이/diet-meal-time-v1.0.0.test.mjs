@@ -94,7 +94,7 @@ test('아침 · 7시 · 8시 정각으로 고정', () => {
   assert.equal(r.text, '아침은 몇 시쯤 드셨어요?');
   assert.deepEqual(labels(r), ['7시 이전', '7시~8시', '8시 이후']);
   assert.deepEqual(labels(mealTimeOptions(at('11:40'), KST, 'BREAKFAST')), ['7시 이전', '7시~8시', '8시 이후']);
-  assert.deepEqual(r.options.map(o => [o.window_start, o.window_end]), [['06:00', '07:00'], ['07:00', '08:00'], ['08:00', '10:20']]);
+  assert.deepEqual(r.options.map(o => [o.window_start, o.window_end]), [['06:00', '07:00'], ['07:00', '08:00'], ['08:00', '10:00']]);
 });
 
 test('추정 · 범위 가운데 · 걸음 단서 · 평소 시각 · 건강 앱 순서', () => {
@@ -115,11 +115,10 @@ test('추정 · 범위가 2시간을 넘거나 비면 걸음 단서가 있을 �
   const late = mealTimeOptions(at('16:30'), KST, 'LUNCH').options[0];       // 13:00~16:30
   assert.equal(estimateMealTime({ mealType: 'LUNCH', option: late }).confidence, 'UNKNOWN');
   assert.equal(estimateMealTime({ mealType: 'LUNCH', option: late, stepPauses: ['14:00'] }).estimated_time, '14:00');
-  const bf = mealTimeOptions(at('11:40'), KST, 'BREAKFAST').options[2];     // 08:00~11:40
-  assert.equal(estimateMealTime({ mealType: 'BREAKFAST', option: bf }).confidence, 'UNKNOWN');
+  const bf = mealTimeOptions(at('11:40'), KST, 'BREAKFAST').options[2];     // 「8시 이후」 = 08:00~10:00 (아침 끝 기본값)
+  assert.equal(estimateMealTime({ mealType: 'BREAKFAST', option: bf }).estimated_time, '09:00');
   assert.equal(estimateMealTime({ mealType: 'BREAKFAST', option: bf, stepPauses: ['09:30'] }).estimated_time, '09:30');
-  const bf1020 = mealTimeOptions(at('10:20'), KST, 'BREAKFAST').options[2]; // 08:00~10:20 = 140분
-  assert.equal(estimateMealTime({ mealType: 'BREAKFAST', option: bf1020 }).confidence, 'UNKNOWN');
+  assert.equal(estimateMealTime({ mealType: 'BREAKFAST', option: bf, habitualTime: '09:40' }).estimated_time, '09:40');
   const early7 = mealTimeOptions(at('10:20'), KST, 'BREAKFAST').options[0];
   assert.equal(estimateMealTime({ mealType: 'BREAKFAST', option: early7 }).estimated_time, '06:30');
   // 「…이전」은 끼니 시작 기본값부터 센다: 점심 11:00~11:20
