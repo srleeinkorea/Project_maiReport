@@ -24,6 +24,7 @@ header h1{margin:0;font-family:"DM Serif Display","Noto Sans KR",serif;font-weig
 footer{color:var(--mute);font-size:12.5px;margin-top:22px}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>.ex-br{display:block;margin-top:3px;color:#6b7685;font-size:.93em}</style>
 </head>
 <body>
 <main>
@@ -33,7 +34,7 @@ footer{color:var(--mute);font-size:12.5px;margin-top:22px}
 <div class="sheet" id="sheet">
 <svg width="1200" height="570" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 570"><rect width="1200" height="570" fill="#f5f7fb"/><g font-family="Malgun Gothic,sans-serif" fill="#233047"><text x="35" y="45" font-size="26">maiReport 식이 데이터 흐름 · v1.0.0</text><text x="35" y="80" font-size="17">고정 1 + 관찰 회전 최대 1 · 3개 선택지 · 과일 추천 제외 · 질환별 금지·시간 조건 적용</text><rect x="35" y="125" width="360" height="120" rx="12" fill="#e7eefb"/><text x="55" y="167" font-size="21">1. 입력·개인 제한</text><text x="55" y="207" font-size="17">시각 / 응답 / 검진·진료</text><rect x="425" y="125" width="360" height="120" rx="12" fill="#e7eefb"/><text x="445" y="167" font-size="21">2. 질문·관찰</text><text x="445" y="207" font-size="17">목표 확인 분기 제거</text><rect x="815" y="125" width="360" height="120" rx="12" fill="#e7eefb"/><text x="835" y="167" font-size="21">3. 응답 저장</text><text x="835" y="207" font-size="17">28일 관찰 → 다음 날</text><rect x="35" y="295" width="360" height="120" rx="12" fill="#e7eefb"/><text x="55" y="337" font-size="21">4. 목표 선정</text><text x="55" y="377" font-size="17">회복·질환·검진·부담·일반</text><rect x="425" y="295" width="360" height="120" rx="12" fill="#e7eefb"/><text x="445" y="337" font-size="21">5. 모든 경로 공통 필터</text><text x="445" y="377" font-size="17">승인 / 제한 / 시간 / 정책</text><rect x="815" y="295" width="360" height="120" rx="12" fill="#e7eefb"/><text x="835" y="337" font-size="21">6. 목표·토글 저장</text><text x="835" y="377" font-size="17">완료 토글만 단계에 반영</text><text x="35" y="490" font-size="19">회전 응답은 식습관 관찰만 / 목표 이행 여부로 변환하지 않음</text><text x="35" y="530" font-size="17">식사 상태 ≠ 영양 적정성·질환 진단 / 정보 부족 시 개인 식사 계획 확인</text></g></svg>
 </div>
-<footer>마이리포트 · 그림은 SVG 원본을 그대로 넣은 것이라 글자를 선택·검색할 수 있다. 원본 SVG는 docs/_archive/svg를html로_2026-10-14에 보관.</footer>
+<footer>마이리포트 · 그림은 SVG 원본을 그대로 넣은 것이라 글자를 선택·검색할 수 있다.<br>원본 SVG는 docs/_archive/svg를html로_2026-10-14에 보관.</footer>
 </main>
 <script>
 document.querySelectorAll('.tools button').forEach(b=>b.addEventListener('click',()=>{
