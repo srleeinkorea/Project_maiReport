@@ -177,7 +177,7 @@ dl.spec dt{font-weight:700}dl.spec dd{margin:0}
   <span class="kind">화면설계서</span>
   <h1>검진 리포트 등록</h1>
   <div class="path">병원 › 방문이력 「+」에서 시작해 AI REPORT(QR) 또는 일반 검진 리포트(업로드)를 등록하는 흐름</div>
-  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>REG-001 ~ 006</b></span><span>관련 문서 <b><a href="maiReport_검진리포트등록_기획서_v1.0.0.html">기획서</a> · <a href="maiReport_검진리포트등록_화면정의서_v1.0.0.html">화면정의서</a></b></span></div>
+  <div class="meta"><span>판 <b>1.0.1</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>REG-001 ~ 006</b></span><span>관련 문서 <b><a href="maiReport_검진리포트등록_기획서_v1.0.0.html">기획서</a> · <a href="maiReport_검진리포트등록_화면정의서_v1.0.0.html">화면정의서</a></b></span></div>
 </header>
 
 <nav class="toc"><ol>
@@ -188,7 +188,7 @@ dl.spec dt{font-weight:700}dl.spec dd{margin:0}
 <div class="glance">
 <div><b>이 문서가 다루는 것</b>방문이력의 「+」를 누른 순간부터 리포트가 방문이력에 들어갈 때까지 화면이 어떻게 이어지는지. 3장의 왼쪽 화면은 직접 눌러 볼 수 있다. 데이터는 모두 가상이다.</div>
 <div><b>가장 중요한 결정</b>두 길 모두 사용자가 확인 화면을 지나야 저장된다. QR 길은 카메라 → 인식 결과 확인 → 저장 → 결과 화면, 업로드 길은 업로드 → 추출 중 → 추출 데이터 확인 → 최종 등록 → 완료.</div>
-<div><b>아직 정해지지 않은 것</b>확신 낮은 값의 표시, 대상자 확인 방법, 추출 실패의 재시도 횟수. 자세한 목록은 「확인 필요」.</div>
+<div><b>아직 정해지지 않은 것</b>10-14에 3건을 결정해 닫았다. 남은 것: 원본 파일 보관 기간. 자세한 내용은 「확인 필요」.</div>
 </div>
 </section>
 
@@ -303,15 +303,16 @@ dl.spec dt{font-weight:700}dl.spec dd{margin:0}
 
 <section id="open"><h2>확인 필요</h2>
 <table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
-<tr><td>확신 낮은 값의 표시(칸 색 · 문구)와 기준 신뢰도</td><td>디자인 · 개발</td><td>인식 엔진 결정 뒤</td><td>열림</td></tr>
-<tr><td>QR 리포트의 대상자 확인 방법과 이름 표기만 다른 경우</td><td>기획 · 리포트 제공 측</td><td>구현 전</td><td>열림</td></tr>
-<tr><td>추출 실패의 자동 재시도 횟수와 시간 한도(1분 초과 시 안내)</td><td>개발</td><td>구현 시</td><td>열림</td></tr>
+<tr><td>확신 낮은 값의 표시(칸 색 · 문구)와 기준 신뢰도</td><td>디자인 · 개발</td><td>인식 엔진 결정 뒤</td><td>닫힘(10-14) · 값 칸 테두리 강조 + 「확인해 주세요」. 기준은 신뢰도 80% 미만 또는 형식 불일치. 색은 디자인에서</td></tr>
+<tr><td>QR 리포트의 대상자 확인 방법과 이름 표기만 다른 경우</td><td>기획 · 리포트 제공 측</td><td>구현 전</td><td>닫힘(10-14) · QR의 이름 · 생년과 계정 비교. 이름 표기만 다르면 확인 화면에서 한 번 더 묻고 저장 허용. QR 유효 기간은 기획서 ④(리포트 제공 측) 대기</td></tr>
+<tr><td>추출 실패의 자동 재시도 횟수와 시간 한도(1분 초과 시 안내)</td><td>개발</td><td>구현 시</td><td>닫힘(10-14) · 자동 2회(15초 간격). 1분을 넘기면 「조금 더 걸리고 있어요」를 진행 카드에 붙이고, 3분이 지나면 실패 처리</td></tr>
 <tr><td>원본 파일 보관 기간</td><td>기획 · 법무</td><td>—</td><td>열림</td></tr>
 </table>
 </section>
 
 <section id="history"><h2>바뀐 것</h2>
 <table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
+<tr><td>2026-10-14</td><td>1.0.1</td><td>「확인 필요」 3건 결정 · 닫힘 (남은 항목 1건). 본문 반영: <p>검진정보에 저장되었어요.<br>병원 탭 검진정보에…</td><td>열린 결정을 기본값으로 닫아 구현에 쓸 수 있게</td></tr>
 <tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 프로토타입의 등록 흐름을 두 길로 나누어 조작 화면으로 옮기고, 같은 날 작성된 기획서의 규칙(QR도 확인 화면 필수 · 대상자 확인 · 30MB)에 맞춤</td><td>프로토타입에만 있던 흐름에 설계서가 없었음</td></tr></table>
 </section>
 </main>
@@ -368,7 +369,7 @@ const V={
   ${SECTIONS.map((s,si)=>`<div class="rsec"><h4>${s.t}</h4>${s.rows.map((r,ri)=>{const k=si+'-'+ri,low=S.low.has(k);return `<div class="rrow ${low?'low':''}" ${low?'data-f="확신 낮은 값"':''}><label>${r[0]}</label><input value="${S.vals[k]??r[1]}" oninput="S.vals['${k}']=this.value;S.low.delete('${k}');this.parentNode.classList.remove('low');this.parentNode.querySelector('.u').textContent='${r[2]}'"><span class="u">${low?'확인해 주세요':r[2]}</span></div>`}).join('')}</div>`).join('')}
   </div></div><div class="foot" data-f="하단 버튼"><button class="sec" onclick="go('upload')">다시 업로드</button><button class="prim" onclick="go('done')">최종 등록</button></div>`},
  preview(){return `<div class="prev"><div class="ph"><button onclick="go('review')" style="color:#fff">✕</button><b>1/${S.files.length}</b><span></span></div><div class="page" data-f="원본 장 (좌우 탭 이동)"><div class="paper">${['92%','78%','86%','64%','88%','72%','80%','60%','84%'].map(w=>`<span style="width:${w}"></span>`).join('')}</div></div><div class="pn"><span>‹</span><span>›</span></div></div>`},
- done(){return `<div class="done" data-f="등록 완료"><div class="chk">✓</div><h3>검진정보 리포트 등록 완료</h3><p>검진정보 데이터가 마이데이터에 저장되었어요.<br>마이데이터에서 결과를 확인해 보세요.</p><div class="acts"><button class="prim" onclick="S.registered=true;toast('검진 상세로 이동');go('visit')">등록 결과 보기</button><button class="sec" onclick="S.registered=true;go('visit')">다음에 볼게요</button></div></div>`}
+ done(){return `<div class="done" data-f="등록 완료"><div class="chk">✓</div><h3>검진정보 리포트 등록 완료</h3><p>검진정보에 저장되었어요.<br>병원 탭 검진정보에서 결과를 확인해 보세요.</p><div class="acts"><button class="prim" onclick="S.registered=true;toast('검진 상세로 이동');go('visit')">등록 결과 보기</button><button class="sec" onclick="S.registered=true;go('visit')">다음에 볼게요</button></div></div>`}
 };
 /* ─ 동작 ─ */
 function go(k){clearT();S.screen=k;if(k==='cam')S.camState='scan';if(k==='upload'&&!S.files.length)S.files=[];render()}

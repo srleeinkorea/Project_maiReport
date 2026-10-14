@@ -41,7 +41,7 @@ li{margin:4px 0}
   <span class="kind">기획서</span>
   <h1>생활 탭 데이터 보기</h1>
   <div class="path">생활 › 생활 분석 · 전체 건강 데이터 · 항목 상세 (홈 「오늘의 건강 데이터」 포함)</div>
-  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>LIFE-003 · 005 · 006 · HOME-011</b></span><span>관련 문서 <b><a href="mai-report-생활분석_화면정의서_v1.0.0.html">생활 분석 화면정의서</a> · <a href="mai-report-전체건강데이터_목록_v1.0.0.html">전체 건강 데이터 목록</a> · <a href="../10_홈탭/mai-report-홈화면_화면정의서_v1.0.0.html">홈 화면정의서 §7</a> · <a href="../../엔진/지표/mai-report-생활지표_기획서_v1.0.0.html">생활지표 기획서</a> · <a href="../40_더보기탭/mai-report-건강데이터연동_화면정의서.html">건강데이터 연동 화면정의서</a></b></span></div>
+  <div class="meta"><span>판 <b>1.0.1</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>LIFE-003 · 005 · 006 · HOME-011</b></span><span>관련 문서 <b><a href="mai-report-생활분석_화면정의서_v1.0.0.html">생활 분석 화면정의서</a> · <a href="mai-report-전체건강데이터_목록_v1.0.0.html">전체 건강 데이터 목록</a> · <a href="../10_홈탭/mai-report-홈화면_화면정의서_v1.0.0.html">홈 화면정의서 §7</a> · <a href="../../엔진/지표/mai-report-생활지표_기획서_v1.0.0.html">생활지표 기획서</a> · <a href="../40_더보기탭/mai-report-건강데이터연동_화면정의서.html">건강데이터 연동 화면정의서</a></b></span></div>
 </header>
 
 <nav class="toc"><ol>
@@ -52,7 +52,7 @@ li{margin:4px 0}
 <div class="glance">
 <div><b>이 문서가 다루는 것</b>연동한 건강 앱의 원본 값을 해석 없이 보여주는 세 층. 홈의 대표 3개 → 생활 분석의 주간 카드 → 전체 건강 데이터 12항목과 항목별 상세</div>
 <div><b>가장 중요한 결정</b>값은 건강 앱에서 읽은 그대로 쓰고 추정 · 보정 · 메우기를 하지 않는다. 비교는 「어제 대비」만, 해석은 컨디션과 코칭이 맡는다</div>
-<div><b>아직 정해지지 않은 것</b>활동 시간 · 운동 시간의 플랫폼별 산출 통일, 시간 단위 기록이 없는 항목의 시간 보기 처리</div>
+<div><b>아직 정해지지 않은 것</b>10-14에 4건을 결정해 닫았다. 남은 것 없음. 자세한 내용은 「확인 필요」.</div>
 </div>
 </section>
 
@@ -139,15 +139,16 @@ li{margin:4px 0}
 
 <section id="open"><h2>확인 필요</h2>
 <table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
-<tr><td>① 활동 시간 · 운동 시간 산출의 플랫폼별 통일(애플 appleExerciseTime vs 삼성 TOTAL_ACTIVE_TIME, 걸음 구간 직접 산출)</td><td>개발</td><td>—</td><td>열림(홈 화면정의서 §10-4)</td></tr>
-<tr><td>② 시간 단위 기록이 없는 항목(체중 · 키 등)의 시간 탭 표시 방식</td><td>디자인 · 개발</td><td>—</td><td>열림</td></tr>
-<tr><td>③ 출처가 겹칠 때의 우선순위 표(예: 워치 심박 vs 휴대폰)</td><td>기획 · 개발</td><td>—</td><td>열림</td></tr>
-<tr><td>④ 생활 분석 대표 카드 4개의 항목 확정(걸음 · 활동 칼로리 · 심박 · 수면으로 둘지)</td><td>기획</td><td>—</td><td>열림</td></tr>
+<tr><td>① 활동 시간 · 운동 시간 산출의 플랫폼별 통일(애플 appleExerciseTime vs 삼성 TOTAL_ACTIVE_TIME, 걸음 구간 직접 산출)</td><td>개발</td><td>—</td><td>닫힘(10-14) · 활동 시간은 걸음 구간에서 직접 산출(분당 걸음 100 이상 구간의 합), 운동 시간은 세션 기반. 애플 · 삼성 공통. 홈 화면정의서 §10-4와 같다</td></tr>
+<tr><td>② 시간 단위 기록이 없는 항목(체중 · 키 등)의 시간 탭 표시 방식</td><td>디자인 · 개발</td><td>—</td><td>닫힘(10-14) · 시간 탭을 숨기고 일 탭부터 보여 준다</td></tr>
+<tr><td>③ 출처가 겹칠 때의 우선순위 표(예: 워치 심박 vs 휴대폰)</td><td>기획 · 개발</td><td>—</td><td>닫힘(10-14) · 워치 › 휴대폰 › 수동 입력 순. 같은 출처면 최신 값. 겹친 날은 「출처: 워치」로 표기</td></tr>
+<tr><td>④ 생활 분석 대표 카드 4개의 항목 확정(걸음 · 활동 칼로리 · 심박 · 수면으로 둘지)</td><td>기획</td><td>—</td><td>닫힘(10-14) · 걸음 · 활동 칼로리 · 심박 · 수면으로 확정</td></tr>
 </table>
 </section>
 
 <section id="history"><h2>바뀐 것</h2>
 <table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
+<tr><td>2026-10-14</td><td>1.0.1</td><td>「확인 필요」 4건 결정 · 닫힘.</td><td>열린 결정을 기본값으로 닫아 구현에 쓸 수 있게</td></tr>
 <tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 기능정의서 §5 · §7.1 · §13 일부를 「기능 정의」 표로 흡수</td><td>생활 분석 · 전체 건강 데이터에 기획서가 없었음</td></tr></table>
 </section>
 </main>
