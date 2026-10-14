@@ -11,10 +11,11 @@ export const MEAL_TIME_CONFIG = Object.freeze({
   questionStart: { BREAKFAST: 10 * 60, LUNCH: 12 * 60, DINNER: 16 * 60 }, // 선택지 하한 시각(점심 12시 · 저녁 4시, CFG-090)
   mealStart: { BREAKFAST: 6 * 60, LUNCH: 11 * 60, DINNER: 16 * 60, YESTERDAY_DINNER: 17 * 60, LATE_DINNER: 17 * 60 },  // CFG-077 끼니 시작 기본값(저녁 4시)
   breakfastBounds: [7 * 60, 8 * 60], breakfastEnd: 10 * 60,   // CFG-078 아침 고정 경계 · 「8시 이후」 범위 끝(아침 끝 기본값 10시)
+  mealEnd: { BREAKFAST: 10 * 60, LUNCH: 14 * 60, DINNER: 23 * 60 },   // CFG-091 끼니를 늦어도 먹는 시각. 끝이 없는 「…이후」 칸은 여기까지로 본다
   dinnerFixedBounds: [19 * 60, 21 * 60], dinnerFixedEnd: 23 * 60,   // CFG-089 저녁 고정 선택지 경계(9시 뒤 답 · 어제 저녁)
   stepPauseMinutes: 15,                // CFG-079 걷다가 멈춘 것으로 보는 최소 시간
   habitWindowDays: 14,                 // CFG-080 평소 식사 시각을 보는 기간
-  maxWindowMinutes: 120,               // CFG-081 범위 상한(넘으면 걸음 단서 없을 때 모름)
+  maxWindowMinutes: 120,               // CFG-081 범위 상한(넘으면 시작부터 2시간까지만 봄)
   postMealMinutes: 30,                 // CFG-082 식후 걸음을 보는 시간
 });
 
@@ -110,7 +111,7 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
   const t1 = t0 - step;
   const f0 = formatKoTime(t0), f1 = formatKoTime(t1);
   const rangeAmpm = f0.ampm === f1.ampm ? f0.ampm : `${f1.ampm}~${f0.ampm}`;
-  const windowEnd1 = toHHMM(answeredAt);   // 1번 선택지의 끝은 항상 답한 시각. 상한에 걸린 뒤 2시간을 넘으면 추정에서 모름이 된다
+  const windowEnd1 = toHHMM(Math.min(answeredAt, config.mealEnd[mealType]));   // 1번 선택지의 끝은 답한 시각. 단 끼니를 늦어도 먹는 시각(CFG-091)을 넘지 않는다
   // 선택지 글자: 평소에는 「1시간 이내 / 1~2시간 전 / 그보다 전」만 보여 준다(작은 글씨 없음).
   // 상한 · 하한에 걸린 동안은 「1시간 이내」가 사실과 달라지므로 시각 글자(time_label)를 대신 보여 준다.
   const REL = ['1시간 이내', '1~2시간 전', '그보다 전'];
@@ -134,7 +135,7 @@ const hhmmToMin = (s) => { const [h, m] = s.split(':').map(Number); return h * 6
  *    0) 건강 앱 식사 기록이 있으면 그 시각(HIGH)
  *    1) 고른 버튼으로 범위를 정한다(끼니 시작 기본값보다 이른 부분은 잘라 낸다)
  *    2) 범위 안에 15분 넘게 멈춘 걸음 단서가 딱 하나면 그 시각(HIGH)
- *       범위가 2시간을 넘거나 비어 있으면 모름(UNKNOWN)
+ *       범위가 비어 있으면 모름(UNKNOWN). 끝이 없는 「…이후」 칸은 끼니를 늦어도 먹는 시각까지로 본다(2시간을 넘는 범위는 2시간까지만)
  *       지난 2주 평소 식사 시각이 범위 안에 있으면 그 시각(MEDIUM)
  *       둘 다 없으면 범위 가운데(MEDIUM)
  *    3) 식후 걸음을 볼 시간: 단서·평소 시각이면 추정 시각부터 30분, 가운데면 범위 전체 + 30분
@@ -159,9 +160,13 @@ export function estimateMealTime({
     return { estimated_time: toHHMM(pauses[0]), estimate_method: 'STEP_PAUSE', confidence: 'HIGH',
       post_meal_window: [toHHMM(pauses[0]), toHHMM(pauses[0] + config.postMealMinutes)], window };
   }
-  if (length <= 0 || length > config.maxWindowMinutes) {
+  if (length <= 0) {
     return { estimated_time: null, estimate_method: 'UNKNOWN', confidence: 'UNKNOWN', post_meal_window: null, window };
   }
+  if (length > config.maxWindowMinutes) {   // 2시간을 넘으면 시작부터 2시간까지만 본다(CFG-081)
+    we = ws + config.maxWindowMinutes;
+  }
+  const clippedLength = we - ws;
   if (habitualTime) {
     const h = hhmmToMin(habitualTime);
     if (h >= ws && h <= we) {
@@ -169,7 +174,7 @@ export function estimateMealTime({
         post_meal_window: [toHHMM(h), toHHMM(h + config.postMealMinutes)], window };
     }
   }
-  const mid = ws + Math.round(length / 2 / 10) * 10;   // 가운데를 10분 단위로
+  const mid = ws + Math.round(clippedLength / 2 / 10) * 10;   // 가운데를 10분 단위로
   return { estimated_time: toHHMM(mid), estimate_method: 'WINDOW_MIDPOINT', confidence: 'MEDIUM',
     post_meal_window: [toHHMM(ws), toHHMM(we + config.postMealMinutes)], window };
 }

@@ -637,12 +637,12 @@
     },
     {
       "id": "QA-DIET-24",
-      "title": "범위가 2시간을 넘으면 걸음 단서가 없을 때 모름이다",
-      "scenario": "지영 씨가 오후 4시 30분에 점심 「오후 1:00 이후」를 골랐다(범위 1:00~4:30). 걸음 단서가 없다. → 모름. 추정 시각 · 식후 관찰 시간이 비어 있어야 한다.",
+      "title": "끝이 없는 「…이후」 칸은 끼니를 늦어도 먹는 시각까지로 본다",
+      "scenario": "지영 씨가 오후 4시 30분에 점심 「오후 1:00 이후」를 골랐다. 점심은 늦어도 오후 2시에 먹는다고 보므로 범위는 1:00~2:00이고 → 1:30으로 잡아야 한다.",
       "rules": [
         "V-57"
       ],
-      "basis": "설정 CFG-081 추정 범위 상한 120분",
+      "basis": "설정 CFG-091 끼니 끝 기본값",
       "severity": "높음",
       "module": "diet-meal-time-v1.0.0.mjs",
       "export": "estimateMealTime",
@@ -651,17 +651,16 @@
         "option": {
           "option_code": "within_1h",
           "window_start": "13:00",
-          "window_end": "16:30"
+          "window_end": "14:00"
         }
       },
       "expect": {
-        "estimate_method": "UNKNOWN",
-        "confidence": "UNKNOWN",
-        "estimated_time": null,
-        "post_meal_window": null
+        "estimate_method": "WINDOW_MIDPOINT",
+        "confidence": "MEDIUM",
+        "estimated_time": "13:30"
       },
       "where": "diet-meal-time-v1.0.0.mjs estimateMealTime",
-      "suggestion": "범위 길이를 먼저 재고 상한을 넘으면 걸음 단서만 쓴다."
+      "suggestion": "선택지를 만들 때 「…이후」 칸의 끝을 끼니 끝 기본값으로 자른다."
     },
     {
       "id": "QA-DIET-25",
