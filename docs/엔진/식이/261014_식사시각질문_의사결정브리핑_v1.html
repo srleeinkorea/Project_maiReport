@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>끼니별 식사 시각 질문 추진 방향 검토</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root{--ink:#0f1222;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a;--bg:#fbfbfd;--line:#e3e6ef;--blue-l:#eef1ff;--red-l:#fdeeed;--green-l:#eaf8f0;--amber-l:#fff6e6;--mute:#5d6275}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Noto Sans KR",sans-serif;font-size:15px;line-height:1.7}
+.serif{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400}
+main{max-width:1120px;margin:0 auto;padding:40px 24px 80px}
+.cover{padding:40px 0 28px;border-bottom:1px solid var(--line)}
+.cover .kicker{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.cover h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:40px;line-height:1.25;margin:10px 0 8px}
+.cover .sub{font-size:17px;color:var(--mute);margin-bottom:18px}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:13px}
+.meta div span{display:block;color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+.tile{border-left:3px solid var(--ink);padding:4px 0 4px 14px}
+.tile .n{font-family:"DM Serif Display",serif;font-size:38px;line-height:1.1}
+.tile .l{font-size:13px;color:var(--mute)}
+.tile.ok{border-color:var(--green)}.tile.ng{border-color:var(--red)}.tile.key{border-color:var(--blue)}.tile.tbd{border-color:var(--amber)}
+section{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:36px 0;border-bottom:1px solid var(--line)}
+section .num{font-family:"DM Serif Display",serif;font-size:56px;line-height:1;color:#c9ccd8}
+section h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:26px;margin:4px 0 14px}
+section h3{font-size:15px;margin:18px 0 6px;font-weight:600}
+p{margin:6px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:14px}
+table th{border-top:2px solid var(--ink);border-bottom:1px solid var(--line);text-align:left;padding:8px 10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:600}
+table td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+.tag{display:inline-block;padding:0 7px;border-radius:3px;font-size:12px;font-weight:600;line-height:1.7}
+.tag.ok{background:var(--green-l);color:var(--green)}.tag.ng{background:var(--red-l);color:var(--red)}.tag.tbd{background:var(--amber-l);color:var(--amber)}.tag.pro{background:var(--blue-l);color:var(--blue)}
+.panels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0}
+.panels.two{grid-template-columns:repeat(2,1fr)}
+.panel{border:1px solid var(--line);background:#fff;padding:14px 16px}
+.panel h4{margin:0 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.panel.rec{border-color:var(--blue);background:var(--blue-l)}
+.panel ul{margin:4px 0 0;padding-left:18px}
+.panel li{margin:3px 0}
+.fig{margin:16px 0 6px;border:1px solid var(--line);background:#fff;padding:14px 16px}
+.fig .t{font-size:13px;font-weight:600;margin-bottom:6px}
+.fig svg{width:100%;height:auto;display:block;font-family:"DM Sans","Noto Sans KR",sans-serif}
+.fig .cap{font-size:13px;color:var(--mute);margin-top:8px}
+.fig .cap b{color:var(--ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.verdict{font-weight:600;margin-top:8px}
+.opt{border:1px solid var(--line);background:#fff;padding:14px 16px;margin:10px 0}
+.opt.rec{border:2px solid var(--blue)}
+.opt h4{margin:0 0 4px;font-size:16px}
+.qa dt{font-weight:600;margin-top:12px}.qa dd{margin:2px 0 0 0;color:#2c3043}
+.foot{font-size:13px;color:var(--mute);padding-top:28px}
+.foot h2{font-size:16px;color:var(--ink);font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400}
+.foot ol{padding-left:18px}
+@media (max-width:760px){.meta,.strip,.panels,.grid2,.panels.two{grid-template-columns:1fr}section{grid-template-columns:1fr}.num{font-size:36px}}
+</style>
+</head>
+<body>
+<main>
+
+<div class="cover">
+  <div class="kicker">Decision Briefing · maiReport 식이 엔진</div>
+  <h1>끼니별 식사 시각 질문 추진 방향 검토</h1>
+  <div class="sub">오늘의 질문에 「언제쯤 드셨어요?」 1문항을 더해 식후 행동 지표를 채우는 안의 근거와 영향, 합의 요청 사항</div>
+  <div class="meta">
+    <div><span>회의</span>내부 의사결정 회의</div>
+    <div><span>대상</span>대표 · 기획 · 개발 · 지표 산식 담당</div>
+    <div><span>제안</span>설계대로 진행 승인 (1안)</div>
+    <div><span>작성</span>2026-10-14 · v1</div>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="tile ok"><div class="n">37/37</div><div class="l">참조 구현 단위 테스트 통과 · 데이터 계약 v1.3.0 반영 완료</div></div>
+  <div class="tile ok"><div class="n">90%</div><div class="l">점심 식사 시각이 30분 안에 맞는 비율 (모의 2만 끼니, 95% CI 89.6~90.4)</div></div>
+  <div class="tile ng"><div class="n">50%</div><div class="l">현재: 자기돌봄 등급이 실제와 다른 날 (식후 행동을 알 수 없어 매일 같은 점수)</div></div>
+  <div class="tile key"><div class="n">+1</div><div class="l">하루 질문 수 4 → 5 (25% 증가). 등급 오류 50% → 11~18%</div></div>
+</div>
+
+<section id="s01"><div class="num serif">01</div><div>
+<h2>요약</h2>
+<p>자기돌봄·일상안정 지표의 「식후 행동」 항목은 식사 시각 입력이 없어 산출되지 않고 있으며, 이로 인해 식후에 움직인 날과 움직이지 않은 날이 같은 점수로 표시되는 것이 확인되었다. 식사 질문 직후 같은 자리에서 1시간 간격 버튼 3개로 시각을 받는 안을 설계·검증한 결과, 모의 데이터 기준 등급 오류일이 50%에서 11~18%로 줄고 사용자 부담은 버튼 1회로 제한되는 것으로 나타났다. 설계·데이터 계약·참조 구현·프로토타입 반영이 끝났으므로 설계대로 진행을 승인하고, 식후 판정 방식만 산식 담당의 회신 뒤 확정할 것을 제안한다.</p>
+<div class="panels">
+  <div class="panel"><h4>확인된 사실</h4><ul><li>식후 행동 항목은 현재 항상 공란으로, 하루 8,000보 예시에서 매일 72점이 산출된다.</li><li>식이 질문은 하루 최대 2문항, 전체 최대 4문항이며 식사 시각 입력 경로가 없다.</li><li>2026-10-13에 질문 1개 추가·버튼 규칙·추정 순서가 확정되었고 10-14에 제품 원본 전부에 반영되었다.</li></ul></div>
+  <div class="panel"><h4>검토 결과</h4><ul><li>모의 2만 끼니에서 점심·저녁 시각 오차 중앙값 6~7분, 30분 이내 88~90%.</li><li>끼니별 멈춤 시각을 두어 「모름」이 점심 12%→3%, 저녁 10%→2%로 감소.</li><li>질문 수는 4→5로 늘지만 답 1회이며 건너뛰기는 두지 않는다.</li></ul></div>
+  <div class="panel rec"><h4>제안</h4><ul><li>1안: 설계대로 진행을 승인하고 개발 착수.</li><li>식후 판정 방식(걸음 기록만으로 판정 가능 여부)은 산식 담당 회신 뒤 확정.</li><li>출시 후 2주 단위로 「모름」 비율·아침 「8시 이후」 비율을 점검한다.</li></ul></div>
+</div>
+<div class="fig"><div class="t">Fig 1 · 문제 → 원인 → 제안</div>
+<svg viewBox="0 0 760 150" role="img" aria-label="문제 원인 제안 흐름">
+  <g font-size="12" fill="#0f1222">
+    <rect x="8" y="30" width="220" height="90" fill="#fdeeed" stroke="#e0453f"/><text x="18" y="52" font-weight="600" fill="#e0453f">문제</text><text x="18" y="74">식후 행동 항목이 항상 공란</text><text x="18" y="92">걸은 날과 안 걸은 날이 같은 점수</text><text x="18" y="110">등급 오류일 50%</text>
+    <path d="M232 75 L262 75" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="266" y="30" width="220" height="90" fill="#fff6e6" stroke="#c7861c"/><text x="276" y="52" font-weight="600" fill="#c7861c">원인</text><text x="276" y="74">식사 시각을 받는 입력이 없음</text><text x="276" y="92">걸음 기록만으로는 식사 시점을</text><text x="276" y="110">특정할 수 없음</text>
+    <path d="M490 75 L520 75" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="524" y="30" width="228" height="90" fill="#eef1ff" stroke="#5170FF"/><text x="534" y="52" font-weight="600" fill="#5170FF">제안</text><text x="534" y="74">식사 질문 직후 같은 자리에서</text><text x="534" y="92">1시간 간격 버튼 3개로 시각 입력</text><text x="534" y="110">등급 오류일 11~18%로 감소</text>
+  </g>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#0f1222"/></marker></defs>
+</svg>
+<div class="cap"><b>해석:</b> 지표 공란의 원인은 입력 경로 부재이며, 추가 화면 없이 기존 질문 카드에서 1문항을 이어 묻는 것으로 해소된다. 모의 데이터 기준 등급 오류일은 약 3분의 1로 줄어든다.</div></div>
+</div></section>
+
+<section id="s02"><div class="num serif">02</div><div>
+<h2>목표와 요건</h2>
+<table><tr><th>합의된 목표</th><th>달성 요건</th><th>현황</th></tr>
+<tr><td>자기돌봄·일상안정의 식후 행동 항목을 매일 산출한다</td><td>끼니별 식사 시각(또는 추정 범위)을 매일 확보</td><td><span class="tag ok">충족</span> 시각 단계 설계·계약 반영 완료</td></tr>
+<tr><td>사용자 부담을 늘리지 않는다</td><td>입력은 버튼 1회, 새 화면 없음, 하루 질문 5문항 이내</td><td><span class="tag ok">충족</span> 4→5문항, 건너뛰기 없이 버튼 1회</td></tr>
+<tr><td>시각 정확도가 지표에 쓸 수준이다</td><td>30분 이내 적중 85% 이상, 「모름」 5% 이하</td><td><span class="tag ok">충족</span> 점심 90% · 저녁 88% · 모름 2~3% (모의, 내부 목표치)</td></tr>
+<tr><td>식후 행동 판정 규칙이 산식과 일치한다</td><td>걸음 기록만으로 「식후에 움직였다」 판정 가능 여부 확정</td><td><span class="tag tbd">미확정</span> 산식 담당 회신 대기(답 A/B/C별 영향 정리됨)</td></tr>
+<tr><td>개발 착수 가능 상태</td><td>데이터 계약·참조 구현·테스트·프로토타입</td><td><span class="tag ok">충족</span> 계약 v1.3.0, 테스트 37/37, 프로토타입 배포</td></tr>
+</table>
+</div></section>
+
+<section id="s03"><div class="num serif">03</div><div>
+<h2>정량 검토</h2>
+<p>실제 사용 데이터가 없어 가상 사용자로 끼니마다 2만 일을 생성해 계산하였다(가정은 Foot 참조). 비율의 95% 신뢰구간은 Wilson 방법으로 구하였다.</p>
+<table><tr><th>항목</th><th>아침</th><th>점심</th><th>저녁</th><th>가입 초기(단서·평소 시각 없음)</th></tr>
+<tr><td>시각 오차 중앙값</td><td>5분</td><td>6분</td><td>7분</td><td>15~17분</td></tr>
+<tr><td>10번 중 9번이 이 안</td><td>34분</td><td>30분</td><td>39분</td><td>34~45분</td></tr>
+<tr><td>30분 이내 적중 (95% CI)</td><td>89% (88.6~89.4)</td><td>90% (89.6~90.4)</td><td>88% (87.5~88.4)</td><td>84~89%</td></tr>
+<tr><td>「모름」 비율</td><td>21%</td><td>3% (2.8~3.2)</td><td>2%</td><td>아침 30%</td></tr>
+</table>
+<div class="grid2">
+<div class="fig"><div class="t">Fig 2 · 오차 누적 분포 — 30분 기준선</div>
+<svg viewBox="0 0 760 300" role="img" aria-label="오차 누적 분포">
+  <g stroke="#e3e6ef"><line x1="60" y1="40" x2="60" y2="250"/><line x1="60" y1="250" x2="730" y2="250"/><line x1="60" y1="92" x2="730" y2="92" stroke-dasharray="4 4"/></g>
+  <g font-size="11" fill="#5d6275"><text x="20" y="254">0%</text><text x="20" y="150">50%</text><text x="14" y="96">85%</text><text x="20" y="44">100%</text><text x="60" y="268">0분</text><text x="235" y="268">15분</text><text x="420" y="268">30분</text><text x="605" y="268">45분</text><text x="690" y="268">60분</text></g>
+  <text x="520" y="86" font-size="11" fill="#0f1222">내부 목표 85%</text>
+  <line x1="420" y1="40" x2="420" y2="250" stroke="#0f1222" stroke-dasharray="2 3"/><text x="426" y="52" font-size="11">30분</text>
+  <polyline points="60,250 127,145 420,61 470,54 730,46" fill="none" stroke="#5170FF" stroke-width="2.5"/>
+  <polyline points="60,250 138,145 420,65 528,54 730,47" fill="none" stroke="#1f9d5a" stroke-width="2.5"/>
+  <polyline points="60,250 116,145 420,63 440,54 730,70" fill="none" stroke="#c7861c" stroke-width="2.5"/>
+  <polyline points="60,250 240,145 420,72 560,54 730,60" fill="none" stroke="#e0453f" stroke-width="2" stroke-dasharray="5 3"/>
+  <circle cx="420" cy="61" r="4" fill="#5170FF"/><text x="430" y="62" font-size="11" fill="#5170FF">점심 90%</text>
+  <circle cx="420" cy="65" r="4" fill="#1f9d5a"/><text x="430" y="78" font-size="11" fill="#1f9d5a">저녁 88%</text>
+  <circle cx="420" cy="72" r="4" fill="#e0453f"/><text x="430" y="105" font-size="11" fill="#e0453f">가입 초기 84%</text>
+  <text x="540" y="130" font-size="11" fill="#c7861c">아침 89% (모름 21% 제외)</text>
+</svg>
+<div class="cap"><b>해석:</b> 점심·저녁은 30분 기준선에서 내부 목표 85%를 넘고, 가입 초기에만 기준선에 근접한다. 아침은 답이 있는 날에 한해 89%이며 「8시 이후」가 넓어 모름이 21%로 남는다.</div></div>
+<div class="fig"><div class="t">Fig 3 · 식후 판정 결과의 분할 (하루 기준)</div>
+<svg viewBox="0 0 760 300" role="img" aria-label="판정 결과 분할">
+  <g font-size="12" fill="#0f1222">
+    <text x="10" y="60">현재</text><rect x="120" y="42" width="0" height="26" fill="#1f9d5a"/><rect x="120" y="42" width="600" height="26" fill="#c7861c" opacity=".8"/><text x="380" y="60" fill="#fff" text-anchor="middle">판정 불가 100% (매일 72점 고정)</text>
+    <text x="10" y="130">시각 단계 · 점심·저녁</text><rect x="120" y="112" width="522" height="26" fill="#1f9d5a"/><rect x="642" y="112" width="60" height="26" fill="#e0453f"/><rect x="702" y="112" width="18" height="26" fill="#c7861c"/><text x="380" y="130" fill="#fff" text-anchor="middle">맞음 87%</text><text x="672" y="130" fill="#fff" text-anchor="middle" font-size="11">10%</text>
+    <text x="10" y="200">시각 단계 · 아침</text><rect x="120" y="182" width="426" height="26" fill="#1f9d5a"/><rect x="546" y="182" width="48" height="26" fill="#e0453f"/><rect x="594" y="182" width="126" height="26" fill="#c7861c"/><text x="333" y="200" fill="#fff" text-anchor="middle">맞음 71%</text><text x="570" y="200" fill="#fff" text-anchor="middle" font-size="11">8%</text><text x="657" y="200" fill="#fff" text-anchor="middle" font-size="11">모름 21%</text>
+    <text x="10" y="270">가입 초기 · 점심·저녁</text><rect x="120" y="252" width="486" height="26" fill="#1f9d5a"/><rect x="606" y="252" width="96" height="26" fill="#e0453f"/><rect x="702" y="252" width="18" height="26" fill="#c7861c"/><text x="363" y="270" fill="#fff" text-anchor="middle">맞음 81%</text><text x="654" y="270" fill="#fff" text-anchor="middle" font-size="11">16%</text>
+  </g>
+  <g font-size="11" fill="#5d6275"><rect x="120" y="14" width="10" height="10" fill="#1f9d5a"/><text x="134" y="23">판정 맞음</text><rect x="210" y="14" width="10" height="10" fill="#e0453f"/><text x="224" y="23">판정 틀림</text><rect x="300" y="14" width="10" height="10" fill="#c7861c"/><text x="314" y="23">모름(계산 제외)</text></g>
+</svg>
+<div class="cap"><b>해석:</b> 현재는 전부 판정 불가다. 시각 단계를 두면 점심·저녁의 87%가 올바르게 판정되고 틀리는 날은 10% 수준이다. 틀리는 날은 대부분 「안 걸었는데 걸었다」로, 범위 가운데값일 때 식후 관찰 창을 넓게 보기 때문이다.</div></div>
+</div>
+<div class="fig"><div class="t">Fig 4 · 자기돌봄 점수의 실제 대비 평균 오차 (하루 8,000보 예시, 점)</div>
+<svg viewBox="0 0 760 170" role="img" aria-label="평균 오차 비교">
+  <g font-size="12" fill="#0f1222">
+    <text x="10" y="44">현재 (시각 없음)</text><rect x="200" y="28" width="500" height="22" fill="#e0453f"/><text x="708" y="44">10.0</text>
+    <text x="10" y="84">시각 단계</text><rect x="200" y="68" width="150" height="22" fill="#1f9d5a"/><rect x="350" y="68" width="35" height="22" fill="#1f9d5a" opacity=".45"/><text x="392" y="84">2.3~3.7</text>
+    <text x="10" y="124">시각 단계 · 가입 초기</text><rect x="200" y="108" width="165" height="22" fill="#c7861c"/><rect x="365" y="108" width="105" height="22" fill="#c7861c" opacity=".45"/><text x="478" y="124">3.3~5.4</text>
+  </g>
+  <line x1="200" y1="20" x2="200" y2="140" stroke="#0f1222"/><text x="200" y="158" font-size="11" fill="#5d6275">0점</text><text x="690" y="158" font-size="11" fill="#5d6275">10점</text>
+</svg>
+<div class="cap"><b>해석:</b> 같은 축에서 평균 오차가 10점에서 2.3~3.7점으로 줄어든다. 가입 초기에는 평소 시각이 없어 오차가 1.5배 안팎 크지만 2주 뒤 평소 시각이 쌓이면 줄어든다.</div></div>
+</div></section>
+
+<section id="s04"><div class="num serif">04</div><div>
+<h2>다관점 검토</h2>
+<div class="panels two">
+  <div class="panel"><h4><span class="tag pro">임상의학</span></h4><p><b>식후 30분 내 신체활동 여부는 혈당·체중 관리에서 의미 있는 행동 지표이며, 시각 없이 걸음 총량만으로는 대체되지 않는다.</b></p><ul><li>식후 행동은 「언제」가 핵심이므로 끼니 시각이 전제다.</li><li>1시간 구간 입력은 임상 문진에서 쓰는 회상 정밀도(「점심 무렵」) 수준으로 과도하지 않다.</li><li>시각 자체로 등급·코칭을 만들지 않아 과잉 해석 위험이 없다.</li><li>식후 운동의 효과 크기는 외부 문헌 1차 자료 미확인으로 수치 인용을 보류한다.</li></ul><div class="verdict">판정: 진행에 임상적 이견 없음. 효과 수치는 문헌 확인 뒤 보강.</div></div>
+  <div class="panel"><h4><span class="tag pro">연구방법론·통계</span></h4><p><b>모의 데이터 기준 정확도는 목표를 충족하나, 가정(맞는 버튼 85%)에 의존하므로 출시 후 검증 설계가 필요하다.</b></p><ul><li>2만 끼니 표본에서 95% CI 폭은 ±0.5%p로 충분히 좁다.</li><li>실제 적중률은 건강 앱 기록이 있는 사용자 부분집합에서 사후 검증할 수 있다.</li><li>아침 「8시 이후」 30% 기준 감시는 20%→30% 차이를 검출하는 데 n≥137(검정력 80%, 양측 5%)이면 된다.</li><li>「모름」은 결측으로 두고 점수를 깎지 않으므로 편향 방향이 보수적이다.</li></ul><div class="verdict">판정: 진행 가능. 출시 후 2주 단위 적중률 재추정을 조건으로 한다.</div></div>
+  <div class="panel"><h4><span class="tag pro">AI 개발</span></h4><p><b>구현 범위는 질문 1개·버튼 생성 함수·추정 함수·테이블 1개로 제한되며 참조 구현과 테스트가 이미 있다.</b></p><ul><li>버튼 글자는 서버가 답 시각으로 생성하고 사용자가 본 구간을 저장해 재현 가능하다.</li><li>추정 순서(건강 앱 → 걸음 단서 → 범위 상한 → 평소 시각 → 가운데)는 설정값으로 분리되어 조정 비용이 낮다.</li><li>프로토타입에서 1/5 → 2/5 → 3/5 흐름과 콘솔 오류 없음이 확인되었다.</li><li>식후 판정 로직은 지표 산출 쪽이며 이 범위 밖이다.</li></ul><div class="verdict">판정: 개발 착수 가능. 산식 회신은 판정 로직에만 영향.</div></div>
+  <div class="panel"><h4><span class="tag pro">인허가(RA)</span></h4><p><b>자기보고 생활 데이터의 수집·표시이며 진단·치료 판단을 수반하지 않아 의료기기 해당성에 영향을 주지 않는다고 판단한다.</b></p><ul><li>입력값은 식사 시각 범위이며 건강 상태 판정에 직접 쓰이지 않는다.</li><li>건강 앱 식사 기록 사용은 기존 연동 동의 범위 내 항목인지 확인이 필요하다(미확인).</li><li>「모름」을 불리하게 처리하지 않아 이용자 불이익 소지가 없다.</li></ul><div class="verdict">판정: 제약 없음. 건강 앱 식사 기록 항목의 동의 범위만 확인.</div></div>
+</div>
+<div class="fig"><div class="t">Fig 5 · 네 관점의 수렴</div>
+<svg viewBox="0 0 760 180" role="img" aria-label="수렴 다이어그램">
+  <g font-size="12" fill="#0f1222">
+    <rect x="10" y="20" width="150" height="40" fill="#fff" stroke="#e3e6ef"/><text x="20" y="45">임상: 이견 없음</text>
+    <rect x="10" y="70" width="150" height="40" fill="#fff" stroke="#e3e6ef"/><text x="20" y="95">통계: 조건부 진행</text>
+    <rect x="10" y="120" width="150" height="40" fill="#fff" stroke="#e3e6ef"/><text x="20" y="145">개발: 착수 가능</text>
+    <rect x="200" y="70" width="150" height="40" fill="#fff" stroke="#e3e6ef"/><text x="210" y="95">RA: 제약 없음</text>
+    <path d="M160 40 Q 420 40 500 85" fill="none" stroke="#5170FF" stroke-width="1.5"/><path d="M160 90 L500 90" stroke="#5170FF" stroke-width="1.5"/><path d="M160 140 Q 420 140 500 95" fill="none" stroke="#5170FF" stroke-width="1.5"/><path d="M350 90 L500 90" stroke="#5170FF" stroke-width="1.5"/>
+    <rect x="500" y="55" width="250" height="70" fill="#eef1ff" stroke="#5170FF" stroke-width="2"/><text x="515" y="82" font-weight="600" fill="#5170FF">설계대로 진행 승인</text><text x="515" y="104" font-size="11">조건: 산식 회신 · 출시 후 2주 점검</text>
+  </g>
+</svg>
+<div class="cap"><b>해석:</b> 네 관점 모두 진행을 지지하며 조건은 두 가지로 모인다. 식후 판정 방식의 산식 확인과 출시 후 적중률·모름 비율 점검이다.</div></div>
+</div></section>
+
+<section id="s05"><div class="num serif">05</div><div>
+<h2>검토한 대안</h2>
+<table><tr><th>대안</th><th>검토 결과</th><th>잔존 제약</th></tr>
+<tr><td>걸음 기록만으로 식사 시각 추정 (질문 없음)</td><td>식당 이동·착석 패턴이 있는 날에만 가능하여 모의 기준 35%의 날만 단서가 잡혔다</td><td>65%의 날은 공란 유지</td></tr>
+<tr><td>2시간 간격 버튼</td><td>정확도가 절반 수준으로 떨어지고 식후 관찰 창이 2시간 30분으로 넓어져 「안 걸었는데 걸었다」 오판이 늘었다</td><td>입력 부담 차이는 없음</td></tr>
+<tr><td>수면·회전 식이 질문을 빼서 질문 수 4 유지</td><td>다른 축의 관찰 데이터가 줄어 축 상태 판정이 늦어진다. 10-13에 「1개 추가」로 결정</td><td>질문 수 25% 증가</td></tr>
+<tr><td>건너뛰기 버튼 추가</td><td>다른 식이 질문과 규칙이 달라지고 모름이 늘어 지표 채움률이 낮아진다</td><td>—</td></tr>
+<tr><td>건강 앱 식사 기록만 사용</td><td>기록하는 사용자 비율이 낮아 단독 경로로 부족. 기록이 있으면 질문을 생략하는 방식으로 흡수</td><td>동의 범위 확인 필요</td></tr>
+</table>
+</div></section>
+
+<section id="s06"><div class="num serif">06</div><div>
+<h2>추진 방향별 영향</h2>
+<div class="panels two">
+  <div class="panel"><h4>진행 시</h4><ul><li>개발은 계약 v1.3.0과 참조 구현으로 즉시 착수 가능하다.</li><li>식후 판정 로직만 산식 회신 뒤 1~2일 내 반영한다.</li><li>출시 후 2주마다 모름 비율·아침 분포·식전 답 비율을 점검하고 설정값을 조정한다.</li></ul></div>
+  <div class="panel"><h4>변경(보류) 시</h4><ul><li>식후 행동 항목이 공란으로 남아 자기돌봄 등급 오류일 50%가 유지된다.</li><li>이미 반영된 계약·프로토타입·문서 12종을 되돌리는 작업이 필요하다.</li><li>지표 산식 측과의 식후 판정 논의가 재개 시점까지 중단된다.</li></ul></div>
+</div>
+<div class="fig"><div class="t">Fig 6 · 두 경로의 일정 (D = 승인일)</div>
+<svg viewBox="0 0 760 180" role="img" aria-label="두 경로 타임라인">
+  <g font-size="11" fill="#5d6275"><text x="130" y="20">D</text><text x="250" y="20">D+7</text><text x="370" y="20">D+14</text><text x="490" y="20">D+28</text><text x="610" y="20">D+42</text><text x="700" y="20">D+56</text></g>
+  <g font-size="12" fill="#0f1222">
+    <text x="10" y="62">진행</text><line x1="130" y1="58" x2="730" y2="58" stroke="#5170FF" stroke-width="3"/>
+    <circle cx="130" cy="58" r="5" fill="#5170FF"/><text x="120" y="82">개발 착수</text>
+    <circle cx="250" cy="58" r="5" fill="#5170FF"/><text x="212" y="82">판정 로직 확정</text>
+    <circle cx="370" cy="58" r="5" fill="#5170FF"/><text x="345" y="82">출시 후보</text>
+    <circle cx="490" cy="58" r="5" fill="#1f9d5a"/><text x="455" y="82">1차 점검</text>
+    <circle cx="610" cy="58" r="5" fill="#1f9d5a"/><text x="575" y="82">2차 점검</text>
+    <text x="10" y="132">보류</text><line x1="130" y1="128" x2="730" y2="128" stroke="#c7861c" stroke-width="3" stroke-dasharray="6 4"/>
+    <circle cx="130" cy="128" r="5" fill="#c7861c"/><text x="110" y="152">반영 되돌림</text>
+    <circle cx="370" cy="128" r="5" fill="#e0453f"/><text x="300" y="152">식후 항목 공란 유지 (등급 오류일 50%)</text>
+  </g>
+</svg>
+<div class="cap"><b>해석:</b> 진행 경로는 2주 안에 출시 후보에 도달하고 4주·6주차에 설정값을 점검한다. 보류 경로는 기존 공란 상태가 유지되며 되돌림 작업만 추가된다.</div></div>
+</div></section>
+
+<section id="s07"><div class="num serif">07</div><div>
+<h2>제안</h2>
+<div class="opt rec"><h4>1안 · 설계대로 진행 승인 <span class="tag pro">권고</span></h4><p>질문 1개 추가, 1시간 간격 버튼, 끼니별 멈춤 시각, 추정 순서를 확정하고 개발에 착수한다. 식후 판정 방식은 산식 담당 회신(답 A/B/C) 뒤 설정값으로 반영한다. 출시 후 2주 단위로 모름 비율과 아침 분포를 점검한다.</p></div>
+<div class="opt"><h4>2안 · 진행하되 판정 로직 확정 전까지 식후 항목 비표시</h4><p>시각 입력과 저장은 1안과 같이 진행하고, 식후 행동 항목의 화면 표시만 산식 회신 뒤 켠다. 데이터는 쌓이므로 회신이 늦어도 공백이 생기지 않는다.</p></div>
+<div class="opt"><h4>3안 · 보류 <span class="tag ng">비권고</span></h4><p>질문 수 증가를 이유로 보류하는 안이다. 식후 항목 공란과 등급 오류일 50%가 유지되고 이미 반영된 산출물을 되돌려야 하므로 권고하지 않는다.</p></div>
+</div></section>
+
+<section id="s08"><div class="num serif">08</div><div>
+<h2>예상 질의와 답변</h2>
+<dl class="qa">
+<dt>질문이 하나 늘면 응답률이 떨어지지 않는가.</dt><dd>입력은 버튼 1회이며 새 화면이 없다. 다만 실제 영향은 미확인이므로 출시 후 시각 단계 미응답률이 식사 질문 미응답률보다 2주 연속 10%p 이상 높으면 재검토하는 기준을 두었다고 판단한다.</dd>
+<dt>1시간 구간으로 받은 시각이 지표에 쓸 만큼 정확한가.</dt><dd>모의 기준 30분 이내 적중 88~90%, 평균 점수 오차 2.3~3.7점이다. 실제 적중률은 건강 앱 기록 사용자에서 사후 검증할 수 있다고 판단한다.</dd>
+<dt>늦게 답하면 버튼이 엉뚱한 시각이 되지 않는가.</dt><dd>끼니별 멈춤 시각(점심 오후 2시 · 저녁 오후 9시)에서 버튼이 멈추도록 하여 모름이 점심 12%→3%, 저녁 10%→2%로 줄었다.</dd>
+<dt>아침은 왜 고정 버튼인가.</dt><dd>아침 질문은 10시 이후에 나와 늘 멈춤 시각을 지난 뒤이므로 7시·8시 정각으로 고정하였다. 「8시 이후」 선택이 30%를 넘으면 경계를 재검토한다.</dd>
+<dt>식사 시각으로 좋음·나쁨을 매기는가.</dt><dd>매기지 않는다. 시각은 식후 행동 판정의 입력으로만 쓰며 축 상태·목표 선정에 영향을 주지 않는다.</dd>
+<dt>걸음 기록만으로 식후에 걸었다고 판정해도 되는가.</dt><dd>계산식 전달 문서에 「움직임만으로 완료를 만들지 않는다」는 문장이 있어 확인 중이다. 답 A(걸음 판정)·B(사용자 확인 필요)·C(시각이 확실할 때만)별 영향을 정리해 두었으며, 어느 답이어도 화면과 입력은 바뀌지 않는다.</dd>
+<dt>건강 앱에 식사 기록이 있으면 어떻게 되는가.</dt><dd>그 시각을 쓰고 시각 단계를 묻지 않는다. 해당 항목이 기존 연동 동의 범위에 포함되는지는 확인이 필요하다.</dd>
+<dt>이미 반영된 산출물은 무엇인가.</dt><dd>데이터 계약 v1.3.0(질문 2·선택지 6·테이블 1·설정 14·검증규칙 4), 참조 구현과 테스트 8개, 상세기획 1.0.2, 프로토타입 2종, 화면설계서·가이드·흐름도, QA 계획, 시뮬레이터, 공유 사이트다.</dd>
+</dl>
+</div></section>
+
+<section id="s09"><div class="num serif">09</div><div>
+<h2>합의 요청 사항</h2>
+<table><tr><th>구분</th><th>항목</th><th>담당</th></tr>
+<tr><td><span class="tag ng">필수</span></td><td>1안(설계대로 진행) 승인 — 질문 1개 추가, 1시간 간격 버튼, 멈춤 시각, 추정 순서</td><td>대표 · 기획</td></tr>
+<tr><td><span class="tag ng">필수</span></td><td>식후 판정 방식(답 A/B/C) 회신 요청 발송과 회신 기한 합의</td><td>기획 → 산식 담당</td></tr>
+<tr><td><span class="tag tbd">권장</span></td><td>건강 앱 식사 기록 항목의 연동 동의 범위 확인</td><td>법무 · 개발</td></tr>
+<tr><td><span class="tag tbd">권장</span></td><td>출시 후 점검 지표 확정: 모름 비율 5% 이하, 아침 「8시 이후」 30%, 점심 식전 답 10%, 시각 단계 미응답률</td><td>기획 · 데이터</td></tr>
+</table>
+<h3>최소 성과선</h3><p>출시 4주차에 점심·저녁 「모름」 비율 5% 이하, 식후 행동 항목 채움률(모름 포함) 100%, 시각 단계 미응답률이 식사 질문 미응답률 +10%p 이내.</p>
+<h3>후속 일정</h3>
+<table><tr><th>시점</th><th>일</th></tr><tr><td>D+1</td><td>산식 담당에 식후 판정 방식 확인 요청 발송</td></tr><tr><td>D+7</td><td>판정 로직 확정, 설정값 반영</td></tr><tr><td>D+14</td><td>출시 후보 빌드 확인</td></tr><tr><td>D+28 · D+42</td><td>점검 지표 보고, 설정값 조정</td></tr></table>
+<p>본 안은 추가 화면 없이 입력 1회로 공란 지표를 채우는 것으로, 설계·계약·구현 준비가 끝난 상태이므로 승인 즉시 착수가 가능하다고 판단한다.</p>
+</div></section>
+
+<section id="s10"><div class="num serif">10</div><div>
+<h2>표현 지침</h2>
+<table><tr><th>권장 표현</th><th>지양 표현</th></tr>
+<tr><td>식후 행동 항목이 산출되지 않고 있다</td><td>지표가 망가져 있다</td></tr>
+<tr><td>초기 산식에는 식사 시각 입력이 전제되어 있지 않았다</td><td>산식 쪽이 빠뜨렸다</td></tr>
+<tr><td>모의 데이터 기준 / 내부 목표치</td><td>검증된 정확도, 확실히</td></tr>
+<tr><td>「모름」은 계산에서 제외한다</td><td>답을 안 하면 불이익</td></tr>
+<tr><td>산식 담당의 회신 뒤 확정한다</td><td>회신이 없어 막혀 있다</td></tr>
+</table>
+</div></section>
+
+<div class="foot">
+<h2>근거 및 가정</h2>
+<ol>
+<li><b>데이터 출처.</b> 끼니별 식사 시각 질문 설계 정리 페이지(docs/엔진/식이/maiReport_식이_식사시각질문_v1.0.0.html, 2026-10-13) · 끼니별 식사 시각 질문 기획서 1.0.0 · 식이 개발 전달 데이터 계약 v1.3.0(구현기준 R-11, 설정 CFG-072~085, 검증규칙 V-55~58) · 참조 구현 diet-meal-time-v1.0.0.mjs와 단위 테스트(37/37 통과, 2026-10-14) · 식이 QA 보고서 2026-10-14.</li>
+<li><b>모의 데이터 가정(설명용 가정).</b> 끼니마다 가상 20,000일. 식사 시각 분포 점심 12:20±25분 · 저녁 19:00±45분 · 아침 07:40±40분, 맞는 버튼 선택 85%, 걸음 단서 관측일 35%, 평소 시각 보유 사용자 50%, 실제 식후 보행일 50%. 자기돌봄 점수 예시는 하루 8,000보 기준 걸었음 81점 · 안 걸었음 61점 · 모름 72점이며 계산식 전달 문서(LJH)의 지표 계산기로 산출하였다.</li>
+<li><b>신뢰구간.</b> Wilson 95% 구간. 점심 30분 이내 0.90, n=20,000 → 89.6~90.4%. 저녁 0.88 → 87.5~88.4%. 아침 0.89 → 88.6~89.4%. 점심 모름 0.03 → 2.8~3.2%. 현재 등급 오류일 0.50 → 49.3~50.7%.</li>
+<li><b>감시 표본수.</b> 비율 0.20 대 0.30 검출, 양측 α=0.05, 검정력 0.80 → n=137. 점심 식전 답 0.05 대 0.10 → n=185. 정규 근사 공식 n = [z<sub>α/2</sub>√(p₀(1−p₀)) + z<sub>β</sub>√(p₁(1−p₁))]² / (p₁−p₀)².</li>
+<li><b>내부 목표치와 기준.</b> 30분 이내 적중 85%, 모름 5% 이하, 아침 「8시 이후」 30%, 점심 식전 답 10%는 모두 내부 목표치이며 법정 기준이 아니다.</li>
+<li><b>외부 문헌.</b> 식후 보행의 혈당 관리 효과는 1차 자료 미확인으로 본 문서에 수치를 인용하지 않았다.</li>
+<li><b>미확인 사항.</b> 질문 추가가 응답률에 미치는 실제 영향, 건강 앱 식사 기록 항목의 연동 동의 범위, 식후 판정 방식(산식 담당 회신 대기).</li>
+</ol>
+</div>
+</main>
+</body>
+</html>
