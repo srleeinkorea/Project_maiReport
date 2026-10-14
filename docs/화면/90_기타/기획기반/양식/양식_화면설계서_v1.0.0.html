@@ -4,82 +4,95 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>흐름 이름 화면설계서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5;--acc:#1d4ed8;--todo:#b7791f;--todo-bg:#fcf3e1}
+:root{--ink:#0f1222;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a;--bg:#fbfbfd;--line:#e3e6ef;--blue-s:#eef1ff;--red-s:#fdeeed;--green-s:#eaf8f0;--amber-s:#fff6e6;--mute:#5d6275;--num:#d9dce6}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.6}
-main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
-header h1{margin:0 0 4px;font-size:24px}
-header .path{color:var(--mute);font-size:13px}
-.kind{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;margin-bottom:8px}
-.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin:8px 0 18px}
-.meta b{color:var(--ink);font-weight:600}
-nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
-nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
-nav.toc a,a{color:var(--acc);text-decoration:none}
-a:hover{text-decoration:underline}
-section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
-section h2{margin:0 0 10px;font-size:17px}
-section h3{margin:14px 0 6px;font-size:14px}
-.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
-.glance div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.glance b{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
-.col{border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.col h3{margin-top:0}
-table{width:100%;border-collapse:collapse;margin-top:8px}
-th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
-th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
-.chip{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--chip);font-size:12px;font-weight:600;white-space:nowrap}
-.fig{border:1px dashed var(--line);border-radius:12px;padding:14px;text-align:center;color:var(--mute);margin:10px 0}
-.todo{background:var(--todo-bg);color:var(--todo);padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600}
-.ex{color:var(--mute);font-size:12.5px}
-p{margin:6px 0}
-ol{margin:6px 0 0;padding-left:20px}
-ol li{margin:4px 0}
-code{font-family:Consolas,monospace;font-size:12.5px;background:var(--chip);padding:1px 5px;border-radius:5px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}}
-:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;font-size:14.5px;line-height:1.7;word-break:keep-all}
+main{max-width:1120px;margin:0 auto;padding:40px 24px 80px}
+.serif,h1,.big{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400}
+.cover{padding:8px 0 28px;border-bottom:1px solid var(--line)}
+.cover .kind{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.cover h1{font-size:40px;line-height:1.15;margin:8px 0 6px}
+.cover .sub{font-size:16px;color:var(--mute);margin:0}
+.cover .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 20px;margin-top:18px;font-size:13px;color:var(--mute)}
+.cover .meta b{color:var(--ink);font-weight:500;display:block;font-size:14px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:28px 0 8px}
+.strip .tile{background:#fff;padding:16px 18px}
+.strip .tile small{display:block;font-size:12px;color:var(--mute);letter-spacing:.04em}
+.strip .tile .big{font-size:34px;line-height:1.1;margin:4px 0 2px}
+.strip .tile .big.red{color:var(--red)}.strip .tile .big.green{color:var(--green)}.strip .tile .big.blue{color:var(--blue)}.strip .tile .big.amber{color:var(--amber)}
+.strip .tile span{font-size:12.5px;color:var(--mute)}
+section{display:grid;grid-template-columns:96px 1fr;gap:0 24px;padding:34px 0;border-bottom:1px solid var(--line)}
+section>.n{font-family:"DM Serif Display",serif;font-size:56px;line-height:1;color:var(--num);padding-top:2px}
+section>.b{min-width:0}
+section h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:26px;margin:0 0 14px;letter-spacing:-.01em}
+section h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:22px 0 8px;font-weight:600}
+p{margin:8px 0}
+.lead{font-size:16.5px;line-height:1.65}
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;border-top:2px solid var(--ink)}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:600;text-align:left;padding:10px 10px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border:1px solid currentColor;line-height:1.5}
+.tag.red{color:var(--red)}.tag.green{color:var(--green)}.tag.amber{color:var(--amber)}.tag.blue{color:var(--blue)}.tag.ink{color:var(--ink)}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:10px 0}
+.panel{border:1px solid var(--line);background:#fff;padding:14px 16px}
+.panel.blue{background:var(--blue-s);border-color:#cdd6ff}.panel.green{background:var(--green-s);border-color:#bfe6cf}.panel.red{background:var(--red-s);border-color:#f5c7c4}.panel.amber{background:var(--amber-s);border-color:#f0d9ad}
+.panel b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.panel .judge{margin-top:8px;font-weight:600}
+.fig{margin:18px 0 8px}
+.fig .t{font-size:12.5px;letter-spacing:.04em;color:var(--mute);margin-bottom:6px}
+.fig .t b{color:var(--ink);font-weight:600}
+.fig svg{display:block;width:100%;max-width:760px;height:auto;background:#fff;border:1px solid var(--line)}
+.fig .cap{font-size:13px;color:var(--mute);margin-top:8px;max-width:760px}
+.fig .cap b{color:var(--ink);font-weight:600}
+.timeline{display:grid;gap:8px;margin:10px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rec{border-left:4px solid var(--blue);background:var(--blue-s);padding:14px 16px;margin:10px 0}
+.rec.no{border-left-color:var(--line);background:#fff}
+.rec b{display:block;margin-bottom:4px}
+.qa dt{font-weight:600;margin-top:10px}.qa dd{margin:2px 0 0;color:#2b3042}
+.foot{padding:26px 0 0;font-size:12.5px;color:var(--mute)}
+.foot h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;color:var(--ink)}
+.foot ol{padding-left:18px;margin:0}
+ul,ol{margin:6px 0 0;padding-left:20px}li{margin:3px 0}
+.ex{color:var(--mute);font-size:13px}
+.todo{color:var(--amber);font-size:12.5px;border:1px dashed var(--amber);padding:0 6px}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+@media(max-width:760px){section{grid-template-columns:1fr}section>.n{font-size:36px}.strip{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.cover h1{font-size:30px}}
+@media print{body{background:#fff}section{break-inside:avoid}}
 </style>
 </head>
 <body>
 <main>
-
-<header>
-  <span class="kind">화면설계서</span>
-  <h1>흐름 이름 <span class="todo">화면 이름으로 바꾼다</span></h1>
-  <div class="path">탭 › 화면 (예: 더보기 › 건강데이터 연동)</div>
-  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>YYYY-MM-DD</b></span><span>화면 ID <b>XXX-000</b></span><span>관련 문서 <b><a href="#">기획서</a> · <a href="#">화면정의서</a> · <a href="#">화면설계서</a></b></span></div>
-</header>
-
-<nav class="toc"><ol>
-<li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">흐름 개요</a></li><li><a href="#c2">흐름도</a></li><li><a href="#c3">단계별 화면</a></li><li><a href="#c4">분기와 예외</a></li><li><a href="#c5">데이터와 연동</a></li><li><a href="#c6">시나리오</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
-</ol></nav>
-
-<section id="glance"><h2>한눈에 보기</h2>
-<div class="glance">
-<div><b>이 문서가 다루는 것</b>한 줄로. 예: 더보기에서 건강 앱을 연결하고 끊는 흐름</div>
-<div><b>가장 중요한 결정</b>한 줄로. 예: 연동 앱은 한 번에 하나만 고를 수 있다</div>
-<div><b>아직 정해지지 않은 것</b>한 줄로, 없으면 「없음」. 자세한 목록은 맨 아래 「확인 필요」</div>
-</div>
-</section>
-
-<section id="c1"><h2>1. 흐름 개요</h2><table><tr><th>시작</th><th>끝</th><th>거치는 화면</th></tr><tr><td class='ex'>더보기 › 건강데이터 연동</td><td class='ex'>연동됨 또는 미연동으로 돌아옴</td><td class='ex'>앱 선택 → 권한 → 동기화 중 → 연동됨</td></tr></table></section>
-<section id="c2"><h2>2. 흐름도</h2><p>상태와 이동을 한 장에. 상자는 화면, 화살표는 사용자 행동 또는 시스템 결과.</p><div class="fig">그림: 프로토타입 캡처 또는 SVG를 이 자리에 인라인으로 넣는다</div></section>
-<section id="c3"><h2>3. 단계별 화면</h2><h3>1단계 · 앱 선택</h3><div class="fig">그림: 프로토타입 캡처 또는 SVG를 이 자리에 인라인으로 넣는다</div><table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr><tr><td class='ex'>앱 하나를 고른다</td><td class='ex'>선택을 저장하고 권한 화면을 띄운다</td><td class='ex'>2단계 권한</td></tr></table><h3>2단계 · …</h3></section>
-<section id="c4"><h2>4. 분기와 예외</h2><table><tr><th>상황</th><th>화면</th><th>다음</th></tr><tr><td class='ex'>권한 거부</td><td class='ex'>안내와 「설정 열기」</td><td class='ex'>1단계로</td></tr><tr><td class='ex'>동기화 실패</td><td class='ex'>…</td><td class='ex'>…</td></tr></table></section>
-<section id="c5"><h2>5. 데이터와 연동</h2><table><tr><th>단계</th><th>주고받는 것</th><th>외부 호출</th></tr><tr><td class='ex'>동기화</td><td class='ex'>최근 7일 걸음 · 수면</td><td class='ex'>건강 플랫폼 읽기 1회</td></tr></table></section>
-<section id="c6"><h2>6. 시나리오</h2><p>예시 인물 하나로 처음부터 끝까지 따라간다.</p><ol><li>…</li><li>…</li></ol></section>
-
-<section id="open"><h2>확인 필요</h2>
-<table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
-<tr><td class="ex">예: 권한을 거부한 뒤 다시 켜는 길을 앱 안에 둘지</td><td class="ex">기획</td><td class="ex">YYYY-MM-DD</td><td class="ex">열림</td></tr></table>
-</section>
-
-<section id="history"><h2>바뀐 것</h2>
-<table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
-<tr><td>YYYY-MM-DD</td><td>1.0.0</td><td>첫 작성</td><td></td></tr></table>
-</section>
+<div class="cover"><div class="kind">화면설계서 · Flow Design</div><h1>흐름 이름 <span class="todo">제목을 바꾼다</span></h1><p class="sub">탭 › 시작 화면 › … › 끝 화면</p><div class="meta"><div>판<b>1.0.0</b></div><div>기준일<b>YYYY-MM-DD</b></div><div>화면 ID<b>XXX-000</b></div><div>관련 문서<b>기획서 · 화면정의서 · 화면설계서</b></div></div></div>
+<section id="s0"><div class="n">00</div><div class="b"><h2>한눈에 보기</h2><div class="panels"><div class="panel green"><b>이 문서가 다루는 것</b>…</div><div class="panel blue"><b>가장 중요한 결정</b>…</div><div class="panel amber"><b>아직 정해지지 않은 것</b>…</div></div></div></section>
+<section id="s1"><div class="n">01</div><div class="b"><h2>흐름 개요</h2><table><tr><th>시작</th><th>끝</th><th>거치는 화면</th></tr><tr><td class="ex">더보기 › 건강데이터 연동</td><td class="ex">연동됨 또는 미연동으로 돌아옴</td><td class="ex">앱 선택 → 권한 → 동기화 중 → 연동됨</td></tr></table></div></section>
+<section id="s2"><div class="n">02</div><div class="b"><h2>흐름도</h2><div class="fig"><div class="t"><b>Fig 1</b> · 상태와 이동 · 박스-화살표</div>
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="12">
+<rect x="40" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="130" y="105" text-anchor="middle">문제 · 현황</text>
+<rect x="290" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="380" y="105" text-anchor="middle">원인 · 요건</text>
+<rect x="540" y="70" width="180" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="630" y="105" text-anchor="middle" fill="#5170FF">제안</text>
+<path d="M220,100 L288,100 M470,100 L538,100" stroke="#0f1222" stroke-width="1.2" marker-end="url(#ar)"/>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs>
+<text x="40" y="190" fill="#5d6275" font-size="11">설명용 예시 — 실제 문서에서는 흐름도 · 갭 차트 · 타임라인 중 내용에 맞는 형식으로 바꾼다</text>
+</svg><div class="cap"><b>해석:</b> 상자는 화면, 화살표는 사용자 행동 또는 시스템 결과. 점선은 조건이 맞을 때만 가는 길.</div></div></div></section>
+<section id="s3"><div class="n">03</div><div class="b"><h2>단계별 화면</h2><p class="ex">왼쪽 조작 화면 + 오른쪽 동작 · 표시 정보 · 예외(진료정보 연동 설계서 구조). 조작 화면을 두기 어려우면 단계마다 그림 1장과 표 1개.</p><h3>1단계 · 앱 선택</h3><table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr><tr><td class="ex">앱 하나를 고른다</td><td class="ex">선택을 저장하고 권한 화면을 띄운다</td><td class="ex">2단계 권한</td></tr></table></div></section>
+<section id="s4"><div class="n">04</div><div class="b"><h2>분기와 예외</h2><table><tr><th>상황</th><th>화면</th><th>다음</th></tr><tr><td class="ex">권한 거부</td><td class="ex">안내와 「설정 열기」</td><td class="ex">1단계로</td></tr><tr><td class="ex">동기화 실패</td><td class="ex">…</td><td class="ex">…</td></tr></table></div></section>
+<section id="s5"><div class="n">05</div><div class="b"><h2>데이터와 연동</h2><table><tr><th>단계</th><th>주고받는 것</th><th>외부 호출</th></tr><tr><td class="ex">동기화</td><td class="ex">최근 7일 걸음 · 수면</td><td class="ex">건강 플랫폼 읽기 1회</td></tr></table><div class="fig"><div class="t"><b>Fig 2</b> · 두 경로 타임라인</div>
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="12">
+<rect x="40" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="130" y="105" text-anchor="middle">문제 · 현황</text>
+<rect x="290" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="380" y="105" text-anchor="middle">원인 · 요건</text>
+<rect x="540" y="70" width="180" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="630" y="105" text-anchor="middle" fill="#5170FF">제안</text>
+<path d="M220,100 L288,100 M470,100 L538,100" stroke="#0f1222" stroke-width="1.2" marker-end="url(#ar)"/>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs>
+<text x="40" y="190" fill="#5d6275" font-size="11">설명용 예시 — 실제 문서에서는 흐름도 · 갭 차트 · 타임라인 중 내용에 맞는 형식으로 바꾼다</text>
+</svg><div class="cap"><b>해석:</b> 정상 경로와 예외 경로를 두 줄로 비교한다.</div></div></div></section>
+<section id="s6"><div class="n">06</div><div class="b"><h2>시나리오</h2><p>예시 인물 하나로 처음부터 끝까지 따라간다.</p><ol><li>…</li><li>…</li></ol></div></section>
+<section id="s7"><div class="n">07</div><div class="b"><h2>확인 필요</h2><table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr><tr><td class="ex">예: 권한을 거부한 뒤 다시 켜는 길을 앱 안에 둘지</td><td class="ex">기획</td><td class="ex">YYYY-MM-DD</td><td class="ex">열림</td></tr></table></div></section>
+<section id="s8"><div class="n">08</div><div class="b"><h2>바뀐 것</h2><table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr><tr><td>YYYY-MM-DD</td><td>1.0.0</td><td>첫 작성</td><td></td></tr></table></div></section>
+<div class="foot"><h4>근거 및 가정</h4><ol><li>데이터 출처: …</li><li>계산 가정: …(수치가 있으면 공식과 과정)</li><li>외부 기준 · 문헌: 확인한 것만 링크 · 서지. 확인 못 한 것은 「1차 자료 미확인」</li><li>관련 조항 · 계약: …</li></ol></div>
 </main>
 </body>
 </html>

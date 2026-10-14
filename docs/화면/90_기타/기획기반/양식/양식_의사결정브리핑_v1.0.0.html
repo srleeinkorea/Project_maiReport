@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>주제 추진 방향 검토</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0f1222;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a;--bg:#fbfbfd;--line:#e3e6ef;--blue-s:#eef1ff;--red-s:#fdeeed;--green-s:#eaf8f0;--amber-s:#fff6e6;--mute:#5d6275;--num:#d9dce6}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;font-size:14.5px;line-height:1.7;word-break:keep-all}
+main{max-width:1120px;margin:0 auto;padding:40px 24px 80px}
+.serif,h1,.big{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400}
+.cover{padding:8px 0 28px;border-bottom:1px solid var(--line)}
+.cover .kind{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.cover h1{font-size:40px;line-height:1.15;margin:8px 0 6px}
+.cover .sub{font-size:16px;color:var(--mute);margin:0}
+.cover .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 20px;margin-top:18px;font-size:13px;color:var(--mute)}
+.cover .meta b{color:var(--ink);font-weight:500;display:block;font-size:14px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:28px 0 8px}
+.strip .tile{background:#fff;padding:16px 18px}
+.strip .tile small{display:block;font-size:12px;color:var(--mute);letter-spacing:.04em}
+.strip .tile .big{font-size:34px;line-height:1.1;margin:4px 0 2px}
+.strip .tile .big.red{color:var(--red)}.strip .tile .big.green{color:var(--green)}.strip .tile .big.blue{color:var(--blue)}.strip .tile .big.amber{color:var(--amber)}
+.strip .tile span{font-size:12.5px;color:var(--mute)}
+section{display:grid;grid-template-columns:96px 1fr;gap:0 24px;padding:34px 0;border-bottom:1px solid var(--line)}
+section>.n{font-family:"DM Serif Display",serif;font-size:56px;line-height:1;color:var(--num);padding-top:2px}
+section>.b{min-width:0}
+section h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:26px;margin:0 0 14px;letter-spacing:-.01em}
+section h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:22px 0 8px;font-weight:600}
+p{margin:8px 0}
+.lead{font-size:16.5px;line-height:1.65}
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;border-top:2px solid var(--ink)}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:600;text-align:left;padding:10px 10px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border:1px solid currentColor;line-height:1.5}
+.tag.red{color:var(--red)}.tag.green{color:var(--green)}.tag.amber{color:var(--amber)}.tag.blue{color:var(--blue)}.tag.ink{color:var(--ink)}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:10px 0}
+.panel{border:1px solid var(--line);background:#fff;padding:14px 16px}
+.panel.blue{background:var(--blue-s);border-color:#cdd6ff}.panel.green{background:var(--green-s);border-color:#bfe6cf}.panel.red{background:var(--red-s);border-color:#f5c7c4}.panel.amber{background:var(--amber-s);border-color:#f0d9ad}
+.panel b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.panel .judge{margin-top:8px;font-weight:600}
+.fig{margin:18px 0 8px}
+.fig .t{font-size:12.5px;letter-spacing:.04em;color:var(--mute);margin-bottom:6px}
+.fig .t b{color:var(--ink);font-weight:600}
+.fig svg{display:block;width:100%;max-width:760px;height:auto;background:#fff;border:1px solid var(--line)}
+.fig .cap{font-size:13px;color:var(--mute);margin-top:8px;max-width:760px}
+.fig .cap b{color:var(--ink);font-weight:600}
+.timeline{display:grid;gap:8px;margin:10px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rec{border-left:4px solid var(--blue);background:var(--blue-s);padding:14px 16px;margin:10px 0}
+.rec.no{border-left-color:var(--line);background:#fff}
+.rec b{display:block;margin-bottom:4px}
+.qa dt{font-weight:600;margin-top:10px}.qa dd{margin:2px 0 0;color:#2b3042}
+.foot{padding:26px 0 0;font-size:12.5px;color:var(--mute)}
+.foot h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;color:var(--ink)}
+.foot ol{padding-left:18px;margin:0}
+ul,ol{margin:6px 0 0;padding-left:20px}li{margin:3px 0}
+.ex{color:var(--mute);font-size:13px}
+.todo{color:var(--amber);font-size:12.5px;border:1px dashed var(--amber);padding:0 6px}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+@media(max-width:760px){section{grid-template-columns:1fr}section>.n{font-size:36px}.strip{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.cover h1{font-size:30px}}
+@media print{body{background:#fff}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<main>
+<div class="cover"><div class="kind">의사결정 브리핑 · Decision Brief</div><h1>주제 추진 방향 검토 <span class="todo">제목을 바꾼다</span></h1><p class="sub">부제 — 한 줄</p><div class="meta"><div>회의<b>YYYY-MM-DD 회의명</b></div><div>대상<b>의사결정자 · 참석자</b></div><div>제안<b>권고 1안 한 줄</b></div><div>작성<b>부서 · 판 v1</b></div></div></div>
+<div class="strip"><div class="tile"><small>충족</small><div class="big green">3<small>/5</small></div><span>합의 요건 중 충족</span></div><div class="tile"><small>부족</small><div class="big red">2</div><span>미충족 요건</span></div><div class="tile"><small>결정적 수치</small><div class="big blue">0.86</div><span>예: 민감도</span></div><div class="tile"><small>기준</small><div class="big ink">0.90</div><span>법정 기준 / 내부 목표 구분</span></div></div>
+<section id="s1"><div class="n">01</div><div class="b"><h2>요약</h2><p class="lead">2~3문장 결론.</p><div class="panels"><div class="panel green"><b>확인된 사실</b>…</div><div class="panel"><b>검토 결과</b>…</div><div class="panel blue"><b>제안</b>…</div></div><div class="fig"><div class="t"><b>Fig 1</b> · 문제 → 원인 → 제안</div>
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="12">
+<rect x="40" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="130" y="105" text-anchor="middle">문제 · 현황</text>
+<rect x="290" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="380" y="105" text-anchor="middle">원인 · 요건</text>
+<rect x="540" y="70" width="180" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="630" y="105" text-anchor="middle" fill="#5170FF">제안</text>
+<path d="M220,100 L288,100 M470,100 L538,100" stroke="#0f1222" stroke-width="1.2" marker-end="url(#ar)"/>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs>
+<text x="40" y="190" fill="#5d6275" font-size="11">설명용 예시 — 실제 문서에서는 흐름도 · 갭 차트 · 타임라인 중 내용에 맞는 형식으로 바꾼다</text>
+</svg><div class="cap"><b>해석:</b> …</div></div></div></section>
+<section id="s2"><div class="n">02</div><div class="b"><h2>목표와 요건</h2><table><tr><th>합의된 목표</th><th>달성 요건</th><th>현황</th></tr><tr><td class="ex">…</td><td class="ex">…</td><td class="ex"><span class="tag green">충족</span></td></tr><tr><td class="ex">…</td><td class="ex">…</td><td class="ex"><span class="tag red">미충족</span></td></tr></table></div></section>
+<section id="s3"><div class="n">03</div><div class="b"><h2>정량 검토</h2><p>직접 계산한 수치. 신뢰구간은 Wilson, 표본수 · 검정력 포함. 공식과 과정은 Foot.</p><div class="fig"><div class="t"><b>Fig 2</b> · 기준선 있는 곡선 + 현위치 마커</div>
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="12">
+<rect x="40" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="130" y="105" text-anchor="middle">문제 · 현황</text>
+<rect x="290" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="380" y="105" text-anchor="middle">원인 · 요건</text>
+<rect x="540" y="70" width="180" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="630" y="105" text-anchor="middle" fill="#5170FF">제안</text>
+<path d="M220,100 L288,100 M470,100 L538,100" stroke="#0f1222" stroke-width="1.2" marker-end="url(#ar)"/>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs>
+<text x="40" y="190" fill="#5d6275" font-size="11">설명용 예시 — 실제 문서에서는 흐름도 · 갭 차트 · 타임라인 중 내용에 맞는 형식으로 바꾼다</text>
+</svg><div class="cap"><b>해석:</b> …</div></div><div class="fig"><div class="t"><b>Fig 3</b> · 규모 비교 · 같은 축 가로막대</div>
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="12">
+<rect x="40" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="130" y="105" text-anchor="middle">문제 · 현황</text>
+<rect x="290" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="380" y="105" text-anchor="middle">원인 · 요건</text>
+<rect x="540" y="70" width="180" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="630" y="105" text-anchor="middle" fill="#5170FF">제안</text>
+<path d="M220,100 L288,100 M470,100 L538,100" stroke="#0f1222" stroke-width="1.2" marker-end="url(#ar)"/>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs>
+<text x="40" y="190" fill="#5d6275" font-size="11">설명용 예시 — 실제 문서에서는 흐름도 · 갭 차트 · 타임라인 중 내용에 맞는 형식으로 바꾼다</text>
+</svg><div class="cap"><b>해석:</b> …</div></div></div></section>
+<section id="s4"><div class="n">04</div><div class="b"><h2>다관점 검토</h2><div class="panels"><div class="panel"><b>임상의학</b>핵심 명제<ul><li>근거 1</li><li>근거 2</li><li>근거 3</li></ul><div class="judge">판정: …</div></div><div class="panel"><b>연구방법론 · 통계</b>…<div class="judge">판정: …</div></div><div class="panel"><b>AI 개발</b>…<div class="judge">판정: …</div></div><div class="panel"><b>인허가(RA)</b>…<div class="judge">판정: …</div></div></div><div class="fig"><div class="t"><b>Fig 4</b> · 수렴 다이어그램 (4 → 1)</div>
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="12">
+<rect x="40" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="130" y="105" text-anchor="middle">문제 · 현황</text>
+<rect x="290" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="380" y="105" text-anchor="middle">원인 · 요건</text>
+<rect x="540" y="70" width="180" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="630" y="105" text-anchor="middle" fill="#5170FF">제안</text>
+<path d="M220,100 L288,100 M470,100 L538,100" stroke="#0f1222" stroke-width="1.2" marker-end="url(#ar)"/>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs>
+<text x="40" y="190" fill="#5d6275" font-size="11">설명용 예시 — 실제 문서에서는 흐름도 · 갭 차트 · 타임라인 중 내용에 맞는 형식으로 바꾼다</text>
+</svg><div class="cap"><b>해석:</b> 네 관점이 어느 한 결론으로 모이는지, 어긋나는 관점은 무엇인지.</div></div><p class="lead">수렴 문장: …라고 판단한다.</p></div></section>
+<section id="s5"><div class="n">05</div><div class="b"><h2>검토한 대안</h2><table><tr><th>대안</th><th>결과</th><th>잔존 제약</th></tr><tr><td class="ex">…</td><td class="ex">…</td><td class="ex">…</td></tr></table></div></section>
+<section id="s6"><div class="n">06</div><div class="b"><h2>추진 방향별 영향</h2><div class="two"><div class="panel green"><b>진행 시</b>…</div><div class="panel amber"><b>변경 시</b>…</div></div><div class="fig"><div class="t"><b>Fig 5</b> · 두 경로 타임라인</div>
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="12">
+<rect x="40" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="130" y="105" text-anchor="middle">문제 · 현황</text>
+<rect x="290" y="70" width="180" height="60" fill="#fff" stroke="#0f1222"/><text x="380" y="105" text-anchor="middle">원인 · 요건</text>
+<rect x="540" y="70" width="180" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="630" y="105" text-anchor="middle" fill="#5170FF">제안</text>
+<path d="M220,100 L288,100 M470,100 L538,100" stroke="#0f1222" stroke-width="1.2" marker-end="url(#ar)"/>
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs>
+<text x="40" y="190" fill="#5d6275" font-size="11">설명용 예시 — 실제 문서에서는 흐름도 · 갭 차트 · 타임라인 중 내용에 맞는 형식으로 바꾼다</text>
+</svg><div class="cap"><b>해석:</b> …</div></div></div></section>
+<section id="s7"><div class="n">07</div><div class="b"><h2>제안</h2><div class="rec"><b>권고 1안</b>…</div><div class="rec no"><b>2안</b>…</div><div class="rec no"><b>3안 (비권고)</b>…</div></div></section>
+<section id="s8"><div class="n">08</div><div class="b"><h2>예상 질의와 답변</h2><dl class="qa"><dt>Q1. …</dt><dd>사실 → 판단. …라고 판단한다.</dd><dt>Q2. …</dt><dd>…</dd></dl></div></section>
+<section id="s9"><div class="n">09</div><div class="b"><h2>합의 요청 사항</h2><div class="two"><div class="panel"><b>필수</b><ol><li>…</li></ol></div><div class="panel"><b>권장</b><ol><li>…</li></ol></div></div><p><b>최소 성과선:</b> …</p><table><tr><th>시점</th><th>후속 일정</th></tr><tr><td class="ex">D+7</td><td class="ex">…</td></tr><tr><td class="ex">D+30</td><td class="ex">…</td></tr></table><p class="lead">맺음말 — …라고 제안한다.</p></div></section>
+<section id="s10"><div class="n">10</div><div class="b"><h2>표현 지침</h2><table><tr><th>권장 표현</th><th>지양 표현</th></tr><tr><td class="ex">미충족 · 보류 · 제약 · 대안</td><td class="ex">치명적 · 실패 · 폐기 · 좌초</td></tr><tr><td class="ex">초기 전제와 이후 요건 간의 차이</td><td class="ex">A가 못 해서</td></tr></table></div></section>
+<div class="foot"><h4>근거 및 가정</h4><ol><li>데이터 출처: …</li><li>계산 가정: …(수치가 있으면 공식과 과정)</li><li>외부 기준 · 문헌: 확인한 것만 링크 · 서지. 확인 못 한 것은 「1차 자료 미확인」</li><li>관련 조항 · 계약: …</li></ol></div>
+</main>
+</body>
+</html>
