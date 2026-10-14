@@ -65,7 +65,7 @@ td.doc a.gh:hover{text-decoration:underline}
 <header>
   <h1>화면별 문서 현황</h1>
   <p>전체 앱 구성 흐름도(IA)의 화면 목록에 맞춰, 화면마다 기획서 · 화면정의서 · 화면설계서가 어디에 있는지 모은 표</p>
-  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.6</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
+  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.7</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
 </header>
 
 <div class="legend">
@@ -95,6 +95,7 @@ td.doc a.gh:hover{text-decoration:underline}
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="문서 미리보기">
   <div class="mbox">
     <div class="mhead"><b id="mtitle"></b><a id="mnew" target="_blank" rel="noopener">새 탭에서 열기</a><a id="mgh" target="_blank" rel="noopener">GitHub 파일</a><a id="mfig" target="_blank" rel="noopener" title="Figma 플러그인 「HTML → Figma(틀 유지)」의 주소 칸에 넣는 문서 주소">Figma 가져오기 주소</a><button id="mcopy" type="button" title="Figma 가져오기 주소 복사">복사</button><button class="x" id="mclose" aria-label="닫기">×</button></div>
+    <div id="mnote" style="display:none;padding:8px 14px;font-size:12px;color:var(--mute);border-bottom:1px solid var(--line);word-break:break-all"></div>
     <iframe id="mframe" title="문서 미리보기"></iframe>
     <div class="mnote">깃허브에 올라간 최신 판을 그대로 보여준다. 엑셀 · zip은 미리보기가 없어 깃허브 파일로 연다.</div>
   </div>
@@ -254,10 +255,11 @@ ${g.rows.map(r=>{tot.rows++;tot.plan[st(r[3])]++;tot.def[st(r[4])]++;tot.design[
 </tbody></table></section>`).join('');
 const sum=(k,t)=>`<div class="card"><span>${t}</span><b>${tot[k].ok} <small style="font-size:13px;color:var(--mute)">/ ${tot.rows}</small></b><span>일부 ${tot[k].part} · 없음 ${tot[k].no}</span></div>`;
 const modal=document.getElementById('modal'),frame=document.getElementById('mframe');
-const openDoc=(a)=>{document.getElementById('mtitle').textContent=a.dataset.title;document.getElementById('mnew').href=a.dataset.view;document.getElementById('mgh').href=a.dataset.gh;const fg=a.dataset.figma||'';const mf=document.getElementById('mfig'),mc=document.getElementById('mcopy');mf.href=fg;mf.style.display=fg?'':'none';mc.style.display=fg?'':'none';mc.dataset.url=fg;mc.textContent='복사';frame.src=a.dataset.view;modal.classList.add('open');document.body.style.overflow='hidden';};
+const openDoc=(a)=>{document.getElementById('mtitle').textContent=a.dataset.title;document.getElementById('mnew').href=(a.dataset.figma&&a.dataset.figma.startsWith(SITE))?a.dataset.figma:a.dataset.view;document.getElementById('mgh').href=a.dataset.gh;const fg=a.dataset.figma||'';const mf=document.getElementById('mfig'),mc=document.getElementById('mcopy');mf.href=fg;mf.style.display=fg?'':'none';mc.style.display=fg?'':'none';mc.dataset.url=fg;mc.textContent='복사';frame.src=a.dataset.view;document.getElementById('mnote').style.display='none';modal.classList.add('open');document.body.style.overflow='hidden';};
 const closeDoc=()=>{modal.classList.remove('open');frame.src='about:blank';document.body.style.overflow='';};
 document.getElementById('groups').addEventListener('click',e=>{const a=e.target.closest('a[data-view]');if(!a)return;e.preventDefault();openDoc(a);});
 document.getElementById('mclose').addEventListener('click',closeDoc);
+document.getElementById('mnew').addEventListener('click',e=>{const u=e.currentTarget.href;const w=window.open(u,'_blank','noopener');if(w)return;e.preventDefault();navigator.clipboard&&navigator.clipboard.writeText(u);const n=document.getElementById('mnote');n.textContent='새 탭이 차단됐어요. 주소를 복사했으니 브라우저 주소창에 붙여 넣어 주세요: '+u;n.style.display='';});
 document.getElementById('mcopy').addEventListener('click',e=>{const u=e.currentTarget.dataset.url;if(!u)return;navigator.clipboard.writeText(u).then(()=>{e.target.textContent='복사됨';setTimeout(()=>e.target.textContent='복사',1200);});});
 modal.addEventListener('click',e=>{if(e.target===modal)closeDoc();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeDoc();});
