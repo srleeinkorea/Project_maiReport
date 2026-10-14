@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>홈 화면설계서</title>
+<style>
+:root{--font:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',sans-serif;--ink-1:#16233f;--ink-2:#5a6880;--ink-3:#98a4b8;--line:#e9edf5;--page:#f4f6fa;--fill:#f5f7fb;--brand:#2f6bff;--brand-soft:#eff4ff;--ok:#12a150;--ok-soft:#e8f7ee;--warn:#e5893a;--warn-soft:#fff4e8;--alert:#f43f5e;--r:20px;--r-in:14px;--sh:0 1px 2px rgba(22,35,63,.04),0 8px 24px rgba(22,35,63,.04);--mono:'JetBrains Mono',Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);font-size:14px;line-height:1.6;letter-spacing:-.01em;word-break:keep-all;background:#e8ebf2;color:var(--ink-1);-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit;letter-spacing:inherit}
+[hidden]{display:none!important}
+.page{max-width:1280px;margin:0 auto;padding:26px 20px 60px}
+.top h1{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.top p{font-size:13.5px;color:var(--ink-2);margin-top:6px;line-height:1.65;max-width:900px}
+.meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink-3);margin-top:10px}
+.meta b{color:var(--ink-2)}
+.controls{display:flex;flex-direction:column;gap:10px;margin:16px 0 20px;padding:14px 16px;background:#fff;border-radius:16px;box-shadow:var(--sh)}
+.ctl{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ctl>span{font-size:12px;font-weight:700;color:var(--ink-3);margin-right:4px;min-width:84px}
+.seg{padding:6px 11px;border-radius:999px;font-size:12.5px;font-weight:600;color:var(--ink-2);background:var(--fill);border:1px solid var(--line)}
+.seg.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.seg.preset{background:#fff}
+.seg.preset.on{background:var(--ink-1);border-color:var(--ink-1)}
+.stage{display:grid;grid-template-columns:400px 1fr;gap:24px;align-items:start}
+@media (max-width:920px){.stage{grid-template-columns:1fr}.phone{margin:0 auto}}
+.phone{width:400px;max-width:100%;height:820px;border-radius:46px;background:#10151f;padding:10px;box-shadow:0 24px 60px rgba(22,35,63,.2);position:sticky;top:16px}
+@media (max-width:920px){.phone{position:relative;top:0;height:780px}}
+.app{width:100%;height:100%;border-radius:37px;overflow:hidden;background:var(--page);position:relative;display:flex;flex-direction:column}
+.sbar{height:40px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 26px;font-size:14px;font-weight:700;background:var(--page)}
+.sbar i{font-style:normal;letter-spacing:2px;font-size:10px}
+.scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;position:relative}
+.scroll::-webkit-scrollbar{display:none}
+.hd{display:flex;align-items:center;gap:10px;padding:8px 18px 10px;background:var(--page);position:sticky;top:0;z-index:5}
+.hd b{font-size:20px;font-weight:800;letter-spacing:-.02em}
+.hd .ic{margin-left:auto;display:flex;gap:10px}
+.hd .ic button{width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid var(--line);font-size:15px;position:relative}
+.hd .ic .dot::after{content:'';position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--alert)}
+.body{padding:6px 18px 30px;display:flex;flex-direction:column;gap:12px}
+.card{background:#fff;border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sec-h b{font-size:15px;font-weight:750}
+.sec-h small{font-size:12px;color:var(--ink-3);font-weight:600}
+.sec-h .go{font-size:12px;color:var(--brand);font-weight:700}
+.q-prog{font-size:12px;font-weight:700;color:var(--ink-3)}
+.q-text{font-size:19px;line-height:1.4;margin:10px 0 12px;letter-spacing:-.02em}
+.q-hint{font-size:12px;color:var(--ink-2);background:var(--fill);border-radius:10px;padding:8px 10px;margin:-4px 0 12px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{min-height:48px;display:flex;align-items:center;justify-content:space-between;text-align:left;padding:10px 14px;border:1.5px solid var(--line);border-radius:14px;background:#fff;font-size:14px;font-weight:650}
+.opt small{display:block;font-size:11px;color:var(--ink-3);font-weight:600}
+.opt::after{content:'';width:16px;height:16px;border:1.5px solid #c9d1df;border-radius:50%;flex:none}
+.opt.on{border-color:var(--brand);background:var(--brand-soft);color:#244dbd}
+.opt.on::after{border:5px solid var(--brand)}
+.q-done{text-align:center;padding:6px 0 2px}
+.q-done i{font-style:normal;font-size:40px}
+.q-done b{display:block;font-size:17px;margin-top:8px}
+.q-done p{font-size:13px;color:var(--ink-2);margin-top:4px}
+.q-done .link{margin-top:12px;padding:12px;border-radius:12px;background:var(--fill);font-size:13px;font-weight:700;width:100%}
+.coach{border-top:4px solid var(--brand)}
+.coach .lb{font-size:12px;font-weight:700;color:var(--brand)}
+.coach h3{font-size:18px;line-height:1.45;margin-top:8px}
+.coach .pre{color:var(--ink-2);font-weight:500;font-size:15px}
+.coach .gen{display:flex;align-items:center;gap:8px;color:var(--ink-3);font-size:14px;margin-top:8px}
+.spin{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--brand);border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tile{border:1.5px solid var(--line);border-radius:14px;padding:12px 10px;min-height:112px;display:flex;flex-direction:column;gap:6px;text-align:left}
+.tile small{font-size:11px;font-weight:700;color:var(--ink-3)}
+.tile b{font-size:13px;line-height:1.4;font-weight:650}
+.tile.done{background:var(--ok-soft);border-color:transparent}
+.tile.done small{color:var(--ok)}
+.tile.lock{background:var(--fill);color:var(--ink-3)}
+.tile.lock b{font-weight:500;font-size:12px}
+.tile .st{margin-top:auto;font-size:11px;font-weight:700}
+.gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.g{text-align:center}
+.g small{font-size:12px;font-weight:700;color:var(--ink-2)}
+.g .bar{display:flex;gap:3px;margin:8px 0 6px}
+.g .bar i{flex:1;height:6px;border-radius:3px;background:var(--line)}
+.g .bar i.on{background:var(--brand)}
+.g .bar i.on.warn{background:var(--warn)}
+.g .bar i.on.ok{background:var(--ok)}
+.g b{font-size:12px}
+.g b.muted{color:var(--ink-3);font-weight:600}
+.sumline{margin-top:10px;font-size:12.5px;color:var(--ink-2);background:var(--fill);border-radius:10px;padding:8px 10px}
+.rows{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;align-items:center;gap:10px}
+.row .nm{font-size:13px;font-weight:650;flex:1}
+.row .v{font-size:15px;font-weight:800}
+.row .v small{font-size:11px;color:var(--ink-3);font-weight:600;margin-left:2px}
+.row .d{font-size:12px;color:var(--ink-2);min-width:84px;text-align:right}
+.empty{text-align:center;padding:10px 4px}
+.empty p{font-size:13px;color:var(--ink-2);line-height:1.55}
+.empty button{margin-top:10px;padding:10px 14px;border-radius:12px;background:var(--brand);color:#fff;font-size:13px;font-weight:700}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mini .card{padding:14px;border:1px solid var(--line);box-shadow:none}
+.mini small{font-size:11px;font-weight:700;color:var(--ink-3)}
+.mini b{display:block;font-size:17px;margin-top:4px}
+.mini p{font-size:11.5px;color:var(--ink-2);margin-top:2px}
+.nav{height:64px;flex:none;display:flex;justify-content:space-around;align-items:center;background:#fff;border-top:1px solid var(--line)}
+.nav div{display:flex;flex-direction:column;align-items:center;gap:4px;color:#b6c0d1}
+.nav span{font-size:17px;line-height:1}
+.nav small{font-size:11px;font-weight:600;line-height:1}
+.nav .on{color:var(--brand)}
+.overlay{position:absolute;inset:0;background:var(--page);z-index:20;display:flex;flex-direction:column}
+.overlay .hd b{font-size:17px}
+.overlay .hd button.back{width:auto;border:0;background:none;font-size:15px;padding:0 6px 0 0}
+.ans{background:#fff;border-radius:var(--r-in);padding:14px;box-shadow:var(--sh)}
+.ans small{font-size:12px;color:var(--ink-3);font-weight:700}
+.ans p{font-size:14px;font-weight:650;margin:4px 0 8px}
+.ans .opts{flex-direction:row;flex-wrap:wrap}
+.ans .opt{min-height:36px;padding:6px 10px;font-size:12.5px;flex:1 1 auto;justify-content:center}
+.ans .opt::after{display:none}
+.notice{font-size:12px;color:var(--ink-2);background:var(--fill);border-radius:10px;padding:8px 10px}
+.toast{position:absolute;left:50%;bottom:84px;transform:translateX(-50%);background:#16233f;color:#fff;font-size:12.5px;padding:9px 14px;border-radius:999px;white-space:nowrap;z-index:30;opacity:0;transition:opacity .2s}
+.toast.show{opacity:1}
+/* 오른쪽 설명 */
+.side{display:flex;flex-direction:column;gap:18px}
+.panel{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:var(--sh)}
+.panel h2{font-size:16px;font-weight:800;margin-bottom:4px}
+.panel .sub{font-size:12.5px;color:var(--ink-2);margin-bottom:12px}
+.now{display:flex;flex-direction:column;gap:8px}
+.now .it{display:grid;grid-template-columns:118px 1fr;gap:10px;font-size:13px;padding:8px 10px;border-radius:10px;background:var(--fill)}
+.now .it b{font-size:12.5px}
+.now .it span{color:var(--ink-2)}
+.now .it em{font-style:normal;color:var(--ink-3);font-size:11.5px;display:block}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--ink-3);background:var(--fill)}
+td.k{font-weight:700;white-space:nowrap}
+.tag{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:700;background:var(--fill);color:var(--ink-2);margin-right:4px}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}.tag.lock{background:#eef0f4;color:var(--ink-3)}.tag.warn{background:var(--warn-soft);color:var(--warn)}.tag.brand{background:var(--brand-soft);color:var(--brand)}
+.flow{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.flow .st{background:var(--fill);border-radius:10px;padding:9px 12px}
+.flow .st b{display:block;font-size:13px}
+.flow .st span{color:var(--ink-2);font-size:12.5px}
+.flow .ar{text-align:center;color:var(--ink-3);font-size:14px;line-height:1}
+.flow .br{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.flow .br .st{border:1px solid var(--line);background:#fff}
+.flow .br .st i{font-style:normal;font-size:11px;font-weight:800;color:var(--brand);display:block;margin-bottom:2px}
+ul.pl{padding-left:18px;font-size:13px}
+ul.pl li{margin:4px 0}
+ol.pl{padding-left:20px;font-size:13px}
+ol.pl li{margin:6px 0}
+.foot{font-size:12px;color:var(--ink-3);text-align:center;margin-top:28px}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="top">
+  <h1>홈 화면설계서</h1>
+  <p>홈의 여섯 영역이 시각 · 연동 상태 · 답변 진행에 따라 어떻게 바뀌고 서로 어떻게 이어지는지를 동작하는 화면으로 정리한 초안이다. 왼쪽 화면은 직접 눌러 볼 수 있고, 오른쪽에는 지금 보이는 상태의 이유와 상태 전이 규칙, 화면 이동, 아직 정하지 않은 것을 적었다. 문구와 표시 규칙은 홈 화면정의서, 질문 · 코칭 · 목표가 만들어지는 순서는 하루 생성 순서도, 식이 질문의 상세는 식이 화면설계서를 따른다.</p>
+  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>상태 <b>초안 v0.1</b></span><span>대상 화면 <b>홈(HOME-001) · 답변 보기(HOME-004)</b></span><span>기준 <b>홈 화면정의서 v1.0.0 · 하루 생성 순서도 · 식이 식사 시각 질문(10-13 확정) · IA v1.0.0</b></span></div>
+</div>
+
+<div class="controls">
+  <div class="ctl"><span>시나리오</span>
+    <button class="seg preset" data-preset="morning">아침 첫 진입</button>
+    <button class="seg preset" data-preset="answering">답하는 중</button>
+    <button class="seg preset" data-preset="done">모두 답함</button>
+    <button class="seg preset" data-preset="evening">저녁 첫 진입</button>
+    <button class="seg preset" data-preset="nolink">건강 데이터 미연동</button>
+    <button class="seg preset" data-preset="watching">연동 직후 · 관찰 중</button>
+    <button class="seg preset" data-preset="nocheckup">검진 미연동</button>
+  </div>
+  <div class="ctl"><span>진입 시각</span>
+    <button class="seg" data-k="hour" data-v="7">아침 7시</button>
+    <button class="seg" data-k="hour" data-v="11">오전 11시</button>
+    <button class="seg" data-k="hour" data-v="13">오후 1시</button>
+    <button class="seg" data-k="hour" data-v="19">저녁 7시</button>
+    <button class="seg" data-k="hour" data-v="2">새벽 2시</button>
+  </div>
+  <div class="ctl"><span>건강 데이터</span>
+    <button class="seg" data-k="link" data-v="on">연동 · 기록 충분</button>
+    <button class="seg" data-k="link" data-v="watch">연동 · 기록 부족</button>
+    <button class="seg" data-k="link" data-v="off">미연동</button>
+  </div>
+  <div class="ctl"><span>검진정보</span>
+    <button class="seg" data-k="checkup" data-v="on">연동</button>
+    <button class="seg" data-k="checkup" data-v="off">미연동</button>
+  </div>
+  <div class="ctl"><span>AI 인사이트</span>
+    <button class="seg" data-k="ai" data-v="on">결과 있음</button>
+    <button class="seg" data-k="ai" data-v="off">결과 없음</button>
+  </div>
+  <div class="ctl"><span>알림</span>
+    <button class="seg" data-k="noti" data-v="on">안 읽은 알림 있음</button>
+    <button class="seg" data-k="noti" data-v="off">없음</button>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="phone"><div class="app" id="app"></div></div>
+  <div class="side">
+    <div class="panel">
+      <h2>지금 보이는 상태와 그 이유</h2>
+      <div class="sub">왼쪽 화면이 왜 이렇게 보이는지 영역별로 설명한다. 화면을 누르거나 위 조건을 바꾸면 함께 바뀐다.</div>
+      <div class="now" id="now"></div>
+    </div>
+
+    <div class="panel">
+      <h2>영역별 상태 전이</h2>
+      <div class="sub">각 영역이 가질 수 있는 상태와, 무엇이 그 상태를 바꾸는지</div>
+      <table>
+        <tr><th style="width:110px">영역</th><th>상태</th><th>바뀌는 조건</th></tr>
+        <tr><td class="k">오늘의 질문</td><td><span class="tag brand">진행 중</span> → <span class="tag ok">모두 완료</span></td><td>첫 진입 때 그날 문항 세트를 한 번 정한다(최대 5문항). 한 문항씩 보여주고 고르면 0.5초 뒤 다음으로 넘어간다. 끼니 질문에 답하면 같은 자리에서 식사 시각 질문이 이어진다(어제 저녁 · 「못 먹거나 거름」은 묻지 않음). 마지막 문항에 답하면 완료 상태가 되고 「오늘 답변 모두 보기」가 생긴다. 답하지 않은 문항은 하루 동안 남는다. 끼니 구간이 바뀌면 답하지 않은 식사 문항의 끼니만 갱신된다.</td></tr>
+        <tr><td class="k">오늘의 코칭</td><td><span class="tag">답변 전</span> → <span class="tag brand">생성 중</span> → <span class="tag ok">행동 한 줄</span></td><td>모든 문항에 답한 시점에 한 번 만든다. 일부만 답했으면 「답변 전」 그대로다. 답변을 고치면 생성 중 → 결과를 다시 거친다. 낮 동안 기기 데이터가 늘어도 문구는 바뀌지 않는다. 17시 이후 생성이면 마무리형 문구를 쓴다.</td></tr>
+        <tr><td class="k">오늘의 목표</td><td><span class="tag lock">잠김</span> → <span class="tag">기본</span> ⇄ <span class="tag ok">완료</span></td><td>첫 진입 때 목표마다 판정한다. 식이는 항상 잠긴 채 시작한다. 활동은 오늘 걸음 기록, 수면은 어젯밤 수면 기록이 있으면 바로 만들고 없으면 잠근다. 잠긴 목표는 질문에 모두 답한 시점에 코칭과 함께 열린다. 타일을 누르면 완료, 다시 누르면 취소. 완료한 목표와 기기 데이터로 만든 목표는 답변을 고쳐도 바뀌지 않는다. 자동 완료는 없다.</td></tr>
+        <tr><td class="k">오늘의 컨디션</td><td><span class="tag">미연동</span> · <span class="tag warn">관찰 중</span> · <span class="tag ok">구간 표시</span></td><td>건강 데이터가 없으면 게이지 대신 연동 안내와 버튼. 연동됐지만 기록이 부족하면 빈 게이지와 「관찰 중」. 기록이 있으면 세 지표를 각각 세 구간 중 하나로 표시하고, 주의 구간이 하나라도 있을 때만 요약 한 줄을 붙인다. 기기 데이터가 갱신될 때마다 다시 계산한다(질문 답변은 지표에 들어가지 않는다).</td></tr>
+        <tr><td class="k">오늘의 건강 데이터</td><td><span class="tag">숨김</span> · <span class="tag ok">값 + 어제 대비</span></td><td>미연동이면 컨디션 영역에 이미 안내가 있으므로 이 영역은 숨긴다. 연동이면 걸음 · 수면 · 안정 시 심박 세 줄을 보여주고 어제 값과의 차이만 적는다. 값이 없는 줄은 「기록 없음」. 걸음은 자정 기준 누적이라 오전에는 작다.</td></tr>
+        <tr><td class="k">나의 건강, 숫자로 한눈에</td><td><span class="tag">결과 없음</span> · <span class="tag ok">점수 · 건강나이 · 등수</span></td><td>AI 인사이트 결과가 있으면 최근 결과의 점수와 분석 기간만, 없으면 안내 문구와 「분석하기」(생활 › AI 인사이트로 이동). 검진정보가 없으면 건강나이 · 또래 등수 대신 검진 연동 안내 카드 하나.</td></tr>
+        <tr><td class="k">헤더 알림</td><td><span class="tag">점 없음</span> · <span class="tag warn">점 표시</span></td><td>안 읽은 알림이 있으면 점만 표시한다. 누르면 알림 목록으로 이동한다. 숫자는 쓰지 않는다.</td></tr>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>하루의 흐름</h2>
+      <div class="sub">새벽 4시에 새 하루가 시작되고, 첫 진입 때 만든 것은 그날 고정된다</div>
+      <div class="flow">
+        <div class="st"><b>새벽 4시 · 새 하루</b><span>전날 질문 · 코칭 · 목표 세트가 닫힌다. 완료 기록은 남는다.</span></div>
+        <div class="ar">↓</div>
+        <div class="st"><b>오늘 첫 진입</b><span>그 시점 기기 데이터로 질문 세트와 목표(열림 · 잠김)를 만든다. 17시 이후면 저녁 문구.</span></div>
+        <div class="ar">↓</div>
+        <div class="br">
+          <div class="st"><i>재진입</i><b>만든 것은 그대로</b><span>질문 · 코칭 · 목표는 유지. 컨디션과 건강 데이터 값만 다시 계산.</span></div>
+          <div class="st"><i>답하는 중</i><b>한 문항씩</b><span>코칭 「답변 전」, 잠긴 목표는 잠김 유지. 누르면 남은 질문으로.</span></div>
+        </div>
+        <div class="ar">↓</div>
+        <div class="st"><b>모두 답함 · 한 번 실행</b><span>코칭 생성 중 → 행동 한 줄. 잠겨 있던 목표가 답변으로 열린다. 질문 영역은 완료 상태.</span></div>
+        <div class="ar">↓</div>
+        <div class="br">
+          <div class="st"><i>답변 수정</i><b>코칭 다시 생성</b><span>답변으로 만든 목표만 다시 만든다. 완료한 목표 · 기기 데이터로 만든 목표는 그대로.</span></div>
+          <div class="st"><i>타일 누름</i><b>완료 ⇄ 취소</b><span>「n/3 완료」와 생활 › 목표 분석이 즉시 같아진다.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>홈에서 이어지는 화면</h2>
+      <div class="sub">홈 안의 어디를 누르면 어디로 가는지</div>
+      <table>
+        <tr><th>누르는 곳</th><th>가는 곳</th><th>비고</th></tr>
+        <tr><td class="k">헤더 · QR 스캔</td><td>QR · 사진 촬영(카메라) → 인식 결과 확인 → 등록</td><td>검진 리포트 등록 흐름(REG-002 · 003)</td></tr>
+        <tr><td class="k">헤더 · 알림</td><td>알림 목록</td><td>최근 30일. 항목을 누르면 관련 화면</td></tr>
+        <tr><td class="k">질문 완료 카드 「오늘 답변 모두 보기」</td><td>답변 보기(전체 화면)</td><td>언제든 다시 고를 수 있음 → 코칭 · 답변 목표 재생성</td></tr>
+        <tr><td class="k">잠긴 목표 타일</td><td>홈 맨 위 남은 질문으로 스크롤</td><td>새 화면 없음</td></tr>
+        <tr><td class="k">「n/3 완료 ›」</td><td>생활 › 목표 분석</td><td>같은 타일 컴포넌트</td></tr>
+        <tr><td class="k">컨디션 「›」 · 게이지</td><td>생활 › 지표별 분석(오늘)</td><td></td></tr>
+        <tr><td class="k">컨디션 · 건강 데이터 연결하기</td><td>더보기 › 건강데이터 연동</td><td>연동 완료 시 홈으로 돌아오면 게이지 · 건강 데이터 즉시 표시</td></tr>
+        <tr><td class="k">건강 데이터 「›」</td><td>전체 건강 데이터 목록</td><td>행 자체는 누르는 동작 없음</td></tr>
+        <tr><td class="k">AI 인사이트 카드 · 분석하기</td><td>생활 › AI 인사이트(결과가 있으면 상세)</td><td>분석 실행은 답변과 무관</td></tr>
+        <tr><td class="k">건강나이 카드</td><td>나의 건강나이</td><td></td></tr>
+        <tr><td class="k">검진정보 연동하기</td><td>더보기 › 건강검진 · 진료정보 연동</td><td></td></tr>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>이 초안에서 정하지 않은 것</h2>
+      <div class="sub">확정하려면 결정이 필요한 항목</div>
+      <ol class="pl">
+        <li><b>미연동일 때 활동 · 수면 목표</b> — 화면정의서는 「둘 다 잠그지는 않는다」고 했지만 미연동이면 둘 다 기기 데이터가 없다. 이 초안은 활동은 기본 문구로 바로 열고 수면만 잠그는 안으로 그렸다.</li>
+        <li><b>「쉬기」</b> — 홈 화면정의서는 완료 · 미완료 둘뿐이고, IA와 기능정의서에는 「쉬기」가 있다. 홈 타일에 쉬기를 둘지 통일이 필요하다. 이 초안은 두지 않았다.</li>
+        <li><b>식이 외 문항 풀</b> — 활동 · 수면 · 기타 영역의 질문 문구와 선정 규칙이 아직 없다. 이 초안의 활동 · 수면 문항은 자리를 보이기 위한 예시다.</li>
+        <li><b>코칭 생성 시간</b> — 「생성 중」을 최대 몇 초까지 두고, 실패하면 어떤 기본 문구로 대체할지.</li>
+        <li><b>잠금 판정 기준</b> — 「오늘 걸음 기록 있음」을 몇 걸음 · 몇 시간 수집부터 볼지.</li>
+        <li><b>저녁 안내 문장</b> — 17~24시 「오늘 저녁을 드신 뒤 답해주세요」를 유지할지(10-08 야식 축 정리와 함께 재검토).</li>
+        <li><b>결식 3일 연속 안내</b> — 10-14 보류. 다시 꺼내면 목표 타일 문구 또는 코칭 한 줄로.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<div class="foot">마이리포트 · 홈 화면설계서 초안 v0.1 · 2026-10-14 · 화면의 값과 문구 일부는 자리를 보이기 위한 예시</div>
+</div>
+
+<script>
+(()=>{
+const S={hour:7,link:'on',checkup:'on',ai:'on',noti:'on'};
+let T=null; // 오늘 세트(첫 진입 때 만든 것)
+const $=s=>document.querySelector(s);
+const app=$('#app');
+
+// ── 끼니 · 시간대 ──────────────────────────────────────
+function mealOf(h){ if(h<4||h>=17) return h>=17?{k:'dinner',name:'오늘 저녁',time:true}:{k:'dinner_y',name:'어제 저녁',time:false};
+  if(h<10) return {k:'dinner_y',name:'어제 저녁',time:false}; if(h<12) return {k:'breakfast',name:'아침',time:true}; return {k:'lunch',name:'점심',time:true}; }
+const isEvening=h=>h>=17||h<4;
+const pad=n=>String(n).padStart(2,'0');
+function fmt(h,m){const ap=h<12?'오전':'오후';let hh=h%12;if(hh===0)hh=12;return `${ap} ${hh}:${pad(m)}`;}
+function timeOpts(meal,h){
+  if(meal.k==='breakfast') return [['7시 이전',''],['7시~8시',''],['8시 이후','']];
+  const stop=meal.k==='lunch'?14:21, floor=meal.k==='lunch'?12:17;
+  let base=h; let stopped=false;
+  if(base>stop){base=stop;stopped=true;}
+  const b0=Math.max(base-1,floor), b1=Math.max(base-2,floor);
+  if(stopped||base-1<floor) return [[`${fmt(b0,0)} 이후`,''],[`${fmt(b1,0)}~${fmt(b0,0).split(' ')[1]}`,''],[`${fmt(b1,0)} 이전`,'']];
+  return [[`${fmt(b0,0)} 이후`,'1시간 이내'],[`${fmt(b1,0)}~${fmt(b0,0).split(' ')[1]}`,'1~2시간 전'],[`${fmt(b1,0)} 이전`,'그보다 전']];
+}
+
+// ── 오늘 세트 만들기(첫 진입) ───────────────────────────
+function buildDay(){
+  const h=S.hour, meal=mealOf(h), past=isEvening(h);
+  const qs=[];
+  qs.push({id:'meal',cat:'식사',text:`${meal.name}은 평소만큼 ${past?'드셨나요?':'드셨나요?'}`,hint:(meal.k==='dinner')?'오늘 저녁을 드신 뒤 답해주세요':'',opts:[['충분히 먹음'],['적게 · 몇 입만'],['못 먹거나 거름']]});
+  if(meal.time) qs.push({id:'mealtime',cat:'식사 시각',text:meal.k==='breakfast'?'아침은 몇 시쯤 드셨어요?':`${meal.name}은 언제쯤 드셨어요?`,opts:timeOpts(meal,h),cond:'meal!=skip'});
+  qs.push({id:'veg',cat:'식사',text:`${meal.name}엔 채소 반찬을 얼마나 드셨나요?`,opts:[['충분히 먹음'],['조금 먹음'],['먹지 않음']],cond:'meal!=skip'});
+  if(S.link!=='on') qs.push({id:'sleep',cat:'수면',text:past?'어젯밤은 어떻게 주무셨나요?':'어젯밤은 어떻게 주무셨나요?',opts:[['푹 잤어요'],['보통이에요'],['잘 못 잤어요']]});
+  qs.push({id:'tired',cat:'기타',text:past?'오늘 하루 피로감은 어땠나요?':'지금 피로감은 어떤가요?',opts:[['괜찮아요'],['조금 피곤해요'],['많이 피곤해요']]});
+  const goals={
+    diet:{cat:'식이',src:'answer',locked:true,text:'',done:false},
+    act:{cat:'활동',src:S.link==='on'?'device':'default',locked:false,text:S.link==='on'?(past?'자기 전 10분 가볍게 걷기':'오늘 6,500걸음 걷기'):(past?'저녁 식후 10분 걷기':'점심 식후 10분 걷기'),done:false},
+    sleep:{cat:'수면',src:S.link==='on'?'device':'answer',locked:S.link!=='on',text:S.link==='on'?'밤 11시 30분 전에 잠자리에 들기':'',done:false}
+  };
+  T={qs:qs.slice(0,5),ans:{},goals,coach:'before',coachText:'',view:'home',answerMode:false};
+}
+function activeQs(){ return T.qs.filter(q=>!(q.cond==='meal!=skip'&&T.ans.meal===2)); }
+function currentQ(){ return activeQs().find(q=>T.ans[q.id]===undefined); }
+function allAnswered(){ return !currentQ(); }
+
+// ── 답변 → 코칭 · 목표 ─────────────────────────────────
+function generate(afterEdit){
+  T.coach='gen'; render();
+  setTimeout(()=>{
+    const past=isEvening(S.hour), a=T.ans;
+    const mealA=a.meal, tired=a.tired;
+    let c;
+    if(mealA===2) c=past?'오늘은 간단한 간식이라도 챙기고, 내일 아침은 거르지 않기':'다음 끼니는 거르지 말고 조금이라도 챙겨 먹기';
+    else if(tired===2) c=past?'오늘은 일찍 쉬고, 자기 전 화면 보는 시간 줄이기':'오후에 10분만 걷고 물 한 잔 마시기';
+    else if(a.veg===2) c=past?'내일 점심엔 채소 반찬 하나 더 챙기기':'다음 끼니엔 채소 반찬 하나 더 챙기기';
+    else c=past?'자기 전 10분 가볍게 걷고 마무리하기':'점심 먹고 10분 걷기';
+    T.coachText=c; T.coach='result';
+    const g=T.goals;
+    for(const k of Object.keys(g)){
+      const x=g[k];
+      if(x.done) continue;                 // 완료한 목표는 그대로
+      if(x.src==='device'||x.src==='default') continue; // 기기 데이터 · 기본 문구 목표는 그대로
+      x.locked=false;
+      if(k==='diet') x.text=mealA===2?'간식이라도 챙겨 먹기':mealA===1?'조금씩 자주 나눠 먹기':(a.veg===2?'채소 반찬 하나 더 먹기':'지금처럼 세 끼 챙기기');
+      if(k==='sleep') x.text=a.sleep===2?'오늘은 30분 일찍 잠자리에 들기':'어제와 같은 시각에 잠들기';
+    }
+    render(); if(afterEdit) toast('답변을 반영해 코칭과 목표를 다시 만들었어요');
+  },1200);
+}
+
+// ── 그리기 ─────────────────────────────────────────────
+function render(){
+  const h=S.hour, past=isEvening(h), link=S.link;
+  const aq=activeQs(), cq=currentQ(), idx=aq.findIndex(q=>q===cq);
+  const doneCnt=Object.values(T.goals).filter(g=>g.done).length;
+  const hdr=`<div class="hd"><b>마이리포트</b><div class="ic"><button title="QR 스캔" onclick="window.__go('qr')">▣</button><button title="알림" class="${S.noti==='on'?'dot':''}" onclick="window.__go('noti')">🔔</button></div></div>`;
+  // 질문
+  let qHtml;
+  if(cq){
+    qHtml=`<div class="card"><div class="q-prog">오늘의 질문 · ${idx+1}/${aq.length}</div><div class="q-text">${cq.text}</div>${cq.hint?`<div class="q-hint">${cq.hint}</div>`:''}<div class="opts">${cq.opts.map((o,i)=>`<button class="opt" onclick="window.__ans('${cq.id}',${i})">${o[0]}${o[1]?`<small>${o[1]}</small>`:''}</button>`).join('')}</div></div>`;
+  } else {
+    qHtml=`<div class="card"><div class="q-done"><i>📋</i><b>잘 했어요 👍 답변을 모두 완료했어요!</b><p>오늘의 몸 상태를 계속 유지해 봐요!</p><button class="link" onclick="window.__go('answers')">오늘 답변 모두 보기 ›</button></div></div>`;
+  }
+  // 코칭
+  let cHtml=`<div class="card coach"><div class="lb">오늘의 코칭</div>`;
+  if(T.coach==='before') cHtml+=`<h3 class="pre">먼저 오늘의 질문에 답하고, 나에게 맞는 코칭을 받아보세요.</h3>`;
+  else if(T.coach==='gen') cHtml+=`<div class="gen"><span class="spin"></span>코칭을 만들고 있어요</div>`;
+  else cHtml+=`<h3>${T.coachText}</h3>`;
+  cHtml+=`</div>`;
+  // 목표
+  const tiles=Object.entries(T.goals).map(([k,g])=>{
+    if(g.locked) return `<button class="tile lock" onclick="window.__go('lockq')"><small>${g.cat}</small><b>오늘의 질문에 답하면 목표가 생성돼요.</b><span class="st">🔒</span></button>`;
+    return `<button class="tile ${g.done?'done':''}" onclick="window.__toggle('${k}')"><small>${g.cat}</small><b>${g.text}</b><span class="st">${g.done?'완료 ✓':'누르면 완료'}</span></button>`;
+  }).join('');
+  const gHtml=`<div class="card"><div class="sec-h"><b>오늘의 목표</b><button class="go" onclick="window.__go('goals')">${doneCnt}/3 완료 ›</button></div><div class="tiles">${tiles}</div></div>`;
+  // 컨디션
+  let condHtml=`<div class="card"><div class="sec-h"><b>오늘의 컨디션</b>${link!=='off'?`<button class="go" onclick="window.__go('metric')">›</button>`:''}</div>`;
+  if(link==='off') condHtml+=`<div class="empty"><p>건강 데이터를 연결하면 오늘의 컨디션을 볼 수 있어요.</p><button onclick="window.__go('linkhealth')">건강 데이터 연결하기</button></div>`;
+  else if(link==='watch') condHtml+=`<div class="gauges">${['생활여유','자기돌봄','일상안정'].map(n=>`<div class="g"><small>${n}</small><div class="bar"><i></i><i></i><i></i></div><b class="muted">관찰 중</b></div>`).join('')}</div><div class="sumline">아직 관찰 중이에요. 기록이 더 쌓이면 오늘의 컨디션을 보여드릴게요.</div>`;
+  else {
+    const mt=T.ans.mealtime; const sc=mt===undefined&&T.ans.meal!==2&&mealOf(h).time; // 식사 시각 없으면 자기돌봄 관찰 중
+    const gs=[['생활여유',2,'충분해요'],['자기돌봄',sc?-1:(T.ans.tired===2?0:1),sc?'관찰 중':(T.ans.tired===2?'부족해요':'보통이에요')],['일상안정',1,'비슷해요']];
+    condHtml+=`<div class="gauges">${gs.map(([n,lv,lb])=>`<div class="g"><small>${n}</small><div class="bar">${[0,1,2].map(i=>`<i class="${i===lv?('on '+(lv===0?'warn':lv===2?'ok':'')):''}"></i>`).join('')}</div><b class="${lv<0?'muted':''}">${lb}</b></div>`).join('')}</div>`;
+    const warn=gs.filter(g=>g[1]===0).map(g=>g[0]);
+    if(warn.length) condHtml+=`<div class="sumline">${warn.join(' · ')}에서 살펴볼 점이 있어요.</div>`;
+    if(sc) condHtml+=`<div class="sumline">자기돌봄은 아직 관찰 중이에요. 오늘의 질문에서 식사 시각을 골라 주시면 식후에 움직였는지 볼 수 있어요.</div>`;
+  }
+  condHtml+=`</div>`;
+  // 건강 데이터
+  let dHtml='';
+  if(link!=='off'){
+    const steps=h<4?120:h<10?820:h<12?2340:h<17?4810:7260;
+    const rows=link==='watch'?[['걸음 수',`${steps.toLocaleString()}<small>걸음</small>`,'어제 기록 없음'],['수면 시간','—','기록 없음'],['안정 시 심박수','—','기록 없음']]
+      :[['걸음 수',`${steps.toLocaleString()}<small>걸음</small>`,`▼ ${(8100-steps).toLocaleString()}걸음`],['수면 시간','6시간 40분<small></small>','▼ 35분'],['안정 시 심박수','64<small>bpm</small>','· 어제와 같음']];
+    dHtml=`<div class="card"><div class="sec-h"><b>오늘의 건강 데이터</b><small>어제 대비</small><button class="go" onclick="window.__go('alldata')">›</button></div><div class="rows">${rows.map(r=>`<div class="row"><span class="nm">${r[0]}</span><span class="v">${r[1]}</span><span class="d">${r[2]}</span></div>`).join('')}</div></div>`;
+  }
+  // 나의 건강, 숫자로 한눈에
+  let nHtml=`<div class="card"><div class="sec-h"><b>나의 건강, 숫자로 한눈에</b></div><div class="mini">`;
+  nHtml+=S.ai==='on'?`<button class="card" onclick="window.__go('ai')"><small>AI 건강 인사이트</small><b>72<span style="font-size:12px;color:#98a4b8"> / 100</span></b><p>분석 기간 10.6 ~ 10.12</p></button>`
+    :`<button class="card" onclick="window.__go('ai')"><small>AI 건강 인사이트</small><p style="margin-top:6px">아직 확인할 수 있는 건강 인사이트가 없어요.</p><b style="font-size:13px;color:#2f6bff;margin-top:8px">분석하기 ›</b></button>`;
+  nHtml+=S.checkup==='on'?`<button class="card" onclick="window.__go('age')"><small>내 건강나이</small><b>47세</b><p>실제 나이보다 2세 많아요</p></button><button class="card" style="grid-column:1/-1" onclick="window.__go('rank')"><small>또래 100명 속 내 등수</small><p style="margin-top:6px">키 38등 · 체중 61등 · BMI 66등 · 허리둘레 58등</p></button>`
+    :`<div class="card" style="grid-column:1/-1"><p>검진정보가 연동되어 있지 않아요. 검진정보를 연동하면 내 건강나이와 또래 비교를 확인할 수 있어요.</p><button class="go" style="margin-top:8px;font-size:13px;color:#2f6bff;font-weight:700" onclick="window.__go('linkcheckup')">검진정보 연동하기 ›</button></div>`;
+  nHtml+=`</div></div>`;
+  const nav=`<div class="nav"><div class="on"><span>⌂</span><small>홈</small></div><div><span>◔</span><small>생활</small></div><div><span>✚</span><small>병원</small></div><div><span>≡</span><small>더보기</small></div></div>`;
+  let overlay='';
+  if(T.view==='answers'){
+    overlay=`<div class="overlay"><div class="hd"><button class="back" onclick="window.__go('home')">‹</button><b>오늘 답변 모두 보기</b></div><div class="scroll"><div class="body"><div class="notice">답변을 다시 선택하면 코칭과 목표에 바로 반영돼요.</div>${aq.map(q=>`<div class="ans"><small>${q.cat}</small><p>${q.text}</p><div class="opts">${q.opts.map((o,i)=>`<button class="opt ${T.ans[q.id]===i?'on':''}" onclick="window.__edit('${q.id}',${i})">${o[0]}</button>`).join('')}</div></div>`).join('')}</div></div></div>`;
+  }
+  app.innerHTML=`<div class="sbar"><span>${fmt(h,0).replace(':00','')}</span><i>●●●</i></div>${hdr}<div class="scroll" id="scroll"><div class="body">${qHtml}${cHtml}${gHtml}${condHtml}${dHtml}${nHtml}</div></div>${nav}${overlay}<div class="toast" id="toast"></div>`;
+  renderNow(aq,cq,idx,doneCnt);
+  document.querySelectorAll('.seg[data-k]').forEach(b=>b.classList.toggle('on',String(S[b.dataset.k])===b.dataset.v));
+}
+
+function renderNow(aq,cq,idx,doneCnt){
+  const h=S.hour, meal=mealOf(h), past=isEvening(h), link=S.link;
+  const it=[];
+  it.push(['진입 시각',`${fmt(h,0).replace(':00','')} · ${past?'저녁 문구(과거형 · 마무리형)':'낮 문구(현재형)'}`,`끼니 질문은 「${meal.name}」. ${meal.time?'답하면 식사 시각 질문이 이어진다':'어제 저녁이라 시각은 묻지 않는다'}`]);
+  it.push(['오늘의 질문',cq?`진행 중 · ${idx+1}/${aq.length}`:`모두 완료 · ${aq.length}문항`,T.ans.meal===2?'「못 먹거나 거름」이라 시각 질문과 채소 질문이 빠졌다':(link!=='on'?'건강 데이터가 없어 수면 문항이 들어갔다':'어젯밤 수면 기록이 있어 수면 문항은 내지 않는다')]);
+  it.push(['오늘의 코칭',T.coach==='before'?'답변 전':T.coach==='gen'?'생성 중':'행동 한 줄',T.coach==='before'?'모든 문항에 답해야 한 번 생성된다':T.coach==='gen'?'마지막 답변 직후 ~ 응답 도착까지':'답변을 고치지 않는 한 오늘은 바뀌지 않는다']);
+  const g=T.goals; const gl=Object.values(g).map(x=>`${x.cat} ${x.locked?'잠김':x.done?'완료':'기본'}`).join(' · ');
+  it.push(['오늘의 목표',`${gl} (${doneCnt}/3)`,`식이는 항상 잠긴 채 시작. 활동은 ${g.act.src==='device'?'오늘 걸음 기록으로 바로 생성':'기기 데이터가 없어 기본 문구로 생성(미결 ①)'}. 수면은 ${g.sleep.src==='device'?'어젯밤 수면 기록으로 바로 생성':'수면 문항 답변으로 생성'}`]);
+  it.push(['오늘의 컨디션',link==='off'?'미연동 안내 + 연결 버튼':link==='watch'?'관찰 중(기록 부족)':'세 구간 표시',link==='on'&&T.ans.mealtime===undefined&&T.ans.meal!==2&&meal.time?'식사 시각을 아직 안 받아 자기돌봄만 관찰 중':'기기 데이터가 갱신될 때마다 다시 계산']);
+  it.push(['오늘의 건강 데이터',link==='off'?'숨김(컨디션에 안내가 있으므로)':'걸음 · 수면 · 심박 + 어제 대비',link==='watch'?'어제 값이 없어 「어제 기록 없음」':'걸음은 자정부터 지금까지 누적']);
+  it.push(['숫자로 한눈에',`${S.ai==='on'?'인사이트 점수 표시':'결과 없음 → 분석하기'} · ${S.checkup==='on'?'건강나이 · 또래 등수':'검진 연동 안내'}`,'홈에서는 계산하지 않고 기존 결과값만 보여준다']);
+  $('#now').innerHTML=it.map(([k,v,e])=>`<div class="it"><b>${k}</b><span>${v}<em>${e}</em></span></div>`).join('');
+}
+
+// ── 동작 ───────────────────────────────────────────────
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
+window.__ans=(id,i)=>{ T.ans[id]=i; const btns=app.querySelectorAll('.opt'); btns[i]&&btns[i].classList.add('on');
+  setTimeout(()=>{ if(allAnswered()) generate(false); else render(); },500); };
+window.__edit=(id,i)=>{ if(T.ans[id]===i) return; T.ans[id]=i;
+  // 수정으로 새 문항(시각 · 채소)이 생기면 홈에서 이어 묻는다
+  if(!allAnswered()){ T.view='home'; render(); toast('추가 질문이 생겨 홈에서 이어서 물어요'); return; }
+  render(); generate(true); };
+window.__toggle=k=>{ const g=T.goals[k]; g.done=!g.done; render(); toast(g.done?`${g.cat} 목표 완료 · 생활 › 목표 분석에도 반영`:`${g.cat} 완료 취소`); };
+window.__go=where=>{
+  const map={qr:'QR · 사진 촬영(카메라)으로 이동',noti:'알림 목록으로 이동',goals:'생활 › 목표 분석으로 이동',metric:'생활 › 지표별 분석(오늘)으로 이동',linkhealth:'더보기 › 건강데이터 연동으로 이동',alldata:'전체 건강 데이터 목록으로 이동',ai:S.ai==='on'?'AI 인사이트 상세로 이동':'생활 › AI 인사이트로 이동',age:'나의 건강나이로 이동',rank:'또래 비교 기준 안내',linkcheckup:'더보기 › 건강검진 · 진료정보 연동으로 이동'};
+  if(where==='answers'){T.view='answers';render();return;}
+  if(where==='home'){T.view='home';render();return;}
+  if(where==='lockq'){$('#scroll').scrollTo({top:0,behavior:'smooth'});toast('남은 질문으로 이동');return;}
+  toast(map[where]||where);
+};
+
+// ── 조건 · 시나리오 ────────────────────────────────────
+document.querySelectorAll('.seg[data-k]').forEach(b=>b.addEventListener('click',()=>{
+  const k=b.dataset.k, v=b.dataset.v; S[k]=k==='hour'?+v:v;
+  if(k==='hour'||k==='link') buildDay();   // 첫 진입 조건이 바뀌면 오늘 세트를 새로 만든다
+  document.querySelectorAll('.seg.preset').forEach(p=>p.classList.remove('on')); render();
+}));
+const presets={
+  morning:()=>{Object.assign(S,{hour:7,link:'on',checkup:'on',ai:'on',noti:'on'});buildDay();},
+  answering:()=>{Object.assign(S,{hour:13,link:'on',checkup:'on',ai:'on',noti:'off'});buildDay();T.ans.meal=0;T.ans.mealtime=0;},
+  done:()=>{Object.assign(S,{hour:13,link:'on',checkup:'on',ai:'on',noti:'off'});buildDay();activeQs().forEach(q=>T.ans[q.id]=q.id==='veg'?1:0);T.coach='result';T.coachText='점심 먹고 10분 걷기';T.goals.diet.locked=false;T.goals.diet.text='조금씩 자주 나눠 먹기';},
+  evening:()=>{Object.assign(S,{hour:19,link:'on',checkup:'on',ai:'on',noti:'on'});buildDay();},
+  nolink:()=>{Object.assign(S,{hour:11,link:'off',checkup:'on',ai:'off',noti:'off'});buildDay();},
+  watching:()=>{Object.assign(S,{hour:11,link:'watch',checkup:'off',ai:'off',noti:'off'});buildDay();},
+  nocheckup:()=>{Object.assign(S,{hour:13,link:'on',checkup:'off',ai:'on',noti:'off'});buildDay();}
+};
+document.querySelectorAll('.seg.preset').forEach(b=>b.addEventListener('click',()=>{presets[b.dataset.preset]();document.querySelectorAll('.seg.preset').forEach(p=>p.classList.toggle('on',p===b));render();}));
+presets.morning(); document.querySelector('.seg.preset').classList.add('on'); render();
+})();
+</script>
+</body>
+</html>
