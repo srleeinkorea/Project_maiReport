@@ -43,6 +43,18 @@ td.doc .where{color:var(--mute);font-size:11px;margin-left:4px}
 .gap li{margin:6px 0}
 .note{color:var(--mute);font-size:12px;margin-top:14px}
 footer{color:var(--mute);font-size:12px;margin-top:30px;text-align:center}
+td.doc a.gh{color:var(--mute);font-size:11px;margin-left:6px;text-decoration:none}
+td.doc a.gh:hover{text-decoration:underline}
+.modal{position:fixed;inset:0;background:rgba(20,24,30,.55);display:none;align-items:center;justify-content:center;z-index:50;padding:18px}
+.modal.open{display:flex}
+.mbox{width:min(1180px,100%);height:min(92vh,100%);background:var(--card);border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.35);display:flex;flex-direction:column;overflow:hidden}
+.mhead{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.mhead b{font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mhead a,.mhead button{font:inherit;font-size:12px;font-weight:600;color:var(--ink);background:var(--chip);border:0;border-radius:8px;padding:6px 10px;text-decoration:none;cursor:pointer;white-space:nowrap}
+.mhead button.x{font-size:16px;line-height:1;padding:4px 10px}
+.mbox iframe{flex:1;width:100%;border:0;background:#fff}
+.mnote{padding:8px 14px;font-size:12px;color:var(--mute);border-top:1px solid var(--line)}
+@media (max-width:860px){.modal{padding:0}.mbox{border-radius:0;height:100%}}
 @media (max-width:860px){td.doc{width:auto}table{font-size:13px}td.name{width:auto}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--link:#8ab4ff;--ok-bg:#1b3a2c;--part-bg:#3d3119;--no-bg:#43221f}th{background:#20252c}}
 :root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--link:#8ab4ff;--ok-bg:#1b3a2c;--part-bg:#3d3119;--no-bg:#43221f}
@@ -78,12 +90,20 @@ footer{color:var(--mute);font-size:12px;margin-top:30px;text-align:center}
   <p class="note">단순 화면(언어 · 약관 보기 · 로그아웃)은 더보기 화면정의서 한 장으로 충분하다. 셀비 체크업과 내정보 · 진료정보 연동은 화면설계서가 기획과 정의를 함께 담고 있어 따로 만들지 않는다.</p>
 </div>
 
-<footer>마이리포트 · 화면별 문서 현황 · 파일은 Project_maiReport 저장소 docs 폴더 기준. 「사이트」는 공유 사이트에만 있는 문서</footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="문서 미리보기">
+  <div class="mbox">
+    <div class="mhead"><b id="mtitle"></b><a id="mnew" target="_blank" rel="noopener">새 탭에서 열기</a><a id="mgh" target="_blank" rel="noopener">GitHub 파일</a><button class="x" id="mclose" aria-label="닫기">×</button></div>
+    <iframe id="mframe" title="문서 미리보기"></iframe>
+    <div class="mnote">깃허브에 올라간 최신 판을 그대로 보여준다. 엑셀 · zip은 미리보기가 없어 깃허브 파일로 연다.</div>
+  </div>
+</div>
+<footer>마이리포트 · 화면별 문서 현황 · 문서 이름을 누르면 화면 안에서 미리 보기가 열린다. 파일은 Project_maiReport 저장소 docs 폴더 기준. 「사이트」는 공유 사이트에만 있는 문서</footer>
 </main>
 
 <script>
 (()=>{
 const GH='https://github.com/srleeinkorea/Project_maiReport/blob/main/docs/';
+const RAW='https://raw.githack.com/srleeinkorea/Project_maiReport/main/docs/';
 const SITE='https://srleeinkorea.github.io/maireport-rsna-demo-k7x9m2q8v4n6/';
 // 짧은 이름 → 경로
 const P={
@@ -147,8 +167,8 @@ const P={
  또래규격:'엔진/또래등수/maiReport_또래등수_최종통합규격_v2.0.0.html',
 };
 const S={ 진료연동:'wip-clinic-codef.html', 셀비사이트:'selvy-checkup.html', 내정보사이트:'wip-my-info.html', 프로토사이트:'prototype.html' };
-const L=(k,label)=>({href:GH+encodeURI(P[k]),label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:''});
-const W=(k,label)=>({href:SITE+S[k],label,where:'사이트'});
+const L=(k,label)=>({href:GH+encodeURI(P[k]),view:/\.(html?|svg|png|pdf)$/i.test(P[k])?RAW+encodeURI(P[k]):'',label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:''});
+const W=(k,label)=>({href:SITE+S[k],view:SITE+S[k],label,where:'사이트'});
 const PROTO=L('프로토','최종 프로토타입에만 있음');
 
 // [id, 화면명, 비고, 기획서[], 화면정의서[], 화면설계서[]]  — [] = 없음, 'p' = 프로토타입만
@@ -202,7 +222,7 @@ const G=[
 ];
 const st=(arr)=>!arr.length?'no':(arr.length===1&&arr[0]===PROTO)?'part':(arr.every(x=>/\(.*섹션\)|프로토타입/.test(x.label)))?'part':'ok';
 const stText={ok:'있음',part:'일부',no:'없음'};
-const cell=(arr)=>{const s=st(arr);return `<td class="doc"><span class="chip ${s}">${stText[s]}</span>${arr.length?`<ul>${arr.map(x=>`<li><a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>${x.where?`<span class="where">${x.where}</span>`:''}</li>`).join('')}</ul>`:''}</td>`;};
+const cell=(arr)=>{const s=st(arr);return `<td class="doc"><span class="chip ${s}">${stText[s]}</span>${arr.length?`<ul>${arr.map(x=>`<li>${x.view?`<a href="${x.view}" data-view="${x.view}" data-gh="${x.href}" data-title="${x.label}">${x.label}</a><a class="gh" href="${x.href}" target="_blank" rel="noopener" title="GitHub에서 파일 보기">GitHub</a>`:`<a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>`}${x.where?`<span class="where">${x.where}</span>`:''}</li>`).join('')}</ul>`:''}</td>`;};
 let tot={rows:0,plan:{ok:0,part:0,no:0},def:{ok:0,part:0,no:0},design:{ok:0,part:0,no:0}};
 document.getElementById('groups').innerHTML=G.map(g=>`<section class="group"><div class="ghead"><span class="no">${g.no}</span><div><h2>${g.title}</h2><p>${g.desc}</p></div></div>
 <table><thead><tr><th>화면 ID</th><th>화면</th><th>기획서</th><th>화면정의서</th><th>화면설계서</th></tr></thead><tbody>
@@ -210,6 +230,13 @@ ${g.rows.map(r=>{tot.rows++;tot.plan[st(r[3])]++;tot.def[st(r[4])]++;tot.design[
  return `<tr><td class="id">${r[0]}</td><td class="name"><b>${r[1]}</b><small>${r[2]}</small></td>${cell(r[3])}${cell(r[4])}${cell(r[5])}</tr>`}).join('')}
 </tbody></table></section>`).join('');
 const sum=(k,t)=>`<div class="card"><span>${t}</span><b>${tot[k].ok} <small style="font-size:13px;color:var(--mute)">/ ${tot.rows}</small></b><span>일부 ${tot[k].part} · 없음 ${tot[k].no}</span></div>`;
+const modal=document.getElementById('modal'),frame=document.getElementById('mframe');
+const openDoc=(a)=>{document.getElementById('mtitle').textContent=a.dataset.title;document.getElementById('mnew').href=a.dataset.view;document.getElementById('mgh').href=a.dataset.gh;frame.src=a.dataset.view;modal.classList.add('open');document.body.style.overflow='hidden';};
+const closeDoc=()=>{modal.classList.remove('open');frame.src='about:blank';document.body.style.overflow='';};
+document.getElementById('groups').addEventListener('click',e=>{const a=e.target.closest('a[data-view]');if(!a)return;e.preventDefault();openDoc(a);});
+document.getElementById('mclose').addEventListener('click',closeDoc);
+modal.addEventListener('click',e=>{if(e.target===modal)closeDoc();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeDoc();});
 document.getElementById('summary').innerHTML=`<div class="card"><span>IA 화면 묶음</span><b>${tot.rows}</b><span>IA 화면 ${G.reduce((n,g)=>n+g.rows.length,0)}줄 · 6개 영역</span></div>${sum('plan','기획서 있음')}${sum('def','화면정의서 있음')}${sum('design','화면설계서 있음')}`;
 })();
 </script>
