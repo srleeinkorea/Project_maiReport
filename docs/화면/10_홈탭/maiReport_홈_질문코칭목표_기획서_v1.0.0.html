@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>홈 오늘의 질문 · 코칭 · 목표 기획서</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5;--acc:#1d4ed8;--todo:#b7791f;--todo-bg:#fcf3e1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.6;word-break:keep-all}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+header h1{margin:0 0 4px;font-size:24px}
+header .path{color:var(--mute);font-size:13px}
+.kind{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;margin-bottom:8px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin:8px 0 18px}
+.meta b{color:var(--ink);font-weight:600}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
+nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+section h2{margin:0 0 10px;font-size:17px}
+section h3{margin:16px 0 6px;font-size:14px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.glance div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.glance b{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
+.ex{color:var(--mute);font-size:12.5px}
+.note{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:13px;margin:8px 0}
+.fig{border:1px solid var(--line);border-radius:12px;padding:10px;margin:10px 0;overflow:auto}
+.fig svg{display:block;max-width:100%;height:auto}
+p{margin:6px 0}
+ol,ul{margin:6px 0 0;padding-left:20px}
+li{margin:4px 0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}}
+:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <span class="kind">기획서</span>
+  <h1>홈 · 오늘의 질문 → 오늘의 코칭 → 오늘의 목표</h1>
+  <div class="path">홈 › 오늘의 질문 · 답변 보기 · 오늘의 코칭 · 오늘의 목표</div>
+  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>HOME-003 · 004 · 005 · 006</b></span><span>관련 문서 <b><a href="maiReport_홈_질문코칭목표_화면정의서_v1.0.0.html">화면정의서</a> · <a href="maiReport_홈_질문코칭목표_화면설계서_v1.0.0.html">화면설계서</a> · <a href="maiReport_홈_화면설계서_v1.0.0.html">홈 화면설계서(여섯 영역 상태)</a></b></span></div>
+</header>
+
+<nav class="toc"><ol>
+<li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">배경과 목표</a></li><li><a href="#c2">대상과 상황</a></li><li><a href="#c3">범위</a></li><li><a href="#c4">동작 방식</a></li><li><a href="#c5">규칙과 예외</a></li><li><a href="#c6">데이터</a></li><li><a href="#c7">성공 기준</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
+</ol></nav>
+
+<section id="glance"><h2>한눈에 보기</h2>
+<div class="glance">
+<div><b>이 문서가 다루는 것</b>사용자가 홈에 들어왔을 때 그날의 질문이 어떻게 만들어지고, 답이 모이면 코칭 한 줄과 목표 3개가 어떻게 생기며, 하루 동안 무엇이 고정되는지.</div>
+<div><b>가장 중요한 결정</b>그날의 질문에 모두 답한 순간에 코칭 1개와 잠겨 있던 목표가 한 번에 만들어지고, 그날은 문구를 바꾸지 않는다. 일부만 답한 상태에서는 아무것도 만들지 않는다.</div>
+<div><b>아직 정해지지 않은 것</b>코칭 문구를 고르는 방식(프로토타입의 답변 분기 또는 지식DB 규칙), 활동·수면 문항 풀, 목표 숫자 산출 규칙. 홈 화면설계서가 10-14에 정한 7건(미연동 시 활동 기본 문구 · 생성 중 5초 등)은 이 문서에 반영했다. 자세한 목록은 「확인 필요」.</div>
+</div>
+</section>
+
+<section id="c1"><h2>1. 배경과 목표</h2>
+<p>홈은 숫자를 보여 주는 화면이 아니라 「오늘 무엇을 할지」를 정해 주는 화면이다. 앱을 연 사람이 30초 안에 오늘 상태와 오늘 할 일을 알고 나갈 수 있어야 한다.</p>
+<p>기기 데이터만으로는 그걸 못 한다. 걸음과 수면은 워치가 알려 주지만, 어제 저녁을 얼마나 먹었는지, 지금 피곤한지, 워치가 없는 사람의 활동은 알 수 없다. 그래서 하루 몇 개의 질문으로 빈 곳을 채우고, 그 답과 기기 데이터를 합쳐 오늘의 코칭 한 줄과 식이·활동·수면 목표 3개를 만든다.</p>
+<p class="ex">예: 52세 회사원이 아침 8시 20분에 앱을 연다. 워치가 어젯밤 수면 6시간 10분을 보냈으니 수면은 묻지 않고 활동·수면 목표는 바로 보인다. 식사는 기기가 모르므로 「어제 저녁은 평소만큼 드셨나요?」를 묻고, 답하면 식이 목표가 열린다.</p>
+<p>목표는 세 가지다. ① 사용자가 매일 답하고 싶을 만큼 질문을 짧게(하루 5문항 미만) 둔다. ② 답을 모으면 반드시 결과(코칭 1 + 목표 3)를 돌려준다. ③ 그날 보여 준 목표는 사용자와의 약속으로 보고 바꾸지 않는다.</p>
+</section>
+
+<section id="c2"><h2>2. 대상과 상황</h2>
+<table>
+<tr><th style="width:26%">인물</th><th style="width:30%">상황</th><th>바라는 것 · 앱이 하는 일</th></tr>
+<tr><td>52세 회사원, 공복혈당 108로 경계. 워치 착용</td><td>출근길 아침 8시 20분에 앱을 연다</td><td>오늘 뭘 하면 되는지 한 줄로 알고 싶다. 활동·수면 목표는 기기 데이터로 바로 보이고, 식사 질문 2~3개에 답하면 코칭과 식이 목표가 나온다.</td></tr>
+<tr><td>38세, 워치 없음. 휴대폰 걸음만 있음</td><td>점심 1시 10분에 처음 연다</td><td>워치가 없어도 똑같이 쓰고 싶다. 수면·피로 문항이 추가로 나오고, 활동·수면 목표는 답을 모두 마친 뒤 생성된다. 컨디션 지표는 「관찰 중」이지만 질문·코칭·목표는 정상이다.</td></tr>
+<tr><td>61세, 고혈압 진료정보 연동</td><td>저녁 7시 30분에 처음 연다</td><td>이미 저녁을 먹었다. 「오늘 저녁은 평소만큼 드셨나요?」에 답하면 남은 밤에 할 수 있는 준비·정리 목표와 마무리형 코칭을 받는다.</td></tr>
+</table>
+</section>
+
+<section id="c3"><h2>3. 범위</h2>
+<table>
+<tr><th>이번에 하는 것</th><th>하지 않는 것</th></tr>
+<tr><td>
+<ul>
+<li>홈 첫 진입 시 그날 질문 세트 확정(식이 고정 1 + 식사 시각 1 + 식이 회전 1, 나머지는 부족한 데이터 보완형)</li>
+<li>모두 답한 시점에 코칭 1개와 잠긴 목표 생성</li>
+<li>목표 타일 3개(식이·활동·수면)의 잠김·기본·완료 상태와 탭 동작</li>
+<li>답변 보기에서 답 수정 → 코칭 재생성, 답변으로 만든 목표만 재생성</li>
+<li>하루 경계(새벽 4시)와 저녁 진입(17시 이후) 처리</li>
+</ul></td><td>
+<ul>
+<li>목표 「쉬기」 상태. 완료·미완료 두 가지만 둔다</li>
+<li>걸음 수가 목표를 넘었을 때 자동 완료. 완료는 사용자가 누른다</li>
+<li>축 상태·단계·등급·근거를 화면에 노출하는 것</li>
+<li>오늘의 컨디션 지표 산출(생활지표 기획서가 맡음). 질문 답은 지표에 들어가지 않는다</li>
+<li>활동·수면 문항 풀과 선정 규칙 확정, 코칭 문구 세트 확정(별도 문서)</li>
+</ul></td></tr>
+</table>
+</section>
+
+<section id="c4"><h2>4. 동작 방식</h2>
+<p>하루를 따라가면 일곱 단계다. 그림의 번호와 같다.</p>
+<div class="fig">
+<svg viewBox="0 0 1100 300" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard,'Malgun Gothic',sans-serif" font-size="13">
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6b7685"/></marker></defs>
+<g fill="#fff" stroke="#c9d0da">
+<rect x="10" y="40" width="140" height="70" rx="10"/><rect x="170" y="40" width="140" height="70" rx="10"/><rect x="330" y="40" width="140" height="70" rx="10"/><rect x="490" y="40" width="140" height="70" rx="10"/><rect x="650" y="40" width="140" height="70" rx="10"/><rect x="810" y="40" width="140" height="70" rx="10"/>
+<rect x="490" y="180" width="140" height="70" rx="10" stroke-dasharray="4 3"/><rect x="330" y="180" width="140" height="70" rx="10" stroke-dasharray="4 3"/>
+</g>
+<g fill="#1c2430" text-anchor="middle">
+<text x="80" y="62" font-weight="700">① 새벽 4시</text><text x="80" y="82">새 하루 시작</text><text x="80" y="98" fill="#6b7685" font-size="11">어제 세트 종료</text>
+<text x="240" y="62" font-weight="700">② 첫 진입</text><text x="240" y="82">질문 세트 확정</text><text x="240" y="98" fill="#6b7685" font-size="11">목표 열림/잠김 판정</text>
+<text x="400" y="62" font-weight="700">③ 질문</text><text x="400" y="82">한 번에 1문항</text><text x="400" y="98" fill="#6b7685" font-size="11">식사 → 시각 → 회전 → 보완</text>
+<text x="560" y="62" font-weight="700">④ 모두 답함</text><text x="560" y="82">코칭 1 + 잠긴 목표</text><text x="560" y="98" fill="#6b7685" font-size="11">한 번에 생성</text>
+<text x="720" y="62" font-weight="700">⑤ 하루 동안</text><text x="720" y="82">타일 완료/취소</text><text x="720" y="98" fill="#6b7685" font-size="11">문구는 고정</text>
+<text x="880" y="62" font-weight="700">⑥ 답 수정</text><text x="880" y="82">코칭 재생성</text><text x="880" y="98" fill="#6b7685" font-size="11">답으로 만든 목표만</text>
+<text x="560" y="202" font-weight="700">일부만 답함</text><text x="560" y="222">코칭·목표 없음</text><text x="560" y="238" fill="#6b7685" font-size="11">남은 문항 하루 동안 유지</text>
+<text x="400" y="202" font-weight="700">끼니 구간 넘어감</text><text x="400" y="222">미답 문항만 갱신</text><text x="400" y="238" fill="#6b7685" font-size="11">문항 수는 그대로</text>
+</g>
+<g stroke="#6b7685" stroke-width="1.5" fill="none" marker-end="url(#a)">
+<path d="M150,75 L168,75"/><path d="M310,75 L328,75"/><path d="M470,75 L488,75"/><path d="M630,75 L648,75"/><path d="M790,75 L808,75"/>
+<path d="M400,110 L400,178"/><path d="M560,110 L560,178"/>
+</g>
+<g stroke="#6b7685" stroke-width="1.5" fill="none" stroke-dasharray="4 3" marker-end="url(#a)"><path d="M880,110 L880,150 L640,150 L640,120"/></g>
+<text x="760" y="144" fill="#6b7685" font-size="11" text-anchor="middle">④로 돌아감</text>
+<text x="10" y="285" fill="#6b7685" font-size="12">⑦ 다음 날 새벽 4시에 ①로. 완료 기록과 연속일수는 남는다.</text>
+</svg>
+</div>
+<ol>
+<li><b>새벽 4시, 새 하루.</b> 어제의 질문 세트·코칭·목표는 끝나고 완료 기록만 남는다. 걸음 같은 기기 값은 건강 앱과 같은 자정 기준을 쓰고, 수면만 기상한 날로 센다.</li>
+<li><b>오늘 처음 홈에 들어오면</b> 그 시점의 데이터로 질문 세트와 목표를 만든다. 식이 목표는 기기 데이터가 없으니 항상 잠긴 채 시작한다. 활동 목표는 오늘 걸음 기록이 1건이라도 있으면 개인 기록으로, 기록이 없어도(미연동) 안전한 기본 문구로 첫 진입 때 바로 연다. 수면 목표는 어젯밤 수면 세션이 1개라도 있으면 열고, 없으면 잠가 수면 문항 답으로 만든다.<br><span class="ex">예: 워치 사용자 아침 8시 20분 → 식이 잠김, 활동 열림(어제 중앙값 기준 「6,500걸음」), 수면 열림. 휴대폰만 있는 사용자 → 식이·수면 잠김, 활동 열림(걸음 기록 기준). 미연동 → 식이·수면 잠김, 활동은 기본 문구 「점심 식후 10분 걷기」.</span></li>
+<li><b>질문은 한 번에 한 문항.</b> 식사 고정 질문(「어제 저녁은 평소만큼 드셨나요?」) → 식사 시각(어제 저녁과 결식 답에는 묻지 않음) → 식이 회전 질문(채소·국물 등 8축 중 하루 하나) → 보완 질문 순서다. 보완 질문은 코칭 문구에 실제로 필요한 입력부터 만든다. 웨어러블로 받을 수 없는 것(확진 질환 · 식사 시각 · 피로감)이 먼저이고, 수면은 기록이 없을 때만, 활동 문항은 연동 사용자에게 불필요해 뒤로 둔다. 답하면 잠시 선택 상태를 보여 준 뒤 다음 문항으로 넘어간다.</li>
+<li><b>모두 답한 순간</b> 코칭 카드가 「생성 중」이 되고, 답변과 기기 데이터로 핵심 행동 한 줄이 만들어진다. 「생성 중」은 최대 5초이고, 넘기면 답변만으로 정할 수 있는 식이 기본 문구를 먼저 보여 주다가 응답이 오면 조용히 바꾼다. 잠겨 있던 목표가 같은 시점에 한 번에 열린다. 기기 데이터로 이미 열린 목표는 답이 들어와도 바꾸지 않는다.</li>
+<li><b>하루 동안</b> 타일을 누르면 완료, 다시 누르면 취소. 낮에 걸음이 늘어도 목표 문구와 완료 표시는 바뀌지 않는다. 컨디션 지표와 건강 데이터 값만 최신으로 갱신된다.</li>
+<li><b>답변 보기에서 답을 바꾸면</b> 코칭을 다시 만들고, 답변으로 만들어진 목표를 수정된 답으로 다시 만든다. 기기 데이터로 만든 목표와 이미 완료한 목표는 그대로다.</li>
+<li><b>다음 날 새벽 4시</b>에 다시 ①로 돌아간다.</li>
+</ol>
+</section>
+
+<section id="c5"><h2>5. 규칙과 예외</h2>
+<table>
+<tr><th style="width:20%">규칙</th><th style="width:45%">예시</th><th>예외</th></tr>
+<tr><td>하루 경계는 새벽 4시</td><td>새벽 1시에 들어오면 「어제」 세션이 이어진다. 질문은 어제 세트의 남은 문항이고, 식사 질문은 달력 기준으로 「어제 저녁」을 묻는다.</td><td>걸음 수 같은 기기 표시값은 자정 기준. 건강 앱 숫자와 맞추기 위해서다.</td></tr>
+<tr><td>하루 문항은 5문항 미만</td><td>식이 최대 3(고정 1 · 시각 1 · 회전 1) + 보완 문항. 워치 사용자는 보통 3~4문항, 워치가 없으면 수면·피로 문항이 더해져 4문항.</td><td>진료정보 질환 확인 질문이 있는 날은 그 질문이 식이 문항 수에 들어간다(하루 최대 1개).</td></tr>
+<tr><td>질문 세트는 첫 진입 시 한 번 확정</td><td>아침에 「어제 저녁」 질문을 안 하고 나갔다가 오후 1시에 들어오면 그 문항이 「오늘 점심」으로 바뀐다. 문항 수는 늘지 않는다.</td><td>이미 답한 문항은 바뀌지 않는다. 식이 문항만 끼니 구간에 따라 갱신되고 다른 문항은 그대로다.</td></tr>
+<tr><td>기기로 아는 것은 묻지 않는다</td><td>어젯밤 수면 기록이 있으면 수면 문항을 내지 않는다.</td><td>식사 질문은 매일 고정으로 낸다. 식이는 기기 데이터가 없기 때문이다.</td></tr>
+<tr><td>식사 시각은 식사 답 바로 뒤 같은 자리에서</td><td>「점심은 언제쯤 드셨어요?」 버튼 3개는 1시간 간격이고 답한 시각에서 거꾸로 센다. 오후 1시 47분에 답하면 「오후 12:40 이후 · 1시간 이내」부터.</td><td>어제 저녁과 「못 먹거나 거름」에는 묻지 않는다. 아침은 7시·8시 정각으로 고정. 점심 오후 2시, 저녁 오후 9시를 넘으면 그 시각에서 멈춘다.</td></tr>
+<tr><td>목표 잠금은 목표별로 판정</td><td>식이는 항상 잠김. 활동은 오늘 걸음 기록이 1건이라도 있으면 개인 기록으로 열리고, 없어도 기본 문구로 연다. 수면은 어젯밤 수면 세션이 1개라도 있으면 열림. 문구의 숫자는 최근 개인 기록으로 정하므로 오늘 값이 작아도 된다.</td><td>타일 3개가 모두 잠기는 일은 없다. 잠긴 타일을 누르면 남은 질문으로 이동한다.</td></tr>
+<tr><td>코칭과 잠긴 목표는 모두 답한 시점에 한 번</td><td>4문항 중 3개만 답하면 코칭은 「먼저 오늘의 질문에 답하고, 나에게 맞는 코칭을 받아보세요」 그대로이고 잠긴 타일도 그대로다.</td><td>식이 회전 질문이 조건상 생략된 날(결식 답 등)은 그것도 처리된 것으로 친다. 「생성 중」이 5초를 넘기면 식이 기본 문구를 먼저 보여 준다.</td></tr>
+<tr><td>그날 보여 준 목표는 바꾸지 않는다</td><td>오전에 「6,500걸음」이 보였으면 오후에 걸음이 늘어도 숫자가 바뀌지 않는다. 넘었더라도 자동 완료 표시는 없다.</td><td>답변을 수정하면 답변으로 만든 목표만 다시 만든다. 완료한 목표는 내용과 상태를 유지한다.</td></tr>
+<tr><td>17시 이후 첫 진입은 저녁 문구</td><td>19시 30분 첫 진입이면 식사 질문은 「오늘 저녁」을 묻고 카드 아래 「오늘 저녁을 드신 뒤 답해주세요」가 붙는다. 식이 목표는 남은 밤에 할 수 있는 준비·정리 행동, 코칭은 마무리형.</td><td>00~04시 「어제 저녁」 질문에는 이 안내를 붙이지 않는다. 공복·야식 제한 목표는 저녁 식사 뒤에 자동 생성하지 않는다.</td></tr>
+<tr><td>결식 답은 회복 목표로</td><td>「못 먹거나 거름」을 고르면 시각 질문과 회전 질문을 건너뛰고, 식이 목표는 회복 풀(「간식이라도 챙겨 먹기」 등)에서 고른다.</td><td>—</td></tr>
+<tr><td>후보가 없으면 안내 상태</td><td>질환 안전 제외와 시간·달력 조건을 모두 적용해 남는 식이 문구가 없으면 「오늘은 개인 식사 계획을 먼저 확인해 주세요」를 보여 준다.</td><td>안내 상태는 완료율·연속일수·단계 계산에서 뺀다. 완료 버튼이 없다.</td></tr>
+<tr><td>완료는 사용자가 누른다</td><td>타일 탭 → 완료, 다시 탭 → 취소. 완료하면 그 목표 문구는 잠긴다.</td><td>지난 날짜로 돌아가 누른 완료는 기록·연속일수에는 남지만 식이 단계 계산에는 쓰지 않는다.</td></tr>
+<tr><td>답은 지표에 들어가지 않는다</td><td>질문에 답하지 않았다고 오늘의 컨디션이 낮아지지 않는다.</td><td>식사 시각만 예외로 자기돌봄 지표의 「식후 걸음」 판정에 쓴다(확인 필요 항목 참고).</td></tr>
+</table>
+<div class="note">기기 데이터가 전혀 없어도(미연동) 질문·코칭·목표는 정상 동작한다. 빈 상태가 되는 것은 오늘의 컨디션과 건강 데이터 영역뿐이다.</div>
+</section>
+
+<section id="c6"><h2>6. 데이터</h2>
+<table>
+<tr><th style="width:24%">무엇을</th><th style="width:30%">어디서</th><th>저장 · 보관</th></tr>
+<tr><td>기기 데이터(걸음 · 수면 · 안정 시 심박 · 활동 · 체중)</td><td>삼성헬스 · 애플헬스. 읽기만 한다</td><td>건강 데이터 저장소. 질문 세트 결정과 활동·수면 목표 생성에 사용</td></tr>
+<tr><td>의료 이력(검진 결과 · 진료 상병코드 · 직접 선택 질환)</td><td>검진 연동 · 진료정보 연동 · 내정보</td><td>식이 회전 축과 목표 축 선택, 질환 안전 제외에 사용. 3개월 이내 검진 1건</td></tr>
+<tr><td>질문 답(식사량 · 식사 시각 · 회전 답 · 보완 답)</td><td>오늘의 질문</td><td>답 이력 끼니 1행(날짜 · 끼니 · 답 · 시각). 식이 축 지표는 28일 창. 그날 문항 상태(미답/답함)</td></tr>
+<tr><td>오늘의 코칭</td><td>답 + 기기 데이터 → 코칭 생성</td><td>그날 결과 1건. 답 수정 시 재생성</td></tr>
+<tr><td>오늘의 목표 3개</td><td>기기 데이터(첫 진입) 또는 답(모두 답한 뒤)</td><td>목표 기록은 카테고리(식이·활동·수면) × 날짜 1행: 문구 · 이유 · 대상 끼니 · 출처(기기/답변) · 완료 여부. 문구가 바뀌어도 완료율·연속일수는 카테고리 기준으로 이어진다</td></tr>
+<tr><td>식이 단계(입문 · 기본 · 도전)</td><td>확정된 축 목표 최근 4건 중 3건 완료면 상승, 연속 2건 미완료면 하락</td><td>축별 현재 단계 · 변경일 · 마지막 평가일</td></tr>
+</table>
+<p class="ex">필드 정의는 <a href="../../엔진/식이/maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx">식이 개발 전달 데이터계약</a>, 코칭 규칙 테이블은 <a href="../../엔진/코칭목표/지식DB/">코칭목표 › 지식DB</a>를 정본으로 한다.</p>
+</section>
+
+<section id="c7"><h2>7. 성공 기준</h2>
+<ul>
+<li>그날 질문에 모두 답한 사용자에게 코칭 1개와 목표 3개(또는 안내 상태)가 100% 생성된다. 생성 실패 시 사용자가 빈 화면을 보지 않는다.</li>
+<li>첫 진입 뒤 식사 고정 문항에 답하지 않은 날이 30% 미만. 넘으면 문항 위치·문안을 다시 본다.</li>
+<li>회전 문항 미응답률이 2주 연속 40% 미만. 넘으면 격일 전환 스위치를 켠다.</li>
+<li>첫 진입이 오전 10시 전인 날이 40% 이상. 미만이면 저녁 문구 비중과 대상 끼니 배분을 바꾼다.</li>
+<li>식이 목표 완료율이 활동·수면 완료율보다 15%p 이상 낮지 않다. 낮으면 단계 시작값을 조정한다.</li>
+<li>가입 3주 뒤 식이 축 「관찰 중」 비율이 50% 미만.</li>
+</ul>
+</section>
+
+<section id="open"><h2>확인 필요</h2>
+<table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
+<tr><td>코칭 문구를 고르는 방식. 프로토타입은 답변 4개를 보는 분기, 지식DB 계약은 지표 구간 규칙 239건이다. 출시 동작은 어느 쪽인가</td><td>기획 · 개발</td><td>구현 전</td><td>열림</td></tr>
+<tr><td>활동 · 수면 문항 풀과 선정 규칙. 식이의 축 × 단계 구조를 따를지</td><td>기획</td><td>식이 출시 전 테스트 뒤</td><td>열림</td></tr>
+<tr><td>활동 · 수면 목표 숫자 산출(개인 최근 기록 중앙값 기반)과 미연동 시 활동 기본 문구 세트</td><td>기획 · 개발</td><td>테스트 뒤</td><td>열림</td></tr>
+<tr><td>코칭 응답이 끝내 오지 않을 때(5초 뒤 기본 문구 표시 이후) 재시도 횟수와 실패 기록</td><td>개발</td><td>구현 시</td><td>열림</td></tr>
+<tr><td>걸음 기록만으로 「식후에 걸었다」고 판정해도 되는지. 계산식 전달 문서(LJH)의 「움직임만으로 완료를 만들지 않는다」와 맞춰야 한다</td><td>정훈샘 확인</td><td>—</td><td>대기</td></tr>
+<tr><td>결식 3일 연속일 때 안내(타일 문구 또는 코칭 메시지)</td><td>기획</td><td>—</td><td>보류(10-14)</td></tr>
+<tr><td>걸음 수에 붙는 코칭 문구가 지식DB에 없다. 가장 많은 사용자가 가진 데이터인데 코칭이 비어 있다</td><td>의학팀 역할(사용자 · Claude)</td><td>—</td><td>열림</td></tr>
+</table>
+</section>
+
+<section id="history"><h2>바뀐 것</h2>
+<table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
+<tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 식이 질문·목표 상세기획, 식이 최종결정사항, 끼니별 식사 시각 질문, 코칭 데이터흐름, 질문코칭목표지표 산출흐름, 목표 잠금 정책 메모에 흩어져 있던 홈 기획을 공통 구조로 모음. 같은 날 홈 화면설계서 v0.2가 정한 7건(미연동 시 활동 기본 문구 · 수면만 잠금 · 생성 중 5초 · 잠금 기준 기록 1건 · 문항 순서 · 저녁 안내 유지 · 결식 안내 보류) 반영</td><td>홈의 핵심 흐름을 한 문서에서 읽을 수 있게</td></tr></table>
+</section>
+</main>
+</body>
+</html>

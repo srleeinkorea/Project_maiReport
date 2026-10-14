@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>홈 오늘의 질문 · 코칭 · 목표 화면설계서</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5;--acc:#1d4ed8;--acc-soft:#eaf0ff;--ok:#1f8a5b;--ok-bg:#e6f5ee;--mono:Consolas,"SF Mono",monospace;--sh:0 10px 30px rgba(22,35,63,.08)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.6;word-break:keep-all}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+main{max-width:1240px;margin:0 auto;padding:28px 16px 60px}
+header h1{margin:0 0 4px;font-size:24px}
+header .path{color:var(--mute);font-size:13px}
+.kind{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;margin-bottom:8px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin:8px 0 18px}
+.meta b{color:var(--ink);font-weight:600}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
+nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+section h2{margin:0 0 10px;font-size:17px}
+section h3{margin:16px 0 6px;font-size:14px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.glance div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.glance b{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
+.ex{color:var(--mute);font-size:12.5px}
+.note{background:var(--chip);border-radius:10px;padding:10px 12px;font-size:13px;margin:8px 0}
+.fig{border:1px solid var(--line);border-radius:12px;padding:10px;margin:10px 0;overflow:auto}
+.fig svg{display:block;max-width:100%;height:auto}
+p{margin:6px 0}
+ol,ul{margin:6px 0 0;padding-left:20px}
+li{margin:4px 0}
+
+/* ─ 단계별 화면(조작 가능) ─ */
+.controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:10px 0 14px}
+.ctl{display:flex;flex-wrap:wrap;gap:6px}
+.ctl .lab{font-size:12px;color:var(--mute);align-self:center;margin-right:2px}
+.seg{padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:12.5px;font-weight:600;color:var(--mute)}
+.seg.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.toggle{font-size:12.5px;color:var(--mute);display:flex;gap:6px;align-items:center;margin-left:auto}
+.stage{display:grid;grid-template-columns:400px minmax(0,1fr);gap:22px;align-items:start}
+.phone{width:400px;max-width:100%;height:820px;border-radius:46px;background:#10151f;padding:10px;box-shadow:0 24px 60px rgba(22,35,63,.2);position:sticky;top:16px}
+.app{width:100%;height:100%;border-radius:37px;overflow:hidden;background:#f4f6fa;position:relative;display:flex;flex-direction:column;color:#16233f;font-size:14px}
+.sbar{display:flex;justify-content:space-between;padding:12px 24px 4px;font-size:12px;font-weight:700}
+.sbar i{font-style:normal}
+.app-h{display:flex;justify-content:space-between;align-items:center;padding:8px 18px 10px;background:#fff;border-bottom:1px solid #e9edf5}
+.app-h b{font-size:16px;letter-spacing:-.02em}
+.app-h span{font-size:15px;color:#5a6880}
+.scroll{flex:1;overflow:auto;min-height:0}
+.app-b{padding:12px 14px 20px;display:flex;flex-direction:column;gap:12px}
+.card{background:#fff;border-radius:16px;padding:14px;box-shadow:var(--sh);position:relative}
+.qkind{font-size:11.5px;color:#2f6bff;font-weight:700}
+.qcard h3{font-size:17px;line-height:1.4;margin:6px 0 10px;letter-spacing:-.02em}
+.hint{font-size:12px;color:#5a6880;background:#f5f7fb;border-radius:9px;padding:7px 9px;margin:-4px 0 10px}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:1px;background:#f5f7fb;border:1.5px solid transparent;border-radius:11px;padding:10px 12px;text-align:left;font-size:14px;font-weight:600;width:100%}
+.opt small{font-size:11px;color:#5a6880;font-weight:500}
+.opt.sel{border-color:#2f6bff;background:#eff4ff;color:#2f6bff}
+.opt .big{font-size:16px}
+.done-card{text-align:center}
+.done-card .ico{font-size:34px;margin:4px 0}
+.done-card h3{margin:4px 0 2px;font-size:16px}
+.done-card p{font-size:12.5px;color:#5a6880;margin:0 0 10px}
+.link{display:block;background:#f5f7fb;border-radius:11px;padding:10px;font-size:13px;font-weight:600;color:#2f6bff;text-align:left;width:100%}
+.link small{display:block;font-weight:500;color:#5a6880;font-size:11.5px}
+.ccard .lab{font-size:11.5px;color:#5a6880;font-weight:700}
+.ccard p{margin:4px 0 0;font-size:15px;font-weight:700;line-height:1.45}
+.ccard p.pre{font-weight:500;color:#5a6880;font-size:13.5px}
+.ccard .gen{display:flex;gap:8px;align-items:center;color:#2f6bff;font-weight:700;margin-top:4px}
+.ccard .gen i{width:14px;height:14px;border:2px solid #cfdbff;border-top-color:#2f6bff;border-radius:50%;animation:sp 1s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.gh{display:flex;justify-content:space-between;align-items:center}
+.gh b{font-size:14px}.gh button{font-size:12.5px;color:#2f6bff;font-weight:700}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.tile{background:#f5f7fb;border-radius:12px;padding:10px 9px;min-height:104px;display:flex;flex-direction:column;gap:4px;text-align:left;border:1.5px solid transparent;position:relative}
+.tile .cat{font-size:11px;color:#5a6880;font-weight:700}
+.tile .txt{font-size:12.5px;font-weight:700;line-height:1.35;flex:1}
+.tile.lock .txt{font-weight:500;color:#5a6880;font-size:11.5px}
+.tile.lock::after{content:"🔒";position:absolute;right:8px;bottom:8px;font-size:13px}
+.tile.done{border-color:#12a150;background:#ecf8f1}
+.tile.done::after{content:"✓";position:absolute;right:8px;bottom:6px;width:18px;height:18px;border-radius:50%;background:#12a150;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center}
+.tile.guide .txt{font-weight:500;color:#5a6880;font-size:11.5px}
+.once{font-size:11.5px;color:#2f6bff;background:#eff4ff;border-radius:8px;padding:6px 8px;margin-top:8px}
+.dim{opacity:.45;font-size:12.5px;color:#5a6880;text-align:center;padding:14px}
+.nav{display:flex;justify-content:space-around;padding:8px 6px 14px;background:#fff;border-top:1px solid #e9edf5}
+.nav div{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:10.5px;color:#98a4b8}.nav div.on{color:#2f6bff;font-weight:700}.nav span{font-size:16px}
+.rv{display:flex;flex-direction:column;gap:8px}
+.rv .q{font-size:12.5px;font-weight:700;margin-bottom:4px}
+.rv .chips{display:flex;gap:5px;flex-wrap:wrap}
+.chip{font-size:11.5px;padding:5px 8px;border-radius:999px;background:#f5f7fb;border:1.5px solid transparent;font-weight:600}
+.chip.sel{border-color:#2f6bff;color:#2f6bff;background:#eff4ff}
+.back{font-size:13px;color:#2f6bff;font-weight:700}
+#toast{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);background:#16233f;color:#fff;font-size:12px;padding:8px 12px;border-radius:999px;opacity:0;transition:.2s;pointer-events:none;white-space:nowrap}
+#toast.show{opacity:1}
+/* 정보 위치 표시 */
+.app.map [data-f]{outline:1.5px dashed #ff8a3d;outline-offset:2px}
+.app.map [data-f]::before{content:attr(data-f);position:absolute;top:-9px;left:8px;background:#ff8a3d;color:#fff;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:999px;z-index:2;line-height:1.4}
+.app.map .opt[data-f]::before,.app.map .tile[data-f]::before{top:-8px}
+/* 오른쪽 설계 */
+.side{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.side-h{padding:16px 20px 12px;border-bottom:1px solid var(--line)}
+.side-h .step{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--acc)}
+.side-h .id{display:inline-block;font-size:10.5px;color:var(--mute);background:var(--chip);padding:1px 7px;border-radius:999px;margin-left:6px;font-family:var(--mono)}
+.side-h h2{font-size:17px;margin:4px 0 2px}
+.side-h p{font-size:13px;color:var(--mute);margin:0}
+.side-b{padding:14px 20px 20px}
+.spec-h{font-size:12px;font-weight:700;color:var(--mute);margin:0 0 6px}
+.spec-h.sep{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
+dl.spec{margin:0;display:grid;grid-template-columns:150px 1fr;gap:6px 12px;font-size:13px}
+dl.spec dt{font-weight:700}dl.spec dd{margin:0}
+.fm{font-size:12.5px}
+.edge{margin:0;padding-left:18px;font-size:13px}
+.edge li{margin:3px 0}
+@media(max-width:920px){.stage{grid-template-columns:1fr}.phone{margin:0 auto;position:relative;top:0;height:780px}}
+@media(max-width:520px){.phone{width:100%;border-radius:38px}dl.spec{grid-template-columns:1fr}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--acc-soft:#1e2a44}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}.seg{background:var(--card)}.seg.on{background:#e6e9ee;color:#15181d;border-color:#e6e9ee}}
+:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--acc-soft:#1e2a44}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <span class="kind">화면설계서</span>
+  <h1>홈 · 오늘의 질문 → 오늘의 코칭 → 오늘의 목표</h1>
+  <div class="path">홈 › 첫 진입부터 답변 수정까지, 하루 흐름 한 바퀴</div>
+  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>HOME-003 · 004 · 005 · 006</b></span><span>관련 문서 <b><a href="maiReport_홈_질문코칭목표_기획서_v1.0.0.html">기획서</a> · <a href="maiReport_홈_질문코칭목표_화면정의서_v1.0.0.html">화면정의서</a> · <a href="maiReport_홈_화면설계서_v1.0.0.html">홈 화면설계서(여섯 영역 상태 · 시각 · 연동별)</a></b></span></div>
+</header>
+
+<nav class="toc"><ol>
+<li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">흐름 개요</a></li><li><a href="#c2">흐름도</a></li><li><a href="#c3">단계별 화면</a></li><li><a href="#c4">분기와 예외</a></li><li><a href="#c5">데이터와 연동</a></li><li><a href="#c6">시나리오</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
+</ol></nav>
+
+<section id="glance"><h2>한눈에 보기</h2>
+<div class="glance">
+<div><b>이 문서가 다루는 것</b>홈에 처음 들어온 순간부터 질문에 답하고, 코칭과 목표가 생기고, 타일을 완료하고, 답을 고치는 데까지 화면이 어떻게 이어지는지. 3장의 왼쪽 화면은 직접 눌러 볼 수 있다. 데이터는 모두 가상이다.</div>
+<div><b>가장 중요한 결정</b>화면 이동이 없다. 질문 카드 하나가 글과 버튼만 바꾸며 이어지고, 마지막 답에서 코칭 카드와 잠긴 타일이 같은 화면 안에서 바뀐다. 답변 보기만 별도 화면이다.</div>
+<div><b>아직 정해지지 않은 것</b>활동 · 수면 보완 문항의 풀, 시각 버튼 순서, 응답이 끝내 오지 않을 때의 재시도. 「생성 중」 5초 · 미연동 시 활동 기본 문구 · 잠금 기준은 홈 화면설계서가 정했고 여기에 반영했다. 자세한 목록은 「확인 필요」.</div>
+</div>
+</section>
+
+<section id="c1"><h2>1. 흐름 개요</h2>
+<table>
+<tr><th style="width:24%">시작</th><th style="width:28%">끝</th><th>거치는 화면</th></tr>
+<tr><td>그날 첫 홈 진입(새벽 4시 이후 처음)</td><td>코칭 1 + 목표 3이 보이는 홈. 타일 완료는 하루 동안 이어진다</td><td>홈(식사 질문) → 홈(식사 시각) → 홈(식이 회전 질문) → 홈(보완 질문) → 홈(완료 카드 · 코칭 생성 중) → 홈(코칭 · 목표) → 답변 보기 → 홈(코칭 재생성)</td></tr>
+</table>
+<p class="ex">질문 수는 시나리오마다 다르다. 워치 사용자가 점심에 들어오면 4문항, 아침 8시(어제 저녁 질문 · 시각 없음)는 3문항, 결식 답이면 2문항이 된다.</p>
+</section>
+
+<section id="c2"><h2>2. 흐름도</h2>
+<p>상자는 홈 카드의 상태, 화살표는 사용자 행동이나 시스템 결과다. 점선은 조건이 맞을 때만 가는 길이다.</p>
+<div class="fig">
+<svg viewBox="0 0 1180 420" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard,'Malgun Gothic',sans-serif" font-size="12.5">
+<defs><marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6b7685"/></marker></defs>
+<g fill="#fff" stroke="#c9d0da">
+<rect x="20" y="30" width="150" height="64" rx="10"/><rect x="210" y="30" width="150" height="64" rx="10"/><rect x="400" y="30" width="150" height="64" rx="10"/><rect x="590" y="30" width="150" height="64" rx="10"/><rect x="780" y="30" width="150" height="64" rx="10"/><rect x="970" y="30" width="180" height="64" rx="10" stroke="#1d4ed8" stroke-width="1.5"/>
+<rect x="970" y="170" width="180" height="64" rx="10"/><rect x="780" y="170" width="150" height="64" rx="10"/>
+<rect x="400" y="170" width="150" height="64" rx="10" stroke-dasharray="4 3"/><rect x="210" y="170" width="150" height="64" rx="10" stroke-dasharray="4 3"/>
+<rect x="20" y="310" width="340" height="64" rx="10" stroke-dasharray="4 3"/><rect x="400" y="310" width="340" height="64" rx="10" stroke-dasharray="4 3"/>
+</g>
+<g fill="#1c2430" text-anchor="middle">
+<text x="95" y="56" font-weight="700">첫 진입</text><text x="95" y="76" fill="#6b7685" font-size="11">세트 확정 · 타일 열림/잠김</text>
+<text x="285" y="56" font-weight="700">① 식사 질문</text><text x="285" y="76" fill="#6b7685" font-size="11">{끼니}은 평소만큼</text>
+<text x="475" y="56" font-weight="700">② 식사 시각</text><text x="475" y="76" fill="#6b7685" font-size="11">같은 카드 · 버튼 3개</text>
+<text x="665" y="56" font-weight="700">③ 식이 회전</text><text x="665" y="76" fill="#6b7685" font-size="11">8축 중 하루 1개</text>
+<text x="855" y="56" font-weight="700">④ 보완 질문</text><text x="855" y="76" fill="#6b7685" font-size="11">기기로 모르는 것만</text>
+<text x="1060" y="56" font-weight="700">⑤ 모두 답함</text><text x="1060" y="76" fill="#6b7685" font-size="11">완료 카드 · 코칭 생성 중</text>
+<text x="1060" y="196" font-weight="700">⑥ 코칭 · 목표</text><text x="1060" y="216" fill="#6b7685" font-size="11">코칭 1줄 · 잠긴 타일 열림</text>
+<text x="855" y="196" font-weight="700">⑦ 답변 보기</text><text x="855" y="216" fill="#6b7685" font-size="11">답 바꾸면 ⑤로</text>
+<text x="475" y="196" font-weight="700">결식 답</text><text x="475" y="216" fill="#6b7685" font-size="11">②③ 건너뜀 → ④</text>
+<text x="285" y="196" font-weight="700">어제 저녁 질문</text><text x="285" y="216" fill="#6b7685" font-size="11">② 건너뜀 → ③</text>
+<text x="190" y="336" font-weight="700">일부만 답하고 나감</text><text x="190" y="356" fill="#6b7685" font-size="11">코칭 · 목표 그대로. 재진입 시 미답 식이 문항만 끼니 갱신</text>
+<text x="570" y="336" font-weight="700">잠긴 타일 탭</text><text x="570" y="356" fill="#6b7685" font-size="11">남은 질문으로 이동(①~④ 중 미답 문항)</text>
+</g>
+<g stroke="#6b7685" stroke-width="1.5" fill="none" marker-end="url(#m)">
+<path d="M170,62 L208,62"/><path d="M360,62 L398,62"/><path d="M550,62 L588,62"/><path d="M740,62 L778,62"/><path d="M930,62 L968,62"/>
+<path d="M1060,94 L1060,168"/><path d="M970,202 L932,202"/>
+</g>
+<g stroke="#6b7685" stroke-width="1.5" fill="none" stroke-dasharray="4 3" marker-end="url(#m)">
+<path d="M285,94 L285,168"/><path d="M360,202 L620,202 L665,96"/>
+<path d="M475,94 L475,168"/><path d="M550,202 L760,202 L855,96"/>
+<path d="M855,170 L855,130 L1100,130 L1100,96"/>
+<path d="M570,310 L570,250 L400,250 L400,100"/>
+</g>
+<text x="1110" y="124" fill="#6b7685" font-size="11" text-anchor="end">답 수정 → 재생성</text>
+</svg>
+</div>
+</section>
+
+<section id="c3"><h2>3. 단계별 화면</h2>
+<p>왼쪽 화면을 직접 누르면서 흐름을 따라간다. 위의 단계 버튼으로 바로 건너뛸 수 있고, 시나리오를 바꾸면 질문 수와 잠긴 타일이 달라진다. 오른쪽에는 지금 보이는 화면의 동작 · 표시 정보 · 예외를 적었다.</p>
+<div class="controls">
+  <div class="ctl" id="jump"><span class="lab">단계</span></div>
+  <div class="ctl" id="scen"><span class="lab">시나리오</span></div>
+  <label class="toggle"><input type="checkbox" id="mapT"> 정보 위치 표시</label>
+</div>
+<div class="stage">
+  <div class="phone"><div class="app" id="app">
+    <div class="sbar"><span id="clock">오후 1:10</span><i>●●● ▮</i></div>
+    <div id="screen" style="flex:1;display:flex;flex-direction:column;min-height:0"></div>
+    <div id="toast"></div>
+  </div></div>
+  <aside class="side">
+    <div class="side-h"><div class="step" id="sStep"></div><h2 id="sTitle"></h2><p id="sDesc"></p></div>
+    <div class="side-b" id="sBody"></div>
+  </aside>
+</div>
+</section>
+
+<section id="c4"><h2>4. 분기와 예외</h2>
+<table>
+<tr><th style="width:26%">상황</th><th style="width:40%">화면</th><th>다음</th></tr>
+<tr><td>식사 질문이 「어제 저녁」(04~10시 · 00~04시)</td><td>시각 질문을 내지 않는다. 진행 표시는 1/3처럼 처음부터 작게</td><td>식사 답 → 회전 질문</td></tr>
+<tr><td>식사 답이 「못 먹거나 거름」</td><td>시각 · 회전 질문이 빠지고 N이 줄어든다(1/4 → 2/2). 식이 목표는 회복 풀</td><td>보완 질문 또는 완료</td></tr>
+<tr><td>17~24시 「오늘 저녁」 질문</td><td>카드 아래 「오늘 저녁을 드신 뒤 답해주세요」. 답하기 전까지 회전 질문과 식이 목표가 기다린다</td><td>저녁 먹은 뒤 답 → 시각 → 회전 → 식후 목표</td></tr>
+<tr><td>일부만 답하고 나감</td><td>코칭 「답변 전」, 잠긴 타일 유지. 재진입 시 끼니 구간이 넘어갔으면 미답 식이 문항의 끼니 이름만 갱신</td><td>남은 문항부터</td></tr>
+<tr><td>답 저장 실패</td><td>선택 상태를 유지하고 재시도. 다음 문항으로 넘어가지 않는다</td><td>성공 후 다음</td></tr>
+<tr><td>잠긴 타일 탭</td><td>질문 영역으로 스크롤해 남은 문항을 보여 준다. 생활 탭에서 눌렀으면 홈으로</td><td>남은 문항</td></tr>
+<tr><td>식이 후보가 하나도 없음</td><td>식이 타일이 안내 상태 「오늘은 개인 식사 계획을 먼저 확인해 주세요」. 완료 버튼 없음, n/3 분모 제외</td><td>—</td></tr>
+<tr><td>목표 일부를 완료한 뒤 답을 마침</td><td>완료 타일은 그대로, 대기 타일만 답으로 바뀐다. 대기 타일 위에 「답변을 반영해 목표를 새로 추천했어요」 1회</td><td>—</td></tr>
+<tr><td>3개 모두 완료한 뒤 답을 마침</td><td>타일은 그대로, 코칭만 생성</td><td>—</td></tr>
+<tr><td>답변 보기에서 답 수정</td><td>코칭 「생성 중」 → 새 결과. 답변으로 만든 목표 중 완료하지 않은 것만 다시 생성. 기기 데이터로 만든 목표와 완료한 목표는 불변</td><td>홈 ⑥</td></tr>
+<tr><td>코칭 생성이 늦거나 실패</td><td>「생성 중」은 최대 5초. 넘기면 답변만으로 정할 수 있는 식이 기본 문구를 먼저 보여 주고 응답이 오면 조용히 바꾼다</td><td>⑥</td></tr>
+<tr><td>건강 데이터 미연동</td><td>질문 · 코칭 · 목표는 정상. 활동 목표는 기록 없이도 안전한 기본 문구(「점심 식후 10분 걷기」)로 바로 열리고, 수면 목표만 잠겨 수면 문항으로 보완</td><td>—</td></tr>
+<tr><td>진료정보에 미확인 질환</td><td>첫 식이 문항이 「{질환명}을 진단받았거나 관리 중이신가요?」로 바뀐다. 「네」면 그 질환의 회전 질문, 아니면 공통 식사 질문. 하루 최대 1개</td><td>식이 질문 2개 안에서 처리</td></tr>
+</table>
+</section>
+
+<section id="c5"><h2>5. 데이터와 연동</h2>
+<table>
+<tr><th style="width:18%">단계</th><th style="width:42%">주고받는 것</th><th>외부 호출 · 저장</th></tr>
+<tr><td>첫 진입</td><td>앱이 보냄: 사용자 · 진입 시각 · 시간대. 서버가 읽음: 오늘 문항 상태, 기기 데이터(오늘 걸음 · 어젯밤 수면), 직접 선택 질환, 진료정보 확인 상태, 3개월 이내 검진, 식이 28일 답, 축 단계, 최근 30일 목표. 돌려줌: 질문 계획(문항 목록 · 끼니 이름), 목표 3개의 열림/잠김과 열린 목표의 문구</td><td>건강 앱 읽기(삼성헬스 · 애플헬스). 목표 기록 열린 것 저장(출처 = 기기)</td></tr>
+<tr><td>① 식사 질문</td><td>답 코드 · 끼니 날짜 · 끼니 종류 · 답한 시각</td><td>답 이력 1행. 문항 상태 = 답함</td></tr>
+<tr><td>② 식사 시각</td><td>고른 버튼(범위) · 답한 시각. 추정 시각은 서버가 걸음 기록 · 평소 시각으로 계산</td><td>답 이력에 시각 범위. 자기돌봄 지표의 식후 걸음 판정에 사용</td></tr>
+<tr><td>③ 식이 회전</td><td>축 · 답(좋음/중간/나쁨). 축 상태는 다음 날부터 반영, 오늘 문구 선택에는 오늘 답 사용</td><td>답 이력 · 축 지표 스냅샷 재계산</td></tr>
+<tr><td>④ 보완 질문</td><td>피로감 · 수면 등 답. 지표 입력으로 채택할지는 미검증</td><td>그날 답변 저장</td></tr>
+<tr><td>⑤ 모두 답함</td><td>앱이 생성 요청. 서버: 코칭 1건(답 + 기기 데이터), 잠긴 목표(식이: 축 → 단계 → 문구 → 대상 끼니, 활동 · 수면: 답 + 개인 중앙값)</td><td>코칭 결과 1건. 목표 기록(출처 = 답변) 저장. 안내 상태면 문구 없이 안내로 저장</td></tr>
+<tr><td>⑥ 타일 완료/취소</td><td>카테고리 · 날짜 · 완료 여부</td><td>목표 기록 갱신. 연속일수 · 주간 달성률은 카테고리 기준</td></tr>
+<tr><td>⑦ 답 수정</td><td>바뀐 답(현재 답 교체, 이전 답은 보존)</td><td>코칭 재생성. 답변으로 만든 대기 목표 재생성</td></tr>
+</table>
+<p class="ex">필드 이름과 테이블은 <a href="../../엔진/식이/maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx">식이 개발 전달 데이터계약</a>과 코칭목표 › 지식DB 전달테이블을 정본으로 한다.</p>
+</section>
+
+<section id="c6"><h2>6. 시나리오</h2>
+<p><b>52세 회사원, 워치 착용, 공복혈당 108 경계. 수요일.</b></p>
+<ol>
+<li><b>오후 1시 10분, 점심 뒤 처음 앱을 연다.</b> 워치가 어젯밤 수면 6시간 10분과 오늘 걸음 3,200을 보냈다. 활동 타일 「6,500걸음 걷기」와 수면 타일 「11시 반 전 잠자리」는 바로 열려 있고 식이 타일만 잠겨 있다. 코칭은 「먼저 오늘의 질문에 답하고…」. 진행 표시는 1/4.</li>
+<li><b>「오늘 점심은 평소만큼 드셨나요?」에 「충분히 먹음」.</b> 같은 카드가 「점심은 언제쯤 드셨어요?」로 바뀐다. 버튼은 1시 10분을 기준으로 「오후 12:10 이후 · 1시간 이내」 「오전 11:10~오후 12:10 · 1~2시간 전」 「오전 11:10 이전 · 그보다 전」. 첫 번째를 고른다(2/4).</li>
+<li><b>회전 질문.</b> 혈당 경계라 연결 축(채소 · 단 음료 · 식사 속도) 중 28일 답이 가장 적은 채소가 나온다. 「오늘 점심엔 채소 반찬을 얼마나 드셨나요?」에 「조금 먹음」(3/4).</li>
+<li><b>보완 질문.</b> 워치가 모르는 피로감을 묻는다. 「보통이에요」(4/4).</li>
+<li><b>모두 답함.</b> 질문 카드가 완료 카드로 바뀌고 코칭 카드에 「생성 중」이 돈다. 잠시 뒤 「점심 뒤 10분만 걸어 보세요」가 보이고, 식이 타일이 「한 끼는 채소 반찬 한 가지」(대상 끼니 오늘 저녁)로 열린다. 활동 · 수면 타일은 그대로다.</li>
+<li><b>오후 6시, 걸음이 7,100이 됐다.</b> 활동 타일 숫자는 6,500 그대로이고 자동 완료도 없다. 사용자가 타일을 눌러 완료한다. 「1/3 완료 ›」.</li>
+<li><b>저녁 9시, 답변 보기에서 점심 답을 「적게 · 몇 입만」으로 고친다.</b> 코칭이 「생성 중」을 거쳐 「저녁은 가볍게, 11시 전 잠자리」로 바뀐다. 식이 목표는 답변으로 만든 것이라 다시 고르고, 활동 목표는 기기로 만든 데다 완료했으니 그대로다.</li>
+<li><b>다음 날 새벽 4시.</b> 세트가 끝나고 완료 기록 1/3과 연속일수만 남는다.</li>
+</ol>
+</section>
+
+<section id="open"><h2>확인 필요</h2>
+<table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
+<tr><td>코칭 응답이 끝내 오지 않을 때 재시도 횟수와 실패 기록(5초 뒤 식이 기본 문구 표시는 확정)</td><td>개발</td><td>구현 시</td><td>열림</td></tr>
+<tr><td>보완 문항(피로감 · 수면 등)의 풀과 선정 규칙. 이 설계서의 보완 질문은 예시다</td><td>기획</td><td>활동 · 수면 기획 시</td><td>열림</td></tr>
+<tr><td>시각 버튼 순서(아침은 이른 시각부터, 점심 · 저녁은 최근부터)</td><td>기획</td><td>—</td><td>열림</td></tr>
+<tr><td>시각 단계에서 앱을 나갔다 오면 버튼을 새 시각으로 다시 만들지</td><td>기획</td><td>—</td><td>열림</td></tr>
+<tr><td>잠긴 타일 탭 시 「남은 질문으로 이동」의 실제 동작(스크롤만 vs 질문 카드 강조)</td><td>디자인</td><td>화면 디자인 시</td><td>열림</td></tr>
+</table>
+</section>
+
+<section id="history"><h2>바뀐 것</h2>
+<table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
+<tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 식이 질문·목표 화면설계서, 끼니별 식사 시각 질문, 하루 생성 순서도를 홈 전체 흐름(질문 → 코칭 → 목표 → 답 수정)으로 잇고 공통 구조에 맞춤. 홈 화면설계서 v0.2의 결정 7건 반영</td><td>홈 위쪽 세 영역의 흐름을 눌러 보며 따라갈 설계서가 없었음</td></tr></table>
+</section>
+</main>
+
+<script>
+/* ───────── 상태 ───────── */
+const SCEN={
+ lunch:{label:'점심 · 워치',clock:'오후 1:10',meal:'오늘 점심',hint:'',time:true,steps:['meal','time','rot','extra'],
+   rot:{q:'오늘 점심엔 채소 반찬을<br>얼마나 드셨나요?',opts:['충분히 먹음','조금 먹음','먹지 않음']},
+   timeOpts:[['오후','12:10 이후','1시간 이내'],['오전~오후','11:10~12:10','1~2시간 전'],['오전','11:10 이전','그보다 전']],
+   extra:{kind:'컨디션',q:'지금 피로감은<br>어느 정도인가요?',opts:['거뜬해요','보통이에요','많이 피곤해요']},
+   goals:{diet:{lock:true,txt:'한 끼는 채소 반찬 한 가지'},act:{lock:false,txt:'6,500걸음 걷기'},sleep:{lock:false,txt:'11시 반 전 잠자리'}},
+   coach:'점심 뒤 10분만 걸어 보세요',coach2:'저녁은 가볍게, 11시 전 잠자리',dietSkip:'간식이라도 챙겨 먹기'},
+ morning:{label:'아침 8시 · 워치',clock:'오전 8:20',meal:'어제 저녁',hint:'',time:false,steps:['meal','rot','extra'],
+   rot:{q:'어제 저녁엔 채소 반찬을<br>얼마나 드셨나요?',opts:['충분히 먹음','조금 먹음','먹지 않음']},
+   extra:{kind:'컨디션',q:'지금 피로감은<br>어느 정도인가요?',opts:['거뜬해요','보통이에요','많이 피곤해요']},
+   goals:{diet:{lock:true,txt:'한 잔은 물로 바꾸기'},act:{lock:false,txt:'6,500걸음 걷기'},sleep:{lock:false,txt:'11시 반 전 잠자리'}},
+   coach:'오늘은 점심 뒤 10분 걷기부터',coach2:'아침을 가볍게 챙기고 점심 뒤 걷기',dietSkip:'간식이라도 챙겨 먹기'},
+ phone:{label:'점심 · 휴대폰만',clock:'오후 1:10',meal:'오늘 점심',hint:'',time:true,steps:['meal','time','rot','extra'],
+   rot:{q:'오늘 점심엔 채소 반찬을<br>얼마나 드셨나요?',opts:['충분히 먹음','조금 먹음','먹지 않음']},
+   timeOpts:[['오후','12:10 이후','1시간 이내'],['오전~오후','11:10~12:10','1~2시간 전'],['오전','11:10 이전','그보다 전']],
+   extra:{kind:'수면',q:'어젯밤 잠은<br>어땠나요?',opts:['푹 잤어요','보통이에요','잘 못 잤어요']},
+   goals:{diet:{lock:true,txt:'한 끼는 채소 반찬 한 가지'},act:{lock:false,txt:'5,000걸음 걷기'},sleep:{lock:true,txt:'11시 전 잠자리'}},
+   coach:'오늘은 11시 전에 잠자리에 들어 보세요',coach2:'저녁은 가볍게, 11시 전 잠자리',dietSkip:'간식이라도 챙겨 먹기'},
+ evening:{label:'저녁 7시 반 · 고혈압',clock:'오후 7:30',meal:'오늘 저녁',hint:'오늘 저녁을 드신 뒤 답해주세요',time:true,steps:['meal','time','rot','extra'],
+   rot:{q:'오늘 저녁엔 국물을<br>얼마나 드셨나요?',opts:['먹지 않음','절반 이하','절반 넘게']},
+   timeOpts:[['오후','6:30 이후','1시간 이내'],['오후','5:30~6:30','1~2시간 전'],['오후','5:30 이전','그보다 전']],
+   extra:{kind:'컨디션',q:'지금 피로감은<br>어느 정도인가요?',opts:['거뜬해요','보통이에요','많이 피곤해요']},
+   goals:{diet:{lock:true,txt:'아침거리 미리 꺼내 두기'},act:{lock:false,txt:'저녁 산책 15분'},sleep:{lock:false,txt:'11시 전 잠자리'}},
+   coach:'남은 밤엔 가볍게 정리하고 11시 전에 눕기',coach2:'오늘은 일찍 눕는 것만 챙겨 보세요',dietSkip:'자기 전 가벼운 한 입'},
+ skip:{label:'점심 결식',clock:'오후 1:10',meal:'오늘 점심',hint:'',time:true,steps:['meal','time','rot','extra'],
+   rot:{q:'오늘 점심엔 채소 반찬을<br>얼마나 드셨나요?',opts:['충분히 먹음','조금 먹음','먹지 않음']},
+   timeOpts:[['오후','12:10 이후','1시간 이내'],['오전~오후','11:10~12:10','1~2시간 전'],['오전','11:10 이전','그보다 전']],
+   extra:{kind:'컨디션',q:'지금 피로감은<br>어느 정도인가요?',opts:['거뜬해요','보통이에요','많이 피곤해요']},
+   goals:{diet:{lock:true,txt:'한 끼는 채소 반찬 한 가지'},act:{lock:false,txt:'6,500걸음 걷기'},sleep:{lock:false,txt:'11시 반 전 잠자리'}},
+   coach:'오후엔 간식이라도 챙기고 저녁은 가볍게',coach2:'저녁은 가볍게, 11시 전 잠자리',dietSkip:'간식이라도 챙겨 먹기',preskip:true}
+};
+const MEAL_OPTS=['충분히 먹음','적게 · 몇 입만','못 먹거나 거름'];
+const S={scen:'lunch',view:'home',idx:0,ans:{},sel:null,phase:'ask',done:{diet:false,act:false,sleep:false},regen:0,once:false,timer:null,force:null};
+function sc(){return SCEN[S.scen]}
+function steps(){const c=sc();if(S.ans.meal===2)return c.steps.filter(k=>k!=='time'&&k!=='rot');return c.steps}
+function N(){return steps().length}
+function cur(){return steps()[S.idx]}
+function timeLabel(){const c=sc();if(c.meal==='오늘 점심')return '점심은 언제쯤 드셨어요?';if(c.meal==='오늘 저녁')return '저녁은 언제쯤 드셨어요?';return '아침은 몇 시쯤 드셨어요?'}
+
+/* ───────── 화면 ───────── */
+const NAV=`<nav class="nav"><div class="on"><span>⌂</span><small>홈</small></div><div><span>♡</span><small>생활</small></div><div><span>✚</span><small>병원</small></div><div><span>•••</span><small>더보기</small></div></nav>`;
+function optBtn(i,label,sub){return `<button class="opt ${S.sel===i?'sel':''}" data-f="${i===0?'답변 선택지':''}" onclick="pick(${i})">${sub?`<small>${sub[0]}</small><span class="big">${sub[1]}</span><small>${sub[2]}</small>`:label}</button>`}
+function qcard(){
+  const c=sc(),k=cur(),n=S.idx+1,total=N();
+  let kind='식이',title='',opts=[],hint='';
+  if(k==='meal'){title=`${c.meal}은<br>평소만큼 드셨나요?`;opts=MEAL_OPTS;hint=c.hint}
+  else if(k==='time'){title=timeLabel();opts=c.timeOpts}
+  else if(k==='rot'){title=c.rot.q;opts=c.rot.opts}
+  else {kind=c.extra.kind;title=c.extra.q;opts=c.extra.opts}
+  return `<section class="card qcard"><div class="qkind" data-f="진행 표시">${kind} · 오늘의 질문 · ${n}/${total}</div><h3 data-f="질문 문구">${title}</h3>${hint?`<div class="hint" data-f="안내 문장">${hint}</div>`:''}<div class="opts">${opts.map((o,i)=>k==='time'?optBtn(i,'',o):optBtn(i,o)).join('')}</div></section>`;
+}
+function doneCard(){return `<section class="card done-card" data-f="완료 카드"><div class="qkind">오늘의 질문 완료</div><div class="ico">📋</div><h3>잘 했어요 👍</h3><p>답변을 모두 완료했어요!</p><button class="link" onclick="S.view='review';S.phase='result';render()">오늘 답변 모두 보기 ›<small>오늘의 몸 상태를 계속 유지해 봐요!</small></button></section>`}
+function coachCard(){
+  const c=sc();
+  if(S.phase==='ask')return `<section class="card ccard" data-f="코칭 · 답변 전"><div class="lab">오늘의 코칭</div><p class="pre">먼저 오늘의 질문에 답하고,<br>나에게 맞는 코칭을 받아보세요.</p></section>`;
+  if(S.phase==='gen')return `<section class="card ccard" data-f="코칭 · 생성 중"><div class="lab">오늘의 코칭</div><div class="gen"><i></i> 코칭을 만들고 있어요</div></section>`;
+  return `<section class="card ccard" data-f="코칭 · 결과"><div class="lab">오늘의 코칭</div><p>${S.regen?c.coach2:c.coach}</p></section>`;
+}
+function tile(key,icon,name){
+  const c=sc(),g=c.goals[key];
+  const locked=g.lock&&S.phase!=='result';
+  const txt=key==='diet'&&S.ans.meal===2?c.dietSkip:g.txt;
+  if(locked)return `<button class="tile lock" data-f="${key==='diet'?'잠긴 타일':''}" onclick="lockTap()"><span class="cat">${icon} ${name}</span><span class="txt">오늘의 질문에 답하면 목표가 생성돼요.</span></button>`;
+  return `<button class="tile ${S.done[key]?'done':''}" data-f="${key==='act'?'목표 타일':''}" onclick="toggle('${key}')"><span class="cat">${icon} ${name}</span><span class="txt">${txt}</span></button>`;
+}
+function goals(){
+  const n=Object.values(S.done).filter(Boolean).length;
+  return `<section class="card"><div class="gh"><b>오늘의 목표</b><button data-f="n/3 완료" onclick="toast('생활 탭 › 목표 분석으로 이동')">${n}/3 완료 ›</button></div><div class="tiles">${tile('diet','🍚','식이')}${tile('act','🚶','활동')}${tile('sleep','🌙','수면')}</div>${S.once?`<div class="once" data-f="1회 안내">답변을 반영해 목표를 새로 추천했어요</div>`:''}</section>`;
+}
+function home(){
+  const q=S.phase==='ask'?qcard():doneCard();
+  return `<div class="app-h"><b>mai REPORT</b><span>▣ &nbsp;🔔</span></div><div class="scroll" id="sc"><div class="app-b">${q}${coachCard()}${goals()}<div class="dim">오늘의 컨디션 · 오늘의 건강 데이터 ↓<br>(홈 화면 전체 정의서)</div></div></div>${NAV}`;
+}
+function review(){
+  const c=sc(),st=steps();
+  const rows=st.map(k=>{
+    let q,opts;
+    if(k==='meal'){q=`${c.meal}은 평소만큼 드셨나요?`;opts=MEAL_OPTS}
+    else if(k==='time'){q=timeLabel();opts=c.timeOpts.map(o=>o[1])}
+    else if(k==='rot'){q=c.rot.q.replace('<br>',' ');opts=c.rot.opts}
+    else{q=c.extra.q.replace('<br>',' ');opts=c.extra.opts}
+    return `<div class="card rv" data-f="${k==='meal'?'답 수정':''}"><div class="q">${q}</div><div class="chips">${opts.map((o,i)=>`<button class="chip ${S.ans[k]===i?'sel':''}" onclick="change('${k}',${i})">${o}</button>`).join('')}</div></div>`;
+  }).join('');
+  return `<div class="app-h"><button class="back" onclick="S.view='home';render()">‹ 홈</button><b>오늘 답변 모두 보기</b><span></span></div><div class="scroll"><div class="app-b"><div class="hint" data-f="수정 안내" style="margin:0">답변을 다시 선택하면 코칭과 목표에 바로 반영돼요.</div>${rows}</div></div>${NAV}`;
+}
+
+/* ───────── 동작 ───────── */
+function pick(i){S.force=null;S.sel=i;render();setTimeout(()=>{const k=cur();S.ans[k]=i;S.sel=null;if(k==='meal'&&i===2){/* 결식: 시각·회전 제거 */}
+  if(S.idx+1<N()){S.idx++;render()}else{finish()}},450)}
+function finish(){S.phase='gen';render();clearTimeout(S.timer);S.timer=setTimeout(()=>{S.phase='result';if(Object.values(S.done).some(Boolean))S.once=true;render()},1400)}
+function toggle(k){S.done[k]=!S.done[k];render();toast(S.done[k]?'완료했어요':'완료를 취소했어요')}
+function lockTap(){if(S.phase==='ask'){toast('남은 질문으로 이동');const el=document.getElementById('sc');if(el)el.scrollTo({top:0,behavior:'smooth'})}}
+function change(k,i){if(S.ans[k]===i)return;S.ans[k]=i;S.regen=1;S.view='home';S.once=false;
+  if(k==='meal'){S.done.diet=false}
+  finish()}
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1300)}
+
+/* ───────── 오른쪽 설계 ───────── */
+const SIDE={
+ enter:{step:'⓪ 첫 진입',id:'HOME-001',title:'그날 처음 홈에 들어온 화면',desc:'새벽 4시 이후 처음 들어온 시점의 데이터로 질문 세트와 목표의 열림/잠김이 정해진다. 재진입이면 이미 만든 것을 그대로 보여 준다.',
+  spec:[['질문 세트','진입 시각으로 끼니를 정하고(04~10시 어제 저녁 · 10~12시 아침 · 12~17시 점심 · 17~24시 저녁) 식사 고정 1 + 시각 1 + 회전 1 + 보완 문항으로 5문항 미만'],['목표 열림/잠김','식이는 항상 잠김. 수면은 어젯밤 수면 세션이 1개라도 있으면 열림. 활동은 걸음 기록이 1건이라도 있으면 개인 기록으로, 없어도 기본 문구로 열림. 세 타일이 모두 잠기지는 않는다'],['코칭','「먼저 오늘의 질문에 답하고…」 답변 전 상태'],['17시 이후 첫 진입','식사 질문은 오늘 저녁, 안내 문장 표시, 코칭·목표는 저녁형']],
+  info:[['진행 표시 N','그날 문항 상태','식사 시각 문항도 1개로 센다. 어제 저녁 질문이면 시각이 빠져 N이 하나 작다'],['열린 목표 문구','기기 데이터 + 개인 최근 기록 중앙값','그날 고정. 낮에 데이터가 늘어도 바뀌지 않는다'],['잠긴 타일 문구','고정 문구','「오늘의 질문에 답하면 목표가 생성돼요.」']],
+  edge:['같은 날 다시 들어오면 세트·코칭·목표를 그대로 보여 주고 지표만 다시 계산한다.','미답 식이 문항은 끼니 구간이 넘어갔으면 끼니 이름만 바뀐다. 이미 답한 문항은 바뀌지 않는다.','건강 데이터가 없어도 이 세 영역은 정상이다. 활동은 기본 문구 「점심 식후 10분 걷기」로 열리고 수면만 잠겨 질문으로 보완한다.']},
+ meal:{step:'① 식사 질문',id:'HOME-003',title:'공통 식사량 질문',desc:'매일 고정으로 나오는 첫 식이 문항. 기기가 식사를 모르기 때문에 이 답이 있어야 식이 목표를 만들 수 있다.',
+  spec:[['선택지','충분히 먹음 · 적게 · 몇 입만 · 못 먹거나 거름. 건너뛰기 없음'],['답하면','고른 버튼을 0.5초 강조한 뒤 같은 카드가 다음 문항(시각)으로 바뀐다'],['「못 먹거나 거름」','시각·회전 문항을 건너뛰고 N이 줄어든다. 식이 목표는 회복 풀에서'],['저녁 안내','17~24시 「오늘 저녁」 질문에만 「오늘 저녁을 드신 뒤 답해주세요」. 버튼이 아니며 저장하지 않는다']],
+  info:[['끼니 이름','진입 시각','문장 첫머리에 치환. 00~04시는 세션은 어제지만 끼니 이름은 「어제 저녁」'],['질문 카드 폭','문안 규칙','32자 한도'],['답 버튼 폭','문안 규칙','14자 한도. 「못 먹거나 거름」은 예외']],
+  edge:['저장에 실패하면 선택 상태를 유지하고 재시도한다. 다음으로 넘어가지 않는다.','진료정보에 미확인 질환이 있는 날은 이 자리에 질환 확인 질문이 먼저 나온다(하루 최대 1개).','00~04시와 04~10시가 같은 어제 저녁을 가리키면 이미 답한 것을 재사용하고 다시 묻지 않는다.']},
+ time:{step:'② 식사 시각',id:'HOME-003',title:'식사 시각 질문',desc:'식사 답 바로 뒤 같은 자리에서 「언제쯤 드셨어요?」를 묻는다. 자기돌봄 지표의 「식후에 움직였는지」 판정에 쓴다.',
+  spec:[['버튼 3개','1시간 간격. 답한 시각을 10분 단위로 내림해 거꾸로 센다(오후 1:10 → 12:10 이후 / 11:10~12:10 / 11:10 이전)'],['멈춤 시각','점심 오후 2시 · 저녁 오후 9시를 넘으면 정각에서 멈추고 작은 글씨(1시간 이내 등)를 뺀다'],['아침','10~12시에만 나오므로 항상 「7시 이전 · 7시~8시 · 8시 이후」'],['묻지 않는 경우','어제 저녁 · 「못 먹거나 거름」 · 건강 앱에 식사 기록이 있을 때']],
+  info:[['오전/오후 · 시각 · 보조 글','답한 시각 · 끼니','오전·오후는 위에 작게, 시각은 크게. 앞뒤가 같은 쪽이면 한 번만'],['화면 낭독','버튼마다','「오전 11시 10분부터 오후 12시 10분 사이, 1~2시간 전」'],['추정 시각','서버','고른 범위 안에서 걸음 멈춤 15분 → 2주 평소 시각 → 범위 가운데 순. 모름은 계산에서 뺀다']],
+  edge:['점심에는 「드신 뒤 답해주세요」를 붙이지 않는다. 먹기 전에 답할 수 있는 시간이 12:00~12:30뿐이다.','저녁 질문이 막 열린 오후 5시대에는 2·3번 버튼이 저녁 같지 않은 시각이 되므로 판정에 쓰지 않는다.','답을 고친 뒤 식후 걷기 확인 알림은 보내지 않는다.']},
+ rot:{step:'③ 식이 회전',id:'HOME-003',title:'식이 회전 질문',desc:'8개 식이 축(끼니 규칙 · 채소 · 단 음료 · 국물 · 야식 · 식사 속도 · 단백질 · 기름진 음식) 중 하루 하나를 골라 묻는다. 화면에는 축 상태나 등급을 보이지 않는다.',
+  spec:[['축 고르기','직접 선택 질환 축 + 확인된 진료 질환 축 → 없으면 검진 경계 연결 축 → 없으면 일반 축. 28일 유효 답이 적은 축 → 마지막 출제가 오래된 축 → 표 순서'],['끼니 제한','그 끼니에 맞는 질문만. 야식 질문은 04~10시에만'],['연속 방지','같은 축이 3일 연속이면 다른 축을 먼저'],['답하면','축에 끼니 단위로 쌓인다. 축 상태는 내일부터, 오늘 문구 선택에는 오늘 답을 쓴다']],
+  info:[['질문 문구','8축 질문 표','{끼니} 치환. 질환 확인 「네」 당일은 그 질환 축 1개'],['선택지','3개, 좋음 → 보통 → 나쁨','판단 어투 없이 사실만'],['상태 판정','28일 유효 답 3건부터','관찰 중 · 개선 필요 · 보통 · 양호. 화면 비노출']],
+  edge:['회전 후보가 없으면 「조건상 생략」으로 기록하고 답한 것으로 친다.','답하지 않고 나가면 다음 진입에서 끼니가 바뀌었을 때 축도 다시 고른다. 이것이 건너뛰기를 대신한다.','답은 생활지표에 들어가지 않는다.']},
+ extra:{step:'④ 보완 질문',id:'HOME-003',title:'기기로 알 수 없는 상태 보완',desc:'코칭 문구에 실제로 필요한 입력부터 묻는다. 웨어러블로 받을 수 없는 것(확진 질환 · 식사 시각 · 피로감)이 먼저이고, 수면은 기록이 없을 때만, 활동 문항은 연동 사용자에게 불필요해 뒤로 둔다. 이 설계서의 문항은 예시이며 풀은 미확정이다.',
+  spec:[['선정','기기로 아는 항목은 묻지 않는다. 어젯밤 수면이 있으면 수면 문항 없음. 순서는 코칭에 필요한 입력부터'],['워치 없음','수면 · 피로 문항이 더해지고 수면 목표는 잠긴 채 시작'],['문항 수','전체 5문항 미만 안에서']],
+  info:[['문항 종류','보완 문항 풀(미정)','컨디션 지표나 코칭에 필요한 상태가 늘면 종류가 추가될 수 있다'],['답 활용','코칭 · 잠긴 목표 생성','지표 입력 채택은 미검증. 답하지 않아도 지표가 낮아지지 않는다']],
+  edge:['마지막 문항에 답하는 순간 ⑤로 간다. 이 문항이 없는 날은 회전 질문이 마지막이다.']},
+ gen:{step:'⑤ 모두 답함',id:'HOME-004 · 005',title:'완료 카드와 코칭 생성 중',desc:'마지막 답 직후. 질문 카드가 완료 카드로 바뀌고 코칭 카드에 「생성 중」이 돈다. 잠긴 타일은 응답이 올 때까지 그대로다.',
+  spec:[['완료 카드','「잘 했어요 👍 답변을 모두 완료했어요!」 + 「오늘 답변 모두 보기 ›」'],['생성 요청','답 전부 + 오늘 기기 데이터로 코칭 1건과 잠긴 목표를 한 번에 요청'],['기다리는 동안','타일 · 코칭 모두 조작 불가. 다른 영역은 평소대로']],
+  info:[['생성 중 표시','앱','최대 5초'],['5초 뒤','답변만으로 정하는 식이 기본 문구','예: 「못 먹거나 거름」이면 「다음 끼니는 거르지 말고 조금이라도 챙겨 먹기」. 응답이 오면 조용히 교체'],['끝내 실패','미정','재시도 횟수 · 실패 기록 확인 필요']],
+  edge:['일부만 답한 상태에서는 이 단계로 오지 않는다. 코칭·목표는 아무것도 바뀌지 않는다.','식이 회전 문항이 조건상 생략된 날은 생략도 처리로 친다.']},
+ result:{step:'⑥ 코칭 · 목표',id:'HOME-005 · 006',title:'코칭 한 줄과 목표 3개',desc:'응답이 도착한 홈. 코칭 결과가 보이고 잠겨 있던 타일이 열린다. 기기 데이터로 이미 열린 타일은 그대로다. 타일을 누르면 완료, 다시 누르면 취소.',
+  spec:[['코칭','핵심 행동 한 줄. 이유·근거 없음. 17시 이후 생성이면 마무리형'],['식이 타일','축 → 단계 → 문구 → 대상 끼니로 고른 행동 문구만. 결식이면 회복 풀, 저녁 식사 뒤면 밤에 할 준비·정리 행동'],['활동 · 수면 타일','첫 진입에 열렸으면 불변. 잠겼던 것은 답 + 개인 중앙값으로 생성'],['완료','탭 → 완료, 「n/3 완료」 증가, 목표 분석 즉시 갱신. 자동 완료 없음'],['n/3 완료 ›','생활 탭 › 목표 분석(오늘)']],
+  info:[['타일 문구','목표 기록(카테고리 × 날짜)','22자 · 두 줄 이내. 이유는 타일 탭 시 짧게, 목표 분석에는 상시'],['완료 표시','완료 토글','문구는 그대로 읽힌다(취소선 없음)'],['안내 상태(식이)','후보 0개','「오늘은 개인 식사 계획을 먼저 확인해 주세요」. 완료 버튼 없음, 분모 제외']],
+  edge:['낮에 걸음이 목표를 넘어도 타일은 바뀌지 않는다.','완료한 목표는 답을 고쳐도 내용과 상태를 유지한다.','이미 완료한 타일이 있는데 답을 마쳐 대기 타일만 바뀌면 「답변을 반영해 목표를 새로 추천했어요」를 1회 보여 준다.','세 목표가 모두 안 만들어진 날은 목표 분석 코멘트가 「생성된 목표가 없어요」가 된다.']},
+ review:{step:'⑦ 답변 보기',id:'HOME-004',title:'오늘 답변 모두 보기 · 수정',desc:'완료 카드의 링크로 들어오는 유일한 별도 화면. 답마다 오늘 보여 준 선택지 그대로 다시 고를 수 있다.',
+  spec:[['답 수정','고르는 즉시 저장. 홈으로 돌아가면 코칭이 「생성 중」 → 새 결과'],['목표','답변으로 만든 대기 목표만 다시 고른다. 기기로 만든 목표와 완료한 목표는 불변'],['식사 답을 결식으로 바꾸면','시각·회전 답은 그대로 두되 식이 목표는 회복 풀로 다시 고른다'],['시각 답','식사 카드 아래 같은 버튼으로 다시 고른다. 「못 먹거나 거름」이면 이 줄이 없다']],
+  info:[['안내','고정 문구','「답변을 다시 선택하면 코칭과 목표에 바로 반영돼요.」'],['이전 답','답 이력','현재 답만 교체, 이전 답은 보존(is_current)']],
+  edge:['회전 답을 바꾸면 축 관찰만 바뀌고 오늘 목표는 그대로다.','답을 바꿔도 질문 세트는 늘거나 줄지 않는다.']}
+};
+function sideKey(){if(S.force)return S.force;if(S.view==='review')return 'review';if(S.phase==='gen')return 'gen';if(S.phase==='result')return 'result';if(S.idx===0&&S.sel===null&&S.ans.meal===undefined)return 'enter';return cur()}
+function renderSide(){
+  const k=sideKey(),s=SIDE[k];
+  sStep.innerHTML=`${s.step}<span class="id">${s.id}</span>`;sTitle.textContent=s.title;sDesc.textContent=s.desc;
+  sBody.innerHTML=`<div class="spec-h">화면 동작</div><dl class="spec">${s.spec.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl>
+  <div class="spec-h sep">표시 정보</div><table class="fm"><tr><th>항목</th><th>출처</th><th>표시 기준</th></tr>${s.info.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join('')}</table>
+  <div class="spec-h sep">예외 · 주의</div><ul class="edge">${s.edge.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+  document.querySelectorAll('#jump .seg').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+}
+/* ───────── 점프 · 시나리오 ───────── */
+const JUMP=[['enter','⓪ 첫 진입'],['meal','① 식사 질문'],['time','② 식사 시각'],['rot','③ 식이 회전'],['extra','④ 보완 질문'],['gen','⑤ 모두 답함'],['result','⑥ 코칭 · 목표'],['review','⑦ 답변 보기']];
+function reset(){S.view='home';S.idx=0;S.ans={};S.sel=null;S.phase='ask';S.done={diet:false,act:false,sleep:false};S.regen=0;S.once=false;S.force=null;clearTimeout(S.timer)}
+function jump(k){reset();const st=sc().steps;
+  if(k==='enter'){}
+  else if(k==='meal'){S.force='meal'}
+  else if(['time','rot','extra'].includes(k)){if(!st.includes(k)){toast('이 시나리오에는 없는 단계');k=st[st.length-1]}S.ans.meal=0;const i=st.indexOf(k);for(let j=0;j<i;j++)S.ans[st[j]]=0;S.idx=i}
+  else{st.forEach(x=>S.ans[x]=0);S.idx=st.length-1;S.phase=k==='gen'?'gen':'result';if(k==='review')S.view='review';if(k==='gen'){S.timer=setTimeout(()=>{S.phase='result';render()},1400)}}
+  render()}
+function setScen(k){S.scen=k;reset();render();if(sc().preskip)toast('「못 먹거나 거름」을 골라 보세요')}
+function render(){
+  document.getElementById('clock').textContent=sc().clock;
+  document.getElementById('screen').innerHTML=S.view==='review'?review():home();
+  renderSide();
+}
+(function init(){
+  jump_el=document.getElementById('jump');JUMP.forEach(([k,l])=>{const b=document.createElement('button');b.className='seg';b.dataset.k=k;b.textContent=l;b.onclick=()=>jump(k);jump_el.appendChild(b)});
+  const se=document.getElementById('scen');Object.entries(SCEN).forEach(([k,v])=>{const b=document.createElement('button');b.className='seg'+(k===S.scen?' on':'');b.dataset.s=k;b.textContent=v.label;b.onclick=()=>{document.querySelectorAll('#scen .seg').forEach(x=>x.classList.toggle('on',x===b));setScen(k)};se.appendChild(b)});
+  document.getElementById('mapT').onchange=e=>document.getElementById('app').classList.toggle('map',e.target.checked);
+  render();
+})();
+var jump_el;
+</script>
+</body>
+</html>
