@@ -7,13 +7,13 @@ argument-hint: <기능이름> [대상 폴더]
 # 기능 QA 절차
 
 기능 하나를 6단계로 검증한다. 사람이 하든 에이전트가 하든 순서와 산출물은 같다.
-실행기는 `qa-agent/`에 있고, 결과는 `outputs/qa/<기능>-<날짜>/`에 쌓인다.
-완성 예시는 `qa-agent/plans/식이.qa-plan.json`이다. 처음이면 이 파일부터 읽는다.
+실행기는 `qa/`에 있고, 결과는 `qa/results/<기능>-<날짜>/`에 쌓인다.
+완성 예시는 `qa/plans/식이.qa-plan.json`이다. 처음이면 이 파일부터 읽는다.
 
 ## 지키는 규칙
 
 1. **기준 문서가 정답지다.** 기대값은 데이터 계약·확정 규칙에서만 가져온다. 대상 코드를 읽고 기대값을 정하면 버그가 정답이 된다.
-2. **대상은 읽기만 한다.** 제품 코드·계약 엑셀·기획 문서를 고치지 않는다. 쓰는 곳은 `qa-agent/plans/`와 `outputs/qa/`뿐이다. 고칠 방법은 보고서의 '제안'에 적는다.
+2. **대상은 읽기만 한다.** 제품 코드·계약 엑셀·기획 문서를 고치지 않는다. 쓰는 곳은 `qa/plans/`와 `qa/results/`뿐이다. 고칠 방법은 보고서의 '제안'에 적는다.
 3. **증거 없이 판정하지 않는다.** 실패는 재현 케이스(입력·기대·실제)나 파일:줄 위치로 보여 준다. 실행으로 못 보이는 것만 `findings`(코드 읽기)에 적고, 근거 코드를 인용한다.
 4. **안 한 것은 안 했다고 쓴다.** 확인하지 않은 범위는 `scope.out`에, 정책이 애매한 것은 `openQuestions`에 적는다. 미검증을 통과로 쓰지 않는다.
 5. **처음 보는 사람이 읽히게 쓴다.** 케이스 `title`은 규칙을 한 문장으로, `scenario`는 사람이 나오는 장면으로 쓴다(「지영 씨가 사흘 연속 완료하고 7일에 앱을 연다 → 단계는 '시작'에 머물러야 한다」). 영어 코드값 옆에는 한국어 뜻을 붙인다.
@@ -23,13 +23,13 @@ argument-hint: <기능이름> [대상 폴더]
 Node 20 이상이 필요하다. PATH에 node가 없으면 PowerShell 런처를 쓴다(설치 위치를 찾아 준다).
 
 ```
-node qa-agent/bin/qa.mjs <명령> ...
-powershell -NoProfile -ExecutionPolicy Bypass -File qa-agent/qa.ps1 <명령> ...
+node qa/bin/qa.mjs <명령> ...
+powershell -NoProfile -ExecutionPolicy Bypass -File qa/qa.ps1 <명령> ...
 ```
 
 ## 1단계 · 범위 잡기
 
-- 인자로 받은 기능 이름과 대상 폴더를 확인한다. 폴더를 모르면 `outputs/` 아래에서 찾아 사용자에게 한 번 확인한다.
+- 인자로 받은 기능 이름과 대상 폴더를 확인한다. 폴더를 모르면 `docs/` 아래에서 찾아 사용자에게 한 번 확인한다.
 - `qa.mjs init <기능> --target <폴더>`로 계획 뼈대를 만든다. 이미 계획이 있으면 **재실행 모드**다 — 4단계로 건너뛰고, 기준 문서가 바뀌었으면 2단계부터 다시 본다.
 - 정답지(기준 문서) 하나를 정한다. 폴더 안 구현점검·개발 안내 문서가 "개발 기준"으로 지목한 파일이 우선이다. 문서끼리 다르면 그 차이 자체가 발견 사항이다.
 - `scope.in` / `scope.out`을 채운다. 서버·브라우저·의학 타당성처럼 이번에 못 보는 것은 반드시 out에 적는다.
@@ -67,7 +67,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File qa-agent/qa.ps1 <명령> ...
 ## 4단계 · 실행
 
 ```
-node qa-agent/bin/qa.mjs run qa-agent/plans/<기능>.qa-plan.json
+node qa/bin/qa.mjs run qa/plans/<기능>.qa-plan.json
 ```
 
 기존 테스트 → 데이터 점검 → 시나리오 → 코드 읽기 정리 → 규칙 추적 → 판정 순서로 돈다.
@@ -85,7 +85,7 @@ node qa-agent/bin/qa.mjs run qa-agent/plans/<기능>.qa-plan.json
 
 ## 6단계 · 보고와 인계
 
-- 보고서: `outputs/qa/<기능>-<날짜>/<기능>_QA보고서.html` (사람용), `<기능>_QA요약.md` (메신저·PR용), `results.json` (기계용), `qa-plan.snapshot.json` (그날 쓴 계획).
+- 보고서: `qa/results/<기능>-<날짜>/<기능>_QA보고서.html` (사람용), `<기능>_QA요약.md` (메신저·PR용), `results.json` (기계용), `qa-plan.snapshot.json` (그날 쓴 계획).
 - 사용자에게는 판정 한 줄, 고쳐야 할 것(심각도 순, 장면 한 문장씩), 정책 질문, 미검증 규칙 수를 짧게 전한다. 보고서 경로를 링크로 준다.
 - 계획 파일은 지우지 않는다. 다음 회차의 회귀 묶음이다. 다음 회차는 규칙 추적표의 '미검증'부터 채운다.
 - 커밋은 계획 파일과 그날 결과 폴더를 묶어 한 번에 한다.

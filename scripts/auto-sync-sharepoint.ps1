@@ -1,6 +1,6 @@
 ﻿<#
   식이 엑셀 4종을 가장 최신 파일로 SharePoint 폴더에 자동으로 맞춘다.
-  내 컴퓨터 outputs\mai-report-policy\식이 의 파일이 정본이다.
+  내 컴퓨터 docs\10_홈\식이 의 파일이 정본이다.
 
   사용:
     powershell -ExecutionPolicy Bypass -File scripts\auto-sync-sharepoint.ps1 -Once    한 번만 확인하고 올림
@@ -23,7 +23,7 @@ Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 $repo   = Split-Path -Parent $PSScriptRoot
-$src    = Join-Path $repo 'outputs\mai-report-policy\식이'
+$src    = Join-Path $repo 'docs\10_홈\식이'
 $conf   = Join-Path $PSScriptRoot 'sharepoint-path.txt'
 $state  = Join-Path $PSScriptRoot '.auto-sync-state.json'
 $logf   = Join-Path $PSScriptRoot 'auto-sync.log'
@@ -69,7 +69,7 @@ function Invoke-Git([string[]]$names){
   $ErrorActionPreference='Continue'
   # 메인 저장소
   try{
-    $paths=@(); foreach($n in $names){ $paths+=("outputs/mai-report-policy/식이/"+$n) }
+    $paths=@(); foreach($n in $names){ $paths+=("docs/10_홈/식이/"+$n) }
     & git -C $repo add -- $paths 2>$null | Out-Null
     & git -C $repo diff --cached --quiet -- $paths 2>$null
     if($LASTEXITCODE -ne 0){

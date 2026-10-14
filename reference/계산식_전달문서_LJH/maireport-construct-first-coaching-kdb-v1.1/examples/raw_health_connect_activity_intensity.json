@@ -1,0 +1,29 @@
+{
+  "provider_platform": "health_connect",
+  "complete_week": true,
+  "complete_window": true,
+  "week_start_local_date": "2026-09-14",
+  "records": [
+    {
+      "recordType": "ActivityIntensityRecord",
+      "startTime": "2026-09-15T09:00:00+09:00",
+      "endTime": "2026-09-15T09:08:00+09:00",
+      "intensity": "MODERATE",
+      "metadata": {"dataOrigin": {"packageName": "com.google.android.apps.healthdata.sample"}}
+    },
+    {
+      "recordType": "ActivityIntensityRecord",
+      "startTime": "2026-09-16T09:00:00+09:00",
+      "endTime": "2026-09-16T09:22:00+09:00",
+      "intensity": "VIGOROUS",
+      "metadata": {"dataOrigin": {"packageName": "com.google.android.apps.healthdata.sample"}}
+    },
+    {
+      "recordType": "ActivityIntensityRecord",
+      "startTime": "2026-09-18T09:00:00+09:00",
+      "endTime": "2026-09-18T09:35:00+09:00",
+      "intensity": "MODERATE",
+      "metadata": {"dataOrigin": {"packageName": "com.google.android.apps.healthdata.sample"}}
+    }
+  ]
+}

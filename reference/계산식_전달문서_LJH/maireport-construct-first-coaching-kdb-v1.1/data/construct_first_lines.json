@@ -1,0 +1,1837 @@
+[
+  {
+    "coaching_line_id": "cardiovascular_activity_load_easy_buffer_construct_first_v1",
+    "headline": "다음 활동은 조금 가볍게 이어가볼까요?",
+    "detail": "최근 움직임이 한 번에 많았어요. 다음 활동은 조금 가볍게 이어가보세요.",
+    "population_condition": "chronic_conditions_or_disabilities",
+    "created_at": "2026-09-30T07:51:39.859144+09:00",
+    "current_claim_ids": [
+      "cardiovascular_activity_load_easy_buffer_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "cardiovascular_inactivity_gap_construct_first_v1",
+    "headline": "오래 멈춘 뒤 잠깐 걸어볼까요?",
+    "detail": "움직임이 오래 끊겼어요. 지금 가능한 범위에서 잠깐 걸어보세요.",
+    "population_condition": "chronic_conditions_or_disabilities",
+    "created_at": "2026-09-30T06:31:27.883452+09:00",
+    "current_claim_ids": [
+      "cardiovascular_inactivity_gap_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "cardiovascular_short_activity_bout_construct_first_v1",
+    "headline": "짧게 움직여도 괜찮아요",
+    "detail": "오늘은 한 번에 길게 하려고 하지 말고, 가능한 만큼 짧게 움직여보세요.",
+    "population_condition": "chronic_conditions_or_disabilities",
+    "created_at": "2026-09-30T08:44:56.544391+09:00",
+    "current_claim_ids": [
+      "cardiovascular_short_activity_bout_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "cardiovascular_weekly_activity_spacing_construct_first_v1",
+    "headline": "다음 주 활동을 나누어 이어가볼까요?",
+    "detail": "이번 주 활동 시간이 적었어요. 다음 주에는 가능한 날을 골라 짧게 나누어 움직여보세요.",
+    "population_condition": "chronic_conditions_or_disabilities",
+    "created_at": "2026-09-30T03:27:34.195439+09:00",
+    "current_claim_ids": [
+      "cardiovascular_weekly_activity_spacing_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "cardiovascular_weekly_high_volume_buffer_construct_first_v1",
+    "headline": "다음 주 활동 시간은 더 늘리지 않아도 돼요",
+    "detail": "이번 주 움직임이 많았어요. 다음 주는 지금 하던 만큼만 이어가 보세요.",
+    "population_condition": "chronic_conditions_or_disabilities",
+    "created_at": "2026-09-30T08:31:10.050359+09:00",
+    "current_claim_ids": [
+      "cardiovascular_weekly_high_volume_buffer_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "cardiovascular_weekly_sleep_timing_construct_first_v1",
+    "headline": "다음 주에도 잠드는 시간을 비슷하게 맞춰볼까요?",
+    "detail": "이번 주 잠드는 시간이 들쭉날쭉했어요. 다음 주에는 잠드는 시간을 비슷하게 맞춰보세요.",
+    "population_condition": "chronic_conditions_or_disabilities",
+    "created_at": "2026-09-30T07:20:32.125845+09:00",
+    "current_claim_ids": [
+      "cardiovascular_weekly_sleep_timing_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "endogenous_circadian_clock_entrainment_interclock_coordination"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "diabetes_bedtime_advancement_one_step",
+    "headline": "잠들 준비를 조금 일찍 시작해봐요",
+    "detail": "최근 수면 시간이 짧았어요. 오늘은 잘 준비를 조금 일찍 시작해 보세요.",
+    "population_condition": "diabetes",
+    "created_at": "2026-09-29T08:17:10.925354+09:00",
+    "current_claim_ids": [
+      "nakada_2026_t2d_bedtime_advancement_behavior"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "diabetes_household_chore_construct_first_v1",
+    "headline": "가볍게 집안일 하나 해볼까요?",
+    "detail": "움직임이 오래 끊겼어요. 지금 가벼운 집안일 하나를 해보세요.",
+    "population_condition": "diabetes",
+    "created_at": "2026-09-30T07:29:05.886503+09:00",
+    "current_claim_ids": [
+      "diabetes_household_chore_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "contraction_mediated_glucose_uptake_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "diabetes_inactivity_gap_next_move_v2",
+    "headline": "짧게 한 번 걸어볼까요?",
+    "detail": "한동안 움직이지 않으셨네요. 짧게 한 번 걸어볼까요?",
+    "population_condition": "diabetes",
+    "created_at": "2026-09-29T15:42:45.079184+09:00",
+    "current_claim_ids": [
+      "ada_2026_diabetes_inactivity_gap_next_move_v2"
+    ],
+    "current_construct_ids": [
+      "contraction_mediated_glucose_uptake_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "diabetes_weekly_activity_spacing_construct_first_v1",
+    "headline": "이번 주 활동할 날을 나누어볼까요?",
+    "detail": "이번 주 활동한 날이 적어요. 유산소 운동할 날을 3일 정도로 나누어 정해보세요.",
+    "population_condition": "diabetes",
+    "created_at": "2026-09-30T06:50:32.835536+09:00",
+    "current_claim_ids": [
+      "diabetes_weekly_activity_spacing_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "insulin_sensitivity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "diabetes_weekly_sleep_timing_construct_first_v1",
+    "headline": "다음 주에도 잠드는 시간을 비슷하게 맞춰볼까요?",
+    "detail": "이번 주 잠드는 시간이 들쭉날쭉했어요. 다음 주에는 잠드는 시간을 비슷하게 맞춰보세요.",
+    "population_condition": "diabetes",
+    "created_at": "2026-09-30T08:05:58.047274+09:00",
+    "current_claim_ids": [
+      "diabetes_weekly_sleep_timing_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "endogenous_circadian_clock_entrainment_interclock_coordination"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "dyslipidemia_activity_snack_v2",
+    "headline": "한동안 움직임이 없었어요",
+    "detail": "지금 짧게 한 번 움직여볼까요?",
+    "population_condition": "dyslipidemia",
+    "created_at": "2026-09-29T16:05:14.373938+09:00",
+    "current_claim_ids": [
+      "ksla_2026_dyslipidemia_activity_snack_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "dyslipidemia_post_exercise_cooldown_construct_first_v1",
+    "headline": "운동 뒤에는 천천히 마무리해볼까요?",
+    "detail": "운동을 마친 뒤에는 5~10분 정도 가볍게 걸으며 마무리해보세요.",
+    "population_condition": "dyslipidemia",
+    "created_at": "2026-09-30T03:34:26.759607+09:00",
+    "current_claim_ids": [
+      "dyslipidemia_post_exercise_cooldown_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "dyslipidemia_weekly_activity_distribution_construct_first_v1",
+    "headline": "다음 주 활동을 나누어 이어가볼까요?",
+    "detail": "이번 주 활동이 며칠에 몰렸어요. 다음 주에는 가능한 날에 짧게 나누어 움직여보세요.",
+    "population_condition": "dyslipidemia",
+    "created_at": "2026-09-30T08:19:25.226223+09:00",
+    "current_claim_ids": [
+      "dyslipidemia_weekly_activity_distribution_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "dyslipidemia_weekly_aerobic_anchor_construct_first_v1",
+    "headline": "이번 주 유산소 운동할 날을 정해볼까요?",
+    "detail": "이번 주 유산소 운동이 적었어요. 가능한 날에 익숙한 운동을 한 번 정해보세요.",
+    "population_condition": "dyslipidemia",
+    "created_at": "2026-09-30T06:42:52.817983+09:00",
+    "current_claim_ids": [
+      "dyslipidemia_weekly_aerobic_anchor_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "dyslipidemia_weekly_sleep_timing_construct_first_v1",
+    "headline": "다음 주에도 잠드는 시간을 비슷하게 맞춰볼까요?",
+    "detail": "이번 주 잠드는 시간이 들쭉날쭉했어요. 다음 주에는 잠드는 시간을 비슷하게 맞춰보세요.",
+    "population_condition": "dyslipidemia",
+    "created_at": "2026-09-30T07:36:47.912667+09:00",
+    "current_claim_ids": [
+      "dyslipidemia_weekly_sleep_timing_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "endogenous_circadian_clock_entrainment_interclock_coordination"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_active_travel_short_trip_construct_first_v1",
+    "headline": "가까운 이동 한 번은 걸어볼까요?",
+    "detail": "오늘 걷기 기록이 평소보다 적어요. 가까운 이동이 있다면 한 번은 걸어서 가보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T05:51:53.781653+09:00",
+    "current_claim_ids": [
+      "general_active_travel_short_trip_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_activity_load_gradual_progression_construct_first_v2",
+    "headline": "다음 활동은 한 단계만 조절해볼까요?",
+    "detail": "최근 활동량이 크게 늘었어요. 다음에는 한 번에 많이 늘리지 말고, 익숙한 범위에서 한 단계만 조절해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T18:27:28.764979+09:00",
+    "current_claim_ids": [
+      "cdc_general_activity_load_one_step_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_activity_load_spike_easy_buffer_plan",
+    "headline": "다음 운동은 가볍게 해볼까요?",
+    "detail": "최근 평소보다 많이 움직였어요. 다음 운동은 가볍게 해볼까요?",
+    "population_condition": "general",
+    "created_at": "2026-09-03T22:32:27.025550+09:00",
+    "current_claim_ids": [
+      "activity_load_spike_recovery_buffer_message_context"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_activity_small_start_v2",
+    "headline": "짧은 움직임부터 시작해볼까요?",
+    "detail": "한동안 움직임이 적었어요. 오늘은 짧은 움직임부터 시작해볼까요?",
+    "population_condition": "general",
+    "created_at": "2026-09-29T16:15:58.618845+09:00",
+    "current_claim_ids": [
+      "pag_2018_general_activity_small_start_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_bedtime_calm_routine_v2",
+    "headline": "잠들기 전 차분한 활동 하나 해보세요",
+    "detail": "책 읽기처럼 잠들기 전 차분해질 수 있는 활동 하나를 해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T16:33:23.062749+09:00",
+    "current_claim_ids": [
+      "bhf_general_bedtime_calm_routine_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_daytime_nap_earlier_construct_first_v1",
+    "headline": "낮잠은 조금 일찍 자볼까요?",
+    "detail": "오늘 낮잠이 늦은 시간에 시작됐어요. 다음 낮잠은 조금 일찍 시작해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T04:45:43.535144+09:00",
+    "current_claim_ids": [
+      "general_daytime_nap_earlier_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_daytime_nap_keep_short_construct_first_v1",
+    "headline": "낮잠은 짧게 끝내볼까요?",
+    "detail": "오늘 낮잠을 잔다면 15분 안으로 마쳐보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T04:00:51.386260+09:00",
+    "current_claim_ids": [
+      "general_daytime_nap_keep_short_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_exercise_start_gradual_pace_construct_first_v2",
+    "headline": "운동 첫 부분은 천천히 해볼까요?",
+    "detail": "운동을 시작할 때는 평소보다 천천히 움직여보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T21:16:27.672936+09:00",
+    "current_claim_ids": [
+      "general_exercise_start_gradual_pace_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_exercise_start_warmup_construct_first_v2",
+    "headline": "운동은 가볍게 시작해볼까요?",
+    "detail": "운동을 시작할 때는 가볍게 몸을 풀어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T21:04:38.309345+09:00",
+    "current_claim_ids": [
+      "general_exercise_start_warmup_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_inactivity_gap_easy_restart",
+    "headline": "잠깐 움직여 볼까요?",
+    "detail": "한동안 움직임이 없었어요. 1~2분만 편하게 움직여 볼까요?",
+    "population_condition": "general",
+    "created_at": "2026-09-18T23:13:09.672512+09:00",
+    "current_claim_ids": [
+      "activity_breaks_postprandial_mechanisms",
+      "postprandial_sedentary_adipose_gene_pathway_regulation",
+      "prolonged_sitting_lowers_leg_endothelial_function"
+    ],
+    "current_construct_ids": [
+      "contraction_mediated_glucose_uptake_capacity",
+      "nutrient_stimulated_skeletal_muscle_perfusion_response",
+      "postprandial_adipose_transcriptional_pathway_response",
+      "shear_stress_dependent_endothelial_dilator_function"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_inactivity_gap_household_chore_construct_first_v2",
+    "headline": "잠깐 집안일을 해볼까요?",
+    "detail": "한동안 움직임이 없었어요. 가벼운 집안일 하나를 해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T00:58:53.363821+09:00",
+    "current_claim_ids": [
+      "general_inactivity_household_chore_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_inactivity_gap_stairs_construct_first_v2",
+    "headline": "계단이 있다면 잠깐 걸어볼까요?",
+    "detail": "한동안 움직임이 없었어요. 계단을 이용할 수 있다면 편한 범위에서 잠깐 걸어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T00:38:40.080845+09:00",
+    "current_claim_ids": [
+      "general_inactivity_stairs_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_inactivity_gap_stretch_reset_construct_first_v2",
+    "headline": "오래 멈춘 뒤에는 몸을 가볍게 풀어볼까요?",
+    "detail": "한동안 움직임이 없었어요. 지금 자리에서 가볍게 스트레칭해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T00:12:21.438481+09:00",
+    "current_claim_ids": [
+      "general_inactivity_stretch_reset_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "connective_tissue_load_tolerance_adaptation"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_inactivity_gap_walk_in_place_construct_first_v2",
+    "headline": "오래 멈춘 뒤에는 제자리에서 걸어볼까요?",
+    "detail": "한동안 움직임이 없었어요. 지금 자리에서 잠깐 제자리걸음을 해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T00:18:56.842951+09:00",
+    "current_claim_ids": [
+      "general_inactivity_walk_in_place_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_late_activity_sleep_breathing_construct_first_v2",
+    "headline": "잠들기 전 천천히 호흡해볼까요?",
+    "detail": "평소 잠드는 시간 가까이까지 활동했어요. 잠들기 전 잠깐 호흡을 가다듬어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T00:48:17.487543+09:00",
+    "current_claim_ids": [
+      "general_late_activity_sleep_breathing_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_late_activity_sleep_light_cutoff_construct_first_v2",
+    "headline": "늦은 활동 뒤에는 밝은 화면을 조금 줄여볼까요?",
+    "detail": "평소 잠드는 시간 가까이까지 활동했어요. 오늘은 잠들기 전 밝은 화면이나 조명을 조금 줄여보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T22:27:18.109752+09:00",
+    "current_claim_ids": [
+      "sleep_general_late_activity_light_cutoff_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "endogenous_circadian_clock_entrainment_interclock_coordination"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_late_activity_sleep_reading_construct_first_v2",
+    "headline": "잠들기 전 책을 조금 읽어볼까요?",
+    "detail": "평소 잠드는 시간 가까이까지 활동했어요. 잠들기 전 책을 잠깐 읽어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T00:43:49.891198+09:00",
+    "current_claim_ids": [
+      "general_late_activity_sleep_reading_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_late_activity_sleep_warm_wash_construct_first_v2",
+    "headline": "잠들기 전 따뜻하게 씻어볼까요?",
+    "detail": "평소 잠드는 시간 가까이까지 활동했어요. 잠들기 전 따뜻한 물로 씻어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T00:31:34.251266+09:00",
+    "current_claim_ids": [
+      "general_late_activity_warm_wash_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_late_activity_sleep_winddown_construct_first_v2",
+    "headline": "잠들기 전에는 잠깐 여유를 남겨볼까요?",
+    "detail": "평소 잠드는 시간 가까이에 활동이 끝났어요. 오늘은 잠들기 전 짧게 쉬어가는 시간을 남겨보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T18:36:00.071712+09:00",
+    "current_claim_ids": [
+      "sleep_general_late_activity_winddown_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_movement_variety_construct_first_v2",
+    "headline": "다음에는 다른 움직임도 골라볼까요?",
+    "detail": "최근 비슷한 운동을 이어갔어요. 다음에는 익숙한 다른 움직임 하나를 골라보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T22:02:24.046559+09:00",
+    "current_claim_ids": [
+      "general_movement_variety_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_post_exercise_easy_cooldown_before_next_activity",
+    "headline": "운동 뒤에는 숨을 고를까요?",
+    "detail": "운동을 마쳤어요. 다음 활동 전에는 잠깐 쉬어가요.",
+    "population_condition": "general",
+    "created_at": "2026-09-18T13:32:54.673068+09:00",
+    "current_claim_ids": [
+      "post_exercise_breathing_recovery_checkin_message_context",
+      "post_exercise_hrr_autonomic_context_proxy_claim"
+    ],
+    "current_construct_ids": [
+      "post_exercise_autonomic_recovery_dynamics"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_post_exercise_water_pause_construct_first_v1",
+    "headline": "운동 뒤에는 물을 조금 마셔볼까요?",
+    "detail": "운동을 마친 뒤에는 물을 조금씩 마셔보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T03:51:38.613056+09:00",
+    "current_claim_ids": [
+      "general_post_exercise_water_pause_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "post_exercise_autonomic_recovery_dynamics"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_postmeal_quiet_window_small_walk",
+    "headline": "식사 뒤에는 조금 움직여볼까요?",
+    "detail": "다음 식사 후에는 편한 속도로 걸어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-03T17:43:12.794644+09:00",
+    "current_claim_ids": [
+      "activity_breaks_postprandial_mechanisms"
+    ],
+    "current_construct_ids": [
+      "contraction_mediated_glucose_uptake_capacity",
+      "nutrient_stimulated_skeletal_muscle_perfusion_response",
+      "postprandial_adipose_transcriptional_pathway_response"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_posture_change_after_quiet_gap_construct_first_v1",
+    "headline": "잠깐 자세를 바꿔볼까요?",
+    "detail": "한동안 움직임이 없었어요. 잠깐 자세를 바꿔보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T05:21:10.889323+09:00",
+    "current_claim_ids": [
+      "general_posture_change_after_quiet_gap_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "postural_equilibrium_control"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_recorded_exercise_timing_keep_flexible_construct_first_v2",
+    "headline": "운동 시간은 꼭 맞추지 않아도 돼요",
+    "detail": "평소 운동 시간이 비슷했어요. 오늘은 그 시간대를 맞추려고 늦은 운동을 더 얹지 마세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T19:46:32.512070+09:00",
+    "current_claim_ids": [
+      "general_recorded_exercise_timing_keep_flexible_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_running_rest_day_construct_first_v2",
+    "headline": "달리기하는 날 사이에 쉬는 날을 둘까요?",
+    "detail": "달리기한 날이 이어졌어요. 다음 달리기 전에는 쉬는 날을 하나 남겨보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T02:44:58.603393+09:00",
+    "current_claim_ids": [
+      "general_running_rest_day_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_same_pace_higher_hr_easy_next_construct_first_v1",
+    "headline": "다음 운동은 조금 천천히 해볼까요?",
+    "detail": "같은 속도로 움직였는데 심박수가 평소보다 높았어요. 다음에는 운동 속도를 조금 줄여보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T04:37:56.071851+09:00",
+    "current_claim_ids": [
+      "general_same_pace_higher_hr_easy_next_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_same_pace_higher_hr_keep_easy",
+    "headline": "다음 운동은 조금 천천히 해볼까요?",
+    "detail": "같은 속도인데 심박수가 평소보다 높았어요. 다음 운동은 속도를 조금 줄여보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-19T01:57:47.324149+09:00",
+    "current_claim_ids": [
+      "same_pace_higher_hr_demand_context"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sedentary_first_break_early_anchor_v2",
+    "headline": "다음 전환점에 짧게 한 번 움직여볼까요?",
+    "detail": "오늘 움직임이 적은 시간이 길었어요. 다음 전환점에 잠깐 일어나 한 번 걸어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T18:08:07.734878+09:00",
+    "current_claim_ids": [
+      "who_csep_general_sedentary_first_break_early_anchor_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_short_activity_bout_keep_moving_construct_first_v2",
+    "headline": "짧게 움직여도 괜찮아요",
+    "detail": "한 번에 길게 하려고 기다리지 말고, 오늘 가능한 만큼 짧게 움직여보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T20:08:01.656647+09:00",
+    "current_claim_ids": [
+      "general_short_activity_bout_keep_moving_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_short_sleep_caffeine_cutoff_construct_first_v1",
+    "headline": "오후엔 카페인을 줄여볼까요?",
+    "detail": "오늘은 오후 2시 이후 카페인을 줄여보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T04:08:13.180955+09:00",
+    "current_claim_ids": [
+      "general_short_sleep_caffeine_cutoff_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_short_sleep_cardio_signal_no_extra_push",
+    "headline": "오늘은 활동 범위를 조금 줄여봐요",
+    "detail": "어제 수면 시간이 짧았어요. 오늘은 활동 범위를 조금 줄여봐요.",
+    "population_condition": "general",
+    "created_at": "2026-09-18T13:32:54.673068+09:00",
+    "current_claim_ids": [
+      "hrv_after_short_sleep_checkin_context"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_short_sleep_hrv_no_number_chase",
+    "headline": "오늘 활동 목표는 낮게 잡아봐요",
+    "detail": "어제 수면 시간이 짧았어요. 오늘 활동 목표는 낮게 잡아봐요.",
+    "population_condition": "general",
+    "created_at": "2026-09-19T08:54:12.035891+09:00",
+    "current_claim_ids": [
+      "hrv_after_short_sleep_checkin_context"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_short_sleep_nonessential_load_postpone",
+    "headline": "오늘은 부담을 하나 덜어볼까요?",
+    "detail": "오늘은 꼭 필요하지 않은 일을 하나 뒤로 미뤄보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-18T11:02:48.249462+09:00",
+    "current_claim_ids": [
+      "short_sleep_cognitive_load_light_planning_message_context"
+    ],
+    "current_construct_ids": [
+      "sleep_dependent_cognitive_recovery_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_daylight_routine_construct_first_v2",
+    "headline": "오늘은 밝은 곳에서 잠깐 보내볼까요?",
+    "detail": "어젯밤 수면 시간이 평소와 달랐어요. 오늘은 낮에 밝은 곳에서 잠깐 시간을 보내보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T20:29:15.809581+09:00",
+    "current_claim_ids": [
+      "general_sleep_daylight_routine_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "endogenous_circadian_clock_entrainment_interclock_coordination"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_deviation_next_day_first_move_construct_first_v2",
+    "headline": "첫 움직임은 짧고 편하게 시작해볼까요?",
+    "detail": "어젯밤 수면 시간이 평소와 달랐어요. 오늘 첫 움직임은 짧고 편하게 시작해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T19:02:09.754753+09:00",
+    "current_claim_ids": [
+      "general_sleep_deviation_next_day_first_move_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_deviation_post_rest_transition_construct_first_v2",
+    "headline": "몸을 일으킬 때는 천천히 해볼까요?",
+    "detail": "어젯밤 수면 시간이 평소와 달랐어요. 오늘 몸을 일으킬 때는 서두르지 말고 천천히 움직여보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T20:39:16.288050+09:00",
+    "current_claim_ids": [
+      "general_sleep_deviation_post_rest_transition_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "baroreflex_sensitivity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_duration_below_range_bedtime_advancement_construct_first_v2",
+    "headline": "오늘 잠들 준비를 조금 일찍 시작해볼까요?",
+    "detail": "최근 수면 시간이 짧았어요. 오늘은 잠들 준비를 조금 일찍 시작해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T01:27:54.311961+09:00",
+    "current_claim_ids": [
+      "general_sleep_duration_below_range_bedtime_advancement_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_onset_next_day_plan_construct_first_v1",
+    "headline": "내일 할 일은 미리 적어둘까요?",
+    "detail": "잠드는 시간이 늦었어요. 다음에는 잠들기 전에 내일 할 일을 적어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T05:34:18.568956+09:00",
+    "current_claim_ids": [
+      "general_sleep_onset_next_day_plan_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_onset_relaxing_reset_construct_first_v1",
+    "headline": "잠이 오지 않으면 잠깐 일어나볼까요?",
+    "detail": "잠드는 시간이 늦었어요. 다음에는 잠이 오지 않으면 잠깐 일어나 차분히 쉬어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T04:56:38.468013+09:00",
+    "current_claim_ids": [
+      "general_sleep_onset_relaxing_reset_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_onset_worry_note_construct_first_v1",
+    "headline": "잠들기 전 걱정을 적어둘까요?",
+    "detail": "잠드는 시간이 늦었어요. 다음에는 잠들기 전에 걱정되는 일을 적어두세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T06:10:29.678757+09:00",
+    "current_claim_ids": [
+      "general_sleep_onset_worry_note_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_quiet_environment_construct_first_v1",
+    "headline": "오늘 밤은 소리를 조금 줄여볼까요?",
+    "detail": "오늘 소리를 크게 들은 시간이 있었어요. 잠들기 전에는 소리를 줄여보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T05:10:23.510175+09:00",
+    "current_claim_ids": [
+      "general_sleep_quiet_environment_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_timing_anchor_one_v2",
+    "headline": "수면 시간 하나만 맞춰볼까요?",
+    "detail": "잠드는 시간이나 일어나는 시간 중 하나만 비슷하게 맞춰보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T16:51:13.156499+09:00",
+    "current_claim_ids": [
+      "kalkanis_general_sleep_timing_anchor_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_sleep_variability_next_three_night_anchor_construct_first_v2",
+    "headline": "다음 3일은 일어나는 시간을 비슷하게 맞춰볼까요?",
+    "detail": "최근 잠자는 시간이 들쭉날쭉했어요. 다음 3일은 일어나는 시간을 비슷하게 맞춰보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T18:48:04.626421+09:00",
+    "current_claim_ids": [
+      "sleep_general_variability_next_three_anchor_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_strength_spacing_rest_construct_first_v2",
+    "headline": "근력운동 사이에 쉬는 날을 둘까요?",
+    "detail": "근력운동을 이어갈 때는 운동 사이에 이틀 정도 쉬어가세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T21:44:55.665107+09:00",
+    "current_claim_ids": [
+      "general_strength_spacing_rest_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "skeletal_muscle_load_responsive_tissue_remodeling"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_unaccustomed_activity_keep_easy_next",
+    "headline": "다음 움직임은 편하게 해볼까요?",
+    "detail": "최근 활동 흐름이 평소와 달랐어요. 다음 움직임은 편한 속도로 해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-19T02:03:45.545655+09:00",
+    "current_claim_ids": [
+      "unaccustomed_activity_soreness_checkin_context"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_walking_speed_drop_close_short",
+    "headline": "오늘은 걷는 시간을 줄여볼까요?",
+    "detail": "평소보다 걷는 속도가 조금 느려졌어요. 오늘은 무리하지 말고 걷는 시간을 줄여보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-19T07:49:05.347411+09:00",
+    "current_claim_ids": [
+      "walking_pace_drop_recovery_checkin_context"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_walking_speed_drop_easy_pace_construct_first_v2",
+    "headline": "오늘 걷기는 편한 속도로 해볼까요?",
+    "detail": "걷는 속도가 평소보다 느렸어요. 오늘은 속도를 올리기보다 편하게 걸어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T18:19:59.986100+09:00",
+    "current_claim_ids": [
+      "cdc_walking_speed_drop_easy_pace_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_activity_distribution_one_anchor_construct_first_v2",
+    "headline": "다음 주 활동은 작은 구간 하나부터 잡아볼까요?",
+    "detail": "이번 주 활동이 며칠에 몰렸어요. 다음 주는 가능한 날에 작은 활동 구간 하나만 먼저 잡아보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T18:56:25.641568+09:00",
+    "current_claim_ids": [
+      "general_weekly_activity_anchor_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_activity_minutes_anchor_construct_first_v2",
+    "headline": "다음 주에 익숙한 운동을 한 번 더해볼까요?",
+    "detail": "이번 주 활동 시간이 적었어요. 다음 주에는 익숙한 유산소 활동을 짧게 한 번 더해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T03:04:24.735157+09:00",
+    "current_claim_ids": [
+      "general_weekly_activity_minutes_anchor_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_activity_spacing_two_day_gap_construct_first_v2",
+    "headline": "활동하는 날 사이를 이틀 넘게 비우지 말아볼까요?",
+    "detail": "이번 주 활동하는 날 사이가 이틀 넘게 비었어요. 가능한 날에 짧게 이어가 보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T01:49:40.391530+09:00",
+    "current_claim_ids": [
+      "general_weekly_activity_spacing_two_day_gap_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_aerobic_low_day_anchor_construct_first_v2",
+    "headline": "이번 주 운동은 가능한 날 하나부터 정해볼까요?",
+    "detail": "이번 주 유산소 활동을 한 날이 적어요. 가능한 날에 익숙한 운동 하나를 먼저 정해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T19:08:43.594059+09:00",
+    "current_claim_ids": [
+      "general_weekly_aerobic_anchor_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_brisk_walk_anchor_construct_first_v1",
+    "headline": "이번 주엔 10분 빠르게 걸어볼까요?",
+    "detail": "이번 주 중간 강도 활동을 한 날이 적어요. 가능한 날에 10분 정도 빠르게 걸어보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T04:22:56.256366+09:00",
+    "current_claim_ids": [
+      "general_weekly_brisk_walk_anchor_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_high_activity_volume_buffer_construct_first_v2",
+    "headline": "다음 주 활동 시간은 더 늘리지 않아도 돼요",
+    "detail": "이번 주 움직임이 많았어요. 다음 주는 지금 하던 만큼만 이어가 보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T02:07:32.348121+09:00",
+    "current_claim_ids": [
+      "general_weekly_high_activity_volume_buffer_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_low_activity_no_catchup_construct_first_v2",
+    "headline": "한 번에 몰아 채우지 않아도 돼요",
+    "detail": "최근 일주일 움직임이 평소보다 적었어요. 다음 주에는 부족한 만큼을 한 번에 채우지 마세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T19:31:16.413574+09:00",
+    "current_claim_ids": [
+      "general_weekly_low_activity_no_catchup_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_sleep_opportunity_buffer_construct_first_v2",
+    "headline": "이번 주는 잠잘 시간을 조금 넉넉히 남겨볼까요?",
+    "detail": "최근 여러 밤의 잠이 짧았어요. 다음 며칠은 잠잘 시간을 조금 넉넉히 남겨보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T02:25:06.312636+09:00",
+    "current_claim_ids": [
+      "general_weekly_sleep_opportunity_buffer_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_sleep_timing_continuation_construct_first_v2",
+    "headline": "다음 주에도 잠드는 시간을 비슷하게 맞춰볼까요?",
+    "detail": "이번 주 잠드는 시간이 들쭉날쭉했어요. 다음 주에는 잠드는 시간을 비슷하게 맞춰보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T03:13:07.488834+09:00",
+    "current_claim_ids": [
+      "general_weekly_sleep_timing_continuation_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_social_activity_anchor_construct_first_v1",
+    "headline": "누군가와 걸을 시간을 정해볼까요?",
+    "detail": "이번 주 활동이 적어요. 가능한 날에 누군가와 걸을 시간을 정해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T06:16:47.845289+09:00",
+    "current_claim_ids": [
+      "general_weekly_social_activity_anchor_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_strength_anchor_construct_first_v2",
+    "headline": "이번 주 근력운동 하루를 정해볼까요?",
+    "detail": "이번 주 근력운동을 할 수 있는 날 하루를 먼저 정해보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-29T21:30:02.918216+09:00",
+    "current_claim_ids": [
+      "general_weekly_strength_anchor_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "skeletal_muscle_load_responsive_tissue_remodeling"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "general_weekly_weekend_sleep_anchor_construct_first_v2",
+    "headline": "주말에도 일어나는 시간을 비슷하게 맞춰볼까요?",
+    "detail": "이번 주말에 잠자는 시간이 평소보다 늦어졌어요. 다음 주말에는 일어나는 시간을 평소와 비슷하게 맞춰보세요.",
+    "population_condition": "general",
+    "created_at": "2026-09-30T02:17:39.232787+09:00",
+    "current_claim_ids": [
+      "general_weekly_weekend_sleep_anchor_construct_first_v2"
+    ],
+    "current_construct_ids": [
+      "sleep_homeostatic_pressure_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "hypertension_activity_distribution_v2",
+    "headline": "오늘은 활동을 나누어 움직여보세요",
+    "detail": "가능한 활동을 짧게 나누어서 움직여보세요.",
+    "population_condition": "hypertension",
+    "created_at": "2026-09-29T15:57:05.864830+09:00",
+    "current_claim_ids": [
+      "aha_acc_2025_hypertension_activity_distribution_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "hypertension_aerobic_frequency_small_weekly_anchor",
+    "headline": "익숙한 유산소 운동을 하나 정해볼까요?",
+    "detail": "이번 주 유산소 운동을 적게 했어요. 걷기처럼 익숙한 운동을 한 번 정해보세요.",
+    "population_condition": "hypertension",
+    "created_at": "2026-09-22T08:40:42.739002+09:00",
+    "current_claim_ids": [
+      "elevated_bp_activity_fact_route_planning_context"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "hypertension_exercise_duration_high_lighten_next",
+    "headline": "다음 운동은 조금 가볍게 해볼까요?",
+    "detail": "이번 주는 운동량이 많았네요. 다음 운동은 조금 가볍게 해볼까요?",
+    "population_condition": "hypertension",
+    "created_at": "2026-09-22T08:56:18.279224+09:00",
+    "current_claim_ids": [
+      "elevated_bp_activity_fact_route_planning_context"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "hypertension_exercise_duration_low_small_anchor",
+    "headline": "익숙한 운동을 한 번만 더 해볼까요?",
+    "detail": "이번 주 운동량이 조금 적어요. 익숙한 운동을 한 번만 더 해볼까요?",
+    "population_condition": "hypertension",
+    "created_at": "2026-09-22T08:56:18.279224+09:00",
+    "current_claim_ids": [
+      "elevated_bp_activity_fact_route_planning_context"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "hypertension_high_after_quiet_activity_load_lighten_next",
+    "headline": "오늘은 가볍게 움직여볼까요?",
+    "detail": "활동량이 갑자기 늘었어요. 오늘은 가볍게 움직여볼까요?",
+    "population_condition": "hypertension",
+    "created_at": "2026-09-22T13:41:21.316565+09:00",
+    "current_claim_ids": [
+      "elevated_bp_activity_fact_route_planning_context"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "hypertension_resistance_equipment_frequency_low_small_anchor",
+    "headline": "익숙한 근력운동 하나만 해볼까요?",
+    "detail": "이번 주 근력운동을 적게 했어요. 팔굽혀펴기나 스쿼트처럼 익숙한 동작 하나만 해볼까요?",
+    "population_condition": "hypertension",
+    "created_at": "2026-09-22T09:45:12.175440+09:00",
+    "current_claim_ids": [
+      "elevated_bp_activity_fact_route_planning_context"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "pneumonia_high_active_energy_next_day_light_start",
+    "headline": "오늘은 가볍게 시작해보세요",
+    "detail": "어제 많이 움직였네요. 오늘은 가볍게 시작해보세요.",
+    "population_condition": "pneumonia",
+    "created_at": "2026-09-22T16:30:43.424975+09:00",
+    "current_claim_ids": [
+      "activity_load_spike_recovery_buffer_message_context"
+    ],
+    "current_construct_ids": [
+      "neuromuscular_fatigue_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "pneumonia_recovery_activity_volume_small_reentry",
+    "headline": "오늘은 가볍게 다시 움직여볼까요?",
+    "detail": "최근 움직임이 줄었어요. 오늘은 가볍게 다시 움직여볼까요?",
+    "population_condition": "pneumonia",
+    "created_at": "2026-09-22T15:20:01.110554+09:00",
+    "current_claim_ids": [
+      "current_light_activity_activity_volume_outpatient_dr_bridge_claim"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "pneumonia_recovery_task_split_v2",
+    "headline": "오늘 할 일은 짧게 나눠보세요",
+    "detail": "오늘 할 일은 한 번에 하지 말고 짧게 나눠보세요.",
+    "population_condition": "pneumonia",
+    "created_at": "2026-09-29T15:52:10.328378+09:00",
+    "current_claim_ids": [
+      "nhs_nhlbi_pneumonia_task_split_v2"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "pneumonia_short_sleep_day_margin",
+    "headline": "오늘 꼭 해야 할 일 하나만 먼저 골라보세요",
+    "detail": "어제 충분히 못 잤어요. 오늘은 꼭 해야 할 일 하나만 먼저 골라보세요.",
+    "population_condition": "pneumonia",
+    "created_at": "2026-09-07T05:01:00.892401+09:00",
+    "current_claim_ids": [
+      "sleep_duration_disruption_contextualizes_immune_host_defense_recovery"
+    ],
+    "current_construct_ids": [
+      "sleep_dependent_immune_host_defense_recovery"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  },
+  {
+    "coaching_line_id": "pneumonia_weekly_light_activity_reentry_construct_first_v1",
+    "headline": "다음 주 움직일 시간 하나만 정해볼까요?",
+    "detail": "이번 주 움직임이 평소보다 적었어요. 다음 주에는 익숙한 가벼운 움직임을 할 시간 하나를 정해보세요.",
+    "population_condition": "pneumonia",
+    "created_at": "2026-09-30T07:10:29.714587+09:00",
+    "current_claim_ids": [
+      "pneumonia_weekly_light_activity_reentry_construct_first_v1"
+    ],
+    "current_construct_ids": [
+      "cardiorespiratory_fitness_adaptation_capacity"
+    ],
+    "final_audience_contract_count": 1,
+    "cleanup_status": "operational_ready_coaching_line",
+    "line_surface": "action_coaching_catalog",
+    "operational_ready": true,
+    "has_legacy_canonical_intent_review": true,
+    "creates_runtime_authority": false,
+    "creates_service_action": false,
+    "evaluates_user_data": false
+  }
+]

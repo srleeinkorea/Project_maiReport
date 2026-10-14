@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>또래 등수 기능 검증 결과</title>
+<style>
+  :root{
+    --blue:#2f66f5; --bg:#f5f7fb; --card:#ffffff; --ink:#1b2133; --sub:#636b7e;
+    --line:#e6e9f2; --warn-bg:#fff3e9; --warn-ink:#b5540f; --ok-bg:#eaf3ff; --ok-ink:#2f66f5;
+    --pass-bg:#eaf6ee; --pass-ink:#1f8a4c;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans KR",-apple-system,sans-serif;line-height:1.65;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px 80px;}
+  .hero{background:linear-gradient(135deg,#2f66f5,#5170ff 60%,#7b93ff);color:#fff;border-radius:0 0 28px 28px;padding:44px 24px 52px;margin-bottom:-32px;}
+  .hero .tag{display:inline-block;background:rgba(255,255,255,.18);padding:5px 14px;border-radius:999px;font-size:13px;margin-bottom:14px;}
+  .hero h1{font-size:28px;margin:0 0 10px;font-weight:700;}
+  .hero p{margin:0;opacity:.92;font-size:14.5px;}
+  .hero .meta{margin-top:16px;font-size:13px;opacity:.85;display:flex;gap:18px;flex-wrap:wrap;}
+  .card{background:var(--card);border-radius:22px;padding:26px 28px;margin:26px 0;box-shadow:0 2px 14px rgba(30,40,80,.06);}
+  h2{font-size:19px;margin:0 0 14px;display:flex;align-items:center;gap:10px;}
+  h2 .num{background:var(--ok-bg);color:var(--ok-ink);width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;}
+  .sub{color:var(--sub);font-size:13.3px;}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13.2px;}
+  th,td{border-bottom:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top;}
+  th{background:#f7f9fd;color:var(--sub);font-weight:600;font-size:12px;}
+  tr:last-child td{border-bottom:none;}
+  .pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700;white-space:nowrap;}
+  .pill.pass{background:var(--pass-bg);color:var(--pass-ink);}
+  .pill.warn{background:var(--warn-bg);color:var(--warn-ink);}
+  .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:10px 0;}
+  .stat{background:var(--ok-bg);border-radius:14px;padding:16px;text-align:center;}
+  .stat .n{font-size:26px;font-weight:800;color:var(--ok-ink);}
+  .stat .l{font-size:12px;color:var(--sub);margin-top:2px;}
+  .callout{border-left:4px solid var(--blue);background:var(--ok-bg);padding:12px 16px;border-radius:0 12px 12px 0;margin:14px 0;font-size:13.3px;}
+  code{background:#f1f3fa;padding:1px 6px;border-radius:5px;font-size:12.5px;}
+  footer{text-align:center;color:var(--sub);font-size:12px;margin-top:26px;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="wrap" style="padding:0">
+    <span class="tag">maiReport · manage-board 기능 검증</span>
+    <h1>또래 100명 속 등수 — 전체 시나리오 검증 결과</h1>
+    <p>기준: maiReport_또래등수_최종통합규격_v1.0.0.html · 기준표 knhanes-2022-2024.v1 (경계값표 직접 계산 대조)</p>
+    <div class="meta">
+      <span>2026-10-06 실시</span>
+      <span>총 20개 케이스</span>
+      <span>https://3.38.11.206/manage-board</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="card">
+  <div class="summary">
+    <div class="stat"><div class="n">20 / 20</div><div class="l">전체 통과</div></div>
+    <div class="stat"><div class="n">5</div><div class="l">band 1~5 전구간</div></div>
+    <div class="stat"><div class="n">8</div><div class="l">건강판정 경계값</div></div>
+    <div class="stat"><div class="n">20·80</div><div class="l">연령 상/하한 구간</div></div>
+  </div>
+  <div class="callout">band(1~20·21~40·41~60·61~80·81~100등) 전 구간, 연령 하한(20세)·상한(80세이상) 경계, BMI·허리둘레 건강판정 임계값(18.5 / 25.0 / 85 / 90) 바로 위·아래, 분포 극단값(p1/p99 클램프), 측정값 누락 처리까지 전부 기준표 계산값과 정확히 일치했습니다. 이전에 지적했던 "키 등수 방향"은 담당자 확인 결과 의도된 동작(클수록 1등)이라, 실제 결함은 발견되지 않았습니다.</div>
+</div>
+
+<div class="card">
+  <h2><span class="num">1</span>기본 검증 벡터 · band 전구간</h2>
+  <table>
+    <tr><th>#</th><th>입력</th><th>항목</th><th>기대값</th><th>실제 화면</th><th>결과</th></tr>
+    <tr><td>1</td><td>남 45 · 키172 체중72.5 허리82</td><td>키/체중/BMI/허리</td><td>58·36·40·21등 (band 3·2·2·2)</td><td>58·36·40·21등 (band 3·2·2·2)</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>2</td><td>여 45 · 키180 체중50 허리82</td><td>키/체중/BMI/허리</td><td>99·15·1·71등 (band 5·1·1·4)</td><td>99·15·1·71등 (band 5·1·1·4)</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>3</td><td>남 45 · 키140 체중95 허리80</td><td>BMI 48.5(극단)</td><td>99등 band5 · 주의</td><td>99등 band5 · 주의</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>4</td><td>남 45 · 키230 체중70 허리80</td><td>BMI 13.2(극단)</td><td>1등 band1 · 주의</td><td>1등 band1 · 주의</td><td><span class="pill pass">PASS</span></td></tr>
+  </table>
+  <p class="sub">band 1(상위 1~20등) · 2(21~40) · 3(41~60) · 4(61~80) · 5(81~100) 모두 1건 이상씩 재현됨.</p>
+</div>
+
+<div class="card">
+  <h2><span class="num">2</span>건강 판정 경계값 (바로 아래 / 바로 위)</h2>
+  <table>
+    <tr><th>#</th><th>항목</th><th>입력</th><th>경계</th><th>기대</th><th>실제</th><th>결과</th></tr>
+    <tr><td>5</td><td>BMI</td><td>여42 · 18.4</td><td>&lt;18.5</td><td>주의</td><td>주의</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>6</td><td>BMI</td><td>여42 · 18.5</td><td>=18.5</td><td>정상</td><td>정상</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>7</td><td>BMI</td><td>남45 · 24.9</td><td>&lt;25.0</td><td>정상</td><td>정상</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>8</td><td>BMI</td><td>남45 · 25.0</td><td>≥25.0</td><td>주의</td><td>주의</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>9</td><td>허리둘레(남)</td><td>89.9cm</td><td>&lt;90</td><td>정상</td><td>정상</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>10</td><td>허리둘레(남)</td><td>90.0cm</td><td>≥90</td><td>주의</td><td>주의</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>11</td><td>허리둘레(여)</td><td>84.9cm</td><td>&lt;85</td><td>정상</td><td>정상</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>12</td><td>허리둘레(여)</td><td>85.0cm</td><td>≥85</td><td>주의</td><td>주의</td><td><span class="pill pass">PASS</span></td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2><span class="num">3</span>연령 구간 경계</h2>
+  <table>
+    <tr><th>#</th><th>입력</th><th>기대</th><th>실제</th><th>결과</th></tr>
+    <tr><td>13</td><td>만 19세</td><td>"20세 미만은 비교 대상 아님" · 등수 전체 미표시</td><td>동일</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>14</td><td>만 20세 (하한 경계)</td><td>20-24세 구간으로 정상 계산</td><td>동일, 4항목 전부 수치 일치</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>15</td><td>만 85세 (80세이상 구간)</td><td>단일 "80세이상" 구간으로 계산</td><td>동일, 4항목 전부 수치 일치</td><td><span class="pill pass">PASS</span></td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2><span class="num">4</span>그 외 예외 처리</h2>
+  <table>
+    <tr><th>#</th><th>케이스</th><th>기대</th><th>실제</th><th>결과</th></tr>
+    <tr><td>16</td><td>체중 값 비움</td><td>체중·BMI 행만 결과에서 빠짐(키·허리둘레는 유지)</td><td>동일</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>17</td><td>허리둘레 여성 경고(86cm)</td><td>허리둘레만 주의, 나머지 정상</td><td>동일</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>18</td><td>허리둘레 남성 경고(91cm)</td><td>허리둘레만 주의, 나머지 정상</td><td>동일</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>19</td><td>BMI 저체중 경고(17.9)</td><td>등수는 그대로 노출 + BMI만 주의</td><td>동일</td><td><span class="pill pass">PASS</span></td></tr>
+    <tr><td>20</td><td>BMI 과체중 경고(25.3)</td><td>등수는 그대로 노출 + BMI만 주의</td><td>동일</td><td><span class="pill pass">PASS</span></td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2><span class="num">5</span>결론</h2>
+  <p>20개 케이스 전부 <code>maiReport_또래등수_최종통합규격_v1.0.0.html</code> 기준과 일치했습니다. band 1~5 전 구간, 건강판정 임계값 4종의 상·하 경계, 연령 상·하한 구간, 분포 극단값 클램프, 측정값 누락 처리까지 커버했고 별도 조치가 필요한 항목은 없습니다.</p>
+</div>
+
+<footer>또래 등수 기능 검증 결과 · 2026-10-06 · 기준표 knhanes-2022-2024.v1</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "provider_platform": "apple_health_export",
+  "records": [
+    {
+      "workoutActivityType": "HKWorkoutActivityTypeBriskWalking",
+      "startDate": "2026-09-15T18:00:00+09:00",
+      "endDate": "2026-09-15T18:30:00+09:00",
+      "sourceName": "Apple Watch",
+      "sourceVersion": "12.0"
+    },
+    {
+      "workoutActivityType": "HKWorkoutActivityTypeBriskWalking",
+      "startDate": "2026-09-16T19:30:00+09:00",
+      "endDate": "2026-09-16T20:00:00+09:00",
+      "sourceName": "Apple Watch",
+      "sourceVersion": "12.0"
+    },
+    {
+      "workoutActivityType": "HKWorkoutActivityTypeBriskWalking",
+      "startDate": "2026-09-17T20:00:00+09:00",
+      "endDate": "2026-09-17T20:30:00+09:00",
+      "sourceName": "Apple Watch",
+      "sourceVersion": "12.0"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "contract": "construct_first_coaching_delivery_v1",
+  "release": "maireport-construct-first-coaching-kdb-v1.1",
+  "exported_at_utc": "2026-09-30T03:02:44.746262+00:00",
+  "server_database": "health_knowledge",
+  "authoritative_line_view": "mai_kdb_construct_first_operational_ready_coaching_line_catalog",
+  "authoritative_trigger_view": "mai_kdb_strict_operational_ready_trigger_export",
+  "objects": {
+    "construct_first_lines": {
+      "rows": 87,
+      "sha256": "4c94c988696c03f65e7bb7301029b1443fddccdffb0e4e87e7c1be55ed12bd89"
+    },
+    "construct_first_triggers": {
+      "rows": 89,
+      "sha256": "2b630a0edadd7a4adc9d6eb26cbe123d1c9bfddc93be29adc26e7e8c79c3395c"
+    },
+    "trigger_packets": {
+      "rows": 89,
+      "sha256": "fd7aab76818ed5b3a09d5e9656414357556c6689039d38b078325b63e1da7f18"
+    },
+    "source_fields": {
+      "rows": 1139,
+      "sha256": "b2cd1a94a9672ca15a8c97aca014d66d08479308032b83c89ff8f8080ea27b51"
+    },
+    "output_contracts": {
+      "rows": 89,
+      "sha256": "a3d7723d03c10401b6c0910b455469babb34c0efc55801531c085622e5152be4"
+    },
+    "golden_fixtures": {
+      "rows": 374,
+      "sha256": "89cee979b9c10dd2525d3d9ea71f2ff0861cc50ad1fd5ae1d3ffb41d2ca1d63b"
+    },
+    "evaluator_contracts": {
+      "rows": 89,
+      "sha256": "7febae13d8306b5ac4ccb8e465274a32993447040a3dc257d77ee3b214298af6"
+    }
+  },
+  "runtime_dependency_map": {
+    "bundle_file": "data/runtime_dependency_map.json",
+    "sha256": "b5acd11d2e07f7ba607134e29d3eb2e0da5ca57712b56d37c6b1c87279bb5bcd",
+    "contract": "construct_first_runtime_dependency_map_v1"
+  },
+  "fixture_replay": {
+    "positive_fixtures": 253,
+    "no_trigger_fixtures": 121
+  },
+  "fixture_coverage_status": "complete",
+  "fixture_gap_pairs": [],
+  "handoff_status": "ready",
+  "goal_action_dependency": "independent_downstream_layer",
+  "operating_product_boundary": [
+    "identity",
+    "permissions",
+    "freshness",
+    "priority",
+    "deduplication",
+    "delivery"
+  ]
+}

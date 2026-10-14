@@ -1,0 +1,218 @@
+{
+  "contract": "construct_first_runtime_dependency_map_v1",
+  "schema": "public",
+  "authoritative_release_gate_sql": "SELECT mai_kdb_assert_authoring_release_gate()",
+  "read_only_requirement": true,
+  "decision_scope": "The operating product may query these KDB objects directly or materialize the same release into an operating database. The bundle is the equivalent snapshot.",
+  "kdb_objects": [
+    {
+      "artifact": "construct_first_lines",
+      "object": "public.mai_kdb_construct_first_operational_ready_coaching_line_catalog",
+      "object_kind": "view",
+      "runtime_role": "line_catalog_required",
+      "runtime_required": true,
+      "validation_only": false,
+      "stable_keys": [
+        "coaching_line_id"
+      ],
+      "required_columns": [
+        "coaching_line_id",
+        "headline",
+        "detail",
+        "population_condition",
+        "current_construct_ids",
+        "operational_ready",
+        "line_surface"
+      ],
+      "selection_sql": "SELECT * FROM public.mai_kdb_construct_first_operational_ready_coaching_line_catalog ORDER BY coaching_line_id",
+      "join_keys": [
+        "coaching_line_id = construct_first_triggers.line_id"
+      ],
+      "bundle_file": "data/construct_first_lines.json"
+    },
+    {
+      "artifact": "construct_first_triggers",
+      "object": "public.mai_kdb_strict_operational_ready_trigger_export",
+      "object_kind": "view",
+      "runtime_role": "trigger_catalog_required",
+      "runtime_required": true,
+      "validation_only": false,
+      "stable_keys": [
+        "line_id",
+        "trigger_id"
+      ],
+      "required_columns": [
+        "line_id",
+        "trigger_id",
+        "trigger_measure_key",
+        "trigger_rule",
+        "external_developer_contract_status",
+        "strict_operational_readiness_status"
+      ],
+      "selection_sql": "SELECT e.* FROM public.mai_kdb_strict_operational_ready_trigger_export e JOIN public.mai_kdb_construct_first_operational_ready_coaching_line_catalog l ON l.coaching_line_id = e.line_id ORDER BY e.line_id, e.trigger_id",
+      "join_keys": [
+        "line_id = construct_first_lines.coaching_line_id",
+        "(line_id, trigger_id) = contract artifact keys"
+      ],
+      "bundle_file": "data/construct_first_triggers.json"
+    },
+    {
+      "artifact": "trigger_packets",
+      "object": "public.mai_kdb_external_developer_trigger_packet",
+      "object_kind": "table_or_view",
+      "runtime_role": "preprocessing_and_context_contract_required",
+      "runtime_required": true,
+      "validation_only": false,
+      "stable_keys": [
+        "line_id",
+        "trigger_id"
+      ],
+      "required_columns": [
+        "line_id",
+        "trigger_id",
+        "provider_contracts",
+        "preprocessing_steps",
+        "trigger_required_context",
+        "trigger_rule",
+        "evidence_boundary"
+      ],
+      "selection_sql": "SELECT p.* FROM public.mai_kdb_external_developer_trigger_packet p WHERE EXISTS (SELECT 1 FROM public.mai_kdb_strict_operational_ready_trigger_export e JOIN public.mai_kdb_construct_first_operational_ready_coaching_line_catalog l ON l.coaching_line_id = e.line_id WHERE e.line_id = p.line_id AND e.trigger_id = p.trigger_id)",
+      "join_keys": [
+        "(line_id, trigger_id) = construct_first_triggers keys"
+      ],
+      "bundle_file": "data/trigger_packets.json"
+    },
+    {
+      "artifact": "source_fields",
+      "object": "public.kdb_external_developer_source_field_contract",
+      "object_kind": "table",
+      "runtime_role": "provider_field_allowlist_required",
+      "runtime_required": true,
+      "validation_only": false,
+      "stable_keys": [
+        "line_id",
+        "trigger_id",
+        "source_field_contract_id"
+      ],
+      "required_columns": [
+        "line_id",
+        "trigger_id",
+        "provider_platform",
+        "raw_source_object",
+        "raw_field_path",
+        "raw_field_type",
+        "raw_unit",
+        "semantic_role",
+        "is_required",
+        "missingness_policy",
+        "transform_rule",
+        "source_priority"
+      ],
+      "selection_sql": "SELECT f.* FROM public.kdb_external_developer_source_field_contract f WHERE EXISTS (SELECT 1 FROM public.mai_kdb_strict_operational_ready_trigger_export e JOIN public.mai_kdb_construct_first_operational_ready_coaching_line_catalog l ON l.coaching_line_id = e.line_id WHERE e.line_id = f.line_id AND e.trigger_id = f.trigger_id)",
+      "join_keys": [
+        "(line_id, trigger_id) = construct_first_triggers keys"
+      ],
+      "bundle_file": "data/source_fields.json"
+    },
+    {
+      "artifact": "output_contracts",
+      "object": "public.kdb_external_developer_output_contract",
+      "object_kind": "table",
+      "runtime_role": "normalized_output_and_no_emit_contract_required",
+      "runtime_required": true,
+      "validation_only": false,
+      "stable_keys": [
+        "line_id",
+        "trigger_id",
+        "output_contract_id"
+      ],
+      "required_columns": [
+        "line_id",
+        "trigger_id",
+        "output_contract_id",
+        "output_grain",
+        "primary_key_fields",
+        "output_schema",
+        "emit_rule",
+        "no_emit_rule",
+        "null_reason_values"
+      ],
+      "selection_sql": "SELECT o.* FROM public.kdb_external_developer_output_contract o WHERE EXISTS (SELECT 1 FROM public.mai_kdb_strict_operational_ready_trigger_export e JOIN public.mai_kdb_construct_first_operational_ready_coaching_line_catalog l ON l.coaching_line_id = e.line_id WHERE e.line_id = o.line_id AND e.trigger_id = o.trigger_id)",
+      "join_keys": [
+        "(line_id, trigger_id) = construct_first_triggers keys"
+      ],
+      "bundle_file": "data/output_contracts.json"
+    },
+    {
+      "artifact": "golden_fixtures",
+      "object": "public.kdb_external_developer_golden_fixture",
+      "object_kind": "table",
+      "runtime_role": "release_validation_only",
+      "runtime_required": false,
+      "validation_only": true,
+      "stable_keys": [
+        "fixture_id"
+      ],
+      "required_columns": [
+        "fixture_id",
+        "line_id",
+        "trigger_id",
+        "fixture_kind",
+        "provider_platform",
+        "input_fixture",
+        "expected_derived_output"
+      ],
+      "selection_sql": "SELECT f.* FROM public.kdb_external_developer_golden_fixture f WHERE EXISTS (SELECT 1 FROM public.mai_kdb_strict_operational_ready_trigger_export e JOIN public.mai_kdb_construct_first_operational_ready_coaching_line_catalog l ON l.coaching_line_id = e.line_id WHERE e.line_id = f.line_id AND e.trigger_id = f.trigger_id)",
+      "join_keys": [
+        "(line_id, trigger_id) = construct_first_triggers keys"
+      ],
+      "bundle_file": "data/golden_fixtures.json"
+    }
+  ],
+  "compiled_bundle_artifacts": [
+    {
+      "artifact": "evaluator_contracts",
+      "bundle_file": "data/evaluator_contracts.json",
+      "runtime_role": "compiled_runtime_contract_optional",
+      "source_objects": [
+        "trigger_packets",
+        "source_fields",
+        "output_contracts",
+        "construct_first_triggers"
+      ]
+    }
+  ],
+  "external_inputs_not_in_kdb": [
+    {
+      "input": "provider_raw_records",
+      "owner": "operating_product",
+      "examples": [
+        "Apple Health HKWorkout",
+        "Samsung Health exercise",
+        "Health Connect ActivityIntensityRecord"
+      ],
+      "note": "KDB defines allowed fields and transformations; it does not store the user's raw device records."
+    },
+    {
+      "input": "derived_context_rows",
+      "owner": "operating_product_or_reference_adapter",
+      "note": "The evaluator consumes this normalized input and must not infer disease, diagnosis, recovery, safety, or treatment state from a device signal."
+    }
+  ],
+  "implementation_choices": [
+    {
+      "mode": "direct_kdb",
+      "required": "read-only server connection, release-gate check, the five runtime-required KDB objects, and their key joins",
+      "not_required_at_runtime": "golden_fixtures unless the service runs validation"
+    },
+    {
+      "mode": "operating_db_projection",
+      "required": "versioned materialization of the five runtime-required artifacts or the compiled evaluator_contracts artifact",
+      "refresh_boundary": "re-export after a KDB release; do not independently reinterpret source contracts"
+    },
+    {
+      "mode": "delivery_bundle",
+      "required": "the files in this bundle; this is equivalent to a versioned projection and requires no KDB connection"
+    }
+  ]
+}

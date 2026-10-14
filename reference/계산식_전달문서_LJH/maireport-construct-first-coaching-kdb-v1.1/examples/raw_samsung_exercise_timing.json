@@ -1,0 +1,26 @@
+{
+  "provider_platform": "samsung_health_export",
+  "records": [
+    {
+      "exercise_type": "walking",
+      "start_time": "2026-09-15T06:30:00+09:00",
+      "duration": 30,
+      "pkg_name": "com.sec.android.app.shealth",
+      "datauuid": "samsung-demo-001"
+    },
+    {
+      "exercise_type": "walking",
+      "start_time": "2026-09-16T07:15:00+09:00",
+      "duration": 30,
+      "pkg_name": "com.sec.android.app.shealth",
+      "datauuid": "samsung-demo-002"
+    },
+    {
+      "exercise_type": "walking",
+      "start_time": "2026-09-17T08:00:00+09:00",
+      "duration": 30,
+      "pkg_name": "com.sec.android.app.shealth",
+      "datauuid": "samsung-demo-003"
+    }
+  ]
+}
