@@ -140,7 +140,16 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 .weight-note{margin:-8px 0 18px!important;padding:10px 13px;border-left:3px solid var(--lesson);background:var(--surface-2);font-size:12px!important;line-height:1.7!important}
 @media(max-width:800px){.basics{grid-template-columns:1fr 1fr}.practice{grid-template-columns:1fr}.teach-steps{grid-template-columns:1fr}.lesson-head{flex-wrap:wrap}.lesson-badge{margin-left:70px}.lesson,.learn-intro,.thresholds{padding:18px}.lesson-head h2,.learn h2{font-size:19px}.practice{padding:14px}.data-table th,.data-table td{padding:10px}.data-table table{min-width:580px}}@media(max-width:420px){.basics{grid-template-columns:1fr}.input-grid{gap:10px}.lesson-number{width:42px;height:42px}.lesson-head{gap:10px}.lesson-head>div{flex:1}.lesson-badge{margin-left:52px}.practice-result{padding:14px}}
 @media print{.learn{break-before:page}.lesson{break-before:page;box-shadow:none}.practice,.data-table,.teach-steps{break-inside:avoid}.lesson-head{break-after:avoid}.learn-nav,button{display:none}.practice{grid-template-columns:1fr 1fr}.math:not([open]){display:none}}
-</style></head><body><main class="page">
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인(문서 틀만). 앱 화면(.app · .phone · .device · .screen)은 제품 글꼴 그대로 ── */
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif}
+body>h1,body>header h1,body>main>h1,body>.page>h1,body>.top>h1,.top h1,.page>.top h1,.intro h1,.doc h1,.sr-h h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+.app,.app *,.phone,.phone *,.device,.device *,.screen,.screen *,.mock,.mock *{font-family:var(--font,"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif)}
+[class*="hero"]:not(.app *):not(.phone *){background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+</style>
+</head><body><main class="page">
 <header class="hdr"><div class="hdr-l"><div class="logo"><b>mai</b><span>REPORT</span></div><div><h1>생활여유 · 자기돌봄 · 일상안정</h1><p class="sub">건강 기록 + 행동 판정 → 정규화 → 세 지표 계산 → 검증·표시</p></div></div><div class="badges"><span class="badge"><i class="pip" aria-hidden="true"></i>설계 문서</span><span class="badge">산식 v7.0 기준</span><span class="badge">I1·I2 일별 / I3 7일 비교</span><span class="badge">정책 확정 전</span></div></header>
 <section class="timeline" aria-label="지표의 관측 범위">
 <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bg)"><div class="bar"></div><b>기준일 · I1 / I2</b><p>활동·수면·행동 입력<br>사용자 현지 날짜 적용</p><span class="tag">일별 정규화</span></div>
