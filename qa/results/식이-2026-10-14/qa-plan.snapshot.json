@@ -1,7 +1,7 @@
 {
   "_안내": "식이 기능 QA 계획. 2026-10-07 수작업 1차 QA(qa/results/diet-2026-10-07)를 이 형식으로 옮기고, 경계값·하락 규칙·데이터 점검을 더했다.",
   "feature": "식이",
-  "target": "docs/10_홈탭/식이",
+  "target": "docs/엔진/식이",
   "baseline": {
     "contract": "maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx",
     "documents": ["식이_구현점검_v1.0.0.md"],
