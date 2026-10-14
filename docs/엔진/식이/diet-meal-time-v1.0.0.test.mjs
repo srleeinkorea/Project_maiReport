@@ -1,6 +1,23 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { askMealTime, mealTimeOptions, estimateMealTime, formatKoTime } from './diet-meal-time-v1.0.0.mjs';
+import { askMealTime, mealTimeOptions, estimateMealTime, formatKoTime, judgePostMealAction } from './diet-meal-time-v1.0.0.mjs';
+
+const minutesOf = (start, n, steps) => Array.from({ length: n }, (_, i) => {
+  const m = Number(start.slice(0, 2)) * 60 + Number(start.slice(3)) + i;
+  return { time: `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`, steps };
+});
+
+test('식후 행동 판정(A안) · 5분 넘게 이어 걷기 · 300보 · 운동 기록 · 모름', () => {
+  const win = ['12:00', '13:30'];
+  assert.deepEqual(judgePostMealAction({ postMealWindow: win, stepsPerMinute: minutesOf('12:55', 10, 60) }), { action: 'COMPLETED', basis: 'STEP_STREAK' });
+  assert.deepEqual(judgePostMealAction({ postMealWindow: win, stepsPerMinute: [...minutesOf('12:10', 4, 90), ...minutesOf('12:40', 86, 0)] }), { action: 'COMPLETED', basis: 'STEP_TOTAL' });
+  assert.deepEqual(judgePostMealAction({ postMealWindow: win, stepsPerMinute: minutesOf('12:00', 90, 2) }), { action: 'NOT_COMPLETED', basis: 'BELOW_THRESHOLD' });
+  assert.deepEqual(judgePostMealAction({ postMealWindow: win, stepsPerMinute: minutesOf('12:00', 90, 0), workoutStarts: ['12:40'] }), { action: 'COMPLETED', basis: 'WORKOUT' });
+  assert.deepEqual(judgePostMealAction({ postMealWindow: win, stepsPerMinute: minutesOf('14:00', 30, 80) }), { action: 'UNKNOWN', basis: 'NO_STEP_DATA' });
+  assert.deepEqual(judgePostMealAction({ postMealWindow: null, stepsPerMinute: minutesOf('12:00', 90, 80) }), { action: 'UNKNOWN', basis: 'NO_MEAL_TIME' });
+  // 정확히 5분은 「넘게」가 아니므로 이어 걷기 기준 미달, 합계 100보라 미완료
+  assert.equal(judgePostMealAction({ postMealWindow: win, stepsPerMinute: [...minutesOf('12:10', 5, 20), ...minutesOf('12:15', 60, 0)] }).action, 'NOT_COMPLETED');
+});
 
 const KST = 'Asia/Seoul';
 const at = (time) => `2026-10-14T${time}:00+09:00`;

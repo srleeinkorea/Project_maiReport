@@ -147,6 +147,36 @@ export function estimateMealTime({
     post_meal_window: [toHHMM(ws), toHHMM(we + config.postMealMinutes)], window };
 }
 
+/**
+ * ④ 식후 행동 판정(계약 R-12 · CFG-086~088).
+ *    계산식 전달 문서 v7.0은 「어떤 행동을 식후 행동으로 볼지는 서비스가 정하고, 계산기는 완료 · 미완료 · 모름만 받는다」고 한다.
+ *    서비스는 걸음 기록으로 판정한다. 식후 관찰 시간 안에
+ *      - 5분 넘게 이어 걸었거나(분당 20보 이상)      → COMPLETED (basis STEP_STREAK)
+ *      - 합계 300보 이상이거나                         → COMPLETED (basis STEP_TOTAL)
+ *      - 운동 기록이 시작됐으면                        → COMPLETED (basis WORKOUT)
+ *    아니면 NOT_COMPLETED. 식사 시각이 모름이거나 관찰 시간에 걸음 기록이 비어 있으면 UNKNOWN.
+ *  입력: postMealWindow ['HH:MM','HH:MM'] | null, stepsPerMinute [{time:'HH:MM', steps:n}], workoutStarts ['HH:MM']
+ */
+export const POST_MEAL_ACTION_CONFIG = Object.freeze({
+  streakMinutes: 5, streakStepsPerMinute: 20, totalSteps: 300,
+});
+export function judgePostMealAction({ postMealWindow, stepsPerMinute = [], workoutStarts = [] }, config = POST_MEAL_ACTION_CONFIG) {
+  if (!postMealWindow) return { action: 'UNKNOWN', basis: 'NO_MEAL_TIME' };
+  const [ws, we] = postMealWindow.map(hhmmToMin);
+  const inWindow = stepsPerMinute.filter((r) => { const t = hhmmToMin(r.time); return t >= ws && t < we; });
+  if (workoutStarts.some((t) => { const m = hhmmToMin(t); return m >= ws && m < we; })) return { action: 'COMPLETED', basis: 'WORKOUT' };
+  if (inWindow.length === 0) return { action: 'UNKNOWN', basis: 'NO_STEP_DATA' };
+  let streak = 0, best = 0;
+  for (const r of inWindow.slice().sort((a, b) => hhmmToMin(a.time) - hhmmToMin(b.time))) {
+    streak = r.steps >= config.streakStepsPerMinute ? streak + 1 : 0;
+    best = Math.max(best, streak);
+  }
+  if (best > config.streakMinutes) return { action: 'COMPLETED', basis: 'STEP_STREAK' };
+  const total = inWindow.reduce((s, r) => s + r.steps, 0);
+  if (total >= config.totalSteps) return { action: 'COMPLETED', basis: 'STEP_TOTAL' };
+  return { action: 'NOT_COMPLETED', basis: 'BELOW_THRESHOLD' };
+}
+
 /** 진행 번호. 시각 단계도 질문 1개로 센다(식사 1/5 → 시각 2/5). */
 export function questionCountWithMealTime(baseCount, asked) {
   return asked ? baseCount + 1 : baseCount;
