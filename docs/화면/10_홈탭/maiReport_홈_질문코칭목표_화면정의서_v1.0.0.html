@@ -35,8 +35,42 @@ p{margin:6px 0}
 ul{margin:6px 0 0;padding-left:20px}
 li{margin:4px 0}
 @media (max-width:700px){.fig{grid-template-columns:1fr}}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}}
-:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용). 조작 화면(.phone · .stage 등)은 원래 스타일 유지 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a;--blue-s:#eef1ff;--red-s:#fdeeed;--green-s:#eaf8f0;--amber-s:#fff6e6;--num:#d9dce6;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--link:#5170FF;--todo:#c7861c;--todo-bg:#fff6e6}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;font-size:14.5px;line-height:1.7}
+main{max-width:1120px;padding:40px 24px 80px}
+header{padding:8px 0 28px;border-bottom:1px solid var(--line);margin-bottom:8px}
+header .kind{display:block;background:none;color:var(--blue);padding:0;border-radius:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:0}
+header h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:40px;line-height:1.15;margin:8px 0 6px}
+header .path{font-size:16px;color:var(--mute)}
+header .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 20px;margin-top:18px;font-size:13px;color:var(--mute)}
+header .meta span{display:block}header .meta b{display:block;color:var(--ink);font-weight:500;font-size:14px}
+nav.toc{display:none}
+section{display:grid;grid-template-columns:96px 1fr;gap:0 24px;padding:34px 0;border-bottom:1px solid var(--line);background:none;border-left:0;border-right:0;border-top:0;border-radius:0;margin:0}
+section>.n{font-family:"DM Serif Display",serif;font-size:56px;line-height:1;color:var(--num);padding-top:2px}
+section>.b{min-width:0}
+section h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:26px;margin:0 0 14px;letter-spacing:-.01em}
+section h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:22px 0 8px;font-weight:600}
+table{border-top:2px solid var(--ink);margin:10px 0 4px}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:600;background:none;padding:10px 10px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line)}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.glance div{border:1px solid var(--line);border-radius:0;padding:14px 16px;background:#fff}
+.glance div:nth-child(1){background:var(--green-s);border-color:#bfe6cf}.glance div:nth-child(2){background:var(--blue-s);border-color:#cdd6ff}.glance div:nth-child(3){background:var(--amber-s);border-color:#f0d9ad}
+.glance b{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.note{background:var(--blue-s);border-radius:0;border-left:3px solid var(--blue)}
+.fig,.figs svg,.fig svg{border-radius:0}
+.fig svg{background:#fff}
+.ex{color:var(--mute);font-size:13px}
+a{color:var(--blue)}
+.todo{background:none;color:var(--amber);border:1px dashed var(--amber);border-radius:0}
+.kind{border-radius:0}
+.app section,.phone section,.stage section{display:block;padding:14px;border:0;gap:0;margin:0}.app section h3,.phone section h3{text-transform:none;letter-spacing:0;color:inherit;font-size:inherit;margin:0}
+@media(max-width:760px){section{grid-template-columns:1fr}section>.n{font-size:36px}header h1{font-size:30px}}
 </style>
 </head>
 <body>
@@ -52,23 +86,23 @@ li{margin:4px 0}
 <li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">화면 개요</a></li><li><a href="#c2">화면 구성</a></li><li><a href="#c3">영역별 정의</a></li><li><a href="#c4">상태별 표시</a></li><li><a href="#c5">동작</a></li><li><a href="#c6">문구</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
 </ol></nav>
 
-<section id="glance"><h2>한눈에 보기</h2>
+<section id="glance"><div class="n">00</div><div class="b"><h2>한눈에 보기</h2>
 <div class="glance">
-<div><b>이 문서가 다루는 것</b>홈 위쪽 세 영역(오늘의 질문 · 오늘의 코칭 · 오늘의 목표)에 무엇이 보이고 각 요소가 어떤 규칙으로 표시되는지. 컨디션 · 건강 데이터 · 건강 요약 영역은 홈 화면 전체 정의서를 본다.</div>
-<div><b>가장 중요한 결정</b>질문은 한 번에 한 문항만 보이고, 코칭 카드와 잠긴 목표 타일은 모두 답한 순간에 함께 바뀐다. 타일에는 행동 문구만 두고 이유 · 근거 · 연속일수는 쓰지 않는다.</div>
-<div><b>아직 정해지지 않은 것</b>10-14에 5건을 결정해 닫았다. 남은 것 없음. 자세한 내용은 「확인 필요」.</div>
+<div><b>이 문서가 다루는 것</b>홈 위쪽 세 영역(오늘의 질문 · 오늘의 코칭 · 오늘의 목표)에 무엇이 보이고 각 요소가 어떤 규칙으로 표시되는지. 컨디션 · 건강 데이터 · 건강 요약 영역은 홈 화면 전체 정의서를 봄.</div>
+<div><b>가장 중요한 결정</b>질문은 한 번에 한 문항만 보이고, 코칭 카드와 잠긴 목표 타일은 모두 답한 순간에 함께 바뀜. 타일에는 행동 문구만 두고 이유 · 근거 · 연속일수는 쓰지 않음.</div>
+<div><b>아직 정해지지 않은 것</b>10-14에 5건을 결정해 닫았음. 남은 것 없음. 자세한 내용은 「확인 필요」.</div>
 </div>
-</section>
+</div></section>
 
-<section id="c1"><h2>1. 화면 개요</h2>
+<section id="c1"><div class="n">01</div><div class="b"><h2>화면 개요</h2>
 <table>
 <tr><th style="width:30%">역할</th><th style="width:35%">들어오는 길</th><th>나가는 곳</th></tr>
-<tr><td>오늘 할 일을 정해 주는 홈의 머리 부분. 질문으로 재료를 모으고, 코칭 한 줄과 목표 3개로 결론을 보여 준다.</td><td>앱 실행 · 하단 탭 「홈」 · 생활 탭에서 잠긴 목표 타일을 눌렀을 때(남은 질문으로 이동) · 알림(질문 남았어요)</td><td>오늘 답변 모두 보기(답 수정) · 생활 탭 › 목표 분석(「n/3 완료 ›」) · 남은 질문(잠긴 타일 탭)</td></tr>
+<tr><td>오늘 할 일을 정해 주는 홈의 머리 부분. 질문으로 재료를 모으고, 코칭 한 줄과 목표 3개로 결론을 보여 줌.</td><td>앱 실행 · 하단 탭 「홈」 · 생활 탭에서 잠긴 목표 타일을 눌렀을 때(남은 질문으로 이동) · 알림(질문 남았어요)</td><td>오늘 답변 모두 보기(답 수정) · 생활 탭 › 목표 분석(「n/3 완료 ›」) · 남은 질문(잠긴 타일 탭)</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c2"><h2>2. 화면 구성</h2>
-<p>위에서 아래로 세 영역. 영역 순서는 기획 기준안이며 디자인 검토 뒤 조정할 수 있지만, 영역 안의 규칙은 유지한다.</p>
+<section id="c2"><div class="n">02</div><div class="b"><h2>화면 구성</h2>
+<p>위에서 아래로 세 영역. 영역 순서는 기획 기준안이며 디자인 검토 뒤 조정할 수 있지만, 영역 안의 규칙은 유지함.</p>
 <div class="fig">
 <svg viewBox="0 0 300 560" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard,'Malgun Gothic',sans-serif" font-size="11">
 <rect width="300" height="560" fill="#f4f6fa"/>
@@ -95,83 +129,83 @@ li{margin:4px 0}
 </svg>
 <table>
 <tr><th style="width:50px">번호</th><th style="width:120px">영역</th><th>한 줄 설명</th></tr>
-<tr><td>①</td><td>오늘의 질문</td><td>진행 표시 · 질문 · 일러스트 · 선택지 3개. 한 번에 한 문항. 모두 답하면 완료 카드로 바뀐다</td></tr>
+<tr><td>①</td><td>오늘의 질문</td><td>진행 표시 · 질문 · 일러스트 · 선택지 3개. 한 번에 한 문항. 모두 답하면 완료 카드로 바뀜</td></tr>
 <tr><td>②</td><td>오늘의 코칭</td><td>라벨과 핵심 행동 한 줄. 답변 전 → 생성 중 → 결과 세 상태</td></tr>
 <tr><td>③</td><td>오늘의 목표</td><td>제목 · 「n/3 완료 ›」 · 타일 3개(식이 · 활동 · 수면). 타일은 잠김 · 기본 · 완료 세 상태</td></tr>
 </table>
 </div>
-</section>
+</div></section>
 
-<section id="c3"><h2>3. 영역별 정의</h2>
+<section id="c3"><div class="n">03</div><div class="b"><h2>영역별 정의</h2>
 <h3>① 오늘의 질문</h3>
 <table>
 <tr><th style="width:22%">요소</th><th>표시 규칙</th><th style="width:24%">데이터 출처</th></tr>
-<tr><td>진행 표시</td><td>「오늘의 질문 · n/N」. N은 그날 문항 수(5 미만). 식사 시각 질문도 1개로 센다. 「못 먹거나 거름」을 고르면 시각 · 회전 문항이 빠져 N이 줄어든다(예: 1/4 → 2/2)</td><td>그날 문항 상태</td></tr>
-<tr><td>질문</td><td>끼니 이름이 문장 첫머리에 온다. 끼니는 진입 시각으로 정한다: 04~10시 어제 저녁 · 10~12시 오늘 아침 · 12~17시 오늘 점심 · 17~24시 오늘 저녁 · 00~04시 어제 저녁. 아침·낮은 현재형, 17시 이후 첫 진입은 과거형. 질문 카드 폭 한도 32자</td><td>문항 풀(식이 8축 · 보완 문항) · 진입 시각</td></tr>
-<tr><td>안내 문장</td><td>17~24시 「오늘 저녁」 식사 질문 아래에만 「오늘 저녁을 드신 뒤 답해주세요」. 버튼이 아니며 저장하지 않는다. 00~04시와 점심에는 붙이지 않는다</td><td>진입 시각</td></tr>
-<tr><td>일러스트</td><td>문항 종류별 그림 1개. 종류는 디자인에서 정한다</td><td>문항 종류</td></tr>
+<tr><td>진행 표시</td><td>「오늘의 질문 · n/N」. N은 그날 문항 수(5 미만). 식사 시각 질문도 1개로 셈. 「못 먹거나 거름」을 고르면 시각 · 회전 문항이 빠져 N이 줄어듦(예: 1/4 → 2/2)</td><td>그날 문항 상태</td></tr>
+<tr><td>질문</td><td>끼니 이름이 문장 첫머리에 옴. 끼니는 진입 시각으로 정함: 04~10시 어제 저녁 · 10~12시 오늘 아침 · 12~17시 오늘 점심 · 17~24시 오늘 저녁 · 00~04시 어제 저녁. 아침·낮은 현재형, 17시 이후 첫 진입은 과거형. 질문 카드 폭 한도 32자</td><td>문항 풀(식이 8축 · 보완 문항) · 진입 시각</td></tr>
+<tr><td>안내 문장</td><td>17~24시 「오늘 저녁」 식사 질문 아래에만 「오늘 저녁을 드신 뒤 답해주세요」. 버튼이 아니며 저장하지 않음. 00~04시와 점심에는 붙이지 않음</td><td>진입 시각</td></tr>
+<tr><td>일러스트</td><td>문항 종류별 그림 1개. 종류는 디자인에서 정함</td><td>문항 종류</td></tr>
 <tr><td>선택지</td><td>항상 3개. 좋음 · 보통 · 나쁨 순서. 판단 어투 없이 사실만(「없었어요」). 등급 라벨 없음. 건너뛰기 버튼 없음. 답 버튼 폭 한도 14자(시각 선택지와 「못 먹거나 거름」은 예외)</td><td>문항 풀의 선택지</td></tr>
-<tr><td>식사 시각 선택지</td><td>식사 답 바로 뒤 같은 자리에서 버튼 3개로 바뀐다. 오전·오후는 위에 작게, 시각은 크게. 1시간 간격, 답한 시각을 10분 단위로 내림. 아침은 「7시 이전 · 7시~8시 · 8시 이후」 고정. 점심 오후 2시 · 저녁 오후 9시를 넘으면 정각에서 멈추고 작은 글씨(「1시간 이내」 등)를 뺀다</td><td>답한 시각 · 끼니</td></tr>
+<tr><td>식사 시각 선택지</td><td>식사 답 바로 뒤 같은 자리에서 버튼 3개로 바뀜. 오전·오후는 위에 작게, 시각은 크게. 1시간 간격, 답한 시각을 10분 단위로 내림. 아침은 「7시 이전 · 7시~8시 · 8시 이후」 고정. 점심 오후 2시 · 저녁 오후 9시를 넘으면 정각에서 멈추고 작은 글씨(「1시간 이내」 등)를 뺌</td><td>답한 시각 · 끼니</td></tr>
 <tr><td>완료 카드</td><td>모두 답하면 「오늘의 질문 완료 / 잘 했어요 👍 답변을 모두 완료했어요!」 + 클립보드 일러스트 + 「오늘 답변 모두 보기 ›」 · 「오늘의 몸 상태를 계속 유지해 봐요!」</td><td>그날 문항 상태</td></tr>
 </table>
 <h3>② 오늘의 코칭</h3>
 <table>
 <tr><th style="width:22%">요소</th><th>표시 규칙</th><th style="width:24%">데이터 출처</th></tr>
 <tr><td>라벨</td><td>「오늘의 코칭」 고정</td><td>—</td></tr>
-<tr><td>본문</td><td>핵심 행동 한 줄. 이유 · 근거 · 목표 이유는 싣지 않는다. 17시 이후 생성이면 남은 시간에 맞는 마무리형 문구</td><td>코칭 생성 결과(답 + 기기 데이터)</td></tr>
+<tr><td>본문</td><td>핵심 행동 한 줄. 이유 · 근거 · 목표 이유는 싣지 않음. 17시 이후 생성이면 남은 시간에 맞는 마무리형 문구</td><td>코칭 생성 결과(답 + 기기 데이터)</td></tr>
 </table>
 <h3>③ 오늘의 목표</h3>
 <table>
 <tr><th style="width:22%">요소</th><th>표시 규칙</th><th style="width:24%">데이터 출처</th></tr>
 <tr><td>섹션 제목</td><td>「오늘의 목표」 + 오른쪽 「n/3 완료 ›」. n은 완료한 타일 수. 탭하면 생활 탭 › 목표 분석</td><td>목표 기록</td></tr>
-<tr><td>타일 3개</td><td>식이 · 활동 · 수면 고정 순서. 카테고리 아이콘·이름과 목표 문구만. 이유 · 비교 문구 · 연속일수 · 축 · 단계 · 근거는 두지 않는다. 타일 문구 폭 한도 22자, 두 줄 이내, 명사형 또는 「~하기」. 「~하세요」 · 수치 목표(식이) · 질환명은 쓰지 않는다</td><td>목표 기록(카테고리 × 날짜)</td></tr>
+<tr><td>타일 3개</td><td>식이 · 활동 · 수면 고정 순서. 카테고리 아이콘·이름과 목표 문구만. 이유 · 비교 문구 · 연속일수 · 축 · 단계 · 근거는 두지 않음. 타일 문구 폭 한도 22자, 두 줄 이내, 명사형 또는 「~하기」. 「~하세요」 · 수치 목표(식이) · 질환명은 쓰지 않음</td><td>목표 기록(카테고리 × 날짜)</td></tr>
 <tr><td>잠김 타일</td><td>카테고리 · 「오늘의 질문에 답하면 목표가 생성돼요.」 · 자물쇠 표시</td><td>목표 잠금 판정</td></tr>
-<tr><td>완료 타일</td><td>완료 표시. 문구는 그대로 읽을 수 있어야 한다(취소선 없음)</td><td>완료 토글</td></tr>
-<tr><td>안내 타일(식이)</td><td>후보가 없는 날 「오늘은 개인 식사 계획을 먼저 확인해 주세요」. 완료 버튼이 없고 n/3 분모에서 뺀다</td><td>식이 목표 생성 결과</td></tr>
+<tr><td>완료 타일</td><td>완료 표시. 문구는 그대로 읽을 수 있어야 함(취소선 없음)</td><td>완료 토글</td></tr>
+<tr><td>안내 타일(식이)</td><td>후보가 없는 날 「오늘은 개인 식사 계획을 먼저 확인해 주세요」. 완료 버튼이 없고 n/3 분모에서 뺌</td><td>식이 목표 생성 결과</td></tr>
 <tr><td>안내 1회</td><td>일부 목표를 완료한 뒤 답을 마쳐 대기 타일만 바뀌었을 때, 대기 타일 위에 「답변을 반영해 목표를 새로 추천했어요」를 1회 표시</td><td>목표 기록 변경</td></tr>
 </table>
-<div class="note">홈과 생활 탭 › 목표 분석은 같은 타일 컴포넌트를 쓴다. 한쪽에서 완료하면 다른 쪽도 같은 상태다.</div>
-</section>
+<div class="note">홈과 생활 탭 › 목표 분석은 같은 타일 컴포넌트를 씀. 한쪽에서 완료하면 다른 쪽도 같은 상태임.</div>
+</div></section>
 
-<section id="c4"><h2>4. 상태별 표시</h2>
+<section id="c4"><div class="n">04</div><div class="b"><h2>상태별 표시</h2>
 <table>
 <tr><th style="width:18%">영역</th><th style="width:20%">상태</th><th>무엇이 보이나</th><th style="width:28%">예시</th></tr>
-<tr><td rowspan="5">① 오늘의 질문</td><td>진행 중</td><td>현재 문항 하나. 답하지 않은 문항은 하루 동안 그대로 남는다</td><td>「오늘의 질문 · 2/4 · 점심은 언제쯤 드셨어요?」</td></tr>
-<tr><td>저녁 식사 전 안내</td><td>17~24시 「오늘 저녁」 질문 + 안내 문장. 답하기 전까지 회전 문항과 식이 목표 생성을 기다린다</td><td>「오늘 저녁은 평소만큼 드셨나요?」 아래 「오늘 저녁을 드신 뒤 답해주세요」</td></tr>
-<tr><td>끼니 구간 넘어감</td><td>미답 식이 문항의 끼니 이름만 새 구간으로 바뀐다. 문항 수는 그대로</td><td>아침에 「어제 저녁」 → 오후 1시 재진입 시 「오늘 점심」</td></tr>
+<tr><td rowspan="5">① 오늘의 질문</td><td>진행 중</td><td>현재 문항 하나. 답하지 않은 문항은 하루 동안 그대로 남음</td><td>「오늘의 질문 · 2/4 · 점심은 언제쯤 드셨어요?」</td></tr>
+<tr><td>저녁 식사 전 안내</td><td>17~24시 「오늘 저녁」 질문 + 안내 문장. 답하기 전까지 회전 문항과 식이 목표 생성을 기다림</td><td>「오늘 저녁은 평소만큼 드셨나요?」 아래 「오늘 저녁을 드신 뒤 답해주세요」</td></tr>
+<tr><td>끼니 구간 넘어감</td><td>미답 식이 문항의 끼니 이름만 새 구간으로 바뀜. 문항 수는 그대로</td><td>아침에 「어제 저녁」 → 오후 1시 재진입 시 「오늘 점심」</td></tr>
 <tr><td>모두 완료</td><td>완료 카드</td><td>「잘 했어요 👍 답변을 모두 완료했어요!」</td></tr>
-<tr><td>답변 수정 뒤</td><td>완료 카드 유지. 코칭 ②가 생성 중 → 결과로 다시 바뀐다</td><td>—</td></tr>
-<tr><td rowspan="4">② 오늘의 코칭</td><td>답변 전</td><td>「먼저 오늘의 질문에 답하고, 나에게 맞는 코칭을 받아보세요.」 일부만 답한 상태도 같다</td><td>—</td></tr>
-<tr><td>생성 중</td><td>마지막 답 직후부터 응답 도착까지, 최대 5초. 5초가 지나면 답변만으로 정할 수 있는 식이 기본 문구를 먼저 보여 주고 응답이 오면 조용히 바꾼다</td><td>5초 뒤 「다음 끼니는 거르지 말고 조금이라도 챙겨 먹기」 → 응답 도착 시 교체</td></tr>
+<tr><td>답변 수정 뒤</td><td>완료 카드 유지. 코칭 ②가 생성 중 → 결과로 다시 바뀜</td><td>—</td></tr>
+<tr><td rowspan="4">② 오늘의 코칭</td><td>답변 전</td><td>「먼저 오늘의 질문에 답하고, 나에게 맞는 코칭을 받아보세요.」 일부만 답한 상태도 같음</td><td>—</td></tr>
+<tr><td>생성 중</td><td>마지막 답 직후부터 응답 도착까지, 최대 5초. 5초가 지나면 답변만으로 정할 수 있는 식이 기본 문구를 먼저 보여 주고 응답이 오면 조용히 바꿈</td><td>5초 뒤 「다음 끼니는 거르지 말고 조금이라도 챙겨 먹기」 → 응답 도착 시 교체</td></tr>
 <tr><td>결과</td><td>핵심 행동 한 줄</td><td>「점심 뒤 10분만 걸어 보세요」</td></tr>
 <tr><td>저녁 결과</td><td>17시 이후 생성이면 마무리형</td><td>「오늘은 11시 전에 잠자리에 들어 보세요」</td></tr>
-<tr><td rowspan="5">③ 오늘의 목표</td><td>잠김</td><td>식이는 항상 잠긴 채 시작. 수면은 어젯밤 수면 세션이 1개도 없으면 잠김. 활동은 걸음 기록이 1건이라도 있으면 개인 기록으로, 없어도(미연동) 안전한 기본 문구로 열린다. 타일 3개가 모두 잠기지는 않는다</td><td>워치 없는 사용자: 식이 🔒 · 활동 열림 · 수면 🔒. 미연동: 활동 「점심 식후 10분 걷기」</td></tr>
+<tr><td rowspan="5">③ 오늘의 목표</td><td>잠김</td><td>식이는 항상 잠긴 채 시작. 수면은 어젯밤 수면 세션이 1개도 없으면 잠김. 활동은 걸음 기록이 1건이라도 있으면 개인 기록으로, 없어도(미연동) 안전한 기본 문구로 열림. 타일 3개가 모두 잠기지는 않음</td><td>워치 없는 사용자: 식이 🔒 · 활동 열림 · 수면 🔒. 미연동: 활동 「점심 식후 10분 걷기」</td></tr>
 <tr><td>기본</td><td>카테고리 · 목표 문구</td><td>「🚶 활동 · 6,500걸음 걷기」</td></tr>
 <tr><td>완료</td><td>완료 표시 + 문구 유지. 「n/3 완료」 갱신</td><td>「1/3 완료 ›」</td></tr>
 <tr><td>안내 상태(식이)</td><td>안내 문구만. 완료 버튼 없음</td><td>「오늘은 개인 식사 계획을 먼저 확인해 주세요」</td></tr>
 <tr><td>목표 없는 날</td><td>세 목표 모두 안 만들어졌으면 목표 분석의 이어가기 코멘트는 「생성된 목표가 없어요」</td><td>—</td></tr>
-<tr><td>공통</td><td>건강 데이터 미연동</td><td>세 영역 모두 정상 동작. 질문이 입력을 대신한다. 빈 상태는 컨디션 · 건강 데이터 영역에만 둔다</td><td>—</td></tr>
-<tr><td>공통</td><td>오류 · 생성 실패</td><td>5초 뒤 식이 기본 문구가 보이므로 빈 카드는 없다. 응답이 끝내 오지 않을 때의 재시도는 확인 필요</td><td>—</td></tr>
+<tr><td>공통</td><td>건강 데이터 미연동</td><td>세 영역 모두 정상 동작. 질문이 입력을 대신함. 빈 상태는 컨디션 · 건강 데이터 영역에만 둠</td><td>—</td></tr>
+<tr><td>공통</td><td>오류 · 생성 실패</td><td>5초 뒤 식이 기본 문구가 보이므로 빈 카드는 없음. 응답이 끝내 오지 않을 때의 재시도는 확인 필요</td><td>—</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c5"><h2>5. 동작</h2>
+<section id="c5"><div class="n">05</div><div class="b"><h2>동작</h2>
 <table>
 <tr><th style="width:36%">사용자가 하면</th><th>화면은</th></tr>
-<tr><td>선택지를 누르면</td><td>고른 버튼만 강조하고 0.5초 뒤 다음 문항으로 자동 전환. 저장에 실패하면 선택 상태를 유지하고 재시도하며 다음으로 넘어가지 않는다</td></tr>
-<tr><td>식사 답을 누르면(어제 저녁 · 결식 제외)</td><td>같은 카드의 글과 버튼이 시각 질문으로 바뀐다. 새 화면은 없다</td></tr>
-<tr><td>마지막 문항에 답하면</td><td>① 완료 카드 ② 코칭 「생성 중」 → 결과 ③ 잠긴 타일이 열린다. 기기 데이터로 이미 열린 타일은 그대로</td></tr>
-<tr><td>「오늘 답변 모두 보기 ›」를 누르면</td><td>답변 보기 화면. 답을 바꾸면 「답변을 다시 선택하면 코칭과 목표에 바로 반영돼요」. 식사 카드 아래 시각 답도 같은 버튼으로 다시 고를 수 있다</td></tr>
-<tr><td>잠긴 타일을 누르면</td><td>남은 질문으로 이동(질문 영역으로 스크롤하고 그 문항을 보여 준다). 생활 탭에서 눌렀으면 홈으로 이동</td></tr>
-<tr><td>기본 타일을 누르면</td><td>완료로 바뀌고 「n/3 완료」가 오른다. 목표 분석의 연속일수 · 코멘트 · 최근 7일도 즉시 갱신. 타일을 길게 누르거나 상세에서 이유 한 줄을 짧게 볼 수 있다(목표 분석 탭에는 상시 표시)</td></tr>
-<tr><td>완료 타일을 누르면</td><td>완료 취소. 대기로 돌아가며 이후 답 수정 시 재생성 대상이 된다</td></tr>
+<tr><td>선택지를 누르면</td><td>고른 버튼만 강조하고 0.5초 뒤 다음 문항으로 자동 전환. 저장에 실패하면 선택 상태를 유지하고 재시도하며 다음으로 넘어가지 않음</td></tr>
+<tr><td>식사 답을 누르면(어제 저녁 · 결식 제외)</td><td>같은 카드의 글과 버튼이 시각 질문으로 바뀜. 새 화면은 없음</td></tr>
+<tr><td>마지막 문항에 답하면</td><td>① 완료 카드 ② 코칭 「생성 중」 → 결과 ③ 잠긴 타일이 열림. 기기 데이터로 이미 열린 타일은 그대로</td></tr>
+<tr><td>「오늘 답변 모두 보기 ›」를 누르면</td><td>답변 보기 화면. 답을 바꾸면 「답변을 다시 선택하면 코칭과 목표에 바로 반영돼요」. 식사 카드 아래 시각 답도 같은 버튼으로 다시 고를 수 있음</td></tr>
+<tr><td>잠긴 타일을 누르면</td><td>남은 질문으로 이동(질문 영역으로 스크롤하고 그 문항을 보여 줌). 생활 탭에서 눌렀으면 홈으로 이동</td></tr>
+<tr><td>기본 타일을 누르면</td><td>완료로 바뀌고 「n/3 완료」가 오름. 목표 분석의 연속일수 · 코멘트 · 최근 7일도 즉시 갱신. 타일을 길게 누르거나 상세에서 이유 한 줄을 짧게 볼 수 있음(목표 분석 탭에는 상시 표시)</td></tr>
+<tr><td>완료 타일을 누르면</td><td>완료 취소. 대기로 돌아가며 이후 답 수정 시 재생성 대상이 됨</td></tr>
 <tr><td>「n/3 완료 ›」를 누르면</td><td>생활 탭 › 목표 분석(오늘)</td></tr>
 <tr><td>같은 날 다시 들어오면</td><td>이미 만든 세트 · 코칭 · 목표를 그대로. 미답 식이 문항만 끼니 구간에 맞춰 갱신</td></tr>
 <tr><td>낮 동안 기기 데이터가 늘면</td><td>질문 · 코칭 · 목표는 그대로. 컨디션과 건강 데이터 값만 갱신</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c6"><h2>6. 문구</h2>
+<section id="c6"><div class="n">06</div><div class="b"><h2>문구</h2>
 <table>
 <tr><th style="width:24%">위치</th><th>문구</th><th style="width:30%">언제</th></tr>
 <tr><td>질문 · 진행 표시</td><td>오늘의 질문 · {n}/{N}</td><td>항상</td></tr>
@@ -182,7 +216,7 @@ li{margin:4px 0}
 <tr><td>질문 · 시각 선택지(점심 · 저녁)</td><td>{오전/오후} {h:mm} 이후 · 1시간 이내 / {h:mm}~{h:mm} · 1~2시간 전 / {h:mm} 이전 · 그보다 전</td><td>멈춤 시각을 넘으면 작은 글씨 없이 「1:00 이후 / 12:00~1:00 / 12:00 이전」</td></tr>
 <tr><td>질문 · 시각 선택지(아침)</td><td>7시 이전 / 7시~8시 / 8시 이후</td><td>오전 10~12시</td></tr>
 <tr><td>질문 · 시각 낭독</td><td>오전 11시 20분부터 오후 12시 20분 사이, 1~2시간 전</td><td>화면 낭독기. 버튼마다 같은 방식</td></tr>
-<tr><td>질문 · 식이 회전(8축)</td><td>{끼니}엔 채소 반찬을 얼마나 드셨나요? / {끼니} 전후 단 음료·간식은 몇 번이었나요? / {끼니}엔 국물을 얼마나 드셨나요? / 어젯밤 야식은 얼마나 드셨나요? / {끼니} 후 배부름은 어땠나요? / {끼니}엔 단백질류(고기·생선·달걀 등)를 드셨나요? / {끼니}엔 튀긴 음식을 드셨나요?</td><td>하루 한 축. 야식은 04~10시만. 선택지는 식이 질문·목표 상세기획 표를 따른다</td></tr>
+<tr><td>질문 · 식이 회전(8축)</td><td>{끼니}엔 채소 반찬을 얼마나 드셨나요? / {끼니} 전후 단 음료·간식은 몇 번이었나요? / {끼니}엔 국물을 얼마나 드셨나요? / 어젯밤 야식은 얼마나 드셨나요? / {끼니} 후 배부름은 어땠나요? / {끼니}엔 단백질류(고기·생선·달걀 등)를 드셨나요? / {끼니}엔 튀긴 음식을 드셨나요?</td><td>하루 한 축. 야식은 04~10시만. 선택지는 식이 질문·목표 상세기획 표를 따름</td></tr>
 <tr><td>질문 · 질환 확인</td><td>{질환명}을 진단받았거나 관리 중이신가요? — 네 / 아니요 / 모르겠어요</td><td>진료정보에 미확인 질환이 있는 날, 하루 최대 1개</td></tr>
 <tr><td>질문 · 완료 카드</td><td>오늘의 질문 완료 / 잘 했어요 👍 답변을 모두 완료했어요! / 오늘 답변 모두 보기 › / 오늘의 몸 상태를 계속 유지해 봐요!</td><td>모두 답한 뒤</td></tr>
 <tr><td>답변 보기 · 안내</td><td>답변을 다시 선택하면 코칭과 목표에 바로 반영돼요.</td><td>답변 보기 화면 상단</td></tr>
@@ -195,23 +229,23 @@ li{margin:4px 0}
 <tr><td>목표 · 타일 문구</td><td>행동 하나. 예: 한 끼는 채소 반찬 한 가지 / 6,500걸음 걷기 / 11시 반 전 잠자리</td><td>문구 세트는 식이 143개 · 활동 · 수면(미정)</td></tr>
 <tr><td>컨디션 · 자기돌봄 관찰 중 사유</td><td>오늘의 질문에서 식사 시각을 골라 주시면 식후에 움직였는지 볼 수 있어요.</td><td>식사 시각 답이 없을 때(컨디션 영역이지만 이 질문과 연결)</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="open"><h2>확인 필요</h2>
+<section id="open"><div class="n">07</div><div class="b"><h2>확인 필요</h2>
 <table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
 <tr><td>문항 일러스트 종류와 개수</td><td>디자인</td><td>화면 디자인 시</td><td>닫힘(10-14) · 문항 종류별 1개, 6종(식사량 · 식사 시각 · 식이 회전 · 피로감 · 수면 · 질환 확인). 그림은 디자인 제작</td></tr>
 <tr><td>코칭 응답이 끝내 오지 않을 때 재시도 횟수(5초 뒤 기본 문구 표시는 확정)</td><td>개발</td><td>구현 시</td><td>닫힘(10-14) · 10초 간격 2회 재시도, 실패 시 기본 문구 확정(기획서와 같음)</td></tr>
-<tr><td>시각 선택지 버튼 순서. 아침은 이른 시각부터, 점심 · 저녁은 최근부터라 끼니마다 반대다. 맞출지</td><td>기획</td><td>—</td><td>닫힘(10-14) · 끼니마다 그대로 둔다(아침 이른 시각부터, 점심 · 저녁 최근부터)</td></tr>
-<tr><td>시각 단계에서 앱을 나갔다 오면 시각 버튼을 다시 들어온 시각 기준으로 새로 만들지</td><td>기획</td><td>—</td><td>닫힘(10-14) · 식사 답은 두고 시각 버튼은 다시 들어온 시각 기준으로 새로 만든다</td></tr>
+<tr><td>시각 선택지 버튼 순서. 아침은 이른 시각부터, 점심 · 저녁은 최근부터라 끼니마다 반대임. 맞출지</td><td>기획</td><td>—</td><td>닫힘(10-14) · 끼니마다 그대로 둠(아침 이른 시각부터, 점심 · 저녁 최근부터)</td></tr>
+<tr><td>시각 단계에서 앱을 나갔음 오면 시각 버튼을 다시 들어온 시각 기준으로 새로 만들지</td><td>기획</td><td>—</td><td>닫힘(10-14) · 식사 답은 두고 시각 버튼은 다시 들어온 시각 기준으로 새로 만듦</td></tr>
 <tr><td>활동 · 수면 목표 문구 세트와 숫자 표기(걸음 천 단위 · 취침 시각)</td><td>기획</td><td>활동 · 수면 기획 시</td><td>닫힘(10-14) · 걸음은 천 단위 구분 + 「걸음」(예: 6,500걸음), 취침은 「11시 반 전」처럼 시 · 30분 단위. 문구 세트는 활동 · 수면 기획서에서</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="history"><h2>바뀐 것</h2>
+<section id="history"><div class="n">08</div><div class="b"><h2>바뀐 것</h2>
 <table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
 <tr><td>2026-10-14</td><td>1.0.1</td><td>「확인 필요」 5건 결정 · 닫힘.</td><td>열린 결정을 기본값으로 닫아 구현에 쓸 수 있게</td></tr>
 <tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 홈 화면 전체 정의서의 ③ ④ ⑤ 장과 식이 상세기획 4장, 끼니별 식사 시각 질문의 화면 문구를 공통 구조로 합침. 홈 화면설계서 v0.2의 결정 7건 반영</td><td>세 영역을 한 문서에서 보도록</td></tr></table>
-</section>
+</div></section>
 </main>
 </body>
 </html>

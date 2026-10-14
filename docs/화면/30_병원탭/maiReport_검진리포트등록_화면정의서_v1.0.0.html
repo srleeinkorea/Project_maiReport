@@ -35,8 +35,42 @@ th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
 p{margin:6px 0}
 ul{margin:6px 0 0;padding-left:20px}
 li{margin:4px 0}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}}
-:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용). 조작 화면(.phone · .stage 등)은 원래 스타일 유지 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a;--blue-s:#eef1ff;--red-s:#fdeeed;--green-s:#eaf8f0;--amber-s:#fff6e6;--num:#d9dce6;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--link:#5170FF;--todo:#c7861c;--todo-bg:#fff6e6}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;font-size:14.5px;line-height:1.7}
+main{max-width:1120px;padding:40px 24px 80px}
+header{padding:8px 0 28px;border-bottom:1px solid var(--line);margin-bottom:8px}
+header .kind{display:block;background:none;color:var(--blue);padding:0;border-radius:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:0}
+header h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:40px;line-height:1.15;margin:8px 0 6px}
+header .path{font-size:16px;color:var(--mute)}
+header .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 20px;margin-top:18px;font-size:13px;color:var(--mute)}
+header .meta span{display:block}header .meta b{display:block;color:var(--ink);font-weight:500;font-size:14px}
+nav.toc{display:none}
+section{display:grid;grid-template-columns:96px 1fr;gap:0 24px;padding:34px 0;border-bottom:1px solid var(--line);background:none;border-left:0;border-right:0;border-top:0;border-radius:0;margin:0}
+section>.n{font-family:"DM Serif Display",serif;font-size:56px;line-height:1;color:var(--num);padding-top:2px}
+section>.b{min-width:0}
+section h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:26px;margin:0 0 14px;letter-spacing:-.01em}
+section h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:22px 0 8px;font-weight:600}
+table{border-top:2px solid var(--ink);margin:10px 0 4px}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:600;background:none;padding:10px 10px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line)}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.glance div{border:1px solid var(--line);border-radius:0;padding:14px 16px;background:#fff}
+.glance div:nth-child(1){background:var(--green-s);border-color:#bfe6cf}.glance div:nth-child(2){background:var(--blue-s);border-color:#cdd6ff}.glance div:nth-child(3){background:var(--amber-s);border-color:#f0d9ad}
+.glance b{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.note{background:var(--blue-s);border-radius:0;border-left:3px solid var(--blue)}
+.fig,.figs svg,.fig svg{border-radius:0}
+.fig svg{background:#fff}
+.ex{color:var(--mute);font-size:13px}
+a{color:var(--blue)}
+.todo{background:none;color:var(--amber);border:1px dashed var(--amber);border-radius:0}
+.kind{border-radius:0}
+.app section,.phone section,.stage section{display:block;padding:14px;border:0;gap:0;margin:0}.app section h3,.phone section h3{text-transform:none;letter-spacing:0;color:inherit;font-size:inherit;margin:0}
+@media(max-width:760px){section{grid-template-columns:1fr}section>.n{font-size:36px}header h1{font-size:30px}}
 </style>
 </head>
 <body>
@@ -52,30 +86,30 @@ li{margin:4px 0}
 <li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">화면 개요</a></li><li><a href="#c2">화면 구성</a></li><li><a href="#c3">영역별 정의</a></li><li><a href="#c4">상태별 표시</a></li><li><a href="#c5">동작</a></li><li><a href="#c6">문구</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
 </ol></nav>
 
-<section id="glance"><h2>한눈에 보기</h2>
+<section id="glance"><div class="n">00</div><div class="b"><h2>한눈에 보기</h2>
 <div class="glance">
 <div><b>이 문서가 다루는 것</b>등록 흐름의 화면 7개(액션 시트 · 카메라 · 인식 결과 확인 · 업로드 · 추출 중 · 추출 데이터 확인 · 완료)와 원본 미리보기에 무엇이 보이고 어떤 규칙으로 표시되는지.</div>
-<div><b>가장 중요한 결정</b>두 길 모두 사용자가 확인 화면(인식 결과 확인 · 추출 데이터 확인)에서 「저장하기」 「최종 등록」을 눌러야 저장된다. QR을 읽는 동안은 새 화면을 열지 않고 카메라 위에 카드로 진행을 보여 준다.</div>
-<div><b>아직 정해지지 않은 것</b>10-14에 4건을 결정해 닫았다. 남은 것 없음. 자세한 내용은 「확인 필요」.</div>
+<div><b>가장 중요한 결정</b>두 길 모두 사용자가 확인 화면(인식 결과 확인 · 추출 데이터 확인)에서 「저장하기」 「최종 등록」을 눌러야 저장됨. QR을 읽는 동안은 새 화면을 열지 않고 카메라 위에 카드로 진행을 보여 줌.</div>
+<div><b>아직 정해지지 않은 것</b>10-14에 4건을 결정해 닫았음. 남은 것 없음. 자세한 내용은 「확인 필요」.</div>
 </div>
-</section>
+</div></section>
 
-<section id="c1"><h2>1. 화면 개요</h2>
+<section id="c1"><div class="n">01</div><div class="b"><h2>화면 개요</h2>
 <table>
 <tr><th style="width:14%">화면 ID</th><th style="width:18%">화면</th><th style="width:30%">역할</th><th>들어오는 길</th><th>나가는 곳</th></tr>
-<tr><td>REG-001</td><td>등록 유형 선택</td><td>액션 시트. 두 길 중 하나를 고른다</td><td>방문이력 「+」</td><td>REG-002(AI REPORT) · REG-004(일반)</td></tr>
-<tr><td>REG-002</td><td>카메라(QR · 촬영)</td><td>QR을 읽거나 결과지를 찍는다</td><td>REG-001 · 홈 헤더 QR · 방문이력 빈 화면 「AI REPORT QR 스캔」</td><td>QR 수신 카드(같은 화면) → REG-003</td></tr>
+<tr><td>REG-001</td><td>등록 유형 선택</td><td>액션 시트. 두 길 중 하나를 고름</td><td>방문이력 「+」</td><td>REG-002(AI REPORT) · REG-004(일반)</td></tr>
+<tr><td>REG-002</td><td>카메라(QR · 촬영)</td><td>QR을 읽거나 결과지를 찍음</td><td>REG-001 · 홈 헤더 QR · 방문이력 빈 화면 「AI REPORT QR 스캔」</td><td>QR 수신 카드(같은 화면) → REG-003</td></tr>
 <tr><td>REG-003</td><td>인식 결과 확인</td><td>QR로 받았거나 사진으로 인식한 AI REPORT 값을 확인하고 저장</td><td>REG-002 QR 수신 · 촬영 완료</td><td>AI REPORT 결과 화면(저장) · REG-002(다시 촬영)</td></tr>
-<tr><td>REG-004</td><td>검진정보 리포트 등록(업로드)</td><td>사진 · PDF를 모은다</td><td>REG-001 · 방문이력 빈 화면 「일반 검진 결과지 등록」 · REG-005/006에서 되돌아옴</td><td>REG-005</td></tr>
-<tr><td>REG-005</td><td>데이터 추출 중</td><td>진행률과 단계를 보여 준다</td><td>REG-004 「다음」</td><td>REG-006 · REG-004(닫기)</td></tr>
+<tr><td>REG-004</td><td>검진정보 리포트 등록(업로드)</td><td>사진 · PDF를 모음</td><td>REG-001 · 방문이력 빈 화면 「일반 검진 결과지 등록」 · REG-005/006에서 되돌아옴</td><td>REG-005</td></tr>
+<tr><td>REG-005</td><td>데이터 추출 중</td><td>진행률과 단계를 보여 줌</td><td>REG-004 「다음」</td><td>REG-006 · REG-004(닫기)</td></tr>
 <tr><td>REG-006</td><td>추출 데이터 확인</td><td>값을 확인 · 수정하고 최종 등록</td><td>REG-005 완료</td><td>완료 화면 · 원본 미리보기 · REG-004(다시 업로드)</td></tr>
-<tr><td>—</td><td>원본 리포트 미리보기</td><td>올린 장을 넘겨 본다</td><td>REG-006 「원본 파일 n개 ›」</td><td>REG-006</td></tr>
+<tr><td>—</td><td>원본 리포트 미리보기</td><td>올린 장을 넘겨 봄</td><td>REG-006 「원본 파일 n개 ›」</td><td>REG-006</td></tr>
 <tr><td>—</td><td>등록 완료</td><td>다음 행동 안내</td><td>REG-006 「최종 등록」</td><td>검진 상세 · 방문이력</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c2"><h2>2. 화면 구성</h2>
-<p>왼쪽부터 유형 선택, 카메라, 업로드, 추출 데이터 확인. 번호는 3장의 영역 번호다.</p>
+<section id="c2"><div class="n">02</div><div class="b"><h2>화면 구성</h2>
+<p>왼쪽부터 유형 선택, 카메라, 업로드, 추출 데이터 확인. 번호는 3장의 영역 번호임.</p>
 <div class="figs">
 <figure><svg viewBox="0 0 200 360" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard,'Malgun Gothic',sans-serif" font-size="9">
 <rect width="200" height="360" fill="#e9ecf2"/><rect x="0" y="230" width="200" height="130" rx="14" fill="#fff"/>
@@ -118,15 +152,15 @@ li{margin:4px 0}
 <rect x="106" y="318" width="80" height="30" rx="8" fill="#1d4ed8"/><text x="146" y="337" fill="#fff" text-anchor="middle" font-weight="700">⑦ 최종 등록</text>
 </svg><figcaption>REG-006 추출 데이터 확인</figcaption></figure>
 </div>
-</section>
+</div></section>
 
-<section id="c3"><h2>3. 영역별 정의</h2>
+<section id="c3"><div class="n">03</div><div class="b"><h2>영역별 정의</h2>
 <h3>REG-001 등록 유형 선택</h3>
 <table>
 <tr><th style="width:22%">요소</th><th>표시 규칙</th><th style="width:24%">데이터 출처</th></tr>
 <tr><td>① AI REPORT 등록</td><td>아이콘 ✦ + 「AI REPORT 등록」. 누르면 QR 카메라</td><td>—</td></tr>
 <tr><td>② 일반 검진 리포트 등록</td><td>아이콘 ▤ + 「일반 검진 리포트 등록」. 누르면 업로드 화면</td><td>—</td></tr>
-<tr><td>③ 닫기</td><td>시트 아래 둥근 ✕. 배경을 눌러도 닫힌다</td><td>—</td></tr>
+<tr><td>③ 닫기</td><td>시트 아래 둥근 ✕. 배경을 눌러도 닫힘</td><td>—</td></tr>
 </table>
 <h3>REG-002 카메라</h3>
 <table>
@@ -134,7 +168,7 @@ li{margin:4px 0}
 <tr><td>① 제목 · 닫기</td><td>QR이면 「AI REPORT QR 스캔」, 촬영이면 「검진 리포트 촬영」. 오른쪽 ✕</td><td>진입 모드</td></tr>
 <tr><td>② 안내 사각형</td><td>QR은 정사각형 테두리, 촬영은 세로 결과지 비율 테두리에 스캔 선</td><td>진입 모드</td></tr>
 <tr><td>③ 안내 문장</td><td>QR 「리포트에 인쇄된 QR 코드를 사각형 안에 맞춰 주세요.」 촬영 「검진 결과지를 사각형 안에 맞춰 주세요. 표가 잘리지 않게 찍어 주세요.」</td><td>진입 모드</td></tr>
-<tr><td>④ 수신 카드</td><td>QR이 읽히면 카메라 위에 카드 「리포트를 불러오고 있어요 / QR에 담긴 분석 결과를 확인하는 중이에요」. 리포트를 받고 대상자 확인을 통과하면 인식 결과 확인(REG-003)으로 넘어간다. 대상자가 다르면 카드에 「본인 리포트가 아니에요」와 「다시 스캔」</td><td>QR 내용 · 대상자 확인 결과</td></tr>
+<tr><td>④ 수신 카드</td><td>QR이 읽히면 카메라 위에 카드 「리포트를 불러오고 있어요 / QR에 담긴 분석 결과를 확인하는 중이에요」. 리포트를 받고 대상자 확인을 통과하면 인식 결과 확인(REG-003)으로 넘어감. 대상자가 다르면 카드에 「본인 리포트가 아니에요」와 「다시 스캔」</td><td>QR 내용 · 대상자 확인 결과</td></tr>
 <tr><td>⑤ 하단 조작</td><td>앨범 🖼 · 셔터 · 「완료」. QR 모드에서는 셔터 없이 자동 인식, 「완료」 숨김. 촬영 모드에서는 찍은 장 수 「n장 촬영됨」과 「완료 (n장)」</td><td>촬영 장 수</td></tr>
 </table>
 <h3>REG-003 인식 결과 확인(AI REPORT)</h3>
@@ -142,7 +176,7 @@ li{margin:4px 0}
 <tr><th style="width:22%">요소</th><th>표시 규칙</th><th style="width:24%">데이터 출처</th></tr>
 <tr><td>헤더</td><td>「‹ 인식 결과 확인」</td><td>—</td></tr>
 <tr><td>수신 요약</td><td>썸네일 · 「AI REPORT · n개 항목 인식」 · 출처 태그 「QR 수신」 또는 「📷 촬영 인식」</td><td>QR 내용 · 촬영 결과</td></tr>
-<tr><td>인식된 항목</td><td>검진일 · 검진기관 · 검사 종류 · 판독 결과(소견 · AI 점수). 항목을 누르면 고칠 수 있다. 확신이 낮은 값은 강조</td><td>인식 결과</td></tr>
+<tr><td>인식된 항목</td><td>검진일 · 검진기관 · 검사 종류 · 판독 결과(소견 · AI 점수). 항목을 누르면 고칠 수 있음. 확신이 낮은 값은 강조</td><td>인식 결과</td></tr>
 <tr><td>하단 버튼</td><td>「다시 촬영」 · 「저장하기」. 저장 뒤 같은 자리에 「AI REPORT 분석이 완료됐어요 / 방문이력에 AI 분석 결과가 추가됐어요.」 1초 뒤 홈을 깔고 그 위에 AI REPORT 결과 화면. 오늘의 질문 · 코칭 · 목표는 처음 상태로</td><td>—</td></tr>
 </table>
 <h3>REG-004 검진정보 리포트 등록(업로드)</h3>
@@ -163,11 +197,11 @@ li{margin:4px 0}
 <h3>REG-006 추출 데이터 확인</h3>
 <table>
 <tr><th style="width:22%">요소</th><th>표시 규칙</th><th style="width:24%">데이터 출처</th></tr>
-<tr><td>① 헤더</td><td>✕ · 「추출 데이터 확인」. ✕는 등록하지 않고 닫는다(값은 버린다, 파일은 남긴다)</td><td>—</td></tr>
+<tr><td>① 헤더</td><td>✕ · 「추출 데이터 확인」. ✕는 등록하지 않고 닫음(값은 버림, 파일은 남김)</td><td>—</td></tr>
 <tr><td>② 안내</td><td>「최종 등록 전에 추출된 데이터를 확인 후 잘못된 값을 수정해 주세요.」</td><td>—</td></tr>
 <tr><td>③ 원본 파일</td><td>「▤ 원본 파일 · n개 ›」. 누르면 원본 미리보기</td><td>업로드 파일</td></tr>
-<tr><td>④ 항목 묶음</td><td>「기본 정보」(검진일 · 검진기관) → 「계측 검사」 → 「혈액 및 기타 검사」. 행 = 항목명 · 값 입력칸 · 단위. 읽히지 않은 항목은 빈 칸으로 둔다</td><td>추출값</td></tr>
-<tr><td>⑤ 확신 낮은 값</td><td>값 칸 강조 + 「확인해 주세요」. 사용자가 고치면 사라진다</td><td>확신도</td></tr>
+<tr><td>④ 항목 묶음</td><td>「기본 정보」(검진일 · 검진기관) → 「계측 검사」 → 「혈액 및 기타 검사」. 행 = 항목명 · 값 입력칸 · 단위. 읽히지 않은 항목은 빈 칸으로 둠</td><td>추출값</td></tr>
+<tr><td>⑤ 확신 낮은 값</td><td>값 칸 강조 + 「확인해 주세요」. 사용자가 고치면 사라짐</td><td>확신도</td></tr>
 <tr><td>⑥ 다시 업로드</td><td>업로드 화면으로, 파일 유지</td><td>—</td></tr>
 <tr><td>⑦ 최종 등록</td><td>검진일이 비어 있으면 비활성. 누르면 저장 후 완료 화면</td><td>검수값</td></tr>
 </table>
@@ -177,15 +211,15 @@ li{margin:4px 0}
 <tr><td>미리보기</td><td>✕ · 「n/전체」 · 좌우 탭으로 장 이동. PDF는 쪽 단위</td><td>업로드 파일</td></tr>
 <tr><td>완료</td><td>✓ · 「검진정보 리포트 등록 완료」 · 「검진정보에 저장되었어요. 병원 탭 검진정보에서 결과를 확인해 보세요.」 · 「등록 결과 보기」(검진 상세, 거기서 AI 요약으로) · 「다음에 볼게요」(방문이력)</td><td>등록 결과</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c4"><h2>4. 상태별 표시</h2>
+<section id="c4"><div class="n">04</div><div class="b"><h2>상태별 표시</h2>
 <table>
 <tr><th style="width:18%">화면</th><th style="width:20%">상태</th><th>무엇이 보이나</th><th style="width:26%">예시</th></tr>
 <tr><td rowspan="4">REG-002 카메라</td><td>권한 없음</td><td>카메라 대신 「카메라 권한이 필요해요」 + 「설정 열기」. 앨범도 같은 방식</td><td>—</td></tr>
 <tr><td>QR 읽는 중</td><td>사각형과 안내 문장 유지. 읽히지 않으면 그대로(오류 문구 없음)</td><td>—</td></tr>
 <tr><td>수신 중 → 확인 화면</td><td>카메라 위 카드가 회전 표시 → ✓ 「리포트를 받았어요」. 바로 인식 결과 확인(REG-003)</td><td>—</td></tr>
-<tr><td>대상자 불일치</td><td>카드에 「본인 리포트가 아니에요」와 「다시 스캔」. 저장하지 않는다. 이름 표기만 다른 경우는 확인 필요</td><td>—</td></tr>
+<tr><td>대상자 불일치</td><td>카드에 「본인 리포트가 아니에요」와 「다시 스캔」. 저장하지 않음. 이름 표기만 다른 경우는 확인 필요</td><td>—</td></tr>
 <tr><td rowspan="3">REG-004 업로드</td><td>파일 없음</td><td>빈 목록 안내, 「다음」 비활성</td><td>「아직 업로드된 파일이 없습니다.」</td></tr>
 <tr><td>파일 있음</td><td>목록 · 「n개」 · 「다음」 활성</td><td>「2개」</td></tr>
 <tr><td>받을 수 없는 파일</td><td>목록에 넣지 않고 이유를 토스트로</td><td>「PDF와 사진만 올릴 수 있어요」 「파일이 너무 커요(최대 30MB)」</td></tr>
@@ -196,26 +230,26 @@ li{margin:4px 0}
 <tr><td>검진일 없음</td><td>검진일 칸 강조, 「최종 등록」 비활성</td><td>—</td></tr>
 <tr><td>등록 뒤</td><td>검진요약 · 방문이력</td><td>방문이력에 「일반검진 · 📷 등록」 카드, 검진요약은 판정 없이 「검진 항목을 정리했어요」와 「판정 정보 확인」 배지</td><td>—</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c5"><h2>5. 동작</h2>
+<section id="c5"><div class="n">05</div><div class="b"><h2>동작</h2>
 <table>
 <tr><th style="width:36%">사용자가 하면</th><th>화면은</th></tr>
-<tr><td>방문이력 「+」를 누르면</td><td>액션 시트가 올라온다. 바깥을 누르거나 ✕로 닫는다</td></tr>
+<tr><td>방문이력 「+」를 누르면</td><td>액션 시트가 올라옴. 바깥을 누르거나 ✕로 닫음</td></tr>
 <tr><td>홈 헤더 QR 버튼을 누르면</td><td>유형 선택 없이 QR 카메라</td></tr>
-<tr><td>QR이 사각형 안에 들어오면</td><td>자동 인식. 카메라 위에 수신 카드 → 인식 결과 확인 화면. 「저장하기」를 누르면 홈 + AI REPORT 결과 화면. 오늘의 질문 · 코칭 · 목표가 처음 상태로 돌아간다</td></tr>
-<tr><td>촬영 모드에서 셔터를 누르면</td><td>장 수가 늘고 하단에 썸네일 최근 3장과 「n장 촬영됨」. 「완료 (n장)」가 켜진다</td></tr>
-<tr><td>업로드에서 카메라 · 앨범 · PDF를 누르면</td><td>기기 카메라 · 사진 선택 · 파일 선택이 열리고, 고른 파일이 목록 끝에 붙는다</td></tr>
-<tr><td>목록의 ✕를 누르면</td><td>그 파일만 빠진다. 0개가 되면 「다음」 비활성</td></tr>
+<tr><td>QR이 사각형 안에 들어오면</td><td>자동 인식. 카메라 위에 수신 카드 → 인식 결과 확인 화면. 「저장하기」를 누르면 홈 + AI REPORT 결과 화면. 오늘의 질문 · 코칭 · 목표가 처음 상태로 돌아감</td></tr>
+<tr><td>촬영 모드에서 셔터를 누르면</td><td>장 수가 늘고 하단에 썸네일 최근 3장과 「n장 촬영됨」. 「완료 (n장)」가 켜짐</td></tr>
+<tr><td>업로드에서 카메라 · 앨범 · PDF를 누르면</td><td>기기 카메라 · 사진 선택 · 파일 선택이 열리고, 고른 파일이 목록 끝에 붙음</td></tr>
+<tr><td>목록의 ✕를 누르면</td><td>그 파일만 빠짐. 0개가 되면 「다음」 비활성</td></tr>
 <tr><td>「다음」을 누르면</td><td>추출 중 화면. 끝나면 자동으로 확인 화면</td></tr>
-<tr><td>확인 화면에서 값을 고치면</td><td>즉시 반영. 확신 낮음 표시가 사라진다</td></tr>
+<tr><td>확인 화면에서 값을 고치면</td><td>즉시 반영. 확신 낮음 표시가 사라짐</td></tr>
 <tr><td>「원본 파일 n개 ›」를 누르면</td><td>미리보기. ✕로 돌아오면 고치던 값이 그대로</td></tr>
-<tr><td>「다시 업로드」를 누르면</td><td>업로드 화면, 파일 유지. 추출값은 버린다</td></tr>
+<tr><td>「다시 업로드」를 누르면</td><td>업로드 화면, 파일 유지. 추출값은 버림</td></tr>
 <tr><td>「최종 등록」을 누르면</td><td>저장 후 완료 화면. 「등록 결과 보기」 → 검진 상세, 「다음에 볼게요」 → 방문이력</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c6"><h2>6. 문구</h2>
+<section id="c6"><div class="n">06</div><div class="b"><h2>문구</h2>
 <table>
 <tr><th style="width:24%">위치</th><th>문구</th><th style="width:28%">언제</th></tr>
 <tr><td>액션 시트</td><td>AI REPORT 등록 / 일반 검진 리포트 등록</td><td>방문이력 「+」</td></tr>
@@ -238,22 +272,22 @@ li{margin:4px 0}
 <tr><td>권한</td><td>카메라 · 검진 리포트 촬영 · QR 스캔 / 사진 · 앨범에서 리포트 이미지 선택 / 카메라 권한이 필요해요 · 설정 열기</td><td>온보딩 권한 안내 · 거부 시</td></tr>
 <tr><td>검진요약(직접 등록)</td><td>검진 항목을 정리했어요 / 판정 정보 확인</td><td>직접 등록 건</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="open"><h2>확인 필요</h2>
+<section id="open"><div class="n">07</div><div class="b"><h2>확인 필요</h2>
 <table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
 <tr><td>확신 낮은 값의 표시 방식(칸 색 · 아이콘 · 문구)</td><td>디자인</td><td>화면 디자인 시</td><td>닫힘(10-14) · 값 칸 테두리 강조 + 「확인해 주세요」 문구. 아이콘 없음. 색은 디자인에서</td></tr>
 <tr><td>대상자 확인에서 이름 표기만 다른 경우(한자 · 띄어쓰기)의 확인 화면 문구</td><td>기획</td><td>—</td><td>닫힘(10-14) · 「이름 표기가 달라요. 본인 리포트가 맞나요?」 + 네 / 아니요. 「네」면 저장</td></tr>
 <tr><td>받을 수 없는 파일 안내의 형식 · 용량 숫자</td><td>개발</td><td>구현 전</td><td>닫힘(10-14) · JPG · PNG · HEIC · PDF, 장당 30MB, 최대 10개. 6장 문구에 반영</td></tr>
-<tr><td>완료 화면의 「마이데이터」 표현. 앱 안의 메뉴 이름과 맞출지</td><td>기획</td><td>—</td><td>닫힘(10-14) · 「검진정보」로 바꾼다. 6장 완료 문구 반영</td></tr>
+<tr><td>완료 화면의 「마이데이터」 표현. 앱 안의 메뉴 이름과 맞출지</td><td>기획</td><td>—</td><td>닫힘(10-14) · 「검진정보」로 바꿈. 6장 완료 문구 반영</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="history"><h2>바뀐 것</h2>
+<section id="history"><div class="n">08</div><div class="b"><h2>바뀐 것</h2>
 <table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
 <tr><td>2026-10-14</td><td>1.0.1</td><td>「확인 필요」 4건 결정 · 닫힘. 본문 반영: 「검진정보에 저장되었어요. 병원 탭 검진정보에서 결과를…, 검진정보에 저장되었어요. 병원 탭 검진정보에서 결과를 …, <td>JPG · PNG · HEIC · PDF만 올릴…, <tr><td>대상자 불일치</td><td>본인 리포트…</td><td>열린 결정을 기본값으로 닫아 구현에 쓸 수 있게</td></tr>
 <tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 프로토타입의 등록 화면 7개를 화면별 요소 · 상태 · 문구로 정리</td><td>프로토타입에만 있던 화면에 정의서가 없었음</td></tr></table>
-</section>
+</div></section>
 </main>
 </body>
 </html>

@@ -40,8 +40,42 @@ li{margin:4px 0}
 .ph .btn{background:var(--ink);color:#fff;border-radius:8px;padding:7px;text-align:center;font-weight:600}
 .ph .n{display:inline-block;background:var(--ink);color:#fff;border-radius:50%;width:16px;height:16px;font-size:10px;text-align:center;line-height:16px;margin-right:4px}
 .ph .chips{display:flex;gap:4px;flex-wrap:wrap}.ph .chips span{background:var(--chip);border-radius:999px;padding:2px 8px;font-size:11px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}.ph .btn,.ph .n{background:#e6e9ee;color:#15181d}}
-:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용). 조작 화면(.phone · .stage 등)은 원래 스타일 유지 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a;--blue-s:#eef1ff;--red-s:#fdeeed;--green-s:#eaf8f0;--amber-s:#fff6e6;--num:#d9dce6;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--link:#5170FF;--todo:#c7861c;--todo-bg:#fff6e6}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;font-size:14.5px;line-height:1.7}
+main{max-width:1120px;padding:40px 24px 80px}
+header{padding:8px 0 28px;border-bottom:1px solid var(--line);margin-bottom:8px}
+header .kind{display:block;background:none;color:var(--blue);padding:0;border-radius:0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:0}
+header h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:40px;line-height:1.15;margin:8px 0 6px}
+header .path{font-size:16px;color:var(--mute)}
+header .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 20px;margin-top:18px;font-size:13px;color:var(--mute)}
+header .meta span{display:block}header .meta b{display:block;color:var(--ink);font-weight:500;font-size:14px}
+nav.toc{display:none}
+section{display:grid;grid-template-columns:96px 1fr;gap:0 24px;padding:34px 0;border-bottom:1px solid var(--line);background:none;border-left:0;border-right:0;border-top:0;border-radius:0;margin:0}
+section>.n{font-family:"DM Serif Display",serif;font-size:56px;line-height:1;color:var(--num);padding-top:2px}
+section>.b{min-width:0}
+section h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:26px;margin:0 0 14px;letter-spacing:-.01em}
+section h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:22px 0 8px;font-weight:600}
+table{border-top:2px solid var(--ink);margin:10px 0 4px}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:600;background:none;padding:10px 10px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line)}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.glance div{border:1px solid var(--line);border-radius:0;padding:14px 16px;background:#fff}
+.glance div:nth-child(1){background:var(--green-s);border-color:#bfe6cf}.glance div:nth-child(2){background:var(--blue-s);border-color:#cdd6ff}.glance div:nth-child(3){background:var(--amber-s);border-color:#f0d9ad}
+.glance b{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.note{background:var(--blue-s);border-radius:0;border-left:3px solid var(--blue)}
+.fig,.figs svg,.fig svg{border-radius:0}
+.fig svg{background:#fff}
+.ex{color:var(--mute);font-size:13px}
+a{color:var(--blue)}
+.todo{background:none;color:var(--amber);border:1px dashed var(--amber);border-radius:0}
+.kind{border-radius:0}
+.app section,.phone section,.stage section{display:block;padding:14px;border:0;gap:0;margin:0}.app section h3,.phone section h3{text-transform:none;letter-spacing:0;color:inherit;font-size:inherit;margin:0}
+@media(max-width:760px){section{grid-template-columns:1fr}section>.n{font-size:36px}header h1{font-size:30px}}
 </style>
 </head>
 <body>
@@ -57,15 +91,15 @@ li{margin:4px 0}
 <li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">화면 개요</a></li><li><a href="#c2">화면 구성</a></li><li><a href="#c3">영역별 정의</a></li><li><a href="#c4">상태별 표시</a></li><li><a href="#c5">동작</a></li><li><a href="#c6">문구</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
 </ol></nav>
 
-<section id="glance"><h2>한눈에 보기</h2>
+<section id="glance"><div class="n">00</div><div class="b"><h2>한눈에 보기</h2>
 <div class="glance">
 <div><b>이 문서가 다루는 것</b>병원 탭에서 검진요약 · 진료요약을 뺀 나머지 화면 여섯 장. 통합 목록인 방문이력, 콘텐츠 카드인 읽을거리, 연동 전 빈 화면과 진행 카드, 등록한 AI REPORT의 결과 화면</div>
-<div><b>가장 중요한 결정</b>방문이력은 검진 · 진료 · AI REPORT를 한 목록에 시간순으로 섞고, 연동 안내는 상단 카드 하나에 모은다</div>
-<div><b>아직 정해지지 않은 것</b>10-14에 4건을 결정해 닫았다. 남은 것 없음. 자세한 내용은 「확인 필요」.</div>
+<div><b>가장 중요한 결정</b>방문이력은 검진 · 진료 · AI REPORT를 한 목록에 시간순으로 섞고, 연동 안내는 상단 카드 하나에 모음</div>
+<div><b>아직 정해지지 않은 것</b>10-14에 4건을 결정해 닫았음. 남은 것 없음. 자세한 내용은 「확인 필요」.</div>
 </div>
-</section>
+</div></section>
 
-<section id="c1"><h2>1. 화면 개요</h2>
+<section id="c1"><div class="n">01</div><div class="b"><h2>화면 개요</h2>
 <table><tr><th>화면</th><th>역할</th><th>들어오는 길</th><th>나가는 곳</th></tr>
 <tr><td>① 데이터 가져오기(빈 화면)</td><td>연동 전, 무엇을 볼 수 있는지 소개하고 가져오기 시작</td><td>검진요약 · 진료요약 탭(미연동일 때)</td><td>동의 · 본인 확인 → ② 가져오는 중</td></tr>
 <tr><td>② 가져오는 중(진행 카드)</td><td>가져오는 동안의 상태</td><td>①의 버튼, 방문이력 상단 카드의 버튼</td><td>완료 → 검진요약 · 진료요약 · 방문이력 갱신</td></tr>
@@ -74,9 +108,9 @@ li{margin:4px 0}
 <tr><td>⑤ 읽을거리 상세</td><td>글 한 편</td><td>④ 카드</td><td>뒤로 → ④</td></tr>
 <tr><td>⑥ AI REPORT 결과</td><td>등록한 영상 AI 판독 결과</td><td>③ AI REPORT 카드, 등록 직후</td><td>원본 PDF, 뒤로 → ③ 또는 홈</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c2"><h2>2. 화면 구성</h2>
+<section id="c2"><div class="n">02</div><div class="b"><h2>화면 구성</h2>
 <div class="screens">
 <div class="ph"><div class="t">① 데이터 가져오기 <i>빈 화면</i></div><div class="box"><span class="n">1</span>📋 건강검진 정보를 가져와 주세요<br><span class="ex">건강보험공단의 검진 정보를 확인할 수 있어요.</span></div><div class="box"><span class="n">2</span>✓ 최근 건강검진 결과 조회<br>✓ 주요 질환 위험도 예측<br>✓ 건강나이 측정<br>✓ 검진 결과 AI 요약 분석</div><div class="btn"><span class="n">3</span>건강검진 데이터 가져오기</div></div>
 <div class="ph"><div class="t">② 가져오는 중 <i>진행 카드</i></div><div class="box"><span class="n">1</span>◌ 검진 데이터를 가져오는 중<br><span class="ex">국민건강보험공단에서 데이터를 불러오는 중입니다. 최대 1분 정도 소요될 수 있습니다.</span></div><div class="box"><span class="n">2</span>▒▒▒▒ 스켈레톤</div></div>
@@ -85,9 +119,9 @@ li{margin:4px 0}
 <div class="ph"><div class="t">⑤ 읽을거리 상세 <i>서브 화면</i></div><div><span class="n">1</span>‹ 읽을거리</div><div class="box"><span class="n">2</span>🫁 폐결핵의 원인과 증상 치료 방법<br><span class="ex">폐결핵은 … 염증성 폐질환입니다.</span></div><div class="box"><span class="n">3</span>원인 · 진단 · 치료 · 예방</div><div class="ex"><span class="n">4</span>출처</div></div>
 <div class="ph"><div class="t">⑥ AI REPORT 결과 <i>서브 화면</i></div><div><span class="n">1</span>‹ AI REPORT 결과</div><div class="box"><span class="n">2</span>흉부 X-ray AI 분석<br><span class="ex">2026.09.22 · 흉부 X-ray (R-PA) · Lunit INSIGHT CXR</span> PDF</div><div class="box"><span class="n">3</span>경화 — 확인 필요<br>결절 — 특이 소견 없음<br>기흉 — 특이 소견 없음 …</div><div class="ex"><span class="n">4</span>고지</div></div>
 </div>
-</section>
+</div></section>
 
-<section id="c3"><h2>3. 영역별 정의</h2>
+<section id="c3"><div class="n">03</div><div class="b"><h2>영역별 정의</h2>
 <h3>① 데이터 가져오기(빈 화면)</h3>
 <table><tr><th>요소</th><th>표시 규칙</th><th>데이터 출처</th></tr>
 <tr><td>제목 · 설명</td><td>검진: 「건강검진 정보를 가져와 주세요 / 건강보험공단의 검진 정보를 확인할 수 있어요.」 진료: 「진료 정보를 가져와 주세요 / 건강보험심사평가원의 진료 정보를 확인할 수 있어요.」</td><td>—</td></tr>
@@ -98,10 +132,10 @@ li{margin:4px 0}
 <table><tr><th>요소</th><th>표시 규칙</th><th>데이터 출처</th></tr>
 <tr><td>스피너 · 제목</td><td>「검진 데이터를 가져오는 중」 / 「진료 데이터를 가져오는 중」</td><td>—</td></tr>
 <tr><td>안내</td><td>「{기관}에서 데이터를 불러오는 중입니다. 최대 1분 정도 소요될 수 있습니다.」 기관은 국민건강보험공단 / 건강보험심사평가원</td><td>—</td></tr>
-<tr><td>스켈레톤</td><td>요약 화면 모양의 자리 표시 5줄. 다른 탭으로 가도 진행은 계속되고, 방문이력 카드의 버튼은 「가져오는 중…」으로 바뀐다</td><td>—</td></tr></table>
+<tr><td>스켈레톤</td><td>요약 화면 모양의 자리 표시 5줄. 다른 탭으로 가도 진행은 계속되고, 방문이력 카드의 버튼은 「가져오는 중…」으로 바뀜</td><td>—</td></tr></table>
 <h3>③ 방문이력</h3>
 <table><tr><th>요소</th><th>표시 규칙</th><th>데이터 출처</th></tr>
-<tr><td>연동 안내 카드</td><td>아직 연동하지 않은 정보만 줄로. 제목 「연동하면 더 볼 수 있어요」, 설명 「검진정보와 진료정보는 제공 기관이 달라 각각 인증해야 해요.」 줄: 🩺 검진정보 「건강검진 결과가 이 목록에 함께 표시돼요」 / 📋 진료정보 「병원 방문 · 처방 기록이 함께 표시돼요」, 각 줄에 「데이터 연동하기」. 둘 다 연동되면 카드가 사라진다</td><td>연동 상태</td></tr>
+<tr><td>연동 안내 카드</td><td>아직 연동하지 않은 정보만 줄로. 제목 「연동하면 더 볼 수 있어요」, 설명 「검진정보와 진료정보는 제공 기관이 달라 각각 인증해야 해요.」 줄: 🩺 검진정보 「건강검진 결과가 이 목록에 함께 표시돼요」 / 📋 진료정보 「병원 방문 · 처방 기록이 함께 표시돼요」, 각 줄에 「데이터 연동하기」. 둘 다 연동되면 카드가 사라짐</td><td>연동 상태</td></tr>
 <tr><td>필터칩</td><td>전체 · 검진 · 진료 · AI REPORT. 하나만 선택. 기본 「전체」. 해당 종류 기록이 0건이면 칩을 숨기지 않고 빈 목록 안내</td><td>—</td></tr>
 <tr><td>연도 구분</td><td>최신 연도부터. 연도 머리글 아래 날짜 내림차순</td><td>검진 · 진료 · 등록 건의 날짜</td></tr>
 <tr><td>검진 카드</td><td>아이콘 · 검진 종류(일반검진 · 암검진 등) · 「✦ AI 요약」 표시(요약이 있을 때) · 기관명 · ›</td><td>검진 건</td></tr>
@@ -111,20 +145,20 @@ li{margin:4px 0}
 <h3>④ 읽을거리</h3>
 <table><tr><th>요소</th><th>표시 규칙</th><th>데이터 출처</th></tr>
 <tr><td>제목</td><td>기록이 있으면 「내 소견과 관련된 읽을거리」, 없으면 「건강 읽을거리」</td><td>연동 · 등록 상태</td></tr>
-<tr><td>카드 4개</td><td>분류(예: 폐 질환 · 안저 질환) · 제목 · 그림. 내 질환 · 소견과 연결된 글을 앞에 둔다. 카드마다 다른 바탕</td><td>콘텐츠 목록 + 매칭 규칙</td></tr></table>
+<tr><td>카드 4개</td><td>분류(예: 폐 질환 · 안저 질환) · 제목 · 그림. 내 질환 · 소견과 연결된 글을 앞에 둠. 카드마다 다른 바탕</td><td>콘텐츠 목록 + 매칭 규칙</td></tr></table>
 <h3>⑤ 읽을거리 상세</h3>
 <table><tr><th>요소</th><th>표시 규칙</th><th>데이터 출처</th></tr>
 <tr><td>머리말</td><td>그림 · 제목 · 첫 문단(요약)</td><td>콘텐츠</td></tr>
-<tr><td>본문</td><td>원인 · 진단 · 치료 · 예방 순서의 소제목. 소제목은 빠질 수 있지만 순서는 바꾸지 않는다</td><td>콘텐츠</td></tr>
-<tr><td>출처</td><td>맨 아래. 출처 없는 글은 싣지 않는다</td><td>콘텐츠</td></tr></table>
+<tr><td>본문</td><td>원인 · 진단 · 치료 · 예방 순서의 소제목. 소제목은 빠질 수 있지만 순서는 바꾸지 않음</td><td>콘텐츠</td></tr>
+<tr><td>출처</td><td>맨 아래. 출처 없는 글은 싣지 않음</td><td>콘텐츠</td></tr></table>
 <h3>⑥ AI REPORT 결과</h3>
 <table><tr><th>요소</th><th>표시 규칙</th><th>데이터 출처</th></tr>
 <tr><td>리포트 카드</td><td>제목 · 날짜 · 검사 종류 · 판독 엔진 · 「PDF」(원본 열기)</td><td>등록 건</td></tr>
 <tr><td>소견 목록</td><td>원본 리포트의 소견 체계 그대로(경화 · 결절 · 기흉 · 흉막 삼출 · 무기폐 · 심장비대 · 종격동 비대 …). 각 줄: 소견 이름 · 설명 한 줄 · 판정(확인 필요 / 특이 소견 없음)</td><td>등록 건</td></tr>
 <tr><td>고지</td><td>「AI REPORT는 흉부 X-ray 영상을 분석한 참고 결과이며, 의학적 진단이나 의료진의 판독을 대신하지 않습니다.」 항상 표시</td><td>—</td></tr></table>
-</section>
+</div></section>
 
-<section id="c4"><h2>4. 상태별 표시</h2>
+<section id="c4"><div class="n">04</div><div class="b"><h2>상태별 표시</h2>
 <table><tr><th>상태</th><th>무엇이 보이나</th><th>예시</th></tr>
 <tr><td>둘 다 미연동 · 등록 없음</td><td>검진요약 · 진료요약은 ①. 방문이력은 연동 안내 카드 2줄 + 「아직 기록이 없어요. 연동하거나 리포트를 등록해 보세요」</td><td>첫 진입</td></tr>
 <tr><td>검진만 연동</td><td>검진요약 정상, 진료요약 ①(진료), 방문이력 카드에 진료 줄만</td><td>—</td></tr>
@@ -133,25 +167,25 @@ li{margin:4px 0}
 <tr><td>필터 결과 0건</td><td>「{종류} 기록이 없어요」 한 줄. AI REPORT는 「+로 리포트를 등록해 보세요」 덧붙임</td><td>—</td></tr>
 <tr><td>진단명 없는 진료 건</td><td>카드에 병원 · 날짜만, 상세는 요약만</td><td>확인 필요 ②</td></tr>
 <tr><td>읽을거리 연결 기록 없음</td><td>일반 건강 글 4개, 제목 「건강 읽을거리」</td><td>—</td></tr>
-<tr><td>AI REPORT 원본 PDF 없음</td><td>⑥을 열지 않고 카드에 「원본을 불러올 수 없어요」</td><td>결과만 단독 노출하지 않는다</td></tr>
+<tr><td>AI REPORT 원본 PDF 없음</td><td>⑥을 열지 않고 카드에 「원본을 불러올 수 없어요」</td><td>결과만 단독 노출하지 않음</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c5"><h2>5. 동작</h2>
+<section id="c5"><div class="n">05</div><div class="b"><h2>동작</h2>
 <table><tr><th>사용자가 하면</th><th>화면은</th></tr>
-<tr><td>① 가져오기 버튼을 누르면</td><td>동의 시트(2개, 이미 동의했으면 생략) → 본인 확인 → ②. 인증 화면은 기관이 그린다</td></tr>
+<tr><td>① 가져오기 버튼을 누르면</td><td>동의 시트(2개, 이미 동의했으면 생략) → 본인 확인 → ②. 인증 화면은 기관이 그림</td></tr>
 <tr><td>② 진행 중 다른 탭으로 가면</td><td>진행은 계속. 돌아오면 그 시점 상태, 끝났으면 요약</td></tr>
-<tr><td>③ 필터칩을 누르면</td><td>목록이 즉시 걸러지고 연도 머리글은 남은 기록 기준으로 다시 묶인다</td></tr>
+<tr><td>③ 필터칩을 누르면</td><td>목록이 즉시 걸러지고 연도 머리글은 남은 기록 기준으로 다시 묶임</td></tr>
 <tr><td>③ 카드를 누르면</td><td>검진 → 검진상세, 진료 → 진료상세, AI REPORT → ⑥</td></tr>
 <tr><td>③ 「+」를 누르면</td><td>등록 유형 선택 시트(AI REPORT / 일반 검진 결과지 등록)</td></tr>
-<tr><td>③ 안내 카드의 「데이터 연동하기」를 누르면</td><td>그 줄의 기관 인증으로. 버튼이 「가져오는 중…」으로 바뀐다</td></tr>
+<tr><td>③ 안내 카드의 「데이터 연동하기」를 누르면</td><td>그 줄의 기관 인증으로. 버튼이 「가져오는 중…」으로 바뀜</td></tr>
 <tr><td>④ 카드를 누르면</td><td>⑤로. 뒤로 오면 스크롤 위치 유지</td></tr>
 <tr><td>⑥ 「PDF」를 누르면</td><td>원본 리포트 뷰어. 확대 · 축소</td></tr>
 <tr><td>⑥에서 뒤로</td><td>③에서 왔으면 ③, 등록 직후면 홈</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c6"><h2>6. 문구</h2>
+<section id="c6"><div class="n">06</div><div class="b"><h2>문구</h2>
 <table><tr><th>위치</th><th>문구</th><th>언제</th></tr>
 <tr><td>① 검진 제목 · 설명</td><td>건강검진 정보를 가져와 주세요 / 건강보험공단의 검진 정보를 확인할 수 있어요.</td><td>검진 미연동</td></tr>
 <tr><td>① 진료 제목 · 설명</td><td>진료 정보를 가져와 주세요 / 건강보험심사평가원의 진료 정보를 확인할 수 있어요.</td><td>진료 미연동</td></tr>
@@ -165,22 +199,22 @@ li{margin:4px 0}
 <tr><td>⑥ 고지</td><td>AI REPORT는 흉부 X-ray 영상을 분석한 참고 결과이며, 의학적 진단이나 의료진의 판독을 대신하지 않습니다.</td><td>항상</td></tr>
 <tr><td>⑥ 소견 설명 예</td><td>오른쪽 폐 아래쪽에 하얗게 보이는 부분이 있어요 / 검출되지 않았어요 / 낮음으로 표시됐어요</td><td>소견별</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="open"><h2>확인 필요</h2>
+<section id="open"><div class="n">07</div><div class="b"><h2>확인 필요</h2>
 <table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
 <tr><td>① 읽을거리 카드 선정 기준과 갱신 주기(소견 코드 매칭 규칙, 주 1회?)</td><td>기획 · 의학</td><td>—</td><td>닫힘(10-14) · 소견 코드 · 상병코드 매칭 규칙으로 고르고 주 1회(월요일 새벽) 갱신. 새 검진 · 진료가 들어오면 즉시 한 번 더</td></tr>
-<tr><td>② 진단명이 없는 진료 건의 카드 · 상세 구성</td><td>기획</td><td>—</td><td>닫힘(10-14) · 카드 · 상세 모두 요약만(병원 · 날짜 · 진료비 · 처방). 기획서 ②와 같다</td></tr>
-<tr><td>③ 방문이력 한 해 기록이 30건을 넘을 때 연도 접기 여부</td><td>디자인</td><td>—</td><td>닫힘(10-14) · 넘으면 그 연도를 접고 「n건 더 보기」. 가장 최근 연도는 항상 펼친다</td></tr>
+<tr><td>② 진단명이 없는 진료 건의 카드 · 상세 구성</td><td>기획</td><td>—</td><td>닫힘(10-14) · 카드 · 상세 모두 요약만(병원 · 날짜 · 진료비 · 처방). 기획서 ②와 같음</td></tr>
+<tr><td>③ 방문이력 한 해 기록이 30건을 넘을 때 연도 접기 여부</td><td>디자인</td><td>—</td><td>닫힘(10-14) · 넘으면 그 연도를 접고 「n건 더 보기」. 가장 최근 연도는 항상 펼침</td></tr>
 <tr><td>④ 가져오기 실패 사유 문구 세트(인증 실패 · 기관 점검 · 네트워크)</td><td>개발 · 기획</td><td>—</td><td>닫힘(10-14) · 「본인인증이 되지 않았어요. 다시 인증해 주세요」 「기관 점검 중이에요. 잠시 뒤 다시 시도해 주세요」 「연결이 끊겼어요. 네트워크를 확인해 주세요」 3종 + 「다시 시도」</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="history"><h2>바뀐 것</h2>
+<section id="history"><div class="n">08</div><div class="b"><h2>바뀐 것</h2>
 <table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
 <tr><td>2026-10-14</td><td>1.0.1</td><td>「확인 필요」 4건 결정 · 닫힘.</td><td>열린 결정을 기본값으로 닫아 구현에 쓸 수 있게</td></tr>
 <tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성</td><td>프로토타입에만 있던 여섯 화면을 정의서로</td></tr></table>
-</section>
+</div></section>
 </main>
 </body>
 </html>
