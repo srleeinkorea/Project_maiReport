@@ -664,12 +664,12 @@
     },
     {
       "id": "QA-DIET-25",
-      "title": "걸음 단서가 없으면 범위 가운데, 식후 관찰은 범위 전체 + 30분",
-      "scenario": "민수 씨가 오후 1시에 점심 「오후 12:00 이후」(12:00~13:00)를 골랐다. 걸음 단서가 없다. → 12:30(보통)이고 식후 걸음은 12:00~13:30을 본다.",
+      "title": "건강 앱 기록이 없으면 선택지 범위의 가운데로 잡고, 식후 관찰은 범위 전체 + 30분",
+      "scenario": "민수 씨가 오후 1시에 점심 「1시간 이내」(12:00~13:00)를 골랐다. 건강 앱 기록은 없다. → 12:30이고 식후 걸음은 12:00~13:30을 본다.",
       "rules": [
         "V-57"
       ],
-      "basis": "구현기준 R-11 ④ · CFG-082",
+      "basis": "구현기준 R-11 ⑤ · CFG-082",
       "severity": "높음",
       "module": "diet-meal-time-v1.0.0.mjs",
       "export": "estimateMealTime",
@@ -691,12 +691,12 @@
     },
     {
       "id": "QA-DIET-26",
-      "title": "범위 안에 걸음 멈춤 단서가 하나면 그 시각(확신 높음)",
-      "scenario": "같은 상황에서 12:15에 걷다가 멈춘 기록이 하나 있다. → 12:15, 확신 높음.",
+      "title": "건강 앱 식사 기록이 있으면 선택지보다 그 시각을 쓴다",
+      "scenario": "같은 상황에서 건강 앱에 12:35 점심 기록이 있다. → 12:35, 식후 관찰 12:35~13:05.",
       "rules": [
         "V-57"
       ],
-      "basis": "설정 CFG-079 걸음 멈춤 단서",
+      "basis": "구현기준 R-11 ⑤ 건강 앱 기록 우선",
       "severity": "중간",
       "module": "diet-meal-time-v1.0.0.mjs",
       "export": "estimateMealTime",
@@ -707,17 +707,15 @@
           "window_start": "12:00",
           "window_end": "13:00"
         },
-        "stepPauses": [
-          "12:15"
-        ]
+        "healthAppTime": "12:35"
       },
       "expect": {
-        "estimated_time": "12:15",
-        "estimate_method": "STEP_PAUSE",
+        "estimated_time": "12:35",
+        "estimate_method": "HEALTH_APP",
         "confidence": "HIGH"
       },
       "where": "diet-meal-time-v1.0.0.mjs estimateMealTime",
-      "suggestion": "단서가 둘 이상이면 쓰지 않고 다음 순서로 넘어간다."
+      "suggestion": "건강 앱 기록이 있으면 시각 단계를 묻지 않고 그 시각을 쓴다."
     },
     {
       "id": "QA-DIET-27",

@@ -13,9 +13,7 @@ export const MEAL_TIME_CONFIG = Object.freeze({
   breakfastBounds: [7 * 60, 8 * 60], breakfastEnd: 10 * 60,   // CFG-078 아침 고정 경계 · 「8시 이후」 범위 끝(아침 끝 기본값 10시)
   mealEnd: { BREAKFAST: 10 * 60, LUNCH: 14 * 60, DINNER: 23 * 60 },   // CFG-091 끼니를 늦어도 먹는 시각. 끝이 없는 「…이후」 칸은 여기까지로 본다
   dinnerFixedBounds: [19 * 60, 21 * 60], dinnerFixedEnd: 23 * 60,   // CFG-089 저녁 고정 선택지 경계(9시 뒤 답 · 어제 저녁)
-  stepPauseMinutes: 15,                // CFG-079 걷다가 멈춘 것으로 보는 최소 시간
-  habitWindowDays: 14,                 // CFG-080 평소 식사 시각을 보는 기간
-  maxWindowMinutes: 120,               // CFG-081 범위 상한(넘으면 시작부터 2시간까지만 봄)
+  maxWindowMinutes: 120,               // CFG-081 범위 상한(안전장치)
   postMealMinutes: 30,                 // CFG-082 식후 걸음을 보는 시간
 });
 
@@ -131,51 +129,27 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
 const hhmmToMin = (s) => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
 
 /**
- * ③ 추정 시각. 세 끼 모두 같은 순서다.
- *    0) 건강 앱 식사 기록이 있으면 그 시각(HIGH)
- *    1) 고른 버튼으로 범위를 정한다(끼니 시작 기본값보다 이른 부분은 잘라 낸다)
- *    2) 범위 안에 15분 넘게 멈춘 걸음 단서가 딱 하나면 그 시각(HIGH)
- *       범위가 비어 있으면 모름(UNKNOWN). 끝이 없는 「…이후」 칸은 끼니를 늦어도 먹는 시각까지로 본다(2시간을 넘는 범위는 2시간까지만)
- *       지난 2주 평소 식사 시각이 범위 안에 있으면 그 시각(MEDIUM)
- *       둘 다 없으면 범위 가운데(MEDIUM)
- *    3) 식후 걸음을 볼 시간: 단서·평소 시각이면 추정 시각부터 30분, 가운데면 범위 전체 + 30분
- *  입력 시각은 모두 'HH:MM' 현지 시각 문자열. 반환의 estimated_time도 같다.
+ * ③ 추정 시각. 두 단계뿐이다.
+ *    1) 그 끼니 시간대 안에 건강 앱 식사 기록이 있으면 그 시각(HIGH). 이때는 시각 단계를 묻지 않는다.
+ *    2) 없으면 고른 선택지 범위의 가운데(MEDIUM). 범위는 끼니 시작 기본값보다 이른 부분을 잘라 내고,
+ *       끝이 없는 「…이후」 칸은 끼니 끝 기본값(CFG-091)까지로 본다. 「9시 이후」처럼 기준 시각이 있는 칸은 그 시각.
+ *    식후 걸음을 볼 시간: 건강 앱이면 그 시각부터 30분, 가운데값이면 범위 전체 + 30분.
+ *    범위가 비어 있으면 모름(UNKNOWN) — 계산에서 빠질 뿐 점수를 깎지 않는다.
+ *    (걸음 단서 · 지난 2주 평소 시각은 1차에서 쓰지 않는다. 끼니 구분이 안 되는 기록으로는 믿을 만한 값이 나오지 않아서다.)
  */
-export function estimateMealTime({
-  mealType, option, healthAppTime = null, stepPauses = [], habitualTime = null,
-}, config = MEAL_TIME_CONFIG) {
+export function estimateMealTime({ mealType, option, healthAppTime = null }, config = MEAL_TIME_CONFIG) {
   if (healthAppTime) {
     const t = hhmmToMin(healthAppTime);
     return { estimated_time: toHHMM(t), estimate_method: 'HEALTH_APP', confidence: 'HIGH',
       post_meal_window: [toHHMM(t), toHHMM(t + config.postMealMinutes)], window: null };
   }
   if (!option) return { estimated_time: null, estimate_method: 'UNKNOWN', confidence: 'UNKNOWN', post_meal_window: null, window: null };
-  let ws = Math.max(hhmmToMin(option.window_start), config.mealStart[mealType] ?? 0);
+  const ws = Math.max(hhmmToMin(option.window_start), config.mealStart[mealType] ?? 0);
   let we = hhmmToMin(option.window_end);
   const window = [toHHMM(ws), toHHMM(we)];
-  const length = we - ws;
-
-  const pauses = stepPauses.map(hhmmToMin).filter((t) => t >= ws && t <= we);
-  if (pauses.length === 1) {
-    return { estimated_time: toHHMM(pauses[0]), estimate_method: 'STEP_PAUSE', confidence: 'HIGH',
-      post_meal_window: [toHHMM(pauses[0]), toHHMM(pauses[0] + config.postMealMinutes)], window };
-  }
-  if (length <= 0) {
-    return { estimated_time: null, estimate_method: 'UNKNOWN', confidence: 'UNKNOWN', post_meal_window: null, window };
-  }
-  if (length > config.maxWindowMinutes) {   // 2시간을 넘으면 시작부터 2시간까지만 본다(CFG-081)
-    we = ws + config.maxWindowMinutes;
-  }
-  const clippedLength = we - ws;
-  if (habitualTime) {
-    const h = hhmmToMin(habitualTime);
-    if (h >= ws && h <= we) {
-      return { estimated_time: toHHMM(h), estimate_method: 'HABIT', confidence: 'MEDIUM',
-        post_meal_window: [toHHMM(h), toHHMM(h + config.postMealMinutes)], window };
-    }
-  }
-  // 「9시 이후」처럼 기준 시각(anchor_time)이 정해진 칸은 그 시각으로 본다. 그 밖에는 가운데를 10분 단위로
-  const mid = option.anchor_time ? hhmmToMin(option.anchor_time) : ws + Math.round(clippedLength / 2 / 10) * 10;
+  if (we - ws <= 0) return { estimated_time: null, estimate_method: 'UNKNOWN', confidence: 'UNKNOWN', post_meal_window: null, window };
+  if (we - ws > config.maxWindowMinutes) we = ws + config.maxWindowMinutes;   // 안전장치. 끼니 끝 기본값 덕에 보통 걸리지 않는다
+  const mid = option.anchor_time ? hhmmToMin(option.anchor_time) : ws + Math.round((we - ws) / 2 / 10) * 10;
   return { estimated_time: toHHMM(mid), estimate_method: 'WINDOW_MIDPOINT', confidence: 'MEDIUM',
     post_meal_window: [toHHMM(ws), toHHMM(we + config.postMealMinutes)], window };
 }

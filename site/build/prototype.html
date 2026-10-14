@@ -116,11 +116,11 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .q-opt:hover{border-color:#C9D4E8;background:var(--fill)}
 .q-opt.on{border-color:var(--brand);background:var(--brand-soft)}
 .q-opt.dim{opacity:.35}
-/* 식사 시각 단계 버튼 — 오전·오후는 위에 작게, 시각은 크게, 아래 작은 글씨(1시간 이내 등)는 멈춘 동안 비운다 */
+/* 식사 시각 단계 버튼 — 오전·오후는 위에 작게, 시각은 크게, 아래 작은 글씨(1시간 이내 등)는 상한 · 하한에 걸린 동안 비운다 */
 .q-opt.time{gap:3px;padding:12px 4px 11px}
 .q-opt.time .ap{font-size:var(--t-mini);font-weight:600;color:var(--ink-3);line-height:1.2;min-height:1.2em}
 .q-opt.time .tm{font-size:var(--t-body);font-weight:700;color:var(--ink-1);letter-spacing:-.01em;line-height:1.3;text-align:center;word-break:keep-all}
-.q-opt.time small{font-size:var(--t-mini);font-weight:500;color:var(--ink-3);line-height:1.3;min-height:1.3em}
+.q-opt.time small{font-size:var(--t-mini);font-weight:500;color:var(--ink-3);line-height:1.3;min-height:1.3em;word-break:keep-all;text-align:center}
 .q-hint{font-size:var(--t-mini);font-weight:400;color:var(--ink-3);text-align:center;line-height:1.5}
 .q-done{display:flex;align-items:center;gap:11px;background:#fff;border:none;border-radius:var(--r);padding:17px 20px;cursor:pointer;width:100%;text-align:left;box-shadow:var(--sh)}
 .q-done .ck{width:22px;height:22px;border-radius:50%;background:#E4F6EA;color:var(--ok);font-size:var(--t-cap);font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
@@ -2104,7 +2104,16 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 #svBody .gscore,#rsBody .gscore{margin-top:-34px;font-size:22px;font-weight:800;line-height:1.1;color:#111827}
 #svBody .gtag,#rsBody .gtag{margin-top:6px;display:inline-block}
 #rsBody .sr-gi{min-width:0}
-</style></head>
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인(문서 틀만). 앱 화면(.app · .phone · .device · .screen)은 제품 글꼴 그대로 ── */
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif}
+body>h1,body>header h1,body>main>h1,body>.page>h1,body>.top>h1,.top h1,.page>.top h1,.intro h1,.doc h1,.sr-h h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+.app,.app *,.phone,.phone *,.device,.device *,.screen,.screen *,.mock,.mock *{font-family:var(--font,"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif)}
+[class*="hero"]:not(.app *):not(.phone *){background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+</style>
+</head>
 <body>
 <div class="app">
 <div class="content">
@@ -2713,28 +2722,36 @@ function lastMealLabel(h){
 const LAST_MEAL = lastMealLabel();
 /* 식사 시각 단계(10-13 확정) — 고정 식사 질문에 「충분히 먹음 · 적게 · 몇 입만」으로 답하면 같은 자리에서
    「{끼니}은 언제쯤 드셨어요?」를 이어 묻는다. 질문 1개로 센다(식사 1/5 → 시각 2/5). 버튼 3개 · 건너뛰기 없음 · 점수 없음.
-   점심·저녁 버튼은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 세고, 멈춤 시각(점심 14시 · 저녁 21시)을 넘으면 거기서 멈추며
-   질문 시작 시각(점심 12시 · 저녁 17시) 아래로 내려가지 않는다. 아침은 7시 · 8시 정각 고정. 어제 저녁과 「못 먹거나 거름」에는 묻지 않는다.
+   점심·저녁 버튼은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 세고, 선택지 상한 시각(점심 14시 · 저녁 21시)을 넘으면 그 시각에 답한 것과 같은 선택지를 보여 주며
+   질문 시작 시각(점심 12시 · 저녁 17시) 아래로 내려가지 않는다. 아침은 7시 · 8시, 어제 저녁은 저녁 7시 · 8시 정각 고정. 「못 먹거나 거름」에는 묻지 않는다.
    규칙 원본: docs/엔진/식이/diet-meal-time-v1.0.0.mjs · 데이터계약 R-11 · CFG-072~078 */
-const MEAL_TIME_RULE = {LUNCH:{start:12*60,stop:14*60}, DINNER:{start:17*60,stop:21*60}};
+const MEAL_TIME_RULE = {LUNCH:{start:12*60,stop:14*60}, DINNER:{start:16*60,stop:21*60}};   /* start = 선택지 하한, stop = 선택지 상한 */
 function koTime(m){ const h=Math.floor(m/60)%24, mm=m%60, ap=h<12?'오전':'오후', h12=h%12===0?12:h%12; return {ap, clock:`${h12}:${String(mm).padStart(2,'0')}`}; }
 function mealTimeQuestion(now){
   const d = now || new Date();
-  if(LAST_MEAL==='어제 저녁') return null;
-  const neutral = (v,ap,clock,sub)=>({v, f:'', ap, clock, sub, label:(ap?ap+' ':'')+clock, tone:'neutral'});
-  if(LAST_MEAL==='오늘 아침') return { id:'mealClock', cat:'식이', av:'🕖', tint:'moon', kind:'time', text:'아침은 몇 시쯤 드셨어요?',
-    opts:[neutral('before_7','','7시 이전',''), neutral('seven_to_eight','','7시~8시',''), neutral('after_8','','8시 이후','')] };
+  const fixed = (text, av, labels)=>({ id:'mealClock', cat:'식이', av, tint:'moon', kind:'time', text,
+    opts:[{v:'before_7',f:'',ap:'',clock:labels[0],sub:'',label:labels[0],tone:'neutral'},
+          {v:'mid',f:'',ap:'',clock:labels[1],sub:'',label:labels[1],tone:'neutral'},
+          {v:'late',f:'',ap:'',clock:labels[2],sub:'',label:labels[2],tone:'neutral'}] });
+  /* 어제 저녁(00~10시)도 묻는다 — 일상안정이 최근 7일 식후 행동을 합산하므로 어제 값도 쓰인다. 저녁 7시 · 8시 고정 */
+  if(LAST_MEAL==='어제 저녁') return fixed('어제 저녁은 몇 시쯤 드셨어요?', '🕖', ['7시 이전','7시~9시','9시 이후']);
+  if(LAST_MEAL==='오늘 아침') return fixed('아침은 몇 시쯤 드셨어요?', '🕖', ['7시 이전','7시~8시','8시 이후']);
   const R = MEAL_TIME_RULE[LAST_MEAL==='오늘 점심' ? 'LUNCH' : 'DINNER'];
   const mins = d.getHours()*60 + d.getMinutes(), floored = mins - mins%10;
+  /* 저녁을 오후 9시 뒤에 답하면 1시간 칸 3개로 5시 식사와 10시 식사를 다 덮을 수 없어 고정 선택지(어제 저녁과 같음)로 묻는다 */
+  if(LAST_MEAL==='오늘 저녁' && floored > R.stop) return fixed('저녁은 몇 시쯤 드셨어요?', '🕘', ['7시 이전','7시~9시','9시 이후']);
   let t0 = floored - 60, stopped = false;
-  if(floored > R.stop){ t0 = R.stop - 60; stopped = true; }
-  if(t0 < R.start){ t0 = R.start; stopped = true; }
+  if(floored > R.stop){ t0 = R.stop - 60; stopped = true; }   /* 선택지 상한 시각(점심 2시) */
+  if(t0 < R.start){ t0 = R.start; stopped = true; }            /* 선택지 하한 시각 */
   const t1 = t0 - 60, a = koTime(t0), b = koTime(t1), rangeAp = a.ap===b.ap ? a.ap : `${b.ap}~${a.ap}`;
-  const sub = s => stopped ? '' : s;
+  const times = [[a.ap, `${a.clock} 이후`], [rangeAp, `${b.clock}~${a.clock}`], [b.ap, `${b.clock} 이전`]];
+  const rel = ['1시간 이내','1~2시간 전','그보다 전'];
+  /* 선택지 글자는 「1시간 이내 / 1~2시간 전 / 그보다 전」(작은 글씨 없음). 상한·하한에 걸린 동안은 「1시간 이내」가 사실과 달라 시각을 쓴다 */
+  const mk = (v,i)=> stopped
+    ? {v, f:'', ap:times[i][0], clock:times[i][1], sub:'', label:`${times[i][0]} ${times[i][1]}`, tone:'neutral'}
+    : {v, f:'', ap:'', clock:rel[i], sub:'', label:rel[i], tone:'neutral'};
   return { id:'mealClock', cat:'식이', av:'🕐', tint:'moon', kind:'time', text:`${LAST_MEAL.replace('오늘 ','')}은 언제쯤 드셨어요?`,
-    opts:[neutral('within_1h', a.ap, `${a.clock} 이후`, sub('1시간 이내')),
-          neutral('one_to_two_h', rangeAp, `${b.clock}~${a.clock}`, sub('1~2시간 전')),
-          neutral('earlier', b.ap, `${b.clock} 이전`, sub('그보다 전'))] };
+    opts:[mk('within_1h',0), mk('one_to_two_h',1), mk('earlier',2)] };
 }
 const Q_ACUTE = [
   { id:'meal', cat:'식이', av:'🍚', tint:'moon',
@@ -2809,7 +2826,7 @@ function questionForAxis(axis){
    · 고정 답이 '못 먹거나 거름'이면 회전 문항은 묻지 않는다(pick에서 뺀다). */
 function pickQuestions(){
   const selfAxis = typeof chronicDietState==='function' ? chronicDietState().axis : null;
-  /* 하루 최대 5문항 · 식이 최대 3문항(10-13: 고정 1 + 식사 시각 단계 1 + 회전 1) + 활동 1 + 수면 1. 시각 단계는 식사 답 뒤 pick()에서 끼워 넣는다 */
+  /* 하루 최대 5~6문항 · 식이 최대 3문항(10-13: 고정 1 + 식사 시각 단계 1 + 회전 1) + 활동 1 + 수면 1. 시각 단계는 식사 답 뒤 pick()에서 끼워 넣는다 */
   if(selfAxis) return [Q_ACUTE[0], questionForAxis(selfAxis), Q_FATIGUE, Q_BASE[0]];
   if(hasAiReport) return [Q_CARE, Q_ACUTE[0], Q_WALK, Q_ACUTE[2]];
   return [Q_ACUTE[0], rotationQuestion(), Q_FATIGUE, Q_BASE[0]];
@@ -2881,7 +2898,7 @@ function renderQ(){
 function pick(q,o,btn){
   if(lock) return; lock = true;
   ans[q.id] = o;
-  /* 식사 질문에 답하면 같은 자리에서 식사 시각 단계를 이어 묻는다(어제 저녁 · 못 먹거나 거름 제외). 질문 1개로 센다 */
+  /* 식사 질문에 답하면 같은 자리에서 식사 시각 단계를 이어 묻는다(못 먹거나 거름 제외). 질문 1개로 센다 */
   if(q.id==='meal'){
     QUESTIONS = QUESTIONS.filter(x=>x.id!=='mealClock'); delete ans.mealClock;
     const tq = o.v!=='skip' ? mealTimeQuestion() : null;

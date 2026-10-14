@@ -70,7 +70,7 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
   <div class="tile key"><div class="n">+1</div><div class="l">하루 질문 수 4 → 5~6. 식사 질문 바로 뒤에 시각 질문 1개</div></div>
   <div class="tile ok"><div class="n">3</div><div class="l">선택지 수. 건너뛰기 없음, 작은 글씨 없음</div></div>
   <div class="tile ng"><div class="n">50%</div><div class="l">지금: 자기돌봄 등급이 실제와 다른 날. 식후 행동을 몰라 매일 같은 점수</div></div>
-  <div class="tile ok"><div class="n">12~13%</div><div class="l">시각 질문을 둔 뒤 등급이 다른 날(모의). 식후 걸음 판정 87% 맞음</div></div>
+  <div class="tile ok"><div class="n">10~13%</div><div class="l">시각 질문을 둔 뒤 등급이 다른 날(모의). 식후 걸음 판정 87~89% 맞음</div></div>
 </div>
 
 <section id="s01"><div class="num">01</div><div>
@@ -129,7 +129,7 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
 <tr><td>오후 5~9시</td><td>저녁</td><td>저녁은 언제쯤 드셨어요?</td><td>1시간 이내 / 1~2시간 전 / 그보다 전</td><td>점심과 같음<br><span class="ex">예) 오후 7:30에 답함<br>1시간 이내 = 6:30~7:30 → 7:00<br>1~2시간 전 = 5:30~6:30 → 6:00<br>그보다 전 = 4:00~5:30 → 4:50 (저녁은 4시부터로 봄)</span></td></tr>
 <tr><td>오후 9시~자정</td><td>저녁</td><td>저녁은 몇 시쯤 드셨어요?</td><td>7시 이전 / 7시~9시 / 9시 이후</td><td>6:00 / 8:00 / 9:00</td></tr>
 </table>
-<p class="ex">위 값은 걸음 단서(범위 안에서 15분 넘게 멈춘 자리)나 지난 2주 평소 시각이 없을 때의 값임. 있으면 그 시각을 씀.</p>
+<p class="ex">건강 앱에 그 끼니 식사 기록이 있으면 묻지 않고 그 시각을 씀. 위 값은 기록이 없을 때의 값임.</p>
 <h3>왜 끼니마다 다르게 묻나</h3>
 <table><tr><th style="width:28%">끼니</th><th>이유</th></tr>
 <tr><td>점심 · 저녁(9시까지)</td><td>먹고 얼마 안 돼 답하는 사람이 대부분이라 「1시간 이내」처럼 답한 시각 기준이 가장 정확함</td></tr>
@@ -156,25 +156,30 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
 
 <section id="s04"><div class="num">04</div><div>
 <h2>고른 선택지로 식사 시각을 어떻게 정하나</h2>
-<div class="fig"><div class="t">Fig 4 · 추정 시각을 정하는 순서 — 세 끼 공통</div>
-<svg viewBox="0 0 760 200" role="img" aria-label="추정 순서">
-  <g font-size="11.5" fill="#0f1222">
-    <rect x="6" y="20" width="136" height="60" fill="#eaf8f0" stroke="#1f9d5a"/><text x="14" y="42" font-weight="600">① 건강 앱 식사 기록</text><text x="14" y="60">있으면 그 시각</text><text x="14" y="74" font-size="10" fill="#1f9d5a">확신 높음 · 시각 단계 생략</text>
-    <path d="M142 50 L160 50" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
-    <rect x="162" y="20" width="136" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="170" y="42" font-weight="600">② 고른 선택지의 범위</text><text x="170" y="60">끼니 시작 기본값보다</text><text x="170" y="74" font-size="10">이른 부분은 잘라 냄 (6 · 11 · 17시)</text>
-    <path d="M298 50 L316 50" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
-    <rect x="318" y="20" width="136" height="60" fill="#eaf8f0" stroke="#1f9d5a"/><text x="326" y="42" font-weight="600">③ 걸음 멈춤 단서</text><text x="326" y="60">범위 안에 15분 넘게 멈춘</text><text x="326" y="74" font-size="10" fill="#1f9d5a">곳이 하나뿐이면 그 시각 · 확신 높음</text>
-    <path d="M454 50 L472 50" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
-    <rect x="474" y="20" width="136" height="60" fill="#fff6e6" stroke="#c7861c"/><text x="482" y="42" font-weight="600">④ 범위 검사</text><text x="482" y="60">비어 있으면 모름 · 「…이후」 칸은</text><text x="482" y="74" font-size="10" fill="#c7861c">끼니를 늦어도 먹는 시각까지</text>
-    <path d="M610 50 L628 50" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
-    <rect x="630" y="20" width="124" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="638" y="42" font-weight="600">⑤ 평소 시각</text><text x="638" y="60">지난 2주 평소 시각이</text><text x="638" y="74" font-size="10">범위 안이면 그 시각 · 보통</text>
-    <path d="M692 80 L692 110" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
-    <rect x="474" y="112" width="280" height="44" fill="#eef1ff" stroke="#5170FF"/><text x="482" y="130" font-weight="600">⑥ 둘 다 없으면 범위 가운데 · 확신 보통</text><text x="482" y="146" font-size="10">예: 오후 1시에 「12:00 이후」 → 12:30</text>
-    <rect x="6" y="112" width="440" height="44" fill="#fff" stroke="#e3e6ef"/><text x="14" y="130" font-weight="600">식후 행동을 볼 시간</text><text x="14" y="146" font-size="10.5">단서 · 평소 시각이면 추정 시각부터 30분 / 가운데값이면 범위 전체 + 30분 (놓침을 줄이기 위해)</text>
+<table><tr><th style="width:8%">순서</th><th>규칙</th><th>예</th></tr>
+<tr><td>1</td><td>그 끼니 시간대 안에 건강 앱 식사 기록이 있으면 그 시각. 이때는 시각 질문도 묻지 않음</td><td>삼성헬스에 12:35 점심 기록 → 12:35</td></tr>
+<tr><td>2</td><td>없으면 고른 선택지 범위의 가운데</td><td>오후 1시에 「1시간 이내」(12:00~1:00) → 12:30</td></tr>
+</table>
+<div class="fig"><div class="t">Fig 4 · 식사 시각을 정하는 순서 — 세 끼 공통</div>
+<svg viewBox="0 0 720 250" role="img" aria-label="추정 순서">
+  <defs><marker id="a4" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#0f1222"/></marker></defs>
+  <g font-size="13" fill="#0f1222">
+    <rect x="10" y="10" width="700" height="62" fill="#eaf8f0" stroke="#1f9d5a"/>
+    <text x="24" y="34" font-weight="600">① 건강 앱에 그 끼니 식사 기록이 있나</text>
+    <text x="24" y="56">있으면 그 시각으로 봄. 시각 질문도 묻지 않음. 식후 걸음은 그 시각부터 30분 동안 봄</text>
+    <path d="M360 74 L360 94" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a4)"/>
+    <text x="372" y="90" font-size="12" fill="#5d6275">없으면 ↓</text>
+    <rect x="10" y="100" width="700" height="80" fill="#eef1ff" stroke="#5170FF"/>
+    <text x="24" y="124" font-weight="600">② 고른 선택지의 범위를 정함</text>
+    <text x="24" y="146">끼니 시작 기본값(아침 6시 · 점심 11시 · 저녁 4시)보다 이른 부분은 잘라 냄</text>
+    <text x="24" y="168">「…이후」 칸은 끼니 끝 기본값(아침 10시 · 점심 오후 2시 · 저녁 밤 11시)까지로 봄</text>
+    <path d="M360 182 L360 202" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a4)"/>
+    <rect x="10" y="206" width="700" height="38" fill="#eef1ff" stroke="#5170FF"/>
+    <text x="24" y="230" font-weight="600">③ 범위의 가운데</text>
+    <text x="190" y="230">예) 오후 1시에 「1시간 이내」 = 12:00~1:00 → 12:30 · 식후 걸음은 범위 전체 + 30분 동안 봄</text>
   </g>
-  <text x="6" y="185" font-size="10.5" fill="#5d6275">15분 · 2주 · 2시간 · 30분과 끼니 시작 기본값은 설정값(CFG-077~082)이며 출시 후 실제 데이터로 조정함.</text>
 </svg>
-<div class="cap"><b>해석:</b> 위에서부터 먼저 맞는 규칙을 씀. 건강 앱 · 걸음 단서가 없을 때만 평소 시각이나 범위 가운데로 내려감. 범위가 너무 넓으면 추정하지 않음.</div></div>
+<div class="cap"><b>해석:</b> 두 단계뿐임. 건강 앱 기록이 있으면 그 시각, 없으면 고른 선택지 범위의 가운데. 저녁 「9시 이후」는 9시로 봄. 범위가 비어 있으면 「모름」이며 계산에서 빠질 뿐 점수를 깎지 않음. 가운데값일 때는 식후 걸음을 범위 전체에서 보므로 시각이 조금 어긋나도 걸었는지 판정은 거의 달라지지 않음.</div></div>
 </div></section>
 
 <section id="s05"><div class="num">05</div><div>
@@ -196,11 +201,11 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
 <section id="s06"><div class="num">06</div><div>
 <h2>얼마나 맞나 (가상 사용자 2만 끼니)</h2>
 <table><tr><th>끼니</th><th>시각 오차 중앙값</th><th>30분 안에 맞음</th><th>모름</th><th>식후 걸음 판정이 맞은 날</th></tr>
-<tr><td>아침</td><td>14분</td><td>71%</td><td>0%</td><td>87%</td></tr>
-<tr><td>점심</td><td>10분</td><td>83%</td><td>2%</td><td>87%</td></tr>
-<tr><td>저녁</td><td>11분</td><td>77%</td><td>0%</td><td>87%</td></tr>
+<tr><td>아침</td><td>23분</td><td>67%</td><td>0%</td><td>87%</td></tr>
+<tr><td>점심</td><td>16분</td><td>84%</td><td>2%</td><td>89%</td></tr>
+<tr><td>저녁</td><td>17분</td><td>76%</td><td>0%</td><td>88%</td></tr>
 </table>
-<p class="ex">지금은 식후 행동을 알 수 없어 등급이 다른 날이 50%, 평균 점수 오차 10점. 시각 질문을 두면 12~13%, 2.4~2.7점. 모든 수치는 모의 결과이며 실제 데이터로 설정값을 조정함.</p>
+<p class="ex">지금은 식후 행동을 알 수 없어 등급이 다른 날이 50%, 평균 점수 오차 10점. 시각 질문을 두면 10~13%, 2.0~2.5점. 모든 수치는 모의 결과이며 실제 데이터로 설정값을 조정함.</p>
 </div></section>
 
 <section id="s07"><div class="num">07</div><div>
@@ -210,7 +215,7 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
 <tr><td>식사 시각으로 평가</td><td>하지 않음. 등급 · 코칭 문구를 만들지 않음</td></tr>
 <tr><td>건강 앱에 식사 기록이 있으면</td><td>묻지 않고 그 시각을 씀</td></tr>
 <tr><td>어젯밤에 이미 답했으면</td><td>아침에 어제 저녁을 다시 묻지 않음</td></tr>
-<tr><td>임시값</td><td>걸음 멈춤 15분 · 평소 시각 2주 · 300보 · 끼니 시작 · 끝 기본값은 출시 뒤 실제 데이터로 조정</td></tr>
+<tr><td>임시값</td><td>300보 · 끼니 시작 · 끝 기본값 · 선택지 상한 · 하한은 출시 뒤 실제 데이터로 조정</td></tr>
 </table>
 </div></section>
 </main>
