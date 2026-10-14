@@ -45,13 +45,29 @@
   .srcrow .src{font-size:11.5px;color:var(--sub);background:#f1f3fa;padding:2px 8px;border-radius:999px;}
   footer{text-align:center;color:var(--sub);font-size:12.5px;margin-top:30px;}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
 <div class="hero">
   <div class="wrap" style="padding:0">
     <span class="tag">maiReport · 지표 산출 · 재정리본</span>
     <h1>또래 등수 산식 — 최종 통합 규격</h1>
-    <p>PCT-001(산출규격) · PCT-002(적용절차) · 산식_전달본을 <b>산식_통합본(2026-09-14)</b> 기준으로 재정리. 충돌하는 조항은 통합본을 최종으로 채택했습니다.</p>
+    <p>PCT-001(산출규격) · PCT-002(적용절차) · 산식_전달본을 <b>산식_통합본(2026-09-14)</b> 기준으로 재정리. 충돌하는 조항은 통합본을 최종으로 채택했음.</p>
     <div class="meta">
       <span>v1.0.0 · 2026-10-06 정리</span>
       <span>대상: 키 · 체중 · BMI · 허리둘레 4항목</span>
@@ -64,13 +80,13 @@
 
 <div class="card">
   <div class="callout">
-    이 문서는 새 결정을 내린 것이 아니라, <b>이미 작성된 산식_통합본의 선택을 "최종"으로 놓고</b> PCT-001 · PCT-002 · 산식_전달본과 어긋나는 부분을 표로 정리한 것입니다. 실제 서버/관리자 페이지 코드가 어느 쪽을 따르는지는 아래 9장 "구현 대조"에 별도로 적었습니다.
+    이 문서는 새 결정을 내린 것이 아니라, <b>이미 작성된 산식_통합본의 선택을 "최종"으로 놓고</b> PCT-001 · PCT-002 · 산식_전달본과 어긋나는 부분을 표로 정리한 것임. 실제 서버/관리자 페이지 코드가 어느 쪽을 따르는지는 아래 9장 "구현 대조"에 별도로 적었음.
   </div>
 </div>
 
 <div class="card">
   <h2><span class="num">0</span>범위</h2>
-  <p>또래 등수(순위) 계산 대상은 <b>신체계측 4항목 — 키 · 체중 · BMI · 허리둘레</b>뿐입니다.</p>
+  <p>또래 등수(순위) 계산 대상은 <b>신체계측 4항목 — 키 · 체중 · BMI · 허리둘레</b>뿐임.</p>
   <div class="diff">
     <div class="box old"><b>PCT-001 (폐기된 범위)</b>BP_SYS·BP_DIA·FBG·TC·LDL·HDL·TG·ALT·AST·GGT·HB·CR까지 포함해 정규/로그정규 분포로 전부 등수화하도록 설계됨</div>
     <div class="box new"><b>통합본 (최종)</b>위 12개 검사항목은 등수화하지 않고, 기존 공단 판정기준 막대(정상/경계/질환의심 등)로만 표시. 이 문서의 산식은 신체계측 4항목에만 적용</div>
@@ -94,12 +110,12 @@
 if age &gt;= 80: band_age = "80세이상"                 # 단일 구간
 else:         lo = (age // 5) * 5
               band_age = f"{lo}-{lo+4}세"            # 예: 45 → "45-49세"</pre>
-  <div class="callout">전달본에는 최상단 구간이 "85세 이상"으로 적혀 있어 통합본("80세이상")과 어긋납니다. <span class="pill new">최종: 80세 이상 단일 구간</span></div>
+  <div class="callout">전달본에는 최상단 구간이 "85세 이상"으로 적혀 있어 통합본("80세이상")과 어긋남. <span class="pill new">최종: 80세 이상 단일 구간</span></div>
 </div>
 
 <div class="card">
   <h2><span class="num">3</span>기준표(경계값표)</h2>
-  <p>서버 상주 테이블: <code>20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv</code> — 항목×성별×5세구간 104행, 행마다 p1~p99 경계값 99개. 버전 표기 <code>knhanes-2022-2024.v1</code>. 질병관리청 국민건강영양조사 원시자료(3개년 합산, 가중 백분위) 기반 실측치입니다.</p>
+  <p>서버 상주 테이블: <code>20_국민건강영양조사_2022-2024_백분위_키체중BMI허리.csv</code> — 항목×성별×5세구간 104행, 행마다 p1~p99 경계값 99개. 버전 표기 <code>knhanes-2022-2024.v1</code>. 질병관리청 국민건강영양조사 원시자료(3개년 합산, 가중 백분위) 기반 실측치임.</p>
   <div class="diff">
     <div class="box old"><b>전달본이 참조한 표(폐기)</b><code>또래등수_경계값표_신체계측4항목_2024.csv</code> — 국민건강보험공단 2024 건강검진통계연보 구간표 기반. 키·체중은 "평균+표준편차 가정"의 임시 추정치였음</div>
     <div class="box new"><b>통합본 채택(최종)</b>국민건강영양조사 원시자료 기반 백분위표. 키·체중도 실측 분포로 계산된 확정치</div>
@@ -127,9 +143,9 @@ else:
     rank = clamp(round(P), 1, 99)         # 체중·BMI·허리둘레는 작을수록 1등
 band = ceil(rank / 20)                    # 1~5, 사람 그림 위치</pre>
   <div class="callout">
-    <b>정정 (2026-10-06, 서비스 담당자 확인) — 키는 뒤집기를 유지합니다.</b><br>
-    산식_통합본 문서에는 "네 항목 모두 같은 방향, 뒤집기 없음, 키 1등=가장 작은 키"라고 적혀 있었지만, 실제 의도된 규칙은 <b>키는 클수록 1등</b>(PCT-001/PCT-002와 동일한 방향)입니다. 체중·BMI·허리둘레 3항목만 "작을수록 1등"이고, 키는 예외입니다.<br>
-    manage-board 기능 검증 페이지(6개 케이스, 남/여·20~85세 전 구간)로 직접 대조한 결과 이 방향으로 모두 정확히 일치했습니다 — 구현은 처음부터 맞았고, 통합본 문서 쪽 서술이 틀렸던 것입니다. 통합본.md는 이 부분 수정이 필요합니다.
+    <b>정정 (2026-10-06, 서비스 담당자 확인) — 키는 뒤집기를 유지함.</b><br>
+    산식_통합본 문서에는 "네 항목 모두 같은 방향, 뒤집기 없음, 키 1등=가장 작은 키"라고 적혀 있었지만, 실제 의도된 규칙은 <b>키는 클수록 1등</b>(PCT-001/PCT-002와 동일한 방향)임. 체중·BMI·허리둘레 3항목만 "작을수록 1등"이고, 키는 예외임.<br>
+    manage-board 기능 검증 페이지(6개 케이스, 남/여·20~85세 전 구간)로 직접 대조한 결과 이 방향으로 모두 정확히 일치했음 — 구현은 처음부터 맞았고, 통합본 문서 쪽 서술이 틀렸던 것임. 통합본.md는 이 부분 수정이 필요함.
   </div>
 </div>
 
@@ -161,7 +177,7 @@ health = warn  if  허리둘레 &gt;= 85 (여)  or  &gt;= 90 (남)
   <p>배지 톤: <span class="pill" style="background:var(--warn-bg);color:var(--warn-ink)">warn → 주의 톤</span> <span class="pill ok">band 2~4 → 안정 톤</span> <span class="pill" style="background:#eef0f6;color:var(--sub)">band 1·5 → 중립 톤</span></p>
   <div class="callout warn">
     <b>화면에 쓰지 않는 표현 (통합본 명시):</b> "상위/하위 N%", "또래보다 좋음/나쁨", 종합 점수.<br>
-    → PCT-001의 "또래 상위 {rank_pct}%" 문구 체계, bucket GOOD/MID/WATCH/LOW 라벨, 4.7 종합(avg_pct/grade) 섹션은 전부 폐기 대상입니다. (단, 키의 내부 방향 뒤집기 자체는 유지 — 위 4장 정정 참고. 사용자에게 "뒤집었다"는 사실을 노출하지 않는다는 뜻이지, 계산에서 뒤집지 않는다는 뜻이 아닙니다.)
+    → PCT-001의 "또래 상위 {rank_pct}%" 문구 체계, bucket GOOD/MID/WATCH/LOW 라벨, 4.7 종합(avg_pct/grade) 섹션은 전부 폐기 대상임. (단, 키의 내부 방향 뒤집기 자체는 유지 — 위 4장 정정 참고. 사용자에게 "뒤집었다"는 사실을 노출하지 않는다는 뜻이지, 계산에서 뒤집지 않는다는 뜻이 아님.)
   </div>
 </div>
 
@@ -194,7 +210,7 @@ health = warn  if  허리둘레 &gt;= 85 (여)  or  &gt;= 90 (남)
 
 <div class="card">
   <h2><span class="num">9</span>구현 대조 — manage-board 검증 페이지 6케이스 실측</h2>
-  <p class="sub">남/여 · 만 20~85세(80세이상 구간 포함) · 저체중/과체중/허리둘레 경고 케이스를 기준표로 직접 계산한 기대값과 실제 페이지 입력 결과를 대조했습니다 (2026-10-06).</p>
+  <p class="sub">남/여 · 만 20~85세(80세이상 구간 포함) · 저체중/과체중/허리둘레 경고 케이스를 기준표로 직접 계산한 기대값과 실제 페이지 입력 결과를 대조했음 (2026-10-06).</p>
   <table>
     <tr><th>케이스</th><th>항목</th><th>결과</th></tr>
     <tr><td>남45·키172·체중72.5·허리82</td><td>체중·BMI·허리둘레·키</td><td><span class="pill new">전부 일치</span></td></tr>
@@ -203,7 +219,7 @@ health = warn  if  허리둘레 &gt;= 85 (여)  or  &gt;= 90 (남)
     <tr><td>남60·허리91(≥90 경고)</td><td>허리둘레 "주의" 포함 전체</td><td><span class="pill new">전부 일치</span></td></tr>
     <tr><td>여85·80세이상·허리88(≥85 경고)</td><td>연령 최상단 구간 포함 전체</td><td><span class="pill new">전부 일치</span></td></tr>
   </table>
-  <div class="callout">구간(band=ceil(rank/20)), BMI 저체중/과체중 경고, 허리둘레 성별 경고 기준, 연령 5세 구간·80세이상 단일구간, 그리고 <b>키 방향 뒤집기(클수록 1등)</b>까지 6케이스 전부 실제 페이지와 기대값이 정확히 일치했습니다. 현재 구현에 수정이 필요한 부분은 없습니다.</div>
+  <div class="callout">구간(band=ceil(rank/20)), BMI 저체중/과체중 경고, 허리둘레 성별 경고 기준, 연령 5세 구간·80세이상 단일구간, 그리고 <b>키 방향 뒤집기(클수록 1등)</b>까지 6케이스 전부 실제 페이지와 기대값이 정확히 일치했음. 현재 구현에 수정이 필요한 부분은 없음.</div>
 </div>
 
 <div class="card">

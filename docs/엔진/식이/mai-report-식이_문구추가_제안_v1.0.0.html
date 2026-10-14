@@ -32,7 +32,23 @@ tr.g td{background:var(--tint);font-weight:700}
 .tb button:hover{background:var(--tint)}
 @media print{.tb{display:none}body{padding:0;background:#fff}main{max-width:none}
  table{box-shadow:none}tr{break-inside:avoid}h2{break-after:avoid}@page{size:A4 landscape;margin:12mm}}
-</style></head><body><main>
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
+</head><body><main>
 
 <div class="tb">
 <button type="button" data-act="xls">Excel로 저장</button>
@@ -41,12 +57,12 @@ tr.g td{background:var(--tint);font-weight:700}
 </div>
 
 <h1>식이 목표 문구 추가 제안</h1>
-<p class="sub">국내외 학회 가이드라인을 근거로 <b>14개</b>를 제안합니다.
-지금 143개가 축·단계별로 고르지 않게 들어 있어, <b>비어 있는 칸부터</b> 채우는 쪽으로 골랐습니다.
-의학 검수 전 초안이며, 확정 전에는 계약서에 넣지 않습니다.</p>
+<p class="sub">국내외 학회 가이드라인을 근거로 <b>14개</b>를 제안함.
+지금 143개가 축·단계별로 고르지 않게 들어 있어, <b>비어 있는 칸부터</b> 채우는 쪽으로 골랐음.
+의학 검수 전 초안이며, 확정 전에는 계약서에 넣지 않음.</p>
 
 <h2>왜 이 칸들인가 — 현재 분포</h2>
-<p>문구 143개를 축과 단계로 나눠 세어 보면 이렇습니다. 숫자가 적은 칸은 같은 문구가 자주 반복됩니다.</p>
+<p>문구 143개를 축과 단계로 나눠 세어 보면 이렇음. 숫자가 적은 칸은 같은 문구가 자주 반복됨.</p>
 <table>
 <tr><th style="width:22%">축</th><th class="n">입문</th><th class="n">기본</th><th class="n">도전</th>
 <th class="n">합계</th><th style="width:34%">상태</th></tr>
@@ -64,8 +80,8 @@ tr.g td{background:var(--tint);font-weight:700}
 <td><b>도전이 얇음</b></td></tr>
 <tr class="g"><td>상황 풀</td><td colspan="3">회복 7 · 부담 낮춤 9</td><td class="n">16</td><td>적정</td></tr>
 </table>
-<p class="where"><b>식사 시각·야식 축이 5개뿐</b>입니다. 이 축만 돌면 사흘이면 같은 문구가 돌아옵니다.
-점수를 매기지 않는 축이라 문구를 늘려도 상태 판정에는 영향이 없습니다.</p>
+<p class="where"><b>식사 시각·야식 축이 5개뿐</b>임. 이 축만 돌면 사흘이면 같은 문구가 돌아옴.
+점수를 매기지 않는 축이라 문구를 늘려도 상태 판정에는 영향이 없음.</p>
 
 <h2>지금 쓰는 근거와 보탤 근거</h2>
 <table>
@@ -77,7 +93,7 @@ tr.g td{background:var(--tint);font-weight:700}
 <tr><td>미국심장협회 심부전 자료</td><td class="n">27건</td><td>수분 목표 금지 근거</td></tr>
 <tr><td>영국 섭식장애 지침</td><td class="n">15건</td><td>감량·공복 금지 근거</td></tr>
 <tr><td>보건복지부 한국인을 위한 식생활지침</td><td class="n">5건</td><td>수칙 2 덜 짜게 · 수칙 4 과식</td></tr>
-<tr class="g"><td colspan="3">이번에 보태자는 것 — 국내 학회가 거의 없습니다</td></tr>
+<tr class="g"><td colspan="3">이번에 보태자는 것 — 국내 학회가 거의 없음</td></tr>
 <tr><td><b>대한당뇨병학회 2023 진료지침</b></td><td class="n">—</td>
 <td>통곡·콩류·채소 형태의 탄수화물, 포화·트랜스지방을 불포화로 대체</td></tr>
 <tr><td><b>대한고혈압학회 2022 진료지침</b></td><td class="n">—</td>
@@ -93,8 +109,8 @@ tr.g td{background:var(--tint);font-weight:700}
 </table>
 
 <h2>제안 문구 14개</h2>
-<p>타일 문구는 <b>12자 이내(띄어쓰기 포함)</b>를 지켰고, 이유 한 줄은 효과를 단정하지 않고 행동만 적었습니다.
-금지 성격은 질환별 제외에 쓰는 값입니다.</p>
+<p>타일 문구는 <b>12자 이내(띄어쓰기 포함)</b>를 지켰고, 이유 한 줄은 효과를 단정하지 않고 행동만 적었음.
+금지 성격은 질환별 제외에 쓰는 값임.</p>
 
 <table>
 <tr><th class="n" style="width:4%">#</th><th style="width:14%">타일 문구</th><th class="n" style="width:5%">자</th>
@@ -110,7 +126,7 @@ tr.g td{background:var(--tint);font-weight:700}
 <td>식생활지침 수칙 5 「아침식사를 꼭 하자」. 아침을 거르라고 하지 않고 시각만 정하게 함</td></tr>
 <tr><td class="n">3</td><td><b>야식도 그릇에 덜기</b></td><td class="n">10</td><td>식사 시각 · 기본</td>
 <td>봉지째 먹지 않고 그릇에 덜어 먹는 행동이에요.</td><td class="n">—</td>
-<td>대한비만학회 진료지침의 야식·간식 확인 항목. <b>야식을 참으라고 하지 않습니다</b> — 이 축은 좋고 나쁨을 매기지 않기로 했으므로 먹는 방식만 다룸</td></tr>
+<td>대한비만학회 진료지침의 야식·간식 확인 항목. <b>야식을 참으라고 하지 않음</b> — 이 축은 좋고 나쁨을 매기지 않기로 했으므로 먹는 방식만 다룸</td></tr>
 <tr><td class="n">4</td><td><b>저녁 후 물 한 잔</b></td><td class="n">10</td><td>식사 시각 · 도전</td>
 <td>저녁 뒤에 물을 한 잔 마셔 보는 행동이에요.</td><td class="n"><b>수분</b></td>
 <td>식생활지침 수칙 3 「물을 충분히 마시자」. 수분 목표라 신장질환·심부전에는 자동으로 빠짐</td></tr>
@@ -129,7 +145,7 @@ tr.g td{background:var(--tint);font-weight:700}
 <tr class="g"><td colspan="7">기름진 음식 — 도전 단계가 3개뿐</td></tr>
 <tr><td class="n">8</td><td><b>버터 대신 액체 기름</b></td><td class="n">11</td><td>기름진 음식 · 도전</td>
 <td>상온에서 굳는 기름 대신 액체 기름을 쓰는 행동이에요.</td><td class="n">—</td>
-<td>WHO 2023 지방 지침 「불포화지방산 위주로」 · 대한당뇨병학회 2023 「포화·트랜스를 불포화로 대체」.<br><b>「식물성 기름」으로 쓰지 않았습니다</b> — WHO가 야자유·코코넛유를 포화지방 공급원으로 함께 묶고 있어, 식물성이라는 말만으로는 틀린 안내가 됩니다</td></tr>
+<td>WHO 2023 지방 지침 「불포화지방산 위주로」 · 대한당뇨병학회 2023 「포화·트랜스를 불포화로 대체」.<br><b>「식물성 기름」으로 쓰지 않았음</b> — WHO가 야자유·코코넛유를 포화지방 공급원으로 함께 묶고 있어, 식물성이라는 말만으로는 틀린 안내가 됨</td></tr>
 <tr><td class="n">9</td><td><b>고기 기름 떼고 먹기</b></td><td class="n">11</td><td>기름진 음식 · 도전</td>
 <td>눈에 보이는 기름을 떼어 내는 행동이에요.</td><td class="n">—</td>
 <td>한국지질·동맥경화학회 2022 「포화지방은 고기의 기름에 많다」</td></tr>
@@ -157,36 +173,36 @@ tr.g td{background:var(--tint);font-weight:700}
 </table>
 
 <h2>넣지 않은 것과 그 이유</h2>
-<p>가이드라인에 있지만 지금 정책과 어긋나 제외했습니다.</p>
+<p>가이드라인에 있지만 지금 정책과 어긋나 제외했음.</p>
 <table>
 <tr><th style="width:26%">가이드라인 내용</th><th style="width:20%">출처</th><th style="width:54%">제외 사유</th></tr>
 <tr><td>간식 대신 신선한 과일을 먹기</td><td>식약처 당류 저감 · 식생활지침 수칙 1</td>
-<td><b>사용자 정책으로 과일 추가·대체 문구를 쓰지 않기로</b> 되어 있습니다
+<td><b>사용자 정책으로 과일 추가·대체 문구를 쓰지 않기로</b> 되어 있음
 <span class="src">(참조설정데이터 안내 「과일 추천 제외」)</span></td></tr>
 <tr><td>음주를 조절하자</td><td>식생활지침 수칙 6</td>
-<td>식이 8축에 음주 축이 없습니다. 넣으려면 <b>축을 하나 새로 만들어야</b> 합니다</td></tr>
+<td>식이 8축에 음주 축이 없음. 넣으려면 <b>축을 하나 새로 만들어야</b> 함</td></tr>
 <tr><td>건강체중을 유지하자</td><td>식생활지침 수칙 4</td>
-<td>체중 목표는 개인 평가가 필요해 자동으로 내지 않기로 했습니다
+<td>체중 목표는 개인 평가가 필요해 자동으로 내지 않기로 했음
 <span class="src">(구현기준 R-07)</span></td></tr>
 <tr><td>체중 5% 이상 감량</td><td>대한당뇨병학회 2023</td>
-<td>같은 이유. 숫자가 붙은 감량 목표는 자동 생성 대상이 아닙니다</td></tr>
+<td>같은 이유. 숫자가 붙은 감량 목표는 자동 생성 대상이 아님</td></tr>
 <tr><td>나트륨 하루 2,000mg 이하</td><td>대한고혈압학회 2022</td>
-<td>섭취량을 숫자로 제시하면 사용자가 계산해야 합니다. 행동 문구로 바꿔 11·12번에 반영했습니다</td></tr>
+<td>섭취량을 숫자로 제시하면 사용자가 계산해야 함. 행동 문구로 바꿔 11·12번에 반영했음</td></tr>
 <tr><td>지중해식 · 저탄수화물 등 식사 패턴</td><td>대한당뇨병학회 2023</td>
-<td>개별화가 전제인 처방 영역입니다. 하루 한 가지 행동으로 쪼갤 수 없습니다</td></tr>
+<td>개별화가 전제인 처방 영역임. 하루 한 가지 행동으로 쪼갤 수 없음</td></tr>
 <tr><td>식이섬유가 풍부한 통곡류</td><td>대한당뇨병학회 2023</td>
-<td>곡류·식이섬유 19개 문구가 <b>연결 규칙 확정 전 보류</b> 상태입니다
+<td>곡류·식이섬유 19개 문구가 <b>연결 규칙 확정 전 보류</b> 상태임
 <span class="src">(참조설정데이터 안내 「축」 항목)</span></td></tr>
 </table>
 
 <h2>확인이 필요한 것</h2>
 <div class="warn">
-<b>① 4번 「저녁 후 물 한 잔」은 금지 성격이 수분입니다.</b>
-만성 신장질환·심혈관질환·투석·연하장애에서는 자동으로 빠집니다. 그래도 넣을지 확인이 필요합니다.<br><br>
-<b>② 5·6번은 금지 성격이 감량입니다.</b>
-당뇨병·임신·섭식장애·영양결핍·투석·연하장애에서 빠집니다. 「덜어 먹기」가 감량으로 분류되는 게 맞는지 검수가 필요합니다.<br><br>
-<b>③ 1·2번은 끼니 규칙 축과 겹쳐 보일 수 있습니다.</b>
-끼니 규칙은 「얼마나 먹었나」, 식사 시각은 「언제 먹었나」로 나뉘어 있습니다. 시각만 다루도록 썼지만 검수에서 한 번 봐 주셔야 합니다.
+<b>① 4번 「저녁 후 물 한 잔」은 금지 성격이 수분임.</b>
+만성 신장질환·심혈관질환·투석·연하장애에서는 자동으로 빠짐. 그래도 넣을지 확인이 필요함.<br><br>
+<b>② 5·6번은 금지 성격이 감량임.</b>
+당뇨병·임신·섭식장애·영양결핍·투석·연하장애에서 빠짐. 「덜어 먹기」가 감량으로 분류되는 게 맞는지 검수가 필요함.<br><br>
+<b>③ 1·2번은 끼니 규칙 축과 겹쳐 보일 수 있음.</b>
+끼니 규칙은 「얼마나 먹었나」, 식사 시각은 「언제 먹었나」로 나뉘어 있음. 시각만 다루도록 썼지만 검수에서 한 번 봐 주셔야 함.
 </div>
 
 <h2>넣게 되면 바뀌는 분포</h2>
@@ -204,10 +220,10 @@ tr.g td{background:var(--tint);font-weight:700}
 <h2>다음 단계</h2>
 <table>
 <tr><th class="n" style="width:6%">순서</th><th style="width:30%">할 일</th><th style="width:64%">내용</th></tr>
-<tr><td class="n">1</td><td>기획 확인</td><td>14개 중 뺄 것과 문구를 다듬을 것을 고릅니다</td></tr>
-<tr><td class="n">2</td><td>의학 검수</td><td>문구세트 의학검수 파일에 추가해 검수를 받습니다. 금지 성격도 함께 확정합니다</td></tr>
-<tr><td class="n">3</td><td>근거 등록</td><td>근거대조서 출처목록에 국내 학회 다섯 곳을 추가합니다</td></tr>
-<tr><td class="n">4</td><td>계약 반영</td><td>데이터계약 목표문구·노출조건과 참조설정데이터 문구세트에 넣고, 안내 시트 변경 이력에 남깁니다</td></tr>
+<tr><td class="n">1</td><td>기획 확인</td><td>14개 중 뺄 것과 문구를 다듬을 것을 고름</td></tr>
+<tr><td class="n">2</td><td>의학 검수</td><td>문구세트 의학검수 파일에 추가해 검수를 받음. 금지 성격도 함께 확정함</td></tr>
+<tr><td class="n">3</td><td>근거 등록</td><td>근거대조서 출처목록에 국내 학회 다섯 곳을 추가함</td></tr>
+<tr><td class="n">4</td><td>계약 반영</td><td>데이터계약 목표문구·노출조건과 참조설정데이터 문구세트에 넣고, 안내 시트 변경 이력에 남김</td></tr>
 </table>
 
 <p class="src" style="margin-top:26px">

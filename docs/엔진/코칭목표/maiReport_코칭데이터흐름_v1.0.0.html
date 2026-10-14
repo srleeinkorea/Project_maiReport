@@ -127,6 +127,22 @@
       .trace-step{grid-template-columns:minmax(0,1fr);gap:6px;padding:16px 14px}
     }
   </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
   <header class="top">
@@ -147,7 +163,7 @@
     <section class="hero" id="top">
       <span class="eyebrow">maiReport · Coaching Data Lineage</span>
       <h1>웨어러블의 어떤 필드가<br>어떤 문구로 나가는가.</h1>
-      <p>개념이 아니라 <strong>데이터를 따라간 문서</strong>입니다. 원천 필드 하나가 어떤 지표를 거쳐 어떤 규칙에 걸리고 어떤 문구가 되는지를 계보로 그리고, 실제 값으로 두 번 추적합니다. 그 과정에서 <strong>지금 어디가 끊겨 있는지</strong>가 그대로 드러납니다.</p>
+      <p>개념이 아니라 <strong>데이터를 따라간 문서</strong>임. 원천 필드 하나가 어떤 지표를 거쳐 어떤 규칙에 걸리고 어떤 문구가 되는지를 계보로 그리고, 실제 값으로 두 번 추적함. 그 과정에서 <strong>지금 어디가 끊겨 있는지</strong>가 그대로 드러남.</p>
       <div class="chips">
         <span class="chip">원천 필드 → 지표 → 규칙 → 문구</span>
         <span class="chip">실제 값 추적 2회</span>
@@ -178,7 +194,7 @@
     <!-- 1 -->
     <section class="section" id="s1">
       <div class="section-head"><span class="section-label">01 · Lineage</span><h2>데이터 계보 — 일반 성인</h2>
-        <p>확진 질환이 없는 사용자에게 도달할 수 있는 <b>전체 경로</b>입니다. 초록은 지금 살아 있는 경로, 노랑은 원천이 없어 막힌 경로, 빨강은 끝까지 갔는데 <b>받아 줄 문구가 없는</b> 경로입니다.</p>
+        <p>확진 질환이 없는 사용자에게 도달할 수 있는 <b>전체 경로</b>임. 초록은 지금 살아 있는 경로, 노랑은 원천이 없어 막힌 경로, 빨강은 끝까지 갔는데 <b>받아 줄 문구가 없는</b> 경로임.</p>
       </div>
 
       <div class="diagram">
@@ -243,8 +259,8 @@
           <path class="ar" d="M466,132 L516,132"/>
 
           <rect class="dd" x="516" y="106" width="420" height="52" rx="12"/>
-          <text class="t" x="532" y="127">연결된 규칙 0건 — 여기서 끝난다</text>
-          <text class="s" x="532" y="145">계산은 되지만 받아 줄 문구가 없다. 사용자 대부분이 주는 데이터가 이것이다</text>
+          <text class="t" x="532" y="127">연결된 규칙 0건 — 여기서 끝남</text>
+          <text class="s" x="532" y="145">계산은 되지만 받아 줄 문구가 없음. 사용자 대부분이 주는 데이터가 이것임</text>
 
           <!-- row 3 : activity_interval (BLOCKED) -->
           <rect class="bk" x="24" y="188" width="176" height="176" rx="12"/>
@@ -301,13 +317,13 @@
           <!-- profile band -->
           <rect class="bk" x="24" y="390" width="912" height="52" rx="12"/>
           <text class="t" x="40" y="411">생년월일 <tspan class="m">birth_date</tspan> — 웨어러블이 아니라 프로필</text>
-          <text class="s" x="40" y="429">모든 규칙의 나이 조건과 %HRmax(220−나이) 신호에 필요. 없으면 위 규칙 전부가 서지 않는다</text>
+          <text class="s" x="40" y="429">모든 규칙의 나이 조건과 %HRmax(220−나이) 신호에 필요. 없으면 위 규칙 전부가 서지 않음</text>
 
           <!-- gate band -->
           <rect class="nn" x="24" y="458" width="912" height="86" rx="12"/>
-          <text class="t" x="40" y="480">질환 경로는 이 그림에 없다</text>
-          <text class="s" x="40" y="500">2형 당뇨 12건 · 폐렴 회복기 2건은 확진 확인이라는 별도 게이트 뒤에 있다. 웨어러블 데이터가 아무리 좋아도</text>
-          <text class="s" x="40" y="516">확진이 확인되지 않으면 진입하지 않는다. 식후 코칭은 여기에 더해 식사 시각 질문까지 필요하다.</text>
+          <text class="t" x="40" y="480">질환 경로는 이 그림에 없음</text>
+          <text class="s" x="40" y="500">2형 당뇨 12건 · 폐렴 회복기 2건은 확진 확인이라는 별도 게이트 뒤에 있음. 웨어러블 데이터가 아무리 좋아도</text>
+          <text class="s" x="40" y="516">확진이 확인되지 않으면 진입하지 않음. 식후 코칭은 여기에 더해 식사 시각 질문까지 필요함.</text>
           <text class="s" x="40" y="536">→ 5장</text>
         </svg>
 
@@ -319,42 +335,42 @@
       </div>
 
       <div class="callout warn"><span>이 그림의 요지</span>
-        <p>일반 성인에게 <b>지금 도달 가능한 문구는 수면 1건</b>입니다. 초록 줄이 하나뿐인 것이 그 뜻입니다.</p>
-        <p>걸음수는 <b>계산까지는 정상적으로 끝나는데 받아 줄 규칙이 없어</b> 버려집니다. 사용자 대부분이 제공하는 데이터가 이것이라, 다른 어떤 항목보다 먼저 메워야 할 공백입니다.</p>
+        <p>일반 성인에게 <b>지금 도달 가능한 문구는 수면 1건</b>임. 초록 줄이 하나뿐인 것이 그 뜻임.</p>
+        <p>걸음수는 <b>계산까지는 정상적으로 끝나는데 받아 줄 규칙이 없어</b> 버려짐. 사용자 대부분이 제공하는 데이터가 이것이라, 다른 어떤 항목보다 먼저 메워야 할 공백임.</p>
       </div>
     </section>
 
     <!-- 2 -->
     <section class="section" id="s2">
       <div class="section-head"><span class="section-label">02 · Source Fields</span><h2>원천 필드의 실제 형태</h2>
-        <p>계보의 맨 왼쪽에 있는 것들입니다. <b>값이 아니라 형태가 맞아야</b> 계산이 성립합니다.</p>
+        <p>계보의 맨 왼쪽에 있는 것들임. <b>값이 아니라 형태가 맞아야</b> 계산이 성립함.</p>
       </div>
 
       <div class="table-wrap"><table class="wide">
         <thead><tr><th style="width:150px">필드</th><th style="width:210px">형태</th><th style="width:84px">유효기간</th><th style="width:88px">현재</th><th>이 필드가 없으면</th></tr></thead>
         <tbody>
-          <tr><td><b>수면 세션</b><br><span class="tag">sleep_session</span></td><td>밤별 수면 시간<br><code>start, end</code></td><td>24h</td><td><span class="status-badge sb-ok">수집</span></td><td>일반 성인에게 나갈 문구가 <b>0건</b>이 된다</td></tr>
+          <tr><td><b>수면 세션</b><br><span class="tag">sleep_session</span></td><td>밤별 수면 시간<br><code>start, end</code></td><td>24h</td><td><span class="status-badge sb-ok">수집</span></td><td>일반 성인에게 나갈 문구가 <b>0건</b>이 됨</td></tr>
           <tr><td><b>하루 걸음 총량</b><br><span class="tag">daily_step_total</span></td><td>보정된 하루 총량<br>raw 구간 합산 금지</td><td>24h</td><td><span class="status-badge sb-ok">수집</span></td><td>현재는 영향 없음 (연결 규칙 0건)</td></tr>
-          <tr><td><b>활동 구간 샘플</b><br><span class="tag">activity_interval</span></td><td><code>start, end,<br>steps | met | heart_rate</code></td><td>24h</td><td><span class="status-badge sb-no">미수집</span></td><td>강도 지표 6개 + 3지표의 시간축이 함께 막힌다</td></tr>
-          <tr><td><b>운동 세션</b><br><span class="tag">exercise_session</span></td><td><code>start, end</code><br>10분 이상 = 1세션</td><td>168h</td><td><span class="status-badge sb-no">미수집</span></td><td>세션 간격 문구(당뇨)가 서지 않는다</td></tr>
+          <tr><td><b>활동 구간 샘플</b><br><span class="tag">activity_interval</span></td><td><code>start, end,<br>steps | met | heart_rate</code></td><td>24h</td><td><span class="status-badge sb-no">미수집</span></td><td>강도 지표 6개 + 3지표의 시간축이 함께 막힘</td></tr>
+          <tr><td><b>운동 세션</b><br><span class="tag">exercise_session</span></td><td><code>start, end</code><br>10분 이상 = 1세션</td><td>168h</td><td><span class="status-badge sb-no">미수집</span></td><td>세션 간격 문구(당뇨)가 서지 않음</td></tr>
           <tr><td><b>좌식 구간</b><br><span class="tag">sedentary_bout</span></td><td><code>start, end</code></td><td>24h</td><td><span class="status-badge sb-no">미수집</span></td><td>해당 규칙이 현재 비활성이라 영향 없음</td></tr>
         </tbody>
       </table></div>
 
       <div class="callout"><span>웨어러블 밖</span>
-        <p>계보를 완성하려면 웨어러블이 아닌 입력 3종이 더 필요합니다 — <b>생년월일</b>(프로필), <b>확진 질환</b>(질문), <b>식사 시각</b>(질문). 특히 생년월일은 나이 조건이 붙은 모든 규칙의 전제라, 없으면 웨어러블 데이터가 아무리 완전해도 문구가 나가지 않습니다.</p>
+        <p>계보를 완성하려면 웨어러블이 아닌 입력 3종이 더 필요함 — <b>생년월일</b>(프로필), <b>확진 질환</b>(질문), <b>식사 시각</b>(질문). 특히 생년월일은 나이 조건이 붙은 모든 규칙의 전제라, 없으면 웨어러블 데이터가 아무리 완전해도 문구가 나가지 않음.</p>
       </div>
     </section>
 
     <!-- 3 -->
     <section class="section" id="s3">
       <div class="section-head"><span class="section-label">03 · Trace A</span><h2>값 추적 A — 오늘</h2>
-        <p><b>45세 · 확진 없음 · 워치 없음 · 수면 기록만 있는 사용자.</b> 계보의 초록 줄을 실제 값으로 따라갑니다.</p>
+        <p><b>45세 · 확진 없음 · 워치 없음 · 수면 기록만 있는 사용자.</b> 계보의 초록 줄을 실제 값으로 따라감.</p>
       </div>
 
       <div class="trace">
         <div class="trace-step"><b>① 원천</b><div class="body">
-          <p>최근 7일 동안 들어온 값. 09-04와 09-07은 기록이 없다.</p>
+          <p>최근 7일 동안 들어온 값. 09-04와 09-07은 기록이 없음.</p>
 <pre class="data">sleep_session                     daily_step_total
 09-02  23:40 → 06:05   6.4h              6,100
 09-03  00:20 → 06:10   5.8h              8,400
@@ -370,7 +386,7 @@
         </div></div>
 
         <div class="trace-step"><b>③ 창 집계</b><div class="body">
-          <p>집계 창은 <code>night</code>. 자정을 넘는 수면은 <b>기상 시각이 속한 날짜</b>에 귀속한다 — 09-03의 <code>00:20 → 06:10</code>은 09-03에 붙는다.</p>
+          <p>집계 창은 <code>night</code>. 자정을 넘는 수면은 <b>기상 시각이 속한 날짜</b>에 귀속함 — 09-03의 <code>00:20 → 06:10</code>은 09-03에 붙음.</p>
 <pre class="data">밤별 값   6.4 / 5.8 / — / 7.5 / 6.2 / — / 6.4</pre>
         </div></div>
 
@@ -379,7 +395,7 @@
             <li><i>✓</i><span>관찰된 밤 <b>5</b> ≥ 최소 관찰 <b>5밤</b></span></li>
             <li><i>✓</i><span>7시간 미만인 밤 <b>4 ÷ 5 = 0.8</b> &gt; 기준 <b>0.5</b></span></li>
           </ul>
-          <p>→ 통과. 대표값 <b>6.4</b>를 규칙 평가로 넘긴다. <b>이 관찰 조건은 9개 지표 중 유일하게 근거에서 온 값</b>이다.</p>
+          <p>→ 통과. 대표값 <b>6.4</b>를 규칙 평가로 넘김. <b>이 관찰 조건은 9개 지표 중 유일하게 근거에서 온 값</b>임.</p>
         </div></div>
 
         <div class="trace-step"><b>⑤ 규칙 평가</b><div class="body">
@@ -403,26 +419,26 @@
       <div class="table-wrap"><table>
         <thead><tr><th style="width:230px">지표</th><th style="width:120px">계산</th><th>결과</th></tr></thead>
         <tbody>
-          <tr><td><b>하루 총 걸음수</b> = 6,900</td><td><span class="status-badge sb-ok">성공</span></td><td>이 지표를 보는 규칙이 <b>0건</b> → 값이 그대로 버려진다</td></tr>
+          <tr><td><b>하루 총 걸음수</b> = 6,900</td><td><span class="status-badge sb-ok">성공</span></td><td>이 지표를 보는 규칙이 <b>0건</b> → 값이 그대로 버려짐</td></tr>
           <tr><td><b>주간 중강도 · 고강도 시간</b></td><td><span class="status-badge sb-no">불가</span></td><td>구간 샘플 없음 → <b>지표 목록에서 제외</b> → 해당 규칙 자동 미적용</td></tr>
           <tr><td><b>짧고 빠른 보행 구간 수</b></td><td><span class="status-badge sb-no">불가</span></td><td>동일하게 제외</td></tr>
         </tbody>
       </table></div>
 
       <div class="callout ok"><span>여기가 설계의 핵심</span>
-        <p>계산 불가 지표를 <b>0으로 채우지 않고 목록에서 뺐기 때문에</b> 「유산소가 부족해요」 같은 문구가 잘못 나가지 않았습니다. 0으로 채웠다면 이 사용자는 활동 데이터가 없다는 이유만으로 「운동이 부족하다」는 말을 들었을 것입니다.</p>
+        <p>계산 불가 지표를 <b>0으로 채우지 않고 목록에서 뺐기 때문에</b> 「유산소가 부족해요」 같은 문구가 잘못 나가지 않았음. 0으로 채웠다면 이 사용자는 활동 데이터가 없다는 이유만으로 「운동이 부족하다」는 말을 들었을 것임.</p>
       </div>
     </section>
 
     <!-- 4 -->
     <section class="section" id="s4">
       <div class="section-head"><span class="section-label">04 · Trace B</span><h2>값 추적 B — 구간 확보 후</h2>
-        <p>같은 사용자가 워치를 차기 시작해 <code>activity_interval</code>이 들어옵니다. <b>같은 네 개의 구간에서 지표 셋이 갈라져 나오는</b> 지점이 이 추적의 핵심입니다.</p>
+        <p>같은 사용자가 워치를 차기 시작해 <code>activity_interval</code>이 들어옴. <b>같은 네 개의 구간에서 지표 셋이 갈라져 나오는</b> 지점이 이 추적의 핵심임.</p>
       </div>
 
       <div class="trace">
         <div class="trace-step"><b>① 원천</b><div class="body">
-          <p>09-08 하루치 구간 샘플. MET이 없으므로 <b>우선순위 2번인 cadence 경로</b>를 쓴다.</p>
+          <p>09-08 하루치 구간 샘플. MET이 없으므로 <b>우선순위 2번인 cadence 경로</b>를 씀.</p>
 <pre class="data">구간             길이   걸음    cadence = 걸음 ÷ 분
 07:12 – 07:26    14분   1,540   110 /min
 12:40 – 12:47     7분     810   116 /min
@@ -431,11 +447,11 @@
         </div></div>
 
         <div class="trace-step"><b>② 구간 판정</b><div class="body">
-          <p>중강도 = <code>cadence [100, 130)</code> → <b>네 구간 모두 해당.</b> 고강도(<code>130 이상</code>)는 없다.</p>
+          <p>중강도 = <code>cadence [100, 130)</code> → <b>네 구간 모두 해당.</b> 고강도(<code>130 이상</code>)는 없음.</p>
         </div></div>
 
         <div class="trace-step"><b>③ 지속시간 필터</b><div class="body">
-          <p><b>여기서 하나의 원천이 세 갈래로 갈라진다.</b> bout 조건이 지표마다 다르기 때문이다.</p>
+          <p><b>여기서 하나의 원천이 세 갈래로 갈라짐.</b> bout 조건이 지표마다 다르기 때문임.</p>
           <div class="table-wrap"><table>
             <thead><tr><th style="width:190px">지표</th><th style="width:150px">bout 조건</th><th style="width:150px">남는 구간</th><th>그날 값</th></tr></thead>
             <tbody>
@@ -462,59 +478,59 @@
         </div></div>
 
         <div class="trace-step out"><b>⑥ 출력</b><div class="body">
-          <p><b>1건 → 3건.</b> 구간 샘플 하나가 붙자 도달 가능한 문구가 세 배가 된다.</p>
+          <p><b>1건 → 3건.</b> 구간 샘플 하나가 붙자 도달 가능한 문구가 세 배가 됨.</p>
         </div></div>
       </div>
 
       <div class="callout warn"><span>이 결과가 확인 요청 항목</span>
-        <p>고강도가 <b>0분인데도</b> 「더 늘리지 않아도 돼요」가 나갑니다. 중강도와 고강도를 서로 대체 가능하게 본 우선순위 설계(prio 10 vs 20)의 결과인데, 임상적으로 맞는지는 <b>의학팀 확인 대기</b> 항목입니다.</p>
-        <p>대안은 <code>중강도 + 2 × 고강도 ≥ 150</code> 같은 등가 환산 지표를 새로 정의하는 것입니다.</p>
+        <p>고강도가 <b>0분인데도</b> 「더 늘리지 않아도 돼요」가 나감. 중강도와 고강도를 서로 대체 가능하게 본 우선순위 설계(prio 10 vs 20)의 결과인데, 임상적으로 맞는지는 <b>의학팀 확인 대기</b> 항목임.</p>
+        <p>대안은 <code>중강도 + 2 × 고강도 ≥ 150</code> 같은 등가 환산 지표를 새로 정의하는 것임.</p>
       </div>
 
       <div class="callout bad"><span>금지</span>
-        <p>7분 구간은 「짧은 보행」에는 세지만 「활동일」에는 세지 않습니다. <b>떨어진 샘플을 이어붙여 10분을 만들면 안 됩니다.</b> 이어붙이는 순간 두 지표가 같은 값이 되어 구분이 사라집니다.</p>
-        <p>구간 샘플이 없을 때 <b>하루 총 걸음수를 100으로 나눠</b> 활동 시간을 추정하는 폴백으로 만든 값은, 계산은 되더라도 코칭 판정에 넣지 않습니다.</p>
+        <p>7분 구간은 「짧은 보행」에는 세지만 「활동일」에는 세지 않음. <b>떨어진 샘플을 이어붙여 10분을 만들면 안 됨.</b> 이어붙이는 순간 두 지표가 같은 값이 되어 구분이 사라짐.</p>
+        <p>구간 샘플이 없을 때 <b>하루 총 걸음수를 100으로 나눠</b> 활동 시간을 추정하는 폴백으로 만든 값은, 계산은 되더라도 코칭 판정에 넣지 않음.</p>
       </div>
     </section>
 
     <!-- 5 -->
     <section class="section" id="s5">
       <div class="section-head"><span class="section-label">05 · Gated Paths</span><h2>질환 경로의 게이트</h2>
-        <p>문구 20건 중 <b>14건이 질환 경로</b>에 있습니다. 웨어러블 데이터가 아무리 완전해도 이 게이트를 넘지 못하면 도달하지 않습니다.</p>
+        <p>문구 20건 중 <b>14건이 질환 경로</b>에 있음. 웨어러블 데이터가 아무리 완전해도 이 게이트를 넘지 못하면 도달하지 않음.</p>
       </div>
 
       <div class="table-wrap"><table class="wide">
         <thead><tr><th style="width:150px">대상</th><th style="width:100px">문구</th><th style="width:230px">게이트</th><th>추가로 필요한 웨어러블</th></tr></thead>
         <tbody>
           <tr><td><b>일반 성인</b></td><td>6건</td><td>나이 조건만</td><td>수면 세션 · 활동 구간 샘플</td></tr>
-          <tr><td><b>2형 당뇨</b></td><td>12건</td><td><b>확진 확인</b> — AI 리포트 소견만으로는 켜지 않는다</td><td>활동 구간 샘플 · 운동 세션 <span class="status-badge sb-review">+ 식사 시각 질문</span></td></tr>
+          <tr><td><b>2형 당뇨</b></td><td>12건</td><td><b>확진 확인</b> — AI 리포트 소견만으로는 켜지 않음</td><td>활동 구간 샘플 · 운동 세션 <span class="status-badge sb-review">+ 식사 시각 질문</span></td></tr>
           <tr><td><b>폐렴 회복기</b></td><td>2건</td><td><b>확진 확인 + 회복기 맥락 + 활동 가능 여부</b></td><td>없음 — 질환만으로 뜨는 문구</td></tr>
         </tbody>
       </table></div>
 
       <div class="callout warn"><span>웨어러블로 풀 수 없는 것</span>
-        <p>확진 여부와 식사 시각은 <b>어떤 웨어러블도 주지 않습니다.</b> 애플·삼성 플랫폼에 해당 데이터가 없어 앱 질문이 유일한 경로입니다. 당뇨 문구 12건 중 6건은 식사 시각까지 있어야 하므로, <b>질문 2종이 확보되기 전까지 문구의 70%는 도달 불가</b>입니다.</p>
+        <p>확진 여부와 식사 시각은 <b>어떤 웨어러블도 주지 않음.</b> 애플·삼성 플랫폼에 해당 데이터가 없어 앱 질문이 유일한 경로임. 당뇨 문구 12건 중 6건은 식사 시각까지 있어야 하므로, <b>질문 2종이 확보되기 전까지 문구의 70%는 도달 불가</b>임.</p>
       </div>
 
       <div class="callout"><span>안전 게이트</span>
-        <p>확진이 확인돼도 바로 나가지 않는 문구가 있습니다. 고강도 인터벌을 권하는 당뇨 문구와 폐렴 회복기 문구 2건은 <b>심혈관 위험 평가·활동 가능 여부를 서비스가 별도로 확인한 뒤에만</b> 노출합니다. 코칭 세트는 “확인이 필요하다”는 표시만 넘겨줍니다.</p>
+        <p>확진이 확인돼도 바로 나가지 않는 문구가 있음. 고강도 인터벌을 권하는 당뇨 문구와 폐렴 회복기 문구 2건은 <b>심혈관 위험 평가·활동 가능 여부를 서비스가 별도로 확인한 뒤에만</b> 노출함. 코칭 세트는 “확인이 필요하다”는 표시만 넘겨줌.</p>
       </div>
     </section>
 
     <!-- 6 -->
     <section class="section" id="s6">
       <div class="section-head"><span class="section-label">06 · Same Data, Other Tier</span><h2>같은 데이터가 3지표로 갈 때</h2>
-        <p>위 추적에서 쓴 <b>똑같은 원천</b>이 3지표로도 갑니다. 다만 코칭 규칙 평가를 거치지 않고, 비교 대상이 가이드라인이 아니라 <b>그 사람의 평소 분포</b>입니다. 지표명은 2026-09-08 확정본입니다.</p>
+        <p>위 추적에서 쓴 <b>똑같은 원천</b>이 3지표로도 감. 다만 코칭 규칙 평가를 거치지 않고, 비교 대상이 가이드라인이 아니라 <b>그 사람의 평소 분포</b>임. 지표명은 2026-09-08 확정본임.</p>
       </div>
 
       <div class="g3">
         <article class="card">
           <h4>생활여유 <span class="tag">Life Margin</span></h4>
-          <span class="q">하루의 배치를 본다 — 총량이 아니라</span>
+          <span class="q">하루의 배치를 봄 — 총량이 아니라</span>
           <ul>
-            <li>추적 B의 네 구간이 <b>하루에 어떻게 흩어져 있었는지</b>를 본다</li>
+            <li>추적 B의 네 구간이 <b>하루에 어떻게 흩어져 있었는지</b>를 봄</li>
             <li>07시 · 12시 · 18시 · 20시로 분산 → 여유 쪽</li>
-            <li>같은 55분이 한 번에 몰렸다면 다르게 읽힌다</li>
+            <li>같은 55분이 한 번에 몰렸다면 다르게 읽힘</li>
             <li>충분해요 / 보통이에요 / 부족해요</li>
           </ul>
         </article>
@@ -523,8 +539,8 @@
           <span class="q">기준점과 짧은 움직임의 연결</span>
           <ul>
             <li>12:40의 7분 구간이 <b>점심 뒤였는지</b>가 관건</li>
-            <li>식사 시각 질문이 있어야 기준점이 생긴다</li>
-            <li>긴 비활동이 끝난 시점도 기준점이 된다</li>
+            <li>식사 시각 질문이 있어야 기준점이 생김</li>
+            <li>긴 비활동이 끝난 시점도 기준점이 됨</li>
             <li>잘하고 있어요 / 보통이에요 / 부족해요</li>
           </ul>
         </article>
@@ -533,27 +549,27 @@
           <span class="q">개인 평소 패턴 대비 최근 7~30일</span>
           <ul>
             <li>수면 6.4h가 <b>이 사람 평소 대비</b> 얼마나 흔들렸는지</li>
-            <li>가이드라인 7시간과는 다른 질문이다</li>
-            <li><b>체중 · 심박도 함께</b> — 넷 다 이미 수집 중이라 지금 계산된다</li>
+            <li>가이드라인 7시간과는 다른 질문임</li>
+            <li><b>체중 · 심박도 함께</b> — 넷 다 이미 수집 중이라 지금 계산됨</li>
             <li>안정적이에요 / 보통이에요 / 불안정해요</li>
           </ul>
         </article>
       </div>
 
       <div class="callout"><span>같은 값, 다른 결론</span>
-        <p>추적 A의 <b>수면 6.4시간</b>은 코칭 쪽에서 「권고 미달」이 됩니다. 그런데 이 사람이 평소 6.2~6.5시간으로 일정하게 자 왔다면 <b>일상안정</b> 쪽에서는 「안정적이에요」가 됩니다. <b>모순이 아니라 서로 다른 질문에 답한 것</b>입니다 — 하나는 권고 대비, 다른 하나는 평소 대비 흔들림.</p>
-        <p>이래서 두 층을 하나의 점수로 합치지 않습니다. 합치면 「권고 미달」과 「평소보다 나아짐」이 상쇄되어 둘 다 사라집니다.</p>
+        <p>추적 A의 <b>수면 6.4시간</b>은 코칭 쪽에서 「권고 미달」이 됨. 그런데 이 사람이 평소 6.2~6.5시간으로 일정하게 자 왔다면 <b>일상안정</b> 쪽에서는 「안정적이에요」가 됨. <b>모순이 아니라 서로 다른 질문에 답한 것</b>임 — 하나는 권고 대비, 다른 하나는 평소 대비 흔들림.</p>
+        <p>이래서 두 층을 하나의 점수로 합치지 않음. 합치면 「권고 미달」과 「평소보다 나아짐」이 상쇄되어 둘 다 사라짐.</p>
       </div>
 
       <div class="callout warn"><span>공통 예외</span>
-        <p>데이터가 부족하면 세 지표 모두 <b>「관찰 중」</b>으로 표시합니다. 나쁜 상태가 아니라 판정하지 않았다는 뜻이며, 워치가 없는 사용자를 불리하게 만들지 않기 위한 처리입니다.</p>
+        <p>데이터가 부족하면 세 지표 모두 <b>「관찰 중」</b>으로 표시함. 나쁜 상태가 아니라 판정하지 않았다는 뜻이며, 워치가 없는 사용자를 불리하게 만들지 않기 위한 처리임.</p>
       </div>
     </section>
 
     <!-- 7 -->
     <section class="section" id="s7">
       <div class="section-head"><span class="section-label">07 · Breakpoints</span><h2>끊기는 지점 정리</h2>
-        <p>계보에서 흐름이 멈추는 곳은 넷입니다. <b>원인이 서로 달라 해결 주체도 다릅니다.</b></p>
+        <p>계보에서 흐름이 멈추는 곳은 넷임. <b>원인이 서로 달라 해결 주체도 다름.</b></p>
       </div>
 
       <div class="table-wrap"><table class="wide">
@@ -562,25 +578,25 @@
           <tr>
             <td><b>걸음수 → 규칙</b></td>
             <td><span class="status-badge sb-no">문구 없음</span></td>
-            <td>계산은 끝나는데 받아 줄 규칙이 0건. <b>사용자 대부분이 주는 데이터</b>라 공백이 가장 크다</td>
+            <td>계산은 끝나는데 받아 줄 규칙이 0건. <b>사용자 대부분이 주는 데이터</b>라 공백이 가장 크음</td>
             <td>의학팀</td>
           </tr>
           <tr>
             <td><b>활동 구간 샘플</b></td>
             <td><span class="status-badge sb-review">미수집</span></td>
-            <td>지표 6개 + 3지표의 시간축이 함께 막힌다. <b>단일 병목으로 가장 크다</b></td>
+            <td>지표 6개 + 3지표의 시간축이 함께 막힘. <b>단일 병목으로 가장 크음</b></td>
             <td>개발팀</td>
           </tr>
           <tr>
             <td><b>생년월일</b></td>
             <td><span class="status-badge sb-review">미수집</span></td>
-            <td>나이 조건이 붙은 규칙 전부 + %HRmax 신호. 웨어러블이 완전해도 이것 없이는 안 나간다</td>
+            <td>나이 조건이 붙은 규칙 전부 + %HRmax 신호. 웨어러블이 완전해도 이것 없이는 안 나감</td>
             <td>개발팀</td>
           </tr>
           <tr>
             <td><b>확진 질환 · 식사 시각</b></td>
             <td><span class="status-badge sb-review">질문 필요</span></td>
-            <td>문구 20건 중 14건이 이 뒤에 있다. 웨어러블로는 절대 풀리지 않는다</td>
+            <td>문구 20건 중 14건이 이 뒤에 있음. 웨어러블로는 절대 풀리지 않음</td>
             <td>개발팀 · 기획</td>
           </tr>
         </tbody>
@@ -591,8 +607,8 @@
         <thead><tr><th style="width:60px">순서</th><th style="width:210px">확보할 것</th><th>풀리는 것</th></tr></thead>
         <tbody>
           <tr><td><b>①</b></td><td>생년월일</td><td>나이 조건 해제 — 이후 모든 단계의 전제</td></tr>
-          <tr><td><b>②</b></td><td>활동 구간 샘플 강도 구분</td><td>일반 성인 문구가 1건 → <b>4건</b>. 3지표의 시간축도 함께 열린다</td></tr>
-          <tr><td><b>③</b></td><td>걸음수 문구 신설</td><td>워치 없는 다수 사용자에게 처음으로 활동 코칭이 닿는다</td></tr>
+          <tr><td><b>②</b></td><td>활동 구간 샘플 강도 구분</td><td>일반 성인 문구가 1건 → <b>4건</b>. 3지표의 시간축도 함께 열림</td></tr>
+          <tr><td><b>③</b></td><td>걸음수 문구 신설</td><td>워치 없는 다수 사용자에게 처음으로 활동 코칭이 닿음</td></tr>
           <tr><td><b>④</b></td><td>확진 질환 질문</td><td>당뇨 6건 · 폐렴 2건 진입</td></tr>
           <tr><td><b>⑤</b></td><td>식사 시각 질문</td><td>당뇨 나머지 6건 + <b>건강돌봄</b>의 기준점</td></tr>
           <tr><td><b>⑥</b></td><td>운동 세션</td><td>세션 간격 문구 1건</td></tr>
@@ -600,7 +616,7 @@
       </table></div>
 
       <div class="callout ok"><span>가장 값싼 한 걸음</span>
-        <p>③ <b>걸음수 문구 신설</b>은 개발 작업이 전혀 없습니다. 데이터는 이미 들어오고 지표 계산도 이미 됩니다. <b>의학팀이 임계와 문구를 정해 주면 그날로 다수 사용자에게 코칭이 닿습니다.</b></p>
+        <p>③ <b>걸음수 문구 신설</b>은 개발 작업이 전혀 없음. 데이터는 이미 들어오고 지표 계산도 이미 됨. <b>의학팀이 임계와 문구를 정해 주면 그날로 다수 사용자에게 코칭이 닿음.</b></p>
       </div>
     </section>
 

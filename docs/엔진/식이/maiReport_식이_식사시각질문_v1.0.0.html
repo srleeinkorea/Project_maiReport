@@ -6,6 +6,22 @@
 <title>끼니별 식사 시각 질문</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
 <style>
@@ -18,16 +34,6 @@
   --f-body:"IBM Plex Sans KR",-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --f-num:var(--f-body);
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0F131B; --surface:#171C27; --ink:#E6EAF2; --muted:#9BA4B6; --line:#2A3242;
-  --accent:#86A6FF; --accent-soft:#1D2849; --hero:#1A2440;
-  --hi:#73D3A0; --hi-soft:#14301F; --mid:#E9C46A; --mid-soft:#33290F; --none:#A7B0C1; --none-soft:#232A37;
-  --face-good:#5DB57D; --face-okay:#D8A93A; --face-bad:#D97A92; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0F131B; --surface:#171C27; --ink:#E6EAF2; --muted:#9BA4B6; --line:#2A3242;
-  --accent:#86A6FF; --accent-soft:#1D2849; --hero:#1A2440;
-  --hi:#73D3A0; --hi-soft:#14301F; --mid:#E9C46A; --mid-soft:#33290F; --none:#A7B0C1; --none-soft:#232A37;
-  --face-good:#5DB57D; --face-okay:#D8A93A; --face-bad:#D97A92; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;word-break:keep-all;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .wrap{max-width:920px;margin:0 auto;padding-inline:20px;padding-block:40px 64px;display:flex;flex-direction:column;gap:52px}
@@ -162,7 +168,7 @@ a{color:var(--accent)}
 <header>
   <p class="eyebrow">마이리포트 · 오늘의 질문</p>
   <h1>끼니별 식사 시각 질문</h1>
-  <p class="lead">매일 나가는 식사 질문 바로 뒤에 「언제쯤 드셨어요?」 질문을 하나 더해 식사 시각을 받습니다. 받은 시각으로 「식후에 움직였는지」를 볼 수 있게 되어 자기돌봄과 일상안정 지표가 더 정확해집니다.</p>
+  <p class="lead">매일 나가는 식사 질문 바로 뒤에 「언제쯤 드셨어요?」 질문을 하나 더해 식사 시각을 받음. 받은 시각으로 「식후에 움직였는지」를 볼 수 있게 되어 자기돌봄과 일상안정 지표가 더 정확해짐.</p>
   <div class="facts">
     <div class="fact"><b>질문 1개 추가</b><span>식이 최대 3문항, 전체 최대 5~6문항. 시각을 묻지 않는 날은 지금처럼 4문항이에요.</span></div>
     <div class="fact"><b>선택지 3개, 1시간 범위</b><span>실제 시각을 크게 보여 줘서 몇 시인지 바로 골라요.</span></div>
@@ -379,7 +385,7 @@ a{color:var(--accent)}
   
 </article>
 <article class="sc">
-  <h4>오후 5:40에 들어왔다 나감, 오후 8:30에 답함</h4><p class="ctx">실제 오후 8:00에 먹음 · 걸음 단서 없음</p>
+  <h4>오후 5:40에 들어왔음 나감, 오후 8:30에 답함</h4><p class="ctx">실제 오후 8:00에 먹음 · 걸음 단서 없음</p>
   <div class="btns"><span class="btn is-on"><i class="ap">오후</i><b>7:30 이후</b><small>1시간 이내</small></span><span class="btn"><i class="ap">오후</i><b>6:30~<wbr>7:30</b><small>1~2시간 전</small></span><span class="btn"><i class="ap">오후</i><b>6:30 이전</b><small>그보다 전</small></span></div>
   <div class="res"><span class="lab">추정</span><span class="est"><i class="ap">오후</i>8:00</span><span class="chip c-diff">같음</span><span class="chip c-mid">확신 보통</span></div>
   <p class="win"><span>식후 걸음 보는 시간</span> 오후 7:30~9:00</p>
@@ -503,7 +509,7 @@ a{color:var(--accent)}
   <div class="sec-h"><h2>식후에 걸었는지 판정하는 방법</h2><p>계산식 전달 문서(LJH)는 「어떤 행동을 식후 행동으로 볼지는 서비스가 정하고, 계산기는 완료 · 미완료 · 모름만 받는다」고 해요. 그래서 서비스가 <b>걸음 기록으로 판정(방법 A)</b>해요. B · C는 비교를 위해 함께 적은 다른 방법이에요. <b>판정 질문은 「식사 시각 뒤 걸음 기록만 보고 식후에 걸었다고 볼 수 있나?」</b> 아래 예시는 모두 같은 사람이에요. 오후 1:20에 점심 「오후 12:20 이후」를 골랐고, 실제로 오후 12:55~1:05에 10분 걸었어요.</p></div>
   <div class="cases">
     <article class="case">
-      <p class="case-k">방법 A · 채택</p><h3>걸음 기록으로 판정한다</h3>
+      <p class="case-k">방법 A · 채택</p><h3>걸음 기록으로 판정함</h3>
       <dl class="case-dl">
         <dt>판정 방법</dt><dd>식후 걸음 보는 시간 안에 <b>5분 넘게 이어 걸었거나(분당 20보 이상), 합계 300보 이상</b>이거나, 운동 기록이 시작됐으면 「걸었음」. 아니면 「안 걸었음」. 걸음 기록이 비어 있는 시간이면 「모름」.</dd>
         <dt>예시</dt><dd>오후 12:20~1:50 사이에 10분 걸음 → <b>걸었음</b>. 자기돌봄 72 → <b>81</b>.<br>같은 날 걷지 않았다면 → <b>안 걸었음</b>. 72 → <b>61(보통)</b>.</dd>
@@ -513,7 +519,7 @@ a{color:var(--accent)}
       </dl>
     </article>
     <article class="case">
-      <p class="case-k">답 B</p><h3>안 된다. 사용자 확인이 있어야 한다</h3>
+      <p class="case-k">답 B</p><h3>안 됨. 사용자 확인이 있어야 함</h3>
       <dl class="case-dl">
         <dt>판정 방법</dt><dd>사용자가 <b>식후 걷기 목표를 완료로 누른 날</b>만 「걸었음」. 확인 알림은 보내지 않아요. 확인이 없으면 걸음이 없어도 「안 걸었음」을 만들 수 없어 「모름」.</dd>
         <dt>예시</dt><dd>식후 걷기 목표를 완료로 누름 → <b>걸었음</b>. 72 → <b>81</b>.<br>누르지 않음 → <b>모름</b>. 72 그대로.</dd>
@@ -523,7 +529,7 @@ a{color:var(--accent)}
       </dl>
     </article>
     <article class="case">
-      <p class="case-k">답 C</p><h3>시각이 확실할 때만 걸음으로 판정한다</h3>
+      <p class="case-k">답 C</p><h3>시각이 확실할 때만 걸음으로 판정함</h3>
       <dl class="case-dl">
         <dt>판정 방법</dt><dd>추정 시각이 <b>확신 높음</b>(걸음 단서)이거나 건강 앱 기록일 때만 A처럼 판정해요. 범위 가운데나 평소 시각으로 잡은 날은 「모름」.</dd>
         <dt>예시</dt><dd>오후 12:25에 걷다 멈춘 단서가 있으면 오후 12:25~12:55를 보고 판정해요.<br>단서 없이 범위 가운데로 잡은 날 → <b>모름</b>. 72 그대로.</dd>
@@ -567,7 +573,7 @@ a{color:var(--accent)}
   <ul class="todo">
     <li><b>선택지 순서는 그대로</b> · 아침은 이른 시각부터(7시 이전 → 8시 이후), 점심 · 저녁은 최근부터(…이후 → …이전). 점심 · 저녁은 「먹고 바로 답하는」 날이 많아 첫 선택지이 정답인 경우가 많고, 아침은 고정 시각이라 시계 순서가 자연스러워요.</li>
     <li><b>저녁 질문이 막 열린 오후 5시대</b> · 선택지은 「오후 5:00 이후 / 4:00~5:00 / 4:00 이전」으로 받쳐 두고, 2 · 3번 답은 범위가 끼니 시작(5시)보다 일러 비어 있으므로 「모름」으로 처리해요. 화면을 따로 바꾸지 않아요.</li>
-    <li><b>시각 단계에서 앱을 나갔다 오면</b> · 식사 답은 두고, 시각 선택지은 다시 들어온 시각 기준으로 새로 만들어요.</li>
+    <li><b>시각 단계에서 앱을 나갔음 오면</b> · 식사 답은 두고, 시각 선택지은 다시 들어온 시각 기준으로 새로 만들어요.</li>
     <li><b>건강 앱 식사 기록이 있으면</b> · 시각 단계를 묻지 않고 그 시각을 써요(확신 높음).</li>
     <li><b>식후에 걸었는지는 걸음 기록으로 판정</b> · 식후 관찰 시간 안에 5분 넘게 이어 걸었거나(분당 20보 이상) 합계 300보 이상이거나 운동 기록이 시작됐으면 「걸었음」. 아니면 「안 걸었음」. 걸음 기록이 없거나 식사 시각이 모름이면 「모름」. 계산식 전달 문서가 판정을 서비스 몫으로 두기 때문이에요.</li>
   </ul>

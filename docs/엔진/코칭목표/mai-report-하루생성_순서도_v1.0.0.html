@@ -45,11 +45,27 @@
   footer{text-align:center;font-size:12px;color:var(--ink-3);margin-top:10px}
   @media(max-width:720px){.split,.split.three,.rules{grid-template-columns:1fr}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
 <div class="wrap">
   <h1>오늘의 질문 · 코칭 · 목표 생성 순서도</h1>
-  <p class="lead">하루가 시작될 때부터 저녁까지, 홈 화면의 질문 · 코칭 · 목표가 어떤 순서로 만들어지고 무엇은 하루 동안 고정되는지를 따라간다. 생활지표 산출 과정은 생활지표 기획서에서 따로 다룬다. 근거: 홈화면 화면정의서 §3~§6, 목표분석 화면정의서 §3.</p>
+  <p class="lead">하루가 시작될 때부터 저녁까지, 홈 화면의 질문 · 코칭 · 목표가 어떤 순서로 만들어지고 무엇은 하루 동안 고정되는지를 따라감. 생활지표 산출 과정은 생활지표 기획서에서 따로 다룸. 근거: 홈화면 화면정의서 §3~§6, 목표분석 화면정의서 §3.</p>
 
   <!-- ① -->
   <section class="lane">
@@ -57,17 +73,17 @@
     <div class="flow">
       <div class="node start">새벽 4시 · 새 세션 날짜 시작</div>
       <div class="arrow">↓</div>
-      <div class="node">전날의 코칭 · 목표 · 질문 세트 종료<small>완료 기록과 리포트는 그대로 남는다. 새벽 4시는 세션 날짜의 경계다. 걸음·활동 같은 기기 데이터는 실제 날짜(자정 경계)로 귀속하고(기기 건강 앱과 숫자를 맞추기 위해), 수면만 기상 시각이 속한 날로 센다. 두 날짜는 자정~새벽 4시에만 어긋난다</small></div>
+      <div class="node">전날의 코칭 · 목표 · 질문 세트 종료<small>완료 기록과 리포트는 그대로 남음. 새벽 4시는 세션 날짜의 경계임. 걸음·활동 같은 기기 데이터는 실제 날짜(자정 경계)로 귀속하고(기기 건강 앱과 숫자를 맞추기 위해), 수면만 기상 시각이 속한 날로 셈. 두 날짜는 자정~새벽 4시에만 어긋남</small></div>
       <div class="arrow">↓</div>
-      <div class="node">기기 데이터 수집 (자동 · 하루 종일 이어짐)<small>걸음(시간대별) · 수면 · 안정 시 심박 · 활동 · 운동 세션 · 체중 — 건강 앱에서 읽기만 한다</small></div>
+      <div class="node">기기 데이터 수집 (자동 · 하루 종일 이어짐)<small>걸음(시간대별) · 수면 · 안정 시 심박 · 활동 · 운동 세션 · 체중 — 건강 앱에서 읽기만 함</small></div>
       <div class="arrow">↓</div>
       <div class="node">정리 단계<small>시간대·단위 통일 · 미착용 구간은 "없음"(0 아님) · 활동 시간은 걸음 기록에서 직접 계산 · 개인 기준선(직전 21일) 준비</small></div>
       <div class="arrow">↓</div>
       <div class="node q">사용자가 오늘 처음 홈에 들어왔는가?</div>
       <div class="arrow">↓</div>
       <div class="split">
-        <div class="branch"><span class="tag">예</span><div class="node out">그 시점의 데이터로 ② 질문 세트와 ③ 목표(열림/잠김)를 만든다<small>17시 이후 첫 진입이면 저녁 문구(과거형 · 마무리형)를 쓴다</small></div><div class="arrow lbl">② · ③으로</div></div>
-        <div class="branch"><span class="tag no">아니오 (재진입)</span><div class="node out">이미 만든 질문 세트 · 코칭 · 목표를 그대로 보여준다<small>지표만 최신 데이터로 다시 계산</small></div></div>
+        <div class="branch"><span class="tag">예</span><div class="node out">그 시점의 데이터로 ② 질문 세트와 ③ 목표(열림/잠김)를 만듦<small>17시 이후 첫 진입이면 저녁 문구(과거형 · 마무리형)를 씀</small></div><div class="arrow lbl">② · ③으로</div></div>
+        <div class="branch"><span class="tag no">아니오 (재진입)</span><div class="node out">이미 만든 질문 세트 · 코칭 · 목표를 그대로 보여줌<small>지표만 최신 데이터로 다시 계산</small></div></div>
       </div>
     </div>
   </section>
@@ -76,29 +92,29 @@
   <section class="lane">
     <h2><span class="n">2</span>오늘의 질문 만들기</h2>
     <div class="flow">
-      <div class="node">오늘 수집된 기기 데이터와 의료 이력을 확인한다</div>
+      <div class="node">오늘 수집된 기기 데이터와 의료 이력을 확인함</div>
       <div class="arrow">↓</div>
       <div class="node">확인할 상태 고르기<small>결측·부족 항목과 기기로 알 수 없는 주관 상태(피로감 · 식사량 · 증상 등)를 우선</small></div>
       <div class="arrow">↓</div>
       <div class="node q">기기로 이미 아는 항목인가? (예: 어젯밤 수면 기록이 있음)</div>
       <div class="arrow">↓</div>
       <div class="split">
-        <div class="branch"><span class="tag">예</span><div class="node muted">그 항목의 질문은 내지 않는다</div></div>
-        <div class="branch"><span class="tag no">아니오</span><div class="node out">문항별 3개 선택지로 만든다 · 하루 최대 5~6문항(지표·코칭 필요에 따라 문항 종류 추가 가능)</div></div>
+        <div class="branch"><span class="tag">예</span><div class="node muted">그 항목의 질문은 내지 않음</div></div>
+        <div class="branch"><span class="tag no">아니오</span><div class="node out">문항별 3개 선택지로 만듦 · 하루 최대 5~6문항(지표·코칭 필요에 따라 문항 종류 추가 가능)</div></div>
       </div>
       <div class="arrow">↓</div>
-      <div class="node">질문 세트 확정 · 그날은 바꾸지 않는다<small>첫 진입 시점의 데이터 부족분으로 한 번만 만든다. 식이 문항은 예외로, 답하지 않은 채 끼니 구간이 바뀌면 그 구간의 끼니로 갱신한다(문항 수는 늘지 않는다)</small></div>
+      <div class="node">질문 세트 확정 · 그날은 바꾸지 않음<small>첫 진입 시점의 데이터 부족분으로 한 번만 만듦. 식이 문항은 예외로, 답하지 않은 채 끼니 구간이 바뀌면 그 구간의 끼니로 갱신함(문항 수는 늘지 않음)</small></div>
       <div class="arrow">↓</div>
-      <div class="node">홈 맨 위에 1문항씩 제시 · 답하면 다음 문항으로<small>답하지 않은 문항은 하루 동안 그대로 남는다</small></div>
+      <div class="node">홈 맨 위에 1문항씩 제시 · 답하면 다음 문항으로<small>답하지 않은 문항은 하루 동안 그대로 남음</small></div>
       <div class="arrow">↓</div>
       <div class="node q">모든 문항에 답했는가?</div>
       <div class="arrow">↓</div>
       <div class="split">
-        <div class="branch"><span class="tag no">아니오 (일부만 답함)</span><div class="node muted">코칭과 목표는 생성·변경하지 않는다<small>코칭 카드: "먼저 오늘의 질문에 답하고, 나에게 맞는 코칭을 받아보세요"</small></div></div>
+        <div class="branch"><span class="tag no">아니오 (일부만 답함)</span><div class="node muted">코칭과 목표는 생성·변경하지 않음<small>코칭 카드: "먼저 오늘의 질문에 답하고, 나에게 맞는 코칭을 받아보세요"</small></div></div>
         <div class="branch"><span class="tag">예 (모두 답함)</span><div class="node end">답변 완료 → ③ 코칭 · 목표 생성 1회</div></div>
       </div>
     </div>
-    <div class="note">질문 답변은 코칭과 목표를 만드는 재료다. 생활지표에는 들어가지 않으며, 답하지 않았다고 지표가 낮아지지 않는다.</div>
+    <div class="note">질문 답변은 코칭과 목표를 만드는 재료임. 생활지표에는 들어가지 않으며, 답하지 않았다고 지표가 낮아지지 않음.</div>
   </section>
 
   <!-- ③ -->
@@ -110,19 +126,19 @@
       <div class="node q">그 목표에 필요한 기기 데이터가 충분한가?<small>활동: 오늘 걸음·활동 시간 / 수면: 어젯밤 수면 기록 / 식이: 기기 데이터 없음 → 항상 "부족"으로 판정</small></div>
       <div class="arrow">↓</div>
       <div class="split">
-        <div class="branch"><span class="tag">충분</span><div class="node out">바로 생성해 보여준다<small>개인 최근 기록(중앙값)으로 문구·숫자 산출</small></div></div>
-        <div class="branch"><span class="tag no">부족</span><div class="node out">그 목표만 잠근다<small>"오늘의 질문에 답하면 목표가 생성돼요" · 누르면 남은 질문으로 이동</small></div></div>
+        <div class="branch"><span class="tag">충분</span><div class="node out">바로 생성해 보여줌<small>개인 최근 기록(중앙값)으로 문구·숫자 산출</small></div></div>
+        <div class="branch"><span class="tag no">부족</span><div class="node out">그 목표만 잠금<small>"오늘의 질문에 답하면 목표가 생성돼요" · 누르면 남은 질문으로 이동</small></div></div>
       </div>
       <div class="arrow">↓</div>
-      <div class="node muted">식이는 항상 잠긴 채 시작(식사 문항이 매일 고정으로 나오는 이유) · 활동·수면은 매일 데이터로 판정하며 둘 다 잠그지는 않는다</div>
+      <div class="node muted">식이는 항상 잠긴 채 시작(식사 문항이 매일 고정으로 나오는 이유) · 활동·수면은 매일 데이터로 판정하며 둘 다 잠그지는 않음</div>
       <div class="arrow lbl">② 질문 모두 답변 완료</div>
       <div class="loop">
         <div class="cap">답변 완료 시점 · 1회 실행</div>
         <div class="node">코칭 카드 "생성 중" 표시 → 답변 + 기기 데이터로 핵심 행동 한 줄 생성</div>
         <div class="arrow">↓</div>
         <div class="split">
-          <div class="branch"><span class="tag">잠겨 있던 목표</span><div class="node out">답변을 반영해 생성 · 타일 활성<small>이 목표는 "답변으로 만든 목표"로 기억해 둔다</small></div></div>
-          <div class="branch"><span class="tag">기기 데이터로 이미 만든 목표</span><div class="node out">그대로 둔다<small>답변이 들어와도 다시 반영하지 않는다</small></div></div>
+          <div class="branch"><span class="tag">잠겨 있던 목표</span><div class="node out">답변을 반영해 생성 · 타일 활성<small>이 목표는 "답변으로 만든 목표"로 기억해 둠</small></div></div>
+          <div class="branch"><span class="tag">기기 데이터로 이미 만든 목표</span><div class="node out">그대로 둠<small>답변이 들어와도 다시 반영하지 않음</small></div></div>
         </div>
       </div>
       <div class="arrow">↓</div>
@@ -132,14 +148,14 @@
       <div class="arrow">↓</div>
       <div class="split">
         <div class="branch"><span class="tag">예</span><div class="node out">코칭 재생성 + 답변으로 만든 목표를 수정된 답변으로 다시 생성<small>기기 데이터로 만든 목표와 이미 완료한 목표는 그대로</small></div></div>
-        <div class="branch"><span class="tag no">아니오</span><div class="node muted">그날은 문구를 바꾸지 않는다<small>낮 동안 데이터가 늘어도 타일 표시는 그대로. 완료는 사용자가 직접 누른다</small></div></div>
+        <div class="branch"><span class="tag no">아니오</span><div class="node muted">그날은 문구를 바꾸지 않음<small>낮 동안 데이터가 늘어도 타일 표시는 그대로. 완료는 사용자가 직접 누름</small></div></div>
       </div>
     </div>
     <div class="rules">
-      <div><b>고정되는 것</b>그날의 질문 세트(식이 문항의 끼니 이름·축은 답하기 전까지 갱신될 수 있다) · 기기 데이터로 만든 목표 · 완료한 목표. 코칭 문구와 답변으로 만든 목표는 답변 수정 시에만 다시 만든다.</div>
+      <div><b>고정되는 것</b>그날의 질문 세트(식이 문항의 끼니 이름·축은 답하기 전까지 갱신될 수 있음) · 기기 데이터로 만든 목표 · 완료한 목표. 코칭 문구와 답변으로 만든 목표는 답변 수정 시에만 다시 만듦.</div>
       <div><b>바뀌는 것</b>목표 진행(완료/미완료) · 생활지표 · 홈 건강 데이터 값과 어제 대비 문구.</div>
-      <div><b>완료 처리</b>자동 완료 없음. 타일을 누르면 완료, 다시 누르면 취소. 완료하면 그 목표 문구는 잠긴다.</div>
-      <div><b>목표가 하나도 없는 날</b>세 목표가 모두 안 만들어졌으면 목표 분석의 이어가기 코멘트는 상황 0("생성된 목표가 없어요")이 된다.</div>
+      <div><b>완료 처리</b>자동 완료 없음. 타일을 누르면 완료, 다시 누르면 취소. 완료하면 그 목표 문구는 잠김.</div>
+      <div><b>목표가 하나도 없는 날</b>세 목표가 모두 안 만들어졌으면 목표 분석의 이어가기 코멘트는 상황 0("생성된 목표가 없어요")이 됨.</div>
     </div>
   </section>
 

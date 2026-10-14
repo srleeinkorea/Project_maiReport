@@ -48,14 +48,30 @@
   @media(max-width:720px){.grid3{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
 </style>
 <style>.chg{color:#d0021b;font-weight:700}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
-<body><div style="padding:22px;background:#fff1cf;color:#362709;font:16px/1.6 sans-serif"><b>이력 문서 · 개발 사용 금지</b><br>질문·문구·과일 제외 정책 및 안전 규칙은 <a href="mai-report-식이_질문목표_상세기획_v1.0.0.html">2026-09-22 v1.0.0 최종 반영본</a>으로 대체되었습니다. 아래 표기는 과거 기록이며 현재 규칙은 식이 질문·목표 상세기획을 따릅니다.</div>
+<body><div style="padding:22px;background:#fff1cf;color:#362709;font:16px/1.6 sans-serif"><b>이력 문서 · 개발 사용 금지</b><br>질문·문구·과일 제외 정책 및 안전 규칙은 <a href="mai-report-식이_질문목표_상세기획_v1.0.0.html">2026-09-22 v1.0.0 최종 반영본</a>으로 대체되었음. 아래 표기는 과거 기록이며 현재 규칙은 식이 질문·목표 상세기획을 따름.</div>
 <div class="wrap">
 
 <div class="hero">
   <span class="tag">maiReport · v1.0.0 · 검토 요청 · 회신 완료</span>
   <h1>식이 문구 의학팀 2차 검토 요청 · 회신</h1>
-  <p>오늘의 식이 목표 문구 42건과 근거에 대한 요청 A~F와 그 회신. 회신은 임상영양 관점의 전문가 검토로 작성했으며, 진료지침 원문 쪽수 대조(요청 D)처럼 원문을 직접 펼쳐야 하는 항목은 「원문 대조 필요」로 남겼다. 회신 내용은 「식이 질문·목표 상세 기획」 0.2와 시나리오 프로토타입에 반영했다.</p>
+  <p>오늘의 식이 목표 문구 42건과 근거에 대한 요청 A~F와 그 회신. 회신은 임상영양 관점의 전문가 검토로 작성했으며, 진료지침 원문 쪽수 대조(요청 D)처럼 원문을 직접 펼쳐야 하는 항목은 「원문 대조 필요」로 남겼음. 회신 내용은 「식이 질문·목표 상세 기획」 0.2와 시나리오 프로토타입에 반영했음.</p>
   <div class="meta"><span>요청일 <b>2026-09-16</b></span><span>회신일 <b>2026-09-16</b></span><span>회신 성격 <b>임상영양 전문가 검토 · 학회 원문 쪽수 대조는 별도</b></span><span>반영 <b>상세 기획 0.2 · 프로토타입</b></span></div>
 </div>
 
@@ -77,10 +93,10 @@
   </div>
   <h3>회신에 적용한 원칙</h3>
   <ul>
-    <li><b>행동이 무해하고 상식에 맞으면 유지한다.</b> 「약함」은 지침 권고가 없다는 뜻이고, 매일 하나씩 나오는 생활 제안에 지침 수준 근거를 모두 요구하면 남는 문구가 없다. 단, 이유 문장은 근거 수준을 넘지 않게 쓴다.</li>
-    <li><b>이유 문장은 권고 인용형을 우선한다.</b> "혈압이 내려가요"보다 "고혈압 진료지침의 첫 생활요법이에요"가 비의료기기 표현으로 안전하고, 사용자에게도 출처가 있다는 신뢰를 준다.</li>
-    <li><b>일반 사용자와 검진 경계 사용자를 구분한다.</b> 섭취량을 줄이는 문구(밥 양)는 표준 사용자에게 내지 않는다. 채소 · 순서 · 나트륨 · 당류 줄이기는 모두에게 무해하다.</li>
-    <li><b>증상 문항으로 질환 유형을 켜지 않는다.</b> 시야 변화는 혈당 외 원인이 훨씬 많다. 검진 없이 답 하나로 혈당 풀을 여는 것은 비의료기기 원칙에 어긋난다.</li>
+    <li><b>행동이 무해하고 상식에 맞으면 유지함.</b> 「약함」은 지침 권고가 없다는 뜻이고, 매일 하나씩 나오는 생활 제안에 지침 수준 근거를 모두 요구하면 남는 문구가 없음. 단, 이유 문장은 근거 수준을 넘지 않게 씀.</li>
+    <li><b>이유 문장은 권고 인용형을 우선함.</b> "혈압이 내려가요"보다 "고혈압 진료지침의 첫 생활요법이에요"가 비의료기기 표현으로 안전하고, 사용자에게도 출처가 있다는 신뢰를 줌.</li>
+    <li><b>일반 사용자와 검진 경계 사용자를 구분함.</b> 섭취량을 줄이는 문구(밥 양)는 표준 사용자에게 내지 않음. 채소 · 순서 · 나트륨 · 당류 줄이기는 모두에게 무해함.</li>
+    <li><b>증상 문항으로 질환 유형을 켜지 않음.</b> 시야 변화는 혈당 외 원인이 훨씬 많음. 검진 없이 답 하나로 혈당 풀을 여는 것은 비의료기기 원칙에 어긋남.</li>
   </ul>
 </section>
 
@@ -90,20 +106,20 @@
   <div class="sub">유지 6 · 교체 2 · 삭제 2</div>
   <table>
     <tr><th style="width:36px">#</th><th style="width:180px">타일 문구</th><th style="width:90px">축 · 단계</th><th style="width:22%">현재 근거</th><th>회신</th></tr>
-    <tr><td>A1</td><td class="k">끼니 사이 4시간 넘기지 않기</td><td>끼니 규칙 · 기본</td><td><span class="chip weak">약함</span>4시간 임의값</td><td class="ans"><b><span class="chip swap">교체</span>→ 「<span class="chg">점심 · 저녁 챙기기</span>」</b>끼니 간격 수치는 근거가 없고, 개인차(간헐적 단식 등)도 커서 일률 권고가 어렵다. 규칙적 식사 · 결식 회피는 식생활지침 수칙 1 · 4와 비만 진료지침 식사요법에 모두 있다. 오전 진입 전용인 아침 문구 2개와 짝을 맞춰, 오후 · 저녁 진입에서 쓸 수 있는 결식 회피 문구로 바꾼다. 이유: "끼니를 거르면 다음 끼니에 몰아 먹기 쉬워요." 근거: 식생활지침 수칙 1 · 4</td></tr>
-    <tr><td>A2</td><td class="k"><span class="chg">세 끼 어제처럼 먹기</span></td><td>끼니 규칙 · 도전</td><td><span class="chip weak">약함</span>관찰 연구</td><td class="ans"><b><span class="chip keep">유지</span></b>식사 시각 불규칙성과 대사증후군 · 체중 증가의 관련은 코호트 연구(영국 National Survey 등)에서 반복 관찰됐다. 인과는 아니지만 무해하고 도전 단계에 맞다. 이유 문장은 현재대로("하루 리듬이 안정돼요"). 「약함」 표시 유지</td></tr>
-    <tr><td>A3</td><td class="k">야식 대신 따뜻한 물 한 잔</td><td>식사 시각 · 입문<br>부담 줄이기</td><td><span class="chip weak">약함</span>지침 없음</td><td class="ans"><b><span class="chip keep">유지</span></b>대체 행동 제안이라 근거를 요구할 성격이 아니다. 무해. 「약함」 표시는 두되 삭제 사유는 아니다</td></tr>
-    <tr><td>A4</td><td class="k">야식 없이 하루 마무리</td><td>식사 시각 · 기본</td><td><span class="chip weak">약함</span>관찰 연구</td><td class="ans"><b><span class="chip keep">유지 · 근거 보강</span></b>야식 회피는 비만 진료지침 식사요법과 야식증후군 관련 문헌에서 일관되게 권고된다. 근거 표기를 "비만학회 식사요법(야식 회피) · 관찰 연구"로 바꾸고 「약함」 해제. 이유 문장은 현재대로</td></tr>
-    <tr><td>A5</td><td class="k">저녁은 잠들기 3시간 전에 마치기</td><td>식사 시각 · 도전</td><td><span class="chip weak">약함</span>3시간 임의값</td><td class="ans"><b><span class="chip keep">유지 · 근거 보강</span></b>"취침 2~3시간 이내 식사를 피하라"는 미국소화기학회 위식도역류 진료지침(2022)의 생활요법 권고다. 대상이 역류 환자라는 한계는 있지만 지침 수준 권고이고, 늦은 식사와 수면 질 · 체중의 관찰 연구가 방향을 뒷받침한다. 3시간은 지침 범위(2~3시간) 안이므로 유지. 근거 표기를 "ACG 위식도역류 지침(취침 2~3시간 내 식사 회피) · 관찰 연구"로. 「약함」 해제</td></tr>
-    <tr><td>A6</td><td class="k">저녁 양은 점심보다 적게</td><td>식사 속도·양 · 기본</td><td><span class="chip weak">약함</span>관찰 연구</td><td class="ans"><b><span class="chip keep">유지 · 근거 보강</span></b>같은 열량을 아침 · 점심에 많이 배분한 군이 저녁에 많이 배분한 군보다 체중 · 공복혈당 · 중성지방이 더 개선된 무작위 대조 연구가 있다(Jakubowicz 2013, 과체중 여성 93명, 12주). 근거 표기를 "열량 배분 무작위 대조 연구"로. 「약함」 해제. 이유 문장 "낮에 먹는 쪽이 유리했어요"는 이 연구를 정확히 말한다</td></tr>
-    <tr><td>A7</td><td class="k"><span class="chg">끼니마다 단백질 챙기기</span></td><td>단백질 · 도전</td><td><span class="chip weak">약함</span>소규모 실험</td><td class="ans"><b><span class="chip keep">유지</span></b>끼니 분산의 근육 단백 합성 이점은 젊은 성인 소규모 연구이고 노인 RCT에서는 차이가 없었다. 그러나 "매 끼니 단백질 급원 포함"은 식생활지침 수칙 1(고기 · 생선 · 달걀 · 콩류 매일)의 실천 형태이므로 근거 표기를 "식생활지침 수칙 1 · 끼니 분산 소규모 실험"으로 바꾸고 유지. 「약함」 표시는 유지</td></tr>
+    <tr><td>A1</td><td class="k">끼니 사이 4시간 넘기지 않기</td><td>끼니 규칙 · 기본</td><td><span class="chip weak">약함</span>4시간 임의값</td><td class="ans"><b><span class="chip swap">교체</span>→ 「<span class="chg">점심 · 저녁 챙기기</span>」</b>끼니 간격 수치는 근거가 없고, 개인차(간헐적 단식 등)도 커서 일률 권고가 어려움. 규칙적 식사 · 결식 회피는 식생활지침 수칙 1 · 4와 비만 진료지침 식사요법에 모두 있음. 오전 진입 전용인 아침 문구 2개와 짝을 맞춰, 오후 · 저녁 진입에서 쓸 수 있는 결식 회피 문구로 바꿈. 이유: "끼니를 거르면 다음 끼니에 몰아 먹기 쉬워요." 근거: 식생활지침 수칙 1 · 4</td></tr>
+    <tr><td>A2</td><td class="k"><span class="chg">세 끼 어제처럼 먹기</span></td><td>끼니 규칙 · 도전</td><td><span class="chip weak">약함</span>관찰 연구</td><td class="ans"><b><span class="chip keep">유지</span></b>식사 시각 불규칙성과 대사증후군 · 체중 증가의 관련은 코호트 연구(영국 National Survey 등)에서 반복 관찰됐음. 인과는 아니지만 무해하고 도전 단계에 맞음. 이유 문장은 현재대로("하루 리듬이 안정돼요"). 「약함」 표시 유지</td></tr>
+    <tr><td>A3</td><td class="k">야식 대신 따뜻한 물 한 잔</td><td>식사 시각 · 입문<br>부담 줄이기</td><td><span class="chip weak">약함</span>지침 없음</td><td class="ans"><b><span class="chip keep">유지</span></b>대체 행동 제안이라 근거를 요구할 성격이 아님. 무해. 「약함」 표시는 두되 삭제 사유는 아님</td></tr>
+    <tr><td>A4</td><td class="k">야식 없이 하루 마무리</td><td>식사 시각 · 기본</td><td><span class="chip weak">약함</span>관찰 연구</td><td class="ans"><b><span class="chip keep">유지 · 근거 보강</span></b>야식 회피는 비만 진료지침 식사요법과 야식증후군 관련 문헌에서 일관되게 권고됨. 근거 표기를 "비만학회 식사요법(야식 회피) · 관찰 연구"로 바꾸고 「약함」 해제. 이유 문장은 현재대로</td></tr>
+    <tr><td>A5</td><td class="k">저녁은 잠들기 3시간 전에 마치기</td><td>식사 시각 · 도전</td><td><span class="chip weak">약함</span>3시간 임의값</td><td class="ans"><b><span class="chip keep">유지 · 근거 보강</span></b>"취침 2~3시간 이내 식사를 피하라"는 미국소화기학회 위식도역류 진료지침(2022)의 생활요법 권고임. 대상이 역류 환자라는 한계는 있지만 지침 수준 권고이고, 늦은 식사와 수면 질 · 체중의 관찰 연구가 방향을 뒷받침함. 3시간은 지침 범위(2~3시간) 안이므로 유지. 근거 표기를 "ACG 위식도역류 지침(취침 2~3시간 내 식사 회피) · 관찰 연구"로. 「약함」 해제</td></tr>
+    <tr><td>A6</td><td class="k">저녁 양은 점심보다 적게</td><td>식사 속도·양 · 기본</td><td><span class="chip weak">약함</span>관찰 연구</td><td class="ans"><b><span class="chip keep">유지 · 근거 보강</span></b>같은 열량을 아침 · 점심에 많이 배분한 군이 저녁에 많이 배분한 군보다 체중 · 공복혈당 · 중성지방이 더 개선된 무작위 대조 연구가 있음(Jakubowicz 2013, 과체중 여성 93명, 12주). 근거 표기를 "열량 배분 무작위 대조 연구"로. 「약함」 해제. 이유 문장 "낮에 먹는 쪽이 유리했어요"는 이 연구를 정확히 말함</td></tr>
+    <tr><td>A7</td><td class="k"><span class="chg">끼니마다 단백질 챙기기</span></td><td>단백질 · 도전</td><td><span class="chip weak">약함</span>소규모 실험</td><td class="ans"><b><span class="chip keep">유지</span></b>끼니 분산의 근육 단백 합성 이점은 젊은 성인 소규모 연구이고 노인 RCT에서는 차이가 없었음. 그러나 "매 끼니 단백질 급원 포함"은 식생활지침 수칙 1(고기 · 생선 · 달걀 · 콩류 매일)의 실천 형태이므로 근거 표기를 "식생활지침 수칙 1 · 끼니 분산 소규모 실험"으로 바꾸고 유지. 「약함」 표시는 유지</td></tr>
     <tr><td>A8</td><td class="k"><span class="chg">간식이라도 챙겨 먹기</span></td><td>회복 풀</td><td><span class="chip weak">약함</span>지침 없음</td><td class="ans"><b><span class="chip keep">유지</span></b>결식 후 저녁 과식을 막는 표준 영양상담 조언. 무해. 「약함」 유지</td></tr>
-    <tr><td>A9</td><td class="k">저녁은 자극적이지 않게</td><td>부담 줄이기</td><td><span class="chip weak">약함</span>소규모 실험 1건</td><td class="ans"><b><span class="chip swap">교체</span>→ 「저녁은 맵거나 기름지지 않게」</b>"자극적"은 범위가 모호하다. 취침 전 고지방 · 매운 식사와 수면 질 저하는 수면-영양 리뷰(St-Onge 2016)와 소규모 실험에서 방향이 일치한다. 행동을 "맵거나 기름진"으로 명시. 이유: "맵고 기름진 저녁은 잠을 얕게 할 수 있어요." 근거: "수면 · 식사 리뷰 · 소규모 실험". 「약함」 유지</td></tr>
-    <tr><td>A10</td><td class="k">따뜻한 국이나 죽 한 그릇</td><td>회복 풀 · 거의 못 먹음</td><td><span class="chip none">없음</span></td><td class="ans"><b><span class="chip del">삭제</span></b>"거의 못 먹음"의 원인이 질병일 수 있는데, 비의료기기 서비스가 소화 부담을 전제로 특정 음식을 권하는 것은 부적절하다. 같은 상황은 「<span class="chg">단백질 한 입 먹기</span>」가 충분히 덮는다. 회복 풀은 3개로 운영</td></tr>
+    <tr><td>A9</td><td class="k">저녁은 자극적이지 않게</td><td>부담 줄이기</td><td><span class="chip weak">약함</span>소규모 실험 1건</td><td class="ans"><b><span class="chip swap">교체</span>→ 「저녁은 맵거나 기름지지 않게」</b>"자극적"은 범위가 모호함. 취침 전 고지방 · 매운 식사와 수면 질 저하는 수면-영양 리뷰(St-Onge 2016)와 소규모 실험에서 방향이 일치함. 행동을 "맵거나 기름진"으로 명시. 이유: "맵고 기름진 저녁은 잠을 얕게 할 수 있어요." 근거: "수면 · 식사 리뷰 · 소규모 실험". 「약함」 유지</td></tr>
+    <tr><td>A10</td><td class="k">따뜻한 국이나 죽 한 그릇</td><td>회복 풀 · 거의 못 먹음</td><td><span class="chip none">없음</span></td><td class="ans"><b><span class="chip del">삭제</span></b>"거의 못 먹음"의 원인이 질병일 수 있는데, 비의료기기 서비스가 소화 부담을 전제로 특정 음식을 권하는 것은 부적절함. 같은 상황은 「<span class="chg">단백질 한 입 먹기</span>」가 충분히 덮음. 회복 풀은 3개로 운영</td></tr>
   </table>
   <table>
     <tr><th style="width:200px">축 판단</th><th>회신</th></tr>
-    <tr><td class="k">「식사 시각」 축</td><td class="ans"><b><span class="chip keep">축 유지, 문구 개별 판단</span></b>A4 · A5는 근거 보강으로 「약함」이 해제되고, A3은 대체 행동이라 남는다. 축을 빼면 콜레스테롤 · 체중 경계의 후보 축이 둘로 줄고 저녁 시간대 문구가 크게 빈다. 유지</td></tr>
+    <tr><td class="k">「식사 시각」 축</td><td class="ans"><b><span class="chip keep">축 유지, 문구 개별 판단</span></b>A4 · A5는 근거 보강으로 「약함」이 해제되고, A3은 대체 행동이라 남음. 축을 빼면 콜레스테롤 · 체중 경계의 후보 축이 둘로 줄고 저녁 시간대 문구가 크게 빔. 유지</td></tr>
   </table>
 </section>
 
@@ -121,10 +137,10 @@
     <tr><td>B6</td><td class="k"><span class="chg">저녁 디저트 건너뛰기</span></td><td>저녁 뒤 단것까지 더하면 하루 당 권고량을 넘기기 쉬워요</td><td class="ans"><b><span class="chip keep">확인 완료</span></b></td></tr>
     <tr><td>B7</td><td class="k"><span class="chg">오늘은 단 음료 없이</span></td><td>하루 당 권고량은 각설탕 6개 정도예요. 음료 한 잔이면 넘어요</td><td class="ans"><b><span class="chip swap">재수정</span>→ "하루 당 권고량은 설탕 6티스푼 정도예요. 단 음료 한 잔이면 넘어요."</b>WHO 5% 기준 약 25g = 티스푼 6개. 각설탕은 1개 3~4g이라 25g은 7~8개로, "6개"는 수치 오류. 티스푼으로 정정. 250ml 탄산음료 당류 약 27g이므로 "한 잔이면 넘어요"는 성립</td></tr>
     <tr><td>B8</td><td class="k">국물은 건더기 위주로</td><td>찌개 한 그릇에 하루치 나트륨이 거의 다 들어 있기도 해요</td><td class="ans"><b><span class="chip keep">확인 완료</span></b>식약처 실측(김치찌개 1인분 약 1,960mg)과 일치</td></tr>
-    <tr><td>B9</td><td class="k"><span class="chg">한 끼는 싱겁게 먹기</span></td><td>소금을 줄이면 혈압이 내려가요</td><td class="ans"><b><span class="chip swap">재수정</span>→ "소금 줄이기는 고혈압 진료지침의 첫 생활요법이에요."</b>사실이지만 혈압 저하를 서비스가 단정하는 문장은 비의료기기 표현으로 피한다. 권고 인용형으로 바꾸면 근거는 그대로 남고 효능 주장은 사라진다</td></tr>
+    <tr><td>B9</td><td class="k"><span class="chg">한 끼는 싱겁게 먹기</span></td><td>소금을 줄이면 혈압이 내려가요</td><td class="ans"><b><span class="chip swap">재수정</span>→ "소금 줄이기는 고혈압 진료지침의 첫 생활요법이에요."</b>사실이지만 혈압 저하를 서비스가 단정하는 문장은 비의료기기 표현으로 피함. 권고 인용형으로 바꾸면 근거는 그대로 남고 효능 주장은 사라짐</td></tr>
     <tr><td>B10</td><td class="k">20분 이상 천천히 · 수저 한 번 내려놓기</td><td>같은 만족감에 덜 먹게 돼요 / 먹는 속도가 느려져요</td><td class="ans"><b><span class="chip keep">확인 완료</span></b>메타분석 결과(섭취량 감소, 허기 차이 없음)를 정확히 반영</td></tr>
     <tr><td>B11</td><td class="k">배부르기 전에 수저 놓기</td><td>배부르기 전에 멈추는 것이 과식을 피하는 방법이에요</td><td class="ans"><b><span class="chip keep">확인 완료</span></b></td></tr>
-    <tr><td>B12</td><td class="k">저녁은 가볍게, 거르지 않기</td><td>끼니를 건너뛴 날엔 저녁까지 거르지 않는 게 좋아요</td><td class="ans"><b><span class="chip keep">확인 완료</span></b>혈당 언급을 뺀 것이 맞다</td></tr>
+    <tr><td>B12</td><td class="k">저녁은 가볍게, 거르지 않기</td><td>끼니를 건너뛴 날엔 저녁까지 거르지 않는 게 좋아요</td><td class="ans"><b><span class="chip keep">확인 완료</span></b>혈당 언급을 뺀 것이 맞음</td></tr>
     <tr><td>B13</td><td class="k"><span class="chg">튀긴 반찬은 하나만</span></td><td>포화지방 · 트랜스지방이 겹치면 나쁜 콜레스테롤이 올라요</td><td class="ans"><b><span class="chip swap">재수정</span>→ "포화지방 · 트랜스지방 줄이기는 지질 진료지침의 기본 권고예요."</b>B9와 같은 이유. "나쁜 콜레스테롤"은 대중 용어로 무난하지만, 생리 효과 단정을 피하기 위해 권고 인용형으로</td></tr>
     <tr><td>B14</td><td class="k"><span class="chg">고기 대신 생선으로</span></td><td>붉은 고기를 줄이고 생선 · 콩류를 늘리는 것이 진료지침 권고예요</td><td class="ans"><b><span class="chip keep">확인 완료</span></b>이상지질혈증 진료지침 5판 식사요법과 일치</td></tr>
   </table>
@@ -135,26 +151,26 @@
   <h2><span class="n">C</span>식사 순서 문구의 대상 범위 · 회신</h2>
   <table>
     <tr><th style="width:200px">결정</th><th>이유</th></tr>
-    <tr><td class="k ans"><b><span class="chip keep">모든 사용자에게 허용</span></b></td><td class="ans">① 건강한 젊은 여성에서도 채소 먼저 섭취 시 식후 혈당 · 인슐린이 낮아진 교차 연구가 있다(Imai 2023). ② 식사 순서 변경은 섭취량 · 영양소 구성을 바꾸지 않아 어떤 사용자에게도 위험이 없다. ③ 채소를 먼저 먹는 습관은 채소 섭취량 자체를 늘리는 부수 효과가 있어 식생활지침 수칙 1과도 맞는다. 규칙 변경 없음. 단, 이유 문장은 현재대로 "식후 혈당이 덜 출렁여요" 수준을 넘지 않는다</td></tr>
+    <tr><td class="k ans"><b><span class="chip keep">모든 사용자에게 허용</span></b></td><td class="ans">① 건강한 젊은 여성에서도 채소 먼저 섭취 시 식후 혈당 · 인슐린이 낮아진 교차 연구가 있음(Imai 2023). ② 식사 순서 변경은 섭취량 · 영양소 구성을 바꾸지 않아 어떤 사용자에게도 위험이 없음. ③ 채소를 먼저 먹는 습관은 채소 섭취량 자체를 늘리는 부수 효과가 있어 식생활지침 수칙 1과도 맞음. 규칙 변경 없음. 단, 이유 문장은 현재대로 "식후 혈당이 덜 출렁여요" 수준을 넘지 않음</td></tr>
   </table>
 </section>
 
 <!-- D -->
 <section class="card" id="s5">
   <h2><span class="n">D</span>진료지침 원문 대조 · 회신</h2>
-  <div class="sub">임상영양 실무 기억에 기반한 회신. <b>쪽수 · 문장 대조는 원문 PDF를 펼쳐야 하므로 「원문 대조 필요」로 남긴다.</b> 확인 전까지 출처 표기는 기획 검수의 보수적 표기를 유지</div>
+  <div class="sub">임상영양 실무 기억에 기반한 회신. <b>쪽수 · 문장 대조는 원문 PDF를 펼쳐야 하므로 「원문 대조 필요」로 남김.</b> 확인 전까지 출처 표기는 기획 검수의 보수적 표기를 유지</div>
   <table>
     <tr><th style="width:220px">진료지침</th><th style="width:34%">확인 항목</th><th>회신</th></tr>
-    <tr><td class="k" rowspan="3">대한당뇨병학회 당뇨병 진료지침 2023 (8판) · 의학영양요법</td><td>① 식사 순서(채소 먼저) 권고문</td><td class="ans"><b><span class="chip chk">권고문 없음으로 판단</span></b>의학영양요법 장은 총열량 · 탄수화물 질 · 식이섬유 · 당류 · 나트륨을 다루며 식사 순서는 권고문으로 채택되지 않았다고 기억한다. 학회 대중 교육 자료에만 있다. 현재 출처 표기("식사 순서 무작위 대조 연구") 유지</td></tr>
-    <tr><td>② 전곡 · 통곡 권장</td><td class="ans"><b><span class="chip chk">있음(원문 대조 필요)</span></b>"탄수화물은 식이섬유가 풍부한 전곡 · 채소 · 과일 · 콩류로 섭취"하고 식이섬유 하루 20~25g 이상을 권고한다. 「흰 밥 대신 잡곡」류 문구를 추가할 경우 출처로 쓸 수 있다</td></tr>
-    <tr><td>③ 탄수화물 양과 식후 혈당</td><td class="ans"><b><span class="chip chk">있음(원문 대조 필요)</span></b>탄수화물 섭취량은 개별화하되 총열량의 55~65%에서 조절, 탄수화물 양이 식후 혈당의 주 결정 요인이라는 서술이 있다. 「밥 양 3분의 2」의 근거를 "당뇨병 진료지침(탄수화물 양 조절)"로 보강 가능. E3과 함께 혈당 · 체중 경계 전용으로 둔다</td></tr>
-    <tr><td class="k" rowspan="2">대한비만학회 비만 진료지침 2022 (8판)</td><td>① 식사 속도(천천히 먹기)</td><td class="ans"><b><span class="chip chk">있음(행동치료 · 원문 대조 필요)</span></b>행동수정요법의 자극 조절 · 식사 행동 항목에 "천천히 먹기, 식사에 집중하기"가 포함된다고 기억한다. 확인되면 「천천히」 2건 출처를 "비만 진료지침 행동치료 · 식사 속도 메타분석"으로</td></tr>
-    <tr><td>② 야식 · 저녁 열량 배분</td><td class="ans"><b><span class="chip chk">야식 회피 있음 · 열량 배분은 없음으로 판단</span></b>식사요법에 규칙적 식사 · 야식 회피가 있다. 저녁 열량을 점심보다 적게 하라는 배분 권고는 없다. A4 근거 보강에만 사용</td></tr>
-    <tr><td class="k" rowspan="3">한국지질동맥경화학회 이상지질혈증 진료지침 5판 (2022)</td><td>① 포화지방 7% 미만</td><td class="ans"><b><span class="chip chk">있음(원문 대조 필요)</span></b>포화지방산 총열량 7% 이내, 트랜스지방 최소화 권고가 있다고 기억한다. 확인되면 이유 문장에 수치 사용 가능하나, 사용자에게 %는 실천 단위가 아니므로 문구에는 쓰지 않는다</td></tr>
-    <tr><td>② 견과류 권장</td><td class="ans"><b><span class="chip chk">불포화지방 급원 예시로 있음(원문 대조 필요)</span></b>불포화지방산 급원(식물성 기름 · 견과류 · 생선) 대체 권고 안에 포함된다고 기억한다. 확인되면 「견과류」 출처를 "지질 진료지침 5판 · WHO 건강식"으로</td></tr>
+    <tr><td class="k" rowspan="3">대한당뇨병학회 당뇨병 진료지침 2023 (8판) · 의학영양요법</td><td>① 식사 순서(채소 먼저) 권고문</td><td class="ans"><b><span class="chip chk">권고문 없음으로 판단</span></b>의학영양요법 장은 총열량 · 탄수화물 질 · 식이섬유 · 당류 · 나트륨을 다루며 식사 순서는 권고문으로 채택되지 않았다고 기억함. 학회 대중 교육 자료에만 있음. 현재 출처 표기("식사 순서 무작위 대조 연구") 유지</td></tr>
+    <tr><td>② 전곡 · 통곡 권장</td><td class="ans"><b><span class="chip chk">있음(원문 대조 필요)</span></b>"탄수화물은 식이섬유가 풍부한 전곡 · 채소 · 과일 · 콩류로 섭취"하고 식이섬유 하루 20~25g 이상을 권고함. 「흰 밥 대신 잡곡」류 문구를 추가할 경우 출처로 쓸 수 있음</td></tr>
+    <tr><td>③ 탄수화물 양과 식후 혈당</td><td class="ans"><b><span class="chip chk">있음(원문 대조 필요)</span></b>탄수화물 섭취량은 개별화하되 총열량의 55~65%에서 조절, 탄수화물 양이 식후 혈당의 주 결정 요인이라는 서술이 있음. 「밥 양 3분의 2」의 근거를 "당뇨병 진료지침(탄수화물 양 조절)"로 보강 가능. E3과 함께 혈당 · 체중 경계 전용으로 둠</td></tr>
+    <tr><td class="k" rowspan="2">대한비만학회 비만 진료지침 2022 (8판)</td><td>① 식사 속도(천천히 먹기)</td><td class="ans"><b><span class="chip chk">있음(행동치료 · 원문 대조 필요)</span></b>행동수정요법의 자극 조절 · 식사 행동 항목에 "천천히 먹기, 식사에 집중하기"가 포함된다고 기억함. 확인되면 「천천히」 2건 출처를 "비만 진료지침 행동치료 · 식사 속도 메타분석"으로</td></tr>
+    <tr><td>② 야식 · 저녁 열량 배분</td><td class="ans"><b><span class="chip chk">야식 회피 있음 · 열량 배분은 없음으로 판단</span></b>식사요법에 규칙적 식사 · 야식 회피가 있음. 저녁 열량을 점심보다 적게 하라는 배분 권고는 없음. A4 근거 보강에만 사용</td></tr>
+    <tr><td class="k" rowspan="3">한국지질동맥경화학회 이상지질혈증 진료지침 5판 (2022)</td><td>① 포화지방 7% 미만</td><td class="ans"><b><span class="chip chk">있음(원문 대조 필요)</span></b>포화지방산 총열량 7% 이내, 트랜스지방 최소화 권고가 있다고 기억함. 확인되면 이유 문장에 수치 사용 가능하나, 사용자에게 %는 실천 단위가 아니므로 문구에는 쓰지 않음</td></tr>
+    <tr><td>② 견과류 권장</td><td class="ans"><b><span class="chip chk">불포화지방 급원 예시로 있음(원문 대조 필요)</span></b>불포화지방산 급원(식물성 기름 · 견과류 · 생선) 대체 권고 안에 포함된다고 기억함. 확인되면 「견과류」 출처를 "지질 진료지침 5판 · WHO 건강식"으로</td></tr>
     <tr><td>③ 적색육 대신 생선 · 콩류</td><td class="ans"><b><span class="chip chk">있음</span></b>웹 요약에서도 확인된 항목(적색육 · 가공육 줄이기, 생선 · 콩류 권장). B14 확인 완료 근거</td></tr>
   </table>
-  <div class="callout warn">D의 「있음(원문 대조 필요)」 4건은 원문 쪽수를 확인한 뒤 출처 표기를 바꾼다. 확인 전까지 상세 기획 ⑥ · ⑧에는 기획 검수 때의 표기를 그대로 둔다. 문구 자체는 이 대조 결과와 무관하게 확정된다.</div>
+  <div class="callout warn">D의 「있음(원문 대조 필요)」 4건은 원문 쪽수를 확인한 뒤 출처 표기를 바꿈. 확인 전까지 상세 기획 ⑥ · ⑧에는 기획 검수 때의 표기를 그대로 둠. 문구 자체는 이 대조 결과와 무관하게 확정됨.</div>
 </section>
 
 <!-- E -->
@@ -164,25 +180,25 @@
     <tr><th style="width:36px">#</th><th style="width:200px">문구</th><th style="width:70px">임의값</th><th>회신</th></tr>
     <tr><td>E1</td><td class="k">끼니 사이 4시간 넘기지 않기</td><td>4시간</td><td class="ans"><b><span class="chip del">A1 교체로 소멸</span></b></td></tr>
     <tr><td>E2</td><td class="k">한 끼는 20분 이상 천천히</td><td>20분</td><td class="ans"><b><span class="chip keep">유지</span></b>포만 신호(장 호르몬 · 위 팽만)가 뇌에 전달되는 데 15~20분이 걸린다는 설명은 영양상담 표준. 사용자가 세기 쉬운 값. 근거 표기 "식사 속도 메타분석 · 20분은 통용값"</td></tr>
-    <tr><td>E3</td><td class="k">한 끼 밥 양은 평소의 3분의 2</td><td>3분의 2</td><td class="ans"><b><span class="chip swap">조건부 유지</span>혈당 · 체중 경계 사용자 전용</b>체중 · 혈당이 표준인 사용자에게 주식 감량을 권할 이유가 없고, 저체중 · 노인에게는 해로울 수 있다. 「채소」 축의 혈당 후보와 「식사 속도·양」 축의 콜레스테롤 · 체중 후보에서만 이 문구가 나오도록 "검진 경계 전용" 표시를 붙인다. 일반 사용자의 식사 속도·양 도전 단계는 「배부르기 전에 수저 놓기」만 쓴다</td></tr>
+    <tr><td>E3</td><td class="k">한 끼 밥 양은 평소의 3분의 2</td><td>3분의 2</td><td class="ans"><b><span class="chip swap">조건부 유지</span>혈당 · 체중 경계 사용자 전용</b>체중 · 혈당이 표준인 사용자에게 주식 감량을 권할 이유가 없고, 저체중 · 노인에게는 해로울 수 있음. 「채소」 축의 혈당 후보와 「식사 속도·양」 축의 콜레스테롤 · 체중 후보에서만 이 문구가 나오도록 "검진 경계 전용" 표시를 붙임. 일반 사용자의 식사 속도·양 도전 단계는 「배부르기 전에 수저 놓기」만 씀</td></tr>
     <tr><td>E4</td><td class="k">저녁은 잠들기 3시간 전에 마치기</td><td>3시간</td><td class="ans"><b><span class="chip keep">유지</span></b>A5 회신대로 지침 범위(2~3시간) 안</td></tr>
-    <tr><td>E5</td><td class="k">오후 2시 이후 카페인 멈추기</td><td>오후 2시</td><td class="ans"><b><span class="chip keep">유지</span></b>카페인 반감기 5~6시간, 취침 6시간 전 섭취도 수면을 줄였다는 실험(Drake 2013)을 고려하면 23시 취침 기준 17시가 하한. 오후 2시는 보수적이지만 "점심 이후"로 기억하기 쉽고, 부담 줄이기 풀은 컨디션이 낮은 날에만 나오므로 엄격해도 무리 없다</td></tr>
+    <tr><td>E5</td><td class="k">오후 2시 이후 카페인 멈추기</td><td>오후 2시</td><td class="ans"><b><span class="chip keep">유지</span></b>카페인 반감기 5~6시간, 취침 6시간 전 섭취도 수면을 줄였다는 실험(Drake 2013)을 고려하면 23시 취침 기준 17시가 하한. 오후 2시는 보수적이지만 "점심 이후"로 기억하기 쉽고, 부담 줄이기 풀은 컨디션이 낮은 날에만 나오므로 엄격해도 무리 없음</td></tr>
   </table>
 </section>
 
 <!-- F -->
 <section class="card" id="s7">
   <h2><span class="n">F</span>검진 경계 판정 기준 · 회신</h2>
-  <div class="sub">국가건강검진 판정 기준과 국내 학회 진료지침 분류를 그대로 쓴다. AI 검진요약의 판정 구간과 같게 맞추는 것을 전제</div>
+  <div class="sub">국가건강검진 판정 기준과 국내 학회 진료지침 분류를 그대로 씀. AI 검진요약의 판정 구간과 같게 맞추는 것을 전제</div>
   <table>
     <tr><th style="width:130px">검진 항목</th><th style="width:32%">경계</th><th style="width:26%">주의</th><th>회신 · 비고</th></tr>
-    <tr><td class="k">공복혈당</td><td>100 ~ 125 mg/dL (공복혈당장애)</td><td>126 mg/dL 이상</td><td class="ans">당뇨병 진료지침 · 국가검진 기준. 당화혈색소가 있으면 5.7~6.4% 경계, 6.5% 이상 주의를 함께 본다. 경계 · 주의 모두 「혈당 경계」 유형으로 켠다</td></tr>
-    <tr><td class="k">혈압</td><td>수축기 120~139 <b>또는</b> 이완기 80~89 mmHg</td><td>수축기 140 이상 <b>또는</b> 이완기 90 이상</td><td class="ans">고혈압 진료지침 2022의 주의혈압(120~129/80 미만)과 고혈압 전단계(130~139/80~89)를 합쳐 경계로. 수축기 · 이완기 중 하나만 해당해도 켠다. 약 복용 중인 확진자는 확진 질환 입력이 별도로 처리</td></tr>
-    <tr><td class="k">총콜레스테롤</td><td>200 ~ 239 mg/dL</td><td>240 mg/dL 이상</td><td class="ans">LDL 콜레스테롤이 있으면 LDL을 우선: 130~159 경계, 160 이상 주의. 총콜레스테롤만 있으면 위 기준. 중성지방(150~199 경계, 200 이상 주의)은 지질 경계 판정에 포함해도 좋다</td></tr>
-    <tr><td class="k">체질량지수</td><td>23.0 ~ 24.9 (비만 전단계)</td><td>25.0 이상 (비만)</td><td class="ans">대한비만학회 기준. 허리둘레(남 90 · 여 85cm 이상)가 있으면 주의로 본다. <b>18.5 미만(저체중)은 콜레스테롤 · 체중 경계를 켜지 않고</b>, 섭취량 줄이는 문구(E3 · 저녁 양 적게)를 내지 않는다</td></tr>
-    <tr><td class="k">시야 질문 이상</td><td colspan="2">—</td><td class="ans"><b><span class="chip del">단독으로 혈당 경계를 켜는 규칙 삭제</span></b>시야 흐림은 피로 · 안구건조 · 굴절 이상 · 혈압 등 원인이 다양하다. 검진 없이 증상 답 하나로 혈당 풀을 여는 것은 비의료기기 원칙에 어긋나고, 사용자에게 "당뇨 의심"이라는 인상을 줄 수 있다. 시야 문항은 오늘의 코칭 컨디션 판정에만 쓴다</td></tr>
+    <tr><td class="k">공복혈당</td><td>100 ~ 125 mg/dL (공복혈당장애)</td><td>126 mg/dL 이상</td><td class="ans">당뇨병 진료지침 · 국가검진 기준. 당화혈색소가 있으면 5.7~6.4% 경계, 6.5% 이상 주의를 함께 봄. 경계 · 주의 모두 「혈당 경계」 유형으로 켬</td></tr>
+    <tr><td class="k">혈압</td><td>수축기 120~139 <b>또는</b> 이완기 80~89 mmHg</td><td>수축기 140 이상 <b>또는</b> 이완기 90 이상</td><td class="ans">고혈압 진료지침 2022의 주의혈압(120~129/80 미만)과 고혈압 전단계(130~139/80~89)를 합쳐 경계로. 수축기 · 이완기 중 하나만 해당해도 켬. 약 복용 중인 확진자는 확진 질환 입력이 별도로 처리</td></tr>
+    <tr><td class="k">총콜레스테롤</td><td>200 ~ 239 mg/dL</td><td>240 mg/dL 이상</td><td class="ans">LDL 콜레스테롤이 있으면 LDL을 우선: 130~159 경계, 160 이상 주의. 총콜레스테롤만 있으면 위 기준. 중성지방(150~199 경계, 200 이상 주의)은 지질 경계 판정에 포함해도 좋음</td></tr>
+    <tr><td class="k">체질량지수</td><td>23.0 ~ 24.9 (비만 전단계)</td><td>25.0 이상 (비만)</td><td class="ans">대한비만학회 기준. 허리둘레(남 90 · 여 85cm 이상)가 있으면 주의로 봄. <b>18.5 미만(저체중)은 콜레스테롤 · 체중 경계를 켜지 않고</b>, 섭취량 줄이는 문구(E3 · 저녁 양 적게)를 내지 않음</td></tr>
+    <tr><td class="k">시야 질문 이상</td><td colspan="2">—</td><td class="ans"><b><span class="chip del">단독으로 혈당 경계를 켜는 규칙 삭제</span></b>시야 흐림은 피로 · 안구건조 · 굴절 이상 · 혈압 등 원인이 다양함. 검진 없이 증상 답 하나로 혈당 풀을 여는 것은 비의료기기 원칙에 어긋나고, 사용자에게 "당뇨 의심"이라는 인상을 줄 수 있음. 시야 문항은 오늘의 코칭 컨디션 판정에만 씀</td></tr>
   </table>
-  <p class="note">검진 항목이 둘 이상 경계면 혈당 → 혈압 → 콜레스테롤·체중 순으로 하나만 적용하는 기존 규칙은 타당하다. 심혈관 위험 기여도와 식이 개입 효과 크기 순서에 부합한다.</p>
+  <p class="note">검진 항목이 둘 이상 경계면 혈당 → 혈압 → 콜레스테롤·체중 순으로 하나만 적용하는 기존 규칙은 타당함. 심혈관 위험 기여도와 식이 개입 효과 크기 순서에 부합함.</p>
 </section>
 
 <!-- 반영 -->
@@ -199,7 +215,7 @@
     <tr><td class="k">시나리오 프로토타입</td><td>문구 데이터 동기화 · 검진 경계 전용 문구 필터 · 시야 규칙 제거</td></tr>
     <tr><td class="k">목표 생성 규칙 · 식이 0.1 ⑦-2</td><td>검진 판정 기준 확정 내용을 참조로 연결(원문은 수정하지 않음)</td></tr>
   </table>
-  <div class="callout">잔여 항목은 요청 D의 원문 쪽수 대조 4건뿐이다. 문구 · 규칙은 이 회신으로 확정 가능하며, 대조 결과는 출처 표기만 바꾼다.</div>
+  <div class="callout">잔여 항목은 요청 D의 원문 쪽수 대조 4건뿐임. 문구 · 규칙은 이 회신으로 확정 가능하며, 대조 결과는 출처 표기만 바꿈.</div>
 </section>
 
 </div>
