@@ -4,217 +4,309 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>끼니별 식사 시각 질문 기획서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap">
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5;--acc:#1d4ed8;--todo:#b7791f;--todo-bg:#fcf3e1}
+:root{--ink:#0f1222;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a;--bg:#fbfbfd;--line:#e3e6ef;--blue-l:#eef1ff;--red-l:#fdeeed;--green-l:#eaf8f0;--amber-l:#fff6e6;--mute:#5d6275}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.6}
-main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
-header h1{margin:0 0 4px;font-size:24px}
-header .path{color:var(--mute);font-size:13px}
-.kind{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;margin-bottom:8px}
-.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin:8px 0 18px}
-.meta b{color:var(--ink);font-weight:600}
-nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
-nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
-nav.toc a,a{color:var(--acc);text-decoration:none}
-a:hover{text-decoration:underline}
-section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
-section h2{margin:0 0 10px;font-size:17px}
-section h3{margin:14px 0 6px;font-size:14px}
-.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
-.glance div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.glance b{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
-table{width:100%;border-collapse:collapse;margin-top:8px}
-th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
-th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
-.chip{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--chip);font-size:12px;font-weight:600;white-space:nowrap}
-.todo{background:var(--todo-bg);color:var(--todo);padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600}
-.ex{color:var(--mute);font-size:12.5px}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Noto Sans KR",sans-serif;font-size:15px;line-height:1.7}
+main{max-width:1120px;margin:0 auto;padding:40px 24px 80px}
+.cover{padding:40px 0 28px;border-bottom:1px solid var(--line)}
+.cover .kicker{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.cover h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:40px;line-height:1.25;margin:10px 0 8px}
+.cover .sub{font-size:17px;color:var(--mute);margin-bottom:18px}
+.meta{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;font-size:13px}
+.meta div span{display:block;color:var(--mute);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.meta a{color:var(--blue);text-decoration:none}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:24px 0;border-bottom:1px solid var(--line)}
+.tile{border-left:3px solid var(--ink);padding:4px 0 4px 14px}
+.tile .n{font-family:"DM Serif Display",serif;font-size:38px;line-height:1.1}
+.tile .l{font-size:13px;color:var(--mute)}
+.tile.ok{border-color:var(--green)}.tile.ng{border-color:var(--red)}.tile.key{border-color:var(--blue)}.tile.tbd{border-color:var(--amber)}
+section{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:36px 0;border-bottom:1px solid var(--line)}
+section .num{font-family:"DM Serif Display",serif;font-size:56px;line-height:1;color:#c9ccd8}
+section h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:26px;margin:4px 0 14px}
+section h3{font-size:15px;margin:18px 0 6px;font-weight:600}
 p{margin:6px 0}
-ol{margin:6px 0 0;padding-left:20px}
-ol li{margin:4px 0}
-code{font-family:Consolas,monospace;font-size:12.5px;background:var(--chip);padding:1px 5px;border-radius:5px}
-/* 화면 흐름 그림 */
-.flow{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin:12px 0}
-.flow .arrow{align-self:center;color:var(--mute);font-size:20px}
-.phone{flex:1 1 230px;max-width:260px;border:1px solid var(--line);border-radius:16px;padding:14px 12px;background:var(--bg)}
-.phone .step{font-size:11px;font-weight:700;color:var(--acc);margin-bottom:4px}
-.phone .q{font-size:15px;font-weight:700;line-height:1.35;margin-bottom:10px}
-.phone .opts{display:flex;gap:5px}
-.phone .opt{flex:1;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:8px 3px;text-align:center;font-size:11px;font-weight:600;line-height:1.3}
-.phone .opt .ap{display:block;font-size:10px;color:var(--mute);font-weight:600;min-height:1.3em}
-.phone .opt .tm{display:block;font-size:12.5px;font-weight:700}
-.phone .opt small{display:block;font-size:10px;color:var(--mute);font-weight:500;min-height:1.3em}
-.phone .opt.on{border-color:var(--acc);box-shadow:inset 0 0 0 1px var(--acc)}
-.phone .cap{font-size:11px;color:var(--mute);margin-top:8px}
-.rail{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
-.rail span{border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px;background:var(--bg)}
-.rail span b{display:block;font-size:11px;color:var(--mute);font-weight:600}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}th{background:#20252c}}
-:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}
+ul{margin:4px 0;padding-left:18px}li{margin:3px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:14px}
+table th{border-top:2px solid var(--ink);border-bottom:1px solid var(--line);text-align:left;padding:8px 10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:600}
+table td{border-bottom:1px solid var(--line);padding:8px 10px;vertical-align:top}
+.tag{display:inline-block;padding:0 7px;border-radius:3px;font-size:12px;font-weight:600;line-height:1.7}
+.tag.ok{background:var(--green-l);color:var(--green)}.tag.ng{background:var(--red-l);color:var(--red)}.tag.tbd{background:var(--amber-l);color:var(--amber)}.tag.pro{background:var(--blue-l);color:var(--blue)}
+.panels{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:12px 0}
+.panels.two{grid-template-columns:repeat(2,1fr)}
+.panel{border:1px solid var(--line);background:#fff;padding:14px 16px}
+.panel h4{margin:0 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
+.panel.rec{border-color:var(--blue);background:var(--blue-l)}
+.fig{margin:16px 0 6px;border:1px solid var(--line);background:#fff;padding:14px 16px}
+.fig .t{font-size:13px;font-weight:600;margin-bottom:6px}
+.fig svg{width:100%;height:auto;display:block;font-family:"DM Sans","Noto Sans KR",sans-serif}
+.fig .cap{font-size:13px;color:var(--mute);margin-top:8px}.fig .cap b{color:var(--ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:1px 5px;border-radius:3px}
+.foot{font-size:13px;color:var(--mute);padding-top:28px}
+.foot h2{font-size:16px;color:var(--ink);font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400}
+.foot ol{padding-left:18px}
+@media (max-width:760px){.meta,.strip,.panels,.grid2,.panels.two{grid-template-columns:1fr}section{grid-template-columns:1fr}.num{font-size:36px}}
 </style>
 </head>
 <body>
 <main>
 
-<header>
-  <span class="kind">기획서</span>
+<div class="cover">
+  <div class="kicker">기획서 · 홈 › 오늘의 질문 · 식이 엔진</div>
   <h1>끼니별 식사 시각 질문</h1>
-  <div class="path">홈 › 오늘의 질문 (식이 엔진 · 식사 질문 바로 뒤에 이어 묻는 단계)</div>
-  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>HOME-003</b> (홈 질문·코칭·목표 화면설계서 ② 식사 시각)</span><span>관련 문서 <b><a href="maiReport_식이_식사시각질문_v1.0.0.html">설계 정리 페이지(화면·예시·정확도)</a> · <a href="mai-report-식이_질문목표_상세기획_v1.0.0.html">식이 질문·목표 상세 기획 1.0.2</a> · <a href="../../화면/10_홈탭/maiReport_홈_질문코칭목표_기획서_v1.0.0.html">홈 질문·코칭·목표 기획서</a> · <a href="mai-report-식이_화면설계서_v1.0.0.html">식이 화면설계서 ①-2</a> · <a href="maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx">데이터 계약 v1.3.0</a></b></span></div>
-</header>
-
-<nav class="toc"><ol>
-<li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">배경과 목표</a></li><li><a href="#c2">대상과 상황</a></li><li><a href="#c3">범위</a></li><li><a href="#c4">동작 방식</a></li><li><a href="#c5">규칙과 예외 · 기능 정의</a></li><li><a href="#c6">데이터</a></li><li><a href="#c7">성공 기준</a></li><li><a href="#where">어디에 들어 있나</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
-</ol></nav>
-
-<section id="glance"><h2>한눈에 보기</h2>
-<div class="glance">
-<div><b>이 문서가 다루는 것</b>매일 나가는 식사 질문(「{끼니}은 평소만큼 드셨나요?」)에 답하면 같은 자리에서 「{끼니}은 언제쯤 드셨어요?」를 한 번 더 물어 식사 시각을 받는 단계</div>
-<div><b>가장 중요한 결정</b>질문 1개로 센다(식이 최대 3문항 · 전체 최대 5문항). 버튼 3개는 1시간 간격이고 답한 시각에서 거꾸로 센다. 어제 저녁과 「못 먹거나 거름」에는 묻지 않는다</div>
-<div><b>아직 정해지지 않은 것</b>걸음 기록만으로 「식후에 걸었다」고 판정해도 되는지(계산식 전달 문서 확인 대기). 그 밖의 설계·데이터·구현 기준은 모두 정해져 반영됨</div>
+  <div class="sub">매일 나가는 식사 질문 바로 뒤, 같은 자리에서 「언제쯤 드셨어요?」를 한 번 더 물어 식후 행동 지표를 채우는 단계</div>
+  <div class="meta">
+    <div><span>판 · 기준일</span>1.0.1 · 2026-10-14</div>
+    <div><span>화면 ID</span>HOME-003 (홈 화면설계서 ② 식사 시각)</div>
+    <div><span>정본 데이터</span><a href="maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx">식이 개발 전달 데이터 계약 v1.3.0</a></div>
+    <div><span>관련 문서</span><a href="maiReport_식이_식사시각질문_v1.0.0.html">설계 정리</a> · <a href="mai-report-식이_질문목표_상세기획_v1.0.0.html">상세 기획 1.0.2</a> · <a href="../../화면/10_홈탭/maiReport_홈_질문코칭목표_기획서_v1.0.0.html">홈 기획서</a> · <a href="mai-report-식이_화면설계서_v1.0.0.html">화면설계서 ①-2</a></div>
+  </div>
 </div>
-</section>
 
-<section id="c1"><h2>1. 배경과 목표</h2>
-<p>자기돌봄 지표와 일상안정 지표에는 「식후에 움직였는지」를 보는 칸이 있는데, 앱은 식사 시각을 모른다. 그래서 이 칸이 늘 비어 있고, 식후에 걷지 않은 날도 걸은 날과 같은 점수가 나왔다(하루 8,000보 예시에서 매일 72점).</p>
-<p>식사 질문 바로 뒤에 시각을 한 번 더 물으면 이 칸이 채워진다. 같은 예시에서 식후에 걸은 날은 81점, 안 걸은 날은 61점으로 갈라져 실제 생활이 점수에 드러난다. 새 화면을 만들지 않고 이미 있는 질문 카드에서 글과 버튼만 바꾸는 방식이라 사용자 부담은 버튼 한 번이다.</p>
-</section>
+<div class="strip">
+  <div class="tile key"><div class="n">+1</div><div class="l">하루 질문 수 4 → 5. 식이 최대 3문항(식사 · 시각 · 회전)</div></div>
+  <div class="tile ok"><div class="n">3</div><div class="l">버튼 수. 1시간 간격, 답한 시각에서 거꾸로. 건너뛰기 없음</div></div>
+  <div class="tile ng"><div class="n">50%</div><div class="l">현재 자기돌봄 등급이 실제와 다른 날. 식후 행동을 알 수 없어 매일 같은 점수</div></div>
+  <div class="tile ok"><div class="n">11~18%</div><div class="l">시각 단계를 둔 뒤 등급이 다른 날(모의 2만 끼니). 평균 오차 10.0점 → 2.3~3.7점</div></div>
+</div>
 
-<section id="c2"><h2>2. 대상과 상황</h2>
-<table><tr><th>인물</th><th>상황</th><th>바라는 것</th></tr>
-<tr><td>지영 씨, 44세 사무직</td><td>오후 1시 20분 점심을 먹고 자리에 앉아 앱을 연다. 「오늘 점심은 평소만큼 드셨나요?」에 「충분히 먹음」을 누른다</td><td>길게 입력하지 않고 버튼 한 번으로 끝내고 싶다. 「오후 12:20 이후」를 누르면 끝</td></tr>
-<tr><td>민수 씨, 58세 자영업</td><td>밤 11시 30분에야 앱을 연다. 저녁은 7시 20분쯤 먹었다</td><td>너무 세밀하게 묻지 않았으면 한다. 버튼은 「오후 8:00 이후 / 7:00~8:00 / 7:00 이전」이라 「7:00~8:00」 하나만 누르면 된다</td></tr>
-<tr><td>아침 8시에 앱을 연 누구나</td><td>이 시간에는 「어제 저녁」을 묻는다</td><td>어제 일을 시각까지 떠올리게 하지 않는다. 시각 단계가 아예 나오지 않는다</td></tr>
+<section id="s01"><div class="num">01</div><div>
+<h2>한눈에 보기</h2>
+<div class="panels">
+  <div class="panel"><h4>이 문서가 다루는 것</h4><p>고정 식사 질문(「{끼니}은 평소만큼 드셨나요?」)에 답하면 같은 카드에서 「{끼니}은 언제쯤 드셨어요?」를 이어 묻는 단계의 화면, 규칙, 데이터, 반영 위치.</p></div>
+  <div class="panel rec"><h4>가장 중요한 결정</h4><p>질문 1개로 센다(식이 최대 3문항 · 전체 최대 5문항). 버튼은 1시간 간격이며 답한 시각에서 거꾸로 세고 끼니별 멈춤 시각에서 멈춘다. 어제 저녁과 「못 먹거나 거름」에는 묻지 않는다. 점수는 만들지 않는다.</p></div>
+  <div class="panel"><h4>아직 정해지지 않은 것</h4><p>걸음 기록만으로 「식후에 움직였다」고 판정해도 되는지(계산식 전달 문서 확인 대기). 설계 · 데이터 계약 · 구현 기준은 모두 확정되어 반영되었다.</p></div>
+</div>
+</div></section>
+
+<section id="s02"><div class="num">02</div><div>
+<h2>배경과 목표</h2>
+<p>자기돌봄 지표와 일상안정 지표에는 「식후에 움직였는지」를 보는 항목이 있으나, 앱이 식사 시각을 알지 못해 이 항목이 산출되지 않고 있다. 하루 8,000보 예시에서는 식후에 걸은 날과 걷지 않은 날이 모두 72점으로 표시된다.</p>
+<p>식사 질문 바로 뒤에 시각을 한 번 더 받으면 이 항목이 채워진다. 같은 예시에서 식후에 걸은 날은 81점, 걷지 않은 날은 61점으로 나뉘어 실제 생활이 점수에 반영된다. 새 화면 없이 기존 질문 카드의 글과 버튼만 바꾸므로 사용자 부담은 버튼 1회로 제한된다.</p>
+<div class="fig"><div class="t">Fig 1 · 문제 → 원인 → 이 기획</div>
+<svg viewBox="0 0 760 140" role="img" aria-label="문제 원인 기획 흐름">
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#0f1222"/></marker></defs>
+  <g font-size="12" fill="#0f1222">
+    <rect x="8" y="24" width="220" height="90" fill="#fdeeed" stroke="#e0453f"/><text x="18" y="46" font-weight="600" fill="#e0453f">문제</text><text x="18" y="68">식후 행동 항목이 항상 공란</text><text x="18" y="86">걸은 날과 안 걸은 날이 같은 점수</text><text x="18" y="104">등급이 다른 날 50%</text>
+    <path d="M232 69 L262 69" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="266" y="24" width="220" height="90" fill="#fff6e6" stroke="#c7861c"/><text x="276" y="46" font-weight="600" fill="#c7861c">원인</text><text x="276" y="68">식사 시각을 받는 입력이 없음</text><text x="276" y="86">걸음 기록만으로는 식사 시점을</text><text x="276" y="104">특정하기 어려움</text>
+    <path d="M490 69 L520 69" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="524" y="24" width="228" height="90" fill="#eef1ff" stroke="#5170FF"/><text x="534" y="46" font-weight="600" fill="#5170FF">이 기획</text><text x="534" y="68">식사 질문 직후 같은 자리에서</text><text x="534" y="86">1시간 간격 버튼 3개로 시각 입력</text><text x="534" y="104">등급이 다른 날 11~18%</text>
+  </g>
+</svg>
+<div class="cap"><b>해석:</b> 공란의 원인은 입력 경로의 부재이며, 추가 화면 없이 1문항을 이어 묻는 것으로 해소된다. 모의 데이터 기준 등급 오류일은 약 3분의 1로 줄어든다.</div></div>
+</div></section>
+
+<section id="s03"><div class="num">03</div><div>
+<h2>대상과 상황</h2>
+<table><tr><th>인물</th><th>상황</th><th>바라는 것 · 실제 동작</th></tr>
+<tr><td>지영 씨, 44세 사무직</td><td>오후 1시 20분 점심을 먹고 앱을 연다. 「오늘 점심은 평소만큼 드셨나요?」에 「충분히 먹음」을 누른다</td><td>길게 입력하지 않기를 바란다. 「오후 12:20 이후」 버튼 1회로 끝난다</td></tr>
+<tr><td>민수 씨, 58세 자영업</td><td>밤 11시 30분에 앱을 연다. 저녁은 7시 20분쯤 먹었다</td><td>세밀한 질문을 원하지 않는다. 버튼은 「오후 8:00 이후 / 7:00~8:00 / 7:00 이전」이며 「7:00~8:00」을 고른다</td></tr>
+<tr><td>아침 8시에 앱을 연 사용자</td><td>이 시간대에는 「어제 저녁」을 묻는다</td><td>어제 일을 시각까지 떠올리게 하지 않는다. 시각 단계가 나오지 않는다</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c3"><h2>3. 범위</h2>
-<table><tr><th>이번에 하는 것</th><th>하지 않는 것</th></tr>
-<tr><td>
-<ul>
-<li>식사 질문 뒤 같은 자리에서 시각 단계 1문항(점심·저녁 「언제쯤」, 아침 「몇 시쯤」)</li>
-<li>버튼 3개 생성 규칙(1시간 간격 · 10분 내림 · 끼니별 멈춤 시각 · 아침 고정)</li>
-<li>답으로 식사 시각을 추정해 저장(건강 앱 → 걸음 단서 → 평소 시각 → 범위 가운데)</li>
-<li>「오늘 답변 모두 보기」에서 답 수정</li>
-<li>데이터 계약 · 참조 구현 · 프로토타입 · 시뮬레이터 반영</li>
-</ul></td><td>
-<ul>
-<li>식후에 걸었는지 판정하는 지표 계산 자체(계산식 전달 문서 쪽)</li>
-<li>식후 걷기 확인 알림</li>
-<li>시각 단계의 「건너뛰기」 버튼</li>
-<li>야식 질문(식사 시각 축, DIET-Q-04)의 변경</li>
-<li>식사 시각으로 좋음·나쁨 등급이나 코칭 문구를 만드는 일</li>
-</ul></td></tr></table>
-</section>
-
-<section id="c4"><h2>4. 동작 방식</h2>
-<p>오후 1시 20분에 앱을 열어 점심 질문에 답하는 경우다. 세 화면 모두 홈의 같은 질문 카드이고, 글과 버튼만 바뀐다.</p>
-<div class="flow">
-  <div class="phone"><div class="step">오늘의 질문 · 1/5</div><div class="q">오늘 점심은 평소만큼 드셨나요?</div>
-    <div class="opts"><div class="opt on">충분히 먹음</div><div class="opt">적게 · 몇 입만</div><div class="opt">못 먹거나 거름</div></div>
-    <div class="cap">지금과 같은 식사 질문. 「충분히 먹음」을 누름</div></div>
-  <div class="arrow">→</div>
-  <div class="phone"><div class="step">오늘의 질문 · 2/5</div><div class="q">점심은 언제쯤 드셨어요?</div>
-    <div class="opts"><div class="opt on"><span class="ap">오후</span><span class="tm">12:20 이후</span><small>1시간 이내</small></div><div class="opt"><span class="ap">오전~오후</span><span class="tm">11:20~12:20</span><small>1~2시간 전</small></div><div class="opt"><span class="ap">오전</span><span class="tm">11:20 이전</span><small>그보다 전</small></div></div>
-    <div class="cap">새로 끼어드는 시각 단계. 1시 20분에서 1시간씩 거꾸로 센 버튼</div></div>
-  <div class="arrow">→</div>
-  <div class="phone"><div class="step">오늘의 질문 · 3/5</div><div class="q">오늘 점심엔 채소 반찬을 얼마나 드셨나요?</div>
-    <div class="opts"><div class="opt">충분히 먹음</div><div class="opt">조금 먹음</div><div class="opt">먹지 않음</div></div>
-    <div class="cap">지금과 같은 회전 질문. 번호가 하나 밀림</div></div>
+<section id="s04"><div class="num">04</div><div>
+<h2>범위</h2>
+<div class="panels two">
+  <div class="panel"><h4>이번에 하는 것</h4><ul><li>식사 질문 뒤 같은 자리에서 시각 단계 1문항(점심 · 저녁 「언제쯤」, 아침 「몇 시쯤」)</li><li>버튼 3개 생성 규칙(1시간 간격 · 10분 내림 · 끼니별 멈춤 시각 · 아침 고정)</li><li>답으로 식사 시각을 추정해 저장(건강 앱 → 걸음 단서 → 평소 시각 → 범위 가운데)</li><li>「오늘 답변 모두 보기」에서의 답 수정</li><li>데이터 계약 · 참조 구현 · 프로토타입 · 시뮬레이터 반영</li></ul></div>
+  <div class="panel"><h4>하지 않는 것</h4><ul><li>식후에 움직였는지 판정하는 지표 계산 자체(계산식 전달 문서 영역)</li><li>식후 걷기 확인 알림</li><li>시각 단계의 건너뛰기 버튼</li><li>야식 질문(식사 시각 축, DIET-Q-04)의 변경</li><li>식사 시각으로 좋음 · 나쁨 등급이나 코칭 문구를 만드는 일</li></ul></div>
 </div>
+</div></section>
+
+<section id="s05"><div class="num">05</div><div>
+<h2>동작 방식</h2>
+<p>오후 1시 20분에 앱을 열어 점심 질문에 답하는 경우다. 세 화면은 모두 홈의 같은 질문 카드이며 글과 버튼만 바뀐다.</p>
+<div class="fig"><div class="t">Fig 2 · 화면 흐름 — 1/5 → 2/5 → 3/5</div>
+<svg viewBox="0 0 760 240" role="img" aria-label="화면 흐름">
+  <g font-size="11" fill="#0f1222">
+    <rect x="6" y="10" width="232" height="220" fill="#fbfbfd" stroke="#e3e6ef"/>
+    <text x="18" y="32" font-size="10" font-weight="600" fill="#5170FF">오늘의 질문 · 1/5</text><text x="18" y="56" font-size="14" font-weight="700">오늘 점심은 평소만큼</text><text x="18" y="74" font-size="14" font-weight="700">드셨나요?</text>
+    <rect x="18" y="96" width="66" height="56" fill="#fff" stroke="#5170FF" stroke-width="2"/><text x="51" y="128" text-anchor="middle" font-weight="600">충분히 먹음</text>
+    <rect x="90" y="96" width="66" height="56" fill="#fff" stroke="#e3e6ef"/><text x="123" y="122" text-anchor="middle" font-size="10">적게 ·</text><text x="123" y="135" text-anchor="middle" font-size="10">몇 입만</text>
+    <rect x="162" y="96" width="66" height="56" fill="#fff" stroke="#e3e6ef"/><text x="195" y="122" text-anchor="middle" font-size="10">못 먹거나</text><text x="195" y="135" text-anchor="middle" font-size="10">거름</text>
+    <text x="18" y="190" fill="#5d6275" font-size="10.5">지금과 같은 식사 질문</text><text x="18" y="205" fill="#5d6275" font-size="10.5">「충분히 먹음」을 누름</text>
+    <path d="M244 120 L258 120" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="264" y="10" width="232" height="220" fill="#eef1ff" stroke="#5170FF"/>
+    <text x="276" y="32" font-size="10" font-weight="600" fill="#5170FF">오늘의 질문 · 2/5</text><text x="276" y="56" font-size="14" font-weight="700">점심은 언제쯤</text><text x="276" y="74" font-size="14" font-weight="700">드셨어요?</text>
+    <rect x="276" y="96" width="66" height="64" fill="#fff" stroke="#5170FF" stroke-width="2"/><text x="309" y="112" text-anchor="middle" font-size="9" fill="#5d6275">오후</text><text x="309" y="130" text-anchor="middle" font-size="11.5" font-weight="700">12:20 이후</text><text x="309" y="148" text-anchor="middle" font-size="9" fill="#5d6275">1시간 이내</text>
+    <rect x="348" y="96" width="66" height="64" fill="#fff" stroke="#e3e6ef"/><text x="381" y="112" text-anchor="middle" font-size="9" fill="#5d6275">오전~오후</text><text x="381" y="130" text-anchor="middle" font-size="11" font-weight="700">11:20~12:20</text><text x="381" y="148" text-anchor="middle" font-size="9" fill="#5d6275">1~2시간 전</text>
+    <rect x="420" y="96" width="66" height="64" fill="#fff" stroke="#e3e6ef"/><text x="453" y="112" text-anchor="middle" font-size="9" fill="#5d6275">오전</text><text x="453" y="130" text-anchor="middle" font-size="11.5" font-weight="700">11:20 이전</text><text x="453" y="148" text-anchor="middle" font-size="9" fill="#5d6275">그보다 전</text>
+    <text x="276" y="190" fill="#5170FF" font-size="10.5" font-weight="600">새로 끼어드는 시각 단계</text><text x="276" y="205" fill="#5d6275" font-size="10.5">1시 20분에서 1시간씩 거꾸로 센 버튼</text>
+    <path d="M502 120 L516 120" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="522" y="10" width="232" height="220" fill="#fbfbfd" stroke="#e3e6ef"/>
+    <text x="534" y="32" font-size="10" font-weight="600" fill="#5170FF">오늘의 질문 · 3/5</text><text x="534" y="56" font-size="14" font-weight="700">오늘 점심엔 채소 반찬을</text><text x="534" y="74" font-size="14" font-weight="700">얼마나 드셨나요?</text>
+    <rect x="534" y="96" width="66" height="56" fill="#fff" stroke="#e3e6ef"/><text x="567" y="128" text-anchor="middle">충분히 먹음</text>
+    <rect x="606" y="96" width="66" height="56" fill="#fff" stroke="#e3e6ef"/><text x="639" y="128" text-anchor="middle">조금 먹음</text>
+    <rect x="678" y="96" width="66" height="56" fill="#fff" stroke="#e3e6ef"/><text x="711" y="128" text-anchor="middle">먹지 않음</text>
+    <text x="534" y="190" fill="#5d6275" font-size="10.5">지금과 같은 회전 질문</text><text x="534" y="205" fill="#5d6275" font-size="10.5">번호가 하나 밀림</text>
+  </g>
+</svg>
+<div class="cap"><b>해석:</b> 시각 단계는 새 화면이 아니라 같은 카드의 두 번째 상태다. 진행 번호에 1개로 들어가므로 사용자는 질문이 하나 늘어난 것으로 인지한다.</div></div>
 <ol>
-<li><b>식사 질문에 답한다.</b> 「충분히 먹음」 또는 「적게 · 몇 입만」이면 다음으로 간다. 「못 먹거나 거름」이면 먹은 시각이 없을 수 있어 시각 단계와 회전 질문 없이 바로 다음 질문(2/3)으로 넘어간다.</li>
-<li><b>같은 카드가 시각 질문으로 바뀐다.</b> 점심·저녁은 「{끼니}은 언제쯤 드셨어요?」, 아침은 「아침은 몇 시쯤 드셨어요?」. 진행 번호는 1개 늘어난다(1/5 → 2/5).</li>
-<li><b>버튼 3개가 그 자리에서 만들어진다.</b> 점심·저녁은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 센 구간이다. 오전·오후는 위에 작게, 시각은 크게, 아래에 「1시간 이내 · 1~2시간 전 · 그보다 전」을 작게 쓴다. 아침은 늘 「7시 이전 / 7시~8시 / 8시 이후」다.</li>
-<li><b>버튼을 누르면 0.5초 뒤 다음 질문으로 넘어간다.</b> 건너뛰기는 없다. 답과 함께 사용자가 본 버튼의 시각 구간을 저장한다.</li>
-<li><b>서버가 식사 시각을 추정한다.</b> 건강 앱에 식사 기록이 있으면 그 시각(이때는 시각 단계도 묻지 않음). 없으면 고른 구간 안에 걷다가 15분 넘게 멈춘 걸음 단서가 하나뿐이면 그 시각, 구간이 2시간을 넘거나 비면 「모름」, 지난 2주 평소 식사 시각이 구간 안이면 그 시각, 아니면 구간 가운데. 「모름」은 계산에서 빠질 뿐 점수를 깎지 않는다.</li>
-<li><b>「오늘 답변 모두 보기」</b>에서 식사 카드 아래에 시각 질문이 같이 보이고, 답할 때 본 버튼 그대로 다시 고를 수 있다.</li>
+<li><b>식사 질문에 답한다.</b> 「충분히 먹음」 또는 「적게 · 몇 입만」이면 다음 단계로 간다. 「못 먹거나 거름」이면 먹은 시각이 없을 수 있으므로 시각 단계와 회전 질문 없이 다음 질문(2/3)으로 넘어간다.</li>
+<li><b>같은 카드가 시각 질문으로 바뀐다.</b> 점심 · 저녁은 「{끼니}은 언제쯤 드셨어요?」, 아침은 「아침은 몇 시쯤 드셨어요?」. 진행 번호는 1 늘어난다.</li>
+<li><b>버튼 3개를 그 자리에서 만든다.</b> 점심 · 저녁은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 센 구간이다. 오전 · 오후는 위에 작게, 시각은 크게, 아래에 「1시간 이내 · 1~2시간 전 · 그보다 전」을 작게 쓴다. 아침은 「7시 이전 / 7시~8시 / 8시 이후」로 고정한다.</li>
+<li><b>버튼을 누르면 0.5초 뒤 다음 질문으로 넘어간다.</b> 건너뛰기는 두지 않는다. 답과 함께 사용자가 본 버튼의 시각 구간을 저장한다.</li>
+<li><b>서버가 식사 시각을 추정한다.</b> 순서는 06의 Fig 4와 같다. 「모름」은 계산에서 제외될 뿐 점수를 깎지 않는다.</li>
+<li><b>「오늘 답변 모두 보기」</b>에는 식사 카드 아래에 시각 질문이 함께 보이며, 답할 때 본 버튼 그대로 다시 고를 수 있다.</li>
 </ol>
-<h3>끼니마다 버튼이 어떻게 달라지나</h3>
-<div class="rail">
-<span><b>점심 · 오후 1:20</b>오후 12:20 이후 / 오전~오후 11:20~12:20 / 오전 11:20 이전</span>
-<span><b>점심 · 오후 12:20 (12시 아래로 안 내려감)</b>오후 12:00 이후 / 오전~오후 11:00~12:00 / 오전 11:00 이전</span>
-<span><b>점심 · 오후 4:30 (2시에서 멈춤)</b>오후 1:00 이후 / 오후 12:00~1:00 / 오후 12:00 이전</span>
-<span><b>저녁 · 오후 8:40</b>오후 7:40 이후 / 오후 6:40~7:40 / 오후 6:40 이전</span>
-<span><b>저녁 · 오후 11:55 (9시에서 멈춤)</b>오후 8:00 이후 / 오후 7:00~8:00 / 오후 7:00 이전</span>
-<span><b>아침 · 언제나</b>7시 이전 / 7시~8시 / 8시 이후</span>
-</div>
-<p class="ex">더 많은 경우와 추정 결과, 가상 사용자 2만 일로 계산한 정확도(점심·저녁은 10번 중 9번이 30~40분 안)는 <a href="maiReport_식이_식사시각질문_v1.0.0.html">설계 정리 페이지</a>에 있다.</p>
-</section>
+<div class="fig"><div class="t">Fig 3 · 점심 버튼이 답한 시각에 따라 바뀌는 방식 — 받침 12시, 멈춤 오후 2시</div>
+<svg viewBox="0 0 760 230" role="img" aria-label="버튼 규칙">
+  <g font-size="11" fill="#5d6275"><line x1="60" y1="40" x2="730" y2="40" stroke="#e3e6ef"/>
+    <text x="52" y="30">11:00</text><text x="172" y="30">12:00</text><text x="292" y="30">13:00</text><text x="412" y="30">14:00</text><text x="532" y="30">15:00</text><text x="652" y="30">16:00</text></g>
+  <line x1="180" y1="36" x2="180" y2="215" stroke="#0f1222" stroke-dasharray="3 3"/><text x="184" y="214" font-size="10" fill="#0f1222">질문 시작 12:00 (받침)</text>
+  <line x1="420" y1="36" x2="420" y2="215" stroke="#e0453f" stroke-dasharray="3 3"/><text x="424" y="214" font-size="10" fill="#e0453f">멈춤 오후 2:00</text>
+  <g font-size="11">
+    <text x="4" y="72" fill="#0f1222">오후 1:20</text><rect x="60" y="60" width="120" height="16" fill="#e3e6ef"/><rect x="180" y="60" width="40" height="16" fill="#c9ccd8"/><rect x="220" y="60" width="120" height="16" fill="#5170FF"/><circle cx="340" cy="68" r="5" fill="#0f1222"/><text x="350" y="72" font-size="10">12:20 이후 · 11:20~12:20 · 11:20 이전</text>
+    <text x="4" y="112" fill="#0f1222">오후 12:20</text><rect x="60" y="100" width="120" height="16" fill="#e3e6ef"/><rect x="180" y="100" width="40" height="16" fill="#5170FF"/><circle cx="220" cy="108" r="5" fill="#0f1222"/><text x="230" y="112" font-size="10">12:00 이후 · 11:00~12:00 · 11:00 이전 (12시 아래로 안 내려감 · 작은 글씨 없음)</text>
+    <text x="4" y="152" fill="#0f1222">오후 4:30</text><rect x="180" y="140" width="120" height="16" fill="#e3e6ef"/><rect x="300" y="140" width="120" height="16" fill="#5170FF"/><rect x="420" y="140" width="300" height="16" fill="#fdeeed"/><circle cx="720" cy="148" r="5" fill="#0f1222"/><text x="430" y="152" font-size="10" fill="#e0453f">1:00 이후 · 12:00~1:00 · 12:00 이전 (2시에서 멈춤)</text>
+    <text x="4" y="192" fill="#0f1222">오후 1:47</text><rect x="60" y="180" width="140" height="16" fill="#e3e6ef"/><rect x="200" y="180" width="120" height="16" fill="#5170FF"/><circle cx="374" cy="188" r="5" fill="#0f1222"/><text x="384" y="192" font-size="10">1:40으로 내림 → 12:40 이후 · 11:40~12:40 · 11:40 이전</text>
+  </g>
+  <g font-size="10" fill="#5d6275"><rect x="60" y="222" width="10" height="8" fill="#5170FF"/><text x="74" y="230">1번 버튼 구간 (…이후)</text><circle cx="200" cy="226" r="4" fill="#0f1222"/><text x="208" y="230">답한 시각</text><rect x="270" y="222" width="10" height="8" fill="#e3e6ef"/><text x="284" y="230">2 · 3번 버튼 구간</text></g>
+</svg>
+<div class="cap"><b>해석:</b> 버튼은 항상 답한 시각보다 앞선 구간만 보여 준다. 12시 전으로 내려가지 않게 받치고 오후 2시가 지나면 정각에서 멈추어, 늦게 답해도 버튼이 점심 시간대 안에 머문다. 저녁은 받침 17시 · 멈춤 21시로 같은 방식이다.</div></div>
+</div></section>
 
-<section id="c5"><h2>5. 규칙과 예외</h2>
-<table><tr><th>규칙</th><th>예시</th><th>예외</th></tr>
-<tr><td>시각 단계는 식사 답이 「충분히 먹음」「적게 · 몇 입만」일 때, 끼니가 오늘 아침·점심·저녁일 때만 나온다</td><td>오후 2시 10분 점심 「적게 · 몇 입만」 → 시각 단계 나옴</td><td>「못 먹거나 거름」 · 어제 저녁(자정~오전 10시) · 건강 앱에 그 끼니 식사 기록이 있으면 묻지 않고 조건상 생략으로 기록</td></tr>
-<tr><td>질문 1개로 센다. 진행 번호도 따로 센다</td><td>식사 1/5 → 시각 2/5 → 채소 3/5</td><td>시각을 묻지 않는 날은 1/4부터. 「못 먹거나 거름」이면 시각·회전이 빠져 다음이 2/3</td></tr>
-<tr><td>점심·저녁 버튼은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 센 3구간</td><td>오후 1:47 → 1:40 기준 → 12:40 이후 / 11:40~12:40 / 11:40 이전</td><td>반올림하지 않는다. 반올림하면 아직 오지 않은 시각이 버튼에 들어간다</td></tr>
+<section id="s06"><div class="num">06</div><div>
+<h2>규칙과 예외</h2>
+<table><tr><th style="width:38%">규칙</th><th>예시</th><th>예외 · 비고</th></tr>
+<tr><td>시각 단계는 식사 답이 「충분히 먹음」「적게 · 몇 입만」이고 끼니가 오늘 아침 · 점심 · 저녁일 때만 나온다</td><td>오후 2시 10분 점심 「적게 · 몇 입만」 → 시각 단계 노출</td><td>「못 먹거나 거름」 · 어제 저녁(자정~오전 10시) · 건강 앱에 그 끼니 식사 기록이 있으면 묻지 않고 조건상 생략으로 기록한다</td></tr>
+<tr><td>질문 1개로 센다. 진행 번호도 따로 센다</td><td>식사 1/5 → 시각 2/5 → 채소 3/5</td><td>시각을 묻지 않는 날은 1/4부터. 「못 먹거나 거름」이면 시각 · 회전이 빠져 다음이 2/3</td></tr>
+<tr><td>점심 · 저녁 버튼은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 센 3구간이다</td><td>오후 1:47 → 1:40 기준 → 12:40 이후 / 11:40~12:40 / 11:40 이전</td><td>반올림하지 않는다. 반올림하면 아직 오지 않은 시각이 버튼에 들어간다</td></tr>
 <tr><td>끼니별 멈춤 시각(점심 오후 2시 · 저녁 오후 9시)을 넘으면 그 시각에서 멈춘다</td><td>오후 4:30 점심 → 오후 1:00 이후 / 12:00~1:00 / 12:00 이전</td><td>멈춘 동안은 아래 작은 글씨를 뺀다</td></tr>
-<tr><td>질문 시작 시각(점심 12시 · 저녁 5시) 아래로는 내려가지 않는다</td><td>오후 12:20 점심 → 오후 12:00 이후부터</td><td>저녁 5시대는 「오후 5:00 이후 / 4:00~5:00 / 4:00 이전」으로 받쳐 두고, 2·3번 답은 구간이 비어 「모름」</td></tr>
-<tr><td>아침은 7시 · 8시 정각으로 고정</td><td>오전 10:20에도 11:40에도 같은 버튼</td><td>출시 뒤 「8시 이후」가 30%를 넘으면 경계를 다시 본다</td></tr>
-<tr><td>시각 표기는 「오후 1:10」처럼 오전·오후를 붙인다</td><td>앞뒤가 다르면 「오전~오후 11:20~12:20」</td><td>아침 버튼은 「7시 이전」처럼 시만 쓴다. 시각 단계 버튼은 답 버튼 5~7자 규칙의 예외</td></tr>
-<tr><td>점수·등급·축 상태를 만들지 않는다</td><td>어떤 버튼을 눌러도 식이 축 판정과 목표 선정은 그대로</td><td>식사 시각 응답은 사실 빈도만 저장한다는 기존 원칙 그대로</td></tr>
-<tr><td>시각 단계 중 앱을 나갔다 오면 식사 답은 두고 버튼은 다시 들어온 시각으로 새로 만든다</td><td>오후 1:20에 식사 답 → 나감 → 오후 3시 복귀 → 「오후 1:00 이후 / …」로 멈춘 버튼</td><td>—</td></tr>
-<tr><td>점심에는 「드신 뒤 답해주세요」 안내를 붙이지 않는다</td><td>먹기 전에 답할 수 있는 시간은 오후 12:00~12:30뿐</td><td>출시 뒤 이 시간 답이 10%를 넘으면 붙인다</td></tr>
+<tr><td>질문 시작 시각(점심 12시 · 저녁 5시) 아래로는 내려가지 않는다</td><td>오후 12:20 점심 → 오후 12:00 이후부터</td><td>저녁 5시대는 「오후 5:00 이후 / 4:00~5:00 / 4:00 이전」으로 받치고, 2 · 3번 답은 구간이 비어 「모름」으로 처리한다</td></tr>
+<tr><td>아침은 7시 · 8시 정각으로 고정한다</td><td>오전 10:20에도 11:40에도 같은 버튼</td><td>아침 질문은 10시 이후에 나와 멈춤 시각(9시)을 늘 지난 뒤이다. 「8시 이후」가 30%를 넘으면 경계를 재검토한다</td></tr>
+<tr><td>시각 표기는 「오후 1:10」처럼 오전 · 오후를 붙인다</td><td>앞뒤가 다르면 「오전~오후 11:20~12:20」</td><td>아침 버튼은 「7시 이전」처럼 시만 쓴다. 시각 단계 버튼은 답 버튼 5~7자 규칙의 예외다</td></tr>
+<tr><td>점수 · 등급 · 축 상태를 만들지 않는다</td><td>어느 버튼을 눌러도 식이 축 판정과 목표 선정은 그대로다</td><td>식사 시각 응답은 사실 빈도만 저장한다는 기존 원칙을 따른다</td></tr>
+<tr><td>시각 단계 도중 앱을 나갔다 오면 식사 답은 두고 버튼은 다시 들어온 시각으로 새로 만든다</td><td>1:20 식사 답 → 이탈 → 3시 복귀 → 멈춘 버튼(1:00 이후 / …)</td><td>—</td></tr>
+<tr><td>점심에는 「드신 뒤 답해주세요」 안내를 붙이지 않는다</td><td>먹기 전에 답할 수 있는 시간은 오후 12:00~12:30뿐이다</td><td>이 시간대 답이 10%를 넘으면 붙인다</td></tr>
 </table>
+
+<div class="fig"><div class="t">Fig 4 · 추정 시각을 정하는 순서 — 세 끼 공통</div>
+<svg viewBox="0 0 760 200" role="img" aria-label="추정 순서">
+  <g font-size="11.5" fill="#0f1222">
+    <rect x="6" y="20" width="136" height="60" fill="#eaf8f0" stroke="#1f9d5a"/><text x="14" y="42" font-weight="600">① 건강 앱 식사 기록</text><text x="14" y="60">있으면 그 시각</text><text x="14" y="74" font-size="10" fill="#1f9d5a">확신 높음 · 시각 단계 생략</text>
+    <path d="M142 50 L160 50" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="162" y="20" width="136" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="170" y="42" font-weight="600">② 고른 버튼의 범위</text><text x="170" y="60">끼니 시작 기본값보다</text><text x="170" y="74" font-size="10">이른 부분은 잘라 냄 (6 · 11 · 17시)</text>
+    <path d="M298 50 L316 50" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="318" y="20" width="136" height="60" fill="#eaf8f0" stroke="#1f9d5a"/><text x="326" y="42" font-weight="600">③ 걸음 멈춤 단서</text><text x="326" y="60">범위 안에 15분 넘게 멈춘</text><text x="326" y="74" font-size="10" fill="#1f9d5a">곳이 하나뿐이면 그 시각 · 확신 높음</text>
+    <path d="M454 50 L472 50" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="474" y="20" width="136" height="60" fill="#fff6e6" stroke="#c7861c"/><text x="482" y="42" font-weight="600">④ 범위 검사</text><text x="482" y="60">비어 있거나 2시간 초과면</text><text x="482" y="74" font-size="10" fill="#c7861c">모름 · 계산 제외 · 감점 없음</text>
+    <path d="M610 50 L628 50" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="630" y="20" width="124" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="638" y="42" font-weight="600">⑤ 평소 시각</text><text x="638" y="60">지난 2주 평소 시각이</text><text x="638" y="74" font-size="10">범위 안이면 그 시각 · 보통</text>
+    <path d="M692 80 L692 110" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="474" y="112" width="280" height="44" fill="#eef1ff" stroke="#5170FF"/><text x="482" y="130" font-weight="600">⑥ 둘 다 없으면 범위 가운데 · 확신 보통</text><text x="482" y="146" font-size="10">예: 오후 1시에 「12:00 이후」 → 12:30</text>
+    <rect x="6" y="112" width="440" height="44" fill="#fff" stroke="#e3e6ef"/><text x="14" y="130" font-weight="600">식후 행동을 볼 시간</text><text x="14" y="146" font-size="10.5">단서 · 평소 시각이면 추정 시각부터 30분 / 가운데값이면 범위 전체 + 30분 (놓침을 줄이기 위해)</text>
+  </g>
+  <text x="6" y="185" font-size="10.5" fill="#5d6275">15분 · 2주 · 2시간 · 30분과 끼니 시작 기본값은 설정값(CFG-077~082)이며 출시 후 실제 데이터로 조정한다.</text>
+</svg>
+<div class="cap"><b>해석:</b> 위에서부터 먼저 맞는 규칙을 쓴다. 확신이 높은 근거(건강 앱 · 걸음 단서)가 없을 때만 평소 시각이나 범위 가운데로 내려가며, 범위가 너무 넓으면 추정하지 않는다.</div></div>
 
 <h3>기능 정의</h3>
+<p>표 한 줄이 기능 하나다. 화면 이름이 아니라 처리 이름으로 쓴다.</p>
 <table><tr><th>기능</th><th>언제</th><th>하는 일 · 결과</th><th>어긋나면</th></tr>
-<tr><td>시각 단계 노출 판정</td><td>식사 질문 답 저장 직후</td><td>끼니·식사 답·건강 앱 기록을 보고 시각 단계를 낼지 정한다. 내면 같은 자리에 질문 상태 「미응답」, 안 내면 「조건상 생략」+사유</td><td>조건이 맞는데 빠지거나, 어제 저녁·거름에 나오면 결함. 한 세션에 2개 생기면 결함</td></tr>
-<tr><td>버튼 만들기</td><td>시각 단계를 그릴 때 · 재진입 때</td><td>답한 시각 10분 내림 → 1시간씩 거꾸로 3구간 → 멈춤 시각·시작 시각으로 보정 → 글자(오전·오후 / 시각 / 작은 글씨)와 구간(시작·끝) 생성. 아침은 고정</td><td>버튼에 아직 오지 않은 시각이 보이면 결함</td></tr>
-<tr><td>답 저장</td><td>버튼 선택</td><td>선택지 코드와 사용자가 본 구간(시작·끝)을 응답 행에 저장. 점수 없음. 0.5초 뒤 다음 질문</td><td>구간이 없으면 뒤에서 범위를 다시 만들 수 없음 → 저장 실패로 처리하고 선택 상태 유지</td></tr>
-<tr><td>식사 시각 추정</td><td>답 저장 뒤 · 건강 앱 기록 도착 때 · 답 수정 때</td><td>건강 앱 → 걸음 단서 → (범위 2시간 초과면 모름) → 2주 평소 시각 → 범위 가운데 순으로 추정 시각·확신·식후 관찰 시간을 끼니당 1행 저장</td><td>「모름」에 시각이 들어가거나, 순서를 건너뛰면 결함</td></tr>
-<tr><td>진행 번호</td><td>질문 카드 표시</td><td>시각 단계를 질문 수에 넣어 n/N 표시</td><td>N에 빠지거나 번호가 건너뛰면 결함</td></tr>
-<tr><td>답 수정</td><td>「오늘 답변 모두 보기」</td><td>식사 카드 아래 시각 질문을 답할 때 본 버튼 그대로 표시. 다시 고르면 추정도 다시 계산. 식사 답을 「못 먹거나 거름」으로 바꾸면 시각 답을 지운다</td><td>버튼을 현재 시각으로 새로 만들어 보여 주면 결함</td></tr>
+<tr><td>시각 단계 노출 판정</td><td>식사 질문 답 저장 직후</td><td>끼니 · 식사 답 · 건강 앱 기록으로 시각 단계를 낼지 정한다. 내면 같은 자리에 「미응답」, 안 내면 「조건상 생략」+사유</td><td>조건이 맞는데 빠지거나 어제 저녁 · 거름에 나오면 결함. 한 세션에 2개가 생기면 결함</td></tr>
+<tr><td>버튼 만들기</td><td>시각 단계를 그릴 때 · 재진입 때</td><td>답한 시각 10분 내림 → 1시간씩 거꾸로 3구간 → 멈춤 · 받침 보정 → 글자(오전 · 오후 / 시각 / 작은 글씨)와 구간(시작 · 끝) 생성. 아침은 고정</td><td>버튼에 아직 오지 않은 시각이 보이면 결함</td></tr>
+<tr><td>답 저장</td><td>버튼 선택</td><td>선택지 코드와 사용자가 본 구간(시작 · 끝)을 응답 행에 저장한다. 점수 없음. 0.5초 뒤 다음 질문</td><td>구간이 없으면 저장 실패로 처리하고 선택 상태를 유지한다</td></tr>
+<tr><td>식사 시각 추정</td><td>답 저장 뒤 · 건강 앱 기록 도착 때 · 답 수정 때</td><td>Fig 4의 순서로 추정 시각 · 확신 · 식후 관찰 시간을 끼니당 1행 저장한다</td><td>「모름」에 시각이 들어가거나 순서를 건너뛰면 결함</td></tr>
+<tr><td>진행 번호</td><td>질문 카드 표시</td><td>시각 단계를 질문 수에 넣어 n/N을 표시한다</td><td>N에 빠지거나 번호가 건너뛰면 결함</td></tr>
+<tr><td>답 수정</td><td>「오늘 답변 모두 보기」</td><td>식사 카드 아래 시각 질문을 답할 때 본 버튼 그대로 보여 준다. 다시 고르면 추정도 다시 계산한다. 식사 답을 「못 먹거나 거름」으로 바꾸면 시각 답을 지운다</td><td>버튼을 현재 시각으로 새로 만들어 보여 주면 결함</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="c6"><h2>6. 데이터</h2>
+<section id="s07"><div class="num">07</div><div>
+<h2>데이터</h2>
 <table><tr><th>무엇을</th><th>어디서</th><th>저장</th></tr>
-<tr><td>시각 질문 2개와 선택지 6개(점심·저녁 「{t0} 이후 / {t1}~{t0} / {t1} 이전」, 아침 「7시 이전 / 7시~8시 / 8시 이후」)</td><td>데이터 계약 질문·선택지 시트 (DIET-Q-08 · DIET-Q-09)</td><td>참조 데이터. 점수 없음</td></tr>
-<tr><td>시각 단계 답 + 사용자가 본 버튼 구간</td><td>오늘의 질문</td><td>식이 응답 행(기존 테이블에 구간 시작·끝 2열 추가). 끼니당 마지막 유효 답 1건</td></tr>
-<tr><td>추정 식사 시각 · 추정 방법 · 확신 · 식후 관찰 시간</td><td>서버 계산</td><td>새 테이블 「식사 시각 추정」, 끼니당 1행. 어제 저녁·거른 끼니는 만들지 않음</td></tr>
-<tr><td>버튼 간격 60분 · 내림 10분 · 멈춤 시각 · 끼니 시작 기본값 · 아침 경계 · 걸음 멈춤 15분 · 평소 시각 14일 · 범위 상한 120분 · 식후 관찰 30분 · 질문 수</td><td>데이터 계약 설정 시트 CFG-072~085</td><td>설정값. 하드코딩하지 않음. 임시값은 출시 후 조정</td></tr>
+<tr><td>시각 질문 2개와 선택지 6개(점심 · 저녁 「{t0} 이후 / {t1}~{t0} / {t1} 이전」, 아침 「7시 이전 / 7시~8시 / 8시 이후」)</td><td>데이터 계약 질문 · 선택지 시트 (<code>DIET-Q-08</code> · <code>DIET-Q-09</code>, 역할 FOLLOW_UP)</td><td>참조 데이터. 점수 없음</td></tr>
+<tr><td>시각 단계 답 + 사용자가 본 버튼 구간</td><td>오늘의 질문</td><td>식이 응답 행(기존 테이블에 구간 시작 · 끝 2열 추가). 끼니당 마지막 유효 답 1건</td></tr>
+<tr><td>추정 식사 시각 · 추정 방법 · 확신 · 식후 관찰 시간</td><td>서버 계산</td><td>새 테이블 <code>diet_meal_time</code>, 끼니당 1행. 어제 저녁 · 거른 끼니는 만들지 않는다</td></tr>
+<tr><td>버튼 간격 60분 · 내림 10분 · 멈춤 시각 · 끼니 시작 기본값 · 아침 경계 · 걸음 멈춤 15분 · 평소 시각 14일 · 범위 상한 120분 · 식후 관찰 30분 · 질문 수</td><td>데이터 계약 설정 시트 <code>CFG-072~085</code></td><td>설정값. 하드코딩하지 않는다. 임시값은 출시 후 조정</td></tr>
 </table>
-<p class="ex">테이블·필드·허용값은 <a href="maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx">식이 개발 전달 데이터 계약 v1.3.0</a>(구현기준 R-11, 검증규칙 V-55~V-58)이 정본이고, 규칙의 참조 구현은 <code>diet-meal-time-v1.0.0.mjs</code>(단위 테스트 8개)다.</p>
-</section>
+<p>테이블 · 필드 · 허용값은 <a href="maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx">식이 개발 전달 데이터 계약 v1.3.0</a>(구현기준 R-11, 검증규칙 V-55~V-58)이 정본이며, 규칙의 참조 구현은 <code>diet-meal-time-v1.0.0.mjs</code>(단위 테스트 8개)이다.</p>
+</div></section>
 
-<section id="c7"><h2>7. 성공 기준</h2>
-<ul>
-<li>시각 단계가 나온 날은 자기돌봄의 「식후 행동」 칸이 100% 채워진다(「모름」 포함).</li>
-<li>점심·저녁의 「모름」 비율이 5% 아래(가상 사용자 계산 기준 점심 3% · 저녁 2%).</li>
-<li>시각 단계 미응답으로 그날 질문을 끝내지 못하는 비율이 식사 질문 미응답 비율보다 뚜렷이 높지 않다(2주 연속 10%p 이상 차이면 재검토).</li>
-<li>아침 「8시 이후」 30% 초과, 점심 12:00~12:30 답 10% 초과 중 하나라도 나오면 정해 둔 대로 경계·안내를 손본다.</li>
-</ul>
-</section>
+<section id="s08"><div class="num">08</div><div>
+<h2>기대 효과와 성공 기준</h2>
+<p>실제 사용 데이터가 없어 가상 사용자로 끼니마다 2만 일을 생성해 계산하였다(가정은 근거 항목 참조). 수치는 모의 결과이며 내부 목표치와 함께 적는다.</p>
+<div class="grid2">
+<div class="fig"><div class="t">Fig 5 · 식사 시각 오차 — 30분 이내 적중 비율과 내부 목표 85%</div>
+<svg viewBox="0 0 760 210" role="img" aria-label="적중 비율">
+  <line x1="150" y1="20" x2="150" y2="180" stroke="#0f1222"/><line x1="660" y1="20" x2="660" y2="180" stroke="#0f1222" stroke-dasharray="3 3"/><text x="664" y="32" font-size="10.5" fill="#0f1222">목표 85%</text>
+  <g font-size="12" fill="#0f1222">
+    <text x="8" y="50">점심</text><rect x="150" y="36" width="540" height="20" fill="#1f9d5a"/><text x="696" y="51">90%</text>
+    <text x="8" y="84">저녁</text><rect x="150" y="70" width="528" height="20" fill="#1f9d5a"/><text x="684" y="85">88%</text>
+    <text x="8" y="118">아침 (답 있는 날)</text><rect x="150" y="104" width="534" height="20" fill="#1f9d5a"/><text x="690" y="119">89%</text>
+    <text x="8" y="152">가입 초기</text><rect x="150" y="138" width="504" height="20" fill="#c7861c"/><rect x="654" y="138" width="30" height="20" fill="#c7861c" opacity=".4"/><text x="690" y="153">84~89%</text>
+  </g>
+  <text x="150" y="198" font-size="10.5" fill="#5d6275">0%</text><text x="640" y="198" font-size="10.5" fill="#5d6275">85%</text><text x="730" y="198" font-size="10.5" fill="#5d6275">100%</text>
+</svg>
+<div class="cap"><b>해석:</b> 점심 · 저녁은 내부 목표 85%를 넘고, 평소 시각이 쌓이기 전인 가입 초기에만 목표선에 걸친다. 오차 중앙값은 5~7분, 10번 중 9번은 30~39분 안이다.</div></div>
+<div class="fig"><div class="t">Fig 6 · 식후 판정 결과의 분할 (하루 기준)</div>
+<svg viewBox="0 0 760 210" role="img" aria-label="판정 분할">
+  <g font-size="12" fill="#0f1222">
+    <text x="8" y="52">현재</text><rect x="150" y="36" width="570" height="22" fill="#c7861c" opacity=".8"/><text x="435" y="52" fill="#fff" text-anchor="middle">판정 불가 100% · 매일 72점</text>
+    <text x="8" y="102">시각 단계 · 점심 저녁</text><rect x="150" y="86" width="496" height="22" fill="#1f9d5a"/><rect x="646" y="86" width="57" height="22" fill="#e0453f"/><rect x="703" y="86" width="17" height="22" fill="#c7861c"/><text x="398" y="102" fill="#fff" text-anchor="middle">맞음 87%</text><text x="674" y="102" fill="#fff" text-anchor="middle" font-size="11">10%</text>
+    <text x="8" y="152">시각 단계 · 아침</text><rect x="150" y="136" width="405" height="22" fill="#1f9d5a"/><rect x="555" y="136" width="45" height="22" fill="#e0453f"/><rect x="600" y="136" width="120" height="22" fill="#c7861c"/><text x="357" y="152" fill="#fff" text-anchor="middle">맞음 71%</text><text x="660" y="152" fill="#fff" text-anchor="middle" font-size="11">모름 21%</text>
+  </g>
+  <g font-size="10.5" fill="#5d6275"><rect x="150" y="180" width="10" height="10" fill="#1f9d5a"/><text x="164" y="189">판정 맞음</text><rect x="240" y="180" width="10" height="10" fill="#e0453f"/><text x="254" y="189">판정 틀림</text><rect x="330" y="180" width="10" height="10" fill="#c7861c"/><text x="344" y="189">모름 (계산 제외)</text></g>
+</svg>
+<div class="cap"><b>해석:</b> 현재는 전부 판정 불가다. 시각 단계를 두면 점심 · 저녁의 87%가 올바르게 판정된다. 틀리는 날은 대부분 「안 걸었는데 걸었다」로, 가운데값일 때 식후 관찰 창을 넓게 보기 때문이다. 끼니별 멈춤 시각으로 모름이 점심 12%→3%, 저녁 10%→2%로 줄었다.</div></div>
+</div>
+<h3>성공 기준</h3>
+<table><tr><th>기준</th><th>목표</th><th>성격</th></tr>
+<tr><td>시각 단계가 나온 날의 식후 행동 항목 채움률(모름 포함)</td><td>100%</td><td>내부 목표치</td></tr>
+<tr><td>점심 · 저녁 「모름」 비율</td><td>5% 이하 (모의 3% · 2%)</td><td>내부 목표치</td></tr>
+<tr><td>시각 단계 미응답률과 식사 질문 미응답률의 차이</td><td>2주 연속 10%p 이상이면 재검토</td><td>운영 감시</td></tr>
+<tr><td>아침 「8시 이후」 선택 비율 · 점심 12:00~12:30 답 비율</td><td>30% 초과 시 경계 재검토 · 10% 초과 시 식전 안내 추가</td><td>운영 감시(CFG-084 · 085)</td></tr>
+</table>
+</div></section>
 
-<section id="where"><h2>어디에 들어 있나</h2>
-<p>2026-10-14 기준으로 이 기획이 반영된 자리다. 고칠 때는 아래 순서로 같이 고친다.</p>
-<table><tr><th style="width:34%">자리</th><th>무엇이</th></tr>
-<tr><td><a href="maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx">식이 개발 전달 데이터 계약 v1.3.0</a></td><td>질문 DIET-Q-08·09, 선택지 6행, 런타임 테이블 diet_meal_time, 응답 행 구간 2열, 구현기준 R-11, 설정 CFG-072~085, 검증규칙 V-55~58, 영문 11행</td></tr>
-<tr><td><a href="maiReport_식이_참조설정데이터_v1.0.0.xlsx">식이 참조·설정 데이터 v1.3.0</a> (SharePoint 원본)</td><td>축정의 9·10행(축 아님·이어 묻기), 설정값·설정파라미터</td></tr>
-<tr><td><code>diet-meal-time-v1.0.0.mjs</code> · 테스트</td><td>물을지 판정 · 버튼 만들기 · 추정 순서. 전체 식이 테스트 37개 통과</td></tr>
-<tr><td><a href="mai-report-식이_질문목표_상세기획_v1.0.0.html">식이 질문·목표 상세 기획 1.0.2</a></td><td>1장 문항 수, 5장 「식사 시각 단계」, 8장 저장 데이터</td></tr>
-<tr><td><a href="../../화면/90_기타/프로토타입/maiReport_prototype_v1.0.0.html">정본 프로토타입</a> · 화면정의서용 판</td><td>홈 오늘의 질문에서 실제 동작(진행 번호 · 버튼 · 답변 모두 보기). 공유 사이트 「최종 프로토타입」에 배포됨</td></tr>
+<section id="s09"><div class="num">09</div><div>
+<h2>어디에 들어 있나</h2>
+<p>2026-10-14 기준으로 이 기획이 반영된 자리다. 고칠 때는 위에서부터 같은 순서로 함께 고친다.</p>
+<table><tr><th style="width:36%">자리</th><th>무엇이</th></tr>
+<tr><td><a href="maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx">식이 개발 전달 데이터 계약 v1.3.0</a></td><td>질문 DIET-Q-08 · 09, 선택지 6행, 런타임 테이블 diet_meal_time, 응답 행 구간 2열, 구현기준 R-11, 설정 CFG-072~085, 검증규칙 V-55~58, 영문 11행</td></tr>
+<tr><td><a href="maiReport_식이_참조설정데이터_v1.0.0.xlsx">식이 참조 · 설정 데이터 v1.3.0</a> (SharePoint 원본)</td><td>축정의 9 · 10행(축 아님 · 이어 묻기), 설정값 · 설정파라미터</td></tr>
+<tr><td><code>diet-meal-time-v1.0.0.mjs</code> · 테스트</td><td>물을지 판정 · 버튼 만들기 · 추정 순서. 식이 테스트 37개 통과</td></tr>
+<tr><td><a href="mai-report-식이_질문목표_상세기획_v1.0.0.html">식이 질문 · 목표 상세 기획 1.0.2</a></td><td>1장 문항 수, 5장 「식사 시각 단계」, 8장 저장 데이터</td></tr>
+<tr><td><a href="../../화면/90_기타/프로토타입/maiReport_prototype_v1.0.0.html">정본 프로토타입</a> · 화면정의서용 판</td><td>홈 오늘의 질문의 실제 동작(진행 번호 · 버튼 · 답변 모두 보기). 공유 사이트 「최종 프로토타입」에 배포됨</td></tr>
 <tr><td><a href="mai-report-식이_화면설계서_v1.0.0.html">식이 화면설계서</a> ①-2 · <a href="mai-report-식이_가이드_v1.0.0.html">가이드</a> · <a href="mai-report-식이_데이터흐름도_v1.0.0.html">데이터흐름도</a></td><td>화면 · 하루 흐름 · 질문표 · 타임라인</td></tr>
-<tr><td><a href="../../화면/10_홈탭/maiReport_홈_질문코칭목표_기획서_v1.0.0.html">홈 질문·코칭·목표 기획서</a> · 화면정의서 · 화면설계서(HOME-003)</td><td>홈 쪽 화면 정의. 10-13 반영</td></tr>
-<tr><td>식이 QA 계획 · 시뮬레이터</td><td>검사 QA-DIET-20~26(통과) · 시뮬레이터 하루 기록에 시각 단계</td></tr>
+<tr><td><a href="../../화면/10_홈탭/maiReport_홈_질문코칭목표_기획서_v1.0.0.html">홈 질문 · 코칭 · 목표 기획서</a> · 화면정의서 · 화면설계서(HOME-003)</td><td>홈 쪽 화면 정의. 10-13 반영</td></tr>
+<tr><td>식이 QA 계획 · 시뮬레이터</td><td>검사 QA-DIET-20~26(통과) · 시뮬레이터 하루 기록의 시각 단계</td></tr>
 <tr><td><a href="maiReport_식이_식사시각질문_v1.0.0.html">설계 정리 페이지</a></td><td>화면 문구 전체, 끼니별 예시, 추정 정확도, 계산식 전달 문서 답 A/B/C별 영향</td></tr>
 </table>
-</section>
+</div></section>
 
-<section id="open"><h2>확인 필요</h2>
-<table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
-<tr><td>걸음 기록만으로 「식후에 걸었다」고 판정해도 되는지. 계산식 전달 문서에는 「움직임만으로 완료를 만들지 않는다」는 문장이 있다. 답 A(걸음으로 판정) · B(사용자 확인 필요) · C(시각이 확실할 때만)별 영향은 설계 정리 페이지의 표</td><td>정훈샘(계산식 전달 문서)</td><td>회신 뒤</td><td>열림</td></tr>
-<tr><td>임시값(걸음 멈춤 15분 · 평소 시각 2주 · 끼니 시작 기본값 · 멈춤 시각)의 조정</td><td>기획 · 데이터</td><td>출시 후 실제 데이터로</td><td>열림(운영)</td></tr>
+<section id="s10"><div class="num">10</div><div>
+<h2>확인 필요</h2>
+<table><tr><th style="width:46%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
+<tr><td>걸음 기록만으로 「식후에 걸었다」고 판정해도 되는지. 계산식 전달 문서에는 「움직임만으로 완료를 만들지 않는다」는 문장이 있다. 답 A(걸음으로 판정) · B(사용자 확인 필요) · C(시각이 확실할 때만)별 영향은 설계 정리 페이지의 표에 있다</td><td>정훈샘(계산식 전달 문서)</td><td>회신 뒤</td><td><span class="tag tbd">열림</span></td></tr>
+<tr><td>건강 앱 식사 기록 항목이 기존 연동 동의 범위에 포함되는지</td><td>법무 · 개발</td><td>개발 착수 전</td><td><span class="tag tbd">열림</span></td></tr>
+<tr><td>임시값(걸음 멈춤 15분 · 평소 시각 2주 · 끼니 시작 기본값 · 멈춤 시각)의 조정</td><td>기획 · 데이터</td><td>출시 후 실제 데이터로</td><td><span class="tag tbd">운영</span></td></tr>
 </table>
-</section>
-
-<section id="history"><h2>바뀐 것</h2>
-<table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
-<tr><td>2026-10-13</td><td>—</td><td>설계 정리 페이지로 화면·버튼 규칙·추정 순서 확정(질문 1개 추가, 1시간 간격+멈춤 시각, 아침 7·8시 고정, 10분 내림, 건너뛰기 없음)</td><td>식후 행동 칸을 채우기 위해</td></tr>
+<h3>바뀐 것</h3>
+<table><tr><th style="width:110px">날짜</th><th style="width:70px">판</th><th>무엇을</th><th>왜</th></tr>
+<tr><td>2026-10-13</td><td>—</td><td>설계 정리 페이지로 화면 · 버튼 규칙 · 추정 순서 확정(질문 1개 추가, 1시간 간격+멈춤 시각, 아침 7 · 8시 고정, 10분 내림, 건너뛰기 없음)</td><td>식후 행동 항목을 채우기 위해</td></tr>
 <tr><td>2026-10-14</td><td>1.0.0</td><td>기획서 첫 작성. 미결 3건 결정(버튼 순서 유지 · 저녁 5시대 모름 처리 · 이탈 시 버튼 재생성). 데이터 계약 v1.3.0 · 참조 구현 · 프로토타입 · 문서 · 사이트에 반영</td><td>제품 원본에 넣으면서 구조를 한 문서로 볼 수 있게</td></tr>
+<tr><td>2026-10-14</td><td>1.0.1</td><td>문서 틀을 수치 타일 · 그림 6개 · 정제 문어체로 다시 씀. 내용 변경 없음</td><td>읽는 사람이 그림과 표만으로도 구조를 파악할 수 있게</td></tr>
 </table>
-</section>
+</div></section>
+
+<div class="foot">
+<h2>근거 및 가정</h2>
+<ol>
+<li><b>데이터 출처.</b> 끼니별 식사 시각 질문 설계 정리 페이지(2026-10-13) · 식이 개발 전달 데이터 계약 v1.3.0(구현기준 R-11, 설정 CFG-072~085, 검증규칙 V-55~58) · 참조 구현 diet-meal-time-v1.0.0.mjs와 단위 테스트(37/37, 2026-10-14) · 식이 QA 보고서 2026-10-14.</li>
+<li><b>모의 데이터 가정(설명용).</b> 끼니마다 가상 20,000일. 식사 시각 분포 점심 12:20±25분 · 저녁 19:00±45분 · 아침 07:40±40분, 맞는 버튼 선택 85%, 걸음 단서 관측일 35%, 평소 시각 보유 사용자 50%, 실제 식후 보행일 50%. 자기돌봄 점수 예시는 하루 8,000보 기준 걸었음 81점 · 안 걸었음 61점 · 모름 72점이며 계산식 전달 문서(LJH)의 지표 계산기로 산출하였다.</li>
+<li><b>신뢰구간.</b> Wilson 95% 구간, n=20,000. 점심 30분 이내 90% → 89.6~90.4%, 저녁 88% → 87.5~88.4%, 아침 89% → 88.6~89.4%, 점심 모름 3% → 2.8~3.2%.</li>
+<li><b>내부 목표치.</b> 30분 이내 적중 85%, 모름 5% 이하, 아침 「8시 이후」 30%, 점심 식전 답 10%는 모두 내부 목표치이며 법정 기준이 아니다.</li>
+<li><b>외부 문헌.</b> 식후 보행의 혈당 관리 효과는 1차 자료 미확인으로 수치를 인용하지 않았다.</li>
+</ol>
+</div>
 </main>
 </body>
 </html>
