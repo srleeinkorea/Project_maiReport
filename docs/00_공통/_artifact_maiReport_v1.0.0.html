@@ -1950,9 +1950,9 @@ const Q_BASE = [
           {v:'gte7',f:'◕',label:'7시간 이상',tone:'neutral'}] },
   { id:'meal', cat:'식사', av:'🍚', tint:'moon',
     text:'오늘 식사는 평소만큼 하셨나요?',
-    opts:[{v:'normal',f:'⌣',label:'평소대로',  tone:'good'},
-          {v:'less',  f:'—',label:'조금 적게',  tone:'okay'},
-          {v:'skip',  f:'⌢',label:'거의 못 먹거나 걸렀어요',tone:'bad'}] }
+    opts:[{v:'normal',f:'⌣',label:'충분히 먹음',  tone:'good'},
+          {v:'less',  f:'—',label:'적게 · 몇 입만',  tone:'okay'},
+          {v:'skip',  f:'⌢',label:'거의 못 먹음',tone:'bad'}] }
 ];
 /* 질환 맞춤 질문 — 의료이력·AI리포트가 있을 때만 생성 가능 */
 const Q_COND = [
@@ -4640,7 +4640,7 @@ function renderAiInsightTabData(rIn, tab, bodyId){
           <div class="sub-note">상세 분석 탭에서 자세한 내용을 확인하세요</div>
           ${r.findings.map(f=>`<div class="ai-in-row"><b>${f.title}</b><span class="ai-badge ${f.cat}">${f.catLabel}</span></div>`).join('')}
         </div>
-        <p class="ai-disclaimer-v2">AI 건강 인사이트는 검진·헬스 데이터를 바탕으로 한 생활습관 참고 정보이며, 의학적 진단이나 의료진의 판단을 대신하지 않습니다.</p>
+        <p class="ai-disclaimer-v2">본 서비스가 제공하는 AI 리포트 및 건강 인사이트는 사용자의 건강관리를 돕기 위한 보조적·참고적 정보에 불과하며, 어떠한 경우에도 전문 의료인의 진단, 처방, 치료 등의 의료행위를 대신할 수 없습니다. 회원은 자신의 건강 상태에 의문이 있거나 이상 증상이 있는 경우 반드시 전문 의료기관을 방문하여 의사의 진료를 받아야 하며, 회사는 회원이 본 서비스의 정보를 맹신하여 발생한 신체적·정신적·재산적 손해에 대해 어떠한 법적 책임도 부담하지 않습니다.</p>
       </div>`;
   } else if(tab==='detail'){
     const icon = {checkup:'✅', bp:'💗', etc:'ℹ️', activity:'🏃', sleep:'😴'};
@@ -4652,7 +4652,7 @@ function renderAiInsightTabData(rIn, tab, bodyId){
         <p>${f.body}</p>
         <div class="ai-fnd-tip">✓ ${f.tip}</div>
         ${f.checkupKey ? `<button class="ai-fnd-src" data-key="${f.checkupKey}">📄 원본 검진 결과 보기 ›</button>` : ``}
-      </div>`).join('') + `<p class="ai-disclaimer-v2">AI 건강 인사이트는 검진·헬스 데이터를 바탕으로 한 생활습관 참고 정보이며, 의학적 진단이나 의료진의 판단을 대신하지 않습니다.</p></div>`;
+      </div>`).join('') + `<p class="ai-disclaimer-v2">본 서비스가 제공하는 AI 리포트 및 건강 인사이트는 사용자의 건강관리를 돕기 위한 보조적·참고적 정보에 불과하며, 어떠한 경우에도 전문 의료인의 진단, 처방, 치료 등의 의료행위를 대신할 수 없습니다. 회원은 자신의 건강 상태에 의문이 있거나 이상 증상이 있는 경우 반드시 전문 의료기관을 방문하여 의사의 진료를 받아야 하며, 회사는 회원이 본 서비스의 정보를 맹신하여 발생한 신체적·정신적·재산적 손해에 대해 어떠한 법적 책임도 부담하지 않습니다.</p></div>`;
     body.querySelectorAll('.ai-fnd-src').forEach(btn=>{
       btn.onclick = ()=>{
         document.getElementById('aiInsightDet').classList.remove('open');
