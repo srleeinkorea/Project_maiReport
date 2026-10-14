@@ -65,7 +65,7 @@ td.doc a.gh:hover{text-decoration:underline}
 <header>
   <h1>화면별 문서 현황</h1>
   <p>전체 앱 구성 흐름도(IA)의 화면 목록에 맞춰, 화면마다 기획서 · 화면정의서 · 화면설계서가 어디에 있는지 모은 표</p>
-  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.7</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
+  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.8</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
 </header>
 
 <div class="legend">
@@ -112,6 +112,9 @@ const RAWBIN='https://raw.githubusercontent.com/srleeinkorea/Project_maiReport/m
 const SITE_FILE={"maiReport_원페이지요약_v1.0.0.html": "one-page-summary.html", "maiReport_prototype_v1.0.0.html": "prototype.html", "maiReport_IA_v1.0.0.html": "app-flow.html", "maiReport_세지표_아키텍처_흐름도_google-sites.html": "architecture.html", "mai-report-식이_데이터흐름도_v1.0.0.html": "diet.html", "maiReport_더보기_내정보관리_화면설계서_v1.0.0.html": "wip-my-info.html", "maiReport_셀비체크업_검진선택_지난분석결과_화면설계서_v1.0.0.html": "selvy-checkup.html", "mai-report-식이_가이드_v1.0.0.html": "diet-guide.html", "maiReport_화면별_문서현황_v1.0.0.html": "doc-matrix.html", "maiReport_최종프로토타입_시나리오_v1.0.0.html": "final-scenarios.html", "maiReport_홈_건강나이또래등수_기획서_v1.0.0.html": "age-plan.html", "maiReport_홈_건강나이또래등수_화면정의서_v1.0.0.html": "age-screen-def.html", "maiReport_홈_질문코칭목표_기획서_v1.0.0.html": "home-plan.html", "maiReport_홈_질문코칭목표_화면정의서_v1.0.0.html": "home-screen-def.html", "maiReport_홈_질문코칭목표_화면설계서_v1.0.0.html": "home-screen-spec.html", "maiReport_검진리포트등록_기획서_v1.0.0.html": "reg-plan.html", "maiReport_검진리포트등록_화면정의서_v1.0.0.html": "reg-screen-def.html", "maiReport_검진리포트등록_화면설계서_v1.0.0.html": "reg-screen-spec.html", "maiReport_병원탭_기록보기_기획서_v1.0.0.html": "hosp-plan.html", "maiReport_병원탭_방문이력읽을거리_화면정의서_v1.0.0.html": "hosp-screen-def.html", "maiReport_건강데이터연동_화면설계서_v1.0.0.html": "link-screen-spec.html", "maiReport_더보기_기획서_v1.0.0.html": "more-plan.html", "maiReport_생활탭_데이터보기_기획서_v1.0.0.html": "life-plan.html", "maiReport_AI인사이트_기획서_v1.0.0.html": "ai-plan.html", "maiReport_알림_화면정의서_v1.0.0.html": "noti-screen-def.html", "mai-report-식이_화면설계서_v1.0.0.html": "diet-screen-spec.html", "maiReport_식이_식사시각질문_v1.0.0.html": "wip-meal-time.html", "maiReport_식이_식사시각질문_기획서_v1.0.0.html": "meal-time-plan.html", "maiReport_생활_지표별분석_화면설계서_v1.0.0.html": "wip-metric.html", "mai-report-식이_QA체크리스트_v1.0.0.html": "wip-diet-qa.html"};
 // Figma 「HTML → Figma(틀 유지)」 플러그인에 넣는 주소: 공유 사이트 사본이 있으면 그 주소(플러그인 허용 도메인), 없으면 raw.githack 주소
 const FIGMA=k=>{const n=P[k].split('/').pop();if(!/\.html?$/i.test(n))return '';return SITE_FILE[n]?SITE+SITE_FILE[n]:RAW+encodeURI(P[k]);};
+// 엑셀은 SharePoint(M365)에 같은 파일을 올려 두고, 새 탭은 Excel 웹에서 연다(로그인 필요). 팝업 안 미리보기는 오피스 온라인 뷰어
+const SP='https://maihub.sharepoint.com/sites/msteams_b7ec7d/Shared%20Documents/%EB%A7%88%EC%9D%B4%EB%A6%AC%ED%8F%AC%ED%8A%B8/%EA%B8%B0%ED%9A%8D%20%EB%AC%B8%EC%84%9C%20%EC%97%91%EC%85%80/';
+const SPWEB=k=>/\.xlsx?$/i.test(P[k])?SP+encodeURIComponent(P[k].split('/').pop())+'?web=1':'';
 const OFFICE=u=>'https://view.officeapps.live.com/op/view.aspx?src='+encodeURIComponent(u);
 const SITE='https://srleeinkorea.github.io/maireport-rsna-demo-k7x9m2q8v4n6/';
 // 짧은 이름 → 경로
@@ -192,7 +195,7 @@ const P={
  알림정의:'화면/90_기타/알림/maiReport_알림_화면정의서_v1.0.0.html',
 };
 const S={ 진료연동:'wip-clinic-codef.html', 셀비사이트:'selvy-checkup.html', 내정보사이트:'wip-my-info.html', 프로토사이트:'prototype.html' };
-const L=(k,label)=>({href:GH+encodeURI(P[k]),view:/\.(html?|svg|png|pdf)$/i.test(P[k])?RAW+encodeURI(P[k]):/\.(xlsx?|docx?|pptx?)$/i.test(P[k])?OFFICE(RAWBIN+encodeURI(P[k])):'',label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:'',figma:FIGMA(k)});
+const L=(k,label)=>({href:GH+encodeURI(P[k]),view:/\.(html?|svg|png|pdf)$/i.test(P[k])?RAW+encodeURI(P[k]):/\.(xlsx?|docx?|pptx?)$/i.test(P[k])?OFFICE(RAWBIN+encodeURI(P[k])):'',label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:'',figma:FIGMA(k),sp:SPWEB(k)});
 const W=(k,label)=>({href:SITE+S[k],view:SITE+S[k],label,where:'사이트'});
 const PROTO=L('프로토','최종 프로토타입에만 있음');
 
@@ -247,7 +250,7 @@ const G=[
 ];
 const st=(arr)=>!arr.length?'no':(arr.length===1&&arr[0]===PROTO)?'part':(arr.every(x=>/\(.*섹션\)|프로토타입/.test(x.label)))?'part':'ok';
 const stText={ok:'있음',part:'일부',no:'없음'};
-const cell=(arr)=>{const s=st(arr);return `<td class="doc"><span class="chip ${s}">${stText[s]}</span>${arr.length?`<ul>${arr.map(x=>`<li>${x.view?`<a href="${x.view}" data-view="${x.view}" data-gh="${x.href}" data-figma="${x.figma||''}" data-title="${x.label}">${x.label}</a><a class="gh" href="${x.href}" target="_blank" rel="noopener" title="GitHub에서 파일 보기">GitHub</a>`:`<a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>`}${x.where?`<span class="where">${x.where}</span>`:''}</li>`).join('')}</ul>`:''}</td>`;};
+const cell=(arr)=>{const s=st(arr);return `<td class="doc"><span class="chip ${s}">${stText[s]}</span>${arr.length?`<ul>${arr.map(x=>`<li>${x.view?`<a href="${x.view}" data-view="${x.view}" data-gh="${x.href}" data-figma="${x.figma||''}" data-sp="${x.sp||''}" data-title="${x.label}">${x.label}</a><a class="gh" href="${x.href}" target="_blank" rel="noopener" title="GitHub에서 파일 보기">GitHub</a>`:`<a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>`}${x.where?`<span class="where">${x.where}</span>`:''}</li>`).join('')}</ul>`:''}</td>`;};
 let tot={rows:0,plan:{ok:0,part:0,no:0},def:{ok:0,part:0,no:0},design:{ok:0,part:0,no:0}};
 document.getElementById('groups').innerHTML=G.map(g=>`<section class="group"><div class="ghead"><span class="no">${g.no}</span><div><h2>${g.title}</h2><p>${g.desc}</p></div></div>
 <table><thead><tr><th>화면 ID</th><th>화면</th><th>기획서</th><th>화면정의서</th><th>화면설계서</th></tr></thead><tbody>
@@ -256,7 +259,7 @@ ${g.rows.map(r=>{tot.rows++;tot.plan[st(r[3])]++;tot.def[st(r[4])]++;tot.design[
 </tbody></table></section>`).join('');
 const sum=(k,t)=>`<div class="card"><span>${t}</span><b>${tot[k].ok} <small style="font-size:13px;color:var(--mute)">/ ${tot.rows}</small></b><span>일부 ${tot[k].part} · 없음 ${tot[k].no}</span></div>`;
 const modal=document.getElementById('modal'),frame=document.getElementById('mframe');
-const openDoc=(a)=>{document.getElementById('mtitle').textContent=a.dataset.title;document.getElementById('mnew').href=(a.dataset.figma&&a.dataset.figma.startsWith(SITE))?a.dataset.figma:a.dataset.view;document.getElementById('mgh').href=a.dataset.gh;const fg=a.dataset.figma||'';const mf=document.getElementById('mfig'),mc=document.getElementById('mcopy');mf.href=fg;mf.style.display=fg?'':'none';mc.style.display=fg?'':'none';mc.dataset.url=fg;mc.textContent='복사';frame.src=a.dataset.view;document.getElementById('mnote').style.display='none';modal.classList.add('open');document.body.style.overflow='hidden';};
+const openDoc=(a)=>{document.getElementById('mtitle').textContent=a.dataset.title;const mn=document.getElementById('mnew');mn.href=a.dataset.sp||((a.dataset.figma&&a.dataset.figma.startsWith(SITE))?a.dataset.figma:a.dataset.view);mn.textContent=a.dataset.sp?'Excel 웹에서 열기':'새 탭에서 열기';document.getElementById('mgh').href=a.dataset.gh;const fg=a.dataset.figma||'';const mf=document.getElementById('mfig'),mc=document.getElementById('mcopy');mf.href=fg;mf.style.display=fg?'':'none';mc.style.display=fg?'':'none';mc.dataset.url=fg;mc.textContent='복사';frame.src=a.dataset.view;document.getElementById('mnote').style.display='none';modal.classList.add('open');document.body.style.overflow='hidden';};
 const closeDoc=()=>{modal.classList.remove('open');frame.src='about:blank';document.body.style.overflow='';};
 document.getElementById('groups').addEventListener('click',e=>{const a=e.target.closest('a[data-view]');if(!a)return;e.preventDefault();openDoc(a);});
 document.getElementById('mclose').addEventListener('click',closeDoc);
