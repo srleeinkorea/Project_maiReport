@@ -65,7 +65,7 @@ td.doc a.gh:hover{text-decoration:underline}
 <header>
   <h1>화면별 문서 현황</h1>
   <p>전체 앱 구성 흐름도(IA)의 화면 목록에 맞춰, 화면마다 기획서 · 화면정의서 · 화면설계서가 어디에 있는지 모은 표</p>
-  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.9</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
+  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>2.0</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
 </header>
 
 <div class="legend">
@@ -108,6 +108,8 @@ td.doc a.gh:hover{text-decoration:underline}
 (()=>{
 const GH='https://github.com/srleeinkorea/Project_maiReport/blob/main/docs/';
 const RAW='https://raw.githack.com/srleeinkorea/Project_maiReport/main/docs/';
+// raw.githack CDN이 옛 판을 한동안 보여 주므로 미리보기 주소에는 열 때마다 다른 꼬리표를 붙여 최신 판을 받는다
+const FRESH='?v='+Date.now();
 const RAWBIN='https://raw.githubusercontent.com/srleeinkorea/Project_maiReport/main/docs/';
 // 엑셀·워드는 오피스 온라인 뷰어로 연다(공개 저장소의 원본 주소를 넘긴다)
 const SITE_FILE={"maiReport_원페이지요약_v1.0.0.html": "one-page-summary.html", "maiReport_prototype_v1.0.0.html": "prototype.html", "maiReport_IA_v1.0.0.html": "app-flow.html", "maiReport_세지표_아키텍처_흐름도_google-sites.html": "architecture.html", "mai-report-식이_데이터흐름도_v1.0.0.html": "diet.html", "maiReport_더보기_내정보관리_화면설계서_v1.0.0.html": "wip-my-info.html", "maiReport_셀비체크업_검진선택_지난분석결과_화면설계서_v1.0.0.html": "selvy-checkup.html", "mai-report-식이_가이드_v1.0.0.html": "diet-guide.html", "maiReport_화면별_문서현황_v1.0.0.html": "doc-matrix.html", "maiReport_최종프로토타입_시나리오_v1.0.0.html": "final-scenarios.html", "maiReport_홈_건강나이또래등수_기획서_v1.0.0.html": "age-plan.html", "maiReport_홈_건강나이또래등수_화면정의서_v1.0.0.html": "age-screen-def.html", "maiReport_홈_질문코칭목표_기획서_v1.0.0.html": "home-plan.html", "maiReport_홈_질문코칭목표_화면정의서_v1.0.0.html": "home-screen-def.html", "maiReport_홈_질문코칭목표_화면설계서_v1.0.0.html": "home-screen-spec.html", "maiReport_검진리포트등록_기획서_v1.0.0.html": "reg-plan.html", "maiReport_검진리포트등록_화면정의서_v1.0.0.html": "reg-screen-def.html", "maiReport_검진리포트등록_화면설계서_v1.0.0.html": "reg-screen-spec.html", "maiReport_병원탭_기록보기_기획서_v1.0.0.html": "hosp-plan.html", "maiReport_병원탭_방문이력읽을거리_화면정의서_v1.0.0.html": "hosp-screen-def.html", "maiReport_건강데이터연동_화면설계서_v1.0.0.html": "link-screen-spec.html", "maiReport_더보기_기획서_v1.0.0.html": "more-plan.html", "maiReport_생활탭_데이터보기_기획서_v1.0.0.html": "life-plan.html", "maiReport_AI인사이트_기획서_v1.0.0.html": "ai-plan.html", "maiReport_알림_화면정의서_v1.0.0.html": "noti-screen-def.html", "mai-report-식이_화면설계서_v1.0.0.html": "diet-screen-spec.html", "maiReport_식이_식사시각질문_v1.0.0.html": "wip-meal-time.html", "maiReport_식이_식사시각질문_기획서_v1.0.0.html": "meal-time-plan.html", "maiReport_생활_지표별분석_화면설계서_v1.0.0.html": "wip-metric.html", "mai-report-식이_QA체크리스트_v1.0.0.html": "wip-diet-qa.html"};
@@ -201,7 +203,7 @@ const P={
  알림정의:'화면/90_기타/알림/maiReport_알림_화면정의서_v1.0.0.html',
 };
 const S={ 진료연동:'wip-clinic-codef.html', 셀비사이트:'selvy-checkup.html', 내정보사이트:'wip-my-info.html', 프로토사이트:'prototype.html' };
-const L=(k,label)=>({href:GH+encodeURI(P[k]),view:/\.(html?|svg|png|pdf)$/i.test(P[k])?RAW+encodeURI(P[k]):/\.(xlsx?|docx?|pptx?)$/i.test(P[k])?OFFICE(RAWBIN+encodeURI(P[k])):'',label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:'',figma:FIGMA(k),sp:SPWEB(k)});
+const L=(k,label)=>({href:GH+encodeURI(P[k]),view:/\.(html?|svg|png|pdf)$/i.test(P[k])?RAW+encodeURI(P[k])+FRESH:/\.(xlsx?|docx?|pptx?)$/i.test(P[k])?OFFICE(RAWBIN+encodeURI(P[k])):'',label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:'',figma:FIGMA(k),sp:SPWEB(k)});
 const W=(k,label)=>({href:SITE+S[k],view:SITE+S[k],label,where:'사이트'});
 const PROTO=L('프로토','최종 프로토타입에만 있음');
 
