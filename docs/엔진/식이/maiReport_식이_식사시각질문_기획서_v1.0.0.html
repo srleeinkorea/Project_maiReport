@@ -135,6 +135,16 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
 
 <section id="s05"><div class="num">05</div><div>
 <h2>동작 방식</h2>
+<h3>어느 끼니를 묻나</h3>
+<p>앱에 들어온 시각으로 정함(끼니 경계 10시 · 12시 · 17시). 시각 단계는 이 끼니에 대해 이어 물음.</p>
+<table><tr><th style="width:30%">들어온 시각</th><th style="width:22%">묻는 끼니</th><th>시각 단계 선택지</th></tr>
+<tr><td>자정~오전 10시</td><td>어제 저녁</td><td>「7시 이전 / 7시~8시 / 8시 이후」(저녁 7시 · 8시) 고정</td></tr>
+<tr><td>오전 10시~12시</td><td>오늘 아침</td><td>「7시 이전 / 7시~8시 / 8시 이후」 고정</td></tr>
+<tr><td>낮 12시~오후 5시</td><td>오늘 점심</td><td>「1시간 전 / 2시간 전 / 그보다 전」 + 작은 글씨 시각. 하한 12시 · 상한 오후 2시</td></tr>
+<tr><td>오후 5시~자정</td><td>오늘 저녁</td><td>「1시간 전 / 2시간 전 / 그보다 전」 + 작은 글씨 시각. 하한 오후 5시 · 상한 오후 9시</td></tr>
+</table>
+<p class="ex">예) 11시에 점심을 먹고 11시 30분에 열면 「오늘 아침」을 물음. 점심 시각은 그날 12시 이후에 다시 열었을 때 물음.</p>
+<h3>화면 흐름</h3>
 <p>오후 1시 20분에 점심 질문에 답하는 경우임. 세 화면 모두 같은 질문 카드임.</p>
 <div class="fig"><div class="t">Fig 2 · 화면 흐름 — 1/5 → 2/5 → 3/5</div>
 <svg viewBox="0 0 760 240" role="img" aria-label="화면 흐름">
