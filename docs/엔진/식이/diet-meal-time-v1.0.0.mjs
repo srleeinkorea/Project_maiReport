@@ -111,9 +111,9 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
   const f0 = formatKoTime(t0), f1 = formatKoTime(t1);
   const rangeAmpm = f0.ampm === f1.ampm ? f0.ampm : `${f1.ampm}~${f0.ampm}`;
   const windowEnd1 = toHHMM(answeredAt);   // 1번 선택지의 끝은 항상 답한 시각. 상한에 걸린 뒤 2시간을 넘으면 추정에서 모름이 된다
-  // 선택지 글자: 평소에는 「1시간 전 / 2시간 전 / 그보다 전」만 보여 준다(작은 글씨 없음).
-  // 상한 · 하한에 걸린 동안은 「1시간 전」이 사실과 달라지므로 시각 글자(time_label)를 대신 보여 준다.
-  const REL = ['1시간 전', '2시간 전', '그보다 전'];
+  // 선택지 글자: 평소에는 「1시간 이내 / 2시간 전 / 그보다 전」만 보여 준다(작은 글씨 없음).
+  // 상한 · 하한에 걸린 동안은 「1시간 이내」가 사실과 달라지므로 시각 글자(time_label)를 대신 보여 준다.
+  const REL = ['1시간 이내', '2시간 전', '그보다 전'];
   const times = [`${f0.text} 이후`, `${rangeAmpm} ${f1.clock}~${f0.clock}`, `${f1.text} 이전`];
   const lab = (i) => stopped ? times[i] : REL[i];
   const subOf = (i) => '';   // 작은 글씨는 쓰지 않는다. time_label은 저장·답변 보기용

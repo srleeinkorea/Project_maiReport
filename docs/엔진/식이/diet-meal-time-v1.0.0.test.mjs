@@ -43,7 +43,7 @@ test('점심 · 답한 시각에서 1시간씩 거꾸로 세고 10분 단위로 
   const r = mealTimeOptions(at('13:20'), KST, 'LUNCH');
   assert.equal(r.text, '점심은 언제쯤 드셨어요?');
   assert.deepEqual(labels(r), ['오후 12:20 이후', '오전~오후 11:20~12:20', '오전 11:20 이전']);
-  assert.deepEqual(mains(r), ['1시간 전', '2시간 전', '그보다 전']);
+  assert.deepEqual(mains(r), ['1시간 이내', '2시간 전', '그보다 전']);
   assert.deepEqual(subs(r), ['', '', '']);   // 작은 글씨 없음
   assert.deepEqual(labels(mealTimeOptions(at('13:47'), KST, 'LUNCH')), ['오후 12:40 이후', '오전~오후 11:40~12:40', '오전 11:40 이전']);
   assert.equal(r.options[0].window_end, '13:20');
@@ -60,14 +60,14 @@ test('점심 · 12시대에는 12시 아래로 내려가지 않고, 오후 2시�
   for (const t of ['14:10', '16:30']) {
     const r = mealTimeOptions(at(t), KST, 'LUNCH');
     assert.deepEqual(labels(r), ['오후 1:00 이후', '오후 12:00~1:00', '오후 12:00 이전'], t);
-    assert.deepEqual(mains(r), ['오후 1:00 이후', '오후 12:00~1:00', '오후 12:00 이전'], t);   // 상한에 걸리면 「1시간 전」 대신 시각
+    assert.deepEqual(mains(r), ['오후 1:00 이후', '오후 12:00~1:00', '오후 12:00 이전'], t);   // 상한에 걸리면 「1시간 이내」 대신 시각
     assert.equal(r.stopped, true, t);
   }
 });
 
 test('저녁 · 오후 9시까지는 1시간 칸(하한 4시), 9시가 지나면 고정 선택지 「7시 이전 / 7시~9시 / 9시 이후」', () => {
   assert.deepEqual(labels(mealTimeOptions(at('19:30'), KST, 'DINNER')), ['오후 6:30 이후', '오후 5:30~6:30', '오후 5:30 이전']);
-  assert.deepEqual(mains(mealTimeOptions(at('19:30'), KST, 'DINNER')), ['1시간 전', '2시간 전', '그보다 전']);
+  assert.deepEqual(mains(mealTimeOptions(at('19:30'), KST, 'DINNER')), ['1시간 이내', '2시간 전', '그보다 전']);
   assert.deepEqual(labels(mealTimeOptions(at('20:40'), KST, 'DINNER')), ['오후 7:40 이후', '오후 6:40~7:40', '오후 6:40 이전']);
   // 하한 4시: 5시 40분에 답하면 「2시간 전」이 3:40~4:40이라 4시 반 식사가 들어간다(범위는 4시부터 잘라 4:00~4:40 → 4:20)
   const five = mealTimeOptions(at('17:40'), KST, 'DINNER');
