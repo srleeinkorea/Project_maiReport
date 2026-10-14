@@ -2,15 +2,15 @@
   "feature": "식이",
   "date": "2026-10-14",
   "plan": "qa/plans/식이.qa-plan.json",
-  "target": "docs/10_홈/식이",
+  "target": "docs/10_홈탭/식이",
   "baseline": {
     "contract": {
-      "file": "docs/10_홈/식이/maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx",
+      "file": "docs/10_홈탭/식이/maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx",
       "sha256": "246576189a70",
       "status": "식이 개발 전달 데이터 계약 · v1.2.0 · 2026-10-13 (최초 발행 2026-09-23)"
     },
     "documents": [
-      "docs/10_홈/식이/식이_구현점검_v1.0.0.md"
+      "docs/10_홈탭/식이/식이_구현점검_v1.0.0.md"
     ]
   },
   "scope": {
@@ -40,7 +40,7 @@
     "failures": [],
     "exitCode": 0,
     "error": false,
-    "command": "node --test \"docs/10_홈/식이/diet-selection-v1.0.0.test.mjs\" \"docs/10_홈/식이/diet-profile-condition-v1.0.0.test.mjs\" \"docs/10_홈/식이/diet-goal-engine-v1.0.0.test.mjs\""
+    "command": "node --test \"docs/10_홈탭/식이/diet-selection-v1.0.0.test.mjs\" \"docs/10_홈탭/식이/diet-profile-condition-v1.0.0.test.mjs\" \"docs/10_홈탭/식이/diet-goal-engine-v1.0.0.test.mjs\""
   },
   "dataChecks": [
     {

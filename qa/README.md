@@ -17,7 +17,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File qa/qa.ps1 run qa/plans/식�
 
 Claude Code에서는 이렇게 부른다.
 
-- `/feature-qa 수면 docs/10_홈/수면` — 지금 대화에서 6단계 절차를 진행 (정책 질문을 바로 물어볼 수 있음)
+- `/feature-qa 수면 docs/10_홈탭/수면` — 지금 대화에서 6단계 절차를 진행 (정책 질문을 바로 물어볼 수 있음)
 - 「feature-qa 에이전트로 수면 QA 돌려줘」 — 별도 에이전트에게 맡김 (여러 기능을 동시에 돌릴 때)
 
 ## 구성

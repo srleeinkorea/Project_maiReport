@@ -17,7 +17,7 @@ param([string]$Destination, [switch]$Force)
 
 $ErrorActionPreference = 'Stop'
 $repo  = Split-Path $PSScriptRoot -Parent
-$src   = Join-Path $repo 'docs\10_홈\식이'
+$src   = Join-Path $repo 'docs\10_홈탭\식이'
 $conf  = Join-Path $PSScriptRoot 'sharepoint-path.txt'
 $SITE  = 'msteams_b7ec7d'
 $files = @(
