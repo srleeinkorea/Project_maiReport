@@ -1,9 +1,8 @@
-param([switch]$CheckOnly, [switch]$NoBrowser)
+﻿param([switch]$CheckOnly, [switch]$NoBrowser)
 $ErrorActionPreference = 'Stop'
 $repoUrl = 'https://github.com/srleeinkorea/maireport-rsna-demo-k7x9m2q8v4n6.git'
 $siteUrl = 'https://srleeinkorea.github.io/maireport-rsna-demo-k7x9m2q8v4n6/'
 $checkout = Join-Path $PSScriptRoot '../.tmp_artifact/rsna-deploy'
-$sourceDir = Join-Path $PSScriptRoot 'source'
 function Invoke-Git {
     param([string[]]$GitArgs)
     & git @GitArgs
@@ -30,14 +29,14 @@ try {
     $dirty = Invoke-Git -GitArgs @('-C', $checkout, 'status', '--porcelain')
     if ($dirty) { throw 'Deployment checkout has pending edits. Resolve them before publishing.' }
     Invoke-Git -GitArgs @('-C', $checkout, 'pull', '--ff-only', 'origin', 'main')
-    $pageName = 'rsna-demo.html'   # 사이트 index.html은 문서함 메뉴라 덮어쓰지 않는다
+    $pageName = 'prototype.html'   # 문서함 메뉴의 「최종 프로토타입」 탭. index.html(메뉴)은 덮어쓰지 않는다
     $target = Join-Path $checkout $pageName
     $changed = !(Test-Path -LiteralPath $target)
     if (!$changed) { $changed = [IO.File]::ReadAllText($target).Replace("`r`n", "`n") -cne $html.Replace("`r`n", "`n") }
     if ($changed) {
         Copy-Item -LiteralPath $source -Destination $target
         Invoke-Git -GitArgs @('-C', $checkout, 'add', '--', $pageName)
-        Invoke-Git -GitArgs @('-C', $checkout, '-c', 'user.name=srleeinkorea', '-c', 'user.email=srleeinkorea@users.noreply.github.com', 'commit', '-m', ('Update RSNA demo ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
+        Invoke-Git -GitArgs @('-C', $checkout, '-c', 'user.name=srleeinkorea', '-c', 'user.email=srleeinkorea@users.noreply.github.com', 'commit', '-m', ('최종 프로토타입 갱신 ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
     }
     # Also retries a previously committed update if its push failed.
     $ahead = Invoke-Git -GitArgs @('-C', $checkout, 'rev-list', '--count', 'origin/main..HEAD')
