@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>검진 리포트 등록 기획서</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5;--acc:#1d4ed8;--todo:#b7791f;--todo-bg:#fcf3e1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.6}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+header h1{margin:0 0 4px;font-size:24px}
+header .path{color:var(--mute);font-size:13px}
+.kind{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;margin-bottom:8px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin:8px 0 18px}
+.meta b{color:var(--ink);font-weight:600}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
+nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
+nav.toc a,a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+section h2{margin:0 0 10px;font-size:17px}
+section h3{margin:14px 0 6px;font-size:14px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.glance div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.glance b{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
+.chip{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--chip);font-size:12px;font-weight:600;white-space:nowrap}
+.todo{background:var(--todo-bg);color:var(--todo);padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600}
+.ex{color:var(--mute);font-size:12.5px}
+p{margin:6px 0}
+ol,ul{margin:6px 0 0;padding-left:20px}
+li{margin:4px 0}
+.flow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:10px 0}
+.flow span{background:var(--chip);border-radius:10px;padding:8px 12px;font-size:13px}
+.flow i{color:var(--mute);font-style:normal}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}}
+:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <span class="kind">기획서</span>
+  <h1>검진 리포트 등록</h1>
+  <div class="path">병원 › 방문이력 「+」 · 홈 헤더 「AI REPORT 스캔」</div>
+  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>REG-001 ~ 006 · HOME-002</b></span><span>관련 문서 <b><a href="maiReport_검진리포트등록_화면정의서_v1.0.0.html">화면정의서</a> · <a href="maiReport_검진리포트등록_화면설계서_v1.0.0.html">화면설계서</a> · <a href="../90_기타/기획기반/maiReport_기능정의서_v1.0.0.html">기능정의서(색인) §9</a></b></span></div>
+</header>
+
+<nav class="toc"><ol>
+<li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">배경과 목표</a></li><li><a href="#c2">대상과 상황</a></li><li><a href="#c3">범위</a></li><li><a href="#c4">동작 방식</a></li><li><a href="#c5">규칙과 예외</a></li><li><a href="#c6">데이터</a></li><li><a href="#c7">성공 기준</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
+</ol></nav>
+
+<section id="glance"><h2>한눈에 보기</h2>
+<div class="glance">
+<div><b>이 문서가 다루는 것</b>사용자가 종이 · PDF로 받은 검진 결과와 AI REPORT를 앱에 넣는 두 갈래 길(QR 스캔 · 촬영 · 업로드)과, 읽어 들인 값을 사람이 확인한 뒤에만 저장하는 원칙</div>
+<div><b>가장 중요한 결정</b>읽어 들인 값은 사용자 검수를 거쳐야만 저장된다. 검수를 건너뛰는 경로는 두지 않는다</div>
+<div><b>아직 정해지지 않은 것</b>일반 검진 리포트에서 인식 항목의 범위(어떤 검사 항목까지 뽑는지)와 확신이 낮은 값의 표시 기준</div>
+</div>
+</section>
+
+<section id="c1"><h2>1. 배경과 목표</h2>
+<p>건강검진 결과는 공단 연동으로 들어오지만, 연동 전 기록 · 직장 검진 · 민간 검진 · 영상 AI 판독 결과(AI REPORT)는 연동으로 받을 수 없다. 사용자가 손에 쥔 결과지를 앱에 넣을 길이 있어야 방문이력이 빈 채로 남지 않고, 검진 요약 · AI 요약 · 또래 비교가 더 많은 사용자에게 동작한다.</p>
+<p>목표는 두 가지다. 첫째, 결과지를 찍거나 QR을 읽는 것만으로 값이 항목별로 정리되게 한다. 둘째, 자동으로 읽은 값이 틀릴 수 있으므로 사용자가 반드시 한 번 확인하고 저장하게 한다.</p>
+</section>
+
+<section id="c2"><h2>2. 대상과 상황</h2>
+<table><tr><th>인물</th><th>상황</th><th>바라는 것</th></tr>
+<tr><td>58세, 폐렴으로 진료 후 흉부 X-ray를 찍고 AI REPORT 종이를 받음</td><td>병원 로비에서 리포트의 QR을 앱으로 스캔한다</td><td>판독 결과가 무엇인지 바로 알고, 기록으로 남기고 싶다</td></tr>
+<tr><td>44세, 회사 종합검진을 민간 병원에서 받아 PDF로 받음</td><td>집에서 PDF를 앱에 올린다</td><td>공단 검진처럼 항목별 값과 판정이 정리되고 다음 검진과 비교되길 바란다</td></tr>
+</table>
+</section>
+
+<section id="c3"><h2>3. 범위</h2>
+<table><tr><th>이번에 하는 것</th><th>하지 않는 것</th></tr>
+<tr><td>
+<ul><li>AI REPORT: QR 스캔 → 인식 결과 확인 → 저장 → 결과 화면</li>
+<li>일반 검진 리포트: 카메라 촬영 · 앨범 · PDF 업로드(여러 장) → 추출 → 검수 → 등록</li>
+<li>등록된 건을 방문이력에 「등록」 출처 표시로 넣기</li>
+<li>같은 리포트를 다시 등록하면 기존 건을 갱신</li></ul>
+</td><td>
+<ul><li>사용자가 검사 값을 빈 양식에 직접 타이핑해 넣는 수동 입력 화면</li>
+<li>공단 · 심평원 연동으로 들어온 건의 수정</li>
+<li>리포트 원본 이미지의 공유 · 내보내기</li>
+<li>AI REPORT 외 다른 영상 AI 결과 형식</li></ul>
+</td></tr></table>
+</section>
+
+<section id="c4"><h2>4. 동작 방식</h2>
+<p>두 갈래 모두 「수집 → 추출 → 사용자 검수 → 저장」 네 단계를 지킨다. 다른 점은 수집 방법과 추출 결과의 모양이다.</p>
+<div class="flow"><span>유형 선택</span><i>→</i><span>수집(QR 촬영 / 파일 업로드)</span><i>→</i><span>추출(값을 항목으로 정리)</span><i>→</i><span>사용자 검수(확인 · 수정)</span><i>→</i><span>저장 → 방문이력 · 결과 화면</span></div>
+<h3>AI REPORT (QR)</h3>
+<ol>
+<li>홈 헤더의 「AI REPORT 스캔」 또는 방문이력 「+」 › AI REPORT를 누르면 QR 카메라가 열린다. 안내: 「리포트에 인쇄된 QR 코드를 사각형 안에 맞춰 주세요」.</li>
+<li>QR을 읽으면 리포트 내용(검진일 · 검진기관 · 검사 종류 · 판독 결과)을 받아 온다. 예: 2026.09.22 · MAIHUB · 흉부 X-ray(R-PA) · 경화, AI 점수 19.</li>
+<li>인식 결과 확인 화면에서 항목을 보여주고, 틀린 값은 눌러서 고칠 수 있다. 「다시 촬영」과 「저장하기」.</li>
+<li>저장하면 방문이력에 AI REPORT 건이 생기고, 곧바로 AI REPORT 결과 화면이 열린다. 스캔한 사람이 가장 먼저 보고 싶은 것은 방금 등록한 결과이기 때문이다. 결과를 닫으면 홈이 드러난다.</li>
+</ol>
+<h3>일반 검진 리포트 (촬영 · 업로드)</h3>
+<ol>
+<li>방문이력 「+」 › 일반 검진 리포트를 누르면 등록 안내 화면이 열린다. 「여러 장일 경우 순서대로 업로드해 주세요」. 입력 방법은 카메라 · 앨범 · PDF 세 가지.</li>
+<li>올린 장수를 보여주고 「다음」을 누르면 추출이 시작된다. 진행률과 세 단계(파일 업로드 완료 · 문서 인식 및 추출 · 검진 결과 정리)를 보여준다.</li>
+<li>추출 데이터 확인 화면에서 항목과 값을 확인하고 고친다. 원본을 장 단위로 넘겨 대조할 수 있다. 확신이 낮은 값은 눈에 띄게 표시한다.</li>
+<li>「최종 등록」을 누르면 검수한 값만 저장되고, 방문이력과 검진요약 · 검진상세에 반영된다. 완료 화면에서 다음 행동(검진상세 보기 · AI 요약)을 안내한다.</li>
+</ol>
+</section>
+
+<section id="c5"><h2>5. 규칙과 예외</h2>
+<table><tr><th>규칙</th><th>예시</th><th>예외</th></tr>
+<tr><td>검수 없이는 저장되지 않는다</td><td>QR을 읽자마자 방문이력에 들어가지 않고, 확인 화면의 「저장하기」를 눌러야 들어간다</td><td>없음. 검수를 건너뛰는 설정을 두지 않는다</td></tr>
+<tr><td>리포트의 대상자가 현재 사용자와 같아야 저장한다</td><td>QR에 담긴 이름 · 생년이 계정과 다르면 「본인 리포트가 아니에요」로 막는다</td><td>이름만 다르고 생년이 같으면 확인 화면에서 한 번 더 묻는다(확인 필요 ③)</td></tr>
+<tr><td>같은 리포트를 두 번 등록하면 새로 쌓지 않고 기존 건을 갱신한다</td><td>같은 검진일 · 같은 기관의 결과를 다시 올리면 값만 바뀐다</td><td>검진일이 다르면 별개 건</td></tr>
+<tr><td>형식 확인과 건강 판단은 섞지 않는다</td><td>「혈압 148/94」가 숫자 형식인지는 확인하지만, 높다 · 낮다는 등록 단계에서 말하지 않는다</td><td>판정은 검진상세 · AI 요약이 맡는다</td></tr>
+<tr><td>지원하지 않는 형식 · 용량 초과는 받지 않고 이유를 알린다</td><td>HEIC 변환 실패, 30MB 초과 PDF</td><td>—</td></tr>
+<tr><td>추출이 오래 걸려도 진행 상태를 유지하고, 실패하면 다시 올리게 한다</td><td>화면을 나갔다 와도 진행률이 이어진다</td><td>네트워크 끊김은 「다시 시도」만 두고 올린 파일은 지우지 않는다</td></tr>
+<tr><td>등록 건은 출처를 「등록」으로 표시해 연동 건과 구분한다</td><td>방문이력 카드에 출처 태그</td><td>—</td></tr>
+</table>
+<h3>기능 정의</h3>
+<p class="ex">기능정의서 §9 「리포트 등록」을 이 기능의 기획서로 옮긴 표. 새 규칙은 여기에 먼저 쓴다.</p>
+<table><tr><th>기능</th><th>언제</th><th>하는 일 · 결과</th><th>어긋나면</th></tr>
+<tr><td>등록 유형 선택</td><td>방문이력 「+」</td><td>AI REPORT와 일반 검진 리포트 중 하나를 고르게 하고 각 흐름으로 보낸다</td><td>닫으면 원래 화면으로 돌아간다</td></tr>
+<tr><td>QR 촬영</td><td>AI REPORT 선택 · 홈 헤더 스캔</td><td>카메라로 QR을 읽고 리포트를 받아 온다</td><td>권한이 없으면 권한 안내를 먼저 보여준다. 읽히지 않으면 다시 찍게 한다</td></tr>
+<tr><td>대상자 확인</td><td>리포트 수신 직후</td><td>리포트의 대상자가 현재 사용자와 맞는지 확인한다</td><td>맞지 않으면 저장하지 않고 사유를 알린다</td></tr>
+<tr><td>파일 수집</td><td>일반 리포트 선택</td><td>사진 · PDF를 여러 장 순서대로 받는다. 올린 파일 수를 보여준다</td><td>지원하지 않는 형식과 용량 초과는 받지 않고 이유를 알린다</td></tr>
+<tr><td>값 추출</td><td>파일 수집 완료</td><td>업로드 · 문서 인식 · 결과 정리 단계를 진행률로 보여주며 항목과 값을 뽑는다</td><td>오래 걸리면 진행 상태를 유지하고, 실패하면 다시 올리게 한다</td></tr>
+<tr><td>사용자 검수</td><td>추출 완료</td><td>읽힌 항목과 값을 사용자가 확인하고 고친다. 확신이 낮은 값은 눈에 띄게 표시한다</td><td>검수를 건너뛰고 저장하는 경로를 만들지 않는다</td></tr>
+<tr><td>원본 프리뷰</td><td>검수 중 원본 보기</td><td>올린 원본을 장 단위로 넘겨 값과 대조하게 한다</td><td>원본이 남아 있지 않으면 진입 경로를 두지 않는다</td></tr>
+<tr><td>최종 등록</td><td>[최종 등록] · [저장하기]</td><td>검수한 값만 저장하고 방문이력과 관련 화면에 반영한다. 완료 화면 또는 결과 화면으로 이어 준다</td><td>같은 리포트를 두 번 등록하면 기존 건을 갱신한다</td></tr>
+</table>
+</section>
+
+<section id="c6"><h2>6. 데이터</h2>
+<table><tr><th>무엇을</th><th>어디서</th><th>저장</th></tr>
+<tr><td>AI REPORT 내용(검진일 · 기관 · 검사 종류 · 소견별 판정 · AI 점수)</td><td>QR에 담긴 리포트 식별자로 리포트 서버에서 조회</td><td>방문이력의 AI REPORT 건. 원본 리포트 PDF 링크 포함</td></tr>
+<tr><td>일반 검진 항목 값(검사명 · 값 · 단위 · 참고치 · 판정)</td><td>촬영 · 업로드한 이미지 · PDF를 문서 인식으로 추출</td><td>검진 건(출처 「등록」). 원본 이미지는 검수 대조용으로 보관</td></tr>
+<tr><td>검수 이력(무엇을 고쳤는지)</td><td>검수 화면</td><td>건별로 남긴다. 인식 품질 개선에 쓴다</td></tr>
+</table>
+<p class="ex">AI REPORT의 소견 이름과 점수는 원본 리포트(Lunit INSIGHT CXR)의 10가지 이상 소견 체계를 그대로 따른다. 점수는 판독 보조값이며 확률이나 중증도가 아니다.</p>
+</section>
+
+<section id="c7"><h2>7. 성공 기준</h2>
+<ul>
+<li>QR 스캔부터 결과 화면까지 30초 안에 끝난다(QR 인식 1회 기준).</li>
+<li>일반 검진 리포트 3장 기준, 추출 완료까지 1분 이내. 1분을 넘기면 진행 상태를 유지한 채 알린다.</li>
+<li>검수 화면에서 사용자가 고치는 값의 비율이 10% 아래로 내려간다(인식 품질 지표).</li>
+<li>등록 건이 방문이력 · 검진요약 · 검진상세에 연동 건과 같은 모양으로 보인다.</li>
+</ul>
+</section>
+
+<section id="open"><h2>확인 필요</h2>
+<table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
+<tr><td>① 일반 검진 리포트에서 추출하는 항목의 범위(공단 검진 항목과 같은 범위로 할지, 민간 검진의 추가 항목까지 받을지)</td><td>기획 · 개발</td><td>—</td><td>열림</td></tr>
+<tr><td>② 확신이 낮은 값의 기준(인식 신뢰도 몇 % 미만을 눈에 띄게 표시할지)</td><td>개발</td><td>—</td><td>열림</td></tr>
+<tr><td>③ 대상자 확인에서 이름 표기만 다른 경우의 처리(한자 · 띄어쓰기)</td><td>기획</td><td>—</td><td>열림</td></tr>
+<tr><td>④ AI REPORT QR의 유효 기간과 재스캔 가능 횟수</td><td>리포트 제공 측 · 개발</td><td>—</td><td>열림</td></tr>
+<tr><td>⑤ 올린 원본 이미지의 보관 기간</td><td>기획 · 법무</td><td>—</td><td>열림</td></tr>
+</table>
+</section>
+
+<section id="history"><h2>바뀐 것</h2>
+<table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
+<tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 기능정의서 §9를 「기능 정의」 표로 흡수</td><td>프로토타입에만 있던 등록 흐름을 문서로</td></tr></table>
+</section>
+</main>
+</body>
+</html>
