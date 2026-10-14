@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>건강데이터 연동 화면설계서</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5;--acc:#1d4ed8;--todo:#b7791f;--todo-bg:#fcf3e1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.6}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+header h1{margin:0 0 4px;font-size:24px}
+header .path{color:var(--mute);font-size:13px}
+.kind{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;margin-bottom:8px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin:8px 0 18px}
+.meta b{color:var(--ink);font-weight:600}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
+nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
+nav.toc a,a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+section h2{margin:0 0 10px;font-size:17px}
+section h3{margin:14px 0 6px;font-size:14px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.glance div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.glance b{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
+.ex{color:var(--mute);font-size:12.5px}
+p{margin:6px 0}
+ol,ul{margin:6px 0 0;padding-left:20px}
+li{margin:4px 0}
+.fig svg{width:100%;height:auto;display:block}
+.step{display:grid;grid-template-columns:200px 1fr;gap:14px;margin:10px 0 16px}
+.ph{border:1px solid var(--line);border-radius:18px;padding:12px;background:var(--bg);font-size:12px;min-height:190px;display:flex;flex-direction:column;gap:6px}
+.ph .t{font-weight:700;font-size:12.5px}
+.ph .box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px}
+.ph .btn{background:var(--ink);color:#fff;border-radius:8px;padding:7px;text-align:center;font-weight:600}
+.ph .btn.o{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.ph .sw{display:inline-block;width:28px;height:16px;border-radius:8px;background:var(--acc);vertical-align:middle}
+@media (max-width:700px){.step{grid-template-columns:1fr}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}.ph .btn{background:#e6e9ee;color:#15181d}}
+:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <span class="kind">화면설계서</span>
+  <h1>건강데이터 연동</h1>
+  <div class="path">더보기 › 건강데이터 연동 (홈 · 생활의 「건강 데이터 연결하기」에서도 진입)</div>
+  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>MORE-003 · OS 권한 시트 · 소스 선택</b></span><span>관련 문서 <b><a href="maiReport_더보기_기획서_v1.0.0.html">더보기 기획서</a> · <a href="mai-report-건강데이터연동_화면정의서.html">건강데이터 연동 화면정의서</a> · <a href="mai-report-건강데이터연동_개선안_v1.0.0.html">개선안</a> · <a href="../../엔진/코칭목표/maiReport_policy_goal-lock-and-no-data_v1.0.0.html">데이터 부재 정책</a></b></span></div>
+</header>
+
+<nav class="toc"><ol>
+<li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">흐름 개요</a></li><li><a href="#c2">흐름도</a></li><li><a href="#c3">단계별 화면</a></li><li><a href="#c4">분기와 예외</a></li><li><a href="#c5">데이터와 연동</a></li><li><a href="#c6">시나리오</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
+</ol></nav>
+
+<section id="glance"><h2>한눈에 보기</h2>
+<div class="glance">
+<div><b>이 문서가 다루는 것</b>건강 앱을 고르고 → 휴대폰 권한을 허용하고 → 동기화되고 → 해제하기까지, 그리고 권한 일부 거부 · 데이터 없음 같은 중간 상태에서 화면이 어디로 가는지</div>
+<div><b>가장 중요한 결정</b>한 번에 앱 하나만 연동한다. 앱을 바꾸려면 해제 후 다시 연동한다. 해제해도 받아 둔 값과 기록은 남는다</div>
+<div><b>아직 정해지지 않은 것</b>앱에서 해제할 때 휴대폰 읽기 권한까지 실제로 거둬지는지(플랫폼 확인)</div>
+</div>
+</section>
+
+<section id="c1"><h2>1. 흐름 개요</h2>
+<table><tr><th>시작</th><th>끝</th><th>거치는 화면</th></tr>
+<tr><td>더보기 › 건강데이터(미연동) 또는 홈 · 생활의 「건강 데이터 연결하기」</td><td>연동됨(상태 바 + 동기화 기록) 또는 미연동으로 돌아옴</td><td>연동 화면(미연동) → 소스 선택(안드로이드만) → 휴대폰 권한 화면 → 동기화 중 → 연동됨 → (해제 확인 → 미연동)</td></tr>
+</table>
+</section>
+
+<section id="c2"><h2>2. 흐름도</h2>
+<div class="fig">
+<svg viewBox="0 0 1040 400" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard,Apple SD Gothic Neo,Malgun Gothic,sans-serif" font-size="13">
+<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6b7685"/></marker></defs>
+<g fill="none" stroke="#6b7685" stroke-width="1.5" marker-end="url(#ar)">
+<path d="M150,70 L200,70"/><path d="M340,70 L390,70"/><path d="M530,70 L580,70"/><path d="M720,70 L770,70"/>
+<path d="M150,90 L150,140 L390,140 L390,90" stroke-dasharray="4 3"/>
+<path d="M460,90 L460,180 L270,180 L270,90" stroke-dasharray="4 3"/>
+<path d="M840,90 L840,250 L270,250 L270,235"/>
+<path d="M200,215 L150,215 L150,90" stroke-dasharray="4 3"/>
+<path d="M650,90 L650,310 L530,310"/>
+</g>
+<g font-weight="600">
+<rect x="20" y="50" width="130" height="40" rx="10" fill="#eef1f5"/><text x="85" y="75" text-anchor="middle">연동 화면 · 미연동</text>
+<rect x="200" y="50" width="140" height="40" rx="10" fill="#dbeafe"/><text x="270" y="75" text-anchor="middle">① 소스 선택</text>
+<text x="270" y="105" text-anchor="middle" font-size="11" fill="#6b7685" font-weight="400">안드로이드만</text>
+<rect x="390" y="50" width="140" height="40" rx="10" fill="#dbeafe"/><text x="460" y="75" text-anchor="middle">② 휴대폰 권한 화면</text>
+<rect x="580" y="50" width="140" height="40" rx="10" fill="#dbeafe"/><text x="650" y="75" text-anchor="middle">③ 동기화 중</text>
+<rect x="770" y="50" width="140" height="40" rx="10" fill="#dcfce7"/><text x="840" y="75" text-anchor="middle">④ 연동됨</text>
+<text x="270" y="158" text-anchor="middle" font-size="11" fill="#6b7685" font-weight="400">아이폰은 ①을 건너뛴다</text>
+<text x="365" y="198" text-anchor="middle" font-size="11" fill="#6b7685" font-weight="400">모두 거부 → 미연동 유지 · 안내</text>
+<rect x="200" y="200" width="140" height="35" rx="10" fill="#fee2e2"/><text x="270" y="222" text-anchor="middle">⑤ 해제 확인 시트</text>
+<text x="560" y="270" text-anchor="middle" font-size="11" fill="#6b7685" font-weight="400">④ 「연동 해제」 → ⑤ → 해제하면 미연동으로(값 · 기록은 남음)</text>
+<rect x="390" y="290" width="140" height="35" rx="10" fill="#fef3c7"/><text x="460" y="312" text-anchor="middle">동기화 실패</text>
+<text x="460" y="350" text-anchor="middle" font-size="11" fill="#6b7685" font-weight="400">상태 바는 마지막 성공 시각 유지 · 기록에 실패 사유 · 연동은 유지</text>
+</g>
+</svg>
+</div>
+</section>
+
+<section id="c3"><h2>3. 단계별 화면</h2>
+<h3>0단계 · 연동 화면(미연동)</h3>
+<div class="step"><div class="ph"><div class="t">‹ 건강 데이터 연동</div><div class="box">건강 데이터 <span style="float:right">미연동</span></div><div class="ex">연동하면 오늘의 컨디션 · 홈 건강 데이터 · 생활 분석 · 목표에 반영돼요.</div><div class="btn">다시 연동하기</div><div class="box"><span class="ex">연동 해제 전 기록이에요</span><br>10.12 09:10 완료 · 자동 · 걸음 · 수면</div></div>
+<table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr>
+<tr><td>「다시 연동하기」(처음이면 「연동하기」)를 누른다</td><td>플랫폼을 확인한다. 안드로이드면 ① 소스 선택, 아이폰이면 건강 앱으로 정하고 바로 ②</td><td>① 또는 ②</td></tr></table></div>
+
+<h3>1단계 · 소스 선택(안드로이드)</h3>
+<div class="step"><div class="ph"><div class="t">어느 앱에서 가져올까요?</div><div class="box">◉ 삼성헬스<br><span class="ex">갤럭시 워치 · 삼성헬스 기록</span></div><div class="box">○ 헬스 커넥트<br><span class="ex">여러 앱의 기록을 모은 곳</span></div><div class="ex">한 번에 하나만 연동할 수 있어요. 바꾸려면 해제 후 다시 연동해요.</div><div class="btn">다음</div></div>
+<table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr>
+<tr><td>삼성헬스 · 헬스 커넥트 중 하나를 고르고 「다음」</td><td>선택을 저장한다. 앱이 설치되지 않았으면 설치 안내로 보낸다</td><td>②</td></tr></table></div>
+
+<h3>2단계 · 휴대폰 권한 화면</h3>
+<div class="step"><div class="ph"><div class="t">마이리포트가 읽으려는 항목</div><div class="box">걸음 수 <span class="sw"></span><br>활동 칼로리 <span class="sw"></span><br>수면 <span class="sw"></span><br>심박수 <span class="sw"></span><br>… 12개</div><div class="btn">허용</div><div class="btn o">허용 안 함</div></div>
+<table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr>
+<tr><td>항목별로 읽기를 허용한다</td><td>앱은 요청할 항목(활동 4 · 심박 · 수면 2 · 신체 4 · 측정 2 = 12개)만 정하고 화면은 휴대폰이 그린다. 하나라도 허용되면 연동으로 본다</td><td>허용 1개 이상 → ③. 모두 거부 → 0단계(안내)</td></tr></table></div>
+
+<h3>3단계 · 동기화 중</h3>
+<div class="step"><div class="ph"><div class="t">‹ 건강 데이터 연동</div><div class="box">⌚ 삼성헬스 <b>동기화 중…</b></div><div class="ex">읽을 수 있는 범위까지 과거 데이터를 가져와요.</div></div>
+<table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr>
+<tr><td>기다린다. 화면을 나가도 된다</td><td>처음 연동이면 건강 앱이 주는 만큼 과거 데이터를 가져온다(30일 이전에 별도 절차가 필요하면 최근 30일까지). 끝나면 연동 기록에 「완료 · 자동 · 가져온 항목」을 남긴다</td><td>④</td></tr></table></div>
+
+<h3>4단계 · 연동됨</h3>
+<div class="step"><div class="ph"><div class="t">‹ 건강 데이터 연동</div><div class="box">⌚ 삼성헬스 연동됨 · 방금 전 동기화 <span style="float:right">연동 해제</span></div><div class="ex">가져오지 않는 항목이 있어요 · 수면 › (권한 설정으로)</div><div class="box">연동 기록(최근 7건)<br>10.14 08:02 완료 · 자동 · 걸음 · 심박<br>10.13 22:10 실패 · 직접 · 권한 꺼짐</div></div>
+<table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr>
+<tr><td>상태 글자를 눌러 직접 동기화하거나, 「연동 해제」를 누른다</td><td>직접 동기화는 진행 중 다시 누를 수 없다. 앱을 켤 때마다 자동으로 한 번 동기화한다. 권한이 일부 꺼져 있으면 한 줄 안내를 둔다(닫기 없음, 허용되면 저절로 사라짐)</td><td>해제 → ⑤</td></tr></table></div>
+
+<h3>5단계 · 해제 확인</h3>
+<div class="step"><div class="ph"><div class="t">건강 데이터 연동을 해제할까요?</div><div class="ex">해제하면 걸음 수 · 수면 · 심박수 등 새 데이터를 더 이상 가져오지 않아요. 지금까지 받은 값과 리포트는 남아요. 앱을 바꾸려면 해제 후 다시 연동해요.</div><div class="btn">연동 해제하기</div><div class="btn o">취소</div></div>
+<table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr>
+<tr><td>「연동 해제하기」 또는 「취소」</td><td>해제하면 권한 요청을 거두고 홈 · 생활 · AI 인사이트를 연동 전 상태로 바꾼다. 받아 둔 값 · 리포트 · 연동 기록은 남긴다</td><td>0단계(미연동)</td></tr></table></div>
+</section>
+
+<section id="c4"><h2>4. 분기와 예외</h2>
+<table><tr><th>상황</th><th>화면</th><th>다음</th></tr>
+<tr><td>권한을 모두 거부</td><td>0단계로 돌아오고 「권한을 허용해야 연동할 수 있어요」 + 「다시 연동하기」</td><td>다시 누르면 ②(OS가 다시 묻지 않으면 「설정 열기」)</td></tr>
+<tr><td>OS 설정에서 권한을 막아 둠</td><td>안내 문구를 「설정에서 허용」으로 바꾸고 「설정 열기」</td><td>설정 앱 → 돌아오면 0단계에서 다시 판정</td></tr>
+<tr><td>일부 항목만 허용</td><td>④ 상태 바 아래 「가져오지 않는 항목이 있어요 · 수면」(3개 넘으면 「수면 외 2개」). 값이 비는 자리에는 「수면 권한이 꺼져 있어요 · 권한 켜기 ›」</td><td>권한 설정 → 다음 동기화에서 안내가 사라진다</td></tr>
+<tr><td>아이폰에서 어떤 항목이 7일간 한 건도 안 들어옴</td><td>「수면 데이터를 가져오지 못하고 있어요 · 건강 앱에서 접근을 허용해 주세요」. 권한 꺼짐과 데이터 없음을 구분할 수 없어 단정하지 않는다</td><td>—</td></tr>
+<tr><td>권한은 있으나 데이터가 아직 없음(신규 · 미착용)</td><td>④는 연동됨. 홈 · 생활은 「데이터를 모으는 중」 안내, 버튼 없음</td><td>하루 이상 쌓이면 자동 표시</td></tr>
+<tr><td>앱이 설치되지 않음</td><td>①에서 고르면 설치 안내</td><td>설치 후 ①로</td></tr>
+<tr><td>동기화 실패(네트워크 · 앱 오류)</td><td>상태 바는 마지막 성공 시각 유지, 기록에 「실패 · 사유」. 화면을 오류로 덮지 않는다</td><td>연동 유지, 다음 동기화에서 재시도</td></tr>
+<tr><td>휴대폰에서 권한 철회</td><td>다음 동기화가 실패로 남고 「다시 허용해 주세요」 안내</td><td>연동 상태 유지</td></tr>
+<tr><td>동기화 중 화면 이탈</td><td>계속 진행. 돌아오면 그 시점 상태</td><td>—</td></tr>
+<tr><td>앱 바꾸기</td><td>④에서 바로 바꾸는 길 없음. ⑤ → 해제 → ①</td><td>바꾼 날 00시부터 새 앱 값. 이전 날짜 값은 그대로</td></tr>
+</table>
+</section>
+
+<section id="c5"><h2>5. 데이터와 연동</h2>
+<table><tr><th>단계</th><th>주고받는 것</th><th>외부 호출</th></tr>
+<tr><td>② 권한</td><td>요청 항목 12개(걸음 수 · 활동 칼로리 · 활동 시간 · 운동 기록 · 심박수 · 수면 · 체중 · 체지방률 · 체질량지수 · 키 · 혈압 · 혈당)의 읽기 권한. 쓰기 권한은 요청하지 않는다</td><td>HealthKit / Health Connect / 삼성헬스 권한 요청 1회</td></tr>
+<tr><td>③ 첫 동기화</td><td>허용된 항목의 과거 데이터(앱이 주는 범위, 또는 최근 30일)</td><td>건강 플랫폼 읽기</td></tr>
+<tr><td>④ 자동 · 직접 동기화</td><td>마지막 동기화 이후 새 값. 단위 표준화 · 출처 우선순위 적용 후 저장</td><td>앱을 켤 때 1회, 직접 탭 시 1회</td></tr>
+<tr><td>⑤ 해제</td><td>연동 상태 「미연동」, 권한 요청 철회(플랫폼이 허용하면). 저장된 값 · 기록은 유지</td><td>—</td></tr>
+</table>
+<p class="ex">한 날짜의 데이터는 한 앱에서만 온다. 활동 시간은 걸음 기록에서 직접 산출하고 운동 시간은 운동 세션만 합산한다. 비어 있던 날짜가 나중에 채워져도 그날의 지표와 리포트는 다시 계산하지 않는다.</p>
+</section>
+
+<section id="c6"><h2>6. 시나리오</h2>
+<p>47세 갤럭시 사용자가 홈의 「건강 데이터 연결하기」를 눌렀다.</p>
+<ol>
+<li>더보기 › 건강데이터 연동 화면이 미연동 상태로 열린다. 「연동하기」를 누른다.</li>
+<li>소스 선택에서 삼성헬스를 고르고 「다음」. 휴대폰이 권한 화면을 띄운다. 수면만 빼고 허용한다.</li>
+<li>상태 바가 「삼성헬스 동기화 중…」으로 바뀌고, 20초 뒤 「연동됨 · 방금 전」이 된다. 그 아래 「가져오지 않는 항목이 있어요 · 수면」이 보인다.</li>
+<li>홈으로 돌아가면 컨디션 게이지와 건강 데이터 카드가 바로 그려지고, 수면 줄에는 「수면 권한이 꺼져 있어요 · 권한 켜기 ›」가 보인다.</li>
+<li>권한을 켜고 다음 날 앱을 열자 자동 동기화에서 수면이 들어오고 안내가 사라진다. 연동 기록에 「완료 · 자동 · 걸음 · 심박 · 수면」이 쌓인다.</li>
+<li>워치를 바꿔 헬스 커넥트로 옮기려 「연동 해제」 → 확인 시트 → 해제. 미연동 화면에 「연동 해제 전 기록이에요」 라벨이 붙은 기록이 남는다. 「다시 연동하기」로 헬스 커넥트를 고르면 그날 00시부터 새 앱 값이 쌓인다.</li>
+</ol>
+</section>
+
+<section id="open"><h2>확인 필요</h2>
+<table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
+<tr><td>① 앱에서 해제할 때 휴대폰 읽기 권한까지 실제로 거둬지는지(HealthKit · Health Connect)</td><td>개발</td><td>—</td><td>열림(화면정의서 §6-1과 같음)</td></tr>
+<tr><td>② 권한 모두 거부 뒤 OS가 다시 묻지 않을 때의 「설정 열기」 딥링크 가능 여부</td><td>개발</td><td>—</td><td>열림</td></tr>
+<tr><td>③ 첫 동기화의 과거 데이터 범위(앱이 주는 만큼 vs 최근 30일) 확정</td><td>기획 · 개발</td><td>—</td><td>열림</td></tr>
+</table>
+</section>
+
+<section id="history"><h2>바뀐 것</h2>
+<table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
+<tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 화면정의서 v1.3의 규칙과 데이터 부재 정책의 상태 4분류를 흐름으로</td><td>연동 화면에 상태가 이어지는 설계서가 없었음</td></tr></table>
+</section>
+</main>
+</body>
+</html>
