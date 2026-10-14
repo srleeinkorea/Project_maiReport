@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 · 화면별 문서 현황</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--ok:#1f8a5b;--ok-bg:#e6f5ee;--part:#b7791f;--part-bg:#fcf3e1;--no:#b3261e;--no-bg:#fbe9e7;--chip:#eef1f5;--link:#1d4ed8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.55}
+main{max-width:1240px;margin:0 auto;padding:28px 16px 60px}
+header h1{margin:0 0 6px;font-size:24px}
+header p{margin:0;color:var(--mute)}
+.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin-top:10px}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 6px;font-size:12px}
+.chip{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
+.ok{background:var(--ok-bg);color:var(--ok)}.part{background:var(--part-bg);color:var(--part)}.no{background:var(--no-bg);color:var(--no)}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:18px 0}
+.summary .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.summary b{display:block;font-size:22px}
+.summary span{color:var(--mute);font-size:12px}
+section.group{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:18px 0;overflow:hidden}
+.ghead{display:flex;align-items:baseline;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.ghead .no{background:none;color:var(--mute);font-weight:700;font-size:13px}
+.ghead h2{margin:0;font-size:17px}
+.ghead p{margin:0;color:var(--mute);font-size:12px}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
+td.id{white-space:nowrap;color:var(--mute);font-size:12px;width:92px}
+td.name{width:190px}
+td.name b{display:block}
+td.name small{color:var(--mute)}
+td.doc{width:24%}
+td.doc ul{margin:6px 0 0;padding-left:16px}
+td.doc li{margin:2px 0;font-size:12.5px}
+td.doc a{color:var(--link);text-decoration:none}
+td.doc a:hover{text-decoration:underline}
+td.doc .where{color:var(--mute);font-size:11px;margin-left:4px}
+.gap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:18px}
+.gap h2{margin:0 0 8px;font-size:17px}
+.gap ol{margin:6px 0 0;padding-left:20px}
+.gap li{margin:6px 0}
+.note{color:var(--mute);font-size:12px;margin-top:14px}
+footer{color:var(--mute);font-size:12px;margin-top:30px;text-align:center}
+@media (max-width:860px){td.doc{width:auto}table{font-size:13px}td.name{width:auto}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--link:#8ab4ff;--ok-bg:#1b3a2c;--part-bg:#3d3119;--no-bg:#43221f}th{background:#20252c}}
+:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--link:#8ab4ff;--ok-bg:#1b3a2c;--part-bg:#3d3119;--no-bg:#43221f}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>화면별 문서 현황</h1>
+  <p>전체 앱 구성 흐름도(IA)의 화면 목록에 맞춰, 화면마다 기획서 · 화면정의서 · 화면설계서가 어디에 있는지 모은 표</p>
+  <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>1.0</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
+</header>
+
+<div class="legend">
+  <span class="chip ok">있음</span><span class="chip part">일부</span><span class="chip no">없음</span>
+  <span style="color:var(--mute)">· 기획서 = 왜 · 무엇을(기능 단위) · 화면정의서 = 화면 요소와 표시 규칙 · 화면설계서 = 상태와 화면 이동이 이어지는 상세 흐름</span>
+</div>
+
+<div class="summary" id="summary"></div>
+<div id="groups"></div>
+
+<div class="gap">
+  <h2>비어 있는 곳과 채우는 순서</h2>
+  <p style="margin:0;color:var(--mute)">세 문서를 화면마다 모두 만들 필요는 없다. 기획서는 기능 단위로, 화면설계서는 상태와 이동이 복잡한 화면에만 둔다.</p>
+  <ol>
+    <li><b>홈 · 오늘의 질문 → 코칭 → 목표</b> — 서비스의 핵심인데 기획이 식이 · 코칭목표 엔진 문서에 흩어져 있고, 홈 전체를 잇는 화면설계서가 없다. 가장 먼저 채운다.</li>
+    <li><b>검진 리포트 등록(QR · 업로드 · 검수)</b> — 프로토타입에만 있다. 기획서와 화면정의서가 모두 없다.</li>
+    <li><b>병원 탭의 방문이력 · 읽을거리 · 데이터 가져오기</b> — 프로토타입에만 있다. 화면정의서가 없다.</li>
+    <li><b>알림(헤더 · 알림 목록)</b> — 알림 정책 문서는 있지만 화면정의서가 없다.</li>
+    <li><b>건강데이터 연동</b> — 화면정의서와 예시 화면은 있으나 권한 · 소스 선택 · 해제가 이어지는 설계서가 없다.</li>
+  </ol>
+  <p class="note">단순 화면(언어 · 약관 보기 · 로그아웃)은 더보기 화면정의서 한 장으로 충분하다. 셀비 체크업과 내정보 · 진료정보 연동은 화면설계서가 기획과 정의를 함께 담고 있어 따로 만들지 않는다.</p>
+</div>
+
+<footer>마이리포트 · 화면별 문서 현황 · 파일은 Project_maiReport 저장소 docs 폴더 기준. 「사이트」는 공유 사이트에만 있는 문서</footer>
+</main>
+
+<script>
+(()=>{
+const GH='https://github.com/srleeinkorea/Project_maiReport/blob/main/docs/';
+const SITE='https://srleeinkorea.github.io/maireport-rsna-demo-k7x9m2q8v4n6/';
+// 짧은 이름 → 경로
+const P={
+ 홈정의:'화면/10_홈탭/mai-report-홈화면_화면정의서_v1.0.0.html',
+ 홈목업:'화면/10_홈탭/mai-report-홈화면_목업_v1.0.0.svg',
+ 목표분석정의:'화면/10_홈탭/mai-report-목표분석_화면정의서_v1.0.0.html',
+ 목표분석순서:'화면/10_홈탭/mai-report-목표분석_순서도_v1.0.0.html',
+ 실천기록기획:'화면/10_홈탭/실천기록_LIFE-001/maiReport_LIFE-001_실천기록_기획서_v1.0.0.html',
+ 실천기록정의:'화면/10_홈탭/실천기록_LIFE-001/maiReport_화면정의서_LIFE-001_실천기록_v1.0.0.xlsx',
+ 실천기록시나리오:'화면/10_홈탭/실천기록_LIFE-001/maiReport_LIFE-001_최종시나리오_v1.0.0.svg',
+ 실천기록상황:'화면/10_홈탭/실천기록_LIFE-001/maiReport_LIFE-001_상황별_10종_v1.0.0.svg',
+ AI정의:'화면/10_홈탭/AI인사이트/mai-report-AI인사이트_화면정의서_v1.0.0.html',
+ AI순서:'화면/10_홈탭/AI인사이트/mai-report-AI인사이트_순서도_v1.0.0.html',
+ AI재분석:'화면/10_홈탭/AI인사이트/mai-report-AI인사이트_재분석_상태화면_v1.0.0.svg',
+ 생활분석정의:'화면/20_생활탭/mai-report-생활분석_화면정의서_v1.0.0.html',
+ 지표별정의:'화면/20_생활탭/mai-report-지표별분석_화면정의서_v1.0.0.html',
+ 지표별설계:'화면/20_생활탭/maiReport_생활_지표별분석_화면설계서_v1.0.0.html',
+ 컨디션예시:'화면/20_생활탭/maiReport_컨디션카드_범주형예시_v1.0.0.html',
+ 전체데이터목록:'화면/20_생활탭/mai-report-전체건강데이터_목록_v1.0.0.svg',
+ 전체데이터상세:'화면/20_생활탭/mai-report-전체건강데이터_상세_12종_v1.0.0.zip',
+ 검진요약기획:'화면/30_병원탭/mai-report-검진요약_기획서_v1.0.0.html',
+ 검진요약정의:'화면/30_병원탭/mai-report-검진요약_화면정의서_v1.0.0.html',
+ 검진상세정의:'화면/30_병원탭/mai-report-검진결과상세_AI검진요약_화면정의서_v1.0.0.html',
+ 진료요약정의:'화면/30_병원탭/mai-report-진료요약_화면정의서_v1.0.0.html',
+ AIH기획:'화면/30_병원탭/maiReport_AIH-001-002_AI검진요약_기획서_v1.0.0.html',
+ AIH정의:'화면/30_병원탭/maiReport_AIH-003_AI검진요약_화면정의서_v1.0.0.html',
+ AIH예시:'화면/30_병원탭/maiReport_AIH-002_AI검진요약_화면예시_v1.0.0.html',
+ AIH프로토:'화면/30_병원탭/maiReport_AIH_ChatGPT요약_프로토타입_v1.0.0.html',
+ AIH기준:'화면/30_병원탭/maiReport_AI검진요약_기준범위_레퍼런스_v1.0.0.html',
+ 셀비설계:'화면/30_병원탭/셀비체크업/maiReport_셀비체크업_검진선택_지난분석결과_화면설계서_v1.0.0.html',
+ 셀비프로토:'화면/30_병원탭/셀비체크업/maiReport_셀비체크업_이력_검진선택_프로토타입_v1.0.0.html',
+ 더보기정의:'화면/40_더보기탭/mai-report-더보기_화면정의서_v1.0.0.html',
+ 더보기예시:'화면/40_더보기탭/maiReport_더보기_예시화면.svg',
+ 내정보설계:'화면/40_더보기탭/maiReport_더보기_내정보관리_화면설계서_v1.0.0.html',
+ 연동정의:'화면/40_더보기탭/mai-report-건강데이터연동_화면정의서.html',
+ 연동개선:'화면/40_더보기탭/mai-report-건강데이터연동_개선안_v1.0.0.html',
+ 연동예시:'화면/40_더보기탭/maiReport_건강데이터연동_예시화면.svg',
+ 결제정책:'화면/40_더보기탭/maiReport_결제환불정책_v1.0.0.html',
+ 결제정의:'화면/40_더보기탭/maiReport_화면정의_결제_v1.0.0.html',
+ 알림정책:'화면/90_기타/알림/mai-report-알림정책_v1.0.0.html',
+ 알림법적:'화면/90_기타/알림/mai-report-알림정책_법적범위_v1.0.0.html',
+ 알림샘플:'화면/90_기타/알림/mai-report-알림_샘플화면_v1.0.0.svg',
+ 프로토:'화면/90_기타/프로토타입/maiReport_prototype_v1.0.0.html',
+ 시나리오:'화면/90_기타/프로토타입/maiReport_최종프로토타입_시나리오_v1.0.0.html',
+ 데이터안내:'화면/90_기타/기획기반/mai-report-데이터흐름_사용자안내_v1.0.0.html',
+ 화면정의엑셀:'화면/90_기타/기획기반/maiReport_화면정의서_v1.0.0.xlsx',
+ 식이기획:'엔진/식이/mai-report-식이_질문목표_상세기획_v1.0.0.html',
+ 식이설계:'엔진/식이/mai-report-식이_화면설계서_v1.0.0.html',
+ 식이흐름:'엔진/식이/mai-report-식이_데이터흐름도_v1.0.0.html',
+ 식사시각:'엔진/식이/maiReport_식이_식사시각질문_v1.0.0.html',
+ 식이결정:'엔진/식이/mai-report-식이_최종결정사항_v1.0.0.html',
+ 코칭흐름:'엔진/코칭목표/maiReport_코칭데이터흐름_v1.0.0.html',
+ 하루생성:'엔진/코칭목표/mai-report-하루생성_순서도_v1.0.0.html',
+ 목표잠금:'엔진/코칭목표/maiReport_policy_goal-lock-and-no-data_v1.0.0.html',
+ 산출흐름:'엔진/코칭목표/maiReport_질문코칭목표지표_산출흐름_v1.0.0.html',
+ 지표기획:'엔진/지표/mai-report-생활지표_기획서_v1.0.0.html',
+ 지표파이프:'엔진/지표/maiReport_지표산출파이프라인_v1.0.0.html',
+ 지표문장:'엔진/지표/maiReport_지표해석_문장규칙_v1.0.0.html',
+ 또래산식:'엔진/또래등수/또래등수_산식_v1.0.0.html',
+ 또래규격:'엔진/또래등수/maiReport_또래등수_최종통합규격_v2.0.0.html',
+};
+const S={ 진료연동:'wip-clinic-codef.html', 셀비사이트:'selvy-checkup.html', 내정보사이트:'wip-my-info.html', 프로토사이트:'prototype.html' };
+const L=(k,label)=>({href:GH+encodeURI(P[k]),label:label||P[k].split('/').pop().replace(/_v\d+\.\d+\.\d+/,'').replace(/^mai-?[Rr]eport[-_]/,''),where:''});
+const W=(k,label)=>({href:SITE+S[k],label,where:'사이트'});
+const PROTO=L('프로토','최종 프로토타입에만 있음');
+
+// [id, 화면명, 비고, 기획서[], 화면정의서[], 화면설계서[]]  — [] = 없음, 'p' = 프로토타입만
+const G=[
+ {no:'01',title:'홈',desc:'서브탭 없이 섹션이 세로로 이어지는 단일 화면',rows:[
+  ['HOME-001','홈','메인 화면',[],[L('홈정의'),L('홈목업')],[]],
+  ['HOME-002','헤더: AI REPORT 스캔','QR 카메라 진입점',[],[PROTO],[]],
+  ['HOME-009 · 010','헤더: 알림 · 알림 목록','최근 30일',[L('알림정책'),L('알림법적')],[L('알림샘플','알림 샘플화면(SVG)')],[]],
+  ['HOME-003 · 004','오늘의 질문 · 답변 보기','최대 5문항, 식사 시각 포함',[L('식이기획'),L('식이결정'),L('식사시각')],[L('홈정의','홈화면 화면정의서(질문 섹션)')],[L('식이설계'),L('식이흐름')]],
+  ['HOME-005','오늘의 코칭','답변 후 생성',[L('코칭흐름'),L('산출흐름')],[L('홈정의','홈화면 화면정의서(코칭 섹션)')],[L('하루생성')]],
+  ['HOME-006','오늘의 목표','식이 · 활동 · 수면 3타일',[L('목표잠금'),L('실천기록기획')],[L('홈정의','홈화면 화면정의서(목표 섹션)')],[L('하루생성')]],
+  ['HOME-007','오늘의 컨디션','생활여유 · 자기돌봄 · 일상안정',[L('지표기획')],[L('컨디션예시'),L('홈정의','홈화면 화면정의서(컨디션 섹션)')],[L('지표파이프','지표 산출 파이프라인(상태 전환)')]],
+  ['HOME-011','오늘의 건강 데이터','걸음 · 수면 · 심박',[],[L('홈정의','홈화면 화면정의서(건강 데이터 섹션)')],[]],
+  ['HOME-012','AI 건강 인사이트 카드','최근 결과 점수 · 기간',[],[L('AI정의')],[L('AI순서')]],
+  ['HOME-008 · 013','내 건강나이 · 또래 등수 · 나의 건강나이','또래 100명 속 등수',[L('또래규격')],[PROTO],[L('또래산식','또래등수 산식(계산 흐름)')]],
+ ]},
+ {no:'02',title:'생활',desc:'주간 날짜 스트립을 공유하는 서브탭 4개',rows:[
+  ['LIFE-001','목표 분석 · 실천기록','오늘의 목표 + 이어가기',[L('실천기록기획')],[L('목표분석정의'),L('실천기록정의','실천기록 화면정의서(엑셀)')],[L('목표분석순서'),L('실천기록시나리오'),L('실천기록상황')]],
+  ['LIFE-002','지표별 분석','3구간 띠 주간 그래프',[L('지표기획'),L('지표문장')],[L('지표별정의')],[L('지표별설계')]],
+  ['LIFE-003','생활 분석','걸음 · 칼로리 · 심박 · 수면',[],[L('생활분석정의')],[]],
+  ['LIFE-004 · 007 · 008','AI 인사이트 · 상세 · 다시 분석 확인','하루 1회 재분석',[],[L('AI정의')],[L('AI순서'),L('AI재분석')]],
+  ['LIFE-005 · 006','전체 건강 데이터 · 항목 상세','4그룹 12항목',[L('데이터안내')],[L('전체데이터목록'),L('전체데이터상세','항목 상세 12종(SVG 묶음)')],[]],
+ ]},
+ {no:'03',title:'병원',desc:'서브탭 4개(검진요약 · 진료요약 · 방문이력 · 읽을거리)',rows:[
+  ['HOSP-001 · 006','검진요약 · 검진대상조회','건강나이 · 주요 소견',[L('검진요약기획')],[L('검진요약정의')],[]],
+  ['HOSP-008 · 009','검진상세 · 문진표 · 결과지 원본','전체 검사 · 원본 뷰어',[],[L('검진상세정의')],[]],
+  ['HOSP-010','건강검진 ChatGPT 요약','확인 1번 → 생성 → 요약',[L('AIH기획'),L('AIH기준')],[L('AIH정의'),L('AIH예시')],[L('AIH프로토','ChatGPT 요약 프로토타입(흐름)')]],
+  ['HOSP-011','AI REPORT 결과','소견별 판정',[],[PROTO],[]],
+  ['HOSP-002 · 007 · 014','진료요약 · 진료상세 · 진료 이용현황','TOP 3 · 진료비 · 처방약',[],[L('진료요약정의')],[W('진료연동','진료정보 연동 설계서')]],
+  ['HOSP-004 · 005','데이터 가져오기 · 가져오는 중','빈 화면 · 진행 카드',[],[PROTO],[W('진료연동','진료정보 연동 설계서(동의 · 인증 흐름)')]],
+  ['HOSP-003','방문이력','검진 · 진료 · AI REPORT 통합',[],[PROTO],[]],
+  ['HOSP-012 · 013','읽을거리 · 읽을거리 상세','맞춤 콘텐츠 카드',[],[PROTO],[]],
+ ]},
+ {no:'04',title:'셀비 체크업',desc:'검진정보 기반 10대 질환 위험도 분석',rows:[
+  ['SELVY-001 · 002 · 003','소개 · 분석 신청 · 결과 리포트','무료 이용권 사용',[L('셀비설계','화면설계서(기획 포함)')],[W('셀비사이트','셀비 체크업 설계서')],[L('셀비설계'),L('셀비프로토')]],
+ ]},
+ {no:'05',title:'검진 리포트 등록',desc:'방문이력 「+」 또는 홈 헤더 스캔에서 진입',rows:[
+  ['REG-001','등록 유형 선택','AI REPORT / 일반 검진',[],[PROTO],[]],
+  ['REG-002 · 003','QR · 사진 촬영 · 인식 결과 확인','AI REPORT',[],[PROTO],[]],
+  ['REG-004 · 005 · 006','업로드 · 추출중 · 인식 확인 · 등록','일반 검진',[],[PROTO],[]],
+ ]},
+ {no:'06',title:'더보기',desc:'프로필 카드 + 연동 · 서비스 · 법적 정보 및 기타',rows:[
+  ['MORE-001','더보기','메인 화면',[],[L('더보기정의'),L('더보기예시')],[]],
+  ['MORE-010 · 011 · 020','내정보 · 관리중인 질환 · 회원탈퇴','카카오 계정 조회 전용',[L('내정보설계','화면설계서(기획 포함)')],[L('더보기정의','더보기 화면정의서(내정보)')],[L('내정보설계'),W('내정보사이트','내정보 관리 설계서')]],
+  ['MORE-003','건강데이터 연동','앱 선택 · 동기화 · 해제',[L('연동개선')],[L('연동정의'),L('연동예시')],[]],
+  ['MORE-004','건강검진 · 진료정보 연동','개별 업데이트 · 해제',[],[L('더보기정의','더보기 화면정의서(연동)')],[W('진료연동','진료정보 연동 설계서')]],
+  ['MORE-040 · 050','동의 관리 · 알림 관리','필수 · 선택',[L('알림정책')],[L('더보기정의','더보기 화면정의서(서비스)')],[]],
+  ['MORE-060','이용권 관리','프로모션 · 무상제공중',[L('결제정책')],[L('결제정의')],[]],
+  ['MORE-008 · 070 · 071','언어 · 이용약관 · 개인정보 처리방침','문서 보기',[],[L('더보기정의','더보기 화면정의서(법적 정보)')],[]],
+ ]},
+];
+const st=(arr)=>!arr.length?'no':(arr.length===1&&arr[0]===PROTO)?'part':(arr.every(x=>/\(.*섹션\)|프로토타입/.test(x.label)))?'part':'ok';
+const stText={ok:'있음',part:'일부',no:'없음'};
+const cell=(arr)=>{const s=st(arr);return `<td class="doc"><span class="chip ${s}">${stText[s]}</span>${arr.length?`<ul>${arr.map(x=>`<li><a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>${x.where?`<span class="where">${x.where}</span>`:''}</li>`).join('')}</ul>`:''}</td>`;
+let tot={rows:0,plan:{ok:0,part:0,no:0},def:{ok:0,part:0,no:0},design:{ok:0,part:0,no:0}};
+document.getElementById('groups').innerHTML=G.map(g=>`<section class="group"><div class="ghead"><span class="no">${g.no}</span><div><h2>${g.title}</h2><p>${g.desc}</p></div></div>
+<table><thead><tr><th>화면 ID</th><th>화면</th><th>기획서</th><th>화면정의서</th><th>화면설계서</th></tr></thead><tbody>
+${g.rows.map(r=>{tot.rows++;tot.plan[st(r[3])]++;tot.def[st(r[4])]++;tot.design[st(r[5])]++;
+ return `<tr><td class="id">${r[0]}</td><td class="name"><b>${r[1]}</b><small>${r[2]}</small></td>${cell(r[3])}${cell(r[4])}${cell(r[5])}</tr>`}).join('')}
+</tbody></table></section>`).join('');
+const sum=(k,t)=>`<div class="card"><span>${t}</span><b>${tot[k].ok} <small style="font-size:13px;color:var(--mute)">/ ${tot.rows}</small></b><span>일부 ${tot[k].part} · 없음 ${tot[k].no}</span></div>`;
+document.getElementById('summary').innerHTML=`<div class="card"><span>IA 화면 묶음</span><b>${tot.rows}</b><span>IA 화면 ${G.reduce((n,g)=>n+g.rows.length,0)}줄 · 6개 영역</span></div>${sum('plan','기획서 있음')}${sum('def','화면정의서 있음')}${sum('design','화면설계서 있음')}`;
+})();
+</script>
+</body>
+</html>
