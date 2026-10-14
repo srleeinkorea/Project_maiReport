@@ -66,7 +66,7 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 </head>
 <body>
 <main>
-<div class="cover"><div class="kind">화면설계서 · Flow Design</div><h1>흐름 이름 <span class="todo">제목을 바꾼다</span></h1><p class="sub">탭 › 시작 화면 › … › 끝 화면</p><div class="meta"><div>판<b>1.0.0</b></div><div>기준일<b>YYYY-MM-DD</b></div><div>화면 ID<b>XXX-000</b></div><div>관련 문서<b>기획서 · 화면정의서 · 화면설계서</b></div></div></div>
+<div class="cover"><div class="kind">화면설계서 · Flow Design</div><h1>흐름 이름 <span class="todo">제목을 바꿈</span></h1><p class="sub">탭 › 시작 화면 › … › 끝 화면</p><div class="meta"><div>판<b>1.0.0</b></div><div>기준일<b>YYYY-MM-DD</b></div><div>화면 ID<b>XXX-000</b></div><div>관련 문서<b>기획서 · 화면정의서 · 화면설계서</b></div></div></div>
 <section id="s0"><div class="n">00</div><div class="b"><h2>한눈에 보기</h2><div class="panels"><div class="panel green"><b>이 문서가 다루는 것</b>…</div><div class="panel blue"><b>가장 중요한 결정</b>…</div><div class="panel amber"><b>아직 정해지지 않은 것</b>…</div></div></div></section>
 <section id="s1"><div class="n">01</div><div class="b"><h2>흐름 개요</h2><table><tr><th>시작</th><th>끝</th><th>거치는 화면</th></tr><tr><td class="ex">더보기 › 건강데이터 연동</td><td class="ex">연동됨 또는 미연동으로 돌아옴</td><td class="ex">앱 선택 → 권한 → 동기화 중 → 연동됨</td></tr></table></div></section>
 <section id="s2"><div class="n">02</div><div class="b"><h2>흐름도</h2><div class="fig"><div class="t"><b>Fig 1</b> · 상태와 이동 · 박스-화살표</div>
@@ -76,12 +76,12 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 <rect x="540" y="70" width="180" height="60" fill="#eef1ff" stroke="#5170FF"/><text x="630" y="105" text-anchor="middle" fill="#5170FF">제안</text>
 <path d="M220,100 L288,100 M470,100 L538,100" stroke="#0f1222" stroke-width="1.2" marker-end="url(#ar)"/>
 <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs>
-<text x="40" y="190" fill="#5d6275" font-size="11">설명용 예시 — 실제 문서에서는 흐름도 · 갭 차트 · 타임라인 중 내용에 맞는 형식으로 바꾼다</text>
+<text x="40" y="190" fill="#5d6275" font-size="11">설명용 예시 — 실제 문서에서는 흐름도 · 갭 차트 · 타임라인 중 내용에 맞는 형식으로 바꿈</text>
 </svg><div class="cap"><b>해석:</b> 상자는 화면, 화살표는 사용자 행동 또는 시스템 결과. 점선은 조건이 맞을 때만 가는 길.</div></div></div></section>
-<section id="s3"><div class="n">03</div><div class="b"><h2>단계별 화면</h2><p class="ex">왼쪽 조작 화면 + 오른쪽 동작 · 표시 정보 · 예외(진료정보 연동 설계서 구조). 조작 화면을 두기 어려우면 단계마다 그림 1장과 표 1개.</p><h3>1단계 · 앱 선택</h3><table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr><tr><td class="ex">앱 하나를 고른다</td><td class="ex">선택을 저장하고 권한 화면을 띄운다</td><td class="ex">2단계 권한</td></tr></table></div></section>
+<section id="s3"><div class="n">03</div><div class="b"><h2>단계별 화면</h2><p class="ex">왼쪽 조작 화면 + 오른쪽 동작 · 표시 정보 · 예외(진료정보 연동 설계서 구조). 조작 화면을 두기 어려우면 단계마다 그림 1장과 표 1개.</p><h3>1단계 · 앱 선택</h3><table><tr><th>사용자가 하는 일</th><th>시스템이 하는 일</th><th>다음 단계</th></tr><tr><td class="ex">앱 하나를 고름</td><td class="ex">선택을 저장하고 권한 화면을 띄움</td><td class="ex">2단계 권한</td></tr></table></div></section>
 <section id="s4"><div class="n">04</div><div class="b"><h2>분기와 예외</h2><table><tr><th>상황</th><th>화면</th><th>다음</th></tr><tr><td class="ex">권한 거부</td><td class="ex">안내와 「설정 열기」</td><td class="ex">1단계로</td></tr><tr><td class="ex">동기화 실패</td><td class="ex">…</td><td class="ex">…</td></tr></table></div></section>
 <section id="s5"><div class="n">05</div><div class="b"><h2>데이터와 연동</h2><table><tr><th>단계</th><th>주고받는 것</th><th>외부 호출</th></tr><tr><td class="ex">동기화</td><td class="ex">최근 7일 걸음 · 수면</td><td class="ex">건강 플랫폼 읽기 1회</td></tr></table></div></section>
-<section id="s6"><div class="n">06</div><div class="b"><h2>시나리오</h2><p>예시 인물 하나로 처음부터 끝까지 따라간다.</p><ol><li>…</li><li>…</li></ol></div></section>
+<section id="s6"><div class="n">06</div><div class="b"><h2>시나리오</h2><p>예시 인물 하나로 처음부터 끝까지 따라감.</p><ol><li>…</li><li>…</li></ol></div></section>
 <section id="s7"><div class="n">07</div><div class="b"><h2>확인 필요</h2><table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr><tr><td class="ex">예: 권한을 거부한 뒤 다시 켜는 길을 앱 안에 둘지</td><td class="ex">기획</td><td class="ex">YYYY-MM-DD</td><td class="ex">열림</td></tr></table></div></section>
 <section id="s8"><div class="n">08</div><div class="b"><h2>바뀐 것</h2><table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr><tr><td>YYYY-MM-DD</td><td>1.0.0</td><td>첫 작성</td><td></td></tr></table></div></section>
 </main>
