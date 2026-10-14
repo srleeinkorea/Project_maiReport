@@ -134,6 +134,22 @@
       .table-wrap{overflow:visible}table{min-width:0}
     }
   </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
   <header class="top">
@@ -154,8 +170,8 @@
   <main>
     <section class="hero" id="top">
       <span class="eyebrow">maiReport · Payment &amp; Refund Policy · v1.0</span>
-      <h1>분석 이용권 결제·환불 기준을<br>미정 항목까지 확정한다.</h1>
-      <p>v0.1 초안에서 &lsquo;확정 필요&rsquo;로 남았던 항목(이용권 유효기간, 7일 경과 미사용분 환불, RESERVED 상태 취급, 회원 탈퇴 시 처리 등)에 <strong>권장 결정값</strong>을 반영한 확정본입니다. 사업자·고객센터 실값 삽입과 법무 검토는 약관·앱 내 고지문 작성 단계로 넘깁니다.</p>
+      <h1>분석 이용권 결제·환불 기준을<br>미정 항목까지 확정함.</h1>
+      <p>v0.1 초안에서 &lsquo;확정 필요&rsquo;로 남았던 항목(이용권 유효기간, 7일 경과 미사용분 환불, RESERVED 상태 취급, 회원 탈퇴 시 처리 등)에 <strong>권장 결정값</strong>을 반영한 확정본임. 사업자·고객센터 실값 삽입과 법무 검토는 약관·앱 내 고지문 작성 단계로 넘김.</p>
       <div class="chips">
         <span class="chip">인앱결제 전용</span>
         <span class="chip">현 단계 SELVY_CHECKUP 한정</span>
@@ -192,19 +208,19 @@
     <!-- 1 -->
     <section class="section" id="s1">
       <div class="section-head"><span class="section-label">01 · Purpose &amp; Scope</span><h2>목적과 적용 범위</h2>
-        <p>maiReport 앱에서 유료로 제공되는 <strong>분석 이용권</strong>의 구매와 환불 기준을 정의합니다. 현 단계 적용 대상은 <strong>SELVY_CHECKUP</strong> 이용권이며, <strong>ANRISK</strong> 이용권은 판매에서 우선 제외합니다.</p>
+        <p>maiReport 앱에서 유료로 제공되는 <strong>분석 이용권</strong>의 구매와 환불 기준을 정의함. 현 단계 적용 대상은 <strong>SELVY_CHECKUP</strong> 이용권이며, <strong>ANRISK</strong> 이용권은 판매에서 우선 제외함.</p>
       </div>
       <div class="g2">
         <article class="card"><span class="num">IN</span><h4>적용되는 거래</h4><ul><li>앱 내 인앱결제로 구매한 분석 이용권(SELVY_CHECKUP)</li><li>1회 결제로 지급되는 이용권과 그 사용·예약·취소</li><li>스토어(Google·Apple) 환불에 따른 이용권 상태 조정</li></ul></article>
         <article class="card"><span class="num">OUT</span><h4>범위 밖</h4><ul><li>ANRISK 이용권 — 현 단계 판매 제외</li><li>병원·기관 무상 제공 리포트·분석</li><li>이벤트·프로모션 무상 지급 이용권(별도 기준)</li><li>결제 대금 정산·영수증 — 스토어 사업자 소관</li></ul></article>
       </div>
-      <div class="callout"><span>근거 규정</span><p>전자상거래 등에서의 소비자보호에 관한 법률 제17조·제18조 및 디지털콘텐츠 청약철회 제한, 콘텐츠산업진흥법·문화체육관광부 콘텐츠 이용자 보호지침, Google Play 개발자 배포 계약·환불 정책, Apple App Store 미디어 서비스 이용약관. 본 정책과 스토어 정책이 상충하면 <strong>사용자에게 더 유리한 기준</strong>을 적용합니다.</p></div>
+      <div class="callout"><span>근거 규정</span><p>전자상거래 등에서의 소비자보호에 관한 법률 제17조·제18조 및 디지털콘텐츠 청약철회 제한, 콘텐츠산업진흥법·문화체육관광부 콘텐츠 이용자 보호지침, Google Play 개발자 배포 계약·환불 정책, Apple App Store 미디어 서비스 이용약관. 본 정책과 스토어 정책이 상충하면 <strong>사용자에게 더 유리한 기준</strong>을 적용함.</p></div>
     </section>
 
     <!-- 2 확정 결정 요약 -->
     <section class="section" id="s2">
       <div class="section-head"><span class="section-label">02 · Decisions</span><h2>확정 결정 요약</h2>
-        <p>v0.1의 &lsquo;확정 필요 항목&rsquo;에 대한 결정입니다. <span class="decision d-fixed">확정</span> 본 정책에 반영 · <span class="decision d-hold">보류</span> 현 단계 미적용 · <span class="decision d-input">실값 입력</span> 약관화 전 삽입 필요.</p>
+        <p>v0.1의 &lsquo;확정 필요 항목&rsquo;에 대한 결정임. <span class="decision d-fixed">확정</span> 본 정책에 반영 · <span class="decision d-hold">보류</span> 현 단계 미적용 · <span class="decision d-input">실값 입력</span> 약관화 전 삽입 필요.</p>
       </div>
       <div class="table-wrap">
         <table>
@@ -228,19 +244,19 @@
     <!-- 3 -->
     <section class="section" id="s3">
       <div class="section-head"><span class="section-label">03 · Payment Method</span><h2>결제 수단과 결제 주체</h2>
-        <p>분석 이용권은 <strong>앱 내 인앱결제로만</strong> 판매합니다. 카드 직접결제·계좌이체·상품권 결제는 제공하지 않습니다.</p>
+        <p>분석 이용권은 <strong>앱 내 인앱결제로만</strong> 판매함. 카드 직접결제·계좌이체·상품권 결제는 제공하지 않음.</p>
       </div>
       <div class="g3">
-        <article class="card"><span class="num">01</span><h4>결제 수단</h4><p>Android는 Google Play 인앱결제, iOS는 Apple App Store 인앱결제. 실제 결제수단은 사용자의 스토어 계정 등록 수단을 따릅니다.</p></article>
-        <article class="card"><span class="num">02</span><h4>대금·영수증</h4><p>대금 청구, 구매내역·영수증, 세금계산서, 결제수단 관리는 스토어 사업자가 수행합니다.</p></article>
-        <article class="card"><span class="num">03</span><h4>maiReport의 역할</h4><p>스토어 구매 검증(영수증 확인) 후 구매 ID에 대해 이용권을 지급하고, 이후 사용·예약·취소 상태를 관리합니다.</p></article>
+        <article class="card"><span class="num">01</span><h4>결제 수단</h4><p>Android는 Google Play 인앱결제, iOS는 Apple App Store 인앱결제. 실제 결제수단은 사용자의 스토어 계정 등록 수단을 따름.</p></article>
+        <article class="card"><span class="num">02</span><h4>대금·영수증</h4><p>대금 청구, 구매내역·영수증, 세금계산서, 결제수단 관리는 스토어 사업자가 수행함.</p></article>
+        <article class="card"><span class="num">03</span><h4>maiReport의 역할</h4><p>스토어 구매 검증(영수증 확인) 후 구매 ID에 대해 이용권을 지급하고, 이후 사용·예약·취소 상태를 관리함.</p></article>
       </div>
     </section>
 
     <!-- 4 -->
     <section class="section" id="s4">
       <div class="section-head"><span class="section-label">04 · Products</span><h2>판매 상품: 분석 이용권</h2>
-        <p>판매 상품은 특정 분석 타입 <strong>1회 실행 권리</strong>인 <strong>분석 이용권</strong>입니다. 한 번 사용하면 소멸하는 소모성 콘텐츠이며, 결제 1건은 상품의 지급 수량(현행 1)만큼 이용권을 발급합니다.</p>
+        <p>판매 상품은 특정 분석 타입 <strong>1회 실행 권리</strong>인 <strong>분석 이용권</strong>임. 한 번 사용하면 소멸하는 소모성 콘텐츠이며, 결제 1건은 상품의 지급 수량(현행 1)만큼 이용권을 발급함.</p>
       </div>
       <div class="table-wrap">
         <table>
@@ -254,15 +270,15 @@
         </table>
       </div>
       <div class="g2">
-        <article class="card"><h4>분석 타입 전용</h4><p>이용권은 결제한 분석 타입에서만 사용하며, 타입 간 전환·차감 대체는 없습니다.</p></article>
-        <article class="card"><h4>결과물의 성격</h4><p>이용권으로 실행한 분석 결과는 이해를 돕는 참고 정보이며 의학적 진단·의료진 판단을 대체하지 않습니다. 결과 내용에 대한 불만족은 환불 사유가 아니며, 결과가 <b>정상 제공되지 않은 경우</b>에 한해 장애 환불 대상입니다.</p></article>
+        <article class="card"><h4>분석 타입 전용</h4><p>이용권은 결제한 분석 타입에서만 사용하며, 타입 간 전환·차감 대체는 없음.</p></article>
+        <article class="card"><h4>결과물의 성격</h4><p>이용권으로 실행한 분석 결과는 이해를 돕는 참고 정보이며 의학적 진단·의료진 판단을 대체하지 않음. 결과 내용에 대한 불만족은 환불 사유가 아니며, 결과가 <b>정상 제공되지 않은 경우</b>에 한해 장애 환불 대상임.</p></article>
       </div>
     </section>
 
     <!-- 5 -->
     <section class="section" id="s5">
       <div class="section-head"><span class="section-label">05 · Ticket Lifecycle</span><h2>이용권의 발급·상태·유효기간</h2>
-        <p>이용권은 상태와 시각(발급·예약·사용·취소·만료)으로 관리됩니다. 환불 가능 여부는 <strong>분석 사용(콘텐츠 제공 개시) 여부</strong>로 판정합니다.</p>
+        <p>이용권은 상태와 시각(발급·예약·사용·취소·만료)으로 관리됨. 환불 가능 여부는 <strong>분석 사용(콘텐츠 제공 개시) 여부</strong>로 판정함.</p>
       </div>
       <div class="flow">
         <div class="step"><b>발급</b><small>AVAILABLE</small><p>스토어 구매 검증 후 지급. <span class="st st-a">사용 가능</span>. <b>발급일 + 365일</b> 만료 예정 설정</p></div>
@@ -294,7 +310,7 @@
     <!-- 6 -->
     <section class="section" id="s6">
       <div class="section-head"><span class="section-label">06 · Refund Criteria</span><h2>청약철회 및 환불 기준</h2>
-        <p>환불 신청 접수와 대금 반환은 원칙적으로 <strong>각 스토어를 통해</strong> 이루어집니다. maiReport는 스토어의 환불 확정 알림을 받아 이용권 상태를 조정하고, 스토어를 거치기 어려운 오류·장애 건은 직접 지원합니다.</p>
+        <p>환불 신청 접수와 대금 반환은 원칙적으로 <strong>각 스토어를 통해</strong> 이루어짐. maiReport는 스토어의 환불 확정 알림을 받아 이용권 상태를 조정하고, 스토어를 거치기 어려운 오류·장애 건은 직접 지원함.</p>
       </div>
       <div class="table-wrap">
         <table>
@@ -309,7 +325,7 @@
           </tbody>
         </table>
       </div>
-      <div class="callout"><span>스토어 환불 자동 취소</span><p>스토어에서 환불이 <strong>확정</strong>되면 maiReport 서버는 환불 알림을 수신해 해당 구매 ID로 지급된 이용권 중 <span class="st st-a">AVAILABLE</span> 및 <b>RESERVED</b> 상태인 것을 자동으로 <span class="st st-c">CANCELED</span> 처리합니다(memo: &lsquo;스토어 환불로 자동 취소&rsquo;). 이미 <span class="st st-u">USED</span> 상태이면 자동 취소가 불가하며, maiReport는 사용 이력을 근거로 스토어에 이의를 제기하거나 해당 계정의 이용권 지급·분석 이용을 제한할 수 있습니다.</p></div>
+      <div class="callout"><span>스토어 환불 자동 취소</span><p>스토어에서 환불이 <strong>확정</strong>되면 maiReport 서버는 환불 알림을 수신해 해당 구매 ID로 지급된 이용권 중 <span class="st st-a">AVAILABLE</span> 및 <b>RESERVED</b> 상태인 것을 자동으로 <span class="st st-c">CANCELED</span> 처리함(memo: &lsquo;스토어 환불로 자동 취소&rsquo;). 이미 <span class="st st-u">USED</span> 상태이면 자동 취소가 불가하며, maiReport는 사용 이력을 근거로 스토어에 이의를 제기하거나 해당 계정의 이용권 지급·분석 이용을 제한할 수 있음.</p></div>
       <h3 class="block">부분 사용 정산 산식 <small>다회권 도입 시(현재 미적용)</small></h3>
       <div class="statement">환불액 = <mark>결제 금액</mark> − ( <mark>사용(USED)·예약(RESERVED) 이용권 수</mark> × <mark>결제 금액 ÷ 지급 수량</mark> ) − <mark>스토어가 반환하지 않는 실비</mark><br><small style="color:#7A8699">프로모션으로 추가 지급된 이용권은 분모·분자에서 제외.</small></div>
     </section>
@@ -317,13 +333,13 @@
     <!-- 7 -->
     <section class="section" id="s7">
       <div class="section-head"><span class="section-label">07 · Non-refundable</span><h2>환불 불가·제한 사유</h2>
-        <p>사업자 귀책(장애·오결제)은 이 조항의 예외로, 항상 환불·복원 대상입니다.</p>
+        <p>사업자 귀책(장애·오결제)은 이 조항의 예외로, 항상 환불·복원 대상임.</p>
       </div>
       <div class="diff-list">
-        <div class="diff-item"><i>01</i><strong>이미 사용된 이용권</strong><p>분석 결과가 정상 제공되어 <span class="st st-u">USED</span>로 기록된 이용권. 결과 내용·해석에 대한 주관적 불만족은 환불 사유가 아닙니다.</p></div>
-        <div class="diff-item"><i>02</i><strong>예약(RESERVED) 상태</strong><p>분석 요청이 접수된 시점부터 사용 개시로 봅니다. 단 분석이 실패·취소되어 AVAILABLE로 복원되면 미사용분으로 환불 대상이 됩니다.</p></div>
-        <div class="diff-item"><i>03</i><strong>유효기간 만료(EXPIRED)</strong><p>발급 후 365일이 지나 소멸한 이용권. 만료 30일 전 고지가 이루어집니다.</p></div>
-        <div class="diff-item"><i>04</i><strong>이벤트·프로모션 무상 지급분</strong><p>현금 환불 대상이 아니며, 지급 조건 위반·오지급 시 사전 통지 후 회수될 수 있습니다.</p></div>
+        <div class="diff-item"><i>01</i><strong>이미 사용된 이용권</strong><p>분석 결과가 정상 제공되어 <span class="st st-u">USED</span>로 기록된 이용권. 결과 내용·해석에 대한 주관적 불만족은 환불 사유가 아님.</p></div>
+        <div class="diff-item"><i>02</i><strong>예약(RESERVED) 상태</strong><p>분석 요청이 접수된 시점부터 사용 개시로 봄. 단 분석이 실패·취소되어 AVAILABLE로 복원되면 미사용분으로 환불 대상이 됨.</p></div>
+        <div class="diff-item"><i>03</i><strong>유효기간 만료(EXPIRED)</strong><p>발급 후 365일이 지나 소멸한 이용권. 만료 30일 전 고지가 이루어짐.</p></div>
+        <div class="diff-item"><i>04</i><strong>이벤트·프로모션 무상 지급분</strong><p>현금 환불 대상이 아니며, 지급 조건 위반·오지급 시 사전 통지 후 회수될 수 있음.</p></div>
         <div class="diff-item"><i>05</i><strong>부정 결제·악용</strong><p>결제수단 도용, 환불 후 결과물 계속 이용, 비정상적 반복 구매·환불, 결제 우회·변조 확인 시 환불 거부 및 이용 제한.</p></div>
         <div class="diff-item"><i>06</i><strong>스토어 정책상 환불 대상 아님</strong><p>스토어가 자체 기준으로 승인을 거부한 건은 대금 반환 불가. 다만 미사용 이용권이면 스토어 승인 시 이용권 소멸로 협조.</p></div>
         <div class="diff-item"><i>07</i><strong>7일 경과 미사용분 한도 초과</strong><p>D2의 계정당 12개월 2회 한도를 넘긴 요청은 자체 환불 대상에서 제외(법정 청약철회 기간 내는 예외).</p></div>
@@ -333,7 +349,7 @@
     <!-- 8 -->
     <section class="section" id="s8">
       <div class="section-head"><span class="section-label">08 · Process &amp; Timeline</span><h2>환불 절차와 처리 기간</h2>
-        <p>대금 환불은 <strong>스토어에서 신청</strong>하고, 이용권 상태 조정·장애 대응은 <strong>maiReport 고객지원</strong>이 담당합니다.</p>
+        <p>대금 환불은 <strong>스토어에서 신청</strong>하고, 이용권 상태 조정·장애 대응은 <strong>maiReport 고객지원</strong>이 담당함.</p>
       </div>
       <div class="g3">
         <article class="card"><span class="num">A</span><h4>Android</h4><p>Play 스토어 &gt; 결제 및 정기결제 &gt; 주문 내역에서 환불 요청, 또는 play.google.com/store/account &gt; 문제 신고.</p></article>
@@ -344,7 +360,7 @@
         <article class="card"><h4>스토어 환불</h4><ul><li>승인·소요 기간은 각 스토어 정책에 따름(통상 수일~2주)</li><li>maiReport 이용권 자동 취소는 스토어 알림 수신 후 지연 없이 반영</li></ul></article>
         <article class="card"><h4>maiReport 직접 처리</h4><ul><li>접수·본인 및 결제 확인 후 <b>3영업일 이내</b> 상태 조정</li><li>대금 환불 필요 건은 스토어 절차로 안내·협조</li></ul></article>
       </div>
-      <div class="callout ok"><span>사용자 고지 문구(안)</span><p>&ldquo;분석 이용권은 Google Play·App Store 인앱결제로 판매되며, 발급일로부터 <strong>12개월간</strong> 유효합니다. <strong>분석을 실행하지 않은 이용권</strong>은 결제일로부터 7일 이내 스토어를 통해 환불 요청할 수 있고, 7일이 지난 미사용분도 스토어 승인 시 환불받을 수 있습니다(횟수 제한 있음). <strong>분석을 요청했거나 사용한 이용권</strong>은 환불되지 않습니다. 결제 오류·중복결제·분석 오류는 고객센터로 문의해 주세요.&rdquo;</p></div>
+      <div class="callout ok"><span>사용자 고지 문구(안)</span><p>&ldquo;분석 이용권은 Google Play·App Store 인앱결제로 판매되며, 발급일로부터 <strong>12개월간</strong> 유효함. <strong>분석을 실행하지 않은 이용권</strong>은 결제일로부터 7일 이내 스토어를 통해 환불 요청할 수 있고, 7일이 지난 미사용분도 스토어 승인 시 환불받을 수 있음(횟수 제한 있음). <strong>분석을 요청했거나 사용한 이용권</strong>은 환불되지 않음. 결제 오류·중복결제·분석 오류는 고객센터로 문의해 주세요.&rdquo;</p></div>
     </section>
 
     <!-- 9 -->
@@ -358,13 +374,13 @@
         <article class="card"><span class="num">05</span><h4>가격·상품 변경</h4><p>시행 전 앱 공지 또는 스토어 상품 설명으로 고지. 변경 이후 결제분부터 적용, 기존 이용권 권리 불변.</p></article>
         <article class="card"><span class="num">06</span><h4>양도·현금화 불가</h4><p>이용권은 결제 계정에 귀속. 타인·타계정 양도, 현금·포인트 환급·교환 불가.</p></article>
       </div>
-      <div class="callout warn"><span>회원 탈퇴 시 (D6 확정)</span><p>탈퇴하면 보유 중인 <strong>미사용 이용권은 즉시 소멸</strong>합니다(유예기간 없음). 탈퇴 화면에서 잔여 이용권 수와 소멸 예정을 고지하고, <strong>결제일로부터 7일 이내의 미사용분</strong>이 있으면 탈퇴 전에 스토어 환불 절차를 안내합니다.</p></div>
+      <div class="callout warn"><span>회원 탈퇴 시 (D6 확정)</span><p>탈퇴하면 보유 중인 <strong>미사용 이용권은 즉시 소멸</strong>함(유예기간 없음). 탈퇴 화면에서 잔여 이용권 수와 소멸 예정을 고지하고, <strong>결제일로부터 7일 이내의 미사용분</strong>이 있으면 탈퇴 전에 스토어 환불 절차를 안내함.</p></div>
     </section>
 
     <!-- 10 -->
     <section class="section" id="s10">
       <div class="section-head"><span class="section-label">10 · Remaining &amp; Next</span><h2>잔여 확정 항목과 다음 단계</h2>
-        <p>본 정책을 약관·앱 내 고지문으로 확정하기 전에 남은 항목입니다.</p>
+        <p>본 정책을 약관·앱 내 고지문으로 확정하기 전에 남은 항목임.</p>
       </div>
       <div class="check">
         <div class="check-item"><span class="box"></span><div><strong>사업자·판매자 정보 및 고객센터 실값 (D7)</strong><p>상호·대표자·사업자등록번호·통신판매업신고번호·주소·연락처·고객센터 채널·운영시간</p></div><span class="status-badge sb-review">실값 입력</span></div>

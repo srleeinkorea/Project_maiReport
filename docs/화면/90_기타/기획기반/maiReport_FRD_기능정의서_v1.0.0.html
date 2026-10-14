@@ -121,23 +121,39 @@
     .footer-note{font-size:12px;line-height:1.65}.footer-note b{font-size:14px}footer{font-size:11px}
     @media(max-width:600px){.hero p{font-size:14px}.fn-name{font-size:13px}.cell p{font-size:11px}}
   </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
   <header class="top"><div class="top-in"><div class="brand" aria-label="maiReport 기능정의서"><span class="brand-word">maiReport</span><span class="brand-rule" aria-hidden="true"></span><span class="doc-label">기능정의서 <em>SPEC</em></span></div><div class="tools"><label class="search-shell"><span class="search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></span><input id="search" class="search" type="search" placeholder="기능 ID 또는 화면 ID 검색" aria-label="기능 검색"></label><span class="tool-rule" aria-hidden="true"></span><button id="expand" class="btn expand">전체 펼치기</button><button id="collapse" class="btn collapse">전체 접기</button><button class="btn btn-primary print" onclick="window.print()">내보내기</button></div></div></header>
   <main>
-    <section class="hero"><div><div class="eyebrow">Functional Specification</div><h1>maiReport 기능정의서</h1><p>화면별 사용자 인터랙션과 시스템 처리 요구사항을 기능 ID 단위로 정의합니다. 기능별 트리거, 입력, 처리 로직, 출력, 선행조건, 예외 처리 및 연관 화면을 추적할 수 있습니다.</p><div class="meta"><span>기준일 2026-09-14</span><span>HTML Prototype As-Is</span><span>AI 검진 요약 AIH-001~003 반영</span><span>IA·화면정의서 연계</span><span>Internal Use Only</span></div></div><div class="stats"><div class="stat"><b id="totalCount">-</b><span>전체 기능</span></div><div class="stat"><b>7</b><span>기능 영역</span></div><div class="stat"><b id="reviewCount">-</b><span>정책 검토 기능</span></div><div class="stat"><b id="linkCount">-</b><span>시스템 연계 기능</span></div></div></section>
+    <section class="hero"><div><div class="eyebrow">Functional Specification</div><h1>maiReport 기능정의서</h1><p>화면별 사용자 인터랙션과 시스템 처리 요구사항을 기능 ID 단위로 정의함. 기능별 트리거, 입력, 처리 로직, 출력, 선행조건, 예외 처리 및 연관 화면을 추적할 수 있음.</p><div class="meta"><span>기준일 2026-09-14</span><span>HTML Prototype As-Is</span><span>AI 검진 요약 AIH-001~003 반영</span><span>IA·화면정의서 연계</span><span>Internal Use Only</span></div></div><div class="stats"><div class="stat"><b id="totalCount">-</b><span>전체 기능</span></div><div class="stat"><b>7</b><span>기능 영역</span></div><div class="stat"><b id="reviewCount">-</b><span>정책 검토 기능</span></div><div class="stat"><b id="linkCount">-</b><span>시스템 연계 기능</span></div></div></section>
 
     <div class="filter-bar"><strong>기능 영역</strong><button class="chip on" data-filter="all">전체</button><button class="chip" data-filter="auth">인증·권한</button><button class="chip" data-filter="home">홈·개인화</button><button class="chip" data-filter="life">생활 분석</button><button class="chip" data-filter="hospital">병원·진료</button><button class="chip" data-filter="report">리포트 등록</button><button class="chip" data-filter="ai">AI·Selvy</button><button class="chip" data-filter="account">계정·이용권</button><div class="legend"><span><i class="dot done"></i>Prototype 구현</span><span><i class="dot review"></i>정책 검토</span><span><i class="dot link"></i>시스템 연계</span></div></div>
 
     <section class="policy">
-      <article class="policy-card"><b>상태 전이</b><p>기능은 선행조건, 트리거, 처리 로직, 성공/실패 결과의 순서로 정의합니다.</p><code>Precondition → Trigger → Process → Result</code></article>
-      <article class="policy-card"><b>데이터 검증</b><p>형식 검증과 의료적 판정을 구분하며 OCR 결과는 최종 등록 전에 사용자 검수를 수행합니다.</p><code>Validation ≠ Clinical Decision</code></article>
-      <article class="policy-card"><b>민감 건강정보</b><p>검진·진료·문진·건강 데이터에는 인증, 접근 통제, 암호화 및 감사 로그 정책을 적용합니다.</p><code>PII · PHI · Audit Log</code></article>
-      <article class="policy-card"><b>AI 결과 고지</b><p>AI 결과는 건강정보 이해를 돕는 참고 정보이며 의학적 진단 또는 의료진의 판단을 대체하지 않습니다.</p><code>AI Disclaimer Required</code></article>
+      <article class="policy-card"><b>상태 전이</b><p>기능은 선행조건, 트리거, 처리 로직, 성공/실패 결과의 순서로 정의함.</p><code>Precondition → Trigger → Process → Result</code></article>
+      <article class="policy-card"><b>데이터 검증</b><p>형식 검증과 의료적 판정을 구분하며 OCR 결과는 최종 등록 전에 사용자 검수를 수행함.</p><code>Validation ≠ Clinical Decision</code></article>
+      <article class="policy-card"><b>민감 건강정보</b><p>검진·진료·문진·건강 데이터에는 인증, 접근 통제, 암호화 및 감사 로그 정책을 적용함.</p><code>PII · PHI · Audit Log</code></article>
+      <article class="policy-card"><b>AI 결과 고지</b><p>AI 결과는 건강정보 이해를 돕는 참고 정보이며 의학적 진단 또는 의료진의 판단을 대체하지 않음.</p><code>AI Disclaimer Required</code></article>
     </section>
 
-    <div id="groups"></div><div id="empty" class="empty">검색 조건에 일치하는 기능이 없습니다.</div>
-    <div class="footer-note"><b>구현 전 공통 확인사항</b>외부 API 인증·인가, 중복 요청에 대한 멱등성, 비동기 처리 상태, 네트워크 오류 재시도, 민감정보 마스킹, 사용자 동의 및 철회, 데이터 보유·파기 정책은 상세 설계 단계에서 확정해야 합니다.</div>
+    <div id="groups"></div><div id="empty" class="empty">검색 조건에 일치하는 기능이 없음.</div>
+    <div class="footer-note"><b>구현 전 공통 확인사항</b>외부 API 인증·인가, 중복 요청에 대한 멱등성, 비동기 처리 상태, 네트워크 오류 재시도, 민감정보 마스킹, 사용자 동의 및 철회, 데이터 보유·파기 정책은 상세 설계 단계에서 확정해야 함.</div>
     <footer>maiReport Functional Specification · v1.1 (2026-09-14, AI-006~009 검진 결과 AI 요약 최종 반영, Selvy는 AI-010으로 재번호) · Internal Use Only</footer>
   </main>
   <script>

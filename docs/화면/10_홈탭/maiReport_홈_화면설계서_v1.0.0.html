@@ -144,12 +144,28 @@ ol.pl{padding-left:20px;font-size:13px}
 ol.pl li{margin:6px 0}
 .foot{font-size:12px;color:var(--ink-3);text-align:center;margin-top:28px}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
 <div class="page">
 <div class="top">
   <h1>홈 화면설계서</h1>
-  <p>홈의 여섯 영역이 시각 · 연동 상태 · 답변 진행에 따라 어떻게 바뀌고 서로 어떻게 이어지는지를 동작하는 화면으로 정리한 설계서다. 왼쪽 화면은 직접 눌러 볼 수 있고, 오른쪽에는 지금 보이는 상태의 이유와 상태 전이 규칙, 화면 이동, 결정 사항을 적었다. 문구와 표시 규칙은 홈 화면정의서, 질문 · 코칭 · 목표가 만들어지는 순서는 하루 생성 순서도, 식이 질문의 상세는 식이 화면설계서를 따른다.</p>
+  <p>홈의 여섯 영역이 시각 · 연동 상태 · 답변 진행에 따라 어떻게 바뀌고 서로 어떻게 이어지는지를 동작하는 화면으로 정리한 설계서임. 왼쪽 화면은 직접 눌러 볼 수 있고, 오른쪽에는 지금 보이는 상태의 이유와 상태 전이 규칙, 화면 이동, 결정 사항을 적었음. 문구와 표시 규칙은 홈 화면정의서, 질문 · 코칭 · 목표가 만들어지는 순서는 하루 생성 순서도, 식이 질문의 상세는 식이 화면설계서를 따름.</p>
   <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>상태 <b>v0.2 · 미결 7건 결정 반영</b></span><span>대상 화면 <b>홈(HOME-001) · 답변 보기(HOME-004)</b></span><span>기준 <b>홈 화면정의서 v1.0.0 · 하루 생성 순서도 · 식이 식사 시각 질문(10-13 확정) · IA v1.0.0</b></span></div>
 </div>
 
@@ -194,7 +210,7 @@ ol.pl li{margin:6px 0}
   <div class="side">
     <div class="panel">
       <h2>지금 보이는 상태와 그 이유</h2>
-      <div class="sub">왼쪽 화면이 왜 이렇게 보이는지 영역별로 설명한다. 화면을 누르거나 위 조건을 바꾸면 함께 바뀐다.</div>
+      <div class="sub">왼쪽 화면이 왜 이렇게 보이는지 영역별로 설명함. 화면을 누르거나 위 조건을 바꾸면 함께 바뀜.</div>
       <div class="now" id="now"></div>
     </div>
 
@@ -203,34 +219,34 @@ ol.pl li{margin:6px 0}
       <div class="sub">각 영역이 가질 수 있는 상태와, 무엇이 그 상태를 바꾸는지</div>
       <table>
         <tr><th style="width:110px">영역</th><th>상태</th><th>바뀌는 조건</th></tr>
-        <tr><td class="k">오늘의 질문</td><td><span class="tag brand">진행 중</span> → <span class="tag ok">모두 완료</span></td><td>첫 진입 때 그날 문항 세트를 한 번 정한다(최대 5~6문항). 한 문항씩 보여주고 고르면 0.5초 뒤 다음으로 넘어간다. 끼니 질문에 답하면 같은 자리에서 식사 시각 질문이 이어진다(어제 저녁 · 「못 먹거나 거름」은 묻지 않음). 마지막 문항에 답하면 완료 상태가 되고 「오늘 답변 모두 보기」가 생긴다. 답하지 않은 문항은 하루 동안 남는다. 끼니 구간이 바뀌면 답하지 않은 식사 문항의 끼니만 갱신된다.</td></tr>
-        <tr><td class="k">오늘의 코칭</td><td><span class="tag">답변 전</span> → <span class="tag brand">생성 중</span> → <span class="tag ok">행동 한 줄</span></td><td>모든 문항에 답한 시점에 한 번 만든다. 일부만 답했으면 「답변 전」 그대로다. 답변을 고치면 생성 중 → 결과를 다시 거친다. 낮 동안 기기 데이터가 늘어도 문구는 바뀌지 않는다. 17시 이후 생성이면 마무리형 문구를 쓴다. 「생성 중」이 5초를 넘으면 식이 기본 문구를 먼저 보여주고 응답이 오면 교체한다.</td></tr>
-        <tr><td class="k">오늘의 목표</td><td><span class="tag lock">잠김</span> → <span class="tag">기본</span> ⇄ <span class="tag ok">완료</span></td><td>첫 진입 때 목표마다 판정한다. 식이는 항상 잠긴 채 시작한다. 활동은 오늘 걸음 기록, 수면은 어젯밤 수면 기록이 있으면 바로 만들고 없으면 잠근다. 잠긴 목표는 질문에 모두 답한 시점에 코칭과 함께 열린다. 타일을 누르면 완료, 다시 누르면 취소(홈에는 「쉬기」가 없다). 완료한 목표와 기기 데이터로 만든 목표는 답변을 고쳐도 바뀌지 않는다. 자동 완료는 없다. 건강 데이터가 없으면 활동은 기본 문구로 바로 열고 수면만 잠근다. 「기록 있음」은 오늘 걸음 1건 · 어젯밤 수면 세션 1개면 충분하다.</td></tr>
-        <tr><td class="k">오늘의 컨디션</td><td><span class="tag">미연동</span> · <span class="tag warn">관찰 중</span> · <span class="tag ok">구간 표시</span></td><td>건강 데이터가 없으면 게이지 대신 연동 안내와 버튼. 연동됐지만 기록이 부족하면 빈 게이지와 「관찰 중」. 기록이 있으면 세 지표를 각각 세 구간 중 하나로 표시하고, 주의 구간이 하나라도 있을 때만 요약 한 줄을 붙인다. 기기 데이터가 갱신될 때마다 다시 계산한다(질문 답변은 지표에 들어가지 않는다).</td></tr>
-        <tr><td class="k">오늘의 건강 데이터</td><td><span class="tag">숨김</span> · <span class="tag ok">값 + 어제 대비</span></td><td>미연동이면 컨디션 영역에 이미 안내가 있으므로 이 영역은 숨긴다. 연동이면 걸음 · 수면 · 안정 시 심박 세 줄을 보여주고 어제 값과의 차이만 적는다. 값이 없는 줄은 「기록 없음」. 걸음은 자정 기준 누적이라 오전에는 작다.</td></tr>
+        <tr><td class="k">오늘의 질문</td><td><span class="tag brand">진행 중</span> → <span class="tag ok">모두 완료</span></td><td>첫 진입 때 그날 문항 세트를 한 번 정함(최대 5~6문항). 한 문항씩 보여주고 고르면 0.5초 뒤 다음으로 넘어감. 끼니 질문에 답하면 같은 자리에서 식사 시각 질문이 이어짐(어제 저녁 · 「못 먹거나 거름」은 묻지 않음). 마지막 문항에 답하면 완료 상태가 되고 「오늘 답변 모두 보기」가 생김. 답하지 않은 문항은 하루 동안 남음. 끼니 구간이 바뀌면 답하지 않은 식사 문항의 끼니만 갱신됨.</td></tr>
+        <tr><td class="k">오늘의 코칭</td><td><span class="tag">답변 전</span> → <span class="tag brand">생성 중</span> → <span class="tag ok">행동 한 줄</span></td><td>모든 문항에 답한 시점에 한 번 만듦. 일부만 답했으면 「답변 전」 그대로임. 답변을 고치면 생성 중 → 결과를 다시 거침. 낮 동안 기기 데이터가 늘어도 문구는 바뀌지 않음. 17시 이후 생성이면 마무리형 문구를 씀. 「생성 중」이 5초를 넘으면 식이 기본 문구를 먼저 보여주고 응답이 오면 교체함.</td></tr>
+        <tr><td class="k">오늘의 목표</td><td><span class="tag lock">잠김</span> → <span class="tag">기본</span> ⇄ <span class="tag ok">완료</span></td><td>첫 진입 때 목표마다 판정함. 식이는 항상 잠긴 채 시작함. 활동은 오늘 걸음 기록, 수면은 어젯밤 수면 기록이 있으면 바로 만들고 없으면 잠금. 잠긴 목표는 질문에 모두 답한 시점에 코칭과 함께 열림. 타일을 누르면 완료, 다시 누르면 취소(홈에는 「쉬기」가 없음). 완료한 목표와 기기 데이터로 만든 목표는 답변을 고쳐도 바뀌지 않음. 자동 완료는 없음. 건강 데이터가 없으면 활동은 기본 문구로 바로 열고 수면만 잠금. 「기록 있음」은 오늘 걸음 1건 · 어젯밤 수면 세션 1개면 충분함.</td></tr>
+        <tr><td class="k">오늘의 컨디션</td><td><span class="tag">미연동</span> · <span class="tag warn">관찰 중</span> · <span class="tag ok">구간 표시</span></td><td>건강 데이터가 없으면 게이지 대신 연동 안내와 버튼. 연동됐지만 기록이 부족하면 빈 게이지와 「관찰 중」. 기록이 있으면 세 지표를 각각 세 구간 중 하나로 표시하고, 주의 구간이 하나라도 있을 때만 요약 한 줄을 붙임. 기기 데이터가 갱신될 때마다 다시 계산함(질문 답변은 지표에 들어가지 않음).</td></tr>
+        <tr><td class="k">오늘의 건강 데이터</td><td><span class="tag">숨김</span> · <span class="tag ok">값 + 어제 대비</span></td><td>미연동이면 컨디션 영역에 이미 안내가 있으므로 이 영역은 숨김. 연동이면 걸음 · 수면 · 안정 시 심박 세 줄을 보여주고 어제 값과의 차이만 적음. 값이 없는 줄은 「기록 없음」. 걸음은 자정 기준 누적이라 오전에는 작음.</td></tr>
         <tr><td class="k">나의 건강, 숫자로 한눈에</td><td><span class="tag">결과 없음</span> · <span class="tag ok">점수 · 건강나이 · 등수</span></td><td>AI 인사이트 결과가 있으면 최근 결과의 점수와 분석 기간만, 없으면 안내 문구와 「분석하기」(생활 › AI 인사이트로 이동). 검진정보가 없으면 건강나이 · 또래 등수 대신 검진 연동 안내 카드 하나.</td></tr>
-        <tr><td class="k">헤더 알림</td><td><span class="tag">점 없음</span> · <span class="tag warn">점 표시</span></td><td>안 읽은 알림이 있으면 점만 표시한다. 누르면 알림 목록으로 이동한다. 숫자는 쓰지 않는다.</td></tr>
+        <tr><td class="k">헤더 알림</td><td><span class="tag">점 없음</span> · <span class="tag warn">점 표시</span></td><td>안 읽은 알림이 있으면 점만 표시함. 누르면 알림 목록으로 이동함. 숫자는 쓰지 않음.</td></tr>
       </table>
     </div>
 
     <div class="panel">
       <h2>하루의 흐름</h2>
-      <div class="sub">새벽 4시에 새 하루가 시작되고, 첫 진입 때 만든 것은 그날 고정된다</div>
+      <div class="sub">새벽 4시에 새 하루가 시작되고, 첫 진입 때 만든 것은 그날 고정됨</div>
       <div class="flow">
-        <div class="st"><b>새벽 4시 · 새 하루</b><span>전날 질문 · 코칭 · 목표 세트가 닫힌다. 완료 기록은 남는다.</span></div>
+        <div class="st"><b>새벽 4시 · 새 하루</b><span>전날 질문 · 코칭 · 목표 세트가 닫힘. 완료 기록은 남음.</span></div>
         <div class="ar">↓</div>
-        <div class="st"><b>오늘 첫 진입</b><span>그 시점 기기 데이터로 질문 세트와 목표(열림 · 잠김)를 만든다. 17시 이후면 저녁 문구.</span></div>
+        <div class="st"><b>오늘 첫 진입</b><span>그 시점 기기 데이터로 질문 세트와 목표(열림 · 잠김)를 만듦. 17시 이후면 저녁 문구.</span></div>
         <div class="ar">↓</div>
         <div class="br">
           <div class="st"><i>재진입</i><b>만든 것은 그대로</b><span>질문 · 코칭 · 목표는 유지. 컨디션과 건강 데이터 값만 다시 계산.</span></div>
           <div class="st"><i>답하는 중</i><b>한 문항씩</b><span>코칭 「답변 전」, 잠긴 목표는 잠김 유지. 누르면 남은 질문으로.</span></div>
         </div>
         <div class="ar">↓</div>
-        <div class="st"><b>모두 답함 · 한 번 실행</b><span>코칭 생성 중 → 행동 한 줄. 잠겨 있던 목표가 답변으로 열린다. 질문 영역은 완료 상태.</span></div>
+        <div class="st"><b>모두 답함 · 한 번 실행</b><span>코칭 생성 중 → 행동 한 줄. 잠겨 있던 목표가 답변으로 열림. 질문 영역은 완료 상태.</span></div>
         <div class="ar">↓</div>
         <div class="br">
-          <div class="st"><i>답변 수정</i><b>코칭 다시 생성</b><span>답변으로 만든 목표만 다시 만든다. 완료한 목표 · 기기 데이터로 만든 목표는 그대로.</span></div>
-          <div class="st"><i>타일 누름</i><b>완료 ⇄ 취소</b><span>「n/3 완료」와 생활 › 목표 분석이 즉시 같아진다.</span></div>
+          <div class="st"><i>답변 수정</i><b>코칭 다시 생성</b><span>답변으로 만든 목표만 다시 만듦. 완료한 목표 · 기기 데이터로 만든 목표는 그대로.</span></div>
+          <div class="st"><i>타일 누름</i><b>완료 ⇄ 취소</b><span>「n/3 완료」와 생활 › 목표 분석이 즉시 같아짐.</span></div>
         </div>
       </div>
     </div>
@@ -256,15 +272,15 @@ ol.pl li{margin:6px 0}
 
     <div class="panel">
       <h2>결정 사항 (2026-10-14)</h2>
-      <div class="sub">초안의 미결 7가지를 아래와 같이 정했다. 홈 화면정의서 · 기능정의서 · IA에도 같은 내용을 반영했다.</div>
+      <div class="sub">초안의 미결 7가지를 아래와 같이 정했음. 홈 화면정의서 · 기능정의서 · IA에도 같은 내용을 반영했음.</div>
       <ol class="pl">
-        <li><b>미연동일 때 활동 · 수면 목표</b> — 활동은 기록 없이도 안전한 기본 문구(예: 「점심 식후 10분 걷기」)로 첫 진입 때 바로 열고, 수면만 잠가 수면 문항 답변으로 만든다. 타일 3개가 모두 잠겨 빈 화면처럼 보이지 않게 하기 위해서다.</li>
-        <li><b>「쉬기」</b> — 홈 타일에는 두지 않는다. 탭 한 번 = 완료, 다시 탭 = 취소뿐이다. 쉬기는 생활 › 목표 분석에서만 기록한다.</li>
-        <li><b>식이 외 문항</b> — 코칭 문구에 실제로 필요한 입력부터 문항을 만든다. 웨어러블로 받을 수 없는 입력(확진 질환 · 식사 시각 · 피로감)이 먼저이고, 활동 문항은 연동 사용자에게 불필요해 뒤로 둔다. 이 화면의 수면 · 피로감 문항은 자리 예시다.</li>
-        <li><b>코칭 생성 시간</b> — 「생성 중」은 최대 5초. 5초가 지나면 답변만으로 정할 수 있는 식이 기본 문구를 먼저 보여주고, 응답이 오면 조용히 교체한다. 예: 「못 먹거나 거름」이면 「다음 끼니는 거르지 말고 조금이라도 챙겨 먹기」.</li>
-        <li><b>잠금 판정 기준</b> — 활동은 오늘 걸음 기록이 1건이라도 있으면, 수면은 어젯밤 수면 세션이 1개라도 있으면 「기록 있음」으로 본다. 문구의 숫자는 최근 개인 기록으로 정하므로 오늘 값이 작아도 된다.</li>
-        <li><b>저녁 안내 문장</b> — 17시 이후 「오늘 저녁」 질문 아래 「오늘 저녁을 드신 뒤 답해주세요」를 유지한다. 식사 시각 질문 단계에는 다시 붙이지 않는다.</li>
-        <li><b>결식 3일 연속 안내</b> — 이 판에서는 제외하고 보류를 유지한다. 코칭 문구가 화면에 나오는 것을 확인한 뒤 코칭 한 줄로 다시 검토한다.</li>
+        <li><b>미연동일 때 활동 · 수면 목표</b> — 활동은 기록 없이도 안전한 기본 문구(예: 「점심 식후 10분 걷기」)로 첫 진입 때 바로 열고, 수면만 잠가 수면 문항 답변으로 만듦. 타일 3개가 모두 잠겨 빈 화면처럼 보이지 않게 하기 위해서임.</li>
+        <li><b>「쉬기」</b> — 홈 타일에는 두지 않음. 탭 한 번 = 완료, 다시 탭 = 취소뿐임. 쉬기는 생활 › 목표 분석에서만 기록함.</li>
+        <li><b>식이 외 문항</b> — 코칭 문구에 실제로 필요한 입력부터 문항을 만듦. 웨어러블로 받을 수 없는 입력(확진 질환 · 식사 시각 · 피로감)이 먼저이고, 활동 문항은 연동 사용자에게 불필요해 뒤로 둠. 이 화면의 수면 · 피로감 문항은 자리 예시임.</li>
+        <li><b>코칭 생성 시간</b> — 「생성 중」은 최대 5초. 5초가 지나면 답변만으로 정할 수 있는 식이 기본 문구를 먼저 보여주고, 응답이 오면 조용히 교체함. 예: 「못 먹거나 거름」이면 「다음 끼니는 거르지 말고 조금이라도 챙겨 먹기」.</li>
+        <li><b>잠금 판정 기준</b> — 활동은 오늘 걸음 기록이 1건이라도 있으면, 수면은 어젯밤 수면 세션이 1개라도 있으면 「기록 있음」으로 봄. 문구의 숫자는 최근 개인 기록으로 정하므로 오늘 값이 작아도 됨.</li>
+        <li><b>저녁 안내 문장</b> — 17시 이후 「오늘 저녁」 질문 아래 「오늘 저녁을 드신 뒤 답해주세요」를 유지함. 식사 시각 질문 단계에는 다시 붙이지 않음.</li>
+        <li><b>결식 3일 연속 안내</b> — 이 판에서는 제외하고 보류를 유지함. 코칭 문구가 화면에 나오는 것을 확인한 뒤 코칭 한 줄로 다시 검토함.</li>
       </ol>
     </div>
   </div>

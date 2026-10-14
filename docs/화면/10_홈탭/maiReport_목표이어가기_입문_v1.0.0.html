@@ -17,28 +17,6 @@
   --mono:"JetBrains Mono",Consolas,monospace;
   --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --ground:#0B1017; --surf:#151D27; --surf-2:#1A222E; --surf-3:#26303D;
-  --line:#2C3644; --line-2:#414E60;
-  --ink:#EDF1F7; --text:#B3BFCF; --muted:#8896A9; --faint:#6B7A8E;
-  --accent:#7EA3FF; --accent-soft:#1A2740;
-  --ok:#5CC79F; --ok-soft:#102A21;
-  --stop:#EB8383; --stop-soft:#2D1A1A;
-  --warn:#DFAF60; --warn-soft:#2A2213;
-  --c-diet:#E8944A; --c-move:#E8718F; --c-sleep:#8B92E8;
-  --c-diet-bg:#3A2A18; --c-move-bg:#3A1F28; --c-sleep-bg:#222641;
-}}
-:root[data-theme="dark"]{
-  --ground:#0B1017; --surf:#151D27; --surf-2:#1A222E; --surf-3:#26303D;
-  --line:#2C3644; --line-2:#414E60;
-  --ink:#EDF1F7; --text:#B3BFCF; --muted:#8896A9; --faint:#6B7A8E;
-  --accent:#7EA3FF; --accent-soft:#1A2740;
-  --ok:#5CC79F; --ok-soft:#102A21;
-  --stop:#EB8383; --stop-soft:#2D1A1A;
-  --warn:#DFAF60; --warn-soft:#2A2213;
-  --c-diet:#E8944A; --c-move:#E8718F; --c-sleep:#8B92E8;
-  --c-diet-bg:#3A2A18; --c-move-bg:#3A1F28; --c-sleep-bg:#222641;
-}
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);
@@ -367,7 +345,7 @@ footer{padding-block:34px 0;border-top:1px solid var(--line);font-size:12.5px;co
 
   <div class="note warn">
     <i>이 숫자가 정확히 뜻하는 것</i>
-    <p><code>10일 연속</code>은 <b>10일 동안 실천했다</b>가 아니라 <b>10일치 기록이 이어졌다</b>는 뜻입니다.
+    <p><code>10일 연속</code>은 <b>10일 동안 실천했음</b>가 아니라 <b>10일치 기록이 이어졌음</b>는 뜻입니다.
     완료는 사용자가 직접 눌러야 생기는 기록이라, 앱은 실천 자체를 관측할 수 없습니다.
     화면 문구도 이 선을 넘지 않습니다 — 어디에도 “실천했다”고 단정하지 않습니다.</p>
   </div>
@@ -386,17 +364,17 @@ footer{padding-block:34px 0;border-top:1px solid var(--line);font-size:12.5px;co
   <b>처음 맞는 것에서 멈춥니다.</b> 여러 개가 맞아도 하나만 보여줍니다.</p>
 
   <div class="ord">
-    <div class="ord-row gate"><span class="n">먼저</span><span class="nm">목표가 없는 날</span><span class="ds">세 목표가 모두 안 만들어졌으면 아래를 보지 않는다</span></div>
-    <div class="ord-row gate"><span class="n">먼저</span><span class="nm">과거 날짜를 볼 때</span><span class="ds">전용 문장을 쓴다 · 아래를 보지 않는다</span></div>
-    <div class="ord-row"><span class="n">01</span><span class="nm">첫 기록 전</span><span class="ds">완료한 적이 한 번도 없다</span></div>
-    <div class="ord-row"><span class="n">02</span><span class="nm">오랜만의 방문</span><span class="ds">7일 이상 만에 다시 열었다</span></div>
-    <div class="ord-row"><span class="n">03</span><span class="nm">마디 도달</span><span class="ds">오늘 완료로 1주 · 2주 · 한 달 같은 마디를 찍었다</span></div>
-    <div class="ord-row"><span class="n">04</span><span class="nm">최장 기록 경신</span><span class="ds">지금까지 중 가장 길어졌다</span></div>
-    <div class="ord-row"><span class="n">05</span><span class="nm">마디 하루 전</span><span class="ds">내일 하면 마디를 찍는다</span></div>
+    <div class="ord-row gate"><span class="n">먼저</span><span class="nm">목표가 없는 날</span><span class="ds">세 목표가 모두 안 만들어졌으면 아래를 보지 않음</span></div>
+    <div class="ord-row gate"><span class="n">먼저</span><span class="nm">과거 날짜를 볼 때</span><span class="ds">전용 문장을 씀 · 아래를 보지 않음</span></div>
+    <div class="ord-row"><span class="n">01</span><span class="nm">첫 기록 전</span><span class="ds">완료한 적이 한 번도 없음</span></div>
+    <div class="ord-row"><span class="n">02</span><span class="nm">오랜만의 방문</span><span class="ds">7일 이상 만에 다시 열었음</span></div>
+    <div class="ord-row"><span class="n">03</span><span class="nm">마디 도달</span><span class="ds">오늘 완료로 1주 · 2주 · 한 달 같은 마디를 찍었음</span></div>
+    <div class="ord-row"><span class="n">04</span><span class="nm">최장 기록 경신</span><span class="ds">지금까지 중 가장 길어졌음</span></div>
+    <div class="ord-row"><span class="n">05</span><span class="nm">마디 하루 전</span><span class="ds">내일 하면 마디를 찍음</span></div>
     <div class="ord-row"><span class="n">06</span><span class="nm">세 개 동률</span><span class="ds">셋이 같은 일수다</span></div>
-    <div class="ord-row"><span class="n">07</span><span class="nm">두 개 동률</span><span class="ds">가장 긴 게 둘이다</span></div>
+    <div class="ord-row"><span class="n">07</span><span class="nm">두 개 동률</span><span class="ds">가장 긴 게 둘임</span></div>
     <div class="ord-row"><span class="n">08</span><span class="nm">가장 긴 것 하나</span><span class="ds">위에 해당 없음 — <b>가장 자주 보게 되는 화면</b></span></div>
-    <div class="ord-row"><span class="n">09</span><span class="nm">지금 이어지는 것 없음</span><span class="ds">기록은 있지만 셋 다 0이다</span></div>
+    <div class="ord-row"><span class="n">09</span><span class="nm">지금 이어지는 것 없음</span><span class="ds">기록은 있지만 셋 다 0임</span></div>
   </div>
 
   <h3>왜 두 개가 목록 위에 따로 있나</h3>

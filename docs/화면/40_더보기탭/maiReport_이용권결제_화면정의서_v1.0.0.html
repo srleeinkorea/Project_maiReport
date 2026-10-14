@@ -101,6 +101,22 @@
     }
     @media print{body{background:#FFF}.top{display:none}main{max-width:none;padding:0}.hero,.section,.toc{box-shadow:none;break-inside:avoid}.section{break-before:page}.scr,.flow .step,tr{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0}}
   </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
   <header class="top">
@@ -120,8 +136,8 @@
   <main>
     <section class="hero" id="top">
       <span class="eyebrow">maiReport · Screen Definition — Payment</span>
-      <h1>이용권 구매·환불 플로우 화면을<br>상태·문구·데이터까지 정의한다.</h1>
-      <p>분석 이용권 인앱결제와 셀비 체크업 신청·결과 화면의 구성, 상태 전이, 인터랙션, 데이터 바인딩, 예외를 정의합니다. 정책 문구·상태값은 <a href="maiReport_결제환불정책_v1.0.0.html">결제·환불 정책 v1.0</a>을, 데이터 항목은 <a href="../90_기타/기획기반/maiReport_데이터모델_v1.0.0.html">데이터 모델</a>을 따릅니다.</p>
+      <h1>이용권 구매·환불 플로우 화면을<br>상태·문구·데이터까지 정의함.</h1>
+      <p>분석 이용권 인앱결제와 셀비 체크업 신청·결과 화면의 구성, 상태 전이, 인터랙션, 데이터 바인딩, 예외를 정의함. 정책 문구·상태값은 <a href="maiReport_결제환불정책_v1.0.0.html">결제·환불 정책 v1.0</a>을, 데이터 항목은 <a href="../90_기타/기획기반/maiReport_데이터모델_v1.0.0.html">데이터 모델</a>을 따름.</p>
       <div class="hero-meta">
         <div><span>DOCUMENT</span><strong>화면정의 · 결제 v0.1 (초안)</strong><p>기준일 2026-09-01 · Internal Use Only</p></div>
         <div><span>SCOPE</span><strong>ACC-004 · ACC-005 · SELVY-001~003</strong><p>5화면 + 구매·환불 상태</p></div>
@@ -186,7 +202,7 @@
         <div class="scr-hd"><span class="id">ACC-004</span><h4>이용권 관리</h4><span class="ty">계정 서브 화면</span></div>
         <div class="scr-bd">
           <dl>
-            <dt>목적</dt><dd>보유 이용권 수를 확인하고, 구매하고, 이용권 내역(상태·시각)과 환불 경로를 제공한다.</dd>
+            <dt>목적</dt><dd>보유 이용권 수를 확인하고, 구매하고, 이용권 내역(상태·시각)과 환불 경로를 제공함.</dd>
             <dt>진입</dt><dd>계정 메인 → &lsquo;이용권 관리&rsquo;.</dd>
             <dt>범위</dt><dd>현 단계 Selvy Checkup 1종만 노출. ANRISK 제외.</dd>
           </dl>
@@ -196,7 +212,7 @@
             <div class="c"><b>가상 결제(디버그)</b><p>[가상 결제 (디버그 전용)] — 개발 빌드 한정. 릴리스 빌드 비노출.</p></div>
             <div class="c"><b>이용권 내역(tk-hist)</b><p>이용권별 행: 상품명 · 상태 배지 · 시각 라인(상태에 따라 발급/예약/사용/취소 시각) · memo. 최신순.</p></div>
             <div class="c"><b>환불 링크</b><p>status=AVAILABLE 인 이용권에만 [스토어에서 환불 신청] 노출. 탭 시 스토어 환불 화면 안내(ACC-005 계열 모달).</p></div>
-            <div class="c"><b>빈 상태</b><p>이용권 없음: &ldquo;이용권 내역이 없습니다.&rdquo;</p></div>
+            <div class="c"><b>빈 상태</b><p>이용권 없음: &ldquo;이용권 내역이 없음.&rdquo;</p></div>
           </div>
           <h3 class="block">상태 배지</h3>
           <div class="table-wrap"><table>
@@ -235,10 +251,10 @@
           <h3 class="block" style="margin-top:6px">구성요소</h3>
           <div class="comp">
             <div class="c"><b>제목</b><p>&ldquo;Selvy Checkup 이용권 구매&rdquo;</p></div>
-            <div class="c"><b>본문</b><p>&ldquo;Selvy Checkup 분석 이용권 1회 · <b>{스토어 표시가}</b> 결제를 진행하시겠습니까?&rdquo; + &ldquo;구매 후 서버 검증이 끝나면 이용권 1장이 발급됩니다.&rdquo;</p></div>
+            <div class="c"><b>본문</b><p>&ldquo;Selvy Checkup 분석 이용권 1회 · <b>{스토어 표시가}</b> 결제를 진행하시겠습니까?&rdquo; + &ldquo;구매 후 서버 검증이 끝나면 이용권 1장이 발급됨.&rdquo;</p></div>
             <div class="c"><b>[결제하기]</b><p>스토어 인앱결제 시트 호출 → 결제 완료 시 서버 영수증 검증 → 이용권 지급.</p></div>
             <div class="c"><b>[취소]</b><p>모달 닫힘. 상태 변화 없음.</p></div>
-            <div class="c"><b>디버그 변형</b><p>가상 결제: &ldquo;디버그 전용 가상 결제로 이용권 1장을 즉시 발급합니다. 실제 스토어 결제는 진행되지 않아요.&rdquo; <span class="tag">purchase.is_debug=true</span>.</p></div>
+            <div class="c"><b>디버그 변형</b><p>가상 결제: &ldquo;디버그 전용 가상 결제로 이용권 1장을 즉시 발급함. 실제 스토어 결제는 진행되지 않아요.&rdquo; <span class="tag">purchase.is_debug=true</span>.</p></div>
           </div>
           <h3 class="block">결제 결과 상태</h3>
           <div class="table-wrap"><table>
@@ -263,16 +279,16 @@
         <div class="scr-hd"><span class="id">SELVY-001</span><h4>셀비 체크업 소개</h4><span class="ty">서브 화면</span></div>
         <div class="scr-bd">
           <dl>
-            <dt>목적</dt><dd>검진정보 기반 주요질환 위험도 분석 서비스를 안내하고 신청(SELVY-002)으로 연결한다.</dd>
+            <dt>목적</dt><dd>검진정보 기반 주요질환 위험도 분석 서비스를 안내하고 신청(SELVY-002)으로 연결함.</dd>
             <dt>진입</dt><dd>병원 &rarr; 진료요약 &rarr; &lsquo;질환 위험 분석&rsquo; 카드.</dd>
           </dl>
           <h3 class="block" style="margin-top:6px">구성요소</h3>
           <div class="comp">
             <div class="c"><b>서비스 설명(svBody)</b><p>분석 대상 질환, 필요한 검진정보, 결과 형태(10년 단위 추이 등) 안내.</p></div>
             <div class="c"><b>CTA</b><p>[주요질환 위험도 분석하기] → SELVY-002.</p></div>
-            <div class="c"><b>참고 정보 고지</b><p>&ldquo;결과는 이해를 돕는 참고 정보이며 의학적 진단·의료진 판단을 대체하지 않습니다.&rdquo; 상시 노출.</p></div>
+            <div class="c"><b>참고 정보 고지</b><p>&ldquo;결과는 이해를 돕는 참고 정보이며 의학적 진단·의료진 판단을 대체하지 않음.&rdquo; 상시 노출.</p></div>
           </div>
-          <div class="callout warn"><span>경계</span><p>셀비 체크업은 &lsquo;질환 위험 예측&rsquo; 성격이 있어 maiReport 본체의 상태 서사·코칭과 분리해 <b>별도 서비스</b>로만 노출합니다(MRS 9장 경계 사례). 본체 카피에 위험 예측 표현을 쓰지 않습니다.</p></div>
+          <div class="callout warn"><span>경계</span><p>셀비 체크업은 &lsquo;질환 위험 예측&rsquo; 성격이 있어 maiReport 본체의 상태 서사·코칭과 분리해 <b>별도 서비스</b>로만 노출함(MRS 9장 경계 사례). 본체 카피에 위험 예측 표현을 쓰지 않음.</p></div>
         </div>
       </div>
     </section>
@@ -284,7 +300,7 @@
         <div class="scr-hd"><span class="id">SELVY-002</span><h4>분석 신청 · 결제</h4><span class="ty">결제/신청 화면</span></div>
         <div class="scr-bd">
           <dl>
-            <dt>목적</dt><dd>분석에 쓸 검진정보를 선택하고, 이용권을 확인·구매한 뒤 분석을 신청한다.</dd>
+            <dt>목적</dt><dd>분석에 쓸 검진정보를 선택하고, 이용권을 확인·구매한 뒤 분석을 신청함.</dd>
             <dt>진입</dt><dd>SELVY-001 CTA.</dd>
           </dl>
           <h3 class="block" style="margin-top:6px">구성요소</h3>
@@ -320,13 +336,13 @@
         <div class="scr-hd"><span class="id">SELVY-003</span><h4>셀비 체크업 결과</h4><span class="ty">서브 화면</span></div>
         <div class="scr-bd">
           <dl>
-            <dt>목적</dt><dd>선택 검진정보 기반 10대 질환 위험도 결과와 해석 안내를 제공한다.</dd>
+            <dt>목적</dt><dd>선택 검진정보 기반 10대 질환 위험도 결과와 해석 안내를 제공함.</dd>
             <dt>진입</dt><dd>SELVY-002 분석 완료 · 분석 목록에서 과거 결과.</dd>
           </dl>
           <h3 class="block" style="margin-top:6px">구성요소</h3>
           <div class="comp">
             <div class="c"><b>결과 목록(rsBody)</b><p>질환별 위험도 지표·추이(10년 단위 등). 표현은 참고 정보 톤.</p></div>
-            <div class="c"><b>해석 안내</b><p>&ldquo;이 결과는 참고 정보이며, 이상이 우려되면 의료기관 상담을 권합니다.&rdquo;</p></div>
+            <div class="c"><b>해석 안내</b><p>&ldquo;이 결과는 참고 정보이며, 이상이 우려되면 의료기관 상담을 권함.&rdquo;</p></div>
             <div class="c"><b>분석 정보</b><p>분석 일시 · 사용 검진정보 · 소모된 이용권(USED).</p></div>
           </div>
           <div class="callout warn"><span>표현 제약</span><p>&lsquo;진단·확정&rsquo; 표현 금지. 위험도는 &lsquo;참고&rsquo;로 고지하고, 상담 연결 경로를 함께 제공(MRS 9장 · 정책 3·4장).</p></div>

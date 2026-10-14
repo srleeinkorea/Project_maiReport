@@ -50,11 +50,27 @@
   footer{text-align:center;font-size:12px;color:var(--ink-3);margin-top:10px}
   @media(max-width:720px){.split,.rules{grid-template-columns:1fr}.step{grid-template-columns:1fr}.step .yes::after{content:"↓"}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
 <div class="wrap">
   <h1>AI 인사이트 · 처리 순서도</h1>
-  <p class="lead">탭 진입 → 보고 있는 주 판정 → 실행 가능 판정 → 분석 생성 → 결과 열람 → 주 종료 후 처리. 탭 진입과 주 이동, 분석 실행, 삭제마다 처음부터 다시 판정한다. 근거: AI인사이트_화면정의서 §1.4 · §3 · §5 · §6 · §9.</p>
+  <p class="lead">탭 진입 → 보고 있는 주 판정 → 실행 가능 판정 → 분석 생성 → 결과 열람 → 주 종료 후 처리. 탭 진입과 주 이동, 분석 실행, 삭제마다 처음부터 다시 판정함. 근거: AI인사이트_화면정의서 §1.4 · §3 · §5 · §6 · §9.</p>
 
   <!-- ① -->
   <section class="lane">
@@ -62,7 +78,7 @@
     <div class="flow">
       <div class="node start">탭 진입 / 주 이동(‹ ›) / 오늘 버튼</div>
       <div class="arrow">↓</div>
-      <div class="node">보고 있는 주 확정<small>탭에 처음 들어오면 오늘이 속한 주 · 지난 주차로 자동 이동하지 않는다 · 날짜를 눌러도 바뀌지 않는다</small></div>
+      <div class="node">보고 있는 주 확정<small>탭에 처음 들어오면 오늘이 속한 주 · 지난 주차로 자동 이동하지 않음 · 날짜를 눌러도 바뀌지 않음</small></div>
       <div class="arrow">↓</div>
       <div class="node q">그 주차에 분석 결과가 있는가?</div>
       <div class="arrow">↓</div>
@@ -79,13 +95,13 @@
         </div>
       </div>
     </div>
-    <div class="note">대상 기간은 주가 끝났는지에 따라 다르다. 끝난 주는 월~일 7일, 진행 중인 주는 어제를 마지막 날로 한 최근 7일. 진행 중인 주는 오늘을 빼고 어제까지 7일을 본다. 실제로 분석한 날짜는 "분석 기간 8.14 ~ 8.20"처럼 주차 제목 아래에 적는다(분석 전 · 요약 · 상세 · 이력). 본문이 지난 주 날짜를 인용해도 어긋나 보이지 않고, 언제 기준 결과인지 바로 보이게 하기 위해서다.</div>
+    <div class="note">대상 기간은 주가 끝났는지에 따라 다름. 끝난 주는 월~일 7일, 진행 중인 주는 어제를 마지막 날로 한 최근 7일. 진행 중인 주는 오늘을 빼고 어제까지 7일을 봄. 실제로 분석한 날짜는 "분석 기간 8.14 ~ 8.20"처럼 주차 제목 아래에 적음(분석 전 · 요약 · 상세 · 이력). 본문이 지난 주 날짜를 인용해도 어긋나 보이지 않고, 언제 기준 결과인지 바로 보이게 하기 위해서임.</div>
   </section>
 
   <!-- ② -->
   <section class="lane">
     <h2><span class="n">2</span>실행 가능 판정</h2>
-    <p class="lead">위에서부터 차례로 보고, 걸리는 즉시 버튼을 비활성하고 그 사유만 한 줄 보여준다.</p>
+    <p class="lead">위에서부터 차례로 보고, 걸리는 즉시 버튼을 비활성하고 그 사유만 한 줄 보여줌.</p>
     <div class="chain">
       <div class="step">
         <div class="node q">건강 데이터가 연동돼 있는가?</div>
@@ -100,7 +116,7 @@
       </div>
       <div class="no-arrow">예</div>
       <div class="step">
-        <div class="node q">대상 기간 7일 중 기록이 기준 일수 이상인가?<small>기준 일수는 기개발 버전을 따른다</small></div>
+        <div class="node q">대상 기간 7일 중 기록이 기준 일수 이상인가?<small>기준 일수는 기개발 버전을 따름</small></div>
         <div class="yes">아니오</div>
         <div class="res"><b>실행 불가</b>"기록이 아직 적어요. 며칠 더 쌓이면 분석할 수 있어요"</div>
       </div>
@@ -143,13 +159,13 @@
     <div class="flow">
       <div class="node start">분석 실행</div>
       <div class="arrow lbl">이미 결과가 있으면 확인 시트("새 결과로 바뀌고 지금 결과는 저장되지 않아요")</div>
-      <div class="node">진행 표시<small>화면을 떠나도 계속 진행 · 돌아오면 상태를 이어서 보여준다</small></div>
+      <div class="node">진행 표시<small>화면을 떠나도 계속 진행 · 돌아오면 상태를 이어서 보여줌</small></div>
       <div class="arrow">↓</div>
-      <div class="node">대상 기간 7일의 기록을 읽는다<small>활동 · 수면 · 심박 · (연동돼 있으면) 검진 결과</small></div>
+      <div class="node">대상 기간 7일의 기록을 읽음<small>활동 · 수면 · 심박 · (연동돼 있으면) 검진 결과</small></div>
       <div class="arrow">↓</div>
       <div class="loop">
         <div class="cap">영역마다 반복 — 활동량 · 수면 · 심박수 · 건강검진 · 기타</div>
-        <div class="node q">그 영역 기록이 기준 일수 이상인가?<small>기준 일수는 기개발 버전을 따른다</small></div>
+        <div class="node q">그 영역 기록이 기준 일수 이상인가?<small>기준 일수는 기개발 버전을 따름</small></div>
         <div class="arrow">↓</div>
         <div class="split">
           <div class="branch"><span class="tag">예</span>
@@ -167,14 +183,14 @@
       <div class="arrow">↓</div>
       <div class="split">
         <div class="branch"><span class="tag">성공</span>
-          <div class="node end">요약 화면으로 전환 · 이력에 그 주차 한 줄<small>이전 결과가 있었다면 대체되고 남지 않는다</small></div>
+          <div class="node end">요약 화면으로 전환 · 이력에 그 주차 한 줄<small>이전 결과가 있었다면 대체되고 남지 않음</small></div>
         </div>
         <div class="branch"><span class="tag no">실패</span>
           <div class="node muted">안내 한 줄 + 다시 시도<small>기존 결과가 있으면 그대로 유지</small></div>
         </div>
       </div>
     </div>
-    <div class="note">검진정보가 없으면 건강검진 영역을 만들지 않고, 그 사실을 종합 소견에 밝힌다. 기록 일수가 실행 기준을 겨우 넘긴 주도 종합 소견에 함께 쓴다.<br>실행에 필요한 최소 기록 일수와 영역 카드를 만드는 데 필요한 기록 일수는 새로 정하지 않고 현재 개발이 완료된 기개발 버전의 기준을 그대로 따른다.</div>
+    <div class="note">검진정보가 없으면 건강검진 영역을 만들지 않고, 그 사실을 종합 소견에 밝힘. 기록 일수가 실행 기준을 겨우 넘긴 주도 종합 소견에 함께 씀.<br>실행에 필요한 최소 기록 일수와 영역 카드를 만드는 데 필요한 기록 일수는 새로 정하지 않고 현재 개발이 완료된 기개발 버전의 기준을 그대로 따름.</div>
   </section>
 
   <!-- ④ -->
@@ -217,30 +233,30 @@
       <div class="arrow">↓</div>
       <div class="split">
         <div class="branch"><span class="tag">예</span>
-          <div class="node">다시 분석하기가 열린다<small>다시 분석하면 월~일 기준 새 결과로 대체 · 분석 기간과 이력 행의 기간이 그 주 월~일로 바뀐다</small></div>
+          <div class="node">다시 분석하기가 열림<small>다시 분석하면 월~일 기준 새 결과로 대체 · 분석 기간과 이력 행의 기간이 그 주 월~일로 바뀜</small></div>
           <div class="arrow lbl">다시 분석하지 않으면</div>
-          <div class="node muted">진행 중 기준 결과가 그대로 남는다<small>분석 기간에 지난 주 날짜가 섞여 있어 기준 차이가 드러난다</small></div>
+          <div class="node muted">진행 중 기준 결과가 그대로 남음<small>분석 기간에 지난 주 날짜가 섞여 있어 기준 차이가 드러남</small></div>
         </div>
         <div class="branch"><span class="tag no">아니오</span>
           <div class="node out">월~일 기준 결과 유지<small>입력이 바뀌지 않으면 재분석 불가</small></div>
         </div>
       </div>
     </div>
-    <div class="note">시스템이 주 종료 시 자동으로 다시 계산하지 않고, 이력에서 빼지도 않는다. 사용자가 누르지 않으면 진행 중 기준 결과가 그 주차의 결과로 남는다. 겹친 주차는 직전 주차와 점수가 실제보다 비슷하게 나올 수 있는데, 이는 감수한다(화면정의서 §6.2).</div>
+    <div class="note">시스템이 주 종료 시 자동으로 다시 계산하지 않고, 이력에서 빼지도 않음. 사용자가 누르지 않으면 진행 중 기준 결과가 그 주차의 결과로 남음. 겹친 주차는 직전 주차와 점수가 실제보다 비슷하게 나올 수 있는데, 이는 감수함(화면정의서 §6.2).</div>
   </section>
 
   <!-- ⑥ -->
   <section class="lane">
     <h2><span class="n">6</span>다시 판정하는 경우</h2>
     <div class="rules">
-      <div><b>주 이동 ‹ ›</b>그 주차 결과를 불러오고 ①부터 다시 판정한다. 결과가 없으면 그 주차 이름의 실행 버튼</div>
-      <div><b>날짜 스트립 탭</b>화면 내용이 바뀌지 않는다. 다시 판정하지 않는다</div>
-      <div><b>검진정보 연동 완료</b>분석 전이면 연동 안내 블록이 사라지고, 결과가 있으면 재분석이 열린다</div>
-      <div><b>건강 데이터 동기화로 기록 증가</b>그 주차의 기록 일수를 다시 세고 재분석 가능 여부를 갱신한다</div>
-      <div><b>건강 데이터 연동 해제</b>기존 결과와 이력은 유지하고 새 분석만 막는다</div>
-      <div><b>결과 삭제</b>그 주차는 분석 전 상태로 돌아가고 이력에서도 빠진다</div>
-      <div><b>날짜가 바뀜(자정 경과)</b>진행 중인 주의 대상 기간이 하루 이동한다. 주차당 3회 중 남은 횟수가 있으면 다시 누를 수 있다</div>
-      <div><b>주가 끝남</b>⑤로 넘어간다</div>
+      <div><b>주 이동 ‹ ›</b>그 주차 결과를 불러오고 ①부터 다시 판정함. 결과가 없으면 그 주차 이름의 실행 버튼</div>
+      <div><b>날짜 스트립 탭</b>화면 내용이 바뀌지 않음. 다시 판정하지 않음</div>
+      <div><b>검진정보 연동 완료</b>분석 전이면 연동 안내 블록이 사라지고, 결과가 있으면 재분석이 열림</div>
+      <div><b>건강 데이터 동기화로 기록 증가</b>그 주차의 기록 일수를 다시 세고 재분석 가능 여부를 갱신함</div>
+      <div><b>건강 데이터 연동 해제</b>기존 결과와 이력은 유지하고 새 분석만 막음</div>
+      <div><b>결과 삭제</b>그 주차는 분석 전 상태로 돌아가고 이력에서도 빠짐</div>
+      <div><b>날짜가 바뀜(자정 경과)</b>진행 중인 주의 대상 기간이 하루 이동함. 주차당 3회 중 남은 횟수가 있으면 다시 누를 수 있음</div>
+      <div><b>주가 끝남</b>⑤로 넘어감</div>
     </div>
   </section>
 

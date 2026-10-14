@@ -52,11 +52,27 @@
   footer{text-align:center;font-size:12px;color:var(--ink-3);margin-top:10px}
   @media(max-width:720px){.split,.rules{grid-template-columns:1fr}.step{grid-template-columns:1fr}.step .yes::after{content:"↓"}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
 <div class="wrap">
   <h1>목표 분석 · 처리 순서도</h1>
-  <p class="lead">기준일 확정 → 목표 타일 블록 → 카테고리별 연속일수 → 타일 표시 판정 → 코멘트 선택 → 렌더. 화면 진입, 완료·취소, 날짜 변경마다 전체를 다시 실행한다. 근거: 목표분석_화면정의서 §3 · §5 · §6, 목표이어가기_기능정의서.</p>
+  <p class="lead">기준일 확정 → 목표 타일 블록 → 카테고리별 연속일수 → 타일 표시 판정 → 코멘트 선택 → 렌더. 화면 진입, 완료·취소, 날짜 변경마다 전체를 다시 실행함. 근거: 목표분석_화면정의서 §3 · §5 · §6, 목표이어가기_기능정의서.</p>
 
   <!-- ① -->
   <section class="lane">
@@ -93,7 +109,7 @@
         </div>
       </div>
     </div>
-    <div class="note">목표가 없는 날은 완료 기록이 없으므로 연속일수에서는 미완료와 똑같이 연속이 끊긴다(건너뛰기 없음). 그날 화면에서는 일수를 표시하지 않을 뿐이다.</div>
+    <div class="note">목표가 없는 날은 완료 기록이 없으므로 연속일수에서는 미완료와 똑같이 연속이 끊김(건너뛰기 없음). 그날 화면에서는 일수를 표시하지 않을 뿐임.</div>
   </section>
 
   <!-- ② -->
@@ -105,8 +121,8 @@
       <div class="node q">기준일에 완료했는가?</div>
       <div class="arrow">↓</div>
       <div class="split">
-        <div class="branch"><span class="tag">예</span><div class="node out">기준일부터 센다</div></div>
-        <div class="branch"><span class="tag no">아니오</span><div class="node out">전날부터 센다<small>오늘 미완료는 아직 끊김으로 보지 않는다</small></div></div>
+        <div class="branch"><span class="tag">예</span><div class="node out">기준일부터 셈</div></div>
+        <div class="branch"><span class="tag no">아니오</span><div class="node out">전날부터 셈<small>오늘 미완료는 아직 끊김으로 보지 않음</small></div></div>
       </div>
       <div class="arrow">↓</div>
       <div class="loop">
@@ -115,14 +131,14 @@
         <div class="arrow">↓</div>
         <div class="split">
           <div class="branch"><span class="tag">예</span><div class="node out">연속일수 +1 · 시작일 = 그날 · 하루 전으로 이동<small>→ 반복으로 돌아감</small></div></div>
-          <div class="branch"><span class="tag no">아니오</span><div class="node out">연속 종료<small>완료 기록이 없으면(미완료 · 목표 없음 · 가입 전) 여기서 멈춘다</small></div></div>
+          <div class="branch"><span class="tag no">아니오</span><div class="node out">연속 종료<small>완료 기록이 없으면(미완료 · 목표 없음 · 가입 전) 여기서 멈춤</small></div></div>
         </div>
       </div>
       <div class="arrow">↓</div>
       <div class="node end">결과: 연속일수 · 시작일 · 완료 이력 유무</div>
     </div>
     <div class="rules">
-      <div><b>이전 최장 기록</b>지금 이어가는 중인 연속을 뺀, 과거에 가장 길게 이어진 일수. 과거 기록이 없으면 "해당 없음"(1일째에 최장 기록 문구가 뜨지 않게). 완료 취소 시 취소 날짜 기준으로 재계산하고, 연속이 끊겨도 보존한다.</div>
+      <div><b>이전 최장 기록</b>지금 이어가는 중인 연속을 뺀, 과거에 가장 길게 이어진 일수. 과거 기록이 없으면 "해당 없음"(1일째에 최장 기록 문구가 뜨지 않게). 완료 취소 시 취소 날짜 기준으로 재계산하고, 연속이 끊겨도 보존함.</div>
       <div><b>마디</b>7 · 14 · 30 · 50 · 100 · 150 · 200 · 250 · 300 · 365일, 이후 365의 배수. 표기: 1주 · 2주 · 한 달 · 50일 · 100일 … · 1년.</div>
       <div><b>공통 규칙</b>주·월 경계에서 리셋하지 않음 · 세 카테고리는 같은 기준일 사용 · 날짜를 옮기면 그 시점 기준으로 다시 계산.</div>
       <div><b>연속이 끊기는 경우</b>목표가 있었으나 완료하지 않은 날, 목표가 생성되지 않은 날 모두 완료 기록이 없으므로 동일하게 종료.</div>
@@ -149,7 +165,7 @@
         </div>
       </div>
     </div>
-    <div class="note">"0일째"는 어디에도 표시하지 않는다. 과거 기준일에는 "이어가는 중"(현재진행형)을 쓰지 않는다. 세 목표가 모두 없는 날은 타일 비활성(—)이며 이 판정을 거치지 않는다.</div>
+    <div class="note">"0일째"는 어디에도 표시하지 않음. 과거 기준일에는 "이어가는 중"(현재진행형)을 쓰지 않음. 세 목표가 모두 없는 날은 타일 비활성(—)이며 이 판정을 거치지 않음.</div>
   </section>
 
   <!-- ④ -->
@@ -188,7 +204,7 @@
       <div class="node end">렌더: 목표 타일 블록 + 이어가기 블록 갱신</div>
     </div>
     <div class="rules">
-      <div><b>상황 0 (목표 없음)</b>레인 ①에서 세 목표가 모두 없을 때 이미 확정되므로 이 체인(상황 1~9)에 들어오지 않는다.</div>
+      <div><b>상황 0 (목표 없음)</b>레인 ①에서 세 목표가 모두 없을 때 이미 확정되므로 이 체인(상황 1~9)에 들어오지 않음.</div>
       <div><b>문구 규칙</b>언급 카테고리가 1개면 그 카테고리를 구분해 표시, 둘 이상이거나 없으면 중립 처리(표현은 디자인에서 정함). 금지 어휘: 달성률 · 실천 점수 · 순응도 · 의지력 · 꾸준히 · 완주.</div>
     </div>
   </section>

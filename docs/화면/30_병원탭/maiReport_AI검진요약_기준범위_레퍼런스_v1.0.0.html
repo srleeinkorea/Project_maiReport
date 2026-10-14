@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
 :root{--ground:#EFF2F7;--surf:#FFFFFF;--surf-2:#F7F9FC;--surf-3:#E8EDF4;--line:#DAE1EB;--ink:#0F1826;--text:#3B4860;--muted:#6C7A8E;--faint:#8D99AB;--accent:#2F6BFF;--accent-soft:#E7EEFF;--stop:#B23A3A;--stop-soft:#FAE9E9;--ok:#1C7A57;--ok-soft:#E3F3EC;--warn:#96650A;--warn-soft:#FBF1D9;--mono:"JetBrains Mono",Consolas,monospace;--sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;--line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;--accent:#7CA1FF;--accent-soft:#1B2740;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;--warn:#E0B061;--warn-soft:#2B2314}}
-:root[data-theme="dark"]{--ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;--line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;--accent:#7CA1FF;--accent-soft:#1B2740;--stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;--warn:#E0B061;--warn-soft:#2B2314}
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);font-size:14.5px;line-height:1.75;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
 main{max-width:900px;margin:0 auto;padding:0 26px 80px}
@@ -228,12 +226,12 @@ td.diff{background:var(--warn-soft)}
 
   <h3>권장 산출 방법</h3>
   <ul>
-    <li><b>기준 자료</b>: ① 질병관리청 국민건강영양조사(KNHANES) 원시자료(무료, 신장·체중·허리둘레·가중치, 3개년 합산) ② 국민건강보험공단 NHISS 표본연구DB(검진 100만 명 표본, 신청·승인 필요). <span class="pill p-wait">변경</span> 공공데이터포털 "건강검진정보(15007122)"는 2026-09 현재 삭제되어 쓸 수 없다.</li>
-    <li><b>집단 나누기</b>: 성별 × 연령대. 원시자료는 5세 단위이므로 화면에는 10세 단위(20대·30대…)로 합쳐 표본을 키운다. 한 집단 표본이 500명 미만이면 인접 연령대와 합친다.</li>
-    <li><b>백분위 계산</b>: 항목별로 집단 안에서 내 값보다 작은 사람과 같은 사람을 센다. 모든 항목에서 값이 작은 쪽이 1등, 큰 쪽이 100등이다(화면의 5구간 라벨과 같은 방향).</li>
-    <li><b>등수 표기</b>: 백분위를 올림한 정수(1~100). 5구간은 등수를 20으로 나눠 올림한다.</li>
-    <li><b>버전 관리</b>: 분포표는 연 1회 갱신하고, 요약 저장 시 분포표 버전을 함께 기록한다(09장 저장 규칙과 동일).</li>
-    <li><b>한계 고지</b>: 공단 자료는 검진 수검자만 포함하므로 전체 인구와 조금 다를 수 있다. 화면 안내 문구 "동일한 성별·연령대 100명을 기준으로"는 이 한계를 넘어서는 표현을 쓰지 않는다.</li>
+    <li><b>기준 자료</b>: ① 질병관리청 국민건강영양조사(KNHANES) 원시자료(무료, 신장·체중·허리둘레·가중치, 3개년 합산) ② 국민건강보험공단 NHISS 표본연구DB(검진 100만 명 표본, 신청·승인 필요). <span class="pill p-wait">변경</span> 공공데이터포털 "건강검진정보(15007122)"는 2026-09 현재 삭제되어 쓸 수 없음.</li>
+    <li><b>집단 나누기</b>: 성별 × 연령대. 원시자료는 5세 단위이므로 화면에는 10세 단위(20대·30대…)로 합쳐 표본을 키움. 한 집단 표본이 500명 미만이면 인접 연령대와 합침.</li>
+    <li><b>백분위 계산</b>: 항목별로 집단 안에서 내 값보다 작은 사람과 같은 사람을 셈. 모든 항목에서 값이 작은 쪽이 1등, 큰 쪽이 100등임(화면의 5구간 라벨과 같은 방향).</li>
+    <li><b>등수 표기</b>: 백분위를 올림한 정수(1~100). 5구간은 등수를 20으로 나눠 올림함.</li>
+    <li><b>버전 관리</b>: 분포표는 연 1회 갱신하고, 요약 저장 시 분포표 버전을 함께 기록함(09장 저장 규칙과 동일).</li>
+    <li><b>한계 고지</b>: 공단 자료는 검진 수검자만 포함하므로 전체 인구와 조금 다를 수 있음. 화면 안내 문구 "동일한 성별·연령대 100명을 기준으로"는 이 한계를 넘어서는 표현을 쓰지 않음.</li>
   </ul>
 
   <h3>산식 (처음 보는 사람용)</h3>
@@ -242,7 +240,7 @@ td.diff{background:var(--warn-soft)}
     <tbody>
       <tr><td class="k">① 또래 집단</td><td>사용자와 같은 성별, 같은 5세 연령대의 표본 전체(KNHANES는 가중치 적용)</td><td>예: 여성 40~44세 → N명</td></tr>
       <tr><td class="k">② 세기</td><td>그 집단에서 내 값보다 작은 사람 수 a, 같은 사람 수 b</td><td>정렬 후 계수</td></tr>
-      <tr><td class="k">③ 백분위</td><td>같은 값은 중간에 둔다</td><td class="num">P = (a + 0.5 × b) ÷ N × 100</td></tr>
+      <tr><td class="k">③ 백분위</td><td>같은 값은 중간에 둠</td><td class="num">P = (a + 0.5 × b) ÷ N × 100</td></tr>
       <tr><td class="k">④ 등수</td><td>화면의 "내 또래 100명 중 N등"</td><td class="num">등수 = 올림(P), 0이면 1 → 1~100</td></tr>
       <tr><td class="k">⑤ 구간</td><td>사람 그림 5개 중 진하게 칠할 위치</td><td class="num">band = 올림(등수 ÷ 20) → 1~5</td></tr>
     </tbody>
@@ -250,10 +248,10 @@ td.diff{background:var(--warn-soft)}
   <p class="mut" style="margin-top:10px"><b>계산 예</b> — 여성 42세, BMI 25.7 (2024 통계연보 Ⅵ-2 실제 값). 여성 40~44세 N = 895,583명, 구간별 인원 18.5 미만 56,655 · 18.5~24.9 605,744 · 25~29.9 170,802 · 30~39.9 59,714 · 40 이상 2,668.
   25.7보다 작은 사람 a = 56,655 + 605,744 + 170,802 × (25.7 − 25) ÷ 5 = 686,311, 같은 사람 b ≈ 0 → P = 686,311 ÷ 895,583 × 100 = 76.6 → 77등 → band 4 "조금 높은 편이에요". BMI ≥ 25라 배지는 주의 톤.</p>
   <ul>
-    <li><b>등수의 뜻</b>: 1등 = 값이 가장 작음, 100등 = 가장 큼. 좋고 나쁨이 아니라 위치다. 건강 기준(BMI ≥ 25, 허리둘레 여 ≥ 85 / 남 ≥ 90)은 등수와 별개로 배지 톤에만 반영한다.</li>
-    <li><b>미리 계산</b>: 성별 × 5세 연령대 × 항목마다 1~100 백분위 경계값 100개를 표로 저장해 두고, 사용자 값을 그 표에서 찾는다. 매번 표본 전체를 세지 않는다.</li>
-    <li><b>표본이 적을 때</b>: 집단이 500명 미만이면 인접 연령대와 합치고, 그래도 부족하면 등수를 표시하지 않고 "또래 비교 데이터를 준비 중이에요"로 대체한다.</li>
-    <li><b>자녀 프로필</b>: 성인 검진 표본이 없으므로 질병관리청 소아청소년 성장도표 백분위를 쓴다.</li>
+    <li><b>등수의 뜻</b>: 1등 = 값이 가장 작음, 100등 = 가장 큼. 좋고 나쁨이 아니라 위치다. 건강 기준(BMI ≥ 25, 허리둘레 여 ≥ 85 / 남 ≥ 90)은 등수와 별개로 배지 톤에만 반영함.</li>
+    <li><b>미리 계산</b>: 성별 × 5세 연령대 × 항목마다 1~100 백분위 경계값 100개를 표로 저장해 두고, 사용자 값을 그 표에서 찾음. 매번 표본 전체를 세지 않음.</li>
+    <li><b>표본이 적을 때</b>: 집단이 500명 미만이면 인접 연령대와 합치고, 그래도 부족하면 등수를 표시하지 않고 "또래 비교 데이터를 준비 중이에요"로 대체함.</li>
+    <li><b>자녀 프로필</b>: 성인 검진 표본이 없으므로 질병관리청 소아청소년 성장도표 백분위를 씀.</li>
   </ul>
   <p class="src">출처:
     <a href="https://knhanes.kdca.go.kr/knhanes/main.do">질병관리청 · 국민건강영양조사 원시자료 (메뉴: 원시자료 → 다운로드)</a> ·
@@ -293,7 +291,7 @@ td.diff{background:var(--warn-soft)}
     <li>같은 내용의 CSV 3개(<code>또래등수_참조표_요약_2024.csv</code>, <code>…백분위1-100_2024.csv</code>, <code>…신장체중평균_2024.csv</code>)</li>
     <li>원본: 국민건강보험공단 › 건강검진 통계연보 › 2024년 건강검진통계연보 첨부 "2024 건강검진통계연보(엑셀 등).zip" (2025-12-31 게시) — <a href="https://www.nhis.or.kr/nhis/together/wbhaec07000m01.do?mode=view&articleNo=11008126">게시글</a></li>
   </ul>
-  <p class="mut">계산: 구간별 인원 누적 → 목표 백분위 지점이 속한 구간에서 선형보간. 양 끝 열린 구간은 BMI 14~18.5 / 40~50, 허리둘레 55~75 / 110~125로 가정. 값은 소수 1자리 반올림. 백분위 → 등수 → band 규칙은 04장 산식과 같다.</p>
+  <p class="mut">계산: 구간별 인원 누적 → 목표 백분위 지점이 속한 구간에서 선형보간. 양 끝 열린 구간은 BMI 14~18.5 / 40~50, 허리둘레 55~75 / 110~125로 가정. 값은 소수 1자리 반올림. 백분위 → 등수 → band 규칙은 04장 산식과 같음.</p>
 </section>
 <!-- 05 -->
 <section>

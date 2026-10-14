@@ -55,6 +55,22 @@
   .sample .row:last-of-type{border-radius:0 0 10px 10px}
   @media(max-width:720px){.grid2{grid-template-columns:1fr}.hero{padding:28px 22px}section.card{padding:22px 18px}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -62,7 +78,7 @@
 <div class="hero">
   <span class="tag">마이리포트 v2 · 화면정의서</span>
   <h1>생활 탭 &gt; 지표별 분석 화면정의서</h1>
-  <p>홈 '오늘의 컨디션'이 세 지표의 오늘 상태를 한 눈에 보여준다면, 이 화면은 그 상태가 어떤 흐름 위에 있는지와 어떤 데이터에서 나왔는지를 지표별 카드로 풀어 보여준다. 숫자 점수는 쓰지 않고 세 구간 띠 위의 주간 그래프, 구간 라벨, 흐름 설명, 핵심 데이터로만 구성한다.</p>
+  <p>홈 '오늘의 컨디션'이 세 지표의 오늘 상태를 한 눈에 보여준다면, 이 화면은 그 상태가 어떤 흐름 위에 있는지와 어떤 데이터에서 나왔는지를 지표별 카드로 풀어 보여줌. 숫자 점수는 쓰지 않고 세 구간 띠 위의 주간 그래프, 구간 라벨, 흐름 설명, 핵심 데이터로만 구성함.</p>
   <div class="meta"><span>작성일 <b>2026-09-16</b></span><span>버전 <b>1.0</b></span><span>대상 화면 <b>생활 탭 &gt; 지표별 분석</b></span><span>연관 문서 <b>홈화면_화면정의서 · 생활지표_기획서 · 프로토타입(mai-report-prototype_v1.0.0.html)</b></span></div>
 </div>
 
@@ -75,7 +91,7 @@
   <h2><span class="n">1</span>화면 개요</h2>
   <div class="sub">위치, 역할, 화면 구조</div>
   <h3>1.1 위치와 역할</h3>
-  <p>생활 탭의 두 번째 서브탭(목표 분석 · <b>지표별 분석</b> · 생활 분석 · AI 인사이트). 홈의 오늘의 컨디션 카드나 › 를 누르면 이 탭으로 들어온다. 사용자는 세 카드를 내려 보며 생활여유 → 자기돌봄 → 일상안정 순으로 "지금 어느 구간인지 · 이번 주 어떻게 움직였는지 · 왜 그런지 · 어떤 데이터가 쓰였는지"를 확인한다.</p>
+  <p>생활 탭의 두 번째 서브탭(목표 분석 · <b>지표별 분석</b> · 생활 분석 · AI 인사이트). 홈의 오늘의 컨디션 카드나 › 를 누르면 이 탭으로 들어옴. 사용자는 세 카드를 내려 보며 생활여유 → 자기돌봄 → 일상안정 순으로 "지금 어느 구간인지 · 이번 주 어떻게 움직였는지 · 왜 그런지 · 어떤 데이터가 쓰였는지"를 확인함.</p>
   <h3>1.2 화면 구조</h3>
   <div class="flow">
     <div><b>상단 공통</b>생활 헤더(주차 · 오늘 버튼) · 날짜 스트립 · 서브탭</div>
@@ -83,9 +99,9 @@
     <div><b>카드 ② 자기돌봄</b>동일 구성</div>
     <div><b>카드 ③ 일상안정</b>동일 구성 (기준: 최근 7일)</div>
   </div>
-  <p>카드 순서는 고정이며 접힘/펼침이 없다. 세 카드 외의 요약·합산 영역은 두지 않는다.</p>
+  <p>카드 순서는 고정이며 접힘/펼침이 없음. 세 카드 외의 요약·합산 영역은 두지 않음.</p>
   <h3>1.3 기준일</h3>
-  <p>날짜 스트립에서 선택한 날이 기준일이다. 기본은 오늘. 과거 날짜를 선택하면 그날의 구간·흐름·핵심 데이터를 보여주고, 미래 날짜는 선택할 수 없다. 이전 주로 이동하면 그 주 일요일이 기준일이 되며 읽기 전용이다.</p>
+  <p>날짜 스트립에서 선택한 날이 기준일임. 기본은 오늘. 과거 날짜를 선택하면 그날의 구간·흐름·핵심 데이터를 보여주고, 미래 날짜는 선택할 수 없음. 이전 주로 이동하면 그 주 일요일이 기준일이 되며 읽기 전용임.</p>
 </section>
 
 <!-- 2 -->
@@ -104,13 +120,13 @@
 <!-- 3 -->
 <section class="card" id="s3">
   <h2><span class="n">3</span>지표 카드 구성</h2>
-  <div class="sub">세 카드가 같은 구성을 쓴다. 헤더 · 주간 그래프 · 핵심 데이터</div>
+  <div class="sub">세 카드가 같은 구성을 씀. 헤더 · 주간 그래프 · 핵심 데이터</div>
   <table>
     <tr><th style="width:130px">영역</th><th>내용</th><th style="width:36%">규칙</th></tr>
-    <tr><td class="k">헤더</td><td>지표명 · <b>?</b> 버튼 · 구간 배지</td><td>구간 배지는 기준일의 구간 라벨. 전일 대비 방향(▲▼·변화 없음), 점수, 기준 캡션은 두지 않는다</td></tr>
-    <tr><td class="k">정의 토글</td><td>? 를 누르면 "한 줄 정의 + 부연 설명"이 펼쳐진다. 다시 누르면 닫힘</td><td>지표명을 반복하지 않고 정의로 바로 시작. 기본 닫힘</td></tr>
+    <tr><td class="k">헤더</td><td>지표명 · <b>?</b> 버튼 · 구간 배지</td><td>구간 배지는 기준일의 구간 라벨. 전일 대비 방향(▲▼·변화 없음), 점수, 기준 캡션은 두지 않음</td></tr>
+    <tr><td class="k">정의 토글</td><td>? 를 누르면 "한 줄 정의 + 부연 설명"이 펼쳐짐. 다시 누르면 닫힘</td><td>지표명을 반복하지 않고 정의로 바로 시작. 기본 닫힘</td></tr>
     <tr><td class="k">주간 그래프</td><td>세 구간 띠 위에 그리는 월~일 흐름</td><td>§4</td></tr>
-    <tr><td class="k">핵심 데이터</td><td>지표 산출에 실제로 쓰인 항목의 기준일 값 목록</td><td>항목명 + 값만. 판정 표시(비슷·낮춤·충분 등)와 평소 대비 문구는 쓰지 않는다. §6</td></tr>
+    <tr><td class="k">핵심 데이터</td><td>지표 산출에 실제로 쓰인 항목의 기준일 값 목록</td><td>항목명 + 값만. 판정 표시(비슷·낮춤·충분 등)와 평소 대비 문구는 쓰지 않음. §6</td></tr>
   </table>
 </section>
 
@@ -120,13 +136,13 @@
   <div class="sub">숫자를 노출하지 않으면서 흐름을 읽게 하는 장치. 띠는 의미, 선은 움직임</div>
   <table>
     <tr><th style="width:150px">요소</th><th>규칙</th></tr>
-    <tr><td class="k">구간 영역</td><td>좋음 · 보통 · 주의 세 구간을 그래프 배경 영역으로 구분하고 각 구간에 짧은 이름을 붙인다(§5). 구간 비율은 구간 경계(잠정 66 / 33)를 따른다</td></tr>
+    <tr><td class="k">구간 영역</td><td>좋음 · 보통 · 주의 세 구간을 그래프 배경 영역으로 구분하고 각 구간에 짧은 이름을 붙임(§5). 구간 비율은 구간 경계(잠정 66 / 33)를 따름</td></tr>
     <tr><td class="k">기간</td><td>월~일 7일. 기준일을 구분해 표시. 이전 주로 이동하면 그 주의 요일</td></tr>
-    <tr><td class="k">값 표시</td><td>값이 있는 날만 점을 찍고 이웃한 날끼리 선으로 잇는다</td></tr>
+    <tr><td class="k">값 표시</td><td>값이 있는 날만 점을 찍고 이웃한 날끼리 선으로 이음</td></tr>
     <tr><td class="k">기준일</td><td>다른 날과 구분되게 표시</td></tr>
-    <tr><td class="k">결측 · 미래</td><td>점을 찍지 않고 선을 끊는다. 0이나 이전 값으로 메우지 않는다. 미래 요일은 비워 둔다</td></tr>
-    <tr><td class="k">표시하지 않는 것</td><td>축 눈금·숫자, 점 위 값, 평균선, 증감 표시. 점을 눌러도 값이 뜨지 않는다</td></tr>
-    <tr><td class="k">일상안정</td><td>다른 두 지표와 같은 형식으로 그리되, 각 날의 값은 "그날 기준 최근 7일"로 산정한 것이다(§5)</td></tr>
+    <tr><td class="k">결측 · 미래</td><td>점을 찍지 않고 선을 끊음. 0이나 이전 값으로 메우지 않음. 미래 요일은 비워 둠</td></tr>
+    <tr><td class="k">표시하지 않는 것</td><td>축 눈금·숫자, 점 위 값, 평균선, 증감 표시. 점을 눌러도 값이 뜨지 않음</td></tr>
+    <tr><td class="k">일상안정</td><td>다른 두 지표와 같은 형식으로 그리되, 각 날의 값은 "그날 기준 최근 7일"로 산정한 것임(§5)</td></tr>
   </table>
 </section>
 
@@ -146,7 +162,7 @@
     <tr><td class="k">자기돌봄</td><td><span class="pill p-g">잘하고 있어요</span><span class="pill p-m">보통이에요</span><span class="pill p-l">부족해요</span></td><td>잘함 · 보통 · 부족</td></tr>
     <tr><td class="k">일상안정</td><td><span class="pill p-g">안정적이에요</span><span class="pill p-m">비슷해요</span><span class="pill p-l">불안정해요</span></td><td>안정 · 비슷 · 불안정</td></tr>
   </table>
-  <p class="note">구간 경계는 잠정 66 / 33(0~100 내부 규칙값). 산식과 결측 원칙은 생활지표_기획서를 따른다.</p>
+  <p class="note">구간 경계는 잠정 66 / 33(0~100 내부 규칙값). 산식과 결측 원칙은 생활지표_기획서를 따름.</p>
 </section>
 
 <!-- 6 -->
@@ -163,18 +179,18 @@
     <tr><td class="k">심박수</td><td>–</td><td>–</td><td>●</td><td>안정 시 심박</td></tr>
     <tr><td class="k">체중</td><td>–</td><td>–</td><td>●</td><td>기록이 있는 날만</td></tr>
   </table>
-  <p>활동 칼로리 · 체지방률 · BMI · 혈압 · 혈당 · 식사 기록 · 질문 응답은 산식의 맥락 보강에만 쓰이므로 이 목록에 올리지 않는다.</p>
+  <p>활동 칼로리 · 체지방률 · BMI · 혈압 · 혈당 · 식사 기록 · 질문 응답은 산식의 맥락 보강에만 쓰이므로 이 목록에 올리지 않음.</p>
 </section>
 
 <!-- 7 -->
 <section class="card" id="s7">
   <h2><span class="n">7</span>상태 정의</h2>
-  <div class="sub">카드 단위로 판정한다. 한 화면에 상태가 다른 카드가 섞일 수 있다</div>
+  <div class="sub">카드 단위로 판정함. 한 화면에 상태가 다른 카드가 섞일 수 있음</div>
   <table>
     <tr><th style="width:150px">상태</th><th>조건</th><th style="width:44%">화면</th></tr>
     <tr><td class="k">산정 가능</td><td>기준일 구간이 산출됨</td><td>§3 전체 구성</td></tr>
-    <tr><td class="k">관찰 중</td><td>기준일 구간을 산출할 수 없음(데이터 부족, 기준선 미형성 등)</td><td>지표명만 두고 그래프·흐름·핵심 데이터 대신 빈 상태: "아직 관찰 중이에요" + 지표별 사유 한 줄. 구간 배지 없음. 결측을 낮은 구간으로 표시하지 않는다</td></tr>
-    <tr><td class="k">주 중 일부 결측</td><td>기준일은 산정되지만 주 중 일부 날이 결측</td><td>정상 카드. 그래프에서 해당 날만 점 없이 선을 끊는다</td></tr>
+    <tr><td class="k">관찰 중</td><td>기준일 구간을 산출할 수 없음(데이터 부족, 기준선 미형성 등)</td><td>지표명만 두고 그래프·흐름·핵심 데이터 대신 빈 상태: "아직 관찰 중이에요" + 지표별 사유 한 줄. 구간 배지 없음. 결측을 낮은 구간으로 표시하지 않음</td></tr>
+    <tr><td class="k">주 중 일부 결측</td><td>기준일은 산정되지만 주 중 일부 날이 결측</td><td>정상 카드. 그래프에서 해당 날만 점 없이 선을 끊음</td></tr>
     <tr><td class="k">과거 날짜 선택</td><td>이번 주의 지난 날을 기준일로 선택</td><td>그날 기준 구간·흐름·핵심 데이터. 흐름 문장은 과거형</td></tr>
     <tr><td class="k">이전 주</td><td>‹ 로 지난 주 이동</td><td>읽기 전용 안내 한 줄, 그 주 일요일을 기준일로 세 카드 표시. 기록이 준비되지 않은 주는 안내만</td></tr>
     <tr><td class="k">건강 데이터 미연동</td><td>연동 없음</td><td>세 카드 대신 연동 안내("건강 데이터를 연동하면 지표별 흐름을 볼 수 있어요" + 연동 버튼). 관찰 중과 구분</td></tr>
@@ -192,7 +208,7 @@
     <tr><td class="k">‹ › 주 이동</td><td>그 주의 그래프·요일로 교체. 이전 주는 읽기 전용, 다음 주 불가</td></tr>
     <tr><td class="k">오늘 버튼</td><td>이번 주 · 오늘로 복귀</td></tr>
     <tr><td class="k">? 버튼</td><td>해당 카드의 정의 토글만 열고 닫음. 다른 카드에 영향 없음. 화면을 떠나면 닫힘</td></tr>
-    <tr><td class="k">낮 동안 기기 데이터 갱신</td><td>오늘 기준 구간·흐름·핵심 데이터가 재산정될 수 있다(홈 컨디션과 동일 값)</td></tr>
+    <tr><td class="k">낮 동안 기기 데이터 갱신</td><td>오늘 기준 구간·흐름·핵심 데이터가 재산정될 수 있음(홈 컨디션과 동일 값)</td></tr>
     <tr><td class="k">건강 데이터 연동 완료 / 해제</td><td>연동 시 세 카드 즉시 렌더, 해제 시 미연동 상태</td></tr>
   </table>
 </section>

@@ -105,6 +105,22 @@
     }
     @media print{body{background:#FFF}.top{display:none}main{max-width:none;padding:0}.hero,.section,.toc,.src{box-shadow:none;break-inside:avoid}.section{break-before:page}tr,.card,.flow .step,.check-item{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0}}
   </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
   <header class="top">
@@ -124,8 +140,8 @@
   <main>
     <section class="hero" id="top">
       <span class="eyebrow">maiReport · Logical Data Model</span>
-      <h1>지표 산출과 이용권 결제에<br>필요한 데이터를 도출한다.</h1>
-      <p>물리 스키마가 아니라 <strong>논리 데이터 모델</strong>입니다. 생활 해석 지표(생활여유·자기돌봄·일상안정) 산출에 필요한 엔터티와, 분석 이용권 인앱결제·환불 운영에 필요한 엔터티를 정의하고, 상태 전이·무결성 규칙·보존 정책·미확정 항목을 정리합니다. 실제 컬럼 타입·인덱스·정규화 수준은 상세 설계에서 확정합니다.</p>
+      <h1>지표 산출과 이용권 결제에<br>필요한 데이터를 도출함.</h1>
+      <p>물리 스키마가 아니라 <strong>논리 데이터 모델</strong>임. 생활 해석 지표(생활여유·자기돌봄·일상안정) 산출에 필요한 엔터티와, 분석 이용권 인앱결제·환불 운영에 필요한 엔터티를 정의하고, 상태 전이·무결성 규칙·보존 정책·미확정 항목을 정리함. 실제 컬럼 타입·인덱스·정규화 수준은 상세 설계에서 확정함.</p>
       <div class="chips">
         <span class="chip">지표 도메인 4 엔터티</span>
         <span class="chip">결제 도메인 5 엔터티</span>
@@ -179,7 +195,7 @@
     <!-- 2 -->
     <section class="section" id="s2">
       <div class="section-head"><span class="section-label">02 · Domain Map</span><h2>도메인 맵</h2>
-        <p>두 도메인은 <b>사용자</b>와 <b>분석 실행</b>에서 만납니다. 이용권으로 실행한 분석 결과가 지표 도메인의 맥락 데이터가 될 수 있으나, 지표 상태는 이용권과 무관하게 산출됩니다.</p>
+        <p>두 도메인은 <b>사용자</b>와 <b>분석 실행</b>에서 만남. 이용권으로 실행한 분석 결과가 지표 도메인의 맥락 데이터가 될 수 있으나, 지표 상태는 이용권과 무관하게 산출됨.</p>
       </div>
       <div class="table-wrap"><table>
         <thead><tr><th>엔터티</th><th>도메인</th><th>주요 참조</th><th>1건의 의미</th></tr></thead>
@@ -232,10 +248,10 @@
           <tr><td>updated_at</td><td>ts</td><td>재계산 시각</td></tr>
         </tbody>
       </table></div>
-      <p class="lead">기준선이 없으면 지표는 값을 내지 않고 <b>&lsquo;관찰 중&rsquo;</b>으로 남습니다. 신규 사용자 기준 형성 기간은 미확정(9장 B-9).</p>
+      <p class="lead">기준선이 없으면 지표는 값을 내지 않고 <b>&lsquo;관찰 중&rsquo;</b>으로 남음. 신규 사용자 기준 형성 기간은 미확정(9장 B-9).</p>
 
       <h3 class="block"><span class="tag">metric_state</span> 지표 상태 · 화면 바인딩 핵심</h3>
-      <p class="lead">구 <code>metric_score</code>를 대체합니다. 지표 기획서 v0.3은 사용자에게 <b>점수가 아니라 상태 표현</b>을 노출하므로(P4), 0~100 점수를 1급 필드로 두지 않고 <code>state_key</code>를 1급으로, 계산 값은 <code>internal_value</code>(비노출)로 둡니다.</p>
+      <p class="lead">구 <code>metric_score</code>를 대체함. 지표 기획서 v0.3은 사용자에게 <b>점수가 아니라 상태 표현</b>을 노출하므로(P4), 0~100 점수를 1급 필드로 두지 않고 <code>state_key</code>를 1급으로, 계산 값은 <code>internal_value</code>(비노출)로 둠.</p>
       <div class="table-wrap"><table>
         <thead><tr><th>필드</th><th>타입</th><th>설명</th></tr></thead>
         <tbody>
@@ -265,10 +281,10 @@
           <tr><td><code>life_steadying</code></td><td>일상안정</td><td>불안정해요</td><td>보통이에요</td><td>안정적이에요</td><td>관찰 중</td><td><b>전주 대비(주)</b></td></tr>
         </tbody>
       </table></div>
-      <p class="lead">low/mid/high는 순서 있는 등급이지만 <b>지표 간 비교·합산 대상이 아닙니다</b>(P5). 지표 2의 최종 명칭은 <b>2026-09-11 &lsquo;자기돌봄&rsquo;으로 확정</b>했습니다(C-1 종결). enum 값(<code>self_care</code>)과 표시명은 분리해 두었으므로 표시명이 바뀌어도 모델은 영향받지 않습니다.</p>
-      <div class="callout"><span>표시 라벨은 저장하지 않습니다 &mdash; C-3 확정</span>
-        <p>어휘는 <b>2026-09-11 문장형으로 확정</b>했습니다(위 표). 기획서 7장의 명사형 표기는 이 결정에 맞춰 갱신 대상입니다.</p>
-        <p>어휘가 확정된 뒤에도 <code>metric_state</code>에는 <b><code>state_key</code>(low/mid/high/observing)만 저장하고 표시 문자열은 저장하지 않습니다.</b> 라벨은 클라이언트·문구 템플릿이 <code>state_key</code>에서 렌더하므로, 문구가 나중에 다듬어져도 <b>데이터 마이그레이션이 필요 없고</b> 과거 스냅샷의 의미도 바뀌지 않습니다.</p></div>
+      <p class="lead">low/mid/high는 순서 있는 등급이지만 <b>지표 간 비교·합산 대상이 아님</b>(P5). 지표 2의 최종 명칭은 <b>2026-09-11 &lsquo;자기돌봄&rsquo;으로 확정</b>했음(C-1 종결). enum 값(<code>self_care</code>)과 표시명은 분리해 두었으므로 표시명이 바뀌어도 모델은 영향받지 않음.</p>
+      <div class="callout"><span>표시 라벨은 저장하지 않음 &mdash; C-3 확정</span>
+        <p>어휘는 <b>2026-09-11 문장형으로 확정</b>했음(위 표). 기획서 7장의 명사형 표기는 이 결정에 맞춰 갱신 대상임.</p>
+        <p>어휘가 확정된 뒤에도 <code>metric_state</code>에는 <b><code>state_key</code>(low/mid/high/observing)만 저장하고 표시 문자열은 저장하지 않음.</b> 라벨은 클라이언트·문구 템플릿이 <code>state_key</code>에서 렌더하므로, 문구가 나중에 다듬어져도 <b>데이터 마이그레이션이 필요 없고</b> 과거 스냅샷의 의미도 바뀌지 않음.</p></div>
 
       <h3 class="block"><span class="tag">daily_checkin</span> 자가보고(문진)</h3>
       <div class="table-wrap"><table>
@@ -422,8 +438,8 @@
           <tr><td><b>R14</b></td><td>daily_checkin(자가보고)과 식사 기록은 state_key를 상향시키는 입력이 될 수 없음 &mdash; inputs_used의 role=aux로만 기록</td><td>지표 기획서 1장 P1·P3</td></tr>
           <tr><td><b>R15</b></td><td>세 지표를 합산·평균한 종합 점수/종합 등급 엔터티를 두지 않음</td><td>지표 기획서 1장 P5</td></tr>
           <tr><td><b>R16</b></td><td>internal_value는 클라이언트 응답에 포함하지 않음(서버 내부·분석용)</td><td>지표 기획서 1장 P4</td></tr>
-          <tr><td><b>R17</b></td><td><code>life_steadying</code>의 산출 채널이 기록량뿐이면 <code>state_key=observing</code>으로 저장한다. 기록량 방향은 별도 서술 필드로만 보관하고 state_key를 만들지 않는다</td><td>지표 기획서 3·6장 · 2026-09-11 결정</td></tr>
-          <tr><td><b>R18</b></td><td><code>value_scale=low_res</code> 행에는 기기 보강값·생리 상한을 적용하지 않는다. 보강 여부는 <code>internal_value</code>가 아니라 별도 플래그로 추적한다</td><td>지표 기획서 2·8장 · 2026-09-11 결정</td></tr>
+          <tr><td><b>R17</b></td><td><code>life_steadying</code>의 산출 채널이 기록량뿐이면 <code>state_key=observing</code>으로 저장함. 기록량 방향은 별도 서술 필드로만 보관하고 state_key를 만들지 않음</td><td>지표 기획서 3·6장 · 2026-09-11 결정</td></tr>
+          <tr><td><b>R18</b></td><td><code>value_scale=low_res</code> 행에는 기기 보강값·생리 상한을 적용하지 않음. 보강 여부는 <code>internal_value</code>가 아니라 별도 플래그로 추적함</td><td>지표 기획서 2·8장 · 2026-09-11 결정</td></tr>
         </tbody>
       </table></div>
     </section>
@@ -441,7 +457,7 @@
     <!-- 8 -->
     <section class="section" id="s8">
       <div class="section-head"><span class="section-label">08 · As-Is ↔ Proposed</span><h2>As-Is ↔ 제안 차이</h2>
-        <p>프로토타입/운영 화면의 현재 구조와, 정책·지표 기획서가 요구하는 추가 사항의 차이입니다. 운영툴 요구사항으로 이관해야 합니다.</p>
+        <p>프로토타입/운영 화면의 현재 구조와, 정책·지표 기획서가 요구하는 추가 사항의 차이임. 운영툴 요구사항으로 이관해야 함.</p>
       </div>
       <div class="table-wrap"><table>
         <thead><tr><th>항목</th><th>As-Is</th><th>제안(정책/기획 반영)</th><th>영향</th></tr></thead>

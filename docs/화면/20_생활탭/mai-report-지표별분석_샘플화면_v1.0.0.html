@@ -74,18 +74,34 @@
   .note{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:12.5px;color:var(--ink-2);line-height:1.65;margin-top:14px;}
   .note b{color:var(--ink-1);}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
 </head>
 <body>
 <div class="wrap">
   <h1>생활 탭 &gt; 지표별 분석 — 샘플 화면 비교</h1>
-  <p class="lead">동일한 데이터(8월 4주 목요일 선택)를 세 가지 표현 방식으로 나란히 두었다. 값·문구는 예시다. 왼쪽이 권장안이며, 가운데는 주간 시각 요소를 완전히 없애기 부담스러울 때의 차선안, 오른쪽은 어색하다고 지적된 요일별 구간 칩 안(비교 기준)이다.</p>
+  <p class="lead">동일한 데이터(8월 4주 목요일 선택)를 세 가지 표현 방식으로 나란히 두었음. 값·문구는 예시임. 왼쪽이 권장안이며, 가운데는 주간 시각 요소를 완전히 없애기 부담스러울 때의 차선안, 오른쪽은 어색하다고 지적된 요일별 구간 칩 안(비교 기준)임.</p>
 
   <div class="cols">
 
     <!-- ================= A. 권장안 ================= -->
     <div>
       <p class="col-title">A. 시계열 제거 <span class="tag rec">권장</span></p>
-      <p class="col-sub">카드 = 구간 배지 + 추세 한 줄 + 이번 주 해석 + 핵심 데이터. 주간 흐름은 해석 문장이 담당하고, 과거 날짜는 상단 스트립에서 눌러 본다.</p>
+      <p class="col-sub">카드 = 구간 배지 + 추세 한 줄 + 이번 주 해석 + 핵심 데이터. 주간 흐름은 해석 문장이 담당하고, 과거 날짜는 상단 스트립에서 눌러 봄.</p>
       <div class="phone">
         <div class="sb"><span>9:41</span><span>●●●</span></div>
         <div class="tabs"><span>목표 분석</span><span class="on">지표별 분석</span><span>생활 분석</span><span>AI 인사이트</span></div>
@@ -126,7 +142,7 @@
     <!-- ================= B. 차선안 ================= -->
     <div>
       <p class="col-title">B. 기록 유무 도트 <span class="tag alt">차선</span></p>
-      <p class="col-sub">좋고 나쁨 색은 쓰지 않는다. 채움 = 그날 지표 산출됨, 빈 원 = 데이터 없음, 선택일만 진하게. "어느 날을 볼 수 있는가"만 알려주는 내비게이션 힌트.</p>
+      <p class="col-sub">좋고 나쁨 색은 쓰지 않음. 채움 = 그날 지표 산출됨, 빈 원 = 데이터 없음, 선택일만 진하게. "어느 날을 볼 수 있는가"만 알려주는 내비게이션 힌트.</p>
       <div class="phone">
         <div class="sb"><span>9:41</span><span>●●●</span></div>
         <div class="tabs"><span>목표 분석</span><span class="on">지표별 분석</span><span>생활 분석</span><span>AI 인사이트</span></div>
@@ -176,7 +192,7 @@
     <!-- ================= C. 비교 기준 ================= -->
     <div>
       <p class="col-title">C. 요일별 구간 칩 <span class="tag old">비교 기준 · 비권장</span></p>
-      <p class="col-sub">앞서 지적된 안. 요일마다 좋고 나쁨 색이 붙어 '이번 주 성적표'로 읽히고, 헤더가 이미 말한 결론을 더 크게 반복한다.</p>
+      <p class="col-sub">앞서 지적된 안. 요일마다 좋고 나쁨 색이 붙어 '이번 주 성적표'로 읽히고, 헤더가 이미 말한 결론을 더 크게 반복함.</p>
       <div class="phone">
         <div class="sb"><span>9:41</span><span>●●●</span></div>
         <div class="tabs"><span>목표 분석</span><span class="on">지표별 분석</span><span>생활 분석</span><span>AI 인사이트</span></div>
@@ -226,7 +242,7 @@
   </div>
 
   <div class="note">
-    <b>비교 포인트.</b> A는 카드 높이가 가장 낮고 시선이 배지 → 해석 → 데이터 순으로 한 번에 내려간다. '이번 주 해석'을 "주 전체 경향 + 최근 변화 + 이유"로 쓰면 C의 색 칸이 하려던 일을 문장이 더 정확히 한다. B는 A에 도트 한 줄만 더한 것이라 채점 프레이밍은 없지만, 상단 날짜 스트립과 역할이 겹친다. C는 헤더의 결론(▼ 낮아졌어요 / 보통이에요)을 색 7칸으로 다시 크게 반복하고, 일상안정은 지표 성격(여러 날의 방향)과 표현 단위(하루 판정)가 어긋난다. A의 일상안정 부제를 "최근 7일 기준"으로 바꾼 것도 같은 이유다.
+    <b>비교 포인트.</b> A는 카드 높이가 가장 낮고 시선이 배지 → 해석 → 데이터 순으로 한 번에 내려감. '이번 주 해석'을 "주 전체 경향 + 최근 변화 + 이유"로 쓰면 C의 색 칸이 하려던 일을 문장이 더 정확히 함. B는 A에 도트 한 줄만 더한 것이라 채점 프레이밍은 없지만, 상단 날짜 스트립과 역할이 겹침. C는 헤더의 결론(▼ 낮아졌어요 / 보통이에요)을 색 7칸으로 다시 크게 반복하고, 일상안정은 지표 성격(여러 날의 방향)과 표현 단위(하루 판정)가 어긋남. A의 일상안정 부제를 "최근 7일 기준"으로 바꾼 것도 같은 이유임.
   </div>
 </div>
 </body>

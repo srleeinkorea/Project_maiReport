@@ -17,28 +17,6 @@
   --mono:"JetBrains Mono",Consolas,monospace;
   --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --ground:#0C1117;--surf:#151B24;--surf-2:#1A212B;--surf-3:#232C39;
-  --line:#2A3442;--line-strong:#5A697D;
-  --ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6D798C;
-  --accent:#7CA1FF;--accent-soft:#1B2740;
-  --store:#5DC9A1;--store-soft:#112A22;
-  --proc:#7CA1FF;--proc-soft:#1B2740;
-  --ext:#B196EE;--ext-soft:#241D37;
-  --warn:#E0B061;--warn-soft:#2B2314;
-  --stop:#EC8484;--stop-soft:#2E1A1A;
-}}
-:root[data-theme="dark"]{
-  --ground:#0C1117;--surf:#151B24;--surf-2:#1A212B;--surf-3:#232C39;
-  --line:#2A3442;--line-strong:#5A697D;
-  --ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6D798C;
-  --accent:#7CA1FF;--accent-soft:#1B2740;
-  --store:#5DC9A1;--store-soft:#112A22;
-  --proc:#7CA1FF;--proc-soft:#1B2740;
-  --ext:#B196EE;--ext-soft:#241D37;
-  --warn:#E0B061;--warn-soft:#2B2314;
-  --stop:#EC8484;--stop-soft:#2E1A1A;
-}
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);
@@ -161,7 +139,7 @@ footer{padding:28px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mo
 
   <figure>
     <div class="fig-frame">
-      <svg viewBox="0 0 1240 780" role="img" aria-label="maiReport 홈 네 축의 외부 입력, 처리, 데이터 저장소를 세 개의 띠로 나눈 데이터 흐름도. 생활 데이터는 지표 산출과 코칭 지표 계산 두 갈래로 읽히고, 코칭과 목표가 불충분하면 되먹임 경로를 따라 문항 선택으로 돌아간다. 코칭 지표 계산과 목표 기록 저장소는 미정의이며, metric_score에서 규칙 평가로 가는 연결은 이름공간 불일치로 끊겨 있다.">
+      <svg viewBox="0 0 1240 780" role="img" aria-label="maiReport 홈 네 축의 외부 입력, 처리, 데이터 저장소를 세 개의 띠로 나눈 데이터 흐름도. 생활 데이터는 지표 산출과 코칭 지표 계산 두 갈래로 읽히고, 코칭과 목표가 불충분하면 되먹임 경로를 따라 문항 선택으로 돌아감. 코칭 지표 계산과 목표 기록 저장소는 미정의이며, metric_score에서 규칙 평가로 가는 연결은 이름공간 불일치로 끊겨 있음.">
         <defs>
           <marker id="dh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" class="ah"/>
@@ -198,7 +176,7 @@ footer{padding:28px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mo
         <line x1="394" y1="84" x2="428" y2="84" class="ed" marker-end="url(#dh)"/>
 
         <!-- ===== BAND 2 ===== -->
-        <text x="24" y="186" class="lane">생활 데이터 → 지표 — 매일 쌓임 · PHI · 아래 두 띠가 모두 여기서 읽는다</text>
+        <text x="24" y="186" class="lane">생활 데이터 → 지표 — 매일 쌓임 · PHI · 아래 두 띠가 모두 여기서 읽음</text>
         <line x1="24" y1="194" x2="1224" y2="194" class="rule"/>
 
         <rect x="24" y="206" width="160" height="64" rx="9" class="n-ext"/>
@@ -325,7 +303,7 @@ footer{padding:28px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mo
         <path d="M954 266 L954 460 L896 460" class="ed-broke"/>
         <circle cx="880" cy="460" r="11" fill="var(--stop-soft)" stroke="var(--stop)" stroke-width="1.4"/>
         <path d="M875 455 L885 465 M885 455 L875 465" stroke="var(--stop)" stroke-width="1.7" fill="none"/>
-        <text x="1044" y="486" class="al" text-anchor="end" fill="var(--stop)">3지표는 코칭 판정에 쓰이지 않는다 · 이름공간 불일치</text>
+        <text x="1044" y="486" class="al" text-anchor="end" fill="var(--stop)">3지표는 코칭 판정에 쓰이지 않음 · 이름공간 불일치</text>
 
         <line x1="824" y1="540" x2="1078" y2="540" class="ed" marker-end="url(#dh)"/>
         <text x="900" y="532" class="al">문구 1건 + 근거</text>
@@ -336,7 +314,7 @@ footer{padding:28px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mo
         <path d="M824 570 L844 570 L844 686 L404 686 L404 462 L388 462" class="ed-loop" marker-end="url(#dh3)"/>
         <path d="M824 660 L844 660" class="ed-loop"/>
         <circle cx="844" cy="660" r="3.5" class="ah-loop"/>
-        <text x="470" y="678" class="al t-loop">코칭·목표를 채우지 못한 만큼 → 문항으로 묻는다 (최대 3)</text>
+        <text x="470" y="678" class="al t-loop">코칭·목표를 채우지 못한 만큼 → 문항으로 물음 (최대 3)</text>
 
         <!-- ===== LEGEND ===== -->
         <line x1="24" y1="716" x2="1224" y2="716" class="rule"/>
@@ -369,8 +347,8 @@ footer{padding:28px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mo
 
   <div class="note">
     <span class="note-label">읽는 순서</span>
-    <p>① 생활 데이터로 지표를 만든다 → ② 규칙 평가와 목표 개인화를 <b>일단 돌린다</b> →
-    ③ 결과가 불충분하면 <b>부족분만큼 문항을 고른다</b> → ④ 답변이 쌓이면 ②를 다시 돈다.
+    <p>① 생활 데이터로 지표를 만듦 → ② 규칙 평가와 목표 개인화를 <b>일단 돌림</b> →
+    ③ 결과가 불충분하면 <b>부족분만큼 문항을 고름</b> → ④ 답변이 쌓이면 ②를 다시 돎.
     질문이 화면 맨 위에 있다고 해서 파이프라인의 시작인 것은 아닙니다.</p>
   </div>
 </section>
@@ -460,36 +438,36 @@ footer{padding:28px 0 0;color:var(--faint);font-size:11.5px;font-family:var(--mo
         <tr>
           <td class="nm">목표 축</td>
           <td>없음 — 출력이 “3지표 + 행동 1개”</td>
-          <td><b>D7이 통째로 비어 있다.</b> 완료·쉬기 기록, 주간 달성률, 연속일수의 저장 구조가 어느 문서에도 없다</td>
+          <td><b>D7이 통째로 비어 있음.</b> 완료·쉬기 기록, 주간 달성률, 연속일수의 저장 구조가 어느 문서에도 없음</td>
         </tr>
         <tr>
           <td class="nm">질문 축</td>
           <td>수집 항목의 하나로만 등장</td>
-          <td>질문은 파이프라인의 <b>입력이 아니라 되먹임</b>이다. 코칭·목표를 먼저 돌려 부족분을 안 뒤,
-          그만큼만 문항으로 바꿔 되묻는다 — 최대 3문항은 상한이지 정원이 아니다</td>
+          <td>질문은 파이프라인의 <b>입력이 아니라 되먹임</b>임. 코칭·목표를 먼저 돌려 부족분을 안 뒤,
+          그만큼만 문항으로 바꿔 되물음 — 최대 3문항은 상한이지 정원이 아님</td>
         </tr>
         <tr>
           <td class="nm">지표 → 코칭</td>
           <td>“통과한 지표값”이 그대로 흐름</td>
-          <td>지표 계산이 <b>두 갈래로 갈라진다</b> — 화면용 3지표(P3)와 코칭 판정용 지표(P3b)는
-          같은 <code>health_sample</code>을 읽지만 다른 것을 만든다. D4는 코칭에 쓰이지 않으며, P3b는 아직 없다</td>
+          <td>지표 계산이 <b>두 갈래로 갈라짐</b> — 화면용 3지표(P3)와 코칭 판정용 지표(P3b)는
+          같은 <code>health_sample</code>을 읽지만 다른 것을 만듦. D4는 코칭에 쓰이지 않으며, P3b는 아직 없음</td>
         </tr>
         <tr>
           <td class="nm">질문 ← 생활 데이터</td>
           <td>질문이 수집 항목으로만 등장</td>
-          <td>결측 보완형 문항은 <b>무엇이 비었는지 읽어야</b> 고를 수 있다. 현재 구현은 의료이력 유무만 본다</td>
+          <td>결측 보완형 문항은 <b>무엇이 비었는지 읽어야</b> 고를 수 있음. 현재 구현은 의료이력 유무만 봄</td>
         </tr>
         <tr>
           <td class="nm">기본 목표 세트</td>
           <td>없음</td>
-          <td>카드 문구의 원본이 프로토타입 하드코딩에만 있다. 카탈로그로 올릴지 미정</td>
+          <td>카드 문구의 원본이 프로토타입 하드코딩에만 있음. 카탈로그로 올릴지 미정</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="note stop">
-    <span class="note-label">목표만 다르다 — 화면 문구가 틀렸다</span>
+    <span class="note-label">목표만 다름 — 화면 문구가 틀렸음</span>
     <p>질문과 코칭은 생활 데이터를 읽지만 <b>목표는 읽지 않는 것이 설계</b>입니다.
     정책 메모가 목표 분석을 두고 <b>“목표·실천 기록은 수동. 기기 불필요”</b>라고 못 박았고,
     개인화 로직도 질문 답변만 봅니다.</p>

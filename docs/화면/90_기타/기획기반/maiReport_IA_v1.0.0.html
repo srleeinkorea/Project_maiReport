@@ -200,7 +200,23 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 @media(max-width:1180px){.zone>.stack>.grp{grid-column:1/-1;margin-top:6px}}
 @media(max-width:600px){.page{padding:18px 12px}.journey{flex-direction:column}.g2,.g3{grid-template-columns:1fr}.zone>.stack{grid-template-columns:1fr 1fr}.cb{padding-left:0}.ctag{margin-left:0;max-width:100%}.rules{grid-template-columns:1fr}.lesson,.learn-intro{padding:18px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important}}
-</style></head><body><main class="page">
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style id="design2">
+/* ── 2026-10-14 새 디자인 덧씌움(문서 작성 프롬프트의 [디자인] 원용) — 구조는 그대로, 글꼴 · 색 · 제목 · 표만 ── */
+:root{--bg:#fbfbfd;--card:#fff;--ink:#0f1222;--mute:#5d6275;--line:#e3e6ef;--chip:#eef1ff;--acc:#5170FF;--link:#5170FF;--brand:#5170FF;--brand-soft:#eef1ff;--page:#fbfbfd;--fill:#f4f6fb;--ink-1:#0f1222;--ink-2:#5d6275;--ink-3:#8a90a3;--ok:#1f9d5a;--ok-bg:#eaf8f0;--part:#c7861c;--part-bg:#fff6e6;--no:#e0453f;--no-bg:#fdeeed;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a}
+html{background:#fbfbfd}
+body{background:#fbfbfd;color:#0f1222;font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;line-height:1.7}
+h1{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;letter-spacing:-.01em}
+h3{font-weight:600}
+table{border-top:2px solid #0f1222}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#5d6275;font-weight:600;background:none}
+a{color:#5170FF}
+[class*="hero"],[class*="Hero"]{background:#fff!important;background-image:none!important;color:#0f1222!important;border:1px solid #e3e6ef;border-radius:0!important;box-shadow:none!important}
+[class*="hero"] *{color:inherit}
+[class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
+</style>
+</head><body><main class="page">
 
 <header class="hdr"><div class="hdr-l"><div class="logo"><b>mai</b><span>REPORT</span></div><div><h1>마이리포트 아키텍쳐 · 데이터 플로우 : 원천 → 수집 → 분석 → 노출 → 저장</h1><p class="sub mono">기기 · 공공기관 · 사용자 입력 → 인증 · 정리 → 지표 · 규칙 · AI → 홈 · 생활 · 병원 → 이력 저장 → 다음 날 재사용</p></div></div>
 <div class="badges"><span class="badge"><i class="pip" aria-hidden="true"></i>구성 문서</span><span class="badge">최종 프로토타입 기준</span><span class="badge">하단 탭 4개</span><span class="badge">RSNA 시연 버전</span><span class="badge">2026-10-14 갱신</span></div></header>
@@ -310,7 +326,7 @@ body::before{content:"";position:fixed;inset:0;background-image:radial-gradient(
 </div>
 
 <div id="ia-groups"></div>
-<div id="ia-empty" class="ia2-empty">검색 조건에 일치하는 화면이 없습니다.</div>
+<div id="ia-empty" class="ia2-empty">검색 조건에 일치하는 화면이 없음.</div>
 
 <div class="ia2-sec"><span>주요 업무 프로세스</span></div>
 <div class="ia2-flows" id="ia-flowlist"></div>
@@ -404,5 +420,5 @@ chips.forEach(c=>c.addEventListener('click',()=>{active=c.dataset.filter;chips.f
 q.addEventListener('input',apply);
 })();
 </script>
-<footer class="footer">© maiReport · 전체 앱 구성 흐름도 · 최종 프로토타입(RSNA 시연 버전) 화면 기준<br>온보딩 · 로그인은 시연 빌드에서 바로 홈으로 시작해 IA에서 제외했습니다.</footer>
+<footer class="footer">© maiReport · 전체 앱 구성 흐름도 · 최종 프로토타입(RSNA 시연 버전) 화면 기준<br>온보딩 · 로그인은 시연 빌드에서 바로 홈으로 시작해 IA에서 제외했음.</footer>
 </main></body></html>

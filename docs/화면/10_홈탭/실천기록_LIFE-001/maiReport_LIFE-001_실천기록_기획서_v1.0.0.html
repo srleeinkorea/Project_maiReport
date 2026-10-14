@@ -14,20 +14,6 @@
   --mono:"JetBrains Mono",Consolas,monospace;
   --sans:"Noto Sans KR","Malgun Gothic",system-ui,sans-serif;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;
-  --line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
-  --accent:#7CA1FF;--accent-soft:#1B2740;
-  --stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;
-  --warn:#E0B061;--warn-soft:#2B2314;
-}}
-:root[data-theme="dark"]{
-  --ground:#0C1117;--surf:#151C25;--surf-2:#1A222D;--surf-3:#232C39;
-  --line:#2B3543;--ink:#ECF0F6;--text:#B5C0D0;--muted:#8793A6;--faint:#6E7B8E;
-  --accent:#7CA1FF;--accent-soft:#1B2740;
-  --stop:#EC8484;--stop-soft:#2E1A1A;--ok:#5DC9A1;--ok-soft:#112A22;
-  --warn:#E0B061;--warn-soft:#2B2314;
-}
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);
   font-size:14.5px;line-height:1.75;letter-spacing:-.012em;-webkit-font-smoothing:antialiased}
@@ -130,7 +116,7 @@ pre .c{color:var(--faint)}
 
   <div class="note">
     <span class="note-label">이 숫자가 세는 것</span>
-    <p><code>10일 연속</code>은 <b>10일 동안 실천했다</b>가 아니라 <b>10일치 기록이 이어졌다</b>는 뜻입니다.
+    <p><code>10일 연속</code>은 <b>10일 동안 실천했음</b>가 아니라 <b>10일치 기록이 이어졌음</b>는 뜻입니다.
     앱은 실천 자체를 관측할 수 없습니다. 문서와 화면 모두 이 선을 넘지 않습니다.</p>
   </div>
 </section>
@@ -153,15 +139,15 @@ pre .c{color:var(--faint)}
     <table>
       <thead><tr><th>항목</th><th>규칙</th></tr></thead>
       <tbody>
-        <tr><td class="k">기록 단위</td><td>사용자 · 날짜 · 카테고리. 하루에 한 번만 인정한다</td></tr>
+        <tr><td class="k">기록 단위</td><td>사용자 · 날짜 · 카테고리. 하루에 한 번만 인정함</td></tr>
         <tr><td class="k">완료 · 취소</td>
-          <td><b>목표 카드 영역을 누르면 완료, 다시 누르면 취소.</b> 별도 버튼과 확인 대화상자를 두지 않는다</td></tr>
+          <td><b>목표 카드 영역을 누르면 완료, 다시 누르면 취소.</b> 별도 버튼과 확인 대화상자를 두지 않음</td></tr>
         <tr><td class="k">문구 잠금</td>
-          <td>완료한 목표의 문구는 그날 고정한다. 취소하면 잠금도 풀린다</td></tr>
-        <tr><td class="k">취소 반영</td><td>취소 즉시 연속일수 · 최장 기록 · 안내를 다시 계산한다</td></tr>
+          <td>완료한 목표의 문구는 그날 고정함. 취소하면 잠금도 풀림</td></tr>
+        <tr><td class="k">취소 반영</td><td>취소 즉시 연속일수 · 최장 기록 · 안내를 다시 계산함</td></tr>
         <tr><td class="k">저장</td>
-          <td><code>goal_record</code>에 <b>행이 있으면 그날 목표가 있었던 것</b>이다.
-          생성 사유를 따로 저장하지 않는다</td></tr>
+          <td><code>goal_record</code>에 <b>행이 있으면 그날 목표가 있었던 것</b>임.
+          생성 사유를 따로 저장하지 않음</td></tr>
       </tbody>
     </table>
   </div>
@@ -197,14 +183,14 @@ pre .c{color:var(--faint)}
     <table>
       <thead><tr><th>상태</th><th>처리</th></tr></thead>
       <tbody>
-        <tr><td class="k">기준일 완료</td><td>기준일부터 과거 방향으로 이어진 날을 센다</td></tr>
+        <tr><td class="k">기준일 완료</td><td>기준일부터 과거 방향으로 이어진 날을 셈</td></tr>
         <tr><td class="k">기준일 미완료 · 전날 완료</td>
-          <td>전날까지로 유지한다 — <b>기준일이 오늘일 때만</b>. 과거는 이미 끝난 날이라 유예가 없다</td></tr>
+          <td>전날까지로 유지함 — <b>기준일이 오늘일 때만</b>. 과거는 이미 끝난 날이라 유예가 없음</td></tr>
         <tr><td class="k">둘 다 미완료</td><td>현재 연속일수 0</td></tr>
-        <tr><td class="k">중간 날짜 미기록</td><td><b>연속 종료.</b> 완료 이력과 최장 기록은 보존한다</td></tr>
+        <tr><td class="k">중간 날짜 미기록</td><td><b>연속 종료.</b> 완료 이력과 최장 기록은 보존함</td></tr>
         <tr><td class="k">중간 날짜 목표 없음</td>
-          <td><b>연속 종료</b> — 미기록과 똑같이 처리한다 <span class="pill p-ok">v3.0 변경</span></td></tr>
-        <tr><td class="k">최장 기록</td><td>완료 이력 전체에서 따로 계산하고, 연속이 끊겨도 보존한다</td></tr>
+          <td><b>연속 종료</b> — 미기록과 똑같이 처리함 <span class="pill p-ok">v3.0 변경</span></td></tr>
+        <tr><td class="k">최장 기록</td><td>완료 이력 전체에서 따로 계산하고, 연속이 끊겨도 보존함</td></tr>
       </tbody>
     </table>
   </div>
@@ -288,7 +274,7 @@ pre .c{color:var(--faint)}
       <thead><tr><th></th><th>상황</th><th>조건</th></tr></thead>
       <tbody>
         <tr><td class="n">00</td><td class="k">목표 없음</td>
-          <td><b>게이트.</b> 그날 세 카테고리 목표가 모두 생성되지 않음 · 성립하면 01~09를 평가하지 않는다</td></tr>
+          <td><b>게이트.</b> 그날 세 카테고리 목표가 모두 생성되지 않음 · 성립하면 01~09를 평가하지 않음</td></tr>
         <tr><td class="n">01</td><td class="k">첫 기록 전</td><td>완료 이력 0건</td></tr>
         <tr><td class="n">02</td><td class="k">오랜만의 방문</td>
           <td>이력이 있고 최근 방문일로부터 <b>7일 이상</b> 지난 뒤 첫 진입</td></tr>
@@ -425,17 +411,17 @@ pre .c{color:var(--faint)}
       <thead><tr><th>항목</th><th>처리</th></tr></thead>
       <tbody>
         <tr><td class="k">타일 숫자</td>
-          <td><b>그 시점 기준으로 다시 센다</b> — 날짜를 옮길 때마다 값이 달라지는 것이 정상</td></tr>
-        <tr><td class="k">타일 보조 문구</td><td><code>O월O일까지</code>. <code>이어가는 중</code>을 쓰지 않는다</td></tr>
-        <tr><td class="k">전날 유예</td><td><b>없다.</b> 이미 끝난 날이라 그날 미완료면 그 시점 연속은 0</td></tr>
-        <tr><td class="k">D 이후 데이터</td><td><b>보지 않는다.</b> 그날 그 자리에서 보이던 숫자여야 한다</td></tr>
+          <td><b>그 시점 기준으로 다시 셈</b> — 날짜를 옮길 때마다 값이 달라지는 것이 정상</td></tr>
+        <tr><td class="k">타일 보조 문구</td><td><code>O월O일까지</code>. <code>이어가는 중</code>을 쓰지 않음</td></tr>
+        <tr><td class="k">전날 유예</td><td><b>없음.</b> 이미 끝난 날이라 그날 미완료면 그 시점 연속은 0</td></tr>
+        <tr><td class="k">D 이후 데이터</td><td><b>보지 않음.</b> 그날 그 자리에서 보이던 숫자여야 함</td></tr>
         <tr><td class="k">목표가 있던 날</td><td>완료 체크 가능 — 저장 즉시 연속 · 최장 · 안내 재계산</td></tr>
         <tr><td class="k">목표가 없던 날</td>
-          <td><b>00번 과거 문구</b> · 버튼 없음 · 아무것도 할 수 없다.
-          <b>오늘과 문구가 다르다</b> — 오늘은 아직 바뀔 수 있는 날이고 과거는 확정된 날이다</td></tr>
+          <td><b>00번 과거 문구</b> · 버튼 없음 · 아무것도 할 수 없음.
+          <b>오늘과 문구가 다름</b> — 오늘은 아직 바뀔 수 있는 날이고 과거는 확정된 날임</td></tr>
         <tr><td class="k">미래 날짜</td><td>선택 비활성</td></tr>
         <tr><td class="k">허용 기간</td>
-          <td><b>미정.</b> “최근 7일”은 확정 정책이 아니다 <span class="pill p-wait">결정 필요</span></td></tr>
+          <td><b>미정.</b> “최근 7일”은 확정 정책이 아님 <span class="pill p-wait">결정 필요</span></td></tr>
       </tbody>
     </table>
   </div>
@@ -502,22 +488,22 @@ pre .c{color:var(--faint)}
       <thead><tr><th></th><th>바꾼 것</th><th>이유</th></tr></thead>
       <tbody>
         <tr><td class="n">A</td><td class="k">건너뛰기 규칙 삭제</td>
-          <td>목표 없음을 앱 사정으로 본 전제가 틀렸다. 앱을 안 연 날까지 면제하면
-          안 써도 유지되는 숫자가 된다 <span class="pill p-no">되돌림</span></td></tr>
+          <td>목표 없음을 앱 사정으로 본 전제가 틀렸음. 앱을 안 연 날까지 면제하면
+          안 써도 유지되는 숫자가 됨 <span class="pill p-no">되돌림</span></td></tr>
         <tr><td class="n">B</td><td class="k">타일의 <code>—</code> 삭제</td>
-          <td>타일은 완료 이력으로 계산하고 읽기 전용이라 목표 유무와 무관하다</td></tr>
+          <td>타일은 완료 이력으로 계산하고 읽기 전용이라 목표 유무와 무관함</td></tr>
         <tr><td class="n">C</td><td class="k">생성 사유 저장 · 방문 기록 의존 삭제</td>
-          <td>연속 계산이 <code>is_done</code>만 보므로 필요 없다. 방문 기록은 02번 판정에만 남는다</td></tr>
+          <td>연속 계산이 <code>is_done</code>만 보므로 필요 없음. 방문 기록은 02번 판정에만 남음</td></tr>
         <tr><td class="n">D</td><td class="k">건너뛰기 상한 7일 삭제</td>
-          <td>건너뛰기가 없어지면서 같이 사라졌다</td></tr>
+          <td>건너뛰기가 없어지면서 같이 사라졌음</td></tr>
         <tr><td class="n">E</td><td class="k">02장에 목표 생성 흐름 추가</td>
-          <td>기기 → 질문 보완 구조가 문서 어디에도 없었다</td></tr>
+          <td>기기 → 질문 보완 구조가 문서 어디에도 없었음</td></tr>
         <tr><td class="n">F</td><td class="k">과거 날짜에 질문 유도 없음</td>
-          <td>사후에 목표를 만들어 체크하면 끊긴 연속을 되살릴 수 있다 — 편집이 된다</td></tr>
+          <td>사후에 목표를 만들어 체크하면 끊긴 연속을 되살릴 수 있음 — 편집이 됨</td></tr>
         <tr><td class="n">G</td><td class="k">00번 문구 교체</td>
           <td>이유가 여럿이라 나열 대신 포괄하는 한 문장으로. 오늘과 과거가 같은 문구</td></tr>
         <tr><td class="n">H</td><td class="k">과거 전날 유예 없음 명시</td>
-          <td>“오늘은 아직 안 끝났다”는 오늘에만 해당한다</td></tr>
+          <td>“오늘은 아직 안 끝났다”는 오늘에만 해당함</td></tr>
       </tbody>
     </table>
   </div>
@@ -545,7 +531,7 @@ pre .c{color:var(--faint)}
           <td><code>goal-lock-and-no-data</code> v0.1의 “목표는 기기 불필요”</td>
           <td><span class="pill p-no">미정</span></td></tr>
         <tr><td class="k">02와 09 구분</td>
-          <td>타일이 동일해 안내의 날짜로만 갈린다</td>
+          <td>타일이 동일해 안내의 날짜로만 갈림</td>
           <td><span class="pill p-wait">검토</span></td></tr>
         <tr><td class="k">날짜 스트립 점 표시</td>
           <td>기록이 있는 날 표시 · 조회 하한을 가입일로</td>
@@ -554,7 +540,7 @@ pre .c{color:var(--faint)}
           <td>생성 장애 시 특정 날짜를 연속 계산에서 빼는 스위치</td>
           <td><span class="pill p-wait">검토</span></td></tr>
         <tr><td class="k">방문 기록 수집</td>
-          <td>02번 판정에만 쓴다. 불가하면 02번을 빼거나 기준을 바꿔야 한다</td>
+          <td>02번 판정에만 씀. 불가하면 02번을 빼거나 기준을 바꿔야 함</td>
           <td><span class="pill p-wait">검토</span></td></tr>
       </tbody>
     </table>
