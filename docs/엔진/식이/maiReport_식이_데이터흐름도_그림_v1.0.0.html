@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>식이 데이터흐름도</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.55}
+main{max-width:1400px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin-bottom:6px}
+header h1{margin:0;font-size:22px}
+.kind{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--chip);font-size:12px;font-weight:600}
+.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin:4px 0 16px}
+.meta b{color:var(--ink);font-weight:600}
+.tools{display:flex;gap:8px;align-items:center;margin-bottom:10px;font-size:12px;color:var(--mute)}
+.tools button{font:inherit;padding:4px 10px;border:1px solid var(--line);background:var(--card);border-radius:8px;cursor:pointer;color:var(--ink)}
+.tools button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;overflow:auto}
+.sheet svg{display:block;max-width:100%;height:auto}
+.sheet.actual svg{max-width:none}
+footer{color:var(--mute);font-size:12px;margin-top:22px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038}}
+:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038}
+</style>
+</head>
+<body>
+<main>
+<header><span class="kind">흐름도</span><h1>식이 데이터흐름도</h1></header>
+<div class="meta"><span>위치 <b>엔진 · 식이</b></span><span>판 <b>1.0.0</b></span><span>HTML 전환 <b>2026-10-14</b></span><span>원본 그림 <b>1200×570</b></span></div>
+<div class="tools"><span>보기</span><button type="button" data-fit="width" aria-pressed="true">폭 맞춤</button><button type="button" data-fit="actual">실제 크기</button></div>
+<div class="sheet" id="sheet">
+<svg width="1200" height="570" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 570"><rect width="1200" height="570" fill="#f5f7fb"/><g font-family="Malgun Gothic,sans-serif" fill="#233047"><text x="35" y="45" font-size="26">maiReport 식이 데이터 흐름 · v1.0.0</text><text x="35" y="80" font-size="17">고정 1 + 관찰 회전 최대 1 · 3개 선택지 · 과일 추천 제외 · 질환별 금지·시간 조건 적용</text><rect x="35" y="125" width="360" height="120" rx="12" fill="#e7eefb"/><text x="55" y="167" font-size="21">1. 입력·개인 제한</text><text x="55" y="207" font-size="17">시각 / 응답 / 검진·진료</text><rect x="425" y="125" width="360" height="120" rx="12" fill="#e7eefb"/><text x="445" y="167" font-size="21">2. 질문·관찰</text><text x="445" y="207" font-size="17">목표 확인 분기 제거</text><rect x="815" y="125" width="360" height="120" rx="12" fill="#e7eefb"/><text x="835" y="167" font-size="21">3. 응답 저장</text><text x="835" y="207" font-size="17">28일 관찰 → 다음 날</text><rect x="35" y="295" width="360" height="120" rx="12" fill="#e7eefb"/><text x="55" y="337" font-size="21">4. 목표 선정</text><text x="55" y="377" font-size="17">회복·질환·검진·부담·일반</text><rect x="425" y="295" width="360" height="120" rx="12" fill="#e7eefb"/><text x="445" y="337" font-size="21">5. 모든 경로 공통 필터</text><text x="445" y="377" font-size="17">승인 / 제한 / 시간 / 정책</text><rect x="815" y="295" width="360" height="120" rx="12" fill="#e7eefb"/><text x="835" y="337" font-size="21">6. 목표·토글 저장</text><text x="835" y="377" font-size="17">완료 토글만 단계에 반영</text><text x="35" y="490" font-size="19">회전 응답은 식습관 관찰만 / 목표 이행 여부로 변환하지 않음</text><text x="35" y="530" font-size="17">식사 상태 ≠ 영양 적정성·질환 진단 / 정보 부족 시 개인 식사 계획 확인</text></g></svg>
+</div>
+<footer>마이리포트 · 그림은 SVG 원본을 그대로 넣은 것이라 글자를 선택·검색할 수 있다. 원본 SVG는 docs/_archive/svg를html로_2026-10-14에 보관.</footer>
+</main>
+<script>
+document.querySelectorAll('.tools button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tools button').forEach(x=>x.setAttribute('aria-pressed','false'));
+  b.setAttribute('aria-pressed','true');
+  document.getElementById('sheet').classList.toggle('actual',b.dataset.fit==='actual');
+}));
+</script>
+</body>
+</html>
