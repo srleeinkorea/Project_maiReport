@@ -30,12 +30,13 @@ try {
     $dirty = Invoke-Git -GitArgs @('-C', $checkout, 'status', '--porcelain')
     if ($dirty) { throw 'Deployment checkout has pending edits. Resolve them before publishing.' }
     Invoke-Git -GitArgs @('-C', $checkout, 'pull', '--ff-only', 'origin', 'main')
-    $target = Join-Path $checkout 'index.html'
+    $pageName = 'rsna-demo.html'   # 사이트 index.html은 문서함 메뉴라 덮어쓰지 않는다
+    $target = Join-Path $checkout $pageName
     $changed = !(Test-Path -LiteralPath $target)
     if (!$changed) { $changed = [IO.File]::ReadAllText($target).Replace("`r`n", "`n") -cne $html.Replace("`r`n", "`n") }
     if ($changed) {
         Copy-Item -LiteralPath $source -Destination $target
-        Invoke-Git -GitArgs @('-C', $checkout, 'add', '--', 'index.html')
+        Invoke-Git -GitArgs @('-C', $checkout, 'add', '--', $pageName)
         Invoke-Git -GitArgs @('-C', $checkout, '-c', 'user.name=srleeinkorea', '-c', 'user.email=srleeinkorea@users.noreply.github.com', 'commit', '-m', ('Update RSNA demo ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')))
     }
     # Also retries a previously committed update if its push failed.
@@ -47,7 +48,7 @@ try {
     $ready = $false
     for ($attempt = 0; $attempt -lt 24; $attempt++) {
         try {
-            $probe = $siteUrl + '?deploy=' + [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
+            $probe = $siteUrl + $pageName + '?deploy=' + [DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()
             $response = Invoke-WebRequest -Uri $probe -UseBasicParsing -TimeoutSec 15 -Headers @{ 'Cache-Control' = 'no-cache' }
             if ($response.Content.Replace("`r`n", "`n") -ceq $html.Replace("`r`n", "`n")) { $ready = $true; break }
         } catch { Write-Host 'Deployment is still becoming available.' }
@@ -55,8 +56,8 @@ try {
     }
     if (!$ready) { throw "Upload succeeded, but live deployment is not verified yet. Check: $repoUrl" }
     Write-Host 'DONE: The updated site is live.' -ForegroundColor Green
-    Write-Host $siteUrl
-    if (!$NoBrowser) { Start-Process $siteUrl }
+    Write-Host ($siteUrl + $pageName)
+    if (!$NoBrowser) { Start-Process ($siteUrl + $pageName) }
     exit 0
 } catch {
     Write-Host $_.Exception.Message -ForegroundColor Red
