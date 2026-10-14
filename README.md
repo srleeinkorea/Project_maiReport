@@ -11,16 +11,20 @@ docs/
     20_생활탭/     생활분석 · 지표별분석 화면 · 컨디션 카드 · 전체건강데이터 12종
     30_병원탭/     검진요약 · AI검진요약 · 진료요약 · 셀비체크업/
     40_더보기탭/   내정보관리 · 결제/이용권 · 건강데이터연동 · 더보기 화면정의서
-    90_기타/       탭에 속하지 않는 것. IA · 기능정의서 · 서비스소개 · 데이터모델 · MRS · 데이터흐름도 · 알림정책 · 프로토타입 · 화면정의서 엑셀
+    90_기타/       탭에 속하지 않는 것
+      프로토타입/  정본 프로토타입(사이트 배포 원본) · 화면정의서용 판 · 아티팩트 사본 · 시나리오 · 원페이지요약 (역할은 그 안의 README)
+      기획기반/    IA · 기능정의서 · FRD · MRS · 서비스소개 · 데이터모델 · 데이터흐름도 · 화면정의서 엑셀
+      알림/        알림정책 · 법적범위 · 샘플 화면
+      사업제안/    지역사회통합환자여정 · 사업제안서 프롬프트
   엔진/
     지표/          세 지표 기획서 · 산출 파이프라인 · 지표해석 문장 · 세지표 아키텍처 · v7 산식 검토
     식이/          질문·목표·코칭 문구 · 데이터 계약 · 참조설정 데이터 · 의학 검수 · 엔진 코드 (SharePoint 원본 엑셀 4종 포함)
-    코칭목표/      코칭 데이터흐름 · 질문코칭목표지표 산출흐름 · 하루생성 순서도 · 목표 잠금 정책
+    코칭목표/      코칭 데이터흐름 · 질문코칭목표지표 산출흐름 · 하루생성 순서도 · 목표 잠금 정책 · 지식DB/ (전달테이블 설계·SQL)
     또래등수/      산식 · 검증결과 · 통합규격 · 전달패키지/
   _archive/        대체된 판. 지우지 않고 여기로 옮긴다.
-data/              기준 데이터. 또래등수_참조표/ (raw/는 git 제외) · kosis_건강검진통계_2024/ · 지식DB/
+data/              기준 데이터. 또래등수_참조표/ (raw/는 git 제외) · kosis_건강검진통계_2024/
 reference/         외부에서 받은 자료. 계산식_전달문서_LJH/ · legal/ (git 제외) · 핸드오프_zip/
-site/              공유 사이트 빌드 결과(build/)와 배포 스크립트. 원본은 docs/화면/90_기타/maiReport_prototype_v1.0.0.html, 배포는 site/RSNA-DEPLOY.cmd (옛 RSNA 원본은 site/_archive)
+site/              공유 사이트 빌드 결과(build/)와 배포 스크립트. 원본은 docs/화면/90_기타/프로토타입/maiReport_prototype_v1.0.0.html, 배포는 site/RSNA-DEPLOY.cmd (옛 RSNA 원본은 site/_archive)
 qa/                QA 실행기(bin·lib·plans·templates)와 결과(results/<기능>-<날짜>/)
 scripts/           SharePoint 동기화
 tools/             Figma 플러그인
@@ -29,11 +33,12 @@ tools/             Figma 플러그인
 ## 규칙
 - 파일 이름은 `..._v1.0.0.<확장자>`로 고정하고 버전은 파일 안에 적는다. 이름을 바꾸면 SharePoint 공유 주소가 끊긴다.
 - 같은 파일을 두 폴더에 두지 않는다. 전달용 묶음(`docs/엔진/또래등수/전달패키지/`)만 예외다.
+- 새 엔진 주제(활동·수면 등)는 `엔진/식이/`의 구성(문구·데이터 계약·검수·엔진 코드)을 본떠 만든다.
 - 새 문서가 화면정의서·목업이면 `화면/`의 탭 폴더에, 계산식·규칙·데이터 계약이면 `엔진/`에 넣는다. 어느 쪽도 아니면 `화면/90_기타`.
 
 ## 내보내기
 | 대상 | 원본 폴더 | 방법 |
 |---|---|---|
 | GitHub Project_maiReport | 전체(legal·raw 제외) | git push |
-| 공유 사이트 (GitHub Pages) | `docs/화면/90_기타/maiReport_prototype_v1.0.0.html` → 사이트 `prototype.html` | `site/RSNA-DEPLOY.cmd` (메뉴 index.html과 다른 문서는 배포 작업 폴더 `.tmp_artifact/rsna-deploy`에서 직접 커밋) |
+| 공유 사이트 (GitHub Pages) | `docs/화면/90_기타/프로토타입/maiReport_prototype_v1.0.0.html` → 사이트 `prototype.html` | `site/RSNA-DEPLOY.cmd` (메뉴 index.html과 다른 문서는 배포 작업 폴더 `.tmp_artifact/rsna-deploy`에서 직접 커밋) |
 | SharePoint | `docs/엔진/식이/` 엑셀 4종 | `scripts/sync-to-sharepoint.ps1` |

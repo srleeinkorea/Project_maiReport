@@ -1,6 +1,6 @@
 # RSNA 시연 사이트 배포
 
-1. 공유 사이트의 「최종 프로토타입」 탭과 RSNA 시연 화면은 같은 파일입니다. 원본은 `docs/화면/90_기타/maiReport_prototype_v1.0.0.html` 하나만 수정합니다.
+1. 공유 사이트의 「최종 프로토타입」 탭과 RSNA 시연 화면은 같은 파일입니다. 원본은 `docs/화면/90_기타/프로토타입/maiReport_prototype_v1.0.0.html` 하나만 수정합니다.
 2. 이 대화에서 **배포!**라고 요청하면 에이전트가 배포합니다. 직접 실행하려면 `site/RSNA-DEPLOY.cmd`를 더블클릭합니다.
 3. `DONE: The updated site is live.`가 표시되면 완료입니다. 사이트가 자동으로 열립니다.
 
