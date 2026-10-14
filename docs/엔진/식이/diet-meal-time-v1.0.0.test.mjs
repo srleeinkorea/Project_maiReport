@@ -32,7 +32,7 @@ test('못 먹거나 거름 · 건강 앱 기록에는 시각을 묻지 않고, �
   assert.deepEqual(y.options.map(o => o.label), ['7시 이전', '7시~9시', '9시 이후']);
   assert.deepEqual(y.options.map(o => [o.window_start, o.window_end]), [['17:00', '19:00'], ['19:00', '21:00'], ['21:00', '23:00']]);
   assert.equal(estimateMealTime({ mealType: 'YESTERDAY_DINNER', option: y.options[0] }).estimated_time, '18:00');
-  assert.equal(estimateMealTime({ mealType: 'YESTERDAY_DINNER', option: y.options[2] }).estimated_time, '22:00');
+  assert.equal(estimateMealTime({ mealType: 'YESTERDAY_DINNER', option: y.options[2] }).estimated_time, '21:00');   // 9시 이후는 9시로
   assert.equal(askMealTime({ mealType: 'LUNCH', fixedOptionCode: 'very_little_or_skipped' }).skipReason, 'MEAL_SKIPPED');
   assert.equal(askMealTime({ mealType: 'LUNCH', fixedOptionCode: 'usual', hasHealthAppRecord: true }).skipReason, 'HEALTH_APP_RECORD');
   assert.deepEqual(askMealTime({ mealType: 'LUNCH', fixedOptionCode: 'less' }), { ask: true, skipReason: null, question_id: 'DIET-Q-08', mealKey: 'LUNCH' });
@@ -87,7 +87,7 @@ test('저녁 · 오후 9시까지는 1시간 칸(하한 4시), 9시가 지나면
   assert.equal(askMealTime({ mealType: 'DINNER', fixedOptionCode: 'usual', answeredAtMinutes: 20 * 60 }).question_id, 'DIET-Q-08');
   const lateOpt = mealTimeOptions(at('23:30'), KST, 'DINNER').options;
   assert.equal(estimateMealTime({ mealType: 'LATE_DINNER', option: lateOpt[0] }).estimated_time, '18:00');
-  assert.equal(estimateMealTime({ mealType: 'LATE_DINNER', option: lateOpt[2] }).estimated_time, '22:00');
+  assert.equal(estimateMealTime({ mealType: 'LATE_DINNER', option: lateOpt[2] }).estimated_time, '21:00');
 });
 
 test('아침 · 7시 · 8시 정각으로 고정', () => {

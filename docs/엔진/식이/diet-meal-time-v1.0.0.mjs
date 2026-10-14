@@ -84,7 +84,7 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
       options: [
         { option_code: 'before_7', label: `${h(b1)} 이전`, sub: '', time_label: `${h(b1)} 이전`, ampm: '', clock: `${h(b1)} 이전`, window_start: toHHMM(config.mealStart.LATE_DINNER), window_end: toHHMM(b1) },
         { option_code: 'seven_to_nine', label: `${h(b1)}~${h(b2)}`, sub: '', time_label: `${h(b1)}~${h(b2)}`, ampm: '', clock: `${h(b1)}~${h(b2)}`, window_start: toHHMM(b1), window_end: toHHMM(b2) },
-        { option_code: 'after_9', label: `${h(b2)} 이후`, sub: '', time_label: `${h(b2)} 이후`, ampm: '', clock: `${h(b2)} 이후`, window_start: toHHMM(b2), window_end: toHHMM(end) },
+        { option_code: 'after_9', label: `${h(b2)} 이후`, sub: '', time_label: `${h(b2)} 이후`, ampm: '', clock: `${h(b2)} 이후`, window_start: toHHMM(b2), window_end: toHHMM(end), anchor_time: toHHMM(b2) },   // 「9시 이후」는 9시에 먹은 것으로 봄
       ],
     };
   }
@@ -174,7 +174,8 @@ export function estimateMealTime({
         post_meal_window: [toHHMM(h), toHHMM(h + config.postMealMinutes)], window };
     }
   }
-  const mid = ws + Math.round(clippedLength / 2 / 10) * 10;   // 가운데를 10분 단위로
+  // 「9시 이후」처럼 기준 시각(anchor_time)이 정해진 칸은 그 시각으로 본다. 그 밖에는 가운데를 10분 단위로
+  const mid = option.anchor_time ? hhmmToMin(option.anchor_time) : ws + Math.round(clippedLength / 2 / 10) * 10;
   return { estimated_time: toHHMM(mid), estimate_method: 'WINDOW_MIDPOINT', confidence: 'MEDIUM',
     post_meal_window: [toHHMM(ws), toHHMM(we + config.postMealMinutes)], window };
 }
