@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>검진 리포트 등록 화면설계서</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5;--acc:#1d4ed8;--mono:Consolas,"SF Mono",monospace;--sh:0 10px 30px rgba(22,35,63,.08)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.6;word-break:keep-all}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+main{max-width:1240px;margin:0 auto;padding:28px 16px 60px}
+header h1{margin:0 0 4px;font-size:24px}
+header .path{color:var(--mute);font-size:13px}
+.kind{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;margin-bottom:8px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin:8px 0 18px}
+.meta b{color:var(--ink);font-weight:600}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
+nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+section h2{margin:0 0 10px;font-size:17px}
+section h3{margin:16px 0 6px;font-size:14px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.glance div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.glance b{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
+.ex{color:var(--mute);font-size:12.5px}
+.fig{border:1px solid var(--line);border-radius:12px;padding:10px;margin:10px 0;overflow:auto}
+.fig svg{display:block;max-width:100%;height:auto}
+p{margin:6px 0}
+ol,ul{margin:6px 0 0;padding-left:20px}
+li{margin:4px 0}
+/* 조작 화면 */
+.controls{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:10px 0 14px}
+.ctl{display:flex;flex-wrap:wrap;gap:6px}
+.ctl .lab{font-size:12px;color:var(--mute);align-self:center;margin-right:2px}
+.seg{padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:12.5px;font-weight:600;color:var(--mute)}
+.seg.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.toggle{font-size:12.5px;color:var(--mute);display:flex;gap:6px;align-items:center;margin-left:auto}
+.stage{display:grid;grid-template-columns:400px minmax(0,1fr);gap:22px;align-items:start}
+.phone{width:400px;max-width:100%;height:820px;border-radius:46px;background:#10151f;padding:10px;box-shadow:0 24px 60px rgba(22,35,63,.2);position:sticky;top:16px}
+.app{width:100%;height:100%;border-radius:37px;overflow:hidden;background:#f4f6fa;position:relative;display:flex;flex-direction:column;color:#16233f;font-size:14px}
+.sbar{display:flex;justify-content:space-between;padding:12px 24px 4px;font-size:12px;font-weight:700}
+.sbar i{font-style:normal}
+.app.dark{background:#10151f;color:#fff}
+#screen{flex:1;display:flex;flex-direction:column;min-height:0;position:relative}
+.app-h{display:flex;justify-content:space-between;align-items:center;padding:8px 16px 10px;background:#fff;border-bottom:1px solid #e9edf5}
+.app-h b{font-size:16px}.app-h button{font-size:18px;color:#5a6880;width:28px}
+.scroll{flex:1;overflow:auto;min-height:0}
+.app-b{padding:12px 14px 20px;display:flex;flex-direction:column;gap:12px}
+.card{background:#fff;border-radius:16px;padding:14px;box-shadow:var(--sh);position:relative}
+.card h4{margin:0 0 8px;font-size:13.5px}
+.vrow{display:flex;justify-content:space-between;padding:8px 10px;border-radius:9px;background:#f5f7fb;margin-bottom:6px;font-size:13px}
+.vrow b{font-weight:600}
+.vrow.src{color:#5a6880;font-size:12px}
+.prim{display:block;width:100%;background:#2f6bff;color:#fff;border-radius:12px;padding:13px;font-weight:700;font-size:14px;text-align:center}
+.prim:disabled{background:#cfd6e3;cursor:default}
+.sec{display:block;width:100%;background:#fff;border:1.5px solid #cfd6e3;border-radius:12px;padding:12px;font-weight:700;font-size:14px;text-align:center}
+.foot{padding:10px 14px 16px;background:#fff;border-top:1px solid #e9edf5;display:flex;gap:8px}
+.foot>*{flex:1}
+.fab{position:absolute;right:16px;bottom:22px;width:52px;height:52px;border-radius:50%;background:#2f6bff;color:#fff;font-size:28px;box-shadow:0 8px 20px rgba(47,107,255,.35)}
+.sheet{position:absolute;inset:0;background:rgba(16,21,31,.45);display:flex;flex-direction:column;justify-content:flex-end;padding:14px}
+.sheet .list{background:#fff;border-radius:16px;overflow:hidden}
+.sheet .list button{display:flex;gap:12px;align-items:center;width:100%;padding:16px;font-weight:700;font-size:14px;text-align:left;border-top:1px solid #e9edf5}
+.sheet .list button:first-child{border-top:0}
+.sheet .x{align-self:center;margin-top:10px;width:44px;height:44px;border-radius:50%;background:#fff;font-size:18px}
+.visit{padding:14px}
+.visit .empty{background:#fff;border-radius:16px;padding:22px 14px;text-align:center;box-shadow:var(--sh)}
+.visit .empty b{display:block;font-size:14px;margin:6px 0}
+.visit .empty small{color:#5a6880;font-size:12px}
+.visit .two{display:flex;background:#fff;border-radius:14px;margin-top:10px;box-shadow:var(--sh)}
+.visit .two button{flex:1;padding:14px 6px;font-size:12.5px;font-weight:700;color:#2f6bff}
+.visit .two button+button{border-left:1px solid #e9edf5}
+.vcard{background:#fff;border-radius:14px;padding:12px 14px;box-shadow:var(--sh);margin-top:10px;display:flex;gap:10px;align-items:center}
+.vcard .ic{width:34px;height:34px;border-radius:10px;background:#eef3ff;display:flex;align-items:center;justify-content:center}
+.vcard b{display:block;font-size:13px}.vcard small{color:#5a6880;font-size:11.5px}
+.tag{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:#FFF3DC;color:#C77A0E;margin-left:auto}
+/* 카메라 */
+.cam{flex:1;display:flex;flex-direction:column;background:#10151f;color:#fff;position:relative}
+.cam .ch{display:flex;justify-content:space-between;align-items:center;padding:8px 16px}
+.cam .ch b{font-size:15px}
+.cam .view{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;position:relative}
+.cam .frame{width:220px;height:220px;border:2px dashed rgba(255,255,255,.75);border-radius:10px;position:relative}
+.cam .frame.paper{height:300px;width:230px;border-style:solid;background:rgba(255,255,255,.06)}
+.cam .frame .scan{position:absolute;left:8px;right:8px;top:30%;height:2px;background:#5ea0ff;box-shadow:0 0 10px #5ea0ff;animation:sc 1.6s ease-in-out infinite alternate}
+@keyframes sc{to{top:70%}}
+.cam .hint{text-align:center;font-size:12.5px;color:#cbd3e0;line-height:1.5}
+.cam .cf{display:flex;justify-content:space-between;align-items:center;padding:10px 26px 18px}
+.cam .shutter{width:60px;height:60px;border-radius:50%;background:#fff;border:4px solid #cbd3e0}
+.cam .cf button.side{color:#fff;font-size:18px;width:50px}
+.cam .cf .cnt{font-size:12px;color:#cbd3e0}
+.camcard{position:absolute;left:20px;right:20px;top:46%;background:#fff;color:#16233f;border-radius:16px;padding:16px;display:flex;gap:12px;align-items:center;box-shadow:0 14px 40px rgba(0,0,0,.4)}
+.camcard b{display:block;font-size:14px}.camcard small{color:#5a6880;font-size:12px}
+.camcard .spin{width:22px;height:22px;border:3px solid #cfdbff;border-top-color:#2f6bff;border-radius:50%;animation:sp 1s linear infinite;flex:none}
+.camcard .ok{width:22px;height:22px;border-radius:50%;background:#12a150;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+.camcard .bad{width:22px;height:22px;border-radius:50%;background:#d9463b;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+.camcard button{color:#2f6bff;font-weight:700;font-size:12.5px;margin-left:auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* 업로드 */
+.intro h3{margin:0;font-size:16px;line-height:1.4}.intro p{margin:4px 0 0;font-size:12.5px;color:#5a6880}
+.utypes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.utypes button{background:#f5f7fb;border-radius:12px;padding:14px 6px;font-weight:700;font-size:12.5px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.utypes button span{font-size:20px}
+.flist .fh{display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:6px}
+.flist .fh span{color:#5a6880;font-weight:600}
+.fempty{background:#fff;border-radius:14px;padding:22px;text-align:center;box-shadow:var(--sh)}
+.fempty b{display:block;font-size:13px}.fempty small{color:#5a6880;font-size:12px}
+.frow{display:flex;gap:10px;align-items:center;background:#fff;border-radius:12px;padding:9px 10px;box-shadow:var(--sh);margin-bottom:6px}
+.frow .th{width:34px;height:42px;border-radius:6px;background:#e6eaf2;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#5a6880}
+.frow b{display:block;font-size:12.5px}.frow small{color:#5a6880;font-size:11px}
+.frow .del{margin-left:auto;color:#98a4b8;font-size:14px}
+/* 추출 */
+.ex-card{background:#fff;border-radius:16px;padding:18px 16px;box-shadow:var(--sh);margin-top:30px}
+.ex-card .t{display:flex;justify-content:space-between;font-weight:700;font-size:13.5px}
+.bar{height:8px;border-radius:999px;background:#eef1f5;margin:10px 0 14px;overflow:hidden}
+.bar i{display:block;height:100%;background:#2f6bff;transition:width .4s}
+.step{display:flex;gap:10px;align-items:center;font-size:13px;padding:6px 0;font-weight:600}
+.step.wait{color:#98a4b8;font-weight:500}
+.step .dot{width:20px;height:20px;border-radius:50%;background:#12a150;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center}
+.step.wait .dot{background:#e6eaf2;color:#98a4b8}
+.fail{background:#fff;border-radius:16px;padding:22px 16px;text-align:center;box-shadow:var(--sh);margin-top:30px}
+.fail b{display:block;margin:6px 0 10px}
+/* 검수 */
+.note{font-size:12.5px;color:#5a6880;text-align:center;margin:0}
+.orig{display:flex;align-items:center;gap:8px;background:#fff;border-radius:12px;padding:10px 12px;box-shadow:var(--sh);font-size:13px;font-weight:700}
+.orig span{margin-left:auto;color:#5a6880;font-weight:600}
+.rsec h4{margin:4px 0 6px;font-size:13px}
+.rrow{display:flex;align-items:center;gap:8px;background:#fff;border-radius:10px;padding:6px 10px;margin-bottom:5px;box-shadow:var(--sh);font-size:12.5px}
+.rrow label{width:84px;color:#5a6880;flex:none}
+.rrow input{flex:1;border:1px solid transparent;border-radius:7px;padding:5px 7px;font:inherit;background:#f5f7fb;min-width:0}
+.rrow .u{color:#98a4b8;font-size:11px;width:44px;text-align:right;flex:none}
+.rrow.low input{border-color:#e0a526;background:#fff8e6}
+.rrow.low .u{color:#b7791f;width:auto;font-weight:700}
+.prev{flex:1;background:#10151f;display:flex;flex-direction:column}
+.prev .ph{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;color:#fff}
+.prev .page{flex:1;display:flex;align-items:center;justify-content:center}
+.prev .paper{width:230px;height:330px;background:#fff;border-radius:6px;display:flex;flex-direction:column;gap:9px;padding:22px 18px}
+.prev .paper span{display:block;height:7px;border-radius:4px;background:#dfe4ec}
+.prev .pn{display:flex;justify-content:space-between;padding:0 30px 20px;color:#fff;font-size:22px}
+.done{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px 24px;text-align:center}
+.done .chk{width:64px;height:64px;border-radius:50%;background:#12a150;color:#fff;font-size:30px;display:flex;align-items:center;justify-content:center}
+.done h3{margin:8px 0 0;font-size:18px}.done p{font-size:13px;color:#5a6880;margin:0}
+.done .acts{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:20px}
+.nav{display:flex;justify-content:space-around;padding:8px 6px 14px;background:#fff;border-top:1px solid #e9edf5}
+.nav div{display:flex;flex-direction:column;align-items:center;gap:1px;font-size:10.5px;color:#98a4b8}.nav div.on{color:#2f6bff;font-weight:700}.nav span{font-size:16px}
+#toast{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);background:#16233f;color:#fff;font-size:12px;padding:8px 12px;border-radius:999px;opacity:0;transition:.2s;pointer-events:none;white-space:nowrap;z-index:5}
+#toast.show{opacity:1}
+.app.map [data-f]{outline:1.5px dashed #ff8a3d;outline-offset:2px;position:relative}
+.app.map [data-f]::before{content:attr(data-f);position:absolute;top:-9px;left:8px;background:#ff8a3d;color:#fff;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:999px;z-index:2;line-height:1.4}
+/* 오른쪽 */
+.side{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.side-h{padding:16px 20px 12px;border-bottom:1px solid var(--line)}
+.side-h .step{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--acc);display:block;padding:0}
+.side-h .id{display:inline-block;font-size:10.5px;color:var(--mute);background:var(--chip);padding:1px 7px;border-radius:999px;margin-left:6px;font-family:var(--mono)}
+.side-h h2{font-size:17px;margin:4px 0 2px}
+.side-h p{font-size:13px;color:var(--mute);margin:0}
+.side-b{padding:14px 20px 20px}
+.spec-h{font-size:12px;font-weight:700;color:var(--mute);margin:0 0 6px}
+.spec-h.sep{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
+dl.spec{margin:0;display:grid;grid-template-columns:150px 1fr;gap:6px 12px;font-size:13px}
+dl.spec dt{font-weight:700}dl.spec dd{margin:0}
+.fm{font-size:12.5px}
+.edge{margin:0;padding-left:18px;font-size:13px}
+.edge li{margin:3px 0}
+@media(max-width:920px){.stage{grid-template-columns:1fr}.phone{margin:0 auto;position:relative;top:0;height:780px}}
+@media(max-width:520px){.phone{width:100%;border-radius:38px}dl.spec{grid-template-columns:1fr}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}.seg{background:var(--card)}.seg.on{background:#e6e9ee;color:#15181d;border-color:#e6e9ee}}
+:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <span class="kind">화면설계서</span>
+  <h1>검진 리포트 등록</h1>
+  <div class="path">병원 › 방문이력 「+」에서 시작해 AI REPORT(QR) 또는 일반 검진 리포트(업로드)를 등록하는 흐름</div>
+  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>REG-001 ~ 006</b></span><span>관련 문서 <b><a href="maiReport_검진리포트등록_기획서_v1.0.0.html">기획서</a> · <a href="maiReport_검진리포트등록_화면정의서_v1.0.0.html">화면정의서</a></b></span></div>
+</header>
+
+<nav class="toc"><ol>
+<li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">흐름 개요</a></li><li><a href="#c2">흐름도</a></li><li><a href="#c3">단계별 화면</a></li><li><a href="#c4">분기와 예외</a></li><li><a href="#c5">데이터와 연동</a></li><li><a href="#c6">시나리오</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
+</ol></nav>
+
+<section id="glance"><h2>한눈에 보기</h2>
+<div class="glance">
+<div><b>이 문서가 다루는 것</b>방문이력의 「+」를 누른 순간부터 리포트가 방문이력에 들어갈 때까지 화면이 어떻게 이어지는지. 3장의 왼쪽 화면은 직접 눌러 볼 수 있다. 데이터는 모두 가상이다.</div>
+<div><b>가장 중요한 결정</b>두 길 모두 사용자가 확인 화면을 지나야 저장된다. QR 길은 카메라 → 인식 결과 확인 → 저장 → 결과 화면, 업로드 길은 업로드 → 추출 중 → 추출 데이터 확인 → 최종 등록 → 완료.</div>
+<div><b>아직 정해지지 않은 것</b>확신 낮은 값의 표시, 대상자 확인 방법, 추출 실패의 재시도 횟수. 자세한 목록은 「확인 필요」.</div>
+</div>
+</section>
+
+<section id="c1"><h2>1. 흐름 개요</h2>
+<table>
+<tr><th style="width:22%">시작</th><th style="width:30%">끝</th><th>거치는 화면</th></tr>
+<tr><td>방문이력 「+」(또는 홈 헤더 QR, 방문이력 빈 화면 버튼)</td><td>AI REPORT 결과 화면(QR) 또는 등록 완료 화면 → 방문이력에 새 건</td><td>REG-001 유형 선택 → [QR] REG-002 카메라 → 수신 카드 → REG-003 인식 결과 확인 → 결과 화면 / [업로드] REG-004 업로드 → REG-005 추출 중 → REG-006 추출 데이터 확인 (→ 원본 미리보기) → 완료</td></tr>
+</table>
+</section>
+
+<section id="c2"><h2>2. 흐름도</h2>
+<div class="fig">
+<svg viewBox="0 0 1180 360" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard,'Malgun Gothic',sans-serif" font-size="12.5">
+<defs><marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6b7685"/></marker></defs>
+<g fill="#fff" stroke="#c9d0da">
+<rect x="10" y="130" width="140" height="64" rx="10"/>
+<rect x="200" y="30" width="140" height="64" rx="10"/><rect x="390" y="30" width="140" height="64" rx="10"/><rect x="580" y="30" width="140" height="64" rx="10"/><rect x="770" y="30" width="140" height="64" rx="10"/><rect x="960" y="30" width="200" height="64" rx="10" stroke="#1d4ed8" stroke-width="1.5"/>
+<rect x="200" y="230" width="140" height="64" rx="10"/><rect x="390" y="230" width="140" height="64" rx="10"/><rect x="580" y="230" width="140" height="64" rx="10"/><rect x="770" y="230" width="140" height="64" rx="10"/><rect x="960" y="230" width="200" height="64" rx="10" stroke="#1d4ed8" stroke-width="1.5"/>
+<rect x="580" y="130" width="140" height="50" rx="10" stroke-dasharray="4 3"/><rect x="390" y="130" width="140" height="50" rx="10" stroke-dasharray="4 3"/>
+</g>
+<g fill="#1c2430" text-anchor="middle">
+<text x="80" y="157" font-weight="700">REG-001</text><text x="80" y="176" fill="#6b7685" font-size="11">유형 선택 시트</text>
+<text x="270" y="56" font-weight="700">REG-002 카메라</text><text x="270" y="76" fill="#6b7685" font-size="11">QR 자동 인식</text>
+<text x="460" y="56" font-weight="700">수신 카드</text><text x="460" y="76" fill="#6b7685" font-size="11">카메라 위 · 대상자 확인</text>
+<text x="650" y="56" font-weight="700">REG-003 확인</text><text x="650" y="76" fill="#6b7685" font-size="11">값 확인 · 저장하기</text>
+<text x="840" y="56" font-weight="700">저장 완료</text><text x="840" y="76" fill="#6b7685" font-size="11">같은 자리 1초</text>
+<text x="1060" y="56" font-weight="700">AI REPORT 결과 화면</text><text x="1060" y="76" fill="#6b7685" font-size="11">홈 위에 열림 · 질문 재구성</text>
+<text x="270" y="256" font-weight="700">REG-004 업로드</text><text x="270" y="276" fill="#6b7685" font-size="11">카메라 · 앨범 · PDF</text>
+<text x="460" y="256" font-weight="700">REG-005 추출 중</text><text x="460" y="276" fill="#6b7685" font-size="11">3단계 진행률</text>
+<text x="650" y="256" font-weight="700">REG-006 검수</text><text x="650" y="276" fill="#6b7685" font-size="11">값 수정 · 원본 대조</text>
+<text x="840" y="256" font-weight="700">최종 등록</text><text x="840" y="276" fill="#6b7685" font-size="11">검수값만 저장</text>
+<text x="1060" y="256" font-weight="700">등록 완료</text><text x="1060" y="276" fill="#6b7685" font-size="11">결과 보기 · 다음에</text>
+<text x="650" y="150" font-weight="700" font-size="11.5">다시 촬영 → 카메라</text><text x="650" y="168" fill="#6b7685" font-size="11">대상자 불일치 → 다시 스캔</text>
+<text x="460" y="150" font-weight="700" font-size="11.5">추출 실패 · 닫기</text><text x="460" y="168" fill="#6b7685" font-size="11">업로드로, 파일 유지</text>
+</g>
+<g stroke="#6b7685" stroke-width="1.5" fill="none" marker-end="url(#m)">
+<path d="M150,150 L175,150 L175,62 L198,62"/><path d="M150,175 L175,175 L175,262 L198,262"/>
+<path d="M340,62 L388,62"/><path d="M530,62 L578,62"/><path d="M720,62 L768,62"/><path d="M910,62 L958,62"/>
+<path d="M340,262 L388,262"/><path d="M530,262 L578,262"/><path d="M720,262 L768,262"/><path d="M910,262 L958,262"/>
+</g>
+<g stroke="#6b7685" stroke-width="1.5" fill="none" stroke-dasharray="4 3" marker-end="url(#m)">
+<path d="M650,94 L650,128"/><path d="M580,155 L270,155 L270,96"/>
+<path d="M460,230 L460,182"/><path d="M390,155 L270,155 L270,228"/>
+<path d="M650,294 L650,330 L270,330 L270,296"/>
+</g>
+<text x="460" y="345" fill="#6b7685" font-size="11" text-anchor="middle">「다시 업로드」(파일 유지)</text>
+</svg>
+</div>
+</section>
+
+<section id="c3"><h2>3. 단계별 화면</h2>
+<p>왼쪽 화면을 눌러 흐름을 따라간다. 위의 단계 버튼으로 바로 건너뛰고, 시나리오를 바꾸면 길과 결과가 달라진다. 오른쪽에는 지금 보이는 화면의 동작 · 표시 정보 · 예외가 바뀐다.</p>
+<div class="controls">
+  <div class="ctl" id="jump"><span class="lab">단계</span></div>
+  <div class="ctl" id="scen"><span class="lab">시나리오</span></div>
+  <label class="toggle"><input type="checkbox" id="mapT"> 정보 위치 표시</label>
+</div>
+<div class="stage">
+  <div class="phone"><div class="app" id="app">
+    <div class="sbar"><span>9:41</span><i>●●● ▮</i></div>
+    <div id="screen"></div>
+    <div id="toast"></div>
+  </div></div>
+  <aside class="side">
+    <div class="side-h"><span class="step" id="sStep"></span><h2 id="sTitle"></h2><p id="sDesc"></p></div>
+    <div class="side-b" id="sBody"></div>
+  </aside>
+</div>
+</section>
+
+<section id="c4"><h2>4. 분기와 예외</h2>
+<table>
+<tr><th style="width:26%">상황</th><th style="width:40%">화면</th><th>다음</th></tr>
+<tr><td>홈 헤더 QR 버튼</td><td>유형 선택 없이 바로 QR 카메라</td><td>REG-002</td></tr>
+<tr><td>카메라 · 사진 권한 거부</td><td>카메라 대신 「카메라 권한이 필요해요」 + 「설정 열기」. 앨범도 같다. PDF는 권한 불필요</td><td>설정 → 돌아오면 다시 시도</td></tr>
+<tr><td>QR이 읽히지 않음</td><td>사각형 안내 유지. 오류 문구 없이 기다린다</td><td>—</td></tr>
+<tr><td>대상자 불일치</td><td>수신 카드에 「본인 리포트가 아니에요」 + 「다시 스캔」. 저장하지 않는다</td><td>REG-002</td></tr>
+<tr><td>인식 결과 확인에서 「다시 촬영」</td><td>카메라로 돌아간다. 받은 값은 버린다</td><td>REG-002</td></tr>
+<tr><td>받을 수 없는 파일</td><td>목록에 넣지 않고 토스트. 「PDF와 사진만」 「최대 30MB」 「최대 10개」</td><td>REG-004 유지</td></tr>
+<tr><td>추출 중 ✕ 또는 실패</td><td>실패 카드 「리포트를 읽지 못했어요. 다시 올려 주세요.」. 파일은 남긴다</td><td>REG-004</td></tr>
+<tr><td>화면을 나갔다 돌아옴(추출 중)</td><td>진행률이 이어진다</td><td>REG-005 → REG-006</td></tr>
+<tr><td>읽힌 항목 없음</td><td>검수 화면에 「읽을 수 있는 항목이 없어요」 + 「다시 업로드」만</td><td>REG-004</td></tr>
+<tr><td>검진일이 비어 있음</td><td>검진일 칸 강조, 「최종 등록」 비활성</td><td>값 입력 후</td></tr>
+<tr><td>같은 검진일 · 기관을 다시 등록</td><td>새 건을 만들지 않고 기존 건 갱신. 완료 화면은 같다</td><td>완료</td></tr>
+<tr><td>검수 화면에서 ✕</td><td>등록하지 않고 닫는다. 추출값은 버리고 파일은 남는다</td><td>방문이력</td></tr>
+</table>
+</section>
+
+<section id="c5"><h2>5. 데이터와 연동</h2>
+<table>
+<tr><th style="width:18%">단계</th><th style="width:42%">주고받는 것</th><th>외부 호출 · 저장</th></tr>
+<tr><td>QR 스캔</td><td>QR의 리포트 식별자 → 리포트 서버 조회 → 검진일 · 기관 · 검사 종류 · 소견 · AI 점수 · 대상자 식별값</td><td>리포트 서버 조회 1회. 대상자 확인(계정 이름 · 생년 비교)</td></tr>
+<tr><td>인식 결과 확인 · 저장하기</td><td>확인(수정)한 값</td><td>방문이력 AI REPORT 건 저장(출처 = QR). 원본 리포트 PDF 링크 보관. 오늘의 질문 세트 초기화</td></tr>
+<tr><td>업로드</td><td>사진 · PDF 파일(순서 · 출처)</td><td>원본 파일 업로드 · 보관(보관 기간은 확인 필요)</td></tr>
+<tr><td>추출</td><td>파일 → 문서 인식 → 항목 · 값 · 단위 · 확신도</td><td>문서 인식 호출. 결과는 검수 전 임시 보관</td></tr>
+<tr><td>검수 · 최종 등록</td><td>사용자가 확인 · 수정한 값, 검수 이력(무엇을 고쳤는지)</td><td>검진 건 저장(출처 = 등록, 판정 없음). 방문이력 · 검진요약 · 검진상세 갱신</td></tr>
+</table>
+<p class="ex">항목과 단위는 <a href="maiReport_AI검진요약_기준범위_레퍼런스_v1.0.0.html">AI 검진요약 기준 범위 레퍼런스</a>를 따른다.</p>
+</section>
+
+<section id="c6"><h2>6. 시나리오</h2>
+<p><b>44세 직장인, 회사 종합검진 결과지 PDF 1개와 사진 2장.</b></p>
+<ol>
+<li><b>병원 탭 › 방문이력에서 「+」를 누른다.</b> 시트에서 「일반 검진 리포트 등록」을 고른다.</li>
+<li><b>업로드 화면.</b> 「PDF」로 결과지 PDF를, 「앨범」으로 추가 사진 2장을 올린다. 목록에 3개, 「다음」이 켜진다.</li>
+<li><b>추출 중.</b> 18% → 66% → 100%, 세 단계에 ✓가 붙는다.</li>
+<li><b>추출 데이터 확인.</b> 기본 정보(2025.11.18 · KMI 광화문센터), 계측 검사, 혈액 검사가 보인다. 공복혈당이 「1O2」로 읽혀 노란 표시와 「확인해 주세요」. 「원본 파일 3개 ›」로 PDF를 넘겨 보고 102로 고친다.</li>
+<li><b>「최종 등록」.</b> 완료 화면. 「등록 결과 보기」를 누르면 검진 상세, 거기서 AI 검진요약 「검진 항목을 정리했어요」를 만들 수 있다.</li>
+<li><b>방문이력</b>에 「2025년 · 일반검진 · KMI 광화문센터 · 📷 등록」 카드가 생겼다. 연동 건과 같은 모양이고 출처 태그만 다르다.</li>
+</ol>
+</section>
+
+<section id="open"><h2>확인 필요</h2>
+<table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
+<tr><td>확신 낮은 값의 표시(칸 색 · 문구)와 기준 신뢰도</td><td>디자인 · 개발</td><td>인식 엔진 결정 뒤</td><td>열림</td></tr>
+<tr><td>QR 리포트의 대상자 확인 방법과 이름 표기만 다른 경우</td><td>기획 · 리포트 제공 측</td><td>구현 전</td><td>열림</td></tr>
+<tr><td>추출 실패의 자동 재시도 횟수와 시간 한도(1분 초과 시 안내)</td><td>개발</td><td>구현 시</td><td>열림</td></tr>
+<tr><td>원본 파일 보관 기간</td><td>기획 · 법무</td><td>—</td><td>열림</td></tr>
+</table>
+</section>
+
+<section id="history"><h2>바뀐 것</h2>
+<table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
+<tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 프로토타입의 등록 흐름을 두 길로 나누어 조작 화면으로 옮기고, 같은 날 작성된 기획서의 규칙(QR도 확인 화면 필수 · 대상자 확인 · 30MB)에 맞춤</td><td>프로토타입에만 있던 흐름에 설계서가 없었음</td></tr></table>
+</section>
+</main>
+
+<script>
+const SCEN={
+ qr:{label:'AI REPORT · QR',path:'qr',mismatch:false,fail:false,files:[]},
+ qrbad:{label:'QR · 본인 아님',path:'qr',mismatch:true,fail:false,files:[]},
+ pdf:{label:'일반 검진 · PDF',path:'up',mismatch:false,fail:false,files:[{n:'검진결과_2025.pdf',s:'PDF 문서 · PDF',pdf:true}]},
+ photo:{label:'일반 검진 · 사진 3장',path:'up',mismatch:false,fail:false,files:[{n:'검진정보_1.jpg',s:'1페이지 · 카메라'},{n:'검진정보_2.jpg',s:'2페이지 · 카메라'},{n:'검진정보_3.jpg',s:'3페이지 · 앨범'}]},
+ fail:{label:'추출 실패',path:'up',mismatch:false,fail:true,files:[{n:'흐린사진.jpg',s:'1페이지 · 앨범'}]}
+};
+const AI_ROWS=[['검진일','2026.09.22'],['검진기관','MAIHUB'],['검사 종류','흉부 X-ray (R-PA)'],['판독 결과','경화 · AI 점수 19']];
+const SECTIONS=[
+ {t:'기본 정보',rows:[['검진일','2025.11.18',''],['검진기관','KMI 광화문센터','']]},
+ {t:'계측 검사',rows:[['키','172','cm'],['체중','72.5','kg'],['BMI','24.5','kg/m²'],['허리둘레','82','cm']]},
+ {t:'혈액 및 기타 검사',rows:[['공복혈당','1O2','mg/dL','low'],['총콜레스테롤','169','mg/dL'],['HDL','49','mg/dL'],['LDL','100','mg/dL'],['중성지방','97','mg/dL'],['AST','21','U/L'],['ALT','26','U/L']]}
+];
+const S={scen:'qr',screen:'visit',files:[],pct:0,step:0,camState:'scan',low:new Set(),timers:[],registered:false,vals:{}};
+function sc(){return SCEN[S.scen]}
+const NAV=`<nav class="nav"><div><span>⌂</span><small>홈</small></div><div><span>♡</span><small>생활</small></div><div class="on"><span>✚</span><small>병원</small></div><div><span>•••</span><small>더보기</small></div></nav>`;
+function clearT(){S.timers.forEach(clearTimeout);S.timers=[]}
+function later(f,ms){S.timers.push(setTimeout(f,ms))}
+
+/* ─ 화면 ─ */
+const V={
+ visit(){const reg=S.registered;return `<div class="app-h"><b>병원 · 방문이력</b><span></span></div><div class="scroll"><div class="visit">
+  ${reg?`<div class="vcard" data-f="등록된 건"><div class="ic">${sc().path==='qr'?'✦':'📷'}</div><div><b>${sc().path==='qr'?'AI REPORT · 흉부 X-ray':'일반검진 · KMI 광화문센터'}</b><small>${sc().path==='qr'?'2026.09.22 · 경화 소견 (AI 점수 19)':'2025.11.18 · 항목 13개'}</small></div><span class="tag">${sc().path==='qr'?'QR 등록':'📷 등록'}</span></div>`:
+  `<div class="empty" data-f="빈 방문이력"><span style="font-size:26px">🗂️</span><b>아직 기록이 없어요</b><small>검진 · 진료정보를 연동하거나 리포트를 직접 등록해 보세요</small></div>
+  <div class="two" data-f="빈 화면 등록 버튼"><button onclick="go('cam')">AI REPORT QR 스캔</button><button onclick="go('upload')">일반 검진 결과지 등록</button></div>`}
+  </div></div><button class="fab" data-f="등록 +" onclick="go('sheet')">+</button>${NAV}`},
+ sheet(){return V.visit()+`<div class="sheet"><div class="list" data-f="등록 유형 선택"><button onclick="go('cam')"><span>✦</span>AI REPORT 등록</button><button onclick="go('upload')"><span>▤</span>일반 검진 리포트 등록</button></div><button class="x" onclick="go('visit')">✕</button></div>`},
+ cam(){const st=S.camState;let card='';
+  if(st==='loading')card=`<div class="camcard" data-f="수신 카드"><div class="spin"></div><div><b>리포트를 불러오고 있어요</b><small>QR에 담긴 분석 결과를 확인하는 중이에요</small></div></div>`;
+  if(st==='ok')card=`<div class="camcard" data-f="수신 완료"><div class="ok">✓</div><div><b>리포트를 받았어요</b><small>내용을 확인해 주세요</small></div></div>`;
+  if(st==='bad')card=`<div class="camcard" data-f="대상자 불일치"><div class="bad">!</div><div><b>본인 리포트가 아니에요</b><small>리포트의 대상자가 계정과 달라요</small></div><button onclick="S.camState='scan';render()">다시 스캔</button></div>`;
+  return `<div class="cam"><div class="ch"><b data-f="제목">AI REPORT QR 스캔</b><button onclick="go('visit')" style="color:#fff">✕</button></div><div class="view"><div class="frame" data-f="안내 사각형" onclick="scanQR()"><div class="scan"></div></div><p class="hint" data-f="안내 문장">리포트에 인쇄된 QR 코드를<br>사각형 안에 맞춰 주세요.<br><small style="color:#8a96ad">(여기를 누르면 QR이 읽힌 것으로 봅니다)</small></p>${card}</div><div class="cf"><button class="side">🖼</button><span class="cnt">QR은 자동으로 인식돼요</span><span style="width:50px"></span></div></div>`},
+ confirm(){return `<div class="app-h"><button onclick="go('cam')">‹</button><b>인식 결과 확인</b><span></span></div><div class="scroll"><div class="app-b">
+  <div class="card" data-f="수신 요약" style="display:flex;gap:12px;align-items:center"><div class="frow" style="margin:0;box-shadow:none;padding:0"><div class="th">📄</div></div><div><b style="font-size:13.5px">AI REPORT</b><br><small style="color:#5a6880">${AI_ROWS.length}개 항목 인식</small></div><span class="tag">QR 수신</span></div>
+  <div class="card"><h4>인식된 항목</h4>${AI_ROWS.map(r=>`<div class="vrow" data-f="${r[0]==='검진일'?'항목 · 누르면 수정':''}"><span>${r[0]}</span><b>${r[1]}</b></div>`).join('')}<p class="note" style="margin-top:6px">틀린 값은 눌러서 고칠 수 있어요</p></div>
+  ${S.camState==='saved'?`<div class="card" style="text-align:center" data-f="저장 완료"><span style="font-size:26px">✅</span><h4 style="margin:6px 0 2px">AI REPORT 분석이 완료됐어요</h4><p class="note">방문이력에 AI 분석 결과가 추가됐어요.</p></div>`:''}
+  </div></div><div class="foot" data-f="하단 버튼"><button class="sec" onclick="go('cam')">다시 촬영</button><button class="prim" ${S.camState==='saved'?'disabled':''} onclick="saveAi()">저장하기</button></div>`},
+ result(){return `<div class="app-h"><button onclick="S.registered=true;go('visit')">‹</button><b>AI REPORT 결과</b><span></span></div><div class="scroll"><div class="app-b"><div class="card" data-f="결과 화면 (AI 검진요약 문서 참고)"><h4>흉부 X-ray · 2026.09.22</h4><div class="vrow"><span>소견</span><b>경화 (Consolidation)</b></div><div class="vrow"><span>AI 점수</span><b>19</b></div><div class="vrow"><span>검진기관</span><b>MAIHUB</b></div><p class="note" style="text-align:left;margin-top:8px">결과 화면 구성은 AI 검진요약 화면정의서를 따른다. 이 화면을 닫으면 홈이 드러나고 오늘의 질문이 새 문항으로 바뀐다.</p></div><button class="prim" onclick="S.registered=true;go('visit')">방문이력에서 보기</button></div></div>${NAV}`},
+ upload(){const f=S.files;return `<div class="app-h"><button onclick="go('visit')">✕</button><b>검진정보 리포트 등록</b><span></span></div><div class="scroll"><div class="app-b">
+  <div class="intro" data-f="소개"><h3>내 검진정보 리포트를<br>등록해 보세요.</h3><p>AI가 자동으로 데이터를 추출하여 등록해 드릴게요.</p></div>
+  <div class="card" data-f="업로드 방법"><b style="font-size:12.5px">아래 방법 중 하나로 검진 리포트를 업로드해 주세요.<br>여러 장일 경우 순서대로 업로드해 주세요.</b><div class="utypes"><button onclick="addFile('카메라')"><span>📷</span>카메라</button><button onclick="addFile('앨범')"><span>▣</span>앨범</button><button onclick="addFile('PDF')"><span style="font-size:13px;font-weight:800">PDF</span>PDF</button></div></div>
+  <div class="flist" data-f="업로드 파일 목록"><div class="fh">업로드 파일<span>${f.length}개</span></div>${f.length?f.map((x,i)=>`<div class="frow"><div class="th">${x.pdf?'PDF':'🖼'}</div><div><b>${x.n}</b><small>${x.s}</small></div><button class="del" onclick="delFile(${i})">✕</button></div>`).join(''):`<div class="fempty"><span style="font-size:22px">◇</span><b>아직 업로드된 파일이 없습니다.</b><small>사진 또는 PDF 파일을 선택해 주세요.</small></div>`}</div>
+  </div></div><div class="foot"><button class="prim" data-f="다음" ${f.length?'':'disabled'} onclick="startExtract()">다음</button></div>`},
+ extract(){if(S.step<0)return `<div class="app-h"><button onclick="go('upload')">✕</button><b>데이터 추출중</b><span></span></div><div class="scroll"><div class="app-b"><div class="fail" data-f="추출 실패"><span style="font-size:26px">⚠️</span><b>리포트를 읽지 못했어요.<br>다시 올려 주세요.</b><button class="sec" onclick="go('upload')">다시 업로드</button></div></div></div>`;
+  const st=['파일 업로드 완료','문서 인식 및 추출','검진 결과 정리'];return `<div class="app-h"><button onclick="clearT();go('upload')">✕</button><b>데이터 추출중</b><span></span></div><div class="scroll"><div class="app-b"><div class="ex-card" data-f="진행 카드"><div class="t"><span>진행률</span><span>${S.pct}%</span></div><div class="bar"><i style="width:${S.pct}%"></i></div>${st.map((s,i)=>`<div class="step ${i<S.step?'':'wait'}"><span class="dot">${i<S.step?'✓':'·'}</span>${s}</div>`).join('')}</div></div></div>`},
+ review(){return `<div class="app-h"><button onclick="go('visit')">✕</button><b>추출 데이터 확인</b><span></span></div><div class="scroll"><div class="app-b">
+  <p class="note" data-f="안내">최종 등록 전에 추출된 데이터를 확인 후<br>잘못된 값을 수정해 주세요.</p>
+  <button class="orig" data-f="원본 파일" onclick="go('preview')">▤ 원본 파일<span>${S.files.length}개 ›</span></button>
+  ${SECTIONS.map((s,si)=>`<div class="rsec"><h4>${s.t}</h4>${s.rows.map((r,ri)=>{const k=si+'-'+ri,low=S.low.has(k);return `<div class="rrow ${low?'low':''}" ${low?'data-f="확신 낮은 값"':''}><label>${r[0]}</label><input value="${S.vals[k]??r[1]}" oninput="S.vals['${k}']=this.value;S.low.delete('${k}');this.parentNode.classList.remove('low');this.parentNode.querySelector('.u').textContent='${r[2]}'"><span class="u">${low?'확인해 주세요':r[2]}</span></div>`}).join('')}</div>`).join('')}
+  </div></div><div class="foot" data-f="하단 버튼"><button class="sec" onclick="go('upload')">다시 업로드</button><button class="prim" onclick="go('done')">최종 등록</button></div>`},
+ preview(){return `<div class="prev"><div class="ph"><button onclick="go('review')" style="color:#fff">✕</button><b>1/${S.files.length}</b><span></span></div><div class="page" data-f="원본 장 (좌우 탭 이동)"><div class="paper">${['92%','78%','86%','64%','88%','72%','80%','60%','84%'].map(w=>`<span style="width:${w}"></span>`).join('')}</div></div><div class="pn"><span>‹</span><span>›</span></div></div>`},
+ done(){return `<div class="done" data-f="등록 완료"><div class="chk">✓</div><h3>검진정보 리포트 등록 완료</h3><p>검진정보 데이터가 마이데이터에 저장되었어요.<br>마이데이터에서 결과를 확인해 보세요.</p><div class="acts"><button class="prim" onclick="S.registered=true;toast('검진 상세로 이동');go('visit')">등록 결과 보기</button><button class="sec" onclick="S.registered=true;go('visit')">다음에 볼게요</button></div></div>`}
+};
+/* ─ 동작 ─ */
+function go(k){clearT();S.screen=k;if(k==='cam')S.camState='scan';if(k==='upload'&&!S.files.length)S.files=[];render()}
+function scanQR(){if(S.camState!=='scan')return;S.camState='loading';render();later(()=>{S.camState=sc().mismatch?'bad':'ok';render();if(!sc().mismatch)later(()=>{go('confirm')},900)},1200)}
+function saveAi(){S.camState='saved';render();later(()=>{S.registered=true;go('result')},1100)}
+function addFile(src){if(S.files.length>=10){toast('최대 10개까지 올릴 수 있어요');return}const n=S.files.length+1;S.files.push(src==='PDF'?{n:`검진결과_${n}.pdf`,s:'PDF 문서 · PDF',pdf:true}:{n:`검진정보_${n}.jpg`,s:`${n}페이지 · ${src}`});render()}
+function delFile(i){S.files.splice(i,1);render()}
+function startExtract(){S.screen='extract';S.pct=18;S.step=1;render();later(()=>{S.pct=66;S.step=2;render()},600);later(()=>{if(sc().fail){S.step=-1;render();return}S.pct=100;S.step=3;render();later(()=>{S.low=new Set(['2-0']);S.vals={};go('review')},500)},1300)}
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),1300)}
+
+/* ─ 오른쪽 설계 ─ */
+const SIDE={
+ visit:{step:'⓪ 시작',id:'HOSP-003',title:'방문이력에서 시작',desc:'등록은 병원 탭 › 방문이력의 「+」에서 시작한다. 기록이 없는 빈 화면에는 두 길의 버튼이 바로 놓인다. 홈 헤더의 QR 버튼은 유형 선택 없이 QR 카메라로 간다.',
+  spec:[['「+」','등록 유형 선택 시트를 띄운다'],['빈 화면 버튼','「AI REPORT QR 스캔」 → 카메라, 「일반 검진 결과지 등록」 → 업로드'],['등록 뒤','연도별 목록에 새 건. 연동 건과 같은 카드, 출처 태그만 다르다']],
+  info:[['출처 태그','등록 건','「QR 등록」 「📷 등록」. 연동 건에는 없다'],['빈 화면 안내','기록 없음','연동과 등록 두 길을 함께 안내']],
+  edge:['연동을 해제해도 등록한 건은 남는다.','같은 검진일 · 기관을 다시 등록하면 새 카드가 생기지 않고 값이 바뀐다.']},
+ sheet:{step:'REG-001',id:'REG-001',title:'등록 유형 선택',desc:'두 줄짜리 액션 시트. AI REPORT는 QR 카메라로, 일반 검진 리포트는 업로드 화면으로 보낸다.',
+  spec:[['AI REPORT 등록','REG-002 QR 카메라'],['일반 검진 리포트 등록','REG-004 업로드'],['닫기','✕ 또는 바깥 탭 → 원래 화면']],
+  info:[['항목 수','고정 2개','다른 유형은 두지 않는다']],
+  edge:['홈 헤더 QR 버튼은 이 시트를 거치지 않는다.']},
+ cam:{step:'REG-002',id:'REG-002',title:'QR 스캔 카메라',desc:'사각형 안에 QR을 맞추면 셔터 없이 자동으로 읽는다. 읽은 뒤에는 새 화면을 열지 않고 카메라 위에 카드로 진행을 보여 준다.',
+  spec:[['자동 인식','QR이 사각형 안에 들어오면 즉시 읽는다. 셔터 · 「완료」 버튼 없음'],['수신 카드','「리포트를 불러오고 있어요」 → 리포트 서버 조회 → 대상자 확인'],['통과','「리포트를 받았어요」 → 0.9초 뒤 인식 결과 확인'],['불일치','「본인 리포트가 아니에요」 + 「다시 스캔」. 저장하지 않는다'],['권한 없음','카메라 대신 권한 안내 + 「설정 열기」']],
+  info:[['제목 · 안내','모드','QR: 「AI REPORT QR 스캔」 · 「리포트에 인쇄된 QR 코드를 사각형 안에 맞춰 주세요.」'],['대상자 확인','QR 식별값 vs 계정 이름 · 생년','이름 표기만 다른 경우는 확인 필요']],
+  edge:['QR이 읽히지 않으면 오류 문구 없이 안내를 유지한다.','촬영 모드(QR 없는 리포트)는 세로 결과지 테두리와 스캔 선, 셔터와 「완료 (n장)」를 쓴다.']},
+ confirm:{step:'REG-003',id:'REG-003',title:'인식 결과 확인 · 저장',desc:'QR로 받은(또는 사진으로 인식한) 값을 보여 주고 사용자가 저장을 결정한다. 이 화면을 거치지 않고 저장되는 길은 없다.',
+  spec:[['수신 요약','썸네일 · 「AI REPORT · n개 항목 인식」 · 출처 태그(QR 수신 / 📷 촬영 인식)'],['인식된 항목','검진일 · 검진기관 · 검사 종류 · 판독 결과(소견 · AI 점수). 누르면 수정'],['저장하기','같은 자리에 「AI REPORT 분석이 완료됐어요」 1초 → 홈 위에 결과 화면'],['다시 촬영','값을 버리고 카메라로'],['저장 뒤','오늘의 질문 · 코칭 · 목표를 처음 상태로 되돌리고 새 문항을 묻는다']],
+  info:[['확신 낮은 값','인식 결과','사진 인식일 때만 강조 표시'],['AI 점수','리포트 원본','판독 보조값. 확률 · 중증도가 아니다']],
+  edge:['값을 고쳐도 원본 리포트는 바뀌지 않는다.','저장 뒤 결과 화면의 구성은 AI 검진요약 화면정의서를 따른다.']},
+ result:{step:'저장 뒤',id:'HOSP-011',title:'AI REPORT 결과 화면',desc:'저장이 끝나면 홈을 깔아 둔 뒤 그 위에 결과 화면을 연다. 스캔한 사람이 가장 먼저 보고 싶은 것이 방금 등록한 결과이기 때문이다.',
+  spec:[['닫으면','홈이 드러나고 오늘의 컨디션 · 질문이 새 상태로 보인다'],['방문이력','AI REPORT 건이 「QR 등록」 태그로 추가돼 있다']],
+  info:[['화면 구성','AI 검진요약 화면정의서','이 설계서는 등록 흐름까지만 다룬다']],
+  edge:['결과 화면을 닫기 전에는 홈의 변화가 보이지 않는다.']},
+ upload:{step:'REG-004',id:'REG-004',title:'검진정보 리포트 등록(업로드)',desc:'사진과 PDF를 여러 장 순서대로 모은다. 파일이 1개 이상이면 「다음」이 켜진다.',
+  spec:[['카메라','기기 카메라로 1장씩. 찍은 장이 목록 끝에 붙는다'],['앨범 · PDF','여러 개 선택 가능'],['목록','썸네일 · 파일명 · 「n페이지 · 출처」 또는 「PDF 문서 · PDF」 · 삭제 ✕'],['한도','최대 10개 · 장당 30MB · 사진 · PDF만'],['✕','등록을 중단하고 방문이력으로. 파일은 버린다']],
+  info:[['파일 수','목록','「업로드 파일 · n개」'],['받을 수 없는 파일','형식 · 용량 검사','토스트로 이유. 목록에 넣지 않는다']],
+  edge:['추출 중이나 검수에서 돌아오면 파일이 그대로 남아 있다.','사진 권한을 거부하면 앨범 버튼은 「설정에서 허용」 안내로 바뀐다.']},
+ extract:{step:'REG-005',id:'REG-005',title:'데이터 추출 중',desc:'파일 업로드 → 문서 인식 및 추출 → 검진 결과 정리 세 단계를 진행률로 보여 준다. 끝나면 자동으로 확인 화면이다.',
+  spec:[['진행률','18% → 66% → 100%. 끝난 단계에 ✓'],['✕','추출을 멈추고 업로드 화면으로, 파일 유지'],['실패','「리포트를 읽지 못했어요. 다시 올려 주세요.」 + 「다시 업로드」'],['화면 이탈','돌아오면 진행률이 이어진다']],
+  info:[['시간','3장 기준 1분 이내','넘기면 진행 상태를 유지한 채 알린다(기획서 7장)']],
+  edge:['네트워크가 끊기면 「다시 시도」만 두고 올린 파일은 지우지 않는다.']},
+ review:{step:'REG-006',id:'REG-006',title:'추출 데이터 확인',desc:'읽힌 값을 묶음별로 보여 주고 사용자가 확인 · 수정한다. 「최종 등록」 전에는 아무것도 저장되지 않는다.',
+  spec:[['묶음','기본 정보 → 계측 검사 → 혈액 및 기타 검사. 행 = 항목 · 값 입력칸 · 단위'],['확신 낮은 값','칸 강조 + 「확인해 주세요」. 고치면 사라진다'],['원본 파일 n개 ›','원본 미리보기. 돌아오면 고치던 값 유지'],['다시 업로드','업로드로, 파일 유지, 추출값은 버림'],['최종 등록','검진일이 비어 있으면 비활성. 검수한 값만 저장']],
+  info:[['항목 · 단위','AI 검진요약 기준 범위 레퍼런스','읽히지 않은 항목은 빈 칸'],['판정','없음','직접 등록 건은 기준 범위로만. 검진요약 제목 「검진 항목을 정리했어요」'],['검수 이력','무엇을 고쳤는지','인식 품질 개선에 쓴다']],
+  edge:['읽힌 항목이 하나도 없으면 「읽을 수 있는 항목이 없어요」와 「다시 업로드」만 둔다.','형식(숫자인지)은 확인하지만 높다 · 낮다는 말하지 않는다.']},
+ preview:{step:'REG-006 · 원본',id:'REG-006',title:'원본 리포트 미리보기',desc:'올린 장을 좌우로 넘겨 보며 값과 대조한다. PDF는 쪽 단위.',
+  spec:[['이동','좌우 탭 · 「n/전체」'],['✕','검수 화면으로, 값 유지']],
+  info:[['원본','업로드 파일','검진 상세의 「결과지 원본」에서도 같은 뷰어']],
+  edge:['원본이 남아 있지 않으면 진입 경로를 두지 않는다.']},
+ done:{step:'완료',id:'REG-006',title:'등록 완료',desc:'검수한 값이 저장됐다. 다음 행동 두 가지를 안내한다.',
+  spec:[['등록 결과 보기','검진 상세. 거기서 AI 검진요약을 만들 수 있다'],['다음에 볼게요','방문이력']],
+  info:[['반영','방문이력 · 검진요약 · 검진상세 · 홈 건강 요약','연동 건과 같은 모양']],
+  edge:['「마이데이터」 표현은 앱 메뉴 이름과 맞출지 확인 필요.']}
+};
+function renderSide(){const s=SIDE[S.screen];sStep.innerHTML=`${s.step}<span class="id">${s.id}</span>`;sTitle.textContent=s.title;sDesc.textContent=s.desc;
+ sBody.innerHTML=`<div class="spec-h">화면 동작</div><dl class="spec">${s.spec.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl><div class="spec-h sep">표시 정보</div><table class="fm"><tr><th>항목</th><th>출처</th><th>표시 기준</th></tr>${s.info.map(x=>`<tr><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join('')}</table><div class="spec-h sep">예외 · 주의</div><ul class="edge">${s.edge.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+ document.querySelectorAll('#jump .seg').forEach(b=>b.classList.toggle('on',b.dataset.k===S.screen));}
+const JUMP=[['visit','⓪ 방문이력'],['sheet','① 유형 선택'],['cam','② QR 카메라'],['confirm','③ 인식 결과 확인'],['result','④ 결과 화면'],['upload','④ 업로드'],['extract','⑤ 추출 중'],['review','⑥ 검수'],['preview','⑥ 원본'],['done','⑦ 완료']];
+function jump(k){clearT();S.registered=false;if(['upload','extract','review','preview','done'].includes(k)&&!S.files.length)S.files=sc().files.length?[...sc().files]:[{n:'검진정보_1.jpg',s:'1페이지 · 앨범'}];
+ if(k==='extract'){S.screen='extract';startExtract();return}
+ if(k==='review'||k==='preview'||k==='done'){S.low=new Set(['2-0']);S.vals={}}
+ if(k==='cam')S.camState='scan';if(k==='confirm')S.camState='ok';
+ S.screen=k;render()}
+function setScen(k){S.scen=k;clearT();S.files=[...sc().files];S.registered=false;S.low=new Set();S.vals={};S.screen=sc().path==='qr'?'cam':'upload';S.camState='scan';render()}
+function render(){const app=document.getElementById('app');app.classList.toggle('dark',['cam','preview'].includes(S.screen));document.getElementById('screen').innerHTML=V[S.screen]();renderSide()}
+(function(){const j=document.getElementById('jump');JUMP.forEach(([k,l])=>{const b=document.createElement('button');b.className='seg';b.dataset.k=k;b.textContent=l;b.onclick=()=>jump(k);j.appendChild(b)});
+ const se=document.getElementById('scen');Object.entries(SCEN).forEach(([k,v])=>{const b=document.createElement('button');b.className='seg'+(k===S.scen?' on':'');b.textContent=v.label;b.onclick=()=>{document.querySelectorAll('#scen .seg').forEach(x=>x.classList.toggle('on',x===b));setScen(k)};se.appendChild(b)});
+ document.getElementById('mapT').onchange=e=>document.getElementById('app').classList.toggle('map',e.target.checked);render()})();
+</script>
+</body>
+</html>
