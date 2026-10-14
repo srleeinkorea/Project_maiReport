@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>생활 탭 데이터 보기 기획서</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5;--acc:#1d4ed8;--todo:#b7791f;--todo-bg:#fcf3e1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.6}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}
+header h1{margin:0 0 4px;font-size:24px}
+header .path{color:var(--mute);font-size:13px}
+.kind{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ink);color:#fff;font-size:12px;font-weight:600;margin-bottom:8px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12px;margin:8px 0 18px}
+.meta b{color:var(--ink);font-weight:600}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 18px;margin-bottom:16px;font-size:13px}
+nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:24px}
+nav.toc a,a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+section h2{margin:0 0 10px;font-size:17px}
+section h3{margin:14px 0 6px;font-size:14px}
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.glance div{border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.glance b{display:block;font-size:12px;color:var(--mute);margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
+.ex{color:var(--mute);font-size:12.5px}
+p{margin:6px 0}
+ol,ul{margin:6px 0 0;padding-left:20px}
+li{margin:4px 0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}th{background:#20252c}.kind{background:#e6e9ee;color:#15181d}}
+:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--acc:#8ab4ff;--todo-bg:#3d3119}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <span class="kind">기획서</span>
+  <h1>생활 탭 데이터 보기</h1>
+  <div class="path">생활 › 생활 분석 · 전체 건강 데이터 · 항목 상세 (홈 「오늘의 건강 데이터」 포함)</div>
+  <div class="meta"><span>판 <b>1.0.0</b></span><span>기준일 <b>2026-10-14</b></span><span>화면 ID <b>LIFE-003 · 005 · 006 · HOME-011</b></span><span>관련 문서 <b><a href="mai-report-생활분석_화면정의서_v1.0.0.html">생활 분석 화면정의서</a> · <a href="mai-report-전체건강데이터_목록_v1.0.0.html">전체 건강 데이터 목록</a> · <a href="../10_홈탭/mai-report-홈화면_화면정의서_v1.0.0.html">홈 화면정의서 §7</a> · <a href="../../엔진/지표/mai-report-생활지표_기획서_v1.0.0.html">생활지표 기획서</a> · <a href="../40_더보기탭/mai-report-건강데이터연동_화면정의서.html">건강데이터 연동 화면정의서</a></b></span></div>
+</header>
+
+<nav class="toc"><ol>
+<li><a href="#glance">한눈에 보기</a></li><li><a href="#c1">배경과 목표</a></li><li><a href="#c2">대상과 상황</a></li><li><a href="#c3">범위</a></li><li><a href="#c4">동작 방식</a></li><li><a href="#c5">규칙과 예외</a></li><li><a href="#c6">데이터</a></li><li><a href="#c7">성공 기준</a></li><li><a href="#open">확인 필요</a></li><li><a href="#history">바뀐 것</a></li>
+</ol></nav>
+
+<section id="glance"><h2>한눈에 보기</h2>
+<div class="glance">
+<div><b>이 문서가 다루는 것</b>연동한 건강 앱의 원본 값을 해석 없이 보여주는 세 층. 홈의 대표 3개 → 생활 분석의 주간 카드 → 전체 건강 데이터 12항목과 항목별 상세</div>
+<div><b>가장 중요한 결정</b>값은 건강 앱에서 읽은 그대로 쓰고 추정 · 보정 · 메우기를 하지 않는다. 비교는 「어제 대비」만, 해석은 컨디션과 코칭이 맡는다</div>
+<div><b>아직 정해지지 않은 것</b>활동 시간 · 운동 시간의 플랫폼별 산출 통일, 시간 단위 기록이 없는 항목의 시간 보기 처리</div>
+</div>
+</section>
+
+<section id="c1"><h2>1. 배경과 목표</h2>
+<p>사용자는 이미 건강 앱에 걸음 · 수면 · 심박 기록을 갖고 있다. 마이리포트가 그 숫자를 다시 보여줄 이유는 하나다. 컨디션 · 코칭 · 목표가 「무엇을 보고」 나온 것인지 확인할 수 있어야 믿을 수 있기 때문이다. 그래서 이 영역은 해석을 붙이지 않고 근거가 되는 값을 그대로 보여준다.</p>
+<p>목표는 세 가지다. 홈에서는 오늘 값과 어제 대비만 한눈에. 생활 분석에서는 한 주의 흐름을 항목별 카드로. 전체 건강 데이터에서는 연동된 12항목 전부를 시간 · 일 · 주 · 월로 파고들 수 있게.</p>
+</section>
+
+<section id="c2"><h2>2. 대상과 상황</h2>
+<table><tr><th>인물</th><th>상황</th><th>바라는 것</th></tr>
+<tr><td>45세, 워치 없이 휴대폰 걸음만 연동</td><td>오늘 컨디션이 「관찰 중」이라 왜 그런지 본다</td><td>어떤 값이 들어오고 어떤 값이 비어 있는지 알고 싶다</td></tr>
+<tr><td>52세, 혈압약 복용 중, 가정 혈압계 연동</td><td>지난달 혈압 측정값을 날짜별로 본다</td><td>측정한 시점의 값을 그대로, 평균으로 뭉개지 않고 보고 싶다</td></tr>
+<tr><td>38세, 수면이 들쭉날쭉</td><td>이번 주 수면이 어제보다 늘었는지 본다</td><td>어제와 비교해 얼마나 달라졌는지 숫자로 알고 싶다</td></tr>
+</table>
+</section>
+
+<section id="c3"><h2>3. 범위</h2>
+<table><tr><th>이번에 하는 것</th><th>하지 않는 것</th></tr>
+<tr><td>
+<ul><li>홈 「오늘의 건강 데이터」 3행(걸음 수 · 수면 시간 · 안정 시 심박수)과 어제 대비</li>
+<li>생활 분석 서브탭: 걸음 · 활동 칼로리 · 심박 · 수면 대표 카드, 주간 날짜 스트립 공유</li>
+<li>전체 건강 데이터: 활동(걸음 수 · 활동 칼로리 · 활동 시간 · 운동 기록), 심박 · 수면(심박수 · 수면), 신체 정보(체중 · 체지방률 · 체질량지수 · 키), 건강 측정(혈압 · 혈당) 4그룹 12항목</li>
+<li>항목 상세: 시간 · 일 · 주 · 월 탭, 항목에 맞는 차트(막대 · 선 · 포인트)</li></ul>
+</td><td>
+<ul><li>값의 해석 · 권고치 비교 · 또래 비교(컨디션 · 지표별 분석 · 또래 등수가 맡는다)</li>
+<li>사용자 직접 입력 · 수정(읽기 전용)</li>
+<li>평소 대비 · 여러 날 평균 비교(지표가 맡는다)</li>
+<li>건강 앱 쓰기 · 기록 변경</li></ul>
+</td></tr></table>
+</section>
+
+<section id="c4"><h2>4. 동작 방식</h2>
+<ol>
+<li><b>홈</b>: 「오늘의 건강 데이터 · 어제 대비」 아래 세 줄. 걸음 수는 자정부터 지금까지 누적(건강 앱 달력일과 같은 숫자), 수면은 어젯밤 세션 합계(낮잠 제외), 안정 시 심박수는 애플은 워치 값, 삼성은 심박 샘플 5분 평균 중 최저. 비교 문구는 「▲ 820걸음」처럼 방향과 차이만. 「›」로 전체 건강 데이터로.</li>
+<li><b>생활 분석</b>: 주간 날짜 스트립(목표 · 지표 탭과 공유) 아래 항목별 대표 카드. 카드마다 그 주의 일별 값. 연동 전이면 연동 화면으로 바로 보내는 빈 상태.</li>
+<li><b>전체 건강 데이터</b>: 4그룹 12항목을 오늘 값과 함께 목록으로. 연결한 건강 앱이 주는 항목만 보이고, 주지 않는 항목은 숨기지 않고 「기록 없음」. 하단 안내 「활동 시간은 걸음 기록에서 직접 계산하고 운동 시간은 운동 세션 기준이라, 연동한 건강 앱에 보이는 값과 조금 다를 수 있어요」.</li>
+<li><b>항목 상세</b>: 시간 · 일 · 주 · 월 탭. 걸음 · 칼로리는 막대, 심박 · 체중은 선, 혈압 · 혈당처럼 측정 간격이 일정하지 않은 항목은 측정 시점의 포인트로(「측정 횟수 · 간격이 일정하지 않아 실제 측정 시점 중심으로 보여드려요」). 기록이 없는 구간은 비운다. 시간 단위 기록이 없는 항목은 시간 탭을 막는다.</li>
+</ol>
+</section>
+
+<section id="c5"><h2>5. 규칙과 예외</h2>
+<table><tr><th>규칙</th><th>예시</th><th>예외</th></tr>
+<tr><td>건강 앱 값을 그대로 쓴다. 추정 · 보정 · 메우기 없음</td><td>어제 수면 기록이 없으면 「어제 기록 없음」. 그저께 값으로 대신 비교하지 않는다</td><td>활동 시간만 걸음 기록에서 직접 계산(앱마다 기준이 달라서)</td></tr>
+<tr><td>비교는 어제 값과만</td><td>걸음은 오늘 지금까지 누적 vs 어제 하루 합계. 백분율 · 「많아요」 같은 서술어 없음</td><td>차이가 0이면 「· 어제와 같음」, 어제 0이면 「어제 기록 없음」</td></tr>
+<tr><td>새벽 4시 경계는 쓰지 않는다(수면 귀속만 예외)</td><td>걸음은 자정 기준. 수면은 기상 시각이 속한 날</td><td>—</td></tr>
+<tr><td>한 날짜의 값은 한 앱에서만</td><td>앱을 바꾼 날 00시부터 새 앱 값. 합산 · 평균 내지 않는다</td><td>—</td></tr>
+<tr><td>미연동이면 데이터 영역을 숨기고 연동 안내는 한 번만</td><td>홈은 컨디션 영역에 안내가 있으면 건강 데이터 영역을 숨긴다</td><td>생활 분석은 자체 빈 상태로 연동 화면 링크</td></tr>
+<tr><td>기기 미착용 의심은 미연동으로 바꾸지 않는다</td><td>걸음만 있고 수면 · 심박이 없으면 두 줄에 「기록 없음」</td><td>—</td></tr>
+<tr><td>출처와 갱신 시각을 함께 보여준다</td><td>항목 상세 상단에 「삼성헬스 · 08:02 갱신」</td><td>출처를 알 수 없는 값은 내지 않는다</td></tr>
+</table>
+<h3>기능 정의</h3>
+<p class="ex">기능정의서 §5 「전체 건강 데이터 조회 · 항목 상세」, §7.1 「생활 분석」, §13 「데이터 처리 공통」 일부를 이 기획서로 옮긴 표.</p>
+<table><tr><th>기능</th><th>언제</th><th>하는 일 · 결과</th><th>어긋나면</th></tr>
+<tr><td>오늘의 건강 데이터</td><td>홈 진입 · 재진입</td><td>연동된 오늘 값 3개와 어제 대비를 보여준다</td><td>값이 없으면 「—」와 「기록 없음」. 미연동이면 영역을 숨긴다</td></tr>
+<tr><td>생활 분석</td><td>생활 분석 탭</td><td>걸음 · 수면 · 심박 · 활동의 일별 값을 그 주 단위로 보여준다</td><td>연동 전이면 연동 화면으로 직접 보낸다</td></tr>
+<tr><td>전체 건강 데이터 조회</td><td>홈 「›」 · 생활에서 선택</td><td>4그룹 12항목을 출처별로 모아 보여준다. 연동되지 않은 출처는 연결 방법과 함께 안내</td><td>출처가 겹치면 우선순위 규칙에 따라 하나만</td></tr>
+<tr><td>항목 상세 조회</td><td>항목 선택</td><td>시간 · 일 · 주 · 월 단위로 보여준다. 기록이 없는 구간은 비운다</td><td>시간 단위 기록이 없는 항목은 그 보기를 막는다</td></tr>
+<tr><td>동기화</td><td>앱 실행 · 연동 화면에서 직접</td><td>연동된 앱에서 새 값을 가져온다</td><td>앱이 켜져 있는 동안 주기적으로 다시 가져오지 않는다. 진행 중 중복 실행 금지</td></tr>
+<tr><td>단위 표준화</td><td>값을 받을 때</td><td>앱마다 다른 단위 · 기준을 서비스 기준으로 맞춘다. 활동 시간은 원자료에서 직접 계산</td><td>변환할 수 없는 값은 받지 않는다</td></tr>
+<tr><td>출처 우선순위 · 중복 제거</td><td>같은 항목이 여러 출처에서 올 때</td><td>정해진 우선순위로 하나를 고르고 나머지는 참고로</td><td>합산 · 평균 내지 않는다</td></tr>
+<tr><td>품질 · 최신성 판정</td><td>값 저장 후</td><td>언제 것인지, 얼마나 비었는지 판정해 화면에서 쓸 수 있는지 정한다</td><td>오래된 값은 시각을 함께 보여준다</td></tr>
+<tr><td>읽기 전용 보장</td><td>연동 전 구간</td><td>건강 앱 기록을 고치거나 새로 쓰지 않는다. 쓰기 권한을 요청하지 않는다</td><td>—</td></tr>
+</table>
+</section>
+
+<section id="c6"><h2>6. 데이터</h2>
+<table><tr><th>무엇을</th><th>어디서</th><th>저장</th></tr>
+<tr><td>걸음 수 · 활동 칼로리 · 활동 시간 · 운동 기록</td><td>HealthKit · Health Connect · 삼성헬스(읽기)</td><td>일별 합계 + 시간대별 구간(있으면)</td></tr>
+<tr><td>심박수 · 수면</td><td>같음</td><td>심박 샘플, 수면 세션(시작 · 끝 · 단계)</td></tr>
+<tr><td>체중 · 체지방률 · 체질량지수 · 키</td><td>같음</td><td>측정 시점 값</td></tr>
+<tr><td>혈압 · 혈당</td><td>같음(연동 측정기)</td><td>측정 시점 값. 평균 내지 않는다</td></tr>
+</table>
+<p class="ex">항목별 신호 · 창 · 산출은 생활지표 기획서와 지표 산출 파이프라인이, 연동 범위와 권한은 건강데이터 연동 화면정의서가 정한다.</p>
+</section>
+
+<section id="c7"><h2>7. 성공 기준</h2>
+<ul>
+<li>홈 걸음 수가 건강 앱의 오늘 걸음과 같은 숫자다(자정 기준).</li>
+<li>연동 다음 날부터 어제 대비 문구가 바로 보인다.</li>
+<li>전체 건강 데이터에서 연동 앱이 주지 않는 항목이 0이나 추정값으로 채워지지 않는다.</li>
+<li>항목 상세에서 기록 없는 날이 선으로 이어지지 않는다.</li>
+</ul>
+</section>
+
+<section id="open"><h2>확인 필요</h2>
+<table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr>
+<tr><td>① 활동 시간 · 운동 시간 산출의 플랫폼별 통일(애플 appleExerciseTime vs 삼성 TOTAL_ACTIVE_TIME, 걸음 구간 직접 산출)</td><td>개발</td><td>—</td><td>열림(홈 화면정의서 §10-4)</td></tr>
+<tr><td>② 시간 단위 기록이 없는 항목(체중 · 키 등)의 시간 탭 표시 방식</td><td>디자인 · 개발</td><td>—</td><td>열림</td></tr>
+<tr><td>③ 출처가 겹칠 때의 우선순위 표(예: 워치 심박 vs 휴대폰)</td><td>기획 · 개발</td><td>—</td><td>열림</td></tr>
+<tr><td>④ 생활 분석 대표 카드 4개의 항목 확정(걸음 · 활동 칼로리 · 심박 · 수면으로 둘지)</td><td>기획</td><td>—</td><td>열림</td></tr>
+</table>
+</section>
+
+<section id="history"><h2>바뀐 것</h2>
+<table><tr><th style="width:120px">날짜</th><th style="width:80px">판</th><th>무엇을</th><th>왜</th></tr>
+<tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 기능정의서 §5 · §7.1 · §13 일부를 「기능 정의」 표로 흡수</td><td>생활 분석 · 전체 건강 데이터에 기획서가 없었음</td></tr></table>
+</section>
+</main>
+</body>
+</html>
