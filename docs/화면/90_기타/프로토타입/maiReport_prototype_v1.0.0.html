@@ -116,7 +116,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .q-opt:hover{border-color:#C9D4E8;background:var(--fill)}
 .q-opt.on{border-color:var(--brand);background:var(--brand-soft)}
 .q-opt.dim{opacity:.35}
-/* 식사 시각 단계 버튼 — 오전·오후는 위에 작게, 시각은 크게, 아래 작은 글씨(1시간 이내 등)는 상한 · 하한에 걸린 동안 비운다 */
+/* 식사 시각 단계 버튼 — 오전·오후는 위에 작게, 시각은 크게, 아래 작은 글씨(1시간 전 등)는 상한 · 하한에 걸린 동안 비운다 */
 .q-opt.time{gap:3px;padding:12px 4px 11px}
 .q-opt.time .ap{font-size:var(--t-mini);font-weight:600;color:var(--ink-3);line-height:1.2;min-height:1.2em}
 .q-opt.time .tm{font-size:var(--t-body);font-weight:700;color:var(--ink-1);letter-spacing:-.01em;line-height:1.3;text-align:center;word-break:keep-all}
@@ -2722,7 +2722,7 @@ function lastMealLabel(h){
 const LAST_MEAL = lastMealLabel();
 /* 식사 시각 단계(10-13 확정) — 고정 식사 질문에 「충분히 먹음 · 적게 · 몇 입만」으로 답하면 같은 자리에서
    「{끼니}은 언제쯤 드셨어요?」를 이어 묻는다. 질문 1개로 센다(식사 1/5 → 시각 2/5). 버튼 3개 · 건너뛰기 없음 · 점수 없음.
-   점심·저녁 버튼은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 세고, 선택지 상한 시각(점심 14시 · 저녁 21시)을 넘으면 그 시각 기준으로 만들며
+   점심·저녁 버튼은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 세고, 선택지 상한 시각(점심 14시 · 저녁 21시)을 넘으면 그 시각에 답한 것과 같은 선택지를 보여 주며
    질문 시작 시각(점심 12시 · 저녁 17시) 아래로 내려가지 않는다. 아침은 7시 · 8시, 어제 저녁은 저녁 7시 · 8시 정각 고정. 「못 먹거나 거름」에는 묻지 않는다.
    규칙 원본: docs/엔진/식이/diet-meal-time-v1.0.0.mjs · 데이터계약 R-11 · CFG-072~078 */
 const MEAL_TIME_RULE = {LUNCH:{start:12*60,stop:14*60}, DINNER:{start:17*60,stop:21*60}};
@@ -2743,8 +2743,8 @@ function mealTimeQuestion(now){
   if(t0 < R.start){ t0 = R.start; stopped = true; }            /* 선택지 하한 시각 */
   const t1 = t0 - 60, a = koTime(t0), b = koTime(t1), rangeAp = a.ap===b.ap ? a.ap : `${b.ap}~${a.ap}`;
   const times = [[a.ap, `${a.clock} 이후`], [rangeAp, `${b.clock}~${a.clock}`], [b.ap, `${b.clock} 이전`]];
-  const rel = ['1시간 이내','1~2시간 전','그보다 전'];
-  /* 큰 글자는 「1시간 이내 / 1~2시간 전 / 그보다 전」, 시각 구간은 작은 글씨. 상한·하한에 걸린 동안은 「1시간 이내」가 사실과 달라 시각을 크게 쓴다 */
+  const rel = ['1시간 전','2시간 전','그보다 전'];
+  /* 큰 글자는 「1시간 전 / 2시간 전 / 그보다 전」, 시각 구간은 작은 글씨. 상한·하한에 걸린 동안은 「1시간 전」가 사실과 달라 시각을 크게 쓴다 */
   const mk = (v,i)=> stopped
     ? {v, f:'', ap:times[i][0], clock:times[i][1], sub:'', label:`${times[i][0]} ${times[i][1]}`, tone:'neutral'}
     : {v, f:'', ap:'', clock:rel[i], sub:`${times[i][0]} ${times[i][1]}`, label:rel[i], tone:'neutral'};

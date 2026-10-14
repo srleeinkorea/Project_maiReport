@@ -58,7 +58,7 @@ export function askMealTime({ mealType, isYesterdayDinner = false, fixedOptionCo
 
 /**
  * ② 버튼 3개. 점심·저녁은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 센다.
- *    끼니별 선택지 상한 시각(점심 14시 · 저녁 21시)을 넘으면 그 시각 기준으로 만들고,
+ *    끼니별 선택지 상한 시각(점심 14시 · 저녁 21시)을 넘으면 그 시각에 답한 것과 같은 선택지를 보여 주고,
  *    질문이 열리는 시각(점심 12시 · 저녁 17시) 아래로는 내려가지 않는다. 상한 · 하한에 걸린 동안은 작은 글씨(sub)를 뺀다.
  *    아침은 7시 · 8시, 어제 저녁은 저녁 7시 · 8시 정각으로 고정이다(mealType 'YESTERDAY_DINNER').
  *  반환: { question_id, text, options:[{option_code, label(큰 글자), sub(작은 글자), time_label, ampm, clock, window_start, window_end}], stopped }
@@ -99,15 +99,15 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
   const stop = config.stopAt[mealType], start = config.questionStart[mealType];
   let t0 = floored - step;                 // 1번 버튼 「t0 이후」
   let stopped = false;
-  if (floored > stop) { t0 = stop - step; stopped = true; }   // 선택지 상한 시각을 넘으면 그 시각 기준으로 만듦
+  if (floored > stop) { t0 = stop - step; stopped = true; }   // 선택지 상한 시각을 넘으면 그 시각에 답한 것과 같은 선택지를 보여 줌
   if (t0 < start) { t0 = start; stopped = true; }              // 질문 시작 시각 아래로 내려가지 않음
   const t1 = t0 - step;
   const f0 = formatKoTime(t0), f1 = formatKoTime(t1);
   const rangeAmpm = f0.ampm === f1.ampm ? f0.ampm : `${f1.ampm}~${f0.ampm}`;
   const windowEnd1 = toHHMM(answeredAt);   // 1번 선택지의 끝은 항상 답한 시각. 상한에 걸린 뒤 2시간을 넘으면 추정에서 모름이 된다
-  // 선택지 글자: 평소에는 「1시간 이내 / 1~2시간 전 / 그보다 전」을 크게, 시각 구간은 작은 글씨(sub).
-  // 상한 · 하한에 걸린 동안은 「1시간 이내」가 사실과 달라지므로 시각 글자를 크게 쓰고 작은 글씨를 뺀다.
-  const REL = ['1시간 이내', '1~2시간 전', '그보다 전'];
+  // 선택지 글자: 평소에는 「1시간 전 / 2시간 전 / 그보다 전」을 크게, 시각 구간은 작은 글씨(sub).
+  // 상한 · 하한에 걸린 동안은 「1시간 전」가 사실과 달라지므로 시각 글자를 크게 쓰고 작은 글씨를 뺀다.
+  const REL = ['1시간 전', '2시간 전', '그보다 전'];
   const times = [`${f0.text} 이후`, `${rangeAmpm} ${f1.clock}~${f0.clock}`, `${f1.text} 이전`];
   const lab = (i) => stopped ? times[i] : REL[i];
   const subOf = (i) => stopped ? '' : times[i];

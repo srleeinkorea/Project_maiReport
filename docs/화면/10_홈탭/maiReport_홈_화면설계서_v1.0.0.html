@@ -308,7 +308,7 @@ function timeOpts(meal,h){
   if(base>stop){base=stop;stopped=true;}
   const b0=Math.max(base-1,floor), b1=Math.max(base-2,floor);
   if(stopped||base-1<floor) return [[`${fmt(b0,0)} 이후`,''],[`${fmt(b1,0)}~${fmt(b0,0).split(' ')[1]}`,''],[`${fmt(b1,0)} 이전`,'']];
-  return [[`${fmt(b0,0)} 이후`,'1시간 이내'],[`${fmt(b1,0)}~${fmt(b0,0).split(' ')[1]}`,'1~2시간 전'],[`${fmt(b1,0)} 이전`,'그보다 전']];
+  return [[`${fmt(b0,0)} 이후`,'1시간 전'],[`${fmt(b1,0)}~${fmt(b0,0).split(' ')[1]}`,'2시간 전'],[`${fmt(b1,0)} 이전`,'그보다 전']];
 }
 
 // ── 오늘 세트 만들기(첫 진입) ───────────────────────────
