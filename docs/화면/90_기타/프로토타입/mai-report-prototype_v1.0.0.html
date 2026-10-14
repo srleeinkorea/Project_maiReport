@@ -117,6 +117,11 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .q-opt:hover{border-color:#C9D4E8;background:var(--fill)}
 .q-opt.on{border-color:var(--brand);background:var(--brand-soft)}
 .q-opt.dim{opacity:.35}
+/* 식사 시각 단계 버튼 — 오전·오후는 위에 작게, 시각은 크게, 아래 작은 글씨(1시간 이내 등)는 멈춘 동안 비운다 */
+.q-opt.time{gap:3px;padding:12px 4px 11px}
+.q-opt.time .ap{font-size:var(--t-mini);font-weight:600;color:var(--ink-3);line-height:1.2;min-height:1.2em}
+.q-opt.time .tm{font-size:var(--t-body);font-weight:700;color:var(--ink-1);letter-spacing:-.01em;line-height:1.3;text-align:center;word-break:keep-all}
+.q-opt.time small{font-size:var(--t-mini);font-weight:500;color:var(--ink-3);line-height:1.3;min-height:1.3em}
 .q-hint{font-size:var(--t-mini);font-weight:400;color:var(--ink-3);text-align:center;line-height:1.5}
 .q-done{display:flex;align-items:center;gap:11px;background:#fff;border:none;border-radius:var(--r);padding:17px 20px;cursor:pointer;width:100%;text-align:left;box-shadow:var(--sh)}
 .q-done .ck{width:22px;height:22px;border-radius:50%;background:#E4F6EA;color:var(--ok);font-size:var(--t-cap);font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;line-height:1}
@@ -2510,6 +2515,31 @@ function lastMealLabel(h){
   return '오늘 저녁';
 }
 const LAST_MEAL = lastMealLabel();
+/* 식사 시각 단계(10-13 확정) — 고정 식사 질문에 「충분히 먹음 · 적게 · 몇 입만」으로 답하면 같은 자리에서
+   「{끼니}은 언제쯤 드셨어요?」를 이어 묻는다. 질문 1개로 센다(식사 1/5 → 시각 2/5). 버튼 3개 · 건너뛰기 없음 · 점수 없음.
+   점심·저녁 버튼은 답한 시각을 10분 단위로 내린 뒤 1시간씩 거꾸로 세고, 멈춤 시각(점심 14시 · 저녁 21시)을 넘으면 거기서 멈추며
+   질문 시작 시각(점심 12시 · 저녁 17시) 아래로 내려가지 않는다. 아침은 7시 · 8시 정각 고정. 어제 저녁과 「못 먹거나 거름」에는 묻지 않는다.
+   규칙 원본: docs/엔진/식이/diet-meal-time-v1.0.0.mjs · 데이터계약 R-11 · CFG-072~078 */
+const MEAL_TIME_RULE = {LUNCH:{start:12*60,stop:14*60}, DINNER:{start:17*60,stop:21*60}};
+function koTime(m){ const h=Math.floor(m/60)%24, mm=m%60, ap=h<12?'오전':'오후', h12=h%12===0?12:h%12; return {ap, clock:`${h12}:${String(mm).padStart(2,'0')}`}; }
+function mealTimeQuestion(now){
+  const d = now || new Date();
+  if(LAST_MEAL==='어제 저녁') return null;
+  const neutral = (v,ap,clock,sub)=>({v, f:'', ap, clock, sub, label:(ap?ap+' ':'')+clock, tone:'neutral'});
+  if(LAST_MEAL==='오늘 아침') return { id:'mealClock', cat:'식이', av:'🕖', tint:'moon', kind:'time', text:'아침은 몇 시쯤 드셨어요?',
+    opts:[neutral('before_7','','7시 이전',''), neutral('seven_to_eight','','7시~8시',''), neutral('after_8','','8시 이후','')] };
+  const R = MEAL_TIME_RULE[LAST_MEAL==='오늘 점심' ? 'LUNCH' : 'DINNER'];
+  const mins = d.getHours()*60 + d.getMinutes(), floored = mins - mins%10;
+  let t0 = floored - 60, stopped = false;
+  if(floored > R.stop){ t0 = R.stop - 60; stopped = true; }
+  if(t0 < R.start){ t0 = R.start; stopped = true; }
+  const t1 = t0 - 60, a = koTime(t0), b = koTime(t1), rangeAp = a.ap===b.ap ? a.ap : `${b.ap}~${a.ap}`;
+  const sub = s => stopped ? '' : s;
+  return { id:'mealClock', cat:'식이', av:'🕐', tint:'moon', kind:'time', text:`${LAST_MEAL.replace('오늘 ','')}은 언제쯤 드셨어요?`,
+    opts:[neutral('within_1h', a.ap, `${a.clock} 이후`, sub('1시간 이내')),
+          neutral('one_to_two_h', rangeAp, `${b.clock}~${a.clock}`, sub('1~2시간 전')),
+          neutral('earlier', b.ap, `${b.clock} 이전`, sub('그보다 전'))] };
+}
 const Q_ACUTE = [
   { id:'meal', cat:'식이', av:'🍚', tint:'moon',
     text:`${LAST_MEAL}은 평소만큼 드셨나요?`,
@@ -2632,7 +2662,7 @@ function renderQ(){
       <div class="q-av ${q.tint}">${q.av}</div>
     </div>
     ${q.id==='meal' && LAST_MEAL==='오늘 저녁' ? '<p class="q-meal-note">오늘 저녁을 드신 뒤 답해주세요</p>' : ''}
-    <div class="q-opts">${q.opts.map((o,i)=>
+    <div class="q-opts${q.kind==='time'?' time':''}">${q.opts.map((o,i)=> q.kind==='time' ? `<button class="q-opt time" data-i="${i}"><span class="ap">${o.ap||'&nbsp;'}</span><b class="tm">${o.clock}</b><small>${o.sub||''}</small></button>` :
       `<button class="q-opt ${o.tone}" data-i="${i}"><span class="f${o.tone==='neutral' && o.f==='?' ? ' face' : ''}">${o.tone==='neutral' ? (o.f==='?' ? FACE.unsure : o.f) : FACE[o.tone]}</span>${o.label}</button>`).join('')}</div>
   </section>`;
   el.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>pick(q,q.opts[b.dataset.i],b));
@@ -2640,6 +2670,12 @@ function renderQ(){
 function pick(q,o,btn){
   if(lock) return; lock = true;
   ans[q.id] = o;
+  /* 식사 질문에 답하면 같은 자리에서 식사 시각 단계를 이어 묻는다(어제 저녁 · 못 먹거나 거름 제외). 질문 1개로 센다 */
+  if(q.id==='meal'){
+    QUESTIONS = QUESTIONS.filter(x=>x.id!=='mealClock'); delete ans.mealClock;
+    const tq = o.v!=='skip' ? mealTimeQuestion() : null;
+    if(tq) QUESTIONS.splice(QUESTIONS.indexOf(q)+1, 0, tq);
+  }
   /* 거의 못 먹은 끼니에는 그 끼니의 행동을 물을 것이 없다 → 회전 문항을 빼고 넘어간다 */
   if(q.id === 'meal' && o.v === 'skip'){
     const rot = ['protein','veg','sweet','salt','pace','fat'];
@@ -3310,7 +3346,7 @@ function renderAns(){
       <div class="a-q">${q.text.replace(/<br>/g,' ')}</div>
       <div class="a-opts">${q.opts.map((o,j)=>
         `<div class="a-opt ${o.tone} ${ans[q.id]&&ans[q.id].v===o.v?'on':''}" data-q="${i}" data-o="${j}">
-          <span class="f">${o.f}</span>${o.label}</div>`).join('')}</div>
+          <span class="f">${q.kind==='time' ? '🕐' : o.f}</span>${o.label}${q.kind==='time' && o.sub ? ' · '+o.sub : ''}</div>`).join('')}</div>
     </section>`).join('');
   document.querySelectorAll('.a-opt').forEach(el=>{
     el.onclick = ()=>{

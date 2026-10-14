@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마이리포트 법무검토 3차 회신 요청</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--chip:#eef1f5;--acc:#1d4ed8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.65;word-break:keep-all}
+main{max-width:980px;margin:0 auto;padding:28px 16px 60px}
+h1{margin:0 0 4px;font-size:23px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;color:var(--mute);font-size:12.5px;margin:6px 0 18px}
+.meta b{color:var(--ink);font-weight:600}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+h2{margin:0 0 10px;font-size:17px}
+h3{margin:14px 0 6px;font-size:14px;color:var(--mute);font-weight:700}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{font-size:12px;color:var(--mute);font-weight:600;background:#fafbfc}
+blockquote{margin:8px 0;padding:10px 14px;border-left:3px solid #c9d0da;background:#fafbfc;font-size:13px;color:#3b4555}
+blockquote b{display:block;color:var(--mute);font-size:12px;font-weight:600;margin-bottom:2px}
+.q{background:#eef3ff;border-radius:10px;padding:12px 14px;margin:10px 0}
+.q b{display:block;margin-bottom:4px}
+.ans{border:1.5px dashed #c9d0da;border-radius:10px;padding:12px 14px;min-height:64px;color:var(--mute);font-size:13px}
+ol,ul{margin:6px 0 0;padding-left:20px}
+li{margin:4px 0}
+p{margin:6px 0}
+.ex{color:var(--mute);font-size:12.5px}
+@media print{body{background:#fff}section{break-inside:avoid;border:0;padding:0 0 12px}.ans{min-height:90px}}
+</style>
+</head>
+<body>
+<main>
+<h1>마이리포트 법무검토 3차 회신 요청</h1>
+<div class="meta"><span>요청일 <b>2026-10-14</b></span><span>요청 부서 <b>의학전략실</b></span><span>기준 문서 <b>2026-10-13 약관 최종본(시행 2026-11-01) · 1차 회신 10-12 · 2차 회신 10-13</b></span><span>회신 희망일 <b>2026-10-21</b></span></div>
+
+<section>
+<h2>요청 배경</h2>
+<p>10-13 최종본으로 약관 · 처리방침 · 동의서 8종은 확정됐습니다. 그 뒤 화면별 기획서를 정리하면서 약관 문구와 화면 동작이 맞물리는 지점 네 곳이 남았습니다. 모두 「이미 확정된 조항을 화면에 어떻게 옮기느냐」의 문제라 새 조항을 만드는 요청은 아닙니다. 항목마다 현재 설계와 우리 안을 적었으니, 우리 안대로 가도 되는지와 고칠 점을 알려 주시면 됩니다.</p>
+<table>
+<tr><th style="width:36px">#</th><th>항목</th><th style="width:34%">관련 조항</th><th style="width:22%">관련 화면 문서</th></tr>
+<tr><td>1</td><td>검진 · 진료 연동 해제 시 「즉시 삭제」와 탈퇴 안내 문구가 처리방침의 「법령 보관」 단서와 어긋나지 않는지</td><td>처리방침 제3조 ② · 제4조 ②, 이용약관 제9조 ⑥, 민감정보 동의 3항</td><td>더보기 기획서 ②, 병원 탭 기록 보기 기획서 ⑤</td></tr>
+<tr><td>2</td><td>회원 탈퇴 후 보관 기간 안내(앱 화면에 무엇을 적을지)</td><td>처리방침 제3조 ②(법령별 기간), 이용약관 제9조 ⑥</td><td>더보기 기획서 ②</td></tr>
+<tr><td>3</td><td>사용자가 올린 검진 결과지 원본(사진 · PDF)의 보관 기간과 처리방침 기재</td><td>처리방침 제2조(수집 항목) · 제3조 · 제6조(위탁)</td><td>검진 리포트 등록 기획서 ⑤ · 화면설계서</td></tr>
+<tr><td>4</td><td>개인정보 제3자 제공 동의(08)의 노출 시점과 그 전까지의 처리</td><td>동의서 08(제공받는 자 「추후 기재」, 사용 보류)</td><td>더보기 기획서 ③, 더보기 화면정의서 동의 관리</td></tr>
+</table>
+</section>
+
+<section>
+<h2>1. 연동 해제 시 「즉시 삭제」와 「법령 보관」 단서</h2>
+<h3>현재 설계</h3>
+<ul>
+<li>더보기 › 건강검진 · 진료정보 연동에서 해제하면 확인 시트를 거쳐 가져온 검진 · 진료 기록을 <b>즉시 삭제</b>합니다. 해제 안내 문구: 「가져온 검진 내역과 이를 바탕으로 만든 건강나이 · 주요 소견이 삭제돼요. QR로 등록한 AI REPORT와 직접 등록한 검진 리포트는 남아요.」</li>
+<li>회원 탈퇴 문구: 「모든 개인정보가 삭제되며 복구할 수 없어요」.</li>
+</ul>
+<h3>확정 조항</h3>
+<blockquote><b>개인정보처리방침 제3조 ② 민감정보</b>건강정보 등 민감정보는 동의 철회 또는 회원 탈퇴 시 지체 없이 파기합니다. 다만, 다른 법령에 따라 보관이 필요한 경우에는 해당 법령에서 정한 기간 동안 보관합니다.</blockquote>
+<blockquote><b>개인정보처리방침 제4조 ②</b>동의 받은 보유기간이 경과하거나 처리목적이 달성되었음에도 다른 법령에 따라 계속 보존하여야 하는 경우에는 별도의 DB로 옮기거나 보관장소를 달리하여 보존합니다.</blockquote>
+<blockquote><b>이용약관 제9조 ⑥</b>회원 탈퇴 시에는 탈퇴 전 이용 정보와 데이터는 모두 영구 삭제되며, 재가입하더라도 복원되지 않습니다.</blockquote>
+<div class="q"><b>질문</b>
+<ol>
+<li>공단 · 심평원에서 가져온 검진 · 진료 기록과 그것으로 만든 산출물(건강나이 · 소견 · AI 요약)은 「다른 법령에 따라 보관이 필요한 경우」에 해당하지 않는다고 보고, 연동 해제 시 즉시 파기해도 되는지.</li>
+<li>연동 해제는 「동의 철회」로 보는 것이 맞는지. 맞다면 해제 화면에 「민감정보 수집 · 이용 동의를 철회하는 것과 같다」는 안내를 넣어야 하는지.</li>
+<li>탈퇴 안내 문구 「모든 개인정보가 삭제되며 복구할 수 없어요」를 그대로 써도 되는지, 아니면 「법령에 따라 보관하는 정보는 제외」 같은 단서를 화면에도 붙여야 하는지.</li>
+</ol></div>
+<h3>우리 안</h3>
+<p>1 · 2는 즉시 파기로 가고 해제 화면에는 철회 안내를 따로 두지 않습니다(동의 관리의 필수 동의는 탈퇴로만 철회된다고 안내 중). 3은 탈퇴 문구를 「법령에 따라 보관해야 하는 정보(로그인 기록 3개월 등)를 제외한 모든 개인정보가 삭제되며 복구할 수 없어요」로 바꾸고, 자세한 기간은 처리방침 제3조로 연결합니다.</p>
+<div class="ans">회신</div>
+</section>
+
+<section>
+<h2>2. 탈퇴 후 보관 기간 안내</h2>
+<h3>현재 설계</h3>
+<p>탈퇴 확인 화면에는 삭제된다는 한 줄만 있고 보관 기간은 적지 않습니다. 처리방침 제3조 ②에는 법령별 기간(계약 · 청약철회 5년, 대금결제 5년, 소비자 불만 3년, 전자문서 유통 10년, 로그인 기록 3개월)이 있습니다.</p>
+<div class="q"><b>질문</b>
+<ol>
+<li>현재 서비스는 프로모션 기간이라 결제가 없습니다. 결제가 없는 동안 실제로 보관 의무가 생기는 항목은 「로그인 기록 3개월」뿐이라고 보면 되는지. 셀비 체크업 무상 이용권 사용 기록은 「재화 등의 공급에 관한 기록」에 해당하는지.</li>
+<li>탈퇴 화면에 기간을 적어야 한다면 어느 수준인지(「일부 기록은 법령에 따라 최대 3개월 보관」처럼 한 줄 / 처리방침 링크만).</li>
+<li>탈퇴 후 같은 카카오 계정으로 재가입할 때 이전 기록을 복원하지 않는다는 약관 제9조 ⑥과, 재가입 제한(⑦)을 화면에 안내해야 하는지.</li>
+</ol></div>
+<h3>우리 안</h3>
+<p>탈퇴 화면에 「일부 기록은 법령에 따라 정해진 기간 동안 따로 보관한 뒤 삭제돼요. 자세한 내용은 개인정보 처리방침 제3조」 한 줄과 링크를 두고, 재가입 안내는 「재가입해도 이전 기록은 복원되지 않아요」 한 줄만 둡니다.</p>
+<div class="ans">회신</div>
+</section>
+
+<section>
+<h2>3. 사용자가 올린 검진 결과지 원본의 보관</h2>
+<h3>현재 설계</h3>
+<ul>
+<li>사용자가 종이 결과지 사진이나 PDF를 올리면(최대 10장 · 장당 30MB) 문서 인식으로 값을 뽑고, 사용자가 확인 · 수정한 값만 검진 기록으로 저장합니다.</li>
+<li>원본 파일은 검수 때 대조용으로, 그리고 검진 상세의 「결과지 원본 보기」용으로 <b>보관</b>합니다. 보관 기간은 정하지 않았습니다.</li>
+<li>문서 인식은 외부 엔진을 쓸 가능성이 있습니다(미정).</li>
+</ul>
+<h3>확정 조항</h3>
+<blockquote><b>개인정보처리방침 제2조 수집 항목(일부)</b>…건강 앱 · 기기 연동 / 회원이 직접 입력한 건강정보… (결과지 이미지 · PDF 파일 자체는 항목으로 적혀 있지 않음)</blockquote>
+<blockquote><b>제6조 위탁</b>헥토데이터(진료정보 열람 중계), OpenAI, L.L.C.(AI 건강정보 분석 · 요약, 국외 이전) — 문서 인식 수탁자는 없음</blockquote>
+<div class="q"><b>질문</b>
+<ol>
+<li>결과지 이미지 · PDF는 민감정보(건강정보)로 보고 처리방침 제2조 수집 항목에 「회원이 등록한 검진 결과지 이미지 · PDF」를 추가해야 하는지.</li>
+<li>보관 기간을 「검진 기록과 같다(회원 탈퇴 · 동의 철회 · 사용자가 해당 등록 건을 삭제할 때 즉시 파기)」로 두어도 되는지, 아니면 원본은 검수 완료 후 일정 기간(예: 30일) 뒤 파기하고 값만 남겨야 하는지.</li>
+<li>문서 인식을 외부 엔진에 맡길 경우 제6조 위탁 항목과(국외 서버면) 국외 이전 항목을 OpenAI와 같은 형식으로 추가하면 되는지. 추가 동의가 필요한지.</li>
+</ol></div>
+<h3>우리 안</h3>
+<p>1은 추가합니다. 2는 검진 기록과 같은 기간으로 두고, 사용자가 등록 건을 삭제하면 원본도 함께 파기합니다. 3은 엔진이 정해지는 대로 제6조에 같은 형식으로 추가하고 별도 동의는 받지 않습니다(처리방침 공지로 갈음).</p>
+<div class="ans">회신</div>
+</section>
+
+<section>
+<h2>4. 개인정보 제3자 제공 동의(08)의 노출 시점</h2>
+<h3>현재 설계</h3>
+<ul>
+<li>10-13 최종본에서 08은 「제공받는 자: 추후 기재」로 두고 <b>사용 보류</b>, 제공받는 자가 정해지기 전에는 이용자에게 노출하지 않기로 했습니다.</li>
+<li>더보기 › 동의 관리에는 필수 3(이용약관 · 개인정보 수집 이용 · 민감정보 처리) · 선택 3(건강정보 활용 · 마케팅 · 품질 향상)만 보이고 08은 없습니다. 처리방침 제5조 ②의 제3자 제공 표도 현재 「없음」 상태로 운영됩니다.</li>
+</ul>
+<div class="q"><b>질문</b>
+<ol>
+<li>제공받는 자가 정해졌을 때 08을 어떻게 받아야 하는지. 앱 업데이트 후 첫 진입 때 전체 화면 동의(필수로 두면 거부 시 서비스 이용 제한)로 받는 것이 맞는지, 아니면 해당 기능(예: 제휴 서비스)에 처음 들어갈 때만 받아도 되는지.</li>
+<li>그때 처리방침 제5조 ②의 표도 함께 고쳐 공지해야 하는지(약관 개정 7일 전 공지 · 불리한 변경 30일 전 공지 중 어느 쪽인지).</li>
+<li>그 전까지 동의 관리 화면에 08을 아예 두지 않는 것이 맞는지, 「해당 없음」으로 보여 줘야 하는지.</li>
+</ol></div>
+<h3>우리 안</h3>
+<p>제공받는 자가 정해지면 해당 기능 첫 진입 때 선택 동의로 받고(거부해도 기본 서비스는 이용), 처리방침 제5조 ②는 같은 날 고쳐 30일 전 공지로 갑니다. 그 전까지 동의 관리에는 두지 않습니다.</p>
+<div class="ans">회신</div>
+</section>
+
+<section>
+<h2>참고 · 1 · 2차 회신으로 이미 확정돼 다시 묻지 않는 것</h2>
+<ul>
+<li>주민등록번호: 열람 본인인증을 기술적으로 중계 · 대행하는 목적으로 서버 경유 처리, 처리 후 즉시 파기. 화면 안내 문구와 처리방침 제2조 기재 완료.</li>
+<li>연동 동의: 개인정보 동의와 민감정보 동의 체크박스 2개로 분리, 기관별 별도 동의 · 재조회 재동의 불필요.</li>
+<li>OpenAI 위탁 · 국외 이전(제6조), 이용약관 제2부 제6조 면책 문구.</li>
+<li>헥토데이터 위탁계약 제10조 ② 단서(별도 진행 중).</li>
+</ul>
+<p class="ex">첨부: 더보기 기획서 · 병원 탭 기록 보기 기획서 · 검진 리포트 등록 기획서 · 화면설계서(GitHub Project_maiReport, docs/화면). 이 문서는 전달/2026-10-14_법무_3차회신요청/에 보낸 그대로 보관합니다.</p>
+</section>
+</main>
+</body>
+</html>
