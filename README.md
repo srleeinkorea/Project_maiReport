@@ -20,7 +20,7 @@ docs/
   _archive/        대체된 판. 지우지 않고 여기로 옮긴다.
 data/              기준 데이터. 또래등수_참조표/ (raw/는 git 제외) · kosis_건강검진통계_2024/ · 지식DB/
 reference/         외부에서 받은 자료. 계산식_전달문서_LJH/ · legal/ (git 제외) · 핸드오프_zip/
-site/              공유 사이트 원본(source/)과 빌드 결과(build/), 배포 스크립트. 배포는 site/RSNA-DEPLOY.cmd
+site/              공유 사이트 빌드 결과(build/)와 배포 스크립트. 원본은 docs/화면/90_기타/maiReport_prototype_v1.0.0.html, 배포는 site/RSNA-DEPLOY.cmd (옛 RSNA 원본은 site/_archive)
 qa/                QA 실행기(bin·lib·plans·templates)와 결과(results/<기능>-<날짜>/)
 scripts/           SharePoint 동기화
 tools/             Figma 플러그인
@@ -35,5 +35,5 @@ tools/             Figma 플러그인
 | 대상 | 원본 폴더 | 방법 |
 |---|---|---|
 | GitHub Project_maiReport | 전체(legal·raw 제외) | git push |
-| 공유 사이트 (GitHub Pages) | `site/source/` | `site/RSNA-DEPLOY.cmd` |
+| 공유 사이트 (GitHub Pages) | `docs/화면/90_기타/maiReport_prototype_v1.0.0.html` → 사이트 `prototype.html` | `site/RSNA-DEPLOY.cmd` (메뉴 index.html과 다른 문서는 배포 작업 폴더 `.tmp_artifact/rsna-deploy`에서 직접 커밋) |
 | SharePoint | `docs/엔진/식이/` 엑셀 4종 | `scripts/sync-to-sharepoint.ps1` |
