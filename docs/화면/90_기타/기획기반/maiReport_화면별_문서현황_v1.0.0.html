@@ -200,7 +200,7 @@ const G=[
 ];
 const st=(arr)=>!arr.length?'no':(arr.length===1&&arr[0]===PROTO)?'part':(arr.every(x=>/\(.*섹션\)|프로토타입/.test(x.label)))?'part':'ok';
 const stText={ok:'있음',part:'일부',no:'없음'};
-const cell=(arr)=>{const s=st(arr);return `<td class="doc"><span class="chip ${s}">${stText[s]}</span>${arr.length?`<ul>${arr.map(x=>`<li><a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>${x.where?`<span class="where">${x.where}</span>`:''}</li>`).join('')}</ul>`:''}</td>`;
+const cell=(arr)=>{const s=st(arr);return `<td class="doc"><span class="chip ${s}">${stText[s]}</span>${arr.length?`<ul>${arr.map(x=>`<li><a href="${x.href}" target="_blank" rel="noopener">${x.label}</a>${x.where?`<span class="where">${x.where}</span>`:''}</li>`).join('')}</ul>`:''}</td>`;};
 let tot={rows:0,plan:{ok:0,part:0,no:0},def:{ok:0,part:0,no:0},design:{ok:0,part:0,no:0}};
 document.getElementById('groups').innerHTML=G.map(g=>`<section class="group"><div class="ghead"><span class="no">${g.no}</span><div><h2>${g.title}</h2><p>${g.desc}</p></div></div>
 <table><thead><tr><th>화면 ID</th><th>화면</th><th>기획서</th><th>화면정의서</th><th>화면설계서</th></tr></thead><tbody>
