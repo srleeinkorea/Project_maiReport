@@ -2745,8 +2745,8 @@ function mealTimeQuestion(now){
   if(t0 < R.start){ t0 = R.start; stopped = true; }            /* 선택지 하한 시각 */
   const t1 = t0 - 60, a = koTime(t0), b = koTime(t1), rangeAp = a.ap===b.ap ? a.ap : `${b.ap}~${a.ap}`;
   const times = [[a.ap, `${a.clock} 이후`], [rangeAp, `${b.clock}~${a.clock}`], [b.ap, `${b.clock} 이전`]];
-  const rel = ['1시간 이내','2시간 전','그보다 전'];
-  /* 선택지 글자는 「1시간 이내 / 2시간 전 / 그보다 전」(작은 글씨 없음). 상한·하한에 걸린 동안은 「1시간 이내」가 사실과 달라 시각을 쓴다 */
+  const rel = ['1시간 이내','1~2시간 전','그보다 전'];
+  /* 선택지 글자는 「1시간 이내 / 1~2시간 전 / 그보다 전」(작은 글씨 없음). 상한·하한에 걸린 동안은 「1시간 이내」가 사실과 달라 시각을 쓴다 */
   const mk = (v,i)=> stopped
     ? {v, f:'', ap:times[i][0], clock:times[i][1], sub:'', label:`${times[i][0]} ${times[i][1]}`, tone:'neutral'}
     : {v, f:'', ap:'', clock:rel[i], sub:'', label:rel[i], tone:'neutral'};
