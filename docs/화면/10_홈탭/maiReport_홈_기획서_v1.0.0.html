@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>홈 기획서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>:root{--ink:#0f1222;--blue:#5170FF;--red:#e0453f;--amber:#c7861c;--green:#1f9d5a;--bg:#fbfbfd;--line:#e3e6ef;--blue-s:#eef1ff;--red-s:#fdeeed;--green-s:#eaf8f0;--amber-s:#fff6e6;--mute:#5d6275;--num:#d9dce6}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"DM Sans","Noto Sans KR",system-ui,sans-serif;font-size:14.5px;line-height:1.7;word-break:keep-all}
+main{max-width:1120px;margin:0 auto;padding:40px 24px 80px}
+.serif,h1,.big{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400}
+.cover{padding:8px 0 28px;border-bottom:1px solid var(--line)}
+.cover .kind{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.cover h1{font-size:40px;line-height:1.15;margin:8px 0 6px}
+.cover .sub{font-size:16px;color:var(--mute);margin:0}
+.cover .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 20px;margin-top:18px;font-size:13px;color:var(--mute)}
+.cover .meta b{color:var(--ink);font-weight:500;display:block;font-size:14px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:28px 0 8px}
+.strip .tile{background:#fff;padding:16px 18px}
+.strip .tile small{display:block;font-size:12px;color:var(--mute);letter-spacing:.04em}
+.strip .tile .big{font-size:34px;line-height:1.1;margin:4px 0 2px}
+.strip .tile .big.red{color:var(--red)}.strip .tile .big.green{color:var(--green)}.strip .tile .big.blue{color:var(--blue)}.strip .tile .big.amber{color:var(--amber)}
+.strip .tile span{font-size:12.5px;color:var(--mute)}
+section{display:grid;grid-template-columns:96px 1fr;gap:0 24px;padding:34px 0;border-bottom:1px solid var(--line)}
+section>.n{font-family:"DM Serif Display",serif;font-size:56px;line-height:1;color:var(--num);padding-top:2px}
+section>.b{min-width:0}
+section h2{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:26px;margin:0 0 14px;letter-spacing:-.01em}
+section h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:22px 0 8px;font-weight:600}
+p{margin:8px 0}
+.lead{font-size:16.5px;line-height:1.65}
+table{width:100%;border-collapse:collapse;margin:10px 0 4px;border-top:2px solid var(--ink)}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:600;text-align:left;padding:10px 10px 8px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tag{display:inline-block;font-size:11.5px;padding:1px 7px;border:1px solid currentColor;line-height:1.5}
+.tag.red{color:var(--red)}.tag.green{color:var(--green)}.tag.amber{color:var(--amber)}.tag.blue{color:var(--blue)}.tag.ink{color:var(--ink)}
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:10px 0}
+.panel{border:1px solid var(--line);background:#fff;padding:14px 16px}
+.panel.blue{background:var(--blue-s);border-color:#cdd6ff}.panel.green{background:var(--green-s);border-color:#bfe6cf}.panel.red{background:var(--red-s);border-color:#f5c7c4}.panel.amber{background:var(--amber-s);border-color:#f0d9ad}
+.panel b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-bottom:6px}
+.panel .judge{margin-top:8px;font-weight:600}
+.fig{margin:18px 0 8px}
+.fig .t{font-size:12.5px;letter-spacing:.04em;color:var(--mute);margin-bottom:6px}
+.fig .t b{color:var(--ink);font-weight:600}
+.fig svg{display:block;width:100%;max-width:760px;height:auto;background:#fff;border:1px solid var(--line)}
+.fig .cap{font-size:13px;color:var(--mute);margin-top:8px;max-width:760px}
+.fig .cap b{color:var(--ink);font-weight:600}
+.timeline{display:grid;gap:8px;margin:10px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rec{border-left:4px solid var(--blue);background:var(--blue-s);padding:14px 16px;margin:10px 0}
+.rec.no{border-left-color:var(--line);background:#fff}
+.rec b{display:block;margin-bottom:4px}
+.qa dt{font-weight:600;margin-top:10px}.qa dd{margin:2px 0 0;color:#2b3042}
+.foot{padding:26px 0 0;font-size:12.5px;color:var(--mute)}
+.foot h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px;color:var(--ink)}
+.foot ol{padding-left:18px;margin:0}
+ul,ol{margin:6px 0 0;padding-left:20px}li{margin:3px 0}
+.ex{color:var(--mute);font-size:13px}
+.todo{color:var(--amber);font-size:12.5px;border:1px dashed var(--amber);padding:0 6px}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+@media(max-width:760px){section{grid-template-columns:1fr}section>.n{font-size:36px}.strip{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}.cover h1{font-size:30px}}
+@media print{body{background:#fff}section{break-inside:avoid}}
+
+.stage{display:grid;grid-template-columns:360px minmax(0,1fr);gap:22px;align-items:start;margin-top:8px}
+.phone{width:360px;max-width:100%;height:720px;border:1px solid var(--ink);background:#fff;position:sticky;top:12px;display:flex;flex-direction:column}
+.phone .sb{display:flex;justify-content:space-between;padding:8px 16px 2px;font-size:11px;color:var(--mute)}
+.phone .hd{display:flex;justify-content:space-between;align-items:center;padding:8px 14px 10px;border-bottom:1px solid var(--line);font-weight:600;font-size:15px}
+.phone .hd button{font:inherit;background:none;border:0;color:var(--blue);cursor:pointer;font-size:14px}
+.phone .bd{flex:1;overflow:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;font-size:13.5px}
+.phone .card{border:1px solid var(--line);padding:12px;background:#fff}
+.phone .card.soft{background:var(--blue-s);border-color:#cdd6ff}
+.phone .card.warn{background:var(--amber-s);border-color:#f0d9ad}
+.phone .card h4{margin:0 0 6px;font-size:14px}
+.phone .row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.phone .row:last-child{border-bottom:0}
+.phone .row small{color:var(--mute);display:block;font-size:11.5px}
+.phone .row .v{color:var(--mute);font-size:12.5px}
+.phone .row.act{cursor:pointer}
+.phone .btn{display:block;width:100%;padding:11px;border:1px solid var(--ink);background:var(--ink);color:#fff;font:inherit;font-size:13.5px;cursor:pointer;text-align:center}
+.phone .btn.sec{background:#fff;color:var(--ink)}
+.phone .btn.link{border:0;background:none;color:var(--blue);padding:6px}
+.phone .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line)}
+.phone .tabs span{padding:8px 10px;font-size:12.5px;color:var(--mute);border-bottom:2px solid transparent}
+.phone .tabs span.on{color:var(--ink);border-color:var(--ink);font-weight:600}
+.phone .chips{display:flex;gap:6px;flex-wrap:wrap}
+.phone .chips span{border:1px solid var(--line);padding:3px 9px;font-size:12px}
+.phone .chips span.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.phone .strip7{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:11px;color:var(--mute)}
+.phone .strip7 b{display:block;font-size:13px;color:var(--ink)}
+.phone .strip7 .on b{color:var(--blue)}
+.phone .bars{display:flex;align-items:flex-end;gap:5px;height:80px;border-bottom:1px solid var(--line);padding:0 2px}
+.phone .bars i{flex:1;background:var(--blue);opacity:.85}
+.phone .bars i.none{background:transparent;border-bottom:2px dotted var(--line)}
+.phone .sw{width:36px;height:20px;border:1px solid var(--ink);position:relative;flex:none}
+.phone .sw::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;background:var(--ink)}
+.phone .sw.on{background:var(--ink)}.phone .sw.on::after{left:18px;background:#fff}
+.phone .sw.dis{opacity:.35}
+.phone .sheet{position:absolute;inset:0;background:rgba(15,18,34,.45);display:flex;flex-direction:column;justify-content:flex-end;padding:12px}
+.phone .sheet .in{background:#fff;padding:16px;border:1px solid var(--ink)}
+.phone .sheet .in h4{margin:0 0 6px;font-size:15px}.phone .sheet .in p{margin:0 0 12px;font-size:13px;color:var(--mute)}
+.phone .sheet .in .btn{margin-top:6px}
+.phone .nav{display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid var(--line);font-size:11px;color:var(--mute)}
+.phone .nav .on{color:var(--ink);font-weight:600}
+.phone .big{font-size:30px;line-height:1.1}
+.phone .empty{text-align:center;padding:26px 10px;color:var(--mute)}
+.phone .empty b{display:block;color:var(--ink);margin-bottom:4px}
+.phone .dot{display:inline-block;width:7px;height:7px;background:var(--red);vertical-align:top;margin-left:-4px}
+.phone .mute{color:var(--mute);font-size:12px}
+.phone .map [data-f]{outline:1.5px dashed var(--amber);outline-offset:2px;position:relative}
+.phone .map [data-f]::before{content:attr(data-f);position:absolute;top:-9px;left:6px;background:var(--amber);color:#fff;font-size:9.5px;padding:0 5px;z-index:2;line-height:1.5}
+.ctl{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px;align-items:center}
+.ctl .lab{font-size:12px;color:var(--mute);margin-right:4px}
+.seg{font:inherit;font-size:12.5px;padding:5px 10px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.seg.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.toggle{font-size:12.5px;color:var(--mute);margin-left:auto;display:flex;gap:6px;align-items:center}
+.side{border:1px solid var(--line);background:#fff;min-width:0}
+.side .h{padding:14px 18px 10px;border-bottom:1px solid var(--line)}
+.side .h .step{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.side .h .id{font-size:11px;color:var(--mute);margin-left:8px}
+.side .h h4{font-family:"DM Serif Display","Noto Sans KR",serif;font-weight:400;font-size:20px;margin:4px 0 2px}
+.side .h p{margin:0;font-size:13px;color:var(--mute)}
+.side .c{padding:12px 18px 18px}
+.side h5{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:14px 0 6px}
+.side h5:first-child{margin-top:0}
+.side dl{margin:0;display:grid;grid-template-columns:140px 1fr;gap:5px 12px;font-size:13px}
+.side dl dt{font-weight:600}.side dl dd{margin:0}
+.side table{margin:4px 0}.side td,.side th{font-size:12.5px;padding:6px 8px}
+.side ul{margin:0;padding-left:18px;font-size:13px}
+@media(max-width:860px){.stage{grid-template-columns:1fr}.phone{position:relative;margin:0 auto}}
+</style>
+</head>
+<body>
+<main>
+<div class="cover"><div class="kind">기획서 · Plan</div><h1>홈</h1><p class="sub">홈 › 여섯 영역(헤더 · 질문 · 코칭 · 목표 · 컨디션 · 건강 데이터)과 「나의 건강, 숫자로 한눈에」를 한 화면으로 묶는 기획</p><div class="meta"><div>판<b>1.0.0</b></div><div>기준일<b>2026-10-14</b></div><div>화면 ID<b>HOME-001 (001~013 묶음)</b></div><div>관련 문서<b>홈 화면정의서 · 홈 화면설계서 · 홈 질문→코칭→목표 3종 · 건강나이·또래등수 2종 · AI 인사이트 기획서 · 생활 탭 데이터 보기 기획서 · 알림 화면정의서</b></div></div></div>
+<section id="s0"><div class="n">00</div><div class="b"><h2>한눈에 보기</h2><div class="panels"><div class="panel green"><b>이 문서가 다루는 것</b>홈 한 화면이 무엇을 위해 있고, 여섯 영역이 왜 이 순서로 놓이며, 영역끼리 무엇을 주고받는지. 영역별 세부 규칙은 각 기획서 · 정의서로 보낸다.</div><div class="panel blue"><b>가장 중요한 결정</b>홈은 「오늘 무엇을 할지」를 정해 주는 화면이다. 결론(질문 → 코칭 → 목표)을 먼저, 근거(컨디션 · 건강 데이터 · 검진 요약)를 뒤에 둔다. 홈은 계산하지 않고 받은 값만 보여 준다.</div><div class="panel amber"><b>아직 정해지지 않은 것</b>영역 순서의 최종 확정(디자인 검토 뒤 조정 가능). 자세한 내용은 「확인 필요」.</div></div></div></section>
+<section id="s1"><div class="n">01</div><div class="b"><h2>배경과 목표</h2><p class="lead">검진 결과와 생활 기록은 많지만 「그래서 오늘 뭘 하면 되는지」를 말해 주는 화면이 없었다. 홈은 그 질문에 30초 안에 답하는 화면으로 설계하였다.</p><p>수치 해석은 생활 탭이, 의료 기록은 병원 탭이 맡는다. 홈은 결론과 실행만 보여 주고, 근거는 아래쪽에 짧게 둔다.</p><p>목표는 세 가지다. 앱을 열고 30초 안에 오늘 할 일을 안다. 결과가 없을 때 숫자를 지어내지 않는다. 여섯 영역이 서로 어긋나지 않는다.</p></div></section>
+<section id="s2"><div class="n">02</div><div class="b"><h2>대상과 상황</h2><table><tr><th>인물</th><th>상황</th><th>바라는 것 · 홈이 하는 일</th></tr><tr><td>52세 회사원, 워치 착용, 검진 연동</td><td>아침 출근길 30초</td><td>질문 3개에 답하면 코칭 한 줄과 목표 3개. 아래로 내리면 컨디션 세 구간, 걸음 · 수면 · 심박, 건강나이 · 또래 등수</td></tr><tr><td>38세, 휴대폰만, 검진 미연동</td><td>점심에 처음 연다</td><td>질문 · 코칭 · 목표는 정상. 컨디션은 「관찰 중」, 건강 요약은 연동 안내. 빈 숫자를 보지 않는다</td></tr><tr><td>61세, AI REPORT를 방금 등록</td><td>등록 직후 홈</td><td>결과 화면을 먼저 보고, 닫으면 오늘의 질문이 새 문항으로 바뀐 홈이 드러난다</td></tr></table></div></section>
+<section id="s3"><div class="n">03</div><div class="b"><h2>범위</h2><table><tr><th>이번에 하는 것</th><th>하지 않는 것</th></tr><tr><td>여섯 영역의 역할 · 순서 · 영역 간 연동 규칙 · 하루 경계 · 미연동 처리 원칙. 영역별 기능 정의 표(헤더 · 컨디션 · 건강 데이터 · 건강 요약)</td><td>각 영역의 세부 규칙(질문 · 코칭 · 목표는 홈 질문→코칭→목표 기획서, 건강나이 · 또래 등수는 그 기획서, AI 인사이트 · 생활 데이터 · 알림은 각 문서)</td></tr><tr><td>홈에서 다른 탭으로 가는 이동 목록</td><td>지표 산식 · 코칭 규칙 · 검진 요약 생성(엔진 문서)</td></tr></table></div></section>
+<section id="s4"><div class="n">04</div><div class="b"><h2>동작 방식</h2><div class="fig"><div class="t"><b>Fig 1</b> · 홈 여섯 영역과 두 층</div><svg viewBox="0 0 760 230" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="12"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs><rect x="20" y="30" width="110" height="56" fill="#fff" stroke="#0f1222"/><text x="75.0" y="58.0" text-anchor="middle" font-weight="600">헤더</text><text x="75.0" y="74.0" text-anchor="middle" fill="#5d6275" font-size="11">스캔 · 알림</text><rect x="150" y="30" width="110" height="56" fill="#fff" stroke="#0f1222"/><text x="205.0" y="58.0" text-anchor="middle" font-weight="600">오늘의 질문</text><text x="205.0" y="74.0" text-anchor="middle" fill="#5d6275" font-size="11">5문항 미만</text><rect x="280" y="30" width="110" height="56" fill="#fff" stroke="#0f1222"/><text x="335.0" y="58.0" text-anchor="middle" font-weight="600">오늘의 코칭</text><text x="335.0" y="74.0" text-anchor="middle" fill="#5d6275" font-size="11">행동 한 줄</text><rect x="410" y="30" width="110" height="56" fill="#fff" stroke="#0f1222"/><text x="465.0" y="58.0" text-anchor="middle" font-weight="600">오늘의 목표</text><text x="465.0" y="74.0" text-anchor="middle" fill="#5d6275" font-size="11">타일 3</text><rect x="540" y="30" width="100" height="56" fill="#fff" stroke="#0f1222"/><text x="590.0" y="58.0" text-anchor="middle" font-weight="600">오늘의</text><text x="590.0" y="74.0" text-anchor="middle" fill="#5d6275" font-size="11">컨디션</text><rect x="650" y="30" width="100" height="56" fill="#fff" stroke="#0f1222"/><text x="700.0" y="58.0" text-anchor="middle" font-weight="600">건강 데이터</text><text x="700.0" y="74.0" text-anchor="middle" fill="#5d6275" font-size="11">3행</text><path d="M260,58 L278,58" stroke="#0f1222" stroke-width="1.2" fill="none" marker-end="url(#ar)"/><path d="M390,58 L408,58" stroke="#0f1222" stroke-width="1.2" fill="none" marker-end="url(#ar)"/><rect x="150" y="130" width="370" height="56" fill="#eef1ff" stroke="#5170FF"/><text x="335.0" y="158.0" text-anchor="middle" font-weight="600">나의 건강, 숫자로 한눈에</text><text x="335.0" y="174.0" text-anchor="middle" fill="#5d6275" font-size="11">AI 인사이트 · 건강나이 · 또래 등수</text><text x="20" y="215" fill="#5d6275" font-size="11">위 여섯 영역은 세로로 이어진다. 결론(질문 → 코칭 → 목표)이 먼저, 근거(컨디션 · 데이터 · 검진 요약)가 뒤에 온다.</text><text x="20" y="120" fill="#5d6275" font-size="11">당일 · 실행</text><text x="150" y="120" fill="#5d6275" font-size="11">중장기 · 검진 기반</text></svg><div class="cap"><b>해석:</b> 위 줄은 당일 정보로 매일 바뀌고, 아래 줄은 검진 기반이라 검진이 바뀔 때만 바뀐다. 사용자는 위에서 아래로 읽으며 「오늘 할 일」에서 「내 몸의 위치」로 내려간다.</div></div><div class="fig"><div class="t"><b>Fig 2</b> · 하루 한 바퀴</div><svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans, Noto Sans KR, sans-serif" font-size="12"><defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0f1222"/></marker></defs><rect x="20" y="40" width="150" height="50" fill="#fff" stroke="#0f1222"/><text x="95.0" y="65.0" text-anchor="middle" font-weight="600">새벽 4시</text><text x="95.0" y="81.0" text-anchor="middle" fill="#5d6275" font-size="11">새 하루</text><path d="M170,65 L198,65" stroke="#0f1222" stroke-width="1.2" fill="none" marker-end="url(#ar)"/><rect x="200" y="40" width="150" height="50" fill="#fff" stroke="#0f1222"/><text x="275.0" y="65.0" text-anchor="middle" font-weight="600">첫 진입</text><text x="275.0" y="81.0" text-anchor="middle" fill="#5d6275" font-size="11">세트 · 목표 판정</text><path d="M350,65 L378,65" stroke="#0f1222" stroke-width="1.2" fill="none" marker-end="url(#ar)"/><rect x="380" y="40" width="150" height="50" fill="#fff" stroke="#0f1222"/><text x="455.0" y="65.0" text-anchor="middle" font-weight="600">답변 완료</text><text x="455.0" y="81.0" text-anchor="middle" fill="#5d6275" font-size="11">코칭 1 + 목표 3</text><path d="M530,65 L558,65" stroke="#0f1222" stroke-width="1.2" fill="none" marker-end="url(#ar)"/><rect x="560" y="40" width="180" height="50" fill="#fff" stroke="#0f1222"/><text x="650.0" y="65.0" text-anchor="middle" font-weight="600">하루 동안</text><text x="650.0" y="81.0" text-anchor="middle" fill="#5d6275" font-size="11">완료 토글 · 지표 갱신</text><rect x="200" y="130" width="150" height="44" fill="#fff" stroke="#0f1222" stroke-dasharray="4 3"/><text x="275.0" y="152.0" text-anchor="middle" font-weight="600">재진입</text><text x="275.0" y="168.0" text-anchor="middle" fill="#5d6275" font-size="11">만든 것 그대로</text><path d="M275,130 L275,92" stroke="#0f1222" stroke-width="1.2" fill="none" marker-end="url(#ar)" stroke-dasharray="4 3"/><rect x="560" y="130" width="180" height="44" fill="#fff" stroke="#0f1222" stroke-dasharray="4 3"/><text x="650.0" y="152.0" text-anchor="middle" font-weight="600">낮 데이터 갱신</text><text x="650.0" y="168.0" text-anchor="middle" fill="#5d6275" font-size="11">컨디션 · 건강 데이터만</text><path d="M650,130 L650,92" stroke="#0f1222" stroke-width="1.2" fill="none" marker-end="url(#ar)" stroke-dasharray="4 3"/></svg><div class="cap"><b>해석:</b> 첫 진입에 만든 질문 세트와 목표는 그날 고정이고, 낮 동안 바뀌는 것은 컨디션과 건강 데이터 값뿐이다. 재진입은 만든 것을 그대로 보여 준다.</div></div><ol><li><b>새벽 4시</b>에 하루가 바뀐다. 전날 질문 · 코칭 · 목표가 닫히고 완료 기록만 남는다.</li><li><b>첫 진입</b>에 그 시점의 기기 데이터로 질문 세트를 정하고 목표의 열림 · 잠김을 판정한다. 17시 이후면 저녁형 문구다.</li><li><b>모두 답하면</b> 코칭 한 줄과 잠긴 목표가 한 번에 만들어진다.</li><li><b>하루 동안</b> 타일 완료 · 취소만 바뀌고, 컨디션 · 건강 데이터는 기기 값이 들어올 때마다 다시 계산된다.</li><li><b>아래쪽 요약</b>(AI 인사이트 · 건강나이 · 또래 등수)은 분석 실행이나 검진 변경 때만 바뀐다.</li></ol></div></section>
+<section id="s5"><div class="n">05</div><div class="b"><h2>규칙과 예외</h2><table><tr><th>규칙</th><th>예시</th><th>예외</th></tr><tr><td>결론이 먼저, 근거가 뒤</td><td>질문 → 코칭 → 목표 → 컨디션 → 건강 데이터 → 건강 요약</td><td>디자인 검토 뒤 영역 순서는 조정할 수 있다. 영역 안의 규칙은 유지</td></tr><tr><td>홈은 계산하지 않는다</td><td>건강나이 · 등수 · 지표 구간 · AI 점수 모두 받은 값 그대로</td><td>—</td></tr><tr><td>숫자를 지어내지 않는다</td><td>결과 없음은 「—」 · 「기록 없음」 · 「관찰 중」. 0점 · 0세 · 0등 금지</td><td>—</td></tr><tr><td>미연동 안내는 한 번만</td><td>컨디션 영역에 연동 안내가 있으면 건강 데이터 영역은 숨긴다</td><td>검진 미연동 안내(건강 요약)는 별개</td></tr><tr><td>하루 경계는 새벽 4시</td><td>질문 · 코칭 · 목표 · 첫 진입 판정</td><td>기기 표시값(걸음 등)은 자정 기준. 수면만 기상한 날로</td></tr><tr><td>해석은 홈에 두지 않는다</td><td>건강 데이터는 값과 어제 대비만. 컨디션은 구간 라벨만</td><td>주의 구간이 있을 때만 요약 한 줄</td></tr><tr><td>영역 간 연동은 한 표로</td><td>답변 완료 · 답 수정 · 완료 토글 · 연동 완료 · 해제 · 낮 데이터 갱신 · 검진 미연동의 7가지 트리거</td><td>홈 화면정의서 9장이 정본</td></tr></table><h3>기능 정의</h3><p class="ex">기능정의서 §5.2 중 홈 질문→코칭→목표 기획서가 가져가지 않은 줄(컨디션 판정 · 오늘의 건강 데이터 · AI 건강 인사이트 카드)과 헤더 · 건강 요약을 이 기획서로 옮긴 표. 새 규칙은 여기에 먼저 쓴다.</p><table><tr><th style="width:16%">기능</th><th style="width:16%">언제</th><th>하는 일 · 결과</th><th style="width:28%">어긋나면</th></tr><tr><td>홈 구성</td><td>홈 진입</td><td>여섯 영역을 정해진 순서로 그린다. 각 영역은 자기 상태(정상 · 없음 · 관찰 중 · 미연동)를 스스로 표시</td><td>영역 하나가 비어도 나머지는 정상</td></tr><tr><td>헤더 · AI REPORT 스캔</td><td>헤더 QR 탭</td><td>유형 선택 없이 QR 카메라로</td><td>등록 흐름은 검진 리포트 등록 설계서</td></tr><tr><td>헤더 · 알림</td><td>안 읽은 알림 있을 때</td><td>종 옆에 점만. 개수 없음</td><td>알림 화면정의서</td></tr><tr><td>컨디션 판정</td><td>홈 진입 · 값 갱신</td><td>생활여유 · 자기돌봄 · 일상안정을 세 구간 라벨로. 주의 구간이 있을 때만 요약 한 줄</td><td>계산할 수 없는 지표는 「관찰 중」으로 두고 값을 지어내지 않는다</td></tr><tr><td>오늘의 건강 데이터</td><td>홈 진입</td><td>걸음 · 수면 · 안정 시 심박 세 줄과 어제 대비. 해석 · 권고치 비교 없음</td><td>값이 없으면 「—」 「기록 없음」. 미연동이면 영역을 숨긴다</td></tr><tr><td>AI 건강 인사이트 카드</td><td>홈 진입</td><td>결과가 있으면 최근 결과의 점수와 기간만. 없으면 「분석하기」</td><td>변화량은 홈에서 보여 주지 않는다</td></tr><tr><td>건강나이 · 또래 등수</td><td>홈 진입</td><td>검진 연동 결과를 그대로. 미연동이면 연동 안내 한 장</td><td>별도 기획서</td></tr><tr><td>영역 간 연동</td><td>트리거 발생</td><td>7가지 트리거별 반영 규칙을 따른다(홈 화면정의서 9장)</td><td>규칙에 없는 연동은 만들지 않는다</td></tr></table></div></section>
+<section id="s6"><div class="n">06</div><div class="b"><h2>데이터</h2><table><tr><th>무엇을</th><th>어디서</th><th>저장</th></tr><tr><td>여섯 영역의 입력</td><td>기기 데이터 · 질문 답 · 검진 연동 · AI 분석 결과</td><td>각 영역 문서의 데이터 장을 따른다. 홈 전용 저장은 없다</td></tr><tr><td>영역 상태</td><td>각 영역 계산 결과</td><td>그날 세션에 보관(질문 세트 · 목표 · 코칭). 컨디션 · 건강 데이터는 저장하지 않고 매번 읽는다</td></tr></table></div></section>
+<section id="s7"><div class="n">07</div><div class="b"><h2>성공 기준</h2><ul><li>첫 진입부터 코칭 · 목표가 보이기까지 질문 수가 5문항 미만이다.</li><li>미연동 · 결과 없음 상태에서 임의 숫자가 0건이다.</li><li>영역 간 연동 7가지 트리거가 모두 규칙대로 반영된다(QA 체크리스트로 확인).</li><li>홈 아래쪽 요약까지 한 번의 스크롤 안에 들어온다.</li></ul></div></section>
+<section id="s8"><div class="n">08</div><div class="b"><h2>확인 필요</h2><table><tr><th style="width:45%">질문</th><th>누가 정하나</th><th>기한</th><th>상태</th></tr><tr><td>영역 순서(기준안: 질문 → 코칭 → 목표 → 컨디션 → 건강 데이터 → 건강 요약)를 디자인 검토 뒤 확정</td><td>디자인 · 기획</td><td>화면 디자인 시</td><td>열림</td></tr><tr><td>홈 아래쪽 요약까지 한 번의 스크롤 안에 드는지(실제 기기)</td><td>디자인</td><td>프로토타입 다음 판</td><td>열림</td></tr></table></div></section>
+<section id="s9"><div class="n">09</div><div class="b"><h2>바뀐 것</h2><table><tr><th style="width:120px">날짜</th><th style="width:70px">판</th><th>무엇을</th><th>왜</th></tr><tr><td>2026-10-14</td><td>1.0.0</td><td>첫 작성. 홈 화면정의서 1 · 9장과 기능정의서 §5.2의 남은 줄, 하루 생성 순서도를 묶어 홈 전체의 기획서로</td><td>현황표에서 홈(HOME-001)만 기획서가 없었음</td></tr></table></div></section>
+</main>
+</body>
+</html>
