@@ -1948,15 +1948,15 @@ body>h1,body>header h1,body>main>h1,body>.page>h1,body>.top>h1,.top h1,.page>.to
    따라서 걸음 수만 있어도 ①로 3문항을 채울 수 있고, 공단이 연결되면 ②가 앞자리를 대체한다. */
 const Q_BASE = [
   { id:'fatigue', cat:'피로', av:'⚡', tint:'energy',
-    text:'오늘 몸의 피로감은 어느 정도인가요?',
-    opts:[{v:'none',f:'⌣',label:'괜찮아요',    tone:'good'},
+    text:'오늘은 피로감이 어느 정도인가요?',
+    opts:[{v:'none',f:'⌣',label:'전혀 피곤하지 않아요',    tone:'good'},
           {v:'mild',f:'—',label:'조금 피곤해요',tone:'okay'},
           {v:'high',f:'⌢',label:'많이 피곤해요',tone:'bad'}] },
   { id:'sleep', cat:'수면', av:'🌙', tint:'moon',
-    text:'어젯밤 얼마나 주무셨나요?',
-    opts:[{v:'lt5', f:'◔',label:'5시간 미만',tone:'neutral'},
-          {v:'5to7',f:'◑',label:'5~7시간',  tone:'neutral'},
-          {v:'gte7',f:'◕',label:'7시간 이상',tone:'neutral'}] },
+    text:'어젯밤 잠은 몇 시간 정도 주무셨나요?',
+    opts:[{v:'lt7', f:'◔',label:'7시간보다 적었어요',tone:'neutral'},
+          {v:'7to9',f:'◑',label:'7~9시간 정도였어요',  tone:'neutral'},
+          {v:'gt9',f:'◕',label:'9시간보다 길었어요',tone:'neutral'}] },
   { id:'meal', cat:'식사', av:'🍚', tint:'moon',
     text:'오늘 식사는 평소만큼 하셨나요?',
     opts:[{v:'normal',f:'⌣',label:'충분히 먹음',  tone:'good'},
@@ -2029,11 +2029,11 @@ function coachingFor(){
     why:'시야 변화가 뚜렷하다고 답해주셨어요. 무리한 활동을 피하고 규칙적인 식사로 혈당을 큰 변화 없이 유지으로 유지해 주세요.'};
   if(fatigue && fatigue.v==='high') return {act:'오늘은 활동을 조금 줄이고 충분히 쉬어보세요.',
     why:'최근 활동량에 비해 오늘 피로도가 높아, 규칙적인 식사·수면과 가벼운 활동 위주로 보내는 것이 좋아요.'};
-  if(sleep && sleep.v==='lt5') return {act:'오늘은 평소보다 일찍 잠자리에 들어보세요.',
-    why:'어젯밤 수면이 5시간 미만이었어요. 낮에는 무리한 활동을 줄이고 저녁에는 카페인을 피하는 것이 좋아요.'};
+  if(sleep && sleep.v==='lt7') return {act:'오늘은 평소보다 일찍 잠자리에 들어보세요.',
+    why:'어젯밤 수면이 7시간보다 적었어요. 낮에는 무리한 활동을 줄이고 저녁에는 카페인을 피하는 것이 좋아요.'};
   if(meal && (meal.v==='skip'||meal.v==='less')) return {act:'오늘은 소량이라도 규칙적으로 나눠 드셔보세요.',
     why:'식사량이 평소보다 적어 혈당이 크게 흔들릴 수 있어요. 3~4시간 간격으로 가볍게 채워주세요.'};
-  if((vision&&vision.v==='mild')||(fatigue&&fatigue.v==='mild')||(sleep&&sleep.v==='5to7')) return {act:'오늘은 규칙적인 식사와 가벼운 활동을 챙겨보세요.',
+  if((vision&&vision.v==='mild')||(fatigue&&fatigue.v==='mild')) return {act:'오늘은 규칙적인 식사와 가벼운 활동을 챙겨보세요.',
     why:'큰 이상은 없지만 회복 여유가 넉넉하진 않아요. 식후 가벼운 걷기와 평소 취침 시간을 지켜주세요.'};
   return {act:'오늘은 지금의 생활 리듬을 그대로 유지해보세요.',
     why:'질문 답변과 최근 데이터가 모두 큰 변화 없이 유지이에요. 식후 가벼운 걷기만 더해도 충분해요.'};
@@ -2068,7 +2068,7 @@ function adjust(b){
     return {...b, title:'혈당 흔들림 줄이는 저녁', how:'채소·단백질을 먼저 드시고 탄수화물은 나중에 천천히 드세요'};
   if(b.key==='move' && ((fatigue&&fatigue.v==='high')||(vision&&vision.v==='clear')))
     return {...b, title:'실내에서 5분 스트레칭', how:'오늘은 걷기 대신 앉아서 어깨·목을 천천히 풀어줘요'};
-  if(b.key==='sleep' && ((sleep&&sleep.v==='lt5')||(fatigue&&fatigue.v==='high')))
+  if(b.key==='sleep' && ((sleep&&sleep.v==='lt7')||(fatigue&&fatigue.v==='high')))
     return {...b, title:'23시까지 눕기', how:'수면이 부족한 날은 30분 일찍 누워 회복 시간을 늘려요'};
   return {...b};
 }

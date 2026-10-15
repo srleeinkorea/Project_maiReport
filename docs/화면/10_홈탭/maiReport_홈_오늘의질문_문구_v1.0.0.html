@@ -45,7 +45,7 @@
   <div class="kicker">홈 › 오늘의 질문</div>
   <h1>오늘의 질문 · 질문과 선택지</h1>
   <p class="lead">사용자가 홈의 「오늘의 질문」 카드에서 보는 질문과 선택지를 한곳에 모음. 화면에 나가는 글자 그대로 적음. 선택지는 모두 3개이고 건너뛰기는 없음.</p>
-  <div class="meta"><span>기준일 <b>2026-10-15</b></span><span>식이 정본 <b>식이 개발 전달 데이터 계약 v1.3.0</b></span><span>식이 질문 <b>확정</b></span><span>보완 질문 <b>확정 전</b></span></div>
+  <div class="meta"><span>기준일 <b>2026-10-15</b></span><span>식이 정본 <b>식이 개발 전달 데이터 계약 v1.3.0</b></span><span>식이 질문 <b>확정</b></span><span>보완 질문 <b>지식DB 문구 기준</b></span></div>
 </header>
 
 <section>
@@ -119,13 +119,24 @@
 </section>
 
 <section>
-  <h2>보완 질문 <span class="pending">확정 전</span></h2>
-  <div class="sub">기기로 알 수 없는 것만 물음. 문구는 활동 · 수면 기획서에서 확정할 예정이며, 아래는 지금 정본 프로토타입에 들어 있는 문구임</div>
+  <h2>보완 질문</h2>
+  <div class="sub">지식DB 문구 기준. 질문 12개 · 선택지 36개. 워치 · 건강 앱으로 그 값을 잴 수 없을 때만 물음(피로감은 회복 중이거나 몸 상태를 알아야 하는 날, 최근 답이 없을 때만). 같은 묶음에서는 하루 1개만 물음</div>
   <div class="tbl"><table>
-    <tr><th style="width:110px">구분</th><th>질문</th><th style="width:300px">선택지</th><th style="width:220px">언제 나오나</th></tr>
-    <tr><td class="k">피로감</td><td class="q">오늘 몸의 피로감은 어느 정도인가요?</td><td><span class="opt">괜찮아요</span><span class="opt">조금 피곤해요</span><span class="opt">많이 피곤해요</span></td><td class="w">보완 질문 중 먼저. 기기로 알 수 없어서</td></tr>
-    <tr><td class="k">수면</td><td class="q">어젯밤 얼마나 주무셨나요?</td><td><span class="opt">5시간 미만</span><span class="opt">5~7시간</span><span class="opt">7시간 이상</span></td><td class="w">어젯밤 수면 기록이 없는 날만</td></tr>
+    <tr><th style="width:110px">묶음</th><th>질문</th><th style="width:330px">선택지</th><th style="width:200px">얼마나 자주</th></tr>
+    <tr><td class="k" rowspan="7">운동 (최근 7일)</td><td class="q">최근 7일, 숨이 조금 찰 만큼 움직인 시간은 모두 얼마나 됐나요?</td><td><span class="opt">90분보다 적었어요</span><span class="opt">90~150분 정도였어요</span><span class="opt">150분보다 많았어요</span></td><td class="w" rowspan="7">하루 1개 · 7일에 2개까지. 위에서부터 먼저 물음. 같은 질문은 7일 뒤에 다시 물음</td></tr>
+    <tr><td class="q">최근 7일, 숨이 조금 찰 만큼 움직인 날이 며칠 있었나요?</td><td><span class="opt">없었어요</span><span class="opt">1~2일 있었어요</span><span class="opt">3일 이상 있었어요</span></td></tr>
+    <tr><td class="q">어제 숨이 조금 찰 만큼 움직인 시간은 얼마나 됐나요?</td><td><span class="opt">10분보다 적었어요</span><span class="opt">10분 이상 30분 미만이었어요</span><span class="opt">30분 이상이었어요</span></td></tr>
+    <tr><td class="q">최근 7일, 숨이 많이 찰 만큼 운동한 시간은 모두 얼마나 됐나요?</td><td><span class="opt">전혀 하지 않았어요</span><span class="opt">150분 이내로 했어요</span><span class="opt">150분보다 많았어요</span></td></tr>
+    <tr><td class="q">최근 7일, 근육을 쓰는 운동을 한 날이 며칠 있었나요?</td><td><span class="opt">없었어요</span><span class="opt">1일 있었어요</span><span class="opt">2일 이상 있었어요</span></td></tr>
+    <tr><td class="q">최근 7일, 근육을 쓰는 운동을 몇 번 했나요?</td><td><span class="opt">0~1번 했어요</span><span class="opt">2~3번 했어요</span><span class="opt">4번 이상 했어요</span></td></tr>
+    <tr><td class="q">최근 7일, 걷거나 운동한 시간은 평소의 절반과 비교해 어땠나요?</td><td><span class="opt">평소의 절반보다 적었어요</span><span class="opt">평소보다 적었지만 절반 이상이었어요</span><span class="opt">평소와 비슷하거나 더 많았어요</span></td></tr>
+    <tr><td class="k" rowspan="1">수면 (어젯밤)</td><td class="q">어젯밤 잠은 몇 시간 정도 주무셨나요?</td><td><span class="opt">7시간보다 적었어요</span><span class="opt">7~9시간 정도였어요</span><span class="opt">9시간보다 길었어요</span></td><td class="w" rowspan="1">하루 1개. 매일 물을 수 있음</td></tr>
+    <tr><td class="k" rowspan="1">수면 (최근 3일)</td><td class="q">최근 3일, 잠든 시간과 일어난 시간이 얼마나 비슷했나요?</td><td><span class="opt">대체로 비슷했어요</span><span class="opt">1~2시간쯤 달랐어요</span><span class="opt">2시간 이상 달랐어요</span></td><td class="w" rowspan="1">3일 뒤에 다시 물음 · 7일에 2번까지</td></tr>
+    <tr><td class="k" rowspan="2">수면 (최근 7일)</td><td class="q">최근 7일, 하루에 잠은 대체로 몇 시간 잤나요?</td><td><span class="opt">7시간보다 적었어요</span><span class="opt">7~9시간 정도였어요</span><span class="opt">9시간보다 길었어요</span></td><td class="w" rowspan="2">하루 1개 · 7일에 2개까지. 위에서부터 먼저 물음. 같은 질문은 7일 뒤에 다시 물음</td></tr>
+    <tr><td class="q">최근 7일, 잠잔 시간은 날마다 얼마나 달랐나요?</td><td><span class="opt">대체로 비슷했어요</span><span class="opt">1~2시간쯤 달랐어요</span><span class="opt">2시간 이상 달랐어요</span></td></tr>
+    <tr><td class="k" rowspan="1">피로감</td><td class="q">오늘은 피로감이 어느 정도인가요?</td><td><span class="opt">전혀 피곤하지 않아요</span><span class="opt">조금 피곤해요</span><span class="opt">많이 피곤해요</span></td><td class="w" rowspan="1">하루 1개 · 7일에 4번까지</td></tr>
   </table></div>
+  <p class="note">예) 워치가 없는 사용자는 어느 날 「최근 7일, 숨이 조금 찰 만큼 움직인 시간은 모두 얼마나 됐나요?」에 답하면 그 뒤 7일 동안 같은 질문을 다시 받지 않음. 그 주에 운동 묶음 질문은 하나 더 나올 수 있음.</p>
 </section>
 
 </div>

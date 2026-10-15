@@ -2673,16 +2673,16 @@ if(window.self !== window.top){
    ════════════════════════════════════════════════════════════ */
 /* 활동 — 기기 걸음·활동 시간은 어제까지의 기록이라 오늘 낼 수 있는 몸 상태는 답으로 받는다 */
 const Q_FATIGUE = { id:'fatigue', cat:'활동', av:'⚡', tint:'energy',
-  text:'오늘 몸의 피로감은 어느 정도인가요?',
-  opts:[{v:'none',f:'⌣',label:'괜찮아요',    tone:'good'},
+  text:'오늘은 피로감이 어느 정도인가요?',
+  opts:[{v:'none',f:'⌣',label:'전혀 피곤하지 않아요',    tone:'good'},
         {v:'mild',f:'—',label:'조금 피곤해요',tone:'okay'},
         {v:'high',f:'⌢',label:'많이 피곤해요',tone:'bad'}] };
 const Q_BASE = [
   { id:'sleep', cat:'수면', av:'🌙', tint:'moon',
-    text:'어젯밤 얼마나 주무셨나요?',
-    opts:[{v:'lt5', f:'◔',label:'5시간 미만',tone:'neutral'},
-          {v:'5to7',f:'◑',label:'5~7시간',  tone:'neutral'},
-          {v:'gte7',f:'◕',label:'7시간 이상',tone:'neutral'}] },
+    text:'어젯밤 잠은 몇 시간 정도 주무셨나요?',
+    opts:[{v:'lt7', f:'◔',label:'7시간보다 적었어요',tone:'neutral'},
+          {v:'7to9',f:'◑',label:'7~9시간 정도였어요',  tone:'neutral'},
+          {v:'gt9',f:'◕',label:'9시간보다 길었어요',tone:'neutral'}] },
   { id:'meal', cat:'식사', av:'🍚', tint:'moon',
     text:'오늘 식사는 평소만큼 하셨나요?',
     opts:[{v:'normal',f:'⌣',label:'충분히 먹음',  tone:'good'},
@@ -2951,8 +2951,8 @@ function coachingGeneral(){
     why:'같은 단백질이라도 조리법에 따라 지방 양이 크게 달라져요.'};
   if(ans.fatigue && ans.fatigue.v==='high') return {act:'오늘은 활동을 조금 줄이고 충분히 쉬어보세요.',
     why:'피로도가 높은 날은 규칙적인 식사·수면과 가벼운 활동 위주로 보내는 것이 좋아요.'};
-  if(ans.sleep && ans.sleep.v==='lt5') return {act:'오늘 밤은 평소보다 조금 일찍 누워보세요.',
-    why:'어젯밤 잠이 5시간이 안 됐어요. 낮잠으로 몰아 자기보다 오늘 밤 잠자리에 드는 시간을 조금 앞당기는 편이 나아요.'};
+  if(ans.sleep && ans.sleep.v==='lt7') return {act:'오늘 밤은 평소보다 조금 일찍 누워보세요.',
+    why:'어젯밤 잠이 7시간이 안 됐어요. 낮잠으로 몰아 자기보다 오늘 밤 잠자리에 드는 시간을 조금 앞당기는 편이 나아요.'};
   return {act:'오늘은 지금의 생활 리듬을 그대로 유지해보세요.',
     why:'답변과 최근 데이터 모두 평소와 비슷해요. 식후 가벼운 걷기만 더해도 충분해요.'};
 }
@@ -3317,7 +3317,7 @@ function adjust(b){
       if(fatigue.v==='mild') return {...b, title:'점심 먹고 10분 걷기', why:'점심 뒤 10분이면 부담이 적어요', how:'점심 뒤 자리에서 일어나 10분만 걸어요'};
     }
     if(b.key==='sleep' && sleep){
-      if(sleep.v!=='gte7') return {...b, title:'오늘은 평소보다 일찍 눕기', why:'어젯밤 잠이 7시간보다 짧았어요',
+      if(sleep.v==='lt7') return {...b, title:'오늘은 평소보다 일찍 눕기', why:'어젯밤 잠이 7시간보다 짧았어요',
         how:'취침 시간을 조금 앞당기고, 아침 기상 시간은 무리하게 당기지 않아요 · 지식DB fact 40'};
       return {...b};
     }
