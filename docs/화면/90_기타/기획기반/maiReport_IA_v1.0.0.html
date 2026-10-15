@@ -257,10 +257,10 @@ a{color:#5170FF}
 
 <section class="zone z-indigo"><h2 class="zlabel">⚙️ 03 · 생성 · 분석 엔진</h2>
 <section class="subsec"><h3 class="ss-label">A · 지표 생성 엔진</h3>
-<article class="card c-indigo hero-card"><span class="core">CORE</span><div class="card-head"><span class="ci" aria-hidden="true">📊</span><h3 class="cn">세 지표 계산</h3></div><p class="cb">세 지표 → 0~100 표시값 → 상태 라벨</p><div class="tri"><span>생활여유<small>일별</small></span><span>자기돌봄<small>일별</small></span><span>일상안정<small>7일 비교</small></span></div><span class="ctag">지표 산출 흐름도</span></article>
+<article class="card c-indigo hero-card"><span class="core">CORE</span><div class="card-head"><span class="ci" aria-hidden="true">📊</span><h3 class="cn">세 지표 계산</h3></div><p class="cb">세 지표 → 0~100 표시값 → 상태 라벨</p><div class="tri"><span>짜임새 있는 하루<small>일별</small></span><span>행동 기회 대응<small>일별</small></span><span>생활 변화 추이<small>7일 비교</small></span></div><span class="ctag">지표 산출 흐름도</span></article>
 <div class="g3">
 <article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">✓</span><h3 class="cn">계산 가능성</h3></div><p class="cb"><span>필수 관측 확인</span><span>부족하면 관찰 중</span></p></article>
-<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">↗</span><h3 class="cn">구간 · 라벨</h3></div><p class="cb"><span>33 / 66 경계</span><span>충분 · 보통 · 부족</span></p></article>
+<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">↗</span><h3 class="cn">구간 · 라벨</h3></div><p class="cb"><span>33 / 66 경계</span><span>좋음 · 보통 · 부족</span></p></article>
 <article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🧾</span><h3 class="cn">근거 보존</h3></div><p class="cb"><span>관측 범위 · 출처</span><span>핵심 데이터 표</span></p></article>
 </div></section>
 <section class="subsec"><h3 class="ss-label">B · 코칭 / 목표 생성 엔진</h3><div class="g3">
@@ -357,7 +357,7 @@ const G=[
   {title:'Header',nodes:[N('HOME-002','헤더: AI REPORT 스캔','헤더 진입점','QR 카메라 → 인식 결과 확인 → 등록으로 이어짐'),N('HOME-009','헤더: 알림','헤더 진입점','안 읽은 알림이 있으면 점만 표시'),{...N('HOME-010','알림 목록','전체 화면','최근 30일 · 목표 · 서비스 · 필수 안내, 관련 화면으로 이동'),sub:true}]},
   {title:'Question',nodes:[N('HOME-003','오늘의 질문','섹션','상태 · 연계 정보에 따라 최대 5~6문항, 1문항씩 노출 (식이 · 활동 · 수면 · 기타) · 끼니 질문에 답하면 같은 자리에서 「언제쯤 드셨어요?」 1문항을 이어 물음(식이 최대 3문항)'),N('HOME-004','답변 보기','전체 화면','모두 답하면 진입, 언제든 다시 선택 가능')]},
   {title:'Coach & Goal',nodes:[N('HOME-005','오늘의 코칭','섹션','질문에 모두 답하면 코칭이 나옴 · 카드 상태: 답변 전 안내 → 생성 중 → 행동 한 줄 + 이유'),N('HOME-006','오늘의 목표','섹션','식이 · 활동 · 수면 3타일, 완료 · 미완료 · 잠김','review')]},
-  {title:'Condition & Data',nodes:[N('HOME-007','오늘의 컨디션','섹션','생활여유 · 자기돌봄 · 일상안정 게이지'),N('HOME-011','오늘의 건강 데이터','섹션','걸음 수 · 수면 시간 · 안정 시 심박수, 전일 대비')]},
+  {title:'Condition & Data',nodes:[N('HOME-007','오늘의 컨디션','섹션','짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이 게이지'),N('HOME-011','오늘의 건강 데이터','섹션','걸음 수 · 수면 시간 · 안정 시 심박수, 전일 대비')]},
   {title:'나의 건강, 숫자로 한눈에',nodes:[N('HOME-012','AI 건강 인사이트 카드','섹션','결과가 있으면 가장 최근 결과의 점수와 분석 기간만 표시 · 없으면 「분석하기」 → 생활 · AI 인사이트'),N('HOME-008','내 건강나이 · 또래 등수','섹션','건강나이(실제 나이 대비) · 또래 100명 속 키 · 체중 · BMI · 허리둘레 등수'),N('HOME-013','나의 건강나이','서브 화면','건강나이 카드에서 진입')]}
  ]},
  {key:'life',no:'02',title:'생활',color:'green',desc:'주간 날짜 스트립을 공유하는 서브탭 4개',levels:[

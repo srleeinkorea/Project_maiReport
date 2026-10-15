@@ -160,24 +160,20 @@ a{color:#5170FF}
     <section class="hero" id="top">
       <span class="eyebrow">maiReport · Metric Pipelines</span>
       <h1>같은 데이터에서<br>두 종류의 지표가 갈라져 나옴.</h1>
-      <p>데이터 흐름도의 <strong>상태 해석</strong> 단계를 지표 하나하나까지 펼친 문서임. <strong>코칭 지표 9개</strong>는 지식DB에 정의가 있어 사실 그대로 옮겼고, <strong>3지표</strong>는 지표 기획서 v0.3의 7단계 프레임을 그대로 쓰되 <strong>구성 요소를 실제 계산으로 내리는 부분</strong>을 채웠음 — 그 부분과 계수·경계·윈도우는 <strong>개발팀 초안</strong>임. 두 층은 원천 데이터를 공유하지만 <strong>판단 기준이 다름</strong> — 하나는 외부 가이드라인의 임계, 다른 하나는 그 사람의 평소 분포.</p>
+      <p>데이터 흐름도의 <strong>상태 해석</strong> 단계를 지표 하나하나까지 펼친 문서임. <strong>코칭 지표 9개</strong>는 지식DB에 정의가 있어 사실 그대로 옮겼고, <strong>3지표</strong>는 생활 지표 기획서 v2.0(산식 I1 v0.7 · I2 v1.2 · I3 v7.9)의 계산을 단계로 펼쳤음. 두 층은 원천 데이터를 공유하지만 <strong>쓰는 곳이 다름</strong> — 코칭 지표는 코칭 규칙의 입력이 되고, 3지표는 화면에 상태로 바로 보임.</p>
       <div class="chips">
         <span class="chip">Tier 1 — 코칭 지표 9개 · 확정</span>
-        <span class="chip">Tier 2 — 3지표 · 초안</span>
+        <span class="chip">Tier 2 — 3지표 · I1 v0.7 · I2 v1.2 · I3 v7.9</span>
         <span class="chip">근거값 ↔ 임의값 구분 표기</span>
         <span class="chip">현재 계산 가능 3 / 9</span>
         <span class="chip">병목은 활동 구간 샘플</span>
-        <span class="chip">지표 기획서 v0.3 정합(2026-09-11)</span>
-      </div>
-      <div class="callout warn"><span>v0.2 정합 반영</span>
-        <p>지표 기획서 v0.3(2026-09-08 · 지표명·정의·필수/옵션 확정)에 맞춰 아래를 고쳤음 &mdash; ① <b>건강돌봄 → 자기돌봄</b>(C-1, 기획서 표기 채택) ② 결과값 어휘는 <b>문장형으로 확정</b>(C-3 &mdash; 2026-09-11 기획 결정. 기획서 7장 명사형은 이 문서 기준으로 갱신 대상) ③ <b>일상안정을 &lsquo;변동성 크기&rsquo;가 아니라 &lsquo;변화 방향&rsquo;으로</b> 재정렬(C-2) ④ 핵심 질문·정의 문장을 기획서 4·5·6장 문장으로 통일 ⑤ 7단계 프레임 참조를 v0.3으로 갱신.</p>
-        <p>계산 재료(&laquo;무엇으로 계산하나&raquo; 열, ④⑤ 단계 세부, 변동성·이탈 산식)는 <b>개발팀 초안 그대로</b>임 &mdash; 기획서가 계수·경계를 미확정으로 남겨 둔 영역이므로 이 문서가 확정하지 않음.</p>
+        <span class="chip">생활 지표 기획서 v2.0 정합</span>
       </div>
       <div class="hero-meta">
-        <div><span>DOCUMENT</span><strong>지표 산출 파이프라인 v0.2</strong><p>기준일 2026-09-11 · Internal Use Only</p></div>
+        <div><span>DOCUMENT</span><strong>지표 산출 파이프라인 v0.3</strong><p>기준일 2026-10-15 · Internal Use Only</p></div>
         <div><span>SCOPE</span><strong>원천 데이터 → 코칭 지표 → 3지표</strong><p>산출 단계·입력·임계·관찰 조건</p></div>
-        <div><span>BASIS</span><strong>전달테이블 설계 요청서 · 지표 논의용 요약</strong><p>2026-09-04 · 2026-09-01</p></div>
-        <div><span>OUT</span><strong>구현 코드 · 물리 스키마 · 캘리브레이션</strong><p>상세 설계 단계</p></div>
+        <div><span>BASIS</span><strong>전달테이블 설계 요청서 · 생활 지표 기획서 v2.0</strong><p>지표 플레이그라운드(계산식 전달 문서(LJH))</p></div>
+        <div><span>OUT</span><strong>구현 코드 · 물리 스키마 · 경계값 검증</strong><p>상세 설계 단계</p></div>
       </div>
     </section>
 
@@ -189,9 +185,9 @@ a{color:#5170FF}
         <li><a href="#s3">Tier 1 공통 단계</a></li>
         <li><a href="#s4">Tier 1 지표 9개</a></li>
         <li><a href="#s5">Tier 1 특수 규칙</a></li>
-        <li><a href="#s6">Tier 2 생활여유</a></li>
-        <li><a href="#s7">Tier 2 자기돌봄</a></li>
-        <li><a href="#s8">Tier 2 일상안정</a></li>
+        <li><a href="#s6">Tier 2 짜임새 있는 하루</a></li>
+        <li><a href="#s7">Tier 2 행동 기회 대응</a></li>
+        <li><a href="#s8">Tier 2 생활 변화 추이</a></li>
         <li><a href="#s9">충분도와 저하 모드</a></li>
         <li><a href="#s10">현재 가능 범위 · 병목</a></li>
         <li><a href="#s11">근거값 ↔ 임의값</a></li>
@@ -202,8 +198,8 @@ a{color:#5170FF}
     <!-- 1 -->
     <section class="section" id="s1">
       <div class="section-head"><span class="section-label">01 · Two Tiers</span><h2>두 층의 갈래</h2>
-        <p>원천 데이터는 하나인데 산출 방법이 둘로 갈라짐. 갈라지는 지점은 <b>“무엇과 비교하는가”</b>임. 코칭 지표는 가이드라인이 정한 임계와 비교하고, 3지표는 그 사람의 평소 분포와 비교함.</p>
-        <p>Tier 2의 7단계 프레임(SIGNAL → QUALITY → BASELINE → COMPONENT → INTERNAL → STATE → EXPLAIN)은 <b>지표 기획서 v0.3</b>가 정한 것임. 이 문서는 그 프레임을 새로 만들지 않고, <b>지표마다 ③–⑥ 단계에 무엇이 들어가는지</b>를 채움(6–8장).</p>
+        <p>원천 데이터는 하나인데 산출 방법이 둘로 갈라짐. 갈라지는 지점은 <b>“무엇과 비교하는가”</b>임. 코칭 지표는 가이드라인이 정한 임계와 비교해 코칭 규칙으로 넘기고, 3지표는 권장 생활 기준(I1 · I2)과 그 사람의 직전 7일(I3)로 상태를 만들어 화면에 바로 보여 줌.</p>
+        <p>Tier 2는 <b>관측 확인 → 비교 기준 → 항목 계산 → 합산 → 상태 판정 → 설명</b> 순서로 감. 지표마다 각 단계에 무엇이 들어가는지는 6–8장에 있음.</p>
       </div>
 
       <div class="diagram">
@@ -234,15 +230,15 @@ a{color:#5170FF}
 
           <text class="th" x="60" y="128">Tier 1 · 코칭 지표 9개</text>
           <text class="s" x="228" y="128">확정</text>
-          <text class="th" x="490" y="128">Tier 2 · 3지표 <tspan class="s">지표 기획서 v0.3 의 ②–⑥ 단계</tspan></text>
+          <text class="th" x="490" y="128">Tier 2 · 3지표 <tspan class="s">생활 지표 기획서 v2.0</tspan></text>
 
           <rect class="n" x="60" y="140" width="410" height="46" rx="12"/>
           <text class="t" x="78" y="162">① 신호 선택</text>
           <text class="s" x="78" y="178">확보 가능한 신호 중 우선순위가 가장 높은 것 (MET → cadence → %HRmax)</text>
 
           <rect class="ny" x="490" y="140" width="410" height="46" rx="12"/>
-          <text class="t" x="508" y="162">② QUALITY · 품질 · 해상도 판정</text>
-          <text class="s" x="508" y="178">최신성 · 연속성 · 이상치 제거. watch 유무로 해석 해상도 결정</text>
+          <text class="t" x="508" y="162">② 관측 확인</text>
+          <text class="s" x="508" y="178">들어온 항목만 사용 · 결측은 0으로 채우지 않음</text>
 
           <path class="ar" d="M270,186 L270,206"/>
           <path class="ar" d="M690,186 L690,206"/>
@@ -252,8 +248,8 @@ a{color:#5170FF}
           <text class="s" x="78" y="246">샘플별로 신호값이 임계 구간에 드는지 (예: MET 3 이상 6 미만 = 중강도)</text>
 
           <rect class="ny" x="490" y="208" width="410" height="46" rx="12"/>
-          <text class="t" x="508" y="230">③ BASELINE · 개인 기준선</text>
-          <text class="s" x="508" y="246">최근 기간 개인 데이터의 범위 · 중심 (윈도우 길이 미확정)</text>
+          <text class="t" x="508" y="230">③ 비교 기준</text>
+          <text class="s" x="508" y="246">I1 · I2 권장 생활 기준 · I3 나의 직전 7일</text>
 
           <path class="ar" d="M270,254 L270,274"/>
           <path class="ar" d="M690,254 L690,274"/>
@@ -263,8 +259,8 @@ a{color:#5170FF}
           <text class="s" x="78" y="314">bout 하한 · 상한이 있는 지표만 (10분 이상 / 1–10분 미만)</text>
 
           <rect class="ny" x="490" y="276" width="410" height="46" rx="12"/>
-          <text class="t" x="508" y="298">④ COMPONENT · 구성 요소 평가</text>
-          <text class="s" x="508" y="314">지표별 구성 요소를 규칙으로 평가. 핵심 / 보조 역할 구분</text>
+          <text class="t" x="508" y="298">④ 항목 계산</text>
+          <text class="s" x="508" y="314">I1 네 조각 · I2 기회 4종 · I3 변화 신호 7종</text>
 
           <path class="ar" d="M270,322 L270,342"/>
           <path class="ar" d="M690,322 L690,342"/>
@@ -274,8 +270,8 @@ a{color:#5170FF}
           <text class="s" x="78" y="382">day · night · rolling_7d · event_gap 중 지표가 정한 창으로 묶음</text>
 
           <rect class="ny" x="490" y="344" width="410" height="46" rx="12"/>
-          <text class="t" x="508" y="366">⑤ INTERNAL · 내부 값</text>
-          <text class="s" x="508" y="382">구성 요소를 합쳐 내부 값 산출. 계수 미확정 · 사용자 비노출</text>
+          <text class="t" x="508" y="366">⑤ 합산</text>
+          <text class="s" x="508" y="382">I1 가중평균×√충족률 · I2 기회별 25점 합 · I3 50±50 · 사용자 비노출</text>
 
           <path class="ar" d="M270,390 L270,410"/>
           <path class="ar" d="M690,390 L690,410"/>
@@ -285,8 +281,8 @@ a{color:#5170FF}
           <text class="s" x="78" y="450">충분히 관찰됐는지 · 충족 비율이 기준을 넘는지</text>
 
           <rect class="ny" x="490" y="412" width="410" height="46" rx="12"/>
-          <text class="t" x="508" y="434">⑥ STATE · 상태 판정</text>
-          <text class="s" x="508" y="450">상태 표현(충분해요 · 잘하고 있어요 · 안정적이에요 …) + 방향</text>
+          <text class="t" x="508" y="434">⑥ 상태 판정</text>
+          <text class="s" x="508" y="450">33/66 경계 · 잘 짜였어요 · 잘 살렸어요 · 나아지고 있어요 …</text>
 
           <path class="ar" d="M270,458 L270,486"/>
           <path class="ar" d="M690,458 L690,486"/>
@@ -296,7 +292,7 @@ a{color:#5170FF}
           <text class="s" x="78" y="527">계산 불가 지표는 넣지 않음 (0으로 채우지 않음)</text>
 
           <rect class="nb" x="490" y="488" width="410" height="52" rx="12"/>
-          <text class="t" x="508" y="510">⑦ EXPLAIN · 이유 · 행동 → 사용자 화면</text>
+          <text class="t" x="508" y="510">⑦ 설명 · 이유 · 행동 → 사용자 화면</text>
           <text class="s" x="508" y="527">코칭 규칙 평가를 거치지 않음 · 세 지표를 합산하지 않음</text>
 
           <rect class="n" x="60" y="566" width="410" height="46" rx="12"/>
@@ -305,19 +301,19 @@ a{color:#5170FF}
 
           <rect class="n" x="490" y="566" width="410" height="46" rx="12"/>
           <text class="t" x="508" y="588">비교 기준</text>
-          <text class="s" x="508" y="604">그 사람의 평소 분포 — 사용자마다 다름</text>
+          <text class="s" x="508" y="604">권장 생활 기준(I1 · I2) · 그 사람의 직전 7일(I3)</text>
         </svg>
 
         <div class="legend" aria-label="범례">
           <span><i class="sq"></i>입력 · 출력</span>
           <span><i class="sq2"></i>단계 · 임계 모두 확정</span>
-          <span><i class="sq3"></i>단계는 확정 · 계수와 경계는 미확정</span>
+          <span><i class="sq3"></i>단계는 확정 · 경계값은 검증 중</span>
         </div>
       </div>
 
       <div class="callout"><span>왜 나눠 두는가</span>
-        <p>코칭 지표는 <b>“권고에 닿았는가”</b>를 판정함. 그래서 임계가 사용자마다 같아야 하고, 근거 문서가 바뀌면 값도 바뀜. 3지표는 <b>“이 사람의 하루가 어떻게 흘렀는가”</b>를 설명함. 그래서 기준이 그 사람의 과거이고, 근거 문서가 아니라 관찰 이력이 바뀌면 값이 바뀜.</p>
-        <p>두 층을 한 점수로 섞지 않는 이유가 여기 있음. 섞으면 <b>“권고 미달”과 “평소보다 나빠짐”이 구분되지 않음.</b></p>
+        <p>코칭 지표는 <b>“권고에 닿았는가”</b>를 판정함. 그래서 임계가 사용자마다 같아야 하고, 근거 문서가 바뀌면 값도 바뀜. 3지표는 <b>“이 사람의 하루와 최근 일주일이 어떻게 흘렀는가”</b>를 설명함. 그래서 코칭 규칙을 거치지 않고 상태 라벨로 화면에 바로 보임.</p>
+        <p>두 층을 한 점수로 섞지 않는 이유가 여기 있음. 섞으면 <b>“권고 미달”과 “지난주보다 줄어듦”이 구분되지 않음.</b></p>
       </div>
     </section>
 
@@ -334,7 +330,10 @@ a{color:#5170FF}
           <tr><td><b>수면 세션</b></td><td>device_daily</td><td>밤별 수면 시간</td><td>24h</td><td><span class="status-badge sb-ok">가능</span></td><td>자정을 넘는 수면의 날짜 귀속 규칙 필요 — 기상 시각이 속한 날짜 권장</td></tr>
           <tr><td><b>하루 총 걸음수</b></td><td>device_daily</td><td>보정된 하루 총량</td><td>24h</td><td><span class="status-badge sb-ok">가능</span></td><td>raw 구간 샘플을 단순 합산하면 중복 집계됨</td></tr>
           <tr><td><b>운동 세션</b></td><td>device_interval</td><td><code>start, end</code></td><td>168h</td><td><span class="status-badge sb-no">미수집</span></td><td>10분 이상 지속 구간을 1세션으로 봄</td></tr>
-          <tr><td><b>식사 시각</b></td><td>user_answer</td><td><code>{"start":"HH:MM","meal_label":"..."}</code></td><td>12h</td><td><span class="status-badge sb-no">미수집</span></td><td>최소 계약은 시작 시각만. 탄수화물량·음식 종류는 넣지 않음</td></tr>
+          <tr><td><b>식사 시각</b></td><td>user_answer</td><td><code>{"start":"HH:MM","meal_label":"..."}</code></td><td>12h</td><td><span class="status-badge sb-no">미수집</span></td><td>Tier 2의 I2 식후 기회 · I1 식사–수면 간격 · I3 식사 시각 규칙성에 씀</td></tr>
+          <tr><td><b>식이 답변</b></td><td>user_answer</td><td><code>{"slot","core","burden","axis_count"}</code></td><td>24h</td><td><span class="status-badge sb-review">연결표 필요</span></td><td>I1 식사 균형. 어떤 답이 구성 · 부담 값이 되는지 확정 필요</td></tr>
+          <tr><td><b>걷기 속도</b></td><td>device_interval</td><td><code>start, end, km/h</code></td><td>24h</td><td><span class="status-badge sb-no">미수집</span></td><td>I1 빠르게 걸은 시간(4km/h 이상). 삼성 제공 여부 확인 필요</td></tr>
+          <tr><td><b>기회별 행동 판정</b></td><td>service_event</td><td><code>family, response_credit, eligibility</code></td><td>24h</td><td><span class="status-badge sb-no">미구현</span></td><td>I2 전체 · I3 행동 연결. 판정 기준은 운영이 확정</td></tr>
           <tr><td><b>좌식 구간</b></td><td>device_interval</td><td><code>start, end</code></td><td>24h</td><td><span class="status-badge sb-no">미수집</span></td><td>해당 규칙은 현재 비활성</td></tr>
           <tr><td><b>생년월일</b></td><td>user_profile</td><td><code>YYYY-MM-DD</code></td><td>—</td><td><span class="status-badge sb-no">미수집</span></td><td>나이 조건 전부 + 최대심박수(220−나이) 계산에 필요</td></tr>
           <tr><td><b>확진 질환</b></td><td>user_answer</td><td><code>type_2_diabetes | pneumonia_recovery | none</code></td><td>720h</td><td><span class="status-badge sb-no">미수집</span></td><td>AI 리포트 소견은 확진이 아님</td></tr>
@@ -342,7 +341,7 @@ a{color:#5170FF}
       </table></div>
 
       <div class="callout warn"><span>병목 하나</span>
-        <p><b>활동 구간 샘플</b>이 없으면 Tier 1 지표 6개와 Tier 2의 시간축 재구성이 함께 막힘. 이 입력 하나가 두 층 모두의 병목임.</p>
+        <p><b>활동 구간 샘플</b>이 없으면 Tier 1 지표 6개와 Tier 2의 I2 움직임 추정 · I3 움직임 분포가 함께 막힘. 이 입력 하나가 두 층 모두의 병목임.</p>
       </div>
     </section>
 
@@ -520,203 +519,162 @@ a{color:#5170FF}
 
     <!-- 6 -->
     <section class="section" id="s6">
-      <div class="section-head"><span class="section-label">06 · Tier 2</span><h2>Tier 2 · 생활여유 <span class="tag">Life Margin</span></h2>
-        <p>수면·활동·휴식 등 최근 생활 데이터를 바탕으로 <b>지금 일상에서 느낄 수 있는 부담과 여유의 정도</b>를 보여줌. 정의·질문·결과값은 <b>2026-09-08 확정</b>, 아래 «무엇으로 계산하나» 열과 ④⑤ 단계 세부는 <b>개발팀 초안</b>임.</p>
+      <div class="section-head"><span class="section-label">06 · Tier 2</span><h2>Tier 2 · 짜임새 있는 하루 <span class="tag">Well-Composed Day</span></h2>
+        <p>수면 · 식사 · 움직임이 <b>권장 생활에 얼마나 가깝고, 식사와 잠이 알맞게 맞물렸는지</b>를 하루 단위로 봄. 식이 질문 답변이 점수에 직접 들어가는 유일한 지표임.</p>
       </div>
 
       <div class="table-wrap"><table>
         <thead><tr><th style="width:110px">항목</th><th>내용</th></tr></thead>
         <tbody>
-          <tr><td><b>핵심 질문</b></td><td>지금 내 하루를 이어갈 여유가 충분한가? <span class="tag">기획서 4장</span></td></tr>
-          <tr><td><b>주요 해석</b></td><td>생활 부담 ↔ 생활 여유의 균형. <b>총량이 아니라 배치</b></td></tr>
-          <tr><td><b>결과값</b></td><td>충분해요 / 보통이에요 / 부족해요 <span class="status-badge sb-open">데이터 부족 시 관찰 중</span> <span class="status-badge sb-ok">C-3 확정</span></td></tr>
-          <tr><td><b>방향</b></td><td>최근 해석 대비 ▲ 좋아졌어요 / · 유지 / ▼ 주의가 필요해요 (임계 미확정)</td></tr>
+          <tr><td><b>핵심 질문</b></td><td>오늘 하루가 권장 건강 생활에 얼마나 가까웠는가?</td></tr>
+          <tr><td><b>주요 해석</b></td><td>여러 조각이 <b>고르게</b> 채워졌는지. 한 조각만 좋아서는 높게 나오지 않음</td></tr>
+          <tr><td><b>결과값</b></td><td>잘 짜였어요 / 보통이에요 / 부족해요 <span class="status-badge sb-open">근거가 하나도 없으면 관찰 중</span></td></tr>
+          <tr><td><b>갱신</b></td><td>하루 동안 기록이 들어올 때마다 잠정값을 다시 계산. 하루가 끝난 값이 최종값</td></tr>
         </tbody>
       </table></div>
 
       <h3 class="block">구성 요소 → 산출 재료</h3>
       <div class="table-wrap"><table>
-        <thead><tr><th style="width:78px">방향</th><th style="width:180px">구성 요소</th><th>무엇으로 계산하나</th><th style="width:100px">현재</th></tr></thead>
+        <thead><tr><th style="width:150px">구성 요소</th><th>무엇으로 계산하나</th><th style="width:90px">비중</th><th style="width:100px">현재</th></tr></thead>
         <tbody>
-          <tr><td><b>부담 ↑</b></td><td>수면 부족</td><td>최근 며칠의 수면 시간 — 절대 기준(7시간)과 개인 평소를 함께 봄</td><td><span class="status-badge sb-ok">가능</span></td></tr>
-          <tr><td><b>부담 ↑</b></td><td>긴 비활동</td><td>활동이 없는 가장 긴 연속 구간의 길이와 개수</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
-          <tr><td><b>부담 ↑</b></td><td>늦은 시각 활동</td><td>늦은 시간대에 몰린 활동의 비중</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
-          <tr><td><b>부담 ↑</b></td><td>활동 몰림</td><td>하루 활동이 한 시점에 집중된 정도</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
-          <tr><td><b>여유 ↑</b></td><td>수면 확보</td><td>충분한 수면이 있었는지</td><td><span class="status-badge sb-ok">가능</span></td></tr>
-          <tr><td><b>여유 ↑</b></td><td>활동 분산</td><td>활동이 나타난 시간대의 개수</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
-          <tr><td><b>여유 ↑</b></td><td>짧은 움직임</td><td>하루 중간중간 나타난 짧은 구간의 개수</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
-          <tr><td>보강</td><td>주관 답변 · 생체</td><td>피로감 답변, HRV, 안정시 심박 — 상태를 바꾸지 않고 이유에만</td><td><span class="status-badge sb-open">부분</span></td></tr>
+          <tr><td><b>수면 충분도</b></td><td>어젯밤 수면 시간. 7~9시간이면 1, 5시간 이하 · 12시간 이상이면 0</td><td>1</td><td><span class="status-badge sb-ok">가능</span></td></tr>
+          <tr><td><b>식사 균형</b></td><td>질문한 끼니의 식이 답변 → √(구성 × 부담)</td><td>답한 축 ÷ 7</td><td><span class="status-badge sb-review">연결표 필요</span></td></tr>
+          <tr><td><b>움직임량</b></td><td>걸음 ÷ 8,000 · 빠르게 걸은 분 ÷ 42.9 · 운동 분 ÷ 42.9 중 가장 큰 값</td><td>1</td><td><span class="status-badge sb-ok">걸음 가능</span></td></tr>
+          <tr><td><b>식사–수면 간격</b></td><td>아침: 기상→식사 1.5~3시간이면 1 · 저녁: 식사→취침 2~5시간이면 1. 질문 끼니가 아침·저녁인 날만</td><td>0.25</td><td><span class="status-badge sb-review">식사 시각 필요</span></td></tr>
         </tbody>
       </table></div>
 
-      <h3 class="block">단계별 내용 <span class="tag">지표 기획서 v0.3 ③–⑦</span></h3>
+      <h3 class="block">단계별 내용</h3>
       <ol class="steps">
-        <li><b>③ BASELINE</b> — 수면은 절대 기준과 개인 평소를 함께 봄. «늦은 시각»의 기준을 고정 시각으로 둘지 그 사람의 평소 취침 시각으로 둘지는 <b>미정</b>임.</li>
-        <li><b>④ COMPONENT</b> — 하루를 시간 칸으로 나눈 뒤 <b>부담 항 4개</b>와 <b>여유 항 3개</b>를 각각 규칙으로 평가함.</li>
-        <li><b>⑤ INTERNAL</b> — 부담 항과 여유 항을 대비시켜 내부 값을 만듦. <b>가중치 미확정</b> — 캘리브레이션 대상이며 사용자에게 노출하지 않음.</li>
-        <li><b>⑥ STATE</b> — 충분해요 / 보통이에요 / 부족해요. <b>경계값 미확정.</b> 구간 데이터가 없으면 상태를 내리지 않고 «관찰 중»으로 둠 &mdash; 단, 기획서 4·8장은 <b>걸음 기록만으로 가는 저해상도 경로</b>를 이 지표에 한해 열어 두었음(아래 &laquo;불일치&raquo; 참조).</li>
-        <li><b>⑦ EXPLAIN</b> — 가장 크게 기여한 항목으로 이유를 설명함. 질문 응답과 생체 신호는 상태 자체를 바꾸지 않고 <b>이유 문구에만</b> 씀.</li>
+        <li><b>① 관측 확인</b> — 수면 · 식이 답변 · 걸음/운동 · 식사 시각 중 들어온 것을 확인함. 하나도 없으면 «관찰 중».</li>
+        <li><b>② 비교 기준</b> — 개인 평소가 아니라 <b>권장 생활 기준</b>(수면 7~9시간 · 걸음 8,000보 · 주 300분 활동)과 비교함.</li>
+        <li><b>③ 항목 계산</b> — 들어온 항목을 각각 0~1로 바꿈.</li>
+        <li><b>④ 합산</b> — 원점수 = 100 × Σ(항목 × 비중) ÷ Σ(비중). 충족률 = 들어온 비중 ÷ 기대 비중(3, 아침·저녁 질문인 날 3.25). <b>I1 = 원점수 × √충족률.</b></li>
+        <li><b>⑤ 상태 판정</b> — 66 이상 잘 짜였어요 · 33~65 보통이에요 · 33 미만 부족해요.</li>
+        <li><b>⑥ 설명</b> — 가장 낮은 조각으로 이유를 말함. 예: "잠이 6시간으로 짧았어요".</li>
       </ol>
 
-      <div class="callout warn"><span>지금은 수면 축만 삶</span>
-        <p>부담 4항 · 여유 3항 중 <b>수면 관련 2항만 계산됨.</b> 정의가 “수면·활동·휴식”을 나란히 두었는데 실제로는 수면 해석이 되는 셈임.</p>
-        <p>그래서 결정이 필요함 — 구간 데이터를 확보할 때까지 <b>이 지표를 수면 축만으로 띄울지, «관찰 중»으로 둘지.</b> 수면만 보고 「부족해요」를 내보내면 지표 이름과 어긋남.</p>
+      <div class="callout"><span>예시</span>
+        <p>수면 6시간(0.5) · 점심 식사 균형 0.69 · 걸음 6,000보(0.75) → 원점수 64.7, 충족률 100% → <b>64.7 · 보통이에요</b>.</p>
+        <p>같은 날 식사 질문에 답하지 않으면 원점수 62.5, 충족률 67% → <b>51.0</b>. 빠진 조각만큼 근거가 적은 날로 봄.</p>
       </div>
 
-      <div class="callout ok"><span>2026-09-11 결정 &mdash; 저해상도 눈금 분리</span>
-        <p>저해상도 경로에는 <b>기기 보강값(수면·운동 modifier)과 생리 신호 상한을 적용하지 않음.</b> 걸음 총량 프록시(35~70)에 관측 신호에서 온 보강을 더하면 서로 비교할 수 없는 두 눈금이 섞이고, 걸음 수만 아는 사용자의 값이 고해상도 구간처럼 보이게 되기 때문임.</p>
-        <p>v6.0 산식 패키지에 반영했음 &mdash; <code>mode=record_proxy</code> 입력은 v5.7 결과를 그대로 반환하고 <code>record_proxy_scale_not_enrichable</code>로 표시함. <b>저해상도 경로를 채택할지 자체(B-2)는 여전히 미결</b>이며, 이 결정은 &ldquo;채택한다면 보강은 붙이지 않는다&rdquo;는 조건임.</p>
-      </div>
-
-      <div class="callout warn"><span>기획서와 불일치 &mdash; B-2</span>
-        <p>기획서 v0.3은 생활여유에 <b>저해상도 경로</b>를 두었음 &mdash; 걸음 기록 또는 어려움 응답 1개 + 개인 기준선이면 좁은 범위의 값을 띄움(3종 중 유일). 반면 이 문서 아래 &laquo;지켜야 할 규칙&raquo;은 <b>걸음 총량만으로는 만들지 않음</b>고 적혀 있음.</p>
-        <p>기획서 9장 B-2가 바로 이 불일치를 <b>결정 필요</b>로 지목한 항목임. 결론이 날 때까지 두 규칙을 병기하며, 어느 쪽으로 정해지든 <b>고해상도 값과 저해상도 값은 눈금이 달라 비교·차감하지 않음</b>는 조건은 공통임.</p>
-      </div>
-
-      <div class="callout bad"><span>지켜야 할 규칙 <span class="tag">B-2 결정 전</span></span>
-        <p><b>하루 총 걸음수만으로 이 지표를 만들지 않음.</b> 걸음수가 많아도 늦은 시간에 몰려 있고 중간에 쉬는 흐름이 없으면 “여유가 충분하다”고 단정하지 않음. 반대로 활동량이 크지 않아도 하루 중간에 가벼운 움직임과 쉬는 흐름이 분산되어 있으면 여유가 유지된 것으로 봄. <b>총량이 아니라 배치를 봄.</b></p>
-        <p>이 지표는 <b>피로도·수면 점수·스트레스 점수·회복 점수·readiness 점수가 아님.</b></p>
+      <div class="callout bad"><span>지켜야 할 규칙</span>
+        <p><b>기록이 없는 항목을 0점으로 채우지 않음.</b> 빼고 계산한 뒤 충족률로만 반영함.</p>
+        <p>이 지표는 <b>영양 평가 · 수면 점수 · 체력 평가가 아님.</b> 식사는 그날 질문한 끼니 하나만 봄.</p>
       </div>
     </section>
 
     <!-- 7 -->
     <section class="section" id="s7">
-      <div class="section-head"><span class="section-label">07 · Tier 2</span><h2>Tier 2 · 자기돌봄 <span class="tag">Self-Care Moments</span></h2>
-        <p>건강 상태와 생활 맥락을 기준으로, <b>필요한 건강 행동이 실제 하루 안에서 이루어졌는지</b>를 봄. 산출 방식은 <b>«기준점–행동 연결»(해석 A)로 2026-09-08 확정</b>했음 — 코칭 노출 이력을 대조하는 순응도 방식이 아님.</p>
+      <div class="section-head"><span class="section-label">07 · Tier 2</span><h2>Tier 2 · 행동 기회 대응 <span class="tag">Opportunity Response</span></h2>
+        <p>식사 후 · 일어난 뒤 · 오래 앉아 있은 뒤 · 운동할 수 있을 때처럼 <b>움직일 기회가 왔을 때 실제로 움직였는지</b>를 하루 동안 쌓아서 봄.</p>
       </div>
 
       <div class="table-wrap"><table>
         <thead><tr><th style="width:110px">항목</th><th>내용</th></tr></thead>
         <tbody>
-          <tr><td><b>핵심 질문</b></td><td>내가 조절 가능한 행동들이 실제 하루 안에서 얼마나 이루어졌는가? <span class="tag">기획서 5장</span></td></tr>
-          <tr><td><b>주요 해석</b></td><td>조절 가능한 순간(식후 · 긴 비활동 뒤 · 일정 전후)과 그 근처 짧은 움직임의 <b>연결</b></td></tr>
-          <tr><td><b>결과값</b></td><td>잘하고 있어요 / 보통이에요 / 부족해요 <span class="status-badge sb-open">기준점 0개면 관찰 중</span> <span class="status-badge sb-ok">C-3 확정</span></td></tr>
-          <tr><td><b>방향</b></td><td>전일 대비 ▲ 연결이 늘었어요 / · 유지 / ▼ 연결이 줄었어요</td></tr>
+          <tr><td><b>핵심 질문</b></td><td>움직일 기회가 왔을 때 실제로 움직였는가?</td></tr>
+          <tr><td><b>주요 해석</b></td><td>많이 걸었는지가 아니라 <b>기회와 행동의 연결</b>. 기회 4종 × 25점</td></tr>
+          <tr><td><b>결과값</b></td><td>잘 살렸어요 / 보통이에요 / 부족해요 <span class="status-badge sb-open">기회도 걸음도 없으면 관찰 중</span></td></tr>
+          <tr><td><b>갱신</b></td><td>행동이 확인될 때마다 쌓임. <b>하루 안에서는 내려가지 않음</b></td></tr>
         </tbody>
       </table></div>
-
-      <div class="callout ok"><span>정의 문장 &mdash; 해소됨</span>
-        <p>이전 버전은 정의 문장이 “<b>제안된</b> 건강 행동의 실천”(코칭 노출 이력 대조 방식)으로 남아 산출 방식과 어긋난다고 지적했음. <b>기획서 v0.3이 정의를 «조절할 수 있었던 순간과 실제 행동의 연결»로 확정</b>하면서 이 간극은 사라졌음 &mdash; 문서와 구현이 같은 것을 말함.</p>
-        <p>결과값 어휘는 <b>문장형(잘하고 있어요 / 보통이에요 / 부족해요)으로 확정</b>했음 &mdash; 아래 C-3 참조.</p>
-      </div>
-
-      <div class="callout ok"><span>결과값 어휘 &mdash; C-3 확정</span>
-        <p><b>2026-09-11 기획 결정</b> — 문장형을 채택함. 재는 것은 «연결이 있었는지»이고 「잘하고 있어요 / 부족해요」는 노력을 평가하는 말투로 읽힐 수 있으나, <b>평가로 읽히는 것을 허용하기로 결정</b>했음. 화면 문구를 우회적으로 다듬을 필요가 없음.</p>
-        <p><b>후속</b> — 기획서 5장의 이름 감수 기준(&lsquo;의지력·순응도·실천 점수·목표 달성률&rsquo; 어투 배제)과 7장 배제 표현, MRS 9장 표현 가이드는 이 결정과 충돌하므로 <b>해당 조항을 함께 갱신</b>해야 함. 다만 &ldquo;정상/비정상·위험·진단&rdquo; 등 <b>의료 판정 표현 금지는 그대로 유지</b>됨 — 이번 결정의 범위는 평가 어투에 한정됨.</p>
-      </div>
-
-      <div class="callout warn"><span>C-1 확정 · B-3 미결</span>
-        <p><b>C-1 종결</b> &mdash; 2026-09-11 지표명을 <b>생활여유 · 자기돌봄 · 일상안정</b>으로 확정했음. 이 문서의 이전 표기 «건강돌봄»은 폐기됨.</p>
-        <p><b>B-3</b> 구조화된 자가보고(&ldquo;점심 12:30, 이후 걸었음&rdquo;)를 <b>실제 연결로 인정할지</b>는 미확정임. 인정하면 산출은 가능하지만 저해상도·별도 눈금이며, &ldquo;실제 행동 연결 미확인 시 좋은 상태로 올리지 않는다&rdquo;는 원칙과의 경계를 정해야 함. 일반 자가보고(어려움 응답 평점)로는 <b>어떤 경우에도 대체 불가</b>임.</p>
-      </div>
 
       <h3 class="block">구성 요소 → 산출 재료</h3>
       <div class="table-wrap"><table>
-        <thead><tr><th style="width:180px">구성 요소</th><th>무엇으로 계산하나</th><th style="width:110px">역할</th><th style="width:110px">현재</th></tr></thead>
+        <thead><tr><th style="width:150px">기회</th><th>무엇으로 판정하나</th><th style="width:120px">하루 목표 · 만점</th><th style="width:110px">현재</th></tr></thead>
         <tbody>
-          <tr><td><b>조절 가능한 기준점</b></td><td>식사 시각(질문), 긴 비활동이 끝난 시점, (향후) 일정 전후</td><td>출발점</td><td><span class="status-badge sb-no">질문·구간 필요</span></td></tr>
-          <tr><td><b>기준점 근처의 실제 행동</b></td><td>기준점 이후 일정 시간 창 안에 중강도 이상 구간이 있었는지</td><td>지표 이동 핵심</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
-          <tr><td><b>행동의 배치</b></td><td>기준점에서 행동까지의 지연 시간</td><td>해석 보강</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
-          <tr><td><b>반복되는 연결</b></td><td>여러 날에 걸쳐 비슷한 연결이 몇 번 나타났는지</td><td>안정성 ↑</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
-          <tr><td><b>기록 유무</b></td><td>식사 시각 응답이 있었는지</td><td>평가 가능성</td><td><span class="status-badge sb-no">질문 필요</span></td></tr>
-          <tr><td><b>질문 응답</b></td><td>당시 상황·의도에 대한 답변</td><td>맥락만</td><td><span class="status-badge sb-open">설계 중</span></td></tr>
+          <tr><td><b>식후 행동</b></td><td>식사 시각 답변 뒤 인정 시간 창 안의 움직임</td><td>3회 · 25점</td><td><span class="status-badge sb-review">판정 기준 필요</span></td></tr>
+          <tr><td><b>기상 후 행동</b></td><td>수면 종료 뒤 인정 시간 창 안의 움직임</td><td>1회 · 25점</td><td><span class="status-badge sb-review">판정 기준 필요</span></td></tr>
+          <tr><td><b>오래 앉기 중단</b></td><td>60분 이상 움직임 없다가 다시 움직인 횟수</td><td>3회 · 25점</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
+          <tr><td><b>운동 기회</b></td><td>운동 분 ÷ 30</td><td>1회 · 25점</td><td><span class="status-badge sb-no">세션 필요</span></td></tr>
+          <tr><td><b>움직임 추정</b></td><td>25 × min(1, (활동 분 × 0.55 + 앉았다 일어난 횟수 × 5) ÷ 65). 오래 앉기 중단 + 운동과 비교해 큰 쪽만 씀</td><td>최대 25점</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
         </tbody>
       </table></div>
 
-      <h3 class="block">단계별 내용 <span class="tag">지표 기획서 v0.3 ③–⑦</span></h3>
+      <h3 class="block">단계별 내용</h3>
       <ol class="steps">
-        <li><b>③ BASELINE</b> — 개인 기준선 의존도가 낮음. 다만 «긴 비활동»을 얼마부터로 볼지는 그 사람의 평소 활동 간격에서 잡는 편이 나음 — <b>미정.</b></li>
-        <li><b>④ COMPONENT</b> — ⓐ 기준점 목록을 만듦(식사 시각 응답 · 긴 비활동이 끝난 시점). ⓑ 기준점마다 그 뒤로 관찰 창을 열고 — <b>창 길이 미확정</b> — 창 안에 중강도 이상 구간이 있으면 <b>연결 성립</b>으로 봄. ⓒ 기준점에서 행동까지의 지연과 며칠에 걸친 반복 횟수를 함께 구함.</li>
-        <li><b>⑤ INTERNAL</b> — 연결률(성립 ÷ 전체 기준점)을 중심으로 내부 값을 만들고, 지연이 짧을수록·반복이 많을수록 보정함. 근거가 “되도록 이른 편이 낫다”는 방향만 말하므로 <b>구체적 분 단위 기준은 두지 않음.</b> <b>계수 미확정.</b></li>
-        <li><b>⑥ STATE</b> — 잘하고 있어요 / 보통이에요 / 부족해요(설명 문구에는 &ldquo;거의 연결 안 됨 · 일부 연결됨 · 잘 연결됨&rdquo; 원문 어휘를 유지). 기준점이 하나도 없으면 상태를 매기지 않고 <b>«관찰 중»</b>으로 둠 — 나쁜 상태가 아니라 판정 불가임.</li>
-        <li><b>⑦ EXPLAIN</b> — 어떤 기준점에서 연결이 있었는지/없었는지로 이유를 설명하고, 다음 행동을 그 기준점에 붙임.</li>
+        <li><b>① 관측 확인</b> — 운영이 판정한 기회별 행동 결과(완료 · 미완료 · 모름)와 시간대별 걸음을 모음. 「모름」은 점수에도 기회 수에도 넣지 않음.</li>
+        <li><b>② 비교 기준</b> — 하루 목표 횟수(식후 3 · 기상 후 1 · 오래 앉기 중단 3 · 운동 1).</li>
+        <li><b>③ 항목 계산</b> — 행동마다 25 ÷ 목표 횟수 × credit을 쌓음. credit 0.8 이상은 1로 봄. 기회 종류마다 25점까지.</li>
+        <li><b>④ 합산</b> — I2 = min(100, 식후 + 기상 후 + max(오래 앉기 중단 + 운동, 움직임 추정)).</li>
+        <li><b>⑤ 상태 판정</b> — 66 이상 잘 살렸어요 · 33~65 보통이에요 · 33 미만 부족해요.</li>
+        <li><b>⑥ 설명</b> — 놓친 기회 종류로 이유를 말하고, 다음 행동을 그 기회에 붙임. 예: "점심 먹고 10분 걸어 보세요".</li>
       </ol>
 
-      <div class="callout warn"><span>기록만 있는 경우</span>
-        <p>식사 기록은 있는데 움직임 데이터가 없으면 <b>「식사라는 기준점은 확인됨」까지만</b> 봄. 기록했다는 행위에 대한 낮은 수준의 인정이지, <b>점수 보너스가 아님.</b> 실제 행동 연결이 확인되지 않았으므로 상태를 좋게 올리지 않음.</p>
+      <div class="callout"><span>예시</span>
+        <p>식후 3회(25) + 기상 후(25) + 오래 앉기 중단 2회(16.7) = <b>66.7 · 잘 살렸어요</b>.</p>
+        <p>걸음은 많지만 식후 1회(8.3)만 확인되고 나머지는 움직임 추정(25)뿐이면 <b>33.3 · 보통이에요</b>.</p>
       </div>
 
       <div class="callout bad"><span>지켜야 할 규칙</span>
-        <p><b>하루 총 걸음수가 많다고 이 지표가 올라가지 않음.</b> 기준점과 연결되지 않은 활동은 이 지표를 움직이지 않음. 반대로 활동량이 크지 않아도 적절한 순간에 행동이 붙으면 의미 있는 연결로 봄.</p>
-        <p><b>산출이 보는 것은 연결이 있었는지</b>이지 사용자가 노력했는지가 아님. 결과값 「잘하고 있어요 / 부족해요」가 평가하는 말투로 읽히는 것은 <b>허용하기로 결정</b>했으나(C-3), <b>산출 자체는 여전히 순응도·목표 달성률이 아님</b> — 코칭이 무엇을 제안했는지 대조하지 않음. 활동량이 크지 않아도 적절한 순간에 행동이 붙으면 의미 있는 연결로 봄.</p>
+        <p><b>하루 총 걸음수만으로는 움직임 추정 25점을 넘지 않음.</b> 기회와 연결된 행동이 있어야 올라감.</p>
+        <p><b>식사를 기록했다는 사실만으로 점수를 주지 않음.</b> 식후 움직임이 판정되어야 식후 행동 점수가 쌓임.</p>
+        <p>이 지표는 <b>활동량 점수 · 의지력 · 목표 달성률이 아님.</b></p>
       </div>
     </section>
 
     <!-- 8 -->
     <section class="section" id="s8">
-      <div class="section-head"><span class="section-label">08 · Tier 2</span><h2>Tier 2 · 일상안정 <span class="tag">Life Steadying</span></h2>
-        <p>최근 며칠의 생활 신호가 <b>개인의 평소 범위에서 어느 방향으로 가고 있는지</b>를 봄. 세 지표 중 유일하게 여러 날의 이력이 있어야 성립하며, 7단계 중 ③ BASELINE이 사실상 이 지표를 위해 있음. 이름은 &lsquo;안정&rsquo;이지만 값은 <b>양방향</b>임 &mdash; 제자리를 찾아가는 흐름일 수도, 한쪽으로 쏠리는 흐름일 수도 있음.</p>
-      </div>
-
-      <div class="callout warn"><span>C-2 정합 &mdash; 지표의 성격이 바뀜</span>
-        <p>이전 버전은 이 지표를 <b>변동성</b>(안정적 ↔ 불안정, 들쭉날쭉함의 크기)으로 잡았고, 기획서 v0.3은 <b>방향</b>(안정 쪽 ↔ 쏠림 쪽, 개인 기준 대비 어디로 가는가)으로 정의함. 회의록 원문이 &ldquo;어느 방향으로&rdquo;이므로 <b>기획서 쪽으로 맞췄음.</b></p>
-        <p>계산 재료는 버리지 않음 &mdash; 아래 ④단계의 <b>ⓐ 변동성 · ⓑ 이탈</b>은 그대로 쓰되, 출력이 &lsquo;변동의 크기&rsquo;가 아니라 <b>&lsquo;이탈의 부호와 반복성&rsquo;</b>이 되도록 ⑤⑥을 고쳤음. 즉 &laquo;얼마나 흔들렸나&raquo;에서 &laquo;반복되던 막힘이 줄고 있나, 늘고 있나&raquo;로 읽는 축을 옮겼음.</p>
+      <div class="section-head"><span class="section-label">08 · Tier 2</span><h2>Tier 2 · 생활 변화 추이 <span class="tag">Lifestyle Change Trend</span></h2>
+        <p>최근 7일을 <b>바로 앞 7일과 비교해</b> 생활이 나아지는 쪽인지 줄어드는 쪽인지 봄. 50점이 「변화 없음」임.</p>
       </div>
 
       <div class="table-wrap"><table>
         <thead><tr><th style="width:110px">항목</th><th>내용</th></tr></thead>
         <tbody>
-          <tr><td><b>핵심 질문</b></td><td>최근 내 생활 신호가 나에게 맞는 방향으로 바뀌고 있는가? <span class="tag">기획서 6장</span></td></tr>
-          <tr><td><b>주요 해석</b></td><td>개인 평소 범위 대비 <b>변화 방향</b>. 반복되던 막힘(늦은 활동 · 긴 비활동 · 흐름 끊김)이 줄어드는지, 반대 신호가 커지는지</td></tr>
-          <tr><td><b>결과값</b></td><td>안정적이에요 / 보통이에요 / 불안정해요 <span class="status-badge sb-open">기준선 미형성 시 관찰 중</span> <span class="status-badge sb-ok">C-3 확정</span></td></tr>
-          <tr><td><b>방향</b></td><td><b>주 단위로만 갱신</b> &mdash; 전주 대비 ▲ / · / ▼. <b>일 단위 화살표는 표시하지 않음</b></td></tr>
-          <tr><td><b>비교 구간</b></td><td>최근 구간 vs 직전 구간(엔진 = 최근 7일 vs 직전 21일). <b>구간 길이 미확정</b> &mdash; 기준선 윈도우와 함께 B-5에서 통일</td></tr>
+          <tr><td><b>핵심 질문</b></td><td>최근 일주일 생활이 바로 앞 일주일보다 나아지는 쪽인가?</td></tr>
+          <tr><td><b>주요 해석</b></td><td>움직임 · 운동 · 기회 대응 · 꾸준함은 <b>늘수록</b>, 수면 · 식사 시각은 <b>일정해질수록</b> 나아짐</td></tr>
+          <tr><td><b>결과값</b></td><td>나아지고 있어요 / 비슷해요 / 줄어들고 있어요 <span class="status-badge sb-open">최근 7일 관측 3일 미만이면 관찰 중</span></td></tr>
+          <tr><td><b>변화 방향</b></td><td>신호 &gt; +0.05 나아짐 · &lt; −0.05 줄어듦 · 그 사이 비슷함</td></tr>
+          <tr><td><b>갱신</b></td><td>하루 한 번, 전날이 끝난 뒤. 하루 동안은 어제 확정값 유지</td></tr>
         </tbody>
       </table></div>
-
-      <div class="callout ok"><span>이 지표만 오늘 계산됨</span>
-        <p>이 지표는 개인 기준 대비라 <b>근거 임계가 필요 없고</b>, 기획서 3장의 필수 조건도 &ldquo;약 28일 이력에 <b>걸음·움직임·수면 중 최소 1계열</b>&rdquo;이라 활동 구간 샘플 없이 성립함. 수면·걸음수가 이미 들어오고, 체중·심박이 보조 신호로 붙음.</p>
-        <p>즉 <b>Tier 2 중 유일하게 지금 화면에 띄울 수 있는 지표</b>임. 다만 기획서 3장은 <b>활동 시간대 분포·비활동 구간을 이 지표의 core</b>로 두었으므로, 구간 샘플이 없는 동안은 <b>낮은 해상도로 성립</b>하는 것이지 완전한 형태는 아님 &mdash; &lsquo;늦은 활동이 이른 시간으로 돌아왔다&rsquo; 같은 배치 기반 설명은 구간 샘플이 들어와야 가능함.</p>
-      </div>
 
       <h3 class="block">신호 → 산출 재료</h3>
       <div class="table-wrap"><table>
-        <thead><tr><th style="width:150px">신호</th><th style="width:170px">출처</th><th>주의</th><th style="width:100px">현재</th></tr></thead>
+        <thead><tr><th style="width:150px">항목</th><th>무엇을 비교하나</th><th style="width:80px">비중</th><th style="width:100px">현재</th></tr></thead>
         <tbody>
-          <tr><td><b>수면 시간</b></td><td><span class="tag">sleep_session</span></td><td>결측 잦음 — 신호별 최소 관찰일을 따로 둠</td><td><span class="status-badge sb-ok">가능</span></td></tr>
-          <tr><td><b>하루 걸음수</b></td><td><span class="tag">daily_step_total</span></td><td>보정된 총량만</td><td><span class="status-badge sb-ok">가능</span></td></tr>
-          <tr><td><b>체중</b></td><td>체중 기록</td><td><b>매일 재지 않음</b> — 결측이 기본. 최소 관찰일을 가장 느슨하게</td><td><span class="status-badge sb-ok">가능</span></td></tr>
-          <tr><td><b>심박</b></td><td>평균 · 안정시 심박</td><td>하루 대표값이라 구간 해상도는 없음 — 이 지표에는 충분</td><td><span class="status-badge sb-ok">가능</span></td></tr>
-          <tr><td><b>활동 시간대 분포<br>· 비활동 구간</b></td><td><span class="tag">activity_interval</span></td><td>기획서 3장 기준 <b>이 지표의 core</b> &mdash; 배치 기반 해석(늦은 활동·긴 비활동의 완화)은 이것이 있어야 가능. 다만 필수 조건은 &ldquo;걸음·움직임·수면 중 1계열&rdquo;이라 <b>없어도 저해상도로 성립</b></td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
+          <tr><td><b>움직임 총량</b></td><td>하루 걸음 평균. 최소 변화 기준 1,000보</td><td>25.5%</td><td><span class="status-badge sb-ok">가능</span></td></tr>
+          <tr><td><b>움직임 분포</b></td><td>활동 분 · 움직인 횟수 · 앉았다 일어난 횟수 (각 ⅓)</td><td>12.75%</td><td><span class="status-badge sb-no">구간 필요</span></td></tr>
+          <tr><td><b>운동</b></td><td>운동 횟수 · 운동 분 (각 ½). 최소 변화 기준 10</td><td>12.75%</td><td><span class="status-badge sb-no">세션 필요</span></td></tr>
+          <tr><td><b>행동 연결</b></td><td>I2 기회 완료율(기간 합계)</td><td>12.75%</td><td><span class="status-badge sb-review">판정 기준 필요</span></td></tr>
+          <tr><td><b>꾸준함</b></td><td>날마다 걸음 750보 이하 0 · 1,250보 이상 1로 본 평균</td><td>8.5%</td><td><span class="status-badge sb-ok">가능</span></td></tr>
+          <tr><td><b>수면 규칙성</b></td><td>취침 · 기상 시각의 흩어짐(자정 넘김 고려). 최소 변화 기준 15분</td><td>12.75%</td><td><span class="status-badge sb-ok">가능</span></td></tr>
+          <tr><td><b>식사 시각 규칙성</b></td><td>끼니별 식사 시각의 흩어짐. 최소 변화 기준 15분</td><td>15%</td><td><span class="status-badge sb-review">식사 시각 필요</span></td></tr>
         </tbody>
       </table></div>
 
-      <h3 class="block">단계별 내용 <span class="tag">지표 기획서 v0.3 ③–⑦</span></h3>
+      <h3 class="block">단계별 내용</h3>
       <ol class="steps">
-        <li><b>③ BASELINE</b> — <b>이 지표의 핵심 단계임.</b> 신호별로 기준선 구간의 분포(중앙값 + 산포)를 구함 — <b>윈도우 길이 미확정</b>(엔진 28일 / 이전 초안 30일 · B-5). <b>최소 관찰일은 신호마다 다르게</b> 둠 — 체중에 수면과 같은 기준을 쓰면 대부분의 사용자가 탈락함. 미달 신호는 계산에서 빼고, 전부 미달이면 «관찰 중».</li>
-        <li><b>④ COMPONENT</b> — 신호마다 <b>두 값</b>을 냄. ⓐ <b>변동성</b> = 최근 구간의 산포 ÷ 기준선 산포 (들쭉날쭉함). ⓑ <b>이탈</b> = 최근 구간 중앙값이 기준선 중앙값에서 벗어난 정도와 <b>부호</b> (어느 쪽으로 통째로 옮겨갔는가). 방향 판정을 싣는 것은 <b>ⓑ의 부호</b>이고, ⓐ는 그 이동을 신뢰할 수 있는지 재는 보조값임.</li>
-        <li><b>⑤ INTERNAL</b> — 관찰된 신호만 모아 합치되, 값은 &lsquo;흔들린 정도&rsquo;가 아니라 <b>&lsquo;좋은 쪽으로 이동했는가&rsquo;의 부호 있는 크기</b>로 만듦. 반복되던 막힘(늦은 활동·긴 비활동·흐름 끊김)의 완화는 안정 쪽으로, 반대 신호의 증가는 쏠림 쪽으로 밂. <b>결측 신호는 0으로 채우지 않고 분모에서 뺌.</b> <b>계수 미확정.</b></li>
-        <li><b>⑥ STATE</b> — 안정적이에요 / 보통이에요 / 불안정해요. 값이 재는 것은 변동의 크기가 아니라 <b>방향</b>이므로, 「안정적이에요」는 &lsquo;제자리를 찾아가는 흐름&rsquo;, 「불안정해요」는 &lsquo;한쪽으로 쏠리는 흐름&rsquo;을 뜻함 &mdash; 어휘가 <b>긍정/부정 방향을 그대로 전달</b>하므로 C-3 결정에 따라 그대로 씀. <b>반복성이 확인된 이동만</b> 방향으로 인정하고, 하루 등락은 반영하지 않음. <b>경계값·임계 미확정</b>(B-6·B-7). 갱신은 <b>주 단위</b>.</li>
-        <li><b>⑦ EXPLAIN</b> — <b>가장 크게 방향을 끈 신호</b>를 지목함 — “지난 2주간 늦어지던 저녁 활동이 최근 며칠 이른 시간으로 돌아왔어요”. 개인 기준 대비임을 문구에서 분명히 함.</li>
+        <li><b>① 관측 확인</b> — 최근 7일 중 걸음 · 수면 · 식사 시각 중 하나라도 있는 날이 3일 이상이어야 함. 항목마다 두 기간 각 3일 이상 관측돼야 비교함.</li>
+        <li><b>② 비교 기준</b> — 그 사람의 <b>직전 7일</b>. 직전보다 최근 관측일이 3일 이상 적은 항목은 비교에서 뺌(기록을 그만둔 것을 생활 변화로 읽지 않기 위해).</li>
+        <li><b>③ 항목 계산</b> — 양 비교는 (최근 − 직전) ÷ max(직전 × 0.5, 최소 기준), 규칙성은 (직전 흩어짐 − 최근 흩어짐) ÷ max(직전 × 0.5, 15분). 모두 −1~+1로 자름.</li>
+        <li><b>④ 합산</b> — 변화 신호 = Σ(항목 신호 × 비중). <b>빠진 항목은 0으로 들어가고 비중을 다시 나누지 않음.</b> I3 = 50 + 50 × clip(신호 ÷ 0.45, −1, 1).</li>
+        <li><b>⑤ 상태 판정</b> — 66 이상 나아지고 있어요 · 33~65 비슷해요 · 33 미만 줄어들고 있어요.</li>
+        <li><b>⑥ 설명</b> — 가장 크게 움직인 항목을 지목함. 예: "지난주보다 걸음이 1,500보 늘었어요".</li>
       </ol>
 
-      <div class="callout"><span>왜 ⓐ와 ⓑ 둘 다인가</span>
-        <p><b>ⓑ 이탈만 보면 «중앙값은 옮겨갔는데 매일 널뛰는 경우»를 방향으로 오인함.</b> 며칠 들쭉날쭉한 끝에 우연히 중앙값이 옮겨간 것을 «안정 쪽으로 가고 있다»고 말하면 안 됨. ⓐ 변동성이 그 이동의 <b>신뢰도</b>를 잡아 줌.</p>
-        <p>반대로 ⓐ만 보면 방향 자체를 알 수 없음. 산포가 줄었다는 사실만으로는 <b>좋은 쪽으로 모이는지 나쁜 쪽에 눌러앉는지</b> 구분되지 않음 — 아래 &laquo;균일하게 나빠진 경우&raquo;가 그것임.</p>
-      </div>
-
-      <div class="callout warn"><span>균일하게 나빠진 경우</span>
-        <p>매일 5시간씩 자는 사람은 산포가 작음. 변동성만 보던 이전 초안에서는 이 사람이 <b>「안정적이에요」</b>가 됐고, 그것이 &laquo;안정적 = 좋음&raquo; 오해의 원인이었음.</p>
-        <p>판정 축을 방향으로 옮기면서 해소됨 &mdash; 나쁜 쪽에 눌러앉은 상태는 뚜렷한 방향이 없으므로 <b>「보통이에요」로 떨어지고, 「안정적이에요」가 되지 않음.</b> 「안정적이에요」는 좋은 쪽(제자리를 찾아가는 흐름)에만 붙으므로 <b>어휘의 긍정적 어감과 지표의 좋은 쪽이 일치</b>함 &mdash; C-3에서 문장형을 그대로 쓰기로 한 근거임.</p>
-        <p>다만 <b>그 상태 자체가 나쁘다는 사실은 이 지표가 말하지 않음.</b> 그 역할은 절대 임계를 보는 코칭 지표(Tier 1)에 있고, 두 층을 나란히 보여주는 화면 설계로 풀림(12장).</p>
+      <div class="callout"><span>예시</span>
+        <p>모든 항목이 +0.2씩 나아짐 → 신호 0.2 → <b>72.2 · 나아지고 있어요</b>. 걸음만 +0.5 → 신호 0.13 → <b>64.2 · 비슷해요(방향은 나아짐)</b>.</p>
+        <p>매일 3,000보로 똑같으면 신호 0 → <b>50 · 비슷해요</b>. 낮은 수준 자체는 이 지표가 아니라 짜임새 있는 하루가 말함.</p>
       </div>
 
       <div class="callout bad"><span>지켜야 할 규칙</span>
-        <p><b>하루짜리 변동은 치지 않음.</b> 어느 하루 걸음수가 늘거나 준 것은 이 지표를 움직이지 않음. <b>반복성이 확인된 이동만</b> 방향으로 봄 &mdash; 하루만 좋아진 것을 긍정 변화로 단정하지 않음.</p>
-        <p><b>고정된 하나의 기준으로 판단하지 않음.</b> 비교 대상은 언제나 그 사람의 과거임. 이 지표는 오늘의 몸 상태도, 오늘의 활동량 점수도, 목표 달성률도, 치료 효과도 아님.</p>
-        <p><b>기록량 변화로 대체하지 않음.</b> 사용자가 기록을 더 많이/적게 남긴 것은 생활 신호의 방향이 아님(보조 해석까지만).</p>
-        <p><b>2026-09-11 결정 &mdash; 표시 계약.</b> v6.0 산식은 행동 연결 채널을 쓸 수 없을 때 기록량 채널을 <code>primary_channel</code>로 선택해 값을 내려보냄. 이 값은 <b>기록량이 어느 쪽으로 움직였는지를 서술하는 값이지 지표 상태가 아님.</b> 소비 측은 <code>primary_channel=recorded_volume</code>이면 일상안정 상태를 표시하지 않고 <b>&lsquo;관찰 중&rsquo;</b>으로 두며, 기록량 방향은 참고 서술로만 노출함. 산식은 두 채널을 모두 계산하되 화면이 이 규칙을 적용함.</p>
+        <p><b>비교 대상은 언제나 그 사람의 직전 7일임.</b> 오늘의 몸 상태 · 활동량 점수 · 치료 효과가 아님.</p>
+        <p><b>진행 중인 오늘의 기록은 쓰지 않음.</b> 덜 끝난 하루의 걸음을 하루 전체처럼 비교하지 않음.</p>
       </div>
 
       <div class="callout warn"><span>신규 사용자</span>
-        <p>기준선이 없으면 성립하지 않음. <b>가입 직후 일정 기간은 «관찰 중»으로만 표시</b>되고, 그동안은 다른 두 지표가 화면을 채움. 이 기간을 며칠로 둘지는 미정임.</p>
+        <p>직전 기간 3일 + 최근 7일, 즉 <b>기록 약 10일</b>이 지나야 첫 값이 나옴. 그동안은 «관찰 중»으로 표시되고 다른 두 지표가 화면을 채움.</p>
       </div>
     </section>
 
     <!-- 9 -->
     <section class="section" id="s9">
       <div class="section-head"><span class="section-label">09 · Sufficiency</span><h2>충분도와 저하 모드</h2>
-        <p>두 층 모두 <b>입력이 부족해도 멈추지 않고 해상도를 낮춤.</b> 다만 낮추는 방식이 다름 — Tier 1은 지표를 <b>빼고</b>, Tier 2는 밴드를 <b>보류</b>함.</p>
+        <p>두 층 모두 <b>입력이 부족해도 멈추지 않고 해상도를 낮춤.</b> 다만 낮추는 방식이 다름 — Tier 1은 지표를 <b>빼고</b>, Tier 2는 남은 항목으로 계산하거나 «관찰 중»으로 <b>보류</b>함.</p>
       </div>
 
       <div class="g2">
@@ -726,22 +684,22 @@ a{color:#5170FF}
           <li>낮은 값으로 채우지 않으므로 잘못된 코칭이 나가지 않음</li>
         </ul></article>
         <article class="card"><h4>Tier 2 — 보류하는 방식</h4><ul>
-          <li>구성 요소 일부가 없으면 남은 것으로 낮은 해상도 해석</li>
-          <li>근거가 너무 얕으면 밴드를 내리지 않고 «관찰 중»</li>
-          <li>없는 입력을 나쁜 상태로 해석하지 않음</li>
+          <li>항목 일부가 없으면 남은 것으로 계산 — I1은 충족률만큼 낮추고, I3는 빠진 항목을 0(변화 없음)으로 둠</li>
+          <li>근거가 전혀 없으면 밴드를 내리지 않고 «관찰 중»</li>
+          <li>없는 입력을 0점으로 채우지 않음</li>
         </ul></article>
       </div>
 
       <div class="table-wrap"><table>
         <thead><tr><th style="width:200px">없는 것</th><th>Tier 1</th><th>Tier 2</th></tr></thead>
         <tbody>
-          <tr><td><b>활동 구간 샘플</b></td><td>지표 6개 제외 — 수면·걸음수만 남음</td><td>생활여유는 수면 축만 · 자기돌봄 «관찰 중» · <b>일상안정은 영향 없음</b></td></tr>
-          <tr><td><b>식사 시각</b></td><td>식후 코칭의 노출 전제가 빠짐</td><td>자기돌봄의 기준점이 줄어 판정 범위 축소</td></tr>
-          <tr><td><b>운동 세션</b></td><td>세션 간격 지표 제외</td><td>영향 없음</td></tr>
+          <tr><td><b>활동 구간 샘플</b></td><td>지표 6개 제외 — 수면·걸음수만 남음</td><td>I1 영향 없음(걸음 합계로 움직임량) · I2 움직임 추정 불가 · I3 움직임 분포 빠짐</td></tr>
+          <tr><td><b>식사 시각</b></td><td>식후 코칭의 노출 전제가 빠짐</td><td>I1 식사–수면 간격 · I2 식후 기회 · I3 식사 시각 규칙성 빠짐</td></tr>
+          <tr><td><b>운동 세션</b></td><td>세션 간격 지표 제외</td><td>I1은 걸음으로 대체 · I2 운동 기회 · I3 운동 빠짐</td></tr>
           <tr><td><b>생년월일</b></td><td>%HRmax 신호 사용 불가 + 나이 조건 규칙 전부 제외</td><td>영향 없음</td></tr>
-          <tr><td><b>체중 · 심박</b></td><td>영향 없음 — 대응 규칙이 없음</td><td>일상안정의 신호 4개 중 2개가 빠져 해상도 하락</td></tr>
-          <tr><td><b>과거 이력</b></td><td>관찰 창 미달 지표 제외</td><td>일상안정 «관찰 중»</td></tr>
-          <tr><td><b>질문 응답</b></td><td>영향 없음</td><td>이유 문구만 축소 — <b>감점 없음</b></td></tr>
+          <tr><td><b>체중 · 심박</b></td><td>영향 없음 — 대응 규칙이 없음</td><td>영향 없음 — 세 지표에 쓰지 않음</td></tr>
+          <tr><td><b>과거 이력</b></td><td>관찰 창 미달 지표 제외</td><td>I3 «관찰 중»(기록 약 10일 필요)</td></tr>
+          <tr><td><b>질문 응답</b></td><td>영향 없음</td><td>식이 답변이 없으면 I1 충족률 하락 — <b>같은 하루라도 약 18% 낮아짐</b>. 그 밖의 질문은 이유 문구만 축소</td></tr>
         </tbody>
       </table></div>
 
@@ -751,22 +709,22 @@ a{color:#5170FF}
         <thead><tr><th style="width:104px">지표</th><th>필수 — 없으면 산출 불가</th><th style="width:230px">옵션 — 없어도 산출, 있으면 정밀·신뢰도 ↑</th><th style="width:140px">반영 안 함</th></tr></thead>
         <tbody>
           <tr>
-            <td><b>생활여유</b></td>
-            <td>[고해상도] 활동 구간 샘플(시간대 분포) + 수면 세션 <b>+ 개인 기준선</b>. 현재는 수면 축만 계산됨 (6장).<br>[저해상도] 걸음 기록 또는 어려움 응답 1개 + 개인 기준선 &mdash; <b>채택 여부 미결(B-2)</b>, 채택 시에도 고해상도와 눈금 다름</td>
-            <td>주관 답변(피로감) · HRV · 안정시 심박 &mdash; 이유 문구에만</td>
-            <td>&mdash;</td>
+            <td><b>짜임새 있는 하루</b></td>
+            <td>수면 · 식이 답변 · 걸음/운동 중 <b>하나 이상</b></td>
+            <td>네 조각이 모두 있으면 충족률 100% · 식사 시각(아침·저녁 질문인 날 간격 계산) · 걷기 속도</td>
+            <td>그 밖의 질문 답변 · 심박 · 체중</td>
           </tr>
           <tr>
-            <td><b>자기돌봄</b></td>
-            <td>식사 시각(질문) <b>또는</b> 긴 비활동 종료 시점 · <b>+</b> 활동 구간 샘플 &mdash; <b>기준점과 움직임 둘 다</b>. 하나만으론 불가</td>
-            <td>운동 세션 · (향후) 일정 = 기준점 보강</td>
-            <td>어려움 응답 평점 · 하루 걸음 총량</td>
+            <td><b>행동 기회 대응</b></td>
+            <td>기회별 행동 판정 <b>또는</b> 시간대별 걸음</td>
+            <td>식사 시각 · 기상 시각 · 운동 세션 = 기회 보강</td>
+            <td>하루 걸음 총량 · 식사 기록 행위 자체</td>
           </tr>
           <tr>
-            <td><b>일상안정</b></td>
-            <td>약 <b>28일</b> 관측 이력(최근 구간 + 직전 구간)에 <b>걸음·움직임·수면 중 최소 1계열</b> + 개인 기준선. 신호마다 최소 관찰일 다름 &mdash; <b>윈도우 길이 미확정(B-5)</b></td>
-            <td>당일 기록(이력 있으면 없어도 계산) · 체중 · 심박 · 활동 구간 샘플(해상도 ↑) · 어려움 응답 변화</td>
-            <td>하루짜리 변동 · 기록량 변화</td>
+            <td><b>생활 변화 추이</b></td>
+            <td>최근 7일 중 3일 이상 걸음 · 수면 · 식사 시각 중 하나. 항목마다 두 기간 각 3일 이상</td>
+            <td>활동 구간 샘플 · 운동 세션 · 행동 판정 = 항목 추가</td>
+            <td>진행 중인 오늘 기록 · 심박 · 체중</td>
           </tr>
         </tbody>
       </table></div>
@@ -778,7 +736,7 @@ a{color:#5170FF}
     <!-- 10 -->
     <section class="section" id="s10">
       <div class="section-head"><span class="section-label">10 · Current Reach</span><h2>현재 가능 범위 · 병목</h2>
-        <p>Tier 1은 <b>9개 중 3개만</b> 계산되고 그중 하나는 문구가 없음. Tier 2는 <b>3개 중 1개가 지금 완전히 성립</b>함 — 일상안정에 체중·심박이 들어오면서 생긴 변화임.</p>
+        <p>Tier 1은 <b>9개 중 3개만</b> 계산되고 그중 하나는 문구가 없음. Tier 2는 걸음 · 수면만으로 <b>짜임새 있는 하루와 생활 변화 추이를 낮은 해상도로 띄울 수 있음</b>. 행동 기회 대응은 기회 판정과 구간 샘플이 있어야 함.</p>
       </div>
 
       <h3 class="block">Tier 1 · 코칭 지표</h3>
@@ -802,31 +760,31 @@ a{color:#5170FF}
 
       <h3 class="block">Tier 2 · 3지표</h3>
       <div class="g3">
-        <article class="card"><h4>일상안정 <span class="status-badge sb-ok">성립</span></h4><ul>
-          <li>수면 · 걸음수 · 체중 · 심박 <b>4신호 모두 수집 중</b></li>
-          <li>개인 기준 대비라 근거 임계 불필요</li>
-          <li>기준선 형성 기간만 지나면 바로 표시 가능</li>
-          <li><b>단, 구간 샘플 전까지는 저해상도</b> &mdash; 배치 기반 설명 불가</li>
+        <article class="card"><h4>생활 변화 추이 <span class="status-badge sb-ok">성립</span></h4><ul>
+          <li>걸음 총량 · 꾸준함 · 수면 규칙성 <b>지금 수집 중</b></li>
+          <li>직전 7일 대비라 근거 임계 불필요</li>
+          <li>기록 약 10일이 지나면 표시 가능</li>
+          <li><b>구간 샘플 · 식사 시각 전까지는 항목 일부만</b></li>
         </ul></article>
-        <article class="card"><h4>생활여유 <span class="status-badge sb-review">부분</span></h4><ul>
-          <li>부담 4항 · 여유 3항 중 <b>수면 2항만</b></li>
-          <li>배치를 보는 항목이 전부 구간 의존</li>
-          <li>수면 축만으로 띄울지 결정 필요</li>
+        <article class="card"><h4>짜임새 있는 하루 <span class="status-badge sb-review">부분</span></h4><ul>
+          <li>수면 · 걸음 합계로 <b>두 조각 계산 가능</b></li>
+          <li>식이 답변 → 식사 균형 연결표 필요</li>
+          <li>식사 답변 전까지 충족률 67%</li>
         </ul></article>
-        <article class="card"><h4>자기돌봄 <span class="status-badge sb-no">불가</span></h4><ul>
-          <li>기준점(식사 시각 질문)도 없고</li>
-          <li>연결을 볼 움직임(구간)도 없음</li>
-          <li>두 입력 모두 필요 — 하나만으론 안 됨</li>
+        <article class="card"><h4>행동 기회 대응 <span class="status-badge sb-no">불가</span></h4><ul>
+          <li>기회별 행동 판정 기준 미확정</li>
+          <li>움직임 추정용 구간 샘플 없음</li>
+          <li>둘 중 하나는 있어야 계산</li>
         </ul></article>
       </div>
 
       <div class="callout warn"><span>병목 하나가 여섯을 막음</span>
-        <p>Tier 1에서 막힌 6개 중 5개가 <b>활동 구간 샘플의 강도 구분</b> 하나에 걸려 있음. 앱은 이미 구간 샘플로 활동 분을 계산하고 있으나 <b>중강도와 고강도를 나누지 않아</b> 주간 지표에 쓸 수 없음. 같은 입력이 생활여유의 배치 항목과 자기돌봄의 연결 판정도 함께 막고 있음.</p>
+        <p>Tier 1에서 막힌 6개 중 5개가 <b>활동 구간 샘플의 강도 구분</b> 하나에 걸려 있음. 앱은 이미 구간 샘플로 활동 분을 계산하고 있으나 <b>중강도와 고강도를 나누지 않아</b> 주간 지표에 쓸 수 없음. 같은 입력이 행동 기회 대응의 움직임 추정과 생활 변화 추이의 움직임 분포도 함께 막고 있음.</p>
         <p>확보 순서 제안: <b>① 생년월일 → ② 활동 구간 샘플 강도 구분 → ③ 확진 질환 → ④ 식사 시각 → ⑤ 운동 세션.</b></p>
       </div>
 
       <div class="callout ok"><span>지금 할 수 있는 것</span>
-        <p>위 순서를 기다리지 않고 <b>일상안정을 먼저 붙일 수 있음.</b> 필요한 네 신호가 이미 들어오고 있고, 개인 기준 대비 지표라 의학팀의 임계 확정도 필요 없음. 남은 결정은 기준선 윈도우 길이와 신호별 최소 관찰일뿐임.</p>
+        <p>위 순서를 기다리지 않고 <b>생활 변화 추이와 짜임새 있는 하루(수면 · 걸음 조각)를 먼저 붙일 수 있음.</b> 필요한 걸음 · 수면이 이미 들어오고 있음. 남은 결정은 상태 경계값 검증임.</p>
       </div>
     </section>
 
@@ -848,17 +806,13 @@ a{color:#5170FF}
           <tr><td>주간 지표 관찰 창 (7일 / 7일)</td><td><span class="status-badge sb-open">임의</span></td><td>며칠만 관찰돼도 판정할지 확인 필요</td></tr>
           <tr><td>세션 간격 관찰 창 (14일 / 2세션)</td><td><span class="status-badge sb-open">임의</span></td><td>적절한 창 길이 확인 필요</td></tr>
           <tr><td>짧은 보행 지표의 나이 하한 18세</td><td><span class="status-badge sb-open">임의</span></td><td>이 문구에는 근거 나이 조건이 없어 성인 기본값 적용</td></tr>
-          <tr><td>Tier 2 지표명 · 정의 · 핵심 질문</td><td><span class="status-badge sb-ok">기획 확정</span></td><td>지표 기획서 v0.3 (2026-09-08) + <b>2026-09-11 명칭 확정(C-1)</b> — <b>생활여유 / 자기돌봄 / 일상안정</b></td></tr>
-          <tr><td>Tier 2 결과값 어휘 (문장형 3단계 + 관찰 중)</td><td><span class="status-badge sb-ok">기획 확정</span></td><td><b>2026-09-11 C-3 결정 — 문장형 채택.</b> 충분해요·보통이에요·부족해요 / 잘하고 있어요·…·부족해요 / 안정적이에요·…·불안정해요. 기획서 7장의 명사형 표기는 이 결정에 맞춰 갱신 대상</td></tr>
-          <tr><td>Tier 2 7단계 프레임 · 구성 요소</td><td><span class="status-badge sb-ok">기획 확정</span></td><td>지표 기획서 v0.3 — 이 문서가 새로 정하지 않음</td></tr>
-          <tr><td>자기돌봄 산출 방식 = 기준점–행동 연결</td><td><span class="status-badge sb-ok">결정</span></td><td>2026-09-08 «해석 A» 채택. 코칭 노출 이력 대조 방식(B)은 채택하지 않음. 기획서 v0.3 정의 문장도 동일</td></tr>
-          <tr><td>일상안정의 성격 = <b>방향</b>(양방향)</td><td><span class="status-badge sb-ok">기획 확정</span></td><td>C-2 정합 — 이전 초안의 «변동성 크기»에서 «변화 방향»으로 재정렬(8장). 회의록 원문 &ldquo;어느 방향으로&rdquo;</td></tr>
-          <tr><td>일상안정 갱신 주기 = 주 단위</td><td><span class="status-badge sb-ok">기획 확정</span></td><td>기획서 6·7장. 일 단위 화살표 표시 금지</td></tr>
-          <tr><td>Tier 2 구성 요소 → 계산 방법</td><td><span class="status-badge sb-open">초안</span></td><td>6–8장의 «무엇으로 계산하나» 열과 ④⑤ 단계 세부</td></tr>
-          <tr><td>일상안정 변동성(ⓐ) · 이탈(ⓑ) 산식</td><td><span class="status-badge sb-open">초안</span></td><td>재료는 유지하되 출력을 방향으로 옮김 — ⓑ의 부호가 방향, ⓐ는 신뢰도. 구체 산식 미확정</td></tr>
-          <tr><td>기준선 윈도우 길이</td><td><span class="status-badge sb-open">미정</span></td><td><b>B-5</b> — 엔진 28일(7+21) / 이 문서 이전 초안 30일 / 기획서 미확정. 하나로 통일 필요</td></tr>
-          <tr><td>생활여유 저해상도 경로</td><td><span class="status-badge sb-open">미정</span></td><td><b>B-2</b> — 걸음 합계만으로 좁은 범위 값을 띄울지, «관찰 중»으로 둘지. 이 문서와 기획서가 불일치(6장)</td></tr>
-          <tr><td>Tier 2 계수 · 경계값 · 신호별 최소 관찰일</td><td><span class="status-badge sb-open">미정</span></td><td>기획서도 미확정으로 남겨 둔 항목. 캘리브레이션 대상</td></tr>
+          <tr><td>Tier 2 지표명 · 정의 · 핵심 질문</td><td><span class="status-badge sb-ok">기획 확정</span></td><td>생활 지표 기획서 v2.0 — <b>짜임새 있는 하루 / 행동 기회 대응 / 생활 변화 추이</b></td></tr>
+          <tr><td>Tier 2 산식 · 비중 · 기준값</td><td><span class="status-badge sb-ok">전달 산식</span></td><td>지표 플레이그라운드 I1 v0.7 · I2 v1.2 · I3 v7.9 (수면 7~9시간 · 8,000보 · 주 300분 · 기회 4종 × 25점 · 7일 대 7일 · ±0.45)</td></tr>
+          <tr><td>하루 중 반영 시각 (수면 10시 · 식사 10/15/21시)</td><td><span class="status-badge sb-review">확인</span></td><td>플레이그라운드의 가정값. 산식 명세 문서와 대조 필요</td></tr>
+          <tr><td>상태 경계 33 / 66</td><td><span class="status-badge sb-open">임의</span></td><td>새 산식 점수 분포로 검증 필요</td></tr>
+          <tr><td>결과 라벨 (잘 짜였어요 · 잘 살렸어요 · 나아지고 있어요 …)</td><td><span class="status-badge sb-open">임의</span></td><td>새 지표명에 맞춘 안. 사용자 테스트 후 확정</td></tr>
+          <tr><td>식이 답변 → 구성 · 부담 값</td><td><span class="status-badge sb-open">미정</span></td><td>연결표 필요. 축 수 ÷ 7 비중의 상한 처리 포함</td></tr>
+          <tr><td>I2 기회 판정 기준</td><td><span class="status-badge sb-open">미정</span></td><td>인정 시간 창 · 최소 움직임 · 「모름」 기준</td></tr>
         </tbody>
       </table></div>
     </section>
@@ -878,7 +832,7 @@ a{color:#5170FF}
           <tr><td><b>세션 간격 관찰 창</b></td><td>적절한 창 길이와 최소 세션 수</td></tr>
           <tr><td><b>정확히 2일 간격</b></td><td>원문 “2일 초과”를 3일 이상으로 옮겼는데, 정확히 2일은 코칭 대상이 아닌 것으로 봐도 되는가</td></tr>
           <tr><td><b>걸음수 기반 문구</b></td><td>계산은 되는데 문구가 없음 — 임계와 문구, 노출 강도</td></tr>
-          <tr><td><b>식후 관찰 창 길이</b></td><td>Tier 2 연결 판정에서 «기준점 이후» 창을 몇 분으로 열어야 하는가</td></tr>
+          <tr><td><b>식후 관찰 창 길이</b></td><td>I2 식후 행동 판정에서 식사 시각 이후 창을 몇 분으로 열어야 하는가</td></tr>
         </tbody>
       </table></div>
 
@@ -886,18 +840,13 @@ a{color:#5170FF}
       <div class="table-wrap"><table>
         <thead><tr><th style="width:280px">항목</th><th>확인할 것</th></tr></thead>
         <tbody>
-          <tr><td><b>자기돌봄 정의 문장</b> <span class="status-badge sb-ok">해소</span></td><td>기획서 v0.3이 정의를 «조절할 수 있었던 순간과 실제 행동의 연결»로 확정 — 산출 방식과 일치 (7장)</td></tr>
-          <tr><td><b>결과값 어휘</b> <span class="status-badge sb-ok">확정</span></td><td>2026-09-11 <b>문장형 채택</b>(C-3). 세 문서 모두 반영 완료</td></tr>
-          <tr><td><b>자기돌봄 결과값 어휘</b> <span class="status-badge sb-ok">종결</span></td><td>「잘하고 있어요 / 부족해요」가 노력 평가로 읽히는 것을 <b>허용하기로 결정</b>. 화면 문구에서 우회하지 않음</td></tr>
-          <tr><td><b>«안정적 = 좋음» 오해</b> <span class="status-badge sb-ok">종결</span></td><td>「안정적이에요」는 좋은 쪽에만 붙고 나쁜 수준의 눌러앉음은 「보통이에요」로 떨어지므로 <b>어휘의 긍정 어감과 지표의 좋은 쪽이 일치</b>한다고 판단. 단, Tier 1과 나란히 놓는 화면 설계는 별건으로 유지</td></tr>
-          <tr><td><b>표현 가이드 조항 갱신</b> <span class="status-badge sb-review">후속</span></td><td>C-3 결정이 <b>기획서 5장 이름 감수 기준 · 7장 배제 표현 · MRS 9장 표현 가이드</b>의 «평가·압박 어투 배제» 조항과 충돌함 — 해당 조항을 결정에 맞춰 수정 필요. <b>의료 판정 표현(정상/비정상·위험·진단) 금지는 유지</b></td></tr>
-          <tr><td><b>지표명 확정</b> <span class="status-badge sb-ok">종결</span></td><td>2026-09-11 <b>생활여유 · 자기돌봄 · 일상안정</b>으로 확정(C-1). 후속: 엔진 v5.7의 I1/I2/I3 표기와 v6.0 전달 패키지·발표자료의 «생활 여유 / 일상 행동 연결 / 개인 기준 변화» 라벨을 확정 명칭으로 갱신(C-4 · 개발팀)</td></tr>
-          <tr><td><b>생활여유 저해상도 경로</b> <span class="tag">B-2</span></td><td>구간 데이터 확보 전까지 수면 축만으로 띄울지 «관찰 중»으로 둘지, 그리고 걸음 합계만의 저해상도 경로를 채택할지. 기획서와 이 문서가 불일치</td></tr>
-          <tr><td><b>자기돌봄 자가보고 인정 범위</b> <span class="tag">B-3</span></td><td>구조화된 보고(&ldquo;점심 12:30, 이후 걸었음&rdquo;)를 실제 연결로 인정할지</td></tr>
-          <tr><td><b>Tier 2 가중치 · 상태 경계</b> <span class="tag">B-6·B-7</span></td><td>부담/여유 항의 비중, 상태 3단계 경계값, 방향 ▲/유지/▼ 임계</td></tr>
-          <tr><td><b>기준선 윈도우 통일</b> <span class="tag">B-5</span></td><td>엔진 28일 / 이 문서 30일 / 기획서 미확정 — 하나로. 신호별 최소 관찰일도 함께</td></tr>
-          <tr><td><b>계수의 기준 문서</b> <span class="tag">B-1</span></td><td>엔진 v5.7의 고정 계수를 초기 기준으로 채택할지, 백지에서 캘리브레이션할지</td></tr>
-          <tr><td><b>기준 형성 기간</b> <span class="tag">B-9</span></td><td>신규 사용자가 «관찰 중»으로 표시되는 기간</td></tr>
+          <tr><td><b>산식 명세 문서</b></td><td>플레이그라운드가 가리키는 산식 명세를 받아 하루 중 반영 시각 등 세부값 대조</td></tr>
+          <tr><td><b>I1 충족률 감점</b></td><td>식사 질문 미응답 시 같은 하루라도 약 18% 낮아짐 — 의도한 동작인지</td></tr>
+          <tr><td><b>식이 답변 연결표</b></td><td>식이 질문의 어떤 답이 구성 · 부담 값(0~1)이 되는지, 축 수가 7을 넘을 때 처리</td></tr>
+          <tr><td><b>I2 기회 판정 Rule</b></td><td>식후 · 기상 후 · 오래 앉기 중단 · 운동 기회의 인정 기준과 credit 산출</td></tr>
+          <tr><td><b>상태 경계 · 라벨</b></td><td>33/66 검증, 새 이름에 맞춘 라벨 확정</td></tr>
+          <tr><td><b>하루 경계</b></td><td>지표 자정 vs 질문 새벽 4시 — 00~04시 식이 답변을 어느 날에 넣을지</td></tr>
+          <tr><td><b>신규 사용자 기간</b></td><td>I3 첫 값까지 약 10일 — 「며칠 더」 안내 문구</td></tr>
         </tbody>
       </table></div>
 
@@ -905,12 +854,12 @@ a{color:#5170FF}
       <div class="table-wrap"><table>
         <thead><tr><th style="width:280px">항목</th><th>확인할 것</th></tr></thead>
         <tbody>
-          <tr><td><b>활동 구간 샘플 강도 구분</b></td><td>최대 병목 — 이것 하나가 Tier 1 지표 5개와 Tier 2 시간축을 막고 있음</td></tr>
+          <tr><td><b>활동 구간 샘플 강도 구분</b></td><td>최대 병목 — 이것 하나가 Tier 1 지표 5개와 Tier 2 움직임 추정 · 분포를 막고 있음</td></tr>
           <tr><td><b>수면 날짜 귀속 규칙</b></td><td>자정을 넘는 수면을 어느 날짜에 넣을지 확정 (기상 시각 기준 권장)</td></tr>
           <tr><td><b>폴백 값 격리</b></td><td>걸음수 ÷ 100 으로 만든 활동 분이 코칭 판정에 흘러들지 않도록 표시·차단</td></tr>
-          <tr><td><b>개인 기준선 저장</b></td><td>Tier 2가 쓸 신호별 분포를 어디에 어떤 주기로 갱신해 둘지</td></tr>
-          <tr><td><b>일상안정 선행 착수</b></td><td>네 신호가 이미 들어오므로 다른 항목을 기다리지 않고 먼저 붙일 수 있음 — 신호별 최소 관찰일만 정하면 됨</td></tr>
-          <tr><td><b>체중 · 심박 결측 처리</b></td><td>체중은 매일 재지 않음. 신호별로 다른 최소 관찰일을 두고, 결측은 0이 아니라 분모에서 제외</td></tr>
+          <tr><td><b>일별 값 저장</b></td><td>I3가 쓸 항목별 일별 값(최근 14일)을 어디에 어떤 주기로 갱신해 둘지</td></tr>
+          <tr><td><b>생활 변화 추이 선행 착수</b></td><td>걸음 · 수면이 이미 들어오므로 다른 항목을 기다리지 않고 먼저 붙일 수 있음</td></tr>
+          <tr><td><b>걷기 속도 수집</b></td><td>삼성에서 걸음 구간의 속도를 받을 수 있는지. 없으면 I1 빠르게 걸은 시간은 빠지고 걸음 · 운동만 씀</td></tr>
         </tbody>
       </table></div>
     </section>
@@ -920,14 +869,14 @@ a{color:#5170FF}
       <ul>
         <li>maiReport 전달용 코칭 테이블 설계 요청서 (2026-09-04) — 지표 정의, 계산 신호, 관찰 규칙, 임의값 표기, 추가 수집 항목</li>
         <li>지식DB 전달테이블 추출 스크립트 — 지표 매핑, bout 상속, 강도 정의 차용, 검증 9종</li>
-        <li><b>maiReport 지표 기획서 v0.3 (2026-09-08)</b> — 3지표의 공통 원칙 P1~P6, 7단계 해석 파이프라인(SIGNAL→EXPLAIN), 구성 요소, 필수/옵션 데이터, 상태 표현 규칙(7장), 확인 항목 A~D(9장). <b>이 문서의 Tier 2는 그 프레임과 지표명·정의·결과값 어휘를 따르며 새로 정의하지 않음</b></li>
+        <li><b>생활 지표 기획서 v2.0</b> — 3지표의 지표명 · 정의 · 산식 · 노출 정책 · 확정 필요 Rule. <b>이 문서의 Tier 2는 그 내용을 단계로 펼친 것이며 새로 정의하지 않음</b></li>
+        <li><b>지표 플레이그라운드</b> (계산식 전달 문서(LJH)) — I1 v0.7 · I2 v1.2 · I3 v7.9 계산과 합성 시나리오 8종</li>
         <li>maiReport 화면정의 · 지표 v0.2 · 데이터 모델 v0.2 (2026-09-11) — 같은 기준으로 정합 갱신됨(<code>metric_state</code>·상태 표현)</li>
-        <li>지표 논의용 요약 (2026-09-01) — 3지표의 구성 요소와 «말하지 않는 것»</li>
         <li>maiReport 서비스 데이터 흐름도 v0.1 · 데이터 모델 v0.1</li>
       </ul>
     </div>
 
-    <footer>maiReport · 지표 산출 파이프라인 v0.2 · 2026-09-11 · 지표 기획서 v0.3 정합(C-1·C-2·C-3 반영) · Tier 1 확정 · Tier 2 초안 · Internal Use Only</footer>
+    <footer>maiReport · 지표 산출 파이프라인 v0.3 · 생활 지표 기획서 v2.0 정합 · Tier 1 확정 · Tier 2 산식 I1 v0.7 · I2 v1.2 · I3 v7.9 · Internal Use Only</footer>
   </main>
 </body>
 </html>

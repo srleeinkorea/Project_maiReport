@@ -2580,7 +2580,7 @@ body>h1,body>header h1,body>main>h1,body>.page>h1,body>.top>h1,.top h1,.page>.to
       <div class="ios-sec-row"><span>데이터 읽기 허용</span><button id="iosAllOn">전체 허용</button></div>
       <div id="iosList"></div>
       <div class="ios-why"><b>"마이리포트"이(가) 건강 데이터를 읽으려는 이유:</b>
-        생활여유·자기돌봄·일상안정 상태를 확인하기 위해 걸음 수와 수면 데이터가 필요합니다.</div>
+        짜임새 있는 하루·행동 기회 대응·생활 변화 추이 상태를 확인하기 위해 걸음 수와 수면 데이터가 필요합니다.</div>
     </div>
   </div>
 </div>
@@ -2733,7 +2733,7 @@ function mealTimeQuestion(now){
     opts:[{v:'before_7',f:'',ap:'',clock:labels[0],sub:'',label:labels[0],tone:'neutral'},
           {v:'mid',f:'',ap:'',clock:labels[1],sub:'',label:labels[1],tone:'neutral'},
           {v:'late',f:'',ap:'',clock:labels[2],sub:'',label:labels[2],tone:'neutral'}] });
-  /* 어제 저녁(00~10시)도 묻는다 — 일상안정이 최근 7일 식후 행동을 합산하므로 어제 값도 쓰인다. 저녁 7시 · 8시 고정 */
+  /* 어제 저녁(00~10시)도 묻는다 — 생활 변화 추이가 최근 7일 식사 시각을 비교하므로 어제 값도 쓰인다. 저녁 7시 · 8시 고정 */
   if(LAST_MEAL==='어제 저녁') return fixed('어제 저녁은 몇 시쯤 드셨어요?', '🕖', ['7시 이전','7시~9시','9시 이후']);
   if(LAST_MEAL==='오늘 아침') return fixed('아침은 몇 시쯤 드셨어요?', '🕖', ['7시 이전','7시~8시','8시 이후']);
   const R = MEAL_TIME_RULE[LAST_MEAL==='오늘 점심' ? 'LUNCH' : 'DINNER'];
@@ -3448,30 +3448,30 @@ const STATE_TONE = {
 /* 지표 고유색 — 카드 이름·게이지·데이터 점에 쓴다(구간 색과 별개) */
 const METRIC_COLOR = { margin:'#12A150', selfcare:'#D98A12', steady:'#7C5CFC' };
 const METRICS = [
-  {k:'margin', nm:'생활여유', en:'Life Margin',
-   desc:'오늘 남아 있는 몸의 여유', expl:'잠은 충분했는지, 움직임이 하루에 고르게 퍼져 있었는지를 함께 보고 오늘을 편안하게 보낼 힘이 얼마나 남았는지 알려드려요.',
-   states:{good:'충분해요', mid:'보통이에요', low:'부족해요'},
+  {k:'margin', nm:'짜임새 있는 하루', en:'Well-Composed Day',
+   desc:'오늘 식사·수면·움직임의 짜임새', expl:'잠은 충분했는지, 오늘 질문한 끼니를 균형 있게 먹었는지, 충분히 움직였는지를 함께 보고 오늘 하루가 권장 생활에 얼마나 가까웠는지 알려드려요.',
+   states:{good:'잘 짜였어요', mid:'보통이에요', low:'부족해요'},
    state:'low', prev:'low',
-   line:'오늘은 하루를 이어갈 여유가 많이 부족해요.',
-   title:'생활여유를 본 데이터',
-   note:'화요일부터 수면이 짧고 자주 끊겼고 낮 활동도 거의 없어, 회복에 쓸 여유가 계속 줄어든 사흘이었어요.',
-   rows:['sleep','active','exercise']},
-  {k:'selfcare', nm:'자기돌봄', en:'Self-Care Moments',
-   desc:'오늘 나를 챙긴 정도', expl:'하루 걸음 수와 식사 뒤 가볍게 움직였는지를 함께 보고 오늘 나를 얼마나 챙겼는지 알려드려요.',
-   states:{good:'잘하고 있어요', mid:'보통이에요', low:'부족해요'},
+   line:'오늘은 수면·식사·움직임이 권장 생활과 많이 멀어요.',
+   title:'짜임새 있는 하루를 본 데이터',
+   note:'화요일부터 잠이 짧고 낮 활동도 거의 없어, 하루의 짜임새가 계속 흐트러진 사흘이었어요.',
+   rows:['sleep','steps','exercise']},
+  {k:'selfcare', nm:'행동 기회 대응', en:'Opportunity Response',
+   desc:'오늘 움직일 기회를 살린 정도', expl:'식사 뒤, 일어난 뒤, 오래 앉아 있던 뒤, 운동할 수 있을 때 실제로 움직였는지를 하루 동안 쌓아서 알려드려요.',
+   states:{good:'잘 살렸어요', mid:'보통이에요', low:'부족해요'},
    state:'low', prev:'low',
    line:'움직일 수 있는 순간에도 거의 쉬고 있어요.',
-   title:'자기돌봄을 본 데이터',
+   title:'행동 기회 대응을 본 데이터',
    note:'화요일 이후 식사 뒤나 오래 누워 있던 뒤에 이어지는 움직임이 거의 없었어요. 아픈 동안에는 자연스러운 흐름이에요.',
    rows:['active','exercise','record']},
-  {k:'steady', nm:'일상안정', en:'Life Steadying',
-   desc:'지난주와 비교한 일상의 균형', expl:'최근 7일의 걸음 수 · 활동 시간 · 운동 기록과 수면 규칙성을 그 전 7일과 비교해, 일상의 균형이 잘 잡혀 있는지 알려드려요.',
-   states:{good:'안정적이에요', mid:'비슷해요', low:'불안정해요'},
+  {k:'steady', nm:'생활 변화 추이', en:'Lifestyle Change Trend',
+   desc:'최근 일주일 생활의 변화 방향', expl:'최근 7일의 걸음 수 · 운동 · 수면 규칙성 · 식사 시간을 그 전 7일과 비교해, 생활이 나아지는 쪽인지 줄어드는 쪽인지 알려드려요.',
+   states:{good:'나아지고 있어요', mid:'비슷해요', low:'줄어들고 있어요'},
    state:'low', prev:'low',
-   line:'화요일부터 생활 신호가 평소 범위를 크게 벗어나 있어요.',
-   title:'일상안정을 본 데이터',
-   note:'걸음과 활동이 평소의 4분의 1 수준으로 떨어졌고, 안정 시 심박은 평소보다 높은 상태가 사흘째 이어지고 있어요.',
-   rows:['steps','sleep','hr','active']}
+   line:'화요일부터 걸음과 운동이 지난주보다 크게 줄었어요.',
+   title:'생활 변화 추이를 본 데이터',
+   note:'걸음과 활동이 지난주의 4분의 1 수준으로 떨어졌고, 잠드는 시간도 들쭉날쭉해졌어요.',
+   rows:['steps','sleep','exercise','active']}
 ];
 function josa(word, pair){
   const [a, b] = pair.split('/');
@@ -3538,7 +3538,7 @@ function renderMetrics(){
      상태 표기 원칙 — 산정 불가는 실패가 아니라 '관찰 중': 게이지는 빈 눈금판(바늘 없음), 라벨 '관찰 중', 아래에 이유·다음 행동 한 줄.
      데이터 미연동은 관찰 중과 구분해 연동 안내 카드로 보여준다. */
   if(!deviceLinked){
-    document.getElementById('mGrid').innerHTML = `<div class="m-unlinked"><span class="emo">⌚</span><b>건강 데이터를 연동하면 오늘의 컨디션을 볼 수 있어요</b><p>걸음·수면·심박 데이터로 생활여유 · 자기돌봄 · 일상안정을 계산해 드려요.</p><button class="cta" id="condLink">건강 데이터 연동하기</button></div>`;
+    document.getElementById('mGrid').innerHTML = `<div class="m-unlinked"><span class="emo">⌚</span><b>건강 데이터를 연동하면 오늘의 컨디션을 볼 수 있어요</b><p>걸음·수면 데이터와 식사 답변으로 짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이를 계산해 드려요.</p><button class="cta" id="condLink">건강 데이터 연동하기</button></div>`;
     document.getElementById('mObserving').hidden = true; document.getElementById('condLine').hidden = true;
     document.getElementById('dList').innerHTML = `<div class="d-row d-unlinked"><div class="d-bd"><small>오늘의 건강 데이터</small><b>연동 후 표시돼요</b></div></div>`;
     const lb=document.getElementById('condLink'); if(lb) lb.onclick=startLink;
@@ -3618,7 +3618,7 @@ function renderMetrics(){
   document.getElementById('condMore').onclick = ()=>goLife('metric');
   document.getElementById('cond').onclick = (e)=>{
     const tile = e.target.closest('.m'); if(!tile) return;
-    /* 프로토타입 시연: 관찰 중인 일상안정을 누르면 기준선이 쌓인 뒤의 값으로 전환 */
+    /* 프로토타입 시연: 관찰 중인 생활 변화 추이를 누르면 비교 기록이 쌓인 뒤의 값으로 전환 */
     if(tile.classList.contains('none') && tile.dataset && tile.dataset.k==='steady'){ demoSteadyReady(); return; }
     goLife('metric');
   };
@@ -3639,16 +3639,16 @@ const METRIC_SCENARIOS = [
     set:{ margin:'good', selfcare:'none', steady:'none' },
     prev:{ margin:'good', selfcare:'none', steady:'none' },
     note:{ selfcare:'식사 시각을 알려주시면 식후에 움직였는지 확인할 수 있어요.',
-           steady:'평소 범위를 잡는 중이에요. 며칠 더 쌓이면 보여드릴게요.' } },
+           steady:'지난주와 비교할 기록을 모으는 중이에요. 며칠 더 쌓이면 보여드릴게요.' } },
   { label:'전체 관찰 중',
     set:{ margin:'none', selfcare:'none', steady:'none' },
     prev:{ margin:'none', selfcare:'none', steady:'none' },
-    note:{ margin:'수면·활동 데이터가 아직 하루치뿐이에요.',
+    note:{ margin:'오늘 수면·식사·걸음 기록이 아직 없어요.',
            selfcare:'식사 시각을 알려주시면 식후에 움직였는지 확인할 수 있어요.',
-           steady:'평소 범위를 잡는 중이에요. 며칠 더 쌓이면 보여드릴게요.' } }
+           steady:'지난주와 비교할 기록을 모으는 중이에요. 며칠 더 쌓이면 보여드릴게요.' } }
 ];
 let metricScenario = 0;
-let steadyReady = false;   /* 시연용: 일상안정 기준선이 쌓인 상태로 전환됐는지 */
+let steadyReady = false;   /* 시연용: 생활 변화 추이 비교 기록이 쌓인 상태로 전환됐는지 */
 function demoSteadyReady(){
   steadyReady = true;
   metricScenario = 1; applyMetricScenario(); renderMetrics();
@@ -3666,9 +3666,9 @@ applyMetricScenario();
 
 /* ── 점수 → 구간 어댑터 ──
    구간 경계는 잠정치(66 / 33). 실제 구현에서는 지표 엔진이 구간을 바로 내려준다. */
-/* 구간 경계(0~100 내부 점수) — v7 지표 탐색기 확정값. 실제 서비스에서는 지표 엔진이 구간을 내려주고 앱은 그대로 표시한다 */
+/* 구간 경계(0~100 내부 점수) — 생활 지표 기획서 v2.0(세 지표 33/66). 실제 서비스에서는 지표 엔진이 구간을 내려주고 앱은 그대로 표시한다 */
 const BAND_HI = 66, BAND_LO = 33;
-const BANDS = { margin:[40,70], selfcare:[33,66], steady:[33,66] };
+const BANDS = { margin:[33,66], selfcare:[33,66], steady:[33,66] };
 const bandOf = k => BANDS[k] || [BAND_LO, BAND_HI];
 function scoreToState(v, k){
   const [BAND_LO, BAND_HI] = bandOf(k);
@@ -3730,7 +3730,7 @@ function condSummaryLine(){
   return allGood ? `${names}${josa(shown[shown.length-1].nm,'은/는')} 무리 없이 이어지고 있어요.`
                  : `지금 볼 수 있는 지표는 대체로 무리 없이 이어지고 있어요.`;
 }
-/* 관찰 중 사유는 데이터 기준으로만 말한다. 질문 응답은 지표 산출에 영향을 주지 않으므로(P1) 답변을 유도하는 문구를 쓰지 않는다. */
+/* 관찰 중 사유는 데이터 기준으로만 말한다. 답변을 재촉하는 문구는 쓰지 않는다. */
 function observingReason(){
   return '며칠 더 쌓이면 보여드릴게요.';
 }
@@ -4249,18 +4249,18 @@ function renderDaily(){
 /* ── 기기 연동 데이터 ↔ 지표 매핑 ──
    core(●) = 지표 카드 "핵심 데이터"에 값·상태 칩으로 노출 / aux(○) = 산식 맥락 보강에만 쓰이고 화면에 노출하지 않음 / no(-) 반영 안 함
    (화면정의서 6장 기준)
-   · 생활여유 — 수면 · 활동 시간 · 운동 시간이 핵심. 걸음 수는 걸음만 있는 날의 저해상도 산출에만 쓴다(보조).
-   · 자기돌봄 — 활동 시간 · 운동 시간 · 운동 기록이 핵심(기준점 뒤에 움직임이 붙었는가).
-   · 일상안정 — 걸음 수 · 수면 · 심박수 · 활동 시간 · 운동 시간 · 운동 기록 · 체중(기록 있을 때). */
+   · 짜임새 있는 하루 — 수면 · 걸음 수 · 운동 시간이 핵심(식사 균형은 질문 답변에서 옴).
+   · 행동 기회 대응 — 활동 시간 · 운동 시간 · 운동 기록이 핵심(기회 뒤에 움직임이 붙었는가).
+   · 생활 변화 추이 — 걸음 수 · 수면 · 활동 시간 · 운동 시간 · 운동 기록(최근 7일 vs 직전 7일). */
 const DATA_MAP = [
-  {n:'걸음 수',     s:1,a:1, margin:'aux',  selfcare:'no',  steady:'core', today:'1,840 걸음', judge:'매우 적음'},
-  {n:'활동 칼로리', s:1,a:1, margin:'aux',  selfcare:'aux', steady:'aux',  today:'110 kcal',   judge:'매우 낮음'},
-  {n:'활동 시간',   s:1,a:0, margin:'core', selfcare:'core',steady:'core', today:'12분',       judge:'매우 낮음'},
+  {n:'걸음 수',     s:1,a:1, margin:'core', selfcare:'no',  steady:'core', today:'1,840 걸음', judge:'매우 적음'},
+  {n:'활동 칼로리', s:1,a:1, margin:'no',   selfcare:'no',  steady:'no',   today:'110 kcal',   judge:'매우 낮음'},
+  {n:'활동 시간',   s:1,a:0, margin:'no',   selfcare:'core',steady:'core', today:'12분',       judge:'매우 낮음'},
   {n:'운동 시간',   s:0,a:1, margin:'core', selfcare:'core',steady:'core', today:'0분',        judge:'없음'},
   {n:'운동 기록',   s:0,a:1, margin:'no',   selfcare:'core',steady:'core', today:'없음',      judge:'없음'},
-  {n:'심박수',      s:1,a:1, margin:'no',   selfcare:'no',  steady:'core', today:'82 bpm',     judge:'높음'},
+  {n:'심박수',      s:1,a:1, margin:'no',   selfcare:'no',  steady:'no',   today:'82 bpm',     judge:'높음'},
   {n:'수면',        s:1,a:1, margin:'core', selfcare:'no',  steady:'core', today:'5시간 10분', judge:'부족'},
-  {n:'체중',        s:1,a:1, margin:'no',   selfcare:'no',  steady:'core', today:'67.7 kg',    judge:'줄어듦'},
+  {n:'체중',        s:1,a:1, margin:'no',   selfcare:'no',  steady:'no',   today:'67.7 kg',    judge:'줄어듦'},
   {n:'체지방률',    s:1,a:1, margin:'no',   selfcare:'no',  steady:'no',   today:'23.1 %',     judge:'유지'},
   {n:'BMI',        s:1,a:0, margin:'no',   selfcare:'no',  steady:'no',   today:'23.4',       judge:'정상'},
   {n:'키',          s:1,a:1, margin:'no',   selfcare:'no',  steady:'no',   today:'170 cm',     judge:'—'},
@@ -4444,9 +4444,9 @@ const CASE_DATA = {
     metricState:{ margin:'good', selfcare:'mid', steady:'good' },
     metricWeek:{ margin:[56,24,40,82,null,null,null], selfcare:[56,24,40,56,null,null,null], steady:[54,50,76,74,null,null,null] },
     metricIns:{
-      margin:'늦은 시간에 몰려 있던 활동이 하루 중간으로 나뉘고 수면이 채워지면서, 여유가 다시 앞선 하루가 됐어요.',
+      margin:'수면이 채워지고 식사와 걸음이 고르게 이어지면서, 잘 짜인 하루가 됐어요.',
       selfcare:'식사 뒤와 오래 앉아 있던 뒤에 짧은 걷기가 이어진 날이 늘었어요. 아직 절반쯤이에요.',
-      steady:'자고 움직이는 시각이 다시 일정해지면서, 평소 범위 안에서 흔들림이 줄었어요.' },
+      steady:'지난주보다 걸음이 늘고 잠드는 시간이 일정해지면서, 생활이 나아지는 쪽이에요.' },
     series:{
       sleep:{v:[7.2,7.1,7.4,7.3,null,null,null], t:['7시간 12분','7시간 6분','7시간 24분','7시간 18분','–','–','–'], avg:'7시간 15분'},
       bed:  {v:[23.17,23.25,23.1,23.2,null,null,null], t:['23시 10분','23시 15분','23시 6분','23시 12분','–','–','–'], avg:'23시 11분'},
@@ -4487,13 +4487,13 @@ const CASE_DATA = {
   sick:{
     /* 시연에서는 세 지표가 모두 값을 가진 상태로 보여준다 —
        발병 주에 세 축이 한꺼번에 내려가는 모습이 한 화면에서 보이게 하기 위함이다.
-       (실제 산식에서는 자기돌봄의 유효 기회가 2회 미만이면 관찰 중으로 빠질 수 있다) */
+       (실제 산식에서는 행동 기회 대응에 확인된 기회도 시간대별 걸음도 없으면 관찰 중으로 빠질 수 있다) */
     metricState:{ margin:'low', selfcare:'low', steady:'low' },
     metricWeek:{ margin:[74,42,26,22,null,null,null], selfcare:[68,40,30,26,null,null,null], steady:[72,46,28,22,null,null,null] },
     metricIns:{
-      margin:'화요일부터 수면이 짧아지고 활동 시간이 줄면서, 여유가 사흘째 줄고 있어요.',
+      margin:'화요일부터 수면이 짧아지고 걸음이 줄면서, 하루의 짜임새가 사흘째 흐트러지고 있어요.',
       selfcare:'화요일부터 식사 뒤나 오래 누워 있던 뒤에 이어지는 움직임이 거의 없었어요.',
-      steady:'화요일부터 걸음 수와 수면이 평소 범위를 벗어나면서, 생활 리듬이 흔들리고 있어요.' },
+      steady:'화요일부터 걸음과 운동이 지난주보다 줄고 잠드는 시간이 들쭉날쭉해지면서, 생활이 줄어드는 쪽이에요.' },
     series:{
       sleep:{v:[7.2,5.9,5.3,5.17,null,null,null], t:['7시간 12분','5시간 54분','5시간 18분','5시간 10분','–','–','–'], avg:'5시간 54분'},
       bed:  {v:[23.17,23.83,24.67,23.5,null,null,null], t:['23시 10분','23시 50분','00시 40분','23시 30분','–','–','–'], avg:'23시 47분'},
@@ -4682,167 +4682,7 @@ function renderLife(){ renderGoalPane(); renderMetricPane(); renderDaily(); rend
    헤더(지표명 + 전일 대비 방향 · 설명 한 줄 · 구간 배지) → 3구간 띠 위 주간 그래프 → 현재 흐름 → 핵심 데이터.
    보조 데이터 영역은 두지 않는다. 숫자 점수는 어디에도 쓰지 않는다. */
 const BAND_WORDS = { margin:['좋음','보통','주의'], selfcare:['좋음','보통','주의'], steady:['좋음','보통','주의'] };
-const CORE_ROWS = { margin:['활동 시간','수면'], selfcare:['걸음 수','식후 활동'], steady:['걸음 수','활동 시간','운동 기록','수면'] };
-/* ── 지표 해석 — 선택한 날을 전날과 비교한 한 문장 ──
-   · 구간이 바뀌면: {이유} {나아지고 있어요/감소하고 있어요}. 이유 = 전날 대비 가장 많이 달라진 핵심 데이터 1개(같은 방향, 10% 이상)
-   · 같으면 이어진 날 수로: "N일째 ~" (2일 이상)
-     주의가 3일 이상 이어지면 그 기간 계속 낮았던 항목 1개를 이유로 붙인다
-   · 전날 기록이 없으면 "오늘은 ~" */
-const DF_STATE = {
-  margin:  {good:'남아 있는 몸의 여유가 충분한 편이에요', mid:'남아 있는 몸의 여유가 적정한 편이에요', low:'남아 있는 몸의 여유가 부족한 편이에요'},
-  selfcare:{good:'나를 챙기는 정도가 좋은 편이에요', mid:'나를 챙기는 정도가 적정한 편이에요', low:'나를 챙기는 정도가 부족한 편이에요'},
-  steady:  {good:'일상의 균형이 안정적인 편이에요', mid:'일상의 균형이 적정한 편이에요', low:'일상의 균형이 불안정한 편이에요'}
-};
-/* 같은 구간이 이어질 때: 'N일째'을 서술어 앞에 둠 */
-const DF_STREAK = {
-  margin:  {good:'남아 있는 몸의 여유가 {N} 충분한 편이에요', mid:'남아 있는 몸의 여유가 {N} 적정한 편이에요', low:'남아 있는 몸의 여유가 {N} 부족한 편이에요'},
-  selfcare:{good:'나를 챙기는 정도가 {N} 좋은 편이에요', mid:'나를 챙기는 정도가 {N} 적정한 편이에요', low:'나를 챙기는 정도가 {N} 부족한 편이에요'},
-  steady:  {good:'일상의 균형이 {N} 안정적인 편이에요', mid:'일상의 균형이 {N} 적정한 편이에요', low:'일상의 균형이 {N} 불안정한 편이에요'}
-};
-const DF_MOVE = {
-  margin:  {up:'몸의 여유가 나아지고 있어요', down:'몸의 여유가 감소하고 있어요'},
-  selfcare:{up:'나를 챙기는 정도가 나아지고 있어요', down:'나를 챙기는 정도가 감소하고 있어요'},
-  steady:  {up:'', down:''}
-};
-/* 일상안정은 7일 비교 점수라, 바뀐 뒤 구간으로 말한다 */
-const DF_STEADY_TO = {good:'일상의 균형이 나아지고 있어요', mid:{up:'일상의 균형이 나아지고 있어요', down:'일상의 균형이 흔들리고 있어요'}, low:'일상의 균형이 흔들리고 있어요'};
-/* 이유 후보 — 지표 산식의 재료만 쓴다(자기돌봄은 걸음 55% · 식후 행동 20%, 일상안정 수면은 규칙성이라 제외) */
-const DF_CAND = { margin:['활동 시간','수면'], selfcare:['걸음 수','식후 활동'], steady:['걸음 수','활동 시간','운동 기록'] };
-const DF_WHY = {   /* 항목: [늘었을 때, 줄었을 때, 낮은 날이 이어질 때] */
-  '수면':['수면 시간이 늘어나면서','수면 시간이 줄어들면서','수면이 짧은 날이 이어지면서'],
-  '활동 시간':['활동량이 늘어나면서','활동량이 줄어들면서','활동량이 낮은 날이 이어지면서'],
-  '식후 활동':['식후 활동이 이어지면서','식후 활동이 줄어들면서','식후 활동이 적은 날이 이어지면서'],
-  '걸음 수':['걸음 수가 늘어나면서','걸음 수가 줄어들면서','걸음 수가 적은 날이 이어지면서'],
-  '운동':['운동 시간이 늘어나면서','운동 시간이 줄어들면서','운동 공백이 이어지면서'],
-  '행동 완료':['이번 주 식후 활동을 챙긴 날이 늘면서','이번 주 식후 활동을 챙긴 날이 줄면서','식후 활동을 놓친 날이 이어지면서'],
-  '걸음 발생일':['움직인 날이 늘면서','움직이지 않은 날이 생기면서','움직이지 않은 날이 이어지면서'],
-  '수면 규칙성':['잠드는 시간이 일정해지면서','잠드는 시간이 불규칙해지면서','잠드는 시간이 불규칙한 날이 이어지면서'],
-  '분산':['움직임이 하루에 고르게 나뉘면서','활동이 한때에 몰리면서','활동이 한때에 몰리는 날이 이어지면서'],
-  '부담':['','활동이 많아 부담이 커지면서','활동이 많은 날이 이어지면서'],
-  '공백 후':['오래 쉬다가 다시 움직이면서','오래 쉰 뒤 움직임이 줄어들면서','오래 쉰 뒤 움직이지 않은 날이 이어지면서']
-};
-const DF_OVERLOAD = '활동이 많아 부담이 커지면서';
-/* 활동 분산 — "움직인 칸 수 · 가장 바쁜 칸 비중" (예: '5칸 · 30%') → 산식의 분산 몫 0~1 */
-function dfSpread(t){ const m=(t||'').match(/(\d+)칸\s*·\s*(\d+)%/); if(!m) return null; return Math.min(1,+m[1]/8)*Math.max(0,Math.min(1,(1-m[2]/100)/0.75)); }
-const dfSafe = (fn,n,j) => { try{ return fn(n,j); }catch(e){ return null; } };
-function dfNum(t){
-  if(!t || t==='–' || t==='없음') return 0;
-  const h=t.match(/(\d+)시간/), m=t.match(/(\d+)분/);
-  if(h||m) return (h?+h[1]*60:0)+(m?+m[1]:0);
-  const n=t.replace(/,/g,'').match(/\d+(\.\d+)?/); return n?+n[0]:0;
-}
-const dfKey = (k,n) => n==='식후 활동' ? '식후 활동' : (n==='운동 기록' ? (k==='selfcare'?'식후 활동':'운동') : n);
-const dfSrc = n => n==='식후 활동' ? '운동 기록' : n;
-function dayFlow(k, scores, i, valFn, judgeFn){
-  const cur = scores[i]==null ? null : scoreToState(scores[i],k);
-  if(!cur) return '';
-  const st = j => (j>=0 && scores[j]!=null) ? scoreToState(scores[j],k) : null;
-  const prev = st(i-1);
-  if(!prev) return `${DF_STATE[k][cur]}.`;
-  const V={low:0,mid:1,good:2};
-  if(cur!==prev){
-    const up = V[cur]>V[prev]; let best=null, bv=0.1;
-    const avg=(src,e)=>{ let t=0,c=0; for(let j=Math.max(0,e-6);j<=e;j++){ t+=dfNum(valFn(src,j)); c++; } return c?t/c:0; };
-    DF_CAND[k].forEach(n=>{
-      const src=dfSrc(n);
-      /* 일상안정은 7일 평균끼리 비교 */
-      const x = k==='steady' ? avg(src,i-1) : dfNum(valFn(src,i-1)), y = k==='steady' ? avg(src,i) : dfNum(valFn(src,i));
-      /* 생활여유는 활동 240분을 넘으면 부담으로 보므로, 늘어난 활동을 좋아진 이유로 쓰지 않는다 */
-      if(k==='margin' && src==='활동 시간' && up && y>240) return;
-      let r=(y-x)/Math.max(x,1); if(src==='운동 기록') r=Math.max(-0.3,Math.min(0.3,r));
-      if((up?r:-r)>bv){ bv=up?r:-r; best=dfKey(k,n); }
-    });
-    if(k==='margin'){
-      /* 생활여유: v7 산식 몫을 그대로 계산해 날짜별 실제 기여 점수로 비교
-         재료 → 이유 대응: A(활동량)→활동 시간 · D(분산)+B의 몰림 절반→활동 분산 · B의 240분 초과 절반→활동 부담 · S→수면
-         수면이 없는 날은 남은 몫으로 가중치 재조정 + 상한(원점수 82 → 표시 0.855) 적용 */
-      const cl=v=>Math.max(0,Math.min(1,v)), ov=m=>1-cl((m-240)/240), sl=m=>cl(1-Math.max(0,420-m)/120);
-      const conc=j=>{ const m=(dfSafe(valFn,'활동 분산',j)||'').match(/(\d+)칸\s*·\s*(\d+)%/); return m?+m[2]/100:null; };
-      const parts=j=>{ const M=dfNum(valFn('활동 시간',j)), sv=dfSafe(valFn,'수면',j), C=conc(j), D=dfSpread(dfSafe(valFn,'활동 분산',j));
-        const o={A:[0.20,cl(M/240)], Bover:[0.125,ov(M)]};
-        if(D!=null){ o.D=[0.30,D]; o.Bconc=[0.125,1-cl((C-0.5)/0.5)]; }
-        const hasS = sv && sv!=='–'; if(hasS) o.S=[0.25,sl(dfNum(sv))];
-        const W=Object.values(o).reduce((t,x)=>t+x[0],0), E=hasS?1:(82-35)/55;
-        const r={}; Object.keys(o).forEach(q=>{ r[q]=E*o[q][0]*o[q][1]/W; }); return r; };
-      const pa=parts(i-1), pb=parts(i), g=(o,q)=>o[q]||0;
-      const c={'활동 시간':g(pb,'A')-g(pa,'A'), '과한':g(pb,'Bover')-g(pa,'Bover')};
-      if('D' in pb) c['분산']=(g(pb,'D')+g(pb,'Bconc'))-(g(pa,'D')+g(pa,'Bconc'));
-      if('S' in pb) c['수면']=g(pb,'S')-g(pa,'S');   /* 선택일에 쓰이지 않은 재료는 후보 제외 */
-      best=null; let bv2=0.02-1e-9;   /* 2점 미만 생략 · 2.0점부터 이유 */
-      Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
-      if(best==='과한') return `${DF_OVERLOAD} ${DF_MOVE[k].down}.`;
-    }
-    if(k==='selfcare'){
-      /* 자기돌봄: 걸음 55% (걸음 표: 0→0 · 3천→0.35 · 6천→0.65 · 1만→0.95 · 1만2천→1) · 식후 활동 20% (하루 3회 기준 완료율) */
-      const cv=[[0,0],[3000,.35],[6000,.65],[10000,.95],[12000,1]];
-      const stp=x=>{ for(let q=1;q<cv.length;q++){ const [l,a]=cv[q-1],[r,b]=cv[q]; if(x<=r) return a+(x-l)/(r-l)*(b-a); } return 1; };
-      const meal=x=>Math.min(1,x/3);
-      /* 실제 적용 가중치(없는 재료 빼고 재조정) × 근거 상한 E 로 날짜별 기여 점수를 구해 전날과 비교 */
-      const W0={'걸음 수':0.55,'식후 활동':0.20,'공백 후':0.15,'분산':0.10};
-      const rs=j=>{ const v=dfSafe(valFn,'공백 후 움직임',j); return v&&/%/.test(v)?dfNum(v)/100:null; };
-      const ml=j=>{ const v=dfSafe(valFn,'운동 기록',j); return (!v||v==='–')?null:meal(dfNum(v)); };
-      const vals=j=>({'걸음 수':stp(dfNum(valFn('걸음 수',j))),'식후 활동':ml(j),'공백 후':rs(j),'분산':dfSpread(dfSafe(valFn,'활동 분산',j))});
-      const contrib=j=>{ const v=vals(j), used=Object.keys(W0).filter(n=>v[n]!=null), W=used.reduce((t,n)=>t+W0[n],0);
-        const E=used.length===4?1:Math.max(0.55+0.45*W, used.length>=3?0.95:0);
-        const o={}; used.forEach(n=>{ o[n]=E*W0[n]*v[n]/W; }); return o; };
-      const ca=contrib(i-1), cb=contrib(i), c={};
-      Object.keys(cb).forEach(n=>{ c[n]=cb[n]-(ca[n]||0); });   /* 선택일에 쓰이지 않은 재료는 후보에서 제외 */
-      best=null; let bv2=0.02-1e-9;
-      Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
-    }
-    if(k==='steady'){
-      /* 일상안정: 표시점수 = 50 + 50 × Σ(가중치 × 변화). 걸음 30% · 활동 15% · 운동 15%
-         하루 사이 7일 평균이 바뀐 만큼 점수에 준 영향으로 비교 */
-      const W={'걸음 수':0.3,'활동 시간':0.15,'운동 기록':0.15}, KEY={'걸음 수':'걸음 수','활동 시간':'활동 시간','운동 기록':'운동'};
-      const c={};
-      Object.keys(W).forEach(n=>{ const x=avg(n,i-1), y=avg(n,i); c[KEY[n]]=0.5*W[n]*(y-x)/Math.max(0.5*x,1); });
-      /* 수면 규칙성 15%: 취침 시각의 흔들림(표준편차, 분)이 줄면 좋아짐 */
-      const bt=j=>{ const m=(dfSafe(valFn,'취침 시각',j)||'').match(/(\d+)시\s*(\d+)?/); if(!m) return null; let h=+m[1]; if(h<12) h+=24; return h*60+(+m[2]||0); };
-      const sd=e=>{ const v=[]; for(let j=Math.max(0,e-6);j<=e;j++){ const t=bt(j); if(t!=null) v.push(t); } if(v.length<2) return null; const mu=v.reduce((a,b)=>a+b,0)/v.length; return Math.sqrt(v.reduce((a,b)=>a+(b-mu)*(b-mu),0)/v.length); };
-      const sa2=sd(i-1), sb2=sd(i);
-      if(sa2!=null && sb2!=null) c['수면 규칙성']=0.5*0.15*(sa2-sb2)/Math.max(0.5*sa2,15);
-      /* 행동 완료 15%: 기간 완료율(식후 활동 완료 ÷ 기회) 변화 ÷ 0.5 */
-      const rate=e=>{ let d=0,c2=0; for(let j=Math.max(0,e-6);j<=e;j++){ d+=Math.min(3,dfNum(valFn('운동 기록',j))); c2+=3; } return c2?d/c2:0; };
-      c['행동 완료']=0.5*0.15*(rate(i)-rate(i-1))/0.5;
-      /* 걸음 발생일 10%: 걸음이 있었던 날의 비율 변화 */
-      const walk=e=>{ let d=0,c2=0; for(let j=Math.max(0,e-6);j<=e;j++){ d+=dfNum(valFn('걸음 수',j))>0?1:0; c2++; } return c2?d/c2:0; };
-      c['걸음 발생일']=0.5*0.10*(walk(i)-walk(i-1));
-      best=null; let bv2=0.02-1e-9;
-      Object.keys(c).forEach(n=>{ const v=up?c[n]:-c[n]; if(v>bv2){ bv2=v; best=n; } });
-    }
-    return `${best?DF_WHY[best][up?0:1]+' ':''}${k==='steady'?(cur==='mid'?DF_STEADY_TO.mid[up?'up':'down']:DF_STEADY_TO[cur]):DF_MOVE[k][up?'up':'down']}.`;
-  }
-  let n=1; while(st(i-n)===cur) n++;
-  const lead = `${n}일째`;
-  let why='';
-  if(cur==='low' && n>=3 && judgeFn){
-    const LOW=/부족|적음|낮음|없음/;
-    const hit=DF_CAND[k].find(nm=>{ for(let j=i-n+1;j<=i;j++){ if(!LOW.test(judgeFn(dfSrc(nm),j)||'')) return false; } return true; });
-    if(hit) why = DF_WHY[dfKey(k,hit)][2]+' ';
-    /* 생활여유: 활동 분산(몰림) · 활동 부담(240분 초과)이 매일 이어졌는지도 봄 */
-    if(!hit && k==='margin'){
-      const every=f=>{ for(let j=i-n+1;j<=i;j++){ if(!f(j)) return false; } return true; };
-      const sp=j=>{ const v=dfSpread(dfSafe(valFn,'활동 분산',j)); return v!=null && v<0.4; };
-      const ov=j=>dfNum(valFn('활동 시간',j))>240;
-      if(every(sp)) why = DF_WHY['분산'][2]+' ';
-      else if(every(ov)) why = DF_WHY['부담'][2]+' ';
-    }
-    if(!hit && k==='selfcare'){
-      const every=f=>{ for(let j=i-n+1;j<=i;j++){ if(!f(j)) return false; } return true; };
-      const rs=j=>{ const v=dfSafe(valFn,'공백 후 움직임',j); return v&&/%/.test(v)&&dfNum(v)<40; };
-      const sp=j=>{ const v=dfSpread(dfSafe(valFn,'활동 분산',j)); return v!=null && v<0.4; };
-      if(every(rs)) why = DF_WHY['공백 후'][2]+' ';
-      else if(every(sp)) why = DF_WHY['분산'][2]+' ';
-    }
-  }
-  /* 이유가 있으면 'N일째'을 이유 안에 넣음: '수면이 짧은 날이 N일째 이어지면서 ~' */
-  if(why) return `${why.replace('이어지면서', lead+' 이어지면서')}${DF_STATE[k][cur]}.`;
-  return `${DF_STREAK[k][cur].replace('{N}', lead)}.`;
-}
-function dfText(m, scores, i, valFn, judgeFn){
-  const t = dayFlow(m.k, scores, i, valFn, judgeFn);
-  return t;
-}
+const CORE_ROWS = { margin:['수면','걸음 수','운동 시간'], selfcare:['식후 활동','활동 시간'], steady:['걸음 수','운동 기록','수면'] };
 function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
   const meta = METRICS.find(x=>x.k===m.k);
   const color = METRIC_COLOR[m.k];
@@ -4885,9 +4725,9 @@ function renderMetricPaneHistory(offset){
   const i = 6;
   const wl = weekLabelFor(offset);
   const cards = [
-    {nm:'생활여유', k:'margin',   s:h.metricScores.recovery, ins:'수면과 활동 시간이 평소 수준을 지키면서, 이 주는 여유가 대체로 유지됐어요.'},
-    {nm:'자기돌봄', k:'selfcare', s:h.metricScores.load.map(v=>100-v), ins:'식후 활동이 며칠 이어지면서, 이 주는 챙길 순간의 절반쯤을 움직였어요.'},
-    {nm:'일상안정', k:'steady',   s:h.metricScores.rhythm, ins:'걸음 수와 수면이 평소 범위 안에 있으면서, 이 주는 생활 리듬이 평소처럼 이어졌어요.'}
+    {nm:'짜임새 있는 하루', k:'margin',   s:h.metricScores.recovery, ins:'수면과 걸음이 고르게 이어지면서, 이 주는 하루의 짜임새가 대체로 유지됐어요.'},
+    {nm:'행동 기회 대응', k:'selfcare', s:h.metricScores.load.map(v=>100-v), ins:'식후 활동이 며칠 이어지면서, 이 주는 움직일 기회의 절반쯤을 살렸어요.'},
+    {nm:'생활 변화 추이', k:'steady',   s:h.metricScores.rhythm, ins:'걸음 수와 수면이 지난주와 비슷하게 이어졌어요.'}
   ];
   const dayLabels = ['월','화','수','목','금','토','일'];
   const valOfH = (name,idx) => (h.dayvals[name] && h.dayvals[name][idx]) || DATA_MAP.find(d=>d.n===name).today;
@@ -4902,7 +4742,7 @@ function renderMetricPane(){
   if(!deviceLinked){   /* 미연동: 관찰 중과 구분해 연동 안내 카드 하나만 */
     document.getElementById('pMetric').innerHTML = `<section class="card empty" style="padding-bottom:22px">
       <span class="emo">⌚</span><b>건강 데이터를 연동하면 지표별 흐름을 볼 수 있어요</b>
-      <p>걸음·수면·심박 데이터로 생활여유 · 자기돌봄 · 일상안정의 주간 흐름을 보여드려요.</p>
+      <p>걸음·수면 데이터와 식사 답변으로 짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이의 주간 흐름을 보여드려요.</p>
       <button class="cta" id="metricLinkBtn">건강 데이터 연동하기</button></section>`;
     document.getElementById('metricLinkBtn').onclick = startLink;
     return;
@@ -4913,19 +4753,19 @@ function renderMetricPane(){
   }
   const i = selIdx(), D = dayLabel();
   /* 주간 샘플은 점수 배열이며 scoreToState로 구간을 얻는다.
-     자기돌봄은 예전 '생활부담'(낮을수록 좋음) 데이터를 뒤집어 재사용한다.
+     행동 기회 대응은 예전 '생활부담'(낮을수록 좋음) 데이터를 뒤집어 재사용한다.
      '현재 흐름' 문장은 달력 주어("이번 주는") 없이 최근 변화와 이유에 집중한다. */
   const cards = [
-    {nm:'생활여유', k:'margin',   s:METRIC_WEEK.margin,   ins:METRIC_INS.margin,
+    {nm:'짜임새 있는 하루', k:'margin',   s:METRIC_WEEK.margin,   ins:METRIC_INS.margin,
      emptyTitle:(METRIC_EMPTY.margin||{}).title,   emptyBody:(METRIC_EMPTY.margin||{}).body},
-    {nm:'자기돌봄', k:'selfcare', s:METRIC_WEEK.selfcare, ins:METRIC_INS.selfcare,
+    {nm:'행동 기회 대응', k:'selfcare', s:METRIC_WEEK.selfcare, ins:METRIC_INS.selfcare,
      emptyTitle:(METRIC_EMPTY.selfcare||{}).title, emptyBody:(METRIC_EMPTY.selfcare||{}).body},
-    {nm:'일상안정', k:'steady',   s:METRIC_WEEK.steady,   ins:METRIC_INS.steady,
+    {nm:'생활 변화 추이', k:'steady',   s:METRIC_WEEK.steady,   ins:METRIC_INS.steady,
      emptyTitle:(METRIC_EMPTY.steady||{}).title,   emptyBody:(METRIC_EMPTY.steady||{}).body}
   ];
   cards.forEach(c=>{ c.flowTitle = '지표 해석'; c.notToday = D!=='오늘'; });
   const html = cards.map(m=>metricCard(m, m.s, i, WEEK.map(w=>w.d),
-    m.k==='steady' ? `${D} 기준 · 최근 7일을 평소 21일과 비교` : `${D} 기준 · 내 평소 범위와 비교`, valOf, judgeOf)).join('');
+    m.k==='steady' ? `${D} 기준 · 최근 7일을 직전 7일과 비교` : `${D} 기준 · 권장 생활 기준과 비교`, valOf, judgeOf)).join('');
   document.getElementById('pMetric').innerHTML = html;
   bindMetricInfo(document.getElementById('pMetric'));
 }

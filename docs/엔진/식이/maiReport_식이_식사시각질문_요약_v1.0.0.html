@@ -69,15 +69,15 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
 <div class="strip">
   <div class="tile key"><div class="n">+1</div><div class="l">하루 질문 수 4 → 5~6. 식사 질문 바로 뒤에 시각 질문 1개</div></div>
   <div class="tile ok"><div class="n">3</div><div class="l">선택지 수. 건너뛰기 없음, 작은 글씨 없음</div></div>
-  <div class="tile ng"><div class="n">50%</div><div class="l">지금: 자기돌봄 등급이 실제와 다른 날. 식후 행동을 몰라 매일 같은 점수</div></div>
+  <div class="tile ng"><div class="n">0점</div><div class="l">지금: 행동 기회 대응의 식후 칸. 식사 시각을 몰라 식후에 걸어도 쌓이지 않음</div></div>
   <div class="tile ok"><div class="n">10~13%</div><div class="l">시각 질문을 둔 뒤 등급이 다른 날(모의). 식후 걸음 판정 87~89% 맞음</div></div>
 </div>
 
 <section id="s01"><div class="num">01</div><div>
 <h2>왜 하나</h2>
 <table><tr><th style="width:18%">구분</th><th>내용</th></tr>
-<tr><td>지금 문제</td><td>자기돌봄 · 일상안정 지표에 「밥 먹고 30분 안에 움직였는지」 칸이 있음.<br>앱이 밥 먹은 시각을 몰라 이 칸이 늘 비어 있음.<br>하루 8,000보 예시에서 걸은 날도 안 걸은 날도 72점.</td></tr>
-<tr><td>하려는 것</td><td>식사 질문 뒤에 시각을 한 번 더 받아 이 칸을 채움.<br>같은 예시에서 걸은 날 81점, 안 걸은 날 61점으로 갈림.</td></tr>
+<tr><td>지금 문제</td><td>행동 기회 대응 · 생활 변화 추이 지표에 「밥 먹고 30분 안에 움직였는지」 칸이 있음.<br>앱이 밥 먹은 시각을 몰라 이 칸이 늘 비어 있음.<br>걸은 날도 안 걸은 날도 식후 칸은 0점.</td></tr>
+<tr><td>하려는 것</td><td>식사 질문 뒤에 시각을 한 번 더 받아 이 칸을 채움.<br>걸은 끼니마다 8.3점이 쌓임(세 끼 모두면 25점).</td></tr>
 <tr><td>사용자가 하는 일</td><td>선택지 하나를 누름. 새 화면 없음, 숫자 입력 없음.</td></tr>
 </table>
 </div></section>
@@ -192,7 +192,7 @@ code{font-family:Consolas,monospace;font-size:12.5px;background:#eef0f5;padding:
     <path d="M182 75 L206 75" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a2)"/>
     <rect x="210" y="30" width="200" height="90" fill="#fff" stroke="#e3e6ef"/><text x="220" y="52" font-weight="600">걸음 기록으로 판정</text><text x="220" y="72">걸었음: 5분 넘게 이어 걸음(분당 20보↑)</text><text x="220" y="88">또는 합계 300보↑ 또는 운동 기록</text><text x="220" y="106">안 걸었음 / 모름(기록 없음)</text>
     <path d="M414 75 L438 75" stroke="#0f1222" stroke-width="1.5" marker-end="url(#a2)"/>
-    <rect x="442" y="30" width="310" height="90" fill="#eaf8f0" stroke="#1f9d5a"/><text x="452" y="52" font-weight="600" fill="#1f9d5a">지표</text><text x="452" y="72">자기돌봄: 오늘 「식후 행동」 칸 (걸었음 81 · 안 걸었음 61)</text><text x="452" y="90">일상안정: 최근 7일 식후 행동 비율 vs 그 전 7일</text><text x="452" y="108">생활여유: 쓰지 않음. 모름은 계산에서 빠짐</text>
+    <rect x="442" y="30" width="310" height="90" fill="#eaf8f0" stroke="#1f9d5a"/><text x="452" y="52" font-weight="600" fill="#1f9d5a">지표</text><text x="452" y="72">행동 기회 대응: 오늘 「식후 행동」 칸 (걸은 끼니당 +8.3점)</text><text x="452" y="90">생활 변화 추이: 최근 7일 식후 행동 비율 vs 그 전 7일</text><text x="452" y="108">짜임새 있는 하루: 쓰지 않음. 모름은 계산에서 빠짐</text>
   </g>
 </svg>
 <div class="cap"><b>해석:</b> 식사 시각은 「언제부터 30분을 볼지」를 정하는 데만 씀. 언제 먹었는지를 잘했다 · 못했다로 평가하지 않고, 식이 점수나 오늘의 목표도 바뀌지 않음.</div></div>
