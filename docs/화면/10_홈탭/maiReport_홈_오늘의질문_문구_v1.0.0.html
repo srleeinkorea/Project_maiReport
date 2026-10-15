@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>오늘의 질문 문구</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--page:#f6f7fb;--card:#fff;--ink-1:#161b2c;--ink-2:#454c60;--ink-3:#868ea2;--line:#e5e8f0;--accent:#3d63f0;--accent-soft:#eef2ff;--chip:#fafbfd}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#12141b;--card:#1b1e27;--ink-1:#eef0f6;--ink-2:#c3c8d6;--ink-3:#8b92a6;--line:#2c303d;--accent:#8ea6ff;--accent-soft:#232a45;--chip:#20232d}}
+  :root[data-theme="dark"]{--page:#12141b;--card:#1b1e27;--ink-1:#eef0f6;--ink-2:#c3c8d6;--ink-3:#8b92a6;--line:#2c303d;--accent:#8ea6ff;--accent-soft:#232a45;--chip:#20232d}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans KR",-apple-system,sans-serif;background:var(--page);color:var(--ink-2);font-size:14px;line-height:1.7;letter-spacing:-.01em}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 16px 80px}
+  header{margin-bottom:20px}
+  .kicker{font-size:12px;font-weight:700;color:var(--accent)}
+  h1{font-size:26px;font-weight:800;color:var(--ink-1);letter-spacing:-.03em;margin:4px 0 6px}
+  .lead{max-width:760px}
+  .meta{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink-3);margin-top:10px}
+  .meta b{color:var(--ink-1);font-weight:700}
+  section{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 26px;margin-bottom:16px}
+  h2{font-size:18px;font-weight:800;color:var(--ink-1);margin-bottom:4px;letter-spacing:-.02em}
+  .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:14px}
+  h3{font-size:14px;font-weight:800;color:var(--ink-1);margin:20px 0 8px}
+  .tbl{overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
+  th{font-weight:600;color:var(--ink-3);text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);font-size:11.5px;white-space:nowrap}
+  td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.k{font-weight:700;color:var(--ink-1);white-space:nowrap}
+  td.q{font-weight:700;color:var(--ink-1)}
+  td.w{font-size:12px;color:var(--ink-3)}
+  .opt{display:inline-block;border:1px solid var(--line);background:var(--chip);border-radius:9px;padding:2px 9px;margin:0 4px 4px 0;font-size:12.5px;font-weight:600;color:var(--ink-1);white-space:nowrap}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 4px}
+  .step{background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:6px 12px;font-size:12.5px;font-weight:700}
+  .arrow{color:var(--ink-3)}
+  .note{font-size:12px;color:var(--ink-3);margin-top:8px}
+  ul.note{padding-left:16px}
+  .pending{display:inline-block;font-size:11px;font-weight:700;border:1px solid var(--line);border-radius:6px;padding:0 6px;color:var(--ink-3);margin-left:6px;vertical-align:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">홈 › 오늘의 질문</div>
+  <h1>오늘의 질문 · 질문과 선택지</h1>
+  <p class="lead">사용자가 홈의 「오늘의 질문」 카드에서 보는 질문과 선택지를 한곳에 모음. 화면에 나가는 글자 그대로 적음. 선택지는 모두 3개이고 건너뛰기는 없음.</p>
+  <div class="meta"><span>기준일 <b>2026-10-15</b></span><span>식이 정본 <b>식이 개발 전달 데이터 계약 v1.3.0</b></span><span>식이 질문 <b>확정</b></span><span>보완 질문 <b>확정 전</b></span></div>
+</header>
+
+<section>
+  <h2>하루에 묻는 순서</h2>
+  <div class="sub">한 번에 한 질문씩 같은 카드에서 바뀜. 하루 최대 5~6문항</div>
+  <div class="flow">
+    <span class="step">① 식사 질문</span><span class="arrow">→</span>
+    <span class="step">② 식사 시각</span><span class="arrow">→</span>
+    <span class="step">③ 식이 회전 질문 1개</span><span class="arrow">→</span>
+    <span class="step">④ 보완 질문</span>
+  </div>
+  <ul class="note">
+    <li>진료정보에 아직 확인하지 않은 질환이 있는 날은 ① 자리에 질환 확인 질문이 먼저 나옴. 하루 1개까지.</li>
+    <li>① 에서 「못 먹거나 거름」을 고르면 ② 식사 시각은 묻지 않음.</li>
+    <li>건강 앱에 그 끼니 식사 기록이 있으면 ② 식사 시각은 묻지 않음.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>식이 질문</h2>
+  <div class="sub">확정. 질문 13개 · 선택지 39개</div>
+
+  <h3>질환 확인 · 식사</h3>
+  <div class="tbl"><table>
+    <tr><th style="width:110px">구분</th><th>질문</th><th style="width:300px">선택지</th><th style="width:220px">언제 나오나</th></tr>
+    <tr><td class="k">질환 확인</td><td class="q">{질환명}을 진단받았거나 관리 중이신가요?</td><td><span class="opt">네</span><span class="opt">아니요</span><span class="opt">모르겠어요</span></td><td class="w">진료정보에 확인 안 된 질환이 있는 날, 첫 질문</td></tr>
+    <tr><td class="k">식사</td><td class="q">{지난 끼니}은 평소만큼 드셨나요?</td><td><span class="opt">충분히 먹음</span><span class="opt">적게 · 몇 입만</span><span class="opt">못 먹거나 거름</span></td><td class="w">매일. 질환 확인 질문이 없는 날, 또는 그 답이 「아니요 · 모르겠어요」인 날</td></tr>
+  </table></div>
+  <p class="note">오늘 저녁을 물을 때(오후 5시~자정)는 질문 아래에 「오늘 저녁을 드신 뒤 답해주세요」가 붙음.</p>
+
+  <h3>식사 시각</h3>
+  <div class="tbl"><table>
+    <tr><th style="width:150px">앱에 들어온 시각</th><th>질문</th><th style="width:300px">선택지</th></tr>
+    <tr><td class="k">자정~오전 10시</td><td class="q">어제 저녁은 몇 시쯤 드셨어요?</td><td><span class="opt">7시 이전</span><span class="opt">7시~9시</span><span class="opt">9시 이후</span></td></tr>
+    <tr><td class="k">오전 10~12시</td><td class="q">아침은 몇 시쯤 드셨어요?</td><td><span class="opt">7시 이전</span><span class="opt">7시~8시</span><span class="opt">8시 이후</span></td></tr>
+    <tr><td class="k">낮 12시~오후 2시</td><td class="q">점심은 언제쯤 드셨어요?</td><td><span class="opt">1시간 이내</span><span class="opt">1~2시간 전</span><span class="opt">그보다 전</span></td></tr>
+    <tr><td class="k">오후 2~5시</td><td class="q">점심은 언제쯤 드셨어요?</td><td><span class="opt">오후 1:00 이후</span><span class="opt">12:00~1:00</span><span class="opt">12:00 이전</span></td></tr>
+    <tr><td class="k">오후 5~9시</td><td class="q">저녁은 언제쯤 드셨어요?</td><td><span class="opt">1시간 이내</span><span class="opt">1~2시간 전</span><span class="opt">그보다 전</span></td></tr>
+    <tr><td class="k">오후 9시~자정</td><td class="q">저녁은 몇 시쯤 드셨어요?</td><td><span class="opt">7시 이전</span><span class="opt">7시~9시</span><span class="opt">9시 이후</span></td></tr>
+  </table></div>
+  <ul class="note">
+    <li>「1시간 이내 · 1~2시간 전 · 그보다 전」은 답한 시각에서 거꾸로 셈. 예) 오후 1:20에 답하면 「1시간 이내」는 12:20~1:20.</li>
+    <li>점심을 낮 12시대에 답하면 선택지가 12시 앞으로 내려가지 않게 시각으로 보여 줌. 예) 12:20에 답하면 「12:00 이후 · 11:00~12:00 · 11:00 이전」.</li>
+  </ul>
+
+  <h3>식이 회전 질문</h3>
+  <div class="sub" style="margin-bottom:6px">7개 중 하루 1개</div>
+  <div class="tbl"><table>
+    <tr><th style="width:110px">주제</th><th>질문</th><th style="width:300px">선택지</th><th style="width:220px">언제 나오나</th></tr>
+    <tr><td class="k">채소</td><td class="q">{지난 끼니}엔 채소 반찬을 얼마나 드셨나요?</td><td><span class="opt">충분히 먹음</span><span class="opt">조금 먹음</span><span class="opt">먹지 않음</span></td><td class="w">모든 끼니</td></tr>
+    <tr><td class="k">단 음료 · 간식</td><td class="q">{지난 끼니} 전후 단 음료·간식은 몇 번이었나요?</td><td><span class="opt">없었어요</span><span class="opt">한 번</span><span class="opt">두 번 이상</span></td><td class="w">모든 끼니</td></tr>
+    <tr><td class="k">국물</td><td class="q">{지난 끼니}엔 국물을 얼마나 드셨나요?</td><td><span class="opt">먹지 않음</span><span class="opt">절반 이하</span><span class="opt">절반 넘게</span></td><td class="w">모든 끼니. 국물이 없던 끼니도 「먹지 않음」</td></tr>
+    <tr><td class="k">야식</td><td class="q">어젯밤 야식은 얼마나 드셨나요?</td><td><span class="opt">먹지 않음</span><span class="opt">조금 먹음</span><span class="opt">배불리 먹음</span></td><td class="w">오전 4~10시에 들어온 날만</td></tr>
+    <tr><td class="k">배부름</td><td class="q">{지난 끼니} 후 배부름은 어땠나요?</td><td><span class="opt">편안했어요</span><span class="opt">조금 배불렀어요</span><span class="opt">많이 배불렀어요</span></td><td class="w">모든 끼니</td></tr>
+    <tr><td class="k">단백질</td><td class="q">{지난 끼니}엔 단백질류(고기·생선·달걀 등)를 드셨나요?</td><td><span class="opt">먹었어요</span><span class="opt">맛만 봤어요</span><span class="opt">안 먹었어요</span></td><td class="w">모든 끼니</td></tr>
+    <tr><td class="k">튀긴 음식</td><td class="q">{지난 끼니}엔 튀긴 음식을 드셨나요?</td><td><span class="opt">안 먹었어요</span><span class="opt">맛만 봤어요</span><span class="opt">먹었어요</span></td><td class="w">모든 끼니</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2>빈칸에 들어가는 말</h2>
+  <div class="sub">{지난 끼니}는 앱에 처음 들어온 시각으로 정함</div>
+  <div class="tbl"><table>
+    <tr><th style="width:160px">앱에 들어온 시각</th><th style="width:120px">{지난 끼니}</th><th>화면 예</th></tr>
+    <tr><td class="k">자정~오전 10시</td><td>어제 저녁</td><td>어제 저녁은 평소만큼 드셨나요?</td></tr>
+    <tr><td class="k">오전 10~12시</td><td>오늘 아침</td><td>오늘 아침엔 국물을 얼마나 드셨나요?</td></tr>
+    <tr><td class="k">낮 12시~오후 5시</td><td>오늘 점심</td><td>오늘 점심엔 채소 반찬을 얼마나 드셨나요?</td></tr>
+    <tr><td class="k">오후 5시~자정</td><td>오늘 저녁</td><td>오늘 저녁 후 배부름은 어땠나요?</td></tr>
+  </table></div>
+  <p class="note">{질환명}에는 확인할 질환 이름이 들어감. 예) 당뇨병을 진단받았거나 관리 중이신가요?</p>
+</section>
+
+<section>
+  <h2>보완 질문 <span class="pending">확정 전</span></h2>
+  <div class="sub">기기로 알 수 없는 것만 물음. 문구는 활동 · 수면 기획서에서 확정할 예정이며, 아래는 지금 정본 프로토타입에 들어 있는 문구임</div>
+  <div class="tbl"><table>
+    <tr><th style="width:110px">구분</th><th>질문</th><th style="width:300px">선택지</th><th style="width:220px">언제 나오나</th></tr>
+    <tr><td class="k">피로감</td><td class="q">오늘 몸의 피로감은 어느 정도인가요?</td><td><span class="opt">괜찮아요</span><span class="opt">조금 피곤해요</span><span class="opt">많이 피곤해요</span></td><td class="w">보완 질문 중 먼저. 기기로 알 수 없어서</td></tr>
+    <tr><td class="k">수면</td><td class="q">어젯밤 얼마나 주무셨나요?</td><td><span class="opt">5시간 미만</span><span class="opt">5~7시간</span><span class="opt">7시간 이상</span></td><td class="w">어젯밤 수면 기록이 없는 날만</td></tr>
+  </table></div>
+</section>
+
+</div>
+</body>
+</html>
