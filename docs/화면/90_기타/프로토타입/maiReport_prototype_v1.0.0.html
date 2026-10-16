@@ -5058,11 +5058,7 @@ function renderExamElig(){
     if(general) html += `<section class="exam-elig-card"><h4>일반검진정보</h4>${general}</section>`;
     if(cancer) html += `<section class="exam-elig-card"><h4>암검진</h4>${cancer}</section>`;
   }
-  html += `<section class="exam-elig-card" style="padding-bottom:20px">
-      <h4>안내사항</h4>
-      <p style="font-size:14px;line-height:1.6;color:#4d5260;margin:0">검진정보 안내사항을 반드시 확인하시기 바랍니다. 자세한 안내사항은 안내문을 확인해 주시기 바랍니다.</p>
-    </section>
-    <button type="button" id="examEligDemo" style="display:block;margin:6px auto 0;border:0;background:none;font:inherit;font-size:13px;color:var(--ink-3);text-decoration:underline;cursor:pointer">시연: ${examEligEmpty?'검진 대상인 경우 보기':'검진 대상이 아닌 경우 보기'}</button>`;
+  html += `<button type="button" id="examEligDemo" style="display:block;margin:6px auto 0;border:0;background:none;font:inherit;font-size:13px;color:var(--ink-3);text-decoration:underline;cursor:pointer">시연: ${examEligEmpty?'검진 대상인 경우 보기':'검진 대상이 아닌 경우 보기'}</button>`;
   body.innerHTML = html;
   body.scrollTop = 0;
   document.getElementById('examEligDemo').onclick = ()=>{ examEligEmpty = !examEligEmpty; renderExamElig(); renderCheckupSum(); };
