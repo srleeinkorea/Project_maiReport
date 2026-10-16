@@ -154,6 +154,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .demo-time{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:0 0 10px;font-size:11px;color:var(--ink-3)}
 .demo-time span{margin-right:3px}
 .demo-time button{border:1px solid var(--line);background:rgba(255,255,255,.75);border-radius:999px;padding:3px 9px;font:inherit;font-size:11px;color:var(--ink-2);cursor:pointer;line-height:1.4}
+.demo-time button.nextday{color:var(--ink-3)}
 .demo-time button.step{border-style:dashed;border-color:#9fb0e8}
 .demo-time span small{font-weight:400;color:var(--ink-3)}
 .demo-time button.on{border-color:var(--brand);color:var(--brand);font-weight:700;background:#fff}
@@ -2766,8 +2767,9 @@ function mealTimeQuestion(now){
   const mk = (v,i)=> stopped
     ? {v, f:'', ap:'', clock:STOP[i], sub:'', label:STOP[i], tl:STOP[i], tone:'neutral'}
     : {v, f:'', ap:'', clock:rel[i], sub:'', label:rel[i], tl:`${times[i][0]} ${times[i][1]}`, tone:'neutral'};
+  /* 10-16 결정 — 선택지는 시간 흐름대로 이른 것부터: 「그보다 전 / 1~2시간 전 / 1시간 이내」, 상한에 걸리면 「11시 이전 / 11시~12시 사이 / 12시 이후」 */
   return { id:'mealClock', cat:'식이', av:'🕐', tint:'moon', kind:'time', text:`${LAST_MEAL.replace('오늘 ','')}은 언제쯤 드셨어요?`,
-    opts:[mk('within_1h',0), mk('one_to_two_h',1), mk('earlier',2)] };
+    opts:[mk('earlier',2), mk('one_to_two_h',1), mk('within_1h',0)] };
 }
 const Q_ACUTE = [
   { id:'meal', cat:'식이', av:'🍚', tint:'moon',
@@ -2834,7 +2836,7 @@ function mealShown(key, when){
 const sessMin = d => ((d.getHours() < 4 ? d.getHours() + 24 : d.getHours()) * 60 + d.getMinutes());   /* 세션 기준 분(자정~4시는 +24시간) */
 const REASK_GAP_MIN = 90;   /* 거름 답 뒤 이만큼 지나 같은 끼니로 다시 들어오면 한 번 다시 묻는다 */
 function stashMeal(){
-  if(ans.meal){ const prev = DAY_MEALS[LAST_MEAL] || {}; DAY_MEALS[LAST_MEAL] = { meal: ans.meal, mealClock: ans.mealClock || null, timeQ: QUESTIONS.find(q=>q.id==='mealClock') || null, solo: false, at: sessMin(DEMO_NOW), reasked: !!prev.reasked }; }
+  if(ans.meal){ const prev = DAY_MEALS[LAST_MEAL] || {}; DAY_MEALS[LAST_MEAL] = { meal: ans.meal, mealClock: ans.mealClock || null, timeQ: QUESTIONS.find(q=>q.id==='mealClock') || null, solo: false, at: prev.carried ? prev.at : sessMin(DEMO_NOW), reasked: !!prev.reasked, carried: !!prev.carried }; }
 }
 /* 시각만 묻는 질문 — 식사 양은 묻지 않고 「{끼니}은 언제쯤 드셨어요?」만. 안 먹은 끼니는 카드 아래 작은 글자로 알린다 */
 function soloTimeQuestion(){ const q = mealTimeQuestion(); q.solo = true; return q; }
@@ -2870,7 +2872,7 @@ function setDemoTime(h,m){
   /* 10-16 결정 — 어제 저녁을 이미 답한 사람이 6~8시에 들어오면 어제 저녁 대신 「오늘 아침」을 묻는다(물을 게 없는 빈 화면 대신).
      4~6시는 아침을 묻기엔 일러 그대로 둔다. 7시대에 아직 안 먹어 「거름」을 눌러도, 1시간 반 뒤 아침 시간대에 다시 오면 한 번 다시 묻는 규칙이 보정한다 */
   const EARLY_BREAKFAST_FROM = 6;
-  if(LAST_MEAL==='어제 저녁' && h >= EARLY_BREAKFAST_FROM && DAY_MEALS['어제 저녁'] && DAY_MEALS['어제 저녁'].meal) LAST_MEAL = '오늘 아침';
+  if(LAST_MEAL==='어제 저녁' && h >= EARLY_BREAKFAST_FROM && DAY_MEALS['어제 저녁'] && DAY_MEALS['어제 저녁'].carried && DAY_MEALS['어제 저녁'].meal) LAST_MEAL = '오늘 아침';
   /* 끼니 이름이 들어간 질문 글은 아직 답하지 않은 것만 새 끼니로 맞춘다(답한 질문은 물었을 때 글 그대로) */
   delete ans.meal; delete ans.mealClock;
   const fix = q=>{ if(!ans[q.id]) q.text = q.text.replace(/^(그저께 저녁|어제 저녁|오늘 아침|오늘 점심|오늘 저녁)/, mealShown(LAST_MEAL)); };
@@ -2881,10 +2883,9 @@ function setDemoTime(h,m){
   if(firstSession){
     QUESTIONS = pickQuestions().filter(q=>q.id!=='mealClock');
     const carried = DAY_MEALS['어제 저녁'];
-    if(carried && carried.carried && LAST_MEAL==='어제 저녁'){   /* 전날 밤에 답한 저녁 → 어제 저녁 질문은 이미 답한 것으로 */
+    if(carried && carried.carried && LAST_MEAL==='어제 저녁'){   /* 전날 밤에 답한 저녁 → 어제 저녁 질문은 이미 답한 것으로(가져온 표시는 유지) */
       ans.meal = carried.meal; if(carried.mealClock) ans.mealClock = carried.mealClock;
       if(carried.timeQ && carried.meal.v!=='skip') QUESTIONS.splice(1, 0, carried.timeQ);
-      delete DAY_MEALS['어제 저녁'];
     }
   }
   else {
@@ -2909,8 +2910,9 @@ function setDemoTime(h,m){
 const DEMO_TIMES = [['새벽 1:30',1,30],['새벽 5:00',5,0],['오전 7:10',7,10],['오전 8:30',8,30],['오전 9:20',9,20],['오전 10:40',10,40],['오후 12:40',12,40],['오후 1:20',13,20],['오후 4:30',16,30],['오후 7:30',19,30],['밤 10:10',22,10]];
 function demoBarHtml(){
   const steps = CUR_CASE ? DEMO_CASES[CUR_CASE].steps : [];
-  const isStep = (h,m)=>steps.some(st=>st.h===h && st.m===m);
-  return caseBarHtml() + `<div class="demo-time"><span>시연 시각${CUR_CASE ? ' <small>(그 시각에 열었을 때)</small>' : ''}</span>${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}">${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>`;
+  const inNext = CUR_CASE && VIEW_DAY > caseDays().lastDay;
+  const isStep = (h,m)=>!inNext && steps.some(st=>st.h===h && st.m===m);
+  return caseBarHtml() + `<div class="demo-time"><span>시연 시각${CUR_CASE ? ' <small>(그 시각에 열었을 때)</small>' : ''}</span>${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}${isNextDay(h,m)?' nextday':''}">${isNextDay(h,m)?'다음 날 ':''}${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>`;
 }
 function bindDemoBar(el){
   el.querySelectorAll('.demo-time:not(.demo-case):not(.demo-bf) button').forEach(b=>b.onclick=()=>viewAt(+b.dataset.h,+b.dataset.m));
@@ -3108,17 +3110,17 @@ function skipSoloMeal(q){
    첫 진입은 식사 양 + 시각 + 회전 + 활동 + 수면, 두 번째 끼니부터는 시각만이다. 페이지를 다시 불러 상태를 비운 뒤 재생한다. ── */
 const DEMO_CASES = {
   A: { nm:'세 끼 다 들어옴', desc:'출근길 7:10에 어제 저녁부터 다 답함 → 점심 12:40 · 저녁 7:30엔 식사 양 + 시각 두 번씩. 목표는 아침 답으로 한 번 생성',
-       steps:[{h:7,m:10,a:[0,1,0,0,1]},{h:12,m:40,a:[0,0]},{h:19,m:30,a:[0,1]}] },
+       steps:[{h:7,m:10,a:[0,1,0,0,1]},{h:12,m:40,a:[0,2]},{h:19,m:30,a:[0,1]}] },
   B: { nm:'아침 8:30에 처음', desc:'8:30 진입은 「오늘 아침」부터(8시 경계). 어제 저녁은 묻지 않음 → 점심 · 저녁 양 + 시각',
-       steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:12,m:40,a:[0,0]},{h:19,m:30,a:[0,0]}] },
+       steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:12,m:40,a:[0,2]},{h:19,m:30,a:[0,2]}] },
   C: { nm:'점심에 처음', desc:'오후 1:20에 처음 들어와 점심 양 + 시각 → 저녁 7:30엔 저녁 양 + 시각. 아침 식후 칸은 비어 있음',
-       steps:[{h:13,m:20,a:[0,0,0,0,1]},{h:19,m:30,a:[0,0]}] },
+       steps:[{h:13,m:20,a:[0,2,0,0,1]},{h:19,m:30,a:[0,2]}] },
   D: { nm:'저녁 한 번만', desc:'저녁 7:30 한 번 진입. 아침 · 점심 식후 칸은 「모름」으로 빠짐(알림 없는 사용자의 보통 하루)',
-       steps:[{h:19,m:30,a:[0,0,0,0,1]}] },
+       steps:[{h:19,m:30,a:[0,2,0,0,1]}] },
   E: { nm:'밤늦게 처음', desc:'밤 10:10 첫 진입 → 저녁은 「7시 이전 / 7시~9시 / 9시 이후」 고정 선택지',
        steps:[{h:22,m:10,a:[0,1,0,0,1]}] },
   F: { nm:'아침 거름 · 저녁 거름', desc:'9:20 아침 「못 먹거나 거름」 → 시각 · 회전 생략 → 점심 양 + 시각 → 저녁 「못 먹거나 거름」(시각 생략). 답변 보기에서 아침을 먹음으로 고치면 시각을 이어 고를 수 있음',
-       steps:[{h:9,m:20,a:[2,0,1]},{h:13,m:20,a:[0,0]},{h:19,m:30,a:[2]}] },
+       steps:[{h:9,m:20,a:[2,0,1]},{h:13,m:20,a:[0,2]},{h:19,m:30,a:[2]}] },
   H: { nm:'밤 → 새벽 → 다음날', desc:'밤 10:10에 저녁부터 다 답함 → 새벽 1:30은 같은 세션(완료 상태 그대로, 저녁 다시 묻지 않음) → 새벽 5:00은 새 세션: 저녁 답을 어제 저녁으로 재사용하고 회전 · 활동 · 수면만 새로(아침은 아직 안 물음) → 7:10엔 어제 저녁이 답돼 있으니 바로 아침 양 + 시각 → 8:30엔 물을 게 없음',
        steps:[{h:22,m:10,a:[0,1,0,0,1]},{h:1,m:30,a:[]},{h:5,m:0,a:[0,0,1]},{h:7,m:10,a:[0,1]}] },
   I: { nm:'저녁 거름 → 새벽에 다시 물음', desc:'저녁 7:30에 「못 먹거나 거름」(아직 안 먹었을 수도) → 새벽 1:30 같은 세션 재진입, 1시간 반 넘게 지나 저녁 식사 질문을 그대로 한 번 다시 물음 → 먹었으면 시각까지',
@@ -3142,7 +3144,8 @@ function playPill(text){
    그 시각 이전 단계의 답은 뒤에서 조용히 적용된다. */
 async function runCase(key){
   const c = DEMO_CASES[key]; if(!c || PLAYING) return;
-  CUR_CASE = key; SEEN_STEPS.clear(); window.scrollTo({top:0});
+  CUR_CASE = key; SEEN_STEPS.clear(); VIEW_DAY = 0; window.scrollTo({top:0});
+  resetDemoDay(); CUR_CASE = key; DEMO_NOW.setHours(4,0,0,0);   /* 첫날 새벽 4시(세션 시작)에서 출발 */
   const st = c.steps[0]; if(st) await viewAt(st.h, st.m);
 }
 /* 한 단계 재생 — 화면의 버튼을 실제로 눌러(pick) 강조 → 0.5초 → 다음 질문 */
@@ -3171,7 +3174,7 @@ function resetDemoDay(){
   FIRST_DONE = false; coachReady = false; PLAN = null; CUR_CASE = null; lock = false;
   Object.values(Q_ROTATION).forEach(q=>delete q.askedFor); Q_ACUTE.forEach(q=>delete q.askedFor);
   if(typeof resetDayGoals==='function') resetDayGoals();
-  DEMO_NOW = new Date(); DEMO_NOW.setHours(13,20,0,0); LAST_MEAL = lastMealLabel(13);
+  DEMO_NOW = new Date(); DEMO_NOW.setHours(4,0,0,0); LAST_MEAL = lastMealLabel(4);   /* 세션 시작 시각에서 출발 */
 }
 function timeLabel(h,m){ const hit = DEMO_TIMES.find(([,hh,mm])=>hh===h&&mm===m); return hit ? hit[0] : `${h<4?'새벽':h<12?'오전':h<18?'오후':'저녁'} ${h%12||12}:${String(m).padStart(2,'0')}`; }
 function captureShot(){
@@ -3226,26 +3229,55 @@ function stepDays(steps){
   steps.forEach(st=>{ if(prev != null && inDawn(st.h) && !inDawn(prev)) day++; days.push(day); prev = st.h; });
   return days;
 }
+/* 누른 시각이 시나리오 마지막 날의 첫 진입보다 이르면 「다음 날」로 본다(단계 시각은 제외). 이미 다음 날에 들어섰으면 그 뒤 시각은 모두 다음 날 */
+let VIEW_DAY = 0;   /* 지금 보고 있는 날(0 = 시나리오 첫날) */
+function caseDays(){ const c = DEMO_CASES[CUR_CASE]; const days = stepDays(c.steps); return { days, lastDay: days.length ? days[days.length-1] : 0 }; }
+function isNextDay(h,m){
+  if(!CUR_CASE) return false;
+  const c = DEMO_CASES[CUR_CASE]; if(!c.steps.length) return false;
+  const { days, lastDay } = caseDays();
+  if(VIEW_DAY > lastDay) return true;        /* 이미 다음 날이면 ✓ 시각도 다음 날 */
+  if(c.steps.some(st=>st.h===h && st.m===m)) return false;
+  const first = c.steps[days.indexOf(lastDay)];
+  return sessMin(new Date(2000,0,1,h,m)) < sessMin(new Date(2000,0,1,first.h,first.m));
+}
 function applyStepSilently(st){
   setDemoTime(st.h, st.m);
   st.a.forEach(a=>{ const q = QUESTIONS[qi]; if(!q) return; applyPick(q, q.opts[a]); qi++; if(allDone() && !FIRST_DONE){ FIRST_DONE = true; recalc(); } });
   const nx = QUESTIONS.findIndex(x=>!ans[x.id]); qi = nx<0 ? 0 : nx;
 }
+const smOf = (h,m)=> sessMin(new Date(2000,0,1,h,m));
+const inDawnH = h => h >= 4 && h < BREAKFAST_FROM;
 async function viewAt(h,m){
   if(PLAYING) return;                       /* 재생 중에는 시각 버튼을 받지 않는다 */
   if(!CUR_CASE){ setDemoTime(h,m); return; }
   const key = CUR_CASE, c = DEMO_CASES[key];
-  SILENT = true;
-  resetDemoDay(); CUR_CASE = key;
+  const { days, lastDay } = caseDays();
   let idx = -1; c.steps.forEach((st,i)=>{ if(st.h===h && st.m===m) idx = i; });
-  const replay = idx >= 0 && !SEEN_STEPS.has(idx);             /* 처음 보는 단계만 누르는 장면을 재생한다 */
-  if(idx >= 0){
-    c.steps.slice(0, replay ? idx : idx + 1).forEach(applyStepSilently);   /* 이미 본 단계는 답한 뒤 화면 그대로 */
+  if(VIEW_DAY > lastDay) idx = -1;          /* 이미 다음 날에 들어섰으면 모든 시각은 다음 날(✓ 시각도). 첫날로 돌아가려면 시나리오를 다시 고른다 */
+  const dayT = idx >= 0 ? days[idx] : (isNextDay(h,m) ? Math.max(lastDay + 1, VIEW_DAY) : lastDay);
+  const smT = smOf(h,m), curSm = sessMin(DEMO_NOW);
+  const replay = idx >= 0 && !SEEN_STEPS.has(idx);
+  const forward = dayT > VIEW_DAY || (dayT === VIEW_DAY && smT >= curSm);
+  SILENT = true;
+  if(forward){
+    /* 앞으로 — 지금 상태(직접 누른 답 포함)를 이어 가고, 그 사이에 있는 단계만 조용히 적용한다 */
+    c.steps.forEach((st,i)=>{
+      const d = days[i], sm = smOf(st.h, st.m);
+      const afterCur = d > VIEW_DAY || (d === VIEW_DAY && sm > curSm);
+      const beforeT = d < dayT || (d === dayT && (idx >= 0 ? i < idx : sm < smT));
+      if(afterCur && beforeT && !(idx >= 0 && i === idx)) applyStepSilently(st);
+    });
+    if(dayT > VIEW_DAY && !inDawnH(h)) setDemoTime(5, 0);   /* 날을 넘길 때는 새벽 진입으로 세션을 넘긴다 */
+    if(idx >= 0 && !replay) applyStepSilently(c.steps[idx]);
   } else {
-    const days = stepDays(c.steps), lastDay = days.length ? days[days.length-1] : 0;
-    const sm = sessMin(new Date(2000,0,1,h,m));
-    c.steps.forEach((st,i)=>{ const stSm = sessMin(new Date(2000,0,1,st.h,st.m)); if(days[i] < lastDay || (days[i] === lastDay && stSm < sm)) applyStepSilently(st); });
+    /* 뒤로 — 처음부터 그 시각까지 다시 만든다(그 뒤에 직접 누른 답은 사라진다) */
+    resetDemoDay(); CUR_CASE = key;
+    if(idx >= 0) c.steps.slice(0, replay ? idx : idx + 1).forEach(applyStepSilently);
+    else if(dayT > lastDay){ c.steps.forEach(applyStepSilently); setDemoTime(5, 0); }
+    else c.steps.forEach((st,i)=>{ if(days[i] < dayT || (days[i] === dayT && smOf(st.h,st.m) < smT)) applyStepSilently(st); });
   }
+  VIEW_DAY = dayT;
   SILENT = false;
   clearTimeout(coachTimer); coachReady = FIRST_DONE;   /* 이미 받은 코칭은 다시 「생성 중」을 거치지 않는다 */
   setDemoTime(h,m);
@@ -3254,7 +3286,7 @@ async function viewAt(h,m){
 function caseBarHtml(){
   const c = CUR_CASE ? DEMO_CASES[CUR_CASE] : null;
   return `<div class="demo-time demo-case"><span>시나리오</span>${Object.entries(DEMO_CASES).map(([k,v])=>`<button type="button" data-case="${k}" class="${CUR_CASE===k?'on':''}" title="${v.desc}">${k} · ${v.nm}</button>`).join('')}<button type="button" data-gallery="1" style="margin-left:auto">📋 케이스별 답변 보기 모음</button></div>
-    ${c ? `<p class="demo-desc">${c.desc}<br><b>시연 시각</b>을 누르면 그 시각의 장면만 보여요. ✓ 시각은 버튼 누름을 재생하고, 나머지는 그 시각 화면 그대로예요.</p>` : ''}`;
+    ${c ? `<p class="demo-desc">${c.desc}<br><b>시연 시각</b>을 누르면 그 시각의 장면만 보여요. ✓ 시각은 버튼 누름을 재생하고, 나머지는 그 시각 화면 그대로예요. 첫 진입보다 이른 시각은 「다음 날」로 봐요.</p>` : ''}`;
 }
 function bindCaseBar(el){ el.querySelectorAll('.demo-case button').forEach(b=>b.onclick=()=>{ location.hash = b.dataset.gallery ? 'gallery' : 'case=' + b.dataset.case; location.reload(); }); }
 
