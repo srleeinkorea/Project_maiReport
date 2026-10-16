@@ -5047,9 +5047,7 @@ function renderExamElig(){
   const row = (lb, v) => v ? `<div class="exam-elig-row"><span class="lb">${lb}</span><span class="val${v==='대상아님'?'':' primary'}">${v}</span></div>` : '';
   const general = row('일반검진', d.resGeneralExam) + row('구강검진', d.resDentalExam);
   const cancer = (d.resCancerScreeningList||[]).map(c=>row(c.resType, c.resCancerScreening)).join('');
-  let html = `<section class="exam-elig-card" style="margin-top:12px;padding-bottom:20px">
-      <h3 style="font-size:20px;line-height:1.35;margin:0">${USER.name}님의 ${d.resCheckupYear||EXAM_ELIG_YEAR}년 검진정보 항목</h3>
-    </section>`;
+  let html = '';
   if(!general && !cancer){
     html += `<section class="exam-elig-card" style="padding:28px 20px;text-align:center">
       <div style="font-size:34px;margin-bottom:10px">🗓️</div>
