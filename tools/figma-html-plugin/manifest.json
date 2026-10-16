@@ -12,12 +12,13 @@
     "allowedDomains": [
       "https://srleeinkorea.github.io",
       "https://raw.githack.com",
+      "https://raw.githubusercontent.com",
       "https://cdn.jsdelivr.net",
       "https://cdnjs.cloudflare.com",
       "https://unpkg.com",
       "https://fonts.googleapis.com",
       "https://fonts.gstatic.com"
     ],
-    "reasoning": "가져올 HTML 문서(공유 사이트 · GitHub 원본을 그대로 보여 주는 raw.githack)와 그 문서가 쓰는 글꼴 · 라이브러리를 플러그인 창 안에서 그대로 불러와 화면을 똑같이 그리기 위해 필요합니다. 읽은 내용은 Figma 레이어로만 만들고 다른 곳으로 보내지 않습니다."
+    "reasoning": "가져올 HTML 문서(공유 사이트 · GitHub 원본)와 그 문서가 쓰는 글꼴 · 라이브러리를 플러그인 창 안에서 그대로 불러와 화면을 똑같이 그리기 위해 필요합니다. 읽은 내용은 Figma 레이어로만 만들고 다른 곳으로 보내지 않습니다."
   }
 }

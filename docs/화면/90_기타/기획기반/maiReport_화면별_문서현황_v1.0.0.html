@@ -101,7 +101,7 @@ td.doc a.gh:hover{text-decoration:underline}
     <div class="mnote">깃허브에 올라간 최신 판을 그대로 보여준다. 엑셀 · zip은 미리보기가 없어 깃허브 파일로 연다.</div>
   </div>
 </div>
-<footer>마이리포트 · 화면별 문서 현황 · 문서 이름을 누르면 화면 안에서 미리 보기가 열린다. 파일은 Project_maiReport 저장소 docs 폴더 기준. 「사이트」는 공유 사이트에만 있는 문서 · 팝업의 「Figma 가져오기 주소」는 Figma 플러그인 「HTML → Figma(틀 유지)」 주소 칸에 그대로 넣는 주소(사이트 사본이 있으면 사이트, 없으면 raw.githack)</footer>
+<footer>마이리포트 · 화면별 문서 현황 · 문서 이름을 누르면 화면 안에서 미리 보기가 열린다. 파일은 Project_maiReport 저장소 docs 폴더 기준. 「사이트」는 공유 사이트에만 있는 문서 · 팝업의 「Figma 가져오기 주소」는 Figma 플러그인 「HTML → Figma(틀 유지)」 주소 칸에 그대로 넣는 주소(사이트 사본이 있으면 사이트, 없으면 GitHub 원본)</footer>
 </main>
 
 <script>
@@ -114,9 +114,10 @@ const FRESH='?v='+Date.now();
 const RAWGH='https://raw.githubusercontent.com/srleeinkorea/Project_maiReport/main/docs/';
 const RAWBIN='https://raw.githubusercontent.com/srleeinkorea/Project_maiReport/main/docs/';
 // 엑셀·워드는 오피스 온라인 뷰어로 연다(공개 저장소의 원본 주소를 넘긴다)
-const SITE_FILE={"maiReport_원페이지요약_v1.0.0.html": "one-page-summary.html", "maiReport_prototype_v1.0.0.html": "prototype.html", "maiReport_IA_v1.0.0.html": "app-flow.html", "maiReport_세지표_아키텍처_흐름도_google-sites.html": "architecture.html", "mai-report-식이_데이터흐름도_v1.0.0.html": "diet.html", "maiReport_더보기_내정보관리_화면설계서_v1.0.0.html": "wip-my-info.html", "maiReport_셀비체크업_검진선택_지난분석결과_화면설계서_v1.0.0.html": "selvy-checkup.html", "mai-report-식이_가이드_v1.0.0.html": "diet-guide.html", "maiReport_화면별_문서현황_v1.0.0.html": "doc-matrix.html", "maiReport_최종프로토타입_시나리오_v1.0.0.html": "final-scenarios.html", "maiReport_홈_건강나이또래등수_기획서_v1.0.0.html": "age-plan.html", "maiReport_홈_건강나이또래등수_화면정의서_v1.0.0.html": "age-screen-def.html", "maiReport_홈_질문코칭목표_기획서_v1.0.0.html": "home-plan.html", "maiReport_홈_질문코칭목표_화면정의서_v1.0.0.html": "home-screen-def.html", "maiReport_홈_질문코칭목표_화면설계서_v1.0.0.html": "home-screen-spec.html", "maiReport_검진리포트등록_기획서_v1.0.0.html": "reg-plan.html", "maiReport_검진리포트등록_화면정의서_v1.0.0.html": "reg-screen-def.html", "maiReport_검진리포트등록_화면설계서_v1.0.0.html": "reg-screen-spec.html", "maiReport_병원탭_기록보기_기획서_v1.0.0.html": "hosp-plan.html", "maiReport_병원탭_방문이력읽을거리_화면정의서_v1.0.0.html": "hosp-screen-def.html", "maiReport_건강데이터연동_화면설계서_v1.0.0.html": "link-screen-spec.html", "maiReport_더보기_기획서_v1.0.0.html": "more-plan.html", "maiReport_생활탭_데이터보기_기획서_v1.0.0.html": "life-plan.html", "maiReport_AI인사이트_기획서_v1.0.0.html": "ai-plan.html", "maiReport_알림_화면정의서_v1.0.0.html": "noti-screen-def.html", "mai-report-식이_화면설계서_v1.0.0.html": "diet-screen-spec.html", "maiReport_식이_식사시각질문_v1.0.0.html": "wip-meal-time.html", "maiReport_식이_식사시각질문_기획서_v1.0.0.html": "meal-time-plan.html", "maiReport_생활_지표별분석_화면설계서_v1.0.0.html": "wip-metric.html", "mai-report-식이_QA체크리스트_v1.0.0.html": "wip-diet-qa.html"};
-// Figma 「HTML → Figma(틀 유지)」 플러그인에 넣는 주소: 공유 사이트 사본이 있으면 그 주소(플러그인 허용 도메인), 없으면 raw.githack 주소
-const FIGMA=k=>{const n=P[k].split('/').pop();if(!/\.html?$/i.test(n))return '';return SITE_FILE[n]?SITE+SITE_FILE[n]:RAW+encodeURI(P[k]);};
+const SITE_FILE={"maiReport_원페이지요약_v1.0.0.html": "one-page-summary.html", "maiReport_prototype_v1.0.0.html": "prototype.html", "maiReport_IA_v1.0.0.html": "app-flow.html", "maiReport_세지표_아키텍처_흐름도_google-sites.html": "architecture.html", "mai-report-식이_데이터흐름도_v1.0.0.html": "diet.html", "maiReport_더보기_내정보관리_화면설계서_v1.0.0.html": "wip-my-info.html", "maiReport_셀비체크업_검진선택_지난분석결과_화면설계서_v1.0.0.html": "selvy-checkup.html", "mai-report-식이_가이드_v1.0.0.html": "diet-guide.html", "maiReport_화면별_문서현황_v1.0.0.html": "doc-matrix.html", "maiReport_최종프로토타입_시나리오_v1.0.0.html": "final-scenarios.html", "maiReport_홈_건강나이또래등수_기획서_v1.0.0.html": "age-plan.html", "maiReport_홈_건강나이또래등수_화면정의서_v1.0.0.html": "age-screen-def.html", "maiReport_홈_질문코칭목표_기획서_v1.0.0.html": "home-plan.html", "maiReport_홈_질문코칭목표_화면정의서_v1.0.0.html": "home-screen-def.html", "maiReport_홈_질문코칭목표_화면설계서_v1.0.0.html": "home-screen-spec.html", "maiReport_검진리포트등록_기획서_v1.0.0.html": "reg-plan.html", "maiReport_검진리포트등록_화면정의서_v1.0.0.html": "reg-screen-def.html", "maiReport_검진리포트등록_화면설계서_v1.0.0.html": "reg-screen-spec.html", "maiReport_병원탭_기록보기_기획서_v1.0.0.html": "hosp-plan.html", "maiReport_병원탭_방문이력읽을거리_화면정의서_v1.0.0.html": "hosp-screen-def.html", "maiReport_건강데이터연동_화면설계서_v1.0.0.html": "link-screen-spec.html", "maiReport_더보기_기획서_v1.0.0.html": "more-plan.html", "maiReport_생활탭_데이터보기_기획서_v1.0.0.html": "life-plan.html", "maiReport_AI인사이트_기획서_v1.0.0.html": "ai-plan.html", "maiReport_알림_화면정의서_v1.0.0.html": "noti-screen-def.html", "mai-report-식이_화면설계서_v1.0.0.html": "diet-screen-spec.html", "maiReport_식이_식사시각질문_v1.0.0.html": "wip-meal-time.html", "maiReport_식이_식사시각질문_기획서_v1.0.0.html": "meal-time-plan.html", "maiReport_생활_지표별분석_화면설계서_v1.0.0.html": "wip-metric.html", "mai-report-식이_QA체크리스트_v1.0.0.html": "wip-diet-qa.html", "mai-report-검진요약_화면정의서_v1.0.0.html": "ck-screen-def.html", "maiReport_병원탭_검진요약_화면설계서_v1.0.0.html": "ck-screen-spec.html"};
+// Figma 「HTML → Figma(틀 유지)」 플러그인에 넣는 주소: 공유 사이트 사본이 있으면 그 주소, 없으면 GitHub 원본(raw.githubusercontent).
+// raw.githack은 브라우저 요청에 「External Content Notice」 안내 화면을 먼저 보여 주므로 플러그인이 문서 대신 그 화면을 읽게 됨 → 쓰지 않는다
+const FIGMA=k=>{const n=P[k].split('/').pop();if(!/\.html?$/i.test(n))return '';return SITE_FILE[n]?SITE+SITE_FILE[n]:RAWGH+encodeURI(P[k]);};
 // 엑셀은 SharePoint(M365)에 같은 파일을 올려 두고, 새 탭은 Excel 웹에서 연다(로그인 필요). 팝업 안 미리보기는 오피스 온라인 뷰어
 const SP='https://maihub.sharepoint.com/sites/msteams_b7ec7d/Shared%20Documents/%EB%A7%88%EC%9D%B4%EB%A6%AC%ED%8F%AC%ED%8A%B8/%EA%B8%B0%ED%9A%8D%20%EB%AC%B8%EC%84%9C%20%EC%97%91%EC%85%80/';
 const SPWEB=k=>/\.xlsx?$/i.test(P[k])?SP+encodeURIComponent(P[k].split('/').pop())+'?web=1':'';
@@ -155,6 +156,7 @@ const P={
  전체데이터상세:'화면/20_생활탭/mai-report-전체건강데이터_상세_01_걸음수_v1.0.0.html',
  검진요약기획:'화면/30_병원탭/mai-report-검진요약_기획서_v1.0.0.html',
  검진요약정의:'화면/30_병원탭/mai-report-검진요약_화면정의서_v1.0.0.html',
+ 검진요약설계:'화면/30_병원탭/maiReport_병원탭_검진요약_화면설계서_v1.0.0.html',
  검진상세정의:'화면/30_병원탭/mai-report-검진결과상세_AI검진요약_화면정의서_v1.0.0.html',
  진료요약정의:'화면/30_병원탭/mai-report-진료요약_화면정의서_v1.0.0.html',
  AIH기획:'화면/30_병원탭/maiReport_AIH-001-002_AI검진요약_기획서_v1.0.0.html',
@@ -232,7 +234,7 @@ const G=[
   ['LIFE-005 · 006','전체 건강 데이터 · 항목 상세','4그룹 12항목',[L('생활기획','생활 탭 데이터 보기 기획서'),L('데이터안내')],[L('전체데이터목록'),L('전체데이터상세','항목 상세 12종(걸음수부터, 같은 폴더에 12장)')],[L('생활데이터설계','생활 탭 데이터 보기 화면설계서')]],
  ]},
  {no:'03',title:'병원',desc:'서브탭 4개(검진요약 · 진료요약 · 방문이력 · 읽을거리)',rows:[
-  ['HOSP-001 · 006','검진요약 · 검진대상조회','건강나이 · 주요 소견',[L('검진요약기획'),L('병원기획','병원 탭 기록 보기 기획서')],[L('검진요약정의')],[L('병원기록설계','병원 탭 기록 보기 화면설계서')]],
+  ['HOSP-001 · 006','검진요약 · 검진대상조회','건강나이 · 주요 소견',[L('검진요약기획'),L('병원기획','병원 탭 기록 보기 기획서')],[L('검진요약정의')],[L('검진요약설계','검진요약 화면설계서'),L('병원기록설계','병원 탭 기록 보기 화면설계서')]],
   ['HOSP-008 · 009','검진상세 · 문진표 · 결과지 원본','전체 검사 · 원본 뷰어',[L('병원기획','병원 탭 기록 보기 기획서')],[L('검진상세정의')],[L('병원기록설계','병원 탭 기록 보기 화면설계서')]],
   ['HOSP-010','건강검진 ChatGPT 요약','확인 1번 → 생성 → 요약',[L('AIH기획'),L('AIH기준')],[L('AIH정의'),L('AIH예시')],[L('AIH프로토','ChatGPT 요약 프로토타입(흐름)')]],
   ['HOSP-011','AI REPORT 결과','소견별 판정',[L('병원기획','병원 탭 기록 보기 기획서')],[L('방문정의','방문이력 · 읽을거리 · 가져오기 화면정의서')],[L('등록설계','검진 리포트 등록 화면설계서')]],

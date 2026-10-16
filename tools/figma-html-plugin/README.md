@@ -69,7 +69,7 @@ html.to.design과 같은 방식이에요. 브라우저가 그린 결과에서 �
 - **회전 · 기울임(transform)** 은 반영하지 않습니다(예: 살짝 기울인 메모 스티커가 반듯하게 들어감).
 - **안쪽 창(iframe) · 동영상** 내용은 가져오지 않고 회색 상자로 둡니다.
 - **오토 레이아웃이 아닙니다.** 틀을 그대로 지키려고 절대 위치로 놓습니다. 글을 많이 늘리면 아래 요소가 자동으로 밀려 내려가지 않습니다.
-- **주소로 불러오기는 허용한 사이트만** 됩니다(`manifest.json`의 `allowedDomains`: 공유 사이트 · raw.githack(GitHub 원본) · jsdelivr · cdnjs · unpkg · Google Fonts). 문서 주소는 「화면별 문서 현황」 팝업의 **Figma 가져오기 주소** 버튼으로 복사하면 됩니다(2026-10-14). raw.githack을 추가했으니 manifest.json을 다시 불러오세요. 다른 사이트는 브라우저에서 **다른 이름으로 저장 → HTML**로 저장한 뒤 파일로 끌어다 놓거나, `allowedDomains`에 주소를 추가하세요.
+- **주소로 불러오기는 허용한 사이트만** 됩니다(`manifest.json`의 `allowedDomains`: 공유 사이트 · GitHub 원본(raw.githubusercontent) · jsdelivr · cdnjs · unpkg · Google Fonts). 문서 주소는 「화면별 문서 현황」 팝업의 **Figma 가져오기 주소** 버튼으로 복사하면 됩니다. 공유 사이트에 있는 문서는 사이트 주소, 없는 문서는 GitHub 원본 주소가 복사됩니다. raw.githack 주소는 넣지 마세요. 브라우저에서 부르면 문서 대신 「External Content Notice」 안내 화면이 와서 그 화면이 가져와집니다. allowedDomains를 바꾼 뒤에는 manifest.json을 다시 불러와야 적용됩니다. 다른 사이트는 브라우저에서 **다른 이름으로 저장 → HTML**로 저장한 뒤 파일로 끌어다 놓거나, `allowedDomains`에 주소를 추가하세요.
 - 파일로 불러오면 **상대 경로 이미지**(같은 폴더의 png 등)는 보이지 않습니다. 이미지를 문서 안에 넣었거나(data URI) 주소로 불러오면 보입니다.
 - 웹 글꼴과 Figma 글꼴의 글자 폭이 조금 달라 한 줄 글자가 1~2px 어긋날 수 있습니다.
 
