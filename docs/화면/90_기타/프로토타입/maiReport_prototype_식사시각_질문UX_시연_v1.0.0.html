@@ -3233,6 +3233,7 @@ function stepDays(steps){
 let VIEW_DAY = 0;   /* 지금 보고 있는 날(0 = 시나리오 첫날) */
 function caseDays(){ const c = DEMO_CASES[CUR_CASE]; const days = stepDays(c.steps); return { days, lastDay: days.length ? days[days.length-1] : 0 }; }
 function isNextDay(h,m){
+  return false;   /* 「다음 날」 구분은 쓰지 않는다 — 시연 시각은 늘 시나리오 마지막 날 안에서 움직인다 */
   if(!CUR_CASE) return false;
   const c = DEMO_CASES[CUR_CASE]; if(!c.steps.length) return false;
   const { days, lastDay } = caseDays();
@@ -3255,7 +3256,7 @@ async function viewAt(h,m){
   const { days, lastDay } = caseDays();
   let idx = -1; c.steps.forEach((st,i)=>{ if(st.h===h && st.m===m) idx = i; });
   if(VIEW_DAY > lastDay) idx = -1;          /* 이미 다음 날에 들어섰으면 모든 시각은 다음 날(✓ 시각도). 첫날로 돌아가려면 시나리오를 다시 고른다 */
-  const dayT = idx >= 0 ? days[idx] : (isNextDay(h,m) ? Math.max(lastDay + 1, VIEW_DAY) : lastDay);
+  const dayT = idx >= 0 ? days[idx] : lastDay;   /* 단계가 아닌 시각은 마지막 날로 본다 */
   const smT = smOf(h,m), curSm = sessMin(DEMO_NOW);
   const replay = idx >= 0 && !SEEN_STEPS.has(idx);
   const forward = dayT > VIEW_DAY || (dayT === VIEW_DAY && smT >= curSm);
@@ -3286,7 +3287,7 @@ async function viewAt(h,m){
 function caseBarHtml(){
   const c = CUR_CASE ? DEMO_CASES[CUR_CASE] : null;
   return `<div class="demo-time demo-case"><span>시나리오</span>${Object.entries(DEMO_CASES).map(([k,v])=>`<button type="button" data-case="${k}" class="${CUR_CASE===k?'on':''}" title="${v.desc}">${k} · ${v.nm}</button>`).join('')}<button type="button" data-gallery="1" style="margin-left:auto">📋 케이스별 답변 보기 모음</button></div>
-    ${c ? `<p class="demo-desc">${c.desc}<br><b>시연 시각</b>을 누르면 그 시각의 장면만 보여요. ✓ 시각은 버튼 누름을 재생하고, 나머지는 그 시각 화면 그대로예요. 첫 진입보다 이른 시각은 「다음 날」로 봐요.</p>` : ''}`;
+    ${c ? `<p class="demo-desc">${c.desc}<br><b>시연 시각</b>을 누르면 그 시각의 장면만 보여요. ✓ 시각은 버튼 누름을 재생하고, 나머지는 그 시각 화면 그대로예요.</p>` : ''}`;
 }
 function bindCaseBar(el){ el.querySelectorAll('.demo-case button').forEach(b=>b.onclick=()=>{ location.hash = b.dataset.gallery ? 'gallery' : 'case=' + b.dataset.case; location.reload(); }); }
 
