@@ -152,7 +152,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .demo-side{display:none}
 @media (min-width:900px){
   body{padding-left:320px}
-  .demo-side{display:flex;position:fixed;left:0;top:0;bottom:0;width:320px;box-sizing:border-box;background:#fff;border-right:1px solid #E3E6EF;flex-direction:column;gap:6px;overflow:auto;padding:20px 16px 28px;z-index:50;font-size:13px;color:#0f1222}
+  .demo-side{display:flex;position:fixed;left:calc(50% - 399px);top:16px;bottom:16px;width:320px;box-sizing:border-box;background:#fff;border:1px solid #E3E6EF;border-radius:18px;box-shadow:0 2px 12px rgba(30,50,90,.06);flex-direction:column;gap:6px;overflow:auto;padding:20px 16px 28px;z-index:50;font-size:13px;color:#0f1222}
   .demo-side .side-h b{display:block;font-size:16px;font-weight:700;line-height:1.4}
   .demo-side .side-h small{display:block;color:#5d6275;line-height:1.5;margin-top:4px}
   .demo-side .side-sec{margin-top:14px;font-size:11px;font-weight:700;letter-spacing:.06em;color:#8a90a3;text-transform:uppercase}
@@ -167,6 +167,8 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
   .demo-side .side-times button.step{border-style:dashed;border-color:#9fb0e8}
   .demo-side .side-times button.nextday{color:#8a90a3}
   .demo-side .side-note{font-size:11px;color:#8a90a3;line-height:1.5}
+  .demo-side .side-day{font-size:12px;color:#0f1222;background:#FFF6E6;border:1px solid #F3DDB3;border-radius:10px;padding:7px 10px;line-height:1.5}
+  .demo-side .side-day span{display:block;color:#8a6a1f;font-size:11px}
   .demo-side .side-foot{margin-top:auto;padding-top:14px}
   .demo-side .side-foot button{width:100%;border:1px solid #E3E6EF;background:#fff;border-radius:12px;padding:10px;font:inherit;font-size:13px;cursor:pointer}
   #secQ .demo-time,#secQ .demo-desc{display:none}
@@ -2889,7 +2891,7 @@ function setDemoTime(h,m){
   if(inDawn(h) && !inDawn(prevH) && (Object.keys(DAY_MEALS).length || answered())){
     const carry = DAY_MEALS['오늘 저녁'] || null;
     Object.keys(DAY_MEALS).forEach(k=>delete DAY_MEALS[k]); Object.keys(ans).forEach(k=>delete ans[k]);
-    FIRST_DONE = false; coachReady = false; PLAN = null; setHeroTone('neutral');
+    FIRST_DONE = false; coachReady = false; PLAN = null; SESSION_ROT = null; setHeroTone('neutral');
     if(typeof resetDayGoals==='function') resetDayGoals();
     if(carry) DAY_MEALS['어제 저녁'] = { ...carry, carried:true };
   }
@@ -2909,6 +2911,8 @@ function setDemoTime(h,m){
   CUR_SOLO = null;
   if(firstSession){
     QUESTIONS = pickQuestions().filter(q=>q.id!=='mealClock');
+    const ri = QUESTIONS.findIndex(q=>MEAL_BOUND_IDS.includes(q.id));   /* 같은 세션에서는 회전 질문이 바뀌지 않게 */
+    if(ri >= 0){ if(SESSION_ROT && SESSION_ROT !== QUESTIONS[ri]) QUESTIONS[ri] = SESSION_ROT; else SESSION_ROT = QUESTIONS[ri]; }
     const carried = DAY_MEALS['어제 저녁'];
     if(carried && carried.carried && LAST_MEAL==='어제 저녁'){   /* 전날 밤에 답한 저녁 → 어제 저녁 질문은 이미 답한 것으로(가져온 표시는 유지) */
       ans.meal = carried.meal; if(carried.mealClock) ans.mealClock = carried.mealClock;
@@ -2953,7 +2957,8 @@ function renderSidePanel(){
     <div class="side-sec">시나리오</div>
     ${Object.entries(DEMO_CASES).map(([k,v])=>`<button type="button" class="side-case ${CUR_CASE===k?'on':''}" data-case="${k}"><b>${k} · ${v.nm}</b>${CUR_CASE===k ? `<span>${v.desc}</span>` : ''}</button>`).join('')}
     <div class="side-sec">시연 시각 ${CUR_CASE ? '<small>· 그 시각에 열었을 때</small>' : ''}</div>
-    <div class="side-times">${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}${isNextDay(h,m)?' nextday':''}">${isNextDay(h,m)?'다음 날 ':''}${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>
+    ${inNext ? `<div class="side-day">지금 보는 날: <b>다음 날</b><span>첫날로 돌아가려면 시나리오를 다시 누르세요</span></div>` : ''}
+    <div class="side-times">${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}${!inNext&&isNextDay(h,m)?' nextday':''}">${!inNext&&isNextDay(h,m)?'다음 날 ':''}${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>
     ${CUR_CASE ? `<div class="side-note">✓ 시각은 그때 버튼 누르는 장면을 재생하고, 나머지는 그 시각 화면 그대로예요. 첫 진입보다 이른 시각은 「다음 날」로 봐요.</div>` : ''}
     <div class="side-foot"><button type="button" data-gallery="1">📋 케이스별 「오늘 답변 보기」 모음</button></div>`;
   el.querySelectorAll('.side-case').forEach(b=>b.onclick=()=>{ location.hash = 'case=' + b.dataset.case; location.reload(); });
@@ -3116,7 +3121,7 @@ function pick(q,o,btn){
   btn.parentElement.querySelectorAll('.q-opt').forEach(b=>{ if(b!==btn) b.classList.add('dim'); });
   btn.classList.add('on');
   setHeroTone(o.tone==='neutral' ? heroTone : o.tone);
-  PICK_TIMER = setTimeout(()=>{ qi++; lock=false; renderQ(); sync(); }, 500);
+  PICK_TIMER = setTimeout(()=>{ const nx = QUESTIONS.findIndex(x=>!ans[x.id]); qi = nx<0 ? QUESTIONS.length : nx; lock=false; renderQ(); sync(); }, 500);   /* 다음 「답하지 않은」 질문으로(먼저 답한 회전 질문은 건너뜀) */
 }
 const MEAL_BOUND_IDS = ['protein','veg','sweet','salt','pace','fat','mealTime'];   /* 끼니 이름이 들어가는 회전 질문 */
 function applyPick(q,o){
@@ -3176,6 +3181,7 @@ const DEMO_CASES = {
        steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:16,m:30,a:[0,1]}] },
 };
 let CUR_CASE = null, PLAY_FAST = false, PLAYING = false, SILENT = false, PLAY_GEN = 0, PICK_TIMER = null;   /* PLAY_GEN: 재생 중 다른 시각을 누르면 올려서 진행 중인 재생을 멈춘다 */
+let SESSION_ROT = null;   /* 이 세션의 회전 질문 — 첫 묶음을 다시 고를 때 바뀌지 않게 붙잡아 둔다 */
 const SEEN_STEPS = new Set();   /* 답하는 장면을 실제로 재생해 본 단계 — 같은 시각을 다시 눌러도 다시 묻지 않는다(조용히 적용만 된 단계는 처음 누를 때 재생) */
 const wait = ms => new Promise(r=>setTimeout(r, PLAY_FAST ? 0 : ms));
 /* 재생 안내 띠 — 지금 몇 시에 들어와 몇 번째 답을 누르는지. 「바로 결과 보기」를 누르면 남은 과정을 건너뛴다 */
@@ -3218,7 +3224,7 @@ async function playStep(key, st){
 const GALLERY_EXTRA = [{h:1,m:30, note:'같은 세션 재진입'}];
 function resetDemoDay(){
   Object.keys(DAY_MEALS).forEach(k=>delete DAY_MEALS[k]); Object.keys(ans).forEach(k=>delete ans[k]);
-  FIRST_DONE = false; coachReady = false; PLAN = null; CUR_CASE = null; lock = false;
+  FIRST_DONE = false; coachReady = false; PLAN = null; CUR_CASE = null; lock = false; SESSION_ROT = null;
   Object.values(Q_ROTATION).forEach(q=>delete q.askedFor); Q_ACUTE.forEach(q=>delete q.askedFor);
   if(typeof resetDayGoals==='function') resetDayGoals();
   DEMO_NOW = new Date(); DEMO_NOW.setHours(4,0,0,0); LAST_MEAL = lastMealLabel(4);   /* 세션 시작 시각에서 출발 */
