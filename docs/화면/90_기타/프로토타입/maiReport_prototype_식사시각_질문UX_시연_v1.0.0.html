@@ -2943,7 +2943,7 @@ function demoBarHtml(){
   const steps = CUR_CASE ? DEMO_CASES[CUR_CASE].steps : [];
   const inNext = CUR_CASE && VIEW_DAY > caseDays().lastDay;
   const isStep = (h,m)=>!inNext && steps.some(st=>st.h===h && st.m===m);
-  return caseBarHtml() + `<div class="demo-time"><span>시연 시각${CUR_CASE ? ' <small>(그 시각에 열었을 때)</small>' : ''}</span>${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}${isNextDay(h,m)?' nextday':''}">${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>`;
+  return caseBarHtml() + `<div class="demo-time"><span>시연 시각${CUR_CASE ? ' <small>(그 시각에 열었을 때)</small>' : ''}</span>${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}">${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>`;
 }
 function renderSidePanel(){
   let el = document.getElementById('demoSide');
@@ -2957,9 +2957,8 @@ function renderSidePanel(){
     <div class="side-sec">시나리오</div>
     ${Object.entries(DEMO_CASES).map(([k,v])=>`<button type="button" class="side-case ${CUR_CASE===k?'on':''}" data-case="${k}"><b>${k} · ${v.nm}</b>${CUR_CASE===k ? `<span>${v.desc}</span>` : ''}</button>`).join('')}
     <div class="side-sec">시연 시각 ${CUR_CASE ? '<small>· 그 시각에 열었을 때</small>' : ''}</div>
-    ${inNext ? `<div class="side-day">지금 보는 날: <b>다음 날</b><span>첫날로 돌아가려면 시나리오를 다시 누르세요</span></div>` : ''}
-    <div class="side-times">${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}${!inNext&&isNextDay(h,m)?' nextday':''}">${!inNext&&isNextDay(h,m)?'다음 날 ':''}${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>
-    ${CUR_CASE ? `<div class="side-note">✓ 시각은 그때 버튼 누르는 장면을 재생하고, 나머지는 그 시각 화면 그대로예요. 첫 진입보다 이른 시각은 「다음 날」로 봐요.</div>` : ''}
+    <div class="side-times">${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}">${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>
+    ${CUR_CASE ? `<div class="side-note">✓ 시각은 그때 버튼 누르는 장면을 재생하고, 나머지는 그 시각 화면 그대로예요. 처음부터 다시 보려면 시나리오를 다시 누르세요.</div>` : ''}
     <div class="side-foot"><button type="button" data-gallery="1">📋 케이스별 「오늘 답변 보기」 모음</button></div>`;
   el.querySelectorAll('.side-case').forEach(b=>b.onclick=()=>{ location.hash = 'case=' + b.dataset.case; location.reload(); });
   el.querySelectorAll('.side-times button').forEach(b=>b.onclick=()=>viewAt(+b.dataset.h,+b.dataset.m));
@@ -3046,7 +3045,7 @@ function tailChipHtml(q){
   return `<div class="q-tail ${a.tone}"><span class="f">${a.f}</span>${mealShown(LAST_MEAL).replace('오늘 ','')} · ${a.label}<span class="ar">› 이어서</span></div>`;
 }
 const answered = ()=>Object.keys(ans).length;
-const allDone  = ()=>QUESTIONS.length > 0 && QUESTIONS.every(q=>ans[q.id]);
+const allDone  = ()=>QUESTIONS.length > 0 && QUESTIONS.every(q=>ans[q.id] || q.fromEdit);   /* 답변 보기에서 고쳐 생긴 시각 질문은 홈을 다시 열지 않는다 */
 /* 최초 답변 완료(10-16 결정) — 그날 처음 들어와 받은 질문 묶음에 모두 답한 순간 한 번 참이 되고 그날은 바뀌지 않는다.
    코칭 · 목표 · AI 인사이트 잠금은 이 값만 본다. 뒤에 덧붙는 끼니 시각 질문은 식후 지표에만 쓰이고 코칭 · 목표를 다시 만들지 않는다. */
 let FIRST_DONE = false;
@@ -3103,7 +3102,7 @@ function renderQ(){
     document.getElementById('qDone').onclick = openAns; bindDemoBar(el);
     return;
   }
-  const q = QUESTIONS[qi];
+  const q = QUESTIONS[qi] && !QUESTIONS[qi].fromEdit ? QUESTIONS[qi] : QUESTIONS.find(x=>!ans[x.id] && !x.fromEdit);
   el.innerHTML = `<section class="q-card">${demoBarHtml()}
     <div class="q-row">
       <div class="q-tx">${progressHtml()}${tailChipHtml(q)}<h1>${q.text}</h1></div>
@@ -3121,7 +3120,7 @@ function pick(q,o,btn){
   btn.parentElement.querySelectorAll('.q-opt').forEach(b=>{ if(b!==btn) b.classList.add('dim'); });
   btn.classList.add('on');
   setHeroTone(o.tone==='neutral' ? heroTone : o.tone);
-  PICK_TIMER = setTimeout(()=>{ const nx = QUESTIONS.findIndex(x=>!ans[x.id]); qi = nx<0 ? QUESTIONS.length : nx; lock=false; renderQ(); sync(); }, 500);   /* 다음 「답하지 않은」 질문으로(먼저 답한 회전 질문은 건너뜀) */
+  PICK_TIMER = setTimeout(()=>{ const nx = QUESTIONS.findIndex(x=>!ans[x.id] && !x.fromEdit); qi = nx<0 ? QUESTIONS.length : nx; lock=false; renderQ(); sync(); }, 500);   /* 다음 「답하지 않은」 질문으로(먼저 답한 회전 질문은 건너뜀) */
 }
 const MEAL_BOUND_IDS = ['protein','veg','sweet','salt','pace','fat','mealTime'];   /* 끼니 이름이 들어가는 회전 질문 */
 function applyPick(q,o){
@@ -4276,8 +4275,8 @@ function renderAns(){
       ans[q.id] = o;
       if(q.id==='meal'){
         if(o.v==='skip'){ QUESTIONS = QUESTIONS.filter(x=>x.id!=='mealClock'); delete ans.mealClock; }
-        else if(!QUESTIONS.some(x=>x.id==='mealClock')){ QUESTIONS.splice(QUESTIONS.indexOf(q)+1, 0, mealTimeQuestion()); }
-        const next = QUESTIONS.findIndex(x=>!ans[x.id]); qi = next<0 ? 0 : next; renderQ();
+        else if(!QUESTIONS.some(x=>x.id==='mealClock')){ const tq = mealTimeQuestion(); tq.fromEdit = true; QUESTIONS.splice(QUESTIONS.indexOf(q)+1, 0, tq); }   /* 시각은 이 화면의 칩으로 고른다 */
+        const next = QUESTIONS.findIndex(x=>!ans[x.id] && !x.fromEdit); qi = next<0 ? 0 : next; renderQ();
       }
       sync(); renderAns();
     };
