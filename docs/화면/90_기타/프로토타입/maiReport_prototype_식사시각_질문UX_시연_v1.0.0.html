@@ -154,6 +154,8 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .demo-time{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:0 0 10px;font-size:11px;color:var(--ink-3)}
 .demo-time span{margin-right:3px}
 .demo-time button{border:1px solid var(--line);background:rgba(255,255,255,.75);border-radius:999px;padding:3px 9px;font:inherit;font-size:11px;color:var(--ink-2);cursor:pointer;line-height:1.4}
+.demo-time button.step{border-style:dashed;border-color:#9fb0e8}
+.demo-time span small{font-weight:400;color:var(--ink-3)}
 .demo-time button.on{border-color:var(--brand);color:var(--brand);font-weight:700;background:#fff}
 
 /* 2. 오늘의 코칭 */
@@ -2899,12 +2901,14 @@ function setDemoTime(h,m){
   if(!FIRST_DONE) coachReady = false; if(firstSession) setHeroTone('neutral');
   renderQ(); sync();
 }
-const DEMO_TIMES = [['새벽 1:30',1,30],['새벽 5:00',5,0],['오전 7:10',7,10],['오전 8:30',8,30],['오전 9:20',9,20],['오전 10:40',10,40],['오후 1:20',13,20],['오후 4:30',16,30],['오후 7:30',19,30],['밤 10:10',22,10]];
+const DEMO_TIMES = [['새벽 1:30',1,30],['새벽 5:00',5,0],['오전 7:10',7,10],['오전 8:30',8,30],['오전 9:20',9,20],['오전 10:40',10,40],['오후 12:40',12,40],['오후 1:20',13,20],['오후 4:30',16,30],['오후 7:30',19,30],['밤 10:10',22,10]];
 function demoBarHtml(){
-  return caseBarHtml() + `<div class="demo-time"><span>시연 시각</span>${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}">${l}</button>`).join('')}</div>`;
+  const steps = CUR_CASE ? DEMO_CASES[CUR_CASE].steps : [];
+  const isStep = (h,m)=>steps.some(st=>st.h===h && st.m===m);
+  return caseBarHtml() + `<div class="demo-time"><span>시연 시각${CUR_CASE ? ' <small>(그 시각에 열었을 때)</small>' : ''}</span>${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}">${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>`;
 }
 function bindDemoBar(el){
-  el.querySelectorAll('.demo-time:not(.demo-case):not(.demo-bf) button').forEach(b=>b.onclick=()=>setDemoTime(+b.dataset.h,+b.dataset.m));
+  el.querySelectorAll('.demo-time:not(.demo-case):not(.demo-bf) button').forEach(b=>b.onclick=()=>viewAt(+b.dataset.h,+b.dataset.m));
   bindCaseBar(el);
 }
 function rotationQuestion(){
@@ -3159,6 +3163,7 @@ const GALLERY_EXTRA = [{h:1,m:30, note:'같은 세션 재진입'}];
 function resetDemoDay(){
   Object.keys(DAY_MEALS).forEach(k=>delete DAY_MEALS[k]); Object.keys(ans).forEach(k=>delete ans[k]);
   FIRST_DONE = false; coachReady = false; PLAN = null; CUR_CASE = null; lock = false;
+  Object.values(Q_ROTATION).forEach(q=>delete q.askedFor); Q_ACUTE.forEach(q=>delete q.askedFor);
   if(typeof resetDayGoals==='function') resetDayGoals();
   DEMO_NOW = new Date(); DEMO_NOW.setHours(13,20,0,0); LAST_MEAL = lastMealLabel(13);
 }
@@ -3204,6 +3209,32 @@ function buildGallery(){
   <div class="gal-top"><h1>식이 끼니 검증용 프로토타입 — 케이스 × 진입 시각별 「오늘 답변 보기」</h1>
   <p>각 칸은 그 시각에 들어와 답한 직후의 홈 질문 카드(위)와 「오늘 답변 보기」(아래)입니다. 마지막 칸은 새벽 1:30 같은 세션 재진입. 끼니 경계 4시 세션 · 4~8시 어제 저녁 · 8시부터 아침, 끼니마다 식사 양 → 시각, 코칭 · 목표는 처음 답한 묶음 기준.</p>
   <p><a href="${location.pathname}">← 시연본으로 돌아가기</a></p></div>${sections}`;
+}
+/* 그 시각에 열었을 때의 화면 — 시나리오가 켜져 있으면 누른 시각 이전(같은 시각 포함)의 단계만 적용한다.
+   그 시각에 들어온 기록이 없으면 답하지 않은 화면(질문 대기)이고, 들어온 시각이면 답한 뒤의 화면이다.
+   날짜가 둘인 시나리오(H)는 마지막 날 기준으로 본다. 시나리오가 없으면 지금까지처럼 상태를 이어 간다. */
+function stepDays(steps){
+  const days = []; let day = 0, prev = null;
+  const inDawn = h => h >= 4 && h < BREAKFAST_FROM;
+  steps.forEach(st=>{ if(prev != null && inDawn(st.h) && !inDawn(prev)) day++; days.push(day); prev = st.h; });
+  return days;
+}
+function viewAt(h,m){
+  if(!CUR_CASE || PLAYING){ setDemoTime(h,m); return; }
+  const key = CUR_CASE, c = DEMO_CASES[key];
+  resetDemoDay(); CUR_CASE = key;
+  const days = stepDays(c.steps), lastDay = days.length ? days[days.length-1] : 0;
+  const sm = sessMin(new Date(2000,0,1,h,m));
+  c.steps.forEach((st,i)=>{
+    const stSm = sessMin(new Date(2000,0,1,st.h,st.m));
+    if(days[i] < lastDay || (days[i] === lastDay && stSm <= sm)){
+      setDemoTime(st.h, st.m);
+      st.a.forEach(a=>{ const q = QUESTIONS[qi]; if(!q) return; applyPick(q, q.opts[a]); qi++; if(allDone() && !FIRST_DONE){ FIRST_DONE = true; recalc(); } });
+      const nx = QUESTIONS.findIndex(x=>!ans[x.id]); qi = nx<0 ? 0 : nx;
+    }
+  });
+  coachReady = FIRST_DONE;
+  setDemoTime(h,m);
 }
 function caseBarHtml(){
   const c = CUR_CASE ? DEMO_CASES[CUR_CASE] : null;
