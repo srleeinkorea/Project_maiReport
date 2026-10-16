@@ -2722,7 +2722,7 @@ function lastMealLabel(h){
 }
 /* 시연: 기획서 그림과 같은 오후 1:20(점심)에서 시작한다. 질문 카드 위 「시연 시각」 버튼으로 끼니를 바꿀 수 있다 */
 /* 아침 질문 시작 시각(시연 전환). 10 = 현행(자정~10시 어제 저녁), 6 = 자정~6시만 어제 저녁이고 6시부터 아침.
-   6으로 두면 6~10시 아침 진입에서 아침 질문 뒤에 「어제 저녁은 몇 시쯤?」 시각 한 문항을 덧붙인다(생활 변화 추이 7일 합산에 어제 저녁 식후 값이 쓰이므로) */
+   6으로 두면 6~10시에 들어온 사람에게는 어제 저녁을 묻지 않는다 — 저녁에 들어오지 않은 날의 저녁 식후 칸은 빈다 */
 let BREAKFAST_FROM = (location.hash.match(/bf=(6|10)/) || [,'10'])[1] * 1;
 let DEMO_NOW = new Date(); DEMO_NOW.setHours(13,20,0,0);
 let LAST_MEAL = lastMealLabel(DEMO_NOW.getHours());
@@ -2818,9 +2818,7 @@ const DAY_MEALS = {};   /* 끼니 이름 → {meal, mealClock, timeQ} 오늘 답
 let CUR_SOLO = null;   /* 두 번째 끼니부터의 시각만 묻는 질문(이 끼니 것) */
 const SKIP_OPT = {v:'skip', f:'⌢', label:'못 먹거나 거름', tone:'bad'};
 function stashMeal(){
-  if(ans.meal || ans.mealClock) DAY_MEALS[LAST_MEAL] = { meal: ans.meal || null, mealClock: ans.mealClock || null, timeQ: CUR_SOLO || QUESTIONS.find(q=>q.id==='mealClock') || null, solo: !!CUR_SOLO };
-  if(ans.ydMeal || ans.ydClock){ DAY_MEALS['어제 저녁'] = { meal: ans.ydMeal || null, mealClock: ans.ydClock || null, timeQ: YD_Q, solo: true }; delete ans.ydMeal; delete ans.ydClock; }
-  YD_Q = null;
+  if(ans.meal) DAY_MEALS[LAST_MEAL] = { meal: ans.meal, mealClock: ans.mealClock || null, timeQ: QUESTIONS.find(q=>q.id==='mealClock') || null, solo: false };
 }
 /* 시각만 묻는 질문 — 식사 양은 묻지 않고 「{끼니}은 언제쯤 드셨어요?」만. 안 먹은 끼니는 카드 아래 작은 글자로 알린다 */
 function soloTimeQuestion(){ const q = mealTimeQuestion(); q.solo = true; return q; }
@@ -2849,19 +2847,14 @@ function setDemoTime(h,m){
   const keep = QUESTIONS.filter(q=>q.id!=='meal' && q.id!=='mealClock' && q.id!=='ydClock');   /* 회전 · 활동 · 수면은 하루 한 번 — 답과 함께 유지 */
   const saved = DAY_MEALS[LAST_MEAL];
   CUR_SOLO = null;
-  if(firstSession){
-    QUESTIONS = pickQuestions().filter(q=>q.id!=='mealClock');
-    /* 6시 경계 · 6~10시 아침 첫 진입: 아침 질문 뒤에 어제 저녁 시각만 한 문항(아직 어제 저녁 답이 없을 때) */
-    if(BREAKFAST_FROM===6 && LAST_MEAL==='오늘 아침' && h<10 && !DAY_MEALS['어제 저녁']){ YD_Q = yesterdayDinnerQuestion(); QUESTIONS.splice(1, 0, YD_Q); }
-  }
-  else if(saved && !saved.solo){   /* 처음 묶음의 끼니로 돌아옴 — 식사 양 + 시각 그대로 */
+  if(firstSession) QUESTIONS = pickQuestions().filter(q=>q.id!=='mealClock');
+  else {
+    /* 두 번째 끼니부터도 같은 식사 질문(양) → 꼬리 질문(시각) 쌍이다(10-16 결정). 회전 · 활동 · 수면은 답과 함께 그대로 */
     QUESTIONS = [Q_ACUTE[0], ...keep];
-    ans.meal = saved.meal; if(saved.mealClock) ans.mealClock = saved.mealClock;
-    if(saved.timeQ) QUESTIONS.splice(1, 0, saved.timeQ);
-  } else {   /* 두 번째 끼니부터 — 시각만(10-16 결정). 이미 답했으면 그 답을 다시 쓴다 */
-    CUR_SOLO = saved && saved.timeQ ? saved.timeQ : soloTimeQuestion();
-    if(saved && saved.meal && saved.meal.v==='skip'){ ans.meal = saved.meal; QUESTIONS = [...keep]; }
-    else { if(saved && saved.mealClock) ans.mealClock = saved.mealClock; QUESTIONS = [CUR_SOLO, ...keep]; }
+    if(saved){   /* 이미 답한 끼니로 돌아오면 그 답을 다시 쓴다 */
+      ans.meal = saved.meal; if(saved.mealClock) ans.mealClock = saved.mealClock;
+      if(saved.timeQ && saved.meal && saved.meal.v!=='skip') QUESTIONS.splice(1, 0, saved.timeQ);
+    }
   }
   PLAN = null; lock = false;
   const next = QUESTIONS.findIndex(q=>!ans[q.id]); qi = next<0 ? 0 : next;
@@ -2949,7 +2942,6 @@ function progressHtml(){
 }
 /* 꼬리 질문 칩 — 시각 단계일 때 방금 고른 식사 답을 카드 위에 남겨 「새 질문」이 아니라 「이어지는 확인」으로 보이게 한다 */
 function tailChipHtml(q){
-  if(q.solo) return `<div class="q-tail"><span class="f" style="background:#B6C0D1">🍚</span>${(q.mealLabel || LAST_MEAL).replace('오늘 ','')} · 시각만 여쭤요</div>`;
   if(q.id!=='mealClock' || !ans.meal) return '';
   const a = ans.meal;
   return `<div class="q-tail ${a.tone}"><span class="f">${a.f}</span>${LAST_MEAL.replace('오늘 ','')} · ${a.label}<span class="ar">› 이어서</span></div>`;
@@ -3017,11 +3009,6 @@ function renderQ(){
       `<button class="q-opt ${o.tone}" data-i="${i}"><span class="f${o.tone==='neutral' && o.f==='?' ? ' face' : ''}">${o.tone==='neutral' ? (o.f==='?' ? FACE.unsure : o.f) : FACE[o.tone]}</span>${o.label}</button>`).join('')}</div>
   </section>`;
   el.querySelectorAll('.q-opt').forEach(b=>b.onclick=()=>pick(q,q.opts[b.dataset.i],b));
-  if(q.solo){   /* 안 먹은 끼니 — 시각 대신 「못 먹거나 걸렀어요」. 그 끼니 식후 칸은 비운다 */
-    const card = el.querySelector('.q-card');
-    card.insertAdjacentHTML('beforeend', `<button type="button" class="q-skipmeal">못 먹거나 걸렀어요</button>`);
-    card.querySelector('.q-skipmeal').onclick = ()=>{ if(lock) return; ans.meal = SKIP_OPT; delete ans.mealClock; QUESTIONS = QUESTIONS.filter(x=>x!==q); const nx = QUESTIONS.findIndex(x=>!ans[x.id]); qi = nx<0 ? 0 : nx; renderQ(); sync(); };
-  }
   bindDemoBar(el);
 }
 function pick(q,o,btn){
@@ -3068,20 +3055,20 @@ function skipSoloMeal(q){
    각 단계: 들어온 시각 + 그때 나온 질문에 차례로 고른 답(선택지 번호 0~2, 'skip' = 시각만 묻는 끼니를 안 먹음).
    첫 진입은 식사 양 + 시각 + 회전 + 활동 + 수면, 두 번째 끼니부터는 시각만이다. 페이지를 다시 불러 상태를 비운 뒤 재생한다. ── */
 const DEMO_CASES = {
-  A: { nm:'세 끼 다 들어옴', desc:'아침 8:30에 어제 저녁부터 다 답함 → 점심 12:40 · 저녁 7:30엔 시각만. 목표는 아침 답으로 한 번 생성',
-       steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:12,m:40,a:[0]},{h:19,m:30,a:[1]}] },
-  B: { nm:'점심에 처음', desc:'오후 1:20에 처음 들어와 점심 양 + 시각 → 저녁 7:30엔 시각만. 아침 식후 칸은 비어 있음',
-       steps:[{h:13,m:20,a:[0,0,0,0,1]},{h:19,m:30,a:[0]}] },
+  A: { nm:'세 끼 다 들어옴', desc:'아침 8:30에 어제 저녁부터 다 답함 → 점심 12:40 · 저녁 7:30엔 식사 양 + 시각 두 번씩. 목표는 아침 답으로 한 번 생성',
+       steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:12,m:40,a:[0,0]},{h:19,m:30,a:[0,1]}] },
+  B: { nm:'점심에 처음', desc:'오후 1:20에 처음 들어와 점심 양 + 시각 → 저녁 7:30엔 저녁 양 + 시각. 아침 식후 칸은 비어 있음',
+       steps:[{h:13,m:20,a:[0,0,0,0,1]},{h:19,m:30,a:[0,0]}] },
   C: { nm:'저녁 한 번만', desc:'저녁 7:30 한 번 진입. 아침 · 점심 식후 칸은 「모름」으로 빠짐(알림 없는 사용자의 보통 하루)',
        steps:[{h:19,m:30,a:[0,0,0,0,1]}] },
   D: { nm:'밤늦게 처음', desc:'밤 10:10 첫 진입 → 저녁은 「7시 이전 / 7시~9시 / 9시 이후」 고정 선택지',
        steps:[{h:22,m:10,a:[0,1,0,0,1]}] },
-  E: { nm:'아침 거름 · 저녁 안 먹음', desc:'10:40 아침 「못 먹거나 거름」 → 시각 · 회전 생략 → 점심 시각만 → 저녁 「못 먹거나 걸렀어요」',
-       steps:[{h:10,m:40,a:[2,0,1]},{h:13,m:20,a:[0]},{h:19,m:30,a:['skip']}] },
-  G: { nm:'새벽 7:10 아침 (6시 경계)', desc:'「자정~6시 · 6시부터 아침」으로 두고 7:10 진입 → 아침 양 + 시각, 어제 저녁 시각만 한 문항 → 점심 · 저녁 시각만. 10시 경계면 어제 저녁부터 묻는다',
-       steps:[{h:7,m:10,a:[0,1,1,0,0,1]},{h:12,m:40,a:[0]},{h:19,m:30,a:[0]}] },
+  E: { nm:'아침 거름 · 저녁 거름', desc:'10:40 아침 「못 먹거나 거름」 → 시각 · 회전 생략 → 점심 양 + 시각 → 저녁 「못 먹거나 거름」(시각 생략). 답변 보기에서 아침을 먹음으로 고치면 시각을 이어 고를 수 있음',
+       steps:[{h:10,m:40,a:[2,0,1]},{h:13,m:20,a:[0,0]},{h:19,m:30,a:[2]}] },
   F: { nm:'점심 늦게 답함', desc:'아침에 다 답한 뒤 오후 4:30에 점심 → 상한에 걸려 「1시 이후 / 12시~1시 사이 / 12시 이전」',
-       steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:16,m:30,a:[1]}] },
+       steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:16,m:30,a:[0,1]}] },
+  G: { nm:'새벽 7:10 아침 (6시 경계)', desc:'「자정~6시 · 6시부터 아침」으로 두고 7:10 진입 → 아침 양 + 시각(어제 저녁은 묻지 않음) → 점심 · 저녁 양 + 시각. 10시 경계면 같은 시각에 어제 저녁부터 묻는다',
+       steps:[{h:7,m:10,a:[0,1,0,0,1]},{h:12,m:40,a:[0,0]},{h:19,m:30,a:[0,0]}] },
 };
 let CUR_CASE = null;
 function runCase(key){
