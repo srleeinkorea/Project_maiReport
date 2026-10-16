@@ -3060,8 +3060,10 @@ function pick(q,o,btn){
   setHeroTone(o.tone==='neutral' ? heroTone : o.tone);
   setTimeout(()=>{ qi++; lock=false; renderQ(); sync(); }, 500);
 }
+const MEAL_BOUND_IDS = ['protein','veg','sweet','salt','pace','fat','mealTime'];   /* 끼니 이름이 들어가는 회전 질문 */
 function applyPick(q,o){
   ans[q.id] = o;
+  if(MEAL_BOUND_IDS.includes(q.id)) q.askedFor = LAST_MEAL;   /* 어느 끼니에 대해 답했는지 — 답변 보기에서 이름 · 숨김 판정에 쓴다 */
   /* 식사 질문에 답하면 같은 자리에서 식사 시각 단계를 이어 묻는다(못 먹거나 거름 제외). 질문 1개로 센다 */
   if(q.id==='meal'){
     QUESTIONS = QUESTIONS.filter(x=>x.id!=='mealClock'); delete ans.mealClock;
@@ -4051,7 +4053,8 @@ function mealCardHtml(nm, v, attr){
   </section>`;
 }
 function pastMealCards(){
-  return Object.entries(DAY_MEALS).filter(([nm])=>nm!==LAST_MEAL).map(([nm,v])=>{ v.label = nm; return mealCardHtml(mealShown(nm), v, `data-past="${nm}"`); }).join('');
+  /* 그저께가 된 끼니는 숨긴다(답은 그대로 저장). 「오늘 답변 보기」는 어제 · 오늘 끼니만 — 고쳐도 반영될 곳이 없기 때문 */
+  return Object.entries(DAY_MEALS).filter(([nm])=>nm!==LAST_MEAL && !mealShown(nm).startsWith('그저께')).map(([nm,v])=>{ v.label = nm; return mealCardHtml(mealShown(nm), v, `data-past="${nm}"`); }).join('');
 }
 function renderAns(){
   const mealNm = mealShown(LAST_MEAL);
@@ -4074,9 +4077,16 @@ function renderAns(){
         ${timeQ && a && a.v!=='skip' ? `<div class="a-sub">언제쯤 드셨나요</div><div class="a-opts row">${ansOptHtml(timeQ, QUESTIONS.indexOf(timeQ))}</div>` : ''}
       </section>`;
     }
+    /* 회전 질문: 그저께 끼니에 대한 것이면 숨기고, 아니면 끼니 이름을 보는 시점 기준으로(「오늘 점심엔」 → 「어제 점심엔」) */
+    let text = q.text;
+    if(q.askedFor){
+      const shown = mealShown(q.askedFor);
+      if(shown.startsWith('그저께')) return '';
+      text = text.replace(/^(그저께 저녁|어제 저녁|오늘 아침|오늘 점심|오늘 저녁)/, shown);
+    }
     return `<section class="a-card">
       <div class="a-cat">${q.cat}</div>
-      <div class="a-q">${q.text.replace(/<br>/g,' ')}</div>
+      <div class="a-q">${text.replace(/<br>/g,' ')}</div>
       <div class="a-opts">${ansOptHtml(q,i)}</div>
     </section>`;
   }).join('');
