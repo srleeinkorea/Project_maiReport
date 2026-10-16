@@ -3309,8 +3309,8 @@ function isNextDay(h,m){
   if(!CUR_CASE) return false;
   const c = DEMO_CASES[CUR_CASE]; if(!c.steps.length) return false;
   const { days, lastDay } = caseDays();
-  if(VIEW_DAY > lastDay) return true;        /* 이미 다음 날이면 ✓ 시각도 다음 날 */
-  if(c.steps.some(st=>st.h===h && st.m===m)) return false;
+  if(c.steps.some(st=>st.h===h && st.m===m)) return false;   /* ✓ 시각은 늘 그 단계의 날 */
+  if(VIEW_DAY > lastDay) return true;        /* 그 밖의 시각은 이미 다음 날이면 다음 날 */
   const first = c.steps[days.indexOf(lastDay)];
   return sessMin(new Date(2000,0,1,h,m)) < sessMin(new Date(2000,0,1,first.h,first.m));
 }
@@ -3330,10 +3330,10 @@ async function viewAt(h,m){
   const key = CUR_CASE, c = DEMO_CASES[key];
   const { days, lastDay } = caseDays();
   let idx = -1; c.steps.forEach((st,i)=>{ if(st.h===h && st.m===m) idx = i; });
-  if(VIEW_DAY > lastDay) idx = -1;          /* 이미 다음 날에 들어섰으면 모든 시각은 다음 날(✓ 시각도). 첫날로 돌아가려면 시나리오를 다시 고른다 */
   const dayT = idx >= 0 ? days[idx] : (isNextDay(h,m) ? Math.max(lastDay + 1, VIEW_DAY) : lastDay);
   const smT = smOf(h,m), curSm = sessMin(DEMO_NOW);
-  const replay = !MANUAL && idx >= 0 && !SEEN_STEPS.has(idx);
+  const alreadyHere = idx >= 0 && VIEW_DAY === days[idx] && DEMO_NOW.getHours() === h && DEMO_NOW.getMinutes() === m && SEEN_STEPS.has(idx);
+  const replay = !MANUAL && idx >= 0 && !alreadyHere;   /* ✓ 시각: 다른 시각에서 오면 그 장면을 재생, 그 자리에서 다시 누르면 답한 화면 그대로 */
   const forward = !interrupted && (dayT > VIEW_DAY || (dayT === VIEW_DAY && smT >= curSm));
   if(MANUAL){   /* 직접 답하기: 앞으로는 지금 상태 그대로 그 시각으로, 뒤로는 빈 하루에서 그 시각으로 */
     SILENT = true;
@@ -3364,7 +3364,7 @@ async function viewAt(h,m){
   SILENT = false;
   clearTimeout(coachTimer); coachReady = FIRST_DONE;   /* 이미 받은 코칭은 다시 「생성 중」을 거치지 않는다 */
   setDemoTime(h,m);
-  if(replay){ SEEN_STEPS.add(idx); await playStep(key, c.steps[idx]); }   /* 들어온 시각을 처음 볼 때만 그 장면을 재생 */
+  if(replay){ SEEN_STEPS.add(idx); await playStep(key, c.steps[idx]); }   /* ✓ 시각의 장면 재생 */
 }
 function caseBarHtml(){
   const c = CUR_CASE ? DEMO_CASES[CUR_CASE] : null;
