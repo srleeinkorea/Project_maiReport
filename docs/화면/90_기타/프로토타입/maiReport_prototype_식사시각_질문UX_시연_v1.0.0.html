@@ -140,7 +140,11 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .q-tail .f{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;line-height:1;flex-shrink:0}
 .q-tail.good .f{background:#7ED09A}.q-tail.okay .f{background:#F2C24B}.q-tail.bad .f{background:#F195AB}
 .q-tail .ar{color:var(--brand);font-weight:700}
-.a-meal-sum{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;border-radius:var(--r-in);background:var(--brand-soft);margin-bottom:12px;font-size:var(--t-body);font-weight:700;color:var(--ink-1);line-height:1.4}
+.a-meal-sum{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:var(--r-in);background:var(--brand-soft);font-size:var(--t-body);font-weight:700;color:var(--ink-1);line-height:1.4}
+.a-meal-sum .txt{flex:1;min-width:0}
+.a-editbtn{border:0;background:none;font:inherit;font-size:var(--t-mini);font-weight:600;color:var(--brand);cursor:pointer;padding:2px 4px;flex-shrink:0}
+.a-meal .a-edit{margin-top:12px}
+.a-meal .a-cat{margin-bottom:8px}
 .a-meal-sum .dot{color:var(--ink-3);font-weight:400;margin:0 6px}
 .a-meal-sum .pend{color:var(--ink-3);font-weight:500}
 .a-sub{font-size:var(--t-mini);font-weight:600;color:var(--ink-3);margin:12px 0 6px;line-height:1.4}
@@ -2956,12 +2960,16 @@ function renderSidePanel(){
     <div class="side-h"><b>식이 끼니 검증용 프로토타입</b><small>끼니마다 식사 양 → 시각 · 4시 세션 · 4~8시 어제 저녁 · 8시부터 아침 · 코칭 · 목표는 처음 답한 묶음 기준</small></div>
     <div class="side-sec">시나리오</div>
     ${Object.entries(DEMO_CASES).map(([k,v])=>`<button type="button" class="side-case ${CUR_CASE===k?'on':''}" data-case="${k}"><b>${k} · ${v.nm}</b>${CUR_CASE===k ? `<span>${v.desc}</span>` : ''}</button>`).join('')}
+    <div class="side-sec">답하는 방식</div>
+    <div class="side-times"><button type="button" data-manual="0" class="${MANUAL?'':'on'}">자동 재생</button><button type="button" data-manual="1" class="${MANUAL?'on':''}">직접 답하기</button></div>
+    ${MANUAL ? `<div class="side-note">시각 흐름은 시나리오대로 두고, 식사 양 · 시각 등 답은 직접 고릅니다. 답한 뒤에는 「오늘 답변 보기」에서도 고칠 수 있어요.</div>` : ''}
     <div class="side-sec">시연 시각 ${CUR_CASE ? '<small>· 그 시각에 열었을 때</small>' : ''}</div>
     <div class="side-times">${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}">${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>
     ${CUR_CASE ? `<div class="side-note">✓ 시각은 그때 버튼 누르는 장면을 재생하고, 나머지는 그 시각 화면 그대로예요. 처음부터 다시 보려면 시나리오를 다시 누르세요.</div>` : ''}
     <div class="side-foot"><button type="button" data-gallery="1">📋 케이스별 「오늘 답변 보기」 모음</button></div>`;
-  el.querySelectorAll('.side-case').forEach(b=>b.onclick=()=>{ location.hash = 'case=' + b.dataset.case; location.reload(); });
-  el.querySelectorAll('.side-times button').forEach(b=>b.onclick=()=>viewAt(+b.dataset.h,+b.dataset.m));
+  el.querySelectorAll('.side-case').forEach(b=>b.onclick=()=>{ location.hash = 'case=' + b.dataset.case + (MANUAL ? '&manual=1' : ''); location.reload(); });
+  el.querySelectorAll('.side-times button[data-h]').forEach(b=>b.onclick=()=>viewAt(+b.dataset.h,+b.dataset.m));
+  el.querySelectorAll('.side-times button[data-manual]').forEach(b=>b.onclick=()=>{ location.hash = 'case=' + (CUR_CASE||'A') + (b.dataset.manual==='1' ? '&manual=1' : ''); location.reload(); });
   el.querySelector('[data-gallery]').onclick = ()=>{ location.hash = 'gallery'; location.reload(); };
 }
 function bindDemoBar(el){
@@ -3180,6 +3188,7 @@ const DEMO_CASES = {
        steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:16,m:30,a:[0,1]}] },
 };
 let CUR_CASE = null, PLAY_FAST = false, PLAYING = false, SILENT = false, PLAY_GEN = 0, PICK_TIMER = null;   /* PLAY_GEN: 재생 중 다른 시각을 누르면 올려서 진행 중인 재생을 멈춘다 */
+const MANUAL = /manual=1/.test(location.hash);   /* 직접 답하기 — 시나리오의 시각 흐름만 쓰고 답은 사용자가 직접 고른다(자동 누름 · 조용한 적용 없음) */
 let SESSION_ROT = null;   /* 이 세션의 회전 질문 — 첫 묶음을 다시 고를 때 바뀌지 않게 붙잡아 둔다 */
 const SEEN_STEPS = new Set();   /* 답하는 장면을 실제로 재생해 본 단계 — 같은 시각을 다시 눌러도 다시 묻지 않는다(조용히 적용만 된 단계는 처음 누를 때 재생) */
 const wait = ms => new Promise(r=>setTimeout(r, PLAY_FAST ? 0 : ms));
@@ -3312,8 +3321,15 @@ async function viewAt(h,m){
   if(VIEW_DAY > lastDay) idx = -1;          /* 이미 다음 날에 들어섰으면 모든 시각은 다음 날(✓ 시각도). 첫날로 돌아가려면 시나리오를 다시 고른다 */
   const dayT = idx >= 0 ? days[idx] : (isNextDay(h,m) ? Math.max(lastDay + 1, VIEW_DAY) : lastDay);
   const smT = smOf(h,m), curSm = sessMin(DEMO_NOW);
-  const replay = idx >= 0 && !SEEN_STEPS.has(idx);
-  const forward = !interrupted && (dayT > VIEW_DAY || (dayT === VIEW_DAY && smT >= curSm));   /* 재생을 끊었으면 반쯤 답한 상태라 처음부터 다시 만든다 */
+  const replay = !MANUAL && idx >= 0 && !SEEN_STEPS.has(idx);
+  const forward = !interrupted && (dayT > VIEW_DAY || (dayT === VIEW_DAY && smT >= curSm));
+  if(MANUAL){   /* 직접 답하기: 앞으로는 지금 상태 그대로 그 시각으로, 뒤로는 빈 하루에서 그 시각으로 */
+    SILENT = true;
+    if(!forward){ resetDemoDay(); CUR_CASE = key; }
+    if(dayT > (forward ? VIEW_DAY : -1) && dayT > lastDay && !inDawnH(h)) setDemoTime(5, 0);
+    VIEW_DAY = dayT; SILENT = false; clearTimeout(coachTimer); coachReady = FIRST_DONE;
+    setDemoTime(h,m); return;
+  }   /* 재생을 끊었으면 반쯤 답한 상태라 처음부터 다시 만든다 */
   SILENT = true;
   if(forward){
     /* 앞으로 — 지금 상태(직접 누른 답 포함)를 이어 가고, 그 사이에 있는 단계만 조용히 적용한다 */
@@ -4165,6 +4181,7 @@ function ansOptHtml(q,i){
     `<div class="a-opt ${o.tone} ${ans[q.id]&&ans[q.id].v===o.v?'on':''}" data-q="${i}" data-o="${j}">
       <span class="f">${q.kind==='time' ? '🕐' : o.f}</span>${o.label}</div>`).join('');
 }
+const OPEN_EDIT = new Set();   /* 답변 보기에서 펼쳐 둔 끼니 카드 */
 function mealSummary(a,t){
   if(a && a.v==='skip') return a.label;
   const time = t ? `${t.tl||t.label}쯤` : `<span class="pend">시각은 아직 답하지 않았어요</span>`;
@@ -4179,10 +4196,11 @@ function mealCardHtml(nm, v, attr){
     ? `<div class="a-sub first">언제쯤 드셨나요</div><div class="a-opts row">${v.timeQ ? chips(v.timeQ,'mealClock') : ''}</div><div class="a-opts row" style="margin-top:8px">${skipChip}</div>`
     : `<div class="a-sub first">얼마나 드셨나요</div><div class="a-opts row">${chips(Q_ACUTE[0],'meal')}</div>
        ${a && a.v!=='skip' ? `<div class="a-sub">언제쯤 드셨나요</div><div class="a-opts row">${v.timeQ ? chips(v.timeQ,'mealClock') : ''}</div>` : ''}`;
-  return `<section class="a-card">
+  const open = OPEN_EDIT.has(nm) || (!a && !t) || (a && a.v!=='skip' && !t);   /* 답이 없거나 시각이 비어 있으면 바로 펼친다 */
+  return `<section class="a-card a-meal${open?' open':''}" data-meal="${nm}">
     <div class="a-cat">식이 · ${nm.replace(/^오늘 /,'')}</div>
-    <div class="a-meal-sum"><span>🍚</span><span>${a || t ? mealSummary(a,t) : '<span class="pend">아직 답하지 않았어요</span>'}</span></div>
-    ${body}
+    <div class="a-meal-sum"><span>🍚</span><span class="txt">${a || t ? mealSummary(a,t) : '<span class="pend">아직 답하지 않았어요</span>'}</span><button type="button" class="a-editbtn" data-edit="${nm}">${open ? '접기' : '고치기'}</button></div>
+    <div class="a-edit"${open ? '' : ' hidden'}>${body}</div>
   </section>`;
 }
 function pastMealCards(){
@@ -4202,12 +4220,16 @@ function renderAns(){
       const sum = !a ? `<span class="pend">아직 답하지 않았어요</span>`
         : a.v==='skip' ? a.label
         : `${a.label}<span class="dot">·</span>${t ? `${t.tl||t.label}쯤` : `<span class="pend">시각은 아직 답하지 않았어요</span>`}`;
-      return `<section class="a-card">
+      /* 이번 끼니 카드도 요약 한 줄 + 「고치기」. 답이 없거나 시각이 비어 있으면 바로 펼친다 */
+      const open = OPEN_EDIT.has(mealNm) || !a || (a.v!=='skip' && !t);
+      return `<section class="a-card a-meal${open?' open':''}">
         <div class="a-cat">${q.cat} · ${mealNm.replace(/^오늘 /,'')}</div>
-        <div class="a-meal-sum"><span>🍚</span><span>${sum}</span></div>
-        <div class="a-sub first">얼마나 드셨나요</div>
-        <div class="a-opts row">${ansOptHtml(q,i)}</div>
-        ${timeQ && a && a.v!=='skip' ? `<div class="a-sub">언제쯤 드셨나요</div><div class="a-opts row">${ansOptHtml(timeQ, QUESTIONS.indexOf(timeQ))}</div>` : ''}
+        <div class="a-meal-sum"><span>🍚</span><span class="txt">${sum}</span><button type="button" class="a-editbtn" data-edit="${mealNm}">${open ? '접기' : '고치기'}</button></div>
+        <div class="a-edit"${open ? '' : ' hidden'}>
+          <div class="a-sub first">얼마나 드셨나요</div>
+          <div class="a-opts row">${ansOptHtml(q,i)}</div>
+          ${timeQ && a && a.v!=='skip' ? `<div class="a-sub">언제쯤 드셨나요</div><div class="a-opts row">${ansOptHtml(timeQ, QUESTIONS.indexOf(timeQ))}</div>` : ''}
+        </div>
       </section>`;
     }
     /* 회전 질문: 그저께 끼니에 대한 것이면 숨기고, 아니면 끼니 이름을 보는 시점 기준으로(「오늘 점심엔」 → 「어제 점심엔」) */
@@ -4234,6 +4256,7 @@ function renderAns(){
     if(key==='mealClock' && v.solo) v.meal = null;
     return true;
   };
+  document.querySelectorAll('.a-editbtn').forEach(b=>b.onclick=()=>{ const k = b.dataset.edit; if(OPEN_EDIT.has(k)) OPEN_EDIT.delete(k); else OPEN_EDIT.add(k); renderAns(); });
   document.querySelectorAll('.a-opt[data-past]').forEach(el=>{
     el.onclick = ()=>{
       const v = DAY_MEALS[el.dataset.past], key = el.dataset.key;
