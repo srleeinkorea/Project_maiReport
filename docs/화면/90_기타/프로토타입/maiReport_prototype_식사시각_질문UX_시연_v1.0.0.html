@@ -2876,10 +2876,9 @@ function setDemoTime(h,m){
     QUESTIONS = [Q_ACUTE[0], ...keep];
     const now = sessMin(DEMO_NOW);
     if(saved && saved.meal && saved.meal.v==='skip' && !saved.reasked && saved.at != null && now - saved.at >= REASK_GAP_MIN){
-      /* 「못 먹거나 거름」 뒤 한참 지나 같은 끼니로 다시 들어옴 — 늦게 먹었을 수 있으니 한 번만 다시 묻는다(예: 저녁 7:30 거름 → 새벽 1:30) */
+      /* 「못 먹거나 거름」 뒤 한참 지나 같은 끼니로 다시 들어옴 — 늦게 먹었을 수 있으니 한 번만 다시 묻는다(예: 저녁 7:30 거름 → 새벽 1:30).
+         질문 글과 선택지는 고정 질문 그대로 둔다(문구를 바꾸지 않음) */
       saved.reasked = true;
-      const nm = LAST_MEAL.replace('오늘 ','');
-      QUESTIONS[0] = { ...Q_ACUTE[0], text: `${nm}은 그 뒤에 드셨어요?`, opts: Q_ACUTE[0].opts.map((o,i)=> i===2 ? {...o, label:'그대로 안 먹음'} : o) };
     } else if(saved){   /* 이미 답한 끼니로 돌아오면 그 답을 다시 쓴다 */
       ans.meal = saved.meal; if(saved.mealClock) ans.mealClock = saved.mealClock;
       if(saved.timeQ && saved.meal && saved.meal.v!=='skip') QUESTIONS.splice(1, 0, saved.timeQ);
@@ -3101,7 +3100,7 @@ const DEMO_CASES = {
        steps:[{h:9,m:20,a:[2,0,1]},{h:13,m:20,a:[0,0]},{h:19,m:30,a:[2]}] },
   H: { nm:'밤 → 새벽 → 다음날', desc:'밤 10:10에 저녁부터 다 답함 → 새벽 1:30은 같은 세션(완료 상태 그대로, 저녁 다시 묻지 않음) → 새벽 5:00은 새 세션: 저녁 답을 어제 저녁으로 재사용하고 회전 · 활동 · 수면만 새로 → 8:30 아침 양 + 시각',
        steps:[{h:22,m:10,a:[0,1,0,0,1]},{h:1,m:30,a:[]},{h:5,m:0,a:[0,0,1]},{h:8,m:30,a:[0,1]}] },
-  I: { nm:'저녁 거름 → 새벽에 다시 물음', desc:'저녁 7:30에 「못 먹거나 거름」(아직 안 먹었을 수도) → 새벽 1:30 같은 세션 재진입, 1시간 반 넘게 지나 「저녁은 그 뒤에 드셨어요?」를 한 번 다시 물음 → 먹었으면 시각까지',
+  I: { nm:'저녁 거름 → 새벽에 다시 물음', desc:'저녁 7:30에 「못 먹거나 거름」(아직 안 먹었을 수도) → 새벽 1:30 같은 세션 재진입, 1시간 반 넘게 지나 저녁 식사 질문을 그대로 한 번 다시 물음 → 먹었으면 시각까지',
        steps:[{h:19,m:30,a:[2,0,1]},{h:1,m:30,a:[0,1]}] },
   G: { nm:'점심 늦게 답함', desc:'아침에 다 답한 뒤 오후 4:30에 점심 → 상한에 걸려 「1시 이후 / 12시~1시 사이 / 12시 이전」',
        steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:16,m:30,a:[0,1]}] },
