@@ -2819,6 +2819,14 @@ const Q_ROTATION = {
 const DAY_MEALS = {};   /* 끼니 이름 → {meal, mealClock, timeQ} 오늘 답한 끼니 */
 let CUR_SOLO = null;   /* 두 번째 끼니부터의 시각만 묻는 질문(이 끼니 것) */
 const SKIP_OPT = {v:'skip', f:'⌢', label:'못 먹거나 거름', tone:'bad'};
+/* 끼니 이름 표시 — 세션 키(어제 저녁 · 오늘 아침 · 오늘 점심 · 오늘 저녁)를 「지금 달력 날짜」 기준으로 바꾼다.
+   자정~4시는 세션은 이어지지만 날짜가 바뀌었으므로 오늘 → 어제, 어제 → 그저께. 엔진이 식사 날짜(meal_date)를 달력으로 저장하는 규칙과 같다 */
+function mealShown(key, when){
+  const d = when || DEMO_NOW;
+  const base = key.replace(/^(오늘|어제|그저께) /, '');
+  const off = (key.startsWith('어제') ? -1 : 0) - (d.getHours() < 4 ? 1 : 0);
+  return (off === 0 ? '오늘' : off === -1 ? '어제' : '그저께') + ' ' + base;
+}
 const sessMin = d => ((d.getHours() < 4 ? d.getHours() + 24 : d.getHours()) * 60 + d.getMinutes());   /* 세션 기준 분(자정~4시는 +24시간) */
 const REASK_GAP_MIN = 90;   /* 거름 답 뒤 이만큼 지나 같은 끼니로 다시 들어오면 한 번 다시 묻는다 */
 function stashMeal(){
@@ -2857,7 +2865,7 @@ function setDemoTime(h,m){
   LAST_MEAL = lastMealLabel(h);
   /* 끼니 이름이 들어간 질문 글은 아직 답하지 않은 것만 새 끼니로 맞춘다(답한 질문은 물었을 때 글 그대로) */
   delete ans.meal; delete ans.mealClock;
-  const fix = q=>{ if(!ans[q.id]) q.text = q.text.replace(/^(어제 저녁|오늘 아침|오늘 점심|오늘 저녁)/, LAST_MEAL); };
+  const fix = q=>{ if(!ans[q.id]) q.text = q.text.replace(/^(그저께 저녁|어제 저녁|오늘 아침|오늘 점심|오늘 저녁)/, mealShown(LAST_MEAL)); };
   Q_ACUTE.forEach(fix); Object.values(Q_ROTATION).forEach(fix);
   const keep = QUESTIONS.filter(q=>q.id!=='meal' && q.id!=='mealClock' && q.id!=='ydClock');   /* 회전 · 활동 · 수면은 하루 한 번 — 답과 함께 유지 */
   const saved = DAY_MEALS[LAST_MEAL];
@@ -2970,7 +2978,7 @@ function progressHtml(){
 function tailChipHtml(q){
   if(q.id!=='mealClock' || !ans.meal) return '';
   const a = ans.meal;
-  return `<div class="q-tail ${a.tone}"><span class="f">${a.f}</span>${LAST_MEAL.replace('오늘 ','')} · ${a.label}<span class="ar">› 이어서</span></div>`;
+  return `<div class="q-tail ${a.tone}"><span class="f">${a.f}</span>${mealShown(LAST_MEAL).replace('오늘 ','')} · ${a.label}<span class="ar">› 이어서</span></div>`;
 }
 const answered = ()=>Object.keys(ans).length;
 const allDone  = ()=>QUESTIONS.length > 0 && QUESTIONS.every(q=>ans[q.id]);
@@ -3147,10 +3155,10 @@ function buildGallery(){
       const before = QUESTIONS.filter(q=>!ans[q.id]).length;
       st.a.forEach(a=>{ const q = QUESTIONS[qi]; if(!q) return; if(a==='skip'){ if(q.solo) skipSoloMeal(q); return; } applyPick(q, q.opts[a]); qi++; if(allDone() && !FIRST_DONE){ FIRST_DONE = true; recalc(); } });
       const nx = QUESTIONS.findIndex(x=>!ans[x.id]); qi = nx<0 ? 0 : nx; coachReady = FIRST_DONE;
-      shots.push({ when: timeLabel(st.h,st.m), meal: LAST_MEAL, note: before ? `${st.a.length}개 답한 직후` : '새로 물을 것 없음', ...captureShot() });
+      shots.push({ when: timeLabel(st.h,st.m), meal: mealShown(LAST_MEAL), note: before ? `${st.a.length}개 답한 직후` : '새로 물을 것 없음', ...captureShot() });
     });
     GALLERY_EXTRA.filter(x=>!c.steps.some(st=>st.h===x.h && st.m===x.m)).forEach(x=>{ setDemoTime(x.h, x.m); const nx = QUESTIONS.findIndex(q=>!ans[q.id]); qi = nx<0 ? 0 : nx; coachReady = FIRST_DONE;
-      shots.push({ when: timeLabel(x.h,x.m), meal: LAST_MEAL, note: x.note + (allDone() ? '' : ' · 저녁 질문 다시 나옴'), ...captureShot() }); });
+      shots.push({ when: timeLabel(x.h,x.m), meal: mealShown(LAST_MEAL), note: x.note + (allDone() ? '' : ' · 저녁 질문 다시 나옴'), ...captureShot() }); });
     return `<section class="gal-case"><h2>${key} · ${c.nm}</h2><p>${c.desc}</p><div class="gal-row">${shots.map(sh=>`
       <article class="gal-shot"><header><b>${sh.when}</b><span>${sh.meal} · ${sh.note}</span></header>
         <div class="gal-home home-hero"><div class="q-card">${sh.home}</div></div>
@@ -4016,16 +4024,16 @@ function mealCardHtml(nm, v, attr){
     : `<div class="a-sub first">얼마나 드셨나요</div><div class="a-opts row">${chips(Q_ACUTE[0],'meal')}</div>
        ${a && a.v!=='skip' ? `<div class="a-sub">언제쯤 드셨나요</div><div class="a-opts row">${v.timeQ ? chips(v.timeQ,'mealClock') : ''}</div>` : ''}`;
   return `<section class="a-card">
-    <div class="a-cat">식이 · ${nm}</div>
+    <div class="a-cat">식이 · ${nm.replace(/^오늘 /,'')}</div>
     <div class="a-meal-sum"><span>🍚</span><span>${a || t ? mealSummary(a,t) : '<span class="pend">아직 답하지 않았어요</span>'}</span></div>
     ${body}
   </section>`;
 }
 function pastMealCards(){
-  return Object.entries(DAY_MEALS).filter(([nm])=>nm!==LAST_MEAL).map(([nm,v])=>{ v.label = nm; return mealCardHtml(nm, v, `data-past="${nm}"`); }).join('');
+  return Object.entries(DAY_MEALS).filter(([nm])=>nm!==LAST_MEAL).map(([nm,v])=>{ v.label = nm; return mealCardHtml(mealShown(nm), v, `data-past="${nm}"`); }).join('');
 }
 function renderAns(){
-  const mealNm = LAST_MEAL.replace('오늘 ','');
+  const mealNm = mealShown(LAST_MEAL);
   const timeQ = QUESTIONS.find(q=>q.id==='mealClock');
   const soloCard = CUR_SOLO ? mealCardHtml(mealNm, {meal:ans.meal||null, mealClock:ans.mealClock||null, timeQ:CUR_SOLO, solo:true}, 'data-cur="1"') : '';
   const ydCard = YD_Q ? mealCardHtml('어제 저녁', {meal:ans.ydMeal||null, mealClock:ans.ydClock||null, timeQ:YD_Q, solo:true}, 'data-yd="1"') : '';
@@ -4038,7 +4046,7 @@ function renderAns(){
         : a.v==='skip' ? a.label
         : `${a.label}<span class="dot">·</span>${t ? `${t.tl||t.label}쯤` : `<span class="pend">시각은 아직 답하지 않았어요</span>`}`;
       return `<section class="a-card">
-        <div class="a-cat">${q.cat} · ${mealNm}</div>
+        <div class="a-cat">${q.cat} · ${mealNm.replace(/^오늘 /,'')}</div>
         <div class="a-meal-sum"><span>🍚</span><span>${sum}</span></div>
         <div class="a-sub first">얼마나 드셨나요</div>
         <div class="a-opts row">${ansOptHtml(q,i)}</div>
