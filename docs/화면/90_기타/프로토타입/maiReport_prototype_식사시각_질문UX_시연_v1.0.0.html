@@ -2895,7 +2895,7 @@ function setDemoTime(h,m){
   if(inDawn(h) && !inDawn(prevH) && (Object.keys(DAY_MEALS).length || answered())){
     const carry = DAY_MEALS['오늘 저녁'] || null;
     Object.keys(DAY_MEALS).forEach(k=>delete DAY_MEALS[k]); Object.keys(ans).forEach(k=>delete ans[k]);
-    FIRST_DONE = false; coachReady = false; PLAN = null; SESSION_ROT = null; setHeroTone('neutral');
+    FIRST_DONE = false; coachReady = false; PLAN = null; SESSION_ROT = null; SESSION_INDEX++; setHeroTone('neutral');
     if(typeof resetDayGoals==='function') resetDayGoals();
     if(carry) DAY_MEALS['어제 저녁'] = { ...carry, carried:true };
   }
@@ -2977,7 +2977,18 @@ function bindDemoBar(el){
   el.querySelectorAll('.demo-time:not(.demo-case):not(.demo-bf) button').forEach(b=>b.onclick=()=>viewAt(+b.dataset.h,+b.dataset.m));
   bindCaseBar(el);
 }
+/* 시연: 회전 질문은 케이스 · 날짜로 고정한다. 원본은 「최근 4주 가장 적게 물은 질문」을 고르는데, 재생을 반복할수록 기록이 쌓여
+   같은 시각을 눌러도 다른 질문이 나와 화면이 바뀌는 것처럼 보였다 */
 function rotationQuestion(){
+  let key = null, day = 0;
+  try { key = CUR_CASE; day = SESSION_INDEX; } catch(e) { key = null; }   /* 페이지 로드 중(선언 전)에는 원본 방식 */
+  if(!key) return rotationQuestionByHistory();
+  const hour = DEMO_NOW.getHours();
+  const cands = Object.values(Q_ROTATION).filter(q=>q.id!=='mealTime' || (hour>=4 && hour<10));
+  const seed = key.charCodeAt(0) + (day || 0) * 3;
+  return cands[seed % cands.length];
+}
+function rotationQuestionByHistory(){
   const history = JSON.parse(localStorage.getItem('mai-diet-question-history-v1.0.0') || '[]');
   const cutoff = Date.now() - 28*24*60*60*1000;
   const hour = DEMO_NOW.getHours();
@@ -3189,6 +3200,7 @@ const DEMO_CASES = {
 };
 let CUR_CASE = null, PLAY_FAST = false, PLAYING = false, SILENT = false, PLAY_GEN = 0, PICK_TIMER = null;   /* PLAY_GEN: 재생 중 다른 시각을 누르면 올려서 진행 중인 재생을 멈춘다 */
 const MANUAL = /manual=1/.test(location.hash);   /* 직접 답하기 — 시나리오의 시각 흐름만 쓰고 답은 사용자가 직접 고른다(자동 누름 · 조용한 적용 없음) */
+let SESSION_INDEX = 0;    /* 몇 번째 세션인지(새벽 4시를 넘긴 횟수) — 회전 질문 고정에 쓴다 */
 let SESSION_ROT = null;   /* 이 세션의 회전 질문 — 첫 묶음을 다시 고를 때 바뀌지 않게 붙잡아 둔다 */
 const SEEN_STEPS = new Set();   /* 답하는 장면을 실제로 재생해 본 단계 — 같은 시각을 다시 눌러도 다시 묻지 않는다(조용히 적용만 된 단계는 처음 누를 때 재생) */
 const wait = ms => new Promise(r=>setTimeout(r, PLAY_FAST ? 0 : ms));
@@ -3232,7 +3244,7 @@ async function playStep(key, st){
 const GALLERY_EXTRA = [{h:1,m:30, note:'같은 세션 재진입'}];
 function resetDemoDay(){
   Object.keys(DAY_MEALS).forEach(k=>delete DAY_MEALS[k]); Object.keys(ans).forEach(k=>delete ans[k]);
-  FIRST_DONE = false; coachReady = false; PLAN = null; CUR_CASE = null; lock = false; SESSION_ROT = null;
+  FIRST_DONE = false; coachReady = false; PLAN = null; CUR_CASE = null; lock = false; SESSION_ROT = null; SESSION_INDEX = 0;
   Object.values(Q_ROTATION).forEach(q=>delete q.askedFor); Q_ACUTE.forEach(q=>delete q.askedFor);
   if(typeof resetDayGoals==='function') resetDayGoals();
   DEMO_NOW = new Date(); DEMO_NOW.setHours(4,0,0,0); LAST_MEAL = lastMealLabel(4);   /* 세션 시작 시각에서 출발 */
