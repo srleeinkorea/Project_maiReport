@@ -2912,7 +2912,7 @@ function demoBarHtml(){
   const steps = CUR_CASE ? DEMO_CASES[CUR_CASE].steps : [];
   const inNext = CUR_CASE && VIEW_DAY > caseDays().lastDay;
   const isStep = (h,m)=>!inNext && steps.some(st=>st.h===h && st.m===m);
-  return caseBarHtml() + `<div class="demo-time"><span>시연 시각${CUR_CASE ? ' <small>(그 시각에 열었을 때)</small>' : ''}</span>${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}${isNextDay(h,m)?' nextday':''}">${isNextDay(h,m)?'다음 날 ':''}${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>`;
+  return caseBarHtml() + `<div class="demo-time"><span>시연 시각${CUR_CASE ? ' <small>(그 시각에 열었을 때)</small>' : ''}</span>${DEMO_TIMES.map(([l,h,m])=>`<button type="button" data-h="${h}" data-m="${m}" class="${DEMO_NOW.getHours()===h&&DEMO_NOW.getMinutes()===m?'on':''}${isStep(h,m)?' step':''}${isNextDay(h,m)?' nextday':''}">${l}${isStep(h,m)?' ✓':''}</button>`).join('')}</div>`;
 }
 function bindDemoBar(el){
   el.querySelectorAll('.demo-time:not(.demo-case):not(.demo-bf) button').forEach(b=>b.onclick=()=>viewAt(+b.dataset.h,+b.dataset.m));
@@ -3069,7 +3069,7 @@ function pick(q,o,btn){
   btn.parentElement.querySelectorAll('.q-opt').forEach(b=>{ if(b!==btn) b.classList.add('dim'); });
   btn.classList.add('on');
   setHeroTone(o.tone==='neutral' ? heroTone : o.tone);
-  setTimeout(()=>{ qi++; lock=false; renderQ(); sync(); }, 500);
+  PICK_TIMER = setTimeout(()=>{ qi++; lock=false; renderQ(); sync(); }, 500);
 }
 const MEAL_BOUND_IDS = ['protein','veg','sweet','salt','pace','fat','mealTime'];   /* 끼니 이름이 들어가는 회전 질문 */
 function applyPick(q,o){
@@ -3128,7 +3128,7 @@ const DEMO_CASES = {
   G: { nm:'점심 늦게 답함', desc:'아침에 다 답한 뒤 오후 4:30에 점심 → 상한에 걸려 「1시 이후 / 12시~1시 사이 / 12시 이전」',
        steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:16,m:30,a:[0,1]}] },
 };
-let CUR_CASE = null, PLAY_FAST = false, PLAYING = false, SILENT = false;
+let CUR_CASE = null, PLAY_FAST = false, PLAYING = false, SILENT = false, PLAY_GEN = 0, PICK_TIMER = null;   /* PLAY_GEN: 재생 중 다른 시각을 누르면 올려서 진행 중인 재생을 멈춘다 */
 const SEEN_STEPS = new Set();   /* 답하는 장면을 실제로 재생해 본 단계 — 같은 시각을 다시 눌러도 다시 묻지 않는다(조용히 적용만 된 단계는 처음 누를 때 재생) */
 const wait = ms => new Promise(r=>setTimeout(r, PLAY_FAST ? 0 : ms));
 /* 재생 안내 띠 — 지금 몇 시에 들어와 몇 번째 답을 누르는지. 「바로 결과 보기」를 누르면 남은 과정을 건너뛴다 */
@@ -3150,15 +3150,15 @@ async function runCase(key){
 }
 /* 한 단계 재생 — 화면의 버튼을 실제로 눌러(pick) 강조 → 0.5초 → 다음 질문 */
 async function playStep(key, st){
-  PLAYING = true; PLAY_FAST = false;
+  PLAYING = true; PLAY_FAST = false; const gen = ++PLAY_GEN;
   const label = timeLabel(st.h, st.m);
   playPill(`${key} · ${label} 들어옴`);
-  await wait(1200);
+  await wait(1200); if(gen !== PLAY_GEN) return;
   for(let ai=0; ai<st.a.length; ai++){
     const a = st.a[ai]; const q = QUESTIONS[qi]; if(!q) break;
     playPill(`${key} · ${label} · ${ai+1}/${st.a.length} 답하는 중`);
     const btn = document.querySelectorAll('#secQ .q-opt')[a];
-    if(btn && !PLAY_FAST){ btn.click(); await wait(1150); }
+    if(btn && !PLAY_FAST){ btn.click(); await wait(1150); if(gen !== PLAY_GEN) return; }
     else { if(lock) lock = false; applyPick(q, q.opts[a]); qi++; if(allDone() && !FIRST_DONE){ FIRST_DONE = true; recalc(); } renderQ(); sync(); }
   }
   const nx = QUESTIONS.findIndex(x=>!ans[x.id]); qi = nx<0 ? 0 : nx;
@@ -3233,7 +3233,6 @@ function stepDays(steps){
 let VIEW_DAY = 0;   /* 지금 보고 있는 날(0 = 시나리오 첫날) */
 function caseDays(){ const c = DEMO_CASES[CUR_CASE]; const days = stepDays(c.steps); return { days, lastDay: days.length ? days[days.length-1] : 0 }; }
 function isNextDay(h,m){
-  return false;   /* 「다음 날」 구분은 쓰지 않는다 — 시연 시각은 늘 시나리오 마지막 날 안에서 움직인다 */
   if(!CUR_CASE) return false;
   const c = DEMO_CASES[CUR_CASE]; if(!c.steps.length) return false;
   const { days, lastDay } = caseDays();
@@ -3250,16 +3249,19 @@ function applyStepSilently(st){
 const smOf = (h,m)=> sessMin(new Date(2000,0,1,h,m));
 const inDawnH = h => h >= 4 && h < BREAKFAST_FROM;
 async function viewAt(h,m){
-  if(PLAYING) return;                       /* 재생 중에는 시각 버튼을 받지 않는다 */
+  let interrupted = false;
+  if(PLAYING){                              /* 재생 중에 다른 시각을 누르면 재생을 멈추고 바로 그 시각으로 간다 */
+    PLAY_GEN++; PLAYING = false; PLAY_FAST = false; clearTimeout(PICK_TIMER); lock = false; playPill(null); interrupted = true;
+  }
   if(!CUR_CASE){ setDemoTime(h,m); return; }
   const key = CUR_CASE, c = DEMO_CASES[key];
   const { days, lastDay } = caseDays();
   let idx = -1; c.steps.forEach((st,i)=>{ if(st.h===h && st.m===m) idx = i; });
   if(VIEW_DAY > lastDay) idx = -1;          /* 이미 다음 날에 들어섰으면 모든 시각은 다음 날(✓ 시각도). 첫날로 돌아가려면 시나리오를 다시 고른다 */
-  const dayT = idx >= 0 ? days[idx] : lastDay;   /* 단계가 아닌 시각은 마지막 날로 본다 */
+  const dayT = idx >= 0 ? days[idx] : (isNextDay(h,m) ? Math.max(lastDay + 1, VIEW_DAY) : lastDay);
   const smT = smOf(h,m), curSm = sessMin(DEMO_NOW);
   const replay = idx >= 0 && !SEEN_STEPS.has(idx);
-  const forward = dayT > VIEW_DAY || (dayT === VIEW_DAY && smT >= curSm);
+  const forward = !interrupted && (dayT > VIEW_DAY || (dayT === VIEW_DAY && smT >= curSm));   /* 재생을 끊었으면 반쯤 답한 상태라 처음부터 다시 만든다 */
   SILENT = true;
   if(forward){
     /* 앞으로 — 지금 상태(직접 누른 답 포함)를 이어 가고, 그 사이에 있는 단계만 조용히 적용한다 */
