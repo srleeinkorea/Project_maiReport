@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>마이리포트 · 식사 시각 질문 UX 시연</title>
+<title>마이리포트 · 식이 끼니 검증용 프로토타입</title>
 <style>
 /* ============================================================
    디자인 토큰
@@ -3122,12 +3122,64 @@ function runCase(key){
   coachReady = FIRST_DONE;   /* 재생이라 생성 중 애니메이션은 건너뛴다 */
   renderQ(); sync();
 }
+/* ── 답변 보기 갤러리(#gallery) — 케이스 × 진입 시각마다 홈 질문 카드 + 「오늘 답변 보기」 화면을 같은 엔진 · 같은 CSS로 그려 한 장에 모은다.
+   각 단계는 「들어와서 답한 직후」, 마지막은 새벽 1:30(같은 세션 재진입)이다. ── */
+const GALLERY_EXTRA = [{h:1,m:30, note:'같은 세션 재진입'}];
+function resetDemoDay(){
+  Object.keys(DAY_MEALS).forEach(k=>delete DAY_MEALS[k]); Object.keys(ans).forEach(k=>delete ans[k]);
+  FIRST_DONE = false; coachReady = false; PLAN = null; CUR_CASE = null; lock = false;
+  if(typeof resetDayGoals==='function') resetDayGoals();
+  DEMO_NOW = new Date(); DEMO_NOW.setHours(13,20,0,0); LAST_MEAL = lastMealLabel(13);
+}
+function timeLabel(h,m){ const hit = DEMO_TIMES.find(([,hh,mm])=>hh===h&&mm===m); return hit ? hit[0] : `${h<4?'새벽':h<12?'오전':h<18?'오후':'저녁'} ${h%12||12}:${String(m).padStart(2,'0')}`; }
+function captureShot(){
+  renderQ(); renderAns();
+  const card = document.querySelector('#secQ .q-card');
+  const home = card ? card.innerHTML.replace(/<div class="demo-time[\s\S]*?<\/div>/g,'').replace(/<p class="demo-desc">[\s\S]*?<\/p>/,'') : '';
+  return { home, ans: document.getElementById('ansBody').innerHTML };
+}
+function buildGallery(){
+  const sections = Object.entries(DEMO_CASES).map(([key,c])=>{
+    resetDemoDay(); CUR_CASE = key;
+    const shots = [];
+    c.steps.forEach(st=>{
+      setDemoTime(st.h, st.m);
+      const before = QUESTIONS.filter(q=>!ans[q.id]).length;
+      st.a.forEach(a=>{ const q = QUESTIONS[qi]; if(!q) return; if(a==='skip'){ if(q.solo) skipSoloMeal(q); return; } applyPick(q, q.opts[a]); qi++; if(allDone() && !FIRST_DONE){ FIRST_DONE = true; recalc(); } });
+      const nx = QUESTIONS.findIndex(x=>!ans[x.id]); qi = nx<0 ? 0 : nx; coachReady = FIRST_DONE;
+      shots.push({ when: timeLabel(st.h,st.m), meal: LAST_MEAL, note: before ? `${st.a.length}개 답한 직후` : '새로 물을 것 없음', ...captureShot() });
+    });
+    GALLERY_EXTRA.filter(x=>!c.steps.some(st=>st.h===x.h && st.m===x.m)).forEach(x=>{ setDemoTime(x.h, x.m); const nx = QUESTIONS.findIndex(q=>!ans[q.id]); qi = nx<0 ? 0 : nx; coachReady = FIRST_DONE;
+      shots.push({ when: timeLabel(x.h,x.m), meal: LAST_MEAL, note: x.note + (allDone() ? '' : ' · 저녁 질문 다시 나옴'), ...captureShot() }); });
+    return `<section class="gal-case"><h2>${key} · ${c.nm}</h2><p>${c.desc}</p><div class="gal-row">${shots.map(sh=>`
+      <article class="gal-shot"><header><b>${sh.when}</b><span>${sh.meal} · ${sh.note}</span></header>
+        <div class="gal-home home-hero"><div class="q-card">${sh.home}</div></div>
+        <div class="gal-ans"><div class="sub-h"><button>‹</button><h2>오늘의 질문</h2></div><div class="sub-b">${sh.ans}</div></div>
+      </article>`).join('')}</div></section>`;
+  }).join('');
+  document.body.innerHTML = `<style>
+    html,body{max-width:none!important;width:auto!important;min-width:0!important;height:auto!important;overflow:auto!important;transform:none!important}
+    body{background:#F3F5F9;margin:0;padding:24px 20px 60px;display:block!important}
+    .gal-top{max-width:1400px;margin:0 auto 18px}.gal-top h1{font-size:22px;margin:0 0 6px}.gal-top p{margin:0;color:#5d6275;font-size:13px;line-height:1.6}
+    .gal-top a{color:#2F66F5;font-size:13px}
+    .gal-case{max-width:1400px;margin:0 auto 36px}.gal-case h2{font-size:17px;margin:0 0 4px}.gal-case>p{margin:0 0 12px;color:#5d6275;font-size:13px;line-height:1.6}
+    .gal-row{display:flex;gap:16px;overflow-x:auto;padding-bottom:10px;align-items:flex-start}
+    .gal-shot{flex:0 0 340px;background:#fff;border:1px solid #DFE4EE;border-radius:18px;overflow:hidden;box-shadow:0 2px 10px rgba(30,50,90,.06)}
+    .gal-shot header{padding:10px 14px;border-bottom:1px solid #EEF1F6;display:flex;flex-direction:column;gap:2px}.gal-shot header b{font-size:14px}.gal-shot header span{font-size:12px;color:#5d6275}
+    .gal-home{padding:14px 16px 10px;border-bottom:1px dashed #DFE4EE}.gal-home .q-card{pointer-events:none}
+    .gal-ans{background:#F5F7FB;max-height:none}.gal-ans .sub-h{display:flex;align-items:center;padding:10px 12px;background:#fff;border-bottom:1px solid #EEF1F6}.gal-ans .sub-h button{border:0;background:none;font-size:20px}.gal-ans .sub-h h2{flex:1;text-align:center;font-size:15px;margin:0 30px 0 0}
+    .gal-ans .sub-b{padding:10px 14px 18px;display:flex;flex-direction:column;gap:10px}.gal-ans .a-opt{pointer-events:none}
+  </style>
+  <div class="gal-top"><h1>식이 끼니 검증용 프로토타입 — 케이스 × 진입 시각별 「오늘 답변 보기」</h1>
+  <p>각 칸은 그 시각에 들어와 답한 직후의 홈 질문 카드(위)와 「오늘 답변 보기」(아래)입니다. 마지막 칸은 새벽 1:30 같은 세션 재진입. 끼니 경계 4시 세션 · 4~8시 어제 저녁 · 8시부터 아침, 끼니마다 식사 양 → 시각, 코칭 · 목표는 처음 답한 묶음 기준.</p>
+  <p><a href="${location.pathname}">← 시연본으로 돌아가기</a></p></div>${sections}`;
+}
 function caseBarHtml(){
   const c = CUR_CASE ? DEMO_CASES[CUR_CASE] : null;
-  return `<div class="demo-time demo-case"><span>시나리오</span>${Object.entries(DEMO_CASES).map(([k,v])=>`<button type="button" data-case="${k}" class="${CUR_CASE===k?'on':''}" title="${v.desc}">${k} · ${v.nm}</button>`).join('')}</div>
+  return `<div class="demo-time demo-case"><span>시나리오</span>${Object.entries(DEMO_CASES).map(([k,v])=>`<button type="button" data-case="${k}" class="${CUR_CASE===k?'on':''}" title="${v.desc}">${k} · ${v.nm}</button>`).join('')}<button type="button" data-gallery="1" style="margin-left:auto">📋 케이스별 답변 보기 모음</button></div>
     ${c ? `<p class="demo-desc">${c.desc}</p>` : ''}`;
 }
-function bindCaseBar(el){ el.querySelectorAll('.demo-case button').forEach(b=>b.onclick=()=>{ location.hash = 'case=' + b.dataset.case; location.reload(); }); }
+function bindCaseBar(el){ el.querySelectorAll('.demo-case button').forEach(b=>b.onclick=()=>{ location.hash = b.dataset.gallery ? 'gallery' : 'case=' + b.dataset.case; location.reload(); }); }
 
 /* ════════════════════════════════════════════════════════════
    2. 오늘의 코칭
@@ -7612,7 +7664,8 @@ document.getElementById('rdMore').onclick=()=>document.getElementById('reportDon
 const DEMO_AI_REPORT_REGISTERED = false;
 let hasAiReport = DEMO_AI_REPORT_REGISTERED;
 /* 주소에 #case=A 가 있으면 시작 직후 그 시나리오를 재생한다 */
-{ const cm = location.hash.match(/case=([A-Z])/); if(cm && DEMO_CASES[cm[1]]) setTimeout(()=>runCase(cm[1]), 50); }
+{ const cm = location.hash.match(/case=([A-Z])/); if(cm && DEMO_CASES[cm[1]]) setTimeout(()=>runCase(cm[1]), 50);
+  if(/gallery/.test(location.hash)) setTimeout(buildGallery, 80); }
 function refreshHome(){
   QUESTIONS = pickQuestions();
   if(qi >= QUESTIONS.length && !allDone()) qi = 0;
