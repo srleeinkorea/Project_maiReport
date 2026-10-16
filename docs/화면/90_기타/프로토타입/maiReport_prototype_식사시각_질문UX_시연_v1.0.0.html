@@ -2984,6 +2984,10 @@ function rotationQuestion(){
   try { key = CUR_CASE; day = SESSION_INDEX; } catch(e) { key = null; }   /* 페이지 로드 중(선언 전)에는 원본 방식 */
   if(!key) return rotationQuestionByHistory();
   const hour = DEMO_NOW.getHours();
+  /* 10-16 결정 — 새벽 4~8시에 들어왔고 어제 저녁 답을 전날 세션에서 가져왔으면, 그 저녁에 대한 회전 질문은 다시 묻지 않는다
+     (어젯밤에 고정 + 회전을 이미 답함). 식이에서 나올 수 있는 건 「어젯밤 야식」 하나뿐이다 */
+  const carriedDinner = DAY_MEALS['어제 저녁'] && DAY_MEALS['어제 저녁'].carried && DAY_MEALS['어제 저녁'].meal;
+  if(hour >= 4 && hour < BREAKFAST_FROM && carriedDinner) return Q_ROTATION[8];
   const cands = Object.values(Q_ROTATION).filter(q=>q.id!=='mealTime' || (hour>=4 && hour<10));
   const seed = key.charCodeAt(0) + (day || 0) * 3;
   return cands[seed % cands.length];
