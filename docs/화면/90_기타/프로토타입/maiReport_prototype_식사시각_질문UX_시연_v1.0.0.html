@@ -2899,6 +2899,7 @@ function setDemoTime(h,m){
   PLAN = null; lock = false;
   const next = QUESTIONS.findIndex(q=>!ans[q.id]); qi = next<0 ? 0 : next;
   if(!FIRST_DONE) coachReady = false; if(firstSession) setHeroTone('neutral');
+  if(SILENT) return;   /* 그 시각 화면을 만들려고 뒤에서 다시 돌리는 중 — 화면은 마지막에 한 번만 그린다 */
   renderQ(); sync();
 }
 const DEMO_TIMES = [['새벽 1:30',1,30],['새벽 5:00',5,0],['오전 7:10',7,10],['오전 8:30',8,30],['오전 9:20',9,20],['오전 10:40',10,40],['오후 12:40',12,40],['오후 1:20',13,20],['오후 4:30',16,30],['오후 7:30',19,30],['밤 10:10',22,10]];
@@ -3121,7 +3122,7 @@ const DEMO_CASES = {
   G: { nm:'점심 늦게 답함', desc:'아침에 다 답한 뒤 오후 4:30에 점심 → 상한에 걸려 「1시 이후 / 12시~1시 사이 / 12시 이전」',
        steps:[{h:8,m:30,a:[0,1,0,0,1]},{h:16,m:30,a:[0,1]}] },
 };
-let CUR_CASE = null, PLAY_FAST = false, PLAYING = false;
+let CUR_CASE = null, PLAY_FAST = false, PLAYING = false, SILENT = false;
 const wait = ms => new Promise(r=>setTimeout(r, PLAY_FAST ? 0 : ms));
 /* 재생 안내 띠 — 지금 몇 시에 들어와 몇 번째 답을 누르는지. 「바로 결과 보기」를 누르면 남은 과정을 건너뛴다 */
 function playPill(text){
@@ -3169,12 +3170,13 @@ function resetDemoDay(){
 }
 function timeLabel(h,m){ const hit = DEMO_TIMES.find(([,hh,mm])=>hh===h&&mm===m); return hit ? hit[0] : `${h<4?'새벽':h<12?'오전':h<18?'오후':'저녁'} ${h%12||12}:${String(m).padStart(2,'0')}`; }
 function captureShot(){
-  renderQ(); renderAns();
+  SILENT = false; renderQ(); sync(); renderAns(); SILENT = true;
   const card = document.querySelector('#secQ .q-card');
   const home = card ? card.innerHTML.replace(/<div class="demo-time[\s\S]*?<\/div>/g,'').replace(/<p class="demo-desc">[\s\S]*?<\/p>/,'') : '';
   return { home, ans: document.getElementById('ansBody').innerHTML };
 }
 function buildGallery(){
+  SILENT = true;
   const sections = Object.entries(DEMO_CASES).map(([key,c])=>{
     resetDemoDay(); CUR_CASE = key;
     const shots = [];
@@ -3220,8 +3222,10 @@ function stepDays(steps){
   return days;
 }
 function viewAt(h,m){
-  if(!CUR_CASE || PLAYING){ setDemoTime(h,m); return; }
+  if(PLAYING) return;                       /* 재생 중에는 시각 버튼을 받지 않는다 */
+  if(!CUR_CASE){ setDemoTime(h,m); return; }
   const key = CUR_CASE, c = DEMO_CASES[key];
+  SILENT = true;
   resetDemoDay(); CUR_CASE = key;
   const days = stepDays(c.steps), lastDay = days.length ? days[days.length-1] : 0;
   const sm = sessMin(new Date(2000,0,1,h,m));
@@ -3233,7 +3237,8 @@ function viewAt(h,m){
       const nx = QUESTIONS.findIndex(x=>!ans[x.id]); qi = nx<0 ? 0 : nx;
     }
   });
-  coachReady = FIRST_DONE;
+  SILENT = false;
+  clearTimeout(coachTimer); coachReady = FIRST_DONE;   /* 이미 받은 코칭은 다시 「생성 중」을 거치지 않는다 */
   setDemoTime(h,m);
 }
 function caseBarHtml(){
