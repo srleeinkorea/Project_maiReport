@@ -2984,14 +2984,19 @@ function renderQ(){
   const el = document.getElementById('secQ');
   setHeroTone(heroTone);
   if(allDone()){
+    /* 완료 문구는 「지금 묶음」 기준이다. 오늘 저녁까지 답하기 전에는 다음 끼니 뒤에 식사 질문이 다시 온다고 알린다 */
+    const dinnerDone = LAST_MEAL==='오늘 저녁' ? !!ans.meal : !!(DAY_MEALS['오늘 저녁'] && DAY_MEALS['오늘 저녁'].meal);
+    const nextMeal = LAST_MEAL==='어제 저녁' || LAST_MEAL==='오늘 아침' ? (LAST_MEAL==='어제 저녁' ? '아침' : '점심') : LAST_MEAL==='오늘 점심' ? '저녁' : null;
+    const h1 = dinnerDone ? '잘 했어요 👍<br>오늘 질문을 모두 마쳤어요!' : `지금 질문은 다 답했어요 👍<br>${nextMeal} 드신 뒤에 짧게 다시 여쭐게요`;
+    const sub = dinnerDone ? '오늘의 몸 상태를 계속 유지해 봐요!' : '지금까지 답한 끼니와 질문을 볼 수 있어요';
     el.innerHTML = `<section class="q-card">${demoBarHtml()}
       <div class="q-row">
-        <div class="q-tx">${progressHtml()}<h1>잘 했어요 👍<br>답변을 모두 완료했어요!</h1></div>
+        <div class="q-tx">${progressHtml()}<h1>${h1}</h1></div>
         <div class="q-av done">📋</div>
       </div>
       <button class="q-done" id="qDone">
         <span class="ck">✓</span>
-        <span class="tx"><b>오늘 답변 모두 보기</b><small>오늘의 몸 상태를 계속 유지해 봐요!</small></span>
+        <span class="tx"><b>${dinnerDone ? '오늘 답변 모두 보기' : '오늘 답변 보기'}</b><small>${sub}</small></span>
         <span class="ch">›</span>
       </button>
     </section>`;
