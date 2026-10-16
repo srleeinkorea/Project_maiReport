@@ -2243,34 +2243,7 @@ body>h1,body>header h1,body>main>h1,body>.page>h1,body>.top>h1,.top h1,.page>.to
 <!-- ══════════════ 검진정보 대상조회 ══════════════ -->
 <div class="sub" id="examEligibility">
   <div class="rs-h"><button id="examEligibilityBack">‹</button><h2>검진대상조회</h2></div>
-  <div class="exam-elig-body">
-    <section class="exam-elig-card" style="margin-top:12px">
-      <h3 style="font-size:20px;line-height:1.35;margin:0 0 6px">김마이님의 2025년 검진정보 항목</h3>
-      <div class="base" style="color:#9499a6;font-size:13px;margin-bottom:20px">조회기준일 · 2025년 1월 1일</div>
-      <button class="fd-all" style="background:#dce9ff;color:#075ce5;border:0;margin:0">데이터 연동하기</button>
-    </section>
-    <section class="exam-elig-card">
-      <h4>일반검진정보</h4>
-      <div class="exam-elig-row"><span class="lb">사업연도</span><span class="val">2025년</span></div>
-      <div class="exam-elig-row"><span class="lb">일반검진</span><span class="val">대상(본인부담 없음)</span></div>
-      <div class="exam-elig-row"><span class="lb">구강검진</span><span class="val">대상(본인부담 없음)</span></div>
-    </section>
-    <section class="exam-elig-card">
-      <h4>암검진</h4>
-      <div class="exam-elig-row"><span class="lb">구분</span><span class="val">암검진</span></div>
-      <div class="exam-elig-row"><span class="lb">위암</span><span class="val primary">수검완료</span></div>
-      <div class="exam-elig-row"><span class="lb">간암(상반기)</span><span class="val">대상아님</span></div>
-      <div class="exam-elig-row"><span class="lb">간암(하반기)</span><span class="val">대상아님</span></div>
-      <div class="exam-elig-row"><span class="lb">대장암</span><span class="val">대상아님</span></div>
-      <div class="exam-elig-row"><span class="lb">유방암</span><span class="val">대상아님</span></div>
-      <div class="exam-elig-row"><span class="lb">자궁경부암</span><span class="val primary">수검완료</span></div>
-      <div class="exam-elig-row"><span class="lb">폐암</span><span class="val">대상아님</span></div>
-    </section>
-    <section class="exam-elig-card">
-      <h4>안내사항</h4>
-      <p style="font-size:14px;line-height:1.6;color:#4d5260;margin:0">검진정보 안내사항을 반드시 확인하시기 바랍니다. 자세한 안내사항은 안내문을 확인해 주시기 바랍니다.</p>
-    </section>
-  </div>
+  <div class="exam-elig-body" id="examEligBody"></div>
 </div>
 
 <!-- 셀비 체크업 소개 -->
@@ -5035,16 +5008,68 @@ function openReadDetail(id){
     </section>
     <section class="card nt-card">
       <div class="nt-top">
-        <div class="tx"><b>${USER.name}님은 2025년도<br><em>건강검진 대상자입니다.</em></b>
-        <small>가까운 병원에서 검진을 받으시기 바랍니다.</small></div>
+        ${examEligEmpty
+          ? `<div class="tx"><b>${USER.name}님은 ${EXAM_ELIG_YEAR}년도<br><em>건강검진 대상이 아닙니다.</em></b>
+        <small>올해 받을 수 있는 국가검진이 없습니다.</small></div>`
+          : `<div class="tx"><b>${USER.name}님은 ${EXAM_ELIG_YEAR}년도<br><em>건강검진 대상자입니다.</em></b>
+        <small>가까운 병원에서 검진을 받으시기 바랍니다.</small></div>`}
         <span class="emo">🧑‍⚕️</span>
       </div>
       <button class="fd-all" id="examEligibilityBtn" style="margin-top:0">검진 안내 확인하기</button>
     </section>`;
   }
   el.innerHTML = html;
-  const eb = document.getElementById('examEligibilityBtn'); if(eb) eb.onclick = ()=>document.getElementById('examEligibility').classList.add('open');
+  const eb = document.getElementById('examEligibilityBtn'); if(eb) eb.onclick = openExamElig;
 }
+
+/* 검진대상조회 — 건강보험공단 검진대상 조회 결과(CODEF 검진대상 API 출력부)를 그대로 쓴다.
+   검진 결과를 가져올 때 같은 간편인증으로 함께 조회해 두고, 이 화면에서는 따로 인증하지 않는다.
+   공단이 「건강검진 대상자가 아닙니다」로 답하면 출력부가 비어 오므로 대상 아님 화면을 보여준다.
+   값은 받은 글자 그대로 쓰고, 앱에서 대상 여부를 고치거나 판단하지 않는다. 빈 값인 줄은 넣지 않는다 */
+const EXAM_ELIG_YEAR = '2025';
+const EXAM_ELIG = {
+  resUserNm:'김마이', resCheckupYear:'2025',
+  resGeneralExam:'본인부담 없음', resDentalExam:'본인부담 없음',
+  resCancerScreeningList:[
+    {resType:'위암', resCancerScreening:'10%부담'},
+    {resType:'간암(상반기)', resCancerScreening:'대상아님'},
+    {resType:'간암(하반기)', resCancerScreening:'대상아님'},
+    {resType:'대장암', resCancerScreening:'대상아님'},
+    {resType:'유방암', resCancerScreening:'10%부담'},
+    {resType:'자궁경부암', resCancerScreening:'본인부담 없음'},
+    {resType:'폐암', resCancerScreening:'대상아님'}
+  ]
+};
+let examEligEmpty = false;   /* 시연용: 공단 응답이 비어 온 경우(대상 아님)로 전환 */
+function renderExamElig(){
+  const body = document.getElementById('examEligBody');
+  const d = examEligEmpty ? {} : EXAM_ELIG;
+  const row = (lb, v) => v ? `<div class="exam-elig-row"><span class="lb">${lb}</span><span class="val${v==='대상아님'?'':' primary'}">${v}</span></div>` : '';
+  const general = row('일반검진', d.resGeneralExam) + row('구강검진', d.resDentalExam);
+  const cancer = (d.resCancerScreeningList||[]).map(c=>row(c.resType, c.resCancerScreening)).join('');
+  let html = `<section class="exam-elig-card" style="margin-top:12px;padding-bottom:20px">
+      <h3 style="font-size:20px;line-height:1.35;margin:0">${USER.name}님의 ${d.resCheckupYear||EXAM_ELIG_YEAR}년 검진정보 항목</h3>
+    </section>`;
+  if(!general && !cancer){
+    html += `<section class="exam-elig-card" style="padding:28px 20px;text-align:center">
+      <div style="font-size:34px;margin-bottom:10px">🗓️</div>
+      <b style="display:block;font-size:17px;margin-bottom:8px">올해는 건강검진 대상이 아닙니다</b>
+      <p style="font-size:14px;line-height:1.6;color:var(--ink-3);margin:0">건강보험공단 조회 결과, ${EXAM_ELIG_YEAR}년에 받을 수 있는<br>일반검진 · 구강검진 · 암검진이 없습니다.</p>
+    </section>`;
+  } else {
+    if(general) html += `<section class="exam-elig-card"><h4>일반검진정보</h4>${general}</section>`;
+    if(cancer) html += `<section class="exam-elig-card"><h4>암검진</h4>${cancer}</section>`;
+  }
+  html += `<section class="exam-elig-card" style="padding-bottom:20px">
+      <h4>안내사항</h4>
+      <p style="font-size:14px;line-height:1.6;color:#4d5260;margin:0">검진정보 안내사항을 반드시 확인하시기 바랍니다. 자세한 안내사항은 안내문을 확인해 주시기 바랍니다.</p>
+    </section>
+    <button type="button" id="examEligDemo" style="display:block;margin:6px auto 0;border:0;background:none;font:inherit;font-size:13px;color:var(--ink-3);text-decoration:underline;cursor:pointer">시연: ${examEligEmpty?'검진 대상인 경우 보기':'검진 대상이 아닌 경우 보기'}</button>`;
+  body.innerHTML = html;
+  body.scrollTop = 0;
+  document.getElementById('examEligDemo').onclick = ()=>{ examEligEmpty = !examEligEmpty; renderExamElig(); renderCheckupSum(); };
+}
+function openExamElig(){ renderExamElig(); document.getElementById('examEligibility').classList.add('open'); }
 
 let visitFilter = 'all';
 function dateKey(str){
@@ -5905,7 +5930,7 @@ function openVisit(id){
 }
 
 const examEligibilityBtn = document.getElementById('examEligibilityBtn');
-if(examEligibilityBtn){ examEligibilityBtn.onclick = ()=>document.getElementById('examEligibility').classList.add('open'); }
+if(examEligibilityBtn){ examEligibilityBtn.onclick = openExamElig; }
 document.getElementById('examEligibilityBack').onclick = ()=>document.getElementById('examEligibility').classList.remove('open');
 document.getElementById('allHealthBack').onclick=()=>document.getElementById('allHealthSub').classList.remove('open');
 document.getElementById('medicalCostBack').onclick=()=>document.getElementById('medicalCostHistory').classList.remove('open');
