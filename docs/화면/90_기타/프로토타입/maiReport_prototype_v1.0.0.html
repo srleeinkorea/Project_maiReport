@@ -1511,6 +1511,7 @@ html.embed .app > .perm,html.embed .app > .check-sub,html.embed .app > .confirm,
 .home-hero .q-card{background:transparent;box-shadow:none;padding:4px 0 6px}
 .home-hero .q-row{align-items:flex-start;margin-bottom:16px;gap:10px}
 .home-hero .q-tx{flex:1;min-width:0}
+.q-tx h1{word-break:keep-all;text-wrap:balance}
 .home-hero .q-step{color:var(--brand);font-weight:700;margin-bottom:8px}
 .home-hero .q-row h1{font-size:20px;line-height:1.45;letter-spacing:-.02em;word-break:keep-all}
 .home-hero .q-av{width:84px;height:84px;font-size:42px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0%,#DCE6FF 70%);box-shadow:0 10px 24px rgba(47,102,245,.16),inset 0 -6px 12px rgba(47,102,245,.08);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:-6px}
@@ -2747,9 +2748,9 @@ function mealTimeQuestion(now){
   const times = [[a.ap, `${a.clock} 이후`], [rangeAp, `${b.clock}~${a.clock}`], [b.ap, `${b.clock} 이전`]];
   const rel = ['1시간 이내','1~2시간 전','그보다 전'];
   /* 선택지 글자는 「1시간 이내 / 1~2시간 전 / 그보다 전」(작은 글씨 없음). 상한·하한에 걸린 동안은 「1시간 이내」가 사실과 달라 시각을 쓴다 */
-  /* 상한 · 하한에 걸린 선택지는 늘 정각 — 「오후 1시 이후 / 12시~1시 사이 / 12시 이전」처럼 시만 쓴다. 낮 12시에는 오전 · 오후를 붙이지 않는다 */
+  /* 상한 · 하한에 걸린 선택지는 늘 정각 — 「1시 이후 / 12시~1시 사이 / 12시 이전」처럼 시만 쓴다. 점심 시간대라 오전 · 오후는 붙이지 않는다 */
   const hr = m=> (Math.floor(m/60)%12)||12;
-  const STOP = [`${hr(t0)===12?'':a.ap+' '}${hr(t0)}시 이후`, `${hr(t1)}시~${hr(t0)}시 사이`, `${hr(t1)}시 이전`];
+  const STOP = [`${hr(t0)}시 이후`, `${hr(t1)}시~${hr(t0)}시 사이`, `${hr(t1)}시 이전`];
   const mk = (v,i)=> stopped
     ? {v, f:'', ap:'', clock:STOP[i], sub:'', label:STOP[i], tone:'neutral'}
     : {v, f:'', ap:'', clock:rel[i], sub:'', label:rel[i], tone:'neutral'};

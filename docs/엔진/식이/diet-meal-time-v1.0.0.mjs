@@ -114,10 +114,9 @@ export function mealTimeOptions(instant, timeZone, mealType, config = MEAL_TIME_
   // 상한 · 하한에 걸린 동안은 「1시간 이내」가 사실과 달라지므로 시각 글자(time_label)를 대신 보여 준다.
   const REL = ['1시간 이내', '1~2시간 전', '그보다 전'];
   const times = [`${f0.text} 이후`, `${rangeAmpm} ${f1.clock}~${f0.clock}`, `${f1.text} 이전`];
-  // 상한 · 하한에 걸린 선택지는 늘 정각이라 「오후 1시 이후 / 12시~1시 사이 / 12시 이전」처럼 시만 쓴다. 낮 12시는 오전 · 오후를 붙이지 않는다
+  // 상한 · 하한에 걸린 선택지는 늘 정각이라 「1시 이후 / 12시~1시 사이 / 12시 이전」처럼 시만 쓴다. 점심 시간대라 오전 · 오후는 붙이지 않는다
   const hr = (m) => (Math.floor(m / 60) % 12) || 12;
-  const ap0 = hr(t0) === 12 ? '' : `${f0.ampm} `;
-  const STOP = [`${ap0}${hr(t0)}시 이후`, `${hr(t1)}시~${hr(t0)}시 사이`, `${hr(t1)}시 이전`];
+  const STOP = [`${hr(t0)}시 이후`, `${hr(t1)}시~${hr(t0)}시 사이`, `${hr(t1)}시 이전`];
   const lab = (i) => stopped ? STOP[i] : REL[i];
   const subOf = (i) => '';   // 작은 글씨는 쓰지 않는다. time_label은 저장·답변 보기용
   return {

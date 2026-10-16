@@ -61,7 +61,7 @@ test('점심 · 12시대에는 12시 아래로 내려가지 않고, 오후 2시�
   for (const t of ['14:10', '16:30']) {
     const r = mealTimeOptions(at(t), KST, 'LUNCH');
     assert.deepEqual(labels(r), ['오후 1:00 이후', '오후 12:00~1:00', '오후 12:00 이전'], t);
-    assert.deepEqual(mains(r), ['오후 1시 이후', '12시~1시 사이', '12시 이전'], t);   // 상한에 걸리면 「1시간 이내」 대신 시각
+    assert.deepEqual(mains(r), ['1시 이후', '12시~1시 사이', '12시 이전'], t);   // 상한에 걸리면 「1시간 이내」 대신 시각
     assert.equal(r.stopped, true, t);
   }
 });
