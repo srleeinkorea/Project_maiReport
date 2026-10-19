@@ -253,6 +253,34 @@ a{color:#5170FF}
 [class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
 </style>
 <style>.ex-br{display:block;margin-top:3px;color:#6b7685;font-size:.93em}</style>
+
+<style id="flow-reading">
+/* Preserve the original sections, five columns, cards, tables and calculation rules. */
+.hdr{flex-wrap:wrap}.hdr-l{flex:1;min-width:260px}.hdr h1{font-size:23px}.hdr .sub{font-size:11px;line-height:1.7}
+.flow-intro{font-size:14px;line-height:1.8;margin-top:5px;color:var(--text-2)}
+.reading-guide{flex-basis:100%;border-top:1px solid var(--border);padding-top:12px;font-size:13px;color:var(--text-2);line-height:1.8}
+.reading-guide strong{color:var(--indigo);margin-right:8px}
+.timeline{overflow-x:auto;flex-wrap:nowrap;gap:12px;padding:16px;scrollbar-width:thin}
+.tl,.tl.sum{flex:1 0 130px;max-width:none;overflow:visible}.tl b{font-size:13px;line-height:1.6}.tl p{font-size:12px;line-height:1.8}.tl .tag{font-size:11px;white-space:normal;color:var(--text-2)}
+.event-number{display:block;font-family:inherit;font-size:11px;opacity:.8;margin-bottom:4px}
+.tl:not(:last-child)::after{content:'→';position:absolute;right:-13px;top:40px;color:var(--text-2);font-size:14px}
+.rk b,.examples h2{font-size:14px}.rk p,.ex p{font-size:12px;line-height:1.8}.ex b{font-size:13px}
+.legend{font-size:12px;line-height:1.8}.terms{flex-basis:100%;border-top:1px solid var(--border);padding-top:9px}.terms strong{margin-right:10px;color:var(--text-1)}
+.journey{padding:16px 12px;gap:2px}.j-step{min-width:160px}.j-step b{font-size:14px}.j-step p{font-size:12px;line-height:1.8}.j-arrow{color:var(--indigo)}
+.arch,.dev-row{grid-template-columns:155px 28px 165px 28px minmax(390px,1fr) 28px 155px 28px 155px!important;overflow-x:auto;padding:16px 4px 14px;scrollbar-width:thin;scrollbar-color:#94a3b8 #eef2ff}
+.arch:focus-visible,.dev-row:focus-visible{outline:2px solid var(--indigo);outline-offset:3px}
+.zone{padding:20px 10px 14px}.zlabel{font-size:12px;padding:3px 9px;white-space:nowrap}.zone-lead{font-size:12px;line-height:1.8;color:var(--text-2);margin:0 0 14px;padding:6px 1px 12px;border-bottom:1px solid var(--border-2);min-height:100px}
+.card{padding:11px 9px}.card-head{gap:6px;align-items:flex-start}.cn{font-size:13px;line-height:1.6}.cb{font-size:12px;line-height:1.8;padding-left:0;margin-top:7px}.ctag{font-size:11px;line-height:1.6;margin-left:0;max-width:100%;border-radius:6px}.zone .grp{font-size:12px;color:var(--text-2)}
+.g3{gap:8px}.ss-label{font-size:11px;line-height:1.6}.subsec{padding:19px 8px 10px}.subsec+.subsec{margin-top:22px}.hero-card .core{display:none}
+.arch .flow-col{padding-top:145px!important}.arch .fa .lab{font-size:11px;line-height:1.5}
+.dz-label{font-size:12px}.panel h3{font-size:16px}.panel .sub,.panel h3 .mono{font-size:12px;line-height:1.8}
+.divider span{font-size:13px;line-height:1.7;text-align:center}.ax,.proc{font-size:12px}.ax th,.proc th{font-size:11px;letter-spacing:0;line-height:1.7}.ax td,.proc td{line-height:1.8;padding:9px 8px}.ax td.n,.proc td.n{font-size:11px}.proc .src{font-size:11px;white-space:normal}
+.panel{min-width:0;overflow-x:auto}.ax{min-width:680px}.case{overflow-x:auto}.proc{min-width:760px}.case-h b{font-size:15px}.case-h .who{font-size:12px}.case-h .when{font-size:11px}.case .next{font-family:inherit;font-size:12px;line-height:1.8}.case .why{font-size:12px}
+.case-takeaway{font-size:13px;line-height:1.9;background:var(--indigo-bg);color:var(--text-2);padding:10px 12px;border-radius:8px;margin:0 0 12px}.case-takeaway strong{color:var(--indigo);margin-right:8px}
+.stt b{font-size:14px}.stt p,.stt .cond,.order,.order .mono{font-size:12px;line-height:1.8}.src-legend{font-size:12px}.src-legend b{font-size:12px}
+.pip,.rk.top::before,.tl .bar::after,.track::after{animation:none}
+@media(max-width:760px){.page{padding:14px 10px}.hdr{padding:16px}.hdr-l{min-width:0}.logo{flex-shrink:0}.hdr h1{font-size:20px}.badges{gap:5px}.badge{font-size:10px}.journey{display:grid;grid-template-columns:1fr;gap:6px}.j-arrow{background:none;transform:rotate(90deg);justify-self:center;width:24px;height:22px}.j-step{padding:7px}.risk-bar,.ex-grid{grid-template-columns:1fr}.case-h{flex-wrap:wrap}.case-h .when{margin-left:36px}.states{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <div class="page">
@@ -262,8 +290,8 @@ a{color:#5170FF}
   <div class="hdr-l">
     <div class="logo"><b>mai</b><span>REPORT</span></div>
     <div>
-      <h1>식이 데이터 흐름도 · 원천 → 파생 → 규칙 산출 → 노출 → 저장</h1>
-      <div class="sub">원천 데이터 11종 → 파생값 6종 → 규칙 산출물 4종 → 화면 4종 → 저장 7종 → 내일 파생값으로</div>
+      <h1>식이 데이터 흐름도</h1>
+      <p class="flow-intro">내 답변과 건강 기록이 <strong>오늘의 식사 질문과 실천 목표</strong>가 되고, 오늘 남긴 기록은 내일 다시 쓰입니다.</p><div class="sub">원천 데이터 11종 → 파생값 6종 → 규칙 산출물 4종 → 화면 4종 → 저장 7종 → 내일 파생값으로</div>
     </div>
   </div>
   <div class="badges">
@@ -272,22 +300,23 @@ a{color:#5170FF}
     <span class="badge">관찰 창 28일</span>
     <span class="badge">판정 반영 · 다음 날</span>
   </div>
+<p class="reading-guide"><strong>읽는 순서</strong> 위쪽은 하루 동안 일어나는 일, 가운데는 정보가 이동하는 5단계입니다. 아래 표에서는 같은 과정을 실제 사례로 따라갈 수 있습니다. 좁은 화면에서는 흐름도 안을 좌우로 스크롤해 보세요.</p>
 </header>
 
 <!-- ② 타임라인: 하루 데이터 이벤트 -->
-<section class="timeline">
-  <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bd)"><div class="bar"></div><b>매일 새벽 · 일괄 계산</b><p>3개월 이내 검진 경계 · 적용 질환<br>축 상태 재계산</p><span class="tag">새 연동 정보는 즉시 재계산</span></div>
-  <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bd)"><div class="bar"></div><b>첫 진입 시각</b><p>지난 끼니 1건 생성<br>04 · 10 · 12 · 17시</p><span class="tag">하루 1회</span></div>
-  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b>고정 문항 답</b><p>답 이력 1행 · 3값 저장<br>못 먹거나 거름 → 끼니 규칙 적립</p><span class="tag">끼니 단위</span></div>
-  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b>식사 시각 단계 답</b><p>같은 자리에서 「언제쯤 드셨어요?」<br>답 이력 1행 + 버튼 구간 · 추정 시각 1행</p><span class="tag">어제 저녁 · 거름 제외</span></div>
-  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b>회전 문항 답</b><p>답 이력 1행 · 축 지표 재계산<br>미답은 다음 구간에 갱신</p><span class="tag">그 축만</span></div>
-  <div class="tl" style="--tl:var(--indigo);--tl-bg:var(--indigo-bd)"><div class="bar"></div><b>목표 생성</b><p>목표 기록 1행<br>문구 · 이유 · 대상 끼니</p><span class="tag">그날 고정</span></div>
-  <div class="tl" style="--tl:var(--green);--tl-bg:var(--green-bd)"><div class="bar"></div><b>토글</b><p>목표 기록 갱신<br>완료 · 미완료 · 쉬기</p><span class="tag">당일 수정 가능</span></div>
-  <div class="tl sum" style="--tl:var(--teal);--tl-bg:var(--teal-bd);background:var(--surface-2)"><div class="bar"></div><b>다음 날 재사용</b><p>오늘 기록 → 어제 기록<br>축 지표 → 축 상태 · 토글 → 축 단계</p><span class="tag">점선 루프</span></div>
+<section class="timeline" aria-label="하루 동안 기록이 쌓이는 순서">
+  <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bd)"><div class="bar"></div><b><span class="event-number">01</span>새벽에 기록 정리</b><p>3개월 이내 검진 경계 · 적용 질환<br>축 상태 재계산</p><span class="tag">새 연동 정보는 즉시 재계산</span></div>
+  <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bd)"><div class="bar"></div><b><span class="event-number">02</span>앱을 연 시간 확인</b><p>지난 끼니 1건 생성<br>04 · 10 · 12 · 17시</p><span class="tag">하루 1회</span></div>
+  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b><span class="event-number">03</span>지난 식사에 답하기</b><p>답 이력 1행 · 3값 저장<br>못 먹거나 거름 → 끼니 규칙 적립</p><span class="tag">끼니 단위</span></div>
+  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b><span class="event-number">04</span>언제 먹었는지 답하기</b><p>같은 자리에서 「언제쯤 드셨어요?」<br>답 이력 1행 + 버튼 구간 · 추정 시각 1행</p><span class="tag">어제 저녁 · 거름 제외</span></div>
+  <div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bd)"><div class="bar"></div><b><span class="event-number">05</span>오늘의 식습관 질문에 답하기</b><p>답 이력 1행 · 축 지표 재계산<br>미답은 다음 구간에 갱신</p><span class="tag">그 축만</span></div>
+  <div class="tl" style="--tl:var(--indigo);--tl-bg:var(--indigo-bd)"><div class="bar"></div><b><span class="event-number">06</span>오늘의 목표 정하기</b><p>목표 기록 1행<br>문구 · 이유 · 대상 끼니</p><span class="tag">그날 고정</span></div>
+  <div class="tl" style="--tl:var(--green);--tl-bg:var(--green-bd)"><div class="bar"></div><b><span class="event-number">07</span>실천 여부 표시하기</b><p>목표 기록 갱신<br>완료 · 미완료 · 쉬기</p><span class="tag">당일 수정 가능</span></div>
+  <div class="tl sum" style="--tl:var(--teal);--tl-bg:var(--teal-bd);background:var(--surface-2)"><div class="bar"></div><b><span class="event-number">08</span>내일 다시 참고하기</b><p>오늘 기록 → 어제 기록<br>축 지표 → 축 상태 · 토글 → 축 단계</p><span class="tag">점선 루프</span></div>
 </section>
 
 <!-- ③ 데이터 신뢰 단계 -->
-<section class="risk-bar">
+<section class="risk-bar" aria-label="정보를 사용할 수 있는지 확인하는 기준">
   <div class="rk top" style="--rk:#ef4444"><b>쓰지 않는 값</b><p>스마트워치 혈압 · 공복 미표시 혈당 · 의심 코드</p></div>
   <div class="rk" style="--rk:#f97316"><b>후보 · 미확인</b><p>사용자 확인 전 질환 유형 — 금지 문구에만 사용</p></div>
   <div class="rk" style="--rk:#eab308"><b>관찰 중</b><p>28일 답 3개 미만인 축 — 판정 보류</p></div>
@@ -295,7 +324,7 @@ a{color:#5170FF}
 </section>
 
 <section class="examples" aria-labelledby="flowExamplesTitle">
-  <h2 id="flowExamplesTitle">규칙을 예로 보면</h2>
+  <h2 id="flowExamplesTitle">질문과 목표가 달라지는 이유를 예로 보면</h2>
   <div class="ex-grid">
     <div class="ex"><b>1 · 지난 끼니 판정</b><p>오전 8시 20분에 처음 들어오면 04~10시 구간이므로 <strong>어제 저녁</strong>을 묻음.</p></div>
     <div class="ex"><b>2 · 축 상태 판정</b><p>채소 질문 6번 중 3번이 「먹지 않음」이면 좋지 않은 답 50%라 <strong>개선 필요</strong>임.</p></div>
@@ -315,39 +344,39 @@ a{color:#5170FF}
   <span class="lg mono">→ 데이터 흐름</span>
   <span class="lg mono">← 다음 날 재사용</span>
   <span class="lg-sep"></span>
-  <span class="mono rule">🔒 파생값은 화면에 나가지 않음 · 저장 단위는 끼니 · 판정은 다음 날 반영</span>
-</section>
+  <span class="mono rule">🔒 내부 판단값은 앱에 표시하지 않음 · 끼니별 기록 · 판정은 다음 날 반영</span>
+<span class="terms"><strong>용어 풀이</strong> 축 = 채소·국물 같은 식습관 주제 · 풀 = 고를 수 있는 목표 문구 묶음 · 단계 = 입문·기본·도전의 난이도 · 토글 = 실천 여부 표시</span></section>
 
 <!-- ⑤ 저니 -->
-<section class="journey">
-  <div class="j-step"><span class="j-num" style="background:var(--blue)">1</span><div><b style="color:var(--blue)">📥 원천</b><p>사용자가 답한 것 5종<br>연동으로 들어온 것 5종</p></div></div>
+<section class="journey" aria-label="식이 데이터가 이동하는 다섯 단계">
+  <div class="j-step"><span class="j-num" style="background:var(--blue)">1</span><div><b style="color:var(--blue)">📥 정보 모으기</b><p>식사 답변과 건강 기록을 모아요.<br>원래 받은 정보 = 원천 데이터</p></div></div>
   <div class="j-arrow">▶</div>
-  <div class="j-step"><span class="j-num" style="background:var(--cyan)">2</span><div><b style="color:var(--cyan)">🧮 파생</b><p>끼니 · 상태 · 경계 · 질환<br>어제 기록 · 단계 6종으로 접힘</p></div></div>
+  <div class="j-step"><span class="j-num" style="background:var(--cyan)">2</span><div><b style="color:var(--cyan)">🧮 판단할 정보 정리</b><p>어떤 끼니인지, 어떤 습관인지 정리해요.<br>원천에서 정리한 정보 = 파생값</p></div></div>
   <div class="j-arrow">▶</div>
-  <div class="j-step"><span class="j-num" style="background:var(--indigo)">3</span><div><b style="color:var(--indigo)">⚙️ 규칙 산출</b><p>오늘 물을 축 · 목표 축<br>단계 · 문구 · 대상 끼니</p></div></div>
+  <div class="j-step"><span class="j-num" style="background:var(--indigo)">3</span><div><b style="color:var(--indigo)">⚙️ 질문·목표 고르기</b><p>오늘 무엇을 묻고 권할지 골라요.<br>기준에 따라 고른 결과 = 규칙 산출물</p></div></div>
   <div class="j-arrow">▶</div>
-  <div class="j-step"><span class="j-num" style="background:var(--green)">4</span><div><b style="color:var(--green)">📱 노출</b><p>질문 문장 · 행동 문구<br>질환 확인 질문</p></div></div>
+  <div class="j-step"><span class="j-num" style="background:var(--green)">4</span><div><b style="color:var(--green)">📱 화면에 보여주기</b><p>질문과 실천할 행동을 보여줘요.<br>앱에서 보이는 내용 = 화면 노출</p></div></div>
   <div class="j-arrow">▶</div>
-  <div class="j-step"><span class="j-num" style="background:var(--teal)">5</span><div><b style="color:var(--teal)">🗄️ 저장</b><p>답 이력 · 축 지표<br>목표 기록 · 질환 상태</p></div></div>
+  <div class="j-step"><span class="j-num" style="background:var(--teal)">5</span><div><b style="color:var(--teal)">🗄️ 기록 남기기</b><p>답변과 실천 기록을 남겨요.<br>오늘 기록을 내일 다시 참고해요.</p></div></div>
 </section>
 
 <!-- ⑥ 메인 그리드 -->
-<section class="arch">
+<section class="arch" aria-label="정보 수집부터 저장까지, 왼쪽에서 오른쪽으로 읽는 흐름도" tabindex="0">
 
   <div class="zone z-blue">
-    <span class="zlabel">📥 원천 데이터</span>
+    <span class="zlabel">1 · 정보 모으기</span><p class="zone-lead">식사 답변·검진·진료·기기 기록이 출발점입니다.</p>
     <div class="stack">
       <div class="grp">사용자가 답한 것</div>
-      <div class="card c-blue"><div class="card-head"><span class="ci">🍚</span><span class="cn">고정 문항 답</span></div><div class="cb">3지섬 · 별도 링크 없음<br>17~24시 안내는 저장하지 않음</div><span class="ctag">끼니 · 매일</span></div>
-      <div class="card c-blue"><div class="card-head"><span class="ci">🥗</span><span class="cn">회전 문항 답</span></div><div class="cb">축 · 좋음/중간/나쁨<br>건너뛰기 없음</div><span class="ctag">끼니 · 매일 1축</span></div>
+      <div class="card c-blue"><div class="card-head"><span class="ci">🍚</span><span class="cn">매일 묻는 식사 질문의 답</span></div><div class="cb">3지섬 · 별도 링크 없음<br>17~24시 안내는 저장하지 않음</div><span class="ctag">끼니 · 매일</span></div>
+      <div class="card c-blue"><div class="card-head"><span class="ci">🥗</span><span class="cn">주제를 바꿔 묻는 질문의 답</span></div><div class="cb">축 · 좋음/중간/나쁨<br>건너뛰기 없음</div><span class="ctag">끼니 · 매일 1축</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">🧬</span><span class="cn">만성질환 직접 선택</span></div><div class="cb">고혈압 · 당뇨병 · 이상지질혈증<br>만성 신장질환 · 복수 선택</div><span class="ctag">내정보 · 즉시 적용</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">🙋</span><span class="cn">질환 확인 답</span></div><div class="cb">예 · 아니오 · 모름</div><span class="ctag">후보 발생 시</span></div>
-      <div class="card c-blue"><div class="card-head"><span class="ci">✅</span><span class="cn">완료 토글</span></div><div class="cb">완료 · 미완료 · 쉬기</div><span class="ctag">목표 · 당일</span></div>
+      <div class="card c-blue"><div class="card-head"><span class="ci">✅</span><span class="cn">사용자가 표시한 실천 여부</span></div><div class="cb">완료 · 미완료 · 쉬기</div><span class="ctag">목표 · 당일</span></div>
       <div class="grp">연동으로 들어온 것</div>
       <div class="card c-blue"><div class="card-head"><span class="ci">🕘</span><span class="cn">첫 진입 시각</span></div><div class="cb">시:분</div><span class="ctag">일 · 1회</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">🏥</span><span class="cn">건강검진 결과</span></div><div class="cb">혈당 · 혈압 · 지질<br>신장 · 체중 · 허리 + 검진일</div><span class="ctag">3개월 이내 1건</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">⌚</span><span class="cn">기기 연동값</span></div><div class="cb">수면 · 혈압 · 공복혈당 · 체중<br>+ 측정일 · 횟수</div><span class="ctag warn">스마트워치 혈압 제외</span></div>
-      <div class="card c-blue"><div class="card-head"><span class="ci">📋</span><span class="cn">상병코드</span></div><div class="cb">코드 · 주/부 · 진료일<br>기간 · 횟수 조건 적용</div><span class="ctag">조건 61개</span></div>
+      <div class="card c-blue"><div class="card-head"><span class="ci">📋</span><span class="cn">진료기록의 질환 코드</span></div><div class="cb">코드 · 주/부 · 진료일<br>기간 · 횟수 조건 적용</div><span class="ctag">조건 61개</span></div>
       <div class="card c-blue"><div class="card-head"><span class="ci">📅</span><span class="cn">어제 기록</span></div><div class="cb">어제 목표 · 어제 답<br>(저장에서 되돌아옴)</div><span class="ctag">점선 루프</span></div>
     </div>
   </div>
@@ -356,60 +385,60 @@ a{color:#5170FF}
     <div class="fa fc-cyan"><span class="lab">끼니<br>판정</span><div class="track"></div><div class="tip"></div></div>
     <div class="fa fc-cyan"><span class="lab">28일<br>집계</span><div class="track"></div><div class="tip"></div></div>
     <div class="fa fc-cyan"><span class="lab">최신값<br>우선</span><div class="track"></div><div class="tip"></div></div>
-    <div class="fa fc-cyan"><span class="lab">코드<br>매핑</span><div class="track"></div><div class="tip"></div></div>
+    <div class="fa fc-cyan"><span class="lab">질환과<br>주제 연결</span><div class="track"></div><div class="tip"></div></div>
   </div>
 
   <div class="zone z-cyan">
-    <span class="zlabel">🧮 파생값</span>
+    <span class="zlabel">2 · 판단할 정보 정리</span><p class="zone-lead">받은 정보를 그대로 권하지 않고, 질문과 목표를 고르는 데 쓸 정보로 정리합니다.</p>
     <div class="stack">
       <div class="card c-cyan"><div class="card-head"><span class="ci">🍽️</span><span class="cn">지난 끼니</span></div><div class="cb">어제 저녁 · 아침<br>점심 · 저녁</div><span class="ctag">← 첫 진입 시각</span></div>
-      <div class="card c-cyan"><div class="card-head"><span class="ci">📊</span><span class="cn">축 상태 × 8</span></div><div class="cb">유효 답 수 · 양호 비율<br>개선 필요 비율 → 상태</div><span class="ctag">← 답 이력 28일</span></div>
+      <div class="card c-cyan"><div class="card-head"><span class="ci">📊</span><span class="cn">8가지 식습관의 현재 상태</span></div><div class="cb">유효 답 수 · 양호 비율<br>개선 필요 비율 → 상태</div><span class="ctag">← 답 이력 28일</span></div>
       <div class="card c-cyan"><div class="card-head"><span class="ci">🩺</span><span class="cn">검진 경계 · 저체중</span></div><div class="cb">항목값 + 출처 + 측정일<br>→ 없음 · 혈당 · 혈압 · 지질체중</div><span class="ctag">← 검진 · 기기 연동</span></div>
       <div class="card c-cyan"><div class="card-head"><span class="ci">🧬</span><span class="cn">적용 질환</span></div><div class="cb">직접 선택 · 진료 확인 · 제외 · 모름<br>중복 제거 + 안전 제외 목록</div><span class="ctag">← 직접 선택 · 진료 확인</span></div>
       <div class="card c-cyan"><div class="card-head"><span class="ci">↩️</span><span class="cn">어제 목표 · 어제 답</span></div><div class="cb">축 · 대상 끼니 · 토글<br>못 먹거나 거름 여부</div><span class="ctag">← 어제 기록</span></div>
-      <div class="card c-cyan"><div class="card-head"><span class="ci">📈</span><span class="cn">축 단계 × 8</span></div><div class="cb">현재 단계(입문 · 기본 · 도전)<br>7일 완료 횟수 · 연속 미완료</div><span class="ctag">CREATED 목표만 계산</span></div>
+      <div class="card c-cyan"><div class="card-head"><span class="ci">📈</span><span class="cn">8가지 식습관의 목표 난이도</span></div><div class="cb">현재 단계(입문 · 기본 · 도전)<br>7일 완료 횟수 · 연속 미완료</div><span class="ctag">CREATED 목표만 계산</span></div>
     </div>
   </div>
 
   <div class="flow-col">
-    <div class="fa fc-indigo"><span class="lab">규칙<br>입력</span><div class="track"></div><div class="tip"></div></div>
+    <div class="fa fc-indigo"><span class="lab">정리한<br>정보 전달</span><div class="track"></div><div class="tip"></div></div>
   </div>
 
   <div class="zone z-indigo">
-    <span class="zlabel">⚙️ 규칙 산출물 · 오늘</span>
+    <span class="zlabel">3 · 오늘의 질문·목표 선택</span><p class="zone-lead">먼저 물어볼 주제를 고르고, 따로 목표의 주제·난이도·문구를 고릅니다.</p>
 
-    <div class="subsec"><span class="ss-label">산출 1 · 오늘 물을 축</span>
+    <div class="subsec"><span class="ss-label">먼저 · 오늘 물어볼 식습관 주제</span>
       <div class="g3">
         <div class="card c-indigo"><div class="card-head"><span class="ci">🔁</span><span class="cn">어제 목표 이어서 확인</span></div><div class="cb">오늘 회상하는 끼니가 어제 목표의 대상 끼니와 같으면<br>두 번째 질문은 같은 식이 축 우선</div><span class="ctag">예 · 저녁 목표 + 다음 날 04~10시 진입</span></div>
-        <div class="card c-indigo"><div class="card-head"><span class="ci">🎯</span><span class="cn">후보 축 합치기</span></div><div class="cb">직접 선택 질환 우선 · 확인된 진료 질환 추가<br>연결 축을 합치고 중복 제거</div><span class="ctag">질환이 없으면 검진·일반</span></div>
-        <div class="card c-indigo"><div class="card-head"><span class="ci">📉</span><span class="cn">하루 한 축 고르기</span></div><div class="cb">28일 답이 적은 축 → 마지막 출제가 오래된 축<br>같으면 표 순서</div><span class="ctag">모든 적용 질환에서 순환</span></div>
+        <div class="card c-indigo"><div class="card-head"><span class="ci">🎯</span><span class="cn">물어볼 주제 모으기</span></div><div class="cb">직접 선택 질환 우선 · 확인된 진료 질환 추가<br>연결 축을 합치고 중복 제거</div><span class="ctag">질환이 없으면 검진·일반</span></div>
+        <div class="card c-indigo"><div class="card-head"><span class="ci">📉</span><span class="cn">오늘 물을 주제 하나 고르기</span></div><div class="cb">28일 답이 적은 축 → 마지막 출제가 오래된 축<br>같으면 표 순서</div><span class="ctag">모든 적용 질환에서 순환</span></div>
       </div>
     </div>
 
-    <div class="subsec"><span class="ss-label">산출 2 · 오늘 목표</span>
+    <div class="subsec"><span class="ss-label">그다음 · 오늘 실천할 목표</span>
       <div class="g3">
-      <div class="card c-indigo hero-card"><span class="core">CORE</span><div class="card-head"><span class="ci">🧭</span><span class="cn">목표 축 · 풀</span></div><div class="cb">회복 → 직접 선택 → 확인된 진료정보<br>→ 3개월 검진 → 부담 → 일반</div><span class="ctag">출처별 후보를 순서대로 검사</span></div>
-        <div class="card c-indigo"><div class="card-head"><span class="ci">📈</span><span class="cn">단계 조정</span></div><div class="cb">저장 단계에서 시작<br>7일 3회 완료 ↑ · 연속 2회 미완료 ↓</div><span class="ctag">← 파생값 축 단계</span></div>
+      <div class="card c-indigo hero-card"><span class="core">CORE</span><div class="card-head"><span class="ci">🧭</span><span class="cn">목표의 주제·문구 묶음</span></div><div class="cb">회복 → 직접 선택 → 확인된 진료정보<br>→ 3개월 검진 → 부담 → 일반</div><span class="ctag">출처별 후보를 순서대로 검사</span></div>
+        <div class="card c-indigo"><div class="card-head"><span class="ci">📈</span><span class="cn">목표 난이도 조정</span></div><div class="cb">저장 단계에서 시작<br>7일 3회 완료 ↑ · 연속 2회 미완료 ↓</div><span class="ctag">← 파생값 축 단계</span></div>
         <div class="card c-indigo"><div class="card-head"><span class="ci">📝</span><span class="cn">문구 · 이유 · 대상 끼니</span></div><div class="cb">질환 안전 · 시간대 · 달력 조건<br>최근 30일 미노출 → 가장 오래된 노출 순</div><span class="ctag">상황 조건 없이 공통 순환</span></div>
       </div>
     </div>
 
-    <div class="subsec"><span class="ss-label">참조 데이터 · 설정</span>
+    <div class="subsec"><span class="ss-label">선택에 쓰는 기준 · 참조 데이터와 설정</span>
       <div class="g3">
-        <div class="card c-indigo"><div class="card-head"><span class="ci">📚</span><span class="cn">문구 세트</span></div><div class="cb">운영 문구 143개<br>8축 × 3단계 + 회복 · 부담</div><span class="ctag">상황 전용 문구 0개</span></div>
-        <div class="card c-indigo"><div class="card-head"><span class="ci">🗺️</span><span class="cn">질환 매핑</span></div><div class="cb">직접 선택 4종 · 상병코드<br>연결 축 · 안전 제외</div><span class="ctag">출처별 우선순위 포함</span></div>
+        <div class="card c-indigo"><div class="card-head"><span class="ci">📚</span><span class="cn">미리 준비한 목표 문장</span></div><div class="cb">운영 문구 143개<br>8축 × 3단계 + 회복 · 부담</div><span class="ctag">상황 전용 문구 0개</span></div>
+        <div class="card c-indigo"><div class="card-head"><span class="ci">🗺️</span><span class="cn">질환과 식습관 연결 기준</span></div><div class="cb">직접 선택 4종 · 상병코드<br>연결 축 · 안전 제외</div><span class="ctag">출처별 우선순위 포함</span></div>
         <div class="card c-indigo"><div class="card-head"><span class="ci">📅</span><span class="cn">시간 · 달력 설정</span></div><div class="cb">앱 진입 시각 · 현지 평일/주말<br>대한민국 명절·연휴 날짜 목록</div><span class="ctag">목록이 없으면 명절 문구 제외</span></div>
       </div>
     </div>
   </div>
 
   <div class="flow-col">
-    <div class="fa fc-green"><span class="lab">문장<br>치환</span><div class="track"></div><div class="tip"></div></div>
-    <div class="fa fc-green"><span class="lab">타일<br>생성</span><div class="track"></div><div class="tip"></div></div>
+    <div class="fa fc-green"><span class="lab">질문 문장<br>완성</span><div class="track"></div><div class="tip"></div></div>
+    <div class="fa fc-green"><span class="lab">목표 카드<br>만들기</span><div class="track"></div><div class="tip"></div></div>
   </div>
 
   <div class="zone z-green">
-    <span class="zlabel">📱 화면 노출</span>
+    <span class="zlabel">4 · 앱에서 보여주기</span><p class="zone-lead">복잡한 내부 판단 대신, 답할 질문과 실천할 행동을 보여줍니다.</p>
     <div class="stack">
       <div class="card c-green"><div class="card-head"><span class="ci">❓</span><span class="cn">질문 문장 · 식이 1</span></div><div class="cb">지난 끼니 이름 치환 · 답 3개<br>17~24시 비인터랙티브 안내</div><span class="ctag">답 전에는 PENDING</span></div>
       <div class="card c-green"><div class="card-head"><span class="ci">❔</span><span class="cn">둘째 질문 · 식이 2</span></div><div class="cb">질환 확인 답에 따라 질환 회전 또는 공통 고정<br>확인 질문이 없으면 일반 회전 · 답 3개</div><span class="ctag">세 번째 질문 없음</span></div>
@@ -426,10 +455,10 @@ a{color:#5170FF}
   </div>
 
   <div class="zone z-teal">
-    <span class="zlabel">🗄️ 저장</span>
+    <span class="zlabel">5 · 기록 남기기</span><p class="zone-lead">오늘의 답과 목표를 기록해 다음 날 판단할 때 다시 참고합니다.</p>
     <div class="stack">
       <div class="card c-teal"><div class="card-head"><span class="ci">🗂️</span><span class="cn">식이 답 이력</span></div><div class="cb">날짜 · 끼니 · 고정 답<br>회전 축 · 회전 답 · 시각</div><span class="ctag">끼니 1행</span></div>
-      <div class="card c-teal"><div class="card-head"><span class="ci">📊</span><span class="cn">축 지표 스냅샷</span></div><div class="cb">유효 답 · 비율 · 상태</div><span class="ctag">사용자 × 축 × 날</span></div>
+      <div class="card c-teal"><div class="card-head"><span class="ci">📊</span><span class="cn">그날의 습관 상태 기록</span></div><div class="cb">유효 답 · 비율 · 상태</div><span class="ctag">사용자 × 축 × 날</span></div>
       <div class="card c-teal"><div class="card-head"><span class="ci">🎯</span><span class="cn">식이 목표 기록</span></div><div class="cb">문구 · 이유 · 축/풀 · 단계<br>대상 끼니 · 토글</div><span class="ctag">날 1행</span></div>
       <div class="card c-teal"><div class="card-head"><span class="ci">📈</span><span class="cn">축 단계</span></div><div class="cb">현재 단계 · 7일 완료<br>연속 미완료 · 마지막 노출</div><span class="ctag">안내 상태는 계산 제외</span></div>
       <div class="card c-teal"><div class="card-head"><span class="ci">🧬</span><span class="cn">질환 적용 상태</span></div><div class="cb">출처 · 질환 · 선택/확인 상태<br>확인일 · 재질문일</div><span class="ctag">사용자 × 질환 × 출처</span></div>
@@ -440,7 +469,7 @@ a{color:#5170FF}
 </section>
 
 <!-- ⑦ 저장소 · 출처 행 -->
-<section class="dev-row">
+<section class="dev-row" aria-label="각 단계의 입력 경로와 처리 위치" tabindex="0">
   <div class="dz"><span class="dz-label">📲 입력 경로</span>
     <div class="stack">
       <div class="card"><div class="card-head"><span class="ci">📱</span><span class="cn">앱 오늘의 질문</span></div><div class="cb">답 · 토글 · 확인 답</div></div>
@@ -476,7 +505,7 @@ a{color:#5170FF}
 </section>
 
 <!-- 축 · 축 상태 -->
-<div class="divider"><span>📊 파생값 「축 상태」 풀어 보기 · 축 8종과 상태 4종</span></div>
+<div class="divider"><span>📊 어떤 식습관을 살펴보나요? · 8가지 주제와 4가지 상태</span></div>
 <section class="axis-wrap">
   <div class="panel">
     <h3>축 8종 <span class="mono">식이 목표를 나눈 습관 갈래 · 축마다 회전 문항 1 · 상태 1 · 단계 3</span></h3>
@@ -507,7 +536,7 @@ a{color:#5170FF}
 </section>
 
 <!-- 구분선 -->
-<div class="divider"><span>👤 사용자 시나리오 · 무엇을 눌렀고, 어디서 읽어, 어떻게 판단해, 무엇이 나갔나</span></div>
+<div class="divider"><span>👤 실제 예로 따라가기 · 내가 한 행동 → 앱의 판단 → 화면에 보이는 결과</span></div>
 
 <!-- 시나리오 -->
 <div class="src-legend"><b>읽는 곳 표기</b>
@@ -526,6 +555,7 @@ a{color:#5170FF}
   <!-- 1 -->
   <div class="case" style="--cs:var(--blue)">
     <div class="case-h"><span class="case-n">1</span><div><b>가입 첫 주 · 검진 없음</b><div class="who">일반 사용자 · 여덟 축 모두 관찰 중 · 화요일</div></div><span class="when">화 08:20 첫 진입</span></div>
+    <p class="case-takeaway"><strong>이 사례의 흐름</strong> 기록이 아직 없으면 먼저 식습관을 알아갑니다. 답이 적은 주제를 묻고, 입문 단계의 목표를 고릅니다.</p>
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">0</td><td class="u none">—</td><td class="r"><span class="src src-cyan">검진 연동</span>없음 · <span class="src src-cyan">진료정보</span>없음 · <span class="src src-teal">답 이력 28일</span>0건 · <span class="src src-teal">목표 기록</span>어제 없음</td><td class="j">검진 경계 = 없음 · 적용 질환 = 없음 · 8축 모두 유효 답 3개 미만 → <b>관찰 중</b></td><td class="o">파생값 5종 준비</td></tr>
@@ -543,6 +573,7 @@ a{color:#5170FF}
   <!-- 2 -->
   <div class="case" style="--cs:var(--cyan)">
     <div class="case-h"><span class="case-n">2</span><div><b>3개월 이내 혈당 경계 · 어제 목표 완료했지만 확인 불가</b><div class="who">공복혈당 108 · 채소 보통(5답) · 단 음료 개선 필요(4답) · 식사 속도 보통(4답)</div></div><span class="when">16:40 첫 진입</span></div>
+    <p class="case-takeaway"><strong>이 사례의 흐름</strong> 어제 목표를 완료했더라도 오늘 묻는 끼니가 다르면 그 목표의 확인 질문으로 이어지지 않습니다.</p>
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">0</td><td class="u none">—</td><td class="r"><span class="src src-cyan">검진 연동</span>공복혈당 108 (8월) · <span class="src src-cyan">혈당계 · 앱</span>없음 · <span class="src src-indigo">판정 구간</span>100~125 경계 · <span class="src src-teal">축 지표</span>채소 보통 · 단 음료 개선 필요 · 식사 속도 보통</td><td class="j">검진일이 3개월 이내이고 대체값 없음 → 검진값 채택 → 108 = <b>혈당 경계</b></td><td class="o">검진 경계 = 혈당(출처 검진 · 8월)</td></tr>
@@ -561,6 +592,7 @@ a{color:#5170FF}
   <!-- 3 -->
   <div class="case" style="--cs:var(--indigo)">
     <div class="case-h"><span class="case-n">3</span><div><b>저녁 시간대 진입 · 저녁 식사 여부 미확인</b><div class="who">혈압 경계 · 짠맛 보통(6답) · 채소 양호(5답)</div></div><span class="when">21:30 첫 진입</span></div>
+    <p class="case-takeaway"><strong>이 사례의 흐름</strong> 늦은 저녁에 앱을 열면 저녁 끼니를 묻고, 현재 시간에 사용할 수 있는 목표 문구를 고릅니다.</p>
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">0</td><td class="u none">—</td><td class="r"><span class="src src-cyan">검진 연동</span>혈압 128/84 · <span class="src src-indigo">판정 구간</span>120~139 또는 80~89 = 경계</td><td class="j"><b>혈압 경계</b></td><td class="o">검진 경계 = 혈압</td></tr>
@@ -578,6 +610,7 @@ a{color:#5170FF}
   <!-- 4 -->
   <div class="case" style="--cs:var(--amber)">
     <div class="case-h"><span class="case-n">4</span><div><b>점심 결식 → 회복 풀</b><div class="who">일반 사용자 · 채소 보통(4답)</div></div><span class="when">수 13:10 첫 진입</span></div>
+    <p class="case-takeaway"><strong>이 사례의 흐름</strong> 점심을 거른 답이라면 다른 식습관 질문을 생략하고, 식사를 챙기는 회복 목표를 먼저 고릅니다.</p>
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">1</td><td class="u">앱을 엶 (13:10)</td><td class="r"></td><td class="j">12:00 ≤ 13:10 &lt; 17:00 → 지난 끼니 = <b>오늘 점심</b></td><td class="o">문장에 "오늘 점심"</td></tr>
@@ -591,6 +624,7 @@ a{color:#5170FF}
   <!-- 5 -->
   <div class="case" style="--cs:var(--red)">
     <div class="case-h"><span class="case-n">5</span><div><b>직접 선택 당뇨병 + 진료정보 이상지질혈증</b><div class="who">당뇨병은 즉시 적용 · 이상지질혈증은 현재 관리 여부 확인 후 적용</div></div><span class="when">여러 날 순환</span></div>
+    <p class="case-takeaway"><strong>이 사례의 흐름</strong> 직접 선택한 질환과 진료에서 확인한 질환을 함께 참고하되, 목표를 고르는 우선순위는 구분합니다.</p>
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">0-a</td><td class="u"><span class="pick">당뇨병</span> 직접 선택</td><td class="r"><span class="src src-blue">내정보</span>당뇨병 선택 · <span class="src src-indigo">질환 매핑</span>채소 · 단 음료 · 식사 속도/양</td><td class="j">본인 입력은 별도 확인 없이 즉시 활성화</td><td class="o"><span class="src src-teal">질환 적용 상태</span>당뇨병 = 직접 선택</td></tr>
@@ -608,6 +642,7 @@ a{color:#5170FF}
   <!-- 6 -->
   <div class="case" style="--cs:var(--teal)">
     <div class="case-h"><span class="case-n">6</span><div><b>가정용 혈압계 값으로 경계 켜짐</b><div class="who">검진 118/76 (8월) · 혈압계 연동 7일 5회 · 중앙값 134/86 · 짠맛 보통(4답) · 채소 양호(5답)</div></div><span class="when">08:40 첫 진입</span></div>
+    <p class="case-takeaway"><strong>이 사례의 흐름</strong> 사용 조건을 충족한 최신 측정값이 있으면 그 값을 참고해 연결된 식습관 질문과 목표를 고릅니다.</p>
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">0-a</td><td class="u none">(매일 새벽 일괄 계산)</td><td class="r"><span class="src src-cyan">검진 연동</span>118/76 · 검진일 8/10 · <span class="src src-cyan">혈압계 연동</span>7일 5회 · 측정일 9/14 · <span class="src src-indigo">값의 출처 규칙</span>3회↑ 중앙값 · 검진일보다 최신이면 교체</td><td class="j">5회 ≥ 3 · 9/14 &gt; 8/10 → <b>연동값 134/86 채택</b> · 120~139 → <b>혈압 경계</b></td><td class="o"><span class="src src-teal">검진 경계 판정</span>혈압 · 출처 = 혈압계 · 9/14</td></tr>
@@ -629,6 +664,7 @@ a{color:#5170FF}
   <!-- 7 -->
   <div class="case" style="--cs:var(--purple)">
     <div class="case-h"><span class="case-n">7</span><div><b>진료정보 질환이 둘 이상 · 확인이 이틀에 걸침</b><div class="who">고혈압(2026-07-20) · 이상지질혈증(2026-08-14) · 직접 선택 없음</div></div><span class="when">1~3일차</span></div>
+    <p class="case-takeaway"><strong>이 사례의 흐름</strong> 확인할 질환이 여러 개면 하루에 한 묶음씩 묻습니다. 이름이 같은 질환은 한 번만 확인합니다.</p>
     <table class="proc">
       <tr><th></th><th>사용자 행동 · 선택</th><th>시스템이 읽는 것</th><th>판단 · 계산</th><th>결과</th></tr>
       <tr><td class="n">0-a</td><td class="u none">—</td><td class="r"><span class="src src-cyan">진료정보</span>I10 (2026-07-20) · E78.0 · E78.2 (2026-08-14)</td><td class="j">12개월 안에 2회 이상인 코드만 후보로 올림</td><td class="o"><span class="src src-teal">확인 대기</span>규칙 3건 — 고혈압 · 이상지질혈증 · 고중성지방</td></tr>
