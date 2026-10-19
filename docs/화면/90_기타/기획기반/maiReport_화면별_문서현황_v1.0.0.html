@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>마이리포트 · 화면별 문서 현황</title>
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--ok:#1f8a5b;--ok-bg:#e6f5ee;--part:#b7791f;--part-bg:#fcf3e1;--no:#b3261e;--no-bg:#fbe9e7;--chip:#eef1f5;--link:#1d4ed8}
+:root{--onlink:#fff;--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mute:#6b7685;--line:#e3e7ec;--ok:#1f8a5b;--ok-bg:#e6f5ee;--part:#b7791f;--part-bg:#fcf3e1;--no:#b3261e;--no-bg:#fbe9e7;--chip:#eef1f5;--link:#1d4ed8}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px;line-height:1.55}
 main{max-width:1240px;margin:0 auto;padding:28px 16px 60px}
@@ -56,8 +56,16 @@ td.doc a.gh:hover{text-decoration:underline}
 .mnote{padding:8px 14px;font-size:12px;color:var(--mute);border-top:1px solid var(--line)}
 @media (max-width:860px){.modal{padding:0}.mbox{border-radius:0;height:100%}}
 @media (max-width:860px){td.doc{width:auto}table{font-size:13px}td.name{width:auto}}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--link:#8ab4ff;--ok-bg:#1b3a2c;--part-bg:#3d3119;--no-bg:#43221f}th{background:#20252c}}
-:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--link:#8ab4ff;--ok-bg:#1b3a2c;--part-bg:#3d3119;--no-bg:#43221f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--link:#8ab4ff;--ok-bg:#1b3a2c;--part-bg:#3d3119;--no-bg:#43221f;--onlink:#0f1722}th{background:#20252c}}
+:root[data-theme="dark"]{--bg:#15181d;--card:#1d2127;--ink:#e6e9ee;--mute:#9aa4b2;--line:#2b313a;--chip:#2a3038;--link:#8ab4ff;--ok-bg:#1b3a2c;--part-bg:#3d3119;--no-bg:#43221f;--onlink:#0f1722}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:18px 0;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.tool .txt{flex:1;min-width:240px}
+.tool h2{margin:0 0 4px;font-size:16px}
+.tool p{margin:2px 0;color:var(--mute);font-size:12.5px}
+.tool code{background:var(--chip);border-radius:6px;padding:1px 6px;font-size:12px}
+.runbtn{display:inline-block;font:inherit;font-weight:700;font-size:14px;color:var(--onlink);background:var(--link);border-radius:10px;padding:10px 16px;text-decoration:none;white-space:nowrap}
+.runbtn:hover{filter:brightness(1.08)}
+.runbtn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -67,6 +75,15 @@ td.doc a.gh:hover{text-decoration:underline}
   <p>전체 앱 구성 흐름도(IA)의 화면 목록에 맞춰, 화면마다 기획서 · 화면정의서 · 화면설계서가 어디에 있는지 모은 표</p>
   <div class="meta"><span>작성일 <b>2026-10-14</b></span><span>버전 <b>2.1</b></span><span>기준 <b>IA v1.0.0(2026-10-14 갱신) · docs 폴더 재편(90_기타 분할) 후</b></span></div>
 </header>
+
+<div class="tool" id="sp-sync">
+  <div class="txt">
+    <h2>SharePoint 식이 엑셀 반영</h2>
+    <p>로컬 엑셀(연구소 전달본 · 정본)에서 바뀐 칸만 SharePoint 파일에 넣고 빨간 글자로 표시함. 누가 파일을 열어 둬도 됨. 미리보기 → <code>Y</code> 반영 / <code>N</code> 그만 / <code>P</code> 웹에서만 바뀐 곳 가져오기.</p>
+    <p>이 PC에서 처음 한 번만 <code>scripts\쉐어포인트_실행링크_설치.bat</code>을 두 번 클릭해 둠. 그다음부터 버튼을 누르면 브라우저가 열기를 물음 → 허용.</p>
+  </div>
+  <a class="runbtn" href="maireport-sync://run" target="_top">▶ 반영 프로그램 실행</a>
+</div>
 
 <div class="legend">
   <span class="chip ok">있음</span><span class="chip part">일부</span><span class="chip no">없음</span>
