@@ -1,0 +1,25 @@
+{
+  "_안내": "SharePoint 식이 엑셀과 로컬 원본의 짝. 데이터계약·참조설정은 연구소 전달본, 의학검수·근거대조는 docs 정본. 전달본 폴더가 바뀌면 local만 고친다.",
+  "files": [
+    {
+      "name": "데이터계약",
+      "local": "전달/2026-10-19_연구소_식이데이터계약/maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx",
+      "url": "https://maihub.sharepoint.com/sites/msteams_b7ec7d/Shared Documents/마이리포트/식이 참조 설정 데이터/maiReport_식이_개발전달_데이터계약_v1.0.0.xlsx"
+    },
+    {
+      "name": "참조설정",
+      "local": "전달/2026-10-19_연구소_식이데이터계약/maiReport_식이_참조설정데이터_v1.0.0.xlsx",
+      "url": "https://maihub.sharepoint.com/sites/msteams_b7ec7d/Shared Documents/마이리포트/식이 참조 설정 데이터/maiReport_식이_참조설정데이터_v1.0.0.xlsx"
+    },
+    {
+      "name": "의학검수",
+      "local": "docs/엔진/식이/maiReport_식이_문구세트_의학검수_v1.0.0.xlsx",
+      "url": "https://maihub.sharepoint.com/sites/msteams_b7ec7d/Shared Documents/마이리포트/식이 참조 설정 데이터/maiReport_식이_문구세트_의학검수_v1.0.0.xlsx"
+    },
+    {
+      "name": "근거대조",
+      "local": "docs/엔진/식이/maiReport_식이_의학근거대조_v1.0.0.xlsx",
+      "url": "https://maihub.sharepoint.com/sites/msteams_b7ec7d/Shared Documents/마이리포트/식이 참조 설정 데이터/maiReport_식이_의학근거대조_v1.0.0.xlsx"
+    }
+  ]
+}

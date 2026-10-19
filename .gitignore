@@ -28,3 +28,7 @@ scripts/.sync-state.json
 scripts/.sp-backup/
 scripts/.auto-sync-state.json
 scripts/auto-sync.log
+
+# ── SharePoint 실시간 반영 기준본 · 기록 ─────────────────
+scripts/.sp-live/
+scripts/live-sync.log
