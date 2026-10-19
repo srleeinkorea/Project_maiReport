@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>끼니 추천 문구 정리안</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* 레이아웃: 한 단 보고서. 요약 상자 → 번호 장(실제 순서대로 읽는 문서) → 표 위주 */
+:root{
+  --bg:#f6f7f8; --paper:#ffffff; --ink:#1d2329; --muted:#5b6670; --line:#d9dee3;
+  --accent:#1f5f7a; --accent-soft:#e3eef3; --ok:#2f6b3a; --ok-soft:#e5f1e7; --warn:#8a5a12; --warn-soft:#f6ecd9;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#13181c; --paper:#1a2026; --ink:#e4e8eb; --muted:#9aa6b0; --line:#2f3841;
+  --accent:#7fb8d0; --accent-soft:#1c3340; --ok:#8fcf9b; --ok-soft:#1d3323; --warn:#e2b56a; --warn-soft:#3a2d17; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13181c; --paper:#1a2026; --ink:#e4e8eb; --muted:#9aa6b0; --line:#2f3841;
+  --accent:#7fb8d0; --accent-soft:#1c3340; --ok:#8fcf9b; --ok-soft:#1d3323; --warn:#e2b56a; --warn-soft:#3a2d17; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 64px}
+.page{max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+header{display:flex;flex-direction:column;gap:8px;border-bottom:2px solid var(--ink);padding-bottom:20px}
+.kicker{font-size:12px;letter-spacing:.08em;color:var(--muted)}
+h1{font-size:28px;line-height:1.3;margin:0;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:500}
+section{display:flex;flex-direction:column;gap:14px;min-width:0}
+h2{font-size:20px;margin:0;display:flex;gap:10px;align-items:baseline;text-wrap:balance}
+h2 .n{font-family:var(--f-mono);font-size:14px;color:var(--accent)}
+h3{font-size:16px;margin:8px 0 0}
+p{margin:0;max-width:68ch}
+ul{margin:0;padding-left:1.2em;max-width:72ch}
+li+li{margin-top:4px}
+.summary{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:20px 22px;display:grid;gap:12px}
+.summary .row{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:start}
+.summary .row>div{min-width:0}
+.tag{display:inline-block;font-size:12px;font-weight:500;padding:2px 8px;border-radius:3px;white-space:nowrap}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}
+.tag.req{background:var(--accent-soft);color:var(--accent)}
+.tag.ask{background:var(--warn-soft);color:var(--warn)}
+.tbl{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:.03em;background:var(--bg)}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;white-space:nowrap}
+code,.id{font-family:var(--f-mono);font-size:12.5px}
+.id{color:var(--accent);white-space:nowrap}
+.old{color:var(--muted)}
+.new{font-weight:500}
+.same{color:var(--muted)}
+.diff{background:var(--accent-soft)}
+.note{font-size:13px;color:var(--muted)}
+.callout{border-left:3px solid var(--accent);padding:4px 0 4px 14px;max-width:72ch}
+@media (max-width:560px){h1{font-size:23px}.summary .row{grid-template-columns:1fr;gap:4px}}
+</style>
+<style>.tbl td .new{margin-bottom:2px} .tbl td .old{white-space:nowrap}</style>
+</head>
+<body>
+
+
+<div class="page">
+<header>
+  <div class="kicker">maiReport · 식이 · 목표 문구</div>
+  <h1>끼니 추천 문구 89개 정리안</h1>
+  <div class="meta"><span>작성일 <b>2026-10-19</b></span><span>대상 <b>목표문구 DIET-P-0412~0500 (아침추천 · 저녁추천 · 샐러드)</b></span><span>기준 데이터 <b>계약 v1.4.0 · 서버 1.1.1</b></span></div>
+</header>
+
+<div class="summary">
+  <div class="row"><span class="tag ask">문제</span><div>끼니 추천 문구 89개는 「아침추천: 연어/두부」, 「저녁추천: 고등어/갈치」, 「참치샐러드+1/2소스」처럼 타일에 특정 음식 이름이 들어감. 52개는 성격 칸이 비어 있어 신장질환 금지 규칙(늘리기 · 줄이기 · 수분)에 걸리지 않음. 그래서 신장질환 사용자에게 시금치 · 브로콜리 · 고등어 같은 문구가 나갈 수 있음.</div></div>
+  <div class="row"><span class="tag req">왜 지금</span><div>문구 반복 방지 조회 기간을 365일로 늘리면, 지금은 목록 뒤쪽이라 거의 안 나오던 이 문구들이 자주 나옴. 일반 사용자 기준 1년에 76종, 신장질환 사용자도 45종이 나옴.</div></div>
+  <div class="row"><span class="tag ok">정리안</span><div>같은 뜻의 문구를 24개 묶음으로 모음. 묶음마다 대표 문구 하나만 음식 종류로 다시 써서 <b>사용</b>, 나머지 65개는 <b>보류</b>. 단백질 · 잡곡 · 생선을 곁들이라는 문구는 성격을 <b>늘리기</b>로 맞춰 신장질환 사용자에게 빼고, 채소 반찬은 칼륨이 적은 채소만 예로 들어 신장질환 사용자에게도 나가게 함.</div></div>
+</div>
+
+<section>
+  <h2><span class="n">1</span>정리 원칙</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>항목</th><th>원칙</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td>타일 문구</td><td>특정 음식 이름 대신 음식 종류로 씀. 12자 이내(띄어쓰기 빼고).</td><td><span class="old">저녁추천: 고등어/갈치</span> → <span class="new">저녁엔 생선구이</span></td></tr>
+      <tr><td>풀어 쓴 문구</td><td>구체적인 음식은 「~같은」, 「~처럼」 예시로만 듦. 40자 이내.</td><td>저녁에 고등어·조기 같은 생선을 기름 없이 구워 드세요.</td></tr>
+      <tr><td>묶기</td><td>축 · 노출 시간 · 할 일이 같고 음식만 다른 문구는 하나로 묶음. 대표 ID는 묶음에서 번호가 가장 앞선 문구.</td><td>아침 채소 반찬 7개(시금치/오이 · 배추쌈/오이 · 애호박/가지 …) → 「아침에 나물이나 쌈 곁들이기」</td></tr>
+      <tr><td>보류</td><td>묶여서 빠지는 문구, 기존 문구와 뜻이 같은 문구는 원본 상태를 「보류」로 바꿈. ID는 지우지 않음.</td><td>「아침추천: 두유/우유」 → 기존 「우유 · 두유 한 잔」과 같아 보류</td></tr>
+      <tr><td>성격</td><td>단백질 · 잡곡 · 생선 · 우유처럼 신장질환에서 조심할 음식을 곁들이라는 문구는 「늘리기」. 조리법만 바꾸라는 문구는 「질감」. 국물을 다른 반찬으로 바꾸는 문구는 「없음」.</td><td>「저녁엔 생선구이」 늘리기 → 신장질환 · 임신 · 섭식장애 등 늘리기 금지 질환에는 안 나감</td></tr>
+      <tr><td>채소 반찬</td><td>채소 반찬 · 절이지 않은 채소 문구 5개는 칼륨이 적은 채소(오이 · 양배추 · 숙주 · 가지)만 예로 들고 성격 「없음」. 신장질환 사용자도 받을 수 있음.</td><td>「저녁에 채소 반찬 곁들이기」 — 숙주나물·가지·양배추 같은 채소 반찬</td></tr>
+      <tr><td>그대로</td><td>축 · 단계(모두 입문) · 노출 시간 · 저녁 이후 가능 여부 · 근거 출처는 그대로.</td><td>아침추천은 아침 접속, 저녁추천은 오후 접속에만 나옴</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="n">2</span>묶음별 정리 — 89개 → 사용 24 · 보류 65</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>축</th><th>나오는 때</th><th>지금 문구</th><th>바꾼 대표 문구 (타일 · 풀어 쓴 문구)</th><th>성격</th><th>상태</th></tr></thead>
+    <tbody>
+<tr><td>끼니 규칙</td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 현미밥+나물</span> · <span class="old">아침추천: 흑미밥+나물</span> · <span class="old">아침추천: 보리밥+나물</span><div class="note">3개</div></td><td><div class="new">아침엔 잡곡밥에 나물</div><div class="note">아침에 현미·보리 같은 잡곡밥에 나물 반찬을 곁들여 드세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0412</span> 사용<br><span class="note">나머지 2개 보류</span></td></tr><tr><td></td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 잡곡밥+두부</span> · <span class="old">아침추천: 오트밀+우유</span> · <span class="old">아침추천: 고구마+두유</span> · <span class="old">아침추천: 현미밥+생선</span> · <span class="old">아침추천: 감자+요거트</span> · <span class="old">아침추천: 단호박+우유</span> · <span class="old">아침추천: 옥수수+두유</span><div class="note">7개</div></td><td><div class="new">아침 곡물에 단백질 곁들이기</div><div class="note">밥·고구마 같은 곡물에 달걀·두부·우유 같은 단백질을 곁들이세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0413</span> 사용<br><span class="note">나머지 6개 보류</span></td></tr><tr><td></td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 통밀빵+채소</span><div class="note">1개</div></td><td><div class="new">빵 먹을 땐 채소 곁들이기</div><div class="note">아침에 빵을 먹을 때는 양상추·오이 같은 채소를 곁들여 드세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0472</span> 사용</td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 잡곡밥/쌈밥</span> · <span class="old">저녁추천: 보리밥/쌈밥</span><div class="note">2개</div></td><td><div class="new">저녁엔 잡곡밥 한 그릇</div><div class="note">저녁을 보리·현미 같은 잡곡밥으로 든든하게 드세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0449</span> 사용<br><span class="note">나머지 1개 보류</span></td></tr><tr><td>채소</td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 시금치/오이</span> · <span class="old">아침추천: 배추쌈/오이</span> · <span class="old">아침추천: 애호박/가지</span> · <span class="old">아침추천: 시금치/쌈</span> · <span class="old">아침추천: 콩나물/쌈</span> · <span class="old">아침추천: 호박/나물</span> · <span class="old">아침추천: 양배추/오이</span><div class="note">7개</div></td><td><div class="new">아침에 채소 반찬 곁들이기</div><div class="note">아침에 오이·양배추·숙주나물 같은 채소 반찬을 곁들여 드세요.</div></td><td>없음 → <b>없음</b></td><td><span class="id">DIET-P-0417</span> 사용<br><span class="note">나머지 6개 보류</span></td></tr><tr><td></td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 비빔밥/쌈밥</span> · <span class="old">아침추천: 비빔밥/나물</span><div class="note">2개</div></td><td><div class="new">아침엔 채소 넣은 밥</div><div class="note">비빔밥·쌈밥처럼 채소를 듬뿍 넣은 밥으로 아침을 드세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0420</span> 사용<br><span class="note">나머지 1개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 나물/생채</span> · <span class="old">저녁추천: 숙주/시금치</span> · <span class="old">저녁추천: 쌈/나물무침</span> · <span class="old">저녁추천: 청경채/버섯</span> · <span class="old">저녁추천: 브로콜리/쌈</span> · <span class="old">저녁추천: 양배추/나물</span> · <span class="old">저녁추천: 미나리/숙주</span> · <span class="old">저녁추천: 상추쌈/나물</span><div class="note">8개</div></td><td><div class="new">저녁에 채소 반찬 곁들이기</div><div class="note">저녁에 숙주나물·가지·양배추 같은 채소 반찬을 곁들여 드세요.</div></td><td>없음 → <b>없음</b></td><td><span class="id">DIET-P-0444</span> 사용<br><span class="note">나머지 7개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 샤브샤브/쌈</span> · <span class="old">저녁추천: 월남쌈/쌈밥</span><div class="note">2개</div></td><td><div class="new">저녁엔 채소에 싸 먹기</div><div class="note">저녁에 쌈이나 월남쌈처럼 채소에 싸서 드세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0441</span> 사용<br><span class="note">나머지 1개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 곤드레밥/쌈</span> · <span class="old">저녁추천: 버섯밥/쌈</span><div class="note">2개</div></td><td><div class="new">저녁엔 채소 넣은 밥</div><div class="note">나물밥·버섯밥처럼 채소를 넣은 밥으로 저녁을 드세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0458</span> 사용<br><span class="note">나머지 1개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 가지/버섯</span> · <span class="old">저녁추천: 가지/호박</span><div class="note">2개</div></td><td><div class="new">구운 채소 반찬 하나</div><div class="note">저녁에 가지·양배추 같은 채소를 기름 없이 구워 곁들이세요.</div></td><td>없음 → <b>없음</b></td><td><span class="id">DIET-P-0443</span> 사용<br><span class="note">나머지 1개 보류</span></td></tr><tr><td></td><td class="note">아침 접속(04~10시)</td><td><span class="old">양배추샐러드+1/2소스</span> · <span class="old">오이샐러드+1/2소스</span> · <span class="old">버섯샐러드+1/2소스</span> · <span class="old">두부샐러드+1/2소스</span> · <span class="old">연두부샐러드+1/2소스</span><div class="note">5개</div></td><td><div class="new">아침엔 샐러드 한 접시</div><div class="note">아침에 양배추·오이 같은 채소샐러드를 드시고, 소스는 절반만 뿌리세요.</div></td><td>줄이기 → <b>늘리기</b></td><td><span class="id">DIET-P-0476</span> 사용<br><span class="note">나머지 4개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">가지샐러드+1/2소스</span> · <span class="old">해초샐러드+1/2소스</span><div class="note">2개</div></td><td><div class="new">저녁엔 샐러드 한 접시</div><div class="note">저녁에 가지·해초 같은 채소샐러드를 드시고, 소스는 절반만 뿌리세요.</div></td><td>줄이기 → <b>늘리기</b></td><td><span class="id">DIET-P-0496</span> 사용<br><span class="note">나머지 1개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">닭샐러드+1/2소스</span> · <span class="old">연어샐러드+1/2소스</span> · <span class="old">새우샐러드+1/2소스</span> · <span class="old">참치샐러드+1/2소스</span><div class="note">4개</div></td><td><div class="new">저녁 샐러드에 단백질 올리기</div><div class="note">저녁 샐러드에 닭고기·생선·새우 같은 단백질을 올려 드세요.</div></td><td>줄이기 → <b>늘리기</b></td><td><span class="id">DIET-P-0497</span> 사용<br><span class="note">나머지 3개 보류</span></td></tr><tr><td>짠맛 · 국물</td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 생채/샐러드</span> · <span class="old">아침추천: 오이/생채</span> · <span class="old">아침추천: 무생채/나물</span><div class="note">3개</div></td><td><div class="new">아침엔 절이지 않은 채소</div><div class="note">김치 같은 절임 반찬 대신 오이·양배추처럼 절이지 않은 채소를 드세요.</div></td><td>없음 → <b>없음</b></td><td><span class="id">DIET-P-0429</span> 사용<br><span class="note">나머지 2개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 생선찜/생채</span> · <span class="old">저녁추천: 두부찜/생채</span> · <span class="old">저녁추천: 생선/두부찜</span> · <span class="old">저녁추천: 생선찜/구이</span><div class="note">4개</div></td><td><div class="new">저녁엔 국물 대신 찜이나 구이</div><div class="note">저녁에 찌개·국 대신 찜이나 구이 반찬을 골라 드세요.</div></td><td>없음 → <b>없음</b></td><td><span class="id">DIET-P-0447</span> 사용<br><span class="note">나머지 3개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 생채소/쌈</span><div class="note">1개</div></td><td><div class="new">저녁엔 절이지 않은 채소</div><div class="note">김치 같은 절임 반찬 대신 오이·양배추처럼 절이지 않은 채소를 드세요.</div></td><td>없음 → <b>없음</b></td><td><span class="id">DIET-P-0468</span> 사용</td></tr><tr><td>단백질</td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 달걀찜/두부</span> · <span class="old">아침추천: 순두부/두유</span> · <span class="old">아침추천: 연두부/두유</span> · <span class="old">아침추천: 요거트/두유</span> · <span class="old">아침추천: 요거트/두부</span> · <span class="old">아침추천: 순두부/우유</span><div class="note">6개</div></td><td><div class="new">아침에 단백질 반찬 하나</div><div class="note">아침에 달걀·두부·요거트 같은 단백질을 한 가지 곁들여 드세요.</div></td><td>늘리기 → <b>늘리기</b></td><td><span class="id">DIET-P-0422</span> 사용<br><span class="note">나머지 5개 보류</span></td></tr><tr><td></td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 두유/우유</span> · <span class="old">아침추천: 달걀/두유</span> · <span class="old">아침추천: 우유/요거트</span><div class="note">3개</div></td><td><div class="note">(기존 「우유 · 두유 한 잔」 · 「아침엔 두유 한 잔」과 같음)</div></td><td>—</td><td>3개 모두 보류</td></tr><tr><td></td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 연어/두부</span> · <span class="old">아침추천: 닭안심/두유</span> · <span class="old">아침추천: 닭안심/두부</span><div class="note">3개</div></td><td><div class="new">아침에 담백한 단백질</div><div class="note">아침에 생선·닭고기 같은 기름 적은 단백질을 곁들여 드세요.</div></td><td>늘리기 → <b>늘리기</b></td><td><span class="id">DIET-P-0427</span> 사용<br><span class="note">나머지 2개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 두부/달걀찜</span> · <span class="old">저녁추천: 닭안심/두부</span> · <span class="old">저녁추천: 두부/백숙</span> · <span class="old">저녁추천: 두부/생선찜</span> · <span class="old">저녁추천: 두부/닭찜</span><div class="note">5개</div></td><td><div class="new">저녁에 담백한 단백질 반찬</div><div class="note">저녁에 두부·달걀찜·닭고기 같은 담백한 단백질 반찬을 드세요.</div></td><td>늘리기 → <b>늘리기</b></td><td><span class="id">DIET-P-0436</span> 사용<br><span class="note">나머지 4개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 살코기/생선</span> · <span class="old">저녁추천: 연어/닭안심</span> · <span class="old">저녁추천: 조개/생선</span><div class="note">3개</div></td><td><div class="new">저녁엔 생선이나 살코기</div><div class="note">저녁에 생선·조개·기름 적은 살코기 같은 단백질을 드세요.</div></td><td>늘리기 → <b>늘리기</b></td><td><span class="id">DIET-P-0455</span> 사용<br><span class="note">나머지 2개 보류</span></td></tr><tr><td>기름진 음식</td><td class="note">아침 접속(04~10시)</td><td><span class="old">아침추천: 생선/나물</span> · <span class="old">아침추천: 생선/두부</span> · <span class="old">아침추천: 생선찜/두부</span><div class="note">3개</div></td><td><div class="new">아침엔 기름 적은 반찬</div><div class="note">아침에 생선구이·두부·나물처럼 기름을 덜 쓰는 반찬을 곁들이세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0428</span> 사용<br><span class="note">나머지 2개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 고등어/갈치</span> · <span class="old">저녁추천: 삼치/조기</span> · <span class="old">저녁추천: 가자미/조기</span> · <span class="old">저녁추천: 임연수/삼치</span><div class="note">4개</div></td><td><div class="new">저녁엔 생선구이</div><div class="note">저녁에 고등어·조기 같은 생선을 기름 없이 구워 드세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0434</span> 사용<br><span class="note">나머지 3개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 생선/수육</span> · <span class="old">저녁추천: 수육/닭찜</span> · <span class="old">저녁추천: 백숙/닭구이</span> · <span class="old">저녁추천: 숙회/수육</span> · <span class="old">저녁추천: 닭찜/수육</span> · <span class="old">저녁추천: 닭구이/수육</span><div class="note">6개</div></td><td><div class="new">저녁 고기는 삶거나 찌기</div><div class="note">저녁에 고기는 수육·닭찜처럼 삶거나 쪄서 드세요.</div></td><td>질감 → <b>질감</b></td><td><span class="id">DIET-P-0430</span> 사용<br><span class="note">나머지 5개 보류</span></td></tr><tr><td></td><td class="note">오후 접속(12~17시)</td><td><span class="old">저녁추천: 새우/오징어</span><div class="note">1개</div></td><td><div class="new">저녁엔 데친 해산물</div><div class="note">저녁에 새우·오징어 같은 해산물을 기름 없이 데쳐 드세요.</div></td><td>없음 → <b>늘리기</b></td><td><span class="id">DIET-P-0454</span> 사용</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="n">3</span>효과 — 365일 규칙에서 1년</h2>
+  <p>계산기로 1년(365일)을 돌림. 접속 06 · 08 · 13 · 15시 × 입문 유지 · 기본 · 도전 진행, 12가지를 합친 값.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>사용자</th><th class="num">끼니 추천 문구가 나온 횟수 (전 → 후)</th><th class="num">그 종류 (전 → 후)</th><th class="num">서로 다른 문구 전체 (전 → 후)</th></tr></thead>
+    <tbody>
+      <tr><td>일반</td><td class="num">370 → 148</td><td class="num">76 → 20</td><td class="num">253 → 197</td></tr>
+      <tr class="diff"><td>신장질환</td><td class="num">396 → 158</td><td class="num">45 → 7</td><td class="num">153 → 115</td></tr>
+      <tr><td>당뇨</td><td class="num">530 → 258</td><td class="num">62 → 20</td><td class="num">158 → 116</td></tr>
+      <tr><td>이상지질혈증</td><td class="num">578 → 228</td><td class="num">74 → 20</td><td class="num">186 → 132</td></tr>
+      <tr><td>고혈압</td><td class="num">632 → 284</td><td class="num">74 → 20</td><td class="num">185 → 131</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li>끼니 추천 문구 타일에서 특정 음식 이름이 모두 빠짐.</li>
+    <li>신장질환 사용자에게 나가는 끼니 추천은 7개: 아침 · 저녁 채소 반찬, 구운 채소, 아침 · 저녁 절이지 않은 채소, 국물 대신 찜이나 구이, 고기는 삶거나 찌기. 시금치 · 브로콜리 · 생선 · 우유 · 잡곡을 권하는 문구는 나가지 않음.</li>
+    <li>보류 65개만큼 사용자가 1년간 보는 문구 종류는 줄어듦. 줄어든 것은 음식 이름만 다른 같은 뜻의 문구.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="n">4</span>시트에 반영할 곳</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>파일 · 시트</th><th>칸</th><th>바꿀 것</th></tr></thead>
+    <tbody>
+      <tr><td>데이터계약 · 목표문구</td><td>tile_text · full_text · reason_text · nature_code</td><td>대표 24개를 2장 표대로 바꿈</td></tr>
+      <tr><td>데이터계약 · 목표문구</td><td>source_status</td><td>보류 65개를 「사용」 → 「보류」</td></tr>
+      <tr><td>데이터계약 · 번역_en</td><td>text_en</td><td>대표 24개 영문 (아래 초안). 보류 65개는 그대로 둠</td></tr>
+      <tr><td>참조설정데이터 · 문구세트</td><td>타일 문구 · 글자수 · 풀어 쓴 문구 · 이유 한 줄 · 성격 · 상태</td><td>데이터계약과 같은 값</td></tr>
+      <tr><td>서버 식이 데이터 JSON</td><td>goal_phrases</td><td>대표 24개 값 교체, 보류 65개는 빼거나 쓰지 않음 표시</td></tr>
+      <tr><td>두 파일 · 안내</td><td>바뀐 내용 표</td><td>「끼니 추천 문구 정리」 한 줄</td></tr>
+    </tbody>
+  </table></div>
+  <h3>이유 한 줄 · 영문 초안</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>ID</th><th>타일</th><th>이유 한 줄</th></tr></thead>
+    <tbody><tr><td class="id">DIET-P-0412</td><td>아침엔 잡곡밥에 나물</td><td>잡곡밥에 나물을 곁들이면 오래 든든해요.</td></tr><tr><td class="id">DIET-P-0413</td><td>아침 곡물에 단백질 곁들이기</td><td>곡물에 단백질을 더하면 아침이 오래 든든해요.</td></tr><tr><td class="id">DIET-P-0472</td><td>빵 먹을 땐 채소 곁들이기</td><td>빵에 채소를 곁들이면 든든하고 가벼워요.</td></tr><tr><td class="id">DIET-P-0449</td><td>저녁엔 잡곡밥 한 그릇</td><td>잡곡밥은 저녁까지 든든해요.</td></tr><tr><td class="id">DIET-P-0417</td><td>아침에 채소 반찬 곁들이기</td><td>채소 반찬 한 가지로 아침 채소를 챙겨요.</td></tr><tr><td class="id">DIET-P-0420</td><td>아침엔 채소 넣은 밥</td><td>나물이나 쌈으로 채소를 넉넉히 먹어요.</td></tr><tr><td class="id">DIET-P-0444</td><td>저녁에 채소 반찬 곁들이기</td><td>채소 반찬 한 가지로 저녁 채소를 더해요.</td></tr><tr><td class="id">DIET-P-0441</td><td>저녁엔 채소에 싸 먹기</td><td>채소에 싸 먹으면 자연스럽게 많이 먹어요.</td></tr><tr><td class="id">DIET-P-0458</td><td>저녁엔 채소 넣은 밥</td><td>채소 넣은 밥으로 저녁 채소를 챙겨요.</td></tr><tr><td class="id">DIET-P-0443</td><td>구운 채소 반찬 하나</td><td>기름 없이 구운 채소 반찬이에요.</td></tr><tr><td class="id">DIET-P-0476</td><td>아침엔 샐러드 한 접시</td><td>아침 채소를 가볍게 더해요. 소스는 절반만 뿌려요.</td></tr><tr><td class="id">DIET-P-0496</td><td>저녁엔 샐러드 한 접시</td><td>저녁 채소를 가볍게 챙겨요. 소스는 절반만 뿌려요.</td></tr><tr><td class="id">DIET-P-0497</td><td>저녁 샐러드에 단백질 올리기</td><td>채소와 단백질을 한 접시에 함께 챙겨요.</td></tr><tr><td class="id">DIET-P-0429</td><td>아침엔 절이지 않은 채소</td><td>절이지 않은 채소는 염분이 적어요.</td></tr><tr><td class="id">DIET-P-0447</td><td>저녁엔 국물 대신 찜이나 구이</td><td>찜과 구이는 국물 요리보다 덜 짜요.</td></tr><tr><td class="id">DIET-P-0468</td><td>저녁엔 절이지 않은 채소</td><td>절이지 않은 채소는 염분이 거의 없어요.</td></tr><tr><td class="id">DIET-P-0422</td><td>아침에 단백질 반찬 하나</td><td>단백질 한 가지로 아침을 든든하게 해요.</td></tr><tr><td class="id">DIET-P-0427</td><td>아침에 담백한 단백질</td><td>기름 적은 단백질로 아침을 챙겨요.</td></tr><tr><td class="id">DIET-P-0436</td><td>저녁에 담백한 단백질 반찬</td><td>부드럽고 담백한 단백질로 저녁을 채워요.</td></tr><tr><td class="id">DIET-P-0455</td><td>저녁엔 생선이나 살코기</td><td>기름 적은 고기나 생선으로 단백질을 챙겨요.</td></tr><tr><td class="id">DIET-P-0428</td><td>아침엔 기름 적은 반찬</td><td>기름을 덜 쓰는 반찬으로 아침을 먹어요.</td></tr><tr><td class="id">DIET-P-0434</td><td>저녁엔 생선구이</td><td>구운 생선은 튀김보다 기름이 덜 들어가요.</td></tr><tr><td class="id">DIET-P-0430</td><td>저녁 고기는 삶거나 찌기</td><td>삶거나 찐 고기는 기름과 양념이 적어요.</td></tr><tr><td class="id">DIET-P-0454</td><td>저녁엔 데친 해산물</td><td>데친 해산물은 기름 없이 먹을 수 있어요.</td></tr></tbody>
+  </table></div>
+  <div class="tbl"><table>
+    <thead><tr><th>ID</th><th>타일</th><th>영문 초안</th></tr></thead>
+    <tbody><tr><td class="id">DIET-P-0412</td><td>아침엔 잡곡밥에 나물</td><td>Whole grains and greens at breakfast</td></tr><tr><td class="id">DIET-P-0413</td><td>아침 곡물에 단백질 곁들이기</td><td>Add protein to your breakfast grains</td></tr><tr><td class="id">DIET-P-0472</td><td>빵 먹을 땐 채소 곁들이기</td><td>Add veggies when you have bread</td></tr><tr><td class="id">DIET-P-0449</td><td>저녁엔 잡곡밥 한 그릇</td><td>Whole-grain rice for dinner</td></tr><tr><td class="id">DIET-P-0417</td><td>아침에 채소 반찬 곁들이기</td><td>A veggie side at breakfast</td></tr><tr><td class="id">DIET-P-0420</td><td>아침엔 채소 넣은 밥</td><td>Veggie-filled rice for breakfast</td></tr><tr><td class="id">DIET-P-0444</td><td>저녁에 채소 반찬 곁들이기</td><td>A veggie side at dinner</td></tr><tr><td class="id">DIET-P-0441</td><td>저녁엔 채소에 싸 먹기</td><td>Wrap dinner in fresh greens</td></tr><tr><td class="id">DIET-P-0458</td><td>저녁엔 채소 넣은 밥</td><td>Veggie-filled rice for dinner</td></tr><tr><td class="id">DIET-P-0443</td><td>구운 채소 반찬 하나</td><td>One oil-free roasted veggie side</td></tr><tr><td class="id">DIET-P-0476</td><td>아침엔 샐러드 한 접시</td><td>A plate of salad at breakfast</td></tr><tr><td class="id">DIET-P-0496</td><td>저녁엔 샐러드 한 접시</td><td>A plate of salad at dinner</td></tr><tr><td class="id">DIET-P-0497</td><td>저녁 샐러드에 단백질 올리기</td><td>Top your dinner salad with protein</td></tr><tr><td class="id">DIET-P-0429</td><td>아침엔 절이지 않은 채소</td><td>Unpickled veggies at breakfast</td></tr><tr><td class="id">DIET-P-0447</td><td>저녁엔 국물 대신 찜이나 구이</td><td>Steamed or grilled instead of soup at dinner</td></tr><tr><td class="id">DIET-P-0468</td><td>저녁엔 절이지 않은 채소</td><td>Unpickled veggies at dinner</td></tr><tr><td class="id">DIET-P-0422</td><td>아침에 단백질 반찬 하나</td><td>One protein side at breakfast</td></tr><tr><td class="id">DIET-P-0427</td><td>아침에 담백한 단백질</td><td>Lean protein at breakfast</td></tr><tr><td class="id">DIET-P-0436</td><td>저녁에 담백한 단백질 반찬</td><td>A lean protein side at dinner</td></tr><tr><td class="id">DIET-P-0455</td><td>저녁엔 생선이나 살코기</td><td>Fish or lean meat for dinner</td></tr><tr><td class="id">DIET-P-0428</td><td>아침엔 기름 적은 반찬</td><td>Low-oil sides at breakfast</td></tr><tr><td class="id">DIET-P-0434</td><td>저녁엔 생선구이</td><td>Grilled fish for dinner</td></tr><tr><td class="id">DIET-P-0430</td><td>저녁 고기는 삶거나 찌기</td><td>Boil or steam meat at dinner</td></tr><tr><td class="id">DIET-P-0454</td><td>저녁엔 데친 해산물</td><td>Blanched seafood for dinner</td></tr></tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="n">5</span>범위 밖 — 따로 볼 것</h2>
+  <ul>
+    <li>끼니 추천 묶음 밖에도 타일에 음식 이름이 든 기존 문구가 있음: 간편식엔 참치·달걀 · 단 디저트 대신 요거트 · 두유 한 팩 챙기기 · 아침엔 두유 한 잔 · 버섯·다시마로 맛내기. 365일 규칙에서 함께 자주 나옴.</li>
+    <li>성격이 「없음」인 다른 문구에도 신장질환에 조심할 음식이 들어간 것이 있는지 한 번 더 훑어야 함.</li>
+  </ul>
+</section>
+</div>
+
+</body>
+</html>
