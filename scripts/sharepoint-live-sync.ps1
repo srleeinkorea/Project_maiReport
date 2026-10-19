@@ -255,7 +255,12 @@ function Apply-Changes($srcWs, $src, $base, $dstWs, $dst, [bool]$doWrite, [bool]
         if ($sv -eq $bv -or $tv -eq $sv) { continue }
         if ($tv -ne $bv) { [void]$res.Conflicts.Add("$sheet  $(ColName $c)$($t + 1): 웹과 로컬이 서로 다르게 바꿈 — 웹 「$(Short $tv)」 / 로컬 「$(Short $sv)」"); continue }
         if ($doWrite) {
-          Do-Com { [void]$srcWs.Cells.Item($sr + 1, $c).Copy($dstWs.Cells.Item($t + 1, $c)) }
+          Do-Com {
+            $sc = $srcWs.Cells.Item($sr + 1, $c); $dc = $dstWs.Cells.Item($t + 1, $c)
+            # 합친 셀은 칸 복사가 안 되므로 값만 넣는다(서식은 받는 쪽 그대로)
+            if ($sc.MergeCells -or $dc.MergeCells) { $dc.MergeArea.Cells.Item(1, 1).Value2 = $sc.MergeArea.Cells.Item(1, 1).Value2 }
+            else { [void]$sc.Copy($dc) }
+          }
           if ($red) { Do-Com { $dstWs.Cells.Item($t + 1, $c).Font.Color = $REDCOLOR }; [void]$srcRedList.Add(@(($sr + 1), $c)) }
         }
         [void]$res.Cells.Add("$sheet  $(ColName $c)$($t + 1): 「$(Short $bv)」 → 「$(Short $sv)」")
