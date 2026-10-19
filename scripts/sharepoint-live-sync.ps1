@@ -125,6 +125,19 @@ function Open-Book([string]$path, [bool]$readOnly) {
   Wait-Ready
   return $wb
 }
+# 엑셀이 바쁘면 명령을 거절한다(RPC_E_CALL_REJECTED 등) → 잠깐 기다렸다 다시 시도
+function Do-Com([scriptblock]$sb) {
+  for ($i = 0; $i -lt 80; $i++) {
+    try { return (& $sb) }
+    catch {
+      $hr = 0; try { $hr = $_.Exception.HResult } catch {}
+      $msg = [string]$_.Exception.Message
+      if ($hr -eq -2147418111 -or $hr -eq -2147417846 -or $msg -match 'rejected|busy|0x80010001|0x8001010A|null-valued|cannot be found on this object') { Start-Sleep -Milliseconds 250; Wait-Ready; continue }
+      throw
+    }
+  }
+  throw "엑셀이 계속 바빠 명령을 처리하지 못했습니다"
+}
 function Cell($g, [int]$r, [int]$c) {   # r, c 는 1부터
   if ($r -lt 1 -or $r -gt $g.Rows -or $c -gt $g.Cols -or $null -eq $g.V) { return $null }
   return $g.V[$r, $c]
@@ -202,11 +215,12 @@ function Apply-Changes($srcWs, $src, $base, $dstWs, $dst, [bool]$doWrite, [bool]
         if ($already) { [void]$res.Skipped.Add("$sheet  로컬 $($s0)~$($s1)행은 받는 쪽에 이미 있음 — 건너뜀") } else {
         if ($doWrite) {
           $endsAfter = ($at -gt $dst.Rows)
-          if (-not $endsAfter) { [void]$dstWs.Range("$($at):$($at + $cnt - 1)").EntireRow.Insert() }
-          [void]$srcWs.Range("$($s0):$($s1)").EntireRow.Copy($dstWs.Range("$($at):$($at + $cnt - 1)").EntireRow)
+          if (-not $endsAfter) { Do-Com { [void]$dstWs.Range("$($at):$($at + $cnt - 1)").EntireRow.Insert() } }
+          Do-Com { [void]$srcWs.Range("$($s0):$($s1)").EntireRow.Copy($dstWs.Range("$($at):$($at + $cnt - 1)").EntireRow) }
+          for ($r = 0; $r -lt $cnt; $r++) { $hid = Do-Com { $srcWs.Rows.Item($s0 + $r).Hidden }; if ($hid) { Do-Com { $dstWs.Rows.Item($at + $r).Hidden = $true } } }
           if ($red) {
             for ($r = 0; $r -lt $cnt; $r++) { for ($c = 1; $c -le $src.Cols; $c++) {
-              if ((Tag (Cell $src ($s0 + $r) $c)) -ne '') { $dstWs.Cells.Item($at + $r, $c).Font.Color = $REDCOLOR; [void]$srcRedList.Add(@(($s0 + $r), $c)) }
+              if ((Tag (Cell $src ($s0 + $r) $c)) -ne '') { Do-Com { $dstWs.Cells.Item($at + $r, $c).Font.Color = $REDCOLOR }; [void]$srcRedList.Add(@(($s0 + $r), $c)) }
             } }
           }
         }
@@ -223,7 +237,7 @@ function Apply-Changes($srcWs, $src, $base, $dstWs, $dst, [bool]$doWrite, [bool]
           else { [void]$res.Skipped.Add("$sheet  기준 $($i + 1)행은 받는 쪽에서 이미 지워짐 — 건너뜀") }
           continue
         }
-        if ($doWrite) { [void]$dstWs.Rows.Item($t + 1).EntireRow.Delete() }
+        if ($doWrite) { Do-Com { [void]$dstWs.Rows.Item($t + 1).EntireRow.Delete() } }
         [void]$res.Rows.Add("$sheet  웹 $($t + 1)행 지움: " + (Preview-Row $base ($i + 1)))
       }
     }
@@ -235,16 +249,19 @@ function Apply-Changes($srcWs, $src, $base, $dstWs, $dst, [bool]$doWrite, [bool]
         [void]$res.Conflicts.Add("$sheet  로컬 $($sr + 1)행: 웹에서도 같은 행이 바뀌어 건드리지 않음 — " + (Preview-Row $src ($sr + 1)))
         continue
       }
+      $rowTouched = $false
       for ($c = 1; $c -le $cols; $c++) {
         $sv = Tag (Cell $src ($sr + 1) $c); $bv = Tag (Cell $base ($br + 1) $c); $tv = Tag (Cell $dst ($t + 1) $c)
         if ($sv -eq $bv -or $tv -eq $sv) { continue }
         if ($tv -ne $bv) { [void]$res.Conflicts.Add("$sheet  $(ColName $c)$($t + 1): 웹과 로컬이 서로 다르게 바꿈 — 웹 「$(Short $tv)」 / 로컬 「$(Short $sv)」"); continue }
         if ($doWrite) {
-          [void]$srcWs.Cells.Item($sr + 1, $c).Copy($dstWs.Cells.Item($t + 1, $c))
-          if ($red) { $dstWs.Cells.Item($t + 1, $c).Font.Color = $REDCOLOR; [void]$srcRedList.Add(@(($sr + 1), $c)) }
+          Do-Com { [void]$srcWs.Cells.Item($sr + 1, $c).Copy($dstWs.Cells.Item($t + 1, $c)) }
+          if ($red) { Do-Com { $dstWs.Cells.Item($t + 1, $c).Font.Color = $REDCOLOR }; [void]$srcRedList.Add(@(($sr + 1), $c)) }
         }
         [void]$res.Cells.Add("$sheet  $(ColName $c)$($t + 1): 「$(Short $bv)」 → 「$(Short $sv)」")
+        $rowTouched = $true
       }
+      if ($doWrite -and $rowTouched) { Do-Com { $dstWs.Rows.Item($t + 1).RowHeight = $srcWs.Rows.Item($sr + 1).RowHeight }; Do-Com { $dstWs.Rows.Item($t + 1).Hidden = $srcWs.Rows.Item($sr + 1).Hidden } }
     }
   }
   return $res
@@ -298,19 +315,52 @@ try {
     $allCells = 0; $allRows = 0; $allConf = 0; $webOnly = New-Object Collections.ArrayList
     $orderS = Get-SheetNames $wbS; $orderD = Get-SheetNames $wbD; $nS = $orderS.Count; $done = 0
     Log ("  sheets src=" + ($orderS -join '|') + " dst=" + ($orderD -join '|'))
-    if (($orderS -join '|') -ne ($orderD -join '|')) { Say "  ! 시트 이름·순서가 다릅니다 — 직접 맞춰 주세요" Yellow; Say ("    보낼 쪽: " + ($orderS -join ', ')); Say ("    받을 쪽: " + ($orderD -join ', ')) }
+    # ── 시트 단위: 새 시트 · 없어진 시트 · 순서 (기준본과 비교해 어느 쪽이 바꿨는지 판단) ──
+    $orderB = Get-SheetNames $wbB; $sheetOps = 0; $MISSING = [Reflection.Missing]::Value
+    $redOn = (-not $NoRed -and -not $Pull)
+    foreach ($nm in @($orderS)) {
+      if ($orderD -contains $nm) { continue }
+      if ($orderB -contains $nm) { Say "  ! [$nm] 받는 쪽에서 지워진 시트 — 그대로 둠" Yellow; Log "  $($f.name)  sheet dst-deleted $nm"; continue }
+      $sheetOps++; Say "  + [$nm] 새 시트 — 받는 쪽에 통째로 복사(탭 빨강)" Green; Log "  $($f.name)  sheet add $nm"
+      if ($doWrite) {
+        $idx = [array]::IndexOf($orderS, $nm); $after = $null
+        for ($k2 = $idx - 1; $k2 -ge 0; $k2--) { if ($orderD -contains $orderS[$k2]) { $after = $orderS[$k2]; break } }
+        if ($after) { Do-Com { $wbS.Worksheets.Item($nm).Copy($MISSING, $wbD.Worksheets.Item($after)) } } else { Do-Com { $wbS.Worksheets.Item($nm).Copy($wbD.Worksheets.Item(1)) } }
+        Wait-Ready
+        if ($redOn) { Do-Com { $wbD.Worksheets.Item($nm).Tab.Color = $REDCOLOR } }
+        $orderD = Get-SheetNames $wbD
+      }
+    }
+    foreach ($nm in @($orderD)) {
+      if ($orderS -contains $nm) { continue }
+      if (-not ($orderB -contains $nm)) { Say "  ! [$nm] 받는 쪽에만 새로 생긴 시트 — 그대로 둠" Yellow; Log "  $($f.name)  sheet dst-only $nm"; continue }
+      $same = ((Get-Grid $wbD.Worksheets.Item($nm)).Keys -join [char]30) -eq ((Get-Grid $wbB.Worksheets.Item($nm)).Keys -join [char]30)
+      if (-not $same) { Say "  ! 충돌 [$nm] 보내는 쪽에서 없어진 시트를 받는 쪽에서 고쳐 둠 — 지우지 않음" Red; $allConf++; Log "  $($f.name)  sheet conflict $nm"; continue }
+      $sheetOps++; Say "  - [$nm] 보내는 쪽에서 없어진 시트 — 받는 쪽에서 지움" Green; Log "  $($f.name)  sheet delete $nm"
+      if ($doWrite) { Do-Com { [void]$wbD.Worksheets.Item($nm).Delete() }; Wait-Ready; $orderD = Get-SheetNames $wbD }
+    }
+    $cS = @($orderS | Where-Object { $orderD -contains $_ }); $cD = @($orderD | Where-Object { $orderS -contains $_ })
+    if (($cS -join '|') -ne ($cD -join '|')) {
+      $cB = @($orderB | Where-Object { ($orderS -contains $_) -and ($orderD -contains $_) })
+      if (($cB -join '|') -eq ($cD -join '|')) {
+        $sheetOps++; Say "  ~ 시트 순서를 보내는 쪽에 맞춤" Green; Log "  $($f.name)  sheet reorder"
+        if ($doWrite) { for ($k2 = 1; $k2 -lt $cS.Count; $k2++) { Do-Com { $wbD.Worksheets.Item($cS[$k2]).Move($MISSING, $wbD.Worksheets.Item($cS[$k2 - 1])) } }; $orderD = Get-SheetNames $wbD }
+      } else { Say "  ! 시트 순서가 다름(받는 쪽에서 바꿈) — 그대로 둠" Yellow; Say ("    보낼 쪽: " + ($cS -join ', ')); Say ("    받을 쪽: " + ($cD -join ', ')) }
+    }
     for ($q = 1; $q -le $nS; $q++) {
       $ws = $wbS.Worksheets.Item($orderS[$q - 1])
       $name = $ws.Name
       $wsD = $null; try { $wsD = $wbD.Worksheets.Item($name) } catch {}
       $wsB = $null; try { $wsB = $wbB.Worksheets.Item($name) } catch {}
-      if (-not $wsD) { Say "  ! [$name] 받을 쪽에 시트가 없음 — 건너뜀" Yellow; continue }
-      if (-not $wsB) { Say "  ! [$name] 기준본에 시트가 없음 — 건너뜀" Yellow; continue }
+      if (-not $wsD) { continue }   # 새 시트(미리보기) · 받는 쪽에서 지운 시트는 위에서 알림
+      if (-not $wsB) { continue }   # 새로 복사한 시트는 통째로 같음
+      $script:curSheet = $name
+      Wait-Ready
       $gS = Get-Grid $ws; $gB = Get-Grid $wsB; $gD = Get-Grid $wsD
       $done++
       $redList = New-Object Collections.ArrayList
       $r = Apply-Changes $ws $gS $gB $wsD $gD $doWrite (-not $NoRed -and -not $Pull) $name $redList
-      if (-not $Pull -and $doWrite -and -not $NoRed -and $redList.Count) { foreach ($rc in $redList) { $ws.Cells.Item($rc[0], $rc[1]).Font.Color = $REDCOLOR } }
+      if (-not $Pull -and $doWrite -and -not $NoRed -and $redList.Count) { foreach ($rc in $redList) { $rr = [int]$rc[0]; $cc = [int]$rc[1]; Do-Com { $ws.Cells.Item($rr, $cc).Font.Color = $REDCOLOR } } }
       foreach ($x in $r.Cells) { if ($allCells -lt $Show) { Say ("  · " + $x) Green }; $allCells++ }
       foreach ($x in $r.Rows) { if ($allRows -lt $Show) { Say ("  + " + $x) Green }; $allRows++ }
       foreach ($x in $r.Conflicts) { Say ("  ! 충돌 " + $x) Red; $allConf++ }
@@ -326,14 +376,14 @@ try {
     if ($allCells -gt $Show -or $allRows -gt $Show) { Say ("  … 전체는 " + $logP) }
     $who = if ($Pull) { '로컬' } else { '웹' }
     $otherSide = if ($Pull) { '로컬에서만' } else { '웹에서만' }
-    Say ("  {0}에 반영할 것: 칸 {1} · 행 {2} · 충돌 {3}" -f $who, $allCells, $allRows, $allConf) Cyan
+    Say ("  {0}에 반영할 것: 시트 {4} · 칸 {1} · 행 {2} · 충돌 {3}" -f $who, $allCells, $allRows, $allConf, $sheetOps) Cyan
     if ($webOnly.Count) {
       Say ("  {0} 바뀐 곳 {1}줄 — 덮어쓰지 않았습니다" -f $otherSide, $webOnly.Count) Yellow
       $webOnly | Select-Object -First $Show | ForEach-Object { Say ("    " + $_) Yellow }
       if (-not $Pull) { Say "    → 로컬로 가져오려면: 실행 파일에서 '가져오기' 또는 -Pull" Yellow }
       $webOnly | ForEach-Object { Log ("  " + $f.name + "  side-only " + $_) }
     }
-    if ($doWrite -and ($allCells + $allRows) -gt 0) {
+    if ($doWrite -and ($allCells + $allRows + $sheetOps) -gt 0) {
       $wbD.Save(); if ($Pull) { $localDirty = $true } elseif (-not $NoRed) { $wbL.Save(); $localDirty = $true }
       Say "  저장했습니다" Green
     }
@@ -343,7 +393,7 @@ try {
       if ($Pull) { $wbT.SaveCopyAs($baseP) } else { $wbL.SaveCopyAs($baseP) }
       Say "  기준본을 갱신했습니다" DarkGray
     } elseif ($doWrite) { Say "  충돌이 있어 기준본은 그대로 둡니다. 충돌을 정리한 뒤 다시 실행하세요" Yellow }
-    $summary += [pscustomobject]@{ 파일 = $f.name; 시트 = $done; 칸 = $allCells; 행 = $allRows; 충돌 = $allConf; 상대쪽만 = $webOnly.Count }
+    $summary += [pscustomobject]@{ 파일 = $f.name; 시트 = $done; 시트변경 = $sheetOps; 칸 = $allCells; 행 = $allRows; 충돌 = $allConf; 상대쪽만 = $webOnly.Count }
     $wbB.Close($false); $wbT.Close($false); $wbL.Close($false)
     if ($localDirty) {
       try { Copy-Item -LiteralPath $localWork -Destination $localP -Force; Say "  로컬 파일에 저장했습니다" Green }
@@ -353,7 +403,7 @@ try {
     if ($firstRun -and $tmpBase) { Remove-Item $tmpBase -ErrorAction SilentlyContinue }
   }
 } catch {
-  Say ("오류: " + $_.Exception.Message + " (" + $_.InvocationInfo.ScriptLineNumber + "행)") Red
+  Say ("오류: " + $_.Exception.Message + " (" + $_.InvocationInfo.ScriptLineNumber + "행, 시트 " + $script:curSheet + ")") Red
   Log ("error " + $_.Exception.Message); $exit = 1
 } finally {
   foreach ($wb in @($xl.Workbooks)) { try { $wb.Close($false) } catch {} }
