@@ -216,19 +216,31 @@ a{color:#5170FF}
 [class*="hero"] *{color:inherit}
 [class*="hero"] h1,[class*="hero"] h2{color:#0f1222!important}
 </style>
+<style id="latest-flow-notes">
+.update-scope{flex-basis:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;border-top:1px solid var(--border);padding-top:14px}
+.update-scope p{font-size:12px;line-height:1.85;color:var(--text-2);background:var(--surface-2);padding:12px;border-radius:9px}
+.update-scope strong{display:block;font-size:13px;color:var(--indigo);margin-bottom:4px}
+.hdr .sub{font-size:12px;line-height:1.8}.hdr h1{font-size:21px}.tl p{font-size:12px;line-height:1.8}.ia2-notes li{line-height:1.9;margin-bottom:9px}
+.pip,.tl .bar::after{animation:none}
+@media(max-width:800px){.update-scope{grid-template-columns:1fr}.hdr h1{font-size:18px}}
+</style>
 </head><body><main class="page">
 
-<header class="hdr"><div class="hdr-l"><div class="logo"><b>mai</b><span>REPORT</span></div><div><h1>마이리포트 아키텍쳐 · 데이터 플로우 : 원천 → 수집 → 분석 → 노출 → 저장</h1><p class="sub mono">기기 · 공공기관 · 사용자 입력 → 인증 · 정리 → 지표 · 규칙 · AI → 홈 · 생활 · 병원 → 이력 저장 → 다음 날 재사용</p></div></div>
-<div class="badges"><span class="badge"><i class="pip" aria-hidden="true"></i>구성 문서</span><span class="badge">최종 프로토타입 기준</span><span class="badge">하단 탭 4개</span><span class="badge">RSNA 시연 버전</span><span class="badge">2026-10-14 갱신</span></div></header>
+<header class="hdr"><div class="hdr-l"><div class="logo"><b>mai</b><span>REPORT</span></div><div><h1>전체 앱 구성 흐름도 · 정보가 들어와 화면에 보이기까지</h1><p class="sub mono">기기 · 공공기관 · 사용자 입력 → 인증 · 정리 → 지표 · 규칙 · AI → 홈 · 생활 · 병원 → 이력 저장 → 다음 날 재사용</p></div></div>
+<div class="badges"><span class="badge"><i class="pip" aria-hidden="true"></i>구성 문서</span><span class="badge">최신 전달본 · 기획 대조</span><span class="badge">하단 탭 4개</span><span class="badge">RSNA 시연 버전</span><span class="badge">2026-10-19 갱신</span></div><div class="update-scope" aria-label="최신 반영 기준">
+<p><strong>현재 전달 범위</strong> 식이 데이터 계약 v1.4.0 · 식이 질문은 최대 2개. 문구·질환·달력은 연구소 적용본 diet-1.1.1 기준입니다.</p>
+<p><strong>다음 버전</strong> 끼니별 식사 시각 질문과 식후 행동 판정은 회사 정본·시연에 포함되지만, 10월 19일 연구소 전달본에서는 제외했습니다.</p>
+<p><strong>반영 확인 중</strong> 목표 문구 반복 방지 조회 기간 30일 → 365일. 계약에는 반영했으며 서버 반영·버전 간 사용 이력 유지 여부는 확인이 필요합니다.</p>
+</div></header>
 
 <section class="timeline" aria-label="데이터가 생기는 시점">
 <div class="tl" style="--tl:var(--blue);--tl-bg:var(--blue-bg)"><div class="bar"></div><b>처음 한 번 · 연동</b><p>웨어러블 · 검진 · 진료 인증<br>동의 이력 저장</p><span class="tag">백그라운드 가져오기</span></div>
-<div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bg)"><div class="bar"></div><b>매일 · 첫 진입</b><p>오늘의 질문 답 · 목표 생성<br>세 지표 일별 계산</p><span class="tag">진입 시 즉시</span></div>
-<div class="tl" style="--tl:var(--indigo);--tl-bg:var(--indigo-bg)"><div class="bar"></div><b>요청할 때 · AI 분석</b><p>셀비 위험도 · ChatGPT 요약<br>AI REPORT 판독 등록</p><span class="tag">사용자가 요청할 때</span></div>
-<div class="tl" style="--tl:var(--green);--tl-bg:var(--green-bg)"><div class="bar"></div><b>주간 · 다음 날</b><p>7일 비교 · AI 인사이트<br>어제 기록 → 오늘 규칙</p><span class="tag">재사용 루프</span></div>
+<div class="tl" style="--tl:var(--cyan);--tl-bg:var(--cyan-bg)"><div class="bar"></div><b>매일 · 첫 진입</b><p>질문과 목표 열림 상태 결정<br>모두 답하면 코칭·잠긴 목표 생성</p><span class="tag">진입 시 즉시</span></div>
+<div class="tl" style="--tl:var(--indigo);--tl-bg:var(--indigo-bg)"><div class="bar"></div><b>요청할 때 · AI 분석</b><p>셀비 · 검진 요약 · AI 인사이트<br>연동·기록 조건 확인 후 실행</p><span class="tag">사용자가 요청할 때</span></div>
+<div class="tl" style="--tl:var(--green);--tl-bg:var(--green-bg)"><div class="bar"></div><b>주간 · 다음 날</b><p>최근 기록으로 흐름 비교<br>새벽 4시 질문·목표의 새 하루 시작</p><span class="tag">재사용 루프</span></div>
 </section>
 
-<section class="legend" aria-label="범례"><span class="lg"><i style="background:var(--blue)"></i>원천 데이터</span><span class="lg"><i style="background:var(--cyan)"></i>수집 · 연동</span><span class="lg"><i style="background:var(--indigo)"></i>분석 엔진</span><span class="lg"><i style="background:var(--green)"></i>화면 노출</span><span class="lg"><i style="background:var(--amber)"></i>저장</span><span class="lg-sep"></span><span class="mono">→ 데이터 흐름</span><span class="mono">← 다음 날 재사용</span><span class="mono rule">원본 값은 화면에 그대로 나가지 않음 · 건강정보는 알림 제외</span></section>
+<section class="legend" aria-label="범례"><span class="lg"><i style="background:var(--blue)"></i>원천 데이터</span><span class="lg"><i style="background:var(--cyan)"></i>수집 · 연동</span><span class="lg"><i style="background:var(--indigo)"></i>분석 엔진</span><span class="lg"><i style="background:var(--green)"></i>화면 노출</span><span class="lg"><i style="background:var(--amber)"></i>저장</span><span class="lg-sep"></span><span class="mono">→ 데이터 흐름</span><span class="mono">← 다음 날 재사용</span><span class="mono rule">건강 데이터는 원래 값도 확인 가능 · 내부 판단과 화면 표시 구분 · 건강 수치는 알림 제외</span></section>
 
 <nav class="journey" aria-label="데이터 처리 순서"><div class="j-step"><span class="j-num" style="background:var(--blue)">1</span><div><b style="color:var(--blue)">📥 원천 데이터</b><p>기기 · 공공기관<br>사용자 입력</p></div></div><span class="j-arrow" aria-hidden="true">▶</span><div class="j-step"><span class="j-num" style="background:var(--cyan)">2</span><div><b style="color:var(--cyan)">🔄 수집 · 연동</b><p>인증 · 동의 확인<br>날짜 · 출처 정리</p></div></div><span class="j-arrow" aria-hidden="true">▶</span><div class="j-step"><span class="j-num" style="background:var(--indigo)">3</span><div><b style="color:var(--indigo)">⚙️ 분석 엔진</b><p>지표 · 코칭/목표 · 식이<br>+ AI 분석 · 집계</p></div></div><span class="j-arrow" aria-hidden="true">▶</span><div class="j-step"><span class="j-num" style="background:var(--green)">4</span><div><b style="color:var(--green)">📱 화면 노출</b><p>홈 · 생활 · 병원<br>라벨 · 문구 · 리포트</p></div></div><span class="j-arrow" aria-hidden="true">▶</span><div class="j-step"><span class="j-num" style="background:var(--amber)">5</span><div><b style="color:var(--amber)">🗄️ 저장</b><p>이력 · 스냅샷 · 리포트<br>내일 계산에 재사용</p></div></div></nav>
 
@@ -239,15 +251,15 @@ a{color:#5170FF}
 <article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">🩺</span><h3 class="cn">건강검진 결과 API</h3></div><p class="cb"><span>혈압 · 혈당 · 지질 · 간 · 신장</span><span>신체계측 · 판정 · 소견</span><span>검진일 · 검진기관 · 문진</span></p><span class="ctag">건보공단</span></article>
 <article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">📋</span><h3 class="cn">내진료정보열람 API</h3></div><p class="cb"><span>기본진료: 진료일 · 병원 · 진료과 · 외래/입원</span><span>주상병 코드 · 명 · 내원일수</span><span>진료비: 총액 · 공단 · 본인</span><span>세부진료 · 처방조제(약 · 성분 · 일수)</span></p><span class="ctag">CODEF · 심평원 · 최근 5년</span><span class="ctag warn">진단명은 통신사 인증만</span></article>
 <div class="grp">사용자에게서</div>
-<article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">💬</span><h3 class="cn">질문 답변 · 목표 완료</h3></div><p class="cb"><span>오늘의 질문(최대 5~6문항 · 식사 시각 포함)</span><span>목표 완료(홈 · 목표 분석) · 쉬기(목표 분석)</span></p><span class="ctag">매일</span></article>
-<article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">▦</span><h3 class="cn">리포트 스캔</h3></div><p class="cb"><span>AI REPORT QR</span><span>검진 결과지 촬영</span></p><span class="ctag">필요할 때</span></article>
+<article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">💬</span><h3 class="cn">질문 답변 · 목표 완료</h3></div><p class="cb"><span>오늘의 질문 · 현재 식이 최대 2문항</span><span>홈: 완료·취소 · 목표 분석: 실천 기록</span></p><span class="ctag">매일</span></article>
+<article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">▦</span><h3 class="cn">리포트 스캔</h3></div><p class="cb"><span>AI REPORT QR</span><span>검진 결과지 촬영 · 사진 · PDF 업로드</span></p><span class="ctag">필요할 때</span></article>
 </div></section>
 
 <div class="flow-col" aria-label="데이터 연결"><div class="fa fc-cyan"><span class="lab">수집</span><div class="track"></div><div class="tip"></div></div></div>
 
 <section class="zone z-cyan"><h2 class="zlabel">🔄 02 · 수집 · 연동</h2><div class="stack">
 <article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">🔐</span><h3 class="cn">인증 · 동의</h3></div><p class="cb"><span>간편인증 · 인증서</span><span>동의 이력 확인</span></p><span class="ctag">더보기 · 동의 관리</span></article>
-<article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">⤓</span><h3 class="cn">백그라운드 가져오기</h3></div><p class="cb"><span>화면 이동해도 계속</span><span>끝나면 화면 갱신</span></p><span class="ctag">최대 1분</span></article>
+<article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">⤓</span><h3 class="cn">백그라운드 가져오기</h3></div><p class="cb"><span>화면 이동해도 계속</span><span>끝나면 화면 갱신</span></p><span class="ctag">1분 초과 안내 · 30초 간격 3회 재시도</span></article>
 <article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">🧹</span><h3 class="cn">정리 · 정규화</h3></div><p class="cb"><span>현지 날짜 · 중복 제거</span><span>결측은 0이 아님</span></p><span class="ctag">지표 산출 흐름도</span></article>
 <article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">🔍</span><h3 class="cn">판독 인식</h3></div><p class="cb"><span>QR · 결과지 인식</span><span>사용자 확인 후 등록</span></p><span class="ctag">인식 결과 확인</span></article>
 <article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">🕘</span><h3 class="cn">첫 진입 시각</h3></div><p class="cb"><span>지난 끼니 결정</span><span>04 · 10 · 12 · 17시 기준</span></p><span class="ctag">식이 데이터 흐름도</span></article>
@@ -257,7 +269,7 @@ a{color:#5170FF}
 
 <section class="zone z-indigo"><h2 class="zlabel">⚙️ 03 · 생성 · 분석 엔진</h2>
 <section class="subsec"><h3 class="ss-label">A · 지표 생성 엔진</h3>
-<article class="card c-indigo hero-card"><span class="core">CORE</span><div class="card-head"><span class="ci" aria-hidden="true">📊</span><h3 class="cn">세 지표 계산</h3></div><p class="cb">세 지표 → 0~100 표시값 → 상태 라벨</p><div class="tri"><span>짜임새 있는 하루<small>일별</small></span><span>행동 기회 대응<small>일별</small></span><span>생활 변화 추이<small>7일 비교</small></span></div><span class="ctag">지표 산출 흐름도</span></article>
+<article class="card c-indigo hero-card"><span class="core">CORE</span><div class="card-head"><span class="ci" aria-hidden="true">📊</span><h3 class="cn">세 지표 계산</h3></div><p class="cb">세 지표 → 내부 계산값 → 상태 라벨·주간 흐름 (일일 점수는 화면에 표시하지 않음)</p><div class="tri"><span>짜임새 있는 하루<small>일별</small></span><span>행동 기회 대응<small>일별</small></span><span>생활 변화 추이<small>7일 비교</small></span></div><span class="ctag">지표 산출 흐름도</span></article>
 <div class="g3">
 <article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">✓</span><h3 class="cn">계산 가능성</h3></div><p class="cb"><span>필수 관측 확인</span><span>부족하면 관찰 중</span></p></article>
 <article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">↗</span><h3 class="cn">구간 · 라벨</h3></div><p class="cb"><span>33 / 66 경계</span><span>좋음 · 보통 · 부족</span></p></article>
@@ -265,17 +277,17 @@ a{color:#5170FF}
 </div></section>
 <section class="subsec"><h3 class="ss-label">B · 코칭 / 목표 생성 엔진</h3><div class="g3">
 <article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">💬</span><h3 class="cn">답변 해석</h3></div><p class="cb"><span>피로 · 수면 · 식사</span><span>오늘의 질문 답</span></p></article>
-<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">✦</span><h3 class="cn">오늘의 코칭</h3></div><p class="cb"><span>답변 + 지표 상태</span><span>한 줄 코칭</span></p></article>
-<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🎯</span><h3 class="cn">오늘의 목표 3개</h3></div><p class="cb"><span>식이 · 활동 · 수면</span><span>관리 중인 질환 · 검진 반영</span></p></article>
+<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">✦</span><h3 class="cn">오늘의 코칭</h3></div><p class="cb"><span>질문을 모두 마친 뒤 답변 + 기기 데이터</span><span>홈에는 행동 한 줄 · 이유는 목표 분석에서</span></p></article>
+<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🎯</span><h3 class="cn">오늘의 목표 3개</h3></div><p class="cb"><span>식이: 답변 후 · 활동: 첫 진입 때</span><span>수면: 기록이 있으면 즉시, 없으면 답변 후</span><span>이미 열린 목표와 완료한 목표는 유지</span></p></article>
 </div></section>
 <section class="subsec"><h3 class="ss-label">C · 식이 생성 엔진</h3><div class="g3">
-<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🍽️</span><h3 class="cn">오늘 물을 축</h3></div><p class="cb"><span>지난 끼니 판정</span><span>28일 답 적은 축</span></p></article>
-<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🧭</span><h3 class="cn">목표 축 · 단계</h3></div><p class="cb"><span>회복 → 직접 선택 → 진료정보 확인 → 검진</span><span>입문 · 기본 · 도전</span></p></article>
-<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">📝</span><h3 class="cn">문구 · 대상 끼니</h3></div><p class="cb"><span>금지 문구 제외</span><span>노출 조건 · 대상 끼니</span></p><span class="ctag">식이 데이터 흐름도</span></article>
+<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🍽️</span><h3 class="cn">오늘 물을 식습관 주제</h3></div><p class="cb"><span>지난 끼니 · 확인할 질환을 먼저 확인</span><span>후보 중 최근 28일 답이 적은 주제 선택</span><span>질환 확인 질문도 식이 2문항에 포함</span></p></article>
+<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🧭</span><h3 class="cn">목표 축 · 단계</h3></div><p class="cb"><span>회복 → 직접 선택 질환 → 확인된 진료 질환</span><span>→ 유효 검진 → 부담 → 일반</span><span>입문 · 기본 · 도전</span></p></article>
+<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">📝</span><h3 class="cn">문구 · 대상 끼니</h3></div><p class="cb"><span>질환·시간·달력 조건에 맞는 문구만 선택</span><span>미노출 우선 → 마지막 노출이 오래된 순</span><span>조회 기간 365일: 계약 반영 · 서버 확인 중</span></p><span class="ctag">식이 데이터 흐름도</span></article>
 </div></section><section class="subsec"><h3 class="ss-label">D · 요청할 때 · AI 분석</h3><div class="g3">
 <article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🔷</span><h3 class="cn">셀비 위험도</h3></div><p class="cb"><span>검진 + 운동 일수</span><span>10대 질환 지수</span></p><span class="ctag">Selvy Checkup API</span></article>
 <article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🤖</span><h3 class="cn">ChatGPT 요약</h3></div><p class="cb"><span>수치 · 판정만 전송</span><span>이름 · 연락처 제외</span></p><span class="ctag">OpenAI API · 확인 1번 (별도 동의 없음)</span></article>
-<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">✨</span><h3 class="cn">AI 인사이트</h3></div><p class="cb"><span>생활 + 검진 주간</span><span>재분석 하루 1회</span></p></article>
+<article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">✨</span><h3 class="cn">AI 인사이트</h3></div><p class="cb"><span>사용자 요청 · 연동·기록 일수 확인</span><span>진행 중 주: 어제까지 최근 7일</span><span>재분석 주차당 3회 · 하루 1회</span><span>끝난 주: 주 종료 후 처음 또는 입력 변경 시</span></p></article>
 </div></section>
 <section class="subsec"><h3 class="ss-label">E · 집계</h3><div class="g2">
 <article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">📋</span><h3 class="cn">진료 집계</h3></div><p class="cb"><span>병원 · 진료과 TOP 3</span><span>분기 진료비 · N번째 방문</span></p></article>
@@ -299,8 +311,8 @@ a{color:#5170FF}
 <div class="flow-col" aria-label="데이터 연결"><div class="fa fc-amber"><span class="lab">저장</span><div class="track"></div><div class="tip"></div></div><div class="fa fc-amber fl"><span class="lab">내일<br>재사용</span><div class="track"></div><div class="tip-l"></div></div></div>
 
 <section class="zone z-amber"><h2 class="zlabel">🗄️ 05 · 저장</h2><div class="stack">
-<article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">🗂️</span><h3 class="cn">답 · 목표 이력</h3></div><p class="cb"><span>끼니 단위 답변</span><span>목표 · 완료 · 쉬기 · 단계</span></p></article>
-<article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">📊</span><h3 class="cn">지표 스냅샷</h3></div><p class="cb"><span>일별 점수 · 상태</span><span>관측 범위 · 출처</span></p></article>
+<article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">🗂️</span><h3 class="cn">답 · 목표 이력</h3></div><p class="cb"><span>끼니 단위 답변</span><span>목표 문구 · 완료 상태 · 단계 · 노출 이력</span></p></article>
+<article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">📊</span><h3 class="cn">지표 스냅샷</h3></div><p class="cb"><span>일별 내부 계산값 · 상태</span><span>관측 범위 · 출처</span></p></article>
 <article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">📑</span><h3 class="cn">리포트 보관</h3></div><p class="cb"><span>셀비 · ChatGPT 요약</span><span>AI REPORT 판독</span></p></article>
 <article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">🏥</span><h3 class="cn">검진 · 진료 기록</h3></div><p class="cb"><span>가져온 기간 · 업데이트</span><span>내 메모</span></p></article>
 <article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">🎟️</span><h3 class="cn">계정 · 동의 · 이용권</h3></div><p class="cb"><span>동의 · 철회 이력</span><span>이용권 사용</span></p></article>
@@ -310,7 +322,7 @@ a{color:#5170FF}
 <header class="learn-intro ia2-intro">
   <span class="eyebrow">IA · 정보 구조</span>
   <h2 id="ia-title">maiReport 정보구조도</h2>
-  <p>최종 프로토타입의 화면을 기능 영역별로 나누고, 진입 순서대로 단계(level)를 따라 배치했어요. 카드의 ID로 화면을 추적하고, 점 색으로 구현 상태를 구분해요.</p>
+  <p>최종 프로토타입의 화면을 기능 영역별로 나누고, 진입 순서대로 단계(level)를 따라 배치했어요. 카드의 ID로 화면을 추적하고, 점 색으로 프로토타입 화면·대조 필요·외부 연동을 구분해요. 최신 기획과 시연 구현이 다른 항목은 설명에 따로 표시했어요.</p>
   <div class="ia2-stats"><div><b id="ia-total">0</b><span>전체 화면 · 상태</span></div><div><b>4</b><span>하단 내비게이션</span></div><div><b id="ia-flows">0</b><span>핵심 업무 프로세스</span></div><div><b id="ia-areas">0</b><span>기능 영역</span></div></div>
 </header>
 
@@ -322,7 +334,7 @@ a{color:#5170FF}
   <button class="ia2-chip" type="button" data-filter="hospital" aria-pressed="false">병원 · 리포트</button>
   <button class="ia2-chip" type="button" data-filter="more" aria-pressed="false">더보기</button>
   <label class="ia2-search"><span aria-hidden="true">⌕</span><input id="ia-search" type="search" placeholder="화면명 또는 화면 ID 검색" aria-label="정보구조 검색"></label>
-  <div class="ia2-legend"><span><i class="st-done"></i>구현 확인됨</span><span><i class="st-review"></i>확인 필요</span><span><i class="st-link"></i>외부 시스템 연동</span></div>
+  <div class="ia2-legend"><span><i class="st-done"></i>프로토타입 화면</span><span><i class="st-review"></i>구현 대조 필요</span><span><i class="st-link"></i>외부 시스템 연동</span></div>
 </div>
 
 <div id="ia-groups"></div>
@@ -338,13 +350,14 @@ a{color:#5170FF}
   <article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">🔗</span><h3 class="cn">외부 시스템 연계</h3></div><p class="ia2-p">카카오 OAuth, HealthKit · Health Connect, 건보공단 · 심평원, OCR, ChatGPT(OpenAI), 셀비 체크업, 앱스토어 결제와 연결돼요.</p><span class="ctag ia2-tag">OAuth · Health · 공공 API · OCR · OpenAI</span></article>
 </div>
 
-<div class="ia2-sec"><span>확인이 필요한 사항</span></div>
+<div class="ia2-sec"><span>최신 결정 · 반영 상태</span></div>
 <ol class="ia2-notes">
-  <li><b>병원 탭의 연동 관리 동선</b> — 검진요약 · 진료요약 하단의 「마지막 업데이트 · 연동 관리」 링크를 뺐어요(2026-09-23). 연동 갱신 · 해제는 더보기 › 검진 · 진료정보 연동에서만 할 수 있어요.</li>
-  <li><b>진료정보의 진단명 제공 범위</b> — 심평원 API에서 주상병명 · 코드가 2026-04-28 이후 통신사 인증 경로로만 와요. 진단명이 없을 때 진료상세 화면을 어떻게 보여줄지 정해야 해요.</li>
-  <li><b>진료 이용현황 진입</b> — 화면과 연도 필터는 구현돼 있지만(<code>openAllVisits</code>) 어디에서도 호출하지 않아 들어갈 수 없어요.</li>
-  <li><b>식후 걷기 판정</b> — 식사 시각은 질문으로 받지만, 걸음 데이터만으로 식후 걷기를 판정할 수 있는지는 계산식 담당 확인을 기다리고 있어요(2026-10-13).</li>
-  <li><b>검진 · 진료정보 연동 해제는 즉시 삭제</b> — 유예 기간이 없어요. 회원 탈퇴 안내의 「법정 보관 정보」 문구와 어긋나지 않는지 확인이 필요해요.</li>
+  <li><b>현재 전달본과 다음 버전 구분</b> — 2026-10-19 연구소 전달 데이터 계약 v1.4.0은 식이 최대 2문항 기준입니다. 식사 시각 질문·diet_meal_time·식후 행동 판정은 다음 버전이며, 정본과 시연에는 관련 설계가 남아 있습니다.</li>
+  <li><b>문구 반복 방지 365일</b> — 최신 계약의 CFG-065·V-45에 반영했습니다. 연구소의 실제 서버 조회 기간과 데이터 버전 변경 후 사용 이력 유지 여부는 반영 확인 중입니다. 알림의 30일 조회와 식습관의 28일 관찰 기간은 별도 기준입니다.</li>
+  <li><b>질문·코칭·목표</b> — 질문 완료 후 코칭과 잠긴 목표를 만듭니다. 이미 열린 목표는 유지하고, 답을 수정할 때는 답변으로 만든 미완료 목표만 다시 만듭니다. 홈에는 행동 한 줄, 이유는 목표 분석에 표시합니다.</li>
+  <li><b>AI 인사이트</b> — 자동 생성이 아니라 사용자가 실행합니다. 연동·기록 일수·최근 4주·재분석 가능 여부를 확인하며, 오늘의 질문 완료 여부와는 무관합니다.</li>
+  <li><b>진료정보 화면의 확정 기획</b> — 진단명이 없으면 병원·날짜·진료비·처방 중 받은 정보만 표시합니다. 진료 이용현황은 진료요약 오른쪽 위 「이용현황 ›」에서 진입하도록 결정됐습니다. 시연의 버튼 반영 여부는 별도 대조가 필요합니다.</li>
+  <li><b>연동 관리</b> — 갱신·해제는 더보기에서 처리합니다. 즉시 삭제와 회원탈퇴의 법정 보관 안내 정합성은 기존 확인 항목으로 남깁니다.</li>
 </ol>
 </section>
 
@@ -355,21 +368,21 @@ const G=[
  {key:'home',no:'01',title:'홈',color:'cyan',desc:'서브탭 없이 섹션이 세로로 이어지는 단일 화면',levels:[
   {title:'Main',nodes:[N('HOME-001','홈','메인 화면','오늘의 질문 → 코칭 → 목표 → 컨디션 → 오늘의 건강 데이터 → 나의 건강, 숫자로 한눈에')]},
   {title:'Header',nodes:[N('HOME-002','헤더: AI REPORT 스캔','헤더 진입점','QR 카메라 → 인식 결과 확인 → 등록으로 이어짐'),N('HOME-009','헤더: 알림','헤더 진입점','안 읽은 알림이 있으면 점만 표시'),{...N('HOME-010','알림 목록','전체 화면','최근 30일 · 목표 · 서비스 · 필수 안내, 관련 화면으로 이동'),sub:true}]},
-  {title:'Question',nodes:[N('HOME-003','오늘의 질문','섹션','상태 · 연계 정보에 따라 최대 5~6문항, 1문항씩 노출 (식이 · 활동 · 수면 · 기타) · 끼니 질문에 답하면 같은 자리에서 「언제쯤 드셨어요?」 1문항을 이어 물음(식이 최대 3문항)'),N('HOME-004','답변 보기','전체 화면','모두 답하면 진입, 언제든 다시 선택 가능')]},
-  {title:'Coach & Goal',nodes:[N('HOME-005','오늘의 코칭','섹션','질문에 모두 답하면 코칭이 나옴 · 카드 상태: 답변 전 안내 → 생성 중 → 행동 한 줄 + 이유'),N('HOME-006','오늘의 목표','섹션','식이 · 활동 · 수면 3타일, 완료 · 미완료 · 잠김','review')]},
+  {title:'Question',nodes:[N('HOME-003','오늘의 질문','섹션','현재 전달본: 식이 최대 2문항(질환 확인 포함), 부족한 활동·수면 정보는 보완 질문. 다음 버전: 식사 시각을 포함해 식이 최대 3문항·전체 최대 5~6문항. 시연에는 다음 버전 흐름이 포함됨'),N('HOME-004','답변 보기','전체 화면','모두 답한 뒤 당일 답 수정 가능 · 코칭과 답변 기반 미완료 목표만 재생성 · 기기 기반·완료 목표는 유지')]},
+  {title:'Coach & Goal',nodes:[N('HOME-005','오늘의 코칭','섹션','질문 완료 → 생성 중(최대 5초) → 행동 한 줄. 이유는 목표 분석에서 확인 · 지연 시 기본 문구 먼저 표시'),N('HOME-006','오늘의 목표','섹션','식이·활동·수면 3타일. 활동은 첫 진입에 열림, 식이는 답변 후, 수면은 기록 유무에 따라 열림. 완료·취소는 직접 탭 · 자동 완료 없음','review')]},
   {title:'Condition & Data',nodes:[N('HOME-007','오늘의 컨디션','섹션','짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이 게이지'),N('HOME-011','오늘의 건강 데이터','섹션','걸음 수 · 수면 시간 · 안정 시 심박수, 전일 대비')]},
   {title:'나의 건강, 숫자로 한눈에',nodes:[N('HOME-012','AI 건강 인사이트 카드','섹션','결과가 있으면 가장 최근 결과의 점수와 분석 기간만 표시 · 없으면 「분석하기」 → 생활 · AI 인사이트'),N('HOME-008','내 건강나이 · 또래 등수','섹션','건강나이(실제 나이 대비) · 또래 100명 속 키 · 체중 · BMI · 허리둘레 등수'),N('HOME-013','나의 건강나이','서브 화면','건강나이 카드에서 진입')]}
  ]},
  {key:'life',no:'02',title:'생활',color:'green',desc:'주간 날짜 스트립을 공유하는 서브탭 4개',levels:[
   {title:'Main',nodes:[N('LIFE-001','목표 분석','메인 · 서브탭','오늘의 목표 + 목표 이어가기(연속 일수). 지난 주는 읽기 전용')]},
-  {title:'Sub Tabs',nodes:[N('LIFE-002','지표별 분석','서브탭','3구간 띠 주간 그래프 · 이번 주 해석 · 핵심 데이터 표'),N('LIFE-003','생활 분석','서브탭','걸음 · 활동칼로리 · 심박 · 수면 대표 카드'),N('LIFE-004','AI 인사이트','서브탭','엔트리 요약 카드 · 연동 안내 분기. 분석은 오늘의 질문 답변과 무관하게 바로 실행','review')]},
+  {title:'Sub Tabs',nodes:[N('LIFE-002','지표별 분석','서브탭','3구간 띠 주간 그래프 · 이번 주 해석 · 핵심 데이터 표'),N('LIFE-003','생활 분석','서브탭','걸음 · 활동칼로리 · 심박 · 수면 대표 카드'),N('LIFE-004','AI 인사이트','서브탭','연동·기록 일수·최근 4주 조건 확인 후 사용자가 분석 실행. 검진은 선택, 오늘의 질문 완료 여부와는 무관','review')]},
   {title:'Detail',nodes:[N('LIFE-005','전체 건강 데이터','서브 화면','4그룹 12항목'),N('LIFE-006','항목 상세','서브 화면','시간 · 일 · 주 · 월 탭, 항목별 차트 형태')]},
-  {title:'AI Report',nodes:[N('LIFE-007','AI 인사이트 상세','서브 화면','상세 분석 · 변화 추이 2탭','review'),N('LIFE-008','다시 분석 확인','바텀시트','이번 주만 하루 1회, 같은 주 리포트를 오늘 기록으로 갱신 · 회차는 변화 추이의 분석 이력에 남음')]}
+  {title:'AI Report',nodes:[N('LIFE-007','AI 인사이트 상세','서브 화면','상세 분석 · 변화 추이 2탭','review'),N('LIFE-008','다시 분석 확인','바텀시트','진행 중 주: 주차당 3회·하루 1회, 어제까지 최근 7일. 끝난 주: 주 종료 후 처음 또는 입력 변경 시 재분석. 주차당 결과 1건을 대체')]}
  ]},
  {key:'hospital',no:'03',title:'병원',color:'indigo',desc:'서브탭 4개(검진요약 · 진료요약 · 방문이력 · 읽을거리)',levels:[
-  {title:'Main',nodes:[N('HOSP-001','검진요약','메인 · 서브탭','건강나이, 셀비 체크업 진입, 주요 검진 소견, 검진 대상 안내'),N('HOSP-002','진료요약','서브탭','병원 · 진료과 TOP 3, 올해 진료비, 분기 차트 · 전년 대비'),N('HOSP-014','진료 이용현황','서브 화면','연도별 진료비 · 자주 이용한 병원 · 진료과. 진입 버튼 없음','review'),N('HOSP-003','방문이력','서브탭','검진 · 진료 · AI REPORT 통합 목록, 필터칩, 「+」 등록'),N('HOSP-012','읽을거리','서브탭','내 질환 · 소견 맞춤 콘텐츠 카드 4개')]},
-  {title:'Empty · Loading',nodes:[N('HOSP-004','데이터 가져오기','빈 화면','검진 · 진료 각각 기능 소개 + 가져오기 버튼 · 개인정보 동의 · 민감정보 동의 체크 2개(이미 동의했으면 생략) · 주민번호는 안내 문구만','link'),N('HOSP-005','가져오는 중','진행 카드','스피너 · 안내 · 스켈레톤. 다른 탭으로 가도 계속')]},
-  {title:'Detail',nodes:[N('HOSP-006','검진대상조회','서브 화면','연도별 검진 대상 · 암검진 수검 현황'),N('HOSP-007','진료상세','서브 화면','진단명 · 이번 진료비(공단 · 본인) · 처방약 · N번째 방문 · 메모'),N('HOSP-008','검진상세','서브 화면','종합 소견 · 확인 필요 결과 · 전체 검사'),N('HOSP-013','읽을거리 상세','서브 화면','원인 · 진단 · 치료 · 예방 · 출처')]},
+  {title:'Main',nodes:[N('HOSP-001','검진요약','메인 · 서브탭','건강나이, 셀비 체크업 진입, 주요 검진 소견, 검진 대상 안내'),N('HOSP-002','진료요약','서브탭','병원 · 진료과 TOP 3, 올해 진료비, 분기 차트 · 전년 대비'),N('HOSP-014','진료 이용현황','서브 화면','진료요약 우측 상단 「이용현황 ›」 진입(확정 기획). 연도별 진료비·병원·진료과 · 시연 반영 대조 필요','review'),N('HOSP-003','방문이력','서브탭','검진 · 진료 · AI REPORT 통합 목록, 필터칩, 「+」 등록'),N('HOSP-012','읽을거리','서브탭','내 질환 · 소견 맞춤 콘텐츠 카드 4개')]},
+  {title:'Empty · Loading',nodes:[N('HOSP-004','데이터 가져오기','빈 화면','검진 · 진료 각각 기능 소개 + 가져오기 버튼 · 개인정보 동의 · 민감정보 동의 체크 2개(이미 동의했으면 생략) · 주민번호는 안내 문구만','link'),N('HOSP-005','가져오는 중','진행 카드','다른 탭으로 가도 계속. 1분 초과 시 지연 안내, 30초 간격 3회 재시도 후 실패 안내')]},
+  {title:'Detail',nodes:[N('HOSP-006','검진대상조회','서브 화면','연도별 검진 대상 · 암검진 수검 현황'),N('HOSP-007','진료상세','서브 화면','진단명·진료비·처방·방문횟수·메모. 진단명이 없으면 받은 요약 정보만 표시하며 질환 선택을 요구하지 않음'),N('HOSP-008','검진상세','서브 화면','종합 소견 · 확인 필요 결과 · 전체 검사'),N('HOSP-013','읽을거리 상세','서브 화면','원인 · 진단 · 치료 · 예방 · 출처')]},
   {title:'Source Docs',nodes:[N('HOSP-009','문진표 · 결과지 원본','문서 뷰어','원본 서식 확대 · 축소')]},
   {title:'AI',nodes:[N('HOSP-010','건강검진 ChatGPT 요약','전체 화면','요약 확인 팝업(약 30초 안내) → 생성 → 요약(신체계측 · 항목별 해석 · 행동)','link'),N('HOSP-011','AI REPORT 결과','서브 화면','원본 AI REPORT 카드 · 소견별 판정(확인 필요 · 특이 소견 없음)')]}
  ]},
@@ -380,7 +393,7 @@ const G=[
  ]},
  {key:'hospital',no:'05',title:'검진 리포트 등록',color:'indigo',desc:'방문이력 「+」 또는 홈 헤더 스캔에서 진입',levels:[
   {title:'Entry',nodes:[N('REG-001','등록 유형 선택','액션 시트','AI REPORT / 일반 검진 리포트')]},
-  {title:'AI REPORT',nodes:[N('REG-002','QR · 사진 촬영','카메라','QR 스캔 또는 리포트 촬영'),N('REG-003','인식 결과 확인','서브 화면','값 확인 후 저장 → 보고서 화면')]},
+  {title:'AI REPORT',nodes:[N('REG-002','AI REPORT QR 스캔','카메라','AI REPORT는 QR 스캔 → 본인 리포트 확인 → 인식 결과 검수. 일반 결과지 촬영은 일반 검진 등록 경로'),N('REG-003','인식 결과 확인','서브 화면','값 확인 후 저장 → 보고서 화면')]},
   {title:'일반 검진',nodes:[N('REG-004','업로드','서브 화면','사진 · PDF 여러 장'),N('REG-005','데이터 추출중','처리 화면','업로드 · 인식 · 정리 진행'),N('REG-006','인식 결과 확인 · 등록','서브 화면','항목 확인 · 수정 후 등록')]}
  ]},
  {key:'more',no:'06',title:'더보기',color:'amber',desc:'프로필 카드 + 연동 · 서비스 · 법적 정보 및 기타 묶음 + 로그아웃 · 버전',levels:[
@@ -392,15 +405,15 @@ const G=[
  ]}
 ];
 const F=[
- ['F-01 오늘의 질문 완료',['문항 노출','모두 답변','코칭 생성','목표 재계산','답변 보기']],
+ ['F-01 오늘의 질문 완료',['질문·목표 열림 판정','모두 답변','코칭·잠긴 목표 생성','기존 열린 목표 유지','답변 보기·수정']],
  ['F-02 오늘의 목표 실행',['홈 목표 타일','완료 처리','생활 · 목표 분석 반영']],
  ['F-03 내 상태 보기',['건강데이터 연동','오늘의 컨디션','지표별 분석','AI 인사이트']],
- ['F-04 AI 인사이트 분석',['생활 · AI 인사이트','분석하기(질문 답변 불필요)','분석 완료','상세 · 다시 분석하기(하루 1회)']],
- ['F-05 검진 가져오기',['검진요약 빈 화면','가져오는 중','검진요약']],
+ ['F-04 AI 인사이트 분석',['생활 · AI 인사이트','연동·기록·기간 조건 확인','분석 실행(질문 답변 불필요)','결과·상세','조건 충족 시 재분석']],
+ ['F-05 검진 가져오기',['검진요약 빈 화면','동의 확인·본인인증','가져오는 중·지연 시 재시도','검진요약']],
  ['F-06 셀비 체크업',['소개','검진 선택 · 운동 일수','분석 시작(무료)','분석 중','결과 리포트']],
  ['F-07 건강검진 ChatGPT 요약',['검진상세','요약 확인','생성 진행','요약 결과']],
  ['F-08 진료 기록 확인',['진료 가져오기','진료요약','방문이력','진료상세']],
- ['F-09 AI REPORT 등록',['홈 헤더 스캔','QR 촬영','인식 확인','방문이력 등록']],
+ ['F-09 AI REPORT 등록',['홈 헤더 스캔','QR 촬영','본인·인식 결과 확인','저장','결과 화면·방문이력']],
  ['F-10 읽을거리',['병원 · 읽을거리','콘텐츠 카드','읽을거리 상세']],
  ['F-11 연동 해제',['더보기','검진 · 진료정보 연동','해제 확인','즉시 삭제']],
  ['F-12 알림 확인',['헤더 알림','알림 목록','항목 탭','관련 화면']]
@@ -420,5 +433,5 @@ chips.forEach(c=>c.addEventListener('click',()=>{active=c.dataset.filter;chips.f
 q.addEventListener('input',apply);
 })();
 </script>
-<footer class="footer">© maiReport · 전체 앱 구성 흐름도 · 최종 프로토타입(RSNA 시연 버전) 화면 기준<br>온보딩 · 로그인은 시연 빌드에서 바로 홈으로 시작해 IA에서 제외했음.</footer>
+<footer class="footer">© maiReport · 전체 앱 구성 흐름도 · 2026-10-19 전달 데이터·기획 대조 / 화면 ID·탭 구조는 기존 프로토타입 기준<br>온보딩 · 로그인은 시연 빌드에서 바로 홈으로 시작해 IA에서 제외했음.</footer>
 </main></body></html>
