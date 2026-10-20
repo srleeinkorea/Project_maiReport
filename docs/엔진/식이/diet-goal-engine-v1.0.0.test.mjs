@@ -25,6 +25,7 @@ const row = (phrase_id, question_id, extra = {}) => ({
 test('엔진·JSON·데모가 같은 v1.0.0 참조 설정을 사용한다', async () => {
   const json = JSON.parse(await fs.readFile(new URL('./diet-reference-v1.0.0.json', import.meta.url), 'utf8'));
   assert.deepEqual(json, DIET_REFERENCE);
+  assert.equal(DIET_REFERENCE.goalRecentWindowDays, 365);
   assert.deepEqual(DIET_REFERENCE.sourcePriority.map(x => x.code), ['SELF_REPORTED', 'CLINIC_CONFIRMED', 'SCREENING', 'QUESTION']);
 });
 
@@ -87,7 +88,7 @@ test('금지 성격은 모든 출처 후보에 적용된다', () => {
   assert.equal(result.phrase_id, 'SAFE');
 });
 
-test('일반 목표도 최근 30일 미노출 문구를 먼저 쓰고 모두 썼으면 가장 오래된 문구로 순환한다', () => {
+test('일반 목표도 최근 365일 미노출 문구를 먼저 쓰고 모두 썼으면 가장 오래된 문구로 순환한다', () => {
   const rows = [row('VEG-01', 'DIET-Q-01'), row('VEG-02', 'DIET-Q-01'), row('VEG-03', 'DIET-Q-01')];
   const common = {
     rows, instant: '2026-09-28T13:00:00+09:00', timeZone: 'Asia/Seoul',

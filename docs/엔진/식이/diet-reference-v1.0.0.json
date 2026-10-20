@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "screeningValidityMonths": 3,
-  "goalRecentWindowDays": 30,
+  "goalRecentWindowDays": 365,
   "exposureConditions": {
     "timeCodes": [
       "ANY",

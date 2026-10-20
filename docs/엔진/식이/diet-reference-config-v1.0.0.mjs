@@ -1,7 +1,7 @@
 export const DIET_REFERENCE = Object.freeze({
   version: '1.0.0',
   screeningValidityMonths: 3,
-  goalRecentWindowDays: 30,
+  goalRecentWindowDays: 365,
   exposureConditions: Object.freeze({
     timeCodes: Object.freeze(['ANY', 'MORNING_ENTRY', 'AFTERNOON_ENTRY', 'EVENING', 'PRE_MIDNIGHT']),
     calendarCodes: Object.freeze(['ANY', 'WEEKDAY', 'WEEKEND', 'HOLIDAY', 'HOLIDAY_OR_EXTENDED']),

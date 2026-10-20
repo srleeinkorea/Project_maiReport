@@ -108,7 +108,7 @@ test('명절·연휴 문구는 백엔드 날짜 목록이 있을 때만 노출�
   }).length, 1);
 });
 
-test('식후 목표는 최근 30일 노출이 없는 문구부터 돌고 모두 썼으면 가장 오래된 문구를 고른다', () => {
+test('식후 목표는 최근 365일 노출이 없는 문구부터 돌고 모두 썼으면 가장 오래된 문구를 고른다', () => {
   const rows = ['DIET-P-0131', 'DIET-P-0156', 'DIET-P-0226'].map(phrase_id => ({
     phrase_id, phrase_version: '1.0.0', source_status: '사용', after_dinner_eligible: true,
     parse_status: 'READY', time_code: 'EVENING', context_code: 'ANY', calendar_code: 'ANY', nature_code: null,
