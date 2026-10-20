@@ -129,8 +129,68 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .side ul{margin:0;padding-left:18px;font-size:13px}
 @media(max-width:860px){.stage{grid-template-columns:1fr}.phone{position:relative;margin:0 auto}}
 </style>
+
+<!-- MAI-THEME:START -->
+<style id="mai-document-theme">
+/* maiReport document theme v1.0 · 2026-10-20
+   Embedded by sync-document-theme.py so exported HTML works on its own.
+   Only presentation is shared; document content and application logic stay local. */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+:root, :root[data-theme] {
+ color-scheme:light!important;
+ --mai-font:'Pretendard Variable',Pretendard,'Malgun Gothic',system-ui,sans-serif;
+ --font:var(--mai-font)!important;--sans:var(--mai-font)!important;
+ --bg:#f5f7fb!important;--page:#f5f7fb!important;--paper:#fff!important;--paper-soft:#f5f7fb!important;
+ --surface:#fff!important;--card:#fff!important;--panel:#fff!important;--box:#fff!important;
+ --surface-2:#f0f3f9!important;--panel2:#f0f3f9!important;--fill:#f0f3f9!important;--tint:#f0f3f9!important;--chip:#edf1f8!important;
+ --ink:#1c2940!important;--ink-1:#1c2940!important;--fg:#1c2940!important;--text:#1c2940!important;--text-1:#1c2940!important;
+ --ink-2:#53627a!important;--ink2:#53627a!important;--text-2:#53627a!important;--mute:#53627a!important;--mut:#53627a!important;--muted:#53627a!important;
+ --ink-3:#6c7890!important;--ink3:#6c7890!important;--text-3:#6c7890!important;
+ --line:#dfe5ef!important;--border:#dfe5ef!important;--border-2:#cbd5e3!important;--bd2:#cbd5e3!important;
+ --accent:#365ee8!important;--brand:#365ee8!important;--acc:#365ee8!important;--link:#365ee8!important;--btn:#365ee8!important;
+ --accent-deep:#2749c4!important;--accent-soft:#edf2ff!important;--brand-soft:#edf2ff!important;--acc-soft:#edf2ff!important;--soft:#edf2ff!important;
+ --blue-s:#edf2ff!important;--green-s:#edf8f1!important;--red-s:#fff0f0!important;--amber-s:#fff7e8!important;
+ --ok:#177749!important;--good:#177749!important;--ok-bg:#edf8f1!important;--ok-soft:#edf8f1!important;--good-soft:#edf8f1!important;--ok-line:#b9dec9!important;
+ --warn:#926000!important;--warn-soft:#fff7e8!important;--warn-bg:#fff7e8!important;--bad:#bd3545!important;--bad-soft:#fff0f0!important;
+}
+html{background:#f5f7fb!important}
+body{font-family:var(--mai-font)!important;background:#f5f7fb!important;color:#1c2940!important;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font-family:var(--mai-font)!important}
+/* Document typography; embedded app screens keep their own size hierarchy. */
+body:not([data-mai-kind="app"]) :is(h1,h2,h3,h4,.serif,.big,.num,.n){font-family:var(--mai-font)!important}
+body:not([data-mai-kind="app"]) :is(.cover h1,.top h1,main>header h1,.wrap>.hero h1,.page>header h1){font-size:30px!important;line-height:1.4!important;font-weight:750!important;letter-spacing:-.035em!important;color:#1c2940!important}
+body:not([data-mai-kind="app"]) :is(.cover,.top){border-bottom:1px solid #dfe5ef;padding-bottom:22px;margin-bottom:20px}
+body:not([data-mai-kind="app"]) :is(main>.cover,main>header,.page>.top,.wrap>.hero){background:transparent!important;box-shadow:none!important;border-radius:0!important}
+body:not([data-mai-kind="app"]) :is(main>.cover,main>header,.page>.top,.wrap>.hero) :is(p,.sub,.meta){color:#53627a!important}
+body:not([data-mai-kind="app"]) :is(main,.page,.wrap){scroll-margin-top:20px}
+body:not([data-mai-kind="app"]) :is(main>.cover,main>header,.page>.top) a{color:#365ee8!important}
+body:not([data-mai-kind="app"]) :is(.controls,.side,.reference){background:#fff!important;border:1px solid #dfe5ef!important;box-shadow:0 3px 14px #1c294008!important;border-radius:16px!important}
+body:not([data-mai-kind="app"]) :is(.side-h,.side-tabs){border-color:#dfe5ef!important}
+body:not([data-mai-kind="app"]) :is(.cover+.strip,main>.strip){border-radius:12px;overflow:hidden}
+body:not([data-mai-kind="app"]) :is(.tile .n,.tile .big){font-weight:750!important}
+body:not([data-mai-kind="app"]) section>h2,body:not([data-mai-kind="app"]) section>div>h2{font-weight:700!important;line-height:1.5}
+body:not([data-mai-kind="app"]) :is(.side-b,.reference,main>section) th{background:#f0f3f9;color:#53627a}
+body:not([data-mai-kind="app"]) :is(.side-b,.reference,main>section) td{border-color:#dfe5ef}
+body:not([data-mai-kind="app"]) pre.json{background:#f0f3f9!important;color:#1c2940!important;border:1px solid #dfe5ef}
+body:not([data-mai-kind="app"]) pre.json .k{color:#365ee8!important}
+body:not([data-mai-kind="app"]) pre.json .s{color:#926000!important}
+body:not([data-mai-kind="app"]) pre.json .n{color:#177749!important}
+#theme{display:none!important}
+:focus-visible{outline:3px solid #93adff;outline-offset:3px}
+@media(max-width:760px){body:not([data-mai-kind="app"]) :is(.cover h1,.top h1,main>header h1,.wrap>.hero h1,.page>header h1){font-size:25px!important}}
+@media print{html,body{background:#fff!important}}
+
+/* Preserve status colors while sharing document geometry. */
+body[data-mai-kind="document"]>main,body[data-mai-kind="document"]>.page,body[data-mai-kind="document"]>.wrap{max-width:1240px;margin-left:auto;margin-right:auto}
+
+body[data-mai-kind="document"]{font-size:15px;line-height:1.7}
+body[data-mai-kind="document"] h1:not(.phone *, .app *){font-size:30px!important;line-height:1.4!important;font-weight:750!important;letter-spacing:-.035em!important}
+@media(max-width:760px){body[data-mai-kind="document"] h1:not(.phone *, .app *){font-size:25px!important}}
+
+</style>
+<!-- MAI-THEME:END -->
 </head>
-<body>
+<body data-mai-kind="document">
 <main>
 <div class="cover"><div class="kind">화면설계서 · Flow Design</div><h1>더보기 설정</h1><p class="sub">더보기 목록 → 동의 관리(선택 끄기 확인) · 알림 관리 · 이용권 · 언어 · 약관 전문 · 로그아웃 확인</p><div class="meta"><div>판<b>1.0.0</b></div><div>기준일<b>2026-10-14</b></div><div>화면 ID<b>MORE-001 · 008 · 040 · 050 · 060 · 070 · 071</b></div><div>관련 문서<b>더보기 기획서 · 더보기 화면정의서 · 알림 정책 · 결제 · 환불 정책 · 알림 화면설계서</b></div></div></div>
 <section id="s0"><div class="n">00</div><div class="b"><h2>한눈에 보기</h2><div class="panels"><div class="panel green"><b>이 문서가 다루는 것</b>더보기에서 연동과 내정보를 뺀 설정 · 문서 화면들이 어떻게 이어지는지. 어떤 동작이 확인을 거치고 어떤 동작이 즉시 적용되는지.</div><div class="panel blue"><b>가장 중요한 결정</b>상태를 바꾸는 동작(선택 동의 철회 · 로그아웃)은 확인 시트를 거치고, 언어처럼 되돌리기 쉬운 것은 즉시 적용함. 필수 동의는 끄는 스위치 자체를 두지 않음.</div><div class="panel amber"><b>아직 정해지지 않은 것</b>제3자 제공 동의의 노출 시점은 법무 3차 회신 대기(더보기 기획서 ③). 이 설계서는 그 전까지 목록에 두지 않는 쪽으로 그렸음.</div></div></div></section>

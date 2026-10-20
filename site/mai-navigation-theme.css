@@ -1,0 +1,17 @@
+/* Shared light navigation, matching document surfaces. */
+:root{--side:#fff;--side-2:#f0f3f9;--text:#1c2940;--muted:#66758a;--accent:#365ee8}
+nav{background:#fff!important;color:#1c2940!important;border-right:1px solid #dfe5ef}
+.logo{background:#365ee8!important}
+.brand b{color:#1c2940}.brand small,.nav-search label{color:#66758a!important}
+.nav-search input{background:#f5f7fb!important;color:#1c2940!important;border-color:#dfe5ef!important}
+.nav-search input::placeholder{color:#6c7890!important}
+.nav-group summary{color:#53627a!important}
+.nav-group summary:hover,nav a:hover{background:#f0f3f9!important}
+.group-count{color:#6c7890!important}.group-links{border-color:#dfe5ef!important}
+nav a{color:#34435c!important}
+nav a[aria-current=page]{background:#edf2ff!important;color:#2749c4!important;box-shadow:inset 3px 0 #365ee8!important}
+.tools,.admin-heading{border-color:#dfe5ef!important}
+.tools button{background:#f5f7fb!important;color:#34435c!important;border-color:#dfe5ef!important}
+.tools button.primary{background:#365ee8!important;color:#fff!important}
+.admin-heading{color:#926000!important}.location-bar{background:#fff;border-color:#dfe5ef;color:#66758a}
+.nav-list{scrollbar-color:#cbd5e3 transparent}

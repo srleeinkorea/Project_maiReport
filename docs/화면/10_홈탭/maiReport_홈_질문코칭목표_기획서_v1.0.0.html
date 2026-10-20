@@ -70,8 +70,68 @@ a{color:var(--blue)}
 .app section,.phone section,.stage section{display:block;padding:14px;border:0;gap:0;margin:0}.app section h3,.phone section h3{text-transform:none;letter-spacing:0;color:inherit;font-size:inherit;margin:0}
 @media(max-width:760px){section{grid-template-columns:1fr}section>.n{font-size:36px}header h1{font-size:30px}}
 </style>
+
+<!-- MAI-THEME:START -->
+<style id="mai-document-theme">
+/* maiReport document theme v1.0 · 2026-10-20
+   Embedded by sync-document-theme.py so exported HTML works on its own.
+   Only presentation is shared; document content and application logic stay local. */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+:root, :root[data-theme] {
+ color-scheme:light!important;
+ --mai-font:'Pretendard Variable',Pretendard,'Malgun Gothic',system-ui,sans-serif;
+ --font:var(--mai-font)!important;--sans:var(--mai-font)!important;
+ --bg:#f5f7fb!important;--page:#f5f7fb!important;--paper:#fff!important;--paper-soft:#f5f7fb!important;
+ --surface:#fff!important;--card:#fff!important;--panel:#fff!important;--box:#fff!important;
+ --surface-2:#f0f3f9!important;--panel2:#f0f3f9!important;--fill:#f0f3f9!important;--tint:#f0f3f9!important;--chip:#edf1f8!important;
+ --ink:#1c2940!important;--ink-1:#1c2940!important;--fg:#1c2940!important;--text:#1c2940!important;--text-1:#1c2940!important;
+ --ink-2:#53627a!important;--ink2:#53627a!important;--text-2:#53627a!important;--mute:#53627a!important;--mut:#53627a!important;--muted:#53627a!important;
+ --ink-3:#6c7890!important;--ink3:#6c7890!important;--text-3:#6c7890!important;
+ --line:#dfe5ef!important;--border:#dfe5ef!important;--border-2:#cbd5e3!important;--bd2:#cbd5e3!important;
+ --accent:#365ee8!important;--brand:#365ee8!important;--acc:#365ee8!important;--link:#365ee8!important;--btn:#365ee8!important;
+ --accent-deep:#2749c4!important;--accent-soft:#edf2ff!important;--brand-soft:#edf2ff!important;--acc-soft:#edf2ff!important;--soft:#edf2ff!important;
+ --blue-s:#edf2ff!important;--green-s:#edf8f1!important;--red-s:#fff0f0!important;--amber-s:#fff7e8!important;
+ --ok:#177749!important;--good:#177749!important;--ok-bg:#edf8f1!important;--ok-soft:#edf8f1!important;--good-soft:#edf8f1!important;--ok-line:#b9dec9!important;
+ --warn:#926000!important;--warn-soft:#fff7e8!important;--warn-bg:#fff7e8!important;--bad:#bd3545!important;--bad-soft:#fff0f0!important;
+}
+html{background:#f5f7fb!important}
+body{font-family:var(--mai-font)!important;background:#f5f7fb!important;color:#1c2940!important;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font-family:var(--mai-font)!important}
+/* Document typography; embedded app screens keep their own size hierarchy. */
+body:not([data-mai-kind="app"]) :is(h1,h2,h3,h4,.serif,.big,.num,.n){font-family:var(--mai-font)!important}
+body:not([data-mai-kind="app"]) :is(.cover h1,.top h1,main>header h1,.wrap>.hero h1,.page>header h1){font-size:30px!important;line-height:1.4!important;font-weight:750!important;letter-spacing:-.035em!important;color:#1c2940!important}
+body:not([data-mai-kind="app"]) :is(.cover,.top){border-bottom:1px solid #dfe5ef;padding-bottom:22px;margin-bottom:20px}
+body:not([data-mai-kind="app"]) :is(main>.cover,main>header,.page>.top,.wrap>.hero){background:transparent!important;box-shadow:none!important;border-radius:0!important}
+body:not([data-mai-kind="app"]) :is(main>.cover,main>header,.page>.top,.wrap>.hero) :is(p,.sub,.meta){color:#53627a!important}
+body:not([data-mai-kind="app"]) :is(main,.page,.wrap){scroll-margin-top:20px}
+body:not([data-mai-kind="app"]) :is(main>.cover,main>header,.page>.top) a{color:#365ee8!important}
+body:not([data-mai-kind="app"]) :is(.controls,.side,.reference){background:#fff!important;border:1px solid #dfe5ef!important;box-shadow:0 3px 14px #1c294008!important;border-radius:16px!important}
+body:not([data-mai-kind="app"]) :is(.side-h,.side-tabs){border-color:#dfe5ef!important}
+body:not([data-mai-kind="app"]) :is(.cover+.strip,main>.strip){border-radius:12px;overflow:hidden}
+body:not([data-mai-kind="app"]) :is(.tile .n,.tile .big){font-weight:750!important}
+body:not([data-mai-kind="app"]) section>h2,body:not([data-mai-kind="app"]) section>div>h2{font-weight:700!important;line-height:1.5}
+body:not([data-mai-kind="app"]) :is(.side-b,.reference,main>section) th{background:#f0f3f9;color:#53627a}
+body:not([data-mai-kind="app"]) :is(.side-b,.reference,main>section) td{border-color:#dfe5ef}
+body:not([data-mai-kind="app"]) pre.json{background:#f0f3f9!important;color:#1c2940!important;border:1px solid #dfe5ef}
+body:not([data-mai-kind="app"]) pre.json .k{color:#365ee8!important}
+body:not([data-mai-kind="app"]) pre.json .s{color:#926000!important}
+body:not([data-mai-kind="app"]) pre.json .n{color:#177749!important}
+#theme{display:none!important}
+:focus-visible{outline:3px solid #93adff;outline-offset:3px}
+@media(max-width:760px){body:not([data-mai-kind="app"]) :is(.cover h1,.top h1,main>header h1,.wrap>.hero h1,.page>header h1){font-size:25px!important}}
+@media print{html,body{background:#fff!important}}
+
+/* Preserve status colors while sharing document geometry. */
+body[data-mai-kind="document"]>main,body[data-mai-kind="document"]>.page,body[data-mai-kind="document"]>.wrap{max-width:1240px;margin-left:auto;margin-right:auto}
+
+body[data-mai-kind="document"]{font-size:15px;line-height:1.7}
+body[data-mai-kind="document"] h1:not(.phone *, .app *){font-size:30px!important;line-height:1.4!important;font-weight:750!important;letter-spacing:-.035em!important}
+@media(max-width:760px){body[data-mai-kind="document"] h1:not(.phone *, .app *){font-size:25px!important}}
+
+</style>
+<!-- MAI-THEME:END -->
 </head>
-<body>
+<body data-mai-kind="document">
 <main>
 <header>
   <span class="kind">기획서</span>
