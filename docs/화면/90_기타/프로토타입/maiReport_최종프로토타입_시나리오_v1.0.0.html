@@ -95,7 +95,99 @@ body[data-mai-kind="document"]{font-size:15px;line-height:1.7}
 body[data-mai-kind="document"] h1:not(.phone *, .app *){font-size:30px!important;line-height:1.4!important;font-weight:750!important;letter-spacing:-.035em!important}
 @media(max-width:760px){body[data-mai-kind="document"] h1:not(.phone *, .app *){font-size:25px!important}}
 
+/* Theme-specific aliases override shared light defaults and legacy per-page themes. */
+:root[data-mai-theme="dark"]{
+ color-scheme:dark!important;
+ --bg:#111827!important;--page:#111827!important;--paper:#192335!important;--paper-soft:#111827!important;
+ --surface:#192335!important;--card:#192335!important;--panel:#192335!important;--box:#192335!important;
+ --surface-2:#222f44!important;--panel2:#222f44!important;--fill:#222f44!important;--tint:#222f44!important;--chip:#28364c!important;
+ --ink:#e6edf7!important;--ink-1:#e6edf7!important;--fg:#e6edf7!important;--text:#e6edf7!important;--text-1:#e6edf7!important;
+ --ink-2:#b5c2d6!important;--ink2:#b5c2d6!important;--text-2:#b5c2d6!important;--mute:#b5c2d6!important;--mut:#b5c2d6!important;--muted:#b5c2d6!important;
+ --ink-3:#94a6bf!important;--ink3:#94a6bf!important;--text-3:#94a6bf!important;
+ --line:#35435b!important;--border:#35435b!important;--border-2:#465976!important;--bd2:#465976!important;
+ --accent:#9bb5ff!important;--brand:#9bb5ff!important;--acc:#9bb5ff!important;--link:#9bb5ff!important;--btn:#365ee8!important;
+ --blue:#9bb5ff!important;--green:#78d6a3!important;--red:#ff98a2!important;--amber:#efc779!important;
+ --accent-soft:#253452!important;--brand-soft:#253452!important;--acc-soft:#253452!important;--soft:#253452!important;
+ --blue-s:#253452!important;--blue-l:#253452!important;--green-s:#173c32!important;--red-s:#452b37!important;--amber-s:#403823!important;
+ --ok:#78d6a3!important;--good:#78d6a3!important;--ok-bg:#173c32!important;--ok-soft:#173c32!important;--good-soft:#173c32!important;--ok-line:#36715a!important;
+ --warn:#efc779!important;--warn-soft:#403823!important;--warn-bg:#403823!important;--bad:#ff98a2!important;--bad-soft:#452b37!important;
+ --blue-bg:#253452!important;--indigo-bg:#2e2b51!important;--cyan-bg:#183e49!important;--green-bg:#173c32!important;--amber-bg:#403823!important;
+}
+html[data-mai-theme="dark"],html[data-mai-theme="dark"] body{background:#111827!important;color:#e6edf7!important}
+html[data-mai-theme="dark"] body:not([data-mai-kind="app"]) :is(h1,h2,h3,h4){color:#e6edf7!important}
+html[data-mai-theme="dark"] body:not([data-mai-kind="app"]) :is(.cover,.top,main>header,.side-h,.side-tabs){border-color:#35435b!important}
+html[data-mai-theme="dark"] body:not([data-mai-kind="app"]) :is(.cover,.top,main>header,.wrap>.hero) :is(p,.sub,.meta){color:#b5c2d6!important}
+html[data-mai-theme="dark"] body:not([data-mai-kind="app"]) :is(.controls,.side,.reference,.panel,.tile,.card,.q-card,.rec,.fig svg,.figwrap,.phone .bd,.phone .card,.phone .hd,.phone .tabs,.phone .row,.app){background:#192335!important;color:#e6edf7!important;border-color:#35435b!important}
+html[data-mai-theme="dark"] body:not([data-mai-kind="app"]) :is(main>section,.strip,.phone,.timeline,.side-b,.reference) {border-color:#35435b!important}
+html[data-mai-theme="dark"] :is(th,pre.json,code,.seg,.answer,.phone .chips span){background:#222f44!important;color:#cbd8ed!important;border-color:#35435b!important}
+html[data-mai-theme="dark"] :is(td,.group-links,.tools,.admin-heading){border-color:#35435b!important}
+html[data-mai-theme="dark"] :is(.seg.on,.answer.selected,.phone .btn,.action){background:#365ee8!important;color:#fff!important}
+html[data-mai-theme="dark"] :is(.status,.scope,.panel.amber){background:#403823!important;color:#f1d49b!important}
+html[data-mai-theme="dark"] :is(.panel.blue,.panel.rec,.rec,.state-note){background:#253452!important}
+html[data-mai-theme="dark"] body:not([data-mai-kind="app"]) a{color:#a9bdff!important}
+html[data-mai-theme="dark"] :is(input,select,textarea){background:#222f44;color:#e6edf7;border-color:#465976}
+html[data-mai-theme="dark"] body[data-mai-kind="navigation"] nav{background:#192335!important;color:#e6edf7!important;border-color:#35435b!important}
+html[data-mai-theme="dark"] body[data-mai-kind="navigation"] :is(.brand b,nav a,#current-document){color:#e6edf7!important}
+html[data-mai-theme="dark"] body[data-mai-kind="navigation"] :is(.brand small,.nav-search label,.nav-group summary,.group-count){color:#b5c2d6!important}
+html[data-mai-theme="dark"] body[data-mai-kind="navigation"] :is(.nav-search input,.tools button,.location-bar){background:#222f44!important;color:#e6edf7!important;border-color:#35435b!important}
+html[data-mai-theme="dark"] body[data-mai-kind="navigation"] :is(nav a:hover,.nav-group summary:hover,nav a[aria-current="page"]){background:#2c3d60!important;color:#c4d3ff!important}
+/* Figures have their own literal SVG colors; retain their readable illustration canvas. */
+html[data-mai-theme="dark"] body:not([data-mai-kind="app"]) :is(.fig svg,.figwrap svg){background:#fff!important;color:#1c2940!important}
+#mai-theme-toggle{border:1px solid #dfe5ef;background:#fff;color:#34435c;border-radius:9px;padding:9px 12px;font-size:13px;font-weight:650;cursor:pointer}
+#mai-theme-toggle.mai-floating-theme{position:fixed;right:18px;bottom:18px;z-index:9999;box-shadow:0 3px 18px #0002}
+html[data-mai-theme="dark"] #mai-theme-toggle{background:#222f44;color:#e6edf7;border-color:#465976}
+@media print{#mai-theme-toggle{display:none!important}}
+html[data-mai-theme="dark"] body[data-mai-kind] :is(.cover h1,.top h1,main>header h1,.wrap>.hero h1,.page>header h1){color:#e6edf7!important}
+html[data-mai-theme="dark"] body[data-mai-kind] :is(main>.cover,main>header,.page>.top) a{color:#a9bdff!important}
+:root[data-mai-theme="dark"]{--indigo:#b7a8ff!important;--cyan:#67cce4!important;--teal:#67d3c1!important;--purple:#c2a9ff!important;--violet:#c2a9ff!important;--indigo-bd:#615784!important;--blue-bd:#455c85!important;--cyan-bd:#356579!important;--green-bd:#36715a!important;--amber-bd:#7c6940!important}
+html[data-mai-theme="dark"] body[data-mai-kind] :is(.tl .tag,.zlabel,.ss-label,.subsec,.ia2-head,.ia2-count,.tri span,.box,.block,.section,.sheet,.paper){background:#192335!important;color:#d8e4f7!important;border-color:#465976!important}
+html[data-mai-theme="dark"] body[data-mai-kind] :is(.seg.on,.answer.selected,.phone .chips span.on){background:#365ee8!important;color:#fff!important}
+
+html[data-mai-theme="dark"] body[data-mai-kind] :is(.hero,.coach,.card.cond,.m,.rs-h,.mo-card,.sv-shell,.sub-h,.scroll.sv-b,.flow>div,.ov-step){background:#192335!important;color:#e6edf7!important;border-color:#35435b!important}
+html[data-mai-theme="dark"] body[data-mai-kind="app"] :is(.hd,.qr,.card,.q-card,.q-opt,.q-done,.g-tile.lock,.nav,.sv-h,.sv-b,.sv-cta,.ai-in-tabs,.act,.report-h,.upload-guide,.extract-card,.review-files,.review-actions,.again,.done-report,.done-actions,.report-secondary,.ios-sheet,.tk-dialog,.noti-row,.ai-preview-card,.ai-menu-list,.ai-cd-card,.trend-graph-card){background:#192335!important;color:#e6edf7!important;border-color:#465976!important}
+html[data-mai-theme="dark"] body[data-mai-kind="app"] .home-hero{--h1:#253452;--h2:#192335;background:linear-gradient(#253452,#111827)!important}
+html[data-mai-theme="dark"] body[data-mai-kind="app"] :is(.upload-type,.ai-verdict,.ai-entry){background:#253452!important}
+html[data-mai-theme="dark"] body[data-mai-kind="app"] .q-opt.on{background:#253452!important;border-color:#9bb5ff!important}
+html[data-mai-theme="dark"] body[data-mai-kind="app"] .report-sub{background:#111827!important}
+
 </style>
+<script>/* Shared theme preference: shell, embedded documents, standalone documents. */
+(()=>{
+ const key='maireport-document-theme';
+ const root=document.documentElement;
+ let current='light';
+ try{current=localStorage.getItem(key)==='dark'?'dark':'light';}catch{}
+ function apply(value){
+  current=value==='dark'?'dark':'light';
+  root.dataset.maiTheme=current;
+  const button=document.getElementById('mai-theme-toggle');
+  if(button){button.textContent=current==='dark'?'☀ 라이트 모드':'☾ 다크 모드';button.setAttribute('aria-pressed',String(current==='dark'));}
+ }
+ apply(current);
+ function broadcast(){
+  document.querySelectorAll('iframe').forEach(frame=>{
+   try{frame.contentWindow.postMessage({type:'maireport-theme',value:current},location.origin);}catch{}
+  });
+ }
+ function select(value){apply(value);try{localStorage.setItem(key,current);}catch{}broadcast();}
+ addEventListener('storage',e=>{if(e.key===key){apply(e.newValue);broadcast();}});
+ addEventListener('message',e=>{
+  if(e.source!==parent||e.origin!==location.origin||e.data?.type!=='maireport-theme')return;
+  apply(e.data.value);
+ });
+ addEventListener('DOMContentLoaded',()=>{
+  // A document opened on its own also gets a theme control; iframe copies use the shell control.
+  if(window===window.top){
+   const button=document.createElement('button');button.id='mai-theme-toggle';button.type='button';button.title='화면 테마 전환';
+   button.onclick=()=>select(current==='dark'?'light':'dark');
+   const toolbar=document.querySelector('body[data-mai-kind="navigation"] .tools');
+   if(toolbar)toolbar.prepend(button);else{button.className='mai-floating-theme';document.body.append(button);}
+  }
+  document.querySelectorAll('iframe').forEach(frame=>frame.addEventListener('load',broadcast));
+  apply(current);broadcast();
+ });
+})();
+</script>
 <!-- MAI-THEME:END -->
 </head><body data-mai-kind="document"><div class="wrap">
 <h1>최종 프로토타입 시나리오 · 일반인 / 폐렴 회복기</h1>
