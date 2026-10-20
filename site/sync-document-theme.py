@@ -4,12 +4,14 @@ Does not overwrite source content from site variants or change application scrip
 """
 from pathlib import Path
 import re, json, hashlib
+from mai_preview_theme import preview_theme
 
 ROOT=Path(__file__).resolve().parent.parent
 SITE=ROOT/'.tmp_artifact/rsna-deploy'
 CSS=(ROOT/'site/mai-document-theme.css').read_text(encoding='utf-8')
 NAV=(ROOT/'site/mai-navigation-theme.css').read_text(encoding='utf-8')
 DARK=(ROOT/'site/mai-dark-theme.css').read_text(encoding='utf-8')
+PREVIEW=(ROOT/'site/mai-preview-theme.css').read_text(encoding='utf-8-sig')
 JS=(ROOT/'site/mai-theme-switch.js').read_text(encoding='utf-8')
 INDEX=SITE/'index.html'
 index=INDEX.read_text(encoding='utf-8')
@@ -38,7 +40,7 @@ def apply(p,kind,nav=False):
         clean='<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+clean[:split]+'</head><body>'+clean[split:]+'</body></html>'
     # Whitespace-independent integrity check protects every script, label and table.
     s=re.sub(r'<body\b', '<body data-mai-kind="'+kind+'"',clean,count=1,flags=re.I)
-    block='\n<!-- MAI-THEME:START -->\n<style id="mai-document-theme">\n'+CSS+('\n'+NAV if nav else '')+'\n'+DARK+'\n</style>\n<script>'+JS+'</script>\n<!-- MAI-THEME:END -->\n'
+    block='\n<!-- MAI-THEME:START -->\n<style id="mai-document-theme">\n'+CSS+('\n'+NAV if nav else '')+'\n'+DARK+'\n'+preview_theme(clean)+'\n'+PREVIEW+'\n</style>\n<script>'+JS+'</script>\n<!-- MAI-THEME:END -->\n'
     s=re.sub(r'</head\s*>',lambda m:block+m[0],s,count=1,flags=re.I)
     assert 'id="mai-document-theme"' in s,p
     assert re.sub(r'\s+','',strip_theme(s))==re.sub(r'\s+','',clean),p

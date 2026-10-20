@@ -1,0 +1,12 @@
+/* Finishing rules for shared preview hierarchy and script-generated colors. */
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] :is(.phone,.app) :is(.prim,.fab,.h-cta,.memo-save){background:#365ee8!important;color:#fff!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] :is(.phone,.app) :is(.prim:disabled,.bi-kakao:disabled){background:#28364c!important;color:#b5c2d6!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] :is(.phone,.app) .km-b.w{background:#222f44!important;color:#e6edf7!important;border-color:#465976!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] :is(.phone,.app) :is(.done .chk,.step .dot){background:#247447!important;color:#fff!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] :is(.phone,.app) .d-ic{background:#222f44!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[style*="#2F6BFF" i]{color:#9bb5ff!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[style*="#F59E0B" i]{color:#efc779!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[style*="#0FB5AE" i]{color:#67d3c1!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[style*="#8B5CF6" i]{color:#c2a9ff!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[style*="#E5893A" i]{color:#f0bc89!important}
+html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[style*="#12A150" i]{color:#78d6a3!important}
