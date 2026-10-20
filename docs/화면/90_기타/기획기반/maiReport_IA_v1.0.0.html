@@ -375,6 +375,40 @@ html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[styl
 html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[style*="#E5893A" i]{color:#f0bc89!important}
 html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[style*="#12A150" i]{color:#78d6a3!important}
 
+/* Layout follows available document width; never compress the five stages. */
+body[data-mai-kind="document"]>main.page{max-width:1680px;container-type:inline-size;container-name:app-flow}
+.arch .cn{word-break:keep-all;overflow-wrap:break-word}
+.arch .cb{font-size:12px;line-height:1.7}
+.arch .ctag{font-size:10px}
+@container app-flow (max-width:1500px){
+ .arch{grid-template-columns:minmax(0,1fr);gap:0}
+ .zone{padding:22px 18px 18px}
+ .zone>.stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+ .zone>.stack>.grp{grid-column:1/-1}
+ .flow-col{flex-direction:row;justify-content:center;padding:18px 0 26px;gap:50px}
+ .fa:not(.fl) .track,.fa:not(.fl) .tip{transform:rotate(90deg)}
+ .fa:not(.fl) .tip{margin-left:0;margin-top:9px}
+ .fa:not(.fl) .lab{margin-bottom:10px}
+ .fa:not(.fl){gap:0}
+ .arch .card{padding:14px}
+ .arch .card-head{gap:8px}
+ .arch .cn{font-size:14px}
+ .arch .cb{padding-left:0}
+ .arch .ctag{margin-left:0;max-width:100%}
+ .arch :is(.g2,.g3){grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+ .arch .tri{margin-left:0}
+}
+@container app-flow (max-width:700px){
+ .zone>.stack,.arch :is(.g2,.g3){grid-template-columns:minmax(0,1fr)}
+ .journey{flex-direction:column}
+ .j-step{flex:auto;min-height:68px}
+ .j-arrow{flex:auto;min-height:26px;transform:rotate(90deg);background:transparent}
+ .timeline{flex-wrap:wrap}.tl{flex:1 1 220px}
+}
+html[data-mai-theme="dark"] body[data-mai-kind]{--red-bg:#452b37!important;--red-bd:#80444e!important;--teal-bg:#173c38!important;--teal-bd:#356579!important}
+html[data-mai-theme="dark"] .j-num{color:#111827}
+.arch .grp{font-size:11px}
+
 </style>
 <script>/* Shared theme preference: shell, embedded documents, standalone documents. */
 (()=>{

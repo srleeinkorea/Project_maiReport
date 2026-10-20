@@ -1,0 +1,8 @@
+/* Knowledge DB template uses these color tokens for surfaces, not text. */
+html[data-mai-theme="dark"] body[data-mai-kind]{--blue:#253452!important;--green:#173c32!important;--amber:#403823!important;--red:#452b37!important}
+html[data-mai-theme="dark"] body[data-mai-kind] :is(.badge,.principle b,.arch-card em,.db-layer .count,.result b,.callout b){color:#b6c8ff!important}
+html[data-mai-theme="dark"] body[data-mai-kind] :is(.principle,.source-links a){border-color:#465c86!important}
+html[data-mai-theme="dark"] body[data-mai-kind] :is(.arch-note,.fk,.status-review){color:#efcf91!important}
+html[data-mai-theme="dark"] body[data-mai-kind] :is(.do,.pk){color:#92dfb4!important}
+html[data-mai-theme="dark"] body[data-mai-kind] .dont{color:#ffb0b9!important}
+html[data-mai-theme="dark"] body[data-mai-kind] .process-card::before{background:#365ee8!important;color:#fff!important}
