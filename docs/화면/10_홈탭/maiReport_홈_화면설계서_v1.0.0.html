@@ -385,14 +385,14 @@ function render(){
   // 컨디션
   let condHtml=`<div class="card"><div class="sec-h"><b>오늘의 컨디션</b>${link!=='off'?`<button class="go" onclick="window.__go('metric')">›</button>`:''}</div>`;
   if(link==='off') condHtml+=`<div class="empty"><p>건강 데이터를 연결하면 오늘의 컨디션을 볼 수 있어요.</p><button onclick="window.__go('linkhealth')">건강 데이터 연결하기</button></div>`;
-  else if(link==='watch') condHtml+=`<div class="gauges">${['짜임새 있는 하루','행동 기회 대응','생활 변화 추이'].map(n=>`<div class="g"><small>${n}</small><div class="bar"><i></i><i></i><i></i></div><b class="muted">관찰 중</b></div>`).join('')}</div><div class="sumline">아직 관찰 중이에요. 기록이 더 쌓이면 오늘의 컨디션을 보여드릴게요.</div>`;
+  else if(link==='watch') condHtml+=`<div class="gauges">${['몸잠밥 지수','내실천 지수','일상결 지수'].map(n=>`<div class="g"><small>${n}</small><div class="bar"><i></i><i></i><i></i></div><b class="muted">관찰 중</b></div>`).join('')}</div><div class="sumline">아직 관찰 중이에요. 기록이 더 쌓이면 오늘의 컨디션을 보여드릴게요.</div>`;
   else {
-    const mt=T.ans.mealtime; const sc=mt===undefined&&T.ans.meal!==2&&mealOf(h).time; // 식사 시각 없으면 행동 기회 대응 관찰 중
-    const gs=[['짜임새 있는 하루',2,'잘 짜였어요'],['행동 기회 대응',sc?-1:(T.ans.tired===2?0:1),sc?'관찰 중':(T.ans.tired===2?'부족해요':'보통이에요')],['생활 변화 추이',1,'비슷해요']];
+    const mt=T.ans.mealtime; const sc=mt===undefined&&T.ans.meal!==2&&mealOf(h).time; // 식사 시각 없으면 내실천 지수 관찰 중
+    const gs=[['몸잠밥 지수',2,'이상적 하루'],['내실천 지수',sc?-1:(T.ans.tired===2?0:1),sc?'관찰 중':(T.ans.tired===2?'부족해요':'보통이에요')],['일상결 지수',1,'비슷해요']];
     condHtml+=`<div class="gauges">${gs.map(([n,lv,lb])=>`<div class="g"><small>${n}</small><div class="bar">${[0,1,2].map(i=>`<i class="${i===lv?('on '+(lv===0?'warn':lv===2?'ok':'')):''}"></i>`).join('')}</div><b class="${lv<0?'muted':''}">${lb}</b></div>`).join('')}</div>`;
     const warn=gs.filter(g=>g[1]===0).map(g=>g[0]);
     if(warn.length) condHtml+=`<div class="sumline">${warn.join(' · ')}에서 살펴볼 점이 있어요.</div>`;
-    if(sc) condHtml+=`<div class="sumline">행동 기회 대응은 아직 관찰 중이에요. 오늘의 질문에서 식사 시각을 골라 주시면 식후에 움직였는지 볼 수 있어요.</div>`;
+    if(sc) condHtml+=`<div class="sumline">내실천 지수는 아직 관찰 중이에요. 오늘의 질문에서 식사 시각을 골라 주시면 식후에 움직였는지 볼 수 있어요.</div>`;
   }
   condHtml+=`</div>`;
   // 건강 데이터
@@ -428,7 +428,7 @@ function renderNow(aq,cq,idx,doneCnt){
   it.push(['오늘의 코칭',T.coach==='before'?'답변 전':T.coach==='gen'?'생성 중':'행동 한 줄',T.coach==='before'?'모든 문항에 답해야 한 번 생성된다':T.coach==='gen'?'마지막 답변 직후 ~ 응답 도착까지':'답변을 고치지 않는 한 오늘은 바뀌지 않는다']);
   const g=T.goals; const gl=Object.values(g).map(x=>`${x.cat} ${x.locked?'잠김':x.done?'완료':'기본'}`).join(' · ');
   it.push(['오늘의 목표',`${gl} (${doneCnt}/3)`,`식이는 항상 잠긴 채 시작. 활동은 ${g.act.src==='device'?'오늘 걸음 기록으로 바로 생성':'기기 데이터가 없어 기본 문구로 생성(결정 ①)'}. 수면은 ${g.sleep.src==='device'?'어젯밤 수면 기록으로 바로 생성':'수면 문항 답변으로 생성'}`]);
-  it.push(['오늘의 컨디션',link==='off'?'미연동 안내 + 연결 버튼':link==='watch'?'관찰 중(기록 부족)':'세 구간 표시',link==='on'&&T.ans.mealtime===undefined&&T.ans.meal!==2&&meal.time?'식사 시각을 아직 안 받아 행동 기회 대응만 관찰 중':'기기 데이터가 갱신될 때마다 다시 계산']);
+  it.push(['오늘의 컨디션',link==='off'?'미연동 안내 + 연결 버튼':link==='watch'?'관찰 중(기록 부족)':'세 구간 표시',link==='on'&&T.ans.mealtime===undefined&&T.ans.meal!==2&&meal.time?'식사 시각을 아직 안 받아 내실천 지수만 관찰 중':'기기 데이터가 갱신될 때마다 다시 계산']);
   it.push(['오늘의 건강 데이터',link==='off'?'숨김(컨디션에 안내가 있으므로)':'걸음 · 수면 · 심박 + 어제 대비',link==='watch'?'어제 값이 없어 「어제 기록 없음」':'걸음은 자정부터 지금까지 누적']);
   it.push(['숫자로 한눈에',`${S.ai==='on'?'인사이트 점수 표시':'결과 없음 → 분석하기'} · ${S.checkup==='on'?'건강나이 · 또래 등수':'검진 연동 안내'}`,'홈에서는 계산하지 않고 기존 결과값만 보여준다']);
   $('#now').innerHTML=it.map(([k,v,e])=>`<div class="it"><b>${k}</b><span>${v}<em>${e}</em></span></div>`).join('');

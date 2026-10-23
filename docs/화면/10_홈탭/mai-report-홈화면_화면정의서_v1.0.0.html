@@ -201,25 +201,25 @@ a{color:#5170FF}
 <!-- 6 -->
 <section class="card" id="s6">
   <h2><span class="n">6</span>오늘의 컨디션</h2>
-  <div class="sub">짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이 세 지표의 오늘 상태. 숫자 없이 세 구간으로만 보여줌</div>
+  <div class="sub">몸잠밥 지수 · 내실천 지수 · 일상결 지수 세 지표의 오늘 상태. 숫자 없이 세 구간으로만 보여줌</div>
   <h3>6.1 구성</h3>
-  <p>섹션 제목 "오늘의 컨디션"과 "›"(탭 → 생활 탭 &gt; 지표별 분석). 지표 3개(짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이) 각각 지표명 · 3구간 게이지 · 구간 라벨로 구성. 항상 펼쳐진 상태이며 접힘/펼침 없음. 전일 대비(▲▼·변화 없음), 점수, 이유 문장, 핵심 데이터는 홈에 두지 않음.</p>
+  <p>섹션 제목 "오늘의 컨디션"과 "›"(탭 → 생활 탭 &gt; 지표별 분석). 지표 3개(몸잠밥 지수 · 내실천 지수 · 일상결 지수) 각각 지표명 · 3구간 게이지 · 구간 라벨로 구성. 항상 펼쳐진 상태이며 접힘/펼침 없음. 전일 대비(▲▼·변화 없음), 점수, 이유 문장, 핵심 데이터는 홈에 두지 않음.</p>
   <h3>6.2 3구간 게이지</h3>
   <p>주의 · 보통 · 좋음 세 구간 중 현재 구간 하나를 가리키는 게이지. 숫자·눈금값은 표시하지 않음. 산정 불가 시 아무 구간도 가리키지 않는 빈 상태로 둠.</p>
   <h3>6.3 지표와 라벨</h3>
   <table>
     <tr><th style="width:90px">지표</th><th>한 줄 정의(? 토글)</th><th style="width:32%">구간 라벨 좋음 / 보통 / 주의</th></tr>
-    <tr><td class="k">짜임새 있는 하루</td><td>오늘 식사·수면·움직임의 짜임새</td><td><span class="pill p-g">잘 짜였어요</span><span class="pill p-m">보통이에요</span><span class="pill p-l">부족해요</span></td></tr>
-    <tr><td class="k">행동 기회 대응</td><td>오늘 움직일 기회를 살린 정도</td><td><span class="pill p-g">잘 살렸어요</span><span class="pill p-m">보통이에요</span><span class="pill p-l">부족해요</span></td></tr>
-    <tr><td class="k">생활 변화 추이</td><td>최근 일주일 생활의 변화 방향</td><td><span class="pill p-g">나아지고 있어요</span><span class="pill p-m">비슷해요</span><span class="pill p-l">줄어들고 있어요</span></td></tr>
+    <tr><td class="k">몸잠밥 지수</td><td>오늘 몸(움직임) · 잠 · 밥이 권장에 가까운 정도</td><td><span class="pill p-g">이상적 하루</span><span class="pill p-m">현실과 이상 사이</span><span class="pill p-l">현실적 하루</span></td></tr>
+    <tr><td class="k">내실천 지수</td><td>오늘 확인된 실천의 누적</td><td><span class="pill p-g">실천 고수</span><span class="pill p-m">실천 중수</span><span class="pill p-l">실천 초보</span></td></tr>
+    <tr><td class="k">일상결 지수</td><td>최근 4주 생활의 변화 방향</td><td><span class="pill p-g">탄력기</span><span class="pill p-m">유지기</span><span class="pill p-l">주춤기</span></td></tr>
   </table>
   <p class="note">구간 경계는 잠정 66 / 33(0~100 내부 규칙값). 지표 정의·산식·부연 설명은 생활지표_기획서, 지표별 카드 규칙은 지표별분석_화면정의서를 따름. 홈에서는 정의 문장을 노출하지 않음.</p>
   <h3>6.4 요약 문장 노출 조건</h3>
   <p>세 라벨이 이미 상태를 말하므로 평상시에는 요약 문장을 두지 않음. 주의 구간 지표가 하나 이상일 때만 요약 한 줄을 붙임. 관찰 중 안내는 요약 문장과 별도로 해당 지표에 표시함.</p>
   <table>
     <tr><th style="width:170px">조건</th><th>노출 위치 · 최종 문구</th></tr>
-    <tr><td class="k">주의 구간 지표 1개 이상</td><td>요약 한 줄: {주의 구간 지표명}에서 살펴볼 점이 있어요. 지표가 여러 개면 짜임새 있는 하루 → 행동 기회 대응 → 생활 변화 추이 순으로 &ldquo; · &rdquo;를 넣어 모두 표시함.</td></tr>
-    <tr><td class="k">일부 지표만 관찰 중</td><td>해당 지표에만 &ldquo;{지표명}은/는 아직 관찰 중이에요. 기록이 더 쌓이면 상태를 보여드릴게요.&rdquo; 표시. 지표명에 맞춰 조사 선택(예: &ldquo;짜임새 있는 하루는&rdquo;, &ldquo;행동 기회 대응은&rdquo;). 이 사유만으로 요약 문장을 붙이지 않음. 다른 지표가 주의 구간이면 위 요약 한 줄은 함께 표시함.</td></tr>
+    <tr><td class="k">주의 구간 지표 1개 이상</td><td>요약 한 줄: {주의 구간 지표명}에서 살펴볼 점이 있어요. 지표가 여러 개면 몸잠밥 지수 → 내실천 지수 → 일상결 지수 순으로 &ldquo; · &rdquo;를 넣어 모두 표시함.</td></tr>
+    <tr><td class="k">일부 지표만 관찰 중</td><td>해당 지표에만 &ldquo;{지표명}은/는 아직 관찰 중이에요. 기록이 더 쌓이면 상태를 보여드릴게요.&rdquo; 표시. 지표명에 맞춰 조사 선택(예: &ldquo;몸잠밥 지수는&rdquo;, &ldquo;내실천 지수는&rdquo;). 이 사유만으로 요약 문장을 붙이지 않음. 다른 지표가 주의 구간이면 위 요약 한 줄은 함께 표시함.</td></tr>
     <tr><td class="k">세 지표 모두 관찰 중</td><td>컨디션 영역에 &ldquo;아직 관찰 중이에요. 기록이 더 쌓이면 오늘의 컨디션을 보여드릴게요.&rdquo; 표시. 요약 문장은 붙이지 않음.</td></tr>
     <tr><td class="k">주의 구간 없음</td><td>요약 문장을 표시하지 않음. 산출된 지표의 구간 라벨은 그대로 표시함.</td></tr>
   </table>

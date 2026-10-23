@@ -141,7 +141,7 @@ a{color:#5170FF}
     <section class="hero" id="top">
       <span class="eyebrow">maiReport · Logical Data Model</span>
       <h1>지표 산출과 이용권 결제에<br>필요한 데이터를 도출함.</h1>
-      <p>물리 스키마가 아니라 <strong>논리 데이터 모델</strong>임. 생활 해석 지표(짜임새 있는 하루·행동 기회 대응·생활 변화 추이) 산출에 필요한 엔터티와, 분석 이용권 인앱결제·환불 운영에 필요한 엔터티를 정의하고, 상태 전이·무결성 규칙·보존 정책·미확정 항목을 정리함. 실제 컬럼 타입·인덱스·정규화 수준은 상세 설계에서 확정함.</p>
+      <p>물리 스키마가 아니라 <strong>논리 데이터 모델</strong>임. 생활 해석 지표(몸잠밥 지수·내실천 지수·일상결 지수) 산출에 필요한 엔터티와, 분석 이용권 인앱결제·환불 운영에 필요한 엔터티를 정의하고, 상태 전이·무결성 규칙·보존 정책·미확정 항목을 정리함. 실제 컬럼 타입·인덱스·정규화 수준은 상세 설계에서 확정함.</p>
       <div class="chips">
         <span class="chip">지표 도메인 4 엔터티</span>
         <span class="chip">결제 도메인 5 엔터티</span>
@@ -257,7 +257,7 @@ a{color:#5170FF}
         <tbody>
           <tr><td><span class="k">state_id</span></td><td>id</td><td>PK</td></tr>
           <tr><td><span class="fk">user_id</span></td><td>id</td><td>FK user</td></tr>
-          <tr><td>metric_key</td><td><code>enum</code></td><td><b>life_margin</b>(짜임새 있는 하루) · <b>self_care</b>(행동 기회 대응) · <b>life_steadying</b>(생활 변화 추이). 구 recovery·load·rhythm 폐기</td></tr>
+          <tr><td>metric_key</td><td><code>enum</code></td><td><b>life_margin</b>(몸잠밥 지수) · <b>self_care</b>(내실천 지수) · <b>life_steadying</b>(일상결 지수). 구 recovery·load·rhythm 폐기</td></tr>
           <tr><td>period_type</td><td><code>enum</code></td><td>day · week. life_steadying은 <b>week만</b> 생성(주 단위 갱신)</td></tr>
           <tr><td>period_start / period_end</td><td>date</td><td>대상 기간. day면 동일 날짜, week면 주 시작·종료일</td></tr>
           <tr><td>state_key</td><td><code>enum</code> / null</td><td>low · mid · high · <b>observing</b>(관찰 중). 표시 라벨은 metric_key별 상이 &mdash; 아래 매핑표</td></tr>
@@ -276,12 +276,12 @@ a{color:#5170FF}
       <div class="table-wrap"><table>
         <thead><tr><th>metric_key</th><th>지표명</th><th>low</th><th>mid</th><th>high</th><th>observing</th><th>direction 비교 기준</th></tr></thead>
         <tbody>
-          <tr><td><code>life_margin</code></td><td>짜임새 있는 하루</td><td>부족해요</td><td>보통이에요</td><td>잘 짜였어요</td><td>관찰 중</td><td>최근 해석 대비(일)</td></tr>
-          <tr><td><code>self_care</code></td><td>행동 기회 대응</td><td>부족해요</td><td>보통이에요</td><td>잘 살렸어요</td><td>관찰 중</td><td>전일 대비(일)</td></tr>
-          <tr><td><code>life_steadying</code></td><td>생활 변화 추이</td><td>줄어들고 있어요</td><td>비슷해요</td><td>나아지고 있어요</td><td>관찰 중</td><td><b>전주 대비(주)</b></td></tr>
+          <tr><td><code>life_margin</code></td><td>몸잠밥 지수</td><td>현실적 하루</td><td>현실과 이상 사이</td><td>이상적 하루</td><td>일부 기록 · 자료 부족</td><td>최근 해석 대비(일)</td></tr>
+          <tr><td><code>self_care</code></td><td>내실천 지수</td><td>실천 초보</td><td>실천 중수</td><td>실천 고수</td><td>보조 추정만 · 확인 불가</td><td>전일 대비(일)</td></tr>
+          <tr><td><code>life_steadying</code></td><td>일상결 지수</td><td>주춤기</td><td>유지기</td><td>탄력기</td><td>준비 중</td><td><b>전주 대비(주)</b></td></tr>
         </tbody>
       </table></div>
-      <p class="lead">low/mid/high는 순서 있는 등급이지만 <b>지표 간 비교·합산 대상이 아님</b>(P5). 지표 2의 최종 명칭은 <b>2026-09-11 &lsquo;행동 기회 대응&rsquo;으로 확정</b>했음(C-1 종결). enum 값(<code>self_care</code>)과 표시명은 분리해 두었으므로 표시명이 바뀌어도 모델은 영향받지 않음.</p>
+      <p class="lead">low/mid/high는 순서 있는 등급이지만 <b>지표 간 비교·합산 대상이 아님</b>(P5). 지표 2의 최종 명칭은 <b>2026-09-11 &lsquo;내실천 지수&rsquo;으로 확정</b>했음(C-1 종결). enum 값(<code>self_care</code>)과 표시명은 분리해 두었으므로 표시명이 바뀌어도 모델은 영향받지 않음.</p>
       <div class="callout"><span>표시 라벨은 저장하지 않음 &mdash; C-3 확정</span>
         <p>어휘는 <b>2026-09-11 문장형으로 확정</b>했음(위 표). 기획서 7장의 명사형 표기는 이 결정에 맞춰 갱신 대상임.</p>
         <p>어휘가 확정된 뒤에도 <code>metric_state</code>에는 <b><code>state_key</code>(low/mid/high/observing)만 저장하고 표시 문자열은 저장하지 않음.</b> 라벨은 클라이언트·문구 템플릿이 <code>state_key</code>에서 렌더하므로, 문구가 나중에 다듬어져도 <b>데이터 마이그레이션이 필요 없고</b> 과거 스냅샷의 의미도 바뀌지 않음.</p></div>
@@ -470,8 +470,8 @@ a{color:#5170FF}
           <tr><td>자가보고 피로도</td><td>미구현</td><td><code>daily_checkin.derived.fatigue_level</code> (채택 검증)</td><td>지표 입력 확장(aux 한정 · R14)</td></tr>
           <tr><td>지표 표현 모델</td><td><code>metric_score.score</code> 0~100 + band, 화면에 점수 노출</td><td><code>metric_state.state_key</code> 1급 + <code>internal_value</code> 비노출</td><td>화면정의 지표 v0.2 전면 · API 응답 스키마</td></tr>
           <tr><td>지표 키</td><td>recovery · load · rhythm</td><td>life_margin · self_care · life_steadying</td><td>엔진 v5.7 I1/I2/I3 표기도 함께 교체(9장 C-4)</td></tr>
-          <tr><td>산출 주기</td><td>일 단위 3지표 공통</td><td><code>period_type</code> 분리 &mdash; 생활 변화 추이는 week만</td><td>배치 스케줄·주간 화면 조회</td></tr>
-          <tr><td>활동 구간 샘플</td><td>일별 총량 중심</td><td>걸음·심박 raw를 15분 이하 버킷으로 롤업(<code>activity_timeslot_dist</code>·<code>sedentary_bout</code>)</td><td><b>A-1 결과에 종속</b> &mdash; 없으면 짜임새 있는 하루 고해상도·행동 기회 대응 산출 불가</td></tr>
+          <tr><td>산출 주기</td><td>일 단위 3지표 공통</td><td><code>period_type</code> 분리 &mdash; 일상결 지수는 week만</td><td>배치 스케줄·주간 화면 조회</td></tr>
+          <tr><td>활동 구간 샘플</td><td>일별 총량 중심</td><td>걸음·심박 raw를 15분 이하 버킷으로 롤업(<code>activity_timeslot_dist</code>·<code>sedentary_bout</code>)</td><td><b>A-1 결과에 종속</b> &mdash; 없으면 몸잠밥 지수 고해상도·내실천 지수 산출 불가</td></tr>
         </tbody>
       </table></div>
     </section>
@@ -485,7 +485,7 @@ a{color:#5170FF}
         <div class="check-item"><span class="box"></span><div><strong>metric_baseline.window_days 통일 (B-5)</strong><p>엔진 28일 / 파이프라인 30일 / 기획서 미정. 신호별 최소 관찰일도 함께</p></div><span class="status-badge sb-review">결정 필요</span></div>
         <div class="check-item"><span class="box"></span><div><strong>internal_value 스케일·계수 (B-1)</strong><p>엔진 v5.7 고정 계수를 초기 기준으로 채택할지, 백지 캘리브레이션할지. 채택 시 <code>value_scale</code> 정의도 함께 고정</p></div><span class="status-badge sb-review">결정 필요</span></div>
         <div class="check-item"><span class="box"></span><div><strong>식사 시각 저장 경로 (A-3)</strong><p>센서 추정 불가. 긴 비활동 종료 시점 파생 / 하루 1회 질문(daily_checkin) / 둘 다 &mdash; <code>self_care</code> 기준점 소스 결정</p></div><span class="status-badge sb-review">기획 결정</span></div>
-        <div class="check-item"><span class="box"></span><div><strong>지표 2 명칭 (C-1)</strong><p>2026-09-11 <b>행동 기회 대응</b>으로 확정. enum <code>self_care</code> 유지</p></div><span class="status-badge sb-ready">확정</span></div>
+        <div class="check-item"><span class="box"></span><div><strong>지표 2 명칭 (C-1)</strong><p>2026-09-11 <b>내실천 지수</b>으로 확정. enum <code>self_care</code> 유지</p></div><span class="status-badge sb-ready">확정</span></div>
         <div class="check-item"><span class="box"></span><div><strong>표현 가이드 조항 갱신 (C-3 후속)</strong><p>결과값 어휘는 문장형으로 확정(2026-09-11). 기획서 5·7장과 MRS 9장의 &lsquo;평가·압박 어투 배제&rsquo; 조항이 이 결정과 충돌하므로 해당 조항 수정 필요 — 의료 판정 표현 금지는 유지</p></div><span class="status-badge sb-review">문서</span></div>
         <div class="check-item"><span class="box"></span><div><strong>health_sample 보존기간·집계 롤업</strong><p>원본 원시 데이터 보존 기간, 일 단위 롤업 테이블 필요 여부</p></div><span class="status-badge sb-open">설계</span></div>
         <div class="check-item"><span class="box"></span><div><strong>HRV·자가보고 피로도 스키마</strong><p>지표 기획서 9장 채택 여부 확정 후 필드 확정</p></div><span class="status-badge sb-open">검증</span></div>

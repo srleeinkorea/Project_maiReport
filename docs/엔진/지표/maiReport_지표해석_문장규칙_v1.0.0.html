@@ -60,16 +60,16 @@ a{color:#5170FF}
 <div class="page">
 <div class="hero">
   <h1>지표 해석 · 문장 규칙</h1>
-  <p>지표 카드의 ‘지표 해석’ 한 문장을 만드는 규칙 · 산식 I1 v0.7 · I2 v1.2 · I3 v7.9 기준</p>
+  <p>지표 카드의 ‘지표 해석’ 한 문장을 만드는 규칙 · 지표 가이드 V2 기준(몸잠밥 v0.25 · 내실천 v1.2 · 일상결 v8.24 검토안)</p>
   <nav class="toc"><a href="#s1">1 한눈에 보기</a><a href="#s2">2 문장 형식</a><a href="#s3">3 상태 문구</a><a href="#s4">4 변화 문구</a><a href="#s5">5 이유 문구</a><a href="#s6">6 예시</a><a href="#s8">7 샘플 적용</a><a href="#s7">8 표시 · 말투</a><a href="#s10">9 전체 문장</a></nav>
 </div>
 
 <section class="card" id="s1">
   <h2><span class="n">1</span>한눈에 보기</h2>
   <div class="flow">
-    <div><b>① 구간 비교</b><p>선택한 날 vs 전날</p><small>구간: 좋음 · 보통 · 주의 (엔진 결과 그대로)</small></div>
-    <div><b>② 구간이 바뀜</b><p>이유 + 변화</p><small>가장 크게 달라진 항목 1개</small></div>
-    <div><b>③ 구간이 같음</b><p>며칠째인지 + 상태</p><small>주의 3일 이상이면 이유 추가</small></div>
+    <div><b>① 단계 비교</b><p>선택한 날 vs 전날</p><small>지표별 3단계 (엔진 결과 그대로)</small></div>
+    <div><b>② 단계가 바뀜</b><p>이유 + 변화</p><small>가장 크게 달라진 항목 1개</small></div>
+    <div><b>③ 단계가 같음</b><p>며칠째인지 + 상태</p><small>낮은 단계 3일 이상이면 이유 추가</small></div>
   </div>
 </section>
 
@@ -77,49 +77,34 @@ a{color:#5170FF}
   <h2><span class="n">2</span>문장 형식</h2>
   <table>
     <tr><th>상황</th><th>형식</th></tr>
-    <tr><td class="k">전날 기록 없음</td><td><code>{상태}.</code></td></tr>
-    <tr><td class="k">구간이 올라감 · 내려감</td><td><code>{이유} {변화}.</code></td></tr>
-    <tr><td class="k">같은 구간 2일 이상</td><td><code>{주어} {N}일째 {서술}.</code> (예: 하루의 짜임새가 2일째 적정한 편이에요.)</td></tr>
-    <tr><td class="k">주의 3일 이상</td><td><code>{이어진 이유 · N일째 이어지면서} {상태}.</code></td></tr>
+    <tr><td class="k">전날 단계 없음</td><td><code>{상태}.</code> (예: 오늘은 현실과 이상 사이의 하루예요.)</td></tr>
+    <tr><td class="k">단계가 올라감 · 내려감</td><td><code>{이유} {변화}.</code></td></tr>
+    <tr><td class="k">같은 단계 2일 이상</td><td><code>{N}일째 {상태}.</code> (예: 2일째 실천 중수예요.)</td></tr>
+    <tr><td class="k">낮은 단계 3일 이상</td><td><code>{이어진 이유 · N일째 이어지면서} {상태}.</code></td></tr>
   </table>
   <h3>함께 지키는 규칙</h3>
   <ul class="rules">
-    <li>바뀐 날 = <b>구간</b>이 전날과 달라진 날 (점수만 바뀌면 같은 날)</li>
-    <li>N = 같은 구간이 이어진 날 수 (지난 주까지 거슬러 셈)</li>
-    <li>전날과 비교하는 값은 <b>각 날의 최종값</b>. 짜임새 있는 하루 · 행동 기회 대응의 오늘 값은 하루 중 잠정값이므로, 오늘 문장도 그 시각 값으로 만들고 값이 바뀌면 다시 만듦</li>
-    <li>생활 변화 추이 ‘흐름’ = 최근 7일이 직전 7일보다 나아졌는지(나아지는 편) 줄었는지(줄어드는 편). 매일 일정한지를 뜻하지 않음</li>
+    <li>바뀐 날 = <b>단계</b>가 전날과 달라진 날 (점수만 바뀌면 같은 날)</li>
+    <li>N = 같은 단계가 이어진 날 수 (지난 주까지 거슬러 셈)</li>
+    <li>전날과 비교하는 값은 각 날의 최종값. 몸잠밥 · 내실천의 오늘 값은 하루 중 잠정값이라 오늘 문장도 그 시각 값으로 만들고 값이 바뀌면 다시 만듦</li>
+    <li>단계가 없는 날(일부 기록 · 자료 부족 · 보조 추정만 · 확인 불가 · 준비 중)은 문장을 만들지 않고, 그다음 날은 「전날 단계 없음」으로 봄</li>
+    <li>일상결의 단계는 반올림 전 전체 변화값(Z)으로 판정함</li>
   </ul>
-
-  <h3>배지와 문장의 역할</h3>
-  <table>
-    <tr><th style="width:18%">요소</th><th>나타내는 것</th></tr>
-    <tr><td class="k">구간 배지</td><td><b>선택한 날의 상태</b> (좋음 · 보통 · 주의)</td></tr>
-    <tr><td class="k">지표 해석 문장</td><td><b>전날 대비 구간 변화</b> 또는 <b>같은 구간이 이어진 일수</b></td></tr>
-  </table>
-  <table style="margin-top:8px">
-    <tr><th>예 · 짜임새 있는 하루</th><th>전날 → 선택일</th><th>배지 (오늘 상태)</th><th>해석 (변화 · 연속)</th></tr>
-    <tr><td class="k">점수만 오름</td><td>48점(보통) → 58점(보통)</td><td>보통이에요</td><td>하루의 짜임새가 2일째 적정한 편이에요.</td></tr>
-    <tr><td class="k">구간이 바뀜</td><td>30점(주의) → 41점(보통)</td><td>보통이에요</td><td>움직임이 늘어나면서 하루의 짜임새가 나아지고 있어요.</td></tr>
-    <tr><td class="k">구간이 올라감</td><td>62점(보통) → 70점(좋음)</td><td>잘 짜였어요</td><td>수면이 알맞은 시간에 가까워지면서 하루의 짜임새가 나아지고 있어요.</td></tr>
-  </table>
-  <ul class="rules" style="margin-top:6px">
-    <li>점수가 올라도 구간이 같으면 ‘나아지고 있어요’를 쓰지 않고 연속 문장을 씀</li>
-    <li>샘플 표의 <b>배지 칸</b>은 화면 배지 문구 그대로(오늘 상태) · 예시의 회색 <b>‘변화 · …’</b> 태그는 변화 방향이며 배지가 아님</li>
-  </ul>
-
   <h3>기준값</h3>
   <table>
-    <tr><th>구간 경계 (반올림 전 점수)</th><th class="low">주의</th><th class="mid">보통</th><th class="good">좋음</th></tr>
-    <tr><td class="k">세 지표 공통</td><td>33점 미만</td><td>33점 이상 ~ 66점 미만</td><td>66점 이상</td></tr>
+    <tr><th>단계 경계</th><th class="low">낮은 단계</th><th class="mid">가운데 단계</th><th class="good">높은 단계</th></tr>
+    <tr><td class="k">몸잠밥 지수</td><td>현실적 하루 · 50 미만</td><td>현실과 이상 사이 · 50~80</td><td>이상적 하루 · 80 이상</td></tr>
+    <tr><td class="k">내실천 지수</td><td>실천 초보 · 25 미만</td><td>실천 중수 · 25~75</td><td>실천 고수 · 75 이상</td></tr>
+    <tr><td class="k">일상결 지수</td><td>주춤기 · Z −0.05 미만</td><td>유지기 · Z −0.05~+0.05</td><td>탄력기 · Z +0.05 초과</td></tr>
   </table>
   <table style="margin-top:8px">
-    <tr><th>주의 지속 이유 · ‘낮음’</th><th>낮음</th><th>낮지 않음</th></tr>
-    <tr><td class="k">짜임새 있는 하루</td><td>항목값 0.4 미만 (0.39 → 낮음)</td><td>0.4 이상</td></tr>
-    <tr><td class="k">행동 기회 대응</td><td>기회 점수 10점 미만 (25점의 40%)</td><td>10점 이상</td></tr>
-    <tr><td class="k">생활 변화 추이</td><td>항목 신호 −0.2 미만</td><td>−0.2 이상</td></tr>
+    <tr><th>낮은 단계 지속 이유 · ‘낮음’</th><th>낮음</th><th>낮지 않음</th></tr>
+    <tr><td class="k">몸잠밥 지수</td><td>영역 점수 0.4 미만</td><td>0.4 이상</td></tr>
+    <tr><td class="k">내실천 지수</td><td>묶음 점수 10점 미만 (25점의 40%)</td><td>10점 이상</td></tr>
+    <tr><td class="k">일상결 지수</td><td>항목 변화값 −0.2 미만</td><td>−0.2 이상</td></tr>
   </table>
   <ul class="rules" style="margin-top:6px">
-    <li>주의가 이어진 <b>모든 날</b> ‘낮음’이어야 이유로 씀 · 여럿이면 선택일 값이 가장 낮은 항목 (같으면 5장 표 순서)</li>
+    <li>낮은 단계가 이어진 <b>모든 날</b> ‘낮음’이어야 이유로 씀 · 여럿이면 선택일 값이 가장 낮은 항목 (같으면 5장 표 순서)</li>
     <li>이유 생략: 영향 2점 미만 · <b>2.0점부터 이유 표시</b></li>
   </ul>
 </section>
@@ -127,91 +112,74 @@ a{color:#5170FF}
 <section class="card" id="s3">
   <h2><span class="n">3</span>상태 문구</h2>
   <table>
-    <tr><th>지표</th><th class="good">좋음</th><th class="mid">보통</th><th class="low">주의</th></tr>
-    <tr><td class="k">짜임새 있는 하루</td><td>하루의 짜임새가 좋은 편이에요</td><td>하루의 짜임새가 적정한 편이에요</td><td>하루의 짜임새가 부족한 편이에요</td></tr><tr><td class="k">행동 기회 대응</td><td>기회마다 움직인 정도가 좋은 편이에요</td><td>기회마다 움직인 정도가 적정한 편이에요</td><td>기회마다 움직인 정도가 부족한 편이에요</td></tr><tr><td class="k">생활 변화 추이</td><td>최근 생활의 흐름이 나아지는 편이에요</td><td>최근 생활의 흐름이 지난주와 비슷한 편이에요</td><td>최근 생활의 흐름이 줄어드는 편이에요</td></tr>
+    <tr><th>지표</th><th class="good">높은 단계</th><th class="mid">가운데 단계</th><th class="low">낮은 단계</th></tr>
+    <tr><td class="k">몸잠밥 지수</td><td>오늘은 이상적인 하루예요</td><td>오늘은 현실과 이상 사이의 하루예요</td><td>오늘은 현실적인 하루예요</td></tr><tr><td class="k">내실천 지수</td><td>오늘은 실천 고수예요</td><td>오늘은 실천 중수예요</td><td>오늘은 실천 초보예요</td></tr><tr><td class="k">일상결 지수</td><td>최근 4주는 탄력기예요</td><td>최근 4주는 유지기예요</td><td>최근 4주는 주춤기예요</td></tr>
   </table>
 </section>
 
 <section class="card" id="s4">
   <h2><span class="n">4</span>변화 문구</h2>
   <table>
-    <tr><th>지표</th><th class="good">구간이 올라감</th><th class="low">구간이 내려감</th></tr>
-    <tr><td class="k">짜임새 있는 하루</td><td>하루의 짜임새가 나아지고 있어요</td><td>하루의 짜임새가 흐트러지고 있어요</td></tr><tr><td class="k">행동 기회 대응</td><td>기회마다 움직인 정도가 나아지고 있어요</td><td>기회마다 움직인 정도가 줄어들고 있어요</td></tr><tr><td class="k">생활 변화 추이</td><td>최근 생활의 흐름이 나아지고 있어요</td><td>최근 생활의 흐름이 주춤하고 있어요</td></tr>
+    <tr><th>지표</th><th class="good">단계가 올라감</th><th class="low">단계가 내려감</th></tr>
+    <tr><td class="k">몸잠밥 지수</td><td>이상적인 하루에 가까워지고 있어요</td><td>이상적인 하루에서 멀어지고 있어요</td></tr><tr><td class="k">내실천 지수</td><td>실천이 한 단계 올라갔어요</td><td>실천이 한 단계 내려왔어요</td></tr><tr><td class="k">일상결 지수</td><td>일상결이 탄력을 받고 있어요</td><td>일상결의 탄력이 줄고 있어요</td></tr>
   </table>
 </section>
 
 <section class="card" id="s5">
   <h2><span class="n">5</span>이유 문구</h2>
   <table>
-    <tr><th>항목</th><th>지표</th><th class="good">늘었을 때 · 나아졌을 때</th><th class="low">줄었을 때 · 나빠졌을 때</th><th class="mid">주의가 이어질 때</th></tr>
-    <tr><td class="k">수면</td><td>짜임새 있는 하루</td><td>수면이 알맞은 시간에 가까워지면서</td><td>수면이 알맞은 시간에서 멀어지면서</td><td>수면이 알맞지 않은 날이 N일째 이어지면서</td></tr><tr><td class="k">식사 균형</td><td>짜임새 있는 하루</td><td>식사 균형이 좋아지면서</td><td>식사 균형이 흐트러지면서</td><td>식사 균형이 아쉬운 날이 N일째 이어지면서</td></tr><tr><td class="k">움직임량</td><td>짜임새 있는 하루</td><td>움직임이 늘어나면서</td><td>움직임이 줄어들면서</td><td>움직임이 적은 날이 N일째 이어지면서</td></tr><tr><td class="k">식사–수면 간격</td><td>짜임새 있는 하루</td><td>식사와 잠 사이 간격이 알맞아지면서</td><td>식사와 잠 사이 간격이 어긋나면서</td><td>식사와 잠 사이 간격이 어긋난 날이 N일째 이어지면서</td></tr><tr><td class="k">식후 행동</td><td>행동 기회 대응</td><td>식후에 움직이는 때가 늘면서</td><td>식후에 움직이는 때가 줄면서</td><td>식후에 움직이지 않은 날이 N일째 이어지면서</td></tr><tr><td class="k">기상 후 행동</td><td>행동 기회 대응</td><td>일어난 뒤 움직이면서</td><td>일어난 뒤 움직임이 줄면서</td><td>일어난 뒤 움직이지 않은 날이 N일째 이어지면서</td></tr><tr><td class="k">틈틈이 움직임</td><td>행동 기회 대응</td><td>틈틈이 움직이는 때가 늘면서</td><td>틈틈이 움직이는 때가 줄면서</td><td>틈틈이 움직이지 않은 날이 N일째 이어지면서</td></tr><tr><td class="k">움직임 총량</td><td>생활 변화 추이</td><td>걸음 수가 늘어나면서</td><td>걸음 수가 줄어들면서</td><td>걸음 수가 줄어든 흐름이 N일째 이어지면서</td></tr><tr><td class="k">움직임 분포</td><td>생활 변화 추이</td><td>자주 움직이는 날이 늘면서</td><td>움직이는 횟수가 줄면서</td><td>움직이는 횟수가 줄어든 흐름이 N일째 이어지면서</td></tr><tr><td class="k">운동</td><td>생활 변화 추이</td><td>운동이 늘어나면서</td><td>운동이 줄어들면서</td><td>운동이 줄어든 흐름이 N일째 이어지면서</td></tr><tr><td class="k">행동 연결</td><td>생활 변화 추이</td><td>기회마다 움직인 비율이 늘면서</td><td>기회마다 움직인 비율이 줄면서</td><td>기회마다 움직인 비율이 줄어든 흐름이 N일째 이어지면서</td></tr><tr><td class="k">꾸준함</td><td>생활 변화 추이</td><td>움직인 날이 늘면서</td><td>거의 움직이지 않은 날이 생기면서</td><td>거의 움직이지 않은 날이 늘어난 흐름이 N일째 이어지면서</td></tr><tr><td class="k">수면 규칙성</td><td>생활 변화 추이</td><td>잠드는 시간이 일정해지면서</td><td>잠드는 시간이 불규칙해지면서</td><td>잠드는 시간이 불규칙해진 흐름이 N일째 이어지면서</td></tr><tr><td class="k">식사 시각 규칙성</td><td>생활 변화 추이</td><td>식사 시간이 일정해지면서</td><td>식사 시간이 불규칙해지면서</td><td>식사 시간이 불규칙해진 흐름이 N일째 이어지면서</td></tr>
+    <tr><th>항목</th><th>지표</th><th class="good">늘었을 때 · 나아졌을 때</th><th class="low">줄었을 때 · 나빠졌을 때</th><th class="mid">낮은 단계가 이어질 때</th></tr>
+    <tr><td class="k">수면</td><td>몸잠밥 지수</td><td>수면이 권장 시간에 가까워지면서</td><td>수면이 권장 시간에서 멀어지면서</td><td>수면이 권장 시간에서 먼 날이 N일째 이어지면서</td></tr><tr><td class="k">움직임</td><td>몸잠밥 지수</td><td>움직임이 늘어나면서</td><td>움직임이 줄어들면서</td><td>움직임이 적은 날이 N일째 이어지면서</td></tr><tr><td class="k">식사</td><td>몸잠밥 지수</td><td>식사가 권장에 가까워지면서</td><td>식사가 권장에서 멀어지면서</td><td>식사가 권장에서 먼 날이 N일째 이어지면서</td></tr><tr><td class="k">식사 후 실천</td><td>내실천 지수</td><td>식사 후 실천이 늘면서</td><td>식사 후 실천이 줄면서</td><td>식사 후 실천이 없는 날이 N일째 이어지면서</td></tr><tr><td class="k">기상 후 실천</td><td>내실천 지수</td><td>일어난 뒤 실천하면서</td><td>일어난 뒤 실천이 줄면서</td><td>일어난 뒤 실천이 없는 날이 N일째 이어지면서</td></tr><tr><td class="k">움직임 실천</td><td>내실천 지수</td><td>틈틈이 움직이거나 운동한 때가 늘면서</td><td>틈틈이 움직이거나 운동한 때가 줄면서</td><td>틈틈이 움직인 때가 없는 날이 N일째 이어지면서</td></tr><tr><td class="k">움직임 총량</td><td>일상결 지수</td><td>최근 주로 갈수록 걸음이 늘면서</td><td>최근 주로 갈수록 걸음이 줄면서</td><td>걸음이 줄어드는 흐름이 N일째 이어지면서</td></tr><tr><td class="k">움직임 분포</td><td>일상결 지수</td><td>자주 움직이는 날이 늘면서</td><td>움직이는 횟수가 줄면서</td><td>움직이는 횟수가 줄어드는 흐름이 N일째 이어지면서</td></tr><tr><td class="k">지속성</td><td>일상결 지수</td><td>매일 움직인 날이 늘면서</td><td>거의 움직이지 않은 날이 늘면서</td><td>거의 움직이지 않은 날이 늘어나는 흐름이 N일째 이어지면서</td></tr><tr><td class="k">운동 습관</td><td>일상결 지수</td><td>운동이 늘면서</td><td>운동이 줄면서</td><td>운동이 줄어드는 흐름이 N일째 이어지면서</td></tr><tr><td class="k">식후 행동</td><td>일상결 지수</td><td>식후 실천이 늘면서</td><td>식후 실천이 줄면서</td><td>식후 실천이 줄어드는 흐름이 N일째 이어지면서</td></tr><tr><td class="k">수면시각 규칙성</td><td>일상결 지수</td><td>잠드는 시간이 일정해지면서</td><td>잠드는 시간이 불규칙해지면서</td><td>잠드는 시간이 불규칙해지는 흐름이 N일째 이어지면서</td></tr><tr><td class="k">식사시각 규칙성</td><td>일상결 지수</td><td>식사 시간이 일정해지면서</td><td>식사 시간이 불규칙해지면서</td><td>식사 시간이 불규칙해지는 흐름이 N일째 이어지면서</td></tr>
   </table>
-
   <h3>이유 고르는 규칙</h3>
   <ul class="rules">
     <li>세 지표 모두 <b>점수에 준 영향</b>이 가장 큰 항목 <b>1개</b>만</li>
     <li>영향이 <b>2점 미만</b>이면 이유 생략</li>
-    <li>주의가 이어진 날: 그 기간 <b>매일</b> 낮았던 항목만</li>
-    <li>짜임새 있는 하루에서 <b>기록이 빠져 충족률이 바뀐 것</b>은 이유로 쓰지 않음 — 빠진 항목은 선택일 산출에 쓰이지 않았으므로 후보에서 제외</li>
+    <li>낮은 단계가 이어진 날: 그 기간 <b>매일</b> 낮았던 항목만</li>
+    <li>선택일 산출에 쓰이지 않은(자료가 없는) 영역 · 묶음 · 항목은 이유 후보에서 제외</li>
   </ul>
-
   <h3>지표별 영향 계산</h3>
   <table>
     <tr><th>지표</th><th>후보</th><th>기여 점수</th></tr>
-    <tr><td class="k">짜임새 있는 하루</td><td>수면 · 식사 균형 · 움직임량 · 식사–수면 간격</td><td><code>√충족률 × 100 × 항목값 × 비중 ÷ Σ비중</code> · 비중: 수면 1 · 식사 균형 답한 축 ÷ 7 · 움직임량 1 · 식사–수면 간격 0.25</td></tr>
-    <tr><td class="k">행동 기회 대응</td><td>식후 행동 · 기상 후 행동 · 틈틈이 움직임</td><td>기회별 점수 그대로 (각 최대 25점) · 틈틈이 움직임 = max(오래 앉기 중단 + 운동, 움직임 추정)</td></tr>
-    <tr><td class="k">생활 변화 추이</td><td>움직임 총량 · 움직임 분포 · 운동 · 행동 연결 · 꾸준함 · 수면 규칙성 · 식사 시각 규칙성</td><td><code>50 × 항목 신호 × 비중 ÷ 0.45</code> · 비중 25.5 · 12.75 · 12.75 · 12.75 · 8.5 · 12.75 · 15%</td></tr>
-  </table>
-
-  <h3>영향 점수 계산 방법</h3>
-  <ul class="rules">
-    <li><code>항목별 영향(점) = 선택일 기여 점수 − 전날 기여 점수</code></li>
-    <li><b>선택일 산출에 쓰이지 않은 항목은 이유 후보에서 제외</b></li>
-    <li>항목값 · 신호 = <b>지표 엔진이 이미 산출한 값을 그대로 사용</b> (문장 규칙에서 다시 계산하지 않음)</li>
-    <li>내려간 날은 가장 크게 마이너스, 올라간 날은 가장 크게 플러스인 항목 1개</li>
-    <li>개발: 엔진이 계산 중 가진 항목별 기여 점수를 전날 값과 빼기만 하면 됨</li>
-  </ul>
-
-  <h3>계산 예시 · 짜임새 있는 하루 좋음 → 보통</h3>
-  <table>
-    <tr><th>항목</th><th>비중</th><th>전날 → 선택일</th><th>항목값</th><th>영향</th></tr>
-    <tr><td class="k">수면</td><td>1</td><td>7시간 30분 → 5시간 30분</td><td>1.0 → 0.25</td><td><b>−25.0점</b></td></tr>
-    <tr><td class="k">식사 균형</td><td>1</td><td>점심 0.70 → 0.62</td><td>0.70 → 0.62</td><td>−2.7점</td></tr>
-    <tr><td class="k">움직임량</td><td>1</td><td>8,000보 → 7,200보</td><td>1.0 → 0.9</td><td>−3.3점</td></tr>
+    <tr><td class="k">몸잠밥 지수</td><td>수면 · 움직임 · 식사</td><td><code>100 ÷ 3 × 영역 점수</code> (각 영역 최대 33.33점)</td></tr>
+    <tr><td class="k">내실천 지수</td><td>식사 후 실천 · 기상 후 실천 · 움직임 실천</td><td>묶음 점수 그대로 · 움직임 실천 = max(오래 앉음 중단 + 운동, 걸음 보조 추정)</td></tr>
+    <tr><td class="k">일상결 지수</td><td>움직임 총량 · 분포 · 지속성 · 운동 습관 · 식후 행동 · 수면시각 · 식사시각 규칙성</td><td><code>50 × 항목 변화값 × 비중 ÷ 0.60</code> · 비중 25.5 · 12.75 · 8.5 · 12.75 · 12.75 · 12.75 · 15%</td></tr>
   </table>
   <ul class="rules" style="margin-top:6px">
-    <li>세 항목 모두 비중 1 · 충족률 100% → 기여 점수 = 100 × 항목값 ÷ 3</li>
-    <li>수면(−25.0점)이 가장 큼 → ‘수면이 알맞은 시간에서 멀어지면서 하루의 짜임새가 흐트러지고 있어요.’</li>
+    <li><code>항목별 영향(점) = 선택일 기여 점수 − 전날 기여 점수</code> · 내려간 날은 가장 큰 마이너스, 올라간 날은 가장 큰 플러스</li>
+    <li>영역 · 묶음 · 항목 값은 지표 엔진이 이미 산출한 값을 그대로 씀. 개발은 전날 기여 점수와 빼기만 하면 됨</li>
   </ul>
+  <h3>계산 예시 · 몸잠밥 지수 이상적 하루 → 현실과 이상 사이</h3>
+  <table>
+    <tr><th>영역</th><th>전날 → 선택일</th><th>기여 점수</th><th>영향</th></tr>
+    <tr><td class="k">수면</td><td>1.00 → 0.60</td><td>33.3 → 20.0</td><td><b>−13.3점</b></td></tr>
+    <tr><td class="k">움직임</td><td>0.90 → 0.55</td><td>30.0 → 18.3</td><td>−11.7점</td></tr>
+    <tr><td class="k">식사</td><td>0.85 → 0.60</td><td>28.3 → 20.0</td><td>−8.3점</td></tr>
+  </table>
+  <ul class="rules" style="margin-top:6px"><li>91.7점 → 58.3점. 수면(−13.3점)이 가장 큼 → ‘수면이 권장 시간에서 멀어지면서 이상적인 하루에서 멀어지고 있어요.’</li></ul>
 </section>
 
 <section class="card" id="s6">
   <h2><span class="n">6</span>지표별 예시</h2>
-  <div class="ex">
-    <div><h4>짜임새 있는 하루</h4><p><span class="tag t-chg">변화 · 올라감</span>식사 균형이 좋아지면서 하루의 짜임새가 나아지고 있어요.</p><p><span class="tag t-chg">변화 · 올라감</span>움직임이 늘어나면서 하루의 짜임새가 나아지고 있어요.</p><p><span class="tag t-chg">변화 · 내려감</span>수면이 알맞은 시간에서 멀어지면서 하루의 짜임새가 흐트러지고 있어요.</p><p><span class="tag t-chg">변화 · 내려감</span>식사와 잠 사이 간격이 어긋나면서 하루의 짜임새가 흐트러지고 있어요.</p><p><span class="tag t-chg">변화 · 같음</span>하루의 짜임새가 2일째 적정한 편이에요.</p><p><span class="tag t-chg">변화 · 주의 지속</span>수면이 알맞지 않은 날이 3일째 이어지면서 하루의 짜임새가 부족한 편이에요.</p></div><div><h4>행동 기회 대응</h4><p><span class="tag t-chg">변화 · 올라감</span>식후에 움직이는 때가 늘면서 기회마다 움직인 정도가 나아지고 있어요.</p><p><span class="tag t-chg">변화 · 올라감</span>일어난 뒤 움직이면서 기회마다 움직인 정도가 나아지고 있어요.</p><p><span class="tag t-chg">변화 · 내려감</span>틈틈이 움직이는 때가 줄면서 기회마다 움직인 정도가 줄어들고 있어요.</p><p><span class="tag t-chg">변화 · 같음</span>기회마다 움직인 정도가 2일째 좋은 편이에요.</p><p><span class="tag t-chg">변화 · 주의 지속</span>식후에 움직이지 않은 날이 3일째 이어지면서 기회마다 움직인 정도가 부족한 편이에요.</p></div><div><h4>생활 변화 추이</h4><p><span class="tag t-chg">변화 · 올라감</span>걸음 수가 늘어나면서 최근 생활의 흐름이 나아지고 있어요.</p><p><span class="tag t-chg">변화 · 올라감</span>식사 시간이 일정해지면서 최근 생활의 흐름이 나아지고 있어요.</p><p><span class="tag t-chg">변화 · 내려감</span>잠드는 시간이 불규칙해지면서 최근 생활의 흐름이 주춤하고 있어요.</p><p><span class="tag t-chg">변화 · 같음</span>최근 생활의 흐름이 2일째 지난주와 비슷한 편이에요.</p><p><span class="tag t-chg">변화 · 주의 지속</span>걸음 수가 줄어든 흐름이 3일째 이어지면서 최근 생활의 흐름이 줄어드는 편이에요.</p></div>
-  </div>
+  <div class="ex"><div><h4>몸잠밥 지수</h4><p><span class="tag t-chg">변화 · 올라감</span>움직임이 늘어나면서 이상적인 하루에 가까워지고 있어요.</p><p><span class="tag t-chg">변화 · 올라감</span>식사가 권장에 가까워지면서 이상적인 하루에 가까워지고 있어요.</p><p><span class="tag t-chg">변화 · 내려감</span>수면이 권장 시간에서 멀어지면서 이상적인 하루에서 멀어지고 있어요.</p><p><span class="tag t-chg">변화 · 같음</span>2일째 현실과 이상 사이의 하루예요.</p><p><span class="tag t-chg">변화 · 낮은 단계 지속</span>수면이 권장 시간에서 먼 날이 3일째 이어지면서 현실적인 하루예요.</p></div><div><h4>내실천 지수</h4><p><span class="tag t-chg">변화 · 올라감</span>일어난 뒤 실천하면서 실천이 한 단계 올라갔어요.</p><p><span class="tag t-chg">변화 · 올라감</span>틈틈이 움직이거나 운동한 때가 늘면서 실천이 한 단계 올라갔어요.</p><p><span class="tag t-chg">변화 · 내려감</span>식사 후 실천이 줄면서 실천이 한 단계 내려왔어요.</p><p><span class="tag t-chg">변화 · 같음</span>2일째 실천 고수예요.</p><p><span class="tag t-chg">변화 · 낮은 단계 지속</span>식사 후 실천이 없는 날이 3일째 이어지면서 실천 초보예요.</p></div><div><h4>일상결 지수</h4><p><span class="tag t-chg">변화 · 올라감</span>최근 주로 갈수록 걸음이 늘면서 일상결이 탄력을 받고 있어요.</p><p><span class="tag t-chg">변화 · 올라감</span>식사 시간이 일정해지면서 일상결이 탄력을 받고 있어요.</p><p><span class="tag t-chg">변화 · 내려감</span>운동이 줄면서 일상결의 탄력이 줄고 있어요.</p><p><span class="tag t-chg">변화 · 같음</span>최근 4주는 2일째 유지기예요.</p><p><span class="tag t-chg">변화 · 낮은 단계 지속</span>걸음이 줄어드는 흐름이 3일째 이어지면서 최근 4주는 주춤기예요.</p></div></div>
 </section>
 
 <section class="card" id="s8">
   <h2><span class="n">7</span>샘플 시나리오 적용 결과</h2>
   <h3>① 회복 중인 주 · 데이터</h3>
-  <table><tr><th>요일</th><th>수면</th><th>질문 끼니 · 식사 균형</th><th>식사–수면 간격</th><th>걸음 수</th><th>식후 움직임</th><th>기상 후 움직임</th><th>오래 앉기 중단</th><th>운동</th><th>활동 시간</th></tr><tr><td class="k">월</td><td>6시간 30분</td><td>점심 · 0.62</td><td>—</td><td>6,200</td><td>2회</td><td>없음</td><td>1회</td><td>—</td><td>40분</td></tr><tr><td class="k">화</td><td>5시간 30분</td><td>저녁 · 0.45</td><td>70분</td><td>3,800</td><td>1회</td><td>없음</td><td>0회</td><td>—</td><td>20분</td></tr><tr><td class="k">수</td><td>7시간</td><td>아침 · 0.70</td><td>120분</td><td>7,600</td><td>2회</td><td>있음</td><td>2회</td><td>—</td><td>55분</td></tr><tr><td class="k">목</td><td>7시간 30분</td><td>저녁 · 0.78</td><td>210분</td><td>8,400</td><td>3회</td><td>있음</td><td>2회</td><td>30분</td><td>60분</td></tr></table>
-  <h3>① 회복 중인 주 · 생활 변화 추이 항목 신호 (최근 7일 vs 직전 7일)</h3>
-  <table><tr><th>요일</th><th>움직임 총량</th><th>움직임 분포</th><th>운동</th><th>행동 연결</th><th>꾸준함</th><th>수면 규칙성</th><th>식사 시각 규칙성</th><th>변화 신호</th></tr><tr><td class="k">월</td><td>+0.0</td><td>+0.0</td><td>+0.0</td><td>+0.1</td><td>+0.0</td><td>-0.2</td><td>+0.0</td><td><b>-0.013</b></td></tr><tr><td class="k">화</td><td>-0.1</td><td>-0.1</td><td>+0.0</td><td>+0.0</td><td>-0.1</td><td>-0.4</td><td>+0.0</td><td><b>-0.098</b></td></tr><tr><td class="k">수</td><td>+0.2</td><td>+0.2</td><td>+0.0</td><td>+0.3</td><td>+0.0</td><td>+0.0</td><td>+0.2</td><td><b>+0.145</b></td></tr><tr><td class="k">목</td><td>+0.4</td><td>+0.3</td><td>+0.5</td><td>+0.4</td><td>+0.2</td><td>+0.2</td><td>+0.3</td><td><b>+0.343</b></td></tr></table>
-  <h3>① 회복 중인 주 · 배지와 지표 해석</h3>
-  <table><tr><th rowspan="2">요일</th><th colspan="2">짜임새 있는 하루</th><th colspan="2">행동 기회 대응</th><th colspan="2">생활 변화 추이</th></tr><tr><th>배지</th><th>해석</th><th>배지</th><th>해석</th><th>배지</th><th>해석</th></tr><tr><td class="k">월</td><td style="white-space:nowrap"><span class="tag t-up">잘 짜였어요</span></td><td>하루의 짜임새가 좋은 편이에요.</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>기회마다 움직인 정도가 부족한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-same">비슷해요</span></td><td>최근 생활의 흐름이 지난주와 비슷한 편이에요.</td></tr><tr><td class="k">화</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>수면이 알맞은 시간에서 멀어지면서 하루의 짜임새가 흐트러지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>기회마다 움직인 정도가 2일째 부족한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-same">비슷해요</span></td><td>최근 생활의 흐름이 2일째 지난주와 비슷한 편이에요.</td></tr><tr><td class="k">수</td><td style="white-space:nowrap"><span class="tag t-up">잘 짜였어요</span></td><td>수면이 알맞은 시간에 가까워지면서 하루의 짜임새가 나아지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>일어난 뒤 움직이면서 기회마다 움직인 정도가 나아지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-up">나아지고 있어요</span></td><td>걸음 수가 늘어나면서 최근 생활의 흐름이 나아지고 있어요.</td></tr><tr><td class="k">목</td><td style="white-space:nowrap"><span class="tag t-up">잘 짜였어요</span></td><td>하루의 짜임새가 2일째 좋은 편이에요.</td><td style="white-space:nowrap"><span class="tag t-up">잘 살렸어요</span></td><td>틈틈이 움직이는 때가 늘면서 기회마다 움직인 정도가 나아지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-up">나아지고 있어요</span></td><td>최근 생활의 흐름이 2일째 나아지는 편이에요.</td></tr></table>
+  <table><tr><th rowspan="2">요일</th><th colspan="4">몸잠밥 지수 (영역 0~1)</th><th colspan="4">내실천 지수 (묶음 점수)</th><th>일상결</th></tr><tr><th>수면</th><th>움직임</th><th>식사</th><th>점수</th><th>식사 후</th><th>기상 후</th><th>움직임</th><th>점수</th><th>Z</th></tr><tr><td class="k">월</td><td>0.75</td><td>0.60</td><td>0.70</td><td>68.3</td><td>16.7</td><td>0</td><td>8.3</td><td>25.0</td><td>+0.019</td></tr><tr><td class="k">화</td><td>0.40</td><td>0.35</td><td>0.55</td><td>43.3</td><td>8.3</td><td>0</td><td>8.3</td><td>16.6</td><td>-0.032</td></tr><tr><td class="k">수</td><td>0.80</td><td>0.85</td><td>0.75</td><td>80.0</td><td>25</td><td>25</td><td>16.7</td><td>66.7</td><td>+0.097</td></tr><tr><td class="k">목</td><td>1.00</td><td>0.90</td><td>0.80</td><td>90.0</td><td>25</td><td>25</td><td>33.3</td><td>83.3</td><td>+0.170</td></tr></table>
+  <h3>① 회복 중인 주 · 단계와 지표 해석</h3>
+  <table><tr><th rowspan="2">요일</th><th colspan="2">몸잠밥 지수</th><th colspan="2">내실천 지수</th><th colspan="2">일상결 지수</th></tr><tr><th>단계</th><th>해석</th><th>단계</th><th>해석</th><th>단계</th><th>해석</th></tr><tr><td class="k">월</td><td style="white-space:nowrap"><span class="tag t-same">현실과 이상 사이</span></td><td>오늘은 현실과 이상 사이의 하루예요.</td><td style="white-space:nowrap"><span class="tag t-same">실천 중수</span></td><td>오늘은 실천 중수예요.</td><td style="white-space:nowrap"><span class="tag t-same">유지기</span></td><td>최근 4주는 유지기예요.</td></tr><tr><td class="k">화</td><td style="white-space:nowrap"><span class="tag t-down">현실적 하루</span></td><td>수면이 권장 시간에서 멀어지면서 이상적인 하루에서 멀어지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-down">실천 초보</span></td><td>식사 후 실천이 줄면서 실천이 한 단계 내려왔어요.</td><td style="white-space:nowrap"><span class="tag t-same">유지기</span></td><td>최근 4주는 2일째 유지기예요.</td></tr><tr><td class="k">수</td><td style="white-space:nowrap"><span class="tag t-up">이상적 하루</span></td><td>움직임이 늘어나면서 이상적인 하루에 가까워지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">실천 중수</span></td><td>일어난 뒤 실천하면서 실천이 한 단계 올라갔어요.</td><td style="white-space:nowrap"><span class="tag t-up">탄력기</span></td><td>최근 주로 갈수록 걸음이 늘면서 일상결이 탄력을 받고 있어요.</td></tr><tr><td class="k">목</td><td style="white-space:nowrap"><span class="tag t-up">이상적 하루</span></td><td>2일째 이상적인 하루예요.</td><td style="white-space:nowrap"><span class="tag t-up">실천 고수</span></td><td>틈틈이 움직이거나 운동한 때가 늘면서 실천이 한 단계 올라갔어요.</td><td style="white-space:nowrap"><span class="tag t-up">탄력기</span></td><td>최근 4주는 2일째 탄력기예요.</td></tr></table>
   <h3>② 컨디션이 떨어진 주 · 데이터</h3>
-  <table><tr><th>요일</th><th>수면</th><th>질문 끼니 · 식사 균형</th><th>식사–수면 간격</th><th>걸음 수</th><th>식후 움직임</th><th>기상 후 움직임</th><th>오래 앉기 중단</th><th>운동</th><th>활동 시간</th></tr><tr><td class="k">월</td><td>7시간 18분</td><td>아침 · 0.80</td><td>110분</td><td>8,300</td><td>3회</td><td>있음</td><td>2회</td><td>20분</td><td>60분</td></tr><tr><td class="k">화</td><td>6시간</td><td>점심 · 0.60</td><td>—</td><td>5,200</td><td>1회</td><td>있음</td><td>1회</td><td>—</td><td>35분</td></tr><tr><td class="k">수</td><td>5시간 12분</td><td>저녁 · 0.35</td><td>40분</td><td>2,400</td><td>0회</td><td>없음</td><td>1회</td><td>—</td><td>15분</td></tr><tr><td class="k">목</td><td>5시간</td><td>점심 · 0.30</td><td>—</td><td>1,900</td><td>0회</td><td>없음</td><td>0회</td><td>—</td><td>10분</td></tr><tr><td class="k">금</td><td>5시간 6분</td><td>점심 · 0.32</td><td>—</td><td>2,100</td><td>0회</td><td>없음</td><td>0회</td><td>—</td><td>12분</td></tr></table>
-  <h3>② 컨디션이 떨어진 주 · 생활 변화 추이 항목 신호</h3>
-  <table><tr><th>요일</th><th>움직임 총량</th><th>움직임 분포</th><th>운동</th><th>행동 연결</th><th>꾸준함</th><th>수면 규칙성</th><th>식사 시각 규칙성</th><th>변화 신호</th></tr><tr><td class="k">월</td><td>+0.2</td><td>+0.1</td><td>+0.2</td><td>+0.3</td><td>+0.1</td><td>+0.2</td><td>+0.2</td><td><b>+0.192</b></td></tr><tr><td class="k">화</td><td>+0.0</td><td>+0.0</td><td>+0.1</td><td>+0.1</td><td>+0.0</td><td>+0.1</td><td>+0.0</td><td><b>+0.038</b></td></tr><tr><td class="k">수</td><td>-0.4</td><td>-0.3</td><td>-0.2</td><td>-0.3</td><td>-0.2</td><td>-0.6</td><td>-0.3</td><td><b>-0.343</b></td></tr><tr><td class="k">목</td><td>-0.6</td><td>-0.5</td><td>-0.5</td><td>-0.5</td><td>-0.4</td><td>-0.7</td><td>-0.5</td><td><b>-0.542</b></td></tr><tr><td class="k">금</td><td>-0.7</td><td>-0.6</td><td>-0.5</td><td>-0.6</td><td>-0.5</td><td>-0.8</td><td>-0.6</td><td><b>-0.630</b></td></tr></table>
-  <h3>② 컨디션이 떨어진 주 · 배지와 지표 해석</h3>
-  <table><tr><th rowspan="2">요일</th><th colspan="2">짜임새 있는 하루</th><th colspan="2">행동 기회 대응</th><th colspan="2">생활 변화 추이</th></tr><tr><th>배지</th><th>해석</th><th>배지</th><th>해석</th><th>배지</th><th>해석</th></tr><tr><td class="k">월</td><td style="white-space:nowrap"><span class="tag t-up">잘 짜였어요</span></td><td>하루의 짜임새가 좋은 편이에요.</td><td style="white-space:nowrap"><span class="tag t-up">잘 살렸어요</span></td><td>기회마다 움직인 정도가 좋은 편이에요.</td><td style="white-space:nowrap"><span class="tag t-up">나아지고 있어요</span></td><td>최근 생활의 흐름이 나아지는 편이에요.</td></tr><tr><td class="k">화</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>수면이 알맞은 시간에서 멀어지면서 하루의 짜임새가 흐트러지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">보통이에요</span></td><td>틈틈이 움직이는 때가 줄면서 기회마다 움직인 정도가 줄어들고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">비슷해요</span></td><td>걸음 수가 줄어들면서 최근 생활의 흐름이 주춤하고 있어요.</td></tr><tr><td class="k">수</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>수면이 알맞은 시간에서 멀어지면서 하루의 짜임새가 흐트러지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>일어난 뒤 움직임이 줄면서 기회마다 움직인 정도가 줄어들고 있어요.</td><td style="white-space:nowrap"><span class="tag t-down">줄어들고 있어요</span></td><td>걸음 수가 줄어들면서 최근 생활의 흐름이 주춤하고 있어요.</td></tr><tr><td class="k">목</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>하루의 짜임새가 2일째 부족한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>기회마다 움직인 정도가 2일째 부족한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-down">줄어들고 있어요</span></td><td>최근 생활의 흐름이 2일째 줄어드는 편이에요.</td></tr><tr><td class="k">금</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>수면이 알맞지 않은 날이 3일째 이어지면서 하루의 짜임새가 부족한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-down">부족해요</span></td><td>식후에 움직이지 않은 날이 3일째 이어지면서 기회마다 움직인 정도가 부족한 편이에요.</td><td style="white-space:nowrap"><span class="tag t-down">줄어들고 있어요</span></td><td>잠드는 시간이 불규칙해진 흐름이 3일째 이어지면서 최근 생활의 흐름이 줄어드는 편이에요.</td></tr></table>
+  <table><tr><th rowspan="2">요일</th><th colspan="4">몸잠밥 지수 (영역 0~1)</th><th colspan="4">내실천 지수 (묶음 점수)</th><th>일상결</th></tr><tr><th>수면</th><th>움직임</th><th>식사</th><th>점수</th><th>식사 후</th><th>기상 후</th><th>움직임</th><th>점수</th><th>Z</th></tr><tr><td class="k">월</td><td>1.00</td><td>0.90</td><td>0.85</td><td>91.7</td><td>25</td><td>25</td><td>33.3</td><td>83.3</td><td>+0.120</td></tr><tr><td class="k">화</td><td>0.60</td><td>0.55</td><td>0.60</td><td>58.3</td><td>8.3</td><td>25</td><td>16.7</td><td>50.0</td><td>+0.019</td></tr><tr><td class="k">수</td><td>0.25</td><td>0.30</td><td>0.35</td><td>30.0</td><td>0</td><td>0</td><td>8.3</td><td>8.3</td><td>-0.123</td></tr><tr><td class="k">목</td><td>0.20</td><td>0.25</td><td>0.30</td><td>25.0</td><td>0</td><td>0</td><td>4.2</td><td>4.2</td><td>-0.249</td></tr><tr><td class="k">금</td><td>0.15</td><td>0.30</td><td>0.35</td><td>26.7</td><td>0</td><td>0</td><td>6</td><td>6.0</td><td>-0.314</td></tr></table>
+  <h3>② 컨디션이 떨어진 주 · 단계와 지표 해석</h3>
+  <table><tr><th rowspan="2">요일</th><th colspan="2">몸잠밥 지수</th><th colspan="2">내실천 지수</th><th colspan="2">일상결 지수</th></tr><tr><th>단계</th><th>해석</th><th>단계</th><th>해석</th><th>단계</th><th>해석</th></tr><tr><td class="k">월</td><td style="white-space:nowrap"><span class="tag t-up">이상적 하루</span></td><td>오늘은 이상적인 하루예요.</td><td style="white-space:nowrap"><span class="tag t-up">실천 고수</span></td><td>오늘은 실천 고수예요.</td><td style="white-space:nowrap"><span class="tag t-up">탄력기</span></td><td>최근 4주는 탄력기예요.</td></tr><tr><td class="k">화</td><td style="white-space:nowrap"><span class="tag t-same">현실과 이상 사이</span></td><td>수면이 권장 시간에서 멀어지면서 이상적인 하루에서 멀어지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-same">실천 중수</span></td><td>식사 후 실천이 줄면서 실천이 한 단계 내려왔어요.</td><td style="white-space:nowrap"><span class="tag t-same">유지기</span></td><td>최근 주로 갈수록 걸음이 줄면서 일상결의 탄력이 줄고 있어요.</td></tr><tr><td class="k">수</td><td style="white-space:nowrap"><span class="tag t-down">현실적 하루</span></td><td>수면이 권장 시간에서 멀어지면서 이상적인 하루에서 멀어지고 있어요.</td><td style="white-space:nowrap"><span class="tag t-down">실천 초보</span></td><td>일어난 뒤 실천이 줄면서 실천이 한 단계 내려왔어요.</td><td style="white-space:nowrap"><span class="tag t-down">주춤기</span></td><td>최근 주로 갈수록 걸음이 줄면서 일상결의 탄력이 줄고 있어요.</td></tr><tr><td class="k">목</td><td style="white-space:nowrap"><span class="tag t-down">현실적 하루</span></td><td>2일째 현실적인 하루예요.</td><td style="white-space:nowrap"><span class="tag t-down">실천 초보</span></td><td>2일째 실천 초보예요.</td><td style="white-space:nowrap"><span class="tag t-down">주춤기</span></td><td>최근 4주는 2일째 주춤기예요.</td></tr><tr><td class="k">금</td><td style="white-space:nowrap"><span class="tag t-down">현실적 하루</span></td><td>수면이 권장 시간에서 먼 날이 3일째 이어지면서 현실적인 하루예요.</td><td style="white-space:nowrap"><span class="tag t-down">실천 초보</span></td><td>식사 후 실천이 없는 날이 3일째 이어지면서 실천 초보예요.</td><td style="white-space:nowrap"><span class="tag t-down">주춤기</span></td><td>최근 4주는 3일째 주춤기예요.</td></tr></table>
   <h3>읽는 법</h3>
   <ul class="rules">
-    <li>식사 균형은 식이 답변을 0~1로 바꾼 값 · 답한 질문 축은 7개로 가정 · 행동은 모두 완료(결과 1)로 가정</li>
-    <li>회복 주 수요일 행동 기회 대응: 기상 후 행동 25점이 새로 생겨 영향이 가장 큼 → ‘일어난 뒤 움직이면서’</li>
-    <li>저하 주 수요일 짜임새 있는 하루: 식사 균형도 낮아졌지만 수면(5시간 12분)의 영향이 더 커서 수면이 이유</li>
-    <li>저하 주 금요일: 주의가 3일째이고 그 기간 매일 낮았던 항목 중 값이 가장 낮은 항목이 이유가 됨</li>
+    <li>몸잠밥은 세 영역이 모두 있는 날만 예시로 둠(일부 기록인 날은 문장 없음)</li>
+    <li>회복 주 수요일 내실천: 기상 후 실천 25점이 새로 생겨 영향이 가장 큼 → ‘일어난 뒤 실천하면서’</li>
+    <li>저하 주 금요일 몸잠밥: 낮은 단계가 3일째이고 그 기간 매일 0.4 미만이던 영역 중 가장 낮은 수면이 이유</li>
+    <li>저하 주 일상결: 낮은 단계가 이어져도 매일 −0.2 미만인 항목이 없으면 이유 없이 연속 문장만 씀</li>
   </ul>
 </section>
 
@@ -222,15 +190,14 @@ a{color:#5170FF}
     <tr><td class="k">제목</td><td>‘지표 해석’ 고정 (지난 주 화면도 같음)</td></tr>
     <tr><td class="k">기준일</td><td>날짜 띠에서 고른 날 (지난 주 화면은 그 주 일요일)</td></tr>
     <tr><td class="k">갱신</td><td>저장하지 않음 · 동기화로 값이 바뀌면 다시 만듦</td></tr>
-    <tr><td class="k">재계산 범위</td><td>기록이 늦게 도착하거나 과거 값이 수정되면 <b>바뀐 날짜부터 오늘까지</b> 구간 · 이유 · N일째를 모두 다시 계산<br>(그 날을 전날로 보는 다음 날 문장과 이어진 연속 일수도 함께 바뀜) · 지난 주 화면도 같은 기준으로 갱신</td></tr>
-    <tr><td class="k">미표시</td><td>관찰 중 · 건강 데이터 미연동 · 계산 실패</td></tr>
-    <tr><td class="k">모름(unknown) 기록</td><td>행동 결과가 확인되지 않은 기회는 점수에도 기회 수에도 넣지 않음<br>행동 연결 완료율 = 완료 ÷ (완료 + 미완료) · 모름은 분모에서 뺌<br>기회가 모두 모름인 날은 그 기회를 이유 후보 · ‘낮음’ 판정에서 제외</td></tr>
+    <tr><td class="k">재계산 범위</td><td>기록이 늦게 도착하거나 과거 값이 수정되면 <b>바뀐 날짜부터 오늘까지</b> 단계 · 이유 · N일째를 모두 다시 계산</td></tr>
+    <tr><td class="k">미표시</td><td>일부 기록 · 자료 부족(몸잠밥) · 보조 추정만 · 확인 불가(내실천) · 준비 중(일상결) · 건강 데이터 미연동 · 계산 실패</td></tr>
+    <tr><td class="k">알 수 없음 기록</td><td>결과를 알 수 없는 행동은 0점으로 확정하지 않음. 그 묶음은 이유 후보 · ‘낮음’ 판정에서 제외</td></tr>
   </table>
   <h3>말투 원칙</h3>
   <ul class="rules">
-    <li>부드러운 존댓말 + 데이터 용어(수면 · 식사 균형 · 걸음 수)로 근거 표시</li>
-    <li>이유는 ‘~하면서’로 연결</li>
-    <li>문장에 ‘어제보다’ 같은 비교 표현은 쓰지 않음</li>
+    <li>부드러운 존댓말 + 데이터 용어(수면 · 움직임 · 식사 · 걸음)로 근거 표시</li>
+    <li>이유는 ‘~하면서’로 연결 · 문장에 ‘어제보다’ 같은 비교 표현은 쓰지 않음</li>
   </ul>
   <ul class="rules no" style="margin-top:6px">
     <li>점수 · 수치 표기</li>
@@ -240,10 +207,9 @@ a{color:#5170FF}
 </section>
 
 <section class="card" id="s10">
-  <h2><span class="n">9</span>전체 문장 세트 · 66개</h2>
-  <ul class="rules"><li>숫자를 누르면 아래에 해당 문장이 모두 나옴 · N = 연속 일수(2 이상, 주의 지속은 3 이상)</li>
-  </ul>
-  <table style="margin-top:8px"><tr><th>문장 종류</th><th>짜임새 있는 하루</th><th>행동 기회 대응</th><th>생활 변화 추이</th></tr><tr><td class="k">상태만 (전날 기록 없음)</td><td><button class="cnt" data-m="짜임새 있는 하루" data-k="state">3</button></td><td><button class="cnt" data-m="행동 기회 대응" data-k="state">3</button></td><td><button class="cnt" data-m="생활 변화 추이" data-k="state">3</button></td></tr><tr><td class="k">N일째 + 상태</td><td><button class="cnt" data-m="짜임새 있는 하루" data-k="streak">3</button></td><td><button class="cnt" data-m="행동 기회 대응" data-k="streak">3</button></td><td><button class="cnt" data-m="생활 변화 추이" data-k="streak">3</button></td></tr><tr><td class="k">주의 지속 + 이유</td><td><button class="cnt" data-m="짜임새 있는 하루" data-k="lowr">4</button></td><td><button class="cnt" data-m="행동 기회 대응" data-k="lowr">3</button></td><td><button class="cnt" data-m="생활 변화 추이" data-k="lowr">7</button></td></tr><tr><td class="k">올라감</td><td><button class="cnt" data-m="짜임새 있는 하루" data-k="up">5</button></td><td><button class="cnt" data-m="행동 기회 대응" data-k="up">4</button></td><td><button class="cnt" data-m="생활 변화 추이" data-k="up">8</button></td></tr><tr><td class="k">내려감</td><td><button class="cnt" data-m="짜임새 있는 하루" data-k="down">5</button></td><td><button class="cnt" data-m="행동 기회 대응" data-k="down">4</button></td><td><button class="cnt" data-m="생활 변화 추이" data-k="down">8</button></td></tr><tr><td class="k">합계</td><td><button class="cnt" data-m="짜임새 있는 하루" data-k="all"><b>20</b></button></td><td><button class="cnt" data-m="행동 기회 대응" data-k="all"><b>17</b></button></td><td><button class="cnt" data-m="생활 변화 추이" data-k="all"><b>29</b></button></td></tr></table>
+  <h2><span class="n">9</span>전체 문장 세트 · 63개</h2>
+  <ul class="rules"><li>숫자를 누르면 아래에 해당 문장이 모두 나옴 · N = 연속 일수(2 이상, 낮은 단계 지속은 3 이상)</li></ul>
+  <table style="margin-top:8px"><tr><th>문장 종류</th><th>몸잠밥 지수</th><th>내실천 지수</th><th>일상결 지수</th></tr><tr><td class="k">상태만 (전날 단계 없음)</td><td><button class="cnt" data-m="몸잠밥 지수" data-k="state">3</button></td><td><button class="cnt" data-m="내실천 지수" data-k="state">3</button></td><td><button class="cnt" data-m="일상결 지수" data-k="state">3</button></td></tr><tr><td class="k">N일째 + 상태</td><td><button class="cnt" data-m="몸잠밥 지수" data-k="streak">3</button></td><td><button class="cnt" data-m="내실천 지수" data-k="streak">3</button></td><td><button class="cnt" data-m="일상결 지수" data-k="streak">3</button></td></tr><tr><td class="k">낮은 단계 지속 + 이유</td><td><button class="cnt" data-m="몸잠밥 지수" data-k="lowr">3</button></td><td><button class="cnt" data-m="내실천 지수" data-k="lowr">3</button></td><td><button class="cnt" data-m="일상결 지수" data-k="lowr">7</button></td></tr><tr><td class="k">올라감</td><td><button class="cnt" data-m="몸잠밥 지수" data-k="up">4</button></td><td><button class="cnt" data-m="내실천 지수" data-k="up">4</button></td><td><button class="cnt" data-m="일상결 지수" data-k="up">8</button></td></tr><tr><td class="k">내려감</td><td><button class="cnt" data-m="몸잠밥 지수" data-k="down">4</button></td><td><button class="cnt" data-m="내실천 지수" data-k="down">4</button></td><td><button class="cnt" data-m="일상결 지수" data-k="down">8</button></td></tr><tr><td class="k">합계</td><td><button class="cnt" data-m="몸잠밥 지수" data-k="all"><b>17</b></button></td><td><button class="cnt" data-m="내실천 지수" data-k="all"><b>17</b></button></td><td><button class="cnt" data-m="일상결 지수" data-k="all"><b>29</b></button></td></tr></table>
   <div id="setOut" style="margin-top:12px"></div>
 </section>
 <style>
@@ -254,8 +220,8 @@ button.cnt.on{background:var(--brand);color:#fff;border-color:var(--brand)}
 </style>
 <script>
 (function(){
-const D={"짜임새 있는 하루": {"state": ["하루의 짜임새가 좋은 편이에요.", "하루의 짜임새가 적정한 편이에요.", "하루의 짜임새가 부족한 편이에요."], "streak": ["하루의 짜임새가 N일째 좋은 편이에요.", "하루의 짜임새가 N일째 적정한 편이에요.", "하루의 짜임새가 N일째 부족한 편이에요."], "lowr": ["수면이 알맞지 않은 날이 N일째 이어지면서 하루의 짜임새가 부족한 편이에요.", "식사 균형이 아쉬운 날이 N일째 이어지면서 하루의 짜임새가 부족한 편이에요.", "움직임이 적은 날이 N일째 이어지면서 하루의 짜임새가 부족한 편이에요.", "식사와 잠 사이 간격이 어긋난 날이 N일째 이어지면서 하루의 짜임새가 부족한 편이에요."], "up": ["수면이 알맞은 시간에 가까워지면서 하루의 짜임새가 나아지고 있어요.", "식사 균형이 좋아지면서 하루의 짜임새가 나아지고 있어요.", "움직임이 늘어나면서 하루의 짜임새가 나아지고 있어요.", "식사와 잠 사이 간격이 알맞아지면서 하루의 짜임새가 나아지고 있어요.", "하루의 짜임새가 나아지고 있어요. (이유 생략)"], "down": ["수면이 알맞은 시간에서 멀어지면서 하루의 짜임새가 흐트러지고 있어요.", "식사 균형이 흐트러지면서 하루의 짜임새가 흐트러지고 있어요.", "움직임이 줄어들면서 하루의 짜임새가 흐트러지고 있어요.", "식사와 잠 사이 간격이 어긋나면서 하루의 짜임새가 흐트러지고 있어요.", "하루의 짜임새가 흐트러지고 있어요. (이유 생략)"]}, "행동 기회 대응": {"state": ["기회마다 움직인 정도가 좋은 편이에요.", "기회마다 움직인 정도가 적정한 편이에요.", "기회마다 움직인 정도가 부족한 편이에요."], "streak": ["기회마다 움직인 정도가 N일째 좋은 편이에요.", "기회마다 움직인 정도가 N일째 적정한 편이에요.", "기회마다 움직인 정도가 N일째 부족한 편이에요."], "lowr": ["식후에 움직이지 않은 날이 N일째 이어지면서 기회마다 움직인 정도가 부족한 편이에요.", "일어난 뒤 움직이지 않은 날이 N일째 이어지면서 기회마다 움직인 정도가 부족한 편이에요.", "틈틈이 움직이지 않은 날이 N일째 이어지면서 기회마다 움직인 정도가 부족한 편이에요."], "up": ["식후에 움직이는 때가 늘면서 기회마다 움직인 정도가 나아지고 있어요.", "일어난 뒤 움직이면서 기회마다 움직인 정도가 나아지고 있어요.", "틈틈이 움직이는 때가 늘면서 기회마다 움직인 정도가 나아지고 있어요.", "기회마다 움직인 정도가 나아지고 있어요. (이유 생략)"], "down": ["식후에 움직이는 때가 줄면서 기회마다 움직인 정도가 줄어들고 있어요.", "일어난 뒤 움직임이 줄면서 기회마다 움직인 정도가 줄어들고 있어요.", "틈틈이 움직이는 때가 줄면서 기회마다 움직인 정도가 줄어들고 있어요.", "기회마다 움직인 정도가 줄어들고 있어요. (이유 생략)"]}, "생활 변화 추이": {"state": ["최근 생활의 흐름이 나아지는 편이에요.", "최근 생활의 흐름이 지난주와 비슷한 편이에요.", "최근 생활의 흐름이 줄어드는 편이에요."], "streak": ["최근 생활의 흐름이 N일째 나아지는 편이에요.", "최근 생활의 흐름이 N일째 지난주와 비슷한 편이에요.", "최근 생활의 흐름이 N일째 줄어드는 편이에요."], "lowr": ["걸음 수가 줄어든 흐름이 N일째 이어지면서 최근 생활의 흐름이 줄어드는 편이에요.", "움직이는 횟수가 줄어든 흐름이 N일째 이어지면서 최근 생활의 흐름이 줄어드는 편이에요.", "운동이 줄어든 흐름이 N일째 이어지면서 최근 생활의 흐름이 줄어드는 편이에요.", "기회마다 움직인 비율이 줄어든 흐름이 N일째 이어지면서 최근 생활의 흐름이 줄어드는 편이에요.", "거의 움직이지 않은 날이 늘어난 흐름이 N일째 이어지면서 최근 생활의 흐름이 줄어드는 편이에요.", "잠드는 시간이 불규칙해진 흐름이 N일째 이어지면서 최근 생활의 흐름이 줄어드는 편이에요.", "식사 시간이 불규칙해진 흐름이 N일째 이어지면서 최근 생활의 흐름이 줄어드는 편이에요."], "up": ["걸음 수가 늘어나면서 최근 생활의 흐름이 나아지고 있어요.", "자주 움직이는 날이 늘면서 최근 생활의 흐름이 나아지고 있어요.", "운동이 늘어나면서 최근 생활의 흐름이 나아지고 있어요.", "기회마다 움직인 비율이 늘면서 최근 생활의 흐름이 나아지고 있어요.", "움직인 날이 늘면서 최근 생활의 흐름이 나아지고 있어요.", "잠드는 시간이 일정해지면서 최근 생활의 흐름이 나아지고 있어요.", "식사 시간이 일정해지면서 최근 생활의 흐름이 나아지고 있어요.", "최근 생활의 흐름이 나아지고 있어요. (이유 생략)"], "down": ["걸음 수가 줄어들면서 최근 생활의 흐름이 주춤하고 있어요.", "움직이는 횟수가 줄면서 최근 생활의 흐름이 주춤하고 있어요.", "운동이 줄어들면서 최근 생활의 흐름이 주춤하고 있어요.", "기회마다 움직인 비율이 줄면서 최근 생활의 흐름이 주춤하고 있어요.", "거의 움직이지 않은 날이 생기면서 최근 생활의 흐름이 주춤하고 있어요.", "잠드는 시간이 불규칙해지면서 최근 생활의 흐름이 주춤하고 있어요.", "식사 시간이 불규칙해지면서 최근 생활의 흐름이 주춤하고 있어요.", "최근 생활의 흐름이 주춤하고 있어요. (이유 생략)"]}};
-const L={"state": "상태만 (전날 기록 없음)", "streak": "N일째 + 상태", "lowr": "주의 지속 + 이유", "up": "올라감", "down": "내려감"};
+const D={"몸잠밥 지수": {"state": ["오늘은 이상적인 하루예요.", "오늘은 현실과 이상 사이의 하루예요.", "오늘은 현실적인 하루예요."], "streak": ["N일째 이상적인 하루예요.", "N일째 현실과 이상 사이의 하루예요.", "N일째 현실적인 하루예요."], "lowr": ["수면이 권장 시간에서 먼 날이 N일째 이어지면서 현실적인 하루예요.", "움직임이 적은 날이 N일째 이어지면서 현실적인 하루예요.", "식사가 권장에서 먼 날이 N일째 이어지면서 현실적인 하루예요."], "up": ["수면이 권장 시간에 가까워지면서 이상적인 하루에 가까워지고 있어요.", "움직임이 늘어나면서 이상적인 하루에 가까워지고 있어요.", "식사가 권장에 가까워지면서 이상적인 하루에 가까워지고 있어요.", "이상적인 하루에 가까워지고 있어요. (이유 생략)"], "down": ["수면이 권장 시간에서 멀어지면서 이상적인 하루에서 멀어지고 있어요.", "움직임이 줄어들면서 이상적인 하루에서 멀어지고 있어요.", "식사가 권장에서 멀어지면서 이상적인 하루에서 멀어지고 있어요.", "이상적인 하루에서 멀어지고 있어요. (이유 생략)"]}, "내실천 지수": {"state": ["오늘은 실천 고수예요.", "오늘은 실천 중수예요.", "오늘은 실천 초보예요."], "streak": ["N일째 실천 고수예요.", "N일째 실천 중수예요.", "N일째 실천 초보예요."], "lowr": ["식사 후 실천이 없는 날이 N일째 이어지면서 실천 초보예요.", "일어난 뒤 실천이 없는 날이 N일째 이어지면서 실천 초보예요.", "틈틈이 움직인 때가 없는 날이 N일째 이어지면서 실천 초보예요."], "up": ["식사 후 실천이 늘면서 실천이 한 단계 올라갔어요.", "일어난 뒤 실천하면서 실천이 한 단계 올라갔어요.", "틈틈이 움직이거나 운동한 때가 늘면서 실천이 한 단계 올라갔어요.", "실천이 한 단계 올라갔어요. (이유 생략)"], "down": ["식사 후 실천이 줄면서 실천이 한 단계 내려왔어요.", "일어난 뒤 실천이 줄면서 실천이 한 단계 내려왔어요.", "틈틈이 움직이거나 운동한 때가 줄면서 실천이 한 단계 내려왔어요.", "실천이 한 단계 내려왔어요. (이유 생략)"]}, "일상결 지수": {"state": ["최근 4주는 탄력기예요.", "최근 4주는 유지기예요.", "최근 4주는 주춤기예요."], "streak": ["최근 4주는 N일째 탄력기예요.", "최근 4주는 N일째 유지기예요.", "최근 4주는 N일째 주춤기예요."], "lowr": ["걸음이 줄어드는 흐름이 N일째 이어지면서 최근 4주는 주춤기예요.", "움직이는 횟수가 줄어드는 흐름이 N일째 이어지면서 최근 4주는 주춤기예요.", "거의 움직이지 않은 날이 늘어나는 흐름이 N일째 이어지면서 최근 4주는 주춤기예요.", "운동이 줄어드는 흐름이 N일째 이어지면서 최근 4주는 주춤기예요.", "식후 실천이 줄어드는 흐름이 N일째 이어지면서 최근 4주는 주춤기예요.", "잠드는 시간이 불규칙해지는 흐름이 N일째 이어지면서 최근 4주는 주춤기예요.", "식사 시간이 불규칙해지는 흐름이 N일째 이어지면서 최근 4주는 주춤기예요."], "up": ["최근 주로 갈수록 걸음이 늘면서 일상결이 탄력을 받고 있어요.", "자주 움직이는 날이 늘면서 일상결이 탄력을 받고 있어요.", "매일 움직인 날이 늘면서 일상결이 탄력을 받고 있어요.", "운동이 늘면서 일상결이 탄력을 받고 있어요.", "식후 실천이 늘면서 일상결이 탄력을 받고 있어요.", "잠드는 시간이 일정해지면서 일상결이 탄력을 받고 있어요.", "식사 시간이 일정해지면서 일상결이 탄력을 받고 있어요.", "일상결이 탄력을 받고 있어요. (이유 생략)"], "down": ["최근 주로 갈수록 걸음이 줄면서 일상결의 탄력이 줄고 있어요.", "움직이는 횟수가 줄면서 일상결의 탄력이 줄고 있어요.", "거의 움직이지 않은 날이 늘면서 일상결의 탄력이 줄고 있어요.", "운동이 줄면서 일상결의 탄력이 줄고 있어요.", "식후 실천이 줄면서 일상결의 탄력이 줄고 있어요.", "잠드는 시간이 불규칙해지면서 일상결의 탄력이 줄고 있어요.", "식사 시간이 불규칙해지면서 일상결의 탄력이 줄고 있어요.", "일상결의 탄력이 줄고 있어요. (이유 생략)"]}};
+const L={"state": "상태만 (전날 단계 없음)", "streak": "N일째 + 상태", "lowr": "낮은 단계 지속 + 이유", "up": "올라감", "down": "내려감"};
 const out=document.getElementById('setOut');
 function show(m,k){
   const ks=k==='all'?Object.keys(L):[k];

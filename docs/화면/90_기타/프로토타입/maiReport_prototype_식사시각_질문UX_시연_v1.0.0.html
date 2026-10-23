@@ -3437,7 +3437,7 @@ html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[styl
       <div class="ios-sec-row"><span>데이터 읽기 허용</span><button id="iosAllOn">전체 허용</button></div>
       <div id="iosList"></div>
       <div class="ios-why"><b>"마이리포트"이(가) 건강 데이터를 읽으려는 이유:</b>
-        짜임새 있는 하루·행동 기회 대응·생활 변화 추이 상태를 확인하기 위해 걸음 수와 수면 데이터가 필요합니다.</div>
+        몸잠밥 지수·내실천 지수·일상결 지수 상태를 확인하기 위해 걸음 수와 수면 데이터가 필요합니다.</div>
     </div>
   </div>
 </div>
@@ -3598,7 +3598,7 @@ function mealTimeQuestion(now){
     opts:[{v:'before_7',f:'',ap:'',clock:labels[0],sub:'',label:labels[0],tl:labels[0],tone:'neutral'},
           {v:'mid',f:'',ap:'',clock:labels[1],sub:'',label:labels[1],tl:labels[1],tone:'neutral'},
           {v:'late',f:'',ap:'',clock:labels[2],sub:'',label:labels[2],tl:labels[2],tone:'neutral'}] });
-  /* 어제 저녁(00~10시)도 묻는다 — 생활 변화 추이가 최근 7일 식사 시각을 비교하므로 어제 값도 쓰인다. 저녁 7시 · 8시 고정 */
+  /* 어제 저녁(00~10시)도 묻는다 — 일상결 지수가 최근 28일 식사 시각 규칙성을 보므로 어제 값도 쓰인다. 저녁 7시 · 8시 고정 */
   if(LAST_MEAL==='어제 저녁') return fixed('어제 저녁은 몇 시쯤 드셨어요?', '🕖', ['7시 이전','7시~9시','9시 이후']);
   if(LAST_MEAL==='오늘 아침') return fixed('아침은 몇 시쯤 드셨어요?', '🕖', ['7시 이전','7시~8시','8시 이후']);
   const R = MEAL_TIME_RULE[LAST_MEAL==='오늘 점심' ? 'LUNCH' : 'DINNER'];
@@ -4729,29 +4729,29 @@ const STATE_TONE = {
 /* 지표 고유색 — 카드 이름·게이지·데이터 점에 쓴다(구간 색과 별개) */
 const METRIC_COLOR = { margin:'#12A150', selfcare:'#D98A12', steady:'#7C5CFC' };
 const METRICS = [
-  {k:'margin', nm:'짜임새 있는 하루', en:'Well-Composed Day',
-   desc:'오늘 식사·수면·움직임의 짜임새', expl:'잠은 충분했는지, 오늘 질문한 끼니를 균형 있게 먹었는지, 충분히 움직였는지를 함께 보고 오늘 하루가 권장 생활에 얼마나 가까웠는지 알려드려요.',
-   states:{good:'잘 짜였어요', mid:'보통이에요', low:'부족해요'},
+  {k:'margin', nm:'몸잠밥 지수', en:'Body · Sleep · Meal',
+   desc:'오늘 몸(움직임) · 잠 · 밥이 권장에 가까운 정도', expl:'수면 · 움직임 · 식사를 같은 비중으로 보고, 오늘 하루가 권장 행동에 얼마나 가까운지 알려드려요. 세 가지 기록이 모두 모여야 단계가 보여요.',
+   states:{good:'이상적 하루', mid:'현실과 이상 사이', low:'현실적 하루'},
    state:'low', prev:'low',
-   line:'오늘은 수면·식사·움직임이 권장 생활과 많이 멀어요.',
-   title:'짜임새 있는 하루를 본 데이터',
-   note:'화요일부터 잠이 짧고 낮 활동도 거의 없어, 하루의 짜임새가 계속 흐트러진 사흘이었어요.',
+   line:'오늘은 수면 · 움직임 · 식사 모두 권장에서 먼 하루예요.',
+   title:'몸잠밥 지수를 본 데이터',
+   note:'화요일부터 잠이 짧고 낮 활동도 거의 없어, 수면 · 움직임 점수가 계속 낮은 사흘이었어요.',
    rows:['sleep','steps','exercise']},
-  {k:'selfcare', nm:'행동 기회 대응', en:'Opportunity Response',
-   desc:'오늘 움직일 기회를 살린 정도', expl:'식사 뒤, 일어난 뒤, 오래 앉아 있던 뒤, 운동할 수 있을 때 실제로 움직였는지를 하루 동안 쌓아서 알려드려요.',
-   states:{good:'잘 살렸어요', mid:'보통이에요', low:'부족해요'},
+  {k:'selfcare', nm:'내실천 지수', en:'My Practice',
+   desc:'오늘 확인된 실천의 누적', expl:'식사 뒤, 일어난 뒤, 오래 앉아 있던 뒤, 운동할 수 있을 때 실제로 실천했는지를 하루 동안 쌓아서 알려드려요.',
+   states:{good:'실천 고수', mid:'실천 중수', low:'실천 초보'},
    state:'low', prev:'low',
    line:'움직일 수 있는 순간에도 거의 쉬고 있어요.',
-   title:'행동 기회 대응을 본 데이터',
+   title:'내실천 지수를 본 데이터',
    note:'화요일 이후 식사 뒤나 오래 누워 있던 뒤에 이어지는 움직임이 거의 없었어요. 아픈 동안에는 자연스러운 흐름이에요.',
    rows:['active','exercise','record']},
-  {k:'steady', nm:'생활 변화 추이', en:'Lifestyle Change Trend',
-   desc:'최근 일주일 생활의 변화 방향', expl:'최근 7일의 걸음 수 · 운동 · 수면 규칙성 · 식사 시간을 그 전 7일과 비교해, 생활이 나아지는 쪽인지 줄어드는 쪽인지 알려드려요.',
-   states:{good:'나아지고 있어요', mid:'비슷해요', low:'줄어들고 있어요'},
+  {k:'steady', nm:'일상결 지수', en:'Daily Grain',
+   desc:'최근 4주 생활의 변화 방향', expl:'최근 28일을 일주일씩 나눠 걸음 · 운동 · 수면 · 식사 시간이 오르는 흐름인지 내려가는 흐름인지 알려드려요.',
+   states:{good:'탄력기', mid:'유지기', low:'주춤기'},
    state:'low', prev:'low',
-   line:'화요일부터 걸음과 운동이 지난주보다 크게 줄었어요.',
-   title:'생활 변화 추이를 본 데이터',
-   note:'걸음과 활동이 지난주의 4분의 1 수준으로 떨어졌고, 잠드는 시간도 들쭉날쭉해졌어요.',
+   line:'최근 4주 동안 걸음과 운동이 내려가는 흐름이에요.',
+   title:'일상결 지수를 본 데이터',
+   note:'화요일부터 걸음과 활동이 크게 줄고 잠드는 시간도 들쭉날쭉해져, 4주 흐름이 꺾였어요.',
    rows:['steps','sleep','exercise','active']}
 ];
 function josa(word, pair){
@@ -4819,7 +4819,7 @@ function renderMetrics(){
      상태 표기 원칙 — 산정 불가는 실패가 아니라 '관찰 중': 게이지는 빈 눈금판(바늘 없음), 라벨 '관찰 중', 아래에 이유·다음 행동 한 줄.
      데이터 미연동은 관찰 중과 구분해 연동 안내 카드로 보여준다. */
   if(!deviceLinked){
-    document.getElementById('mGrid').innerHTML = `<div class="m-unlinked"><span class="emo">⌚</span><b>건강 데이터를 연동하면 오늘의 컨디션을 볼 수 있어요</b><p>걸음·수면 데이터와 식사 답변으로 짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이를 계산해 드려요.</p><button class="cta" id="condLink">건강 데이터 연동하기</button></div>`;
+    document.getElementById('mGrid').innerHTML = `<div class="m-unlinked"><span class="emo">⌚</span><b>건강 데이터를 연동하면 오늘의 컨디션을 볼 수 있어요</b><p>걸음 · 수면 데이터와 식사 답변으로 몸잠밥 · 내실천 · 일상결 지수를 계산해 드려요.</p><button class="cta" id="condLink">건강 데이터 연동하기</button></div>`;
     document.getElementById('mObserving').hidden = true; document.getElementById('condLine').hidden = true;
     document.getElementById('dList').innerHTML = `<div class="d-row d-unlinked"><div class="d-bd"><small>오늘의 건강 데이터</small><b>연동 후 표시돼요</b></div></div>`;
     const lb=document.getElementById('condLink'); if(lb) lb.onclick=startLink;
@@ -4899,7 +4899,7 @@ function renderMetrics(){
   document.getElementById('condMore').onclick = ()=>goLife('metric');
   document.getElementById('cond').onclick = (e)=>{
     const tile = e.target.closest('.m'); if(!tile) return;
-    /* 프로토타입 시연: 관찰 중인 생활 변화 추이를 누르면 비교 기록이 쌓인 뒤의 값으로 전환 */
+    /* 프로토타입 시연: 준비 중인 일상결 지수를 누르면 4주 기록이 쌓인 뒤의 값으로 전환 */
     if(tile.classList.contains('none') && tile.dataset && tile.dataset.k==='steady'){ demoSteadyReady(); return; }
     goLife('metric');
   };
@@ -4920,16 +4920,16 @@ const METRIC_SCENARIOS = [
     set:{ margin:'good', selfcare:'none', steady:'none' },
     prev:{ margin:'good', selfcare:'none', steady:'none' },
     note:{ selfcare:'식사 시각을 알려주시면 식후에 움직였는지 확인할 수 있어요.',
-           steady:'지난주와 비교할 기록을 모으는 중이에요. 며칠 더 쌓이면 보여드릴게요.' } },
+           steady:'4주 기록을 모으는 중이에요(준비 중). 28일이 채워지면 보여드릴게요.' } },
   { label:'전체 관찰 중',
     set:{ margin:'none', selfcare:'none', steady:'none' },
     prev:{ margin:'none', selfcare:'none', steady:'none' },
-    note:{ margin:'오늘 수면·식사·걸음 기록이 아직 없어요.',
+    note:{ margin:'수면 · 움직임 · 식사 기록이 아직 다 모이지 않았어요(일부 기록).',
            selfcare:'식사 시각을 알려주시면 식후에 움직였는지 확인할 수 있어요.',
-           steady:'지난주와 비교할 기록을 모으는 중이에요. 며칠 더 쌓이면 보여드릴게요.' } }
+           steady:'4주 기록을 모으는 중이에요(준비 중). 28일이 채워지면 보여드릴게요.' } }
 ];
 let metricScenario = 0;
-let steadyReady = false;   /* 시연용: 생활 변화 추이 비교 기록이 쌓인 상태로 전환됐는지 */
+let steadyReady = false;   /* 시연용: 일상결 지수 비교 기록이 쌓인 상태로 전환됐는지 */
 function demoSteadyReady(){
   steadyReady = true;
   metricScenario = 1; applyMetricScenario(); renderMetrics();
@@ -4947,9 +4947,9 @@ applyMetricScenario();
 
 /* ── 점수 → 구간 어댑터 ──
    구간 경계는 잠정치(66 / 33). 실제 구현에서는 지표 엔진이 구간을 바로 내려준다. */
-/* 구간 경계(0~100 내부 점수) — 생활 지표 기획서 v2.0(세 지표 33/66). 실제 서비스에서는 지표 엔진이 구간을 내려주고 앱은 그대로 표시한다 */
+/* 구간 경계(0~100 내부 점수) — 지표 가이드 V2 표시 정책(몸잠밥 50/80 · 내실천 25/75 · 일상결 Z ±0.05 ≈ 45.83/54.17점). 실제 서비스에서는 지표 엔진이 단계를 내려주고 앱은 그대로 표시한다 */
 const BAND_HI = 66, BAND_LO = 33;
-const BANDS = { margin:[33,66], selfcare:[33,66], steady:[33,66] };
+const BANDS = { margin:[50,80], selfcare:[25,75], steady:[45.83,54.17] };
 const bandOf = k => BANDS[k] || [BAND_LO, BAND_HI];
 function scoreToState(v, k){
   const [BAND_LO, BAND_HI] = bandOf(k);
@@ -4957,7 +4957,7 @@ function scoreToState(v, k){
   return v>=BAND_HI ? 'good' : v>=BAND_LO ? 'mid' : 'low';
 }
 function stateLabel(k, st){
-  if(st==='none') return '관찰 중';
+  if(st==='none') return ({margin:'일부 기록', selfcare:'확인 불가', steady:'준비 중'})[k] || '관찰 중';
   const m = METRICS.find(x=>x.k===k);
   return m ? m.states[st] : '';
 }
@@ -5643,9 +5643,9 @@ function renderDaily(){
 /* ── 기기 연동 데이터 ↔ 지표 매핑 ──
    core(●) = 지표 카드 "핵심 데이터"에 값·상태 칩으로 노출 / aux(○) = 산식 맥락 보강에만 쓰이고 화면에 노출하지 않음 / no(-) 반영 안 함
    (화면정의서 6장 기준)
-   · 짜임새 있는 하루 — 수면 · 걸음 수 · 운동 시간이 핵심(식사 균형은 질문 답변에서 옴).
-   · 행동 기회 대응 — 활동 시간 · 운동 시간 · 운동 기록이 핵심(기회 뒤에 움직임이 붙었는가).
-   · 생활 변화 추이 — 걸음 수 · 수면 · 활동 시간 · 운동 시간 · 운동 기록(최근 7일 vs 직전 7일). */
+   · 몸잠밥 지수 — 수면 · 걸음 수 · 운동 시간이 핵심(식사 점수는 질문 답변 · 식사량 · 식사 시각에서 옴).
+   · 내실천 지수 — 활동 시간 · 운동 시간 · 운동 기록이 핵심(기회 뒤에 실천이 확인됐는가).
+   · 일상결 지수 — 걸음 수 · 수면 · 활동 시간 · 운동 시간 · 운동 기록(최근 28일 4주 추세). */
 const DATA_MAP = [
   {n:'걸음 수',     s:1,a:1, margin:'core', selfcare:'no',  steady:'core', today:'1,840 걸음', judge:'매우 적음'},
   {n:'활동 칼로리', s:1,a:1, margin:'no',   selfcare:'no',  steady:'no',   today:'110 kcal',   judge:'매우 낮음'},
@@ -5838,9 +5838,9 @@ const CASE_DATA = {
     metricState:{ margin:'good', selfcare:'mid', steady:'good' },
     metricWeek:{ margin:[56,24,40,82,null,null,null], selfcare:[56,24,40,56,null,null,null], steady:[54,50,76,74,null,null,null] },
     metricIns:{
-      margin:'수면이 채워지고 식사와 걸음이 고르게 이어지면서, 잘 짜인 하루가 됐어요.',
+      margin:'수면이 채워지고 식사와 걸음이 고르게 이어지면서, 이상적인 하루가 됐어요.',
       selfcare:'식사 뒤와 오래 앉아 있던 뒤에 짧은 걷기가 이어진 날이 늘었어요. 아직 절반쯤이에요.',
-      steady:'지난주보다 걸음이 늘고 잠드는 시간이 일정해지면서, 생활이 나아지는 쪽이에요.' },
+      steady:'최근 4주 동안 걸음이 늘고 잠드는 시간이 일정해지면서, 탄력기예요.' },
     series:{
       sleep:{v:[7.2,7.1,7.4,7.3,null,null,null], t:['7시간 12분','7시간 6분','7시간 24분','7시간 18분','–','–','–'], avg:'7시간 15분'},
       bed:  {v:[23.17,23.25,23.1,23.2,null,null,null], t:['23시 10분','23시 15분','23시 6분','23시 12분','–','–','–'], avg:'23시 11분'},
@@ -5881,13 +5881,13 @@ const CASE_DATA = {
   sick:{
     /* 시연에서는 세 지표가 모두 값을 가진 상태로 보여준다 —
        발병 주에 세 축이 한꺼번에 내려가는 모습이 한 화면에서 보이게 하기 위함이다.
-       (실제 산식에서는 행동 기회 대응에 확인된 기회도 시간대별 걸음도 없으면 관찰 중으로 빠질 수 있다) */
+       (실제 산식에서는 내실천 지수에 행동 응답 없이 걸음 보조 추정만 있으면 단계가 붙지 않는다) */
     metricState:{ margin:'low', selfcare:'low', steady:'low' },
-    metricWeek:{ margin:[74,42,26,22,null,null,null], selfcare:[68,40,30,26,null,null,null], steady:[72,46,28,22,null,null,null] },
+    metricWeek:{ margin:[74,42,26,22,null,null,null], selfcare:[68,22,12,8,null,null,null], steady:[72,46,28,22,null,null,null] },
     metricIns:{
-      margin:'화요일부터 수면이 짧아지고 걸음이 줄면서, 하루의 짜임새가 사흘째 흐트러지고 있어요.',
+      margin:'화요일부터 수면이 짧아지고 걸음이 줄면서, 사흘째 현실적인 하루예요.',
       selfcare:'화요일부터 식사 뒤나 오래 누워 있던 뒤에 이어지는 움직임이 거의 없었어요.',
-      steady:'화요일부터 걸음과 운동이 지난주보다 줄고 잠드는 시간이 들쭉날쭉해지면서, 생활이 줄어드는 쪽이에요.' },
+      steady:'화요일부터 걸음과 운동이 줄고 잠드는 시간이 들쭉날쭉해지면서, 4주 흐름이 주춤기로 꺾였어요.' },
     series:{
       sleep:{v:[7.2,5.9,5.3,5.17,null,null,null], t:['7시간 12분','5시간 54분','5시간 18분','5시간 10분','–','–','–'], avg:'5시간 54분'},
       bed:  {v:[23.17,23.83,24.67,23.5,null,null,null], t:['23시 10분','23시 50분','00시 40분','23시 30분','–','–','–'], avg:'23시 47분'},
@@ -6075,7 +6075,7 @@ function renderLife(){ renderGoalPane(); renderMetricPane(); renderDaily(); rend
 /* ── 지표별 분석 카드 공통 렌더러 ──
    헤더(지표명 + 전일 대비 방향 · 설명 한 줄 · 구간 배지) → 3구간 띠 위 주간 그래프 → 현재 흐름 → 핵심 데이터.
    보조 데이터 영역은 두지 않는다. 숫자 점수는 어디에도 쓰지 않는다. */
-const BAND_WORDS = { margin:['좋음','보통','주의'], selfcare:['좋음','보통','주의'], steady:['좋음','보통','주의'] };
+const BAND_WORDS = { margin:['이상','사이','현실'], selfcare:['고수','중수','초보'], steady:['탄력','유지','주춤'] };
 const CORE_ROWS = { margin:['수면','걸음 수','운동 시간'], selfcare:['식후 활동','활동 시간'], steady:['걸음 수','운동 기록','수면'] };
 function metricCard(m, scores, i, dayLabels, basisLabel, valFn, judgeFn){
   const meta = METRICS.find(x=>x.k===m.k);
@@ -6119,9 +6119,9 @@ function renderMetricPaneHistory(offset){
   const i = 6;
   const wl = weekLabelFor(offset);
   const cards = [
-    {nm:'짜임새 있는 하루', k:'margin',   s:h.metricScores.recovery, ins:'수면과 걸음이 고르게 이어지면서, 이 주는 하루의 짜임새가 대체로 유지됐어요.'},
-    {nm:'행동 기회 대응', k:'selfcare', s:h.metricScores.load.map(v=>100-v), ins:'식후 활동이 며칠 이어지면서, 이 주는 움직일 기회의 절반쯤을 살렸어요.'},
-    {nm:'생활 변화 추이', k:'steady',   s:h.metricScores.rhythm, ins:'걸음 수와 수면이 지난주와 비슷하게 이어졌어요.'}
+    {nm:'몸잠밥 지수', k:'margin',   s:h.metricScores.recovery, ins:'수면과 걸음이 고르게 이어지면서, 이 주는 현실과 이상 사이를 대체로 유지했어요.'},
+    {nm:'내실천 지수', k:'selfcare', s:h.metricScores.load.map(v=>100-v), ins:'식후 실천이 며칠 이어지면서, 이 주는 실천 중수를 유지했어요.'},
+    {nm:'일상결 지수', k:'steady',   s:h.metricScores.rhythm, ins:'걸음 수와 수면이 4주 동안 비슷하게 이어졌어요.'}
   ];
   const dayLabels = ['월','화','수','목','금','토','일'];
   const valOfH = (name,idx) => (h.dayvals[name] && h.dayvals[name][idx]) || DATA_MAP.find(d=>d.n===name).today;
@@ -6136,7 +6136,7 @@ function renderMetricPane(){
   if(!deviceLinked){   /* 미연동: 관찰 중과 구분해 연동 안내 카드 하나만 */
     document.getElementById('pMetric').innerHTML = `<section class="card empty" style="padding-bottom:22px">
       <span class="emo">⌚</span><b>건강 데이터를 연동하면 지표별 흐름을 볼 수 있어요</b>
-      <p>걸음·수면 데이터와 식사 답변으로 짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이의 주간 흐름을 보여드려요.</p>
+      <p>걸음 · 수면 데이터와 식사 답변으로 몸잠밥 · 내실천 · 일상결 지수의 주간 흐름을 보여드려요.</p>
       <button class="cta" id="metricLinkBtn">건강 데이터 연동하기</button></section>`;
     document.getElementById('metricLinkBtn').onclick = startLink;
     return;
@@ -6147,19 +6147,19 @@ function renderMetricPane(){
   }
   const i = selIdx(), D = dayLabel();
   /* 주간 샘플은 점수 배열이며 scoreToState로 구간을 얻는다.
-     행동 기회 대응은 예전 '생활부담'(낮을수록 좋음) 데이터를 뒤집어 재사용한다.
+     내실천 지수는 예전 '생활부담'(낮을수록 좋음) 데이터를 뒤집어 재사용한다.
      '현재 흐름' 문장은 달력 주어("이번 주는") 없이 최근 변화와 이유에 집중한다. */
   const cards = [
-    {nm:'짜임새 있는 하루', k:'margin',   s:METRIC_WEEK.margin,   ins:METRIC_INS.margin,
+    {nm:'몸잠밥 지수', k:'margin',   s:METRIC_WEEK.margin,   ins:METRIC_INS.margin,
      emptyTitle:(METRIC_EMPTY.margin||{}).title,   emptyBody:(METRIC_EMPTY.margin||{}).body},
-    {nm:'행동 기회 대응', k:'selfcare', s:METRIC_WEEK.selfcare, ins:METRIC_INS.selfcare,
+    {nm:'내실천 지수', k:'selfcare', s:METRIC_WEEK.selfcare, ins:METRIC_INS.selfcare,
      emptyTitle:(METRIC_EMPTY.selfcare||{}).title, emptyBody:(METRIC_EMPTY.selfcare||{}).body},
-    {nm:'생활 변화 추이', k:'steady',   s:METRIC_WEEK.steady,   ins:METRIC_INS.steady,
+    {nm:'일상결 지수', k:'steady',   s:METRIC_WEEK.steady,   ins:METRIC_INS.steady,
      emptyTitle:(METRIC_EMPTY.steady||{}).title,   emptyBody:(METRIC_EMPTY.steady||{}).body}
   ];
   cards.forEach(c=>{ c.flowTitle = '지표 해석'; c.notToday = D!=='오늘'; });
   const html = cards.map(m=>metricCard(m, m.s, i, WEEK.map(w=>w.d),
-    m.k==='steady' ? `${D} 기준 · 최근 7일을 직전 7일과 비교` : `${D} 기준 · 권장 생활 기준과 비교`, valOf, judgeOf)).join('');
+    m.k==='steady' ? `${D} 기준 · 최근 28일 4주 추세` : `${D} 기준 · 권장 행동과 비교`, valOf, judgeOf)).join('');
   document.getElementById('pMetric').innerHTML = html;
   bindMetricInfo(document.getElementById('pMetric'));
 }
