@@ -158,9 +158,9 @@ a{color:#5170FF}
         <span class="chip">rule-based · 학습 아님</span>
       </div>
       <div class="hero-meta">
-        <div><span>DOCUMENT</span><strong>서비스 데이터 흐름도 v0.1</strong><p>팀 공유용 개념도 · 기준일 2026-09-08</p></div>
+        <div><span>DOCUMENT</span><strong>서비스 데이터 흐름도 v0.2</strong><p>팀 공유용 개념도 · 기준일 2026-10-23</p></div>
         <div><span>SCOPE</span><strong>지식 준비 → 수집 → 해석 → 코칭 → 화면 → 보정</strong><p>end-to-end 전 구간</p></div>
-        <div><span>BASIS</span><strong>전달테이블 설계 요청서 · 지표 논의용 요약</strong><p>2026-09-04 · 2026-09-01</p></div>
+        <div><span>BASIS</span><strong>전달테이블 설계 요청서 · 생활 지표 기획서 v2.0</strong><p>세지표 아키텍처 흐름도 · 지표 플레이그라운드</p></div>
         <div><span>OUT</span><strong>물리 스키마 · API 명세 · 화면 구현</strong><p>상세 설계 단계</p></div>
       </div>
     </section>
@@ -172,7 +172,7 @@ a{color:#5170FF}
         <li><a href="#s2">지식 준비 — 오프라인</a></li>
         <li><a href="#s3">사용자 데이터 수집</a></li>
         <li><a href="#s4">상태 해석 ① 지표 계산</a></li>
-        <li><a href="#s5">상태 해석 ② 3지표</a></li>
+        <li><a href="#s5">상태 해석 ② 3지표 — 아키텍처 구조</a></li>
         <li><a href="#s6">코칭 선택 — 규칙 평가</a></li>
         <li><a href="#s7">사용자 화면 출력</a></li>
         <li><a href="#s8">데이터가 부족할 때</a></li>
@@ -236,8 +236,8 @@ a{color:#5170FF}
           <text class="t" x="116" y="344">사용자 데이터 수집</text>
           <text class="s" x="116" y="364">· 병원 AI 리포트 — QR로 전달된 소견 (확진 아님)</text>
           <text class="s" x="116" y="381">· 의료 데이터 — 검진 결과 · 진료 · 처방 이력</text>
-          <text class="s" x="116" y="398">· 생활 데이터 — 웨어러블 걸음 · 수면 · 심박 (Health Connect · HealthKit · 삼성헬스)</text>
-          <text class="s" x="116" y="415">· 하루 질문 — 짧은 문진 (보조 정보)</text>
+          <text class="s" x="116" y="398">· 생활 데이터 — 웨어러블 걸음 · 수면 · 운동 · 심박 (Health Connect · HealthKit · 삼성헬스)</text>
+          <text class="s" x="116" y="415">· 하루 질문 — 식이 답변 · 식사 시각 (짜임새 있는 하루 · 식후 기회에 반영)</text>
           <text class="s" x="116" y="432">· 프로필 — 생년월일 · 확진 질환 여부</text>
 
           <!-- lane C -->
@@ -253,9 +253,9 @@ a{color:#5170FF}
 
           <rect class="n" x="492" y="496" width="372" height="122" rx="14"/>
           <text class="t" x="512" y="520">② 3지표 해석 <tspan class="s">rule-based</tspan></text>
-          <text class="s" x="512" y="540">· 짜임새 있는 하루 — 부담과 여유의 균형</text>
-          <text class="s" x="512" y="557">· 건강돌봄 — 기준점과 행동의 연결</text>
-          <text class="s" x="512" y="574">· 생활 변화 추이 — 개인 기준 대비 안정성</text>
+          <text class="s" x="512" y="540">· 짜임새 있는 하루 — 수면 · 식사 · 움직임의 짜임새</text>
+          <text class="s" x="512" y="557">· 행동 기회 대응 — 기회에 실제로 움직였는지</text>
+          <text class="s" x="512" y="574">· 생활 변화 추이 — 최근 7일 vs 직전 7일 변화</text>
           <text class="sa" x="512" y="597">합산·평균 없음 · 출력은 상태 표현</text>
 
           <!-- B -> C -->
@@ -386,8 +386,8 @@ a{color:#5170FF}
         <tbody>
           <tr><td><b>병원 AI 리포트</b></td><td>QR로 전달되는 분석 소견</td><td>맥락 정보. <b>확진이 아니므로</b> 질환 규칙을 자동으로 켜지 않음</td><td><span class="status-badge sb-ok">수집 중</span></td></tr>
           <tr><td><b>의료 데이터</b></td><td>검진 결과, 진료·처방 이력</td><td>맥락 정보. 지표를 직접 산출하지 않음</td><td><span class="status-badge sb-ok">수집 중</span></td></tr>
-          <tr><td><b>생활 데이터</b></td><td>웨어러블 걸음·수면·심박<br>(Health Connect · HealthKit · 삼성헬스)</td><td>기본 축. 하루 집계값이 기본이고, 구간 단위 데이터가 있으면 해상도가 올라감</td><td><span class="status-badge sb-review">일부</span></td></tr>
-          <tr><td><b>하루 질문</b></td><td>짧은 문진 응답</td><td>보조 정보 — 이유 설명·맥락·신뢰도 보강. <b>없다고 감점하지 않음</b></td><td><span class="status-badge sb-open">설계 중</span></td></tr>
+          <tr><td><b>생활 데이터</b></td><td>웨어러블 걸음(시간 구간 · 속도)·수면·운동·심박<br>(Health Connect · HealthKit · 삼성헬스)</td><td>기본 축. 하루 걸음 합계만 있어도 짜임새 있는 하루 · 생활 변화 추이는 계산되고, 구간 단위 데이터가 있으면 행동 기회 대응까지 해상도가 올라감</td><td><span class="status-badge sb-review">일부</span></td></tr>
+          <tr><td><b>하루 질문</b></td><td>식이 답변(구성 · 부담) · 식사 시각 · 그 밖의 문진</td><td>식이 답변은 짜임새 있는 하루의 식사 균형, 식사 시각은 세 지표 모두에 들어감. 그 밖의 답변은 이유 설명 · 맥락 보강</td><td><span class="status-badge sb-open">설계 중</span></td></tr>
           <tr><td><b>프로필</b></td><td>생년월일, 확진 질환 여부</td><td>대상 필터의 전제. 나이 없이는 거의 모든 규칙이 서지 않음</td><td><span class="status-badge sb-open">필요</span></td></tr>
         </tbody>
       </table></div>
@@ -436,51 +436,86 @@ a{color:#5170FF}
 
     <!-- 5 -->
     <section class="section" id="s5">
-      <div class="section-head"><span class="section-label">05 · Three Indicators</span><h2>상태 해석 ② 3지표</h2>
-        <p>같은 수집 데이터를 세 관점으로 해석함. 사용자를 평가하거나 줄 세우는 점수가 아니라, <b>자기 생활을 이해하고 조절 가능한 지점을 알아차리도록 돕는 해석 지표</b>임.</p>
+      <div class="section-head"><span class="section-label">05 · Three Indicators</span><h2>상태 해석 ② 3지표 — 아키텍처 구조</h2>
+        <p>같은 수집 데이터와 질문 답변을 세 관점으로 해석함. 사용자를 평가하거나 줄 세우는 점수가 아니라, <b>자기 생활을 이해하고 조절할 지점을 알아차리도록 돕는 해석 지표</b>임. 산식은 I1 v0.7 · I2 v1.2 · I3 v7.9 기준.</p>
       </div>
 
       <div class="g3">
         <article class="card">
-          <h4>짜임새 있는 하루</h4>
-          <span class="q">“지금 나는 얼마나 무리 없이 지내고 있나?”</span>
+          <h4>짜임새 있는 하루 <span class="tag">I1 · 하루</span></h4>
+          <span class="q">“오늘 하루가 권장 생활에 얼마나 가까웠나?”</span>
           <ul>
-            <li>부담과 여유의 균형을 봄 — 총량이 아니라 배치</li>
-            <li>수면 부족 · 긴 비활동 · 늦거나 몰린 활동이 여유를 낮춤</li>
-            <li>분산된 가벼운 움직임과 수면 확보가 여유를 높임</li>
+            <li>수면 · 식사 균형 · 움직임량 · 식사–수면 간격 네 조각을 봄</li>
+            <li>여러 조각이 <b>고르게</b> 채워질수록 높아짐</li>
+            <li>기록이 빠진 조각이 많으면 충족률만큼 낮춤</li>
             <li>잘 짜였어요 / 보통이에요 / 부족해요</li>
           </ul>
         </article>
         <article class="card">
-          <h4>건강돌봄</h4>
-          <span class="q">“내 건강을 위해 필요한 행동을 하고 있나?”</span>
+          <h4>행동 기회 대응 <span class="tag">I2 · 하루</span></h4>
+          <span class="q">“움직일 기회가 왔을 때 실제로 움직였나?”</span>
           <ul>
-            <li>기준점(식후 · 긴 비활동 뒤)과 실제 움직임의 연결을 봄</li>
-            <li>많이 움직였는지가 아니라 <b>어디에 붙었는지</b></li>
-            <li>기록만 있으면 “기준점은 확인됨”까지</li>
+            <li>식후 · 기상 후 · 오래 앉기 중단 · 운동 기회, 종류마다 25점</li>
+            <li>많이 움직였는지가 아니라 <b>기회와 연결됐는지</b></li>
+            <li>하루 동안 쌓이기만 하고 내려가지 않음</li>
             <li>잘 살렸어요 / 보통이에요 / 부족해요</li>
           </ul>
         </article>
         <article class="card">
-          <h4>생활 변화 추이</h4>
-          <span class="q">“최근 내 생활 흐름은 얼마나 안정적인가?”</span>
+          <h4>생활 변화 추이 <span class="tag">I3 · 7일 대 7일</span></h4>
+          <span class="q">“최근 일주일 생활이 바로 앞 일주일보다 나아졌나?”</span>
           <ul>
-            <li>수면 · 걸음 · 체중 · 심박을 <b>개인 평소 패턴</b>과 비교함</li>
-            <li>최근 7~30일의 변동성과 이탈을 함께 봄</li>
-            <li>하루짜리 변동은 치지 않음</li>
+            <li>걸음 · 움직임 분포 · 운동 · 행동 연결 · 꾸준함 · 수면 규칙성 · 식사 시각 규칙성 7항목</li>
+            <li>비교 기준은 <b>나의 직전 7일</b> · 50점이 변화 없음</li>
+            <li>진행 중인 오늘은 쓰지 않고 어제 확정값을 보여줌</li>
             <li>나아지고 있어요 / 비슷해요 / 줄어들고 있어요</li>
           </ul>
         </article>
       </div>
 
+      <h3 class="block">아키텍처 구조 — 데이터가 지나가는 다섯 층</h3>
+      <p class="lead">왼쪽에서 오른쪽으로 데이터가 흐르고, 운영 · 검증 층이 판정 정책과 보정값을 계산 엔진 쪽으로 되돌려 줌. 상세 그림과 계산기는 「세지표 아키텍처 흐름도」에 있음.</p>
+      <div class="flow">
+        <div class="step"><b>① 원천 입력</b><p>건강 앱 기록 · 질문 답변 · 기회별 행동 판정 · 사용자 시간대</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>② 수집 · 정규화</b><p>현지 날짜 · 단위 통일 · 중복 제거 · 관측 상태 표시</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>③ 세 지표 엔진</b><p>I1 · I2 하루 지표, I3 7일 비교를 각각 독립 계산</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>④ 운영 · 검증</b><p>행동 판정 정책 · 경계값 · 산식 버전 관리</p></div>
+        <div class="arrow">→</div>
+        <div class="step"><b>⑤ 결과 표시</b><p>구간 라벨 · 주간 그래프 · 관찰 중 안내</p></div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:130px">층</th><th>하는 일</th><th style="width:260px">만들어 내는 것</th></tr></thead>
+        <tbody>
+          <tr><td><b>① 원천 입력</b></td><td>Apple Health · Samsung Health · Health Connect에서 걸음(시간 구간 · 속도) · 수면 세션 · 운동 세션을 받음. 오늘의 질문에서 식이 답변(구성 · 부담)과 식사 시각을 받음. 운영이 식후 · 기상 후 등 기회별 행동 결과를 판정해 넘김</td><td>원본 기록 · 답변 · 행동 판정</td></tr>
+          <tr><td><b>② 수집 · 정규화</b></td><td>기록을 사용자 현지 날짜로 정리함(수면은 기상한 날). 같은 기록의 중복과 겹친 기록을 걸러냄. 기록이 없는 날은 0이 아니라 「관측 안 됨」으로 표시함. 걸음 구간에서 활동 분 · 빠르게 걸은 분 · 앉았다 일어난 횟수를 만듦</td><td>날짜별 한 줄의 정규화 값 + 관측 상태</td></tr>
+          <tr><td><b>③ 세 지표 엔진</b></td><td>세 지표를 서로 섞지 않고 따로 계산함. I1은 네 조각 가중평균 × √충족률, I2는 기회별 25점 합(움직임은 큰 쪽 하나만), I3는 7항목 변화 신호 합을 50점 기준으로 펼침</td><td>지표별 0~100 점수 · 항목별 근거값 · 계산 가능 여부</td></tr>
+          <tr><td><b>④ 운영 · 검증</b></td><td>어떤 움직임을 식후 행동으로 인정할지, 구간 경계를 어디에 둘지 같은 정책을 정해 엔진에 줌. 산식 버전을 기록해 과거 값이 어느 기준으로 나왔는지 추적함</td><td>판정 정책 · 경계값(33 / 66) · 산식 버전</td></tr>
+          <tr><td><b>⑤ 결과 표시</b></td><td>점수 숫자는 보여주지 않고 구간 라벨만 보여줌. 하루 지표는 그 시각까지의 잠정값, I3는 어제 확정값. 근거가 하나도 없으면 「관찰 중」</td><td>홈 게이지 · 지표별 분석 카드 · 주간 띠 그래프</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="block">예시 — 김마이 씨의 하루가 다섯 층을 지나는 모습</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:130px">층</th><th>이 날 일어난 일</th></tr></thead>
+        <tbody>
+          <tr><td><b>① 원천 입력</b></td><td>어젯밤 23:30~05:30 수면 · 하루 6,000보 · 운동 기록 없음. 점심 질문에 「채소 충분 · 양 조금 많음」, 식사 시각 「12시~1시」로 답함. 운영 판정: 점심 뒤 10분 걷기 완료, 오후에 1시간 넘게 앉아 있다가 일어나 걸음 1회</td></tr>
+          <tr><td><b>② 수집 · 정규화</b></td><td>수면 6시간(기상한 날로 귀속) · 식사 균형 0.69 · 활동 60분 · 앉았다 일어난 횟수 1회</td></tr>
+          <tr><td><b>③ 세 지표 엔진</b></td><td>I1: 수면 0.5 · 식사 0.69 · 움직임 0.75 → <b>64.7</b><br>I2: 식후 1회 8.3 + 움직임(오래 앉기 중단 8.3 vs 걸음 추정 14.6 중 큰 쪽) 14.6 → <b>22.9</b><br>I3: 지난주보다 걸음 +0.5 · 나머지 변화 없음 → <b>64.2</b></td></tr>
+          <tr><td><b>④ 운영 · 검증</b></td><td>경계 33 / 66 적용 · 산식 버전 I1 v0.7 · I2 v1.2 · I3 v7.9 기록</td></tr>
+          <tr><td><b>⑤ 결과 표시</b></td><td>짜임새 있는 하루 <b>보통이에요</b> · 행동 기회 대응 <b>부족해요</b> · 생활 변화 추이 <b>비슷해요</b>(방향은 나아짐). 숫자는 보이지 않음</td></tr>
+        </tbody>
+      </table></div>
+
       <div class="callout"><span>세 지표의 관계</span>
-        <p>서로를 대신하지 않음. 여력도는 낮은데 행동 연결은 괜찮을 수 있고(하루가 빠듯했지만 가능한 순간마다 작은 행동을 붙였음), 여력도는 괜찮은데 변화 방향은 낮을 수 있음(오늘은 버틸 만하지만 최근 흐름이 한쪽으로 몰림).</p>
+        <p>서로를 대신하지 않음. 잠이 짧아 하루의 짜임새는 보통이어도 식후마다 걸었다면 행동 기회 대응은 높을 수 있고, 오늘은 잘 짜인 하루여도 지난주보다 걸음이 줄었다면 생활 변화 추이는 낮을 수 있음.</p>
         <p>그래서 <b>합산하거나 평균 내지 않음.</b> 하나의 종합 점수로 만들면 각 지표가 답하는 질문이 흐려짐.</p>
       </div>
 
-      <div class="callout warn"><span>미확정</span>
-        <p>확정된 것은 지표의 <b>방향과 구성 원칙</b>임. 최종 지표명(특히 2번), 최종 점수 계수, 화면 문구, 데이터 저장 구조, 앱 화면 구현은 아직 확정하지 않았음.</p>
-        <p>내부적으로는 계산용 숫자를 가질 수 있지만, 사용자에게는 <b>상태 표현</b>(충분함 · 빠듯함 · 관찰 중 · 일부 연결됨)을 우선함.</p>
+      <div class="callout warn"><span>확인 대기</span>
+        <p>산식은 계산식 전달 문서(LJH)의 지표 플레이그라운드 기준임. 산식 명세 문서 대조, 상태 경계값 검증, 식이 답변 → 식사 균형 연결표, 식후 · 기상 후 행동 판정 기준이 남아 있음(10장).</p>
       </div>
     </section>
 
@@ -579,9 +614,9 @@ a{color:#5170FF}
         <tbody>
           <tr><td><b>watch가 없음</b></td><td>하루 집계값 기준으로 낮은 해상도 해석. 불이익 없음</td><td>구간 기반 지표</td></tr>
           <tr><td><b>구간 데이터가 없음</b></td><td>수면·걸음수·하루 활동 시간 중심으로 진행</td><td>강도별 주간 지표, 세션 간격</td></tr>
-          <tr><td><b>하루 질문에 답이 없음</b></td><td>지표는 그대로 계산·표시. 감점하지 않음</td><td>이유 설명·맥락 보강</td></tr>
+          <tr><td><b>식이 질문에 답이 없음</b></td><td>짜임새 있는 하루는 남은 조각으로 계산하고 충족률만큼 낮춤(의도 확인 중). 나머지 두 지표는 그대로</td><td>식사 균형 조각</td></tr>
           <tr><td><b>확진 여부를 모름</b></td><td>일반 성인 규칙만 적용</td><td>질환별 코칭 전부</td></tr>
-          <tr><td><b>식사 시각을 모름</b></td><td>식후 코칭을 보류. 다른 코칭은 정상 진행</td><td>식후 관련 문구</td></tr>
+          <tr><td><b>식사 시각을 모름</b></td><td>식후 코칭을 보류. 세 지표는 해당 항목만 빼고 계산</td><td>식후 관련 문구 · 식사–수면 간격 · 식후 기회 · 식사 시각 규칙성</td></tr>
           <tr><td><b>나이를 모름</b></td><td>나이 조건이 붙은 규칙이 서지 않음</td><td>사실상 대부분의 코칭</td></tr>
         </tbody>
       </table></div>
@@ -624,7 +659,7 @@ a{color:#5170FF}
       <ul class="not-list">
         <li>세 지표를 합쳐 종합 점수 만들기</li>
         <li>진단 · 치료 · 질병위험 판단</li>
-        <li>질문에 답하지 않았다고 감점</li>
+        <li>답하지 않은 항목을 0점으로 채우기</li>
         <li>기록했다는 이유로 점수 보너스</li>
         <li>AI 소견만으로 질환 규칙 활성화</li>
         <li>없는 지표를 낮은 값으로 채우기</li>
@@ -637,7 +672,8 @@ a{color:#5170FF}
       <div class="table-wrap"><table>
         <thead><tr><th style="width:240px">항목</th><th>내용</th><th style="width:110px">담당</th><th style="width:100px">상태</th></tr></thead>
         <tbody>
-          <tr><td>3지표 최종명 · 계수</td><td>특히 2번 지표 이름. 주체성을 긍정적으로 표현하는 방향</td><td>기획 · 팀 논의</td><td><span class="status-badge sb-open">미정</span></td></tr>
+          <tr><td>3지표 이름 · 상태 경계</td><td>더 직관적인 이름 후보 검토 중. 경계 33 / 66은 새 산식 점수 분포로 검증 필요</td><td>기획 · 팀 논의</td><td><span class="status-badge sb-open">미정</span></td></tr>
+          <tr><td>3지표 산식 세부</td><td>산식 명세 문서 대조 · 식이 답변 → 식사 균형 연결표 · 식사 미응답 시 감점 의도 · 식후 · 기상 후 행동 판정 기준</td><td>기획 · 정훈샘</td><td><span class="status-badge sb-review">요청됨</span></td></tr>
           <tr><td>3지표 상태 표현 · 화면</td><td>사용자에게 보여줄 단계 구분과 문구</td><td>기획 · 디자인</td><td><span class="status-badge sb-open">미정</span></td></tr>
           <tr><td>걸음수 기반 코칭</td><td>대다수 사용자가 걸음수만 제공하는데 연결된 문구가 없음</td><td>의학팀</td><td><span class="status-badge sb-review">요청됨</span></td></tr>
           <tr><td>혈압 · 혈당 · 체중 코칭</td><td>이미 수집 중이나 대응하는 근거·문구가 없음</td><td>의학팀</td><td><span class="status-badge sb-review">요청됨</span></td></tr>
@@ -656,12 +692,14 @@ a{color:#5170FF}
       <ul>
         <li>maiReport 전달용 코칭 테이블 설계 요청서 (2026-09-04) — 5묶음 구조, 구간 표기 규약, 추가 수집 항목, 의학팀 확인 사항</li>
         <li>지식DB 전달테이블 추출 스크립트 — 평탄화·중복 제거·검증 9종·적재 스크립트 생성</li>
-        <li>지표 논의용 요약 (2026-09-01) — 3지표의 방향·구성 요소·공통 원칙</li>
-        <li>maiReport 데이터 모델 v0.1 · 지표 기획서 v0.1</li>
+        <li>생활 지표 기획서 v2.0 — 3지표 정의 · 산식 · 노출 정책</li>
+        <li>세지표 아키텍처 흐름도 — 다섯 층 상세 그림과 계산기 (공유 사이트 「지표 산출 흐름도」)</li>
+        <li>지표 플레이그라운드 (계산식 전달 문서(LJH)) — I1 v0.7 · I2 v1.2 · I3 v7.9</li>
+        <li>maiReport 데이터 모델</li>
       </ul>
     </div>
 
-    <footer>maiReport · 서비스 데이터 흐름도 v0.1 · 팀 공유용 개념도 · Internal Use Only</footer>
+    <footer>maiReport · 서비스 데이터 흐름도 v0.2 · 팀 공유용 개념도 · Internal Use Only</footer>
   </main>
 </body>
 </html>

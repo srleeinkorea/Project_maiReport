@@ -98,7 +98,7 @@ a{color:#5170FF}
   <div class="journey">
     <div class="jstep"><small>처음 한 번</small><b>① 연결하기</b><span>건강 앱 · 검진/진료 기록을 마이리포트에 연결</span></div>
     <div class="jstep"><small>매일 아침</small><b>② 오늘의 질문</b><span>기기로 알 수 없는 것만 3문항 → 코칭과 목표가 생김</span></div>
-    <div class="jstep"><small>하루 동안</small><b>③ 데이터가 쌓임</b><span>걸음 · 수면 · 심박이 오늘의 컨디션 세 지표로 해석됨</span></div>
+    <div class="jstep"><small>하루 동안</small><b>③ 데이터가 쌓임</b><span>걸음 · 수면 · 운동 기록과 식사 답변이 오늘의 컨디션 세 지표로 해석됨</span></div>
     <div class="jstep"><small>틈틈이</small><b>④ 실천 기록</b><span>목표 타일을 눌러 완료 → 며칠째 이어가는지 표시</span></div>
     <div class="jstep"><small>주 1회 · 필요할 때</small><b>⑤ 돌아보기</b><span>AI 인사이트 · 병원 탭 검진/진료 요약</span></div>
   </div>
@@ -233,13 +233,13 @@ a{color:#5170FF}
   <div class="sub">한 번 들어온 데이터는 여러 화면에서 다르게 쓰임. 어디에 쓰이고 어디에는 쓰이지 않는지</div>
   <table>
     <tr><th style="width:170px">데이터</th><th>쓰이는 곳</th><th style="width:34%">쓰이지 않는 곳</th></tr>
-    <tr><td class="k">걸음 (시간대별)</td><td>짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이 계산, 활동 목표 진행, 생활 분석 그래프, AI 인사이트</td><td>—</td></tr>
-    <tr><td class="k">수면</td><td>짜임새 있는 하루 · 생활 변화 추이, 수면 목표 생성, 생활 분석, AI 인사이트</td><td>행동 기회 대응</td></tr>
-    <tr><td class="k">안정 시 심박</td><td>생활 변화 추이, 홈 건강 데이터, AI 인사이트</td><td>짜임새 있는 하루 · 행동 기회 대응의 점수</td></tr>
-    <tr><td class="k">체중 · 체지방률 · BMI</td><td>전체 건강 데이터 상세, 생활 변화 추이 참고</td><td>지표 점수</td></tr>
+    <tr><td class="k">걸음 (시간대별 · 속도)</td><td>짜임새 있는 하루 · 행동 기회 대응 · 생활 변화 추이 계산, 활동 목표 진행, 생활 분석 그래프, AI 인사이트</td><td>—</td></tr>
+    <tr><td class="k">수면</td><td>짜임새 있는 하루(수면 · 식사–수면 간격) · 행동 기회 대응(기상 후 기회) · 생활 변화 추이(수면 규칙성), 수면 목표 생성, 생활 분석, AI 인사이트</td><td>—</td></tr>
+    <tr><td class="k">안정 시 심박</td><td>홈 건강 데이터, AI 인사이트</td><td>세 지표 점수</td></tr>
+    <tr><td class="k">체중 · 체지방률 · BMI</td><td>전체 건강 데이터 상세</td><td>지표 점수</td></tr>
     <tr><td class="k">혈압 · 혈당</td><td>전체 건강 데이터 상세, AI 인사이트 참고</td><td>지표 점수</td></tr>
-    <tr><td class="k">오늘의 질문 답변</td><td>오늘의 코칭 · 목표 생성, AI 인사이트 맥락</td><td>지표 점수 (올리거나 내리지 않음)</td></tr>
-    <tr><td class="k">식사 시각 기록</td><td>행동 기회 대응의 "행동 가능한 순간" 찾기, 식이 목표</td><td>기록했다는 사실로 점수를 올리지 않음</td></tr>
+    <tr><td class="k">오늘의 질문 답변</td><td>오늘의 코칭 · 목표 생성, AI 인사이트 맥락. 식이 답변(구성 · 부담)은 짜임새 있는 하루의 식사 균형</td><td>식이 외 답변은 지표 점수에 쓰지 않음</td></tr>
+    <tr><td class="k">식사 시각 기록</td><td>행동 기회 대응의 식후 기회 찾기 · 짜임새 있는 하루의 식사–수면 간격 · 생활 변화 추이의 식사 시각 규칙성, 식이 목표</td><td>기록했다는 사실로 점수를 올리지 않음</td></tr>
     <tr><td class="k">목표 완료 기록</td><td>연속일수 · 코멘트 · 최근 7일</td><td>지표 · 코칭</td></tr>
     <tr><td class="k">검진 · 진료 기록</td><td>병원 탭 요약, AI 인사이트, 질문 문항 선정</td><td>지표 점수 (맥락으로만)</td></tr>
   </table>
