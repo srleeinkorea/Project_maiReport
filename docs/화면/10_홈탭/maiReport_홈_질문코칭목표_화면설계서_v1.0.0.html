@@ -272,6 +272,8 @@ html[data-mai-theme="dark"] body[data-mai-kind] a.btn-primary{background:#365ee8
 
 /* Neutral labels outside device previews must not use a foreground token as a fill. */
 html[data-mai-theme="dark"] body[data-mai-kind] .kind{background:#253452!important;color:#cbd8ed!important}
+/* Decorative canvas dots add visual noise behind dark documents. */
+html[data-mai-theme="dark"] body::before{background-image:none!important}
 
 
 /* Legacy preview component colors (generated, scoped to devices). */
@@ -534,7 +536,7 @@ const SCEN={
  morning:{label:'아침 8시 · 워치',clock:'오전 8:20',meal:'어제 저녁',hint:'',time:false,steps:['meal','rot','extra'],
    rot:{q:'어제 저녁엔 채소 반찬을<br>얼마나 드셨나요?',opts:['충분히 먹음','조금 먹음','먹지 않음']},
    extra:{kind:'컨디션',q:'오늘은 피로감이<br>어느 정도인가요?',opts:['피곤하지 않음','조금 피곤함','많이 피곤함']},
-   goals:{diet:{lock:true,txt:'한 잔은 물로 바꾸기'},act:{lock:false,txt:'6,500걸음 걷기'},sleep:{lock:false,txt:'11시 반 전 잠자리'}},
+   goals:{diet:{lock:true,txt:'단 음료 대신 물 한 잔'},act:{lock:false,txt:'6,500걸음 걷기'},sleep:{lock:false,txt:'11시 반 전 잠자리'}},
    coach:'오늘은 점심 뒤 10분 걷기부터',coach2:'아침을 가볍게 챙기고 점심 뒤 걷기',dietSkip:'간식이라도 챙겨 먹기'},
  phone:{label:'점심 · 휴대폰만',clock:'오후 1:10',meal:'오늘 점심',hint:'',time:true,steps:['meal','time','rot','extra'],
    rot:{q:'오늘 점심엔 채소 반찬을<br>얼마나 드셨나요?',opts:['충분히 먹음','조금 먹음','먹지 않음']},

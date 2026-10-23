@@ -188,6 +188,8 @@ html[data-mai-theme="dark"] body[data-mai-kind] a.btn-primary{background:#365ee8
 
 /* Neutral labels outside device previews must not use a foreground token as a fill. */
 html[data-mai-theme="dark"] body[data-mai-kind] .kind{background:#253452!important;color:#cbd8ed!important}
+/* Decorative canvas dots add visual noise behind dark documents. */
+html[data-mai-theme="dark"] body::before{background-image:none!important}
 
 
 /* Legacy preview component colors (generated, scoped to devices). */
