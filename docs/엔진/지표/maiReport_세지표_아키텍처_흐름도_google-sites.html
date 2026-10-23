@@ -448,7 +448,7 @@ body::before{display:none!important;content:none!important}
 <div class="tl" style="--tl:var(--indigo);--tl-bg:var(--indigo-bg)"><div class="bar"></div><b>최근 7일 · I3 비교</b><p>직전 기간과 변화 비교<br>기록 급감 항목 제외</p><span class="tag">양쪽 기간 조건 적용</span></div>
 <div class="tl sum" style="--tl:var(--amber);--tl-bg:var(--amber-bg)"><div class="bar"></div><b>구현 전 확인</b><p>산식 명세 문서 대조<br>식이 연결표·기회 판정 기준</p><span class="tag">확정 필요 항목</span></div></section>
 <section class="legend" aria-label="범례"><span class="lg"><i style="background:var(--blue)"></i>원천 입력</span><span class="lg"><i style="background:var(--cyan)"></i>수집·정규화</span><span class="lg"><i style="background:var(--indigo)"></i>세 지표 엔진</span><span class="lg"><i style="background:var(--amber)"></i>운영·검증</span><span class="lg"><i style="background:var(--green)"></i>결과 표시</span><span class="lg-sep"></span><span class="mono">→ 데이터 흐름</span><span class="mono">← 정책·보정</span><span class="mono rule">결측 ≠ 0 · 움직임 ≠ 행동 완료</span></section><nav class="journey" aria-label="지표 처리 순서"><div class="j-step"><span class="j-num" style="background:var(--blue)">1</span><div><b style="color:var(--blue)">📱 원천 입력</b><p>건강 기록과 행동<br>서비스 입력 수집</p></div></div><span class="j-arrow" aria-hidden="true">▶</span><div class="j-step"><span class="j-num" style="background:var(--cyan)">2</span><div><b style="color:var(--cyan)">🔄 수집·정규화</b><p>날짜·출처 정리<br>관측 품질 확인</p></div></div><span class="j-arrow" aria-hidden="true">▶</span><div class="j-step"><span class="j-num" style="background:var(--indigo)">3</span><div><b style="color:var(--indigo)">⚙️ 세 지표 엔진</b><p>하루 지표 두 개<br>7일 변화 한 개</p></div></div><span class="j-arrow" aria-hidden="true">▶</span><div class="j-step"><span class="j-num" style="background:var(--amber)">4</span><div><b style="color:var(--amber)">🔎 운영·검증</b><p>판정 정책 확정<br>명세·결과 대조</p></div></div><span class="j-arrow" aria-hidden="true">▶</span><div class="j-step"><span class="j-num" style="background:var(--green)">5</span><div><b style="color:var(--green)">📊 결과 표시</b><p>점수와 상태 표시<br>관측 근거 함께</p></div></div></nav><section class="arch" aria-label="세 지표 아키텍처"><section class="zone z-blue"><h2 class="zlabel">📱 01 · 원천 입력</h2><div class="stack"><article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">🍎</span><h3 class="cn">Apple Health</h3></div><p class="cb"><span>걸음·수면·운동</span><span>시간 구간·출처</span></p><span class="ctag">원본 기록</span></article><article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">⌚</span><h3 class="cn">Samsung Health</h3></div><p class="cb"><span>걸음·수면·운동</span><span>원본 식별자</span></p><span class="ctag">CSV / 원천</span></article><article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">🔗</span><h3 class="cn">Health Connect</h3></div><p class="cb"><span>기록·일별 총량</span><span>앱 출처·기기</span></p><span class="ctag">공유 저장소</span></article><article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">🍽️</span><h3 class="cn">질문 답변 · 행동</h3></div><p class="cb"><span>식이 답변·식사 시각</span><span>기회별 행동 판정</span></p><span class="ctag">질문·운영 입력</span></article><article class="card c-blue"><div class="card-head"><span class="ci" aria-hidden="true">🌐</span><h3 class="cn">사용자 프로필</h3></div><p class="cb"><span>사용자 시간대</span><span>승인 데이터 출처</span></p><span class="ctag">IANA 시간대</span></article></div></section><div class="flow-col" aria-label="데이터 연결"><div class="fa fc-cyan"><span class="lab">수집</span><div class="track"></div><div class="tip"></div></div></div><section class="zone z-cyan"><h2 class="zlabel">🔄 02 · 수집·정규화</h2><div class="stack"><article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">⇄</span><h3 class="cn">원본 어댑터</h3></div><p class="cb"><span>필드·단위 변환</span><span>ID·출처 보존</span></p><span class="ctag">제공자별 분리</span></article><article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">🕒</span><h3 class="cn">현지 날짜</h3></div><p class="cb"><span>시간대 검증</span><span>수면은 종료일</span></p><span class="ctag">자정 규칙 적용</span></article><article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">🧹</span><h3 class="cn">중복·충돌</h3></div><p class="cb"><span>정확한 중복 제거</span><span>겹친 기록 차단</span></p><span class="ctag">총량도 검증</span></article><article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">◌</span><h3 class="cn">관측 상태</h3></div><p class="cb"><span>미수집은 결측</span><span>관측된 0 구분</span></p><span class="ctag">결측 대체 금지</span></article><article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">▦</span><h3 class="cn">시간 구간 파생</h3></div><p class="cb"><span>구획별 시간 배분</span><span>공백은 추정치</span></p><span class="ctag warn">활동 해상도 확인 필요</span></article><article class="card c-cyan"><div class="card-head"><span class="ci" aria-hidden="true">📋</span><h3 class="cn">정규화 계약</h3></div><p class="cb"><span>날짜별 한 행</span><span>항목·출처·상태</span></p><span class="ctag">입력 스키마</span></article></div></section><div class="flow-col" aria-label="데이터 연결"><div class="fa fc-indigo"><span class="lab">표준화</span><div class="track"></div><div class="tip"></div></div><div class="fa fc-amber fl"><span class="lab">보정</span><div class="track"></div><div class="tip-l"></div></div></div><section class="zone z-indigo"><h2 class="zlabel">⚙️ 03 · I1 · I2 · I3 계산 엔진</h2><section class="subsec"><h3 class="ss-label">A · 계약 검증과 입력 분기</h3><article class="card c-indigo hero-card"><span class="core">CORE</span><div class="card-head"><span class="ci" aria-hidden="true">⚙️</span><h3 class="cn">지표 계산기</h3></div><p class="cb"><span>입력 검증</span><span>항목별 계산</span><span>근거 보존</span></p><span class="ctag warn">플레이그라운드 기준 · 명세 대조 필요</span></article><div class="g2"><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">✓</span><h3 class="cn">계산 가능성</h3></div><p class="cb"><span>필수 관측 확인</span><span>범위·관계 검증</span></p><span class="ctag warn">누락 조건 확인 필요</span></article><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">▤</span><h3 class="cn">일별 총량만</h3></div><p class="cb"><span>I1 움직임량 계산</span><span>I3 총량 비교 가능</span></p><span class="ctag">I2는 시간대별 걸음 필요</span></article></div></section><section class="subsec"><h3 class="ss-label">B · 세 지표를 독립 계산</h3><div class="g3"><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">①</span><h3 class="cn">I1 · 짜임새 있는 하루</h3></div><p class="cb"><span>수면 · 비중 1</span><span>식사 균형 · 축 수÷7</span><span>움직임량 · 비중 1</span><span>식사–수면 간격 · 0.25</span><span>→ 가중평균 × √충족률</span></p><span class="ctag">0–100 · 하루 중 잠정값</span></article><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">②</span><h3 class="cn">I2 · 행동 기회 대응</h3></div><p class="cb"><span>식후 행동 25점</span><span>기상 후 행동 25점</span><span>오래 앉기 중단 25점</span><span>운동 기회 25점</span><span>→ 기회마다 쌓기</span></p><span class="ctag">0–100 · 하루 중 내려가지 않음</span></article><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">③</span><h3 class="cn">I3 · 생활 변화 추이</h3></div><p class="cb"><span>움직임 총량 25.5%</span><span>분포·운동·행동 연결 각 12.75%</span><span>꾸준함 8.5%</span><span>수면 규칙성 12.75%</span><span>식사 시각 규칙성 15%</span><span>→ 7일 대 7일 비교</span></p><span class="ctag">0–100 · 50이 변화 없음</span></article></div></section><section class="subsec"><h3 class="ss-label">C · 지표별 데이터 경계</h3><div class="g3"><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🌙</span><h3 class="cn">I1 · 충족률</h3></div><p class="cb"><span>빠진 조각은 제외</span><span>충족률 √만큼 낮춤</span><span>식이 답변 직접 반영</span></p><span class="ctag warn">미응답 감점 의도 확인 필요</span></article><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🍽️</span><h3 class="cn">I2 · 행동</h3></div><p class="cb"><span>운영 판정 + 걸음 추정</span><span>미상은 제외</span><span>움직임은 큰 쪽 하나만</span></p><span class="ctag warn">기회 판정 기준 확인 필요</span></article><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">📅</span><h3 class="cn">I3 · 유효 관측</h3></div><p class="cb"><span>양쪽 각 3일 이상</span><span>기록 급감 항목 제외</span><span>빠진 항목은 0으로</span></p><span class="ctag">비중 재분배 없음</span></article></div></section><section class="subsec"><h3 class="ss-label">D · 점수와 근거 패키징</h3><div class="g2"><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">↗</span><h3 class="cn">표시값 변환</h3></div><p class="cb"><span>0~100 바로 계산</span><span>지표별 구간 분류</span></p><span class="ctag">세 지표 33/66</span></article><article class="card c-indigo"><div class="card-head"><span class="ci" aria-hidden="true">🧾</span><h3 class="cn">결과 계약</h3></div><p class="cb"><span>점수·상태·범주</span><span>관측 범위·출처</span></p><span class="ctag">출력 스키마 검증</span></article></div></section></section><div class="flow-col" aria-label="데이터 연결"><div class="fa fc-amber"><span class="lab">검증</span><div class="track"></div><div class="tip"></div></div><div class="fa fc-amber fl"><span class="lab">정책반영</span><div class="track"></div><div class="tip-l"></div></div></div><section class="zone z-amber"><h2 class="zlabel">🔎 04 · 운영·검증</h2><div class="stack"><article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">🍽️</span><h3 class="cn">행동 판정 정책</h3></div><p class="cb"><span>인정 행동·시간창</span><span>판정 마감·미상</span></p><span class="ctag warn">확인 필요</span></article><article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">⚖️</span><h3 class="cn">산식 정책</h3></div><p class="cb"><span>I1 충족률·식이 연결</span><span>상태 경계값</span></p><span class="ctag warn">확인 필요</span></article><article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">🛠️</span><h3 class="cn">오류 보정</h3></div><p class="cb"><span>수면·구획·자정</span><span>중복·충돌·결측</span></p><span class="ctag warn">수정 필요</span></article><article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">🧪</span><h3 class="cn">인수 검증</h3></div><p class="cb"><span>경계·결측 재현</span><span>명세와 결과 대조</span></p><span class="ctag">플레이그라운드 시나리오 8종</span></article><article class="card c-amber"><div class="card-head"><span class="ci" aria-hidden="true">🧾</span><h3 class="cn">출처·변경 이력</h3></div><p class="cb"><span>원본 근거 추적</span><span>산식 버전 관리</span></p><span class="ctag warn">저장 방식 확인 필요</span></article></div></section><div class="flow-col" aria-label="데이터 연결"><div class="fa fc-green"><span class="lab">표시</span><div class="track"></div><div class="tip"></div></div></div><section class="zone z-green"><h2 class="zlabel">📊 05 · 결과 표시</h2><div class="stack"><article class="card c-green"><div class="card-head"><span class="ci" aria-hidden="true">①</span><h3 class="cn">짜임새 있는 하루 결과</h3></div><p class="cb"><span>수면·식사·움직임 구성</span><span>상태 라벨·근거</span></p><span class="ctag">선택일 상태 라벨 1개</span></article><article class="card c-green"><div class="card-head"><span class="ci" aria-hidden="true">②</span><h3 class="cn">행동 기회 대응 결과</h3></div><p class="cb"><span>기회별 행동 구성</span><span>상태 라벨·근거</span></p><span class="ctag">선택일 상태 라벨 1개</span></article><article class="card c-green"><div class="card-head"><span class="ci" aria-hidden="true">③</span><h3 class="cn">생활 변화 추이 결과</h3></div><p class="cb"><span>7일 변화 방향</span><span>상태 라벨·근거</span></p><span class="ctag">변화 방향 상태 라벨 1개</span></article><article class="card c-green"><div class="card-head"><span class="ci" aria-hidden="true">◉</span><h3 class="cn">계산 상태</h3></div><p class="cb"><span>계산 가능·잠정값</span><span>관측 부족·미상</span></p><span class="ctag">available / provisional</span></article><article class="card c-green"><div class="card-head"><span class="ci" aria-hidden="true">🔍</span><h3 class="cn">근거 확인</h3></div><p class="cb"><span>관측 범위·출처</span><span>추정·누락 구분</span></p><span class="ctag">insufficient / unknown</span></article></div></section></section><section class="learn" aria-labelledby="learn-title">
-<header class="learn-intro"><span class="eyebrow">계산 방법을 한 단계씩</span><h2 id="learn-title">기록이 어떻게 점수가 될까요?</h2><p>세 지표는 서로 다른 질문에 답함. 먼저 데이터와 계산 방법을 알아보고, 예시 값을 입력해 점수가 어떻게 계산되는지 확인해 보세요.</p><nav class="learn-nav" aria-label="계산 설명 바로가기"><a href="#wearable-data">가져오는 데이터</a><a href="#learn-i1">① 짜임새 있는 하루</a><a href="#learn-i2">② 행동 기회 대응</a><a href="#learn-i3">③ 생활 변화 추이</a></nav></header>
+<header class="learn-intro"><span class="eyebrow">계산 방법을 한 단계씩</span><h2 id="learn-title">기록이 어떻게 점수가 될까요?</h2><p>세 지표는 서로 다른 질문에 답함. 먼저 데이터와 계산 방법을 알아보고, 예시 값을 입력해 점수가 어떻게 계산되는지 확인해 보세요.</p><nav class="learn-nav" aria-label="계산 설명 바로가기"><a href="#wearable-data">가져오는 데이터</a><a href="#learn-i1">① 짜임새 있는 하루</a><a href="#learn-i2">② 행동 기회 대응</a><a href="#learn-i3">③ 생활 변화 추이</a><a href="#learn-day">④ 하루 동안의 변화</a></nav></header>
 <section class="thresholds wearable-guide" id="wearable-data" aria-labelledby="wearable-title">
 <span class="eyebrow">먼저 알아보기 · 점수의 재료</span>
 <h2 id="wearable-title">무엇을 가져오나요?</h2>
@@ -502,6 +502,62 @@ body::before{display:none!important;content:none!important}
 <div class="practice"><form id="form-i3" class="practice-input" onsubmit="return false"><h3>두 기간의 기록으로 변화 계산해 보기</h3><p>여기서는 걸음 · 운동 시간 · 수면 규칙성 · 식사 시각 규칙성 네 항목만 넣어요. 나머지 항목은 변화 없음(0)으로 계산해요.</p><div class="input-grid"><label>직전 7일 걸음 평균 <small>보/일</small><input id="c-bsteps" type="number" min="0" max="40000" step="100" value="6000"></label><label>최근 7일 걸음 평균 <small>보/일</small><input id="c-rsteps" type="number" min="0" max="40000" step="100" value="7500"></label><label>직전 운동 시간 평균 <small>분/일</small><input id="c-bex" type="number" min="0" max="300" step="1" value="10"></label><label>최근 운동 시간 평균 <small>분/일</small><input id="c-rex" type="number" min="0" max="300" step="1" value="20"></label><label>직전 취침·기상 흩어짐 <small>평균 시각에서 떨어진 분</small><input id="c-bsleep" type="number" min="0" max="720" step="1" value="60"></label><label>최근 취침·기상 흩어짐 <small>분</small><input id="c-rsleep" type="number" min="0" max="720" step="1" value="40"></label><label>직전 식사 시각 흩어짐 <small>분</small><input id="c-bmeal" type="number" min="0" max="720" step="1" value="45"></label><label>최근 식사 시각 흩어짐 <small>분</small><input id="c-rmeal" type="number" min="0" max="720" step="1" value="45"></label></div><label class="check"><input id="c-has-meal" type="checkbox" checked>양쪽 기간에 식사 시각 답변이 각 3일 이상 있어요</label><button type="reset">예시 값 초기화</button></form><div id="out-i3" class="practice-result" role="status" aria-live="polite"></div></div>
 <details class="math"><summary>정확한 계산식 · I3</summary><div class="math-body"><p>clip11(x)는 −1보다 작으면 −1, 1보다 크면 1로 자름.</p><ol><li><code>양 신호 = clip11( (최근 평균 − 직전 평균) ÷ max( 직전 평균 × 0.5 , 최소 기준 ) )</code> · 최소 기준: 걸음 1,000 · 분포 1 · 운동 10</li><li><code>움직임 분포 = ⅓ 활동 분 + ⅓ 움직인 횟수 + ⅓ 앉았다 일어난 횟수</code> 신호 · <code>운동 = ½ 운동 횟수 + ½ 운동 분</code> 신호</li><li><code>행동 연결 = clip11( (최근 완료율 − 직전 완료율) ÷ 0.5 )</code> · 완료율은 기간 합계로 계산</li><li><code>꾸준함 = 최근 평균 − 직전 평균</code> · 날마다 clip01((걸음 − 750) ÷ 500)</li><li><code>규칙성 = clip11( (직전 흩어짐 − 최근 흩어짐) ÷ max( 직전 흩어짐 × 0.5 , 15 ) )</code> · 수면은 취침·기상, 식사는 끼니별로 구해 평균</li><li><code>변화 신호 = Σ( 항목 신호 × 비중 )</code> — 빠진 항목은 0, 비중을 다시 나누지 않음</li><li><code>I3 = 50 + 50 × clip11( 변화 신호 ÷ 0.45 )</code> · 방향: 신호 &gt; 0.05 나아짐, &lt; −0.05 줄어듦</li></ol><p>최근 7일 중 걸음·수면·식사 시각 중 하나라도 있는 날이 3일 미만이면 점수를 만들지 않음. 직전 기간보다 최근 관측일이 3일 이상 적은 항목은 비교에서 뺌.</p></div></details>
 <p class="lesson-bottom">읽는 법: 원래 활동이 많은 사람도 지난주와 같으면 50점이에요. 지금 상태가 좋은지 나쁜지가 아니라 변화의 방향만 말해요. 기기·수집 방식이 바뀌면 생활이 바뀐 것처럼 보일 수 있으므로 같은 조건인지 확인해야 함.</p></article>
+<style id="mai-day-flow-20261023">
+.dy{display:grid;gap:14px}
+.dy-tabs{display:flex;flex-wrap:wrap;gap:8px}
+.dy-tabs button{font:inherit;font-size:12px;font-weight:700;padding:8px 14px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--text-2);cursor:pointer}
+.dy-tabs button[aria-pressed=true]{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.dy-desc{font-size:12.5px;color:var(--text-2);line-height:1.7}
+.dy-ctrl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:10px 14px}
+.dy-ctrl input[type=range]{flex:1;min-width:180px;accent-color:var(--indigo)}
+.dy-time{font:800 20px 'JetBrains Mono',Consolas,monospace;color:var(--text-1);min-width:66px}
+.dy-ctrl button{font:inherit;font-size:12px;font-weight:700;padding:7px 12px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text-1);cursor:pointer}
+.dy-chart{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:8px}
+.dy-chart svg{display:block;width:100%;height:auto}
+.dy-chart .ax{font-size:10px;fill:var(--text-3)}
+.dy-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--text-2);padding:2px 6px 4px}
+.dy-legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.dy-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.dy-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--c);border-radius:12px;padding:12px 14px;min-width:0}
+.dy-card h4{font-size:13px;margin:0 0 6px;color:var(--text-1)}
+.dy-score{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.dy-score b{font:800 24px 'JetBrains Mono',Consolas,monospace;color:var(--text-1)}
+.dy-badge{font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-1)}
+.dy-badge.low{border-color:#d97706;color:#b45309}.dy-badge.mid{border-color:#2563eb;color:#1d4ed8}.dy-badge.good{border-color:#16a34a;color:#15803d}
+html[data-mai-theme="dark"] .dy-badge.low{color:#f5b971}html[data-mai-theme="dark"] .dy-badge.mid{color:#9cc0ff}html[data-mai-theme="dark"] .dy-badge.good{color:#7fdca4}
+.dy-card ul{margin:8px 0 0;padding-left:16px;font-size:11.5px;color:var(--text-2);line-height:1.7}
+.dy-card .dy-note{font-size:11px;color:var(--text-3);margin-top:6px;line-height:1.6}
+.dy-events{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.dy-events h4{font-size:13px;margin:0 0 8px;color:var(--text-1)}
+.dy-events ol{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.dy-events li{display:grid;grid-template-columns:52px 1fr;gap:8px;font-size:12px;color:var(--text-1)}
+.dy-events li span:first-child{font-family:'JetBrains Mono',Consolas,monospace;color:var(--text-2)}
+.dy-events li.wait{opacity:.38}
+.dy-moments{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px}
+.dy-moments div{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--text-2);line-height:1.7}
+.dy-moments b{display:block;color:var(--text-1);font-size:12.5px;margin-bottom:2px}
+@media(max-width:860px){.dy-cards{grid-template-columns:minmax(0,1fr)}}
+</style>
+<article class="lesson" id="learn-day" style="--lesson:var(--blue);--lesson-bg:var(--blue-bg)"><header class="lesson-head"><span class="lesson-number">24h</span><div><h2>하루 동안 지표는 이렇게 바뀌어요</h2><p>짜임새 있는 하루와 행동 기회 대응은 그 시각까지 들어온 기록으로 계속 다시 계산해요. 생활 변화 추이는 하루가 끝나야 확정되므로 하루 내내 어제 값을 보여줘요.</p></div><span class="lesson-badge">시각별 잠정값</span></header>
+<div class="dy">
+  <div class="dy-tabs" role="group" aria-label="예시 하루 고르기" id="dy-tabs"></div>
+  <p class="dy-desc" id="dy-desc"></p>
+  <div class="dy-ctrl"><span class="dy-time" id="dy-time">07:00</span><input id="dy-hour" type="range" min="0" max="24" step="0.5" value="7" aria-label="시각"><button type="button" id="dy-play">▶ 하루 재생</button></div>
+  <div class="dy-chart"><svg id="dy-svg" viewBox="0 0 680 230" role="img" aria-label="시각별 지표 점수 그래프"></svg>
+    <div class="dy-legend"><span><i style="background:var(--indigo)"></i>짜임새 있는 하루</span><span><i style="background:var(--cyan)"></i>행동 기회 대응</span><span><i style="background:var(--green);height:0;border-top:2px dashed var(--green)"></i>생활 변화 추이(어제 확정값)</span><span>배경: 아래부터 주의 · 보통 · 좋음 (33 / 66)</span></div>
+  </div>
+  <div class="dy-cards" id="dy-cards"></div>
+  <div class="dy-events"><h4>이 날 들어오는 기록 <small style="font-weight:400;color:var(--text-3)">흐린 줄은 아직 들어오지 않은 기록</small></h4><ol id="dy-events"></ol></div>
+  <div class="dy-moments">
+    <div><b>새벽 · 아침 — 낮게 시작</b>수면은 오전 10시부터, 식사는 질문한 끼니의 답변이 들어온 뒤부터 반영돼요. 그 전에는 걸음만 있어 충족률이 낮아 점수도 낮아요.</div>
+    <div><b>오전 10시 — 수면이 들어옴</b>어젯밤 수면이 반영되면서 짜임새 있는 하루가 크게 올라요.</div>
+    <div><b>답변 시각 — 식사가 들어옴</b>아침 10시 · 점심 15시 · 저녁 21시에 질문한 끼니의 식사 균형이 들어와요. 답이 없으면 하루 끝까지 충족률이 채워지지 않아요.</div>
+    <div><b>행동 기회 대응 — 계단처럼 오름</b>식후 · 기상 후 · 오래 앉기 중단 · 운동이 확인될 때마다 쌓이고, 하루 안에서는 내려가지 않아요.</div>
+    <div><b>자정 — 확정</b>하루가 끝난 값이 그날의 최종값이에요. 전날과 비교하는 문장과 주간 그래프의 지난 날 점은 이 최종값을 써요. 생활 변화 추이는 이때 새로 계산돼요.</div>
+  </div>
+  <p class="learn-note"><strong>확정 필요 — 아침 표시 방법.</strong> 산식 그대로 보여주면 기록이 아직 적은 아침에 대부분 「부족해요」가 보여요. 기준 시각 전에는 어제 최종값을 보여줄지, 「오늘 기록 모으는 중」으로 표시할지, 잠정값에 "지금까지 기준"을 붙일지 정해야 해요. 이 화면은 정하기 전의 산식 그대로를 보여줘요.</p>
+</div>
+</article>
 <aside class="learn-note final-note"><strong>근거 자료.</strong> 세 지표 계산식은 계산식 전달 문서(LJH)의 지표 플레이그라운드(I1 v0.7 · I2 v1.2 · I3 v7.9)를 기준으로 정리했음. 식이 답변을 구성·부담 값으로 바꾸는 연결표, I2 기회 판정 기준, 상태 경계값은 확정이 필요함. 계산 과정은 반올림 전 값으로 진행하고 화면에서만 소수점을 줄임.</aside>
 </section>
 <footer class="footer">© maiReport · I1·I2·I3 아키텍처 설계안 · 산식 I1 v0.7 · I2 v1.2 · I3 v7.9 기준<br>운영 존은 정책·인수 검증 책임을 표시하며, 매 계산의 수동 승인을 의미하지 않음.<br>설계 방향을 표현한 문서임. 실서비스 연동 완료를 의미하지 않음.</footer></main><script>(() => {
@@ -555,4 +611,93 @@ body::before{display:none!important;content:none!important}
  for(const id of ['form-i1','form-i2','form-i3']){$(id).addEventListener('input',update);$(id).addEventListener('change',update);$(id).addEventListener('reset',()=>setTimeout(update,0));}
  update();
 })();
-</script></body></html>
+</script><script id="mai-day-flow-script">
+(() => {
+ 'use strict';
+ const $=id=>document.getElementById(id); if(!$('dy-svg')) return;
+ const clip=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+ const hm=h=>{const m=Math.round(h*60);return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');};
+ const cum=(arr,h)=>{const i=Math.floor(h),f=h-i;if(i>=24)return arr[24];return arr[i]+(arr[i+1]-arr[i])*f;};
+ const SLOT={breakfast:['아침',10],lunch:['점심',15],dinner:['저녁',21]};
+ const P=[
+  {id:'a',name:'평소 하루',desc:'잠 6시간(00:30–06:30) · 점심 식사 질문에 답함 · 하루 6,000보 · 점심 뒤 10분 걷기 1회 · 오후에 오래 앉아 있다 일어나 걸음 1회. 기획서 예시 A와 같은 날이에요.',
+   steps:[0,0,0,0,0,0,0,400,1200,1500,1800,2100,2600,3600,3800,4000,4300,4600,5000,5600,5800,5900,6000,6000,6000],
+   sleep:{h:6,label:'어젯밤 00:30–06:30 · 6시간'},meal:{slot:'lunch',v:0.69,axes:7,label:'점심 질문 답변 · 채소 충분 · 양 조금 많음 → 식사 균형 0.69'},gap:null,ex:null,
+   acts:[{t:15,f:'brk',l:'1시간 넘게 앉아 있다가 일어나 걸음'},{t:15.67,f:'meal',l:'점심(12:30) 뒤 10분 걷기 확인'}],
+   i3:{s:64.2,l:'지난주보다 걸음만 늘어 신호 +0.13'}},
+  {id:'b',name:'잘 짜인 하루',desc:'잠 7시간 30분(23:00–06:30) · 아침 식사 질문(08:00 식사)에 답함 · 하루 9,000보 · 저녁 40분 운동 · 세 끼 모두 식후 걷기 · 일어나서 스트레칭.',
+   steps:[0,0,0,0,0,0,0,600,1500,2000,2600,3100,3600,4400,4700,5000,5500,5800,6000,7600,8400,8800,9000,9000,9000],
+   sleep:{h:7.5,label:'어젯밤 23:00–06:30 · 7시간 30분'},meal:{slot:'breakfast',v:0.79,axes:7,label:'아침 질문 답변 · 구성 좋음 · 양 적당 → 식사 균형 0.79'},gap:90,ex:{s:18,e:18.67,m:40},
+   acts:[{t:7,f:'wake',l:'일어나서 스트레칭 · 가벼운 걷기'},{t:10.67,f:'meal',l:'아침(08:00) 뒤 걷기 확인'},{t:11,f:'brk',l:'오래 앉아 있다 일어나 걸음'},{t:13.5,f:'meal',l:'점심 뒤 걷기 확인'},{t:16,f:'brk',l:'오래 앉아 있다 일어나 걸음'},{t:18.67,f:'ex',m:40,l:'저녁 운동 40분 끝'},{t:20,f:'meal',l:'저녁 뒤 걷기 확인'}],
+   i3:{s:72.2,l:'지난주보다 모든 항목이 조금씩 나아짐 · 신호 +0.20'}},
+  {id:'c',name:'기록이 적은 날',desc:'워치를 차지 않고 자서 수면 기록 없음 · 식사 질문에 답하지 않음 · 하루 3,000보 · 확인된 행동 기회 없음.',
+   steps:[0,0,0,0,0,0,0,0,300,500,700,900,1200,1500,1600,1700,1900,2100,2300,2600,2800,2900,3000,3000,3000],
+   sleep:null,meal:null,gap:null,ex:null,acts:[],
+   i3:{s:50,l:'지난주와 같음 · 신호 0'}}
+ ];
+ function i1(p,h){
+  const it={},rows=[];
+  if(p.sleep&&h>=10){const s=p.sleep.h*60;it.sleep=[clip(Math.min((s-300)/120,(720-s)/180)),1];}
+  const at=p.meal?SLOT[p.meal.slot][1]:99;
+  if(p.meal&&h>=at)it.meal=[p.meal.v,p.meal.axes/7];
+  if(h>0){const st=cum(p.steps,h);let ex=0;if(p.ex)ex=p.ex.m*clip((h-p.ex.s)/(p.ex.e-p.ex.s));it.move=[clip(Math.max(st/8000,ex/(300/7))),1];it.move.push(st,ex);}
+  const rel=p.meal&&(p.meal.slot==='breakfast'||p.meal.slot==='dinner');
+  if(rel&&it.meal&&it.sleep&&p.gap!=null){const g=p.gap;const v=p.meal.slot==='breakfast'?(g<90?g/90:g<=180?1:clip((330-g)/150)):(g<120?g/120:g<=300?1:clip((600-g)/300));it.rel=[clip(v),.25];}
+  const ks=Object.keys(it);if(!ks.length)return{s:null,rows:['아직 들어온 기록이 없어요']};
+  const ev=ks.reduce((a,k)=>a+it[k][1],0),exp=3+(rel?.25:0),cov=Math.min(1,ev/exp),raw=100*ks.reduce((a,k)=>a+it[k][0]*it[k][1],0)/ev,s=raw*Math.sqrt(cov);
+  rows.push(it.sleep?`수면 ${p.sleep.h}시간 → ${it.sleep[0].toFixed(2)}`:(p.sleep?'수면 · 오전 10시에 반영':'수면 · 기록 없음'));
+  rows.push(it.meal?`식사 균형 ${it.meal[0].toFixed(2)}`:(p.meal?`식사 · ${SLOT[p.meal.slot][0]} 답변 ${SLOT[p.meal.slot][1]}시에 반영`:'식사 · 답변 없음'));
+  if(it.move)rows.push(`움직임 ${Math.round(it.move[2]).toLocaleString('ko-KR')}보${it.move[3]>0?` · 운동 ${Math.round(it.move[3])}분`:''} → ${it.move[0].toFixed(2)}`);
+  if(rel)rows.push(it.rel?`식사–수면 간격 → ${it.rel[0].toFixed(2)}`:'식사–수면 간격 · 식사 반영 뒤');
+  rows.push(`충족률 ${Math.round(cov*100)}% → 원점수 ${raw.toFixed(1)} × ${Math.sqrt(cov).toFixed(2)}`);
+  return{s,rows};
+ }
+ function i2(p,h){
+  const done=p.acts.filter(a=>a.t<=h),F={meal:0,wake:0,brk:0,ex:0},n={meal:0,wake:0,brk:0};
+  done.forEach(a=>{if(a.f==='meal'){n.meal++;F.meal=Math.min(25,F.meal+25/3);}if(a.f==='wake'){F.wake=25;}if(a.f==='brk'){n.brk++;F.brk=Math.min(25,F.brk+25/3);}if(a.f==='ex'){F.ex=Math.min(25,25*clip(a.m/30));}});
+  const st=cum(p.steps,h),active=st/100,proxy=25*clip((active*.55+n.brk*5)/65),direct=F.brk+F.ex,move=Math.max(direct,proxy);
+  const s=Math.min(100,F.meal+F.wake+move);
+  return{s,rows:[`식후 행동 ${n.meal}회 → ${F.meal.toFixed(1)}점`,`기상 후 행동 → ${F.wake.toFixed(1)}점`,`오래 앉기 중단 + 운동 ${direct.toFixed(1)} vs 걸음 추정 ${proxy.toFixed(1)} → ${move.toFixed(1)}점`]};
+ }
+ const band=v=>v==null?'none':v>=66?'good':v>=33?'mid':'low';
+ const LAB={1:{good:'잘 짜였어요',mid:'보통이에요',low:'부족해요'},2:{good:'잘 살렸어요',mid:'보통이에요',low:'부족해요'},3:{good:'나아지고 있어요',mid:'비슷해요',low:'줄어들고 있어요'}};
+ let cur=P[0],timer=null;
+ function events(p){
+  const e=[];if(p.sleep)e.push([10,`수면 반영 · ${p.sleep.label}`]);
+  if(p.meal)e.push([SLOT[p.meal.slot][1],p.meal.label]);
+  p.acts.forEach(a=>e.push([a.t,a.l]));
+  e.push([24,'하루 끝 · 최종값 확정, 생활 변화 추이 새로 계산']);
+  return e.sort((a,b)=>a[0]-b[0]);
+ }
+ function draw(h){
+  const W=680,H=230,L=40,R=12,T=12,B=26,iw=W-L-R,ih=H-T-B,X=t=>L+t/24*iw,Y=v=>T+ih-(v/100)*ih;
+  let g='';
+  [[0,33,'rgba(217,119,6,.10)'],[33,66,'rgba(37,99,235,.08)'],[66,100,'rgba(22,163,74,.10)']].forEach(([a,b,c])=>{g+=`<rect x="${L}" y="${Y(b)}" width="${iw}" height="${Y(a)-Y(b)}" fill="${c}"/>`;});
+  [0,33,66,100].forEach(v=>{g+=`<text class="ax" x="${L-6}" y="${Y(v)+3}" text-anchor="end">${v}</text>`;});
+  for(let t=0;t<=24;t+=3)g+=`<text class="ax" x="${X(t)}" y="${H-8}" text-anchor="middle">${t}시</text>`;
+  const pts=f=>{let d='';for(let t=0;t<=24;t+=0.25){const v=f(t);if(v==null){continue;}d+=(d?'L':'M')+X(t).toFixed(1)+','+Y(v).toFixed(1);}return d;};
+  g+=`<path d="${pts(t=>i1(cur,t).s)}" fill="none" stroke="var(--indigo)" stroke-width="2.4" stroke-linejoin="round"/>`;
+  g+=`<path d="${pts(t=>i2(cur,t).s)}" fill="none" stroke="var(--cyan)" stroke-width="2.4" stroke-linejoin="round"/>`;
+  g+=`<line x1="${L}" x2="${W-R}" y1="${Y(cur.i3.s)}" y2="${Y(cur.i3.s)}" stroke="var(--green)" stroke-width="2" stroke-dasharray="6 5"/>`;
+  g+=`<line x1="${X(h)}" x2="${X(h)}" y1="${T}" y2="${T+ih}" stroke="var(--text-2)" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+  const a=i1(cur,h).s,b=i2(cur,h).s;
+  if(a!=null)g+=`<circle cx="${X(h)}" cy="${Y(a)}" r="5" fill="var(--indigo)" stroke="#fff" stroke-width="1.5"/>`;
+  g+=`<circle cx="${X(h)}" cy="${Y(b)}" r="5" fill="var(--cyan)" stroke="#fff" stroke-width="1.5"/><circle cx="${X(h)}" cy="${Y(cur.i3.s)}" r="4.5" fill="var(--green)" stroke="#fff" stroke-width="1.5"/>`;
+  $('dy-svg').innerHTML=g;
+ }
+ function card(n,name,c,r,note){const b=band(r.s);return `<div class="dy-card" style="--c:${c}"><h4>${name}</h4><div class="dy-score"><b>${r.s==null?'—':r.s.toFixed(1)}</b><span class="dy-badge ${b==='none'?'':b}">${b==='none'?'관찰 중':LAB[n][b]}</span></div><ul>${r.rows.map(x=>`<li>${x}</li>`).join('')}</ul>${note?`<div class="dy-note">${note}</div>`:''}</div>`;}
+ function render(){
+  const h=+$('dy-hour').value;$('dy-time').textContent=hm(h);
+  $('dy-cards').innerHTML=card(1,'짜임새 있는 하루','var(--indigo)',i1(cur,h),'그 시각까지의 잠정값. 화면에는 라벨만 보여요.')+card(2,'행동 기회 대응','var(--cyan)',i2(cur,h),'확인될 때마다 쌓이고 내려가지 않아요.')+card(3,'생활 변화 추이','var(--green)',{s:cur.i3.s,rows:[cur.i3.l]},'하루 내내 어제 확정값. 자정이 지나면 오늘까지 포함해 새로 계산해요.');
+  $('dy-events').innerHTML=events(cur).map(([t,l])=>`<li class="${t<=h?'':'wait'}"><span>${t>=24?'24:00':hm(t)}</span><span>${l}</span></li>`).join('');
+  draw(h);
+ }
+ $('dy-tabs').innerHTML=P.map(p=>`<button type="button" data-p="${p.id}" aria-pressed="${p===cur}">${p.name}</button>`).join('');
+ $('dy-tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{cur=P.find(p=>p.id===b.dataset.p);$('dy-tabs').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));$('dy-desc').textContent=cur.desc;render();});
+ $('dy-desc').textContent=cur.desc;
+ $('dy-hour').addEventListener('input',render);
+ $('dy-play').onclick=()=>{if(timer){clearInterval(timer);timer=null;$('dy-play').textContent='▶ 하루 재생';return;}let h=+$('dy-hour').value;if(h>=24)h=0;$('dy-play').textContent='■ 멈춤';timer=setInterval(()=>{h=Math.min(24,h+0.5);$('dy-hour').value=h;render();if(h>=24){clearInterval(timer);timer=null;$('dy-play').textContent='▶ 하루 재생';}},250);};
+ render();
+})();
+</script>
+</body></html>
