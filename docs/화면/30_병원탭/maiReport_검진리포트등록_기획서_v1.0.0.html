@@ -191,6 +191,8 @@ html[data-mai-theme="dark"] body[data-mai-kind] a.btn-primary{background:#365ee8
 
 /* Neutral labels outside device previews must not use a foreground token as a fill. */
 html[data-mai-theme="dark"] body[data-mai-kind] .kind{background:#253452!important;color:#cbd8ed!important}
+/* Decorative canvas dots add visual noise behind dark documents. */
+html[data-mai-theme="dark"] body::before{background-image:none!important}
 
 
 /* Legacy preview component colors (generated, scoped to devices). */
@@ -290,7 +292,7 @@ html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[styl
 <section id="c3"><div class="n">03</div><div class="b"><h2>범위</h2>
 <table><tr><th>이번에 하는 것</th><th>하지 않는 것</th></tr>
 <tr><td>
-<ul><li>AI REPORT: QR 스캔 → 인식 결과 확인 → 저장 → 결과 화면</li>
+<ul><li>AI REPORT: QR 스캔 또는 PDF 등록 → 인식 결과 확인 → 저장 → 결과 화면</li>
 <li>일반 검진 리포트: 카메라 촬영 · 앨범 · PDF 업로드(여러 장) → 추출 → 검수 → 등록</li>
 <li>등록된 건을 방문이력에 「등록」 출처 표시로 넣기</li>
 <li>같은 리포트를 다시 등록하면 기존 건을 갱신</li></ul>
@@ -312,6 +314,13 @@ html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[styl
 <li>QR을 읽으면 리포트 내용(검진일 · 검진기관 · 검사 종류 · 판독 결과)을 받아 옴. 예: 2026.09.22 · MAIHUB · 흉부 X-ray(R-PA) · 경화, AI 점수 19.</li>
 <li>인식 결과 확인 화면에서 항목을 보여주고, 틀린 값은 눌러서 고칠 수 있음. 「다시 촬영」과 「저장하기」.</li>
 <li>저장하면 방문이력에 AI REPORT 건이 생기고, 곧바로 AI REPORT 결과 화면이 열림. 스캔한 사람이 가장 먼저 보고 싶은 것은 방금 등록한 결과이기 때문임. 결과를 닫으면 홈이 드러남.</li>
+</ol>
+<h3>AI REPORT (PDF 등록)</h3>
+<p>병원이 리포트를 종이가 아니라 PDF(이메일 · 문자)로 준 경우, 휴대폰 화면의 QR은 같은 휴대폰으로 찍을 수 없음. 그래서 PDF를 직접 올리는 길을 둠. 예: 보건소에서 안저 검사 후 AI 검진 리포트 PDF를 이메일로 받은 72세 어르신.</p>
+<ol>
+<li>AI REPORT 스캔 화면 아래 「PDF로 등록하기」를 누르면 파일 · 앨범 선택이 열림. PDF와 리포트를 찍은 사진 둘 다 받음.</li>
+<li>올린 파일에서 리포트 QR을 찾아 읽음. 읽으면 이후는 QR 스캔과 같음(리포트 서버 조회 → 인식 결과 확인 → 저장 → 결과 화면).</li>
+<li>QR을 찾지 못하면 「리포트의 QR 코드를 찾지 못했어요. QR이 보이는 쪽을 올려 주세요」로 알리고 다시 올리게 함. 문서 인식으로 값을 뽑아 AI REPORT로 저장하지 않음. AI 점수와 판정은 리포트 서버 값만 믿을 수 있기 때문임.</li>
 </ol>
 <h3>일반 검진 리포트 (촬영 · 업로드)</h3>
 <ol>
@@ -337,6 +346,7 @@ html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[styl
 <table><tr><th>기능</th><th>언제</th><th>하는 일 · 결과</th><th>어긋나면</th></tr>
 <tr><td>등록 유형 선택</td><td>방문이력 「+」</td><td>AI REPORT와 일반 검진 리포트 중 하나를 고르게 하고 각 흐름으로 보냄</td><td>닫으면 원래 화면으로 돌아감</td></tr>
 <tr><td>QR 촬영</td><td>AI REPORT 선택 · 홈 헤더 스캔</td><td>카메라로 QR을 읽고 리포트를 받아 옴</td><td>권한이 없으면 권한 안내를 먼저 보여줌. 읽히지 않으면 다시 찍게 함</td></tr>
+<tr><td>AI REPORT PDF 등록</td><td>AI REPORT 스캔 화면 「PDF로 등록하기」</td><td>올린 PDF · 사진에서 리포트 QR을 찾아 읽고 QR 스캔과 같은 흐름으로 보냄</td><td>QR을 찾지 못하면 저장하지 않고 다시 올리게 함. 여러 쪽 PDF는 모든 쪽에서 찾음</td></tr>
 <tr><td>대상자 확인</td><td>리포트 수신 직후</td><td>리포트의 대상자가 현재 사용자와 맞는지 확인함</td><td>맞지 않으면 저장하지 않고 사유를 알림</td></tr>
 <tr><td>파일 수집</td><td>일반 리포트 선택</td><td>사진 · PDF를 여러 장 순서대로 받음. 올린 파일 수를 보여줌</td><td>지원하지 않는 형식과 용량 초과는 받지 않고 이유를 알림</td></tr>
 <tr><td>값 추출</td><td>파일 수집 완료</td><td>업로드 · 문서 인식 · 결과 정리 단계를 진행률로 보여주며 항목과 값을 뽑음</td><td>오래 걸리면 진행 상태를 유지하고, 실패하면 다시 올리게 함</td></tr>
@@ -348,7 +358,7 @@ html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[styl
 
 <section id="c6"><div class="n">06</div><div class="b"><h2>데이터</h2>
 <table><tr><th>무엇을</th><th>어디서</th><th>저장</th></tr>
-<tr><td>AI REPORT 내용(검진일 · 기관 · 검사 종류 · 소견별 판정 · AI 점수)</td><td>QR에 담긴 리포트 식별자로 리포트 서버에서 조회</td><td>방문이력의 AI REPORT 건. 원본 리포트 PDF 링크 포함</td></tr>
+<tr><td>AI REPORT 내용(검진일 · 기관 · 검사 종류 · 소견별 판정 · AI 점수)</td><td>QR에 담긴 리포트 식별자로 리포트 서버에서 조회. PDF 등록도 PDF 안의 QR로 같은 방법을 씀</td><td>방문이력의 AI REPORT 건. 원본 리포트 PDF 링크 포함</td></tr>
 <tr><td>일반 검진 항목 값(검사명 · 값 · 단위 · 참고치 · 판정)</td><td>촬영 · 업로드한 이미지 · PDF를 문서 인식으로 추출</td><td>검진 건(출처 「등록」). 원본 이미지는 검수 대조용으로 보관</td></tr>
 <tr><td>검수 이력(무엇을 고쳤는지)</td><td>검수 화면</td><td>건별로 남김. 인식 품질 개선에 씀</td></tr>
 </table>
@@ -371,6 +381,7 @@ html[data-mai-theme="dark"][data-mai-theme] body[data-mai-kind] .phone .cls[styl
 <tr><td>③ 대상자 확인에서 이름 표기만 다른 경우의 처리(한자 · 띄어쓰기)</td><td>기획</td><td>—</td><td>닫힘(10-14) · 생년이 같으면 확인 화면에서 「이름 표기가 달라요. 본인 리포트가 맞나요?」를 한 번 더 묻고 「네」면 저장. 생년이 다르면 막음</td></tr>
 <tr><td>④ AI REPORT QR의 유효 기간과 재스캔 가능 횟수</td><td>리포트 제공 측 · 개발</td><td>—</td><td>열림</td></tr>
 <tr><td>⑤ 올린 원본 이미지의 보관 기간</td><td>기획 · 법무</td><td>—</td><td>법무 3차 회신 요청(10-14) · 전달/2026-10-14_법무_3차회신요청</td></tr>
+<tr><td>⑥ AI REPORT PDF에 QR이 늘 들어가는지, QR 없는 PDF(이메일 템플릿 등)에 리포트 식별자를 넣을 수 있는지</td><td>maiLink 개발</td><td>—</td><td>열림</td></tr>
 </table>
 </div></section>
 
